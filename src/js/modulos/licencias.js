@@ -56,24 +56,24 @@ const ModuloLicencias = (() => {
     const bloqueDescargas = `
       <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:16px; margin-top:20px;">
         <h3>📁 Catálogos y Documentos Oficiales en Excel (.xlsx)</h3>
-        <p>Para uso formal en la práctica profesional, se han generado y estructurado tres hojas de cálculo en la carpeta <code>docs/</code> del repositorio:</p>
-        <ul style="line-height:1.8; font-size:0.9rem;">
-          <li>
-            <strong>1. Catálogo Sistemático de Fuentes VGI:</strong> 
-            <code>docs/catalogo_fuentes_vgi.xlsx</code> 
-            <span class="descripcion">(cobertura, actualización, escala, licencia y aplicación en Barrio Brasil / UAH).</span>
-          </li>
-          <li>
-            <strong>2. Perfil de Metadatos VGI (ISO 19115 / IDE Chile):</strong> 
-            <code>docs/perfil_metadatos_vgi.xlsx</code> 
-            <span class="descripcion">(elementos núcleo, mapeo SNIT y estructura XML ISO 19139).</span>
-          </li>
-          <li>
-            <strong>3. Taxonomía de Categorías Temáticas OSM:</strong> 
-            <code>docs/categorias_tematicas_osm.xlsx</code> 
-            <span class="descripcion">(8 categorías CAT-01 a CAT-08, filtros Overpass QL y diccionario normalizado).</span>
-          </li>
-        </ul>
+        <p>Para uso formal en la práctica profesional, se han generado y estructurado tres hojas de cálculo en la carpeta <code>docs/</code> del repositorio con diseño institucional:</p>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+          <div style="padding:10px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
+            <strong>1. Catálogo Sistemático de Fuentes VGI:</strong><br>
+            <span class="descripcion">Inventario de fuentes colaborativas y oficiales (OSM, ohsome, GBIF, UMap, iNaturalist, IDE Chile) con cobertura, escala, licencia y aplicación en Barrio Brasil / UAH.</span><br>
+            <a href="docs/catalogo_fuentes_vgi.xlsx" download="catalogo_fuentes_vgi.xlsx" class="accion secundaria" style="display:inline-block; margin-top:6px; font-size:0.82rem; text-decoration:none; padding:4px 10px;">⬇️ Descargar catalogo_fuentes_vgi.xlsx</a>
+          </div>
+          <div style="padding:10px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
+            <strong>2. Perfil de Metadatos VGI (ISO 19115 / IDE Chile):</strong><br>
+            <span class="descripcion">Elementos núcleo, jerarquía de atributos, tipos de datos y mapeo al estándar oficial SNIT / IDE Chile e ISO 19139 XML.</span><br>
+            <a href="docs/perfil_metadatos_vgi.xlsx" download="perfil_metadatos_vgi.xlsx" class="accion secundaria" style="display:inline-block; margin-top:6px; font-size:0.82rem; text-decoration:none; padding:4px 10px;">⬇️ Descargar perfil_metadatos_vgi.xlsx</a>
+          </div>
+          <div style="padding:10px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
+            <strong>3. Taxonomía de Categorías Temáticas OSM:</strong><br>
+            <span class="descripcion">Definición de las 8 categorías territoriales (CAT-01 a CAT-08), filtros Overpass QL y diccionario de 11 atributos normalizados.</span><br>
+            <a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion secundaria" style="display:inline-block; margin-top:6px; font-size:0.82rem; text-decoration:none; padding:4px 10px;">⬇️ Descargar categorias_tematicas_osm.xlsx</a>
+          </div>
+        </div>
       </div>
     `;
 

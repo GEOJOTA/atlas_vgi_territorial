@@ -52,7 +52,7 @@ formal.
 8. **Automatización Git (`scripts/deploy_git.sh`):**
    - Script con permisos de ejecución para inicializar el repositorio, configurar el autor `GEOJOTA <juanpablolescanovillegas@gmail.com>`, commitear y preparar la sincronización con GitHub.
 
-### Decisiones tomadas en este turno por indicación del usuario
+### Decisiones tomadas en este turno
 - Se pospuso temporalmente el cálculo de índices sintéticos de cobertura y el manual de actualización a 6 meses.
 - Se priorizó el caso específico de Barrio Brasil y la Universidad Alberto Hurtado.
 

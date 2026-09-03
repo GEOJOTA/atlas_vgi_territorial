@@ -1,0 +1,3157 @@
+{
+  "type": "FeatureCollection",
+  "name": "AtlasVGI_educacion",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "node/906429642",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6621474,
+          -33.4499197
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/906429642",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo Francés",
+        "operador": "3",
+        "direccion": "Vergara 219",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3058138093",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6611211,
+          -33.4500744
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/3058138093",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad Medicina UDP",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/5904048861",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6662013,
+          -33.4478679
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/5904048861",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Centro de Formación Técnica ENAC",
+        "operador": "ENAC",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 2182",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/7630401913",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6657416,
+          -33.4500787
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/7630401913",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Centro de Prácticas Profesionales UDLA",
+        "operador": "",
+        "direccion": "Abdón Cifuentes 155",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/7630401934",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6663007,
+          -33.4501176
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/7630401934",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Derecho UDLA",
+        "operador": "",
+        "direccion": "Echaurren 148",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/9301132847",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.66165,
+          -33.4502216
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/9301132847",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Comunicación y Letras  Universidad Diego Portales",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/9301202465",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.661756,
+          -33.4498816
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/9301202465",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Educación Diego Portales",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10989602588",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6624941,
+          -33.4501102
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10989602588",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Escuela de Comercio de Santiago Campus Sazié",
+        "operador": "",
+        "direccion": "Sazié 1902",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10992205449",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6663594,
+          -33.446862
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10992205449",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Instituto Profesional CIISA",
+        "operador": "",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 2221",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997699330",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6620093,
+          -33.4473488
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997699330",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Instituto Profesional Vertical",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 27",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/979570046",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6577298,
+          -33.4481203
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/979570046",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Universidad Tecnológica Metropolitana (HUB de Innovación)",
+        "operador": "",
+        "direccion": "Dieciocho 146",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/979570056",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6577754,
+          -33.4479928
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/979570056",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "PACE UTEM",
+        "operador": "",
+        "direccion": "Dieciocho 136",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/979570474",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6570593,
+          -33.4478764
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/979570474",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "INACAP",
+        "operador": "",
+        "direccion": "San Ignacio 135",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3823225785",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.658227,
+          -33.4481572
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/3823225785",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Postgrados UTEM",
+        "operador": "Universidad Tecnológica Metropolitana",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/5969531087",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6574577,
+          -33.449721
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/5969531087",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "UTEM, Universidad Tecnológica Metropolitana. Escuela de Arquitectura",
+        "operador": "",
+        "direccion": "Dieciocho 232",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/9301205937",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6600348,
+          -33.4499524
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/9301205937",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Salud y Odontología Universidad Diego Portales",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/9301231482",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6607069,
+          -33.4500595
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/9301231482",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Instituto de Filosofía Udp",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10985317509",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6584543,
+          -33.450291
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10985317509",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Centro de Formación Técnica Accioma",
+        "operador": "",
+        "direccion": "Rosales 1661",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997296947",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6585596,
+          -33.4491656
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997296947",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Instituto Profesional del Valle Central Santiago",
+        "operador": "",
+        "direccion": "Dieciocho 193",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997749702",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6606927,
+          -33.4482203
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997749702",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Instituto Profesional Vertical",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 27",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/906413263",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6645155,
+          -33.4419773
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/906413263",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio Pedro de Valdivia- Agustinas",
+        "operador": "4",
+        "direccion": "Agustinas 2009",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/906429899",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6637176,
+          -33.4450673
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/906429899",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Escuela Especial Cedin",
+        "operador": "3",
+        "direccion": "José Toribio Medina 31",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/906435038",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6639976,
+          -33.4417473
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/906435038",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio De Adultos Instituto Icel",
+        "operador": "3",
+        "direccion": "Agustinas 1954",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1836980572",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6642012,
+          -33.4430817
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/1836980572",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Jardón O'Clock",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1906206723",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6614075,
+          -33.4455764
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/1906206723",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Escuela",
+        "operador": "",
+        "direccion": "Almirante Barroso",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1912904827",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6617754,
+          -33.4453685
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/1912904827",
+        "categoria": "educacion",
+        "subtipo": "library",
+        "nombre": "Biblioteca UAH",
+        "operador": "",
+        "direccion": "Almirante Barroso",
+        "accesibilidad": "no",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/6740371090",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.664883,
+          -33.4428119
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/6740371090",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/7603636436",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.667445,
+          -33.4452847
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/7603636436",
+        "categoria": "educacion",
+        "subtipo": "library",
+        "nombre": "Archivo del Liceo de Aplicación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10961786664",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6638395,
+          -33.4455883
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10961786664",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Escuela Especial N° 2430 San Alberto Hurtado",
+        "operador": "",
+        "direccion": "José Toribio Medina 31",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10989706721",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6622955,
+          -33.4427942
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10989706721",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Instituto Chileno Británico de Cultura",
+        "operador": "",
+        "direccion": "Moneda 1811",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997875459",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6632372,
+          -33.4411309
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997875459",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Academia de Humanismo Cristiano Campus Brasil",
+        "operador": "",
+        "direccion": "Huérfanos 1886",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997919092",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6625804,
+          -33.4400049
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997919092",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Academia de Humanismo Cristiano Casa Barroso",
+        "operador": "",
+        "direccion": "Almirante Barroso 352",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997925424",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6664057,
+          -33.4414358
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997925424",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Academia de Humanismo Cristiano Casa Arrau",
+        "operador": "",
+        "direccion": "Huérfanos 2186",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/10997926666",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6615143,
+          -33.4404369
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/10997926666",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Bolivariana",
+        "operador": "",
+        "direccion": "Huérfanos 1721",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/11307881450",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6651118,
+          -33.4397526
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/11307881450",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Tecnologica Nacional Iplacex Sede Santiago",
+        "operador": "",
+        "direccion": "Compañía de Jesús 2015",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/12131457862",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6654222,
+          -33.44204
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/12131457862",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Academia de Humanismo Cristiano Casa Agustina",
+        "operador": "",
+        "direccion": "Agustinas 2071",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/906430018",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6590978,
+          -33.4452773
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/906430018",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Instituto de Estudios Secundarios de la U. de Chile",
+        "operador": "4",
+        "direccion": "Avenida Libertador Bdo. Ohiggins",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3058103603",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6585959,
+          -33.4462662
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/3058103603",
+        "categoria": "educacion",
+        "subtipo": "library",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 1610",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/12843320611",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6584442,
+          -33.4398439
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/12843320611",
+        "categoria": "educacion",
+        "subtipo": "library",
+        "nombre": "Centro de Documentación Roberto Montandon Paillard",
+        "operador": "CMN",
+        "direccion": "Huérfanos",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/208378585",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6640233,
+          -33.4462912
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/208378585",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Odontologia",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/292328354",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6673877,
+          -33.4506175
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/292328354",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Diego Portales",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448380329",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6676951,
+          -33.449278
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448380329",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo José Miguel Carrera",
+        "operador": "",
+        "direccion": "República 46",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448859912",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6606234,
+          -33.4488839
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448859912",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Santo Tomás",
+        "operador": "",
+        "direccion": "Avenida Manuel Rodríguez Sur 67",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/504797601",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6671918,
+          -33.4464864
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/504797601",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo de Aplicación Rector Jorge E. Schne",
+        "operador": "",
+        "direccion": "Avenida Ricardo Cumming 21",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/906330131",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6674092,
+          -33.4482531
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/906330131",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Mayor",
+        "operador": "",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 2240",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180833830",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6619809,
+          -33.4487008
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180833830",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Instituto Profesional Esucomex",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/300546876",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6612874,
+          -33.4469486
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/300546876",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "AIEP",
+        "operador": "",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 1796",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/301706386",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6612315,
+          -33.4499962
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/301706386",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "UDP Medicina, Odontología",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 233-219",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/301712759",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6614843,
+          -33.4491453
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/301712759",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "La Araucana",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 177",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/301712762",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6615735,
+          -33.4485191
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/301712762",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Esucomex",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 119",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/301712764",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6616143,
+          -33.4481456
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/301712764",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Esucomex",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 91",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/302958649",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6619249,
+          -33.4489507
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/302958649",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448571734",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6628342,
+          -33.4492943
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448571734",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "IP Santo tomas Central",
+        "operador": "",
+        "direccion": "Vergara 158",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448572030",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6613708,
+          -33.4488646
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448572030",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad del Alba",
+        "operador": "",
+        "direccion": "Avenida Ejército Libertador 171",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/533910221",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6622659,
+          -33.4507137
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/533910221",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/816982610",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.66592,
+          -33.4498455
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/816982610",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "AIEP",
+        "operador": "",
+        "direccion": "Abdón Cifuentes 115",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/816982611",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6660153,
+          -33.4501111
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/816982611",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Universidad de las Américas",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/923175637",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6669335,
+          -33.4482723
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/923175637",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Pedro de Valdivia",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/926016269",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6670972,
+          -33.4493989
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/926016269",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Arquitectura, Arte y Diseño UDP",
+        "operador": "",
+        "direccion": "Salvador Sanfuentes 2221",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/926016271",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6672356,
+          -33.4492982
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/926016271",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/949312687",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6616948,
+          -33.4498431
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/949312687",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Diego Portales",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1006193121",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6615564,
+          -33.4501593
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1006193121",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Comunicación y Letras UDP",
+        "operador": "",
+        "direccion": "Vergara 240",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1006202443",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.662322,
+          -33.4506605
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1006202443",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Psicología UDP",
+        "operador": "Universidad Diego Portales",
+        "direccion": "Vergara 275",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1248949369",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6641807,
+          -33.4484625
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1248949369",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio de Los Sagrados Corazones Alameda",
+        "operador": "Ministerio de Educación",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 2062",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1248949370",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6642412,
+          -33.4496535
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1248949370",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio Lorenzo Sazie",
+        "operador": "3",
+        "direccion": "Almirante Latorre 160",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/163848167",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6581222,
+          -33.4496919
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/163848167",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Iberoamericana de Ciencias y Tecnología",
+        "operador": "Universidad Iberoamericana de Ciencias y Tecnología",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180834021",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6589574,
+          -33.4496395
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180834021",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Biblioteca Campus Central UTEM",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/299116062",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6603221,
+          -33.4500184
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/299116062",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Diego Portales",
+        "operador": "",
+        "direccion": "Avenida Manuel Rodríguez Sur 253",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/299133292",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6593492,
+          -33.4477183
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/299133292",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "UTEM",
+        "operador": "",
+        "direccion": "Coronel Pantoja",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/299133314",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6582855,
+          -33.4481955
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/299133314",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Palacio Morandé Campino",
+        "operador": "",
+        "direccion": "Dieciocho 145",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/299133332",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6575198,
+          -33.4476103
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/299133332",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo Profesional Abdon Cifuentes",
+        "operador": "3",
+        "direccion": "Dieciocho 116",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/299133336",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.657707,
+          -33.4479659
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/299133336",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "PACE UTEM",
+        "operador": "",
+        "direccion": "Dieciocho 136",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/299133339",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6576739,
+          -33.4481334
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/299133339",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Universidad Tecnológica Metropolitana (HUB de Innovación)",
+        "operador": "",
+        "direccion": "dieciocho 146",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/300546227",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.658508,
+          -33.4473925
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/300546227",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Facultad de Humanidades y Tecnologías de la Comunicación Social",
+        "operador": "",
+        "direccion": "Alonso de Ovalle 1618",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/300572172",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6589169,
+          -33.4482337
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/300572172",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Universidad Tecnológica Metropolitana",
+        "operador": "",
+        "direccion": "Vidaurre 1639",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/301689828",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6575879,
+          -33.4473088
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/301689828",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "DuocUC Sede Alonso de Ovalle",
+        "operador": "",
+        "direccion": "Alonso de Ovalle 1586",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/301689829",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6579749,
+          -33.4469543
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/301689829",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "DuocUC Sede Alonso de Ovalle",
+        "operador": "",
+        "direccion": "Dieciocho 80",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/302347081",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.658254,
+          -33.4505348
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/302347081",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Escuela de Conductores",
+        "operador": "",
+        "direccion": "Rosales 1637",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/302347473",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6579939,
+          -33.4505016
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/302347473",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Escuela de Conducción Asiste",
+        "operador": "",
+        "direccion": "Rosales 1639",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/302801596",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6574189,
+          -33.4488213
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/302801596",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Iberoamericana",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/302808832",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6581389,
+          -33.4490771
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/302808832",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Bolivariana",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/314812934",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6570131,
+          -33.448637
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/314812934",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Departamento-Escuela de Cartografía - UTEM",
+        "operador": "",
+        "direccion": "San Ignacio 171",
+        "accesibilidad": "no",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/447744091",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6570555,
+          -33.4483424
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/447744091",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Tecnológica Metropolitana",
+        "operador": "",
+        "direccion": "Vidaurre 1550",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/450457598",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6565329,
+          -33.4487339
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/450457598",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Escuela Básica Cadete Arturo Prat Chacón",
+        "operador": "2",
+        "direccion": "San Ignacio de Loyola 196",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1175772539",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6581389,
+          -33.449079
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1175772539",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1177550820",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6582102,
+          -33.4497313
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1177550820",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1177550824",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6580427,
+          -33.4494877
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1177550824",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Universidad Tecnológica Metropolitana (UTEM)",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1177550825",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6578538,
+          -33.4496794
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1177550825",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1183780446",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6560449,
+          -33.4475149
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1183780446",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio San Ignacio",
+        "operador": "4",
+        "direccion": "Alonso de Ovalle 1452",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180191371",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6617777,
+          -33.4454938
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180191371",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Central UAH",
+        "operador": "",
+        "direccion": "Almirante Barroso 10",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180832730",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6618076,
+          -33.4447605
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180832730",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Abate Molina S.J.",
+        "operador": "",
+        "direccion": "Almirante Barroso",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180832731",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.662029,
+          -33.4446729
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180832731",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Edificio Manuel Larraín",
+        "operador": "",
+        "direccion": "Erasmo Escala 1822",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180832733",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6621708,
+          -33.4457191
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180832733",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/180832742",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6619003,
+          -33.4452749
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/180832742",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/185601406",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6623486,
+          -33.4435041
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/185601406",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "INACAP Santiago Centro",
+        "operador": "",
+        "direccion": "Almirante Barroso 76",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/208378338",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6613748,
+          -33.4450219
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/208378338",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Bernardo Havestadt S.J.",
+        "operador": "",
+        "direccion": "Almirante Barroso 31",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448513570",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6625366,
+          -33.4417497
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448513570",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Universidad La República",
+        "operador": "",
+        "direccion": "Agustinas",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448532541",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6640419,
+          -33.442261
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448532541",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Centro de Formación Técnica del Medio Ambiente SeDe Santiago",
+        "operador": "",
+        "direccion": "Agustinas 1954",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/520350139",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6635802,
+          -33.4405884
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/520350139",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Universidad Academia Humanismo Cr. - Fac de Artes",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/621762070",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6630271,
+          -33.4452251
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/621762070",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Jorge González Förster S.J.",
+        "operador": "",
+        "direccion": "Cienfuegos 46",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/949272566",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6624912,
+          -33.4444444
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/949272566",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Walter Hanisch S.J.",
+        "operador": "",
+        "direccion": "Erasmo Escala 1875",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/949283175",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6622817,
+          -33.4452762
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/949283175",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Espacio Estudiantil Vicente Huidobro",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1180494774",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6612387,
+          -33.4408439
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1180494774",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Escuela de Gobierno y Gestión Pública de la Universidad de Chile",
+        "operador": "",
+        "direccion": "Huérfanos 1724",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746637",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6625072,
+          -33.4457408
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746637",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa María Fuenzalida de Hurtado",
+        "operador": "",
+        "direccion": "Cienfuegos",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746638",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6625557,
+          -33.4455675
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746638",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casona del Rector",
+        "operador": "",
+        "direccion": "Cienfuegos",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746639",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6623431,
+          -33.4443912
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746639",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Fernando Vives S.J.",
+        "operador": "",
+        "direccion": "Erasmo Escala 1835",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746642",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6621605,
+          -33.4443591
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746642",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Patricio Cariola S.J.",
+        "operador": "",
+        "direccion": "Erasmo Escala 1825",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746643",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6621387,
+          -33.4439069
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746643",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Salas N",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746644",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6619551,
+          -33.4440723
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746644",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Dirección de Comunicaciones UAH",
+        "operador": "",
+        "direccion": "Almirante Barroso",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746645",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.66202,
+          -33.4441761
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746645",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Salas de Arte",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746646",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6618758,
+          -33.4441784
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746646",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746648",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6618396,
+          -33.4449416
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746648",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Esperanza",
+        "operador": "",
+        "direccion": "Almirante Barroso",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746649",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6627424,
+          -33.4449577
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746649",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Luis de Valdivia",
+        "operador": "",
+        "direccion": "Cienfuegos 47",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746650",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6632038,
+          -33.4450614
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746650",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Pierre Bigo S.J.",
+        "operador": "",
+        "direccion": "Cienfuegos",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746651",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6624088,
+          -33.445206
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746651",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Vicente Huidobro",
+        "operador": "",
+        "direccion": "Pasaje Cienfuegos",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746653",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6625087,
+          -33.4452402
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746653",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746654",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.66257,
+          -33.4451059
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746654",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746655",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6623916,
+          -33.4450596
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746655",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Aula Magna",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746656",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.662415,
+          -33.4446827
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746656",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "Erasmo Escala",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746657",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6618558,
+          -33.4451116
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746657",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Hernán Larraín S.J.",
+        "operador": "",
+        "direccion": "Almirante Barroso",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746658",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6619043,
+          -33.445904
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746658",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Edificio San Alberto Hurtado",
+        "operador": "",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 1825",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746659",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6618212,
+          -33.4458846
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746659",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "Avenida Libertador Bernardo O'Higgins",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746660",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6623097,
+          -33.4460834
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746660",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Edificio Pedro Arrupe S.J.",
+        "operador": "UAH",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 1849",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746661",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6622636,
+          -33.4434978
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746661",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1373746662",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6626276,
+          -33.4454527
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1373746662",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Casa Pasaje Vicente Huidobro",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/520350147",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6673202,
+          -33.4407539
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/520350147",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio Santa Cecilia",
+        "operador": "4",
+        "direccion": "Maturana 350",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/813981193",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6669979,
+          -33.4457485
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/813981193",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo de Aplicación Rector Jorge E. Schne",
+        "operador": "2",
+        "direccion": "Avenida Ricardo Cumming 21;29",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1088547284",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.660903,
+          -33.4413943
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1088547284",
+        "categoria": "educacion",
+        "subtipo": "library",
+        "nombre": "Biblioteca Nicomedes Guzmán",
+        "operador": "I. Municipalidad de Santiago",
+        "direccion": "Guardiamarina Ernesto Riquelme 226",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/160136690",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6565927,
+          -33.4421764
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/160136690",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Instituto Superior de Comercio Eduardo Frei Montalva",
+        "operador": "",
+        "direccion": "Amunátegui 126",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/183743256",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6571842,
+          -33.4422424
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/183743256",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Instituto Chileno Norteamericano (Sede Moneda)",
+        "operador": "",
+        "direccion": "Moneda 1467",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1151996367",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6590388,
+          -33.4445855
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1151996367",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo de Adultos INSIEME",
+        "operador": "",
+        "direccion": "Tucapel Jiménez 30",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/448375764",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.657389,
+          -33.4394767
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/448375764",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Liceo Javiera Carrera",
+        "operador": "",
+        "direccion": "Compañía de Jesús 1484",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1151191775",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6564238,
+          -33.4387078
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1151191775",
+        "categoria": "educacion",
+        "subtipo": "school",
+        "nombre": "Colegio de Adultos Pulmahue",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "relation/12823115",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6607498,
+          -33.4505475
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/relation/12823115",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Universidad Diego Portales",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "relation/15569837",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6650273,
+          -33.4464849
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/relation/15569837",
+        "categoria": "educacion",
+        "subtipo": "college",
+        "nombre": "Escuela Nacional de Capacitacion Enac",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "relation/7314436",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6585381,
+          -33.4485593
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/relation/7314436",
+        "categoria": "educacion",
+        "subtipo": "VGI",
+        "nombre": "Universidad Tecnológica Metropolitana",
+        "operador": "",
+        "direccion": "Dieciocho 161",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "relation/12809916",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6623206,
+          -33.4450068
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/relation/12809916",
+        "categoria": "educacion",
+        "subtipo": "university",
+        "nombre": "Campus Patrimonial Universidad Alberto Hurtado",
+        "operador": "UAH",
+        "direccion": "Avenida Libertador Bernardo O'Higgins 1850",
+        "accesibilidad": "limited",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    }
+  ]
+}

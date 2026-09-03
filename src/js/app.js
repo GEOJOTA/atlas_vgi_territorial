@@ -253,7 +253,7 @@ async function alternarCapaCategoria(categoria) {
     capasCargadasPorCategoria[categoria.id] = geojson;
     btn.classList.remove('cargando');
     btn.classList.add('activo');
-    estadoTexto.textContent = `Capa "${categoria.nombre}" cargada con éxito (${cantidad} elementos). Haz clic en los elementos del mapa para ver atributos y licencias.`;
+    estadoTexto.textContent = `Capa "${categoria.nombre}" cargada en vivo (${cantidad} elementos). Haz clic en los elementos del mapa para ver atributos y licencias.`;
 
     ultimaConsultaRealizada = {
       bbox,
@@ -262,6 +262,44 @@ async function alternarCapaCategoria(categoria) {
       fuente: 'Overpass API / OpenStreetMap'
     };
   } catch (error) {
+    console.warn(`[API en vivo no disponible para ${categoria.id}]: ${error.message}. Intentando cargar dataset local pre-extraído...`);
+    // Intento de fallback a los datos locales validados de Barrio Brasil / UAH
+    try {
+      const rutasPosibles = [
+        `data/capa_${categoria.id}.geojson`,
+        `./data/capa_${categoria.id}.geojson`,
+        `../data/capa_${categoria.id}.geojson`,
+        `/data/capa_${categoria.id}.geojson`
+      ];
+      let geojsonLocal = null;
+      for (const r of rutasPosibles) {
+        try {
+          const res = await fetch(r);
+          if (res.ok) {
+            geojsonLocal = await res.json();
+            break;
+          }
+        } catch (_) {}
+      }
+
+      if (geojsonLocal && geojsonLocal.features && geojsonLocal.features.length > 0) {
+        const cantidad = geojsonLocal.features.length;
+        labelConteo.textContent = `${cantidad}`;
+        ModuloMapa.cargarCapaGeoJSON(categoria.id, geojsonLocal, {
+          nombre: categoria.nombre,
+          color: categoria.color,
+          icono: categoria.icono
+        });
+        capasCargadasPorCategoria[categoria.id] = geojsonLocal;
+        btn.classList.remove('cargando');
+        btn.classList.add('activo');
+        estadoTexto.innerHTML = `Capa "${categoria.nombre}" cargada desde catálogo local validado (${cantidad} entidades en Barrio Brasil / UAH). <span class="descripcion">(Servidor Overpass saturado)</span>`;
+        return;
+      }
+    } catch (fallbackErr) {
+      console.error('Fallo también el fallback local:', fallbackErr);
+    }
+
     btn.classList.remove('cargando');
     estadoTexto.innerHTML = `<span style="color:var(--alerta);">Error al consultar ${categoria.nombre}: ${error.message}</span>`;
   }

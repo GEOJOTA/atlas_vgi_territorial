@@ -1,0 +1,259 @@
+{
+  "type": "FeatureCollection",
+  "name": "AtlasVGI_movilidad_activa",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "node/13253116260",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6617908,
+          -33.4469076
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/13253116260",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "Metro S.A.",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/14023360489",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6666643,
+          -33.4478809
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/14023360489",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Línea 0",
+        "operador": "Metro S.A.",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/1912904703",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6621784,
+          -33.4452286
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/1912904703",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/3736365178",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6649848,
+          -33.444927
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/3736365178",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/8394892756",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6649374,
+          -33.4412345
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/8394892756",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "Municipalidad",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/8464366132",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.665175,
+          -33.440086
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/8464366132",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "Bike Santiago",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/8473852318",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6666324,
+          -33.4410707
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/8473852318",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "Municipalidad",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/12827594909",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6632931,
+          -33.4440546
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/12827594909",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "node/5220596208",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.667031,
+          -33.4388081
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/node/5220596208",
+        "categoria": "movilidad_activa",
+        "subtipo": "bicycle_parking",
+        "nombre": "Sin denominación",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1456371858",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6613811,
+          -33.4465645
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1456371858",
+        "categoria": "movilidad_activa",
+        "subtipo": "cycleway",
+        "nombre": "Ciclovía Alameda",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/1456371859",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6613784,
+          -33.4465645
+        ]
+      },
+      "properties": {
+        "id_vgi": "OSM/way/1456371859",
+        "categoria": "movilidad_activa",
+        "subtipo": "cycleway",
+        "nombre": "Ciclovía Alameda",
+        "operador": "",
+        "direccion": "",
+        "accesibilidad": "",
+        "fuente": "OpenStreetMap",
+        "fecha": "2026-09-03",
+        "licencia": "ODbL 1.0"
+      }
+    }
+  ]
+}
