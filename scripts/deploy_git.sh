@@ -31,22 +31,15 @@ git config user.name "GEOJOTA"
 git config user.email "juanpablolescanovillegas@gmail.com"
 echo "[+] Autor configurado: GEOJOTA <juanpablolescanovillegas@gmail.com>"
 
-# 3. Validar .gitignore
-if [ ! -f ".gitignore" ]; then
-    cat << 'EOF' > .gitignore
-.DS_Store
-Thumbs.db
-node_modules/
-.netlify/
-*.log
-.env
-EOF
-    echo "[+] Archivo .gitignore verificado."
+# 3. Vincular remote origin si no está presente
+if ! git remote | grep -q "origin"; then
+    git remote add origin https://github.com/GEOJOTA/nodo-geoabierto.git
+    echo "[+] Remoto origin añadido: https://github.com/GEOJOTA/nodo-geoabierto.git"
 fi
 
 # 4. Agregar y commitear cambios
 git add .
-MENSAJE_COMMIT="feat(atlas-vgi): profundizar visor Leaflet, 8 categorías OSM, Excel docs y Barrio Brasil/UAH"
+MENSAJE_COMMIT="${1:-feat(backend): robustecer backend serverless y local, constructor de consultas VGI, trazabilidad academica y despliegue multi-cloud}"
 git commit -m "$MENSAJE_COMMIT" 2>/dev/null || echo "[*] Sin cambios nuevos pendientes de commit."
 
 # 5. Rama principal
@@ -54,11 +47,13 @@ git branch -M main
 
 echo ""
 echo "=========================================================================="
-echo "   ESTADO LOCAL Y PRÓXIMOS PASOS PARA SUBIDA REMOTA (GITHUB)"
+echo "   INTENTANDO SUBIDA REMOTA A GITHUB (MAIN)"
 echo "=========================================================================="
-echo "1. Para vincular un repositorio en GitHub:"
-echo "   git remote add origin https://github.com/GEOJOTA/nodo-geoabierto.git"
-echo ""
-echo "2. Para subir a GitHub:"
-echo "   git push -u origin main"
+if git push -u origin main 2>/dev/null; then
+    echo "[OK] Subida a GitHub completada exitosamente."
+else
+    echo "[!] La subida automática a GitHub requiere tu autenticación (Token o SSH)."
+    echo "    Para sincronizar ahora ejecuta:"
+    echo "    git push -u origin main"
+fi
 echo "=========================================================================="

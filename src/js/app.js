@@ -36,6 +36,42 @@ function inicializarAplicacion() {
   document.getElementById('btn-usar-area-config').addEventListener('click', aplicarAreaConfigAlExplorador);
   document.getElementById('osm-categoria-preset').addEventListener('change', manejarCambioPresetOSM);
 
+  // Eventos del Constructor de Consultas Personalizadas
+  const selClave = document.getElementById('custom-clave-select');
+  if (selClave) {
+    selClave.addEventListener('change', (e) => {
+      const inpClave = document.getElementById('custom-clave-manual');
+      if (e.target.value !== 'otra') {
+        inpClave.value = e.target.value;
+      } else {
+        inpClave.value = '';
+        inpClave.focus();
+      }
+      actualizarCodigoQLPreview();
+    });
+  }
+
+  const btnEjecutarCustom = document.getElementById('btn-ejecutar-consulta-custom');
+  if (btnEjecutarCustom) btnEjecutarCustom.addEventListener('click', manejarConsultaPersonalizada);
+
+  const btnGuardarConsulta = document.getElementById('btn-guardar-consulta');
+  if (btnGuardarConsulta) btnGuardarConsulta.addEventListener('click', guardarConsultaUsuario);
+
+  const btnToggleQL = document.getElementById('btn-toggle-ql-avanzado');
+  if (btnToggleQL) {
+    btnToggleQL.addEventListener('click', () => {
+      const cnt = document.getElementById('contenedor-ql-avanzado');
+      if (cnt.style.display === 'none') {
+        cnt.style.display = 'block';
+        actualizarCodigoQLPreview();
+      } else {
+        cnt.style.display = 'none';
+      }
+    });
+  }
+
+  cargarConsultasGuardadas();
+
   document.getElementById('btn-consultar-ohsome').addEventListener('click', manejarConsultaOhsome);
   document.getElementById('btn-consultar-gbif').addEventListener('click', () => manejarConsultaGBIF(false));
   document.getElementById('btn-cargar-gbif-al-mapa').addEventListener('click', () => manejarConsultaGBIF(true));
@@ -307,14 +343,215 @@ async function alternarCapaCategoria(categoria) {
 
 /* ---------------------- PANEL EXPLORADOR OSM ---------------------- */
 
+function actualizarCodigoQLPreview() {
+  const qlInput = document.getElementById('custom-ql-codigo');
+  if (!qlInput) return;
+  const entidad = document.getElementById('custom-entidad')?.value || 'nwr';
+  const clave = document.getElementById('custom-clave-manual')?.value.trim() || 'amenity';
+  const operador = document.getElementById('custom-operador')?.value || '=';
+  const valor = document.getElementById('custom-valor')?.value.trim() || '';
+
+  let filtro = '';
+  if (clave && valor) {
+    if (operador === '~') filtro = `["${clave}"~"${valor}"]`;
+    else if (operador === '!=') filtro = `["${clave}"!="${valor}"]`;
+    else filtro = `["${clave}"="${valor}"]`;
+  } else if (clave) {
+    filtro = `["${clave}"]`;
+  } else {
+    filtro = '["amenity"]';
+  }
+  qlInput.value = `${entidad}${filtro}({{bbox}});`;
+}
+
+async function manejarConsultaPersonalizada() {
+  const contenedor = document.getElementById('resultado-osm');
+  const bbox = leerBbox('osm') || window.NODO_CONFIG.area_por_defecto.bbox;
+  if (!bbox) {
+    contenedor.innerHTML = avisoError('Completa las cuatro coordenadas del Bounding Box.');
+    return;
+  }
+
+  const entidad = document.getElementById('custom-entidad').value;
+  const clave = document.getElementById('custom-clave-manual').value.trim();
+  const operador = document.getElementById('custom-operador').value;
+  const valor = document.getElementById('custom-valor').value.trim();
+  const nombreCapa = document.getElementById('custom-nombre-capa').value.trim() || 'Consulta Personalizada';
+  const colorCapa = document.getElementById('custom-color-capa').value || '#A97722';
+  const qlCustom = document.getElementById('custom-ql-codigo')?.value.trim() || '';
+
+  contenedor.innerHTML = '<p class="descripcion">🚀 Ejecutando consulta espacial en backend / Overpass API…</p>';
+
+  const params = {
+    bbox,
+    entidad,
+    clave,
+    operador,
+    valor,
+    queryPersonalizada: qlCustom,
+    nombreConsulta: nombreCapa
+  };
+
+  try {
+    const inicio = performance.now();
+    const res = await ModuloOSM.consultarPersonalizada(params);
+    const duracionSeg = ((performance.now() - inicio) / 1000).toFixed(1);
+
+    const geojson = res.geojson;
+    const total = geojson.features.length;
+
+    if (total === 0) {
+      contenedor.innerHTML = avisoInfo(`No se encontraron elementos para la consulta "${nombreCapa}" en esa área.`);
+      return;
+    }
+
+    // Cargar en el mapa Atlas con capa dinámica
+    const capaId = 'custom_' + Date.now();
+    ModuloMapa.cargarCapaGeoJSON(capaId, geojson, {
+      nombre: nombreCapa,
+      color: colorCapa,
+      icono: '🔍'
+    });
+
+    ultimaConsultaRealizada = {
+      bbox,
+      filtro: `${nombreCapa} [${clave}${operador}${valor}]`,
+      cantidad: total,
+      fuente: `OSM (${res.servidor})`
+    };
+
+    // Generar tabla y botones de exportación
+    const filas = geojson.features.slice(0, 30).map(f => {
+      const p = f.properties;
+      return `
+        <tr>
+          <td><code>${p.id_vgi || f.id}</code></td>
+          <td><strong>${p.nombre || '—'}</strong></td>
+          <td>${p.subtipo || '—'}</td>
+          <td>${p.direccion || '—'}</td>
+          <td><small>${p.accesibilidad ? '♿ ' + p.accesibilidad : '—'}</small></td>
+        </tr>
+      `;
+    }).join('');
+
+    const jsonString = encodeURIComponent(JSON.stringify(geojson, null, 2));
+
+    // Convertir a CSV plano
+    const encabezadosCsv = ['id_vgi', 'nombre', 'subtipo', 'direccion', 'accesibilidad', 'fuente', 'licencia', 'latitud', 'longitud'];
+    const lineasCsv = [encabezadosCsv.join(',')];
+    geojson.features.forEach(f => {
+      const p = f.properties;
+      const coords = f.geometry.coordinates;
+      lineasCsv.push([
+        `"${p.id_vgi || ''}"`,
+        `"${(p.nombre || '').replace(/"/g, '""')}"`,
+        `"${p.subtipo || ''}"`,
+        `"${(p.direccion || '').replace(/"/g, '""')}"`,
+        `"${p.accesibilidad || ''}"`,
+        `"${p.fuente || 'OpenStreetMap'}"`,
+        `"${p.licencia || 'ODbL 1.0'}"`,
+        coords[1],
+        coords[0]
+      ].join(','));
+    });
+    const csvString = encodeURIComponent(lineasCsv.join('\n'));
+
+    contenedor.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <div class="indicador" style="margin:0;">
+          <span class="valor">${total}</span>
+          <span class="etiqueta">elementos extraídos (${duracionSeg}s — ${res.servidor})</span>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="accion" id="btn-ver-en-mapa-custom" style="font-size:0.85rem; padding:6px 12px;">🗺️ Ver en Mapa Atlas</button>
+          <a href="data:application/geo+json;charset=utf-8,${jsonString}" download="${nombreCapa.toLowerCase().replace(/\\s+/g, '_')}.geojson" class="accion secundaria" style="text-decoration:none; display:inline-flex; align-items:center; font-size:0.85rem; padding:6px 12px;">📥 GeoJSON</a>
+          <a href="data:text/csv;charset=utf-8,${csvString}" download="${nombreCapa.toLowerCase().replace(/\\s+/g, '_')}.csv" class="accion secundaria" style="text-decoration:none; display:inline-flex; align-items:center; font-size:0.85rem; padding:6px 12px;">📄 CSV</a>
+          <button class="accion secundaria" id="btn-metadatos-custom" style="font-size:0.85rem; padding:6px 12px;">📋 Crear Metadatos</button>
+        </div>
+      </div>
+      <table class="tabla-datos">
+        <thead><tr><th>ID VGI</th><th>Nombre</th><th>Subtipo</th><th>Dirección</th><th>Accesibilidad</th></tr></thead>
+        <tbody>${filas}</tbody>
+      </table>
+      ${total > 30 ? `<p class="descripcion" style="margin-top:6px;">Mostrando los primeros 30 de ${total} registros extraídos.</p>` : ''}
+    `;
+
+    document.getElementById('btn-ver-en-mapa-custom')?.addEventListener('click', () => {
+      document.querySelector('button[data-panel="inicio"]').click();
+    });
+    document.getElementById('btn-metadatos-custom')?.addEventListener('click', () => {
+      prellenarMetadatosDesdeUltimaConsulta();
+      document.querySelector('button[data-panel="metadatos"]').click();
+    });
+
+  } catch (err) {
+    contenedor.innerHTML = avisoError(`Error en consulta: ${err.message}`);
+  }
+}
+
+function guardarConsultaUsuario() {
+  const clave = document.getElementById('custom-clave-manual')?.value.trim();
+  const valor = document.getElementById('custom-valor')?.value.trim();
+  const operador = document.getElementById('custom-operador')?.value || '=';
+  const nombre = document.getElementById('custom-nombre-capa')?.value.trim() || `${clave}=${valor}`;
+  const entidad = document.getElementById('custom-entidad')?.value || 'nwr';
+
+  if (!clave) {
+    alert('Por favor especifica al menos una clave OSM para guardar.');
+    return;
+  }
+
+  const guardadas = JSON.parse(localStorage.getItem('nodo-vgi:consultas-guardadas') || '[]');
+  guardadas.unshift({ nombre, clave, valor, operador, entidad });
+  localStorage.setItem('nodo-vgi:consultas-guardadas', JSON.stringify(guardadas.slice(0, 10)));
+  cargarConsultasGuardadas();
+}
+
+function cargarConsultasGuardadas() {
+  const cnt = document.getElementById('lista-consultas-guardadas');
+  if (!cnt) return;
+
+  const defaultConsultas = [
+    { nombre: 'Farmacias y Salud', clave: 'amenity', valor: 'pharmacy', operador: '=', entidad: 'nwr' },
+    { nombre: 'Panaderías y Almacenes', clave: 'shop', valor: 'bakery', operador: '=', entidad: 'nwr' },
+    { nombre: 'Casonas y Patrimonio', clave: 'historic', valor: '*', operador: '*', entidad: 'nwr' },
+    { nombre: 'Paradas de Bus Red', clave: 'highway', valor: 'bus_stop', operador: '=', entidad: 'node' }
+  ];
+
+  const guardadas = JSON.parse(localStorage.getItem('nodo-vgi:consultas-guardadas') || 'null') || defaultConsultas;
+
+  cnt.innerHTML = guardadas.map((c, i) => `
+    <button type="button" class="accion secundaria" style="font-size:0.78rem; padding:3px 8px; border-radius:12px; margin:2px;" data-consulta-idx="${i}">
+      🔍 ${c.nombre} <small style="opacity:0.7">(${c.clave}${c.operador}${c.valor || '*'}</small>)
+    </button>
+  `).join('');
+
+  cnt.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-consulta-idx'), 10);
+      const c = guardadas[idx];
+      if (!c) return;
+      document.getElementById('custom-clave-manual').value = c.clave;
+      document.getElementById('custom-valor').value = c.valor || '';
+      document.getElementById('custom-operador').value = c.operador || '=';
+      document.getElementById('custom-nombre-capa').value = c.nombre;
+      document.getElementById('custom-entidad').value = c.entidad || 'nwr';
+      actualizarCodigoQLPreview();
+      manejarConsultaPersonalizada();
+    });
+  });
+}
+
 function manejarCambioPresetOSM(e) {
   const preset = e.target.value;
   const inputEtiqueta = document.getElementById('osm-etiqueta');
-  if (preset) {
-    inputEtiqueta.value = '';
-    inputEtiqueta.placeholder = `Preset activo: ${preset}`;
-  } else {
-    inputEtiqueta.placeholder = 'ej: amenity=university, shop=bakery';
+  if (inputEtiqueta) {
+    if (preset) {
+      inputEtiqueta.value = '';
+      inputEtiqueta.placeholder = `Preset activo: ${preset}`;
+    } else {
+      inputEtiqueta.placeholder = 'ej: amenity=university, shop=bakery';
+    }
   }
 }
 

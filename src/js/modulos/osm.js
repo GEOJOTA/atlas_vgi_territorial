@@ -114,15 +114,15 @@ const ModuloOSM = (() => {
   /**
    * Ejecuta la consulta probando servidores espejo si el principal falla
    */
-  async function consultar(bbox, etiquetaOPreset) {
+  async function consultar(bbox, etiquetaOPreset, consultaDirecta = null) {
     const cfg = window.NODO_CONFIG || {};
     const endpoints = cfg.endpoints?.overpass_espejos || [
       cfg.endpoints?.overpass || 'https://overpass-api.de/api/interpreter',
-      'https://overpass.kumi.systems/api/interpreter',
-      'https://maps.mail.ru/osm/tools/overpass/api/interpreter'
+      'https://lz4.overpass-api.de/api/interpreter',
+      'https://z.overpass-api.de/api/interpreter'
     ];
 
-    const consulta = construirConsulta(bbox, etiquetaOPreset);
+    const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
     let ultimoError = null;
 
     for (const endpoint of endpoints) {
@@ -201,10 +201,84 @@ const ModuloOSM = (() => {
     };
   }
 
+  /**
+   * Consulta personalizada avanzada que intenta llamar al backend (/api/consulta)
+   * y si este no está disponible, resuelve directamente en el cliente mediante Overpass.
+   */
+  async function consultarPersonalizada(parametros) {
+    const { bbox, clave, valor, operador, entidad, queryPersonalizada, nombreConsulta = 'Personalizada' } = parametros;
+
+    // 1. Intentar llamar al backend (/api/consulta)
+    try {
+      const respuestaBackend = await fetch('/api/consulta', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(parametros)
+      });
+
+      if (respuestaBackend.ok) {
+        const datos = await respuestaBackend.json();
+        if (datos.ok && datos.geojson) {
+          console.log(`[+] Consulta personalizada resuelta exitosamente vía backend (${datos.servidor}): ${datos.total} elementos`);
+          return {
+            total: datos.total,
+            geojson: datos.geojson,
+            servidor: datos.servidor,
+            desdeBackend: true
+          };
+        }
+      }
+    } catch (errBackend) {
+      console.warn('Backend /api/consulta no accesible. Pasando a resolución directa en cliente...', errBackend.message);
+    }
+
+    // 2. Fallback: Resolución directa en el navegador
+    const [oeste, sur, este, norte] = bbox;
+    const bboxStr = `${sur},${oeste},${norte},${este}`;
+    let cuerpoQL;
+
+    if (queryPersonalizada && queryPersonalizada.trim()) {
+      cuerpoQL = queryPersonalizada.replaceAll('{{bbox}}', bboxStr);
+    } else {
+      const tipo = entidad || 'nwr';
+      let filtro = '';
+      if (clave && valor) {
+        if (operador === '~') filtro = `["${clave}"~"${valor}"]`;
+        else if (operador === '!=') filtro = `["${clave}"!="${valor}"]`;
+        else filtro = `["${clave}"="${valor}"]`;
+      } else if (clave) {
+        filtro = `["${clave}"]`;
+      } else {
+        filtro = '["amenity"]';
+      }
+      cuerpoQL = `${tipo}${filtro}(${bboxStr});`;
+    }
+
+    const consultaCompleta = `
+      [out:json][timeout:35];
+      (
+        ${cuerpoQL}
+      );
+      out center tags qt 350;
+    `;
+
+    const elementos = await consultar(bbox, null, consultaCompleta);
+    const geojson = elementosAGeoJSON(elementos, nombreConsulta);
+
+    return {
+      total: elementos.length,
+      geojson: geojson,
+      servidor: 'Cliente directo (Overpass)',
+      desdeBackend: false
+    };
+  }
+
   return {
     consultar,
+    consultarPersonalizada,
     construirConsulta,
     elementosAGeoJSON,
     PRESETS_CATEGORIAS
   };
 })();
+

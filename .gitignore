@@ -5,3 +5,7 @@ node_modules/
 .netlify/
 *.log
 .env
+data/cache_consultas/*
+!data/cache_consultas/.gitkeep
+__pycache__/
+*.pyc

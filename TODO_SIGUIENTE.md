@@ -1,15 +1,47 @@
-# Bitácora de continuidad
+# Bitácora de Continuidad y Trazabilidad de Desarrollo
+### Proyecto: Atlas de Información Geográfica Voluntaria para la Gestión Territorial (nodo-geoabierto)
 
-Este archivo existe para que quien retome el proyecto —humano o modelo de
-lenguaje— no tenga que reconstruir las decisiones desde cero leyendo todo
-el código. Está escrito como una entrega de turno, no como documentación
-formal.
+Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
+
+---
+
+## Entrega de turno 3 — Septiembre 2026 (Backend Robusto, Constructor de Consultas Propias, Trazabilidad Académica y Despliegue Multi-Plataforma)
+
+### Estado alcanzado en este turno
+
+1. **Desarrollo del Backend Dual para Consultas Propias:**
+   - **Backend Serverless (Netlify Functions):**
+     - [`netlify/functions/consulta.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/netlify/functions/consulta.js): Endpoint `/api/consulta` con método POST. Acepta consultas espaciales personalizadas con Bbox, entidad (`nwr`, `node`, `way`), filtros de clave/operador/valor o código Overpass QL libre, resolviendo reintentos sobre servidores espejo y devolviendo GeoJSON normalizado con encabezados CORS y control de caché.
+     - [`netlify/functions/calidad.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/netlify/functions/calidad.js): Endpoint `/api/calidad` para consultas de densidad y series anuales a 5 años en la API de ohsome (HeiGIT).
+   - **Backend Local en Python 3 Puro:**
+     - [`backend/servidor_vgi.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/backend/servidor_vgi.py): Servidor HTTP local ejecutable que atiende la interfaz web y replica idénticamente los endpoints `/api/consulta` y `/api/calidad`, incorporando un sistema de caché en disco (`data/cache_consultas/`). Permite levantar toda la plataforma localmente con `python3 backend/servidor_vgi.py` sin requerir Node.js ni dependencias externas de `pip`.
+
+2. **Constructor de Consultas Propias en la Interfaz (Frontend):**
+   - En el panel `01 / Consultas Personalizadas y Explorador OSM` de [`src/index.html`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/index.html):
+     - Selector de tipo de entidad (`nwr`, `node`, `way`).
+     - Desplegable de claves frecuentes (`amenity`, `shop`, `historic`, `highway`, `building`, `leisure`, `healthcare`, `tourism`, `emergency`) + opción de clave manual libre.
+     - Selector de operadores (`=`, `~` contiene, `!=`, `*` cualquiera).
+     - Campo de valor de etiqueta con autocompletado y sugerencias.
+     - Asignación de nombre y color personalizado para la capa en el mapa Leaflet.
+     - Modo avanzado con editor de código Overpass QL interactivo (con marcador `{{bbox}}`).
+     - Botón "🚀 Ejecutar y Mapear" que agrega la capa vectorial dinámica en Leaflet.
+     - Botón "💾 Guardar Consulta" que almacena filtros favoritos en `localStorage` con chips de acceso rápido.
+     - Botones de descarga directa de los resultados de la consulta en **GeoJSON** y **CSV**, más botón de envío automático a la ficha de metadatos ISO 19115/19139.
+
+3. **Arquitectura de Despliegue Multi-Plataforma Abierto:**
+   - **Netlify:** Configuración en [`netlify.toml`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/netlify.toml) con redirecciones automáticas `/api/*` hacia funciones serverless, control de caché y encabezados MIME para `.geojson` y `.xlsx`.
+   - **GitHub Pages:** Workflow de GitHub Actions en [`.github/workflows/deploy.yml`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/.github/workflows/deploy.yml) que compila y publica automáticamente la carpeta `src/` en GitHub Pages con cada `push` a la rama `main`.
+   - **Vercel:** Archivo de configuración en [`vercel.json`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/vercel.json) con cabeceras de datos abiertos y URLs limpias.
+
+4. **Documentación de Trazabilidad y Memoria Académica:**
+   - Creación del documento formal [`docs/TRAZABILIDAD_ACADEMICA.md`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/TRAZABILIDAD_ACADEMICA.md) estructurado para responder a las preguntas de defensa ante la comisión evaluadora de Geografía (marco legal chileno, estándares ISO 19115/19139, validación de calidad y reproducibilidad territorial).
+   - Preservación textual de todos los antecedentes de turnos anteriores en este documento.
 
 ---
 
 ## Entrega de turno 2 — Septiembre 2026 (Profundización y Operacionalización Barrio Brasil / UAH)
 
-### Estado alcanzado en este turno
+### Estado alcanzado en el Turno 2
 
 1. **Visor Cartográfico Real en Leaflet (1.9.4):**
    - Se reemplazó la interfaz puramente tabular por un visor interactivo integrado (`src/js/modulos/mapa.js`) con capas base gratuitas (Carto Positron, OpenStreetMap Estándar, OpenTopoMap) y la paleta editorial de carta topográfica/libreta de campo definida en `src/css/estilos.css`.
@@ -47,21 +79,88 @@ formal.
    - El módulo `metadatos.js` ahora genera tanto el JSON núcleo como el documento XML conforme al esquema oficial de IDE Chile / GeoNetwork (`<gmd:MD_Metadata>`), descargables directamente con un clic.
 
 7. **Pipeline CLI para Geógrafos (`scripts/extractor_vgi.py`):**
-   - Herramienta en Python 3 estándar (sin dependencias externas) que permite a geógrafos descargar y exportar cualquier categoría territorial en archivos GeoJSON y un archivo consolidado `data/resumen_catastro_vgi.csv` con atributos normalizados.
+   - Herramienta en Python 3 estándar (sin dependencias externas) que permite a geógrafos descargar y exportar cualquier categoría territorial en archivos GeoJSON y un archivo consolidado `data/resumen_catastro_vgi.csv` con atributos normalizados (se extrajeron 1.316 entidades en el piloto).
 
 8. **Automatización Git (`scripts/deploy_git.sh`):**
    - Script con permisos de ejecución para inicializar el repositorio, configurar el autor `GEOJOTA <juanpablolescanovillegas@gmail.com>`, commitear y preparar la sincronización con GitHub.
 
-### Decisiones tomadas en este turno
-- Se pospuso temporalmente el cálculo de índices sintéticos de cobertura y el manual de actualización a 6 meses.
-- Se priorizó el caso específico de Barrio Brasil y la Universidad Alberto Hurtado.
-
 ---
 
-## Entrega de turno 1 (Estado inicial previo)
+## Entrega de turno 1 (Estado inicial previo — Fundamentos y Prototipo)
+
+### Estado inicial (resumen)
 
 Hay un prototipo funcional de sitio estático (`src/`) que consulta en vivo
 Overpass, ohsome y GBIF, embebe mapas UMap, genera fichas de metadatos
 ISO 19115 y muestra licencias por fuente. No tiene backend propio salvo un
 esqueleto sin terminar para OAuth de OSM. No se ha probado con usuarios
 reales todavía.
+
+### Lo que funciona probado (Turno 1)
+
+- Consulta a Overpass con bbox + etiqueta (`osm.js` + panel Explorador).
+- Formulario y generación/exportación de fichas de metadatos (`metadatos.js`).
+- Navegación entre paneles y carga de `config.json`.
+
+### Lo que estaba implementado pero sin probar contra las APIs reales (Turno 1)
+
+Al construir este prototipo se escribió la lógica de `ohsome.js` y
+`gbif.js` siguiendo la documentación pública de cada API, pero **no se
+verificó en vivo la respuesta exacta de cada endpoint** (nombres de campos
+como `fromTimestamp` vs `timestamp` en ohsome, por ejemplo, pueden variar
+según la versión de la API). Antes de mostrarle esto a un usuario real,
+alguien debería:
+
+1. Abrir el panel "Calidad de datos" con un área pequeña y revisar en la
+   consola del navegador si `ModuloOhsome.calcularIndicadores()` devuelve
+   lo esperado. Si los nombres de campo cambiaron, ajustar el `.map()`
+   correspondiente en `ohsome.js`.
+2. Lo mismo para GBIF: confirmar que `geometry` con WKT efectivamente
+   filtra por el bbox (GBIF a veces prefiere `decimalLatitude`/
+   `decimalLongitude` con rangos en vez de WKT, según el volumen de la
+   consulta).
+3. Probar `umap.js` contra al menos dos instancias UMap distintas
+   (umap.openstreetmap.fr y alguna instancia municipal, si existe), porque
+   la ruta de descarga de GeoJSON no está estandarizada entre versiones.
+
+### Decisiones de diseño iniciales que vale la pena conocer
+
+- **Por qué no hay framework (React, Vue, etc.):** para que el proyecto
+  sea reproducible por alguien sin herramientas de build instaladas.
+  Cualquier persona con un editor de texto y un navegador puede
+  modificarlo. Si el proyecto crece mucho y esto empieza a doler, migrar a
+  un framework es razonable, pero hay que evaluar si vale la pena el costo
+  de complejidad para el público objetivo (organizaciones territoriales,
+  no equipos de desarrollo).
+- **Por qué la configuración vive en un JSON separado:** para que adaptar
+  el proyecto a otra comuna u organización no requiera tocar JavaScript.
+- **Por qué no hay base de datos:** para mantener el costo en cero. El
+  primer paso natural si se necesita persistencia real (guardar consultas
+  de varios usuarios, por ejemplo) es evaluar Supabase (tiene plan
+  gratuito con Postgres) antes que montar un backend propio.
+
+### Próximos pasos sugeridos inicialmente (Turno 1)
+
+1. Probar las tres APIs (ohsome, GBIF, UMap) contra casos reales y ajustar
+   el parseo de respuestas donde haga falta.
+2. Completar el flujo OAuth de OSM (`netlify/functions/oauth-token.js`)
+   si la subida de datos es un requisito real del proyecto, no solo
+   deseable.
+3. Contrastar la ficha de metadatos contra el perfil oficial de la
+   Infraestructura de Datos Geoespaciales de Chile vigente, y ajustar los
+   campos de `metadatos.js` / `index.html` si hay elementos obligatorios
+   que falten.
+4. Sumar un mapa interactivo real (Leaflet, que es liviano y gratuito) en
+   el panel Explorador OSM, para dibujar el bbox en vez de escribirlo a
+   mano.
+5. Conversar con una organización territorial real para revisar si el
+   lenguaje de la interfaz es el que ellos usarían.
+
+### Cosas que se decidió no hacer inicialmente y por qué
+
+- No agregar autenticación de usuarios para la plataforma en general: el
+  prototipo es de solo lectura salvo la ficha de metadatos, que se guarda
+  local. No hay nada que proteger todavía.
+- No usar un CDN de mapas de pago (Mapbox, Google Maps) para no introducir una
+  dependencia con llave de API paga. Se resolvió con teselas de Carto Positron,
+  OpenStreetMap y OpenTopoMap.

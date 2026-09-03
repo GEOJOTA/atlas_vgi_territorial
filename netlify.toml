@@ -1,7 +1,44 @@
-# Configuración de despliegue para Netlify.
-# No hay paso de build: el sitio es HTML/CSS/JS plano, servido desde src/.
+# Configuración de despliegue para Netlify
+# Atlas de Información Geográfica Voluntaria para la Gestión Territorial
 
 [build]
   publish = "src"
   functions = "netlify/functions"
   command = ""
+
+# Redirecciones de API serverless
+[[redirects]]
+  from = "/api/consulta"
+  to = "/.netlify/functions/consulta"
+  status = 200
+
+[[redirects]]
+  from = "/api/calidad"
+  to = "/.netlify/functions/calidad"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Encabezados de seguridad y MIME
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "*.geojson"
+  [headers.values]
+    Content-Type = "application/geo+json; charset=utf-8"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "*.xlsx"
+  [headers.values]
+    Content-Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    Access-Control-Allow-Origin = "*"

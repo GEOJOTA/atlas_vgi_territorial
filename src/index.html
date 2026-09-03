@@ -78,16 +78,94 @@
       </div>
     </section>
 
-    <!-- ---------- 01. EXPLORADOR OSM ---------- -->
+    <!-- ---------- 01. CONSULTAS PROPIAS Y EXPLORADOR OSM ---------- -->
     <section class="panel" id="panel-explorador-osm">
       <header>
-        <span class="rotulo">01 / Overpass API (Consultas en vivo)</span>
-        <h2>Explorador OSM por Categorías o Etiquetas</h2>
-        <p class="descripcion">Consulta elementos directamente desde la base de datos de OpenStreetMap con filtros temáticos o etiquetas personalizadas.</p>
+        <span class="rotulo">01 / Backend & Motor de Consultas VGI</span>
+        <h2>Consultas Personalizadas y Explorador OSM</h2>
+        <p class="descripcion">Formula tus propias consultas espaciales sobre OpenStreetMap. Filtra por atributos específicos, combina etiquetas o redacta consultas Overpass QL avanzadas.</p>
       </header>
 
+      <!-- Constructor Visual de Consultas -->
+      <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:16px;">
+        <h3 style="margin-top:0;">🛠️ Constructor de Consultas Propias</h3>
+        <p class="descripcion" style="margin-bottom:12px;">Define qué elementos deseas extraer dentro del Bbox actual.</p>
+
+        <div class="fila-campos">
+          <div class="campo" style="flex:1; min-width:180px;">
+            <label for="custom-entidad">Tipo de Entidad</label>
+            <select id="custom-entidad">
+              <option value="nwr" selected>Todos (Nodos, Vías y Polígonos)</option>
+              <option value="node">Solo Puntos (Nodos)</option>
+              <option value="way">Solo Líneas / Polígonos (Vías)</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1; min-width:180px;">
+            <label for="custom-clave-select">Clave Frecuente</label>
+            <select id="custom-clave-select">
+              <option value="amenity" selected>amenity (Equipamiento)</option>
+              <option value="shop">shop (Comercio)</option>
+              <option value="historic">historic (Patrimonio)</option>
+              <option value="highway">highway (Vialidad / Cruces)</option>
+              <option value="building">building (Edificaciones)</option>
+              <option value="leisure">leisure (Recreación / Plazas)</option>
+              <option value="healthcare">healthcare (Salud)</option>
+              <option value="tourism">tourism (Turismo / Cultura)</option>
+              <option value="emergency">emergency (Emergencias)</option>
+              <option value="otra">— Otra clave manual —</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1; min-width:140px;">
+            <label for="custom-clave-manual">Clave OSM</label>
+            <input type="text" id="custom-clave-manual" value="amenity" placeholder="ej: amenity">
+          </div>
+          <div class="campo" style="width:110px;">
+            <label for="custom-operador">Operador</label>
+            <select id="custom-operador">
+              <option value="=" selected>= (igual)</option>
+              <option value="~">~ (contiene)</option>
+              <option value="*">* (cualquiera)</option>
+              <option value="!=">!= (distinto)</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1; min-width:160px;">
+            <label for="custom-valor">Valor</label>
+            <input type="text" id="custom-valor" value="pharmacy" placeholder="ej: pharmacy, school, bakery">
+          </div>
+        </div>
+
+        <div class="fila-campos" style="align-items:flex-end;">
+          <div class="campo" style="flex:2; min-width:220px;">
+            <label for="custom-nombre-capa">Nombre de la Capa en el Mapa</label>
+            <input type="text" id="custom-nombre-capa" value="Farmacias Barrio Brasil" placeholder="Nombre descriptivo para la capa">
+          </div>
+          <div class="campo" style="width:120px;">
+            <label for="custom-color-capa">Color de Capa</label>
+            <input type="color" id="custom-color-capa" value="#A97722" style="height:36px; padding:2px; cursor:pointer;">
+          </div>
+          <button class="accion" id="btn-ejecutar-consulta-custom" style="padding:9px 18px;">🚀 Ejecutar y Mapear</button>
+          <button class="accion secundaria" id="btn-guardar-consulta" title="Guardar esta consulta para usarla después">💾 Guardar</button>
+          <button class="accion secundaria" id="btn-toggle-ql-avanzado" title="Ver o editar código Overpass QL">📝 Modo QL</button>
+        </div>
+
+        <!-- Editor avanzado Overpass QL (oculto por defecto) -->
+        <div id="contenedor-ql-avanzado" style="display:none; margin-top:14px; padding-top:12px; border-top:1px dashed var(--linea);">
+          <label for="custom-ql-codigo" style="font-size:0.82rem; font-weight:600; color:var(--musgo);">Código Overpass QL Personalizado (Usa {{bbox}} como marcador de posición):</label>
+          <textarea id="custom-ql-codigo" rows="4" style="width:100%; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; margin-top:4px;" placeholder="nwr[&quot;amenity&quot;=&quot;pharmacy&quot;]({{bbox}});"></textarea>
+        </div>
+
+        <!-- Consultas guardadas por el usuario -->
+        <div style="margin-top:14px; font-size:0.85rem;">
+          <span style="font-weight:600; color:var(--tinta-suave);">Mis Consultas Frecuentes:</span>
+          <div id="lista-consultas-guardadas" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;">
+            <!-- Poblado dinámicamente con chips clickeables -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Área de consulta espacial -->
       <div class="bloque">
-        <h3>Área de consulta (bounding box WGS84)</h3>
+        <h3>Área de Consulta Espacial (Bounding Box WGS84)</h3>
         <div class="fila-campos">
           <div class="campo"><label for="osm-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="osm-oeste"></div>
           <div class="campo"><label for="osm-sur">Sur (Lat Min)</label><input type="number" step="any" id="osm-sur"></div>
@@ -96,10 +174,10 @@
         </div>
         <div class="fila-campos">
           <div class="campo" style="flex:1;">
-            <label for="osm-categoria-preset">Categoría Temática Sugerida</label>
+            <label for="osm-categoria-preset">Presets Temáticos Preconfigurados</label>
             <select id="osm-categoria-preset">
-              <option value="">— Consulta personalizada por etiqueta manual —</option>
-              <option value="educacion" selected>CAT-01: Educación y Universidad (Campus UAH)</option>
+              <option value="">— Seleccionar categoría predefinida —</option>
+              <option value="educacion">CAT-01: Educación y Universidad (Campus UAH)</option>
               <option value="servicios">CAT-02: Servicios, Comercio y Abastecimiento</option>
               <option value="transporte">CAT-03: Movilidad y Transporte Público</option>
               <option value="movilidad_activa">CAT-04: Movilidad Activa y Ciclovías</option>
@@ -109,18 +187,14 @@
               <option value="biodiversidad">CAT-08: Biodiversidad Urbana (Arbolado)</option>
             </select>
           </div>
-          <div class="campo" style="flex:1;">
-            <label for="osm-etiqueta">Etiqueta OSM Manual (opcional)</label>
-            <input type="text" id="osm-etiqueta" placeholder="ej: amenity=university, shop=bakery">
-          </div>
         </div>
-        <button class="accion" id="btn-consultar-osm">Consultar Overpass</button>
+        <button class="accion" id="btn-consultar-osm">Consultar Preset Overpass</button>
         <button class="accion secundaria" id="btn-cargar-osm-al-mapa">Visualizar en Mapa Atlas</button>
         <button class="accion secundaria" id="btn-usar-area-config">Restablecer Bbox UAH</button>
       </div>
 
       <div class="bloque resultado" id="resultado-osm" aria-live="polite">
-        <p class="descripcion">Todavía no hay ninguna consulta realizada.</p>
+        <p class="descripcion">Todavía no hay ninguna consulta realizada. Utiliza el constructor superior o selecciona un preset.</p>
       </div>
     </section>
 
