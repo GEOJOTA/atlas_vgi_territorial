@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas de Información Geográfica Voluntaria — Barrio Brasil & UAH</title>
+<meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y entorno de la Universidad Alberto Hurtado.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<div class="envoltorio">
+
+  <!-- ============ BARRA LATERAL: navegación entre "capas" de la plataforma ============ -->
+  <nav class="barra-lateral" aria-label="Secciones de la plataforma">
+    <div class="marca">
+      <h1 style="font-size:1.15rem; line-height:1.2;">Atlas VGI Territorial</h1>
+      <p id="nombre-organizacion" style="font-size:0.8rem; margin-top:3px;">Barrio Brasil — Universidad Alberto Hurtado</p>
+    </div>
+
+    <ul class="capas-nav" id="lista-navegacion">
+      <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
+      <li><button data-panel="explorador-osm"><span class="marcador">01</span> Explorador OSM</button></li>
+      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad de datos (ohsome)</button></li>
+      <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
+      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Proyectos UMap</button></li>
+      <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
+      <li><button data-panel="licencias"><span class="marcador">06</span> Catálogos y Licencias (.xlsx)</button></li>
+      <li><button data-panel="manual"><span class="marcador">07</span> Metodología y Documentación</button></li>
+    </ul>
+
+    <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
+  </nav>
+
+  <!-- ============ CONTENIDO PRINCIPAL ============ -->
+  <main class="contenido">
+
+    <!-- ---------- 00. VISOR Y ATLAS VGI (LEAFLET) ---------- -->
+    <section class="panel activo" id="panel-inicio">
+      <header>
+        <span class="rotulo">00 / Práctica Profesional 2026 — Visor Cartográfico</span>
+        <h2>Atlas de Información Geográfica Voluntaria</h2>
+        <p class="descripcion">Explora, visualiza y descarga datos territoriales colaborativos organizados en 8 categorías temáticas para el Barrio Brasil y el campus de la Universidad Alberto Hurtado.</p>
+      </header>
+
+      <!-- Barra de herramientas del mapa -->
+      <div class="barra-herramientas-mapa">
+        <label for="sel-territorio" style="font-size:0.85rem; font-weight:600;">Territorio:</label>
+        <select id="sel-territorio">
+          <option value="uah-manzana">Barrio Brasil — Manzana UAH (Santiago Centro)</option>
+          <option value="barrio-brasil-ampliado">Barrio Brasil Completo (hasta Plaza Brasil)</option>
+          <option value="santiago-centro">Santiago Centro (Casco Cívico)</option>
+          <option value="providencia">Providencia (Corredor Mixto)</option>
+          <option value="lo-barnechea">Lo Barnechea (Precordillera)</option>
+        </select>
+        <button class="accion secundaria" id="btn-dibujar-bbox" title="Haz clic y arrastra en el mapa para definir un área personalizada">📐 Dibujar Bbox</button>
+        <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">🎯 Encuadrar</button>
+        <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">📥 Exportar GeoJSON</button>
+      </div>
+
+      <!-- Contenedor del mapa Leaflet -->
+      <div id="mapa-atlas" role="region" aria-label="Mapa interactivo del Atlas VGI"></div>
+
+      <!-- Grilla de activación de las 8 categorías temáticas -->
+      <div class="bloque">
+        <h3>Capas Temáticas VGI (Haz clic para cargar/ocultar en el mapa)</h3>
+        <p class="descripcion" style="margin-bottom:8px;">Las capas se consultan en tiempo real desde OpenStreetMap (Overpass API) y GBIF para el área delimitada.</p>
+        <div class="grilla-categorias" id="contenedor-botones-categorias">
+          <!-- Se puebla dinámicamente desde app.js con las 8 categorías -->
+        </div>
+        <div id="estado-carga-capas" class="descripcion" style="font-size:0.82rem; font-style:italic;"></div>
+      </div>
+
+      <div class="bloque">
+        <h3>Ficha del Territorio de Estudio</h3>
+        <p id="resumen-area-defecto">Cargando configuración territorial…</p>
+      </div>
+    </section>
+
+    <!-- ---------- 01. EXPLORADOR OSM ---------- -->
+    <section class="panel" id="panel-explorador-osm">
+      <header>
+        <span class="rotulo">01 / Overpass API (Consultas en vivo)</span>
+        <h2>Explorador OSM por Categorías o Etiquetas</h2>
+        <p class="descripcion">Consulta elementos directamente desde la base de datos de OpenStreetMap con filtros temáticos o etiquetas personalizadas.</p>
+      </header>
+
+      <div class="bloque">
+        <h3>Área de consulta (bounding box WGS84)</h3>
+        <div class="fila-campos">
+          <div class="campo"><label for="osm-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="osm-oeste"></div>
+          <div class="campo"><label for="osm-sur">Sur (Lat Min)</label><input type="number" step="any" id="osm-sur"></div>
+          <div class="campo"><label for="osm-este">Este (Lng Max)</label><input type="number" step="any" id="osm-este"></div>
+          <div class="campo"><label for="osm-norte">Norte (Lat Max)</label><input type="number" step="any" id="osm-norte"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1;">
+            <label for="osm-categoria-preset">Categoría Temática Sugerida</label>
+            <select id="osm-categoria-preset">
+              <option value="">— Consulta personalizada por etiqueta manual —</option>
+              <option value="educacion" selected>CAT-01: Educación y Universidad (Campus UAH)</option>
+              <option value="servicios">CAT-02: Servicios, Comercio y Abastecimiento</option>
+              <option value="transporte">CAT-03: Movilidad y Transporte Público</option>
+              <option value="movilidad_activa">CAT-04: Movilidad Activa y Ciclovías</option>
+              <option value="espacio_publico">CAT-05: Áreas Verdes, Plazas y Recreación</option>
+              <option value="patrimonio">CAT-06: Patrimonio, Cultura e Identidad Urbana</option>
+              <option value="accesibilidad">CAT-07: Accesibilidad Universal y Cruces</option>
+              <option value="biodiversidad">CAT-08: Biodiversidad Urbana (Arbolado)</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1;">
+            <label for="osm-etiqueta">Etiqueta OSM Manual (opcional)</label>
+            <input type="text" id="osm-etiqueta" placeholder="ej: amenity=university, shop=bakery">
+          </div>
+        </div>
+        <button class="accion" id="btn-consultar-osm">Consultar Overpass</button>
+        <button class="accion secundaria" id="btn-cargar-osm-al-mapa">Visualizar en Mapa Atlas</button>
+        <button class="accion secundaria" id="btn-usar-area-config">Restablecer Bbox UAH</button>
+      </div>
+
+      <div class="bloque resultado" id="resultado-osm" aria-live="polite">
+        <p class="descripcion">Todavía no hay ninguna consulta realizada.</p>
+      </div>
+    </section>
+
+    <!-- ---------- 02. CALIDAD (OHSOME) ---------- -->
+    <section class="panel" id="panel-calidad-ohsome">
+      <header>
+        <span class="rotulo">02 / ohsome API (HeiGIT)</span>
+        <h2>Calidad y Evolución Espacio-Temporal OSM</h2>
+        <p class="descripcion">Evalúa el volumen, densidad de elementos por km² y la masa crítica de colaboradores históricos en el área seleccionada.</p>
+      </header>
+
+      <div class="bloque">
+        <h3>Área y Filtro de Análisis</h3>
+        <div class="fila-campos">
+          <div class="campo"><label for="oh-oeste">Oeste</label><input type="number" step="any" id="oh-oeste"></div>
+          <div class="campo"><label for="oh-sur">Sur</label><input type="number" step="any" id="oh-sur"></div>
+          <div class="campo"><label for="oh-este">Este</label><input type="number" step="any" id="oh-este"></div>
+          <div class="campo"><label for="oh-norte">Norte</label><input type="number" step="any" id="oh-norte"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1;">
+            <label for="oh-filtro">Filtro ohsome</label>
+            <input type="text" id="oh-filtro" placeholder="ej: building=* and type:way" value="building=* and type:way">
+          </div>
+        </div>
+        <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad</button>
+      </div>
+
+      <div class="bloque resultado" id="resultado-ohsome" aria-live="polite">
+        <p class="descripcion">Todavía no hay ningún cálculo realizado.</p>
+      </div>
+    </section>
+
+    <!-- ---------- 03. GBIF ---------- -->
+    <section class="panel" id="panel-biodiversidad-gbif">
+      <header>
+        <span class="rotulo">03 / GBIF & iNaturalist</span>
+        <h2>Biodiversidad Urbana y Ciencia Ciudadana</h2>
+        <p class="descripcion">Registros georreferenciados de flora y fauna urbana en Barrio Brasil y campus UAH procedentes de colecciones científicas y plataformas colaborativas.</p>
+      </header>
+
+      <div class="bloque">
+        <h3>Búsqueda Espacial y Taxonómica</h3>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1;"><label for="gbif-nombre">Nombre científico, común o taxón (opcional)</label><input type="text" id="gbif-nombre" placeholder="ej: Aves, Zonotrichia capensis, Schinus molle"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo"><label for="gbif-oeste">Oeste</label><input type="number" step="any" id="gbif-oeste"></div>
+          <div class="campo"><label for="gbif-sur">Sur</label><input type="number" step="any" id="gbif-sur"></div>
+          <div class="campo"><label for="gbif-este">Este</label><input type="number" step="any" id="gbif-este"></div>
+          <div class="campo"><label for="gbif-norte">Norte</label><input type="number" step="any" id="gbif-norte"></div>
+        </div>
+        <button class="accion" id="btn-consultar-gbif">Buscar en GBIF</button>
+        <button class="accion secundaria" id="btn-cargar-gbif-al-mapa">Cargar al Mapa Atlas</button>
+      </div>
+
+      <div class="bloque resultado" id="resultado-gbif" aria-live="polite">
+        <p class="descripcion">Todavía no hay ninguna búsqueda realizada.</p>
+      </div>
+    </section>
+
+    <!-- ---------- 04. UMAP ---------- -->
+    <section class="panel" id="panel-proyectos-umap">
+      <header>
+        <span class="rotulo">04 / Cartografía Temática Comunitaria</span>
+        <h2>Proyectos UMap</h2>
+        <p class="descripcion">Visualiza proyectos cartográficos generados por colectivos territoriales y descarga su GeoJSON.</p>
+      </header>
+
+      <div class="bloque">
+        <h3>Cargar un mapa de UMap</h3>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1">
+            <label for="umap-url">URL pública del mapa UMap</label>
+            <input type="text" id="umap-url" placeholder="https://umap.openstreetmap.fr/es/map/nombre-del-mapa_1234">
+          </div>
+        </div>
+        <button class="accion" id="btn-cargar-umap">Cargar Mapa Embebido</button>
+      </div>
+
+      <div class="bloque resultado" id="resultado-umap" aria-live="polite">
+        <p class="descripcion">Todavía no se ha cargado ningún mapa.</p>
+      </div>
+    </section>
+
+    <!-- ---------- 05. METADATOS ISO ---------- -->
+    <section class="panel" id="panel-metadatos-iso">
+      <header>
+        <span class="rotulo">05 / ISO 19115 & ISO 19139 (IDE Chile)</span>
+        <h2>Ficha de Metadatos Estandarizada</h2>
+        <p class="descripcion">Documenta el conjunto de datos geográficos para su catalogación oficial conforme al Perfil Nacional de Metadatos de la Infraestructura de Datos Geoespaciales de Chile.</p>
+      </header>
+
+      <div class="bloque">
+        <button class="accion secundaria" id="btn-prellenar-metadatos">Prellenar con datos de la última consulta (Barrio Brasil / UAH)</button>
+      </div>
+
+      <form class="bloque" id="form-metadatos">
+        <h3>Identificación del Recurso</h3>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-titulo">Título del recurso</label><input type="text" id="md-titulo" value="Catastro VGI de Equipamiento Universitario y Urbano: Barrio Brasil - Universidad Alberto Hurtado"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-resumen">Resumen / Abstract</label><textarea id="md-resumen" rows="3">Conjunto de datos espaciales voluntarios compilado para la gestión territorial en Barrio Brasil y entorno del campus Universidad Alberto Hurtado (Santiago Centro, Chile). Comprende infraestructura educativa, movilidad, espacio público y comercio.</textarea></div>
+        </div>
+
+        <h3>Extensión Geográfica y Sistema de Coordenadas</h3>
+        <div class="fila-campos">
+          <div class="campo"><label for="md-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="md-oeste"></div>
+          <div class="campo"><label for="md-sur">Sur (Lat Min)</label><input type="number" step="any" id="md-sur"></div>
+          <div class="campo"><label for="md-este">Este (Lng Max)</label><input type="number" step="any" id="md-este"></div>
+          <div class="campo"><label for="md-norte">Norte (Lat Max)</label><input type="number" step="any" id="md-norte"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo"><label for="md-srs">Sistema de Referencia</label><input type="text" id="md-srs" value="EPSG:4326 (WGS84) / Compatible con EPSG:5361 SIRGAS-Chile"></div>
+        </div>
+
+        <h3>Linaje, Metodología y Restricciones</h3>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-linaje">Linaje / Proceso de captura</label><textarea id="md-linaje" rows="2">Extraído de OpenStreetMap vía Overpass API QL y de GBIF Occurrence API. Normalizado según taxonomía de 8 categorías temáticas VGI en septiembre de 2026.</textarea></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-restricciones">Restricciones legales y licencia</label><textarea id="md-restricciones" rows="2">Open Database License (ODbL) 1.0 para datos vectoriales de OSM (© colaboradores de OpenStreetMap); Creative Commons CC-BY 4.0 para registros biológicos.</textarea></div>
+        </div>
+
+        <h3>Punto de Contacto Responsable</h3>
+        <div class="fila-campos">
+          <div class="campo"><label for="md-contacto-org">Organización</label><input type="text" id="md-contacto-org" value="Práctica Profesional Geografía 2026 — Universidad Alberto Hurtado"></div>
+          <div class="campo"><label for="md-contacto-correo">Correo electrónico</label><input type="email" id="md-contacto-correo" value="juanpablolescanovillegas@gmail.com"></div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+          <button type="submit" class="accion">Generar Ficha en Pantalla</button>
+          <button type="button" class="accion" id="btn-exportar-json" style="background:var(--agua);">📄 Exportar JSON (ISO 19115)</button>
+          <button type="button" class="accion secundaria" id="btn-exportar-xml">🏛️ Exportar XML (ISO 19139 / IDE Chile)</button>
+        </div>
+      </form>
+
+      <div class="bloque resultado" id="resultado-metadatos" aria-live="polite"></div>
+    </section>
+
+    <!-- ---------- 06. LICENCIAS Y CATÁLOGOS ---------- -->
+    <section class="panel" id="panel-licencias">
+      <header>
+        <span class="rotulo">06 / Catálogos & Licencias</span>
+        <h2>Catálogo de Fuentes VGI y Documentos Excel (.xlsx)</h2>
+        <p class="descripcion">Términos legales de reutilización de datos y acceso a los catálogos estructurados generados para la práctica profesional.</p>
+      </header>
+      <div class="bloque resultado" id="contenido-licencias"></div>
+    </section>
+
+    <!-- ---------- 07. METODOLOGÍA ---------- -->
+    <section class="panel" id="panel-manual">
+      <header>
+        <span class="rotulo">07 / Metodología & Documentación</span>
+        <h2>Metodología de la Práctica Profesional</h2>
+        <p class="descripcion">Guía metodológica, flujo de trabajo territorial y estructura técnica del proyecto.</p>
+      </header>
+      <div class="bloque resultado" id="contenido-manual"></div>
+    </section>
+
+    <footer class="pie-datos">
+      Atlas de Información Geográfica Voluntaria — Caso Barrio Brasil / Universidad Alberto Hurtado (Santiago Centro, Chile).
+      Datos de OpenStreetMap (© colaboradores de OpenStreetMap, ODbL 1.0), ohsome (HeiGIT), GBIF.org y proyectos UMap.
+    </footer>
+
+  </main>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/config.js"></script>
+<script src="js/modulos/mapa.js"></script>
+<script src="js/modulos/osm.js"></script>
+<script src="js/modulos/ohsome.js"></script>
+<script src="js/modulos/gbif.js"></script>
+<script src="js/modulos/umap.js"></script>
+<script src="js/modulos/metadatos.js"></script>
+<script src="js/modulos/licencias.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

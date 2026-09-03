@@ -1,0 +1,160 @@
+{
+  "_comentario": "Archivo de configuración centralizado para el Atlas de Información Geográfica Voluntaria. Permite adaptar la plataforma sin tocar el código JavaScript.",
+
+  "organizacion": {
+    "nombre": "Atlas de Información Geográfica Voluntaria",
+    "subtitulo": "Plataforma VGI para la Gestión Territorial",
+    "descripcion_corta": "Consulta, calidad y metadatos VGI | Barrio Brasil & UAH",
+    "contacto": "juanpablolescanovillegas@gmail.com",
+    "area_de_interes_nombre": "Barrio Brasil — Universidad Alberto Hurtado (Santiago Centro, Chile)"
+  },
+
+  "area_por_defecto": {
+    "_comentario": "Bounding box en formato [oeste, sur, este, norte], grados decimales (WGS84 / EPSG:4326). Foco territorial: Barrio Brasil y Campus UAH.",
+    "bbox": [-70.6675, -33.4505, -70.6565, -33.4385],
+    "centro": [-33.4445, -70.6620],
+    "zoom": 16
+  },
+
+  "territorios_predefinidos": [
+    {
+      "id": "uah-manzana",
+      "nombre": "Barrio Brasil — Universidad Alberto Hurtado (Manzana UAH)",
+      "bbox": [-70.6675, -33.4505, -70.6565, -33.4385],
+      "centro": [-33.4445, -70.6620],
+      "zoom": 16,
+      "descripcion": "Campus patrimonial UAH (Almirante Barroso, Erasmo Escala, Cienfuegos, Los Héroes)"
+    },
+    {
+      "id": "barrio-brasil-ampliado",
+      "nombre": "Barrio Brasil Completo (hasta Plaza Brasil)",
+      "bbox": [-70.6720, -33.4470, -70.6580, -33.4350],
+      "centro": [-33.4410, -70.6650],
+      "zoom": 15,
+      "descripcion": "Zona Típica Barrio Brasil, Plaza Brasil, Huérfanos, Compañía y Av. Brasil"
+    },
+    {
+      "id": "santiago-centro",
+      "nombre": "Santiago Centro (Casco Cívico)",
+      "bbox": [-70.6700, -33.4550, -70.6400, -33.4300],
+      "centro": [-33.4420, -70.6550],
+      "zoom": 14,
+      "descripcion": "Eje La Moneda, Alameda y centro cívico metropolitano"
+    },
+    {
+      "id": "providencia",
+      "nombre": "Providencia (Sector Costanera / Manuel Montt)",
+      "bbox": [-70.6300, -33.4400, -70.5900, -33.4150],
+      "centro": [-33.4280, -70.6100],
+      "zoom": 14,
+      "descripcion": "Corredor mixto de servicios y alta densidad de transporte"
+    },
+    {
+      "id": "lo-barnechea",
+      "nombre": "Lo Barnechea (Zona Precordillerana)",
+      "bbox": [-70.5500, -33.4000, -70.4500, -33.3200],
+      "centro": [-33.3500, -70.5000],
+      "zoom": 13,
+      "descripcion": "Sector precordillerano con interfase urbano-rural"
+    }
+  ],
+
+  "endpoints": {
+    "overpass": "https://overpass-api.de/api/interpreter",
+    "overpass_espejos": [
+      "https://overpass-api.de/api/interpreter",
+      "https://overpass.kumi.systems/api/interpreter",
+      "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
+    ],
+    "ohsome": "https://api.ohsome.org/v1",
+    "gbif": "https://api.gbif.org/v1",
+    "umap_instancia_sugerida": "https://umap.openstreetmap.fr"
+  },
+
+  "categorias_osm": [
+    {
+      "id": "educacion",
+      "codigo": "CAT-01",
+      "nombre": "Educación y Universidad",
+      "icono": "🎓",
+      "color": "#35586B",
+      "filtro_overpass": "nwr[\"amenity\"~\"university|college|library|school\"]",
+      "descripcion": "Instalaciones de educación superior, bibliotecas y facultades (Campus UAH y entorno)"
+    },
+    {
+      "id": "servicios",
+      "codigo": "CAT-02",
+      "nombre": "Servicios y Comercio",
+      "icono": "🏪",
+      "color": "#A97722",
+      "filtro_overpass": "nwr[\"shop\"]; nwr[\"amenity\"~\"cafe|restaurant|bank|pharmacy\"]",
+      "descripcion": "Comercio de proximidad, gastronomía, farmacias y servicios bancarios de Barrio Brasil"
+    },
+    {
+      "id": "transporte",
+      "codigo": "CAT-03",
+      "nombre": "Movilidad y Transporte",
+      "icono": "🚌",
+      "color": "#2C4238",
+      "filtro_overpass": "node[\"railway\"=\"station\"]; node[\"highway\"=\"bus_stop\"]; way[\"highway\"~\"primary|secondary|tertiary\"]",
+      "descripcion": "Estaciones de Metro (Los Héroes, Santa Ana), paraderos Red y ejes viales principales"
+    },
+    {
+      "id": "movilidad_activa",
+      "codigo": "CAT-04",
+      "nombre": "Movilidad Activa y Ciclovías",
+      "icono": "🚲",
+      "color": "#3F5D4E",
+      "filtro_overpass": "way[\"highway\"=\"cycleway\"]; way[\"cycleway\"]; node[\"amenity\"~\"bicycle_parking|bicycle_rental\"]",
+      "descripcion": "Ciclovías segregadas, sendas compartidas y biciestacionamientos comunitarios/UAH"
+    },
+    {
+      "id": "espacio_publico",
+      "codigo": "CAT-05",
+      "nombre": "Áreas Verdes y Plazas",
+      "icono": "🌳",
+      "color": "#236B43",
+      "filtro_overpass": "nwr[\"leisure\"~\"park|playground\"]; nwr[\"landuse\"=\"grass\"]",
+      "descripcion": "Plazas públicas (Plaza Brasil), plazoletas barriales y bandejones arbolados"
+    },
+    {
+      "id": "patrimonio",
+      "codigo": "CAT-06",
+      "nombre": "Patrimonio y Cultura",
+      "icono": "🏛️",
+      "color": "#8F3A2C",
+      "filtro_overpass": "nwr[\"historic\"]; nwr[\"heritage\"]; nwr[\"amenity\"~\"theatre|arts_centre|place_of_worship\"]",
+      "descripcion": "Casonas patrimoniales Zona Típica, Basílica del Salvador, centros culturales y templos"
+    },
+    {
+      "id": "accesibilidad",
+      "codigo": "CAT-07",
+      "nombre": "Accesibilidad Universal",
+      "icono": "♿",
+      "color": "#4B5142",
+      "filtro_overpass": "node[\"kerb\"]; node[\"highway\"=\"crossing\"]; node[\"wheelchair\"]",
+      "descripcion": "Rebajes peatonales de cordón, cruces semaforizados y accesibilidad en veredas"
+    },
+    {
+      "id": "biodiversidad",
+      "codigo": "CAT-08",
+      "nombre": "Biodiversidad Urbana",
+      "icono": "🌿",
+      "color": "#1C523A",
+      "filtro_overpass": "nwr[\"natural\"~\"tree|wood\"]; /* complementado con GBIF */",
+      "descripcion": "Arbolado urbano de alineación y observaciones de avifauna / flora en GBIF e iNaturalist"
+    }
+  ],
+
+  "idioma_interfaz": "es",
+
+  "metadatos_iso_defecto": {
+    "_comentario": "Valores prellenados en la ficha ISO 19115 / IDE Chile.",
+    "sistema_referencia": "EPSG:4326 (WGS84)",
+    "sistema_referencia_nacional": "EPSG:5361 (SIRGAS-Chile / UTM 19S)",
+    "idioma_recurso": "spa",
+    "punto_de_contacto_organizacion": "Práctica Profesional Geografía 2026 — Nodo GeoAbierto / Universidad Alberto Hurtado",
+    "punto_de_contacto_correo": "juanpablolescanovillegas@gmail.com",
+    "restricciones_defecto": "Datos OpenStreetMap: Open Database License (ODbL) 1.0 (© colaboradores de OpenStreetMap). Datos GBIF: CC-BY 4.0 / CC0 según registro original."
+  }
+}

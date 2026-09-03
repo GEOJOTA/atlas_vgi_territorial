@@ -1,0 +1,7 @@
+# Configuración de despliegue para Netlify.
+# No hay paso de build: el sitio es HTML/CSS/JS plano, servido desde src/.
+
+[build]
+  publish = "src"
+  functions = "netlify/functions"
+  command = ""

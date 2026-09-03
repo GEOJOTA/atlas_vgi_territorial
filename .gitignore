@@ -1,0 +1,7 @@
+# Nodo GeoAbierto — archivos que no deben versionarse
+.DS_Store
+Thumbs.db
+node_modules/
+.netlify/
+*.log
+.env

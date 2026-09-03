@@ -1,0 +1,433 @@
+/*
+  Nodo GeoAbierto — hoja de estilos
+  ---------------------------------
+  Idea de fondo: que la interfaz se sienta como una libreta de terreno o
+  el panel de leyenda de una carta topográfica, no como un dashboard SaaS.
+  Por eso: bordes finos en vez de sombras suaves, numeración solo donde
+  hay secuencia real, y una sola tipografía serif para todo lo que es
+  lectura de contenido, reservando la monoespaciada para coordenadas y
+  códigos (su uso "legítimo").
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Paleta — tonos de carta topográfica y libreta de campo */
+  --papel: #EAE4D3;         /* papel/pergamino, distinto del beige genérico */
+  --papel-alto: #F4F0E4;
+  --tinta: #23281F;         /* casi negro con base verdosa, no #111 plano */
+  --tinta-suave: #4B5142;
+  --musgo: #3F5D4E;         /* verde curva de nivel */
+  --musgo-oscuro: #2C4238;
+  --agua: #35586B;          /* azul carta hidrográfica */
+  --ocre: #A97722;          /* ocre de hito/vértice geodésico */
+  --alerta: #8F3A2C;        /* rojo catastral, uso restringido a avisos */
+  --linea: #C9BFA0;         /* líneas divisorias sobre el papel */
+
+  --fuente-lectura: 'Spectral', Georgia, 'Times New Roman', serif;
+  --fuente-datos: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fuente-lectura);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  background-image:
+    linear-gradient(var(--linea) 1px, transparent 1px);
+  background-size: 100% 32px;
+  background-attachment: local;
+}
+
+a { color: var(--agua); }
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--ocre);
+  outline-offset: 2px;
+}
+
+/* ---------- estructura general: sidebar + panel, como un SIG de escritorio ---------- */
+
+.envoltorio {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.barra-lateral {
+  background: var(--papel-alto);
+  border-right: 1px solid var(--linea);
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.marca {
+  padding: 0 20px 20px 20px;
+  border-bottom: 1px solid var(--linea);
+  margin-bottom: 12px;
+}
+
+.marca h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.01em;
+}
+
+.marca p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--tinta-suave);
+}
+
+.capas-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.capas-nav li { border-bottom: 1px solid var(--linea); }
+
+.capas-nav button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--fuente-lectura);
+  font-size: 0.95rem;
+  color: var(--tinta);
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.capas-nav button .marcador {
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  color: var(--musgo);
+  min-width: 20px;
+}
+
+.capas-nav button:hover { background: var(--papel); }
+
+.capas-nav button[aria-current="true"] {
+  background: var(--musgo);
+  color: var(--papel-alto);
+}
+.capas-nav button[aria-current="true"] .marcador { color: var(--papel-alto); }
+
+.estado-conexion {
+  padding: 16px 20px 0 20px;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+  border-top: 1px solid var(--linea);
+  margin-top: 12px;
+}
+
+/* ---------- contenido principal ---------- */
+
+.contenido {
+  padding: 36px 48px 80px 48px;
+  max-width: 880px;
+}
+
+.panel { display: none; }
+.panel.activo { display: block; }
+
+.panel > header {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--tinta);
+}
+
+.panel > header .rotulo {
+  font-family: var(--fuente-datos);
+  font-size: 0.75rem;
+  color: var(--musgo);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.panel > header h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.panel > header .descripcion {
+  margin: 0;
+  color: var(--tinta-suave);
+  max-width: 60ch;
+}
+
+.bloque {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--linea);
+}
+.bloque:last-child { border-bottom: none; }
+
+.bloque h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+/* ---------- formularios ---------- */
+
+.fila-campos {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.campo { display: flex; flex-direction: column; gap: 4px; }
+.campo label { font-size: 0.82rem; color: var(--tinta-suave); }
+
+.campo input, .campo select, .campo textarea {
+  font-family: var(--fuente-datos);
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  border: 1px solid var(--tinta-suave);
+  background: var(--papel-alto);
+  color: var(--tinta);
+  border-radius: 2px;
+}
+
+.campo textarea { font-family: var(--fuente-lectura); min-width: 300px; }
+
+button.accion {
+  font-family: var(--fuente-lectura);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 18px;
+  background: var(--musgo);
+  color: var(--papel-alto);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+button.accion:hover { background: var(--musgo-oscuro); }
+
+button.accion.secundaria {
+  background: none;
+  color: var(--musgo);
+  border: 1px solid var(--musgo);
+}
+button.accion.secundaria:hover { background: var(--papel); }
+
+/* ---------- resultados / tablas ---------- */
+
+.resultado { margin-top: 16px; }
+
+table.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+table.tabla-datos th, table.tabla-datos td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--linea);
+}
+table.tabla-datos th {
+  font-family: var(--fuente-datos);
+  font-weight: 500;
+  font-size: 0.72rem;
+  color: var(--musgo);
+  text-transform: none;
+}
+
+.indicador {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  border: 1px solid var(--linea);
+  margin-right: 12px;
+  margin-bottom: 12px;
+  min-width: 140px;
+}
+.indicador .valor {
+  font-family: var(--fuente-datos);
+  font-size: 1.6rem;
+  color: var(--agua);
+}
+.indicador .etiqueta { font-size: 0.78rem; color: var(--tinta-suave); }
+
+.aviso {
+  border-left: 3px solid var(--ocre);
+  background: var(--papel-alto);
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  margin-top: 12px;
+}
+.aviso.error { border-left-color: var(--alerta); }
+
+.iframe-umap {
+  width: 100%;
+  height: 420px;
+  border: 1px solid var(--linea);
+}
+
+/* ---------- Visor Cartográfico (Leaflet) ---------- */
+
+#mapa-atlas {
+  width: 100%;
+  height: 460px;
+  border: 1px solid var(--linea);
+  background: var(--papel-alto);
+  margin-top: 14px;
+  margin-bottom: 16px;
+  border-radius: 2px;
+  z-index: 10;
+}
+
+.barra-herramientas-mapa {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  background: var(--papel-alto);
+  padding: 10px 14px;
+  border: 1px solid var(--linea);
+  margin-bottom: 12px;
+}
+
+.barra-herramientas-mapa select {
+  font-family: var(--fuente-datos);
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border: 1px solid var(--tinta-suave);
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.grilla-categorias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.btn-categoria {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--papel-alto);
+  border: 1px solid var(--linea);
+  font-family: var(--fuente-lectura);
+  font-size: 0.88rem;
+  color: var(--tinta);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  border-radius: 2px;
+}
+
+.btn-categoria:hover {
+  background: var(--papel);
+  border-color: var(--musgo);
+}
+
+.btn-categoria.activo {
+  background: var(--musgo);
+  color: var(--papel-alto);
+  border-color: var(--musgo-oscuro);
+  font-weight: 500;
+}
+
+.btn-categoria.cargando {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.btn-categoria .icono-cat {
+  font-size: 1.1rem;
+}
+
+.btn-categoria .conteo-cat {
+  margin-left: auto;
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  background: rgba(0,0,0,0.08);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.btn-categoria.activo .conteo-cat {
+  background: rgba(255,255,255,0.2);
+}
+
+button.activo {
+  background: var(--ocre) !important;
+  color: var(--papel-alto) !important;
+}
+
+/* Customización controles Leaflet */
+.leaflet-container {
+  font-family: var(--fuente-lectura) !important;
+}
+.leaflet-bar a {
+  background-color: var(--papel-alto) !important;
+  color: var(--tinta) !important;
+  border-bottom: 1px solid var(--linea) !important;
+}
+.leaflet-bar a:hover {
+  background-color: var(--papel) !important;
+  color: var(--musgo) !important;
+}
+.leaflet-control-layers {
+  background: var(--papel-alto) !important;
+  border: 1px solid var(--linea) !important;
+  border-radius: 2px !important;
+  font-size: 0.82rem !important;
+  box-shadow: none !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--papel-alto) !important;
+  border-radius: 2px !important;
+  border: 1px solid var(--linea) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+}
+.leaflet-popup-tip {
+  background: var(--papel-alto) !important;
+}
+
+footer.pie-datos {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--linea);
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 760px) {
+  .envoltorio { grid-template-columns: 1fr; }
+  .barra-lateral {
+    border-right: none;
+    border-bottom: 1px solid var(--linea);
+  }
+  .capas-nav { display: flex; flex-wrap: wrap; }
+  .capas-nav li { border-bottom: none; }
+  .contenido { padding: 24px 20px 60px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
