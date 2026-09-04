@@ -320,17 +320,37 @@
             <input type="text" id="oh-filtro" placeholder="ej: building=* and type:way" value="building=* and type:way">
           </div>
         </div>
+        <div class="fila-campos" style="margin-top:10px;">
+          <div class="campo" style="flex:1.4; min-width:260px;">
+            <label for="oh-version-selector">Versión de ohsome API (HeiGIT)</label>
+            <select id="oh-version-selector">
+              <option value="v1" selected>🟢 ohsome API v1 (Acceso Libre — Sin API Key — Motor OSHDB)</option>
+              <option value="v2">⚡ ohsome API v2-rc (Alta Velocidad / Citus — ohsomeDB)</option>
+            </select>
+          </div>
+          <div class="campo" id="contenedor-oh-api-key" style="display:none; flex:1.6; min-width:240px;">
+            <label for="oh-api-key">API Key HeiGIT (ohsome v2)</label>
+            <input type="password" id="oh-api-key" placeholder="Pega tu token de api.heigit.org (opcional)">
+          </div>
+        </div>
         <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad</button>
 
         <div class="caja-guia-referencia">
           <h4>📐 Fundamentación de Calidad Espacial Multidimensional (ISO 19157 / HeiGIT)</h4>
           <p>
-            La calidad de datos espaciales voluntarios (VGI) no se reduce a un porcentaje abstracto, sino que responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico <strong>OSHDB (OpenStreetMap History Database)</strong> desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
+            La calidad de datos espaciales voluntarios (VGI) no se reduce a un porcentaje abstracto, sino que responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
           </p>
           <ul>
+            <li><strong>Soporte Dual ohsome v1 y v2:</strong>
+              <ul>
+                <li><strong>v1 (OSHDB):</strong> Motor histórico clásico basado en Java (Raifer et al., 2019). Acceso 100% libre sin credenciales, con soporte activo de HeiGIT hasta el 30 de noviembre de 2026.</li>
+                <li><strong>v2 (ohsomeDB):</strong> Nueva arquitectura reescrita en Python sobre PostgreSQL/PostGIS/Citus, optimizada para responder en segundos con soporte de hashtags de mapeo y exportación en Apache Parquet. Requiere API Key gratuita de HeiGIT.</li>
+                <li><strong>Resiliencia comunitaria:</strong> Si eliges v2 sin API Key o hay problemas de red, el Atlas conmuta automáticamente a v1 sin romper tu análisis.</li>
+              </ul>
+            </li>
             <li><strong>Sensibilidad Geométrica:</strong> La red vial se audita por continuidad lineal (<code>/elements/length</code> en km), las edificaciones y áreas verdes por superficie de huella construida (<code>/elements/area</code> en m²/ha), y el equipamiento por densidad puntual (<code>/elements/count</code>).</li>
             <li><strong>Linaje y Masa Crítica:</strong> El ratio de ediciones por usuario evalúa si el área depende de mapeadores esporádicos o de una comunidad activa y diversa (Neis & Zipf, 2012).</li>
-            <li><strong>Citas académicas:</strong> Raifer et al. (2019) <em>OSHDB framework</em> (doi:10.1186/s40965-019-0061-3); Haklay (2010) <em>How good is VGI?</em>; Goodchild (2007) <em>Citizens as sensors</em>.</li>
+            <li><strong>Citas académicas:</strong> Raifer et al. (2019) <em>OSHDB framework</em> (doi:10.1186/s40965-019-0061-3); HeiGIT (2025/2026) <em>ohsome API v2 Documentation</em>; Haklay (2010) <em>How good is VGI?</em>; Goodchild (2007) <em>Citizens as sensors</em>.</li>
           </ul>
         </div>
       </div>

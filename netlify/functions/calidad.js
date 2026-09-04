@@ -40,7 +40,7 @@ exports.handler = async function (event, context) {
     };
   }
 
-  const { bbox, filtro = 'building=* and type:way' } = body;
+  const { bbox, filtro = 'building=* and type:way', intervalo = 'P1Y', version = 'v1', apiKey = '' } = body;
   if (!bbox || bbox.length !== 4) {
     return {
       statusCode: 400,
@@ -49,13 +49,14 @@ exports.handler = async function (event, context) {
     };
   }
 
-  const baseOhsome = 'https://api.ohsome.org/v1';
+  const baseOhsomeV1 = 'https://api.ohsome.org/v1';
+  const baseOhsomeV2 = 'https://api.heigit.org/ohsome-api/v2-rc';
 
   try {
     // 1. Obtener fecha máxima disponible
     let fechaFin = '2026-06-01';
     try {
-      const metaRes = await fetch(`${baseOhsome}/metadata`);
+      const metaRes = await fetch(`${baseOhsomeV1}/metadata`);
       if (metaRes.ok) {
         const meta = await metaRes.json();
         const toTs = meta.extractRegion?.temporalExtent?.toTimestamp;
@@ -64,8 +65,13 @@ exports.handler = async function (event, context) {
     } catch (_) {}
 
     const anioFin = parseInt(fechaFin.slice(0, 4), 10);
-    const fechaInicio = `${anioFin - 5}-01-01`;
-    const ventanaTiempo = `${fechaInicio}/${fechaFin}/P1Y`;
+    let fechaInicio = `${anioFin - 5}-01-01`;
+    if (intervalo === 'P1M') {
+      fechaInicio = `${anioFin - 1}-${fechaFin.slice(5)}`;
+    } else if (intervalo === 'P6M') {
+      fechaInicio = `${anioFin - 3}-01-01`;
+    }
+    const ventanaTiempo = `${fechaInicio}/${fechaFin}/${intervalo}`;
     const bboxesStr = bbox.join(',');
 
     const fLower = filtro.toLowerCase();
@@ -76,43 +82,76 @@ exports.handler = async function (event, context) {
       tipoGeo = 'poligono';
     }
 
-    async function consultarEndpoint(path, timeParam) {
+    let versionReal = 'v1';
+    let motorReal = 'OSHDB (HeiGIT Java Engine)';
+    let fueFallback = false;
+
+    async function consultarEndpoint(path, timeParam, usarV2 = false) {
+      const base = usarV2 ? baseOhsomeV2 : baseOhsomeV1;
       const p = new URLSearchParams({
         bboxes: bboxesStr,
         filter: filtro,
         time: timeParam
       });
-      const res = await fetch(`${baseOhsome}${path}`, {
+      const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+      if (usarV2 && apiKey && apiKey.trim()) {
+        const token = apiKey.trim();
+        headers['Authorization'] = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+      }
+
+      const res = await fetch(`${base}${path}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers,
         body: p.toString()
       });
       if (!res.ok) throw new Error(`Error ${res.status} en ${path}`);
       return res.json();
     }
 
-    const promesas = [
-      consultarEndpoint('/elements/count', fechaFin),
-      consultarEndpoint('/users/count', ventanaTiempo),
-      consultarEndpoint('/elements/count', ventanaTiempo)
-    ];
+    let conteoActual, usuarios, serieTemporal, resEspecial, resContrib;
 
-    let promesaEspecial = null;
-    if (tipoGeo === 'linea') {
-      promesaEspecial = consultarEndpoint('/elements/length', fechaFin).catch(() => null);
-    } else if (tipoGeo === 'poligono') {
-      promesaEspecial = consultarEndpoint('/elements/area', fechaFin).catch(() => null);
+    if (version === 'v2') {
+      try {
+        const epEspecial = tipoGeo === 'linea' ? '/stats/features/length' : (tipoGeo === 'poligono' ? '/stats/features/area' : null);
+        [conteoActual, usuarios, serieTemporal, resEspecial, resContrib] = await Promise.all([
+          consultarEndpoint('/stats/features/count', fechaFin, true),
+          consultarEndpoint('/stats/contributors/count', ventanaTiempo, true),
+          consultarEndpoint('/stats/features/count', ventanaTiempo, true),
+          epEspecial ? consultarEndpoint(epEspecial, fechaFin, true).catch(() => null) : Promise.resolve(null),
+          consultarEndpoint('/stats/features/count', ventanaTiempo, true).catch(() => null)
+        ]);
+        versionReal = 'v2';
+        motorReal = 'ohsomeDB (PostgreSQL / Citus / Python)';
+      } catch (errV2) {
+        console.warn(`[calidad.js] Consulta v2 fallida (${errV2.message}), ejecutando fallback a v1.`);
+        fueFallback = true;
+      }
     }
 
-    const promesaContribuciones = consultarEndpoint('/contributions/count', ventanaTiempo).catch(() => null);
+    if (!conteoActual) {
+      const promesasV1 = [
+        consultarEndpoint('/elements/count', fechaFin, false),
+        consultarEndpoint('/users/count', ventanaTiempo, false),
+        consultarEndpoint('/elements/count', ventanaTiempo, false)
+      ];
 
-    const [conteoActual, usuarios, serieTemporal, resEspecial, resContrib] = await Promise.all([
-      promesas[0],
-      promesas[1],
-      promesas[2],
-      promesaEspecial,
-      promesaContribuciones
-    ]);
+      let promesaEspecialV1 = null;
+      if (tipoGeo === 'linea') {
+        promesaEspecialV1 = consultarEndpoint('/elements/length', fechaFin, false).catch(() => null);
+      } else if (tipoGeo === 'poligono') {
+        promesaEspecialV1 = consultarEndpoint('/elements/area', fechaFin, false).catch(() => null);
+      }
+
+      const promesaContribV1 = consultarEndpoint('/contributions/count', ventanaTiempo, false).catch(() => null);
+
+      [conteoActual, usuarios, serieTemporal, resEspecial, resContrib] = await Promise.all([
+        promesasV1[0],
+        promesasV1[1],
+        promesasV1[2],
+        promesaEspecialV1,
+        promesaContribV1
+      ]);
+    }
 
     const elementosAhora = conteoActual.result && conteoActual.result.length > 0 ? Math.round(conteoActual.result[0].value) : 0;
 

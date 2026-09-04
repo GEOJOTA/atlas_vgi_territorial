@@ -192,6 +192,29 @@ function inicializarAplicacion() {
     }
   });
 
+  // Selector de versión de ohsome API (v1 vs v2) y gestión de API Key
+  const selVersionOh = document.getElementById('oh-version-selector');
+  const cntApiKeyOh = document.getElementById('contenedor-oh-api-key');
+  const inpApiKeyOh = document.getElementById('oh-api-key');
+
+  if (inpApiKeyOh) {
+    const keyGuardada = localStorage.getItem('nodo-vgi:heigit-api-key');
+    if (keyGuardada) inpApiKeyOh.value = keyGuardada;
+    inpApiKeyOh.addEventListener('input', (e) => {
+      localStorage.setItem('nodo-vgi:heigit-api-key', e.target.value.trim());
+    });
+  }
+
+  if (selVersionOh) {
+    selVersionOh.addEventListener('change', (e) => {
+      if (e.target.value === 'v2') {
+        if (cntApiKeyOh) cntApiKeyOh.style.display = 'block';
+      } else {
+        if (cntApiKeyOh) cntApiKeyOh.style.display = 'none';
+      }
+    });
+  }
+
   // Eventos de paneles
   document.getElementById('btn-consultar-osm').addEventListener('click', () => manejarConsultaOSM(false));
   document.getElementById('btn-cargar-osm-al-mapa').addEventListener('click', () => manejarConsultaOSM(true));
@@ -952,15 +975,35 @@ async function manejarConsultaOhsome() {
 
   const filtro = document.getElementById('oh-filtro').value.trim() || 'building=* and type:way';
   const intervalo = document.getElementById('oh-intervalo-selector')?.value || 'P1Y';
-  contenedor.innerHTML = '<p class="descripcion">Calculando métricas multidimensionales de calidad con ohsome API v1 (HeiGIT)…</p>';
+  const version = document.getElementById('oh-version-selector')?.value || 'v1';
+  const apiKey = document.getElementById('oh-api-key')?.value.trim() || localStorage.getItem('nodo-vgi:heigit-api-key') || '';
+
+  contenedor.innerHTML = `<p class="descripcion">Calculando métricas multidimensionales de calidad con ohsome API ${version.toUpperCase()} (HeiGIT)…</p>`;
 
   try {
-    const indicadores = await ModuloOhsome.calcularIndicadores(bbox, filtro, intervalo);
+    const indicadores = await ModuloOhsome.calcularIndicadores(bbox, filtro, intervalo, version, apiKey);
     const densInfo = ModuloOhsome.calcularDensidad(bbox, indicadores.elementosAhora || 0);
 
-    ultimaConsultaRealizada = { bbox, filtro, cantidad: indicadores.elementosAhora, fuente: 'ohsome' };
+    ultimaConsultaRealizada = { bbox, filtro, cantidad: indicadores.elementosAhora, fuente: `ohsome ${indicadores.version}` };
 
-    // Badge de métrica geométrica especializada según API v1
+    let htmlBadgeVersion = '';
+    if (indicadores.fueFallback) {
+      htmlBadgeVersion = `
+        <div class="aviso" style="background:#FFF3CD; border-left:4px solid #F39C12; color:#856404; margin-bottom:14px; font-size:0.85rem;">
+          ℹ️ <strong>Conmutación automática a ohsome API v1:</strong> La consulta solicitada a la API v2 no pudo autenticarse (${indicadores.motivoFallback || 'Requiere API Key válida de HeiGIT'}). Se utilizó exitosamente <strong>ohsome API v1 (Motor OSHDB)</strong> sin interrumpir el análisis.
+        </div>
+      `;
+    } else {
+      const colorVersion = indicadores.version === 'v2' ? '#1C523A' : '#35586B';
+      htmlBadgeVersion = `
+        <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:12px; padding:4px 10px; background:var(--papel-alto); border:1px solid var(--linea); border-radius:12px; font-size:0.8rem;">
+          <span style="font-weight:bold; color:${colorVersion};">● ohsome API ${indicadores.version.toUpperCase()}</span>
+          <span style="color:var(--tinta-suave);">Motor: ${indicadores.motor}</span>
+        </div>
+      `;
+    }
+
+    // Badge de métrica geométrica especializada según API
     let htmlMetricaGeo = '';
     if (indicadores.metricaGeometrica) {
       if (indicadores.metricaGeometrica.tipo === 'longitud') {
@@ -1024,6 +1067,7 @@ async function manejarConsultaOhsome() {
     `).join('');
 
     contenedor.innerHTML = `
+      ${htmlBadgeVersion}
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:16px;">
         <div class="indicador">
           <span class="valor">${indicadores.elementosAhora.toLocaleString()}</span>

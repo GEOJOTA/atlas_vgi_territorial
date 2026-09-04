@@ -54,6 +54,15 @@ Este documento registra la evolución técnica, decisiones metodológicas y entr
      - **Ley N° 20.285 de Transparencia y Datos Abiertos:** `https://www.leychile.cl/Navegar?idNorma=278858`
      - **UN-GGIM / Marco IGIF:** `https://ggim.un.org/` (Vías 4, 6 y 7).
 
+5. **Soporte Dual para ohsome API v1 y ohsome API v2 (HeiGIT) con Fallback Automático:**
+   - **Arquitectura de Coexistencia Tecnológica:**
+     - Soporte nativo para **ohsome API v1** (`https://api.ohsome.org/v1/`, motor OSHDB/Java) como motor predeterminado y 100% abierto (sin requerir credenciales ni registro previo, garantizando acceso universal a estudiantes y comunidades).
+     - Soporte para la nueva **ohsome API v2-rc** (`https://api.heigit.org/ohsome-api/v2-rc/`, motor ohsomeDB con PostgreSQL/PostGIS/Citus y Python) con campo seguro para HeiGIT API Key (gestor Tyk Gateway) y persistencia en `localStorage`.
+   - **Mecanismo de Resiliencia y Fallback Transparente:**
+     - Si el usuario opta por la v2 sin clave o si la consulta es rechazada por el gateway (HTTP 401), el cliente conmuta de forma automática y transparente al motor v1, asegurando que ninguna persona no técnica experimente una pantalla de error.
+   - **Implementación Homogénea Full-Stack:**
+     - Actualizado el cliente web (`src/js/modulos/ohsome.js` y `src/js/app.js`), la función serverless (`netlify/functions/calidad.js`) y el servidor local en Python (`backend/servidor_vgi.py`).
+
 ---
 
 ## Entrega de turno 4 — Septiembre 2026 (Accesibilidad Ciudadana, Diccionario Territorial, Perfiles de Actor y Métricas Geométricas ohsome v1)

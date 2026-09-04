@@ -62,6 +62,8 @@
       "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
     ],
     "ohsome": "https://api.ohsome.org/v1",
+    "ohsome_v1": "https://api.ohsome.org/v1",
+    "ohsome_v2": "https://api.heigit.org/ohsome-api/v2-rc",
     "gbif": "https://api.gbif.org/v1",
     "umap_instancia_sugerida": "https://umap.openstreetmap.fr"
   },

@@ -96,21 +96,44 @@ Un requerimiento metodológico esencial del proyecto es **garantizar la usabilid
 
 ---
 
-## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157 y Métricas ohsome API v1)
+## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157 y Soporte Dual ohsome API v1 y v2)
 
 Una de las críticas históricas a la VGI por parte de comités académicos tradicionales es la *incertidumbre sobre la calidad del dato*. El proyecto refuta esta crítica implementando una auditoría cuantitativa en vivo en base al estándar **ISO 19157:2013 (Data Quality)** y la tecnología de análisis de historia espacial del HeiGIT (Heidelberg University):
 
-1. **Sensibilidad al Tipo de Geometría (ohsome API v1):**
-   - **Entidades Lineales (Vialidad y Movilidad Activa):** Consulta `/elements/length` computando la longitud real de red en kilómetros y metros lineales (red vial de Barrio Brasil y ciclovías). Permite evaluar continuidad de red y conectividad territorial.
-   - **Entidades Poligonales (Edificaciones y Espacio Público):** Consulta `/elements/area` computando la superficie en metros cuadrados y hectáreas de la huella construida (`building=*`) y áreas verdes (`leisure=park`), clave para calcular índices de espacio público por habitante.
-   - **Entidades Puntuales (Equipamiento y Accesibilidad):** Consulta `/elements/count` cuantificando nodos discretos (paraderos, farmacias, rebajes de cordón).
+### 3.1 Transición Tecnológica: ohsome API v1 (OSHDB) vs ohsome API v2 (ohsomeDB)
+
+El Atlas incorpora soporte dual para las dos generaciones del motor de análisis histórico de OpenStreetMap:
+
+| Dimensión Técnica | ohsome API v1 (Línea Base Abierta) | ohsome API v2-rc (Nueva Generación) |
+|---|---|---|
+| **Base de Datos / Motor** | **OSHDB** (OpenStreetMap History Database) sobre Java, H2 e Ignite. | **ohsomeDB** (PostgreSQL / PostGIS / Citus), reescrito completamente en Python. |
+| **Autenticación** | Acceso 100% público y abierto **sin requerir API Key**. | **API Key obligatoria** gestionada por Tyk API Gateway (`Authorization: Bearer <token>`). |
+| **Rendimiento** | Consultas agregadas con tiempos estándar (15 a 60 segundos). | Procesamiento distribuido en Citus de alto rendimiento (respuestas en 1 a 5 segundos). |
+| **Nuevas Funcionalidades** | Métricas de elementos, longitud, área y usuarios. | Filtrado por hashtags de mapeo (HOT, MapRoulette), metadatos de changesets y extracción en Apache Parquet. |
+| **Endpoints Principales** | `/elements/count`, `/elements/length`, `/elements/area`, `/users/count`. | `/stats/features/{measure}`, `/stats/contributors/count`, `/extraction/features.parquet`. |
+| **Horizonte Temporal** | Soporte oficial garantizado por HeiGIT hasta el **30 de noviembre de 2026**. | Versión candidata (v2-rc) destinada a sustituir definitivamente a v1 a partir de fines de 2026. |
+
+### 3.2 Arquitectura Resiliente con Conmutación Transparente (Fallback)
+
+Para evitar que una persona no técnica o un estudiante se enfrente a errores HTTP 401 (Unauthorized) por no poseer una clave de HeiGIT:
+1. **Modo Predeterminado Abierto (v1):** Por defecto, la plataforma consulta `api.ohsome.org/v1`, permitiendo que cualquier persona use el Atlas de inmediato sin registros previos.
+2. **Modo Avanzado (v2):** Si el usuario selecciona ohsome API v2 e ingresa su API Key (almacenable de forma segura en `localStorage`), el Atlas consulta los endpoints de alto rendimiento en `api.heigit.org/ohsome-api/v2-rc`.
+3. **Mecanismo de Conmutación Automática:** Si la petición a v2 se realiza sin token o la API rechaza la solicitud, el módulo intercepta el fallo y conmuta de manera inmediata y transparente a la API v1, desplegando un aviso informativo para que el análisis territorial nunca se interrumpa.
+
+### 3.3 Dimensiones de Calidad Auditadas (ISO 19157)
+
+1. **Sensibilidad al Tipo de Geometría:**
+   - **Entidades Lineales (Vialidad y Movilidad Activa):** Consulta de longitud computando la longitud real de red en kilómetros y metros lineales (red vial de Barrio Brasil y ciclovías). Permite evaluar continuidad de red y conectividad territorial.
+   - **Entidades Poligonales (Edificaciones y Espacio Público):** Consulta de superficie computando el área en metros cuadrados y hectáreas de la huella construida (`building=*`) y áreas verdes (`leisure=park`), clave para calcular índices de espacio público por habitante.
+   - **Entidades Puntuales (Equipamiento y Accesibilidad):** Consulta de conteo cuantificando nodos discretos (paraderos, farmacias, rebajes de cordón).
 2. **Completitud y Densidad Espacial:** El panel `02 / Calidad de Datos (ohsome)` calcula la densidad real de entidades por kilómetro cuadrado sobre el elipsoide WGS84, distinguiendo entre áreas densamente catastradas y sectores con vacíos de cobertura.
-3. **Consistencia Temporal y Dinámica Histórica:** Mediante series anualizadas a 5 años en la base histórica OSHDB (OpenStreetMap History Database), el sistema monitorea el crecimiento acumulado del catastro y detecta posibles estancamientos o fases de aceleración comunitaria.
-4. **Linaje, Masa Crítica y Ratio de Intensidad:** Mediante el cruce de `/users/count` y `/contributions/count`, el sistema calcula el **Ratio de Ediciones por Colaborador**, permitiendo diferenciar empíricamente entre un territorio mapeado por un único voluntario aislado versus uno respaldado por una comunidad plural y sostenida en el tiempo.
+3. **Consistencia Temporal y Dinámica Histórica:** Mediante series anualizadas a 5 años (o pasos semestrales/mensuales), el sistema monitorea el crecimiento acumulado del catastro y detecta posibles estancamientos o fases de aceleración comunitaria.
+4. **Linaje, Masa Crítica y Ratio de Intensidad:** Mediante el cruce de colaboradores y contribuciones, el sistema calcula el **Ratio de Ediciones por Colaborador**, permitiendo diferenciar empíricamente entre un territorio mapeado por un único voluntario aislado versus uno respaldado por una comunidad plural y sostenida en el tiempo.
 5. **Aparato Crítico y Referencias Científicas:**
-   - **Haklay, M. (2010):** *How good is volunteered geographical information? A case study of OpenStreetMap in the UK.* Environment and Planning B: Planning and Design, 37(4), 682-703.
+   - **Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019):** *OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data.* EPJ Data Science, 8(1), 1-18. doi:10.1186/s40965-019-0061-3.
+   - **HeiGIT (2025/2026):** *ohsome API v2 Documentation: High-performance OSM History Analysis with ohsomeDB and Citus.* Heidelberg Institute for Geoinformation Technology. https://api.heigit.org/ohsome-api/v2-rc/docs
    - **Neis, P. & Zipf, A. (2012):** *Analyzing the Contributor Activity of OpenStreetMap and Its Development for the Community.* ISPRS International Journal of Geo-Information, 1(2), 146-177. doi:10.3390/ijgi1020146.
-   - **Raifer, M. et al. (2019):** *OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data.* EPJ Data Science, 8(1), 1-18. doi:10.1186/s40965-019-0061-3.
+   - **Haklay, M. (2010):** *How good is volunteered geographical information? A case study of OpenStreetMap in the UK.* Environment and Planning B: Planning and Design, 37(4), 682-703. doi:10.1068/b35097.
 
 ---
 

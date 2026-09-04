@@ -59,8 +59,8 @@ const ModuloOhsome = (() => {
     return 'punto';
   }
 
-  async function consultarEndpoint(rutaEndpoint, bbox, filtro, tiempo) {
-    const base = window.NODO_CONFIG?.endpoints?.ohsome || 'https://api.ohsome.org/v1';
+  async function consultarEndpointV1(rutaEndpoint, bbox, filtro, tiempo) {
+    const base = window.NODO_CONFIG?.endpoints?.ohsome_v1 || window.NODO_CONFIG?.endpoints?.ohsome || 'https://api.ohsome.org/v1';
     const url = `${base}${rutaEndpoint}`;
 
     const cuerpo = new URLSearchParams({
@@ -77,18 +77,54 @@ const ModuloOhsome = (() => {
 
     if (!respuesta.ok) {
       const texto = await respuesta.text().catch(() => '');
-      throw new Error(`ohsome respondió con código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 150) : ''}`);
+      throw new Error(`ohsome v1 respondió con código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 150) : ''}`);
+    }
+
+    return respuesta.json();
+  }
+
+  async function consultarEndpointV2(rutaEndpoint, bbox, filtro, tiempo, apiKey) {
+    const base = window.NODO_CONFIG?.endpoints?.ohsome_v2 || 'https://api.heigit.org/ohsome-api/v2-rc';
+    const url = `${base}${rutaEndpoint}`;
+
+    const cuerpo = new URLSearchParams({
+      bboxes: bboxParaOhsome(bbox),
+      filter: filtro,
+      time: tiempo
+    });
+
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+
+    if (apiKey && apiKey.trim()) {
+      const token = apiKey.trim();
+      headers['Authorization'] = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+      headers['apiKey'] = token.replace(/^Bearer\s+/i, '');
+    }
+
+    const respuesta = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: cuerpo.toString()
+    });
+
+    if (!respuesta.ok) {
+      const texto = await respuesta.text().catch(() => '');
+      const err = new Error(`ohsome v2 respondió con código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 150) : ''}`);
+      err.status = respuesta.status;
+      throw err;
     }
 
     return respuesta.json();
   }
 
   /**
-   * Calcula los indicadores de calidad especializados según tipo de entidad
+   * Calcula los indicadores de calidad especializados según tipo de entidad (compatible con v1 y v2)
    */
-  async function calcularIndicadores(bbox, filtro = 'building=* and type:way', intervalo = 'P1Y') {
-    const base = window.NODO_CONFIG?.endpoints?.ohsome || 'https://api.ohsome.org/v1';
-    const fechaFin = await obtenerFechaMaxima(base);
+  async function calcularIndicadores(bbox, filtro = 'building=* and type:way', intervalo = 'P1Y', version = 'v1', apiKey = '') {
+    const baseV1 = window.NODO_CONFIG?.endpoints?.ohsome_v1 || window.NODO_CONFIG?.endpoints?.ohsome || 'https://api.ohsome.org/v1';
+    const fechaFin = await obtenerFechaMaxima(baseV1);
 
     const anioFin = parseInt(fechaFin.slice(0, 4), 10);
     let fechaInicio = `${anioFin - 5}-01-01`;
@@ -101,30 +137,69 @@ const ModuloOhsome = (() => {
 
     const tipoGeo = clasificarGeometria(filtro);
 
-    // Promesas comunes
+    // Si se solicitó v2, intentar primero contra la API v2 de HeiGIT
+    if (version === 'v2') {
+      try {
+        console.log('[ohsome] Intentando consulta contra ohsome API v2 (ohsomeDB / Citus)...');
+        const endpointEspecial = tipoGeo === 'linea' ? '/stats/features/length' : (tipoGeo === 'poligono' ? '/stats/features/area' : null);
+
+        const promesasV2 = [
+          consultarEndpointV2('/stats/features/count', bbox, filtro, fechaFin, apiKey),
+          consultarEndpointV2('/stats/contributors/count', bbox, filtro, ventanaTiempo, apiKey),
+          consultarEndpointV2('/stats/features/count', bbox, filtro, ventanaTiempo, apiKey),
+          endpointEspecial ? consultarEndpointV2(endpointEspecial, bbox, filtro, fechaFin, apiKey).catch(() => null) : Promise.resolve(null),
+          consultarEndpointV2('/stats/features/count', bbox, filtro, ventanaTiempo, apiKey).catch(() => null)
+        ];
+
+        const [conteoActual, usuarios, serieTemporal, resEspecial, resContribuciones] = await Promise.all(promesasV2);
+
+        return procesarResultadosIndicadores({
+          tipoGeo,
+          conteoActual,
+          usuarios,
+          serieTemporal,
+          resEspecial,
+          resContribuciones,
+          fechaFin,
+          versionUtilizada: 'v2',
+          motor: 'ohsomeDB (PostgreSQL / Citus / Python)',
+          fueFallback: false
+        });
+      } catch (errV2) {
+        console.warn(`[ohsome] Consulta v2 no disponible o requiere API Key (${errV2.message}). Conmutando automáticamente a ohsome API v1 (OSHDB)...`);
+        const resV1 = await ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo);
+        resV1.fueFallback = true;
+        resV1.motivoFallback = errV2.status === 401 ? 'Falta o token no válido de API Key para v2' : errV2.message;
+        return resV1;
+      }
+    }
+
+    // Flujo predeterminado v1 (OSHDB - acceso libre)
+    return ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo);
+  }
+
+  async function ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo) {
     const promesas = [
-      consultarEndpoint('/elements/count', bbox, filtro, fechaFin),
-      consultarEndpoint('/users/count', bbox, filtro, ventanaTiempo),
-      consultarEndpoint('/elements/count', bbox, filtro, ventanaTiempo)
+      consultarEndpointV1('/elements/count', bbox, filtro, fechaFin),
+      consultarEndpointV1('/users/count', bbox, filtro, ventanaTiempo),
+      consultarEndpointV1('/elements/count', bbox, filtro, ventanaTiempo)
     ];
 
-    // Consulta geométrica especializada según API v1
     let promesaEspecial = null;
     if (tipoGeo === 'linea') {
-      promesaEspecial = consultarEndpoint('/elements/length', bbox, filtro, fechaFin).catch(e => {
-        console.warn('[ohsome] Longitud no aplicable o error:', e.message);
+      promesaEspecial = consultarEndpointV1('/elements/length', bbox, filtro, fechaFin).catch(e => {
+        console.warn('[ohsome v1] Longitud no aplicable o error:', e.message);
         return null;
       });
     } else if (tipoGeo === 'poligono') {
-      promesaEspecial = consultarEndpoint('/elements/area', bbox, filtro, fechaFin).catch(e => {
-        console.warn('[ohsome] Área no aplicable o error:', e.message);
+      promesaEspecial = consultarEndpointV1('/elements/area', bbox, filtro, fechaFin).catch(e => {
+        console.warn('[ohsome v1] Área no aplicable o error:', e.message);
         return null;
       });
     }
 
-    // Consulta de contribuciones totales acumuladas
-    const promesaContribuciones = consultarEndpoint('/contributions/count', bbox, filtro, ventanaTiempo).catch(e => {
-      console.warn('[ohsome] Contribuciones no aplicable o error:', e.message);
+    const promesaContribuciones = consultarEndpointV1('/contributions/count', bbox, filtro, ventanaTiempo).catch(e => {
+      console.warn('[ohsome v1] Contribuciones no aplicable o error:', e.message);
       return null;
     });
 
@@ -136,27 +211,65 @@ const ModuloOhsome = (() => {
       promesaContribuciones
     ]);
 
-    const elementosAhora = conteoActual.result && conteoActual.result.length > 0 ? conteoActual.result[0].value : 0;
+    return procesarResultadosIndicadores({
+      tipoGeo,
+      conteoActual,
+      usuarios,
+      serieTemporal,
+      resEspecial,
+      resContribuciones,
+      fechaFin,
+      versionUtilizada: 'v1',
+      motor: 'OSHDB (HeiGIT Java Engine)',
+      fueFallback: false
+    });
+  }
 
-    const listaUsuarios = (usuarios.result || []).map(r => ({
+  function procesarResultadosIndicadores(params) {
+    const {
+      tipoGeo,
+      conteoActual,
+      usuarios,
+      serieTemporal,
+      resEspecial,
+      resContribuciones,
+      fechaFin,
+      versionUtilizada,
+      motor,
+      fueFallback
+    } = params;
+
+    const extractArray = (obj) => {
+      if (!obj) return [];
+      if (Array.isArray(obj)) return obj;
+      if (Array.isArray(obj.result)) return obj.result;
+      if (Array.isArray(obj.data)) return obj.data;
+      return [];
+    };
+
+    const resActual = extractArray(conteoActual);
+    const elementosAhora = resActual.length > 0 ? (resActual[0].value || 0) : 0;
+
+    const listaUsuarios = extractArray(usuarios).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
-      valor: Math.round(r.value)
+      valor: Math.round(r.value || 0)
     }));
 
-    const listaElementos = (serieTemporal.result || []).map(r => ({
+    const listaElementos = extractArray(serieTemporal).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
-      valor: Math.round(r.value)
+      valor: Math.round(r.value || 0)
     }));
 
-    const listaContribuciones = (resContribuciones?.result || []).map(r => ({
+    const listaContribuciones = extractArray(resContribuciones).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
-      valor: Math.round(r.value)
+      valor: Math.round(r.value || 0)
     }));
 
     // Métricas geométricas calculadas
     let metricaGeometrica = null;
-    if (tipoGeo === 'linea' && resEspecial?.result?.length > 0) {
-      const metros = resEspecial.result[0].value;
+    const itemsEspecial = extractArray(resEspecial);
+    if (tipoGeo === 'linea' && itemsEspecial.length > 0) {
+      const metros = itemsEspecial[0].value || 0;
       metricaGeometrica = {
         tipo: 'longitud',
         etiqueta: 'Longitud total de red trazada',
@@ -164,8 +277,8 @@ const ModuloOhsome = (() => {
         valorKm: Number((metros / 1000).toFixed(2)),
         unidad: 'km'
       };
-    } else if (tipoGeo === 'poligono' && resEspecial?.result?.length > 0) {
-      const m2 = resEspecial.result[0].value;
+    } else if (tipoGeo === 'poligono' && itemsEspecial.length > 0) {
+      const m2 = itemsEspecial[0].value || 0;
       metricaGeometrica = {
         tipo: 'superficie',
         etiqueta: 'Superficie total construida / cubierta',
@@ -176,12 +289,15 @@ const ModuloOhsome = (() => {
       };
     }
 
-    // Ratio de intensidad comunitaria: contribuciones / usuario en el último año
+    // Ratio de intensidad comunitaria
     const ultimoUsuarios = listaUsuarios.at(-1)?.valor || 0;
     const ultimasContribuciones = listaContribuciones.at(-1)?.valor || 0;
     const ratioContribucionPorUsuario = ultimoUsuarios > 0 ? Number((ultimasContribuciones / ultimoUsuarios).toFixed(1)) : null;
 
     return {
+      version: versionUtilizada,
+      motor,
+      fueFallback,
       tipoGeometria: tipoGeo,
       elementosAhora: Math.round(elementosAhora),
       metricaGeometrica,
@@ -192,22 +308,31 @@ const ModuloOhsome = (() => {
       fechaCorte: fechaFin,
       referencias: [
         {
-          autor: 'Raifer et al. (2019)',
-          titulo: 'OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data',
-          doi: '10.1186/s40965-019-0061-3'
+          autor: 'Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019)',
+          titulo: 'OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data (ohsome API v1)',
+          doi: '10.1186/s40965-019-0061-3',
+          url: 'https://doi.org/10.1186/s40965-019-0061-3'
         },
         {
-          autor: 'HeiGIT / Heidelberg University',
-          titulo: 'ohsome API v1 Documentation — Spatio-temporal analysis of OSM',
-          url: 'https://docs.ohsome.org/ohsome-api/v1/'
+          autor: 'HeiGIT - Heidelberg Institute for Geoinformation Technology (2025/2026)',
+          titulo: 'ohsome API v2: Next-Generation OSM History Analysis with ohsomeDB and Citus',
+          url: 'https://api.heigit.org/ohsome-api/v2-rc/docs'
         },
         {
           autor: 'Neis, P. & Zipf, A. (2012)',
           titulo: 'Analyzing the Contributor Activity of OpenStreetMap and Its Development for the Community',
-          doi: '10.3390/ijgi1020146'
+          doi: '10.3390/ijgi1020146',
+          url: 'https://doi.org/10.3390/ijgi1020146'
+        },
+        {
+          autor: 'Haklay, M. (2010)',
+          titulo: 'How good is volunteered geographical information? A case study of OpenStreetMap in the UK',
+          doi: '10.1068/b35097',
+          url: 'https://doi.org/10.1068/b35097'
         }
       ]
     };
+  }
   }
 
   /**

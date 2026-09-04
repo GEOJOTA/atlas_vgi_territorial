@@ -228,12 +228,17 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             self.responder_json(400, {"error": "Bbox requerido"})
             return
 
-        base = "https://api.ohsome.org/v1"
+        intervalo = body.get("intervalo", "P1Y")
+        version = body.get("version", "v1")
+        api_key = body.get("apiKey", "")
+
+        base_v1 = "https://api.ohsome.org/v1"
+        base_v2 = "https://api.heigit.org/ohsome-api/v2-rc"
         bboxes_str = ",".join(str(x) for x in bbox)
 
         try:
             # Obtener fecha máxima
-            meta_req = urllib.request.Request(f"{base}/metadata", headers={"User-Agent": "AtlasVGI/1.0"})
+            meta_req = urllib.request.Request(f"{base_v1}/metadata", headers={"User-Agent": "AtlasVGI/1.0"})
             with urllib.request.urlopen(meta_req, timeout=15, context=SSL_CTX) as res:
                 meta = json.loads(res.read().decode("utf-8"))
                 fecha_fin = meta.get("extractRegion", {}).get("temporalExtent", {}).get("toTimestamp", "2026-06-01")[:10]
@@ -241,15 +246,29 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             fecha_fin = "2026-06-01"
 
         anio_fin = int(fecha_fin[:4])
-        ventana = f"{anio_fin - 5}-01-01/{fecha_fin}/P1Y"
+        fecha_inicio = f"{anio_fin - 5}-01-01"
+        if intervalo == "P1M":
+            fecha_inicio = f"{anio_fin - 1}-{fecha_fin[5:]}"
+        elif intervalo == "P6M":
+            fecha_inicio = f"{anio_fin - 3}-01-01"
 
-        def post_ohsome(endpoint, time_param):
+        ventana = f"{fecha_inicio}/{fecha_fin}/{intervalo}"
+
+        def post_ohsome(endpoint, time_param, usar_v2=False):
+            base = base_v2 if usar_v2 else base_v1
             p = urllib.parse.urlencode({
                 "bboxes": bboxes_str,
                 "filter": filtro,
                 "time": time_param
             }).encode("utf-8")
-            req = urllib.request.Request(f"{base}{endpoint}", data=p, headers={"User-Agent": "AtlasVGI/1.0"})
+            headers = {"User-Agent": "AtlasVGI/1.0"}
+            if usar_v2 and api_key:
+                token = api_key.strip()
+                auth_val = token if token.startswith("Bearer ") else f"Bearer {token}"
+                headers["Authorization"] = auth_val
+                headers["apiKey"] = token.replace("Bearer ", "")
+
+            req = urllib.request.Request(f"{base}{endpoint}", data=p, headers=headers)
             with urllib.request.urlopen(req, timeout=25, context=SSL_CTX) as res:
                 return json.loads(res.read().decode("utf-8"))
 
@@ -261,27 +280,50 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             elif any(k in f_lower for k in ["building", "leisure", "landuse"]):
                 tipo_geo = "poligono"
 
-            conteo = post_ohsome("/elements/count", fecha_fin)
-            usuarios = post_ohsome("/users/count", ventana)
-            serie = post_ohsome("/elements/count", ventana)
-
+            conteo = None
+            usuarios = None
+            serie = None
             res_especial = None
-            if tipo_geo == "linea":
-                try:
-                    res_especial = post_ohsome("/elements/length", fecha_fin)
-                except Exception:
-                    pass
-            elif tipo_geo == "poligono":
-                try:
-                    res_especial = post_ohsome("/elements/area", fecha_fin)
-                except Exception:
-                    pass
-
             res_contrib = None
-            try:
-                res_contrib = post_ohsome("/contributions/count", ventana)
-            except Exception:
-                pass
+            version_real = "v1"
+            motor_real = "OSHDB (HeiGIT Java Engine)"
+            fue_fallback = False
+
+            if version == "v2":
+                try:
+                    conteo = post_ohsome("/stats/features/count", fecha_fin, usar_v2=True)
+                    usuarios = post_ohsome("/stats/contributors/count", ventana, usar_v2=True)
+                    serie = post_ohsome("/stats/features/count", ventana, usar_v2=True)
+                    if tipo_geo == "linea":
+                        res_especial = post_ohsome("/stats/features/length", fecha_fin, usar_v2=True)
+                    elif tipo_geo == "poligono":
+                        res_especial = post_ohsome("/stats/features/area", fecha_fin, usar_v2=True)
+                    res_contrib = post_ohsome("/stats/features/count", ventana, usar_v2=True)
+                    version_real = "v2"
+                    motor_real = "ohsomeDB (PostgreSQL / Citus / Python)"
+                except Exception as err_v2:
+                    print(f"[!] Consulta ohsome v2 falló ({err_v2}), ejecutando fallback a v1")
+                    fue_fallback = True
+                    conteo = None
+
+            if conteo is None:
+                conteo = post_ohsome("/elements/count", fecha_fin, usar_v2=False)
+                usuarios = post_ohsome("/users/count", ventana, usar_v2=False)
+                serie = post_ohsome("/elements/count", ventana, usar_v2=False)
+                if tipo_geo == "linea":
+                    try:
+                        res_especial = post_ohsome("/elements/length", fecha_fin, usar_v2=False)
+                    except Exception:
+                        pass
+                elif tipo_geo == "poligono":
+                    try:
+                        res_especial = post_ohsome("/elements/area", fecha_fin, usar_v2=False)
+                    except Exception:
+                        pass
+                try:
+                    res_contrib = post_ohsome("/contributions/count", ventana, usar_v2=False)
+                except Exception:
+                    pass
 
             elem_ahora = int(conteo.get("result", [{}])[0].get("value", 0))
 
@@ -307,6 +349,9 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
 
             self.responder_json(200, {
                 "ok": True,
+                "version": version_real,
+                "motor": motor_real,
+                "fueFallback": fue_fallback,
                 "fechaCorte": fecha_fin,
                 "tipoGeometria": tipo_geo,
                 "elementosAhora": elem_ahora,
