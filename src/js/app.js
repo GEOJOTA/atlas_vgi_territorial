@@ -77,6 +77,16 @@ function inicializarAplicacion() {
   document.getElementById('btn-cargar-gbif-al-mapa').addEventListener('click', () => manejarConsultaGBIF(true));
   document.getElementById('btn-cargar-umap').addEventListener('click', manejarCargaUMap);
 
+  // Botones de mapas comunitarios UMap sugeridos
+  document.getElementById('btn-umap-ejemplo-patrimonio')?.addEventListener('click', () => {
+    document.getElementById('umap-url').value = 'https://umap.openstreetmap.fr/es/map/patrimonio-santiago-centro_19382';
+    manejarCargaUMap();
+  });
+  document.getElementById('btn-umap-ejemplo-ciclovias')?.addEventListener('click', () => {
+    document.getElementById('umap-url').value = 'https://umap.openstreetmap.fr/es/map/ciclovias-santiago_28412';
+    manejarCargaUMap();
+  });
+
   document.getElementById('form-metadatos').addEventListener('submit', manejarGenerarMetadatos);
   document.getElementById('btn-prellenar-metadatos').addEventListener('click', prellenarMetadatosDesdeUltimaConsulta);
   document.getElementById('btn-exportar-json').addEventListener('click', exportarMetadatosJSON);
@@ -796,14 +806,15 @@ function cargarResumenMetodologia() {
       <p>7. <strong>Atlas y visor interactivo:</strong> Visualizador en Leaflet con descarga de capas para QGIS.</p>
     </div>
     <div class="bloque">
-      <h3>Documentos y Hojas de Cálculo Generadas</h3>
-      <p>Revisa la carpeta <code>docs/</code> para acceder a los archivos Excel y las pautas técnicas:</p>
-      <ul>
-        <li><code>docs/catalogo_fuentes_vgi.xlsx</code></li>
-        <li><code>docs/perfil_metadatos_vgi.xlsx</code></li>
-        <li><code>docs/categorias_tematicas_osm.xlsx</code></li>
-        <li><code>docs/ARQUITECTURA.md</code></li>
-      </ul>
+      <h3>Documentos, Catálogos Excel y Memoria Académica</h3>
+      <p>Para la defensa ante el comité evaluador y el informe final de práctica profesional, consulta los documentos de referencia en la carpeta <code>docs/</code>:</p>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+        <div>📄 <strong>Memoria y Justificación Epistemológica:</strong> <code>docs/TRAZABILIDAD_ACADEMICA.md</code> <a href="docs/TRAZABILIDAD_ACADEMICA.md" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
+        <div>📊 <strong>Catálogo de Fuentes VGI:</strong> <code>docs/catalogo_fuentes_vgi.xlsx</code> <a href="docs/catalogo_fuentes_vgi.xlsx" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
+        <div>🏛️ <strong>Perfil Metadatos ISO 19115 / IDE Chile:</strong> <code>docs/perfil_metadatos_vgi.xlsx</code> <a href="docs/perfil_metadatos_vgi.xlsx" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
+        <div>🗂️ <strong>Taxonomía y 8 Categorías OSM:</strong> <code>docs/categorias_tematicas_osm.xlsx</code> <a href="docs/categorias_tematicas_osm.xlsx" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
+        <div>📐 <strong>Arquitectura y Diseño Técnico:</strong> <code>docs/ARQUITECTURA.md</code></div>
+      </div>
     </div>
   `;
 }
