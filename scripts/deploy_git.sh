@@ -33,8 +33,8 @@ echo "[+] Autor configurado: GEOJOTA <juanpablolescanovillegas@gmail.com>"
 
 # 3. Vincular remote origin si no está presente
 if ! git remote | grep -q "origin"; then
-    git remote add origin https://github.com/GEOJOTA/nodo-geoabierto.git
-    echo "[+] Remoto origin añadido: https://github.com/GEOJOTA/nodo-geoabierto.git"
+    git remote add origin https://github.com/GEOJOTA/atlas_vgi_uah.git
+    echo "[+] Remoto origin añadido: https://github.com/GEOJOTA/atlas_vgi_uah.git"
 fi
 
 # 4. Agregar y commitear cambios

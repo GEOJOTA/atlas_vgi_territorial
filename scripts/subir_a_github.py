@@ -39,7 +39,7 @@ def principal():
 
     if code == 0:
         print("\n[OK] ¡Subida exitosa a GitHub!")
-        print("     Repositorio: https://github.com/GEOJOTA/nodo-geoabierto")
+        print("     Repositorio: https://github.com/GEOJOTA/atlas_vgi_uah")
         print("     GitHub Actions desplegará la plataforma automáticamente.")
     else:
         print("\n[!] GitHub requiere tu autenticación (Token de Acceso Personal o SSH).")
@@ -55,12 +55,12 @@ def principal():
         try:
             token = input("Pega tu GitHub Personal Access Token (o presiona Enter para cancelar): ").strip()
             if token:
-                url_con_token = f"https://{token}@github.com/GEOJOTA/nodo-geoabierto.git"
+                url_con_token = f"https://{token}@github.com/GEOJOTA/atlas_vgi_uah.git"
                 print("[*] Intentando subir con el token ingresado...")
                 code_t, out_t, err_t = ejecutar_comando(f"git push {url_con_token} main")
                 if code_t == 0:
                     print("\n[OK] ¡Subida completada exitosamente a GitHub con tu token!")
-                    ejecutar_comando(f"git remote set-url origin https://github.com/GEOJOTA/nodo-geoabierto.git")
+                    ejecutar_comando(f"git remote set-url origin https://github.com/GEOJOTA/atlas_vgi_uah.git")
                 else:
                     print(f"\n[-] Error con el token: {err_t.strip()}")
         except KeyboardInterrupt:
