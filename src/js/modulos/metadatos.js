@@ -49,7 +49,10 @@ const ModuloMetadatos = (() => {
         organizacion: datos.contactoOrganizacion || 'Práctica Profesional Geografía 2026 — Universidad Alberto Hurtado',
         persona: datos.contactoPersona || 'GEOJOTA',
         correo: datos.contactoCorreo || 'juanpablolescanovillegas@gmail.com',
-        rol: 'custodian'
+        rol: datos.rol || 'custodian'
+      },
+      mantenimiento: {
+        frecuencia: datos.frecuencia || 'asNeeded'
       }
     };
   }
@@ -138,6 +141,13 @@ const ModuloMetadatos = (() => {
           <gmd:useLimitation><gco:CharacterString>${escapeXML(ficha.restriccionesDeUso.licencia)}</gco:CharacterString></gmd:useLimitation>
         </gmd:MD_LegalConstraints>
       </gmd:resourceConstraints>
+      <gmd:resourceMaintenance>
+        <gmd:MD_MaintenanceInformation>
+          <gmd:maintenanceAndUpdateFrequency>
+            <gmd:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="${ficha.mantenimiento ? ficha.mantenimiento.frecuencia : 'asNeeded'}">${ficha.mantenimiento ? ficha.mantenimiento.frecuencia : 'asNeeded'}</gmd:MD_MaintenanceFrequencyCode>
+          </gmd:maintenanceAndUpdateFrequency>
+        </gmd:MD_MaintenanceInformation>
+      </gmd:resourceMaintenance>
       <gmd:topicCategory>
         <gmd:MD_TopicCategoryCode>${i.categoriaTema}</gmd:MD_TopicCategoryCode>
       </gmd:topicCategory>

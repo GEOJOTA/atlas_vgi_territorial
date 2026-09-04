@@ -8,7 +8,7 @@
 
 const ModuloGBIF = (() => {
 
-  async function buscarOcurrencias({ nombre, bbox, limite = 50 }) {
+  async function buscarOcurrencias({ nombre, bbox, limite = 50, basisOfRecord = 'ALL' }) {
     const base = window.NODO_CONFIG.endpoints.gbif || 'https://api.gbif.org/v1';
     const parametros = new URLSearchParams({
       limit: String(limite),
@@ -17,6 +17,10 @@ const ModuloGBIF = (() => {
 
     if (nombre && nombre.trim()) {
       parametros.set('q', nombre.trim());
+    }
+
+    if (basisOfRecord && basisOfRecord !== 'ALL') {
+      parametros.set('basisOfRecord', basisOfRecord);
     }
 
     if (bbox && bbox.length === 4) {

@@ -21,21 +21,78 @@ El **Atlas VGI (Nodo GeoAbierto)** operacionaliza esta corriente epistemológica
 
 ---
 
-## 2. Marco Legal e Institucional en el Contexto Chileno
+## 2. Marco Normativo, Estándares ISO y Política Geoespacial Chilena y Global
 
-Para que este proyecto sea defendible ante un comité académico y utilizable por municipios u organizaciones, se alinea con la legislación y la normativa técnica chilena vigente:
+Para que este proyecto posea validez epistemológica, sea defendible ante un comité académico riguroso y resulte directamente integrable en los sistemas de gestión territorial de municipios, ministerios y organizaciones comunitarias, su arquitectura se fundamenta explícitamente en la normativa técnica internacional y la política geoespacial chilena:
 
-### 2.1 Ley N° 20.285 sobre Acceso a la Información Pública y Datos Abiertos
-El Estado de Chile promueve la apertura y reutilización de datos públicos bajo principios de no discriminación, gratuidad y formatos abiertos. La plataforma integra capas oficiales de IDE Chile bajo licencias de datos abiertos del Estado, complementándolas con VGI.
+### 2.1 Especificación de Formatos y Estándares ISO (Proveniencia y Enlaces Oficiales)
 
-### 2.2 Política Nacional de Información Geoespacial e IDE Chile (SNIT)
-La Infraestructura de Datos Geoespaciales de Chile (IDE Chile), dependiente del Ministerio de Bienes Nacionales, establece el **Perfil Nacional de Metadatos de Chile**, fundamentado en la norma **ISO 19115:2003 / ISO 19115-1:2014** y codificado en **ISO 19139 (XML)**.
-- **Implementación concreta en el Atlas:** El módulo [`metadatos.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/metadatos.js) genera automáticamente fichas XML con los namespaces `<gmd:MD_Metadata>`, `<gco:CharacterString>`, `<gml:TimePeriod>` y el sistema de referencia oficial SIRGAS-Chile (EPSG:4326 / EPSG:5360), permitiendo que cualquier estudiante u organismo exporte una ficha compatible con catálogos institucionales como GeoNetwork o GeoNode.
+Los datos geográficos y metadatos implementados en el Atlas se rigen por la familia de normas del Comité Técnico **ISO/TC 211 (Geographic information/Geomatics)** ([https://committee.iso.org/home/tc211](https://committee.iso.org/home/tc211)) y el **Open Geospatial Consortium (OGC)** ([https://www.ogc.org/](https://www.ogc.org/)):
 
-### 2.3 Régimen de Licencias y Propiedad Intelectual
-- **OpenStreetMap:** Se rige por la licencia **Open Database License (ODbL 1.0)**. La plataforma documenta en cada entidad consultada la atribución requerida (*"© Colaboradores de OpenStreetMap"*).
-- **GBIF:** Las observaciones de biodiversidad se licencian individualmente por los publicadores (CC0 1.0, CC-BY 4.0).
-- **Código Fuente:** Licenciado bajo **MIT License**, garantizando que sea una herramienta 100% comunitaria, reproducible y sin costo recurrente de mantención.
+1. **ISO 19115-1:2014 — Geographic information — Metadata — Part 1: Fundamentals:**
+   - *Enlace oficial:* [https://www.iso.org/standard/53798.html](https://www.iso.org/standard/53798.html)
+   - *Rol en el Atlas:* Define el esquema conceptual y los elementos núcleo obligatorios y condicionales para documentar la información espacial: identificación del recurso (`MD_DataIdentification`), categorías temáticas (`MD_TopicCategoryCode`), extensión geográfica delimitadora (`EX_GeographicBoundingBox`), linaje y proceso metodológico (`LI_Lineage`), sistema de referencia espacial (`MD_ReferenceSystem`) y puntos de contacto institucional con responsabilidades tipificadas (`CI_RoleCode`).
+   - *Implementación:* El módulo [`metadatos.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/metadatos.js) genera la ficha estructurada en formato JSON estándar conforme a estos elementos núcleo.
+
+2. **ISO 19139:2007 — Geographic information — Metadata — XML schema implementation:**
+   - *Enlace oficial:* [https://www.iso.org/standard/32574.html](https://www.iso.org/standard/32574.html)
+   - *Rol en el Atlas:* Proporciona la regla de codificación formal en XML (Extensible Markup Language) que viabiliza la interoperabilidad máquina-a-máquina y la cosecha automatizada (harvesting) de catálogos mediante protocolos CSW (Catalog Service for the Web).
+   - *Implementación:* El Atlas genera y permite descargar con 1 clic el documento XML con el namespace `<gmd:MD_Metadata>` y esquemas validados (`http://www.isotc211.org/2005/gmd`), directamente compatible con los catálogos nacionales e internacionales (GeoNetwork, GeoNode, CKAN).
+
+3. **ISO 19157:2013 / ISO 19157-1:2023 — Geographic information — Data quality:**
+   - *Enlace oficial:* [https://www.iso.org/standard/32575.html](https://www.iso.org/standard/32575.html)
+   - *Rol en el Atlas:* Establece los principios para describir la calidad de los datos geográficos a través de componentes cuantitativos: completitud (omisión/comisión), consistencia lógica (adherencia topológica), exactitud temporal (validez cronológica del dato) y linaje (historial de modificaciones y contribuciones).
+   - *Implementación:* Operacionalizado a través de la API v1 de ohsome (HeiGIT), evaluando la masa crítica comunitaria, el ratio de edición por colaborador, la densidad espacial por km² y la evolución quinquenal sobre la base OSHDB.
+
+4. **ISO 19110:2016 — Geographic information — Methodology for feature cataloguing:**
+   - *Enlace oficial:* [https://www.iso.org/standard/57303.html](https://www.iso.org/standard/57303.html)
+   - *Rol en el Atlas:* Define el método para estructurar catálogos de objetos y diccionarios de conceptos geográficos.
+   - *Implementación:* El módulo [`diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js) y el panel `06 / Diccionario Territorial` formalizan el esquema de 10 atributos VGI normalizados y 28 etiquetas OSM clasificadas por dominios, garantizando que cada registro cuente con definición inequívoca, tipo de dato y correlación con los estándares IDE.
+
+5. **Darwin Core Standard (Biodiversity Information Standards - TDWG):**
+   - *Enlace oficial:* [https://dwc.tdwg.org/](https://dwc.tdwg.org/)
+   - *Rol en el Atlas:* Estándar global de metadatos biológicos adoptado por GBIF (*Global Biodiversity Information Facility* - [https://www.gbif.org/](https://www.gbif.org/)). Permite que las observaciones de ciencia ciudadana (iNaturalist, eBird) se mapeen con taxones validados, fechas de registro y bases de registro tipificadas (`HUMAN_OBSERVATION`, `PRESERVED_SPECIMEN`).
+
+### 2.2 Relación con la Política Nacional de Información Geoespacial (PNIG) de Chile e IDE Chile
+
+El Atlas VGI se articula directamente con la política pública del Estado chileno:
+
+- **Política Nacional de Información Geoespacial (PNIG):** ([https://www.ide.cl/index.php/informacion-institucional/politica-nacional](https://www.ide.cl/index.php/informacion-institucional/politica-nacional))  
+  Promovida por el Ministerio de Bienes Nacionales a través de la Secretaría Ejecutiva del SNIT / IDE Chile, la PNIG mandata la coordinación, estandarización y difusión de la información territorial para optimizar el diseño de políticas públicas, la gestión de emergencias y el ordenamiento territorial descentralizado.
+- **Decreto Supremo N° 28/2006 (Ministerio de Bienes Nacionales):**  
+  Crea y regula la Comisión Asesora de Coordinación Nacional del Sistema Nacional de Información Territorial (SNIT), instituyendo las mesas de trabajo sectoriales (Metadatos, Estándares, Marco Legal y Tecnologías).
+- **Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT):**  
+  Documento técnico oficial que adopta el subconjunto de elementos de ISO 19115 e ISO 19139 de uso mandatorio para todos los órganos de la Administración del Estado. El Atlas adopta este perfil estricto, incorporando categorías temáticas (`topicCategory`), sistemas de referencia geodésicos nacionales (SIRGAS-Chile 2016 / EPSG:5361 y WGS84 / EPSG:4326), linaje de procesamiento y responsabilidades institucionales.
+- **Ley N° 20.285 sobre Acceso a la Información Pública y Transparencia:** ([https://www.leychile.cl/Navegar?idNorma=278858](https://www.leychile.cl/Navegar?idNorma=278858))  
+  Consagra el derecho ciudadano a acceder a la información en poder del Estado y mandata la publicación proactiva de datos en formatos abiertos, reutilizables y sin barreras propietarias. El Atlas materializa este principio al basarse 100% en software abierto, formatos interoperables (GeoJSON, CSV, XML) y licenciamiento transparente.
+
+### 2.3 Alineación con Marcos Globales: UN-GGIM e IGIF
+
+A nivel global, la iniciativa se alinea con el **Comité de Expertos de las Naciones Unidas sobre la Gestión Global de la Información Geoespacial (UN-GGIM)** ([https://ggim.un.org/](https://ggim.un.org/)) y su **Marco Integrado de Información Geoespacial (IGIF - *Integrated Geospatial Information Framework*)**:
+- **Vía Estratégica 4 (Datos):** Fomenta la integración de fuentes no tradicionales y datos generados por la comunidad (VGI y ciencia ciudadana) para complementar los censos y registros administrativos.
+- **Vía Estratégica 6 (Estándares):** Promueve la aplicación de normas abiertas de ISO y OGC para evitar silos de información.
+- **Vía Estratégica 7 (Innovación):** Promueve herramientas livianas, de código abierto y computación en el borde accesibles para gobiernos locales.
+
+### 2.4 Régimen de Licencias y Propiedad Intelectual
+- **OpenStreetMap:** Se rige por la licencia **Open Database License (ODbL 1.0)** ([https://opendatacommons.org/licenses/odbl/](https://opendatacommons.org/licenses/odbl/)). La plataforma documenta en cada entidad consultada la atribución requerida (*"© Colaboradores de OpenStreetMap"*).
+- **GBIF:** Las observaciones de biodiversidad se licencian individualmente por los publicadores bajo licencias Creative Commons (CC0 1.0, CC-BY 4.0).
+- **Código Fuente del Atlas:** Licenciado bajo **MIT License**, garantizando que sea una herramienta 100% comunitaria, transferible y sin costos de licenciamiento para municipios u organizaciones sociales.
+
+### 2.5 Arquitectura Dual: Inclusión Coexistente de Usuarios Técnicos y No Técnicos
+
+Un requerimiento metodológico esencial del proyecto es **garantizar la usabilidad simultánea para actores técnicos y no técnicos sin degradar las capacidades de ninguno de los dos**:
+
+1. **Para Personas No Técnicas (Vecinos, Dirigentes Sociales, Estudiantes, Autoridades):**
+   - **Listas desplegables y opciones seleccionables:** Desplegables temáticos en todos los módulos (claves frecuentes OSM, valores frecuentes clasificados por función barrial, presets de especies urbanas en GBIF, mapas colaborativos precargados en UMap, códigos SRS y licencias en metadatos).
+   - **Tarjetas de 1 Clic:** 10 consultas ciudadanas inmediatas en el panel de inicio (farmacias, panaderías, sedes UAH, paraderos Red, ciclovías, plazas, patrimonio, cruces accesibles, bomberos, cafés).
+   - **Diccionario Territorial Interactivo (Panel 06):** Traducción directa de la jerga informática de etiquetas a lenguaje natural, con ejemplos concretos en Barrio Brasil y equivalencias IDE Chile.
+   - **Cajas Guía de Referencia y Ayuda Contextual:** Explicaciones sencillas sobre qué es un Bbox, cómo se compone una clave/valor y cómo interpretar las métricas de calidad sin fórmulas matemáticas complejas.
+
+2. **Para Usuarios Técnicos (Geógrafos, Analistas SIG, Mapeadores OSM, Investigadores):**
+   - **No se eliminaron ni limitaron las consultas complejas:** El sistema mantiene intacto el **Modo Overpass QL interactivo**, permitiendo escribir consultas libres con sintaxis de expresiones regulares, filtros anidados y selector de geometrías (`node`, `way`, `relation`, `nwr`).
+   - **Control de Parámetros Avanzados:** Filtros de calidad condicional (`[name]`, `[wheelchair=yes]`, `[addr:street]`, `[operator]`), selección de operadores (`=`, `~`, `!=`, `*`), e intervalo temporal en ohsome (`P1Y`, `P6M`, `P1M`).
+   - **Exportación Multi-Formato Estándar:** Descarga de capas en GeoJSON y CSV estructurado, exportación de metadatos en JSON (ISO 19115) y XML (ISO 19139 para IDE Chile / GeoNetwork).
+   - **Pipeline CLI para Geógrafos:** Script independiente en Python 3 puro (`scripts/extractor_vgi.py`) para extracciones masivas y servidor backend local con caché (`backend/servidor_vgi.py`).
 
 ---
 

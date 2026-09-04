@@ -103,35 +103,70 @@ const ModuloDiccionario = (() => {
   ];
 
   const ETIQUETAS_TERRITORIALES_OSM = [
-    { tag: 'amenity=university', significado: 'Campus o facultad de educación superior', categoria: 'CAT-01', aplicacionUAH: 'Campus Patrimonial UAH (Almirante Barroso, Cienfuegos, Erasmo Escala).' },
-    { tag: 'amenity=library', significado: 'Biblioteca pública o universitaria', categoria: 'CAT-01', aplicacionUAH: 'Biblioteca Central UAH y bibliotecas especializadas de facultades.' },
-    { tag: 'amenity=pharmacy', significado: 'Farmacia o botica comunal', categoria: 'CAT-02', aplicacionUAH: 'Locales de abastecimiento farmacéutico en eje Alameda y Brasil.' },
-    { tag: 'shop=bakery', significado: 'Panadería o amasandería de barrio', categoria: 'CAT-02', aplicacionUAH: 'Comercio tradicional barrial en calles Maturana, Huérfanos y Compañía.' },
-    { tag: 'shop=convenience', significado: 'Almacén de abarrotes o minimarket vecinal', categoria: 'CAT-02', aplicacionUAH: 'Provisión alimentaria de proximidad para residentes y estudiantes.' },
-    { tag: 'railway=station', significado: 'Estación de tren urbano / Metro de Santiago', categoria: 'CAT-03', aplicacionUAH: 'Estaciones Metro Los Héroes (L1/L2) y Metro Santa Ana (L2/L5).' },
-    { tag: 'highway=bus_stop', significado: 'Paradero de buses del sistema Red Movilidad', categoria: 'CAT-03', aplicacionUAH: 'Paraderos en calzadas de Alameda, Manuel Rodríguez y Av. Brasil.' },
-    { tag: 'highway=cycleway', significado: 'Ciclovía segregada para bicicletas y micromovilidad', categoria: 'CAT-04', aplicacionUAH: 'Eje ciclovía calle Rosas y ciclobanda Av. Brasil.' },
-    { tag: 'amenity=bicycle_parking', significado: 'Estacionamiento para bicicletas (biciestacionamiento)', categoria: 'CAT-04', aplicacionUAH: 'Puntos de anclaje de bicicletas en patios UAH y salidas de Metro.' },
-    { tag: 'leisure=park', significado: 'Plaza o parque urbano con áreas verdes', categoria: 'CAT-05', aplicacionUAH: 'Plaza Brasil (pulmón del barrio), Plaza Manuel Rodríguez.' },
-    { tag: 'historic=building', significado: 'Inmueble con valor patrimonial o arquitectónico', categoria: 'CAT-06', aplicacionUAH: 'Casonas de principios de siglo XX de la Zona Típica Barrio Brasil.' },
-    { tag: 'amenity=place_of_worship', significado: 'Templo religioso, iglesia o basílica', categoria: 'CAT-06', aplicacionUAH: 'Basílica del Salvador (Monumento Histórico en Huérfanos con Almirante Barroso).' },
-    { tag: 'kerb=lowered', significado: 'Rebaje de cordón en vereda para cruce accesible', categoria: 'CAT-07', aplicacionUAH: 'Rampas peatonales en esquinas de Alameda con Cienfuegos y Barroso.' },
-    { tag: 'highway=crossing', significado: 'Paso peatonal demarcado (paso de cebra o semaforizado)', categoria: 'CAT-07', aplicacionUAH: 'Cruces peatonales seguros entre edificios del campus UAH.' },
-    { tag: 'wheelchair=yes', significado: 'Entrada y recinto 100% accesibles para silla de ruedas', categoria: 'CAT-07', aplicacionUAH: 'Edificios con rampas normadas y ascensores accesibles.' },
-    { tag: 'natural=tree', significado: 'Árbol urbano catalogado (especie, altura, copa)', categoria: 'CAT-08', aplicacionUAH: 'Arbolado patrimonial en bandejón de Av. Brasil y patios UAH.' },
-    { tag: 'amenity=fire_station', significado: 'Compañía de bomberos (emergencias)', categoria: 'CAT-02', aplicacionUAH: '11ª Compañía de Bomberos "Pompa Italia" en República/Brasil.' }
+    // CAT-01: Educación y Universidad
+    { tag: 'amenity=university', significado: 'Campus o facultad de educación superior', categoria: 'CAT-01', grupo: 'educacion_servicios', aplicacionUAH: 'Campus Patrimonial UAH (Almirante Barroso, Cienfuegos, Erasmo Escala).' },
+    { tag: 'amenity=library', significado: 'Biblioteca pública o universitaria', categoria: 'CAT-01', grupo: 'educacion_servicios', aplicacionUAH: 'Biblioteca Central UAH y bibliotecas especializadas de facultades.' },
+    { tag: 'amenity=college', significado: 'Instituto profesional o centro de formación técnica', categoria: 'CAT-01', grupo: 'educacion_servicios', aplicacionUAH: 'Institutos de educación superior en entorno de Alameda y República.' },
+    { tag: 'amenity=school', significado: 'Colegio, escuela básica o liceo', categoria: 'CAT-01', grupo: 'educacion_servicios', aplicacionUAH: 'Liceos y colegios históricos del entorno de Barrio Brasil y Yungay.' },
+
+    // CAT-02: Servicios, Comercio y Abastecimiento
+    { tag: 'amenity=pharmacy', significado: 'Farmacia o botica comunal', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Locales de abastecimiento farmacéutico en eje Alameda y Brasil.' },
+    { tag: 'shop=bakery', significado: 'Panadería o amasandería de barrio', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Comercio tradicional barrial en calles Maturana, Huérfanos y Compañía.' },
+    { tag: 'shop=convenience', significado: 'Almacén de abarrotes o minimarket vecinal', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Provisión alimentaria de proximidad para residentes y estudiantes.' },
+    { tag: 'shop=supermarket', significado: 'Supermercado de cadena o autoservicio', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Abastecimiento de mayor escala en avenidas principales.' },
+    { tag: 'amenity=cafe', significado: 'Cafetería o salón de té barrial', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Puntos de encuentro y estudio de estudiantes UAH en Av. Brasil.' },
+    { tag: 'amenity=restaurant', significado: 'Restaurante o fuente de soda tradicional', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Gastronomía barrial tradicional de Barrio Brasil.' },
+    { tag: 'amenity=bank', significado: 'Sucursal bancaria o de servicios financieros', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Bancos e instituciones financieras en eje Alameda.' },
+    { tag: 'amenity=fire_station', significado: 'Compañía de bomberos (emergencias y rescate)', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: '11ª Compañía de Bomberos "Pompa Italia" en República/Brasil.' },
+    { tag: 'amenity=clinic', significado: 'Centro de salud familiar (CESFAM) o consultorio', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Red asistencial primaria comunal de Santiago Centro.' },
+    { tag: 'amenity=hospital', significado: 'Hospital o complejo asistencial hospitalario', categoria: 'CAT-02', grupo: 'educacion_servicios', aplicacionUAH: 'Infraestructura hospitalaria en macrozona poniente.' },
+
+    // CAT-03: Movilidad y Transporte Público
+    { tag: 'railway=station', significado: 'Estación de tren urbano o Metro de Santiago', categoria: 'CAT-03', grupo: 'movilidad', aplicacionUAH: 'Estaciones Metro Los Héroes (L1/L2) y Metro Santa Ana (L2/L5).' },
+    { tag: 'highway=bus_stop', significado: 'Paradero de buses del sistema Red Movilidad', categoria: 'CAT-03', grupo: 'movilidad', aplicacionUAH: 'Paraderos en calzadas de Alameda, Manuel Rodríguez y Av. Brasil.' },
+    { tag: 'railway=subway', significado: 'Línea férrea subterránea de metro', categoria: 'CAT-03', grupo: 'movilidad', aplicacionUAH: 'Trazados subterráneos de Líneas 1, 2 y 5 bajo ejes estructurantes.' },
+
+    // CAT-04: Movilidad Activa y Ciclovías
+    { tag: 'highway=cycleway', significado: 'Ciclovía segregada para bicicletas y micromovilidad', categoria: 'CAT-04', grupo: 'movilidad', aplicacionUAH: 'Eje ciclovía calle Rosas y ciclobanda Av. Brasil.' },
+    { tag: 'amenity=bicycle_parking', significado: 'Estacionamiento para bicicletas (biciestacionamiento)', categoria: 'CAT-04', grupo: 'movilidad', aplicacionUAH: 'Puntos de anclaje de bicicletas en patios UAH y salidas de Metro.' },
+
+    // CAT-05: Áreas Verdes, Plazas y Espacio Público
+    { tag: 'leisure=park', significado: 'Plaza o parque urbano con áreas verdes', categoria: 'CAT-05', grupo: 'patrimonio_verde', aplicacionUAH: 'Plaza Brasil (pulmón del barrio), Plaza Manuel Rodríguez.' },
+    { tag: 'leisure=playground', significado: 'Área de juegos infantiles en espacio público', categoria: 'CAT-05', grupo: 'patrimonio_verde', aplicacionUAH: 'Juegos infantiles y recreativos en Plaza Brasil.' },
+    { tag: 'leisure=pitch', significado: 'Cancha deportiva o multicancha comunitaria', categoria: 'CAT-05', grupo: 'patrimonio_verde', aplicacionUAH: 'Canchas de baby fútbol y deportes en juntas de vecinos.' },
+
+    // CAT-06: Patrimonio y Cultura
+    { tag: 'historic=building', significado: 'Inmueble con valor patrimonial o arquitectónico', categoria: 'CAT-06', grupo: 'patrimonio_verde', aplicacionUAH: 'Casonas de principios de siglo XX de la Zona Típica Barrio Brasil.' },
+    { tag: 'amenity=place_of_worship', significado: 'Templo religioso, iglesia o basílica', categoria: 'CAT-06', grupo: 'patrimonio_verde', aplicacionUAH: 'Basílica del Salvador (Monumento Histórico en Huérfanos con Almirante Barroso).' },
+    { tag: 'historic=monument', significado: 'Monumento público o escultura conmemorativa', categoria: 'CAT-06', grupo: 'patrimonio_verde', aplicacionUAH: 'Esculturas y monumentos de Plaza Brasil y plazas históricas.' },
+    { tag: 'tourism=artwork', significado: 'Mural, mosaico u obra de arte público urbano', categoria: 'CAT-06', grupo: 'patrimonio_verde', aplicacionUAH: 'Muralismo barrial e intervenciones culturales en Barrio Brasil.' },
+
+    // CAT-07: Accesibilidad Universal
+    { tag: 'kerb=lowered', significado: 'Rebaje de cordón en vereda para cruce accesible', categoria: 'CAT-07', grupo: 'accesibilidad_biodiv', aplicacionUAH: 'Rampas peatonales en esquinas de Alameda con Cienfuegos y Barroso.' },
+    { tag: 'highway=crossing', significado: 'Paso peatonal demarcado (paso de cebra o semaforizado)', categoria: 'CAT-07', grupo: 'accesibilidad_biodiv', aplicacionUAH: 'Cruces peatonales seguros entre edificios del campus UAH.' },
+    { tag: 'wheelchair=yes', significado: 'Entrada y recinto 100% accesibles para silla de ruedas', categoria: 'CAT-07', grupo: 'accesibilidad_biodiv', aplicacionUAH: 'Edificios con rampas normadas y ascensores accesibles.' },
+    { tag: 'highway=footway', significado: 'Senda peatonal, paseo o vereda exclusiva', categoria: 'CAT-07', grupo: 'accesibilidad_biodiv', aplicacionUAH: 'Pasajes interiores y veredas ensanchadas en la manzana UAH.' },
+
+    // CAT-08: Biodiversidad Urbana
+    { tag: 'natural=tree', significado: 'Árbol urbano catalogado (especie, altura, copa)', categoria: 'CAT-08', grupo: 'accesibilidad_biodiv', aplicacionUAH: 'Arbolado patrimonial en bandejón de Av. Brasil y patios UAH.' },
+    { tag: 'landuse=grass', significado: 'Superficie de césped o cobertura herbácea', categoria: 'CAT-08', grupo: 'accesibilidad_biodiv', aplicacionUAH: 'Jardines de casonas universitarias y áreas de descanso.' }
   ];
 
-  function render(filtroTexto = '') {
+  function render(filtroTexto = '', filtroGrupo = 'todos') {
     const texto = filtroTexto.toLowerCase().trim();
 
+    const mostrarAtributos = (filtroGrupo === 'todos' || filtroGrupo === 'esquema');
+    const mostrarEtiquetas = (filtroGrupo !== 'esquema');
+
     const atributosFiltrados = ATRIBUTOS_NORMALIZADOS.filter(a =>
-      !texto || a.campo.toLowerCase().includes(texto) || a.nombre.toLowerCase().includes(texto) || a.definicion.toLowerCase().includes(texto)
+      !texto || a.campo.toLowerCase().includes(texto) || a.nombre.toLowerCase().includes(texto) || a.definicion.toLowerCase().includes(texto) || a.equivalenciaIDE.toLowerCase().includes(texto)
     );
 
-    const etiquetasFiltradas = ETIQUETAS_TERRITORIALES_OSM.filter(e =>
-      !texto || e.tag.toLowerCase().includes(texto) || e.significado.toLowerCase().includes(texto) || e.aplicacionUAH.toLowerCase().includes(texto)
-    );
+    const etiquetasFiltradas = ETIQUETAS_TERRITORIALES_OSM.filter(e => {
+      const coincideTexto = !texto || e.tag.toLowerCase().includes(texto) || e.significado.toLowerCase().includes(texto) || e.aplicacionUAH.toLowerCase().includes(texto) || e.categoria.toLowerCase().includes(texto);
+      const coincideGrupo = (filtroGrupo === 'todos' || e.grupo === filtroGrupo);
+      return coincideTexto && coincideGrupo;
+    });
 
     const htmlAtributos = atributosFiltrados.map(a => `
       <tr style="border-bottom:1px solid var(--linea);">
@@ -145,54 +180,79 @@ const ModuloDiccionario = (() => {
 
     const htmlEtiquetas = etiquetasFiltradas.map(e => `
       <tr style="border-bottom:1px solid var(--linea);">
-        <td><code style="font-weight:600; color:var(--musgo);">${e.tag}</code></td>
+        <td><code style="font-weight:600; color:var(--musgo); font-size:0.88rem;">${e.tag}</code></td>
         <td>${e.significado}</td>
         <td><span class="marcador" style="display:inline-block; padding:2px 6px; font-size:0.75rem;">${e.categoria}</span></td>
         <td style="font-size:0.85rem; color:var(--tinta-suave);">${e.aplicacionUAH}</td>
       </tr>
     `).join('');
 
-    return `
-      <div class="bloque">
-        <h3>1. Diccionario de Atributos Normalizados (Esquema de Datos VGI)</h3>
-        <p class="descripcion">Cada entidad geográfica descargada o visualizada en el Atlas cuenta con los siguientes 10 campos normalizados, compatibles con el Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT / ISO 19115):</p>
-        <div style="overflow-x:auto;">
-          <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
-            <thead>
-              <tr style="background:var(--papel-alto);">
-                <th>Campo</th>
-                <th>Nombre Atributo</th>
-                <th>Definición y Dominio</th>
-                <th>Equivalencia IDE Chile / ISO 19115</th>
-                <th>Relevancia Territorial</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${htmlAtributos}
-            </tbody>
-          </table>
+    let bloqueAtributosHTML = '';
+    if (mostrarAtributos) {
+      bloqueAtributosHTML = `
+        <div class="bloque">
+          <h3>1. Esquema de Datos VGI Normalizado (10 Atributos IDE Chile / ISO 19115)</h3>
+          <p class="descripcion">Cada entidad descargada o proyectada en el Atlas adopta esta estructura tabular interoperable con SIG institucionales y el Perfil Nacional de Metadatos de Chile:</p>
+          <div style="overflow-x:auto;">
+            <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
+              <thead>
+                <tr style="background:var(--papel-alto);">
+                  <th>Campo</th>
+                  <th>Nombre Atributo</th>
+                  <th>Definición y Dominio</th>
+                  <th>Equivalencia IDE Chile / ISO 19115</th>
+                  <th>Relevancia para la Gestión</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${htmlAtributos.length > 0 ? htmlAtributos : '<tr><td colspan="5" style="text-align:center; padding:12px; color:var(--tinta-suave);">No hay atributos que coincidan con la búsqueda.</td></tr>'}
+              </tbody>
+            </table>
+          </div>
         </div>
+      `;
+    }
+
+    let bloqueEtiquetasHTML = '';
+    if (mostrarEtiquetas) {
+      bloqueEtiquetasHTML = `
+        <div class="bloque" style="margin-top:20px;">
+          <h3>2. Glosario Territorial de Etiquetas OSM (${etiquetasFiltradas.length} descriptores clasificados)</h3>
+          <p class="descripcion">Traducción de tags técnicos colaborativos a conceptos territoriales y su correspondencia empírica en la manzana universitaria UAH y Barrio Brasil:</p>
+          <div style="overflow-x:auto;">
+            <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
+              <thead>
+                <tr style="background:var(--papel-alto);">
+                  <th>Etiqueta OSM (Tag)</th>
+                  <th>Significado Ciudadano</th>
+                  <th>Categoría Atlas</th>
+                  <th>Aplicación en Barrio Brasil / Universidad Alberto Hurtado</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${htmlEtiquetas.length > 0 ? htmlEtiquetas : '<tr><td colspan="4" style="text-align:center; padding:12px; color:var(--tinta-suave);">No hay etiquetas que coincidan con el filtro seleccionado.</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="caja-guia-referencia">
+        <h4>📖 Marco Metodológico de Catalogación Geográfica (ISO 19110 / SNIT Chile)</h4>
+        <p>
+          Para que los datos de Información Geográfica Voluntaria (VGI) sean aptos para revisión por personas no técnicas y comités académicos, deben regirse por el estándar <strong>ISO 19110 (Metodología para la catalogación de fenómenos geográficos)</strong>. Esto garantiza que cada etiqueta abierta tenga un significado inequívoco, medible y contrastable con la cartografía municipal y fiscal.
+        </p>
+        <ul>
+          <li><strong>ISO 19110:2016:</strong> <em>Geographic information — Methodology for feature cataloguing.</em> International Organization for Standardization.</li>
+          <li><strong>Ministerio de Bienes Nacionales (2020):</strong> <em>Guía de Estándares de Información Geoespacial de Chile (SNIT / IDE Chile).</em></li>
+          <li><strong>OpenStreetMap Foundation (2026):</strong> <em>Map Features & Tagging Guidelines Wiki.</em> https://wiki.openstreetmap.org/wiki/Map_features</li>
+        </ul>
       </div>
 
-      <div class="bloque" style="margin-top:20px;">
-        <h3>2. Glosario de Etiquetas OSM Aplicadas a Barrio Brasil y Campus UAH</h3>
-        <p class="descripcion">Traducción directa de las etiquetas colaborativas de OpenStreetMap utilizadas para consultar el polígono patrimonial y universitario:</p>
-        <div style="overflow-x:auto;">
-          <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
-            <thead>
-              <tr style="background:var(--papel-alto);">
-                <th>Etiqueta OSM (Tag)</th>
-                <th>Significado Ciudadano</th>
-                <th>Categoría Atlas</th>
-                <th>Aplicación en Barrio Brasil / Universidad Alberto Hurtado</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${htmlEtiquetas}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      ${bloqueAtributosHTML}
+      ${bloqueEtiquetasHTML}
     `;
   }
 

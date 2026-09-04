@@ -14,6 +14,103 @@
 let ultimaConsultaRealizada = null;
 let capasCargadasPorCategoria = {};
 
+const DICCIONARIO_VALORES_OSM = {
+  amenity: [
+    { valor: 'pharmacy', etiqueta: '💊 Farmacias y Boticas (pharmacy)', nombre: 'Farmacias Barrio Brasil', color: '#B33928' },
+    { valor: 'university', etiqueta: '🎓 Sedes Universitarias UAH (university)', nombre: 'Campus UAH', color: '#1C523A' },
+    { valor: 'college', etiqueta: '🏛️ Institutos y Centros de Formación (college)', nombre: 'Institutos Técnicos', color: '#2E8B57' },
+    { valor: 'school', etiqueta: '🎒 Colegios y Escuelas (school)', nombre: 'Escuelas y Liceos', color: '#3A7D44' },
+    { valor: 'hospital', etiqueta: '🏥 Hospitales y Clínicas (hospital)', nombre: 'Hospitales', color: '#D9534F' },
+    { valor: 'clinic', etiqueta: '🩺 Consultorios y CESFAM (clinic)', nombre: 'CESFAM y Consultorios', color: '#C0392B' },
+    { valor: 'bicycle_parking', etiqueta: '🚲 Biciestacionamientos (bicycle_parking)', nombre: 'Biciestacionamientos', color: '#E67E22' },
+    { valor: 'fire_station', etiqueta: '🚒 Compañías de Bomberos (fire_station)', nombre: 'Bomberos Barrio Brasil', color: '#C0392B' },
+    { valor: 'cafe', etiqueta: '☕ Cafeterías y Salones de Té (cafe)', nombre: 'Cafeterías Barrio Brasil', color: '#8A5A36' },
+    { valor: 'restaurant', etiqueta: '🍽️ Restaurantes y Gastronomía (restaurant)', nombre: 'Restaurantes', color: '#D35400' },
+    { valor: 'place_of_worship', etiqueta: '⛪ Iglesias y Templos (place_of_worship)', nombre: 'Templos y Basílicas', color: '#7D3C98' },
+    { valor: 'community_centre', etiqueta: '🤝 Centros Comunitarios y Juntas de Vecinos (community_centre)', nombre: 'Centros Comunitarios', color: '#27AE60' },
+    { valor: 'recycling', etiqueta: '♻️ Puntos Verdes y Reciclaje (recycling)', nombre: 'Puntos Verdes', color: '#229954' },
+    { valor: 'police', etiqueta: '👮 Comisarías y Seguridad (police)', nombre: 'Seguridad y Carabineros', color: '#2980B9' }
+  ],
+  shop: [
+    { valor: 'bakery', etiqueta: '🍞 Panaderías y Pastelerías (bakery)', nombre: 'Panaderías de Barrio', color: '#D4AC0D' },
+    { valor: 'supermarket', etiqueta: '🛒 Supermercados (supermarket)', nombre: 'Supermercados', color: '#F39C12' },
+    { valor: 'convenience', etiqueta: '🏪 Minimarkets y Almacenes (convenience)', nombre: 'Almacenes de Barrio', color: '#E67E22' },
+    { valor: 'greengrocer', etiqueta: '🥬 Verdulerías y Fruterías (greengrocer)', nombre: 'Verdulerías', color: '#27AE60' },
+    { valor: 'kiosk', etiqueta: '📰 Kioscos de Prensa y Confites (kiosk)', nombre: 'Kioscos', color: '#7F8C8D' },
+    { valor: 'books', etiqueta: '📚 Librerías (books)', nombre: 'Librerías', color: '#8E44AD' }
+  ],
+  historic: [
+    { valor: '*', etiqueta: '🏛️ Todo el Patrimonio Histórico (*)', nombre: 'Patrimonio Cultural', color: '#8A5A36' },
+    { valor: 'building', etiqueta: '🏢 Casonas y Edificios Históricos (building)', nombre: 'Edificios Patrimoniales', color: '#6E2C00' },
+    { valor: 'monument', etiqueta: '🗿 Monumentos Públicos (monument)', nombre: 'Monumentos Públicos', color: '#784212' },
+    { valor: 'memorial', etiqueta: '🕯️ Memoriales y Placas Conmemorativas (memorial)', nombre: 'Memoriales Históricos', color: '#4A235A' }
+  ],
+  highway: [
+    { valor: 'bus_stop', etiqueta: '🚌 Paraderos Sistema Red Movilidad (bus_stop)', nombre: 'Paraderos de Bus', color: '#2980B9' },
+    { valor: 'crossing', etiqueta: '🚶 Cruces Peatonales y Pasos de Cebra (crossing)', nombre: 'Cruces Peatonales', color: '#16A085' },
+    { valor: 'traffic_signals', etiqueta: '🚦 Semáforos y Señalización (traffic_signals)', nombre: 'Semáforos', color: '#C0392B' },
+    { valor: 'cycleway', etiqueta: '🚲 Ciclovías y Calles Ciclistas (cycleway)', nombre: 'Ciclovías', color: '#27AE60' },
+    { valor: 'pedestrian', etiqueta: '🚶 Calles Peatonales y Paseos (pedestrian)', nombre: 'Paseos Peatonales', color: '#2980B9' },
+    { valor: 'footway', etiqueta: '🚶 Pasajes y Sendas Peatonales (footway)', nombre: 'Pasajes Peatonales', color: '#1F618D' }
+  ],
+  leisure: [
+    { valor: 'park', etiqueta: '🌳 Parques y Plazas Urbanas (park)', nombre: 'Plazas y Parques', color: '#1E8449' },
+    { valor: 'garden', etiqueta: '🌺 Jardines y Huertos Comunitarios (garden)', nombre: 'Jardines Urbanos', color: '#2ECC71' },
+    { valor: 'playground', etiqueta: '🛝 Juegos Infantiles (playground)', nombre: 'Plazas de Juegos', color: '#F1C40F' },
+    { valor: 'sports_centre', etiqueta: '⚽ Canchas y Centros Deportivos (sports_centre)', nombre: 'Centros Deportivos', color: '#E74C3C' }
+  ],
+  building: [
+    { valor: 'yes', etiqueta: '🏢 Todas las Edificaciones Catastradas (yes)', nombre: 'Huella Construida', color: '#7F8C8D' },
+    { valor: 'residential', etiqueta: '🏠 Viviendas y Edificios Residenciales (residential)', nombre: 'Viviendas y Residencias', color: '#95A5A6' },
+    { valor: 'university', etiqueta: '🎓 Edificios Universitarios (university)', nombre: 'Pabellones Universitarios', color: '#1C523A' },
+    { valor: 'commercial', etiqueta: '🏪 Edificios Comerciales y Oficinas (commercial)', nombre: 'Edificios Comerciales', color: '#D35400' }
+  ],
+  healthcare: [
+    { valor: 'pharmacy', etiqueta: '💊 Farmacias (pharmacy)', nombre: 'Farmacias y Salud', color: '#B33928' },
+    { valor: 'clinic', etiqueta: '🩺 Centros de Salud Primaria (clinic)', nombre: 'Salud Primaria', color: '#C0392B' },
+    { valor: 'centre', etiqueta: '🏥 Centros Médicos y Diagnósticos (centre)', nombre: 'Centros Médicos', color: '#922B21' },
+    { valor: 'dentist', etiqueta: '🦷 Clínicas Odontológicas (dentist)', nombre: 'Dentistas y Odontología', color: '#16A085' }
+  ],
+  tourism: [
+    { valor: 'hotel', etiqueta: '🏨 Hoteles y Hostales Patrimoniales (hotel)', nombre: 'Hospedajes y Hoteles', color: '#7D3C98' },
+    { valor: 'museum', etiqueta: '🏛️ Museos y Salas de Exposición (museum)', nombre: 'Museos y Salas', color: '#6C3483' },
+    { valor: 'gallery', etiqueta: '🎨 Galerías de Arte (gallery)', nombre: 'Galerías de Arte', color: '#884EA0' },
+    { valor: 'viewpoint', etiqueta: '🔭 Miradores Urbanos (viewpoint)', nombre: 'Miradores', color: '#2980B9' }
+  ],
+  emergency: [
+    { valor: 'fire_hydrant', etiqueta: '💧 Grifos de Agua para Incendios (fire_hydrant)', nombre: 'Grifos contra Incendios', color: '#C0392B' },
+    { valor: 'defibrillator', etiqueta: '❤️ Desfibriladores DEA de Emergencia (defibrillator)', nombre: 'Equipos DEA', color: '#922B21' },
+    { valor: 'assembly_point', etiqueta: '🚨 Puntos de Encuentro en Emergencias (assembly_point)', nombre: 'Zonas de Evacuación', color: '#27AE60' }
+  ]
+};
+
+function actualizarOpcionesValoresSegunClave(clave) {
+  const selValor = document.getElementById('custom-valor-select');
+  if (!selValor) return;
+
+  const lista = DICCIONARIO_VALORES_OSM[clave] || [];
+  if (lista.length === 0) {
+    selValor.innerHTML = '<option value="custom" selected>✍️ — Escribir valor manual —</option>';
+    return;
+  }
+
+  selValor.innerHTML = `
+    ${lista.map((item, idx) => `<option value="${item.valor}" data-nombre="${item.nombre}" data-color="${item.color}" ${idx === 0 ? 'selected' : ''}>${item.etiqueta}</option>`).join('')}
+    <option value="custom">✍️ — Escribir valor manual —</option>
+  `;
+
+  // Pre-llenar el primer valor por defecto en los inputs manuales
+  const primero = lista[0];
+  if (primero) {
+    const inpValor = document.getElementById('custom-valor');
+    const inpNombre = document.getElementById('custom-nombre-capa');
+    const inpColor = document.getElementById('custom-color-capa');
+    if (inpValor) inpValor.value = primero.valor === '*' ? '' : primero.valor;
+    if (inpNombre) inpNombre.value = primero.nombre;
+    if (inpColor) inpColor.value = primero.color;
+  }
+}
+
 document.addEventListener('nodo:config-lista', inicializarAplicacion);
 
 function inicializarAplicacion() {
@@ -30,12 +127,30 @@ function inicializarAplicacion() {
   document.getElementById('contenido-licencias').innerHTML = ModuloLicencias.render();
   cargarResumenMetodologia();
 
-  // Inicializar diccionario territorial
+  // Inicializar diccionario territorial con soporte para pestañas de grupo y búsqueda
   const cntDiccionario = document.getElementById('contenido-diccionario');
   if (cntDiccionario && window.ModuloDiccionario) {
-    cntDiccionario.innerHTML = ModuloDiccionario.render();
+    let grupoActivo = 'todos';
+    let textoFiltro = '';
+
+    const refrescarDiccionario = () => {
+      cntDiccionario.innerHTML = ModuloDiccionario.render(textoFiltro, grupoActivo);
+    };
+
+    refrescarDiccionario();
+
     document.getElementById('filtro-diccionario')?.addEventListener('input', (e) => {
-      cntDiccionario.innerHTML = ModuloDiccionario.render(e.target.value);
+      textoFiltro = e.target.value;
+      refrescarDiccionario();
+    });
+
+    document.querySelectorAll('.filtro-dicc-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filtro-dicc-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        grupoActivo = btn.dataset.grupo || 'todos';
+        refrescarDiccionario();
+      });
     });
   }
 
@@ -68,7 +183,7 @@ function inicializarAplicacion() {
     });
   });
 
-  // Preset geométrico de ohsome API v1
+  // Preset geométrico de ohsome API v1 e intervalo temporal
   document.getElementById('oh-preset-selector')?.addEventListener('change', (e) => {
     if (e.target.value !== 'custom') {
       document.getElementById('oh-filtro').value = e.target.value;
@@ -83,20 +198,54 @@ function inicializarAplicacion() {
   document.getElementById('btn-usar-area-config').addEventListener('click', aplicarAreaConfigAlExplorador);
   document.getElementById('osm-categoria-preset').addEventListener('change', manejarCambioPresetOSM);
 
-  // Eventos del Constructor de Consultas Personalizadas
+  // Constructor de Consultas Personalizadas: sincronización dual selectores y campos manuales
+  actualizarOpcionesValoresSegunClave('amenity');
+  actualizarCodigoQLPreview();
+
   const selClave = document.getElementById('custom-clave-select');
+  const inpClave = document.getElementById('custom-clave-manual');
+  const selValor = document.getElementById('custom-valor-select');
+  const inpValor = document.getElementById('custom-valor');
+  const inpNombre = document.getElementById('custom-nombre-capa');
+  const inpColor = document.getElementById('custom-color-capa');
+  const selOperador = document.getElementById('custom-operador');
+  const selEntidad = document.getElementById('custom-entidad');
+  const selFiltroExtra = document.getElementById('custom-filtro-extra');
+
   if (selClave) {
     selClave.addEventListener('change', (e) => {
-      const inpClave = document.getElementById('custom-clave-manual');
       if (e.target.value !== 'otra') {
         inpClave.value = e.target.value;
+        actualizarOpcionesValoresSegunClave(e.target.value);
       } else {
         inpClave.value = '';
         inpClave.focus();
+        actualizarOpcionesValoresSegunClave('');
       }
       actualizarCodigoQLPreview();
     });
   }
+
+  if (selValor) {
+    selValor.addEventListener('change', (e) => {
+      if (e.target.value !== 'custom') {
+        const opcion = selValor.options[selValor.selectedIndex];
+        inpValor.value = e.target.value === '*' ? '' : e.target.value;
+        if (opcion.dataset.nombre) inpNombre.value = opcion.dataset.nombre;
+        if (opcion.dataset.color) inpColor.value = opcion.dataset.color;
+      } else {
+        inpValor.focus();
+      }
+      actualizarCodigoQLPreview();
+    });
+  }
+
+  [inpClave, inpValor, inpNombre, inpColor, selOperador, selEntidad, selFiltroExtra].forEach(el => {
+    if (el) {
+      el.addEventListener('input', actualizarCodigoQLPreview);
+      el.addEventListener('change', actualizarCodigoQLPreview);
+    }
+  });
 
   const btnEjecutarCustom = document.getElementById('btn-ejecutar-consulta-custom');
   if (btnEjecutarCustom) btnEjecutarCustom.addEventListener('click', manejarConsultaPersonalizada);
@@ -124,6 +273,35 @@ function inicializarAplicacion() {
   document.getElementById('btn-cargar-gbif-al-mapa').addEventListener('click', () => manejarConsultaGBIF(true));
   document.getElementById('btn-cargar-umap').addEventListener('click', manejarCargaUMap);
 
+  // Selector de especies y taxones en GBIF
+  const selTaxaGBIF = document.getElementById('gbif-taxa-selector');
+  if (selTaxaGBIF) {
+    selTaxaGBIF.addEventListener('change', (e) => {
+      const inpNombreGBIF = document.getElementById('gbif-nombre');
+      if (e.target.value !== 'custom') {
+        inpNombreGBIF.value = e.target.value;
+      } else {
+        inpNombreGBIF.value = '';
+        inpNombreGBIF.focus();
+      }
+    });
+  }
+
+  // Selector de proyectos cartográficos colaborativos UMap
+  const selUMap = document.getElementById('umap-preset-selector');
+  if (selUMap) {
+    selUMap.addEventListener('change', (e) => {
+      const inpUrlUMap = document.getElementById('umap-url');
+      if (e.target.value && e.target.value !== 'custom') {
+        inpUrlUMap.value = e.target.value;
+        manejarCargaUMap();
+      } else if (e.target.value === 'custom') {
+        inpUrlUMap.value = '';
+        inpUrlUMap.focus();
+      }
+    });
+  }
+
   // Botones de mapas comunitarios UMap sugeridos
   document.getElementById('btn-umap-ejemplo-patrimonio')?.addEventListener('click', () => {
     document.getElementById('umap-url').value = 'https://umap.openstreetmap.fr/es/map/patrimonio-santiago-centro_19382';
@@ -132,6 +310,23 @@ function inicializarAplicacion() {
   document.getElementById('btn-umap-ejemplo-ciclovias')?.addEventListener('click', () => {
     document.getElementById('umap-url').value = 'https://umap.openstreetmap.fr/es/map/ciclovias-santiago_28412';
     manejarCargaUMap();
+  });
+
+  // Selector de SRS de metadatos
+  document.getElementById('md-srs-select')?.addEventListener('change', (e) => {
+    document.getElementById('md-srs').value = e.target.value;
+  });
+
+  // Selector de Marco Jurídico de Licenciamiento en Metadatos ISO
+  document.getElementById('md-licencia-select')?.addEventListener('change', (e) => {
+    const mapaLicencias = {
+      odbl: 'Open Database License (ODbL 1.0) para datos vectoriales de OSM (© colaboradores de OpenStreetMap). Reutilización libre sujeta a atribución y compartir bajo la misma licencia.',
+      cc_by: 'Creative Commons Atribución (CC-BY 4.0) para registros biológicos (GBIF / iNaturalist / Ciencia Ciudadana).',
+      datos_gob: 'Datos Abiertos del Estado de Chile (Licencia de Atribución Datos Abiertos / IDE Chile / Ley N° 20.285 de Transparencia).',
+      vgi_mixta: 'Licencia Mixta VGI: Open Database License (ODbL 1.0) para geometrías OSM + Creative Commons CC-BY 4.0 para observaciones biológicas de GBIF.'
+    };
+    const texto = mapaLicencias[e.target.value] || e.target.value;
+    document.getElementById('md-restricciones').value = texto;
   });
 
   document.getElementById('form-metadatos').addEventListener('submit', manejarGenerarMetadatos);
@@ -407,9 +602,10 @@ function actualizarCodigoQLPreview() {
   const clave = document.getElementById('custom-clave-manual')?.value.trim() || 'amenity';
   const operador = document.getElementById('custom-operador')?.value || '=';
   const valor = document.getElementById('custom-valor')?.value.trim() || '';
+  const filtroExtra = document.getElementById('custom-filtro-extra')?.value || 'todos';
 
   let filtro = '';
-  if (clave && valor) {
+  if (clave && valor && valor !== '*') {
     if (operador === '~') filtro = `["${clave}"~"${valor}"]`;
     else if (operador === '!=') filtro = `["${clave}"!="${valor}"]`;
     else filtro = `["${clave}"="${valor}"]`;
@@ -418,7 +614,14 @@ function actualizarCodigoQLPreview() {
   } else {
     filtro = '["amenity"]';
   }
-  qlInput.value = `${entidad}${filtro}({{bbox}});`;
+
+  let extra = '';
+  if (filtroExtra === 'con_nombre') extra = '["name"]';
+  else if (filtroExtra === 'accesibles') extra = '["wheelchair"="yes"]';
+  else if (filtroExtra === 'con_direccion') extra = '["addr:street"]';
+  else if (filtroExtra === 'con_operador') extra = '["operator"]';
+
+  qlInput.value = `${entidad}${filtro}${extra}({{bbox}});`;
 }
 
 async function manejarConsultaPersonalizada() {
@@ -748,10 +951,11 @@ async function manejarConsultaOhsome() {
   if (!bbox) { contenedor.innerHTML = avisoError('Completa las cuatro coordenadas del área.'); return; }
 
   const filtro = document.getElementById('oh-filtro').value.trim() || 'building=* and type:way';
+  const intervalo = document.getElementById('oh-intervalo-selector')?.value || 'P1Y';
   contenedor.innerHTML = '<p class="descripcion">Calculando métricas multidimensionales de calidad con ohsome API v1 (HeiGIT)…</p>';
 
   try {
-    const indicadores = await ModuloOhsome.calcularIndicadores(bbox, filtro);
+    const indicadores = await ModuloOhsome.calcularIndicadores(bbox, filtro, intervalo);
     const densInfo = ModuloOhsome.calcularDensidad(bbox, indicadores.elementosAhora || 0);
 
     ultimaConsultaRealizada = { bbox, filtro, cantidad: indicadores.elementosAhora, fuente: 'ohsome' };
@@ -883,11 +1087,16 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
   const contenedor = document.getElementById('resultado-gbif');
   const bbox = leerBbox('gbif');
   const nombre = document.getElementById('gbif-nombre').value.trim();
+  const basisOfRecord = document.getElementById('gbif-basis-selector')?.value || 'ALL';
 
   contenedor.innerHTML = '<p class="descripcion">Consultando registros de biodiversidad en GBIF…</p>';
 
   try {
-    const resultado = await ModuloGBIF.buscarOcurrencias({ nombre, bbox: bbox || undefined });
+    const resultado = await ModuloGBIF.buscarOcurrencias({
+      nombre,
+      bbox: bbox || undefined,
+      basisOfRecord: basisOfRecord
+    });
 
     if (resultado.registros.length === 0) {
       contenedor.innerHTML = avisoInfo('No se encontraron registros biológicos con esos criterios en el área.');
@@ -963,6 +1172,9 @@ function construirObjetoFichaDesdeFormulario() {
   return ModuloMetadatos.construirFicha({
     titulo: document.getElementById('md-titulo').value,
     resumen: document.getElementById('md-resumen').value,
+    categoriaTema: document.getElementById('md-categoria-iso')?.value || 'planningCadastre',
+    frecuencia: document.getElementById('md-frecuencia')?.value || 'asNeeded',
+    rol: document.getElementById('md-rol-select')?.value || 'author',
     oeste: document.getElementById('md-oeste').value,
     sur: document.getElementById('md-sur').value,
     este: document.getElementById('md-este').value,

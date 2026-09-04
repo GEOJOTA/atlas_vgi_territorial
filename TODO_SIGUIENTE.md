@@ -3,6 +3,59 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 5 — Septiembre 2026 (Listas Seleccionables Duales, Soporte Coexistente Técnico / No-Técnico, Robustecimiento de Referencias y Estándares ISO / PNIG)
+
+### Estado alcanzado en este turno
+
+1. **Listas Desplegables y Opciones Seleccionables en Todas las APIs (Soporte No Técnico):**
+   - **Panel 01 (OSM / Overpass QL):**
+     - Selector dinámico `#custom-valor-select` con más de 40 opciones temáticas comunes agrupadas por función barrial según la clave elegida (`amenity`, `shop`, `historic`, `highway`, `leisure`, `building`, `healthcare`, `emergency`, `tourism`), prellenando nombre de capa y color representativo automáticamente.
+     - Selector de filtros de calidad y atributos condicionales `#custom-filtro-extra` (`con_nombre` [name], `accesibles` [wheelchair=yes], `con_direccion` [addr:street], `con_operador` [operator]).
+   - **Panel 02 (ohsome API v1):**
+     - Selector temático y geométrico `#oh-preset-selector` ampliado con 12 presets organizados en `optgroup` por tipo de geometría (Polígonos: conteo y superficie en m²/ha; Líneas: conteo y longitud en km; Puntos: conteo de nodos discretos).
+     - Selector de intervalo temporal `#oh-intervalo-selector` (`P1Y` anual a 5 años, `P6M` semestral a 3 años, `P1M` mensual a 1 año).
+   - **Panel 03 (GBIF Occurrence API):**
+     - Selector de especies y grupos biológicos urbanos `#gbif-taxa-selector` clasificado por aves de Santiago Centro (chincol, zorzal, queltehue), flora y arbolado patrimonial nativo (peumo, quillay, palma chilena, jacarandá, pimiento) y polinizadores/insectos.
+     - Selector de base de registro biológico `#gbif-basis-selector` (`ALL`, `HUMAN_OBSERVATION` para ciencia ciudadana como iNaturalist/eBird, `PRESERVED_SPECIMEN` para museos).
+   - **Panel 04 (UMap):**
+     - Selector de proyectos cartográficos comunitarios `#umap-preset-selector` con 5 mapas territoriales preconfigurados de Santiago Centro y Barrio Brasil (patrimonio arquitectónico, ciclovías, huertos urbanos, rutas accesibles y centros culturales).
+   - **Panel 05 (Metadatos ISO):**
+     - Selector de SRS `#md-srs-select` (WGS84 EPSG:4326, SIRGAS-Chile 2016 EPSG:5361, UTM Huso 19 Sur EPSG:32719).
+     - Selector de régimen de licencias `#md-licencia-select` (ODbL 1.0, CC-BY 4.0, Datos Abiertos Gob Chile, Licencia Mixta VGI).
+     - Selectores normalizados ISO de categoría temática `#md-categoria-iso` (`gmd:topicCategory`), frecuencia de mantenimiento `#md-frecuencia` (`asNeeded`, `monthly`, `quarterly`, `annually`, `continual`) y rol institucional `#md-rol-select` (`author`, `custodian`, `pointOfContact`, `distributor`).
+   - **Panel 06 (Diccionario Territorial):**
+     - Pestañas de filtrado rápido `#contenedor-filtros-diccionario` (Esquema VGI 10 atributos IDE, Educación/Servicios, Movilidad/Transporte, Plazas/Patrimonio, Accesibilidad/Biodiversidad).
+
+2. **Preservación Estricta de Capacidades Avanzadas para Usuarios Técnicos (Arquitectura Dual):**
+   - No se eliminó ninguna consulta compleja:
+     - El **Modo Overpass QL libre** (`#custom-ql-codigo`) se mantiene 100% operativo con comodín `{{bbox}}` y botón toggle para analistas SIG.
+     - Sincronización bidireccional: la selección de opciones actualiza el código QL en tiempo real y, a la inversa, cualquier usuario técnico puede editar el código a mano o ingresar valores libres usando la opción "✍️ manual".
+     - Exportación de capas en **GeoJSON** y **CSV** estructurado directamente utilizables en QGIS y R/Python.
+     - Script CLI `scripts/extractor_vgi.py` y servidor backend local `backend/servidor_vgi.py` con sistema de caché en disco (`data/cache_consultas/`).
+
+3. **Aparato Crítico, Cajas Guías de Referencia y Documentación Exhaustiva:**
+   - Incorporación en la interfaz de **5 cajas de guía metodológica (`.caja-guia-referencia`)**:
+     - *OSM:* Explicación de nodos/vías/relaciones, clave=valor, Bbox y estándar ISO 19110.
+     - *ohsome:* Dimensiones de calidad según ISO 19157 y tecnología OSHDB del HeiGIT.
+     - *GBIF:* Estándar Darwin Core (TDWG) e integración de ciencia ciudadana.
+     - *UMap:* Principios de cartografía social y comunitaria.
+     - *Metadatos:* Perfil Nacional de Metadatos de Chile (ISO 19115 / ISO 19139), SNIT / IDE Chile y Ley 20.285.
+   - Cada métrica, capa y etiqueta cuenta con explicación accesible para personas no técnicas y referencias académicas con DOI/URL para revisión formal por comités evaluadores.
+
+4. **Especificación de Formatos ISO, Enlaces Oficiales y Relación con la PNIG (Chile) y UN-GGIM:**
+   - Formalización en [`docs/TRAZABILIDAD_ACADEMICA.md`](docs/TRAZABILIDAD_ACADEMICA.md) de los estándares:
+     - **ISO 19115-1:2014:** `https://www.iso.org/standard/53798.html`
+     - **ISO 19139:2007:** `https://www.iso.org/standard/32574.html`
+     - **ISO 19157:2013 / 19157-1:2023:** `https://www.iso.org/standard/32575.html`
+     - **ISO 19110:2016:** `https://www.iso.org/standard/57303.html`
+     - **Comité ISO/TC 211:** `https://committee.iso.org/home/tc211`
+     - **Darwin Core (TDWG):** `https://dwc.tdwg.org/`
+     - **Política Nacional de Información Geoespacial (PNIG):** `https://www.ide.cl/index.php/informacion-institucional/politica-nacional` (Decreto N° 28/2006 MBN).
+     - **Ley N° 20.285 de Transparencia y Datos Abiertos:** `https://www.leychile.cl/Navegar?idNorma=278858`
+     - **UN-GGIM / Marco IGIF:** `https://ggim.un.org/` (Vías 4, 6 y 7).
+
+---
+
 ## Entrega de turno 4 — Septiembre 2026 (Accesibilidad Ciudadana, Diccionario Territorial, Perfiles de Actor y Métricas Geométricas ohsome v1)
 
 ### Estado alcanzado en este turno

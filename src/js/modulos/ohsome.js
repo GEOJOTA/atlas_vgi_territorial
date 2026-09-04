@@ -86,13 +86,18 @@ const ModuloOhsome = (() => {
   /**
    * Calcula los indicadores de calidad especializados según tipo de entidad
    */
-  async function calcularIndicadores(bbox, filtro = 'building=* and type:way') {
+  async function calcularIndicadores(bbox, filtro = 'building=* and type:way', intervalo = 'P1Y') {
     const base = window.NODO_CONFIG?.endpoints?.ohsome || 'https://api.ohsome.org/v1';
     const fechaFin = await obtenerFechaMaxima(base);
 
     const anioFin = parseInt(fechaFin.slice(0, 4), 10);
-    const fechaInicio = `${anioFin - 5}-01-01`;
-    const ventanaTiempo = `${fechaInicio}/${fechaFin}/P1Y`;
+    let fechaInicio = `${anioFin - 5}-01-01`;
+    if (intervalo === 'P1M') {
+      fechaInicio = `${anioFin - 1}-${fechaFin.slice(5)}`;
+    } else if (intervalo === 'P6M') {
+      fechaInicio = `${anioFin - 3}-01-01`;
+    }
+    const ventanaTiempo = `${fechaInicio}/${fechaFin}/${intervalo}`;
 
     const tipoGeo = clasificarGeometria(filtro);
 
