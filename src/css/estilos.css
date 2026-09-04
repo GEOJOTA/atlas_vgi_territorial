@@ -372,6 +372,41 @@ table.tabla-datos th {
   background: rgba(255,255,255,0.2);
 }
 
+.btn-sugerencia-ciudadana {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--papel-alto);
+  border: 1px solid var(--linea);
+  border-radius: 2px;
+  font-family: var(--fuente-lectura);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--tinta);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.btn-sugerencia-ciudadana:hover {
+  background: var(--papel);
+  border-color: var(--musgo);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+
+.btn-sugerencia-ciudadana.perfil-destacado {
+  border-color: var(--ocre) !important;
+  background: #FFFDF5 !important;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--ocre), 0 2px 5px rgba(184, 134, 11, 0.15) !important;
+}
+
+.btn-sugerencia-ciudadana.perfil-atenuado {
+  opacity: 0.5;
+}
+
 button.activo {
   background: var(--ocre) !important;
   color: var(--papel-alto) !important;

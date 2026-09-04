@@ -60,11 +60,12 @@ En la carpeta `docs/` se encuentran tres libros de cálculo formalmente estructu
 nodo-geoabierto/
 ├── README.md                      Documentación general del proyecto
 ├── MANUAL_USO.md                  Manual de uso para personas técnicas y no técnicas
-├── TODO_SIGUIENTE_IA.md            Bitácora de continuidad y entregas de turno
+├── TODO_SIGUIENTE.md               Bitácora de continuidad y trazabilidad de turnos
 ├── config/
 │   └── config.json                Configuración territorial, categorías y endpoints
 ├── docs/
 │   ├── ARQUITECTURA.md            Decisiones técnicas y diseño de la solución
+│   ├── TRAZABILIDAD_ACADEMICA.md   Memoria metodológica y defensa ante comité
 │   ├── catalogo_fuentes_vgi.xlsx  Catálogo de fuentes VGI en Excel
 │   ├── perfil_metadatos_vgi.xlsx  Perfil ISO 19115 / IDE Chile en Excel
 │   └── categorias_tematicas_osm.xlsx Taxonomía OSM y diccionario de datos en Excel
@@ -83,12 +84,13 @@ nodo-geoabierto/
 │       └── modulos/
 │           ├── mapa.js            Visor cartográfico interactivo Leaflet 1.9.4
 │           ├── osm.js             Consultas Overpass QL con servidores espejo
-│           ├── ohsome.js          Métricas de calidad y evolución temporal (HeiGIT)
+│           ├── ohsome.js          Métricas de calidad multidimensionales (HeiGIT)
+│           ├── diccionario.js     Diccionario de metadatos y glosario territorial OSM
 │           ├── gbif.js            Registros de biodiversidad y ciencia ciudadana
 │           ├── umap.js            Embebido y descarga de proyectos UMap
 │           ├── metadatos.js       Generador dual ISO 19115 (JSON) e ISO 19139 (XML)
 │           └── licencias.js       Panel de licencias abiertas y acceso a documentos
-├── netlify/functions/             Funciones serverless (esqueleto OAuth OSM)
+├── netlify/functions/             Funciones serverless (/api/consulta, /api/calidad)
 └── netlify.toml                   Configuración de despliegue en Netlify
 ```
 
@@ -96,11 +98,11 @@ nodo-geoabierto/
 
 ## 6. Cómo levantarlo en local
 
-Solo requiere un navegador web y un servidor HTTP local básico (para evitar restricciones de CORS locales):
+Solo requiere Python 3 estándar:
 
 ```bash
-cd "/Users/geojplescano/Programas/Práctica profesional 2026 S2/nodo-geoabierto/src"
-python3 -m http.server 8000
+# Levantar el backend local con caché y endpoints /api:
+python3 backend/servidor_vgi.py
 # Abrir en el navegador: http://localhost:8000
 ```
 
@@ -117,11 +119,12 @@ python3 scripts/extractor_vgi.py --categoria educacion
 
 ## 7. Despliegue y Control de Versiones Git
 
-El proyecto cuenta con el script automatizado `scripts/deploy_git.sh`:
+El proyecto cuenta con sincronización continua hacia GitHub y Netlify:
 ```bash
-./scripts/deploy_git.sh
+git push origin main
 ```
-Configura el autor oficial (`GEOJOTA <juanpablolescanovillegas@gmail.com>`), consolida los cambios en la rama `main` y deja preparado el flujo para subir a GitHub (`https://github.com/GEOJOTA/nodo-geoabierto.git`) o Netlify.
+Configurado con el autor oficial (`GEOJOTA <juanpablolescanovillegas@gmail.com>`) en el repositorio:
+`https://github.com/GEOJOTA/atlas_vgi_uah.git`
 
 ---
 

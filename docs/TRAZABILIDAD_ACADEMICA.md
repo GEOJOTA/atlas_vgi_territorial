@@ -39,13 +39,21 @@ La Infraestructura de Datos Geoespaciales de Chile (IDE Chile), dependiente del 
 
 ---
 
-## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157 y Métricas ohsome)
+## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157 y Métricas ohsome API v1)
 
-Una de las críticas históricas a la VGI por parte de comités académicos tradicionales es la *incertidumbre sobre la calidad del dato*. El proyecto refuta esta crítica implementando una auditoría cuantitativa en vivo en base al estándar **ISO 19157:2013 (Data Quality)**:
+Una de las críticas históricas a la VGI por parte de comités académicos tradicionales es la *incertidumbre sobre la calidad del dato*. El proyecto refuta esta crítica implementando una auditoría cuantitativa en vivo en base al estándar **ISO 19157:2013 (Data Quality)** y la tecnología de análisis de historia espacial del HeiGIT (Heidelberg University):
 
-1. **Completitud y Densidad:** El panel `02 / Calidad de Datos (ohsome)` calcula la densidad real de entidades por kilómetro cuadrado sobre el elipsoide WGS84, distinguiendo entre áreas densamente mapeadas (ej. eje Alameda/Brasil) y sectores con vacíos.
-2. **Consistencia Temporal y Trazabilidad:** Mediante consultas anualizadas a 5 años en la API de ohsome (HeiGIT / Universidad de Heidelberg), el sistema permite verificar si el área sigue siendo editada activamente o si sufrió abandono cartográfico.
-3. **Linaje y Heterogeneidad:** Se expone el número de colaboradores únicos que han intervenido en el cuadrante, diferenciando entre áreas mapeadas por una sola persona y áreas validadas por una comunidad densa.
+1. **Sensibilidad al Tipo de Geometría (ohsome API v1):**
+   - **Entidades Lineales (Vialidad y Movilidad Activa):** Consulta `/elements/length` computando la longitud real de red en kilómetros y metros lineales (red vial de Barrio Brasil y ciclovías). Permite evaluar continuidad de red y conectividad territorial.
+   - **Entidades Poligonales (Edificaciones y Espacio Público):** Consulta `/elements/area` computando la superficie en metros cuadrados y hectáreas de la huella construida (`building=*`) y áreas verdes (`leisure=park`), clave para calcular índices de espacio público por habitante.
+   - **Entidades Puntuales (Equipamiento y Accesibilidad):** Consulta `/elements/count` cuantificando nodos discretos (paraderos, farmacias, rebajes de cordón).
+2. **Completitud y Densidad Espacial:** El panel `02 / Calidad de Datos (ohsome)` calcula la densidad real de entidades por kilómetro cuadrado sobre el elipsoide WGS84, distinguiendo entre áreas densamente catastradas y sectores con vacíos de cobertura.
+3. **Consistencia Temporal y Dinámica Histórica:** Mediante series anualizadas a 5 años en la base histórica OSHDB (OpenStreetMap History Database), el sistema monitorea el crecimiento acumulado del catastro y detecta posibles estancamientos o fases de aceleración comunitaria.
+4. **Linaje, Masa Crítica y Ratio de Intensidad:** Mediante el cruce de `/users/count` y `/contributions/count`, el sistema calcula el **Ratio de Ediciones por Colaborador**, permitiendo diferenciar empíricamente entre un territorio mapeado por un único voluntario aislado versus uno respaldado por una comunidad plural y sostenida en el tiempo.
+5. **Aparato Crítico y Referencias Científicas:**
+   - **Haklay, M. (2010):** *How good is volunteered geographical information? A case study of OpenStreetMap in the UK.* Environment and Planning B: Planning and Design, 37(4), 682-703.
+   - **Neis, P. & Zipf, A. (2012):** *Analyzing the Contributor Activity of OpenStreetMap and Its Development for the Community.* ISPRS International Journal of Geo-Information, 1(2), 146-177. doi:10.3390/ijgi1020146.
+   - **Raifer, M. et al. (2019):** *OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data.* EPJ Data Science, 8(1), 1-18. doi:10.1186/s40965-019-0061-3.
 
 ---
 
@@ -58,7 +66,9 @@ Ante la comisión de práctica profesional, cada componente técnico responde a 
 | **Arquitectura de Costo Cero (Static + Serverless + Local Python)** | Backend tradicional con servidor dedicado (Django/Express en VPS de pago) | Un servidor dedicado cuesta entre $5 y $20 USD mensuales y requiere mantenimiento de parches de seguridad. Al optar por Netlify Serverless, GitHub Pages y un servidor local en Python estándar, el costo es estrictamente cero y cualquier estudiante o municipio rural puede levantarlo sin presupuesto informático. |
 | **JavaScript Nativo (Vanilla JS) sin frameworks pesados** | React, Angular, Vue | Reduce la barrera de entrada para geógrafos no programadores. Cualquier usuario puede inspeccionar y modificar `mapa.js` o `osm.js` con un simple editor de texto sin instalar Node.js, Webpack ni dependencias NPM efímeras. |
 | **Leaflet 1.9.4 con teselas abiertas** | Mapbox GL, Google Maps JavaScript API | No requiere tarjetas de crédito ni tokens que expiren. Utiliza Carto Positron, OSM Estándar y OpenTopoMap libres. |
-| **Constructor de Consultas Espaciales Dual** | Búsqueda solo tabular predefinida | Permite que tanto usuarios principiantes (mediante selectores visuales) como geógrafos avanzados (mediante Overpass QL libre) exploren hipótesis espaciales propias y descarguen GeoJSON/CSV. |
+| **Diferenciación por Perfiles de Actor Territorial** | Interfaz única monolítica genérica | Modula la experiencia para tres actores clave (autoridades/instituciones, organizaciones comunitarias/vecinos y voluntarios/mapeadores), reduciendo la brecha digital y destacando herramientas según necesidades de gestión. |
+| **Diccionario Territorial y Metadatos Normalizados** | Consulta a bases de datos sin glosario explicativo | Desmitifica la jerga informática de etiquetas de OpenStreetMap traduciéndola a 10 atributos estándar compatibles con IDE Chile (SNIT) e ISO 19115. |
+| **Constructor de Consultas Espaciales Dual + Sugerencias 1 Clic** | Búsqueda solo tabular predefinida o solo Overpass QL | Democratiza la consulta territorial permitiendo que vecinos ejecuten consultas en un solo clic, mientras que investigadores avanzados pueden construir expresiones complejas y descargar GeoJSON/CSV. |
 | **Respaldo Local Automático (Fallback)** | Bloqueo o error 429 cuando Overpass satura | Si la red pública de Overpass sufre congestión durante una defensa académica, el sistema conmuta automáticamente a los 1.316 registros locales pre-extraídos de Barrio Brasil y UAH. |
 
 ---

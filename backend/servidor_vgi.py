@@ -254,23 +254,73 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 return json.loads(res.read().decode("utf-8"))
 
         try:
+            f_lower = filtro.lower()
+            tipo_geo = "punto"
+            if any(k in f_lower for k in ["highway", "cycleway", "footway", "waterway", "path"]):
+                tipo_geo = "linea"
+            elif any(k in f_lower for k in ["building", "leisure", "landuse"]):
+                tipo_geo = "poligono"
+
             conteo = post_ohsome("/elements/count", fecha_fin)
             usuarios = post_ohsome("/users/count", ventana)
             serie = post_ohsome("/elements/count", ventana)
+
+            res_especial = None
+            if tipo_geo == "linea":
+                try:
+                    res_especial = post_ohsome("/elements/length", fecha_fin)
+                except Exception:
+                    pass
+            elif tipo_geo == "poligono":
+                try:
+                    res_especial = post_ohsome("/elements/area", fecha_fin)
+                except Exception:
+                    pass
+
+            res_contrib = None
+            try:
+                res_contrib = post_ohsome("/contributions/count", ventana)
+            except Exception:
+                pass
 
             elem_ahora = int(conteo.get("result", [{}])[0].get("value", 0))
 
             oeste, sur, este, norte = bbox
             km_lat = 111.32
-            km_lon = 111.32 * ((((sur + norte)/2) * 3.14159265 / 180)**0.5 if False else 1) # simple approx
-            area = abs(este - oeste) * 111.32 * abs(norte - sur) * 111.32
+            lat_media = ((sur + norte) / 2) * 3.14159265 / 180
+            km_lon = 111.32 * abs(lat_media)
+            area_calc = abs(este - oeste) * 111.32 * abs(norte - sur) * 111.32
+
+            metrica_geom = None
+            if tipo_geo == "linea" and res_especial and res_especial.get("result"):
+                val_m = res_especial["result"][0].get("value", 0)
+                metrica_geom = {"tipo": "longitud", "etiqueta": "Longitud de red trazada", "valorKm": round(val_m / 1000, 2), "unidad": "km"}
+            elif tipo_geo == "poligono" and res_especial and res_especial.get("result"):
+                val_m2 = res_especial["result"][0].get("value", 0)
+                metrica_geom = {"tipo": "superficie", "etiqueta": "Superficie total cubierta", "valorM2": round(val_m2), "valorKm2": round(val_m2 / 1000000, 4), "unidad": "m²"}
+
+            lista_usr = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in usuarios.get("result", [])]
+            lista_contrib = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in (res_contrib.get("result", []) if res_contrib else [])]
+            ult_usr = lista_usr[-1]["valor"] if lista_usr else 0
+            ult_ctb = lista_contrib[-1]["valor"] if lista_contrib else 0
+            ratio = round(ult_ctb / ult_usr, 1) if ult_usr > 0 else None
 
             self.responder_json(200, {
                 "ok": True,
                 "fechaCorte": fecha_fin,
+                "tipoGeometria": tipo_geo,
                 "elementosAhora": elem_ahora,
-                "usuariosPorAnio": [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in usuarios.get("result", [])],
-                "elementosPorAnio": [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in serie.get("result", [])]
+                "metricaGeometrica": metrica_geom,
+                "densidad": round(elem_ahora / area_calc, 2) if area_calc > 0 else None,
+                "areaKm2": round(area_calc, 3),
+                "ratioContribucionPorUsuario": ratio,
+                "usuariosPorAnio": lista_usr,
+                "elementosPorAnio": [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in serie.get("result", [])],
+                "contribucionesPorAnio": lista_contrib,
+                "referencias": [
+                    {"autor": "HeiGIT / Heidelberg University", "url": "https://docs.ohsome.org/ohsome-api/v1/"},
+                    {"autor": "Raifer et al. (2019)", "doi": "10.1186/s40965-019-0061-3"}
+                ]
             })
         except Exception as e:
             self.responder_json(500, {"ok": False, "error": str(e)})

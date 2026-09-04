@@ -3,6 +3,53 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 4 — Septiembre 2026 (Accesibilidad Ciudadana, Diccionario Territorial, Perfiles de Actor y Métricas Geométricas ohsome v1)
+
+### Estado alcanzado en este turno
+
+1. **Democratización de Consultas OSM para Usuarios No Técnicos (1 Clic):**
+   - Incorporación de **10 tarjetas de consultas ciudadanas rápidas** en el panel `01 / Consultas y Explorador`:
+     - 💊 Farmacias y Boticas comunales (`amenity=pharmacy`)
+     - 🍞 Panaderías y Almacenes de barrio (`shop=bakery`)
+     - 🎓 Sedes y Facultades Universidad Alberto Hurtado (`amenity=university`)
+     - 🚌 Paraderos de Buses del sistema Red Movilidad (`highway=bus_stop`)
+     - 🚲 Biciestacionamientos comunitarios (`amenity=bicycle_parking`)
+     - 🌳 Plazas y Parques urbanos (`leisure=park`)
+     - 🏛️ Casonas Patrimoniales y Monumentos (`historic=*`)
+     - ♿ Rebajes de Cordón y Accesibilidad Peatonal (`kerb=lowered`)
+     - 🚒 Bomberos y Servicios de Rescate (`amenity=fire_station`)
+     - ☕ Cafeterías y Espacios de Encuentro Barrial (`amenity=cafe`)
+   - Cada tarjeta preconfigura automáticamente el constructor visual, el color, el nombre descriptivo y ejecuta la consulta espacial mapeándola dinámicamente en Leaflet sin requerir conocimientos de sintaxis Overpass QL.
+
+2. **Diccionario Interactivo de Metadatos y Atributos Territoriales (`diccionario.js` y Panel 06):**
+   - Creación del módulo [`src/js/modulos/diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js) y habilitación de la sección `06 / Diccionario Territorial` en [`src/index.html`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/index.html):
+     - **10 Atributos Normalizados del Esquema VGI:** `id_vgi`, `categoria`, `subtipo`, `nombre`, `operador`, `direccion`, `accesibilidad`, `fuente`, `licencia`, `coordenadas`, especificando tipo de dato, definición ciudadana, ejemplos reales en Barrio Brasil y equivalencia técnica con el Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT / ISO 19115).
+     - **Glosario Territorial de 17 Etiquetas Colaborativas OSM:** traducción directa de tags técnicos a conceptos territoriales comprensibles y su aplicación específica en la manzana universitaria UAH.
+     - **Buscador Reactivo en Tiempo Real:** filtrado instantáneo por texto en atributos y etiquetas.
+
+3. **Adaptación de la Experiencia a Tres Perfiles de Actores Territoriales:**
+   - Incorporación del selector `#sel-perfil-usuario` en la barra de navegación:
+     - 🏛️ **Autoridades / Instituciones (IDE Chile / Municipalidades):** Prioriza metadatos normalizados (ISO 19115/19139), catastro de equipamiento crítico, licencias de datos abiertos y control de calidad espacial.
+     - 👥 **Organizaciones Comunitarias / Vecinos:** Facilita consultas en 1 clic para plazas, patrimonio, ciclovías, comercio vecinal y cartografía colaborativa barrial en UMap.
+     - 🧭 **Voluntarios / Mapeadores OSM:** Enfocado en calidad ohsome v1, constructor Overpass QL avanzado y taxonomía geográfica.
+   - Lógica de sincronización reactiva en `manejarCambioPerfilUsuario`: destaca con insignias estrella (★) los paneles prioritarios en la barra lateral y aplica resaltado/atenuación visual sobre las tarjetas temáticas ciudadanas.
+
+4. **Profundización en Métricas Multidimensionales de Calidad ohsome API v1 (HeiGIT):**
+   - **Sensibilidad al Tipo de Geometría:** Conforme a las restricciones de la API v1 de ohsome, el sistema clasifica las entidades según el filtro de consulta:
+     - *Entidades Lineales* (calles, ciclovías, pasajes): consulta `/elements/length` para reportar longitud total de red en kilómetros y metros lineales.
+     - *Entidades Poligonales* (edificaciones, áreas verdes, predios): consulta `/elements/area` para reportar superficie cubierta y huella construida en metros cuadrados y hectáreas.
+     - *Entidades Puntuales* (equipamientos, paraderos, mobiliario): consulta `/elements/count` de nodos discretos.
+   - **Métricas de Linaje y Masa Crítica Colaborativa:**
+     - Conteo de colaboradores históricos y activos en el último período (`/users/count`).
+     - Conteo acumulado de contribuciones y transacciones de edición (`/contributions/count`).
+     - Derivación del *Ratio de Intensidad Comunitaria* (contribuciones por usuario) para contrastar mapeos individuales esporádicos versus comunidades activas recurrentes.
+     - Cálculo geométrico de densidad espacial (`elem/km²`) sobre el Bounding Box activo.
+   - **Soporte Backend Dual Actualizado:** tanto [`netlify/functions/calidad.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/netlify/functions/calidad.js) como [`backend/servidor_vgi.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/backend/servidor_vgi.py) replican de manera idéntica el cálculo geométrico y de contribuciones con soporte de caché.
+   - **Aparato Crítico y Citas Académicas:** Integración directa en la interfaz de referencias bibliográficas con DOI (Raifer et al., 2019; Neis & Zipf, 2012; HeiGIT) para respaldar la calidad del dato ante comités evaluadores.
+
+5. **Consistencia de Archivos y Trazabilidad:**
+   - Supresión canónica del archivo transitorio `TODO_SIGUIENTE_IA.md` y unificación en [`TODO_SIGUIENTE.md`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/TODO_SIGUIENTE.md), preservando intactos todos los antecedentes de los Turnos 1, 2 y 3.
+
 ---
 
 ## Entrega de turno 3 — Septiembre 2026 (Backend Robusto, Constructor de Consultas Propias, Trazabilidad Académica y Despliegue Multi-Plataforma)

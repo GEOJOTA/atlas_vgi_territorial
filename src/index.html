@@ -19,15 +19,28 @@
       <p id="nombre-organizacion" style="font-size:0.8rem; margin-top:3px;">Barrio Brasil — Universidad Alberto Hurtado</p>
     </div>
 
+    <!-- Selector de Perfil de Usuario -->
+    <div style="padding:10px 12px; margin:10px 0 14px 0; background:var(--papel-alto); border:1px solid var(--linea); border-radius:2px;">
+      <label for="sel-perfil-usuario" style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--musgo); display:block; margin-bottom:4px;">Perfil de Actor Territorial:</label>
+      <select id="sel-perfil-usuario" style="width:100%; font-size:0.8rem; padding:4px; border:1px solid var(--linea); background:var(--papel);">
+        <option value="todos" selected>🌐 Vista General Territorial</option>
+        <option value="institucion">🏛️ Autoridades / Instituciones (IDE/Muni)</option>
+        <option value="comunidad">👥 Organizaciones Comunitarias / Vecinos</option>
+        <option value="voluntario">🧭 Voluntarios / Mapeadores OSM</option>
+      </select>
+      <div id="badge-perfil-info" style="font-size:0.72rem; margin-top:6px; color:var(--tinta-suave); line-height:1.3;">Herramientas adaptadas para gestión territorial integral.</div>
+    </div>
+
     <ul class="capas-nav" id="lista-navegacion">
       <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
-      <li><button data-panel="explorador-osm"><span class="marcador">01</span> Explorador OSM</button></li>
-      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad de datos (ohsome)</button></li>
+      <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
+      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad de Datos (ohsome v1)</button></li>
       <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
-      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Proyectos UMap</button></li>
+      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
       <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
-      <li><button data-panel="licencias"><span class="marcador">06</span> Catálogos y Licencias (.xlsx)</button></li>
-      <li><button data-panel="manual"><span class="marcador">07</span> Metodología y Documentación</button></li>
+      <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
+      <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
+      <li><button data-panel="manual"><span class="marcador">08</span> Metodología y Memoria</button></li>
     </ul>
 
     <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
@@ -85,6 +98,24 @@
         <h2>Consultas Personalizadas y Explorador OSM</h2>
         <p class="descripcion">Formula tus propias consultas espaciales sobre OpenStreetMap. Filtra por atributos específicos, combina etiquetas o redacta consultas Overpass QL avanzadas.</p>
       </header>
+
+      <!-- Sugerencias Temáticas Ciudadanas (1 Clic) -->
+      <div class="bloque" style="background:var(--papel); border:1px solid var(--linea); padding:16px;">
+        <h3 style="margin-top:0;">🎯 Consultas Rápidas para Comunidad y Gestión Local (1 Clic)</h3>
+        <p class="descripcion" style="margin-bottom:12px;">Haz clic en cualquiera de las temáticas frecuentes para consultar y mapear automáticamente en Barrio Brasil / UAH:</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:10px;" id="grilla-sugerencias-ciudadanas">
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="pharmacy" data-nombre="Farmacias y Salud" data-color="#B22222">💊 Farmacias y Boticas</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="shop" data-valor="bakery" data-nombre="Panaderías de Barrio" data-color="#D2691E">🍞 Panaderías y Almacenes</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="university" data-nombre="Campus Universitario UAH" data-color="#1B4D3E">🎓 Sedes y Facultades UAH</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="highway" data-valor="bus_stop" data-nombre="Paraderos Red Movilidad" data-color="#4682B4" data-entidad="node">🚌 Paraderos de Buses</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="bicycle_parking" data-nombre="Biciestacionamientos" data-color="#2E8B57" data-entidad="node">🚲 Biciestacionamientos</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="leisure" data-valor="park" data-nombre="Plazas y Parques" data-color="#228B22">🌳 Plazas y Áreas Verdes</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="historic" data-valor="*" data-operador="*" data-nombre="Patrimonio y Casonas" data-color="#800020">🏛️ Casonas Patrimoniales</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="kerb" data-valor="lowered" data-nombre="Rebajes de Cordón Accesibles" data-color="#4B0082" data-entidad="node">♿ Rebajes de Cordón</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="fire_station" data-nombre="Bomberos y Emergencias" data-color="#C71585">🚒 Bomberos y Rescate</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="cafe" data-nombre="Cafés y Encuentro Barrial" data-color="#8B4513">☕ Cafeterías y Encuentro</button>
+        </div>
+      </div>
 
       <!-- Constructor Visual de Consultas -->
       <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:16px;">
@@ -216,7 +247,22 @@
         </div>
         <div class="fila-campos">
           <div class="campo" style="flex:1;">
-            <label for="oh-filtro">Filtro ohsome</label>
+            <label for="oh-preset-selector">Preset Geométrico Territorial (ohsome API v1)</label>
+            <select id="oh-preset-selector">
+              <option value="building=* and type:way" selected>🏢 Edificaciones y Catastro Construido (Polígonos: Conteo + Superficie m²)</option>
+              <option value="leisure=park and (type:way or type:relation)">🌳 Plazas y Parques Urbanos (Polígonos: Conteo + Superficie m²)</option>
+              <option value="highway=* and type:way">🚗 Red Vial y Calles (Líneas: Conteo + Longitud km)</option>
+              <option value="(highway=cycleway or cycleway=*) and type:way">🚲 Red de Ciclovías y Micromovilidad (Líneas: Longitud km)</option>
+              <option value="amenity=university and (type:node or type:way)">🎓 Sedes y Facultades Universitarias UAH (Equipamiento: Conteo)</option>
+              <option value="amenity=pharmacy and (type:node or type:way)">💊 Farmacias y Boticas (Equipamiento: Conteo)</option>
+              <option value="(highway=crossing or kerb=*) and type:node">♿ Cruces Peatonales y Rebajes (Puntos: Conteo)</option>
+              <option value="custom">— Filtro ohsome personalizado —</option>
+            </select>
+          </div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1;">
+            <label for="oh-filtro">Expresión de Filtro ohsome</label>
             <input type="text" id="oh-filtro" placeholder="ej: building=* and type:way" value="building=* and type:way">
           </div>
         </div>
@@ -344,20 +390,37 @@
       <div class="bloque resultado" id="resultado-metadatos" aria-live="polite"></div>
     </section>
 
-    <!-- ---------- 06. LICENCIAS Y CATÁLOGOS ---------- -->
+    <!-- ---------- 06. DICCIONARIO TERRITORIAL ---------- -->
+    <section class="panel" id="panel-diccionario">
+      <header>
+        <span class="rotulo">06 / Estándar y Diccionario de Datos</span>
+        <h2>Diccionario de Metadatos y Atributos Territoriales</h2>
+        <p class="descripcion">Definición de cada campo normalizado, homologación oficial con IDE Chile (SNIT) y glosario de etiquetas OpenStreetMap aplicadas a Barrio Brasil y la UAH.</p>
+      </header>
+
+      <div class="bloque" style="margin-bottom:14px;">
+        <input type="text" id="filtro-diccionario" placeholder="🔍 Filtrar atributo o etiqueta (ej: accesibilidad, amenity, kerb, universidad)..." style="width:100%; padding:8px 12px; font-size:0.9rem; border:1px solid var(--linea); background:var(--papel);">
+      </div>
+
+      <div id="contenido-diccionario">
+        <!-- Renderizado dinámico desde ModuloDiccionario -->
+      </div>
+    </section>
+
+    <!-- ---------- 07. LICENCIAS Y CATÁLOGOS ---------- -->
     <section class="panel" id="panel-licencias">
       <header>
-        <span class="rotulo">06 / Catálogos & Licencias</span>
-        <h2>Catálogo de Fuentes VGI y Documentos Excel (.xlsx)</h2>
-        <p class="descripcion">Términos legales de reutilización de datos y acceso a los catálogos estructurados generados para la práctica profesional.</p>
+        <span class="rotulo">07 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
+        <h2>Licencias Abiertas y Descarga de Catálogos Oficiales</h2>
+        <p class="descripcion">Acceso directo a las matrices metodológicas en formato Excel (.xlsx) generadas para la práctica profesional y marco jurídico de cada fuente.</p>
       </header>
       <div class="bloque resultado" id="contenido-licencias"></div>
     </section>
 
-    <!-- ---------- 07. METODOLOGÍA ---------- -->
+    <!-- ---------- 08. METODOLOGÍA ---------- -->
     <section class="panel" id="panel-manual">
       <header>
-        <span class="rotulo">07 / Metodología & Documentación</span>
+        <span class="rotulo">08 / Metodología & Memoria Académica</span>
         <h2>Metodología de la Práctica Profesional</h2>
         <p class="descripcion">Guía metodológica, flujo de trabajo territorial y estructura técnica del proyecto.</p>
       </header>
@@ -382,6 +445,7 @@
 <script src="js/modulos/umap.js"></script>
 <script src="js/modulos/metadatos.js"></script>
 <script src="js/modulos/licencias.js"></script>
+<script src="js/modulos/diccionario.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

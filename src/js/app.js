@@ -30,6 +30,53 @@ function inicializarAplicacion() {
   document.getElementById('contenido-licencias').innerHTML = ModuloLicencias.render();
   cargarResumenMetodologia();
 
+  // Inicializar diccionario territorial
+  const cntDiccionario = document.getElementById('contenido-diccionario');
+  if (cntDiccionario && window.ModuloDiccionario) {
+    cntDiccionario.innerHTML = ModuloDiccionario.render();
+    document.getElementById('filtro-diccionario')?.addEventListener('input', (e) => {
+      cntDiccionario.innerHTML = ModuloDiccionario.render(e.target.value);
+    });
+  }
+
+  // Inicializar selector de actor territorial / perfil
+  const selPerfil = document.getElementById('sel-perfil-usuario');
+  if (selPerfil) {
+    selPerfil.addEventListener('change', manejarCambioPerfilUsuario);
+    manejarCambioPerfilUsuario();
+  }
+
+  // Inicializar botones de sugerencias ciudadanas (1 clic)
+  document.querySelectorAll('.btn-sugerencia-ciudadana').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const clave = btn.dataset.clave;
+      const valor = btn.dataset.valor;
+      const operador = btn.dataset.operador || '=';
+      const nombre = btn.dataset.nombre;
+      const color = btn.dataset.color || '#A97722';
+      const entidad = btn.dataset.entidad || 'nwr';
+
+      document.getElementById('custom-clave-manual').value = clave;
+      document.getElementById('custom-valor').value = valor === '*' ? '' : valor;
+      document.getElementById('custom-operador').value = operador;
+      document.getElementById('custom-nombre-capa').value = nombre;
+      document.getElementById('custom-color-capa').value = color;
+      document.getElementById('custom-entidad').value = entidad;
+
+      actualizarCodigoQLPreview();
+      manejarConsultaPersonalizada();
+    });
+  });
+
+  // Preset geométrico de ohsome API v1
+  document.getElementById('oh-preset-selector')?.addEventListener('change', (e) => {
+    if (e.target.value !== 'custom') {
+      document.getElementById('oh-filtro').value = e.target.value;
+    } else {
+      document.getElementById('oh-filtro').focus();
+    }
+  });
+
   // Eventos de paneles
   document.getElementById('btn-consultar-osm').addEventListener('click', () => manejarConsultaOSM(false));
   document.getElementById('btn-cargar-osm-al-mapa').addEventListener('click', () => manejarConsultaOSM(true));
@@ -619,6 +666,80 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
   }
 }
 
+/* ---------------------- GESTIÓN DE PERFILES DE ACTOR TERRITORIAL ---------------------- */
+
+function manejarCambioPerfilUsuario(e) {
+  const perfil = e ? e.target.value : (document.getElementById('sel-perfil-usuario')?.value || 'todos');
+  const badgeInfo = document.getElementById('badge-perfil-info');
+
+  const descripciones = {
+    todos: 'Herramientas adaptadas para gestión territorial integral. Acceso general a todas las funciones.',
+    institucion: '🏛️ Perfil Institucional / Municipal / IDE Chile: Prioriza metadatos normalizados (ISO 19115/19139), catastro de equipamiento crítico, licencias abiertas y control de calidad espacial.',
+    comunidad: '👥 Perfil Comunitario / Vecinal: Facilita consultas rápidas en 1 clic para plazas, patrimonio, ciclovías, comercios locales y mapeo barrial colaborativo en UMap.',
+    voluntario: '🧭 Perfil Mapeador / Voluntario OSM: Herramientas analíticas avanzadas, métricas geométricas ohsome v1 (longitud/área/densidad), editor Overpass QL y taxonomía.'
+  };
+
+  if (badgeInfo) {
+    badgeInfo.textContent = descripciones[perfil] || descripciones.todos;
+  }
+
+  // Paneles prioritarios según perfil
+  const panelesPrioritarios = {
+    institucion: ['metadatos-iso', 'calidad-ohsome', 'diccionario', 'licencias'],
+    comunidad: ['inicio', 'explorador-osm', 'proyectos-umap', 'diccionario'],
+    voluntario: ['explorador-osm', 'calidad-ohsome', 'diccionario', 'manual'],
+    todos: []
+  };
+
+  const recomendados = panelesPrioritarios[perfil] || [];
+
+  // Actualizar botones de navegación en la barra lateral
+  document.querySelectorAll('#lista-navegacion button').forEach(btn => {
+    const idPanel = btn.dataset.panel;
+    const yaExisteBadge = btn.querySelector('.badge-recomendado');
+    if (yaExisteBadge) yaExisteBadge.remove();
+
+    if (recomendados.includes(idPanel)) {
+      btn.style.borderLeft = '3px solid var(--ocre)';
+      const span = document.createElement('span');
+      span.className = 'badge-recomendado';
+      span.style.fontSize = '0.65rem';
+      span.style.marginLeft = '6px';
+      span.style.color = 'var(--ocre)';
+      span.style.fontWeight = 'bold';
+      span.textContent = '★';
+      btn.appendChild(span);
+    } else {
+      btn.style.borderLeft = '';
+    }
+  });
+
+  // Ajustar o destacar botones de sugerencias ciudadanas
+  const perfilesSugerencias = {
+    institucion: ['amenity=pharmacy', 'amenity=university', 'highway=bus_stop', 'kerb=lowered', 'amenity=fire_station'],
+    comunidad: ['shop=bakery', 'leisure=park', 'historic=*', 'amenity=cafe', 'amenity=bicycle_parking'],
+    voluntario: ['amenity=university', 'historic=*', 'kerb=lowered', 'amenity=pharmacy', 'highway=bus_stop']
+  };
+
+  const listaFiltro = perfilesSugerencias[perfil] || null;
+
+  document.querySelectorAll('.btn-sugerencia-ciudadana').forEach(btn => {
+    const clave = btn.dataset.clave;
+    const valor = btn.dataset.valor;
+    const claveValor = `${clave}=${valor}`;
+
+    if (!listaFiltro) {
+      btn.classList.remove('perfil-destacado', 'perfil-atenuado');
+    } else if (listaFiltro.includes(claveValor) || (clave === 'historic' && listaFiltro.includes('historic=*'))) {
+      btn.classList.add('perfil-destacado');
+      btn.classList.remove('perfil-atenuado');
+    } else {
+      btn.classList.remove('perfil-destacado');
+      btn.classList.add('perfil-atenuado');
+    }
+  });
+}
+
 /* ---------------------- PANEL OHSOME ---------------------- */
 
 async function manejarConsultaOhsome() {
@@ -627,7 +748,7 @@ async function manejarConsultaOhsome() {
   if (!bbox) { contenedor.innerHTML = avisoError('Completa las cuatro coordenadas del área.'); return; }
 
   const filtro = document.getElementById('oh-filtro').value.trim() || 'building=* and type:way';
-  contenedor.innerHTML = '<p class="descripcion">Calculando métricas de calidad con ohsome API (HeiGIT)…</p>';
+  contenedor.innerHTML = '<p class="descripcion">Calculando métricas multidimensionales de calidad con ohsome API v1 (HeiGIT)…</p>';
 
   try {
     const indicadores = await ModuloOhsome.calcularIndicadores(bbox, filtro);
@@ -635,22 +756,121 @@ async function manejarConsultaOhsome() {
 
     ultimaConsultaRealizada = { bbox, filtro, cantidad: indicadores.elementosAhora, fuente: 'ohsome' };
 
-    const filasSerie = indicadores.elementosPorAnio.map(p => `
-      <tr><td><strong>${p.fecha}</strong></td><td>${p.valor.toLocaleString()}</td></tr>
+    // Badge de métrica geométrica especializada según API v1
+    let htmlMetricaGeo = '';
+    if (indicadores.metricaGeometrica) {
+      if (indicadores.metricaGeometrica.tipo === 'longitud') {
+        htmlMetricaGeo = `
+          <div class="indicador" style="border-left: 3px solid #2E8B57;">
+            <span class="valor">${indicadores.metricaGeometrica.valorKm.toLocaleString()} km</span>
+            <span class="etiqueta">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorMetros.toLocaleString()} m)</span>
+          </div>
+        `;
+      } else if (indicadores.metricaGeometrica.tipo === 'superficie') {
+        htmlMetricaGeo = `
+          <div class="indicador" style="border-left: 3px solid #B8860B;">
+            <span class="valor">${indicadores.metricaGeometrica.valorHectareas.toLocaleString()} ha</span>
+            <span class="etiqueta">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorM2.toLocaleString()} m²)</span>
+          </div>
+        `;
+      }
+    } else {
+      htmlMetricaGeo = `
+        <div class="indicador" style="border-left: 3px solid #4682B4;">
+          <span class="valor">${indicadores.elementosAhora.toLocaleString()}</span>
+          <span class="etiqueta">Entidad puntual (puntos / nodos discretos)</span>
+        </div>
+      `;
+    }
+
+    // Unificación de series cronológicas anuales (elementos, usuarios, contribuciones)
+    const mapaSeries = {};
+    (indicadores.elementosPorAnio || []).forEach(item => {
+      mapaSeries[item.fecha] = { fecha: item.fecha, elementos: item.valor, usuarios: '—', contribuciones: '—' };
+    });
+    (indicadores.usuariosPorAnio || []).forEach(item => {
+      if (!mapaSeries[item.fecha]) mapaSeries[item.fecha] = { fecha: item.fecha, elementos: '—', usuarios: item.valor, contribuciones: '—' };
+      else mapaSeries[item.fecha].usuarios = item.valor;
+    });
+    (indicadores.contribucionesPorAnio || []).forEach(item => {
+      if (!mapaSeries[item.fecha]) mapaSeries[item.fecha] = { fecha: item.fecha, elementos: '—', usuarios: '—', contribuciones: item.valor };
+      else mapaSeries[item.fecha].contribuciones = item.valor;
+    });
+
+    const filasSerie = Object.values(mapaSeries).sort((a, b) => a.fecha.localeCompare(b.fecha)).map(p => `
+      <tr>
+        <td><strong>${p.fecha}</strong></td>
+        <td>${typeof p.elementos === 'number' ? p.elementos.toLocaleString() : p.elementos}</td>
+        <td>${typeof p.usuarios === 'number' ? p.usuarios.toLocaleString() : p.usuarios}</td>
+        <td>${typeof p.contribuciones === 'number' ? p.contribuciones.toLocaleString() : p.contribuciones}</td>
+      </tr>
+    `).join('');
+
+    const ultimosUsuarios = indicadores.usuariosPorAnio?.at(-1)?.valor ?? '—';
+    const ultimasContribuciones = indicadores.contribucionesPorAnio?.at(-1)?.valor ?? '—';
+    const ratioEdicion = indicadores.ratioContribucionPorUsuario ? `${indicadores.ratioContribucionPorUsuario} edit/user` : '—';
+
+    // Lista de referencias académicas y bibliografía científica
+    const listaRefs = (indicadores.referencias || []).map(r => `
+      <li style="margin-bottom:6px; font-size:0.78rem; line-height:1.4;">
+        <strong>${r.autor}</strong> — <em>${r.titulo}</em>.
+        ${r.doi ? `<a href="https://doi.org/${r.doi}" target="_blank" rel="noopener" style="color:var(--musgo); text-decoration:underline;">doi:${r.doi}</a>` : ''}
+        ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener" style="color:var(--musgo); text-decoration:underline;">${r.url}</a>` : ''}
+      </li>
     `).join('');
 
     contenedor.innerHTML = `
-      <div class="indicador"><span class="valor">${indicadores.elementosAhora.toLocaleString()}</span><span class="etiqueta">elementos vigentes (${indicadores.fechaCorte})</span></div>
-      <div class="indicador"><span class="valor">${densInfo ? densInfo.densidad.toFixed(1) : '—'}</span><span class="etiqueta">densidad (elem / km²)</span></div>
-      <div class="indicador"><span class="valor">${densInfo ? densInfo.areaKm2.toFixed(3) : '—'}</span><span class="etiqueta">área calculada (km²)</span></div>
-      <div class="indicador"><span class="valor">${indicadores.usuariosPorAnio.at(-1)?.valor ?? '—'}</span><span class="etiqueta">colaboradores último período</span></div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:16px;">
+        <div class="indicador">
+          <span class="valor">${indicadores.elementosAhora.toLocaleString()}</span>
+          <span class="etiqueta">Elementos vigentes (${indicadores.fechaCorte})</span>
+        </div>
+        ${htmlMetricaGeo}
+        <div class="indicador">
+          <span class="valor">${densInfo ? densInfo.densidad.toFixed(1) : '—'}</span>
+          <span class="etiqueta">Densidad espacial (elem / km²)</span>
+        </div>
+        <div class="indicador">
+          <span class="valor">${ultimosUsuarios}</span>
+          <span class="etiqueta">Colaboradores activos (último período)</span>
+        </div>
+        <div class="indicador">
+          <span class="valor">${typeof ultimasContribuciones === 'number' ? ultimasContribuciones.toLocaleString() : ultimasContribuciones}</span>
+          <span class="etiqueta">Contribuciones / Ediciones registradas</span>
+        </div>
+        <div class="indicador">
+          <span class="valor">${ratioEdicion}</span>
+          <span class="etiqueta">Intensidad comunitaria (ediciones / colab)</span>
+        </div>
+      </div>
 
-      <h3>Evolución Histórica Anual (ohsome)</h3>
+      <h3 style="margin-top:20px;">Evolución Histórica Multidimensional (ohsome API v1)</h3>
+      <p class="descripcion">Serie cronológica anual analizada sobre la base histórica de datos espaciales (OSHDB):</p>
       <table class="tabla-datos">
-        <thead><tr><th>Período / Año</th><th>Conteo de Elementos</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Período / Año</th>
+            <th>Elementos Totales</th>
+            <th>Colaboradores Únicos</th>
+            <th>Contribuciones / Cambios</th>
+          </tr>
+        </thead>
         <tbody>${filasSerie}</tbody>
       </table>
-      <p class="descripcion">Evaluación de completitud: el recuento sostenido de colaboradores y el incremento de geometrías evidencia la madurez del catastro en Barrio Brasil y la manzana universitaria UAH.</p>
+
+      <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:14px; margin-top:16px;">
+        <h4 style="margin:0 0 8px 0; font-size:0.9rem; color:var(--musgo);">📐 Rigor Metodológico y Criterios de Calidad Espacial</h4>
+        <p class="descripcion" style="margin-bottom:8px;">
+          <strong>Sensibilidad geométrica:</strong> Conforme a la API v1 de ohsome, las geometrías lineales evalúan continuidad de red en kilómetros lineales (calles y ciclovías), mientras que los polígonos cuantifican la superficie de huella construida o áreas verdes en hectáreas y metros cuadrados.
+        </p>
+        <p class="descripcion" style="margin-bottom:8px;">
+          <strong>Madurez y Linaje:</strong> El ratio de contribuciones por usuario y la masa crítica de colaboradores permiten evaluar si la cartografía de Barrio Brasil depende de pocos mapeadores esporádicos o de una comunidad activa recurrente (Haklay, 2010; Neis & Zipf, 2012).
+        </p>
+        <h5 style="margin:12px 0 6px 0; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--tinta-suave);">Referencias Académicas y Documentales:</h5>
+        <ul style="padding-left:18px; margin:0; color:var(--tinta-suave);">
+          ${listaRefs}
+        </ul>
+      </div>
     `;
   } catch (error) {
     contenedor.innerHTML = avisoError(error.message + ' Prueba con un área más pequeña o ajusta el filtro según docs.ohsome.org.');
