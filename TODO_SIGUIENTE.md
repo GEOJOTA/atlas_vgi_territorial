@@ -3,6 +3,61 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 8 — Septiembre 2026 (Solución Integral a ohsome API v1/v2, Coherencia Intermodular entre Paneles y Autocarga Reactiva de Metadatos ISO 19115/19139)
+
+### Diagnóstico de Fallos Identificados en ohsome API
+
+1. **Bloqueo por Política de CORS y Restricciones en ohsome API v2 (`api.heigit.org`):**
+   - Las consultas directas desde el navegador hacia el endpoint de HeiGIT `https://api.heigit.org/ohsome-api/v2-rc/` eran bloqueadas de forma estricta por el navegador debido a la política CORS (Cross-Origin Resource Sharing): las peticiones preflight OPTIONS retornaban HTTP 204 sin los encabezados `Access-Control-Allow-Origin: *`, y cualquier llamada GET no autenticada retornaba HTTP 401 Unauthorized sin cabeceras permisivas.
+   - Se requería una arquitectura de intermediación a través de una función serverless (`/api/calidad` en Netlify) y un proxy local (`servidor_vgi.py`) para evitar las restricciones de origen cruzado en el cliente web.
+
+2. **Disparidad Estructural en Esquemas JSON entre ohsome v1 (OSHDB) y v2 (ohsomeDB):**
+   - La API v1 entrega los resultados y series cronológicas históricas bajo la propiedad `.result`, mientras que la API v2 los emite bajo la propiedad `.data`.
+   - El código anterior asumía rígidamente la existencia de `.result`, lo que provocaba excepciones de tipo `TypeError: Cannot read properties of undefined` cuando se conmutaba a la versión 2.
+
+3. **Incompatibilidad de `Array.prototype.at(-1)` en Navegadores:**
+   - En `src/js/app.js` (líneas 1417 y 1418), se utilizaba la sintaxis moderna `array?.at(-1)`. En entornos de ejecución o navegadores legacy (Safari < 15.4, Firefox ESR institucional o webviews incrustados), este método no está disponible en el prototipo, provocando el fallo de la ejecución (`at is not a function`) y dejando el panel de resultados de calidad en blanco.
+
+4. **Falta de Timeouts y Control de Bloqueos en Llamadas Asíncronas:**
+   - Las llamadas a HeiGIT no contaban con límites estrictos de tiempo por sub-métrica, lo que causaba que si el endpoint de densidad o usuarios tardaba más de 10 segundos, la función serverless de Netlify caía en HTTP 504 Timeout o el navegador permanecía en estado de carga indefinido.
+
+---
+
+### Soluciones Implementadas y Mejoras del Sistema
+
+1. **Reestructuración de `netlify/functions/calidad.js` (Arquitectura Proxy Dual):**
+   - **Soporte Unificado v1 y v2:** Extracción dinámica y flexible mediante función auxiliar que procesa homogéneamente tanto `json.result` (v1) como `json.data` (v2).
+   - **Control de Tiempos con `AbortController`:** Cada llamada outbound a HeiGIT cuenta con un timeout estricto de **5.500 ms**, garantizando que la función completa responda dentro del presupuesto de ejecución de 10 segundos de Netlify.
+   - **Resiliencia ante Métricas Parciales:** Cada sub-petición (`/elements/count`, `/users/count`, `/contributions/count`, `/length`, `/area`) está encapsulada con `.catch(() => null)`. Si una métrica opcional no responde, el servicio entrega los datos de elementos y densidad sin interrumpir la experiencia del usuario.
+   - **Identidad de Cliente Oficial:** Se incorporó el encabezado `User-Agent: AtlasVGI-UAH/2.0 (nodo.geoabierto@uahurtado.cl)` para prevenir bloqueos por filtrado anti-scraping de HeiGIT.
+
+2. **Robustecimiento de `src/js/modulos/ohsome.js` (Doble Nivel de Tolerancia a Fallos):**
+   - **Nivel 1 (Proxy Serverless / Backend Local):** Intenta consultar a través de `/api/calidad` con timeout de 7 segundos, eliminando cualquier bloqueo de CORS en el navegador.
+   - **Nivel 2 (Conmutación Automática a ohsome v1 OSHDB):** Si la consulta v2 requiere API key o si el proxy no está disponible, el cliente web conmuta automáticamente y sin errores a `https://api.ohsome.org/v1` directo en el navegador, notificando de forma transparente al usuario con un aviso informativo.
+   - **Sustitución Universal de `at(-1)`:** Reemplazo por acceso estándar indexado `arr[arr.length - 1]` con validación previa de longitud en todos los módulos de la aplicación.
+   - **Sensibilidad Geométrica:** Soporte para entidades lineales (longitud en km) y poligonales (superficie en m² y ha).
+
+3. **Caché y Proxy en Backend Local (`backend/servidor_vgi.py`):**
+   - Implementación de almacenamiento en caché en disco (`data/cache_consultas/calidad_*.json`) para permitir funcionamiento fluido 100% offline durante demostraciones académicas o fallos de red internacional.
+
+4. **Coherencia Intermodular entre Paneles de Consulta:**
+   - Se diseñó e integró la matriz ontológica `MAPA_COHERENCIA_CATEGORIAS` en `src/js/app.js`, que conecta de forma semántica y funcional:
+     - Las 8 categorías temáticas (Educación, Servicios, Transporte, Movilidad Activa, Espacio Público, Patrimonio, Accesibilidad, Biodiversidad).
+     - Presets y sintaxis de Overpass QL (`amenity=university`, `highway=bus_stop`, `historic=*`, etc.).
+     - Constructor de consultas personalizadas (claves, valores, operadores y entidad `nwr`).
+     - Presets y filtros sintácticos de ohsome API (`building=* and type:way`, etc.).
+     - Taxonomía urbana de GBIF (fauna, flora, insectos).
+     - Metadatos ISO 19115 (Título, resumen temático, linaje y categoría ISO `MD_TopicCategoryCode`).
+   - **Sincronización Reactiva:** Cualquier interacción en los botones de categoría del mapa atlas, las sugerencias ciudadanas de 1-clic, el selector de presets Overpass o el selector de ohsome propaga instantáneamente los parámetros coherentes a todos los demás paneles.
+   - **Feedback Visual:** Incorporación de la insignia `#badge-sincronizacion` en la barra superior y la clase `.sincronizado-activo` en los botones temáticos.
+
+5. **Autocarga Reactiva de Metadatos ISO 19115 / ISO 19139:**
+   - La función `autocargarMetadatos()` actualiza en tiempo real los campos de título, resumen descriptivo, linaje, sistema de referencia (EPSG:32719 / EPSG:4326) y extensión Bbox en el panel de metadatos.
+   - Se calcula e inyecta la superficie territorial en metros cuadrados ($m^2$) y hectáreas ($ha$) calculada bajo la proyección UTM Huso 19 Sur.
+   - Genera automáticamente la vista previa formateada en el DOM y activa de inmediato los botones de descarga en JSON (ISO 19115) y XML (ISO 19139 / IDE Chile) sin requerir acciones manuales repetitivas.
+
+---
+
 ## Entrega de turno 7 — Septiembre 2026 (Diagnóstico y Solución Integral de Consultas Overpass API, Sustitución de Espejos Caídos, Sanitización QL y Control de Timeouts)
 
 ### Diagnóstico de Fallos Identificados

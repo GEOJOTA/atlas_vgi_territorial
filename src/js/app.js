@@ -111,6 +111,288 @@ function actualizarOpcionesValoresSegunClave(clave) {
   }
 }
 
+/* ---------------------- COHERENCIA INTERMODULAR Y AUTOCARGA ---------------------- */
+
+let categoriaActivaGlobal = 'educacion';
+
+const MAPA_COHERENCIA_CATEGORIAS = {
+  educacion: {
+    codigo: 'CAT-01',
+    nombre: 'Educación y Universidad',
+    claveOSM: 'amenity',
+    valorOSM: 'university',
+    entidadOSM: 'nwr',
+    color: '#35586B',
+    ohPreset: 'amenity=university and (type:node or type:way)',
+    ohFiltro: 'amenity=university and (type:node or type:way)',
+    gbifTaxa: 'custom',
+    isoTopic: 'society',
+    tituloMd: 'Catastro VGI de Educación y Campus Universitario UAH: Barrio Brasil',
+    resumenMd: 'Inventario geoespacial de sedes universitarias, pabellones patrimoniales de la Universidad Alberto Hurtado (UAH), colegios, liceos y bibliotecas en Barrio Brasil y Santiago Centro.'
+  },
+  servicios: {
+    codigo: 'CAT-02',
+    nombre: 'Servicios y Comercio Barrial',
+    claveOSM: 'shop',
+    valorOSM: '*',
+    entidadOSM: 'nwr',
+    color: '#A97722',
+    ohPreset: 'shop=* and (type:node or type:way)',
+    ohFiltro: 'shop=* and (type:node or type:way)',
+    gbifTaxa: 'custom',
+    isoTopic: 'planningCadastre',
+    tituloMd: 'Catastro VGI de Servicios y Comercio Barrial: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Red de abastecimiento de proximidad, locales comerciales, almacenes, panaderías, cafeterías y farmacias comunitarias en Barrio Brasil y entorno del campus UAH.'
+  },
+  transporte: {
+    codigo: 'CAT-03',
+    nombre: 'Movilidad y Transporte',
+    claveOSM: 'highway',
+    valorOSM: 'bus_stop',
+    entidadOSM: 'node',
+    color: '#2C4238',
+    ohPreset: 'highway=bus_stop and type:node',
+    ohFiltro: 'highway=bus_stop and type:node',
+    gbifTaxa: 'custom',
+    isoTopic: 'transportation',
+    tituloMd: 'Catastro VGI de Movilidad y Transporte: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Infraestructura intermodal de transporte público: paraderos del Sistema Red Movilidad, accesos a estaciones de Metro (Los Héroes, Santa Ana, Cumming) y ejes estructurantes en Barrio Brasil.'
+  },
+  movilidad_activa: {
+    codigo: 'CAT-04',
+    nombre: 'Movilidad Activa y Ciclovías',
+    claveOSM: 'highway',
+    valorOSM: 'cycleway',
+    entidadOSM: 'way',
+    color: '#3F5D4E',
+    ohPreset: '(highway=cycleway or cycleway=*) and type:way',
+    ohFiltro: '(highway=cycleway or cycleway=*) and type:way',
+    gbifTaxa: 'custom',
+    isoTopic: 'transportation',
+    tituloMd: 'Catastro VGI de Movilidad Activa y Ciclovías: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Ejes de micromovilidad y movilidad sustentable: ciclovías segregadas, ciclobandas, sendas ciclables, talleres comunitarios y estacionamientos de bicicletas en Barrio Brasil y campus UAH.'
+  },
+  espacio_publico: {
+    codigo: 'CAT-05',
+    nombre: 'Áreas Verdes y Espacio Público',
+    claveOSM: 'leisure',
+    valorOSM: 'park',
+    entidadOSM: 'nwr',
+    color: '#236B43',
+    ohPreset: 'leisure=park and (type:way or type:relation)',
+    ohFiltro: 'leisure=park and (type:way or type:relation)',
+    gbifTaxa: 'Plantae',
+    isoTopic: 'environment',
+    tituloMd: 'Catastro VGI de Áreas Verdes y Espacios Públicos: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Superficie métrica calculada y catastro de plazas públicas (Plaza Brasil), parques urbanos, bandejones verdes, juegos infantiles y áreas de permanencia y recreación comunitaria.'
+  },
+  patrimonio: {
+    codigo: 'CAT-06',
+    nombre: 'Patrimonio y Cultura',
+    claveOSM: 'historic',
+    valorOSM: '*',
+    entidadOSM: 'nwr',
+    color: '#8F3A2C',
+    ohPreset: 'historic=* and (type:node or type:way)',
+    ohFiltro: 'historic=* and (type:node or type:way)',
+    gbifTaxa: 'custom',
+    isoTopic: 'society',
+    tituloMd: 'Catastro VGI de Patrimonio y Cultura: Zona Típica Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Inmuebles de Conservación Histórica (ICH), casonas neoclásicas UAH, templos religiosos (Basílica del Salvador), centros culturales comunitarios, teatros y monumentos en la Zona Típica de Barrio Brasil.'
+  },
+  accesibilidad: {
+    codigo: 'CAT-07',
+    nombre: 'Accesibilidad Universal',
+    claveOSM: 'highway',
+    valorOSM: 'crossing',
+    entidadOSM: 'node',
+    color: '#4B5142',
+    ohPreset: '(highway=crossing or kerb=*) and type:node',
+    ohFiltro: '(highway=crossing or kerb=*) and type:node',
+    gbifTaxa: 'custom',
+    isoTopic: 'transportation',
+    tituloMd: 'Catastro VGI de Caminabilidad y Accesibilidad Universal: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Diagnóstico de caminabilidad inclusiva: rebajes de cordón en veredas, pasos peatonales seguros, pavimentos podotáctiles y rampas de acceso en el entorno de Barrio Brasil y UAH.'
+  },
+  biodiversidad: {
+    codigo: 'CAT-08',
+    nombre: 'Biodiversidad Urbana',
+    claveOSM: 'natural',
+    valorOSM: 'tree',
+    entidadOSM: 'node',
+    color: '#1C523A',
+    ohPreset: 'natural=tree and type:node',
+    ohFiltro: 'natural=tree and type:node',
+    gbifTaxa: 'Plantae',
+    isoTopic: 'biota',
+    tituloMd: 'Catastro VGI de Biodiversidad Urbana y Arbolado: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Registros de arbolado urbano georreferenciado, flora y fauna comunitaria compilados desde OpenStreetMap y la Infraestructura Mundial de Información en Biodiversidad (GBIF).'
+  }
+};
+
+function resolverCategoriaId(identificador) {
+  if (!identificador) return 'educacion';
+  if (MAPA_COHERENCIA_CATEGORIAS[identificador]) return identificador;
+  const s = String(identificador).toLowerCase();
+  if (s.includes('universidad') || s.includes('educacion') || s.includes('school') || s.includes('college') || s.includes('library')) return 'educacion';
+  if (s.includes('farmacia') || s.includes('salud') || s.includes('comercio') || s.includes('shop') || s.includes('bakery') || s.includes('cafe') || s.includes('restaurant')) return 'servicios';
+  if (s.includes('bus') || s.includes('transporte') || s.includes('metro') || s.includes('railway')) return 'transporte';
+  if (s.includes('ciclo') || s.includes('bici') || s.includes('cycleway')) return 'movilidad_activa';
+  if (s.includes('plaza') || s.includes('parque') || s.includes('leisure') || s.includes('park') || s.includes('playground')) return 'espacio_publico';
+  if (s.includes('patrimonio') || s.includes('historic') || s.includes('casona') || s.includes('museum') || s.includes('theatre')) return 'patrimonio';
+  if (s.includes('cruce') || s.includes('accesibilidad') || s.includes('kerb') || s.includes('wheelchair') || s.includes('crossing')) return 'accesibilidad';
+  if (s.includes('arbol') || s.includes('arbolado') || s.includes('biodiversidad') || s.includes('tree') || s.includes('natural')) return 'biodiversidad';
+  return 'educacion';
+}
+
+function sincronizarCoherenciaEntreModulos(identificador, opciones = {}) {
+  const catId = resolverCategoriaId(identificador);
+  categoriaActivaGlobal = catId;
+  const mapa = MAPA_COHERENCIA_CATEGORIAS[catId];
+  if (!mapa) return;
+
+  // 1. Sincronizar botones de categorías en el visor
+  document.querySelectorAll('.btn-categoria').forEach(b => {
+    if (b.id === `btn-cat-${catId}`) {
+      b.classList.add('sincronizado-activo');
+    } else {
+      b.classList.remove('sincronizado-activo');
+    }
+  });
+
+  // 2. Sincronizar Preset de Overpass
+  const selOsmPreset = document.getElementById('osm-categoria-preset');
+  if (selOsmPreset && opciones.origen !== 'preset_osm') {
+    selOsmPreset.value = catId;
+    const inpEtiqueta = document.getElementById('osm-etiqueta');
+    if (inpEtiqueta) {
+      inpEtiqueta.value = '';
+      inpEtiqueta.placeholder = `Preset activo: ${catId} (${mapa.nombre})`;
+    }
+  }
+
+  // 3. Sincronizar Constructor Personalizado
+  if (opciones.origen !== 'constructor_custom') {
+    const inpClave = document.getElementById('custom-clave-manual');
+    const inpValor = document.getElementById('custom-valor');
+    const inpNombre = document.getElementById('custom-nombre-capa');
+    const inpColor = document.getElementById('custom-color-capa');
+    const selEntidad = document.getElementById('custom-entidad');
+    if (inpClave) inpClave.value = opciones.clave || mapa.claveOSM;
+    if (inpValor) inpValor.value = opciones.valor !== undefined ? (opciones.valor === '*' ? '' : opciones.valor) : (mapa.valorOSM === '*' ? '' : mapa.valorOSM);
+    if (inpNombre) inpNombre.value = opciones.nombre || mapa.nombre;
+    if (inpColor) inpColor.value = opciones.color || mapa.color;
+    if (selEntidad) selEntidad.value = mapa.entidadOSM;
+    if (typeof actualizarCodigoQLPreview === 'function') actualizarCodigoQLPreview();
+  }
+
+  // 4. Sincronizar Panel ohsome
+  const selOhPreset = document.getElementById('oh-preset-selector');
+  const inpOhFiltro = document.getElementById('oh-filtro');
+  if (selOhPreset) {
+    let match = false;
+    for (let i = 0; i < selOhPreset.options.length; i++) {
+      if (selOhPreset.options[i].value === mapa.ohPreset) {
+        selOhPreset.selectedIndex = i;
+        match = true;
+        break;
+      }
+    }
+    if (!match) selOhPreset.value = 'custom';
+  }
+  if (inpOhFiltro) {
+    inpOhFiltro.value = mapa.ohFiltro;
+  }
+
+  // 5. Sincronizar Panel GBIF
+  const selGbifTaxa = document.getElementById('gbif-taxa-selector');
+  const inpGbifNombre = document.getElementById('gbif-nombre');
+  if (selGbifTaxa && mapa.gbifTaxa !== 'custom') {
+    selGbifTaxa.value = mapa.gbifTaxa;
+    if (inpGbifNombre) inpGbifNombre.value = mapa.gbifTaxa;
+  }
+
+  // 6. Autocarga reactiva de metadatos ISO 19115/19139
+  autocargarMetadatos({
+    categoriaId: catId,
+    titulo: opciones.nombre ? `Catastro VGI: ${opciones.nombre} - Barrio Brasil / UAH` : mapa.tituloMd,
+    resumen: mapa.resumenMd,
+    forzar: false
+  });
+
+  // 7. Feedback visual de sincronización intermodular
+  const badgeSinc = document.getElementById('badge-sincronizacion');
+  if (badgeSinc) {
+    badgeSinc.style.display = 'block';
+    badgeSinc.innerHTML = `🔄 <strong>Coherencia activa:</strong> ${mapa.nombre} (${mapa.codigo}) vinculada en Overpass, ohsome y Metadatos.`;
+  }
+}
+
+function sincronizarCoherenciaDesdeOhsome(presetVal) {
+  for (const [catId, info] of Object.entries(MAPA_COHERENCIA_CATEGORIAS)) {
+    if (info.ohPreset === presetVal || info.ohFiltro === presetVal) {
+      sincronizarCoherenciaEntreModulos(catId, { origen: 'preset_ohsome' });
+      return;
+    }
+  }
+}
+
+function autocargarMetadatos(opciones = {}) {
+  const bbox = opciones.bbox || leerBbox('osm') || leerBbox('oh') || window.NODO_CONFIG?.area_por_defecto?.bbox;
+  if (bbox) escribirBbox('md', bbox);
+
+  const catId = opciones.categoriaId || categoriaActivaGlobal || 'educacion';
+  const mapa = MAPA_COHERENCIA_CATEGORIAS[catId] || MAPA_COHERENCIA_CATEGORIAS['educacion'];
+
+  const inpTitulo = document.getElementById('md-titulo');
+  const selCategoriaIso = document.getElementById('md-categoria-iso');
+  const txtResumen = document.getElementById('md-resumen');
+  const txtLinaje = document.getElementById('md-linaje');
+  const inpSrs = document.getElementById('md-srs');
+
+  const titulo = opciones.titulo || mapa.tituloMd;
+  if (inpTitulo) inpTitulo.value = titulo;
+  if (selCategoriaIso) selCategoriaIso.value = opciones.isoTopic || mapa.isoTopic;
+
+  let extraMetricas = '';
+  if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficieBbox && bbox) {
+    const s = ModuloGeodesia.calcularSuperficieBbox(bbox);
+    extraMetricas = ` Superficie métrica calculada: ${s.areaM2.toLocaleString('es-CL')} m² (${s.areaHa.toLocaleString('es-CL')} ha / ${s.areaKm2} km²) bajo EPSG:32719 UTM Huso 19 Sur.`;
+  }
+  if (txtResumen) {
+    txtResumen.value = `${opciones.resumen || mapa.resumenMd}${extraMetricas}`;
+  }
+
+  const cantidad = opciones.cantidad !== undefined ? opciones.cantidad : (ultimaConsultaRealizada?.cantidad ?? 'múltiples');
+  const fuente = opciones.fuente || ultimaConsultaRealizada?.fuente || 'OpenStreetMap / Overpass QL & ohsome API';
+  const filtro = opciones.filtro || ultimaConsultaRealizada?.filtro || mapa.nombre;
+  const fechaHoy = new Date().toISOString().slice(0, 10);
+
+  if (txtLinaje) {
+    txtLinaje.value = `Conjunto de datos VGI derivado de ${fuente} mediante consulta "${filtro}" ejecutada el ${fechaHoy} sobre el Bbox [${(bbox || []).join(', ')}]. Comprende ${cantidad} entidades espaciales validadas, normalizadas y proyectadas conforme a la norma ISO 19115/19139 para IDE Chile / SNIT (EPSG:32719 / EPSG:5361).`;
+  }
+
+  if (inpSrs && !inpSrs.value) {
+    inpSrs.value = 'EPSG:4326 (WGS84) / Compatible con EPSG:5361 (SIRGAS-Chile) y EPSG:32719';
+  }
+
+  // Generar y renderizar vista previa automáticamente en el DOM
+  try {
+    const ficha = construirObjetoFichaDesdeFormulario();
+    window._ultimaFichaGenerada = ficha;
+    const cntVistaPrevia = document.getElementById('vista-previa-metadatos');
+    if (cntVistaPrevia && typeof ModuloMetadatos !== 'undefined' && ModuloMetadatos.renderVistaPrevia) {
+      cntVistaPrevia.innerHTML = ModuloMetadatos.renderVistaPrevia(ficha);
+      const btnExpJson = document.getElementById('btn-exportar-json');
+      const btnExpXml = document.getElementById('btn-exportar-xml');
+      if (btnExpJson) btnExpJson.disabled = false;
+      if (btnExpXml) btnExpXml.disabled = false;
+    }
+  } catch (e) {
+    // Tolerancia ante fases tempranas de carga
+  }
+}
+
 document.addEventListener('nodo:config-lista', inicializarAplicacion);
 
 function inicializarAplicacion() {
@@ -179,6 +461,7 @@ function inicializarAplicacion() {
       document.getElementById('custom-entidad').value = entidad;
 
       actualizarCodigoQLPreview();
+      sincronizarCoherenciaEntreModulos(clave, { valor, nombre, color, origen: 'sugerencia_ciudadana' });
       manejarConsultaPersonalizada();
     });
   });
@@ -187,6 +470,7 @@ function inicializarAplicacion() {
   document.getElementById('oh-preset-selector')?.addEventListener('change', (e) => {
     if (e.target.value !== 'custom') {
       document.getElementById('oh-filtro').value = e.target.value;
+      sincronizarCoherenciaDesdeOhsome(e.target.value);
     } else {
       document.getElementById('oh-filtro').focus();
     }
@@ -362,6 +646,7 @@ function inicializarAplicacion() {
     if (e.detail && e.detail.bbox) {
       sincronizarBboxEnInputs(e.detail.bbox);
       actualizarFichaTerritorio('Área de Consulta Personalizada (Bbox interactivo)', e.detail.bbox);
+      autocargarMetadatos({ bbox: e.detail.bbox });
     }
   });
 
@@ -375,11 +660,16 @@ function inicializarAplicacion() {
           if (bbox) {
             ModuloMapa.actualizarRectanguloBbox(bbox);
             sincronizarBboxEnInputs(bbox);
+            autocargarMetadatos({ bbox });
           }
         });
       }
     });
   });
+
+  // Inicialización de coherencia y metadatos con la categoría predeterminada
+  sincronizarCoherenciaEntreModulos('educacion');
+  autocargarMetadatos();
 }
 
 /* ---------------------- NAVEGACIÓN ---------------------- */
@@ -493,6 +783,8 @@ function configurarEventosMapa() {
       const terr = window.NODO_CONFIG?.territorios_predefinidos?.find(t => t.id === e.target.value);
       if (terr) {
         actualizarFichaTerritorio(terr.nombre, terr.bbox);
+        sincronizarBboxEnInputs(terr.bbox);
+        autocargarMetadatos({ bbox: terr.bbox });
       }
     });
   }
@@ -555,6 +847,9 @@ async function alternarCapaCategoria(categoria) {
   const labelConteo = document.getElementById(`conteo-cat-${categoria.id}`);
   const estadoTexto = document.getElementById('estado-carga-capas');
 
+  // Sincronizar coherencia de módulos de consulta con la categoría seleccionada
+  sincronizarCoherenciaEntreModulos(categoria.id, { origen: 'boton_categoria' });
+
   // Si ya está activa, la desactivamos
   if (btn.classList.contains('activo')) {
     ModuloMapa.removerCapa(categoria.id);
@@ -608,6 +903,13 @@ async function alternarCapaCategoria(categoria) {
       cantidad: cantidad,
       fuente: 'Overpass API / OpenStreetMap'
     };
+    autocargarMetadatos({
+      categoriaId: categoria.id,
+      cantidad: cantidad,
+      fuente: 'Overpass API / OpenStreetMap',
+      filtro: categoria.nombre,
+      bbox
+    });
   } catch (error) {
     console.warn(`[API en vivo no disponible para ${categoria.id}]: ${error.message}. Intentando cargar dataset local pre-extraído...`);
     // Intento de fallback a los datos locales validados de Barrio Brasil / UAH
@@ -641,6 +943,19 @@ async function alternarCapaCategoria(categoria) {
         btn.classList.remove('cargando');
         btn.classList.add('activo');
         estadoTexto.innerHTML = `Capa "${categoria.nombre}" cargada desde catálogo local validado (${cantidad} entidades en Barrio Brasil / UAH). <span class="descripcion">(Servidor Overpass saturado)</span>`;
+        ultimaConsultaRealizada = {
+          bbox,
+          filtro: categoria.nombre,
+          cantidad: cantidad,
+          fuente: 'Catálogo Local Validado'
+        };
+        autocargarMetadatos({
+          categoriaId: categoria.id,
+          cantidad: cantidad,
+          fuente: 'Catálogo Local Validado (Barrio Brasil / UAH)',
+          filtro: categoria.nombre,
+          bbox
+        });
         return;
       }
     } catch (fallbackErr) {
@@ -738,6 +1053,13 @@ async function manejarConsultaPersonalizada() {
       cantidad: total,
       fuente: `OSM (${res.servidor})`
     };
+    autocargarMetadatos({
+      categoriaId: categoriaActivaGlobal,
+      cantidad: total,
+      fuente: `OSM (${res.servidor})`,
+      filtro: `${nombreCapa} [${clave}${operador}${valor}]`,
+      bbox
+    });
 
     // Cálculo métrico de superficies en polígonos
     const poligonos = geojson.features.filter(f => f.geometry && (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'));
@@ -895,6 +1217,9 @@ function manejarCambioPresetOSM(e) {
       inputEtiqueta.placeholder = 'ej: amenity=university, shop=bakery';
     }
   }
+  if (preset) {
+    sincronizarCoherenciaEntreModulos(preset, { origen: 'preset_osm' });
+  }
 }
 
 async function manejarConsultaOSM(cargarAlMapa = false) {
@@ -912,6 +1237,13 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
     const elementos = await ModuloOSM.consultar(bbox, filtroAEjecutar);
     const geojson = ModuloOSM.elementosAGeoJSON(elementos, preset || 'consulta_personalizada');
     ultimaConsultaRealizada = { bbox, filtro: filtroAEjecutar, cantidad: elementos.length, fuente: 'OSM/Overpass' };
+    autocargarMetadatos({
+      categoriaId: preset || categoriaActivaGlobal,
+      cantidad: elementos.length,
+      fuente: 'OSM / Overpass API',
+      filtro: filtroAEjecutar,
+      bbox
+    });
 
     if (elementos.length === 0) {
       contenedor.innerHTML = avisoInfo(`No se encontraron elementos para "${filtroAEjecutar}" en esa área.`);
@@ -1064,6 +1396,13 @@ async function manejarConsultaOhsome() {
     const densInfo = ModuloOhsome.calcularDensidad(bbox, indicadores.elementosAhora || 0);
 
     ultimaConsultaRealizada = { bbox, filtro, cantidad: indicadores.elementosAhora, fuente: `ohsome ${indicadores.version}` };
+    autocargarMetadatos({
+      categoriaId: categoriaActivaGlobal,
+      cantidad: indicadores.elementosAhora,
+      fuente: `ohsome API ${indicadores.version.toUpperCase()} (${indicadores.motor})`,
+      filtro: filtro,
+      bbox
+    });
 
     let htmlBadgeVersion = '';
     if (indicadores.fueFallback) {
@@ -1132,8 +1471,12 @@ async function manejarConsultaOhsome() {
       </tr>
     `).join('');
 
-    const ultimosUsuarios = indicadores.usuariosPorAnio?.at(-1)?.valor ?? '—';
-    const ultimasContribuciones = indicadores.contribucionesPorAnio?.at(-1)?.valor ?? '—';
+    const ultimosUsuarios = (indicadores.usuariosPorAnio && indicadores.usuariosPorAnio.length > 0)
+      ? (indicadores.usuariosPorAnio[indicadores.usuariosPorAnio.length - 1]?.valor ?? '—')
+      : '—';
+    const ultimasContribuciones = (indicadores.contribucionesPorAnio && indicadores.contribucionesPorAnio.length > 0)
+      ? (indicadores.contribucionesPorAnio[indicadores.contribucionesPorAnio.length - 1]?.valor ?? '—')
+      : '—';
     const ratioEdicion = indicadores.ratioContribucionPorUsuario ? `${indicadores.ratioContribucionPorUsuario} edit/user` : '—';
 
     // Lista de referencias académicas y bibliografía científica
@@ -1233,6 +1576,20 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       contenedor.innerHTML = avisoInfo('No se encontraron registros biológicos con esos criterios en el área.');
       return;
     }
+
+    ultimaConsultaRealizada = {
+      bbox,
+      filtro: nombre || 'Biodiversidad Urbana',
+      cantidad: resultado.total,
+      fuente: 'GBIF'
+    };
+    autocargarMetadatos({
+      categoriaId: 'biodiversidad',
+      cantidad: resultado.total,
+      fuente: 'Global Biodiversity Information Facility (GBIF)',
+      filtro: nombre || 'Biodiversidad Urbana',
+      bbox
+    });
 
     if (cargarAlMapa) {
       ModuloMapa.cargarCapaGeoJSON('gbif_biodiversidad', resultado.geojson, {

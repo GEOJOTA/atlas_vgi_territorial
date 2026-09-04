@@ -372,6 +372,12 @@ table.tabla-datos th {
   background: rgba(255,255,255,0.2);
 }
 
+.btn-categoria.sincronizado-activo {
+  border: 2px solid var(--musgo) !important;
+  box-shadow: 0 0 0 2px rgba(63, 93, 78, 0.25);
+  background: var(--papel-alto);
+}
+
 .btn-sugerencia-ciudadana {
   display: flex;
   align-items: center;

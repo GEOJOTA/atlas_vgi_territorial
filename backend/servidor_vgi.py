@@ -341,11 +341,36 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
         base_v1 = "https://api.ohsome.org/v1"
         base_v2 = "https://api.heigit.org/ohsome-api/v2-rc"
         bboxes_str = ",".join(str(x) for x in bbox)
+        user_agent = "AtlasVGI-UAH/2.0 (nodo.geoabierto@uahurtado.cl)"
+
+        def extraer_items(obj):
+            if not obj:
+                return []
+            if isinstance(obj, list):
+                return obj
+            if isinstance(obj, dict):
+                if "result" in obj and isinstance(obj["result"], list):
+                    return obj["result"]
+                if "data" in obj and isinstance(obj["data"], list):
+                    return obj["data"]
+            return []
+
+        # Intentar caché en disco si existe
+        cache_key = hashlib.md5(f"{bboxes_str}_{filtro}_{intervalo}_{version}".encode("utf-8")).hexdigest()
+        cache_path = os.path.join(CACHE_DIR, f"calidad_{cache_key}.json")
+        if os.path.exists(cache_path):
+            try:
+                with open(cache_path, "r", encoding="utf-8") as f:
+                    cached_data = json.load(f)
+                    self.responder_json(200, cached_data)
+                    return
+            except Exception:
+                pass
 
         try:
-            # Obtener fecha máxima
-            meta_req = urllib.request.Request(f"{base_v1}/metadata", headers={"User-Agent": "AtlasVGI/1.0"})
-            with urllib.request.urlopen(meta_req, timeout=15, context=SSL_CTX) as res:
+            # Obtener fecha máxima con timeout seguro
+            meta_req = urllib.request.Request(f"{base_v1}/metadata", headers={"User-Agent": user_agent})
+            with urllib.request.urlopen(meta_req, timeout=6, context=SSL_CTX) as res:
                 meta = json.loads(res.read().decode("utf-8"))
                 fecha_fin = meta.get("extractRegion", {}).get("temporalExtent", {}).get("toTimestamp", "2026-06-01")[:10]
         except Exception:
@@ -367,7 +392,7 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 "filter": filtro,
                 "time": time_param
             }).encode("utf-8")
-            headers = {"User-Agent": "AtlasVGI/1.0"}
+            headers = {"User-Agent": user_agent}
             if usar_v2 and api_key:
                 token = api_key.strip()
                 auth_val = token if token.startswith("Bearer ") else f"Bearer {token}"
@@ -375,15 +400,15 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 headers["apiKey"] = token.replace("Bearer ", "")
 
             req = urllib.request.Request(f"{base}{endpoint}", data=p, headers=headers)
-            with urllib.request.urlopen(req, timeout=25, context=SSL_CTX) as res:
+            with urllib.request.urlopen(req, timeout=12, context=SSL_CTX) as res:
                 return json.loads(res.read().decode("utf-8"))
 
         try:
             f_lower = filtro.lower()
             tipo_geo = "punto"
-            if any(k in f_lower for k in ["highway", "cycleway", "footway", "waterway", "path"]):
+            if any(k in f_lower for k in ["highway", "cycleway", "footway", "waterway", "railway", "path", "track"]):
                 tipo_geo = "linea"
-            elif any(k in f_lower for k in ["building", "leisure", "landuse"]):
+            elif any(k in f_lower for k in ["building", "leisure", "landuse", "boundary"]):
                 tipo_geo = "poligono"
 
             conteo = None
@@ -398,15 +423,34 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             if version == "v2":
                 try:
                     conteo = post_ohsome("/stats/features/count", fecha_fin, usar_v2=True)
-                    usuarios = post_ohsome("/stats/contributors/count", ventana, usar_v2=True)
-                    serie = post_ohsome("/stats/features/count", ventana, usar_v2=True)
+                    try:
+                        usuarios = post_ohsome("/stats/contributors/count", ventana, usar_v2=True)
+                    except Exception:
+                        usuarios = None
+                    try:
+                        serie = post_ohsome("/stats/features/count", ventana, usar_v2=True)
+                    except Exception:
+                        serie = None
                     if tipo_geo == "linea":
-                        res_especial = post_ohsome("/stats/features/length", fecha_fin, usar_v2=True)
+                        try:
+                            res_especial = post_ohsome("/stats/features/length", fecha_fin, usar_v2=True)
+                        except Exception:
+                            res_especial = None
                     elif tipo_geo == "poligono":
-                        res_especial = post_ohsome("/stats/features/area", fecha_fin, usar_v2=True)
-                    res_contrib = post_ohsome("/stats/features/count", ventana, usar_v2=True)
-                    version_real = "v2"
-                    motor_real = "ohsomeDB (PostgreSQL / Citus / Python)"
+                        try:
+                            res_especial = post_ohsome("/stats/features/area", fecha_fin, usar_v2=True)
+                        except Exception:
+                            res_especial = None
+                    try:
+                        res_contrib = post_ohsome("/stats/contributors/count", ventana, usar_v2=True)
+                    except Exception:
+                        res_contrib = None
+
+                    if conteo and extraer_items(conteo):
+                        version_real = "v2"
+                        motor_real = "ohsomeDB (PostgreSQL / Citus / Python)"
+                    else:
+                        conteo = None
                 except Exception as err_v2:
                     print(f"[!] Consulta ohsome v2 falló ({err_v2}), ejecutando fallback a v1")
                     fue_fallback = True
@@ -414,24 +458,31 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
 
             if conteo is None:
                 conteo = post_ohsome("/elements/count", fecha_fin, usar_v2=False)
-                usuarios = post_ohsome("/users/count", ventana, usar_v2=False)
-                serie = post_ohsome("/elements/count", ventana, usar_v2=False)
+                try:
+                    usuarios = post_ohsome("/users/count", ventana, usar_v2=False)
+                except Exception:
+                    usuarios = None
+                try:
+                    serie = post_ohsome("/elements/count", ventana, usar_v2=False)
+                except Exception:
+                    serie = None
                 if tipo_geo == "linea":
                     try:
                         res_especial = post_ohsome("/elements/length", fecha_fin, usar_v2=False)
                     except Exception:
-                        pass
+                        res_especial = None
                 elif tipo_geo == "poligono":
                     try:
                         res_especial = post_ohsome("/elements/area", fecha_fin, usar_v2=False)
                     except Exception:
-                        pass
+                        res_especial = None
                 try:
                     res_contrib = post_ohsome("/contributions/count", ventana, usar_v2=False)
                 except Exception:
-                    pass
+                    res_contrib = None
 
-            elem_ahora = int(conteo.get("result", [{}])[0].get("value", 0))
+            items_conteo = extraer_items(conteo)
+            elem_ahora = int(items_conteo[0].get("value", 0)) if items_conteo else 0
 
             sup_bbox = calcular_superficie_bbox(bbox)
             area_calc = sup_bbox["areaKm2"]
@@ -442,20 +493,23 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             densidad_ha = round(elem_ahora / area_ha, 4) if area_ha > 0 else None
 
             metrica_geom = None
-            if tipo_geo == "linea" and res_especial and res_especial.get("result"):
-                val_m = res_especial["result"][0].get("value", 0)
+            items_especial = extraer_items(res_especial)
+            if tipo_geo == "linea" and items_especial:
+                val_m = items_especial[0].get("value", 0)
                 metrica_geom = {"tipo": "longitud", "etiqueta": "Longitud de red trazada", "valorM": round(val_m), "valorKm": round(val_m / 1000, 2), "unidad": "km"}
-            elif tipo_geo == "poligono" and res_especial and res_especial.get("result"):
-                val_m2 = res_especial["result"][0].get("value", 0)
+            elif tipo_geo == "poligono" and items_especial:
+                val_m2 = items_especial[0].get("value", 0)
                 metrica_geom = {"tipo": "superficie", "etiqueta": "Superficie total cubierta", "valorM2": round(val_m2), "valorHa": round(val_m2 / 10000, 2), "valorKm2": round(val_m2 / 1000000, 4), "unidad": "m²"}
 
-            lista_usr = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in usuarios.get("result", [])]
-            lista_contrib = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in (res_contrib.get("result", []) if res_contrib else [])]
+            lista_usr = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in extraer_items(usuarios)]
+            lista_contrib = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in extraer_items(res_contrib)]
             ult_usr = lista_usr[-1]["valor"] if lista_usr else 0
             ult_ctb = lista_contrib[-1]["valor"] if lista_contrib else 0
             ratio = round(ult_ctb / ult_usr, 1) if ult_usr > 0 else None
 
-            self.responder_json(200, {
+            lista_serie = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in extraer_items(serie)]
+
+            respuesta_final = {
                 "ok": True,
                 "version": version_real,
                 "motor": motor_real,
@@ -474,13 +528,22 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 "reproyeccion_aplicada": "EPSG:32719 (WGS 84 / UTM Huso 19 Sur - Transverse Mercator)",
                 "ratioContribucionPorUsuario": ratio,
                 "usuariosPorAnio": lista_usr,
-                "elementosPorAnio": [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in serie.get("result", [])],
+                "elementosPorAnio": lista_serie,
                 "contribucionesPorAnio": lista_contrib,
                 "referencias": [
                     {"autor": "HeiGIT / Heidelberg University", "url": "https://docs.ohsome.org/ohsome-api/v1/"},
                     {"autor": "Raifer et al. (2019)", "doi": "10.1186/s40965-019-0061-3"}
                 ]
-            })
+            }
+
+            # Guardar en caché
+            try:
+                with open(cache_path, "w", encoding="utf-8") as f:
+                    json.dump(respuesta_final, f, ensure_ascii=False)
+            except Exception:
+                pass
+
+            self.responder_json(200, respuesta_final)
         except Exception as e:
             self.responder_json(500, {"ok": False, "error": str(e)})
 

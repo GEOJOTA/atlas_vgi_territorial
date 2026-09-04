@@ -1,12 +1,14 @@
 /*
   netlify/functions/calidad.js
   ----------------------------
-  Función serverless de Netlify para consultar indicadores avanzados en ohsome API v1.
+  Función serverless de Netlify para consultar indicadores avanzados en ohsome API (v1 y v2).
   Aplica sensibilidad geométrica:
   - Líneas: consulta /elements/length (km)
   - Polígonos: consulta /elements/area (m²/km²)
   - Puntos/Comunes: /elements/count, /users/count, /contributions/count.
 */
+
+const USER_AGENT = 'AtlasVGI-UAH/2.0 (nodo.geoabierto@uahurtado.cl)';
 
 // Parámetros geodésicos del elipsoide WGS 84 para UTM 19S (EPSG:32719)
 const A_WGS84 = 6378137.0;
@@ -78,13 +80,21 @@ function calcularSuperficieBbox(bbox) {
   };
 }
 
+function extraerItems(obj) {
+  if (!obj) return [];
+  if (Array.isArray(obj)) return obj;
+  if (Array.isArray(obj.result)) return obj.result;
+  if (Array.isArray(obj.data)) return obj.data;
+  return [];
+}
+
 exports.handler = async function (event, context) {
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, apiKey',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
       },
       body: ''
@@ -123,10 +133,16 @@ exports.handler = async function (event, context) {
   const baseOhsomeV2 = 'https://api.heigit.org/ohsome-api/v2-rc';
 
   try {
-    // 1. Obtener fecha máxima disponible
+    // 1. Obtener fecha máxima disponible con límite de tiempo seguro
     let fechaFin = '2026-06-01';
     try {
-      const metaRes = await fetch(`${baseOhsomeV1}/metadata`);
+      const ctlMeta = new AbortController();
+      const tMeta = setTimeout(() => ctlMeta.abort(), 3500);
+      const metaRes = await fetch(`${baseOhsomeV1}/metadata`, {
+        signal: ctlMeta.signal,
+        headers: { 'User-Agent': USER_AGENT }
+      });
+      clearTimeout(tMeta);
       if (metaRes.ok) {
         const meta = await metaRes.json();
         const toTs = meta.extractRegion?.temporalExtent?.toTimestamp;
@@ -146,9 +162,9 @@ exports.handler = async function (event, context) {
 
     const fLower = filtro.toLowerCase();
     let tipoGeo = 'punto';
-    if (fLower.includes('highway') || fLower.includes('cycleway') || fLower.includes('footway') || fLower.includes('waterway')) {
+    if (fLower.includes('highway') || fLower.includes('cycleway') || fLower.includes('footway') || fLower.includes('waterway') || fLower.includes('railway') || fLower.includes('path')) {
       tipoGeo = 'linea';
-    } else if (fLower.includes('building') || fLower.includes('leisure') || fLower.includes('landuse')) {
+    } else if (fLower.includes('building') || fLower.includes('leisure') || fLower.includes('landuse') || fLower.includes('boundary')) {
       tipoGeo = 'poligono';
     }
 
@@ -163,46 +179,73 @@ exports.handler = async function (event, context) {
         filter: filtro,
         time: timeParam
       });
-      const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+      const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': USER_AGENT
+      };
       if (usarV2 && apiKey && apiKey.trim()) {
         const token = apiKey.trim();
         headers['Authorization'] = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+        headers['apiKey'] = token.replace(/^Bearer\s+/i, '');
       }
 
-      const res = await fetch(`${base}${path}`, {
-        method: 'POST',
-        headers,
-        body: p.toString()
-      });
-      if (!res.ok) throw new Error(`Error ${res.status} en ${path}`);
-      return res.json();
+      const ctl = new AbortController();
+      const tId = setTimeout(() => ctl.abort(), 5500);
+
+      try {
+        const res = await fetch(`${base}${path}`, {
+          method: 'POST',
+          headers,
+          body: p.toString(),
+          signal: ctl.signal
+        });
+        clearTimeout(tId);
+        if (!res.ok) {
+          const txt = await res.text().catch(() => '');
+          throw new Error(`HTTP ${res.status}: ${txt.slice(0, 100)}`);
+        }
+        return res.json();
+      } catch (err) {
+        clearTimeout(tId);
+        throw err;
+      }
     }
 
-    let conteoActual, usuarios, serieTemporal, resEspecial, resContrib;
+    let conteoActual = null;
+    let usuarios = null;
+    let serieTemporal = null;
+    let resEspecial = null;
+    let resContrib = null;
 
     if (version === 'v2') {
       try {
         const epEspecial = tipoGeo === 'linea' ? '/stats/features/length' : (tipoGeo === 'poligono' ? '/stats/features/area' : null);
         [conteoActual, usuarios, serieTemporal, resEspecial, resContrib] = await Promise.all([
           consultarEndpoint('/stats/features/count', fechaFin, true),
-          consultarEndpoint('/stats/contributors/count', ventanaTiempo, true),
-          consultarEndpoint('/stats/features/count', ventanaTiempo, true),
+          consultarEndpoint('/stats/contributors/count', ventanaTiempo, true).catch(() => null),
+          consultarEndpoint('/stats/features/count', ventanaTiempo, true).catch(() => null),
           epEspecial ? consultarEndpoint(epEspecial, fechaFin, true).catch(() => null) : Promise.resolve(null),
-          consultarEndpoint('/stats/features/count', ventanaTiempo, true).catch(() => null)
+          consultarEndpoint('/stats/contributors/count', ventanaTiempo, true).catch(() => null)
         ]);
-        versionReal = 'v2';
-        motorReal = 'ohsomeDB (PostgreSQL / Citus / Python)';
+
+        if (conteoActual && (conteoActual.data || conteoActual.result)) {
+          versionReal = 'v2';
+          motorReal = 'ohsomeDB (PostgreSQL / Citus / Python)';
+        } else {
+          throw new Error('Sin datos en respuesta v2');
+        }
       } catch (errV2) {
-        console.warn(`[calidad.js] Consulta v2 fallida (${errV2.message}), ejecutando fallback a v1.`);
+        console.warn(`[calidad.js] Consulta v2 no disponible o requiere API Key (${errV2.message}), ejecutando fallback a v1.`);
         fueFallback = true;
+        conteoActual = null;
       }
     }
 
     if (!conteoActual) {
       const promesasV1 = [
         consultarEndpoint('/elements/count', fechaFin, false),
-        consultarEndpoint('/users/count', ventanaTiempo, false),
-        consultarEndpoint('/elements/count', ventanaTiempo, false)
+        consultarEndpoint('/users/count', ventanaTiempo, false).catch(() => null),
+        consultarEndpoint('/elements/count', ventanaTiempo, false).catch(() => null)
       ];
 
       let promesaEspecialV1 = null;
@@ -223,7 +266,8 @@ exports.handler = async function (event, context) {
       ]);
     }
 
-    const elementosAhora = conteoActual.result && conteoActual.result.length > 0 ? Math.round(conteoActual.result[0].value) : 0;
+    const itemsConteo = extraerItems(conteoActual);
+    const elementosAhora = itemsConteo.length > 0 ? Math.round(itemsConteo[0].value || 0) : 0;
 
     // Cálculo de área y densidad sobre Bbox mediante reproyección a EPSG:32719
     const geoSuperficie = calcularSuperficieBbox(bbox);
@@ -235,38 +279,47 @@ exports.handler = async function (event, context) {
     const densidad_ha = areaHa > 0 ? (elementosAhora / areaHa) : null;
 
     let metricaGeometrica = null;
-    if (tipoGeo === 'linea' && resEspecial?.result?.length > 0) {
-      const metros = resEspecial.result[0].value;
+    const itemsEspecial = extraerItems(resEspecial);
+    if (tipoGeo === 'linea' && itemsEspecial.length > 0) {
+      const metros = itemsEspecial[0].value || 0;
       metricaGeometrica = {
         tipo: 'longitud',
         etiqueta: 'Longitud de red trazada',
+        valorMetros: Math.round(metros),
         valorM: Math.round(metros),
         valorKm: Number((metros / 1000).toFixed(2)),
         unidad: 'km'
       };
-    } else if (tipoGeo === 'poligono' && resEspecial?.result?.length > 0) {
-      const m2 = resEspecial.result[0].value;
+    } else if (tipoGeo === 'poligono' && itemsEspecial.length > 0) {
+      const m2 = itemsEspecial[0].value || 0;
       metricaGeometrica = {
         tipo: 'superficie',
         etiqueta: 'Superficie total cubierta',
         valorM2: Math.round(m2),
+        valorHectareas: Number((m2 / 10000).toFixed(2)),
         valorHa: Number((m2 / 10000).toFixed(2)),
         valorKm2: Number((m2 / 1000000).toFixed(4)),
         unidad: 'm²'
       };
     }
 
-    const listaUsuarios = (usuarios.result || []).map(r => ({
+    const listaUsuarios = extraerItems(usuarios).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
-      valor: Math.round(r.value)
+      valor: Math.round(r.value || 0)
     }));
-    const ultimosUsuarios = listaUsuarios.at(-1)?.valor || 0;
-    const listaContrib = (resContrib?.result || []).map(r => ({
+    const ultimosUsuarios = (listaUsuarios && listaUsuarios.length > 0) ? listaUsuarios[listaUsuarios.length - 1].valor : 0;
+
+    const listaContrib = extraerItems(resContrib).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
-      valor: Math.round(r.value)
+      valor: Math.round(r.value || 0)
     }));
-    const ultimasContrib = listaContrib.at(-1)?.valor || 0;
+    const ultimasContrib = (listaContrib && listaContrib.length > 0) ? listaContrib[listaContrib.length - 1].valor : 0;
     const ratioContribUsuario = ultimosUsuarios > 0 ? Number((ultimasContrib / ultimosUsuarios).toFixed(1)) : null;
+
+    const listaElementos = extraerItems(serieTemporal).map(r => ({
+      fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
+      valor: Math.round(r.value || 0)
+    }));
 
     return {
       statusCode: 200,
@@ -277,6 +330,9 @@ exports.handler = async function (event, context) {
       },
       body: JSON.stringify({
         ok: true,
+        version: versionReal,
+        motor: motorReal,
+        fueFallback,
         fechaCorte: fechaFin,
         tipoGeometria: tipoGeo,
         elementosAhora: elementosAhora,
@@ -291,14 +347,26 @@ exports.handler = async function (event, context) {
         reproyeccion_aplicada: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur - Transverse Mercator)',
         ratioContribucionPorUsuario: ratioContribUsuario,
         usuariosPorAnio: listaUsuarios,
-        elementosPorAnio: (serieTemporal.result || []).map(r => ({
-          fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
-          valor: Math.round(r.value)
-        })),
+        elementosPorAnio: listaElementos,
         contribucionesPorAnio: listaContrib,
         referencias: [
-          { autor: 'HeiGIT / Heidelberg University', url: 'https://docs.ohsome.org/ohsome-api/v1/' },
-          { autor: 'Raifer et al. (2019)', doi: '10.1186/s40965-019-0061-3' }
+          {
+            autor: 'Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019)',
+            titulo: 'OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data (ohsome API v1)',
+            doi: '10.1186/s40965-019-0061-3',
+            url: 'https://doi.org/10.1186/s40965-019-0061-3'
+          },
+          {
+            autor: 'HeiGIT - Heidelberg Institute for Geoinformation Technology (2025/2026)',
+            titulo: 'ohsome API v2: Next-Generation OSM History Analysis with ohsomeDB and Citus',
+            url: 'https://api.heigit.org/ohsome-api/v2-rc/docs'
+          },
+          {
+            autor: 'Neis, P. & Zipf, A. (2012)',
+            titulo: 'Analyzing the Contributor Activity of OpenStreetMap and Its Development for the Community',
+            doi: '10.3390/ijgi1020146',
+            url: 'https://doi.org/10.3390/ijgi1020146'
+          }
         ]
       })
     };

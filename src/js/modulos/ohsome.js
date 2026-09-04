@@ -2,16 +2,18 @@
   ohsome.js
   ---------
   Módulo de análisis de calidad y evolución espacio-temporal de OpenStreetMap
-  basado en la API v1 de ohsome (HeiGIT - Heidelberg Institute for Geoinformation Technology).
+  basado en la API v1 y v2 de ohsome (HeiGIT - Heidelberg Institute for Geoinformation Technology).
 
-  Profundizaciones implementadas conforme a ohsome API v1:
-  - Sensibilidad al tipo de geometría:
-    * Entidades Lineales (calles, ciclovías): consulta /elements/length (km) + /elements/count.
-    * Entidades Poligonales (edificaciones, plazas): consulta /elements/area (m²/km²) + /elements/count.
-    * Entidades Puntuales (equipamiento, paraderos): consulta /elements/count.
-  - Métricas avanzadas: /users/count y /contributions/count.
-  - Indicadores derivados: Ratio de esfuerzo de edición (contribuciones/usuario) e Índice de Densidad.
-  - Referencias metodológicas y bibliográficas documentadas para comités académicos.
+  Arquitectura Resiliente Híbrida:
+  - Nivel 1 (Prioritario): Invoca el endpoint proxy /api/calidad (Netlify Function o servidor local Python),
+    evitando bloqueos CORS del navegador y firewalls institucionales.
+  - Nivel 2 (Fallback en Cliente): Conmutación automática a consultas directas en el navegador
+    contra https://api.ohsome.org/v1 si el proxy no está disponible.
+  - Sensibilidad geométrica:
+    * Entidades Lineales (calles, ciclovías, metro): /elements/length (km) + /elements/count.
+    * Entidades Poligonales (edificaciones, plazas): /elements/area (m²/ha) + /elements/count.
+    * Entidades Puntuales (equipamiento, paraderos, arbolado): /elements/count.
+  - Reproyección conforme a EPSG:32719 (WGS 84 / UTM 19S) para cálculo exacto de superficies en m² y densidades.
 */
 
 const ModuloOhsome = (() => {
@@ -28,18 +30,21 @@ const ModuloOhsome = (() => {
   async function obtenerFechaMaxima(baseEndpoint) {
     if (fechaMaximaDisponible) return fechaMaximaDisponible;
     try {
-      const res = await fetch(`${baseEndpoint}/metadata`);
+      const ctl = new AbortController();
+      const tId = setTimeout(() => ctl.abort(), 3500);
+      const res = await fetch(`${baseEndpoint}/metadata`, { signal: ctl.signal });
+      clearTimeout(tId);
       if (res.ok) {
         const meta = await res.json();
         const toTs = meta.extractRegion?.temporalExtent?.toTimestamp;
         if (toTs) {
           fechaMaximaDisponible = toTs.slice(0, 10);
-          console.log(`[ohsome v1] Horizonte temporal detectado: ${fechaMaximaDisponible}`);
+          console.log(`[ohsome] Horizonte temporal detectado: ${fechaMaximaDisponible}`);
           return fechaMaximaDisponible;
         }
       }
     } catch (e) {
-      console.warn('[ohsome v1] No se pudo leer metadata, usando fecha de corte segura.');
+      console.warn('[ohsome] No se pudo leer metadata a tiempo, usando fecha de corte segura.');
     }
     fechaMaximaDisponible = '2026-06-01';
     return fechaMaximaDisponible;
@@ -49,8 +54,8 @@ const ModuloOhsome = (() => {
    * Determina la métrica geométrica especializada según el filtro OSM
    */
   function clasificarGeometria(filtro) {
-    const f = filtro.toLowerCase();
-    if (f.includes('highway') || f.includes('cycleway') || f.includes('footway') || f.includes('waterway') || f.includes('path')) {
+    const f = (filtro || '').toLowerCase();
+    if (f.includes('highway') || f.includes('cycleway') || f.includes('footway') || f.includes('waterway') || f.includes('railway') || f.includes('path') || f.includes('track')) {
       return 'linea';
     }
     if (f.includes('building') || f.includes('leisure') || f.includes('landuse') || f.includes('boundary') || f.includes('natural=wood')) {
@@ -69,18 +74,28 @@ const ModuloOhsome = (() => {
       time: tiempo
     });
 
-    const respuesta = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: cuerpo.toString()
-    });
+    const ctl = new AbortController();
+    const tId = setTimeout(() => ctl.abort(), 10000);
 
-    if (!respuesta.ok) {
-      const texto = await respuesta.text().catch(() => '');
-      throw new Error(`ohsome v1 respondió con código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 150) : ''}`);
+    try {
+      const respuesta = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: cuerpo.toString(),
+        signal: ctl.signal
+      });
+      clearTimeout(tId);
+
+      if (!respuesta.ok) {
+        const texto = await respuesta.text().catch(() => '');
+        throw new Error(`ohsome v1 código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 100) : ''}`);
+      }
+
+      return respuesta.json();
+    } catch (e) {
+      clearTimeout(tId);
+      throw e;
     }
-
-    return respuesta.json();
   }
 
   async function consultarEndpointV2(rutaEndpoint, bbox, filtro, tiempo, apiKey) {
@@ -103,26 +118,97 @@ const ModuloOhsome = (() => {
       headers['apiKey'] = token.replace(/^Bearer\s+/i, '');
     }
 
-    const respuesta = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: cuerpo.toString()
-    });
+    const ctl = new AbortController();
+    const tId = setTimeout(() => ctl.abort(), 8000);
 
-    if (!respuesta.ok) {
-      const texto = await respuesta.text().catch(() => '');
-      const err = new Error(`ohsome v2 respondió con código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 150) : ''}`);
-      err.status = respuesta.status;
-      throw err;
+    try {
+      const respuesta = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: cuerpo.toString(),
+        signal: ctl.signal
+      });
+      clearTimeout(tId);
+
+      if (!respuesta.ok) {
+        const texto = await respuesta.text().catch(() => '');
+        const err = new Error(`ohsome v2 código ${respuesta.status} en ${rutaEndpoint}. ${texto ? texto.slice(0, 100) : ''}`);
+        err.status = respuesta.status;
+        throw err;
+      }
+
+      return respuesta.json();
+    } catch (e) {
+      clearTimeout(tId);
+      throw e;
     }
+  }
 
-    return respuesta.json();
+  /**
+   * Adapta la respuesta del backend /api/calidad al esquema esperado por la interfaz
+   */
+  function normalizarRespuestaProxy(dataProxy, versionSolicitada) {
+    return {
+      version: dataProxy.version || versionSolicitada,
+      motor: dataProxy.motor || 'ohsome API (HeiGIT)',
+      fueFallback: Boolean(dataProxy.fueFallback),
+      motivoFallback: dataProxy.motivoFallback || null,
+      tipoGeometria: dataProxy.tipoGeometria || 'punto',
+      elementosAhora: Number(dataProxy.elementosAhora || 0),
+      metricaGeometrica: dataProxy.metricaGeometrica || null,
+      usuariosPorAnio: dataProxy.usuariosPorAnio || [],
+      elementosPorAnio: dataProxy.elementosPorAnio || [],
+      contribucionesPorAnio: dataProxy.contribucionesPorAnio || [],
+      ratioContribucionPorUsuario: dataProxy.ratioContribucionPorUsuario || null,
+      fechaCorte: dataProxy.fechaCorte || '2026-06-01',
+      referencias: dataProxy.referencias || [
+        {
+          autor: 'Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019)',
+          titulo: 'OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data (ohsome API v1)',
+          doi: '10.1186/s40965-019-0061-3',
+          url: 'https://doi.org/10.1186/s40965-019-0061-3'
+        },
+        {
+          autor: 'HeiGIT - Heidelberg Institute for Geoinformation Technology (2025/2026)',
+          titulo: 'ohsome API v2: Next-Generation OSM History Analysis with ohsomeDB and Citus',
+          url: 'https://api.heigit.org/ohsome-api/v2-rc/docs'
+        }
+      ]
+    };
   }
 
   /**
    * Calcula los indicadores de calidad especializados según tipo de entidad (compatible con v1 y v2)
    */
   async function calcularIndicadores(bbox, filtro = 'building=* and type:way', intervalo = 'P1Y', version = 'v1', apiKey = '') {
+    // ----------------------------------------------------
+    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local)
+    // ----------------------------------------------------
+    try {
+      const ctlProxy = new AbortController();
+      const tProxy = setTimeout(() => ctlProxy.abort(), 7000);
+      const resProxy = await fetch('/api/calidad', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bbox, filtro, intervalo, version, apiKey }),
+        signal: ctlProxy.signal
+      });
+      clearTimeout(tProxy);
+
+      if (resProxy.ok) {
+        const dataProxy = await resProxy.json();
+        if (dataProxy && dataProxy.ok) {
+          console.log('[ohsome] Métrica de calidad calculada con éxito vía /api/calidad.');
+          return normalizarRespuestaProxy(dataProxy, version);
+        }
+      }
+    } catch (errProxy) {
+      console.warn('[ohsome] /api/calidad no respondió a tiempo o no disponible, recurriendo a consulta directa:', errProxy.message);
+    }
+
+    // ----------------------------------------------------
+    // NIVEL 2: Fallback directo en cliente (Browser fetch)
+    // ----------------------------------------------------
     const baseV1 = window.NODO_CONFIG?.endpoints?.ohsome_v1 || window.NODO_CONFIG?.endpoints?.ohsome || 'https://api.ohsome.org/v1';
     const fechaFin = await obtenerFechaMaxima(baseV1);
 
@@ -137,18 +223,18 @@ const ModuloOhsome = (() => {
 
     const tipoGeo = clasificarGeometria(filtro);
 
-    // Si se solicitó v2, intentar primero contra la API v2 de HeiGIT
+    // Si se solicitó v2, intentar en cliente con captura de CORS para fallback
     if (version === 'v2') {
       try {
-        console.log('[ohsome] Intentando consulta contra ohsome API v2 (ohsomeDB / Citus)...');
+        console.log('[ohsome] Intentando consulta cliente directa v2...');
         const endpointEspecial = tipoGeo === 'linea' ? '/stats/features/length' : (tipoGeo === 'poligono' ? '/stats/features/area' : null);
 
         const promesasV2 = [
           consultarEndpointV2('/stats/features/count', bbox, filtro, fechaFin, apiKey),
-          consultarEndpointV2('/stats/contributors/count', bbox, filtro, ventanaTiempo, apiKey),
-          consultarEndpointV2('/stats/features/count', bbox, filtro, ventanaTiempo, apiKey),
+          consultarEndpointV2('/stats/contributors/count', bbox, filtro, ventanaTiempo, apiKey).catch(() => null),
+          consultarEndpointV2('/stats/features/count', bbox, filtro, ventanaTiempo, apiKey).catch(() => null),
           endpointEspecial ? consultarEndpointV2(endpointEspecial, bbox, filtro, fechaFin, apiKey).catch(() => null) : Promise.resolve(null),
-          consultarEndpointV2('/stats/features/count', bbox, filtro, ventanaTiempo, apiKey).catch(() => null)
+          consultarEndpointV2('/stats/contributors/count', bbox, filtro, ventanaTiempo, apiKey).catch(() => null)
         ];
 
         const [conteoActual, usuarios, serieTemporal, resEspecial, resContribuciones] = await Promise.all(promesasV2);
@@ -166,10 +252,10 @@ const ModuloOhsome = (() => {
           fueFallback: false
         });
       } catch (errV2) {
-        console.warn(`[ohsome] Consulta v2 no disponible o requiere API Key (${errV2.message}). Conmutando automáticamente a ohsome API v1 (OSHDB)...`);
+        console.warn(`[ohsome] Consulta v2 directa no permitida por CORS o falta de API Key (${errV2.message}). Conmutando automáticamente a v1 (OSHDB)...`);
         const resV1 = await ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo);
         resV1.fueFallback = true;
-        resV1.motivoFallback = errV2.status === 401 ? 'Falta o token no válido de API Key para v2' : errV2.message;
+        resV1.motivoFallback = errV2.status === 401 ? 'Requiere API Key de HeiGIT' : 'Conmutación por política CORS / Red';
         return resV1;
       }
     }
@@ -181,8 +267,14 @@ const ModuloOhsome = (() => {
   async function ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo) {
     const promesas = [
       consultarEndpointV1('/elements/count', bbox, filtro, fechaFin),
-      consultarEndpointV1('/users/count', bbox, filtro, ventanaTiempo),
-      consultarEndpointV1('/elements/count', bbox, filtro, ventanaTiempo)
+      consultarEndpointV1('/users/count', bbox, filtro, ventanaTiempo).catch(e => {
+        console.warn('[ohsome v1] Usuarios no disponible:', e.message);
+        return null;
+      }),
+      consultarEndpointV1('/elements/count', bbox, filtro, ventanaTiempo).catch(e => {
+        console.warn('[ohsome v1] Serie no disponible:', e.message);
+        return null;
+      })
     ];
 
     let promesaEspecial = null;
@@ -289,9 +381,9 @@ const ModuloOhsome = (() => {
       };
     }
 
-    // Ratio de intensidad comunitaria
-    const ultimoUsuarios = listaUsuarios.at(-1)?.valor || 0;
-    const ultimasContribuciones = listaContribuciones.at(-1)?.valor || 0;
+    // Ratio de intensidad comunitaria (sin usar Array.prototype.at para compatibilidad universal)
+    const ultimoUsuarios = (listaUsuarios && listaUsuarios.length > 0) ? listaUsuarios[listaUsuarios.length - 1].valor : 0;
+    const ultimasContribuciones = (listaContribuciones && listaContribuciones.length > 0) ? listaContribuciones[listaContribuciones.length - 1].valor : 0;
     const ratioContribucionPorUsuario = ultimoUsuarios > 0 ? Number((ultimasContribuciones / ultimoUsuarios).toFixed(1)) : null;
 
     return {
@@ -332,7 +424,6 @@ const ModuloOhsome = (() => {
         }
       ]
     };
-  }
   }
 
   /**
