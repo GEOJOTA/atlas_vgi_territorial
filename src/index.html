@@ -234,7 +234,7 @@
           <div class="campo"><label for="osm-norte">Norte (Lat Max)</label><input type="number" step="any" id="osm-norte"></div>
         </div>
         <div class="fila-campos">
-          <div class="campo" style="flex:1;">
+          <div class="campo" style="flex:1.2; min-width:260px;">
             <label for="osm-categoria-preset">Presets Temáticos Preconfigurados</label>
             <select id="osm-categoria-preset">
               <option value="">— Seleccionar categoría predefinida —</option>
@@ -247,6 +247,10 @@
               <option value="accesibilidad">CAT-07: Accesibilidad Universal y Cruces</option>
               <option value="biodiversidad">CAT-08: Biodiversidad Urbana (Arbolado)</option>
             </select>
+          </div>
+          <div class="campo" style="flex:1; min-width:200px;">
+            <label for="osm-etiqueta">Etiqueta OSM Manual (Opcional)</label>
+            <input type="text" id="osm-etiqueta" placeholder="ej: amenity=cafe, shop=bakery">
           </div>
         </div>
         <button class="accion" id="btn-consultar-osm">Consultar Preset Overpass</button>

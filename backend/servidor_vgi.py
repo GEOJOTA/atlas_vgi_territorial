@@ -33,9 +33,10 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 PUERTO = 8000
 
 OVERPASS_ESPEJOS = [
-    "https://overpass-api.de/api/interpreter",
+    "https://overpass.openstreetmap.fr/api/interpreter",
     "https://lz4.overpass-api.de/api/interpreter",
-    "https://z.overpass-api.de/api/interpreter"
+    "https://z.overpass-api.de/api/interpreter",
+    "https://overpass-api.de/api/interpreter"
 ]
 
 try:
@@ -226,9 +227,23 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
         ql_custom = body.get("queryPersonalizada", "")
 
         if ql_custom:
-            cuerpo_ql = ql_custom.replace("{{bbox}}", bbox_str)
+            ql_limpio = ql_custom.replace("{{bbox}}", bbox_str).strip()
+            if any(token in ql_limpio for token in ["[out:", "out ", "out;"]):
+                if "[out:json]" not in ql_limpio:
+                    ql_limpio = f"[out:json][timeout:30];\n{ql_limpio}"
+                if "out " not in ql_limpio and "out;" not in ql_limpio:
+                    ql_limpio = f"{ql_limpio}\nout geom tags qt 400;"
+                query_overpass = ql_limpio
+            else:
+                query_overpass = f"""
+                [out:json][timeout:30];
+                (
+                  {ql_limpio}
+                );
+                out geom tags qt 400;
+                """
         else:
-            if clave and valor:
+            if clave and valor and valor != "*":
                 if operador == "~":
                     filtro = f'["{clave}"~"{valor}"]'
                 elif operador == "!=":
@@ -239,15 +254,13 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 filtro = f'["{clave}"]'
             else:
                 filtro = '["amenity"]'
-            cuerpo_ql = f"{entidad}{filtro}({bbox_str});"
-
-        query_overpass = f"""
-        [out:json][timeout:35];
-        (
-          {cuerpo_ql}
-        );
-        out geom tags qt 400;
-        """
+            query_overpass = f"""
+            [out:json][timeout:30];
+            (
+              {entidad}{filtro}({bbox_str});
+            );
+            out geom tags qt 400;
+            """
 
         # Verificar caché en disco
         clave_cache = hashlib.md5(query_overpass.encode("utf-8")).hexdigest()
@@ -280,7 +293,7 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                     data=data_encoded,
                     headers={"User-Agent": "AtlasVGI-LocalBackend/1.0"}
                 )
-                with urllib.request.urlopen(req, timeout=40, context=SSL_CTX) as res:
+                with urllib.request.urlopen(req, timeout=12, context=SSL_CTX) as res:
                     if res.status == 200:
                         data = json.loads(res.read().decode("utf-8"))
                         elementos = data.get("elements", [])

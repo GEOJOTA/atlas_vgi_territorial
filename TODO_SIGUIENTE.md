@@ -3,6 +3,49 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 7 — Septiembre 2026 (Diagnóstico y Solución Integral de Consultas Overpass API, Sustitución de Espejos Caídos, Sanitización QL y Control de Timeouts)
+
+### Diagnóstico de Fallos Identificados
+
+1. **Servidores Espejo Caídos y Sobrecargados en Configuración Global:**
+   - En `config/config.json`, `src/config/config.json` y `src/js/config.js`, los servidores configurados eran `overpass-api.de`, `overpass.kumi.systems` y `maps.mail.ru`.
+   - Pruebas empíricas con cURL revelaron que `kumi.systems` y `maps.mail.ru` están permanentemente caídos (connection timeout), mientras que `overpass-api.de` sufría sobrecarga/bloqueo de IP con timeouts superiores a 15 segundos y errores HTTP 504 Gateway Timeout.
+   - En contraste, los mirrors `https://overpass.openstreetmap.fr/api/interpreter` (Francia) y `https://lz4.overpass-api.de/api/interpreter` (Alemania LZ4) respondieron en menos de 2 segundos con código HTTP 200 y encabezados CORS abiertos (`Access-Control-Allow-Origin: *`).
+
+2. **Ausencia de Declaración `out` en Consultas Personalizadas de Netlify Functions:**
+   - En `netlify/functions/consulta.js`, cuando se enviaba una expresión QL como `nwr["amenity"="pharmacy"]({{bbox}});`, el backend le anteponía `[out:json]`, pero **nunca le agregaba la cláusula de salida `out geom tags qt 400;`**.
+   - Sin una sentencia `out`, Overpass procesaba el filtro en memoria pero retornaba una lista vacía (`"elements": []`), provocando que todas las consultas de la interfaz mostraran "0 elementos encontrados".
+
+3. **Inexistencia de Timeouts con `AbortController` en el Cliente Web (`osm.js`):**
+   - Las llamadas `fetch(endpoint, ...)` en `src/js/modulos/osm.js` no contaban con señal de cancelación. Al intentar conectar con servidores caídos (`kumi.systems`, `mail.ru`), el navegador se quedaba congelado esperando el timeout de red por más de 90 segundos por cada servidor (más de 3 minutos de bloqueo total).
+
+4. **Error de Referencia Nula en DOM (`osm-etiqueta`):**
+   - En `src/js/app.js`, `manejarConsultaOSM` intentaba acceder a `document.getElementById('osm-etiqueta').value` directamente. Al no existir dicho campo en el formulario de presets, se disparaba un `TypeError: Cannot read properties of null (reading 'value')`, interrumpiendo la ejecución antes de emitir la petición HTTP.
+
+### Soluciones Aplicadas y Verificación
+
+1. **Renovación Completa de la Lista de Espejos Overpass:**
+   - Se actualizaron todos los archivos de configuración (`config.json`, `src/config.json`, `config.js`, `consulta.js`, `servidor_vgi.py`, `extractor_vgi.py`) priorizando:
+     1. `https://overpass.openstreetmap.fr/api/interpreter` (Principal activo, rápido y con CORS)
+     2. `https://lz4.overpass-api.de/api/interpreter` (Mirror LZ4 de alta velocidad)
+     3. `https://z.overpass-api.de/api/interpreter` (Espejo secundario Z)
+     4. `https://overpass-api.de/api/interpreter` (Servidor principal como contingencia tardía)
+
+2. **Timeouts Rápidos con `AbortController`:**
+   - En `src/js/modulos/osm.js`: se incorporó un timeout estricto de **10 segundos por servidor**. Si un mirror no responde en 10s, se aborta inmediatamente y se conmuta al siguiente mirror en milisegundos.
+   - En `netlify/functions/consulta.js`: se configuró un timeout de **6 segundos por servidor** para evitar agotar el presupuesto de 10s de las funciones serverless de Netlify.
+   - En el cliente web: `fetch('/api/consulta')` ahora cuenta con timeout de 8 segundos, pasando de inmediato a la resolución directa en navegador si el backend tarda en responder.
+
+3. **Sanitización Inteligente de Overpass QL:**
+   - Tanto en `consulta.js` como en `servidor_vgi.py` y `osm.js`, se verifica si la consulta ya contiene directivas `[out:` y `out `. Si no tiene sentencia `out`, se le agrega automáticamente `\nout geom tags qt 400;` para asegurar el retorno de coordenadas vectoriales completas.
+   - Se previene la doble anidación de bloques `( ... );` que causaba errores de sintaxis en Overpass.
+
+4. **Corrección de Interfaz y Manejo de Errores Robustecido:**
+   - Se añadió el campo `<input id="osm-etiqueta">` en `src/index.html` y se implementó encadenamiento opcional (`?.value`) en `src/js/app.js`.
+   - Pruebas en vivo con CLI y cURL confirmaron la extracción inmediata de **192 elementos de educación** y **15 farmacias** en menos de 2 segundos.
+
+---
+
 ## Entrega de turno 6 — Septiembre 2026 (Integración Sistemática de m² en Cálculos de Superficie, Densidades Territoriales y Geodesia Rigurosa EPSG:32719)
 
 ### Estado alcanzado en este turno

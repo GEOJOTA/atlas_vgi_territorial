@@ -63,11 +63,12 @@ async function cargarConfiguracion() {
         }
       ],
       endpoints: {
-        overpass: 'https://overpass-api.de/api/interpreter',
+        overpass: 'https://overpass.openstreetmap.fr/api/interpreter',
         overpass_espejos: [
-          'https://overpass-api.de/api/interpreter',
-          'https://overpass.kumi.systems/api/interpreter',
-          'https://maps.mail.ru/osm/tools/overpass/api/interpreter'
+          'https://overpass.openstreetmap.fr/api/interpreter',
+          'https://lz4.overpass-api.de/api/interpreter',
+          'https://z.overpass-api.de/api/interpreter',
+          'https://overpass-api.de/api/interpreter'
         ],
         ohsome: 'https://api.ohsome.org/v1',
         gbif: 'https://api.gbif.org/v1',

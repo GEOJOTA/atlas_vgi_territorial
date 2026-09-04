@@ -32,9 +32,10 @@ CONFIG_PATH = os.path.join(BASE_DIR, "config", "config.json")
 BBOX_DEFECTO = [-70.6675, -33.4505, -70.6565, -33.4385]
 
 OVERPASS_SERVERS = [
-    "https://overpass-api.de/api/interpreter",
+    "https://overpass.openstreetmap.fr/api/interpreter",
     "https://lz4.overpass-api.de/api/interpreter",
-    "https://z.overpass-api.de/api/interpreter"
+    "https://z.overpass-api.de/api/interpreter",
+    "https://overpass-api.de/api/interpreter"
 ]
 
 # Manejo de certificados SSL en macOS
@@ -168,7 +169,7 @@ def consultar_overpass(cuerpo_ql, bbox):
     for srv in OVERPASS_SERVERS:
         try:
             req = urllib.request.Request(srv, data=data_encoded, headers={"User-Agent": "AtlasVGI-UAH-Practica/1.0"})
-            with urllib.request.urlopen(req, timeout=40, context=SSL_CONTEXT) as res:
+            with urllib.request.urlopen(req, timeout=12, context=SSL_CONTEXT) as res:
                 if res.status == 200:
                     datos = json.loads(res.read().decode("utf-8"))
                     return datos.get("elements", [])

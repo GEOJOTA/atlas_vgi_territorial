@@ -7,9 +7,10 @@
 */
 
 const OVERPASS_ESPEJOS = [
-  'https://overpass-api.de/api/interpreter',
+  'https://overpass.openstreetmap.fr/api/interpreter',
   'https://lz4.overpass-api.de/api/interpreter',
-  'https://z.overpass-api.de/api/interpreter'
+  'https://z.overpass-api.de/api/interpreter',
+  'https://overpass-api.de/api/interpreter'
 ];
 
 exports.handler = async function (event, context) {
@@ -45,7 +46,7 @@ exports.handler = async function (event, context) {
     };
   }
 
-  const { bbox, etiqueta, clave, valor, operador, entidad, queryPersonalizada, timeout = 30 } = body;
+  const { bbox, etiqueta, clave, valor, operador, entidad, queryPersonalizada, timeout = 25 } = body;
 
   if (!bbox || !Array.isArray(bbox) || bbox.length !== 4) {
     return {
@@ -62,17 +63,30 @@ exports.handler = async function (event, context) {
 
   if (queryPersonalizada && typeof queryPersonalizada === 'string') {
     // Si el usuario proporcionó código QL propio
-    let qlSanitizado = queryPersonalizada.replaceAll('{{bbox}}', bboxOverpass);
-    if (!qlSanitizado.includes('[out:json]')) {
-      qlSanitizado = `[out:json][timeout:${timeout}];\n${qlSanitizado}`;
+    let qlSanitizado = queryPersonalizada.replaceAll('{{bbox}}', bboxOverpass).trim();
+    if (qlSanitizado.includes('[out:') || qlSanitizado.includes('out ') || qlSanitizado.includes('out;')) {
+      if (!qlSanitizado.includes('[out:json]')) {
+        qlSanitizado = `[out:json][timeout:${timeout}];\n${qlSanitizado}`;
+      }
+      if (!qlSanitizado.includes('out ') && !qlSanitizado.includes('out;')) {
+        qlSanitizado = `${qlSanitizado}\nout geom tags qt 400;`;
+      }
+      consultaQL = qlSanitizado;
+    } else {
+      consultaQL = `
+        [out:json][timeout:${timeout}];
+        (
+          ${qlSanitizado}
+        );
+        out geom tags qt 400;
+      `;
     }
-    consultaQL = qlSanitizado;
   } else {
     // Constructor de consulta a partir de parámetros
     const tipoEntidad = entidad || 'nwr'; // nwr = node, way, relation
     let filtro = '';
 
-    if (clave && valor) {
+    if (clave && valor && valor !== '*') {
       if (operador === '~') {
         filtro = `["${clave}"~"${valor}"]`;
       } else if (operador === '!=') {
@@ -80,7 +94,7 @@ exports.handler = async function (event, context) {
       } else {
         filtro = `["${clave}"="${valor}"]`;
       }
-    } else if (clave && (!valor || valor === '*')) {
+    } else if (clave) {
       filtro = `["${clave}"]`;
     } else if (etiqueta) {
       if (etiqueta.includes('=')) {
@@ -107,7 +121,7 @@ exports.handler = async function (event, context) {
   for (const endpoint of OVERPASS_ESPEJOS) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), (timeout + 5) * 1000);
+      const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s máx por servidor para no exceder límite de Netlify Functions
 
       const respuesta = await fetch(endpoint, {
         method: 'POST',

@@ -902,8 +902,8 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
   const bbox = leerBbox('osm');
   if (!bbox) { contenedor.innerHTML = avisoError('Completa las cuatro coordenadas del área.'); return; }
 
-  const preset = document.getElementById('osm-categoria-preset').value;
-  const etiquetaManual = document.getElementById('osm-etiqueta').value.trim();
+  const preset = document.getElementById('osm-categoria-preset')?.value || '';
+  const etiquetaManual = document.getElementById('osm-etiqueta')?.value?.trim() || '';
   const filtroAEjecutar = etiquetaManual || preset || 'educacion';
 
   contenedor.innerHTML = '<p class="descripcion">Consultando Overpass API…</p>';

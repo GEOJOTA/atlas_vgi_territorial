@@ -136,11 +136,14 @@ const ModuloOSM = (() => {
    */
   async function consultar(bbox, etiquetaOPreset, consultaDirecta = null) {
     const cfg = window.NODO_CONFIG || {};
-    const endpoints = cfg.endpoints?.overpass_espejos || [
-      cfg.endpoints?.overpass || 'https://overpass-api.de/api/interpreter',
-      'https://lz4.overpass-api.de/api/interpreter',
-      'https://z.overpass-api.de/api/interpreter'
-    ];
+    const endpoints = (cfg.endpoints?.overpass_espejos && cfg.endpoints.overpass_espejos.length > 0)
+      ? cfg.endpoints.overpass_espejos
+      : [
+          'https://overpass.openstreetmap.fr/api/interpreter',
+          'https://lz4.overpass-api.de/api/interpreter',
+          'https://z.overpass-api.de/api/interpreter',
+          'https://overpass-api.de/api/interpreter'
+        ];
 
     const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
     let ultimoError = null;
@@ -148,11 +151,16 @@ const ModuloOSM = (() => {
     for (const endpoint of endpoints) {
       try {
         console.log(`[Overpass] Intentando consulta en: ${endpoint}`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s máximo por servidor
+
         const respuesta = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-          body: 'data=' + encodeURIComponent(consulta)
+          body: 'data=' + encodeURIComponent(consulta),
+          signal: controller.signal
         });
+        clearTimeout(timeoutId);
 
         if (respuesta.ok) {
           const datos = await respuesta.json();
@@ -160,12 +168,12 @@ const ModuloOSM = (() => {
         }
         ultimoError = new Error(`Servidor ${endpoint} respondió con status ${respuesta.status}`);
       } catch (err) {
-        console.warn(`[Overpass] Fallo en ${endpoint}:`, err.message);
+        console.warn(`[Overpass] Fallo o timeout en ${endpoint}:`, err.message);
         ultimoError = err;
       }
     }
 
-    throw new Error(`No se pudo conectar a Overpass tras intentar en ${endpoints.length} servidores espejo. Detalle: ${ultimoError?.message || 'Error de red'}`);
+    throw new Error(`No se pudo conectar a Overpass tras intentar en ${endpoints.length} servidores espejo. Detalle: ${ultimoError?.message || 'Error de red o timeout'}`);
   }
 
   /**
@@ -275,17 +283,21 @@ const ModuloOSM = (() => {
   async function consultarPersonalizada(parametros) {
     const { bbox, clave, valor, operador, entidad, queryPersonalizada, nombreConsulta = 'Personalizada' } = parametros;
 
-    // 1. Intentar llamar al backend (/api/consulta)
+    // 1. Intentar llamar al backend (/api/consulta) con un timeout de 8 segundos
     try {
+      const controllerBackend = new AbortController();
+      const timeoutBackend = setTimeout(() => controllerBackend.abort(), 8000);
       const respuestaBackend = await fetch('/api/consulta', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(parametros)
+        body: JSON.stringify(parametros),
+        signal: controllerBackend.signal
       });
+      clearTimeout(timeoutBackend);
 
       if (respuestaBackend.ok) {
         const datos = await respuestaBackend.json();
-        if (datos.ok && datos.geojson) {
+        if (datos.ok && datos.geojson && datos.geojson.features) {
           console.log(`[+] Consulta personalizada resuelta exitosamente vía backend (${datos.servidor}): ${datos.total} elementos`);
           return {
             total: datos.total,
@@ -296,20 +308,37 @@ const ModuloOSM = (() => {
         }
       }
     } catch (errBackend) {
-      console.warn('Backend /api/consulta no accesible. Pasando a resolución directa en cliente...', errBackend.message);
+      console.warn('Backend /api/consulta no accesible o excedió 8s. Resolviendo directamente en navegador...', errBackend.message);
     }
 
     // 2. Fallback: Resolución directa en el navegador
     const [oeste, sur, este, norte] = bbox;
     const bboxStr = `${sur},${oeste},${norte},${este}`;
-    let cuerpoQL;
+    let consultaCompleta;
 
     if (queryPersonalizada && queryPersonalizada.trim()) {
-      cuerpoQL = queryPersonalizada.replaceAll('{{bbox}}', bboxStr);
+      let ql = queryPersonalizada.replaceAll('{{bbox}}', bboxStr).trim();
+      if (ql.includes('[out:') || ql.includes('out ') || ql.includes('out;')) {
+        if (!ql.includes('[out:json]')) {
+          ql = `[out:json][timeout:30];\n${ql}`;
+        }
+        if (!ql.includes('out ') && !ql.includes('out;')) {
+          ql = `${ql}\nout geom tags qt 400;`;
+        }
+        consultaCompleta = ql;
+      } else {
+        consultaCompleta = `
+          [out:json][timeout:30];
+          (
+            ${ql}
+          );
+          out geom tags qt 400;
+        `;
+      }
     } else {
       const tipo = entidad || 'nwr';
       let filtro = '';
-      if (clave && valor) {
+      if (clave && valor && valor !== '*') {
         if (operador === '~') filtro = `["${clave}"~"${valor}"]`;
         else if (operador === '!=') filtro = `["${clave}"!="${valor}"]`;
         else filtro = `["${clave}"="${valor}"]`;
@@ -318,16 +347,14 @@ const ModuloOSM = (() => {
       } else {
         filtro = '["amenity"]';
       }
-      cuerpoQL = `${tipo}${filtro}(${bboxStr});`;
+      consultaCompleta = `
+        [out:json][timeout:30];
+        (
+          ${tipo}${filtro}(${bboxStr});
+        );
+        out geom tags qt 400;
+      `;
     }
-
-    const consultaCompleta = `
-      [out:json][timeout:35];
-      (
-        ${cuerpoQL}
-      );
-      out geom tags qt 400;
-    `;
 
     const elementos = await consultar(bbox, null, consultaCompleta);
     const geojson = elementosAGeoJSON(elementos, nombreConsulta);
