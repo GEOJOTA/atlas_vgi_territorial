@@ -368,9 +368,11 @@ const ModuloOhsome = (() => {
     return {
       densidad: cantidadElementos / infoArea.areaKm2,
       densidadHa: infoArea.areaHa > 0 ? (cantidadElementos / infoArea.areaHa) : null,
-      areaKm2: infoArea.areaKm2,
-      areaHa: infoArea.areaHa,
+      densidadM2: infoArea.areaM2 > 0 ? (cantidadElementos / infoArea.areaM2) : null,
+      densidad1000m2: infoArea.areaM2 > 0 ? Number(((cantidadElementos / infoArea.areaM2) * 1000).toFixed(4)) : null,
       areaM2: infoArea.areaM2,
+      areaHa: infoArea.areaHa,
+      areaKm2: infoArea.areaKm2,
       srs: infoArea.srs,
       metodo: infoArea.metodo
     };

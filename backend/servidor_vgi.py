@@ -422,15 +422,19 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
 
             sup_bbox = calcular_superficie_bbox(bbox)
             area_calc = sup_bbox["areaKm2"]
+            area_m2 = sup_bbox["areaM2"]
+            area_ha = sup_bbox["areaHa"]
             densidad_calc = round(elem_ahora / area_calc, 2) if area_calc > 0 else None
+            densidad_m2 = round(elem_ahora / area_m2, 6) if area_m2 > 0 else None
+            densidad_ha = round(elem_ahora / area_ha, 4) if area_ha > 0 else None
 
             metrica_geom = None
             if tipo_geo == "linea" and res_especial and res_especial.get("result"):
                 val_m = res_especial["result"][0].get("value", 0)
-                metrica_geom = {"tipo": "longitud", "etiqueta": "Longitud de red trazada", "valorKm": round(val_m / 1000, 2), "unidad": "km"}
+                metrica_geom = {"tipo": "longitud", "etiqueta": "Longitud de red trazada", "valorM": round(val_m), "valorKm": round(val_m / 1000, 2), "unidad": "km"}
             elif tipo_geo == "poligono" and res_especial and res_especial.get("result"):
                 val_m2 = res_especial["result"][0].get("value", 0)
-                metrica_geom = {"tipo": "superficie", "etiqueta": "Superficie total cubierta", "valorM2": round(val_m2), "valorKm2": round(val_m2 / 1000000, 4), "unidad": "m²"}
+                metrica_geom = {"tipo": "superficie", "etiqueta": "Superficie total cubierta", "valorM2": round(val_m2), "valorHa": round(val_m2 / 10000, 2), "valorKm2": round(val_m2 / 1000000, 4), "unidad": "m²"}
 
             lista_usr = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in usuarios.get("result", [])]
             lista_contrib = [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in (res_contrib.get("result", []) if res_contrib else [])]
@@ -448,6 +452,8 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 "elementosAhora": elem_ahora,
                 "metricaGeometrica": metrica_geom,
                 "densidad": densidad_calc,
+                "densidad_m2": densidad_m2,
+                "densidad_ha": densidad_ha,
                 "areaKm2": round(area_calc, 4),
                 "areaHa": sup_bbox["areaHa"],
                 "areaM2": sup_bbox["areaM2"],

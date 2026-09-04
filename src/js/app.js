@@ -417,7 +417,7 @@ function actualizarFichaTerritorio(nombre, bbox) {
   let txtSuperficie = '';
   if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficieBbox) {
     const s = ModuloGeodesia.calcularSuperficieBbox(bbox);
-    txtSuperficie = `<br>Superficie métrica calculada: <strong>${s.areaHa.toLocaleString('es-CL')} ha (${s.areaKm2} km² / ${s.areaM2.toLocaleString('es-CL')} m²)</strong> <span style="font-size:0.75rem; color:#8F3A2C; font-weight:600;" title="Reproyección conforme Transverse Mercator a EPSG:32719">(EPSG:32719 - WGS 84 / UTM Huso 19 Sur)</span>`;
+    txtSuperficie = `<br>Superficie métrica calculada: <strong>${s.areaM2.toLocaleString('es-CL')} m²</strong> (${s.areaHa.toLocaleString('es-CL')} ha / ${s.areaKm2} km²) <span style="font-size:0.75rem; color:#8F3A2C; font-weight:600;" title="Reproyección conforme Transverse Mercator a EPSG:32719">(EPSG:32719 - WGS 84 / UTM Huso 19 Sur)</span>`;
   }
   el.innerHTML = `
     <strong>${nombre}</strong><br>
@@ -739,6 +739,10 @@ async function manejarConsultaPersonalizada() {
       fuente: `OSM (${res.servidor})`
     };
 
+    // Cálculo métrico de superficies en polígonos
+    const poligonos = geojson.features.filter(f => f.geometry && (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'));
+    const totalM2 = poligonos.reduce((acc, f) => acc + (f.properties?.superficie_m2 || 0), 0);
+
     // Generar tabla y botones de exportación
     const filas = geojson.features.slice(0, 30).map(f => {
       const p = f.properties;
@@ -747,6 +751,7 @@ async function manejarConsultaPersonalizada() {
           <td><code>${p.id_vgi || f.id}</code></td>
           <td><strong>${p.nombre || '—'}</strong></td>
           <td>${p.subtipo || '—'}</td>
+          <td>${p.superficie_m2 ? `<strong>${p.superficie_m2.toLocaleString('es-CL')} m²</strong> <small style="color:var(--tinta-suave);">(${p.superficie_ha} ha)</small>` : '—'}</td>
           <td>${p.direccion || '—'}</td>
           <td><small>${p.accesibilidad ? '♿ ' + p.accesibilidad : '—'}</small></td>
         </tr>
@@ -755,31 +760,49 @@ async function manejarConsultaPersonalizada() {
 
     const jsonString = encodeURIComponent(JSON.stringify(geojson, null, 2));
 
-    // Convertir a CSV plano
-    const encabezadosCsv = ['id_vgi', 'nombre', 'subtipo', 'direccion', 'accesibilidad', 'fuente', 'licencia', 'latitud', 'longitud'];
+    // Convertir a CSV plano incluyendo métricas de superficie en m²
+    const encabezadosCsv = ['id_vgi', 'nombre', 'subtipo', 'superficie_m2', 'superficie_ha', 'srs_superficie', 'direccion', 'accesibilidad', 'fuente', 'licencia', 'latitud', 'longitud'];
     const lineasCsv = [encabezadosCsv.join(',')];
     geojson.features.forEach(f => {
       const p = f.properties;
       const coords = f.geometry.coordinates;
+      const lat = f.geometry.type === 'Point' ? coords[1] : (coords[0] && coords[0][0] ? coords[0][0][1] : '');
+      const lon = f.geometry.type === 'Point' ? coords[0] : (coords[0] && coords[0][0] ? coords[0][0][0] : '');
       lineasCsv.push([
         `"${p.id_vgi || ''}"`,
         `"${(p.nombre || '').replace(/"/g, '""')}"`,
         `"${p.subtipo || ''}"`,
+        p.superficie_m2 || '',
+        p.superficie_ha || '',
+        `"${p.srs_superficie || ''}"`,
         `"${(p.direccion || '').replace(/"/g, '""')}"`,
         `"${p.accesibilidad || ''}"`,
         `"${p.fuente || 'OpenStreetMap'}"`,
         `"${p.licencia || 'ODbL 1.0'}"`,
-        coords[1],
-        coords[0]
+        lat,
+        lon
       ].join(','));
     });
     const csvString = encodeURIComponent(lineasCsv.join('\n'));
 
+    let badgeSuperficieHtml = '';
+    if (totalM2 > 0) {
+      badgeSuperficieHtml = `
+        <div class="indicador" style="margin:0; border-left:3px solid #B8860B;">
+          <span class="valor">${totalM2.toLocaleString('es-CL')} m²</span>
+          <span class="etiqueta">Superficie total cubierta (${(totalM2 / 10000).toFixed(2)} ha / ${(totalM2 / 1000000).toFixed(4)} km²) [EPSG:32719]</span>
+        </div>
+      `;
+    }
+
     contenedor.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-        <div class="indicador" style="margin:0;">
-          <span class="valor">${total}</span>
-          <span class="etiqueta">elementos extraídos (${duracionSeg}s — ${res.servidor})</span>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <div class="indicador" style="margin:0;">
+            <span class="valor">${total}</span>
+            <span class="etiqueta">elementos extraídos (${duracionSeg}s — ${res.servidor})</span>
+          </div>
+          ${badgeSuperficieHtml}
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <button class="accion" id="btn-ver-en-mapa-custom" style="font-size:0.85rem; padding:6px 12px;">🗺️ Ver en Mapa Atlas</button>
@@ -789,7 +812,7 @@ async function manejarConsultaPersonalizada() {
         </div>
       </div>
       <table class="tabla-datos">
-        <thead><tr><th>ID VGI</th><th>Nombre</th><th>Subtipo</th><th>Dirección</th><th>Accesibilidad</th></tr></thead>
+        <thead><tr><th>ID VGI</th><th>Nombre</th><th>Subtipo</th><th>Superficie (m²)</th><th>Dirección</th><th>Accesibilidad</th></tr></thead>
         <tbody>${filas}</tbody>
       </table>
       ${total > 30 ? `<p class="descripcion" style="margin-top:6px;">Mostrando los primeros 30 de ${total} registros extraídos.</p>` : ''}
@@ -906,19 +929,39 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
       return;
     }
 
-    const filas = elementos.slice(0, 35).map(el => `
-      <tr>
-        <td><code>${el.type}/${el.id}</code></td>
-        <td><strong>${el.tags && el.tags.name ? el.tags.name : '—'}</strong></td>
-        <td>${el.tags ? (el.tags.amenity || el.tags.shop || el.tags.highway || el.tags.historic || '—') : '—'}</td>
-        <td><small>${el.tags ? Object.entries(el.tags).slice(0, 3).map(([k,v]) => `${k}=${v}`).join(', ') : ''}</small></td>
-      </tr>
-    `).join('');
+    const poligonos = geojson.features.filter(f => f.geometry && f.geometry.type === 'Polygon');
+    const totalM2 = poligonos.reduce((acc, f) => acc + (f.properties?.superficie_m2 || 0), 0);
+
+    let indicadorSuperficieHtml = '';
+    if (totalM2 > 0) {
+      indicadorSuperficieHtml = `
+        <div class="indicador" style="border-left: 3px solid #B8860B;">
+          <span class="valor">${totalM2.toLocaleString('es-CL')} m²</span>
+          <span class="etiqueta">Superficie total cubierta (${(totalM2 / 10000).toFixed(2)} ha / ${(totalM2 / 1000000).toFixed(4)} km²) [EPSG:32719]</span>
+        </div>
+      `;
+    }
+
+    const filas = geojson.features.slice(0, 35).map(f => {
+      const p = f.properties;
+      return `
+        <tr>
+          <td><code>${p.id_vgi || f.id}</code></td>
+          <td><strong>${p.nombre || '—'}</strong></td>
+          <td>${p.subtipo || '—'}</td>
+          <td>${p.superficie_m2 ? `<strong>${p.superficie_m2.toLocaleString('es-CL')} m²</strong> <small style="color:var(--tinta-suave);">(${p.superficie_ha} ha)</small>` : '—'}</td>
+          <td><small>${p.etiquetas_completas ? Object.entries(p.etiquetas_completas).slice(0, 3).map(([k,v]) => `${k}=${v}`).join(', ') : ''}</small></td>
+        </tr>
+      `;
+    }).join('');
 
     contenedor.innerHTML = `
-      <div class="indicador"><span class="valor">${elementos.length}</span><span class="etiqueta">elementos encontrados</span></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+        <div class="indicador"><span class="valor">${elementos.length}</span><span class="etiqueta">elementos encontrados</span></div>
+        ${indicadorSuperficieHtml}
+      </div>
       <table class="tabla-datos">
-        <thead><tr><th>ID</th><th>Nombre</th><th>Tipo Principal</th><th>Etiquetas Clave</th></tr></thead>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Tipo Principal</th><th>Superficie (m²)</th><th>Etiquetas Clave</th></tr></thead>
         <tbody>${filas}</tbody>
       </table>
       ${elementos.length > 35 ? `<p class="descripcion">Mostrando 35 de ${elementos.length} elementos.</p>` : ''}
@@ -1052,8 +1095,8 @@ async function manejarConsultaOhsome() {
       } else if (indicadores.metricaGeometrica.tipo === 'superficie') {
         htmlMetricaGeo = `
           <div class="indicador" style="border-left: 3px solid #B8860B;">
-            <span class="valor">${indicadores.metricaGeometrica.valorHectareas.toLocaleString()} ha</span>
-            <span class="etiqueta">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorM2.toLocaleString()} m²)</span>
+            <span class="valor">${indicadores.metricaGeometrica.valorM2.toLocaleString('es-CL')} m²</span>
+            <span class="etiqueta">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorHectareas.toLocaleString('es-CL')} ha / ${indicadores.metricaGeometrica.valorKm2} km²) [EPSG:32719]</span>
           </div>
         `;
       }
@@ -1113,8 +1156,9 @@ async function manejarConsultaOhsome() {
         <div class="indicador" style="border-left: 3px solid #8F3A2C;">
           <span class="valor">${densInfo ? densInfo.densidad.toFixed(1) : '—'}</span>
           <span class="etiqueta">Densidad espacial (elem / km²)</span>
-          <div style="font-size:0.72rem; color:var(--tinta-suave); margin-top:4px; line-height:1.25;">
-            Área Bbox: ${densInfo ? `${densInfo.areaHa.toLocaleString('es-CL')} ha (${densInfo.areaKm2} km²)` : '—'}<br>
+          <div style="font-size:0.72rem; color:var(--tinta-suave); margin-top:4px; line-height:1.35;">
+            Área Bbox: ${densInfo ? `<strong>${densInfo.areaM2.toLocaleString('es-CL')} m²</strong> (${densInfo.areaHa.toLocaleString('es-CL')} ha / ${densInfo.areaKm2} km²)` : '—'}<br>
+            Densidad por m²: ${densInfo && densInfo.densidadM2 ? `<strong>${(densInfo.densidadM2 * 10000).toFixed(2)} elem / 10.000 m²</strong> (${(densInfo.densidadM2 * 1000).toFixed(3)} elem / 1.000 m²)` : '—'}<br>
             <strong style="color:#8F3A2C;">Reproyectado a EPSG:32719</strong> (UTM 19S)
           </div>
         </div>
@@ -1149,7 +1193,7 @@ async function manejarConsultaOhsome() {
       <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:14px; margin-top:16px;">
         <h4 style="margin:0 0 8px 0; font-size:0.9rem; color:var(--musgo);">📐 Rigor Metodológico y Criterios de Calidad Espacial</h4>
         <p class="descripcion" style="margin-bottom:8px;">
-          <strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox territorial (${densInfo ? `${densInfo.areaHa.toLocaleString('es-CL')} ha / ${densInfo.areaKm2} km²` : ''}) y densidad espacial de elementos se obtiene proyectando los vértices geográficos mediante las ecuaciones conformes de Transverse Mercator (Snyder, 1987) al sistema oficial de referencia <strong>EPSG:32719</strong> (meridiano central 69°O, elipsoide WGS84, falso este 500.000 m, falso norte 10.000.000 m) y aplicando la fórmula de Gauss (Shoelace). Esto garantiza concordancia con las normas del Instituto Geográfico Militar (IGM) y la Infraestructura de Datos Espaciales de Chile (IDE Chile / SNIT), eliminando las distorsiones inherentes a cálculos sobre esferas simplificadas a la latitud de Santiago (-33.44°).
+          <strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox territorial (${densInfo ? `${densInfo.areaM2.toLocaleString('es-CL')} m² / ${densInfo.areaHa.toLocaleString('es-CL')} ha / ${densInfo.areaKm2} km²` : ''}) y densidad espacial de elementos se obtiene proyectando los vértices geográficos mediante las ecuaciones conformes de Transverse Mercator (Snyder, 1987) al sistema oficial de referencia <strong>EPSG:32719</strong> (meridiano central 69°O, elipsoide WGS84, falso este 500.000 m, falso norte 10.000.000 m) y aplicando la fórmula de Gauss (Shoelace). Esto garantiza concordancia con las normas del Instituto Geográfico Militar (IGM) y la Infraestructura de Datos Espaciales de Chile (IDE Chile / SNIT), expresando consistentemente cada dimensión superficial en metros cuadrados (m²), hectáreas (ha) y kilómetros cuadrados (km²).
         </p>
         <p class="descripcion" style="margin-bottom:8px;">
           <strong>Sensibilidad geométrica:</strong> Conforme a la API v1 de ohsome, las geometrías lineales evalúan continuidad de red en kilómetros lineales (calles y ciclovías), mientras que los polígonos cuantifican la superficie de huella construida o áreas verdes en hectáreas y metros cuadrados.

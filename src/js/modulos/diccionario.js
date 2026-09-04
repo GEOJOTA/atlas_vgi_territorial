@@ -99,6 +99,33 @@ const ModuloDiccionario = (() => {
       ejemplo: '[-70.66214, -33.44991]',
       equivalenciaIDE: 'Sistema de Referencia Espacial SIRGAS-Chile (EPSG:5360 / EPSG:4326)',
       importancia: 'Permite abrir directamente las capas en QGIS, ArcGIS, Google Earth o Leaflet.'
+    },
+    {
+      campo: 'superficie_m2',
+      nombre: 'Superficie Métrica (m²)',
+      tipo: 'Numérico (Decimal / Entero)',
+      definicion: 'Área calculada de la geometría poligonal tras reproyectar de WGS84 geográfico a coordenadas proyectadas planas métricas EPSG:32719 (UTM 19S) mediante la fórmula de Gauss (Shoelace).',
+      ejemplo: '1,420.5 m²',
+      equivalenciaIDE: 'Superficie de Objeto Territorial (gmd:EX_Extent / Área métrica)',
+      importancia: 'Permite análisis cuantitativos de densidad de ocupación del suelo, huella de edificación y dotación de áreas verdes en el barrio.'
+    },
+    {
+      campo: 'superficie_ha',
+      nombre: 'Superficie en Hectáreas (ha)',
+      tipo: 'Numérico (Decimal)',
+      definicion: 'Equivalencia de la superficie métrica expresada en hectáreas (1 ha = 10.000 m²).',
+      ejemplo: '0.14 ha',
+      equivalenciaIDE: 'Área en Hectáreas / Indicador Territorial',
+      importancia: 'Facilita la comparación de escalas mayores para instrumentos de planificación comunal (PRC).'
+    },
+    {
+      campo: 'srs_superficie',
+      nombre: 'Sistema de Referencia Geodésico del Cálculo',
+      tipo: 'Texto (Código EPSG y Denominación Oficial)',
+      definicion: 'Sistema de referencia de coordenadas proyectado empleado para garantizar métricas de área euclidianas no distorsionadas.',
+      ejemplo: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)',
+      equivalenciaIDE: 'Sistema de Coordenadas de Referencia (gmd:MD_ReferenceSystem / EPSG:5361)',
+      importancia: 'Garantiza la trazabilidad geodésica requerida por los estándares del SNIT e IDE Chile.'
     }
   ];
 

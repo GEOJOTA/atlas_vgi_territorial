@@ -15,6 +15,16 @@ const ModuloMetadatos = (() => {
     const ahora = new Date().toISOString();
     const uuid = 'urn:uuid:' + (crypto.randomUUID ? crypto.randomUUID() : 'vgi-' + Date.now());
 
+    const oeste = parseFloat(datos.oeste) || -70.6675;
+    const sur = parseFloat(datos.sur) || -33.4505;
+    const este = parseFloat(datos.este) || -70.6565;
+    const norte = parseFloat(datos.norte) || -33.4385;
+
+    let sup = null;
+    if (typeof ModuloMapa !== 'undefined' && ModuloMapa.calcularSuperficieBbox) {
+      sup = ModuloMapa.calcularSuperficieBbox([oeste, sur, este, norte]);
+    }
+
     return {
       estandar: 'ISO 19115-1:2014 / Perfil IDE Chile (SNIT)',
       uuid: uuid,
@@ -26,20 +36,25 @@ const ModuloMetadatos = (() => {
         categoriaTema: datos.categoriaTema || 'planningCadastre'
       },
       extensionGeografica: {
-        oeste: parseFloat(datos.oeste) || -70.6675,
-        sur: parseFloat(datos.sur) || -33.4505,
-        este: parseFloat(datos.este) || -70.6565,
-        norte: parseFloat(datos.norte) || -33.4385,
+        oeste: oeste,
+        sur: sur,
+        este: este,
+        norte: norte,
+        superficie_m2: sup ? sup.areaM2 : (datos.superficie_m2 || null),
+        superficie_ha: sup ? sup.areaHa : (datos.superficie_ha || null),
+        superficie_km2: sup ? sup.areaKm2 : (datos.superficie_km2 || null),
+        srs_superficie: sup ? sup.srs : 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)',
         descripcionTerritorio: datos.descripcionTerritorio || 'Barrio Brasil y Campus Universidad Alberto Hurtado, Santiago Centro, Chile'
       },
       sistemaReferencia: {
         codigo: datos.srs || 'EPSG:4326 (WGS84)',
-        oficialNacional: 'EPSG:5361 (SIRGAS-Chile / UTM huso 19 Sur)'
+        oficialNacional: 'EPSG:5361 (SIRGAS-Chile / UTM huso 19 Sur)',
+        calculoMetricoSuperficie: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)'
       },
       linaje: {
         declaracion: datos.linaje || 'Datos extraídos en vivo desde OpenStreetMap y GBIF vía Overpass QL.',
         fechaConsulta: ahora.slice(0, 10),
-        procesamiento: 'Normalización de atributos según taxonomía VGI de 8 categorías.'
+        procesamiento: 'Normalización de atributos según taxonomía VGI de 8 categorías y cálculo de superficies métricas en m² (EPSG:32719).'
       },
       restriccionesDeUso: {
         licencia: datos.restricciones || 'Open Database License (ODbL) 1.0 para datos OSM; CC-BY para registros biológicos.',
@@ -153,7 +168,7 @@ const ModuloMetadatos = (() => {
       </gmd:topicCategory>
       <gmd:extent>
         <gmd:EX_Extent>
-          <gmd:description><gco:CharacterString>${escapeXML(ext.descripcionTerritorio)}</gco:CharacterString></gmd:description>
+          <gmd:description><gco:CharacterString>${escapeXML(ext.descripcionTerritorio)}${ext.superficie_m2 ? ` [Superficie métrica: ${ext.superficie_m2.toLocaleString('es-CL')} m² / ${ext.superficie_ha} ha reprojectada a ${ext.srs_superficie}]` : ''}</gco:CharacterString></gmd:description>
           <gmd:geographicElement>
             <gmd:EX_GeographicBoundingBox>
               <gmd:westBoundLongitude><gco:Decimal>${ext.oeste}</gco:Decimal></gmd:westBoundLongitude>

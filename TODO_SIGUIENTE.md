@@ -3,6 +3,41 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 6 — Septiembre 2026 (Integración Sistemática de m² en Cálculos de Superficie, Densidades Territoriales y Geodesia Rigurosa EPSG:32719)
+
+### Estado alcanzado en este turno
+
+1. **Adopción del Metro Cuadrado ($m^2$) como Unidad Fundamental del Motor Geodésico:**
+   - Se estableció el **metro cuadrado ($m^2$)** de manera homogénea y prioritaria en todos los componentes del sistema que cuantifican áreas espaciales, coberturas de suelo, huellas de edificación, extensiones de Bbox e indicadores de densidad.
+   - Correspondencia matemática directa y documentada:
+     $$1\text{ ha} = 10.000\text{ m}^2 \quad \Longleftrightarrow \quad 1\text{ km}^2 = 1.000.000\text{ m}^2$$
+   - Todos los cálculos proyectados en UTM Huso 19 Sur devuelven métricas en $m^2$ euclidianos no distorsionados mediante la fórmula de Gauss (Shoelace), garantizando fidelidad topológica y geodésica.
+
+2. **Cálculo de Superficies de Polígonos y Bounding Boxes en $m^2$:**
+   - **Encuadres Territoriales Oficiales:**
+     - *Barrio Brasil Completo:* $2.237.461\text{ m}^2$ ($223.75\text{ ha} / 2.2375\text{ km}^2$).
+     - *Manzana Universidad Alberto Hurtado (UAH):* $1.361.006\text{ m}^2$ ($136.1\text{ ha} / 1.361\text{ km}^2$).
+   - **Tooltip Dinámico del Bbox en Leaflet:** Al arrastrar o encuadrar el mapa, el indicador flotante reporta: `Área Bbox: X m² (Y ha / Z km²) [EPSG:32719]`.
+   - **Ficha Territorial del Entorno:** Despliega de inmediato la *Superficie métrica calculada: X m² (Y ha / Z km²)*.
+
+3. **Métricas de Densidad Multidimensional por $m^2$ en ohsome (v1 y v2):**
+   - El módulo `src/js/modulos/ohsome.js` calcula y retorna ahora `densidadM2` (elementos/$m^2$) y `densidad1000m2` (elementos por cada 1.000 $m^2$), además de `densidadHa` (elementos/ha) y `densidad` (elementos/$km^2$).
+   - La tarjeta de densidad territorial reporta la superficie de encuadre en $m^2$ y la densidad correspondiente, manteniendo visible el rótulo de reproyección a EPSG:32719.
+   - En consultas de entidades poligonales (`building=*`, `leisure=park`), la métrica geométrica principal reporta el metraje cuadrado total cubierto ($m^2$), además de hectáreas y $km^2$.
+
+4. **Tablas de Resultados y Catastro Vectorial:**
+   - Tanto la tabla de consultas rápidas como la de consultas personalizadas incorporan la columna **Superficie ($m^2$)** para todas las entidades poligonales.
+   - Insignia de totalización métrica (`#badge-area-total`): suma dinámicamente los $m^2$ de todos los polígonos mapeados y reporta la superficie acumulada en metros cuadrados y hectáreas.
+
+5. **Estandarización Full-Stack (Metadatos, Diccionario, Exportaciones y CLI):**
+   - **Metadatos ISO 19115/19139 (`metadatos.js`):** La ficha incorpora `superficie_m2`, `superficie_ha`, `superficie_km2` y `srs_superficie` en el bloque `extensionGeografica`, y la exportación XML añade el desglose métrico al elemento `<gmd:description>`.
+   - **Diccionario Territorial (`diccionario.js`):** Nuevas entradas formales en `ATRIBUTOS_NORMALIZADOS` para `superficie_m2`, `superficie_ha` y `srs_superficie`, vinculadas a estándares IDE Chile y normas ISO.
+   - **Exportación CSV y GeoJSON:** Los archivos descargados por el usuario contienen las columnas `superficie_m2`, `superficie_ha` y `srs_superficie`.
+   - **Backend Serverless y Local (`calidad.js` y `servidor_vgi.py`):** Retornan `densidad_m2`, `densidad_ha`, `areaM2`, `areaHa`, `areaKm2` en sus respuestas JSON.
+   - **Extractor CLI Python (`scripts/extractor_vgi.py`):** Añade `superficie_ha` al CSV de catastro e imprime en consola la superficie acumulada en metros cuadrados ($m^2$) y hectáreas ($ha$).
+
+---
+
 ## Entrega de turno 5 — Septiembre 2026 (Listas Seleccionables Duales, Soporte Coexistente Técnico / No-Técnico, Robustecimiento de Referencias y Estándares ISO / PNIG)
 
 ### Estado alcanzado en este turno

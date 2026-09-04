@@ -228,7 +228,11 @@ exports.handler = async function (event, context) {
     // Cálculo de área y densidad sobre Bbox mediante reproyección a EPSG:32719
     const geoSuperficie = calcularSuperficieBbox(bbox);
     const areaKm2 = geoSuperficie.areaKm2;
+    const areaM2 = geoSuperficie.areaM2;
+    const areaHa = geoSuperficie.areaHa;
     const densidad = areaKm2 > 0 ? (elementosAhora / areaKm2) : null;
+    const densidad_m2 = areaM2 > 0 ? (elementosAhora / areaM2) : null;
+    const densidad_ha = areaHa > 0 ? (elementosAhora / areaHa) : null;
 
     let metricaGeometrica = null;
     if (tipoGeo === 'linea' && resEspecial?.result?.length > 0) {
@@ -236,6 +240,7 @@ exports.handler = async function (event, context) {
       metricaGeometrica = {
         tipo: 'longitud',
         etiqueta: 'Longitud de red trazada',
+        valorM: Math.round(metros),
         valorKm: Number((metros / 1000).toFixed(2)),
         unidad: 'km'
       };
@@ -245,6 +250,7 @@ exports.handler = async function (event, context) {
         tipo: 'superficie',
         etiqueta: 'Superficie total cubierta',
         valorM2: Math.round(m2),
+        valorHa: Number((m2 / 10000).toFixed(2)),
         valorKm2: Number((m2 / 1000000).toFixed(4)),
         unidad: 'm²'
       };
@@ -276,6 +282,8 @@ exports.handler = async function (event, context) {
         elementosAhora: elementosAhora,
         metricaGeometrica,
         densidad: densidad ? Number(densidad.toFixed(2)) : null,
+        densidad_m2: densidad_m2 ? Number(densidad_m2.toFixed(6)) : null,
+        densidad_ha: densidad_ha ? Number(densidad_ha.toFixed(4)) : null,
         areaKm2: Number(areaKm2.toFixed(4)),
         areaHa: geoSuperficie.areaHa,
         areaM2: geoSuperficie.areaM2,

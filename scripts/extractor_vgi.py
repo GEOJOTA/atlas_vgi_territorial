@@ -276,7 +276,7 @@ def normalizar_elementos(elementos, categoria_id):
         filas_csv.append([
             f"OSM/{el_id_str}", categoria_id, subtipo, nombre, operador, direccion, accesibilidad,
             "OpenStreetMap", el.get("timestamp", datetime.now().strftime("%Y-%m-%d")), "ODbL 1.0", lat, lon,
-            sup_info["areaM2"] if sup_info else "", sup_info["srs"] if sup_info else ""
+            sup_info["areaM2"] if sup_info else "", sup_info["areaHa"] if sup_info else "", sup_info["srs"] if sup_info else ""
         ])
         
     return features, filas_csv
@@ -341,7 +341,7 @@ def main():
                     filas.append([
                         r_id, "biodiversidad", "Registro Biológico", nombre_bio, pub, "", "",
                         "GBIF / iNaturalist", (r.get("eventDate") or "")[:10], r.get("license", "CC-BY 4.0"), lat, lon,
-                        "", ""
+                        "", "", ""
                     ])
                     
         print(f"    [+] {len(feats)} entidades extraídas y normalizadas.")
@@ -370,13 +370,19 @@ def main():
         json.dump(fc_integral, f, indent=2, ensure_ascii=False)
     print(f"\n[+] Capa GeoJSON integral generada: {ruta_integral}")
     
+    # Resumen métrico acumulado
+    total_m2 = sum(f["properties"].get("superficie_m2", 0) for f in features_totales if f["properties"].get("superficie_m2"))
+    total_ha = round(total_m2 / 10000.0, 2)
+    print(f"[+] Total entidades recopiladas: {len(features_totales)}")
+    print(f"[+] Superficie acumulada de geometrías poligonales: {total_m2:,.1f} m² ({total_ha} ha) [EPSG:32719]")
+
     # Guardar CSV resumen
     ruta_csv = os.path.join(args.output_dir, "resumen_catastro_vgi.csv")
     with open(ruta_csv, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([
             "id_vgi", "categoria", "subtipo", "nombre", "operador", "direccion", "accesibilidad",
-            "fuente", "fecha_registro", "licencia", "latitud", "longitud", "superficie_m2", "srs_superficie"
+            "fuente", "fecha_registro", "licencia", "latitud", "longitud", "superficie_m2", "superficie_ha", "srs_superficie"
         ])
         writer.writerows(todas_filas_csv)
     print(f"[+] Tabla normalizada CSV generada: {ruta_csv}")

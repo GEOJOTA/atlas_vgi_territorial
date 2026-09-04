@@ -152,18 +152,20 @@ El cálculo de áreas y densidades en el Atlas VGI cumple estrictamente con el e
      - **Falso Norte:** $10.000.000\text{ m}$ (Hemisferio Sur).
    - Esta formulación garantiza compatibilidad geodésica con el marco de referencia geocéntrico nacional **SIRGAS-Chile 2016** (EPSG:5361).
 
-3. **Cálculo de Superficies mediante la Fórmula de Gauss (Shoelace):**
+3. **Cálculo de Superficies mediante la Fórmula de Gauss (Shoelace) y Métricas en Metros Cuadrados ($m^2$):**
    - Una vez transformados los vértices $[(\text{lon}_i, \text{lat}_i) \rightarrow (E_i, N_i)]$ a un plano métrico proyectado UTM 19S euclidiano, el área se evalúa mediante la fórmula de Gauss para polígonos cerrados:
      $$\text{Área} = \frac{1}{2} \left| \sum_{i=1}^{n-1} (E_i \cdot N_{i+1} - E_{i+1} \cdot N_i) \right|$$
-   - Este algoritmo se aplica tanto a polígonos vectoriales (`building`, `leisure=park`, `landuse=residential`, campus universitarios UAH) como a los Bounding Boxes territoriales, entregando valores exactos en metros cuadrados ($m^2$), hectáreas ($ha$) y kilómetros cuadrados ($km^2$).
+   - La unidad base fundamental del cálculo geodésico es el **metro cuadrado ($m^2$)**, a partir del cual se derivan coherentemente las hectáreas ($1\text{ ha} = 10.000\text{ m}^2$) y los kilómetros cuadrados ($1\text{ km}^2 = 1.000.000\text{ m}^2$).
+   - Este algoritmo se aplica sistemáticamente tanto a polígonos vectoriales (`building`, `leisure=park`, `landuse=residential`, campus universitarios UAH) como a los Bounding Boxes territoriales y tablas de resultados, entregando valores exactos en metros cuadrados ($m^2$), hectáreas ($ha$) y kilómetros cuadrados ($km^2$).
 
-4. **Transparencia y Expresión en la Interfaz de Usuario:**
-   - La reproyección no es un proceso oculto: se explicita en toda la experiencia de usuario para garantizar total auditabilidad por personas no técnicas y revisores académicos:
-     - **Popups de Leaflet:** Cada entidad poligonal muestra su superficie en $m^2$ y $ha$ con la etiqueta visible `(EPSG:32719)`.
-     - **Tooltip Interactivo de Bbox:** Al encuadrar o dibujar un área en el mapa, el rotulo dinámico indica el área calculada en hectáreas y $km^2$ con la insignia `[EPSG:32719]`.
-     - **Panel ohsome (Indicadores de Calidad):** La tarjeta de densidad reporta el área en $ha$ y $km^2$ con el rótulo destacado: *Reproyectado a EPSG:32719 (UTM 19S)*.
-     - **Ficha Territorial de Estudio:** Muestra la superficie calculada para Barrio Brasil completo ($223.75\text{ ha} / 2.2375\text{ km}^2$) y para la manzana UAH ($136.1\text{ ha} / 1.361\text{ km}^2$).
-     - **Exportación CSV y GeoJSON:** Incluyen los campos `superficie_m2`, `superficie_ha`, `superficie_km2` y `srs_superficie: "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"`.
+4. **Transparencia y Expresión Sistemática en la Interfaz de Usuario:**
+   - La reproyección y las métricas en $m^2$ no son un proceso oculto: se explicitan en toda la experiencia de usuario para garantizar total auditabilidad por personas no técnicas y revisores académicos:
+     - **Popups de Leaflet:** Cada entidad poligonal muestra su superficie destacada en $m^2$ y $ha$ con la etiqueta visible `[EPSG:32719]`.
+     - **Tooltip Interactivo de Bbox:** Al encuadrar o dibujar un área en el mapa, el rótulo dinámico indica el área calculada en metros cuadrados, hectáreas y $km^2$: `Área Bbox: X m² (Y ha / Z km²) [EPSG:32719]`.
+     - **Panel ohsome (Indicadores de Calidad):** La tarjeta de densidad reporta la superficie del encuadre en $m^2$, $ha$ y $km^2$, calculando densidades en elementos/$km^2$, elementos/ha y elementos por cada 1.000 $m^2$, con el rótulo destacado: *Reproyectado a EPSG:32719 (UTM 19S)*. En consultas de polígonos, la métrica geométrica principal reporta el metraje cuadrado total cubierto ($m^2$).
+     - **Ficha Territorial de Estudio:** Muestra la superficie calculada en metros cuadrados para Barrio Brasil completo ($2.237.461\text{ m}^2 / 223.75\text{ ha} / 2.2375\text{ km}^2$) y para la manzana UAH ($1.361.006\text{ m}^2 / 136.1\text{ ha} / 1.361\text{ km}^2$).
+     - **Tablas de Consultas y Estadísticas:** Tanto la tabla de consultas rápidas como la de consultas personalizadas incluyen la columna `Superficie (m²)` y una insignia de conteo de área total acumulada en $m^2$.
+     - **Exportación CSV y GeoJSON:** Incluyen los atributos normalizados `superficie_m2`, `superficie_ha`, `superficie_km2` y `srs_superficie: "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"`.
 
 ---
 

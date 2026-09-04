@@ -92,7 +92,7 @@ const ModuloMapa = (() => {
     let textoTooltip = 'Área de Consulta VGI';
     if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficieBbox) {
       const s = ModuloGeodesia.calcularSuperficieBbox(bbox);
-      textoTooltip = `Área Bbox: ${s.areaHa.toLocaleString('es-CL')} ha (${s.areaKm2} km²) [EPSG:32719]`;
+      textoTooltip = `Área Bbox: ${s.areaM2.toLocaleString('es-CL')} m² (${s.areaHa.toLocaleString('es-CL')} ha / ${s.areaKm2} km²) [EPSG:32719]`;
     }
 
     if (capaBbox) {
