@@ -17,23 +17,27 @@ const ModuloOSM = (() => {
     educacion: {
       nombre: 'Educación y Universidad',
       filtro: `
-        nwr["amenity"~"university|college|library|school"]({{bbox}});
-        nwr["building"="university"]({{bbox}});
+        nwr["amenity"~"university|college|library|school|kindergarten"]({{bbox}});
+        nwr["building"~"university|school|college|kindergarten|library"]({{bbox}});
       `
     },
     servicios: {
-      nombre: 'Servicios y Comercio',
+      nombre: 'Servicios y Comercio Barrial',
       filtro: `
         nwr["shop"]({{bbox}});
-        nwr["amenity"~"cafe|restaurant|bank|pharmacy|post_office"]({{bbox}});
+        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station"]({{bbox}});
+        nwr["building"~"retail|commercial|supermarket"]({{bbox}});
       `
     },
     transporte: {
       nombre: 'Movilidad y Transporte',
       filtro: `
-        node["railway"="station"]({{bbox}});
         node["highway"="bus_stop"]({{bbox}});
+        node["railway"~"station|subway_entrance"]({{bbox}});
+        node["public_transport"~"platform|stop_position"]({{bbox}});
         way["highway"~"primary|secondary|tertiary|trunk"]({{bbox}});
+        way["railway"="subway"]({{bbox}});
+        nwr["amenity"="bus_station"]({{bbox}});
       `
     },
     movilidad_activa: {
@@ -41,14 +45,20 @@ const ModuloOSM = (() => {
       filtro: `
         way["highway"="cycleway"]({{bbox}});
         way["cycleway"]({{bbox}});
-        node["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});
+        way["cycleway:left"]({{bbox}});
+        way["cycleway:right"]({{bbox}});
+        way["cycleway:both"]({{bbox}});
+        way["highway"~"footway|path"]["bicycle"~"yes|designated"]({{bbox}});
+        nwr["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});
+        nwr["shop"="bicycle"]({{bbox}});
       `
     },
     espacio_publico: {
-      nombre: 'Áreas Verdes y Plazas',
+      nombre: 'Áreas Verdes y Espacio Público',
       filtro: `
-        nwr["leisure"~"park|playground|garden|pitch"]({{bbox}});
-        nwr["landuse"~"grass|village_green"]({{bbox}});
+        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station"]({{bbox}});
+        nwr["landuse"~"grass|village_green|recreation_ground"]({{bbox}});
+        node["amenity"~"bench|drinking_water"]({{bbox}});
       `
     },
     patrimonio: {
@@ -56,7 +66,9 @@ const ModuloOSM = (() => {
       filtro: `
         nwr["historic"]({{bbox}});
         nwr["heritage"]({{bbox}});
-        nwr["amenity"~"theatre|arts_centre|place_of_worship|museum"]({{bbox}});
+        nwr["building"~"church|cathedral|chapel"]({{bbox}});
+        nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre"]({{bbox}});
+        nwr["tourism"~"museum|artwork|gallery"]({{bbox}});
       `
     },
     accesibilidad: {
@@ -64,13 +76,21 @@ const ModuloOSM = (() => {
       filtro: `
         node["kerb"]({{bbox}});
         node["highway"="crossing"]({{bbox}});
+        node["tactile_paving"]({{bbox}});
         node["wheelchair"]({{bbox}});
+        way["highway"~"footway|pedestrian"]({{bbox}});
+        way["highway"="steps"]["ramp"~"yes|separate"]({{bbox}});
+        way["ramp"]({{bbox}});
       `
     },
     biodiversidad: {
-      nombre: 'Biodiversidad Urbana (Arbolado)',
+      nombre: 'Biodiversidad Urbana',
       filtro: `
-        nwr["natural"~"tree|wood|scrub"]({{bbox}});
+        node["natural"="tree"]({{bbox}});
+        way["natural"="tree_row"]({{bbox}});
+        nwr["natural"~"wood|scrub"]({{bbox}});
+        nwr["leisure"="garden"]({{bbox}});
+        nwr["landuse"="forest"]({{bbox}});
       `
     }
   };
@@ -103,11 +123,11 @@ const ModuloOSM = (() => {
     }
 
     return `
-      [out:json][timeout:30];
+      [out:json][timeout:35];
       (
         ${cuerpoConsulta}
       );
-      out center tags qt 300;
+      out geom tags qt 400;
     `;
   }
 
@@ -150,36 +170,74 @@ const ModuloOSM = (() => {
 
   /**
    * Convierte los elementos de Overpass a GeoJSON FeatureCollection normalizado
+   * soportando geometrías mixtas: Puntos (nodos/centroides), Líneas (vías abiertas/ejes)
+   * y Polígonos (vías cerradas/huellas/áreas).
    */
   function elementosAGeoJSON(elementos, categoriaId = 'general') {
     const features = [];
 
     elementos.forEach(el => {
-      let coords = null;
-      if (el.type === 'node' && el.lat && el.lon) {
-        coords = [el.lon, el.lat];
-      } else if (el.center && el.center.lat && el.center.lon) {
-        coords = [el.center.lon, el.center.lat];
+      let geometria = null;
+      const tags = el.tags || {};
+
+      if (el.type === 'node' && el.lat !== undefined && el.lon !== undefined) {
+        geometria = {
+          type: 'Point',
+          coordinates: [el.lon, el.lat]
+        };
+      } else if (el.type === 'way' && Array.isArray(el.geometry) && el.geometry.length > 0) {
+        const coords = el.geometry.map(p => [p.lon, p.lat]);
+        const primerPunto = coords[0];
+        const ultimoPunto = coords[coords.length - 1];
+        const esCerrado = coords.length >= 4 &&
+          Math.abs(primerPunto[0] - ultimoPunto[0]) < 1e-6 &&
+          Math.abs(primerPunto[1] - ultimoPunto[1]) < 1e-6;
+
+        const esPoligono = esCerrado && (
+          tags.building ||
+          tags.leisure ||
+          tags.landuse ||
+          tags.amenity ||
+          tags.historic ||
+          tags.natural === 'wood' ||
+          tags.natural === 'scrub' ||
+          tags.shop ||
+          tags.area === 'yes'
+        );
+
+        if (esPoligono) {
+          geometria = {
+            type: 'Polygon',
+            coordinates: [coords]
+          };
+        } else {
+          geometria = {
+            type: 'LineString',
+            coordinates: coords
+          };
+        }
+      } else if (el.center && el.center.lat !== undefined && el.center.lon !== undefined) {
+        geometria = {
+          type: 'Point',
+          coordinates: [el.center.lon, el.center.lat]
+        };
       }
 
-      if (!coords) return;
+      if (!geometria) return;
 
-      const tags = el.tags || {};
       const nombre = tags.name || tags['name:es'] || tags.operator || tags.description || 'Sin nombre';
-      const subtipo = tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.natural || 'VGI';
+      const subtipo = tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.natural || tags.building || tags.railway || 'VGI';
       const direccion = [tags['addr:street'], tags['addr:housenumber']].filter(Boolean).join(' ');
 
       features.push({
         type: 'Feature',
         id: `${el.type}/${el.id}`,
-        geometry: {
-          type: 'Point',
-          coordinates: coords
-        },
+        geometry: geometria,
         properties: {
           id_vgi: `OSM/${el.type}/${el.id}`,
           osm_type: el.type,
           osm_id: el.id,
+          tipo_geometria: geometria.type,
           categoria: categoriaId,
           subtipo: subtipo,
           nombre: nombre,
@@ -259,7 +317,7 @@ const ModuloOSM = (() => {
       (
         ${cuerpoQL}
       );
-      out center tags qt 350;
+      out geom tags qt 400;
     `;
 
     const elementos = await consultar(bbox, null, consultaCompleta);

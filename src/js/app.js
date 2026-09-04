@@ -517,6 +517,9 @@ function crearBotonesCategorias() {
     btn.type = 'button';
     btn.className = 'btn-categoria';
     btn.id = `btn-cat-${cat.id}`;
+    const descGeom = cat.geometrias ? `\nGeometrías: ${cat.geometrias.join(', ')}` : '';
+    const descEntidades = cat.entidades ? `\nEntidades: ${cat.entidades.slice(0, 4).join(', ')}...` : '';
+    btn.title = `${cat.nombre} (${cat.codigo}):\n${cat.descripcion}${descEntidades}${descGeom}`;
     btn.innerHTML = `
       <span class="icono-cat">${cat.icono}</span>
       <span>${cat.nombre}</span>

@@ -225,10 +225,20 @@ const ModuloMapa = (() => {
         const licencia = props.licencia || 'ODbL 1.0';
         const fecha = props.fecha || props.fecha_registro || 'No indicada';
 
+        const geomType = feature.geometry?.type || 'Point';
+        const rotuloGeometria = geomType === 'Point' ? 'Punto 📍' :
+                                (geomType === 'LineString' || geomType === 'MultiLineString') ? 'Línea 〰️' :
+                                'Polígono ⬡';
+
         const contenidoPopup = `
           <div class="popup-vgi" style="font-family:Spectral, Georgia, serif; max-width:260px;">
-            <div style="font-size:0.75rem; color:${color}; font-weight:bold; font-family:'IBM Plex Mono',monospace;">
-              ${icono} ${opciones.nombre || idCapa.toUpperCase()}
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+              <span style="font-size:0.75rem; color:${color}; font-weight:bold; font-family:'IBM Plex Mono',monospace;">
+                ${icono} ${opciones.nombre || idCapa.toUpperCase()}
+              </span>
+              <span style="font-size:0.7rem; background:#EDE6D6; color:#4B5142; padding:1px 5px; border-radius:3px; font-weight:600;">
+                ${rotuloGeometria}
+              </span>
             </div>
             <h4 style="margin:4px 0 6px 0; font-size:1rem; border-bottom:1px solid #C9BFA0; padding-bottom:3px;">
               ${nombre}

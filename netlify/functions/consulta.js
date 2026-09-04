@@ -98,7 +98,7 @@ exports.handler = async function (event, context) {
       (
         ${tipoEntidad}${filtro}(${bboxOverpass});
       );
-      out center tags qt 350;
+      out geom tags qt 400;
     `;
   }
 
@@ -163,27 +163,66 @@ function elementosAGeoJSON(elementos, nombreConsulta) {
   const features = [];
 
   elementos.forEach(el => {
-    let coords = null;
-    if (el.type === 'node' && el.lat && el.lon) {
-      coords = [el.lon, el.lat];
-    } else if (el.center && el.center.lat && el.center.lon) {
-      coords = [el.center.lon, el.center.lat];
+    let geometria = null;
+    const tags = el.tags || {};
+
+    if (el.type === 'node' && el.lat !== undefined && el.lon !== undefined) {
+      geometria = {
+        type: 'Point',
+        coordinates: [el.lon, el.lat]
+      };
+    } else if (el.type === 'way' && Array.isArray(el.geometry) && el.geometry.length > 0) {
+      const coords = el.geometry.map(p => [p.lon, p.lat]);
+      const primerPunto = coords[0];
+      const ultimoPunto = coords[coords.length - 1];
+      const esCerrado = coords.length >= 4 &&
+        Math.abs(primerPunto[0] - ultimoPunto[0]) < 1e-6 &&
+        Math.abs(primerPunto[1] - ultimoPunto[1]) < 1e-6;
+
+      const esPoligono = esCerrado && (
+        tags.building ||
+        tags.leisure ||
+        tags.landuse ||
+        tags.amenity ||
+        tags.historic ||
+        tags.natural === 'wood' ||
+        tags.natural === 'scrub' ||
+        tags.shop ||
+        tags.area === 'yes'
+      );
+
+      if (esPoligono) {
+        geometria = {
+          type: 'Polygon',
+          coordinates: [coords]
+        };
+      } else {
+        geometria = {
+          type: 'LineString',
+          coordinates: coords
+        };
+      }
+    } else if (el.center && el.center.lat !== undefined && el.center.lon !== undefined) {
+      geometria = {
+        type: 'Point',
+        coordinates: [el.center.lon, el.center.lat]
+      };
     }
 
-    if (!coords) return;
+    if (!geometria) return;
 
-    const tags = el.tags || {};
     const nombre = tags.name || tags['name:es'] || tags.operator || tags.description || 'Sin denominación';
-    const subtipo = tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.building || 'Elemento VGI';
+    const subtipo = tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.building || tags.railway || 'Elemento VGI';
 
     features.push({
       type: 'Feature',
       id: `${el.type}/${el.id}`,
-      geometry: { type: 'Point', coordinates: coords },
+      geometry: geometria,
       properties: {
         id_vgi: `OSM/${el.type}/${el.id}`,
         osm_type: el.type,
         osm_id: el.id,
+        tipo_geometria: geometria.type,
         nombre_consulta: nombreConsulta,
         subtipo: subtipo,
         nombre: nombre,

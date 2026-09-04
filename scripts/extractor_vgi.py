@@ -46,35 +46,35 @@ except Exception:
 FILTROS_CATEGORIAS = {
     "educacion": {
         "nombre": "Educación y Universidad",
-        "filtro_osm": 'nwr["amenity"~"university|college|library|school"]({bbox}); nwr["building"="university"]({bbox});'
+        "filtro_osm": 'nwr["amenity"~"university|college|library|school|kindergarten"]({bbox}); nwr["building"~"university|school|college|kindergarten|library"]({bbox});'
     },
     "servicios": {
-        "nombre": "Servicios y Comercio",
-        "filtro_osm": 'nwr["shop"]({bbox}); nwr["amenity"~"cafe|restaurant|bank|pharmacy|post_office"]({bbox});'
+        "nombre": "Servicios y Comercio Barrial",
+        "filtro_osm": 'nwr["shop"]({bbox}); nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station"]({bbox}); nwr["building"~"retail|commercial|supermarket"]({bbox});'
     },
     "transporte": {
         "nombre": "Movilidad y Transporte",
-        "filtro_osm": 'node["railway"="station"]({bbox}); node["highway"="bus_stop"]({bbox}); way["highway"~"primary|secondary|tertiary|trunk"]({bbox});'
+        "filtro_osm": 'node["highway"="bus_stop"]({bbox}); node["railway"~"station|subway_entrance"]({bbox}); node["public_transport"~"platform|stop_position"]({bbox}); way["highway"~"primary|secondary|tertiary|trunk"]({bbox}); way["railway"="subway"]({bbox}); nwr["amenity"="bus_station"]({bbox});'
     },
     "movilidad_activa": {
         "nombre": "Movilidad Activa y Ciclovías",
-        "filtro_osm": 'way["highway"="cycleway"]({bbox}); way["cycleway"]({bbox}); node["amenity"~"bicycle_parking|bicycle_rental"]({bbox});'
+        "filtro_osm": 'way["highway"="cycleway"]({bbox}); way["cycleway"]({bbox}); way["cycleway:left"]({bbox}); way["cycleway:right"]({bbox}); way["cycleway:both"]({bbox}); way["highway"~"footway|path"]["bicycle"~"yes|designated"]({bbox}); nwr["amenity"~"bicycle_parking|bicycle_rental"]({bbox}); nwr["shop"="bicycle"]({bbox});'
     },
     "espacio_publico": {
-        "nombre": "Áreas Verdes y Plazas",
-        "filtro_osm": 'nwr["leisure"~"park|playground|garden|pitch"]({bbox}); nwr["landuse"~"grass|village_green"]({bbox});'
+        "nombre": "Áreas Verdes y Espacio Público",
+        "filtro_osm": 'nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station"]({bbox}); nwr["landuse"~"grass|village_green|recreation_ground"]({bbox}); node["amenity"~"bench|drinking_water"]({bbox});'
     },
     "patrimonio": {
         "nombre": "Patrimonio y Cultura",
-        "filtro_osm": 'nwr["historic"]({bbox}); nwr["heritage"]({bbox}); nwr["amenity"~"theatre|arts_centre|place_of_worship|museum"]({bbox});'
+        "filtro_osm": 'nwr["historic"]({bbox}); nwr["heritage"]({bbox}); nwr["building"~"church|cathedral|chapel"]({bbox}); nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre"]({bbox}); nwr["tourism"~"museum|artwork|gallery"]({bbox});'
     },
     "accesibilidad": {
         "nombre": "Accesibilidad Universal",
-        "filtro_osm": 'node["kerb"]({bbox}); node["highway"="crossing"]({bbox}); node["wheelchair"]({bbox});'
+        "filtro_osm": 'node["kerb"]({bbox}); node["highway"="crossing"]({bbox}); node["tactile_paving"]({bbox}); node["wheelchair"]({bbox}); way["highway"~"footway|pedestrian"]({bbox}); way["highway"="steps"]["ramp"~"yes|separate"]({bbox}); way["ramp"]({bbox});'
     },
     "biodiversidad": {
-        "nombre": "Biodiversidad Urbana (Arbolado)",
-        "filtro_osm": 'nwr["natural"~"tree|wood|scrub"]({bbox});'
+        "nombre": "Biodiversidad Urbana",
+        "filtro_osm": 'node["natural"="tree"]({bbox}); way["natural"="tree_row"]({bbox}); nwr["natural"~"wood|scrub"]({bbox}); nwr["leisure"="garden"]({bbox}); nwr["landuse"="forest"]({bbox});'
     }
 }
 
@@ -88,7 +88,7 @@ def consultar_overpass(cuerpo_ql, bbox):
     (
       {filtro_reemplazado}
     );
-    out center tags qt 350;
+    out geom tags qt 400;
     """
     
     data_encoded = urllib.parse.urlencode({"data": query}).encode("utf-8")
@@ -129,26 +129,59 @@ def normalizar_elementos(elementos, categoria_id):
     filas_csv = []
     
     for el in elementos:
+        tags = el.get("tags", {})
+        el_type = el.get("type", "node")
+        el_id = el.get("id")
+        geometria = None
         lat = el.get("lat") or (el.get("center", {}).get("lat") if "center" in el else None)
         lon = el.get("lon") or (el.get("center", {}).get("lon") if "center" in el else None)
-        if not lat or not lon:
+
+        if el_type == "node":
+            if lat is not None and lon is not None:
+                geometria = {"type": "Point", "coordinates": [lon, lat]}
+        elif el_type == "way":
+            geom = el.get("geometry", [])
+            if geom and len(geom) >= 2:
+                coords = [[p["lon"], p["lat"]] for p in geom if "lat" in p and "lon" in p]
+                if not lat or not lon:
+                    lat = coords[0][1]
+                    lon = coords[0][0]
+                es_cerrado = len(coords) >= 4 and abs(coords[0][0] - coords[-1][0]) < 1e-6 and abs(coords[0][1] - coords[-1][1]) < 1e-6
+                es_poligono = es_cerrado and any([
+                    "building" in tags, "leisure" in tags, "landuse" in tags,
+                    "amenity" in tags, "historic" in tags, tags.get("natural") in ("wood", "scrub"),
+                    "shop" in tags, tags.get("area") == "yes"
+                ])
+                if es_poligono:
+                    geometria = {"type": "Polygon", "coordinates": [coords]}
+                else:
+                    geometria = {"type": "LineString", "coordinates": coords}
+            elif lat is not None and lon is not None:
+                geometria = {"type": "Point", "coordinates": [lon, lat]}
+        elif "center" in el:
+            c = el["center"]
+            lat = c.get("lat")
+            lon = c.get("lon")
+            geometria = {"type": "Point", "coordinates": [lon, lat]}
+
+        if not geometria or lat is None or lon is None:
             continue
             
-        tags = el.get("tags", {})
         nombre = tags.get("name") or tags.get("name:es") or tags.get("description") or "Sin denominación"
-        subtipo = tags.get("amenity") or tags.get("shop") or tags.get("highway") or tags.get("leisure") or tags.get("historic") or "VGI"
+        subtipo = tags.get("amenity") or tags.get("shop") or tags.get("highway") or tags.get("leisure") or tags.get("historic") or tags.get("building") or tags.get("railway") or "Elemento VGI"
         operador = tags.get("operator", "")
         direccion = f"{tags.get('addr:street', '')} {tags.get('addr:housenumber', '')}".strip()
         accesibilidad = tags.get("wheelchair", "")
-        el_id = f"{el.get('type')}/{el.get('id')}"
+        el_id_str = f"{el_type}/{el_id}"
         
         feat = {
             "type": "Feature",
-            "id": el_id,
-            "geometry": {"type": "Point", "coordinates": [lon, lat]},
+            "id": el_id_str,
+            "geometry": geometria,
             "properties": {
-                "id_vgi": f"OSM/{el_id}",
+                "id_vgi": f"OSM/{el_id_str}",
                 "categoria": categoria_id,
+                "tipo_geometria": geometria["type"],
                 "subtipo": subtipo,
                 "nombre": nombre,
                 "operador": operador,
@@ -161,7 +194,7 @@ def normalizar_elementos(elementos, categoria_id):
         }
         features.append(feat)
         filas_csv.append([
-            f"OSM/{el_id}", categoria_id, subtipo, nombre, operador, direccion, accesibilidad,
+            f"OSM/{el_id_str}", categoria_id, subtipo, nombre, operador, direccion, accesibilidad,
             "OpenStreetMap", el.get("timestamp", datetime.now().strftime("%Y-%m-%d")), "ODbL 1.0", lat, lon
         ])
         

@@ -153,7 +153,7 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
         (
           {cuerpo_ql}
         );
-        out center tags qt 350;
+        out geom tags qt 400;
         """
 
         # Verificar caché en disco
@@ -373,19 +373,51 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
     def elementos_a_geojson(self, elementos, nombre):
         features = []
         for el in elementos:
-            lat = el.get("lat") or (el.get("center", {}).get("lat") if "center" in el else None)
-            lon = el.get("lon") or (el.get("center", {}).get("lon") if "center" in el else None)
-            if not lat or not lon:
-                continue
             tags = el.get("tags", {})
-            nom = tags.get("name") or tags.get("name:es") or "Sin denominación"
-            subtipo = tags.get("amenity") or tags.get("shop") or tags.get("highway") or tags.get("historic") or "Elemento VGI"
+            el_type = el.get("type", "node")
+            el_id = el.get("id")
+            geometria = None
+
+            if el_type == "node":
+                lat = el.get("lat")
+                lon = el.get("lon")
+                if lat is not None and lon is not None:
+                    geometria = {"type": "Point", "coordinates": [lon, lat]}
+            elif el_type == "way":
+                geom = el.get("geometry", [])
+                if geom and len(geom) >= 2:
+                    coords = [[p["lon"], p["lat"]] for p in geom if "lat" in p and "lon" in p]
+                    es_cerrado = len(coords) >= 4 and abs(coords[0][0] - coords[-1][0]) < 1e-6 and abs(coords[0][1] - coords[-1][1]) < 1e-6
+                    es_poligono = es_cerrado and any([
+                        "building" in tags, "leisure" in tags, "landuse" in tags,
+                        "amenity" in tags, "historic" in tags, tags.get("natural") in ("wood", "scrub"),
+                        "shop" in tags, tags.get("area") == "yes"
+                    ])
+                    if es_poligono:
+                        geometria = {"type": "Polygon", "coordinates": [coords]}
+                    else:
+                        geometria = {"type": "LineString", "coordinates": coords}
+                elif "center" in el:
+                    c = el["center"]
+                    geometria = {"type": "Point", "coordinates": [c["lon"], c["lat"]]}
+            elif "center" in el:
+                c = el["center"]
+                geometria = {"type": "Point", "coordinates": [c["lon"], c["lat"]]}
+
+            if not geometria:
+                continue
+
+            nom = tags.get("name") or tags.get("name:es") or tags.get("description") or "Sin denominación"
+            subtipo = tags.get("amenity") or tags.get("shop") or tags.get("highway") or tags.get("leisure") or tags.get("historic") or tags.get("building") or tags.get("railway") or "Elemento VGI"
             features.append({
                 "type": "Feature",
-                "id": f"{el.get('type')}/{el.get('id')}",
-                "geometry": {"type": "Point", "coordinates": [lon, lat]},
+                "id": f"{el_type}/{el_id}",
+                "geometry": geometria,
                 "properties": {
-                    "id_vgi": f"OSM/{el.get('type')}/{el.get('id')}",
+                    "id_vgi": f"OSM/{el_type}/{el_id}",
+                    "osm_type": el_type,
+                    "osm_id": el_id,
+                    "tipo_geometria": geometria["type"],
                     "subtipo": subtipo,
                     "nombre": nom,
                     "operador": tags.get("operator"),

@@ -72,6 +72,26 @@ Este documento registra la evolución técnica, decisiones metodológicas y entr
    - **Sincronización Integral Full-Stack:**
      - Actualización de `config/config.json`, `src/config/config.json`, el selector en `src/index.html`, la función reactiva `poblarSelectorTerritorios()` en `src/js/app.js` y la configuración de contingencia en `src/js/config.js`.
 
+7. **Abordaje Multi-Entidad Coherente y Geometrías Mixtas en las 8 Categorías Temáticas VGI:**
+   - **Enriquecimiento Taxonómico y Temático Coherente:**
+     - Cada una de las 8 categorías temáticas oficiales del Atlas se amplió para capturar múltiples entidades territoriales interconectadas metodológicamente:
+       - *CAT-01 Educación:* Universidades, institutos, colegios, jardines infantiles, bibliotecas públicas y huellas de edificios/campus.
+       - *CAT-02 Servicios y Comercio Barrial:* Locales de proximidad (almacenes, panaderías, ferias), gastronomía comunitaria, farmacias, consultorios, bancos, cajeros y centros cívicos.
+       - *CAT-03 Movilidad y Transporte:* Paraderos Red, estaciones de Metro (Los Héroes, Santa Ana, Cumming), bocas de acceso, andenes, terminales y ejes viales primarios.
+       - *CAT-04 Movilidad Activa y Ciclovías:* Ciclovías segregadas, ciclobandas, sendas compartidas, biciestacionamientos públicos y UAH, arriendos y talleres mecánicos de bicicletas.
+       - *CAT-05 Áreas Verdes y Espacio Público:* Plazas mayores (Plaza Brasil), plazoletas, multicanchas, juegos infantiles, bandejones arbolados, bancos de reposo y bebederos.
+       - *CAT-06 Patrimonio y Cultura:* Inmuebles de Conservación Histórica (ICH), Zona Típica Barrio Brasil, Casonas Neoclásicas UAH, Basílica del Salvador, iglesias, museos, murales y memoriales.
+       - *CAT-07 Accesibilidad Universal:* Rebajes de cordón/solera, cruces peatonales, guías podotáctiles, rampas, veredas continuas y equipamientos accesibles.
+       - *CAT-08 Biodiversidad Urbana:* Arbolado de alineación (Av. Brasil), filas de árboles, parches de vegetación, jardines comunitarios y registros de avifauna/flora de GBIF.
+   - **Soporte de Geometrías Mixtas (Puntos, Líneas y Polígonos Reales):**
+     - Se actualizó el formato de salida Overpass a `out geom tags qt 400;` para recibir los nodos y geometrías vectoriales completas de vías (`way`).
+     - El normalizador GeoJSON (`elementosAGeoJSON` y `elementos_a_geojson`) discrimina ahora automáticamente entre:
+       - *Polígonos:* Huellas cerradas de edificios, plazas, recintos universitarios y áreas verdes (`Polygon`).
+       - *Líneas:* Trazados de ciclovías, ejes viales estructurantes, sendas peatonales y filas arbóreas (`LineString`).
+       - *Puntos:* Equipamientos discretos, paraderos, rebajes de solera, árboles individuales y especímenes biológicos (`Point`).
+   - **Renderizado Cartográfico y Popups Dinámicos:**
+     - El visor Leaflet (`src/js/modulos/mapa.js`) dibuja ahora polígonos con relleno y contorno, líneas vectoriales continuas y marcadores de círculo, e incluye una insignia visual con el tipo de geometría (`Punto 📍`, `Línea 〰️`, `Polígono ⬡`) en cada popup informativo.
+
 ---
 
 ## Entrega de turno 4 — Septiembre 2026 (Accesibilidad Ciudadana, Diccionario Territorial, Perfiles de Actor y Métricas Geométricas ohsome v1)
