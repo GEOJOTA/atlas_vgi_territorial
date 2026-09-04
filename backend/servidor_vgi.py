@@ -22,6 +22,7 @@ import urllib.request
 import urllib.parse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import hashlib
+import math
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_DIR = os.path.join(BASE_DIR, "src")
@@ -41,6 +42,98 @@ try:
     SSL_CTX = ssl._create_unverified_context()
 except Exception:
     SSL_CTX = None
+
+# Parámetros geodésicos WGS 84 / UTM Huso 19 Sur (EPSG:32719)
+A_WGS84 = 6378137.0
+F_WGS84 = 1.0 / 298.257223563
+E2 = 2.0 * F_WGS84 - F_WGS84 * F_WGS84
+E_PRIME2 = E2 / (1.0 - E2)
+K0 = 0.9996
+FALSO_ESTE = 500000.0
+FALSO_NORTE = 10000000.0
+MERIDIANO_CENTRAL_19S = -69.0
+
+def wgs84_a_utm19s(lon, lat):
+    """
+    Reproyecta coordenadas geográficas WGS84 a planas métricas UTM 19S (EPSG:32719).
+    Ecuaciones conformes de Transverse Mercator (Snyder, 1987).
+    """
+    phi = math.radians(lat)
+    lam = math.radians(lon)
+    lam0 = math.radians(MERIDIANO_CENTRAL_19S)
+    delta_lam = lam - lam0
+
+    sin_phi = math.sin(phi)
+    cos_phi = math.cos(phi)
+    tan_phi = math.tan(phi)
+
+    N = A_WGS84 / math.sqrt(1.0 - E2 * sin_phi * sin_phi)
+    T = tan_phi * tan_phi
+    C = E_PRIME2 * cos_phi * cos_phi
+    A = cos_phi * delta_lam
+
+    M = A_WGS84 * (
+        (1.0 - E2 / 4.0 - 3.0 * E2 * E2 / 64.0 - 5.0 * E2 * E2 * E2 / 256.0) * phi
+        - (3.0 * E2 / 8.0 + 3.0 * E2 * E2 / 32.0 + 45.0 * E2 * E2 * E2 / 1024.0) * math.sin(2.0 * phi)
+        + (15.0 * E2 * E2 / 256.0 + 45.0 * E2 * E2 * E2 / 1024.0) * math.sin(4.0 * phi)
+        - (35.0 * E2 * E2 * E2 / 3072.0) * math.sin(6.0 * phi)
+    )
+
+    este = FALSO_ESTE + K0 * N * (
+        A
+        + (1.0 - T + C) * (A ** 3) / 6.0
+        + (5.0 - 18.0 * T + T * T + 72.0 * C - 58.0 * E_PRIME2) * (A ** 5) / 120.0
+    )
+
+    norte = FALSO_NORTE + K0 * (
+        M + N * tan_phi * (
+            (A ** 2) / 2.0
+            + (5.0 - T + 9.0 * C + 4.0 * C * C) * (A ** 4) / 24.0
+            + (61.0 - 58.0 * T + T * T + 600.0 * C - 330.0 * E_PRIME2) * (A ** 6) / 720.0
+        )
+    )
+
+    return este, norte
+
+def calcular_superficie_poligono(coords_lon_lat):
+    """
+    Calcula el área métrica plana de un polígono cerrado reprojectando a EPSG:32719 y aplicando Gauss.
+    """
+    if not coords_lon_lat or len(coords_lon_lat) < 3:
+        return {"areaM2": 0.0, "areaHa": 0.0, "areaKm2": 0.0, "srs": "EPSG:32719"}
+    coords_utm = [wgs84_a_utm19s(pt[0], pt[1]) for pt in coords_lon_lat]
+    suma = 0.0
+    n = len(coords_utm)
+    for i in range(n - 1):
+        suma += (coords_utm[i][0] * coords_utm[i + 1][1]) - (coords_utm[i + 1][0] * coords_utm[i][1])
+    area_m2 = abs(suma) / 2.0
+    return {
+        "areaM2": round(area_m2, 1),
+        "areaHa": round(area_m2 / 10000.0, 3),
+        "areaKm2": round(area_m2 / 1000000.0, 6),
+        "srs": "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"
+    }
+
+def calcular_superficie_bbox(bbox):
+    """
+    Calcula superficie métrica de un Bbox proyectando sus 4 esquinas a EPSG:32719 y evaluando con Gauss.
+    """
+    oeste, sur, este, norte = bbox
+    p1 = wgs84_a_utm19s(oeste, sur)
+    p2 = wgs84_a_utm19s(este, sur)
+    p3 = wgs84_a_utm19s(este, norte)
+    p4 = wgs84_a_utm19s(oeste, norte)
+    vertices = [p1, p2, p3, p4, p1]
+    suma = 0.0
+    for i in range(4):
+        suma += (vertices[i][0] * vertices[i + 1][1]) - (vertices[i + 1][0] * vertices[i][1])
+    area_m2 = abs(suma) / 2.0
+    return {
+        "areaM2": round(area_m2),
+        "areaHa": round(area_m2 / 10000.0, 2),
+        "areaKm2": round(area_m2 / 1000000.0, 4),
+        "srs": "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"
+    }
 
 class ManejadorVGI(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -327,11 +420,9 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
 
             elem_ahora = int(conteo.get("result", [{}])[0].get("value", 0))
 
-            oeste, sur, este, norte = bbox
-            km_lat = 111.32
-            lat_media = ((sur + norte) / 2) * 3.14159265 / 180
-            km_lon = 111.32 * abs(lat_media)
-            area_calc = abs(este - oeste) * 111.32 * abs(norte - sur) * 111.32
+            sup_bbox = calcular_superficie_bbox(bbox)
+            area_calc = sup_bbox["areaKm2"]
+            densidad_calc = round(elem_ahora / area_calc, 2) if area_calc > 0 else None
 
             metrica_geom = None
             if tipo_geo == "linea" and res_especial and res_especial.get("result"):
@@ -356,8 +447,12 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 "tipoGeometria": tipo_geo,
                 "elementosAhora": elem_ahora,
                 "metricaGeometrica": metrica_geom,
-                "densidad": round(elem_ahora / area_calc, 2) if area_calc > 0 else None,
-                "areaKm2": round(area_calc, 3),
+                "densidad": densidad_calc,
+                "areaKm2": round(area_calc, 4),
+                "areaHa": sup_bbox["areaHa"],
+                "areaM2": sup_bbox["areaM2"],
+                "srs": sup_bbox["srs"],
+                "reproyeccion_aplicada": "EPSG:32719 (WGS 84 / UTM Huso 19 Sur - Transverse Mercator)",
                 "ratioContribucionPorUsuario": ratio,
                 "usuariosPorAnio": lista_usr,
                 "elementosPorAnio": [{"fecha": (r.get("fromTimestamp") or r.get("timestamp") or "")[:10], "valor": int(r.get("value", 0))} for r in serie.get("result", [])],
@@ -407,6 +502,10 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             if not geometria:
                 continue
 
+            sup_info = None
+            if geometria["type"] == "Polygon" and coords:
+                sup_info = calcular_superficie_poligono(coords)
+
             nom = tags.get("name") or tags.get("name:es") or tags.get("description") or "Sin denominación"
             subtipo = tags.get("amenity") or tags.get("shop") or tags.get("highway") or tags.get("leisure") or tags.get("historic") or tags.get("building") or tags.get("railway") or "Elemento VGI"
             features.append({
@@ -423,6 +522,10 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                     "operador": tags.get("operator"),
                     "direccion": f"{tags.get('addr:street', '')} {tags.get('addr:housenumber', '')}".strip() or None,
                     "accesibilidad": tags.get("wheelchair"),
+                    "superficie_m2": sup_info["areaM2"] if sup_info else None,
+                    "superficie_ha": sup_info["areaHa"] if sup_info else None,
+                    "superficie_km2": sup_info["areaKm2"] if sup_info else None,
+                    "srs_superficie": sup_info["srs"] if sup_info else None,
                     "fuente": "OpenStreetMap",
                     "licencia": "ODbL 1.0",
                     "tags": tags

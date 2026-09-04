@@ -126,7 +126,7 @@ Para evitar que una persona no técnica o un estudiante se enfrente a errores HT
    - **Entidades Lineales (Vialidad y Movilidad Activa):** Consulta de longitud computando la longitud real de red en kilómetros y metros lineales (red vial de Barrio Brasil y ciclovías). Permite evaluar continuidad de red y conectividad territorial.
    - **Entidades Poligonales (Edificaciones y Espacio Público):** Consulta de superficie computando el área en metros cuadrados y hectáreas de la huella construida (`building=*`) y áreas verdes (`leisure=park`), clave para calcular índices de espacio público por habitante.
    - **Entidades Puntuales (Equipamiento y Accesibilidad):** Consulta de conteo cuantificando nodos discretos (paraderos, farmacias, rebajes de cordón).
-2. **Completitud y Densidad Espacial:** El panel `02 / Calidad de Datos (ohsome)` calcula la densidad real de entidades por kilómetro cuadrado sobre el elipsoide WGS84, distinguiendo entre áreas densamente catastradas y sectores con vacíos de cobertura.
+2. **Completitud y Densidad Espacial Coherente:** El panel `02 / Calidad de Datos (ohsome)` calcula la densidad real de entidades por kilómetro cuadrado y por hectárea mediante una reproyección rigurosa a **EPSG:32719 (UTM Huso 19 Sur)**, eliminando las distorsiones de superficie que se originan al computar áreas en coordenadas angulares o sobre esferas simplificadas.
 3. **Consistencia Temporal y Dinámica Histórica:** Mediante series anualizadas a 5 años (o pasos semestrales/mensuales), el sistema monitorea el crecimiento acumulado del catastro y detecta posibles estancamientos o fases de aceleración comunitaria.
 4. **Linaje, Masa Crítica y Ratio de Intensidad:** Mediante el cruce de colaboradores y contribuciones, el sistema calcula el **Ratio de Ediciones por Colaborador**, permitiendo diferenciar empíricamente entre un territorio mapeado por un único voluntario aislado versus uno respaldado por una comunidad plural y sostenida en el tiempo.
 5. **Aparato Crítico y Referencias Científicas:**
@@ -134,6 +134,36 @@ Para evitar que una persona no técnica o un estudiante se enfrente a errores HT
    - **HeiGIT (2025/2026):** *ohsome API v2 Documentation: High-performance OSM History Analysis with ohsomeDB and Citus.* Heidelberg Institute for Geoinformation Technology. https://api.heigit.org/ohsome-api/v2-rc/docs
    - **Neis, P. & Zipf, A. (2012):** *Analyzing the Contributor Activity of OpenStreetMap and Its Development for the Community.* ISPRS International Journal of Geo-Information, 1(2), 146-177. doi:10.3390/ijgi1020146.
    - **Haklay, M. (2010):** *How good is volunteered geographical information? A case study of OpenStreetMap in the UK.* Environment and Planning B: Planning and Design, 37(4), 682-703. doi:10.1068/b35097.
+
+### 3.4 Fundamentación Geodésica y Reproyección Cartográfica Oficial (ISO 19111 / EPSG:32719 / IGM Chile / IDE Chile)
+
+El cálculo de áreas y densidades en el Atlas VGI cumple estrictamente con el estándar **ISO 19111:2019 (Referencing by coordinates)** y las especificaciones cartográficas oficiales de la República de Chile:
+
+1. **Inadecuación de Medidas Euclidianas en Grados Decimales:**
+   - Los datos brutos de OpenStreetMap se almacenan en coordenadas geográficas elipsoidales $(\phi, \lambda)$ en grados decimales sobre el datum WGS84 (EPSG:4326).
+   - A la latitud de Santiago Centro y Barrio Brasil ($\phi \approx -33.44^\circ$), un grado de longitud equivale a aproximadamente $92.9\text{ km}$, mientras que un grado de latitud equivale a $110.9\text{ km}$. Calcular superficies multiplicando directamente incrementos angulares ($\Delta \lambda \times \Delta \phi$) o asumir una esfera terrestre simplificada introduce errores significativos en el cálculo métrico de huellas construidas y áreas de estudio.
+
+2. **Reproyección Conforme a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):**
+   - El sistema implementa la proyección conforme de **Transverse Mercator** basada en las ecuaciones rigurosas de Snyder (1987) y adoptadas por el Instituto Geográfico Militar (IGM) y la Infraestructura de Datos Espaciales de Chile (IDE Chile / SNIT):
+     - **Elipsoide de Referencia:** WGS 84 ($a = 6378137.0\text{ m}$, $f = 1/298.257223563$).
+     - **Meridiano Central:** $69^\circ\text{ Oeste}$ ($\lambda_0 = -69.0^\circ$).
+     - **Factor de Escala:** $k_0 = 0.9996$.
+     - **Falso Este:** $500.000\text{ m}$.
+     - **Falso Norte:** $10.000.000\text{ m}$ (Hemisferio Sur).
+   - Esta formulación garantiza compatibilidad geodésica con el marco de referencia geocéntrico nacional **SIRGAS-Chile 2016** (EPSG:5361).
+
+3. **Cálculo de Superficies mediante la Fórmula de Gauss (Shoelace):**
+   - Una vez transformados los vértices $[(\text{lon}_i, \text{lat}_i) \rightarrow (E_i, N_i)]$ a un plano métrico proyectado UTM 19S euclidiano, el área se evalúa mediante la fórmula de Gauss para polígonos cerrados:
+     $$\text{Área} = \frac{1}{2} \left| \sum_{i=1}^{n-1} (E_i \cdot N_{i+1} - E_{i+1} \cdot N_i) \right|$$
+   - Este algoritmo se aplica tanto a polígonos vectoriales (`building`, `leisure=park`, `landuse=residential`, campus universitarios UAH) como a los Bounding Boxes territoriales, entregando valores exactos en metros cuadrados ($m^2$), hectáreas ($ha$) y kilómetros cuadrados ($km^2$).
+
+4. **Transparencia y Expresión en la Interfaz de Usuario:**
+   - La reproyección no es un proceso oculto: se explicita en toda la experiencia de usuario para garantizar total auditabilidad por personas no técnicas y revisores académicos:
+     - **Popups de Leaflet:** Cada entidad poligonal muestra su superficie en $m^2$ y $ha$ con la etiqueta visible `(EPSG:32719)`.
+     - **Tooltip Interactivo de Bbox:** Al encuadrar o dibujar un área en el mapa, el rotulo dinámico indica el área calculada en hectáreas y $km^2$ con la insignia `[EPSG:32719]`.
+     - **Panel ohsome (Indicadores de Calidad):** La tarjeta de densidad reporta el área en $ha$ y $km^2$ con el rótulo destacado: *Reproyectado a EPSG:32719 (UTM 19S)*.
+     - **Ficha Territorial de Estudio:** Muestra la superficie calculada para Barrio Brasil completo ($223.75\text{ ha} / 2.2375\text{ km}^2$) y para la manzana UAH ($136.1\text{ ha} / 1.361\text{ km}^2$).
+     - **Exportación CSV y GeoJSON:** Incluyen los campos `superficie_m2`, `superficie_ha`, `superficie_km2` y `srs_superficie: "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"`.
 
 ---
 
@@ -151,6 +181,7 @@ Ante la comisión de práctica profesional, cada componente técnico responde a 
 | **Constructor de Consultas Espaciales Dual + Sugerencias 1 Clic** | Búsqueda solo tabular predefinida o solo Overpass QL | Democratiza la consulta territorial permitiendo que vecinos ejecuten consultas en un solo clic, mientras que investigadores avanzados pueden construir expresiones complejas y descargar GeoJSON/CSV. |
 | **Delimitación Territorial Operativa (Barrio Brasil Completo y Manzana UAH)** | Catálogo metropolitano disperso (Providencia, Lo Barnechea, Casco Cívico) | Focaliza los recursos computacionales y de consulta en el área de estudio directa de la práctica profesional de Geografía, garantizando consistencia empírica en las 8 categorías y evitando consultas descontextualizadas o sobrecarga innecesaria de APIs en Bboxes metropolitanos ajenos al caso piloto. |
 | **Taxonomía Multi-Entidad y Geometrías Mixtas (Puntos, Líneas y Polígonos)** | Modelo simplificado mono-entidad puntual (`out center`) | Supera la limitación reduccionista de representar fenómenos urbanos complejos como meros puntos. Permite capturar la verdadera morfología espacial (huellas poligonales de campus universitarios y plazas, redes lineales de ciclovías y vías de transporte, y equipamientos puntuales de servicios), cumpliendo con el principio de fidelidad topológica de ISO 19157. |
+| **Reproyección Geodésica a EPSG:32719 para Cálculo de Superficies y Densidad** | Cálculos euclidianos en grados o esferas simplificadas | Los grados decimales ($\Delta \lambda \times \Delta \phi$) no constituyen unidades métricas y distorsionan las áreas a la latitud de Santiago (-33.44°). La reproyección conforme a EPSG:32719 (WGS 84 / UTM Huso 19 Sur, elipsoide WGS84, meridiano central 69°O) mediante las ecuaciones de Snyder (1987) y la fórmula de Gauss garantiza exactitud métrica en $m^2$, $ha$ y $km^2$ bajo las normas del IGM e IDE Chile. |
 | **Respaldo Local Automático (Fallback)** | Bloqueo o error 429 cuando Overpass satura | Si la red pública de Overpass sufre congestión durante una defensa académica, el sistema conmuta automáticamente a los 1.316 registros locales pre-extraídos de Barrio Brasil y UAH. |
 
 ---
@@ -180,3 +211,6 @@ Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -3
 
 ### P3: *"¿Qué ocurre si la plataforma se queda sin conexión a internet en terreno o en una exposición?"*
 > **Respuesta:** La plataforma cuenta con una triple capa de resiliencia: (1) servidor backend local en Python (`backend/servidor_vgi.py`) que funciona sin conexión con caché en disco, (2) catálogo local pre-extraído en `data/` para Barrio Brasil / UAH con 1.316 entidades, y (3) exportación a GeoJSON y CSV directamente utilizables de forma offline en QGIS.
+
+### P4: *"¿Cómo se calculan las superficies de las entidades territoriales y las densidades espaciales para que sean métricamente coherentes?"*
+> **Respuesta:** Ninguna superficie se calcula multiplicando grados decimales ni asumiendo la Tierra como una esfera perfecta. El Atlas implementa un motor geodésico riguroso (`ModuloGeodesia`) que reproyecta cada coordenada WGS 84 a **EPSG:32719 (WGS 84 / UTM Huso 19 Sur)** mediante las ecuaciones conformes de Transverse Mercator (Snyder, 1987), el estándar métrico oficial adoptado por el Instituto Geográfico Militar (IGM) y la IDE Chile para la Región Metropolitana. Sobre estas coordenadas planas métricas se aplica la fórmula del área de Gauss (Shoelace), garantizando superficies precisas en $m^2$, hectáreas y $km^2$ tanto en los polígonos del mapa como en los indicadores de calidad de ohsome, todo debidamente explicitado en la interfaz para personas no técnicas y revisores expertos.

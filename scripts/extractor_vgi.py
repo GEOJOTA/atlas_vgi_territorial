@@ -22,6 +22,7 @@ import urllib.parse
 import argparse
 import csv
 from datetime import datetime
+import math
 
 # Rutas del proyecto
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,77 @@ try:
     SSL_CONTEXT = ssl._create_unverified_context()
 except Exception:
     SSL_CONTEXT = None
+
+# Parámetros geodésicos WGS 84 / UTM Huso 19 Sur (EPSG:32719)
+A_WGS84 = 6378137.0
+F_WGS84 = 1.0 / 298.257223563
+E2 = 2.0 * F_WGS84 - F_WGS84 * F_WGS84
+E_PRIME2 = E2 / (1.0 - E2)
+K0 = 0.9996
+FALSO_ESTE = 500000.0
+FALSO_NORTE = 10000000.0
+MERIDIANO_CENTRAL_19S = -69.0
+
+def wgs84_a_utm19s(lon, lat):
+    """
+    Reproyecta coordenadas geográficas WGS84 a planas métricas UTM 19S (EPSG:32719).
+    Ecuaciones conformes de Transverse Mercator (Snyder, 1987).
+    """
+    phi = math.radians(lat)
+    lam = math.radians(lon)
+    lam0 = math.radians(MERIDIANO_CENTRAL_19S)
+    delta_lam = lam - lam0
+
+    sin_phi = math.sin(phi)
+    cos_phi = math.cos(phi)
+    tan_phi = math.tan(phi)
+
+    N = A_WGS84 / math.sqrt(1.0 - E2 * sin_phi * sin_phi)
+    T = tan_phi * tan_phi
+    C = E_PRIME2 * cos_phi * cos_phi
+    A = cos_phi * delta_lam
+
+    M = A_WGS84 * (
+        (1.0 - E2 / 4.0 - 3.0 * E2 * E2 / 64.0 - 5.0 * E2 * E2 * E2 / 256.0) * phi
+        - (3.0 * E2 / 8.0 + 3.0 * E2 * E2 / 32.0 + 45.0 * E2 * E2 * E2 / 1024.0) * math.sin(2.0 * phi)
+        + (15.0 * E2 * E2 / 256.0 + 45.0 * E2 * E2 * E2 / 1024.0) * math.sin(4.0 * phi)
+        - (35.0 * E2 * E2 * E2 / 3072.0) * math.sin(6.0 * phi)
+    )
+
+    este = FALSO_ESTE + K0 * N * (
+        A
+        + (1.0 - T + C) * (A ** 3) / 6.0
+        + (5.0 - 18.0 * T + T * T + 72.0 * C - 58.0 * E_PRIME2) * (A ** 5) / 120.0
+    )
+
+    norte = FALSO_NORTE + K0 * (
+        M + N * tan_phi * (
+            (A ** 2) / 2.0
+            + (5.0 - T + 9.0 * C + 4.0 * C * C) * (A ** 4) / 24.0
+            + (61.0 - 58.0 * T + T * T + 600.0 * C - 330.0 * E_PRIME2) * (A ** 6) / 720.0
+        )
+    )
+
+    return este, norte
+
+def calcular_superficie_poligono(coords_lon_lat):
+    """
+    Calcula el área métrica plana de un polígono cerrado reprojectando a EPSG:32719 y aplicando Gauss.
+    """
+    if not coords_lon_lat or len(coords_lon_lat) < 3:
+        return {"areaM2": 0.0, "areaHa": 0.0, "areaKm2": 0.0, "srs": "EPSG:32719"}
+    coords_utm = [wgs84_a_utm19s(pt[0], pt[1]) for pt in coords_lon_lat]
+    suma = 0.0
+    n = len(coords_utm)
+    for i in range(n - 1):
+        suma += (coords_utm[i][0] * coords_utm[i + 1][1]) - (coords_utm[i + 1][0] * coords_utm[i][1])
+    area_m2 = abs(suma) / 2.0
+    return {
+        "areaM2": round(area_m2, 1),
+        "areaHa": round(area_m2 / 10000.0, 3),
+        "areaKm2": round(area_m2 / 1000000.0, 6),
+        "srs": "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"
+    }
 
 FILTROS_CATEGORIAS = {
     "educacion": {
@@ -167,6 +239,10 @@ def normalizar_elementos(elementos, categoria_id):
         if not geometria or lat is None or lon is None:
             continue
             
+        sup_info = None
+        if geometria["type"] == "Polygon" and coords:
+            sup_info = calcular_superficie_poligono(coords)
+
         nombre = tags.get("name") or tags.get("name:es") or tags.get("description") or "Sin denominación"
         subtipo = tags.get("amenity") or tags.get("shop") or tags.get("highway") or tags.get("leisure") or tags.get("historic") or tags.get("building") or tags.get("railway") or "Elemento VGI"
         operador = tags.get("operator", "")
@@ -187,6 +263,10 @@ def normalizar_elementos(elementos, categoria_id):
                 "operador": operador,
                 "direccion": direccion,
                 "accesibilidad": accesibilidad,
+                "superficie_m2": sup_info["areaM2"] if sup_info else None,
+                "superficie_ha": sup_info["areaHa"] if sup_info else None,
+                "superficie_km2": sup_info["areaKm2"] if sup_info else None,
+                "srs_superficie": sup_info["srs"] if sup_info else None,
                 "fuente": "OpenStreetMap",
                 "fecha": el.get("timestamp", datetime.now().strftime("%Y-%m-%d")),
                 "licencia": "ODbL 1.0"
@@ -195,7 +275,8 @@ def normalizar_elementos(elementos, categoria_id):
         features.append(feat)
         filas_csv.append([
             f"OSM/{el_id_str}", categoria_id, subtipo, nombre, operador, direccion, accesibilidad,
-            "OpenStreetMap", el.get("timestamp", datetime.now().strftime("%Y-%m-%d")), "ODbL 1.0", lat, lon
+            "OpenStreetMap", el.get("timestamp", datetime.now().strftime("%Y-%m-%d")), "ODbL 1.0", lat, lon,
+            sup_info["areaM2"] if sup_info else "", sup_info["srs"] if sup_info else ""
         ])
         
     return features, filas_csv
@@ -259,7 +340,8 @@ def main():
                     })
                     filas.append([
                         r_id, "biodiversidad", "Registro Biológico", nombre_bio, pub, "", "",
-                        "GBIF / iNaturalist", (r.get("eventDate") or "")[:10], r.get("license", "CC-BY 4.0"), lat, lon
+                        "GBIF / iNaturalist", (r.get("eventDate") or "")[:10], r.get("license", "CC-BY 4.0"), lat, lon,
+                        "", ""
                     ])
                     
         print(f"    [+] {len(feats)} entidades extraídas y normalizadas.")
@@ -294,7 +376,7 @@ def main():
         writer = csv.writer(f)
         writer.writerow([
             "id_vgi", "categoria", "subtipo", "nombre", "operador", "direccion", "accesibilidad",
-            "fuente", "fecha_registro", "licencia", "latitud", "longitud"
+            "fuente", "fecha_registro", "licencia", "latitud", "longitud", "superficie_m2", "srs_superficie"
         ])
         writer.writerows(todas_filas_csv)
     print(f"[+] Tabla normalizada CSV generada: {ruta_csv}")

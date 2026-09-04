@@ -345,6 +345,7 @@
                 <li><strong>Resiliencia comunitaria:</strong> Si eliges v2 sin API Key o hay problemas de red, el Atlas conmuta automáticamente a v1 sin romper tu análisis.</li>
               </ul>
             </li>
+            <li><strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox (área de encuadre territorial) y densidad espacial de elementos por km² o hectárea pasa por una reproyección conforme Transverse Mercator desde WGS 84 a EPSG:32719 (norma oficial adoptada por el Instituto Geográfico Militar de Chile / IGM e Infraestructura de Datos Espaciales de Chile / IDE Chile). Esto elimina las distorsiones de escala angular que se producen al medir áreas planas sobre coordenadas en grados decimales a la latitud de Santiago (-33.44°).</li>
             <li><strong>Sensibilidad Geométrica:</strong> La red vial se audita por continuidad lineal (<code>/elements/length</code> en km), las edificaciones y áreas verdes por superficie de huella construida (<code>/elements/area</code> en m²/ha), y el equipamiento por densidad puntual (<code>/elements/count</code>).</li>
             <li><strong>Linaje y Masa Crítica:</strong> El ratio de ediciones por usuario evalúa si el área depende de mapeadores esporádicos o de una comunidad activa y diversa (Neis & Zipf, 2012).</li>
             <li><strong>Citas académicas:</strong> Raifer et al. (2019) <em>OSHDB framework</em> (doi:10.1186/s40965-019-0061-3); HeiGIT (2025/2026) <em>ohsome API v2 Documentation</em>; Haklay (2010) <em>How good is VGI?</em>; Goodchild (2007) <em>Citizens as sensors</em>.</li>
@@ -661,6 +662,7 @@
 <!-- Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="js/config.js"></script>
+<script src="js/modulos/geodesia.js"></script>
 <script src="js/modulos/mapa.js"></script>
 <script src="js/modulos/osm.js"></script>
 <script src="js/modulos/ohsome.js"></script>

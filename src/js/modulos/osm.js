@@ -225,6 +225,11 @@ const ModuloOSM = (() => {
 
       if (!geometria) return;
 
+      let infoSuperficie = null;
+      if (geometria.type === 'Polygon' && typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono) {
+        infoSuperficie = ModuloGeodesia.calcularSuperficiePoligono(coords);
+      }
+
       const nombre = tags.name || tags['name:es'] || tags.operator || tags.description || 'Sin nombre';
       const subtipo = tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.natural || tags.building || tags.railway || 'VGI';
       const direccion = [tags['addr:street'], tags['addr:housenumber']].filter(Boolean).join(' ');
@@ -244,6 +249,10 @@ const ModuloOSM = (() => {
           operador: tags.operator || null,
           direccion: direccion || null,
           accesibilidad: tags.wheelchair || null,
+          superficie_m2: infoSuperficie ? infoSuperficie.areaM2 : null,
+          superficie_ha: infoSuperficie ? infoSuperficie.areaHa : null,
+          superficie_km2: infoSuperficie ? infoSuperficie.areaKm2 : null,
+          srs_superficie: infoSuperficie ? 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)' : null,
           fecha: el.timestamp || new Date().toISOString().slice(0, 10),
           fuente: 'OpenStreetMap',
           licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)',

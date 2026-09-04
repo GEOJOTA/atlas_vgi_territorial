@@ -92,6 +92,21 @@ Este documento registra la evolución técnica, decisiones metodológicas y entr
    - **Renderizado Cartográfico y Popups Dinámicos:**
      - El visor Leaflet (`src/js/modulos/mapa.js`) dibuja ahora polígonos con relleno y contorno, líneas vectoriales continuas y marcadores de círculo, e incluye una insignia visual con el tipo de geometría (`Punto 📍`, `Línea 〰️`, `Polígono ⬡`) en cada popup informativo.
 
+8. **Reproyección Geodésica a EPSG:32719 para Cálculo Coherente de Superficies y Densidad:**
+   - **Formulación Conforme Oficial (ISO 19111 / Snyder, 1987 / IGM Chile / IDE Chile):**
+     - Creación de `src/js/modulos/geodesia.js` con las ecuaciones analíticas de Transverse Mercator para proyectar de WGS 84 (EPSG:4326) a **EPSG:32719** (WGS 84 / UTM Huso 19 Sur, elipsoide WGS84, meridiano central 69°O, factor de escala $k_0=0.9996$, falso este $500.000\text{ m}$, falso norte $10.000.000\text{ m}$).
+     - Cálculo de áreas métricas euclidianas mediante la fórmula de Gauss (Shoelace) sobre coordenadas proyectadas UTM 19S, eliminando distorsiones angulares en grados decimales o esferas simplificadas a la latitud de Santiago (-33.44°).
+   - **Integración Full-Stack en Cliente, Backend y CLI:**
+     - `src/js/modulos/geodesia.js`: funciones exportadas `wgs84aUTM19S`, `calcularSuperficiePoligono`, `calcularSuperficieBbox`.
+     - `src/js/modulos/ohsome.js`: `calcularDensidad(bbox, cantidad)` evalúa el área métrica del Bbox con EPSG:32719, retornando $m^2$, $ha$, $km^2$ y densidad coherente.
+     - `src/js/modulos/osm.js`: `elementosAGeoJSON` calcula `superficie_m2`, `superficie_ha`, `superficie_km2` y `srs_superficie` para toda geometría `Polygon`.
+     - `src/js/modulos/mapa.js`: muestra la superficie ($m^2$ y $ha$) con insignia `(EPSG:32719)` en cada popup y actualiza dinámicamente el tooltip del Bbox con su superficie en hectáreas y $km^2$.
+     - `src/js/app.js`: actualiza la ficha del territorio seleccionado con su superficie reprojectada exacta (Barrio Brasil: $223.75\text{ ha}$; Manzana UAH: $136.1\text{ ha}$), tarjeta de densidad ohsome con badge destacado de reproyección a EPSG:32719 y párrafo explicativo en rigor metodológico.
+     - `netlify/functions/calidad.js` & `backend/servidor_vgi.py`: funciones geodésicas en Node.js y Python 3 estándar para cálculo métrico de Bbox y polígonos.
+     - `scripts/extractor_vgi.py`: cálculo de superficie métrica proyectada en GeoJSON y adición de columnas `superficie_m2` y `srs_superficie` en CSV exportado.
+   - **Transparencia y Expresión Explícita para Usuarios Técnicos y No Técnicos:**
+     - Documentación teórica y fórmulas matemáticas incorporadas en `docs/TRAZABILIDAD_ACADEMICA.md`, `.caja-guia-referencia` del panel ohsome en `src/index.html` y badges visuales en el visor cartográfico y paneles de indicadores.
+
 ---
 
 ## Entrega de turno 4 — Septiembre 2026 (Accesibilidad Ciudadana, Diccionario Territorial, Perfiles de Actor y Métricas Geométricas ohsome v1)

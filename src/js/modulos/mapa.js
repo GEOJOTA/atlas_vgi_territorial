@@ -89,8 +89,19 @@ const ModuloMapa = (() => {
     const [oeste, sur, este, norte] = bbox;
     const bounds = [[sur, oeste], [norte, este]];
 
+    let textoTooltip = 'Área de Consulta VGI';
+    if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficieBbox) {
+      const s = ModuloGeodesia.calcularSuperficieBbox(bbox);
+      textoTooltip = `Área Bbox: ${s.areaHa.toLocaleString('es-CL')} ha (${s.areaKm2} km²) [EPSG:32719]`;
+    }
+
     if (capaBbox) {
       capaBbox.setBounds(bounds);
+      if (capaBbox.getTooltip()) {
+        capaBbox.setTooltipContent(textoTooltip);
+      } else {
+        capaBbox.bindTooltip(textoTooltip, { permanent: false, direction: 'top' });
+      }
     } else {
       capaBbox = L.rectangle(bounds, {
         color: '#A97722',
@@ -99,7 +110,7 @@ const ModuloMapa = (() => {
         fillColor: '#A97722',
         fillOpacity: 0.08
       }).addTo(mapa);
-      capaBbox.bindTooltip('Área de Consulta VGI', { permanent: false, direction: 'top' });
+      capaBbox.bindTooltip(textoTooltip, { permanent: false, direction: 'top' });
     }
   }
 
@@ -248,6 +259,7 @@ const ModuloMapa = (() => {
               ${props.operador ? `<tr><td style="color:#4B5142;">Operador:</td><td>${props.operador}</td></tr>` : ''}
               ${props.direccion ? `<tr><td style="color:#4B5142;">Dirección:</td><td>${props.direccion}</td></tr>` : ''}
               ${props.accesibilidad ? `<tr><td style="color:#4B5142;">Accesible:</td><td>${props.accesibilidad}</td></tr>` : ''}
+              ${props.superficie_m2 ? `<tr><td style="color:#4B5142;">Superficie:</td><td><strong>${props.superficie_m2.toLocaleString('es-CL')} m²</strong> <span style="font-size:0.72rem; color:#8F3A2C; font-weight:600;" title="Calculada mediante reproyección conforme a EPSG:32719 (UTM 19S) + Gauss">(EPSG:32719)</span>${props.superficie_ha ? ` <small>(${props.superficie_ha.toLocaleString('es-CL')} ha)</small>` : ''}</td></tr>` : ''}
               <tr><td style="color:#4B5142;">Fuente:</td><td>${fuente}</td></tr>
               <tr><td style="color:#4B5142;">Fecha:</td><td>${fecha}</td></tr>
               <tr><td style="color:#4B5142;">Licencia:</td><td><small>${licencia}</small></td></tr>

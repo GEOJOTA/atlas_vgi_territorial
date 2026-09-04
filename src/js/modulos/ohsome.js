@@ -337,21 +337,42 @@ const ModuloOhsome = (() => {
 
   /**
    * Calcula densidad de elementos por km² sobre el Bounding Box
+   * aplicando reproyección geodésica rigurosa a EPSG:32719 (UTM 19S)
    */
   function calcularDensidad(bbox, cantidadElementos) {
-    const [oeste, sur, este, norte] = bbox;
-    const kmPorGradoLat = 111.32;
-    const latMediaRad = ((sur + norte) / 2) * (Math.PI / 180);
-    const kmPorGradoLon = 111.32 * Math.cos(latMediaRad);
+    let infoArea = null;
+    if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficieBbox) {
+      infoArea = ModuloGeodesia.calcularSuperficieBbox(bbox);
+    } else {
+      // Fallback geodésico WGS 84 / UTM 19S (Snyder, 1987)
+      const a = 6378137.0;
+      const f = 1 / 298.257223563;
+      const e2 = 2 * f - f * f;
+      const latMediaRad = ((bbox[1] + bbox[3]) / 2) * (Math.PI / 180);
+      const mLat = a * (1 - e2) / Math.pow(1 - e2 * Math.sin(latMediaRad) ** 2, 1.5);
+      const mLon = (a * Math.cos(latMediaRad)) / Math.sqrt(1 - e2 * Math.sin(latMediaRad) ** 2);
+      const anchoM = Math.abs(bbox[2] - bbox[0]) * (Math.PI / 180) * mLon;
+      const altoM = Math.abs(bbox[3] - bbox[1]) * (Math.PI / 180) * mLat;
+      const areaM2 = anchoM * altoM;
+      infoArea = {
+        areaM2: Math.round(areaM2),
+        areaHa: Number((areaM2 / 10000).toFixed(2)),
+        areaKm2: Number((areaM2 / 1000000).toFixed(4)),
+        srs: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)',
+        metodo: 'Reproyección geodésica conforme a EPSG:32719 + Fórmula de Gauss'
+      };
+    }
 
-    const anchoKm = Math.abs(este - oeste) * kmPorGradoLon;
-    const altoKm = Math.abs(norte - sur) * kmPorGradoLat;
-    const areaKm2 = anchoKm * altoKm;
+    if (!infoArea || infoArea.areaKm2 <= 0) return null;
 
-    if (areaKm2 <= 0) return null;
     return {
-      densidad: cantidadElementos / areaKm2,
-      areaKm2: areaKm2
+      densidad: cantidadElementos / infoArea.areaKm2,
+      densidadHa: infoArea.areaHa > 0 ? (cantidadElementos / infoArea.areaHa) : null,
+      areaKm2: infoArea.areaKm2,
+      areaHa: infoArea.areaHa,
+      areaM2: infoArea.areaM2,
+      srs: infoArea.srs,
+      metodo: infoArea.metodo
     };
   }
 

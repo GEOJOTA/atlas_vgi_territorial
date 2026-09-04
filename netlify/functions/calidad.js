@@ -8,6 +8,76 @@
   - Puntos/Comunes: /elements/count, /users/count, /contributions/count.
 */
 
+// Parámetros geodésicos del elipsoide WGS 84 para UTM 19S (EPSG:32719)
+const A_WGS84 = 6378137.0;
+const F_WGS84 = 1 / 298.257223563;
+const E2 = 2 * F_WGS84 - F_WGS84 * F_WGS84;
+const E_PRIME2 = E2 / (1 - E2);
+const K0 = 0.9996;
+const FALSO_ESTE = 500000.0;
+const FALSO_NORTE = 10000000.0;
+const MERIDIANO_CENTRAL_19S = -69.0;
+
+function wgs84aUTM19S(lon, lat) {
+  const phi = lat * (Math.PI / 180);
+  const lambda = lon * (Math.PI / 180);
+  const lambda0 = MERIDIANO_CENTRAL_19S * (Math.PI / 180);
+  const deltaLambda = lambda - lambda0;
+
+  const sinPhi = Math.sin(phi);
+  const cosPhi = Math.cos(phi);
+  const tanPhi = Math.tan(phi);
+
+  const N = A_WGS84 / Math.sqrt(1 - E2 * sinPhi * sinPhi);
+  const T = tanPhi * tanPhi;
+  const C = E_PRIME2 * cosPhi * cosPhi;
+  const A = cosPhi * deltaLambda;
+
+  const M = A_WGS84 * (
+    (1 - E2 / 4 - 3 * E2 * E2 / 64 - 5 * E2 * E2 * E2 / 256) * phi
+    - (3 * E2 / 8 + 3 * E2 * E2 / 32 + 45 * E2 * E2 * E2 / 1024) * Math.sin(2 * phi)
+    + (15 * E2 * E2 / 256 + 45 * E2 * E2 * E2 / 1024) * Math.sin(4 * phi)
+    - (35 * E2 * E2 * E2 / 3072) * Math.sin(6 * phi)
+  );
+
+  const este = FALSO_ESTE + K0 * N * (
+    A
+    + (1 - T + C) * Math.pow(A, 3) / 6
+    + (5 - 18 * T + T * T + 72 * C - 58 * E_PRIME2) * Math.pow(A, 5) / 120
+  );
+
+  const norte = FALSO_NORTE + K0 * (
+    M + N * tanPhi * (
+      A * A / 2
+      + (5 - T + 9 * C + 4 * C * C) * Math.pow(A, 4) / 24
+      + (61 - 58 * T + T * T + 600 * C - 330 * E_PRIME2) * Math.pow(A, 6) / 720
+    )
+  );
+
+  return [este, norte];
+}
+
+function calcularSuperficieBbox(bbox) {
+  const [oeste, sur, este, norte] = bbox;
+  const p1 = wgs84aUTM19S(oeste, sur);
+  const p2 = wgs84aUTM19S(este, sur);
+  const p3 = wgs84aUTM19S(este, norte);
+  const p4 = wgs84aUTM19S(oeste, norte);
+
+  const vertices = [p1, p2, p3, p4, p1];
+  let suma = 0;
+  for (let i = 0; i < 4; i++) {
+    suma += (vertices[i][0] * vertices[i + 1][1]) - (vertices[i + 1][0] * vertices[i][1]);
+  }
+  const areaM2 = Math.abs(suma) / 2;
+  return {
+    areaM2: Math.round(areaM2),
+    areaHa: Number((areaM2 / 10000).toFixed(2)),
+    areaKm2: Number((areaM2 / 1000000).toFixed(4)),
+    srs: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)'
+  };
+}
+
 exports.handler = async function (event, context) {
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -155,12 +225,9 @@ exports.handler = async function (event, context) {
 
     const elementosAhora = conteoActual.result && conteoActual.result.length > 0 ? Math.round(conteoActual.result[0].value) : 0;
 
-    // Cálculo de área y densidad sobre Bbox
-    const [oeste, sur, este, norte] = bbox;
-    const kmPorGradoLat = 111.32;
-    const latMediaRad = ((sur + norte) / 2) * (Math.PI / 180);
-    const kmPorGradoLon = 111.32 * Math.cos(latMediaRad);
-    const areaKm2 = Math.abs(este - oeste) * kmPorGradoLon * Math.abs(norte - sur) * kmPorGradoLat;
+    // Cálculo de área y densidad sobre Bbox mediante reproyección a EPSG:32719
+    const geoSuperficie = calcularSuperficieBbox(bbox);
+    const areaKm2 = geoSuperficie.areaKm2;
     const densidad = areaKm2 > 0 ? (elementosAhora / areaKm2) : null;
 
     let metricaGeometrica = null;
@@ -209,7 +276,11 @@ exports.handler = async function (event, context) {
         elementosAhora: elementosAhora,
         metricaGeometrica,
         densidad: densidad ? Number(densidad.toFixed(2)) : null,
-        areaKm2: Number(areaKm2.toFixed(3)),
+        areaKm2: Number(areaKm2.toFixed(4)),
+        areaHa: geoSuperficie.areaHa,
+        areaM2: geoSuperficie.areaM2,
+        srs: geoSuperficie.srs,
+        reproyeccion_aplicada: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur - Transverse Mercator)',
         ratioContribucionPorUsuario: ratioContribUsuario,
         usuariosPorAnio: listaUsuarios,
         elementosPorAnio: (serieTemporal.result || []).map(r => ({

@@ -361,6 +361,7 @@ function inicializarAplicacion() {
   document.addEventListener('nodo:bbox-cambiado', (e) => {
     if (e.detail && e.detail.bbox) {
       sincronizarBboxEnInputs(e.detail.bbox);
+      actualizarFichaTerritorio('Área de Consulta Personalizada (Bbox interactivo)', e.detail.bbox);
     }
   });
 
@@ -410,14 +411,28 @@ function poblarSelectorTerritorios() {
   });
 }
 
+function actualizarFichaTerritorio(nombre, bbox) {
+  const el = document.getElementById('resumen-area-defecto');
+  if (!el || !bbox) return;
+  let txtSuperficie = '';
+  if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficieBbox) {
+    const s = ModuloGeodesia.calcularSuperficieBbox(bbox);
+    txtSuperficie = `<br>Superficie métrica calculada: <strong>${s.areaHa.toLocaleString('es-CL')} ha (${s.areaKm2} km² / ${s.areaM2.toLocaleString('es-CL')} m²)</strong> <span style="font-size:0.75rem; color:#8F3A2C; font-weight:600;" title="Reproyección conforme Transverse Mercator a EPSG:32719">(EPSG:32719 - WGS 84 / UTM Huso 19 Sur)</span>`;
+  }
+  el.innerHTML = `
+    <strong>${nombre}</strong><br>
+    Bbox WGS84: <code>[${bbox.join(', ')}]</code>
+    ${txtSuperficie}<br>
+    <span class="descripcion">Foco territorial: Barrio Brasil Completo y Manzana Campus Universidad Alberto Hurtado (Santiago Centro, Chile).</span>
+  `;
+}
+
 function precargarCamposDesdeConfig() {
   const cfg = window.NODO_CONFIG;
   document.getElementById('nombre-organizacion').textContent = cfg.organizacion.descripcion_corta || cfg.organizacion.nombre;
-  document.getElementById('resumen-area-defecto').innerHTML = `
-    <strong>${cfg.organizacion.area_de_interes_nombre}</strong><br>
-    Bbox WGS84: <code>[${cfg.area_por_defecto.bbox.join(', ')}]</code><br>
-    <span class="descripcion">Foco territorial: Barrio Brasil Completo y Manzana Campus Universidad Alberto Hurtado (Santiago Centro, Chile).</span>
-  `;
+  
+  const terrDefecto = cfg.territorios_predefinidos?.find(t => t.id === cfg.area_por_defecto.id) || cfg.territorios_predefinidos?.[0];
+  actualizarFichaTerritorio(terrDefecto ? terrDefecto.nombre : cfg.organizacion.area_de_interes_nombre, cfg.area_por_defecto.bbox);
 
   poblarSelectorTerritorios();
   aplicarAreaConfigAlExplorador();
@@ -475,6 +490,10 @@ function configurarEventosMapa() {
   if (selTerritorio) {
     selTerritorio.addEventListener('change', (e) => {
       ModuloMapa.cambiarTerritorio(e.target.value);
+      const terr = window.NODO_CONFIG?.territorios_predefinidos?.find(t => t.id === e.target.value);
+      if (terr) {
+        actualizarFichaTerritorio(terr.nombre, terr.bbox);
+      }
     });
   }
 
@@ -1091,9 +1110,13 @@ async function manejarConsultaOhsome() {
           <span class="etiqueta">Elementos vigentes (${indicadores.fechaCorte})</span>
         </div>
         ${htmlMetricaGeo}
-        <div class="indicador">
+        <div class="indicador" style="border-left: 3px solid #8F3A2C;">
           <span class="valor">${densInfo ? densInfo.densidad.toFixed(1) : '—'}</span>
           <span class="etiqueta">Densidad espacial (elem / km²)</span>
+          <div style="font-size:0.72rem; color:var(--tinta-suave); margin-top:4px; line-height:1.25;">
+            Área Bbox: ${densInfo ? `${densInfo.areaHa.toLocaleString('es-CL')} ha (${densInfo.areaKm2} km²)` : '—'}<br>
+            <strong style="color:#8F3A2C;">Reproyectado a EPSG:32719</strong> (UTM 19S)
+          </div>
         </div>
         <div class="indicador">
           <span class="valor">${ultimosUsuarios}</span>
@@ -1125,6 +1148,9 @@ async function manejarConsultaOhsome() {
 
       <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:14px; margin-top:16px;">
         <h4 style="margin:0 0 8px 0; font-size:0.9rem; color:var(--musgo);">📐 Rigor Metodológico y Criterios de Calidad Espacial</h4>
+        <p class="descripcion" style="margin-bottom:8px;">
+          <strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox territorial (${densInfo ? `${densInfo.areaHa.toLocaleString('es-CL')} ha / ${densInfo.areaKm2} km²` : ''}) y densidad espacial de elementos se obtiene proyectando los vértices geográficos mediante las ecuaciones conformes de Transverse Mercator (Snyder, 1987) al sistema oficial de referencia <strong>EPSG:32719</strong> (meridiano central 69°O, elipsoide WGS84, falso este 500.000 m, falso norte 10.000.000 m) y aplicando la fórmula de Gauss (Shoelace). Esto garantiza concordancia con las normas del Instituto Geográfico Militar (IGM) y la Infraestructura de Datos Espaciales de Chile (IDE Chile / SNIT), eliminando las distorsiones inherentes a cálculos sobre esferas simplificadas a la latitud de Santiago (-33.44°).
+        </p>
         <p class="descripcion" style="margin-bottom:8px;">
           <strong>Sensibilidad geométrica:</strong> Conforme a la API v1 de ohsome, las geometrías lineales evalúan continuidad de red en kilómetros lineales (calles y ciclovías), mientras que los polígonos cuantifican la superficie de huella construida o áreas verdes en hectáreas y metros cuadrados.
         </p>
