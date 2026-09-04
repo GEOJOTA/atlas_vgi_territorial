@@ -13,8 +13,7 @@ El visor cartográfico principal permite consultar e inspeccionar espacialmente 
 - **Selector de Territorio:** En la barra superior puedes alternar entre:
   - *Barrio Brasil — Manzana UAH (Santiago Centro)* (predeterminado).
   - *Barrio Brasil Completo (hasta Plaza Brasil)*.
-  - *Santiago Centro (Casco Cívico)*.
-  - *Providencia* o *Lo Barnechea*.
+  - *Santiago Centro (Casco Cívico)*
 - **Botón "Encuadrar":** Restablece la vista del mapa centrando el área seleccionada.
 
 ### 1.2 Herramienta "Dibujar Bbox" (Área personalizada)
