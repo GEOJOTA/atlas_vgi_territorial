@@ -40,10 +40,28 @@ async function cargarConfiguracion() {
         area_de_interes_nombre: 'Barrio Brasil — Universidad Alberto Hurtado (Santiago Centro, Chile)'
       },
       area_por_defecto: {
-        bbox: [-70.6675, -33.4505, -70.6565, -33.4385],
-        centro: [-33.4445, -70.6620],
-        zoom: 16
+        bbox: [-70.6720, -33.4505, -70.6580, -33.4350],
+        centro: [-33.4425, -70.6650],
+        zoom: 15
       },
+      territorios_predefinidos: [
+        {
+          id: 'barrio-brasil-ampliado',
+          nombre: 'Barrio Brasil Completo (hasta Plaza Brasil)',
+          bbox: [-70.6720, -33.4505, -70.6580, -33.4350],
+          centro: [-33.4425, -70.6650],
+          zoom: 15,
+          descripcion: 'Zona Típica Barrio Brasil, Plaza Brasil, Huérfanos, Compañía, Av. Brasil y Alameda'
+        },
+        {
+          id: 'uah-manzana',
+          nombre: 'Barrio Brasil — Universidad Alberto Hurtado (Manzana UAH)',
+          bbox: [-70.6675, -33.4505, -70.6565, -33.4385],
+          centro: [-33.4445, -70.6620],
+          zoom: 16,
+          descripcion: 'Campus patrimonial UAH (Almirante Barroso, Erasmo Escala, Cienfuegos, Los Héroes)'
+        }
+      ],
       endpoints: {
         overpass: 'https://overpass-api.de/api/interpreter',
         overpass_espejos: [

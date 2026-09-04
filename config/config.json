@@ -10,13 +10,21 @@
   },
 
   "area_por_defecto": {
-    "_comentario": "Bounding box en formato [oeste, sur, este, norte], grados decimales (WGS84 / EPSG:4326). Foco territorial: Barrio Brasil y Campus UAH.",
-    "bbox": [-70.6675, -33.4505, -70.6565, -33.4385],
-    "centro": [-33.4445, -70.6620],
-    "zoom": 16
+    "_comentario": "Bounding box en formato [oeste, sur, este, norte], grados decimales (WGS84 / EPSG:4326). Foco territorial: Barrio Brasil Completo.",
+    "bbox": [-70.6720, -33.4505, -70.6580, -33.4350],
+    "centro": [-33.4425, -70.6650],
+    "zoom": 15
   },
 
   "territorios_predefinidos": [
+    {
+      "id": "barrio-brasil-ampliado",
+      "nombre": "Barrio Brasil Completo (hasta Plaza Brasil)",
+      "bbox": [-70.6720, -33.4505, -70.6580, -33.4350],
+      "centro": [-33.4425, -70.6650],
+      "zoom": 15,
+      "descripcion": "Zona Típica Barrio Brasil, Plaza Brasil, Huérfanos, Compañía, Av. Brasil y Alameda"
+    },
     {
       "id": "uah-manzana",
       "nombre": "Barrio Brasil — Universidad Alberto Hurtado (Manzana UAH)",
@@ -24,38 +32,6 @@
       "centro": [-33.4445, -70.6620],
       "zoom": 16,
       "descripcion": "Campus patrimonial UAH (Almirante Barroso, Erasmo Escala, Cienfuegos, Los Héroes)"
-    },
-    {
-      "id": "barrio-brasil-ampliado",
-      "nombre": "Barrio Brasil Completo (hasta Plaza Brasil)",
-      "bbox": [-70.6720, -33.4470, -70.6580, -33.4350],
-      "centro": [-33.4410, -70.6650],
-      "zoom": 15,
-      "descripcion": "Zona Típica Barrio Brasil, Plaza Brasil, Huérfanos, Compañía y Av. Brasil"
-    },
-    {
-      "id": "santiago-centro",
-      "nombre": "Santiago Centro (Casco Cívico)",
-      "bbox": [-70.6700, -33.4550, -70.6400, -33.4300],
-      "centro": [-33.4420, -70.6550],
-      "zoom": 14,
-      "descripcion": "Eje La Moneda, Alameda y centro cívico metropolitano"
-    },
-    {
-      "id": "providencia",
-      "nombre": "Providencia (Sector Costanera / Manuel Montt)",
-      "bbox": [-70.6300, -33.4400, -70.5900, -33.4150],
-      "centro": [-33.4280, -70.6100],
-      "zoom": 14,
-      "descripcion": "Corredor mixto de servicios y alta densidad de transporte"
-    },
-    {
-      "id": "lo-barnechea",
-      "nombre": "Lo Barnechea (Zona Precordillerana)",
-      "bbox": [-70.5500, -33.4000, -70.4500, -33.3200],
-      "centro": [-33.3500, -70.5000],
-      "zoom": 13,
-      "descripcion": "Sector precordillerano con interfase urbano-rural"
     }
   ],
 

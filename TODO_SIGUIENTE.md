@@ -63,6 +63,15 @@ Este documento registra la evolución técnica, decisiones metodológicas y entr
    - **Implementación Homogénea Full-Stack:**
      - Actualizado el cliente web (`src/js/modulos/ohsome.js` y `src/js/app.js`), la función serverless (`netlify/functions/calidad.js`) y el servidor local en Python (`backend/servidor_vgi.py`).
 
+6. **Delimitación Estricta del Alcance Territorial Operativo (Barrio Brasil Completo y Manzana UAH):**
+   - **Depuración de Territorios Predefinidos:**
+     - Se eliminaron del catálogo de selección los sectores metropolitanos externos (Santiago Centro casco cívico, Providencia y Lo Barnechea), concentrando el alcance de análisis 100% en el caso de estudio prioritario de la práctica profesional de Geografía.
+   - **Territorios Operativos Disponibles:**
+     - **Barrio Brasil Completo (hasta Plaza Brasil):** `[-70.6720, -33.4505, -70.6580, -33.4350]`, abarcando la Zona Típica, Plaza Brasil, Huérfanos, Compañía, Av. Brasil y el eje Alameda.
+     - **Manzana Universidad Alberto Hurtado (UAH):** `[-70.6675, -33.4505, -70.6565, -33.4385]`, cubriendo el campus patrimonial (calles Almirante Barroso, Erasmo Escala, Cienfuegos y estación de Metro Los Héroes).
+   - **Sincronización Integral Full-Stack:**
+     - Actualización de `config/config.json`, `src/config/config.json`, el selector en `src/index.html`, la función reactiva `poblarSelectorTerritorios()` en `src/js/app.js` y la configuración de contingencia en `src/js/config.js`.
+
 ---
 
 ## Entrega de turno 4 — Septiembre 2026 (Accesibilidad Ciudadana, Diccionario Territorial, Perfiles de Actor y Métricas Geométricas ohsome v1)

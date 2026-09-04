@@ -397,15 +397,29 @@ function configurarNavegacion() {
   });
 }
 
+function poblarSelectorTerritorios() {
+  const selTerritorio = document.getElementById('sel-territorio');
+  const territorios = window.NODO_CONFIG?.territorios_predefinidos;
+  if (!selTerritorio || !territorios || !territorios.length) return;
+  selTerritorio.innerHTML = '';
+  territorios.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.nombre;
+    selTerritorio.appendChild(opt);
+  });
+}
+
 function precargarCamposDesdeConfig() {
   const cfg = window.NODO_CONFIG;
   document.getElementById('nombre-organizacion').textContent = cfg.organizacion.descripcion_corta || cfg.organizacion.nombre;
   document.getElementById('resumen-area-defecto').innerHTML = `
     <strong>${cfg.organizacion.area_de_interes_nombre}</strong><br>
     Bbox WGS84: <code>[${cfg.area_por_defecto.bbox.join(', ')}]</code><br>
-    <span class="descripcion">Campus patrimonial UAH (Almirante Barroso, Erasmo Escala, Cienfuegos), Metro Los Héroes y entorno tradicional de Barrio Brasil.</span>
+    <span class="descripcion">Foco territorial: Barrio Brasil Completo y Manzana Campus Universidad Alberto Hurtado (Santiago Centro, Chile).</span>
   `;
 
+  poblarSelectorTerritorios();
   aplicarAreaConfigAlExplorador();
 
   const md = cfg.metadatos_iso_defecto || {};
