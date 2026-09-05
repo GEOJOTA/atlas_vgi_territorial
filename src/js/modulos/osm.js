@@ -376,3 +376,7 @@ const ModuloOSM = (() => {
   };
 })();
 
+if (typeof window !== 'undefined') {
+  window.ModuloOSM = ModuloOSM;
+  window.ModuloOsm = ModuloOSM;
+}

@@ -348,3 +348,7 @@ const ModuloMapa = (() => {
     COLORES_CATEGORIA
   };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloMapa = ModuloMapa;
+}

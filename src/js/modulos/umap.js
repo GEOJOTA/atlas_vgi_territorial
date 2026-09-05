@@ -49,3 +49,8 @@ const ModuloUMap = (() => {
 
   return { analizarUrl, urlEmbebido, intentarDescargarGeojson };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloUMap = ModuloUMap;
+  window.ModuloUmap = ModuloUMap;
+}

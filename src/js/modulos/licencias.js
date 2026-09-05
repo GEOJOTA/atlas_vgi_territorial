@@ -146,3 +146,7 @@ const ModuloLicencias = (() => {
 
   return { render, FUENTES, LICENCIA_ATLAS };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloLicencias = ModuloLicencias;
+}

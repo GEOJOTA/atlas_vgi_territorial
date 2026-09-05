@@ -249,3 +249,7 @@ const ModuloMetadatos = (() => {
     exportarComoArchivoXML
   };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloMetadatos = ModuloMetadatos;
+}

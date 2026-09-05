@@ -393,7 +393,21 @@ function autocargarMetadatos(opciones = {}) {
   }
 }
 
-document.addEventListener('nodo:config-lista', inicializarAplicacion);
+let appInicializada = false;
+function intentarInicializar() {
+  if (appInicializada) return;
+  if (window.NODO_CONFIG) {
+    appInicializada = true;
+    inicializarAplicacion();
+  }
+}
+
+document.addEventListener('nodo:config-lista', intentarInicializar);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', intentarInicializar);
+} else {
+  intentarInicializar();
+}
 
 function inicializarAplicacion() {
   const cfg = window.NODO_CONFIG;
@@ -406,17 +420,22 @@ function inicializarAplicacion() {
   configurarEventosMapa();
   pintarEstadoConexion();
 
-  document.getElementById('contenido-licencias').innerHTML = ModuloLicencias.render();
+  const ml = window.ModuloLicencias || (typeof ModuloLicencias !== 'undefined' ? ModuloLicencias : null);
+  const contLic = document.getElementById('contenido-licencias');
+  if (contLic && ml) {
+    contLic.innerHTML = ml.render();
+  }
   cargarResumenMetodologia();
 
   // Inicializar diccionario territorial con soporte para pestañas de grupo y búsqueda
   const cntDiccionario = document.getElementById('contenido-diccionario');
-  if (cntDiccionario && window.ModuloDiccionario) {
+  const md = window.ModuloDiccionario || (typeof ModuloDiccionario !== 'undefined' ? ModuloDiccionario : null);
+  if (cntDiccionario && md) {
     let grupoActivo = 'todos';
     let textoFiltro = '';
 
     const refrescarDiccionario = () => {
-      cntDiccionario.innerHTML = ModuloDiccionario.render(textoFiltro, grupoActivo);
+      cntDiccionario.innerHTML = md.render(textoFiltro, grupoActivo);
     };
 
     refrescarDiccionario();
@@ -683,7 +702,12 @@ function configurarNavegacion() {
 
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
       const panelDestino = document.getElementById('panel-' + boton.dataset.panel);
-      if (panelDestino) panelDestino.classList.add('activo');
+      if (panelDestino) {
+        panelDestino.classList.add('activo');
+        if (boton.dataset.panel === 'manual') {
+          cargarResumenMetodologia();
+        }
+      }
     });
   });
 }
@@ -1734,10 +1758,9 @@ window.navegarAManual = function(seccionId) {
 function cargarResumenMetodologia() {
   const contenedor = document.getElementById('contenido-manual');
   if (!contenedor) return;
-  if (window.ModuloManual && typeof window.ModuloManual.render === 'function') {
-    contenedor.innerHTML = window.ModuloManual.render();
-  } else {
-    contenedor.innerHTML = `<div class="aviso">Cargando documentación técnica del Atlas VGI...</div>`;
+  const mm = window.ModuloManual || (typeof ModuloManual !== 'undefined' ? ModuloManual : null);
+  if (mm && typeof mm.render === 'function') {
+    contenedor.innerHTML = mm.render();
   }
 }
 

@@ -132,3 +132,7 @@ const ModuloGeodesia = (() => {
     SRS_NOMBRE: 'WGS 84 / UTM Huso 19 Sur (Región Metropolitana de Santiago)'
   };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloGeodesia = ModuloGeodesia;
+}

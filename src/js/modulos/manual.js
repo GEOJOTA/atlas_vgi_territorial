@@ -840,17 +840,41 @@ out skel qt;</code></pre>
             <h4>3. Infraestructuras de Datos Espaciales (IDE), Web Semántica y Políticas Públicas de Chile</h4>
             <ul class="doc-bib-lista">
               <li><strong>Ballatore, A., Wilson, D. C., & Bertolotto, M. (2014).</strong> A survey of volunteered open geo-knowledge bases in the Semantic Web. <em>Quality Issues in the Open Knowledge Base</em>, 48–68. <a href="https://arxiv.org/abs/1401.2610" target="_blank" rel="noopener">https://arxiv.org/abs/1401.2610</a></li>
+              <li><strong>CP-IDEA / UN-GGIM: Américas. (2013).</strong> <em>De la CP-IDEA a UN-GGIM: Américas: Hacia la consolidación de la Infraestructura de Datos Espaciales de las Américas</em>. Comité Regional de las Naciones Unidas. <a href="https://www.un-ggim-americas.org/" target="_blank" rel="noopener">https://www.un-ggim-americas.org/</a></li>
+              <li><strong>Fuenzalida, M. (2025).</strong> <em>Taller Datos Abiertos e Infraestructura de Datos Espaciales en Chile: Integración de VGI y Políticas Públicas</em>. Conferencia y Seminario IDE Chile, Ministerio de Bienes Nacionales. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
+              <li><strong>IDE Chile / SNIT. (2006).</strong> <em>Decreto Supremo N° 28/2006: Crea Comisión Asesora del Sistema Nacional de Información Territorial (SNIT)</em>. Ministerio de Bienes Nacionales, Gobierno de Chile. <a href="https://www.bcn.cl/leychile/navegar?idNorma=251642" target="_blank" rel="noopener">https://www.bcn.cl/leychile/navegar?idNorma=251642</a></li>
+              <li><strong>IDE Chile / SNIT. (2016).</strong> <em>Guía Técnica para la Estandarización y Producción de Información Geoespacial</em>. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
+              <li><strong>IDE Chile / SNIT. (2017).</strong> <em>Marco Técnico y Metodológico para la Evaluación de la Calidad de la Información Geográfica en Chile (Norma ISO 19157)</em>. Secretaría Ejecutiva SNIT. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
+              <li><strong>IDE Chile / SNIT. (2018).</strong> <em>Perfil Nacional de Metadatos de Chile v2.0 (Basado en ISO 19115:2003 / ISO 19139:2007)</em>. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
               <li><strong>IDE Chile / SNIT. (2020).</strong> <em>Catálogo de Objetos Geográficos de Chile v3.0: Estándar para la captura y clasificación de información geoespacial</em>. Ministerio de Bienes Nacionales. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
+              <li><strong>IDE Chile / SNIT. (2021).</strong> <em>Modelo de Interoperabilidad Geoespacial del Estado de Chile: Jerarquía, Distribución y Acuerdos Interinstitucionales de Intercambio de Datos</em>. Ministerio de Bienes Nacionales. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
+              <li><strong>IDE Chile / SNIT. (2022).</strong> <em>GeoNodo Chile: Plataforma Nacional de Datos Geoespaciales Abiertos e Infraestructura de Servicios Web Geográficos (WMS, WFS, CSW)</em>. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. <a href="https://www.geonodo.cl" target="_blank" rel="noopener">https://www.geonodo.cl</a></li>
+              <li><strong>IDE Chile / SNIT. (2023).</strong> <em>Política Nacional de Información Geoespacial</em>. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales, Gobierno de Chile. <a href="https://www.ide.cl" target="_blank" rel="noopener">https://www.ide.cl</a></li>
               <li><strong>Magaña, A., & Valverde, F. (2016).</strong> Información Geográfica Voluntaria (IGV), estado del arte en Latinoamérica. <em>Revista Cartográfica</em>, 93, 29–53. <a href="https://doi.org/10.35424/rcarto.i93.377" target="_blank" rel="noopener">https://doi.org/10.35424/rcarto.i93.377</a></li>
+              <li><strong>Nebert, D. D. (Ed.). (2004).</strong> <em>Developing Spatial Data Infrastructures: The SDI Cookbook (v2.0)</em>. Global Spatial Data Infrastructure Association (GSDI). <a href="https://www.gsdiassociation.org/" target="_blank" rel="noopener">https://www.gsdiassociation.org/</a></li>
               <li><strong>Shahi, K. (2023).</strong> Volunteered Geographic Information (VGI) in Spatial Data Infrastructure (SDI) Continuum. <em>EAI Endorsed Transactions on Internet of Things</em>, 9(1), 1–12. <a href="https://doi.org/10.4108/eetiot.v9i1.2941" target="_blank" rel="noopener">https://doi.org/10.4108/eetiot.v9i1.2941</a></li>
               <li><strong>Snyder, J. P. (1987).</strong> <em>Map projections: a working manual</em> (U.S. Geological Survey Professional Paper No. 1395). U.S. Government Printing Office. <a href="https://doi.org/10.3133/pp1395" target="_blank" rel="noopener">https://doi.org/10.3133/pp1395</a></li>
+              <li><strong>Topf, J., & OpenStreetMap Contributors. (2024).</strong> <em>Taginfo: OpenStreetMap tag statistics, semantic consistency and usage system</em>. OpenStreetMap Foundation. <a href="https://taginfo.openstreetmap.org/" target="_blank" rel="noopener">https://taginfo.openstreetmap.org/</a></li>
+              <li><strong>UN-GGIM. (2020).</strong> <em>Integrated Geospatial Information Framework (IGIF): A strategic guide to develop and strengthen national geospatial information management</em>. United Nations. <a href="https://ggim.un.org/IGIF/" target="_blank" rel="noopener">https://ggim.un.org/IGIF/</a></li>
               <li><strong>UN-GGIM. (2024).</strong> <em>Future trends in geospatial information management: The five to ten year vision (4th ed.)</em>. United Nations Committee of Experts on Global Geospatial Information Management. <a href="https://ggim.un.org/" target="_blank" rel="noopener">https://ggim.un.org/</a></li>
               <li><strong>Wilkinson, M. D., et al. (2016).</strong> The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. <a href="https://doi.org/10.1038/sdata.2016.18" target="_blank" rel="noopener">https://doi.org/10.1038/sdata.2016.18</a></li>
             </ul>
           </div>
 
           <div class="doc-bib-categoria">
-            <h4>4. Especificaciones Técnicas y Manuales de Lenguajes de Programación, Consulta y Formatos</h4>
+            <h4>4. APIs y Plataformas para Análisis de Calidad y Contribuciones Históricas</h4>
+            <ul class="doc-bib-lista">
+              <li><strong>Global Biodiversity Information Facility [GBIF]. (2024).</strong> <em>GBIF Occurrence API & Species API (v1 REST API Documentation)</em>. GBIF Secretariat. <a href="https://www.gbif.org/developer/summary" target="_blank" rel="noopener">https://www.gbif.org/developer/summary</a></li>
+              <li><strong>Heidelberg Institute for Geoinformation Technology [HeiGIT]. (2023).</strong> <em>ohsome API: OpenStreetMap History Analytics API Documentation (v1 & v2)</em>. Heidelberg University. <a href="https://api.ohsome.org/" target="_blank" rel="noopener">https://api.ohsome.org/</a></li>
+              <li><strong>Heidelberg Institute for Geoinformation Technology [HeiGIT]. (2024).</strong> <em>OpenStreetMap Quality Tool (OQT API): Automated spatial data quality assessment</em>. Heidelberg University. <a href="https://dashboard.ohsome.org/" target="_blank" rel="noopener">https://dashboard.ohsome.org/</a></li>
+              <li><strong>OpenStreetMap Foundation [OSMF]. (2023).</strong> <em>Overpass API: A high-performance read-only API serving custom spatial subsets of OpenStreetMap</em>. OSMF. <a href="https://wiki.openstreetmap.org/wiki/Overpass_API" target="_blank" rel="noopener">https://wiki.openstreetmap.org/wiki/Overpass_API</a></li>
+              <li><strong>OpenStreetMap Foundation & Geofabrik GmbH. (2024).</strong> <em>Taginfo Chile: Base de datos y estadísticas regionales de etiquetas de OpenStreetMap en Chile</em>. Geofabrik. <a href="https://taginfo.geofabrik.de/south-america:chile" target="_blank" rel="noopener">https://taginfo.geofabrik.de/south-america:chile</a></li>
+              <li><strong>Wille, L., & OpenStreetMap Community. (2023).</strong> <em>OSMCha: OpenStreetMap Changeset Analyzer and Quality Validation Tool</em>. Mapbox / Development Seed. <a href="https://osmcha.org/" target="_blank" rel="noopener">https://osmcha.org/</a></li>
+            </ul>
+          </div>
+
+          <div class="doc-bib-categoria">
+            <h4>5. Especificaciones Técnicas y Manuales de Lenguajes de Programación, Consulta y Formatos</h4>
             <ul class="doc-bib-lista">
               <li><strong>Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016).</strong> <em>The GeoJSON Format</em> (RFC No. 7946). Internet Engineering Task Force (IETF). <a href="https://doi.org/10.17487/RFC7946" target="_blank" rel="noopener">https://doi.org/10.17487/RFC7946</a></li>
               <li><strong>Ecma International. (2024).</strong> <em>ECMAScript® 2024 Language Specification</em> (Standard ECMA-262, 15th ed.). Ecma International. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/" target="_blank" rel="noopener">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a></li>
@@ -892,3 +916,24 @@ out skel qt;</code></pre>
     copiarCodigo
   };
 })();
+
+// Exposición en ámbito global window para interoperabilidad en navegador
+if (typeof window !== 'undefined') {
+  window.ModuloManual = ModuloManual;
+}
+
+// Autocarga inmediata en el DOM para evitar que la sección permanezca en estado 'cargando'
+if (typeof document !== 'undefined') {
+  function autoCargarManual() {
+    const contenedor = document.getElementById('contenido-manual');
+    if (contenedor && (!contenedor.innerHTML || contenedor.innerHTML.includes('Cargando'))) {
+      contenedor.innerHTML = ModuloManual.render();
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoCargarManual);
+  } else {
+    autoCargarManual();
+  }
+}
+

@@ -98,3 +98,8 @@ const ModuloGBIF = (() => {
     ocurrenciasAGeoJSON
   };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloGBIF = ModuloGBIF;
+  window.ModuloGbif = ModuloGBIF;
+}

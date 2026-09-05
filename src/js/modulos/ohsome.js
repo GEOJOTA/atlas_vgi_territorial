@@ -475,3 +475,7 @@ const ModuloOhsome = (() => {
     clasificarGeometria
   };
 })();
+
+if (typeof window !== 'undefined') {
+  window.ModuloOhsome = ModuloOhsome;
+}

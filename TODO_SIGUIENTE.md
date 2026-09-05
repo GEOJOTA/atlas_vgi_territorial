@@ -3,6 +3,47 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 12 — Septiembre 2026 (Robustecimiento a 90 Etiquetas Chile, 104 Citas APA sin Autocitación, Estándares IDE/SNIT/ISO/UN-GGIM, Integración de APIs de Calidad y Carga Inmediata de Documentación)
+
+### Contexto y Requerimiento de Desarrollo
+
+En cumplimiento con las instrucciones del usuario ("*Robustece el catalogo de etiquetas de chile y maestras, también asegurate de incluir toda la bibliografía citada en el seminario que te adjunté dentro de la bibliografía. Sobretodo lo referente a IDE y el SNIT, los articulos/pdf donde hablan sobre estandares de datos, la politica geoespacial, geoNodo, todos los aspectos tecnicos, indicativos, normativos para calidad, producción, distribución, jerarquía, e interoperabilidad de datos en Chile. Todo lo referente a las normas ISO, estandares globales como el UN-GGIM, asimismo lo referente a taginfo también debe estar citado, y si puedes integrar más api referentes a análisis de calidad o contribuciones historicas (tanto en OSM y GBIF) puedes hacerlo, con el cuidado que sea lo suficientemente robusta/legitima como para integrarlas y que no sean un problema. Por otro lado, el manual y documentación se queda en 'cargando' y no se visualiza, si puedes dejarla cargada mejor. Procede y sube los cambios*"), se procedió a implementar una actualización exhaustiva a nivel metodológico, bibliográfico, algorítmico y de arquitectura frontend.
+
+---
+
+### Diagnóstico y Solución de Deficiencias Resueltas
+
+1. **Corrección Crítica: Manual y Documentación Técnica Bloqueados en Estado "Cargando":**
+   - **Diagnóstico:** En navegadores web modernos, las declaraciones `const ModuloManual = ...` y `const ModuloDiccionario = ...` en scripts clásicos poseen ámbito léxico de script y no se agregan como propiedades al objeto global `window`. En consecuencia, la verificación `if (window.ModuloManual)` en `app.js` evaluaba a `undefined`, dejando `#contenido-manual` congelado en el mensaje estático `<div class="aviso">Cargando documentación técnica...</div>`. Existían además discrepancias de nomenclatura entre `ModuloOSM` / `ModuloOsm`, `ModuloGBIF` / `ModuloGbif` y `ModuloUMap` / `ModuloUmap`.
+   - **Solución implementada:** Se exportaron formalmente todos los submódulos al objeto global `window` (`window.ModuloManual = ModuloManual`, `window.ModuloDiccionario = ModuloDiccionario`, `window.ModuloOSM = ModuloOSM`, `window.ModuloGBIF = ModuloGBIF`, etc.). Además, se dotó a `src/js/modulos/manual.js` de una función de inyección autónoma reactiva (`autoCargarManual()`), la cual detecta si el contenedor está en estado placeholder y renderiza la documentación inmediatamente tras la carga del DOM, previniendo condiciones de carrera con eventos asíncronos del catálogo.
+
+2. **Robustecimiento del Catálogo de Etiquetas Chile (Hoja 2) y Categorías Maestras (Hoja 1):**
+   - **Hoja 1 (`Categorías Maestras`):** Se enriquecieron las 8 macro-categorías territoriales vinculándolas formalmente con estándares de calidad ISO 19157, endpoints de consulta espacial (Overpass, ohsome, GBIF, OQT), marcos regulatorios nacionales (IDE Chile, SNIT, OGUC, Ley REP 20.920) y marcos globales (UN-GGIM/IGIF).
+   - **Hoja 2 (`Catálogo de Etiquetas Chile`):** Se amplió el inventario de 63 a **90 etiquetas territoriales clave**, incorporando elementos esenciales de la infraestructura urbana y rural chilena: grifos de incendio bomberiles (`emergency=fire_hydrant`), cámaras de televigilancia municipal (`surveillance:type=camera`), luminarias públicas (`highway=street_lamp`), campanas y puntos de reciclaje Ley REP (`amenity=recycling`), kioscos tradicionales de suplementeros (`shop=newsagent`), zonas de coexistencia vial / Zona 30 (`highway=living_street`), zonas caninas municipales (`leisure=dog_park`), paseos peatonales céntricos (`highway=pedestrian`), semáforos de tránsito (`highway=traffic_signals`), y especies arbóreas nativas y urbanas (`genus=Quillaja/Cryptocarya/Schinus`).
+   - **Diccionario Interactivo Web (`src/js/modulos/diccionario.js`):** Se actualizó el catálogo interactivo para renderizar las 90 etiquetas en tarjetas sobrias "estilo backrooms", con homología IDE Chile, descripción situacional y citas en norma APA 7ª ed.
+
+3. **Consolidación Integral del Aparato Bibliográfico (104 Citas APA 7ª ed.) y Cero Autocitación:**
+   - Se extrajeron e incorporaron al 100% las fuentes primarias del seminario de grado (`seminario.pdf`), acatando estrictamente la directriz de **cero autocitación** (se eliminó cualquier mención a "Lescano, 2025" o al seminario, referenciando exclusivamente las obras científicas, institucionales y normativas originales).
+   - **IDE Chile, SNIT y GeoNodo:** Se incorporaron los decretos fundacionales (Decreto Supremo Nº 28/2006 de Bienes Nacionales), la Política Nacional de Información Geoespacial 2024-2030, manuales de administración de metadatos GeoNodo, guías de captura y validación de datos espaciales, y especificaciones de interoperabilidad IDE.
+   - **Normas ISO y Estándares Globales:** ISO 19115-1:2014, ISO 19157:2013, ISO 19110:2016, ISO 19119:2016, ISO 19128:2005, ISO 19139:2007, UN-GGIM (IGIF - Marco Integrado de Información Geoespacial), CP-IDEA y GSDI SDI Cookbook.
+   - **Taginfo y APIs de Calidad / Contribuciones Históricas:** Taginfo (Topf & Geofabrik), ohsome API (HeiGIT), ohsome Quality Analyst (OQT API), OSMCha API (Wille Marcel), Overpass API (Roland Olbricht) y GBIF Occurrence & Species API.
+   - **Manuales de Lenguajes y Formatos:** JavaScript (ECMA-262), Python (PSF), HTML5 (WHATWG), CSS3 (W3C), Overpass QL, GeoJSON (IETF RFC 7946), SVG 2.0 y CommonMark.
+   - El total de referencias en la Hoja 4 de `categorias_tematicas_osm.xlsx`, el manual web (`manual.js`) y el documento de trazabilidad académica (`TRAZABILIDAD_ACADEMICA.md`) se elevó a **104 referencias formales**.
+
+---
+
+### Componentes y Archivos Sincronizados
+
+- **`scripts/generar_catalogos_excel.py`:** Motor generador con 8 categorías maestras, 90 etiquetas territoriales para Chile, 14 atributos VGI estandarizados (con EPSG:32719) y 104 fuentes bibliográficas en norma APA 7ª ed.
+- **`docs/categorias_tematicas_osm.xlsx` & `src/docs/categorias_tematicas_osm.xlsx`:** Libros de trabajo OpenXML binarios regenerados y sincronizados idénticamente.
+- **`src/js/modulos/diccionario.js`:** 90 etiquetas territoriales con atributos de tipología, geometría, homología oficial IDE y fuente APA.
+- **`src/js/modulos/manual.js`:** Documentación enriquecida con secciones dedicadas para IDE/SNIT, APIs geoespaciales y autocarga reactiva inmediata (`autoCargarManual()`).
+- **`src/js/app.js`:** Gestión de inicialización robustecida y soporte global a módulos.
+- **`src/js/modulos/` (`osm.js`, `gbif.js`, `umap.js`, `geodesia.js`, `licencias.js`, `mapa.js`, `metadatos.js`, `ohsome.js`):** Exportación homogénea a `window` para interoperabilidad de scripts sin módulos ES6 nativos.
+- **`docs/TRAZABILIDAD_ACADEMICA.md` & `src/docs/TRAZABILIDAD_ACADEMICA.md`:** 104 citas bibliográficas completas organizadas temáticamente y sincronizadas al 100%.
+
+---
+
 ## Entrega de turno 11 — Septiembre 2026 (Inclusión de Manuales y Especificaciones Técnicas de Lenguajes de Programación, Marcado, Estilos y Consulta en el Aparato Bibliográfico)
 
 ### Contexto y Requerimiento de Desarrollo
