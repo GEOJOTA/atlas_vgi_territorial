@@ -1286,6 +1286,86 @@ def crear_categorias_tematicas_osm():
             "Reporte de Cobertura, Accesibilidad y Gestión de Paradas Red Movilidad",
             "https://www.dtpm.cl",
             "Estadísticas actualizadas de paradas activas e infraestructura peatonal en la comuna de Santiago."
+        ],
+        [
+            "(Ecma International, 2024)",
+            "Ecma International. (2024). ECMAScript® 2024 Language Specification (Standard ECMA-262, 15th ed.). Ecma International.",
+            "Estándar / Manual Técnico de Lenguaje",
+            "Ecma International",
+            "2024",
+            "ECMAScript® 2024 Language Specification (Standard ECMA-262)",
+            "https://www.ecma-international.org/publications-and-standards/standards/ecma-262/",
+            "Especificación del lenguaje JavaScript utilizado para la arquitectura modular, cálculos geodésicos en cliente y reactividad del Atlas."
+        ],
+        [
+            "(Van Rossum & Drake, 2024)",
+            "Van Rossum, G., & Drake, F. L. (2024). The Python Language Reference (Manual v3.12). Python Software Foundation.",
+            "Manual Oficial de Lenguaje",
+            "Python Software Foundation",
+            "2024",
+            "The Python Language Reference (v3.12)",
+            "https://docs.python.org/3/reference/",
+            "Manual del lenguaje Python empleado en los scripts de generación automatizada de catálogos Excel y sincronización de metadatos."
+        ],
+        [
+            "(WHATWG, 2024)",
+            "Web Hypertext Application Technology Working Group [WHATWG]. (2024). HTML Living Standard. WHATWG / World Wide Web Consortium.",
+            "Estándar / Especificación de Lenguaje de Marcado",
+            "WHATWG / W3C",
+            "2024",
+            "HTML Living Standard: The specification for web application developers",
+            "https://html.spec.whatwg.org/multipage/",
+            "Especificación del lenguaje de marcado semántico que estructura la interfaz, paneles modulares y manual in-app del Atlas."
+        ],
+        [
+            "(W3C, 2023)",
+            "World Wide Web Consortium [W3C]. (2023). Cascading Style Sheets (CSS) Snapshot 2023 (W3C Working Group Note). W3C.",
+            "Estándar / Especificación de Hojas de Estilo",
+            "World Wide Web Consortium [W3C]",
+            "2023",
+            "Cascading Style Sheets (CSS) Snapshot 2023",
+            "https://www.w3.org/TR/css-2023/",
+            "Estándar de estilos web que define la estética técnica sobria, diseño cartográfico y diagramas vectoriales del sistema."
+        ],
+        [
+            "(Olbricht & OSMF, 2023)",
+            "Olbricht, R., & OpenStreetMap Contributors. (2023). Overpass QL: Overpass API Language Guide and Reference Manual. OpenStreetMap Foundation.",
+            "Manual Técnico / Lenguaje de Consulta",
+            "OpenStreetMap Foundation",
+            "2023",
+            "Overpass QL: Overpass API Language Guide and Reference Manual",
+            "https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL",
+            "Manual formal del lenguaje de consulta espacial empleado para extraer nodos, vías y relaciones filtradas desde servidores Overpass."
+        ],
+        [
+            "(Butler et al., 2016)",
+            "Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016). The GeoJSON Format (RFC No. 7946). Internet Engineering Task Force (IETF).",
+            "Estándar de Protocolo / Formato de Intercambio Espacial",
+            "Internet Engineering Task Force [IETF]",
+            "2016",
+            "The GeoJSON Format (RFC 7946)",
+            "https://doi.org/10.17487/RFC7946",
+            "Especificación del formato estándar de intercambio geográfico para el transporte y procesamiento de geometrías vectoriales en el Atlas."
+        ],
+        [
+            "(W3C, 2018)",
+            "World Wide Web Consortium [W3C]. (2018). Scalable Vector Graphics (SVG) 2.0 Specification (W3C Candidate Recommendation). W3C.",
+            "Estándar / Especificación de Gráficos Vectoriales",
+            "World Wide Web Consortium [W3C]",
+            "2018",
+            "Scalable Vector Graphics (SVG) 2.0 Specification",
+            "https://www.w3.org/TR/SVG2/",
+            "Especificación de gráficos vectoriales XML empleada en los esquemas arquitectónicos y diagramas geodésicos del manual técnico."
+        ],
+        [
+            "(MacFarlane et al., 2024)",
+            "MacFarlane, J., Krewenki, P., Greenspun, J., et al. (2024). CommonMark Spec: A strongly defined, highly compatible specification of Markdown (Version 0.31.2). CommonMark.",
+            "Especificación de Lenguaje de Documentación",
+            "CommonMark Working Group",
+            "2024",
+            "CommonMark Spec: Markdown specification",
+            "https://spec.commonmark.org/",
+            "Estándar de texto plano estructurado utilizado en la memoria técnica académica, bitácoras de versión y guías de contribución."
         ]
     ]
     

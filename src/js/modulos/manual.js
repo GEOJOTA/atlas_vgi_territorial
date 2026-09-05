@@ -848,6 +848,20 @@ out skel qt;</code></pre>
               <li><strong>Wilkinson, M. D., et al. (2016).</strong> The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, 3, 160018. <a href="https://doi.org/10.1038/sdata.2016.18" target="_blank" rel="noopener">https://doi.org/10.1038/sdata.2016.18</a></li>
             </ul>
           </div>
+
+          <div class="doc-bib-categoria">
+            <h4>4. Especificaciones Técnicas y Manuales de Lenguajes de Programación, Consulta y Formatos</h4>
+            <ul class="doc-bib-lista">
+              <li><strong>Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016).</strong> <em>The GeoJSON Format</em> (RFC No. 7946). Internet Engineering Task Force (IETF). <a href="https://doi.org/10.17487/RFC7946" target="_blank" rel="noopener">https://doi.org/10.17487/RFC7946</a></li>
+              <li><strong>Ecma International. (2024).</strong> <em>ECMAScript® 2024 Language Specification</em> (Standard ECMA-262, 15th ed.). Ecma International. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/" target="_blank" rel="noopener">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a></li>
+              <li><strong>MacFarlane, J., Krewenki, P., Greenspun, J., et al. (2024).</strong> <em>CommonMark Spec: A strongly defined, highly compatible specification of Markdown</em> (Version 0.31.2). CommonMark. <a href="https://spec.commonmark.org/" target="_blank" rel="noopener">https://spec.commonmark.org/</a></li>
+              <li><strong>Olbricht, R., & OpenStreetMap Contributors. (2023).</strong> <em>Overpass QL: Overpass API Language Guide and Reference Manual</em>. OpenStreetMap Foundation. <a href="https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL" target="_blank" rel="noopener">https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL</a></li>
+              <li><strong>Van Rossum, G., & Drake, F. L. (2024).</strong> <em>The Python Language Reference</em> (Manual v3.12). Python Software Foundation. <a href="https://docs.python.org/3/reference/" target="_blank" rel="noopener">https://docs.python.org/3/reference/</a></li>
+              <li><strong>Web Hypertext Application Technology Working Group [WHATWG]. (2024).</strong> <em>HTML Living Standard: The specification for web application developers</em>. WHATWG / World Wide Web Consortium. <a href="https://html.spec.whatwg.org/multipage/" target="_blank" rel="noopener">https://html.spec.whatwg.org/multipage/</a></li>
+              <li><strong>World Wide Web Consortium [W3C]. (2018).</strong> <em>Scalable Vector Graphics (SVG) 2.0 Specification</em> (W3C Candidate Recommendation). W3C. <a href="https://www.w3.org/TR/SVG2/" target="_blank" rel="noopener">https://www.w3.org/TR/SVG2/</a></li>
+              <li><strong>World Wide Web Consortium [W3C]. (2023).</strong> <em>Cascading Style Sheets (CSS) Snapshot 2023</em> (W3C Working Group Note). W3C. <a href="https://www.w3.org/TR/css-2023/" target="_blank" rel="noopener">https://www.w3.org/TR/css-2023/</a></li>
+            </ul>
+          </div>
         </div>
       </section>
 

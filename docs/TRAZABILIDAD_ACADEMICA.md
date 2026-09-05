@@ -329,3 +329,12 @@ Todas las fuentes citadas a lo largo de este documento, en la interfaz web del A
 - UN-GGIM. (2024). *Future trends in geospatial information management: The five to ten year vision (4th ed.)*. United Nations Committee of Experts on Global Geospatial Information Management. https://ggim.un.org/
 - Wilkinson, M. D., et al. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data*, 3, 160018. https://doi.org/10.1038/sdata.2016.18
 
+### 7.6 Manuales de Lenguajes de Programación, Consulta y Formatos Estándar
+- Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016). *The GeoJSON Format* (RFC No. 7946). Internet Engineering Task Force (IETF). https://doi.org/10.17487/RFC7946
+- Ecma International. (2024). *ECMAScript® 2024 Language Specification* (Standard ECMA-262, 15th ed.). Ecma International. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/
+- MacFarlane, J., Krewenki, P., Greenspun, J., et al. (2024). *CommonMark Spec: A strongly defined, highly compatible specification of Markdown* (Version 0.31.2). CommonMark. https://spec.commonmark.org/
+- Olbricht, R., & OpenStreetMap Contributors. (2023). *Overpass QL: Overpass API Language Guide and Reference Manual*. OpenStreetMap Foundation. https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL
+- Van Rossum, G., & Drake, F. L. (2024). *The Python Language Reference* (Manual v3.12). Python Software Foundation. https://docs.python.org/3/reference/
+- Web Hypertext Application Technology Working Group [WHATWG]. (2024). *HTML Living Standard: The specification for web application developers*. WHATWG / World Wide Web Consortium. https://html.spec.whatwg.org/multipage/
+- World Wide Web Consortium [W3C]. (2018). *Scalable Vector Graphics (SVG) 2.0 Specification* (W3C Candidate Recommendation). W3C. https://www.w3.org/TR/SVG2/
+- World Wide Web Consortium [W3C]. (2023). *Cascading Style Sheets (CSS) Snapshot 2023* (W3C Working Group Note). W3C. https://www.w3.org/TR/css-2023/

@@ -3,6 +3,52 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 11 — Septiembre 2026 (Inclusión de Manuales y Especificaciones Técnicas de Lenguajes de Programación, Marcado, Estilos y Consulta en el Aparato Bibliográfico)
+
+### Contexto y Requerimiento de Desarrollo
+
+En atención directa a la solicitud del usuario ("*Incluye en la bibliografia los manuales de los lenguajes utilizados en la conformación del Atlas también*"), se procedió a incorporar las especificaciones formales y manuales técnicos de referencia de todos los lenguajes de programación, marcado semántico, hojas de estilo, lenguajes de consulta espacial y estándares de intercambio vectorial que sustentan la arquitectura del Atlas.
+
+---
+
+### Lenguajes y Especificaciones Técnicas Incorporadas (Norma APA 7ª ed.)
+
+1. **JavaScript / ECMAScript:**
+   - *Referencia:* Ecma International. (2024). *ECMAScript® 2024 Language Specification* (Standard ECMA-262, 15th ed.). Ecma International. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/
+   - *Rol en el Atlas:* Especificación formal del lenguaje de programación cliente para la lógica modular, geoprocesamiento geodésico y reactividad de la interfaz web.
+2. **Python:**
+   - *Referencia:* Van Rossum, G., & Drake, F. L. (2024). *The Python Language Reference* (Manual v3.12). Python Software Foundation. https://docs.python.org/3/reference/
+   - *Rol en el Atlas:* Manual oficial de lenguaje utilizado en los scripts de automatización para la generación de libros Excel OpenXML (`openpyxl`), perfiles de metadatos y sincronización de repositorios.
+3. **HTML5 (HyperText Markup Language):**
+   - *Referencia:* Web Hypertext Application Technology Working Group [WHATWG]. (2024). *HTML Living Standard: The specification for web application developers*. WHATWG / World Wide Web Consortium. https://html.spec.whatwg.org/multipage/
+   - *Rol en el Atlas:* Especificación estándar del marcado semántico y accesible para la estructura de vistas, paneles modulares y manual de uso integrado.
+4. **CSS3 (Cascading Style Sheets):**
+   - *Referencia:* World Wide Web Consortium [W3C]. (2023). *Cascading Style Sheets (CSS) Snapshot 2023* (W3C Working Group Note). W3C. https://www.w3.org/TR/css-2023/
+   - *Rol en el Atlas:* Especificación de hojas de estilo que materializa el diseño cartográfico técnico sobrio ("estilo backrooms") y diagramación visual de esquemas.
+5. **Overpass QL (Overpass Query Language):**
+   - *Referencia:* Olbricht, R., & OpenStreetMap Contributors. (2023). *Overpass QL: Overpass API Language Guide and Reference Manual*. OpenStreetMap Foundation. https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL
+   - *Rol en el Atlas:* Manual de referencia del lenguaje de consulta espacial declarativo para la extracción de primitivas OSM (nodos, vías, relaciones) filtradas por territorio y atributos.
+6. **GeoJSON (IETF RFC 7946):**
+   - *Referencia:* Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016). *The GeoJSON Format* (RFC No. 7946). Internet Engineering Task Force (IETF). https://doi.org/10.17487/RFC7946
+   - *Rol en el Atlas:* Estándar de codificación de colecciones de objetos geográficos empleado en el intercambio de vectores y capas analíticas.
+7. **SVG 2.0 (Scalable Vector Graphics):**
+   - *Referencia:* World Wide Web Consortium [W3C]. (2018). *Scalable Vector Graphics (SVG) 2.0 Specification* (W3C Candidate Recommendation). W3C. https://www.w3.org/TR/SVG2/
+   - *Rol en el Atlas:* Estándar de gráficos vectoriales XML implementado en los diagramas conceptuales, esquemas geodésicos y flujos de trabajo del manual técnico.
+8. **CommonMark (Markdown):**
+   - *Referencia:* MacFarlane, J., Krewenki, P., Greenspun, J., et al. (2024). *CommonMark Spec: A strongly defined, highly compatible specification of Markdown* (Version 0.31.2). CommonMark. https://spec.commonmark.org/
+   - *Rol en el Atlas:* Especificación de texto estructurado utilizada en la documentación de trazabilidad académica, bitácoras de versión y manuales para desarrolladores.
+
+---
+
+### Componentes y Archivos Sincronizados
+
+- **`scripts/generar_catalogos_excel.py`:** Incorporación de las 8 especificaciones en la lista `bibliografia_apa`, elevando la Hoja 4 de `categorias_tematicas_osm.xlsx` a 72 referencias formales (76 filas con cabeceras).
+- **`docs/categorias_tematicas_osm.xlsx` & `src/docs/categorias_tematicas_osm.xlsx`:** Regenerados y sincronizados de forma idéntica para descarga web y archivo institucional.
+- **`src/js/modulos/manual.js`:** Nueva categoría temática en la Sección 07 (*4. Especificaciones Técnicas y Manuales de Lenguajes de Programación, Consulta y Formatos*) con enlaces directos a las especificaciones oficiales.
+- **`docs/TRAZABILIDAD_ACADEMICA.md` & `src/docs/TRAZABILIDAD_ACADEMICA.md`:** Nueva subsección *7.6 Manuales de Lenguajes de Programación, Consulta y Formatos Estándar*, sincronizadas al 100% (verificado con `diff -q`).
+
+---
+
 ## Entrega de turno 10 — Septiembre 2026 (Manual de Uso del Atlas Web estilo Librería, Diccionario Territorial Interactivo y Cliqueable, Sustitución de Licencia MIT por Marco Tripartito CC BY-SA 4.0 / ODbL / AGPL-3.0 y Robustecimiento Bibliográfico Extendido)
 
 ### Contexto y Requerimiento de Desarrollo
