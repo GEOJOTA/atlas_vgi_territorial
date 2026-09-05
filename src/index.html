@@ -192,9 +192,13 @@
             <input type="color" id="custom-color-capa" value="#A97722" style="height:36px; padding:2px; cursor:pointer;">
           </div>
           <button class="accion" id="btn-ejecutar-consulta-custom" style="padding:9px 18px;">🚀 Ejecutar y Mapear</button>
+          <button class="accion secundaria" id="btn-validar-taginfo" title="Auditar telemetría y uso global con Taginfo API">⚡ Validar en Taginfo</button>
           <button class="accion secundaria" id="btn-guardar-consulta" title="Guardar esta consulta para usarla después">💾 Guardar</button>
           <button class="accion secundaria" id="btn-toggle-ql-avanzado" title="Ver o editar código Overpass QL">📝 Modo QL</button>
         </div>
+
+        <!-- Contenedor interactivo para telemetría Taginfo API -->
+        <div id="contenedor-resultado-taginfo-custom"></div>
 
         <!-- Editor avanzado Overpass QL (oculto por defecto) -->
         <div id="contenedor-ql-avanzado" style="display:none; margin-top:14px; padding-top:12px; border-top:1px dashed var(--linea);">
@@ -335,10 +339,13 @@
             <input type="password" id="oh-api-key" placeholder="Pega tu token de api.heigit.org (opcional)">
           </div>
         </div>
-        <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+          <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad (ohsome API)</button>
+          <button class="accion secundaria" id="btn-auditar-changesets-osmcha">🔎 Auditar Changesets Recientes y Validar en OSMCha</button>
+        </div>
 
         <div class="caja-guia-referencia">
-          <h4>📐 Fundamentación de Calidad Espacial Multidimensional (ISO 19157 / HeiGIT)</h4>
+          <h4>📐 Fundamentación de Calidad Espacial Multidimensional (ISO 19157 / HeiGIT / OQT)</h4>
           <p>
             La calidad de datos espaciales voluntarios (VGI) no se reduce a un porcentaje abstracto, sino que responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
           </p>
@@ -352,8 +359,9 @@
             </li>
             <li><strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox (área de encuadre territorial) y densidad espacial de elementos por km² o hectárea pasa por una reproyección conforme Transverse Mercator desde WGS 84 a EPSG:32719 (norma oficial adoptada por el Instituto Geográfico Militar de Chile / IGM e Infraestructura de Datos Espaciales de Chile / IDE Chile). Esto elimina las distorsiones de escala angular que se producen al medir áreas planas sobre coordenadas en grados decimales a la latitud de Santiago (-33.44°).</li>
             <li><strong>Sensibilidad Geométrica:</strong> La red vial se audita por continuidad lineal (<code>/elements/length</code> en km), las edificaciones y áreas verdes por superficie de huella construida (<code>/elements/area</code> en m²/ha), y el equipamiento por densidad puntual (<code>/elements/count</code>).</li>
-            <li><strong>Linaje y Masa Crítica:</strong> El ratio de ediciones por usuario evalúa si el área depende de mapeadores esporádicos o de una comunidad activa y diversa (Neis & Zipf, 2012).</li>
-            <li><strong>Citas académicas:</strong> Raifer et al. (2019) <em>OSHDB framework</em> (doi:10.1186/s40965-019-0061-3); HeiGIT (2025/2026) <em>ohsome API v2 Documentation</em>; Haklay (2010) <em>How good is VGI?</em>; Goodchild (2007) <em>Citizens as sensors</em>.</li>
+            <li><strong>ohsome Quality Analyst (OQT Framework):</strong> Evaluación intrínseca de saturación de mapeo, madurez cronológica y completitud de atributos esenciales (Herfort et al., 2023).</li>
+            <li><strong>Auditoría de Changesets y OSMCha:</strong> Detección de las últimas ediciones en el polígono barrial y enlace directo a OSMCha (Wille Marcel) para validación de vandalismo o micro-contribuciones.</li>
+            <li><strong>Citas académicas:</strong> Raifer et al. (2019) <em>OSHDB framework</em> (doi:10.1186/s40965-019-0061-3); Herfort et al. (2023) <em>ohsome quality analyst</em>; Haklay (2010) <em>How good is VGI?</em>; Goodchild (2007) <em>Citizens as sensors</em>.</li>
           </ul>
         </div>
       </div>
@@ -361,6 +369,9 @@
       <div class="bloque resultado" id="resultado-ohsome" aria-live="polite">
         <p class="descripcion">Todavía no hay ningún cálculo realizado.</p>
       </div>
+
+      <!-- Contenedor interactivo para OSM Changesets & OSMCha API -->
+      <div id="contenedor-auditoria-osmcha" style="margin-top:14px;"></div>
     </section>
 
     <!-- ---------- 03. GBIF ---------- -->
@@ -401,9 +412,10 @@
               <option value="custom">✍️ — Escribir taxón o nombre científico manual —</option>
             </select>
           </div>
-          <div class="campo" style="flex:1; min-width:180px;">
+          <div class="campo" style="flex:1; min-width:180px; position:relative;">
             <label for="gbif-nombre">Nombre Científico / Taxón</label>
-            <input type="text" id="gbif-nombre" placeholder="ej: Aves, Zonotrichia capensis">
+            <input type="text" id="gbif-nombre" placeholder="ej: Aves, Zonotrichia capensis" autocomplete="off">
+            <div id="gbif-sugerencias-taxa" style="display:none; position:absolute; top:100%; left:0; right:0; z-index:20; background:var(--papel-alto); border:1px solid var(--musgo); box-shadow:0 4px 10px rgba(0,0,0,0.15);"></div>
           </div>
           <div class="campo" style="width:170px;">
             <label for="gbif-basis-selector">Base de Registro</label>
@@ -622,6 +634,8 @@
       <div class="bloque" style="margin-bottom:14px;">
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
           <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Etiquetas</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (65 Etiquetas sin Homólogo Estatal)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales IDE Chile (25 Capas)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema VGI (10 Atributos IDE)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
@@ -676,6 +690,8 @@
 <script src="js/modulos/metadatos.js"></script>
 <script src="js/modulos/licencias.js"></script>
 <script src="js/modulos/manual.js"></script>
+<script src="js/modulos/taginfo.js"></script>
+<script src="js/modulos/calidad_analyst.js"></script>
 <script src="js/modulos/diccionario.js"></script>
 <script src="js/app.js"></script>
 </body>

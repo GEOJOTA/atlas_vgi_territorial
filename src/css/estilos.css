@@ -12,17 +12,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Paleta — tonos de carta topográfica y libreta de campo */
-  --papel: #EAE4D3;         /* papel/pergamino, distinto del beige genérico */
-  --papel-alto: #F4F0E4;
-  --tinta: #23281F;         /* casi negro con base verdosa, no #111 plano */
-  --tinta-suave: #4B5142;
-  --musgo: #3F5D4E;         /* verde curva de nivel */
-  --musgo-oscuro: #2C4238;
-  --agua: #35586B;          /* azul carta hidrográfica */
-  --ocre: #A97722;          /* ocre de hito/vértice geodésico */
-  --alerta: #8F3A2C;        /* rojo catastral, uso restringido a avisos */
-  --linea: #C9BFA0;         /* líneas divisorias sobre el papel */
+  /* Paleta Backrooms / Archivo Liminal Institucional — tonos de papel añejo bajo fluorescente, tinta carbón y rejilla acústica */
+  --papel: #D7D0B4;         /* papel/alfombra desaturada bajo tubo fluorescente tenue */
+  --papel-alto: #E3DCC3;    /* nivel elevado de panel o expediente */
+  --tinta: #1B1E15;         /* carbón profundo con matiz verdoso de archivo */
+  --tinta-suave: #424939;   /* cinta de máquina de escribir desgastada */
+  --musgo: #2D4436;         /* verde terminal búnker / expediente */
+  --musgo-oscuro: #1A2B20;  /* fondo de consola analógica */
+  --agua: #294455;          /* azul plomo de tubería y conducto */
+  --ocre: #A06D1A;          /* ámbar de lámpara de sodio / advertencia analógica */
+  --alerta: #852C22;        /* rojo lacre / advertencia estricta */
+  --linea: #B9B08C;         /* juntas de placas de cielo falso / rejilla liminal */
 
   --fuente-lectura: 'Spectral', Georgia, 'Times New Roman', serif;
   --fuente-datos: 'IBM Plex Mono', 'Courier New', monospace;
@@ -42,8 +42,9 @@ html, body {
 
 body {
   background-image:
-    linear-gradient(var(--linea) 1px, transparent 1px);
-  background-size: 100% 32px;
+    linear-gradient(var(--linea) 1px, transparent 1px),
+    linear-gradient(90deg, var(--linea) 1px, transparent 1px);
+  background-size: 48px 48px;
   background-attachment: local;
 }
 
@@ -203,7 +204,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   border: 1px solid var(--tinta-suave);
   background: var(--papel-alto);
   color: var(--tinta);
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .campo textarea { font-family: var(--fuente-lectura); min-width: 300px; }
@@ -216,7 +217,7 @@ button.accion {
   background: var(--musgo);
   color: var(--papel-alto);
   border: none;
-  border-radius: 2px;
+  border-radius: 0;
   cursor: pointer;
 }
 button.accion:hover { background: var(--musgo-oscuro); }
@@ -290,7 +291,7 @@ table.tabla-datos th {
   background: var(--papel-alto);
   margin-top: 14px;
   margin-bottom: 16px;
-  border-radius: 2px;
+  border-radius: 0;
   z-index: 10;
 }
 
@@ -335,7 +336,7 @@ table.tabla-datos th {
   cursor: pointer;
   text-align: left;
   transition: all 0.15s ease;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .btn-categoria:hover {
@@ -365,7 +366,7 @@ table.tabla-datos th {
   font-size: 0.72rem;
   background: rgba(0,0,0,0.08);
   padding: 2px 6px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .btn-categoria.activo .conteo-cat {
@@ -385,7 +386,7 @@ table.tabla-datos th {
   padding: 8px 10px;
   background: var(--papel-alto);
   border: 1px solid var(--linea);
-  border-radius: 2px;
+  border-radius: 0;
   font-family: var(--fuente-lectura);
   font-size: 0.82rem;
   font-weight: 500;
@@ -434,13 +435,13 @@ button.activo {
 .leaflet-control-layers {
   background: var(--papel-alto) !important;
   border: 1px solid var(--linea) !important;
-  border-radius: 2px !important;
+  border-radius: 0 !important;
   font-size: 0.82rem !important;
   box-shadow: none !important;
 }
 .leaflet-popup-content-wrapper {
   background: var(--papel-alto) !important;
-  border-radius: 2px !important;
+  border-radius: 0 !important;
   border: 1px solid var(--linea) !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
 }
@@ -455,7 +456,7 @@ button.activo {
   border-left: 4px solid var(--musgo);
   padding: 14px 16px;
   margin: 16px 0;
-  border-radius: 2px;
+  border-radius: 0;
 }
 .caja-guia-referencia h4 {
   margin: 0 0 6px 0;
@@ -491,7 +492,7 @@ button.activo {
   font-family: var(--fuente-lectura);
   color: var(--tinta);
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0;
   transition: all 0.15s ease;
 }
 .filtro-dicc-btn:hover {
@@ -556,7 +557,7 @@ footer.pie-datos {
   background: var(--papel-alto);
   border: 1px solid var(--linea);
   padding: 2px 6px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 .dicc-cat-icono {
   font-size: 1.15rem;
@@ -586,7 +587,7 @@ footer.pie-datos {
   font-size: 0.74rem;
   padding: 4px 8px;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0;
   border: 1px solid var(--linea);
   background: var(--papel-alto);
   color: var(--tinta);
@@ -614,7 +615,7 @@ footer.pie-datos {
   color: var(--musgo-oscuro);
   padding: 2px 6px;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0;
   transition: all 0.12s ease;
 }
 .dicc-tag-cat-link:hover {
@@ -656,7 +657,7 @@ footer.pie-datos {
   text-decoration: none;
   padding: 4px 8px;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: 0;
   transition: all 0.12s ease;
 }
 .doc-nav-link:hover {
@@ -683,7 +684,7 @@ footer.pie-datos {
   border: 1px solid var(--linea);
   background: var(--papel);
   color: var(--tinta);
-  border-radius: 2px;
+  border-radius: 0;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -711,7 +712,7 @@ footer.pie-datos {
   border: 1px solid var(--linea);
   padding: 2px 8px;
   color: var(--musgo-oscuro);
-  border-radius: 2px;
+  border-radius: 0;
   margin-bottom: 6px;
 }
 .doc-lead {
@@ -732,7 +733,7 @@ footer.pie-datos {
   background: var(--papel-alto);
   border: 1px solid var(--linea);
   padding: 16px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 .doc-audiencia-tag {
   font-family: var(--fuente-datos);
@@ -768,7 +769,7 @@ footer.pie-datos {
   border: 1px solid var(--linea);
   padding: 14px;
   margin: 24px 0;
-  border-radius: 2px;
+  border-radius: 0;
 }
 .doc-diagrama-titulo {
   font-family: var(--fuente-datos);
@@ -804,7 +805,7 @@ footer.pie-datos {
   grid-template-columns: 50px 1fr;
   background: var(--papel-alto);
   border: 1px solid var(--linea);
-  border-radius: 2px;
+  border-radius: 0;
 }
 .doc-modulo-num {
   font-family: var(--fuente-datos);
@@ -846,7 +847,7 @@ footer.pie-datos {
 .doc-ficha-cat {
   background: var(--papel-alto);
   border: 1px solid var(--linea);
-  border-radius: 2px;
+  border-radius: 0;
   scroll-margin-top: 60px;
 }
 .doc-ficha-cabecera {
@@ -864,7 +865,7 @@ footer.pie-datos {
   background: var(--musgo);
   color: #fff;
   padding: 3px 8px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 .doc-ficha-titular h3 {
   margin: 0;
@@ -898,7 +899,7 @@ footer.pie-datos {
   background: var(--tinta);
   color: #EAE4D3;
   border: 1px solid var(--linea);
-  border-radius: 2px;
+  border-radius: 0;
   overflow: hidden;
 }
 .doc-codigo-header {
@@ -920,7 +921,7 @@ footer.pie-datos {
   border: 1px solid #444;
   color: #EAE4D3;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0;
 }
 .doc-codigo-bloque pre {
   margin: 0;
@@ -991,6 +992,56 @@ footer.pie-datos {
 }
 .resaltado-temporal {
   animation: pulsoResaltado 2.5s ease;
+}
+
+/* ---------- Estilo Liminal / Backrooms & Telemetría Analógica ---------- */
+
+.marcador-parpadeo {
+  animation: parpadeo-crt 2s infinite ease-in-out;
+  display: inline-block;
+}
+
+@keyframes parpadeo-crt {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.38; }
+}
+
+.tarjeta-taginfo-resultado,
+.caja-taginfo-cargando {
+  border-radius: 0 !important;
+}
+
+.btn-taginfo-inspector:hover {
+  background: var(--musgo) !important;
+  color: var(--papel-alto) !important;
+}
+
+.sugerencia-taxa-item:hover {
+  background: var(--papel) !important;
+  color: var(--musgo) !important;
+}
+
+/* Insignias de Clasificación Institucional */
+.badge-brecha {
+  display: inline-block;
+  background: #381b16;
+  color: #eedcc5;
+  font-family: var(--fuente-datos);
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border: 1px solid #6b241c;
+  letter-spacing: 0.02em;
+}
+
+.badge-oficial {
+  display: inline-block;
+  background: #182d20;
+  color: #d6ebd9;
+  font-family: var(--fuente-datos);
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border: 1px solid #2f523d;
+  letter-spacing: 0.02em;
 }
 
 /* ---------- responsive ---------- */

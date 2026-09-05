@@ -3,6 +3,68 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 13 — Septiembre 2026 (Integración Funcional de APIs en Frontend: Taginfo, OQT, OSMCha y GBIF; Sinceramiento de Homologías IDE Chile y Acentuación Estética Backrooms)
+
+### Contexto y Requerimientos de la Entrega
+
+En atención estricta a las instrucciones del usuario:
+1. "*Dices que se integraron nuevas APIs pero no las veo integradas en el frontend como para aplicarlas.*"
+2. "*Lo otro, no es necesario que inventes nombres para la equivalencias en IDE Chile, esto quiere decir que si el dato fue descargado desde OSM no inventes información o nuevos nombres, etc... a menos que efectivamente existan como información geoespacial disponible, etc...*"
+3. "*Procede pero elimina la palabra 'exclusivo' de 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)' de hecho, bastante interesante dado que nos permite saber que categorias cubre la información geográfica voluntaria con respecto a la información estatal pública vigente. Interesante. Si ocurre eso en otro aspecto es importante que lo menciones dado que nos permite encontrar hallazgos en el marco del 'Atlas de Información Geográfica para la Gestión Territorial'.*"
+4. "*Con respecto al diseño, dale más el carácter 'backrooms' para darle esa sobriedad y misterio en terminos visuales.*"
+
+---
+
+### Diagnóstico, Soluciones y Hallazgos Metodológicos
+
+1. **Integración Efectiva y Operativa de Nuevas APIs en el Frontend:**
+   - **Taginfo API v4 (`src/js/modulos/taginfo.js`):**
+     - Integración de cliente oficial para la API de Taginfo (`https://taginfo.openstreetmap.org/api/4/`).
+     - Botón interactivo `[⚡ Validar en Taginfo]` incorporado en el Constructor de Consultas (Panel 01) y en cada descriptor del Diccionario Territorial (Panel 06).
+     - Renderiza telemetría global en tiempo real: conteo de geometrías (nodos, vías, relaciones), porcentaje de representatividad global en la base OSM y valores más frecuentes asociados a la clave.
+   - **ohsome Quality Analyst (OQT Framework / HeiGIT) (`src/js/modulos/calidad_analyst.js`):**
+     - Módulo de evaluación intrínseca de calidad según el marco de Herfort et al. (2023) y la norma ISO 19157:2013.
+     - Integrado automáticamente en el cálculo de calidad de ohsome (Panel 02), evaluando el **Índice de Saturación de Mapeo**, la **Tendencia Espacio-Temporal** (fase de levantamiento dinámico vs. consolidación barrial) y la completitud de atributos esenciales (`name`, `addr:street`, `wheelchair`, `operator`).
+   - **OSM Changesets API v0.6 & OSMCha:**
+     - Botón interactivo `[🔎 Auditar Changesets Recientes y Validar en OSMCha]` en el Panel 02.
+     - Consulta en vivo las últimas ediciones espaciales realizadas dentro del Bounding Box de Barrio Brasil / UAH (`https://api.openstreetmap.org/api/0.6/changesets?bbox=...`).
+     - Despliega tabla interactiva con ID de changeset, autor/mapeador, timestamp UTC, volumen de modificaciones, comentarios de edición y botón de auditoría directa en **OSMCha** (`https://osmcha.org/changesets/{id}`) para detección de micro-contribuciones comunitarias o reversión de vandalismo.
+   - **GBIF Species Suggest API & Darwin Core Quality Flags (`src/js/modulos/gbif.js`):**
+     - Autocompletado taxonómico reactivo en vivo mediante `https://api.gbif.org/v1/species/suggest?q=...` directamente en el campo de texto de taxón biológico.
+     - Incorporación de columna de validación de calidad basada en banderas de control Darwin Core (`issues`) en la tabla de ocurrencias biológicas (ej: `COORDINATE_ROUNDED`, `GEODETIC_DATUM_ASSUMED_WGS84`).
+
+2. **Sinceramiento Riguroso de Homologías IDE Chile (Hallazgo Territorial VGI vs Estado):**
+   - Se eliminaron todas las denominaciones hipotéticas o forzadas de capas estatales.
+   - De las **90 etiquetas prioritarias para Chile**, exactamente **25 corresponden a capas oficiales** disponibles y descargables en el Geoportal IDE Chile / SNIT (colegios MINEDUC, hospitales y consultorios MINSAL, paraderos y estaciones de Metro DTPM/MTT, monumentos nacionales CMN, áreas protegidas y vegetación CONAF, cuarteles de Carabineros y Bomberos).
+   - Las **65 etiquetas restantes** representan microelementos de la vida cotidiana y de la accesibilidad comunitaria (rebajes de solera, baldosas podotáctiles, acceso en silla de ruedas, grifos de incendio, papeleros, escaños, quioscos de suplementeros, almacenes de barrio, panaderías locales, cámaras municipales de seguridad y arbolado clasificado por género botánico) que **no existen como información geoespacial abierta en los catastros del Estado**.
+   - Siguiendo la instrucción estricta del usuario, se registraron unívocamente como:
+     `"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"` (sin la palabra "exclusivo").
+   - **Hallazgo clave para la Gestión Territorial:** Este cruce evidencia empíricamente que la Información Geográfica Voluntaria no constituye una duplicación redundante de la cartografía estatal, sino una infraestructura social que cubre vacíos de micro-escala donde las instituciones públicas no tienen capacidad de inventario continuo.
+   - En el Diccionario Territorial (Panel 06) se habilitaron botones de filtrado instantáneo:
+     - `[⚡ Solo Brechas VGI (65 Etiquetas sin Homólogo Estatal)]`
+     - `[🏛️ Capas Oficiales IDE Chile (25 Capas)]`
+
+3. **Acentuación del Carácter "Backrooms" (Sobriedad, Misterio y Atmósfera Liminal):**
+   - **Paleta Institucional Liminal:** Tono base de papel/alfombra de archivo bajo luz fluorescente tenue (`--papel: #D7D0B4;`), nivel de panel elevado (`--papel-alto: #E3DCC3;`), tinta carbón profundo (`--tinta: #1B1E15;`), tinta de máquina de escribir desgastada (`--tinta-suave: #424939;`), verde terminal búnker (`--musgo: #2D4436;`), ámbar de lámpara de sodio (`--ocre: #A06D1A;`) y juntas de losetas acústicas (`--linea: #B9B08C;`).
+   - **Trama de Fondo Liminal:** Cuadrícula milimétrica de cielo falso acústico de 48px × 48px continua en todo el documento (`linear-gradient` cruzado en ángulo recto), evocando los espacios infinitos y silenciosos de archivo.
+   - **Geometría Rectilínea y Telemetría Analógica:** Supresión total de bordes redondeados modernos (`border-radius: 0;`), botones táctiles planos estilo tablero de control industrial, rótulos de expediente formal (`[SECTOR // ARCHIVO NODO]`), insignias de contraste analógico (`.badge-brecha`, `.badge-oficial`) y marcador con parpadeo de telemetría de fósforo CRT (`.marcador-parpadeo`).
+
+---
+
+### Componentes y Archivos Actualizados
+
+- **`src/js/modulos/taginfo.js`:** Nuevo módulo interactivo para Taginfo API v4.
+- **`src/js/modulos/calidad_analyst.js`:** Nuevo módulo para auditoría de changesets OSM/OSMCha e indicadores OQT.
+- **`src/js/modulos/gbif.js`:** Enriquecido con autocompletado taxonómico (`sugerirTaxon`) y banderas Darwin Core.
+- **`src/js/modulos/diccionario.js`:** Sinceramiento de 90 etiquetas (25 oficiales IDE vs 65 brechas VGI), botones Taginfo y filtros temáticos.
+- **`src/index.html`:** Incorporación de botones y contenedores para Taginfo, OSMCha, sugerencias GBIF y filtros brechas/oficiales.
+- **`src/js/app.js`:** Conexión de eventos para Taginfo, OSMCha, autocompletado en vivo de GBIF y tarjeta OQT en ohsome.
+- **`src/css/estilos.css`:** Rediseño completo bajo estética liminal "backrooms", rejilla de 48px, bordes rectos y parpadeo CRT.
+- **`scripts/generar_catalogos_excel.py`:** Generador depurado sin denominaciones inventadas y sin la palabra "exclusivo".
+- **`docs/categorias_tematicas_osm.xlsx` & `src/docs/categorias_tematicas_osm.xlsx`:** Libros Excel regenerados y sincronizados.
+
+---
+
 ## Entrega de turno 12 — Septiembre 2026 (Robustecimiento a 90 Etiquetas Chile, 104 Citas APA sin Autocitación, Estándares IDE/SNIT/ISO/UN-GGIM, Integración de APIs de Calidad y Carga Inmediata de Documentación)
 
 ### Contexto y Requerimiento de Desarrollo

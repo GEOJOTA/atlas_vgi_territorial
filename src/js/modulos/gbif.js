@@ -3,13 +3,38 @@
   -------
   Consultas a la API pública de GBIF (Global Biodiversity Information Facility).
   Permite incorporar ciencia ciudadana (iNaturalist, museos) al Atlas VGI.
+  Incluye autocompletado taxonómico (Species API) y auditoría de banderas de calidad (Darwin Core Issues).
   Convierte los registros directamente a GeoJSON FeatureCollection para visualización cartográfica.
 */
 
 const ModuloGBIF = (() => {
 
+  /**
+   * Sugiere taxones en tiempo real usando GBIF Species Suggest API
+   */
+  async function sugerirTaxon(texto) {
+    if (!texto || texto.trim().length < 2) return [];
+    const base = (typeof window !== 'undefined' && window.NODO_CONFIG?.endpoints?.gbif) || 'https://api.gbif.org/v1';
+    const url = `${base}/species/suggest?q=${encodeURIComponent(texto.trim())}&limit=6`;
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const datos = await res.json();
+      return datos.map(item => ({
+        canonicalName: item.canonicalName || item.scientificName,
+        scientificName: item.scientificName,
+        kingdom: item.kingdom,
+        rank: item.rank
+      }));
+    } catch (e) {
+      console.warn('[GBIF] Error en autocompletado taxonómico:', e.message);
+      return [];
+    }
+  }
+
   async function buscarOcurrencias({ nombre, bbox, limite = 50, basisOfRecord = 'ALL' }) {
-    const base = window.NODO_CONFIG.endpoints.gbif || 'https://api.gbif.org/v1';
+    const base = (typeof window !== 'undefined' && window.NODO_CONFIG?.endpoints?.gbif) || 'https://api.gbif.org/v1';
     const parametros = new URLSearchParams({
       limit: String(limite),
       hasCoordinate: 'true'
@@ -25,7 +50,6 @@ const ModuloGBIF = (() => {
 
     if (bbox && bbox.length === 4) {
       const [oeste, sur, este, norte] = bbox;
-      // GBIF acepta decimalLatitude y decimalLongitude como rangos separados por comas
       parametros.set('decimalLatitude', `${sur},${norte}`);
       parametros.set('decimalLongitude', `${oeste},${este}`);
     }
@@ -51,7 +75,8 @@ const ModuloGBIF = (() => {
       publicador: r.institutionCode || r.publishingOrgKey || 'Ciencia Ciudadana / GBIF',
       licencia: r.license || 'CC-BY 4.0',
       lat: r.decimalLatitude,
-      lon: r.decimalLongitude
+      lon: r.decimalLongitude,
+      issues: r.issues || [] // Banderas de calidad Darwin Core
     }));
 
     return {
@@ -82,7 +107,8 @@ const ModuloGBIF = (() => {
           operador: r.publicador,
           fecha: r.fecha,
           fuente: 'GBIF / Ciencia Ciudadana',
-          licencia: r.licencia
+          licencia: r.licencia,
+          calidad_issues: (r.issues && r.issues.length > 0) ? r.issues.join(', ') : 'Sin advertencias (Georreferencia válida)'
         }
       }));
 
@@ -94,6 +120,7 @@ const ModuloGBIF = (() => {
   }
 
   return {
+    sugerirTaxon,
     buscarOcurrencias,
     ocurrenciasAGeoJSON
   };

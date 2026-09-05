@@ -576,6 +576,17 @@ function inicializarAplicacion() {
   const btnEjecutarCustom = document.getElementById('btn-ejecutar-consulta-custom');
   if (btnEjecutarCustom) btnEjecutarCustom.addEventListener('click', manejarConsultaPersonalizada);
 
+  const btnValidarTaginfo = document.getElementById('btn-validar-taginfo');
+  if (btnValidarTaginfo) {
+    btnValidarTaginfo.addEventListener('click', () => {
+      const clave = document.getElementById('custom-clave-manual').value.trim() || 'amenity';
+      const valor = document.getElementById('custom-valor').value.trim() || '*';
+      if (window.ModuloTaginfo) {
+        window.ModuloTaginfo.renderizarEnContenedor('contenedor-resultado-taginfo-custom', clave, valor);
+      }
+    });
+  }
+
   const btnGuardarConsulta = document.getElementById('btn-guardar-consulta');
   if (btnGuardarConsulta) btnGuardarConsulta.addEventListener('click', guardarConsultaUsuario);
 
@@ -595,20 +606,85 @@ function inicializarAplicacion() {
   cargarConsultasGuardadas();
 
   document.getElementById('btn-consultar-ohsome').addEventListener('click', manejarConsultaOhsome);
+
+  const btnAuditarOSMCha = document.getElementById('btn-auditar-changesets-osmcha');
+  if (btnAuditarOSMCha) {
+    btnAuditarOSMCha.addEventListener('click', () => {
+      const bbox = leerBbox('oh');
+      if (!bbox) {
+        alert('Debes completar las coordenadas del área (Bbox) para auditar los changesets.');
+        return;
+      }
+      if (window.ModuloCalidadAnalyst) {
+        window.ModuloCalidadAnalyst.renderizarInspectorChangesets('contenedor-auditoria-osmcha', bbox);
+      }
+    });
+  }
+
   document.getElementById('btn-consultar-gbif').addEventListener('click', () => manejarConsultaGBIF(false));
   document.getElementById('btn-cargar-gbif-al-mapa').addEventListener('click', () => manejarConsultaGBIF(true));
   document.getElementById('btn-cargar-umap').addEventListener('click', manejarCargaUMap);
 
-  // Selector de especies y taxones en GBIF
+  // Selector de especies y autocompletado taxonómico en vivo (GBIF Species API)
   const selTaxaGBIF = document.getElementById('gbif-taxa-selector');
-  if (selTaxaGBIF) {
+  const inpNombreGBIF = document.getElementById('gbif-nombre');
+  const divSugerenciasGBIF = document.getElementById('gbif-sugerencias-taxa');
+
+  if (selTaxaGBIF && inpNombreGBIF) {
     selTaxaGBIF.addEventListener('change', (e) => {
-      const inpNombreGBIF = document.getElementById('gbif-nombre');
       if (e.target.value !== 'custom') {
         inpNombreGBIF.value = e.target.value;
       } else {
         inpNombreGBIF.value = '';
         inpNombreGBIF.focus();
+      }
+      if (divSugerenciasGBIF) divSugerenciasGBIF.style.display = 'none';
+    });
+  }
+
+  if (inpNombreGBIF && divSugerenciasGBIF) {
+    let timerTaxa = null;
+    inpNombreGBIF.addEventListener('input', () => {
+      clearTimeout(timerTaxa);
+      const texto = inpNombreGBIF.value.trim();
+      if (texto.length < 2) {
+        divSugerenciasGBIF.style.display = 'none';
+        divSugerenciasGBIF.innerHTML = '';
+        return;
+      }
+
+      timerTaxa = setTimeout(async () => {
+        if (window.ModuloGBIF && window.ModuloGBIF.sugerirTaxon) {
+          const sugerencias = await window.ModuloGBIF.sugerirTaxon(texto);
+          if (sugerencias.length > 0) {
+            divSugerenciasGBIF.innerHTML = `
+              <div style="padding:6px; font-family:var(--fuente-datos); font-size:0.75rem; background:var(--papel-alto); border:1px solid var(--musgo);">
+                <div style="font-size:0.68rem; color:var(--musgo); text-transform:uppercase; margin-bottom:4px; font-weight:600;">[GBIF SPECIES API // COINCIDENCIAS]:</div>
+                ${sugerencias.map(s => `
+                  <div class="sugerencia-taxa-item" style="padding:4px 6px; cursor:pointer; border-bottom:1px dashed var(--linea);" data-nombre="${s.canonicalName}">
+                    <strong>${s.canonicalName}</strong> <span style="color:var(--tinta-suave); font-size:0.7rem;">(${s.rank || 'Taxón'} · ${s.kingdom || ''})</span>
+                  </div>
+                `).join('')}
+              </div>
+            `;
+            divSugerenciasGBIF.style.display = 'block';
+
+            divSugerenciasGBIF.querySelectorAll('.sugerencia-taxa-item').forEach(item => {
+              item.addEventListener('click', () => {
+                inpNombreGBIF.value = item.dataset.nombre;
+                divSugerenciasGBIF.style.display = 'none';
+              });
+            });
+          } else {
+            divSugerenciasGBIF.style.display = 'none';
+          }
+        }
+      }, 300);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!inpNombreGBIF.contains(e.target) && !divSugerenciasGBIF.contains(e.target)) {
+        divSugerenciasGBIF.style.display = 'none';
       }
     });
   }
@@ -1512,6 +1588,37 @@ async function manejarConsultaOhsome() {
       </li>
     `).join('');
 
+    // Cálculo de indicadores intrínsecos de calidad OQT (ohsome Quality Analyst / Herfort et al., 2023)
+    let htmlOQT = '';
+    if (window.ModuloCalidadAnalyst) {
+      const oqt = window.ModuloCalidadAnalyst.calcularIndicadoresOQT(indicadores, []);
+      htmlOQT = `
+        <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--musgo); padding:14px; margin-top:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+            <div>
+              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase; letter-spacing:0.06em;">[OQT // OHSOME QUALITY ANALYST FRAMEWORK]</span>
+              <h4 style="margin:2px 0 0 0; font-size:1rem; font-family:var(--fuente-datos);">Índice de Saturación y Madurez Territorial (HeiGIT / ISO 19157)</h4>
+            </div>
+            <span style="font-family:var(--fuente-datos); font-size:0.8rem; background:var(--papel); border:1px solid var(--musgo); padding:3px 8px; font-weight:600; color:var(--musgo);">Score de Madurez: ${oqt.scoreSaturacion}/100</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:10px;">
+            <div style="background:var(--papel); padding:10px; border:1px solid var(--linea);">
+              <span style="font-size:0.7rem; font-family:var(--fuente-datos); color:var(--tinta-suave); display:block;">ESTADO DE SATURACIÓN</span>
+              <strong style="font-size:1.02rem; color:var(--musgo); font-family:var(--fuente-datos);">${oqt.saturacion}</strong>
+            </div>
+            <div style="background:var(--papel); padding:10px; border:1px solid var(--linea);">
+              <span style="font-size:0.7rem; font-family:var(--fuente-datos); color:var(--tinta-suave); display:block;">TENDENCIA ESPACIO-TEMPORAL</span>
+              <strong style="font-size:0.92rem; color:var(--tinta);">${oqt.tendencia}</strong>
+            </div>
+          </div>
+          <p class="descripcion" style="margin:0; font-size:0.78rem;">
+            Marco metodológico: Herfort et al. (2023). <em>A framework for assessing completeness in OpenStreetMap</em>. El índice evalúa la estabilidad de la curva acumulativa de edición. Una pendiente atenuada indica que la cobertura geométrica básica está consolidada en el territorio, permitiendo a la gestión territorial focalizarse en la actualización de microatributos de accesibilidad y fiscalización de servicios.
+          </p>
+        </div>
+      `;
+    }
+
     contenedor.innerHTML = `
       ${htmlBadgeVersion}
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:16px;">
@@ -1542,6 +1649,8 @@ async function manejarConsultaOhsome() {
           <span class="etiqueta">Intensidad comunitaria (ediciones / colab)</span>
         </div>
       </div>
+
+      ${htmlOQT}
 
       <h3 style="margin-top:20px;">Evolución Histórica Multidimensional (ohsome API v1)</h3>
       <p class="descripcion">Serie cronológica anual analizada sobre la base histórica de datos espaciales (OSHDB):</p>
@@ -1625,20 +1734,36 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       return;
     }
 
-    const filas = resultado.registros.slice(0, 30).map(r => `
-      <tr>
-        <td><strong>${r.especie}</strong></td>
-        <td>${r.nombreComun || '—'}</td>
-        <td>${r.fecha}</td>
-        <td>${r.publicador}</td>
-        <td><small>${r.licencia}</small></td>
-      </tr>
-    `).join('');
+    const filas = resultado.registros.slice(0, 30).map(r => {
+      const flagsIssues = (r.issues && r.issues.length > 0)
+        ? r.issues.map(iss => `<span style="display:inline-block; font-family:var(--fuente-datos); font-size:0.68rem; background:var(--papel); border:1px solid var(--linea); padding:1px 4px; margin:1px;">${iss}</span>`).join(' ')
+        : `<span style="color:var(--musgo); font-family:var(--fuente-datos); font-size:0.75rem;">✓ Sin incidencias</span>`;
+
+      return `
+        <tr>
+          <td><strong>${r.especie}</strong></td>
+          <td>${r.nombreComun || '—'}</td>
+          <td>${r.fecha}</td>
+          <td>${r.publicador}</td>
+          <td>${flagsIssues}</td>
+          <td><small>${r.licencia}</small></td>
+        </tr>
+      `;
+    }).join('');
 
     contenedor.innerHTML = `
       <div class="indicador"><span class="valor">${resultado.total}</span><span class="etiqueta">registros totales en GBIF</span></div>
       <table class="tabla-datos">
-        <thead><tr><th>Especie Científica</th><th>Nombre Común</th><th>Fecha</th><th>Publicador</th><th>Licencia</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Especie Científica</th>
+            <th>Nombre Común</th>
+            <th>Fecha</th>
+            <th>Publicador</th>
+            <th>Validación Darwin Core (Issues)</th>
+            <th>Licencia</th>
+          </tr>
+        </thead>
         <tbody>${filas}</tbody>
       </table>
     `;
