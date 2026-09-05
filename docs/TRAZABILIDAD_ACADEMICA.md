@@ -73,10 +73,18 @@ A nivel global, la iniciativa se alinea con el **Comité de Expertos de las Naci
 - **Vía Estratégica 6 (Estándares):** Promueve la aplicación de normas abiertas de ISO y OGC para evitar silos de información.
 - **Vía Estratégica 7 (Innovación):** Promueve herramientas livianas, de código abierto y computación en el borde accesibles para gobiernos locales.
 
-### 2.4 Régimen de Licencias y Propiedad Intelectual
-- **OpenStreetMap:** Se rige por la licencia **Open Database License (ODbL 1.0)** ([https://opendatacommons.org/licenses/odbl/](https://opendatacommons.org/licenses/odbl/)). La plataforma documenta en cada entidad consultada la atribución requerida (*"© Colaboradores de OpenStreetMap"*).
-- **GBIF:** Las observaciones de biodiversidad se licencian individualmente por los publicadores bajo licencias Creative Commons (CC0 1.0, CC-BY 4.0).
-- **Código Fuente del Atlas:** Licenciado bajo **MIT License**, garantizando que sea una herramienta 100% comunitaria, transferible y sin costos de licenciamiento para municipios u organizaciones sociales.
+### 2.4 Régimen de Licencias y Propiedad Intelectual: Superación de la Licencia MIT y Adopción de un Marco de Reciprocidad Comunitaria (Copyleft)
+
+Uno de los hitos metodológicos y jurídicos centrales del proyecto es la **sustitución de la licencia permisiva MIT** por un marco tripartito adaptado a la legislación chilena y la naturaleza de los bienes comunes digitales (*digital commons*). 
+
+Si bien la licencia MIT es habitual en proyectos de software general, en el ámbito de la Información Geográfica Voluntaria presenta una limitación ética y política crítica: permite que cualquier actor comercial o consultora privada tome los datos elaborados por la comunidad vecinal y el código del visor universitario, los empaquete en soluciones privativas de pago y restrinja el acceso a la ciudadanía sin transferir ninguna mejora a la comunidad (*enclosure* de datos abiertos).
+
+Para garantizar la reciprocidad obligatoria (*copyleft*) y la protección permanente de los datos del territorio, el Atlas adopta un marco tripartito sustentado en la **Ley N° 17.336 de Propiedad Intelectual**, la **Ley N° 20.285 sobre Acceso a la Información Pública** y la **Política Nacional de Información Geoespacial de IDE Chile**:
+
+1. **Contenidos, Cartografía, Metadatos y Manual de Uso:** Licenciados bajo **Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)** ([https://creativecommons.org/licenses/by-sa/4.0/deed.es](https://creativecommons.org/licenses/by-sa/4.0/deed.es)). Cualquier obra derivada debe otorgar crédito a la Universidad Alberto Hurtado / Nodo GeoAbierto y obligatoriamente distribuirse bajo los mismos términos de acceso abierto.
+2. **Bases de Datos Geoespaciales y Capas Vectoriales VGI:** Se rigen por la **Open Database License (ODbL 1.0)** ([https://opendatacommons.org/licenses/odbl/](https://opendatacommons.org/licenses/odbl/)) de la OpenStreetMap Foundation, manteniendo la atribución comunitaria (*"© Colaboradores de OpenStreetMap"*) y la cláusula *Share-Alike* para cualquier base espacial derivada. Las observaciones de biodiversidad conservan las licencias declaradas en GBIF (CC0, CC-BY 4.0) bajo el estándar Darwin Core (TDWG).
+3. **Código Fuente de la Plataforma Web y Backend:** Licenciado bajo **GNU Affero General Public License v3.0 (GNU AGPLv3)** ([https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html)). Diseñada expresamente para visores web y servicios en red, la AGPLv3 obliga legalmente a cualquier persona o municipio que aloje una versión modificada del Atlas a poner el código fuente completo a disposición de la comunidad, garantizando que sea una herramienta 100% transferible y de bien público.
+4. **Gobernanza Git y Contribuciones por Permiso:** El desarrollo colaborativo en el repositorio oficial ([https://github.com/GEOJOTA/atlas_vgi_uah](https://github.com/GEOJOTA/atlas_vgi_uah)) opera bajo el modelo de *Fork & Pull Request*, donde toda incorporación de nuevas capas o descriptores comunales es auditada y aprobada por el mantenedor institucional para asegurar la interoperabilidad con los estándares ISO 19110 e ISO 19157.
 
 ### 2.5 Arquitectura Dual: Inclusión Coexistente de Usuarios Técnicos y No Técnicos
 
@@ -291,10 +299,33 @@ Todas las fuentes citadas a lo largo de este documento, en la interfaz web del A
 - OpenStreetMap Foundation & Comunidad OSM Chile. (2024). *WikiProject Chile: Guía, directrices y convenciones comunitarias de mapeo para Chile*. OpenStreetMap Wiki. https://wiki.openstreetmap.org/wiki/WikiProject_Chile
 
 ### 7.5 Literatura Científica y Geográfica Especializada
+- Amano, T., Lamming, J. D. L., & Sutherland, W. J. (2016). Spatial gaps in global biodiversity information and the role of citizen science. *BioScience*, 66(11), 993–1000. https://doi.org/10.1093/biosci/biw127
+- Antoniou, V., & Skopeliti, A. (2015). Measures and indicators of VGI quality: An overview. *ISPRS Annals of Photogrammetry, Remote Sensing and Spatial Information Sciences*, II-3/W5, 345–351. https://doi.org/10.5194/isprsannals-II-3-W5-345-2015
+- Ballatore, A., Wilson, D. C., & Bertolotto, M. (2014). A survey of volunteered open geo-knowledge bases in the Semantic Web. *Quality Issues in the Open Knowledge Base*, 48–68. https://arxiv.org/abs/1401.2610
+- Burghardt, D., Demidova, E., & Keim, D. A. (Eds.). (2024). *Volunteered Geographic Information: Interpretation, visualization and social context*. Springer Nature. https://doi.org/10.1007/978-3-031-35374-1
+- Chapman, A. D. (2005). *Principles of data quality and principles and methods of data cleaning*. Global Biodiversity Information Facility (GBIF). https://www.gbif.org/document/80509
 - Goodchild, M. F. (2007). Citizens as sensors: the world of volunteered geography. *GeoJournal*, 69(4), 211–221. https://doi.org/10.1007/s10708-007-9111-y
+- Goodchild, M. F., & Li, L. (2012). Assuring the quality of volunteered geographic information. *Spatial Statistics*, 1, 110–120. https://doi.org/10.1016/j.spasta.2012.03.002
 - Haklay, M. (2010). How good is volunteered geographical information? A case study of OpenStreetMap in the UK. *Environment and Planning B: Planning and Design*, 37(4), 682–703. https://doi.org/10.1068/b35097
+- Haklay, M. (2013). Citizen Science and Volunteered Geographic Information: Overview and typology of participation. In D. Sui, S. Elwood, & M. Goodchild (Eds.), *Crowdsourcing Geographic Knowledge* (pp. 105–122). Springer. https://doi.org/10.1007/978-94-007-4587-2_7
+- Hidalgo, R. (2005). *La vivienda social en Chile y la construcción del espacio urbano en el Santiago del siglo XX*. Instituto de Geografía, Pontificia Universidad Católica de Chile.
+- Jacobs, C., & Zipf, A. (2017). Completeness of citizen science biodiversity data from a volunteered geographic information perspective. *Geo-spatial Information Science*, 20(2), 100–111. https://doi.org/10.1080/10095020.2017.1288424
+- Kounadi, O., & Leitner, M. (2014). Why does geoprivacy matter? The scientific publications of confidential data presented on maps. *Journal of Empirical Research on Human Research Ethics*, 9(4), 34–45. https://doi.org/10.1177/1556264614544103
+- Magaña, A., & Valverde, F. (2016). Información Geográfica Voluntaria (IGV), estado del arte en Latinoamérica. *Revista Cartográfica*, 93, 29–53. https://doi.org/10.35424/rcarto.i93.377
 - Mooney, P., & Minghini, M. (2017). A review of OpenStreetMap data. In C. Capineri, M. Haklay, H. Huang, V. Antoniou, J. Kettunen, F. Vito, & R. Lenz (Eds.), *Mapping and the Citizen Sensor* (pp. 37–59). Ubiquity Press. https://doi.org/10.5334/bbf.c
+- Mooney, P., Minghini, M., & Grinberger, A. Y. (2020). OpenStreetMap data use cases during the early months of the COVID-19 pandemic. *arXiv preprint arXiv:2008.02653*. https://arxiv.org/abs/2008.02653
 - Neis, P., & Zipf, A. (2012). Analyzing the contributor activity of OpenStreetMap and its development for the community. *ISPRS International Journal of Geo-Information*, 1(2), 146–177. https://doi.org/10.3390/ijgi1020146
+- Pastor, J. (2015). La confianza de la Información Geográfica Voluntaria (VGI). *Revista Cartográfica*, 91, 33–49. https://doi.org/10.35424/rcarto.i91.352
 - Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019). OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data. *EPJ Data Science*, 8(1), 1–18. https://doi.org/10.1140/epjds/s13688-019-0208-0
+- Schuurman, N. (2000). Trouble in the Heartland: GIS and its critics in the 1990s. *Progress in Human Geography*, 24(4), 569–590. https://doi.org/10.1191/030913200100189111
+- See, L., Mooney, P., Foody, G., et al. (2016). Crowdsourcing, citizen science or Volunteered Geographic Information? The current state of crowdsourced geographic information. *ISPRS International Journal of Geo-Information*, 5(5), 55. https://doi.org/10.3390/ijgi5050055
+- See, L., et al. (2025). Recent advances in Volunteered Geographic Information (VGI) and citizen science. *International Journal of Digital Earth*, 18(1), 2480220. https://doi.org/10.1080/17538947.2025.2480220
+- Seto, T., Kanasugi, H., & Nishimura, Y. (2020). Quality verification of Volunteered Geographic Information using OSM Notes data in a global context. *ISPRS International Journal of Geo-Information*, 9(6), 372. https://doi.org/10.3390/ijgi9060372
+- Shahi, K. (2023). Volunteered Geographic Information (VGI) in Spatial Data Infrastructure (SDI) Continuum. *EAI Endorsed Transactions on Internet of Things*, 9(1), 1–12. https://doi.org/10.4108/eetiot.v9i1.2941
+- Skopeliti, A., & Antoniou, V. (2017). Visualization and communication of VGI quality. In *Mapping and the Citizen Sensor* (pp. 193–219). Ubiquity Press. https://doi.org/10.5334/bbf.i
 - Snyder, J. P. (1987). *Map projections: a working manual* (U.S. Geological Survey Professional Paper No. 1395). U.S. Government Printing Office. https://doi.org/10.3133/pp1395
+- Soriano, C. (2016). La Información Geográfica Voluntaria: ¿cómo establecer y evaluar su calidad? *Revista Cartográfica*, 93, 11–28. https://doi.org/10.35424/rcarto.i93.376
+- Tempelmeier, N., & Demidova, E. (2022). Attention-based vandalism detection in OpenStreetMap. *arXiv preprint arXiv:2201.10406*. https://arxiv.org/abs/2201.10406
+- UN-GGIM. (2024). *Future trends in geospatial information management: The five to ten year vision (4th ed.)*. United Nations Committee of Experts on Global Geospatial Information Management. https://ggim.un.org/
+- Wilkinson, M. D., et al. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data*, 3, 160018. https://doi.org/10.1038/sdata.2016.18
 

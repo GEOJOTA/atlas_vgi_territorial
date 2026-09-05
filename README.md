@@ -128,7 +128,11 @@ Configurado con el autor oficial (`GEOJOTA <juanpablolescanovillegas@gmail.com>`
 
 ---
 
-## 8. Licencia
+## 8. Marco de Licenciamiento Abierto y Gobernanza (Chile / VGI)
 
-- **Código fuente:** MIT License.
-- **Datos geoespaciales:** Mantienen la licencia de su fuente de origen: OpenStreetMap es **ODbL 1.0** (© colaboradores de OpenStreetMap); registros de GBIF según publicador (**CC0**, **CC-BY 4.0**); capas IDE Chile bajo **Datos Abiertos del Estado de Chile**.
+El proyecto adopta un marco tripartito de reciprocidad obligatoria (*copyleft*), descartando licencias excesivamente permisivas (MIT) para proteger los bienes comunes digitales contra el cercamiento privativo comercial:
+
+- **Contenido, Cartografía, Metadatos y Manual de Uso:** [Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.es), en concordancia con la Ley N° 17.336 de Propiedad Intelectual y la Ley N° 20.285 de Datos Abiertos del Estado de Chile.
+- **Bases de Datos Espaciales y Vectores VGI:** [Open Database License (ODbL) v1.0](https://opendatacommons.org/licenses/odbl/) de la OpenStreetMap Foundation (atribución a *© Colaboradores de OpenStreetMap*).
+- **Código Fuente de la Plataforma Web y Backend:** [GNU Affero General Public License v3.0 (GNU AGPLv3)](https://www.gnu.org/licenses/agpl-3.0.html), garantizando que cualquier bifurcación web distribuya su código a la comunidad.
+- **Contribuciones Git:** Abiertas bajo el modelo de *Contribución por Permiso* (Fork & Pull Request con auditoría y revisión del mantenedor institucional). Consultar el **Manual de Uso del Atlas (Panel 08)** para directrices técnicas.

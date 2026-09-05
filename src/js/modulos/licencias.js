@@ -1,84 +1,148 @@
 /*
   licencias.js
   ------------
-  Marco legal, licencias de datos abiertos y catálogos estructurados.
-  Integra:
-  - Descripción de licencias aplicables a cada fuente VGI y oficial.
-  - Vínculos directos a las hojas de cálculo Excel (.xlsx) generadas en docs/.
-  - Normativa chilena aplicable (Ley de Transparencia, Política Nacional de Datos Geoespaciales).
+  Marco legal, licencias abiertas y catálogos estructurados del Atlas VGI.
+  Adopta el marco tripartito adaptado a la legislación chilena y los bienes
+  comunes digitales (CC BY-SA 4.0 + ODbL 1.0 + GNU AGPLv3), descartando
+  licencias permisivas (MIT) para garantizar la reciprocidad comunitaria.
 */
 
 const ModuloLicencias = (() => {
+
+  const LICENCIA_ATLAS = {
+    titulo: 'Marco Tripartito de Licenciamiento Abierto (Atlas VGI UAH)',
+    justificacion: 'Se descarta expresamente la licencia permisiva MIT para el proyecto. En el contexto de la Información Geográfica Voluntaria y los datos públicos en Chile, MIT permite que actores comerciales privaticen la cartografía y cierren el código sin compartir mejoras. En su reemplazo, se adopta un marco de copyleft y reciprocidad obligatoria fundamentado en la Ley N° 17.336 de Propiedad Intelectual y la Ley N° 20.285 de Transparencia y Acceso a la Información Pública:',
+    pilares: [
+      {
+        ambito: 'Documentación, Metodología, Cartografía y Manual de Uso',
+        licencia: 'Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)',
+        implicancia: 'Permite compartir y adaptar libremente los contenidos siempre que se otorgue crédito al Atlas VGI UAH y se distribuyan las obras derivadas bajo la misma licencia idéntica (cláusula Share-Alike). Impide el cercamiento comercial.',
+        url: 'https://creativecommons.org/licenses/by-sa/4.0/deed.es'
+      },
+      {
+        ambito: 'Bases de Datos Geográficas y Capas Espaciales (VGI)',
+        licencia: 'Open Database License (ODbL) v1.0',
+        implicancia: 'Garantiza compatibilidad nativa 1:1 con la OpenStreetMap Foundation (OSMF). Cualquier base de datos derivada enriquecida debe distribuirse bajo la misma licencia ODbL, manteniendo la atribución comunitaria obligatoria.',
+        url: 'https://opendatacommons.org/licenses/odbl/'
+      },
+      {
+        ambito: 'Código Fuente de la Plataforma Web y Scripts de Procesamiento',
+        licencia: 'GNU Affero General Public License v3.0 (GNU AGPLv3)',
+        implicancia: 'Diseñada para software de red y visores web. Si cualquier institución o empresa aloja una versión modificada del visor en un servidor, está legalmente obligada a poner a disposición de la comunidad el código fuente completo modificado.',
+        url: 'https://www.gnu.org/licenses/agpl-3.0.html'
+      }
+    ]
+  };
 
   const FUENTES = [
     {
       nombre: 'OpenStreetMap (OSM)',
       licencia: 'Open Database License (ODbL) 1.0',
-      implicancia: 'Libertad para copiar, distribuir, transmitir y adaptar los datos, siempre que se dé crédito a "© colaboradores de OpenStreetMap". Si se genera una base de datos derivada, debe distribuirse bajo la misma licencia ODbL (Share-Alike).',
+      implicancia: 'Libertad para copiar, distribuir, transmitir y adaptar los datos espaciales, siempre que se atribuya a "© colaboradores de OpenStreetMap". Si se genera una base de datos derivada, debe distribuirse bajo la misma licencia ODbL (Share-Alike).',
       url: 'https://www.openstreetmap.org/copyright'
     },
     {
-      nombre: 'ohsome (HeiGIT - Universidad de Heidelberg)',
-      licencia: 'Derivada ODbL 1.0 (datos OSM de base)',
-      implicancia: 'Las métricas y series temporales reflejan el historial de OSM. Todo análisis que derive directamente de las geometrías mantiene la cláusula de atribución comunitaria.',
+      nombre: 'ohsome API (HeiGIT - Universidad de Heidelberg)',
+      licencia: 'Derivada ODbL 1.0 (datos históricos OSM)',
+      implicancia: 'Las métricas y series temporales analíticas reflejan el historial de OpenStreetMap. Todo análisis cuantitativo preserva la atribución de autoría colectiva a la comunidad OSM y al HeiGIT.',
       url: 'https://docs.ohsome.org'
     },
     {
       nombre: 'GBIF (Global Biodiversity Information Facility)',
-      licencia: 'Variable por registro: CC0, CC-BY 4.0 o CC-BY-NC 4.0',
-      implicancia: 'Cada dataset biológico declara sus términos. Para gestión pública o comunitaria se prefiere CC0 o CC-BY. Si un registro es CC-BY-NC, no puede integrarse en iniciativas comerciales.',
+      licencia: 'Específica por dataset: CC0 1.0, CC-BY 4.0 o CC-BY-NC 4.0 (Darwin Core)',
+      implicancia: 'Cada registro biológico declara sus propios términos legales. Para la gestión territorial comunitaria se priorizan observaciones bajo CC0 y CC-BY, respetando los derechos de los naturalistas.',
       url: 'https://www.gbif.org/citation-guidelines'
     },
     {
-      nombre: 'UMap (OpenStreetMap)',
-      licencia: 'Declarada individualmente por cada autor de mapa',
-      implicancia: 'Los proyectos cartográficos creados por colectivos u organizaciones definen su propio uso en la descripción del mapa.',
+      nombre: 'UMap (OpenStreetMap Francia)',
+      licencia: 'Declarada individualmente por cada colectivo cartográfico',
+      implicancia: 'Los proyectos cartográficos comunitarios incorporados en el Atlas definen sus términos en la ficha del mapa matriz.',
       url: 'https://umap.openstreetmap.fr'
     },
     {
-      nombre: 'IDE Chile / Datos del Estado',
-      licencia: 'Datos Abiertos del Gobierno de Chile (Ley 20.285)',
-      implicancia: 'Uso libre para fines públicos, de investigación y toma de decisiones territoriales con mención al ministerio o servicio emisor (SNIT, INE, MOP, MINVU).',
+      nombre: 'IDE Chile / Sistema Nacional de Información Territorial (SNIT)',
+      licencia: 'Datos Abiertos del Gobierno de Chile (Ley N° 20.285)',
+      implicancia: 'Uso libre para fines públicos, de investigación académica y toma de decisiones territoriales, con mención obligatoria al ministerio o servicio técnico emisor (MBN, INE, MINVU, MTT).',
       url: 'https://www.ide.cl'
     }
   ];
 
   function render() {
-    const bloquesFuentes = FUENTES.map(f => `
-      <div class="bloque">
-        <h3>${f.nombre}</h3>
-        <p><strong>Licencia aplicable:</strong> ${f.licencia}</p>
-        <p>${f.implicancia}</p>
-        <p><a href="${f.url}" target="_blank" rel="noopener">${f.url}</a></p>
+    const bloqueAtlas = `
+      <div class="bloque" style="border-left:4px solid var(--musgo); background:var(--papel-alto); padding:16px; margin-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+          <div>
+            <span class="marcador">07 / LICENCIAMIENTO</span>
+            <h3 style="margin:4px 0 8px 0;">${LICENCIA_ATLAS.titulo}</h3>
+          </div>
+          <button type="button" class="accion" onclick="window.navegarAManual('doc-gobernanza')" style="font-size:0.82rem; padding:6px 14px;">
+            📖 Ver Marco Jurídico en el Manual ↗
+          </button>
+        </div>
+        <p style="font-size:0.9rem; line-height:1.5; color:var(--tinta); margin-bottom:12px;">
+          ${LICENCIA_ATLAS.justificacion}
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px; margin-top:12px;">
+          ${LICENCIA_ATLAS.pilares.map(p => `
+            <div style="background:var(--papel); border:1px solid var(--linea); padding:12px; border-radius:2px;">
+              <strong style="font-size:0.88rem; color:var(--musgo-oscuro);">${p.ambito}</strong>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:0.82rem; font-weight:bold; margin:6px 0; color:var(--tinta);">
+                ${p.licencia}
+              </div>
+              <p style="font-size:0.82rem; color:var(--tinta-suave); margin-bottom:8px;">${p.implicancia}</p>
+              <a href="${p.url}" target="_blank" rel="noopener" style="font-size:0.78rem; text-decoration:none;">Más información legal ↗</a>
+            </div>
+          `).join('')}
+        </div>
       </div>
-    `).join('');
+    `;
+
+    const bloquesFuentes = `
+      <div class="bloque">
+        <h3>Licenciamiento de las Fuentes Proveedoras de Datos</h3>
+        <p class="descripcion">Términos de reutilización, restricciones legales y condiciones de atribución de cada servicio integrado:</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:10px;">
+          ${FUENTES.map(f => `
+            <div style="background:var(--papel-alto); border:1px solid var(--linea); padding:12px;">
+              <h4 style="margin:0 0 6px 0; font-size:0.95rem;">${f.nombre}</h4>
+              <p style="font-size:0.82rem; margin:0 0 6px 0;"><strong>Licencia:</strong> <code>${f.licencia}</code></p>
+              <p style="font-size:0.82rem; color:var(--tinta-suave); margin:0 0 8px 0;">${f.implicancia}</p>
+              <p style="margin:0;"><a href="${f.url}" target="_blank" rel="noopener" style="font-size:0.78rem;">${f.url} ↗</a></p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
 
     const bloqueDescargas = `
       <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:16px; margin-top:20px;">
-        <h3>📁 Catálogos y Documentos Oficiales en Excel (.xlsx)</h3>
-        <p>Para uso formal en la práctica profesional, se han generado y estructurado tres hojas de cálculo en la carpeta <code>docs/</code> del repositorio con diseño institucional:</p>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+          <h3 style="margin:0;">📁 Catálogos Maestros y Matrices Metodológicas en Excel (.xlsx)</h3>
+          <span class="doc-pequeno" style="font-family:'IBM Plex Mono', monospace;">Sincronizados en docs/ y src/docs/</span>
+        </div>
+        <p class="descripcion">Hojas de cálculo oficiales generadas para la defensa académica de la práctica profesional de Geografía (UAH 2026):</p>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
-          <div style="padding:10px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
+          <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
             <strong>1. Catálogo Sistemático de Fuentes VGI:</strong><br>
             <span class="descripcion">Inventario de fuentes colaborativas y oficiales (OSM, ohsome, GBIF, UMap, iNaturalist, IDE Chile) con cobertura, escala, licencia y aplicación en Barrio Brasil / UAH.</span><br>
-            <a href="docs/catalogo_fuentes_vgi.xlsx" download="catalogo_fuentes_vgi.xlsx" class="accion secundaria" style="display:inline-block; margin-top:6px; font-size:0.82rem; text-decoration:none; padding:4px 10px;">⬇️ Descargar catalogo_fuentes_vgi.xlsx</a>
+            <a href="docs/catalogo_fuentes_vgi.xlsx" download="catalogo_fuentes_vgi.xlsx" class="accion secundaria" style="display:inline-block; margin-top:8px; font-size:0.82rem; text-decoration:none; padding:4px 12px;">⬇️ Descargar catalogo_fuentes_vgi.xlsx</a>
           </div>
-          <div style="padding:10px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
+          <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
             <strong>2. Perfil de Metadatos VGI (ISO 19115 / IDE Chile):</strong><br>
             <span class="descripcion">Elementos núcleo, jerarquía de atributos, tipos de datos y mapeo al estándar oficial SNIT / IDE Chile e ISO 19139 XML.</span><br>
-            <a href="docs/perfil_metadatos_vgi.xlsx" download="perfil_metadatos_vgi.xlsx" class="accion secundaria" style="display:inline-block; margin-top:6px; font-size:0.82rem; text-decoration:none; padding:4px 10px;">⬇️ Descargar perfil_metadatos_vgi.xlsx</a>
+            <a href="docs/perfil_metadatos_vgi.xlsx" download="perfil_metadatos_vgi.xlsx" class="accion secundaria" style="display:inline-block; margin-top:8px; font-size:0.82rem; text-decoration:none; padding:4px 12px;">⬇️ Descargar perfil_metadatos_vgi.xlsx</a>
           </div>
-          <div style="padding:10px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
-            <strong>3. Taxonomía de Categorías Temáticas OSM:</strong><br>
-            <span class="descripcion">Definición de las 8 categorías territoriales (CAT-01 a CAT-08), filtros Overpass QL y diccionario de 11 atributos normalizados.</span><br>
-            <a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion secundaria" style="display:inline-block; margin-top:6px; font-size:0.82rem; text-decoration:none; padding:4px 10px;">⬇️ Descargar categorias_tematicas_osm.xlsx</a>
+          <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
+            <strong>3. Taxonomía de Categorías Temáticas OSM y Bibliografía APA (4 Hojas):</strong><br>
+            <span class="descripcion">Libro maestro que incluye: Hoja 1 (Categorías Maestras CAT-01 a CAT-08), Hoja 2 (Catálogo de 63 Etiquetas Chile), Hoja 3 (Diccionario de Atributos VGI con cálculo métrico EPSG:32719) y Hoja 4 (Aparato Bibliográfico de 64 fuentes en norma APA 7ª ed.).</span><br>
+            <a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion" style="display:inline-block; margin-top:8px; font-size:0.82rem; text-decoration:none; padding:4px 12px;">📊 Descargar categorias_tematicas_osm.xlsx (Maestro)</a>
           </div>
         </div>
       </div>
     `;
 
-    return bloquesFuentes + bloqueDescargas;
+    return bloqueAtlas + bloquesFuentes + bloqueDescargas;
   }
 
-  return { render, FUENTES };
+  return { render, FUENTES, LICENCIA_ATLAS };
 })();

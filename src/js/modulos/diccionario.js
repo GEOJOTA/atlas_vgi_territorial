@@ -210,6 +210,109 @@ const ModuloDiccionario = (() => {
     { tag: 'natural=wood', significado: 'Masa Arbórea Continua / Bosquete Urbano', categoria: 'CAT-08', grupo: 'accesibilidad_biodiv', institucion: 'CONAF / MMA', ideChile: 'Cobertura Vegetal y Bosque Urbano', aplicacionUAH: 'Área arbolada densa en Parque Quinta Normal.', citaAPA: '(CONAF, 2019; IDE Chile, 2020)' }
   ];
 
+  const CATEGORIAS_MAESTRAS = [
+    {
+      codigo: 'CAT-01',
+      id_manual: 'manual-cat-01',
+      nombre: 'Movilidad y Transporte Urbano',
+      icono: '🚌',
+      resumen: 'Paraderos Red Movilidad, estaciones Metro Los Héroes y Santa Ana, ciclovías y vías estructurantes.',
+      filtro_grupo: 'movilidad'
+    },
+    {
+      codigo: 'CAT-02',
+      id_manual: 'manual-cat-02',
+      nombre: 'Equipamiento Comunitario y Social',
+      icono: '🎓',
+      resumen: 'Campus universitario UAH (Almirante Barroso, Erasmo Escala), colegios, salas cuna y juntas vecinales.',
+      filtro_grupo: 'educacion_servicios'
+    },
+    {
+      codigo: 'CAT-03',
+      id_manual: 'manual-cat-03',
+      nombre: 'Salud y Bienestar',
+      icono: '🏥',
+      resumen: 'CESFAM N° 5, SAPU, farmacias de turno, clínicas veterinarias y desfibriladores de emergencia (DEA).',
+      filtro_grupo: 'educacion_servicios'
+    },
+    {
+      codigo: 'CAT-04',
+      id_manual: 'manual-cat-04',
+      nombre: 'Comercio y Economía Barrial',
+      icono: '🥖',
+      resumen: 'Amasanderías artesanales, panaderías, ferias libres semanales, cafés culturales y almacenes de barrio.',
+      filtro_grupo: 'educacion_servicios'
+    },
+    {
+      codigo: 'CAT-05',
+      id_manual: 'manual-cat-05',
+      nombre: 'Seguridad y Emergencias',
+      icono: '🚒',
+      resumen: '11ª y 12ª Compañías de Bomberos de Santiago, 3ª Comisaría de Carabineros y red de grifos contra incendios.',
+      filtro_grupo: 'educacion_servicios'
+    },
+    {
+      codigo: 'CAT-06',
+      id_manual: 'manual-cat-06',
+      nombre: 'Espacio Público, Deporte y Recreación',
+      icono: '🌳',
+      resumen: 'Plaza Brasil, multicanchas barriales, plazas de bolsillo, bebederos públicos y juegos infantiles.',
+      filtro_grupo: 'patrimonio_verde'
+    },
+    {
+      codigo: 'CAT-07',
+      id_manual: 'manual-cat-07',
+      nombre: 'Patrimonio Urbano y Cultura',
+      icono: '🏛️',
+      resumen: 'Cités residenciales históricos, casonas protegidas, Inmuebles de Conservación Histórica (ICH) y museos.',
+      filtro_grupo: 'patrimonio_verde'
+    },
+    {
+      codigo: 'CAT-08',
+      id_manual: 'manual-cat-08',
+      nombre: 'Medio Ambiente y Accesibilidad Universal',
+      icono: '♿',
+      resumen: 'Rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles y arbolado viario de sombra.',
+      filtro_grupo: 'accesibilidad_biodiv'
+    }
+  ];
+
+  function irACategoriaManual(codigo) {
+    const cod = (codigo || '').toUpperCase().trim();
+    const mapIds = {
+      'CAT-01': 'manual-cat-01',
+      'CAT-02': 'manual-cat-02',
+      'CAT-03': 'manual-cat-03',
+      'CAT-04': 'manual-cat-04',
+      'CAT-05': 'manual-cat-05',
+      'CAT-06': 'manual-cat-06',
+      'CAT-07': 'manual-cat-07',
+      'CAT-08': 'manual-cat-08'
+    };
+    const targetId = mapIds[cod] || 'manual-cat-01';
+    if (typeof window.navegarAManual === 'function') {
+      window.navegarAManual(targetId);
+    } else {
+      const btn = document.querySelector('button[data-panel="manual"]');
+      if (btn) btn.click();
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
+    }
+  }
+
+  function filtrarPorCodigo(codigo) {
+    const input = document.getElementById('filtro-diccionario');
+    if (input) {
+      input.value = codigo;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
   function render(filtroTexto = '', filtroGrupo = 'todos') {
     const texto = filtroTexto.toLowerCase().trim();
 
@@ -226,21 +329,71 @@ const ModuloDiccionario = (() => {
       return coincideTexto && coincideGrupo;
     });
 
-    const htmlAtributos = atributosFiltrados.map(a => `
-      <tr style="border-bottom:1px solid var(--linea);">
-        <td><strong style="color:var(--musgo); font-family:'IBM Plex Mono', monospace;">${a.campo}</strong></td>
-        <td><strong>${a.nombre}</strong><br><small style="color:var(--tinta-suave);">${a.tipo}</small></td>
-        <td style="font-size:0.85rem;">${a.definicion}<br><span class="descripcion" style="font-style:italic;">Ejemplo: ${a.ejemplo}</span></td>
-        <td style="font-size:0.82rem; background:var(--papel-alto);"><code>${a.equivalenciaIDE}</code></td>
-        <td style="font-size:0.82rem;">${a.importancia}</td>
-      </tr>
-    `).join('');
+    // 1. Tarjetas Superiores Sobrias e Interactivas de las 8 Macro-Categorías
+    const tarjetasCategoriasHTML = `
+      <div class="dicc-tarjetas-seccion">
+        <div class="dicc-tarjetas-header">
+          <span class="marcador">00</span>
+          <h3 style="display:inline; margin-left:6px;">Taxonomía Territorial: 8 Macro-Categorías VGI para Chile</h3>
+          <p class="descripcion" style="margin-top:4px;">
+            Seleccione <strong>[🔍 Filtrar]</strong> para aislar los descriptores de esa categoría en la tabla, o pulse <strong>[📖 Manual ↗]</strong> para abrir su ficha detallada en el <strong>Manual de Uso del Atlas</strong>:
+          </p>
+        </div>
+        <div class="dicc-grid-tarjetas">
+          ${CATEGORIAS_MAESTRAS.map(cat => `
+            <div class="dicc-tarjeta-cat" data-codigo="${cat.codigo}">
+              <div class="dicc-tarjeta-top">
+                <span class="dicc-cat-badge">${cat.codigo}</span>
+                <span class="dicc-cat-icono">${cat.icono}</span>
+              </div>
+              <h4 class="dicc-cat-titulo">${cat.nombre}</h4>
+              <p class="dicc-cat-resumen">${cat.resumen}</p>
+              <div class="dicc-tarjeta-acciones">
+                <button type="button" class="dicc-btn-filtrar" onclick="ModuloDiccionario.filtrarPorCodigo('${cat.codigo}')" title="Filtrar descriptores de ${cat.codigo}">
+                  🔍 Filtrar
+                </button>
+                <button type="button" class="dicc-btn-manual" onclick="ModuloDiccionario.irACategoriaManual('${cat.codigo}')" title="Ver guía metodológica y ejemplos en el Manual">
+                  📖 Manual ↗
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
 
+    // 2. Tabla de Atributos Normalizados
+    const htmlAtributos = atributosFiltrados.map(a => {
+      let enlaceDoc = '';
+      if (a.campo === 'categoria') {
+        enlaceDoc = `<button type="button" class="dicc-tag-cat-link" onclick="window.navegarAManual('doc-categorias')" style="margin-left:4px; font-size:0.75rem;">Ver 8 Cats ↗</button>`;
+      } else if (a.campo === 'superficie_m2' || a.campo === 'superficie_ha') {
+        enlaceDoc = `<button type="button" class="dicc-tag-cat-link" onclick="window.navegarAManual('doc-geodesia')" style="margin-left:4px; font-size:0.75rem;">Geodesia ↗</button>`;
+      } else if (a.campo === 'licencia') {
+        enlaceDoc = `<button type="button" class="dicc-tag-cat-link" onclick="window.navegarAManual('doc-gobernanza')" style="margin-left:4px; font-size:0.75rem;">Licencias ↗</button>`;
+      }
+
+      return `
+        <tr style="border-bottom:1px solid var(--linea);">
+          <td><strong style="color:var(--musgo); font-family:'IBM Plex Mono', monospace;">${a.campo}</strong>${enlaceDoc}</td>
+          <td><strong>${a.nombre}</strong><br><small style="color:var(--tinta-suave);">${a.tipo}</small></td>
+          <td style="font-size:0.85rem;">${a.definicion}<br><span class="descripcion" style="font-style:italic;">Ejemplo: ${a.ejemplo}</span></td>
+          <td style="font-size:0.82rem; background:var(--papel-alto);"><code>${a.equivalenciaIDE}</code></td>
+          <td style="font-size:0.82rem;">${a.importancia}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // 3. Tabla de Etiquetas Territoriales con Enlaces al Manual
     const htmlEtiquetas = etiquetasFiltradas.map(e => `
       <tr style="border-bottom:1px solid var(--linea);">
         <td><code style="font-weight:600; color:var(--musgo); font-size:0.88rem;">${e.tag}</code></td>
         <td><strong>${e.significado}</strong></td>
-        <td><span class="marcador" style="display:inline-block; padding:2px 6px; font-size:0.75rem;">${e.categoria}</span></td>
+        <td>
+          <button type="button" class="dicc-tag-cat-link" onclick="ModuloDiccionario.irACategoriaManual('${e.categoria}')" title="Ver ficha metodológica de ${e.categoria} en el Manual de Uso">
+            ${e.categoria} ↗
+          </button>
+        </td>
         <td style="font-size:0.82rem; color:var(--musgo);"><strong>${e.institucion || 'Comunidad OSM'}</strong><br><small style="color:var(--tinta-suave);">${e.ideChile || 'Catastro IDE'}</small></td>
         <td style="font-size:0.84rem; color:var(--tinta-suave);">${e.aplicacionUAH}</td>
         <td style="font-size:0.80rem; font-family:'IBM Plex Mono', monospace; background:var(--papel-alto);">${e.citaAPA || 'APA 7ª ed.'}</td>
@@ -283,7 +436,7 @@ const ModuloDiccionario = (() => {
               📊 Descargar Catálogo Excel Completo (.xlsx con 4 Hojas y Citas APA)
             </a>
           </div>
-          <p class="descripcion">Traducción sistemática de tags técnicos colaborativos a conceptos territoriales chilenos, instituciones contraparte del Estado, aplicaciones en Barrio Brasil / UAH y fuentes bibliográficas en norma APA:</p>
+          <p class="descripcion">Traducción sistemática de tags técnicos colaborativos a conceptos territoriales chilenos, instituciones contraparte del Estado, aplicaciones en Barrio Brasil / UAH y fuentes bibliográficas en norma APA. Haga clic en cualquier código (ej: <code>CAT-01 ↗</code>) para abrir su sección en el Manual de Uso:</p>
           <div style="overflow-x:auto;">
             <table class="tabla-datos" style="margin-top:10px; font-size:0.86rem;">
               <thead>
@@ -306,7 +459,9 @@ const ModuloDiccionario = (() => {
     }
 
     return `
-      <div class="caja-guia-referencia">
+      ${tarjetasCategoriasHTML}
+
+      <div class="caja-guia-referencia" style="margin-top:16px;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
           <div>
             <h4>📖 Marco Metodológico de Catalogación Geográfica (ISO 19110 / SNIT Chile / APA 7ª ed.)</h4>
@@ -336,6 +491,9 @@ const ModuloDiccionario = (() => {
   return {
     ATRIBUTOS_NORMALIZADOS,
     ETIQUETAS_TERRITORIALES_OSM,
+    CATEGORIAS_MAESTRAS,
+    irACategoriaManual,
+    filtrarPorCodigo,
     render
   };
 })();

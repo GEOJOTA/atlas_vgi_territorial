@@ -3,6 +3,79 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 10 — Septiembre 2026 (Manual de Uso del Atlas Web estilo Librería, Diccionario Territorial Interactivo y Cliqueable, Sustitución de Licencia MIT por Marco Tripartito CC BY-SA 4.0 / ODbL / AGPL-3.0 y Robustecimiento Bibliográfico Extendido)
+
+### Contexto y Requerimiento de Desarrollo
+
+En cumplimiento con el requerimiento de accesibilidad conceptual, gobernanza de datos y robustecimiento de la documentación técnica ("*El diccionario territorial no se entiende muy bien, añade las opciones 'cliqueables' o directamente que cada una (8) tenga un enlace de dirección que te lleve al manual de uso del atlas. Que debe ser robusto, facil de entender, en línea con los estándares mencionados. El manual de uso debe estar dentro de la pagina... como una libreria de un paquete digamos (estilo documentación, con referencia al proyecto en git, abierto a contribuciones por permiso (por ahora)) no quiero que tenga la licencia de MIT ¿puede ser otra más adaptada a la realidad chilena? que vaya en concordancia con los datos libres y voluntarios... Robustece la bibliografía... estilo 'backrooms' bien sobrio...*"), se diseñó e implementó una modernización profunda de la plataforma web, sus componentes interactivos y su base documental.
+
+---
+
+### Diagnóstico de Brechas Previas Resueltas
+
+1. **Incomprensión del Diccionario Territorial por Usuarios No Técnicos:**
+   - La versión previa presentaba únicamente dos tablas densas con 14 atributos normalizados y 63 etiquetas de OpenStreetMap en inglés, resultando abrumadora para vecinos, dirigentes sociales y estudiantes que ingresaban por primera vez al ecosistema VGI. Carecía de un puente visual intuitivo entre los descriptores barriales y su explicación metodológica.
+2. **Carencia de un Manual de Uso Integrado en la Aplicación Web:**
+   - El Panel 08 contenía únicamente un resumen esquemático de hitos sin documentación técnica navegable, sin diagramas explicativos del flujo de datos y sin ejemplos reproducibles para las 8 categorías territoriales.
+3. **Inadecuación Ética y Jurídica de la Licencia MIT para la VGI en Chile:**
+   - La licencia permisiva MIT permitía que cualquier actor privado o consultora comercial empaquetara el código y los datos comunitarios en software cerrado privativo sin transferir mejoras a la comunidad (*enclosure* de datos abiertos), vulnerando la soberanía de los datos públicos y el espíritu solidario de OpenStreetMap.
+4. **Falta de un Protocolo Explícito de Contribuciones en Git:**
+   - No se explicitaba cómo la comunidad académica o los estudiantes podían colaborar con nuevas capas o etiquetas territoriales en el repositorio oficial de GitHub sin poner en riesgo la estabilidad técnica del Atlas.
+5. **Potencial Bibliográfico Subutilizado:**
+   - Se requería incorporar el extenso cuerpo teórico revisado en la literatura especializada sobre VGI (epistemología crítica de los SIG, calidad espacial ISO 19157, detección de vandalismo, geoseguridad y principios FAIR), proyectándolo hacia investigaciones contemporáneas 2024-2026 sin incurrir en auto-citaciones.
+
+---
+
+### Soluciones Implementadas y Mejoras del Sistema
+
+1. **Nuevo Módulo de Manual de Uso y Documentación Oficial (`src/js/modulos/manual.js`):**
+   - Diseñado bajo la metáfora de una **librería o paquete de software técnico (estilo *documentation docsite* sobrio 'backrooms')**, articulado en 7 secciones exhaustivas con navegación fija superior y accesos directos:
+     - **01. Quickstart:** Guías diferenciadas de 3 pasos para ciudadanos no técnicos vs geógrafos y analistas SIG.
+     - **02. Guía de Módulos (00 al 07):** Descripción pormenorizada de entradas, salidas y casos de uso para cada panel del sistema.
+     - **03. Catálogo Exhaustivo de Macro-Categorías (CAT-01 a CAT-08):** Fichas técnicas individuales con anclas directas (`#manual-cat-01` a `#manual-cat-08`), detallando su función territorial en Barrio Brasil, contrapartes públicas (MTT, MINEDUC, MINSAL, INE, SENAPRED, IND, CMN, SENADIS), estándar legal vinculado, código de consulta Overpass QL con botón interactivo de copia (`✓ ¡Copiado!`) y ejemplos de aplicación en la manzana universitaria UAH.
+     - **04. Geodesia Conforme EPSG:32719 (WGS 84 / UTM Huso 19 Sur):** Demostración analítica de por qué no medir en grados (distorsión de ~19.3% a latitud -33.45°), ecuaciones conformes de Transverse Mercator (Snyder, 1987) y algoritmo de Gauss / Shoelace para áreas en $m^2$ y hectáreas.
+     - **05. Evaluación de Calidad ISO 19157 & ohsome:** Métricas de completitud, exactitud temporal, densidad espacial por $km^2$ y linaje de colaboradores únicos con soporte dual v1 (OSHDB) y v2 (ohsomeDB).
+     - **06. Marco Legal Abierto y Gobernanza Git:** Fundamentación del reemplazo de MIT y directrices para contribuir al repositorio mediante *Fork & Pull Request* bajo auditoría del mantenedor.
+     - **07. Aparato Bibliográfico Extendido:** Compendio estructurado de literatura científica y normas técnicas.
+   - **4 Diagramas Vectoriales Técnicos Estilo "Backrooms":**
+     - *Figura 1:* Flujo de trabajo metodológico y arquitectura de ingesta/distribución VGI.
+     - *Figura 2:* Transformación geodésica del elipsoide angular WGS 84 al plano conforme UTM 19S (Snyder, 1987).
+     - *Figura 3:* Marco tripartito de licenciamiento abierto con reciprocidad comunitaria (*copyleft*).
+     - *Figura 4:* Flujo de trabajo de contribución Git con revisión por permiso.
+
+2. **Diccionario Territorial Interactivo y Cliqueable (`src/js/modulos/diccionario.js`):**
+   - **Cuadrícula Superior de 8 Tarjetas Visuales:** Cada tarjeta presenta código (`CAT-01`), ícono temático, denominación formal, síntesis en lenguaje barrial claro y dos acciones inmediatas:
+     - `[🔍 Filtrar]`: Inyecta el filtro en el buscador para aislar al instante las etiquetas de esa categoría.
+     - `[📖 Manual ↗]`: Dispara la función `ModuloDiccionario.irACategoriaManual()`, conmutando automáticamente al Panel 08 y desplazándose con scroll suave hasta la ficha correspondiente.
+   - **Insignias Cliqueables en Tablas:** En la tabla de 63 etiquetas OSM, la columna de categoría contiene botones dinámicos (`CAT-01 ↗`, `CAT-02 ↗`, etc.) que enlazan directamente con la sección metodológica del Manual. En la tabla de 14 atributos normalizados, los campos `categoria`, `superficie_m2` y `licencia` incorporan accesos directos a las secciones de Geodesia, Categorías y Gobernanza.
+
+3. **Navegación Global Intermodular Suave (`window.navegarAManual` en `src/js/app.js`):**
+   - Función global que conmuta el panel activo hacia `panel-manual`, calcula el offset de scroll y aplica una animación sutil de resaltado temporal (`.resaltado-temporal`) sobre el elemento destino para no desorientar al usuario.
+   - Integración de `ModuloManual.render()` en el ciclo de carga de `cargarResumenMetodologia()`.
+
+4. **Sustitución de la Licencia MIT por el Marco Abierto Tripartito (Chile / VGI):**
+   - Se actualizó el archivo [`LICENSE`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/LICENSE), el módulo [`src/js/modulos/licencias.js`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/licencias.js), el [`README.md`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/README.md) y la [`docs/TRAZABILIDAD_ACADEMICA.md`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/TRAZABILIDAD_ACADEMICA.md) (Sección 2.4):
+     - **Contenido, Cartografía, Metadatos y Manual:** **CC BY-SA 4.0** (Creative Commons Atribución-CompartirIgual 4.0 Internacional), armonizado con la Ley N° 17.336 de Propiedad Intelectual y la Ley N° 20.285 de Datos Abiertos del Estado de Chile.
+     - **Bases de Datos Espaciales VGI:** **ODbL 1.0** (Open Database License) de OpenStreetMap Foundation, obligando a compartir las bases derivadas bajo la misma licencia.
+     - **Código Fuente Web y Backend:** **GNU AGPLv3** (Affero General Public License), garantizando que cualquier versión alojada en la web deba publicar su código fuente modificado.
+
+5. **Gobernanza Git y Modelo de Contribución por Permiso:**
+   - Se documentó el repositorio oficial en GitHub ([`https://github.com/GEOJOTA/atlas_vgi_uah`](https://github.com/GEOJOTA/atlas_vgi_uah)) y el protocolo de colaboración: clonación mediante *Fork*, creación de ramas temáticas (*feature branches*), envío de *Pull Request* con justificación temática y cita APA, y auditoría técnica obligatoria previa al merge en `main`.
+
+6. **Robustecimiento Bibliográfico Extendido (64 Fuentes APA 7ª ed. sin Auto-Citación):**
+   - Se incorporó en Hoja 4 de [`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx), en el Manual web y en `docs/TRAZABILIDAD_ACADEMICA.md` la amplia revisión bibliográfica sobre VGI (Schuurman, Amano et al., Mooney et al., Tempelmeier & Demidova, Ballatore et al., Shahi, Burghardt et al., Seto et al., See et al., Antoniou & Skopeliti, Skopeliti & Antoniou, Kounadi & Leitner, Goodchild & Li, Soriano, Pastor, Magaña & Valverde, Jacobs & Zipf, Chapman, Wilkinson et al.) cruzada con las directrices contemporáneas 2024-2026 de UN-GGIM y DTPM, sin incluir auto-citaciones.
+   - La función `sincronizar_todos_los_catalogos()` en [`scripts/generar_catalogos_excel.py`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/scripts/generar_catalogos_excel.py) sincroniza automáticamente tanto los archivos `.xlsx` como `TRAZABILIDAD_ACADEMICA.md` entre `docs/` y `src/docs/`.
+
+---
+
+### Verificación y Control de Calidad
+
+- **Generación Excel:** `python3 scripts/generar_catalogos_excel.py` ejecutado con código 0. Verificado con `openpyxl`: Hoja 4 contiene exactamente **64 referencias bibliográficas oficiales y académicas** completas.
+- **Sintaxis JavaScript:** Ejecución de pruebas con motor JavaScriptCore (`jsc`) sobre `manual.js`, `diccionario.js`, `licencias.js` y `app.js`: **0 errores léxicos o sintácticos**.
+- **Consistencia de Archivos:** Comprobación de suma de comprobación entre `docs/TRAZABILIDAD_ACADEMICA.md` y `src/docs/TRAZABILIDAD_ACADEMICA.md`: idénticos al 100%.
+
+---
+
 ## Entrega de turno 9 — Septiembre 2026 (Robustecimiento de Categorías Temáticas OSM para Chile, Catálogo Excel de 4 Hojas y Aparato Bibliográfico APA 7ª ed.)
 
 ### Contexto y Requerimiento de Desarrollo

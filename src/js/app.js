@@ -1711,32 +1711,34 @@ function exportarMetadatosXML() {
   ModuloMetadatos.exportarComoArchivoXML(ficha);
 }
 
-/* ---------------------- RESUMEN METODOLÓGICO ---------------------- */
+/* ---------------------- NAVEGACIÓN GLOBAL AL MANUAL ---------------------- */
+
+window.navegarAManual = function(seccionId) {
+  const btnManual = document.querySelector('button[data-panel="manual"]');
+  if (btnManual) {
+    btnManual.click();
+  }
+  if (!seccionId) return;
+  setTimeout(() => {
+    const el = document.getElementById(seccionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.add('resaltado-temporal');
+      setTimeout(() => el.classList.remove('resaltado-temporal'), 2500);
+    }
+  }, 120);
+};
+
+/* ---------------------- RESUMEN METODOLÓGICO Y MANUAL DE USO ---------------------- */
 
 function cargarResumenMetodologia() {
-  document.getElementById('contenido-manual').innerHTML = `
-    <div class="bloque">
-      <h3>Flujo Metodológico de la Práctica Profesional (10 Hitos)</h3>
-      <p>1. <strong>Definición del problema y territorio:</strong> Barrio Brasil y campus Universidad Alberto Hurtado como caso piloto para la gestión territorial.</p>
-      <p>2. <strong>Diseño conceptual:</strong> Estructuración de 8 categorías temáticas VGI prioritarias (CAT-01 a CAT-08).</p>
-      <p>3. <strong>Inventario y catálogo de fuentes:</strong> Documentado en <code>docs/catalogo_fuentes_vgi.xlsx</code>.</p>
-      <p>4. <strong>Extracción y normalización de datos:</strong> Consultas Overpass y GBIF automatizadas en GeoJSON.</p>
-      <p>5. <strong>Evaluación de calidad:</strong> Indicadores ohsome (densidad y recuento de colaboradores).</p>
-      <p>6. <strong>Estandarización de metadatos:</strong> Generación en ISO 19115 (JSON) e ISO 19139 (XML para IDE Chile).</p>
-      <p>7. <strong>Atlas y visor interactivo:</strong> Visualizador en Leaflet con descarga de capas para QGIS.</p>
-    </div>
-    <div class="bloque">
-      <h3>Documentos, Catálogos Excel y Memoria Académica</h3>
-      <p>Para la defensa ante el comité evaluador y el informe final de práctica profesional, consulta los documentos de referencia en la carpeta <code>docs/</code>:</p>
-      <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
-        <div>📄 <strong>Memoria y Justificación Epistemológica:</strong> <code>docs/TRAZABILIDAD_ACADEMICA.md</code> <a href="docs/TRAZABILIDAD_ACADEMICA.md" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
-        <div>📊 <strong>Catálogo de Fuentes VGI:</strong> <code>docs/catalogo_fuentes_vgi.xlsx</code> <a href="docs/catalogo_fuentes_vgi.xlsx" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
-        <div>🏛️ <strong>Perfil Metadatos ISO 19115 / IDE Chile:</strong> <code>docs/perfil_metadatos_vgi.xlsx</code> <a href="docs/perfil_metadatos_vgi.xlsx" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
-        <div>🗂️ <strong>Taxonomía y 8 Categorías OSM:</strong> <code>docs/categorias_tematicas_osm.xlsx</code> <a href="docs/categorias_tematicas_osm.xlsx" download class="accion secundaria" style="display:inline-block; font-size:0.75rem; padding:2px 8px; margin-left:6px; text-decoration:none;">⬇️ Descargar</a></div>
-        <div>📐 <strong>Arquitectura y Diseño Técnico:</strong> <code>docs/ARQUITECTURA.md</code></div>
-      </div>
-    </div>
-  `;
+  const contenedor = document.getElementById('contenido-manual');
+  if (!contenedor) return;
+  if (window.ModuloManual && typeof window.ModuloManual.render === 'function') {
+    contenedor.innerHTML = window.ModuloManual.render();
+  } else {
+    contenedor.innerHTML = `<div class="aviso">Cargando documentación técnica del Atlas VGI...</div>`;
+  }
 }
 
 function avisoError(mensaje) { return `<div class="aviso error">${mensaje}</div>`; }
