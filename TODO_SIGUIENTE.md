@@ -3,6 +3,54 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 9 — Septiembre 2026 (Robustecimiento de Categorías Temáticas OSM para Chile, Catálogo Excel de 4 Hojas y Aparato Bibliográfico APA 7ª ed.)
+
+### Contexto y Requerimiento de Desarrollo
+
+En cumplimiento con el requerimiento de robustecimiento conceptual y documental del sistema ("*Robustece las categorías temáticas (archivo .xlsx en git) de OSM, integrando las más utilizadas en Chile (añade fuentes de donde lo sacaste, etc, todo debe ser trazable, en el mismo momento que la información se comparte, tipo APA y bibliografía)*"), se desarrolló una modernización integral del catálogo de entidades geoespaciales voluntarias, su representación en hojas de cálculo estandarizadas, el diccionario interactivo en la interfaz de usuario y la fundamentación epistemológica de la tesis de práctica profesional.
+
+---
+
+### Diagnóstico de Brechas Previas en el Esquema de Categorías
+
+1. **Desconexión Ontológica entre el Estándar Internacional OSM y la Realidad Chilena:**
+   - Las taxonomías genéricas de OpenStreetMap no contemplan singularidades institucionales críticas para la gestión del territorio en Chile, tales como la estructuración de la Atención Primaria de Salud (CESFAM, CECOSF, SAPU) bajo `amenity=clinic`, el sistema metropolitano de transporte Red Movilidad con codificación de paradas (`ref=PA...`), la normativa de accesibilidad universal establecida por el Decreto Supremo N° 50 del MINVU (OGUC Art. 2.2.8: rebajes de acera `kerb=lowered`/`flush`), o las tipologías patrimoniales vernáculas como los cités residenciales (`heritage=cite`).
+2. **Ausencia de Trazabilidad Inmediata y Aparato Bibliográfico en el Archivo Excel:**
+   - El archivo Excel previo solo contenía un listado plano de 8 categorías sin justificación empírica de frecuencias, sin correlación con capas del Sistema Nacional de Información Territorial (IDE Chile / SNIT), sin diccionario de datos atributivos y sin referencias bibliográficas formales que respaldaran la selección de etiquetas ante un comité académico.
+3. **Falta de Sincronización entre Repositorio Git y Despliegue Web:**
+   - Los archivos Excel generados en `docs/` no siempre se propagaban de forma transparente a `src/docs/`, provocando enlaces rotos o descargas de versiones desactualizadas en la plataforma web desplegada en Netlify.
+
+---
+
+### Soluciones Implementadas y Mejoras del Sistema
+
+1. **Reestructuración y Generación Automatizada del Catálogo Excel (`scripts/generar_catalogos_excel.py`):**
+   - Se rediseñó por completo la función `crear_categorias_tematicas_osm()` para generar un libro de trabajo en formato OpenXML (`.xlsx`) estructurado en **4 hojas complementarias con diseño visual editorial**:
+     - **Hoja 1: `Categorías Maestras (Chile)`**: Define las 8 macro-categorías (CAT-01 Movilidad, CAT-02 Educación y Social, CAT-03 Salud, CAT-04 Comercio, CAT-05 Seguridad y Emergencias, CAT-06 Espacio Público y Deporte, CAT-07 Patrimonio Urbano, CAT-08 Medio Ambiente y Accesibilidad), su código temático ISO 19115 (`topicCategory`), contraparte ministerial del Estado, consulta base Overpass QL, frecuencia regional en Taginfo Chile y cita APA de respaldo.
+     - **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula **63 etiquetas territoriales específicas de alta frecuencia en Chile**, detallando clave OSM, valor, denominación chilena en lenguaje natural, geometría admitida (punto, línea, polígono), capa homóloga en IDE Chile, institución estatal responsable, frecuencia regional observada, caso de aplicación real en el polígono piloto Barrio Brasil / Campus UAH y referencia APA vinculada.
+     - **Hoja 3: `Diccionario Atributos VGI`**: Define los **14 atributos normalizados** del modelo de datos (`id_vgi`, `osm_id`, `categoria_codigo`, `nombre`, `tipo_geometria`, `operador_institucional`, `direccion_normalizada`, `accesibilidad_universal`, `superficie_m2`, `superficie_ha`, `srs_superficie`, `fecha_captura_vgi`, `linaje_procesamiento`, `licencia_datos`), incorporando explícitamente el cálculo geodésico proyectado a **EPSG:32719 (WGS 84 / UTM Huso 19 Sur)** según estándares del IGM e IDE Chile, con correspondencia a la norma ISO 19110:2016.
+     - **Hoja 4: `Bibliografía y Fuentes APA`**: Consolida **33 fuentes oficiales, jurídicas, técnicas y científicas** redactadas rigurosamente bajo la norma **APA 7ª edición**, clasificadas por tipología documental (normas ISO/OGC, leyes y decretos de Chile, manuales y catálogos ministeriales, plataformas VGI colaborativas y literatura científica internacional de geografía).
+   - Se implementó la función `sincronizar_todos_los_catalogos()`, garantizando la sincronización bidireccional automática entre la carpeta de documentación (`docs/`) y la raíz pública del frontend (`src/docs/`).
+
+2. **Modernización del Diccionario Territorial Interactivo (`src/js/modulos/diccionario.js`):**
+   - Se amplió el array `ETIQUETAS_TERRITORIALES_OSM` con la definición detallada de las 63 etiquetas chilenas, su tipología geométrica, organismo rector, equivalente oficial en IDE Chile y su respectiva cita bibliográfica APA con enlace hipertextual activo.
+   - Se rediseñó la interfaz del Panel 06 con un encabezado descriptivo que incluye la justificación metodológica basada en [Taginfo Chile](https://taginfo.geofabrik.de/south-america:chile) y [WikiProject Chile](https://wiki.openstreetmap.org/wiki/WikiProject_Chile), sumando un botón de descarga directa para obtener [`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx).
+   - La tabla de etiquetas incorpora columnas dinámicas para la institución estatal, homólogo IDE Chile y botón modal de citación bibliográfica APA inmediata.
+
+3. **Consolidación en la Documentación Académica (`docs/TRAZABILIDAD_ACADEMICA.md`):**
+   - **Sección 2.6 ("Taxonomía de Categorías OSM Adaptada a Chile y Trazabilidad Bibliográfica APA")**: Desarrolla la fundamentación epistemológica de la traducción ontológica anglosajona-chilena, la matriz de las 8 macro-categorías, la justificación de las 63 etiquetas y la arquitectura de 4 hojas del catálogo Excel.
+   - **Sección 7 ("Referencias Bibliográficas y Fuentes Oficiales - Norma APA 7ª Edición")**: Registra de forma exhaustiva las 33 fuentes documentales estructuradas en 5 sub-apartados temáticos, permitiendo al evaluador académico contrastar cualquier afirmación del proyecto con fuentes primarias del Estado de Chile o de la comunidad académica internacional.
+
+---
+
+### Verificación y Control de Calidad
+
+- **Generación de Archivos Excel:** Ejecución exitosa de `python3 scripts/generar_catalogos_excel.py`. Se verificó mediante `openpyxl` que las 4 hojas poseen contenido íntegro, fórmulas correctas y celdas sin errores en ambos destinos (`docs/` y `src/docs/`).
+- **Validación Sintáctica JavaScript:** Evaluación de `src/js/modulos/diccionario.js` con el motor JavaScriptCore (`jsc`), confirmando cero errores léxicos o de sintaxis y la carga íntegra de las 63 etiquetas territoriales.
+- **Trazabilidad Git:** Todos los artefactos fueron preparados y versionados en la rama `main` del repositorio oficial.
+
+---
+
 ## Entrega de turno 8 — Septiembre 2026 (Solución Integral a ohsome API v1/v2, Coherencia Intermodular entre Paneles y Autocarga Reactiva de Metadatos ISO 19115/19139)
 
 ### Diagnóstico de Fallos Identificados en ohsome API

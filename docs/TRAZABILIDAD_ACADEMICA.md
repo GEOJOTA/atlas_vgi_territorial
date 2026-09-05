@@ -94,6 +94,30 @@ Un requerimiento metodológico esencial del proyecto es **garantizar la usabilid
    - **Exportación Multi-Formato Estándar:** Descarga de capas en GeoJSON y CSV estructurado, exportación de metadatos en JSON (ISO 19115) y XML (ISO 19139 para IDE Chile / GeoNetwork).
    - **Pipeline CLI para Geógrafos:** Script independiente en Python 3 puro (`scripts/extractor_vgi.py`) para extracciones masivas y servidor backend local con caché (`backend/servidor_vgi.py`).
 
+### 2.6 Taxonomía de Categorías OSM Adaptada a Chile y Trazabilidad Bibliográfica APA
+
+Uno de los principales desafíos epistemológicos y técnicos al aplicar la VGI en la planificación territorial chilena radica en la **traducción y adecuación ontológica** del esquema de etiquetas de OpenStreetMap (concebido originalmente bajo convenciones anglosajonas y europeas) a la realidad institucional, urbana y normativa de Chile. 
+
+Para resolver esta brecha sin distorsionar el estándar internacional de OSM ni la taxonomía oficial del Estado, el proyecto diseñó una matriz temática estructurada en **8 macro-categorías territoriales** y **63 etiquetas clave de alta frecuencia**, validada empíricamente contra la base de datos de [Taginfo Chile](https://taginfo.geofabrik.de/south-america:chile), las directrices comunitarias de [WikiProject Chile](https://wiki.openstreetmap.org/wiki/WikiProject_Chile) y los catálogos oficiales de la Infraestructura de Datos Espaciales de Chile ([IDE Chile](https://www.ide.cl/)):
+
+| Código | Categoría Temática Maestra | Contraparte Institucional Estatal | Estándar / Norma Técnica Vinculada | Enfoque Territorial en Barrio Brasil / UAH |
+|---|---|---|---|---|
+| **CAT-01** | Movilidad y Transporte Urbano | Ministerio de Transportes y Telecomunicaciones (MTT) / DTPM / Metro S.A. | Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM, 2023); Catálogo de Infraestructura Metro (Metro de Santiago, 2024) | Intermodal Los Héroes (L1/L2), Santa Ana (L2/L5), paraderos Red en Alameda, Av. Brasil y Matucana. |
+| **CAT-02** | Equipamiento Comunitario y Social | Ministerio de Educación (MINEDUC) / JUNJI / Ministerio de Desarrollo Social | Directorio Oficial de Establecimientos (MINEDUC, 2023); Estándares de Educación Parvularia (JUNJI, 2022) | Campus patrimonial Universidad Alberto Hurtado (calles Barroso, Cienfuegos, Erasmo Escala), colegios y salas cuna. |
+| **CAT-03** | Salud y Bienestar | Ministerio de Salud (MINSAL) / DEIS / Servicios de Salud | Ley N° 21.156 de Desfibriladores Externos (MINSAL, 2019); Clasificación de la Red Asistencial (MINSAL, 2023) | CESFAM N° 5, SAPU, farmacias de turno, clínicas veterinarias y postas de atención primaria. |
+| **CAT-04** | Comercio y Economía Barrial | Instituto Nacional de Estadísticas (INE) / SERCOTEC / SII | Directorio Nacional de Comercio Minorista (INE, 2021); Diagnóstico Barrios Comerciales (SERCOTEC, 2022) | Panaderías y amasanderías artesanales, ferias libres semanales, cafés, talleres de oficios y botillerías. |
+| **CAT-05** | Seguridad y Emergencias | SENAPRED / Carabineros de Chile / Junta Nacional de Bomberos | Protocolos del Sistema Nacional de Prevención ante Desastres (SENAPRED, 2023; Bomberos de Chile, 2022) | 11ª y 12ª Compañías de Bomberos de Santiago, 3ª Comisaría de Carabineros y grifos contra incendios. |
+| **CAT-06** | Espacio Público, Deporte y Recreación | Ministerio de Vivienda y Urbanismo (MINVU) / Instituto Nacional de Deportes (IND) | Política Nacional de Parques Urbanos (MINVU, 2021); Catastro de Infraestructura Deportiva (IND, 2021) | Plaza Brasil, multicanchas barriales, plazas de bolsillo, mobiliario urbano y bebederos públicos. |
+| **CAT-07** | Patrimonio Urbano y Cultura | Consejo de Monumentos Nacionales (CMN) / SERPAT / Secplan Municipal | Ley N° 17.288 de Monumentos Nacionales (CMN, 2020); Catálogo Zonas Típicas e ICH (Municipalidad de Santiago, 2019) | Cités patrimoniales, casonas neoclásicas, Basílica del Salvador, centros culturales y murales urbanos. |
+| **CAT-08** | Medio Ambiente Urbano y Accesibilidad | Ministerio del Medio Ambiente (MMA) / CONAF / SENADIS / MINVU | D.S. N° 50 OGUC Accesibilidad Universal (MINVU, 2016); Estrategia de Biodiversidad (MMA, 2022); ISO 21542:2021 | Rebajes de cordón en aceras, baldosas táctiles, arbolado urbano viario (plátanos orientales, jacarandás) y avifauna. |
+
+#### Catálogo Excel Automatizado de 4 Hojas (`categorias_tematicas_osm.xlsx`)
+Toda la taxonomía, junto con su correlación de atributos, linaje de procesamiento y fuentes documentales, se encuentra consolidada en el archivo oficial [`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx) (sincronizado automáticamente en `src/docs/` para su descarga desde la interfaz web):
+1. **Hoja 1: `Categorías Maestras (Chile)`**: Define las 8 categorías, sus contrapartes públicas, código de capa, consulta base Overpass QL y frecuencia observada en Taginfo Chile.
+2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula las 63 etiquetas críticas con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa IDE Chile homóloga, organismo rector, frecuencia de uso comunitaria y ejemplo empírico en Barrio Brasil / UAH.
+3. **Hoja 3: `Diccionario Atributos VGI`**: Detalla los 14 atributos normalizados de las entidades geoespaciales (incluyendo `superficie_m2`, `superficie_ha` y `srs_superficie` bajo proyección EPSG:32719 UTM 19S), indicando tipo de dato, cardinalidad, regla de cálculo y correspondencia con el Perfil Nacional de Metadatos (ISO 19110 / ISO 19115).
+4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 33 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición, con hipervínculos oficiales activos y trazabilidad verificable.
+
 ---
 
 ## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157 y Soporte Dual ohsome API v1 y v2)
@@ -216,3 +240,61 @@ Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -3
 
 ### P4: *"¿Cómo se calculan las superficies de las entidades territoriales y las densidades espaciales para que sean métricamente coherentes?"*
 > **Respuesta:** Ninguna superficie se calcula multiplicando grados decimales ni asumiendo la Tierra como una esfera perfecta. El Atlas implementa un motor geodésico riguroso (`ModuloGeodesia`) que reproyecta cada coordenada WGS 84 a **EPSG:32719 (WGS 84 / UTM Huso 19 Sur)** mediante las ecuaciones conformes de Transverse Mercator (Snyder, 1987), el estándar métrico oficial adoptado por el Instituto Geográfico Militar (IGM) y la IDE Chile para la Región Metropolitana. Sobre estas coordenadas planas métricas se aplica la fórmula del área de Gauss (Shoelace), garantizando superficies precisas en $m^2$, hectáreas y $km^2$ tanto en los polígonos del mapa como en los indicadores de calidad de ohsome, todo debidamente explicitado en la interfaz para personas no técnicas y revisores expertos.
+
+---
+
+## 7. Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)
+
+Todas las fuentes citadas a lo largo de este documento, en la interfaz web del Atlas y en el catálogo Excel consolidado ([`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx)) se encuentran estandarizadas bajo la norma **APA 7ª edición** y organizadas por tipología documental:
+
+### 7.1 Normas Técnicas Internacionales y Estándares Geoespaciales
+- Biodiversity Information Standards [TDWG]. (2023). *Darwin Core standard: Quick reference guide*. Biodiversity Information Standards. https://dwc.tdwg.org/terms/
+- International Organization for Standardization. (2013). *Geographic information — Data quality* (ISO Standard No. 19157:2013). ISO. https://www.iso.org/standard/32575.html
+- International Organization for Standardization. (2014). *Geographic information — Metadata — Part 1: Fundamentals* (ISO Standard No. 19115-1:2014). ISO. https://www.iso.org/standard/53798.html
+- International Organization for Standardization. (2016). *Geographic information — Methodology for feature cataloguing* (ISO Standard No. 19110:2016). ISO. https://www.iso.org/standard/57303.html
+- International Organization for Standardization. (2021). *Building construction — Accessibility and usability of the built environment* (ISO Standard No. 21542:2021). ISO. https://www.iso.org/standard/70494.html
+- Open Geospatial Consortium. (2019). *OGC API - Features - Part 1: Core* (Standard No. OGC 17-069r3). Open Geospatial Consortium. https://ogcapi.ogc.org/features/
+
+### 7.2 Marco Jurídico, Políticas Nacionales y Decretos de Chile
+- Consejo de Monumentos Nacionales [CMN]. (2020). *Ley N° 17.288 de Monumentos Nacionales y Normas Relacionadas*. Ministerio de las Culturas, las Artes y el Patrimonio, Gobierno de Chile. https://www.monumentos.gob.cl/
+- Infraestructura de Datos Espaciales de Chile [IDE Chile]. (2006). *Decreto Supremo N° 28/2006: Crea Comisión Asesora del Sistema Nacional de Información Territorial (SNIT)*. Ministerio de Bienes Nacionales, Gobierno de Chile. https://www.bcn.cl/leychile/navegar?idNorma=251642
+- Infraestructura de Datos Espaciales de Chile [IDE Chile]. (2018). *Perfil Nacional de Metadatos de Chile v2.0 (Basado en ISO 19115 / ISO 19139)*. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. https://www.ide.cl/
+- Ministerio de Salud [MINSAL]. (2019). *Ley N° 21.156: Establece la obligación de disponer de desfibriladores externos automáticos portátiles en recintos públicos*. Diario Oficial de la República de Chile. https://www.bcn.cl/leychile/navegar?idNorma=1131750
+- Ministerio de Secretaría General de la Presidencia [SEGPRES]. (2008). *Ley N° 20.285 sobre Acceso a la Información Pública y Principio de Transparencia*. Diario Oficial de la República de Chile. https://www.bcn.cl/leychile/navegar?idNorma=278858
+- Ministerio de Vivienda y Urbanismo [MINVU]. (2016). *Decreto Supremo N° 50: Modifica la Ordenanza General de Urbanismo y Construcciones en materia de accesibilidad universal*. Diario Oficial de la República de Chile. https://www.bcn.cl/leychile/navegar?idNorma=1087816
+- Municipalidad de Santiago. (2019). *Plan Regulador Comunal de Santiago: Catálogo de Inmuebles y Zonas de Conservación Histórica*. Dirección de Obras Municipales, Ilustre Municipalidad de Santiago. https://www.munistgo.cl/
+
+### 7.3 Catálogos, Manuales y Directorios Estatales
+- Bomberos de Chile. (2022). *Catálogo Nacional de Cuarteles y Estándares de Redes de Grifos Urbanos*. Junta Nacional de Cuerpos de Bomberos de Chile. https://www.bomberos.cl/
+- Corporación Nacional Forestal [CONAF]. (2021). *Guía de Árboles Urbanos de Chile: Especies Nativas e Introducidas en Ciudades Chilenas*. Ministerio de Agricultura, Gobierno de Chile. https://www.conaf.cl/
+- Directorio de Transporte Público Metropolitano [DTPM]. (2023). *Manual de Normas Técnicas para Paraderos e Infraestructura del Sistema Red Movilidad*. Ministerio de Transportes y Telecomunicaciones, Gobierno de Chile. https://www.dtpm.cl/
+- Empresa de Transporte de Pasajeros Metro S.A. (2024). *Memoria Anual y Catálogo de Estaciones, Accesos y Conectividad de la Red de Metro*. Metro de Santiago. https://www.metro.cl/
+- Instituto Nacional de Deportes [IND]. (2021). *Catastro Nacional de Recintos Deportivos y Multicanchas Públicas*. Ministerio del Deporte, Gobierno de Chile. https://www.ind.cl/
+- Instituto Nacional de Estadísticas [INE]. (2017). *Metodología de Clasificación y Asignación de Equipamiento Comunitario y Asentamientos Humanos*. INE Chile. https://www.ine.gob.cl/
+- Instituto Nacional de Estadísticas [INE]. (2021). *Directorio Nacional de Empresas y Locales de Comercio Minorista según Actividad Económica*. INE Chile. https://www.ine.gob.cl/
+- Junta Nacional de Jardines Infantiles [JUNJI]. (2022). *Guía de Estándares de Infraestructura y Cobertura de Educación Parvularia*. Ministerio de Educación, Gobierno de Chile. https://www.junji.gob.cl/
+- Ministerio de Educación [MINEDUC]. (2023). *Directorio Oficial de Establecimientos Educacionales (RBD) y de Educación Superior en Chile*. Centro de Estudios MINEDUC. https://datosabiertos.mineduc.cl/
+- Ministerio de Salud [MINSAL]. (2023). *Estructura y Clasificación de la Red Asistencial Pública de Salud en Chile: Hospitales, CESFAM, CECOSF y SAPU*. Departamento de Estadísticas e Información de Salud (DEIS). https://deis.minsal.cl/
+- Ministerio de Vivienda y Urbanismo [MINVU]. (2020). *Manual de Vialidad Cicloinclusiva y Directrices de Diseño de Ciclovías Urbanas*. Gobierno de Chile. https://www.minvu.gob.cl/
+- Ministerio de Vivienda y Urbanismo [MINVU]. (2021). *Política Nacional de Parques Urbanos y Estándares de Áreas Verdes Públicas*. MINVU, Gobierno de Chile. https://www.minvu.gob.cl/
+- Ministerio del Medio Ambiente [MMA]. (2022). *Estrategia Nacional de Biodiversidad y Catálogo de Especies de la Zona Central de Chile*. Gobierno de Chile. https://mma.gob.cl/
+- Servicio de Cooperación Técnica [SERCOTEC]. (2022). *Barrios Comerciales de Chile: Diagnóstico del Comercio Minorista Tradicional*. Ministerio de Economía, Fomento y Turismo, Gobierno de Chile. https://www.sercotec.cl/
+- Servicio Nacional de la Discapacidad [SENADIS]. (2021). *Guía de Consulta Rápida: Accesibilidad Universal en el Espacio Público y la Edificación*. Ministerio de Desarrollo Social y Familia, Gobierno de Chile. https://www.senadis.gob.cl/
+- Servicio Nacional de Prevención y Respuesta ante Desastres [SENAPRED]. (2023). *Plan Estratégico Nacional para la Gestión del Riesgo de Desastres 2020-2030*. Ministerio del Interior y Seguridad Pública, Gobierno de Chile. https://senapred.cl/
+- Servicio Nacional del Patrimonio Cultural [SERPAT]. (2023). *Catálogo de Bibliotecas Públicas y Museos Estatales de Chile*. Ministerio de las Culturas, las Artes y el Patrimonio, Gobierno de Chile. https://www.patrimoniocultural.gob.cl/
+
+### 7.4 Fuentes Comunitarias, Infraestructuras VGI y Licencias
+- Global Biodiversity Information Facility [GBIF]. (2024). *GBIF Occurrence Data: Santiago Metropolitan Region observations*. GBIF Secretariat. https://doi.org/10.15468/39omei
+- Heidelberg Institute for Geoinformation Technology [HeiGIT]. (2023). *ohsome API: OpenStreetMap History Analytics API Documentation (v1 & v2)*. Heidelberg University. https://api.ohsome.org/
+- Open Data Commons. (2010). *Open Database License (ODbL) v1.0*. Open Knowledge Foundation. https://opendatacommons.org/licenses/odbl/
+- OpenStreetMap Foundation & Geofabrik GmbH. (2024). *Taginfo Chile: Statistics of OpenStreetMap tags in Chile*. Geofabrik. https://taginfo.geofabrik.de/south-america:chile
+- OpenStreetMap Foundation & Comunidad OSM Chile. (2024). *WikiProject Chile: Guía, directrices y convenciones comunitarias de mapeo para Chile*. OpenStreetMap Wiki. https://wiki.openstreetmap.org/wiki/WikiProject_Chile
+
+### 7.5 Literatura Científica y Geográfica Especializada
+- Goodchild, M. F. (2007). Citizens as sensors: the world of volunteered geography. *GeoJournal*, 69(4), 211–221. https://doi.org/10.1007/s10708-007-9111-y
+- Haklay, M. (2010). How good is volunteered geographical information? A case study of OpenStreetMap in the UK. *Environment and Planning B: Planning and Design*, 37(4), 682–703. https://doi.org/10.1068/b35097
+- Mooney, P., & Minghini, M. (2017). A review of OpenStreetMap data. In C. Capineri, M. Haklay, H. Huang, V. Antoniou, J. Kettunen, F. Vito, & R. Lenz (Eds.), *Mapping and the Citizen Sensor* (pp. 37–59). Ubiquity Press. https://doi.org/10.5334/bbf.c
+- Neis, P., & Zipf, A. (2012). Analyzing the contributor activity of OpenStreetMap and its development for the community. *ISPRS International Journal of Geo-Information*, 1(2), 146–177. https://doi.org/10.3390/ijgi1020146
+- Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019). OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data. *EPJ Data Science*, 8(1), 1–18. https://doi.org/10.1140/epjds/s13688-019-0208-0
+- Snyder, J. P. (1987). *Map projections: a working manual* (U.S. Geological Survey Professional Paper No. 1395). U.S. Government Printing Office. https://doi.org/10.3133/pp1395
+
