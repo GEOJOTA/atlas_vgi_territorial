@@ -1,7 +1,17 @@
 # Manual de Uso — Atlas de Información Geográfica Voluntaria
 ### Guía Operativa para Geógrafos, Analistas y Gestores Territoriales
 
-Este manual describe el funcionamiento de la plataforma web del Atlas VGI y sus herramientas de línea de comandos, orientado tanto a personas con conocimientos SIG como a usuarios territoriales no técnicos.
+Este manual describe el funcionamiento de la plataforma web del Atlas VGI y sus herramientas de línea de comandos, orientado a cuatro perfiles territoriales específicos (autoridades, organizaciones vecinales, mapeadores y analistas SIG).
+
+---
+
+## 0. Perfiles de Actor Territorial
+
+En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual resalta las herramientas clave según tu rol:
+1. **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN):** Prioriza la auditoría de capas oficiales (25 capas) frente a brechas VGI (65 capas), metadatos ISO 19139 XML y matrices de equipamiento en Excel.
+2. **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:** Facilita diagnósticos barriales inmediatos con consultas en 1 clic (farmacias, áreas verdes, paraderos, reciclaje), mapeo colaborativo en UMap y toponimia barrial sin jerga técnica.
+3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:** Enfocado en la formulación de consultas Overpass QL avanzadas, validación global con **Taginfo API**, auditoría de changesets con **OSMCha** y detección de vacíos de microatributos (`wheelchair`, `surface`, `lit`).
+4. **🎓 Perfil Académico / Geógrafos, Analistas SIG e Investigadores:** Proporciona cálculo de densidades territoriales rigurosas mediante reproyección conforme a **EPSG:32719**, métricas de calidad ISO 19157 con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS y 104 fuentes bibliográficas APA 7ª ed.
 
 ---
 
@@ -44,29 +54,30 @@ Debajo del mapa encontrarás la botonera con las 8 categorías territoriales:
 
 ---
 
-## 2. Explorador OSM por Etiquetas (Panel 01)
+## 2. Consultas y Explorador OSM con Taginfo (Panel 01)
 
 Permite realizar consultas Overpass QL específicas para usuarios que conocen etiquetas OSM o desean explorar una sola categoría con mayor nivel de detalle tabular:
 1. Define o confirma las cuatro coordenadas del Bounding Box.
-2. Selecciona una categoría sugerida en el desplegable o escribe una etiqueta manual (ej: `amenity=pharmacy`, `building=yes`).
-3. Haz clic en **"Consultar Overpass"** para ver la tabla resumen, o en **"Visualizar en Mapa Atlas"** para proyectarla sobre el mapa Leaflet.
+2. Selecciona una categoría sugerida en el desplegable o escribe una clave/valor manual (ej: `amenity=pharmacy`, `building=yes`).
+3. **Validador Taginfo API:** Pulsa el botón `[⚡ Validar en Taginfo]` para auditar el volumen global de nodos, vías, relaciones y valores más frecuentes en la base planetaria de OpenStreetMap.
+4. Haz clic en **"🚀 Ejecutar y Mapear"** para ver la tabla resumen y proyectarla sobre el mapa Leaflet.
 
 ---
 
-## 3. Calidad de Datos con ohsome (Panel 02)
+## 3. Calidad de Datos, OQT y Changesets OSMCha (Panel 02)
 
 Permite auditar cuantitativamente la madurez de la información en el sector:
-- **Elementos vigentes:** Total de geometrías coincidentes con el filtro.
-- **Densidad:** Número de elementos por km² calculados sobre el Bbox.
-- **Colaboradores únicos:** Cantidad de personas distintas que han editado el área en el último año.
-- **Evolución Histórica (5 años):** Tabla con la serie temporal anual que permite verificar si el territorio sigue siendo editado activamente o si quedó abandonado.
+- **ohsome API (Dual v1 / v2):** Conteo de elementos vigentes, densidad por km² y serie cronológica anual de colaboradores y ediciones.
+- **ohsome Quality Analyst (OQT Framework):** Estimación intrínseca del *Índice de Saturación de Mapeo* y clasificación de la tendencia espacial (levantamiento activo vs. consolidación).
+- **Auditoría de Changesets y OSMCha:** Pulsa el botón `[🔎 Auditar Changesets Recientes y Validar en OSMCha]` para inspeccionar las últimas ediciones en el Bbox barrial con enlace directo a OSMCha para validar micro-contribuciones o revertir anomalías.
 
 ---
 
-## 4. Biodiversidad con GBIF y Ciencia Ciudadana (Panel 03)
+## 4. Biodiversidad Urbana con GBIF y Ciencia Ciudadana (Panel 03)
 
 Permite explorar avistamientos de flora y fauna procedentes de instituciones científicas y plataformas ciudadanas como iNaturalist:
-- Permite filtrar por taxón o nombre común (ej: *Puma concolor*, *Zonotrichia capensis*, *Aves*).
+- **Autocompletado Taxonómico (Species API):** Al escribir en el buscador se despliegan sugerencias científicas y su rango taxonómico en tiempo real.
+- **Banderas de Calidad Darwin Core:** La tabla de ocurrencias incluye la columna *Validación Darwin Core (Issues)*, verificando la consistencia geodésica de las coordenadas.
 - Haz clic en **"Cargar al Mapa Atlas"** para desplegar los puntos biológicos junto con la infraestructura urbana.
 
 ---
@@ -75,23 +86,32 @@ Permite explorar avistamientos de flora y fauna procedentes de instituciones cie
 
 Permite generar la documentación técnica oficial del catastro territorial:
 1. Haz clic en **"Prellenar con datos de la última consulta"** para autocompletar el título, Bbox y linaje a partir del área de trabajo.
-2. Ajusta el resumen, sistema de referencia o datos de contacto si lo requieres.
+2. Ajusta el resumen, sistema de referencia (EPSG:4326 / EPSG:32719) o datos de contacto si lo requieres.
 3. Para exportar la ficha, dispones de dos formatos oficiales:
    - **"📄 Exportar JSON (ISO 19115)":** Ficha estructurada en JSON según los elementos núcleo de ISO 19115.
    - **"🏛️ Exportar XML (ISO 19139 / IDE Chile)":** Archivo XML válido compatible con catálogos de datos como GeoNetwork, GeoNode o el Sistema Nacional de Información Territorial (SNIT / IDE Chile).
 
 ---
 
-## 6. Catálogos Oficiales en Excel (.xlsx) (Panel 06)
+## 6. Diccionario Territorial de 90 Descriptores (Panel 06)
 
-En la carpeta `docs/` del repositorio se encuentran disponibles tres libros de cálculo listos para anexar al informe formal de práctica:
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes VGI y oficiales.
-- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno.
-- **`docs/categorias_tematicas_osm.xlsx`:** Taxonomía de 8 categorías, filtros Overpass QL y diccionario de datos.
+Permite consultar la definición toponímica y la homología institucional de cada etiqueta:
+- **Sinceramiento riguroso:** Distinción explícita entre 25 capas oficiales con soporte fiscal en IDE Chile vs. 65 Brechas VGI no catastradas por el Estado.
+- **Filtros de un clic:** Alterna rápidamente entre `[⚡ Solo Brechas VGI (65)]` y `[🏛️ Capas Oficiales IDE (25)]`.
+- **Inspección Taginfo:** Cada tarjeta incluye botón de telemetría directa con la API oficial de Taginfo.
 
 ---
 
-## 7. Extracción Automatizada por Terminal (Python CLI)
+## 7. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
+
+En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los tres libros de cálculo listos para anexar al informe formal de práctica:
+- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 90 descriptores, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes VGI y oficiales.
+- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
+
+---
+
+## 8. Extracción Automatizada por Terminal (Python CLI)
 
 Para usuarios técnicos o geógrafos que requieran procesar por lotes sin abrir el navegador:
 

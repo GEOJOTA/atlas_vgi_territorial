@@ -58,24 +58,46 @@ const ModuloManual = (() => {
 
         <div class="doc-grid-audiencias">
           <div class="doc-tarjeta-audiencia">
-            <div class="doc-audiencia-tag">👤 Para Vecinos, Dirigentes y Ciudadanos (No Técnicos)</div>
-            <h4>¿Cómo utilizar el Atlas en su barrio?</h4>
-            <p>No requiere conocimientos de SIG ni programación. Siga este flujo elemental:</p>
+            <div class="doc-audiencia-tag">🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN)</div>
+            <h4>¿Cómo utilizar el Atlas en la gestión pública comunal?</h4>
+            <p>Orientado a directores SECPLAN, asesores urbanos y administradores de SIG municipal:</p>
             <ol class="doc-pasos-lista">
-              <li><strong>Explore el Visor (Panel 00):</strong> Use los botones temáticos superiores o las <em>Sugerencias de 1-Clic</em> para ver farmacias, ciclovías, paraderos o plazas en Barrio Brasil.</li>
-              <li><strong>Consulte el Diccionario (Panel 06):</strong> Haga clic en las 8 tarjetas temáticas para entender qué significan las etiquetas en buen chileno (ej. qué es un CESFAM o un cité).</li>
-              <li><strong>Descargue Datos en Excel (Panel 07):</strong> Descargue el catálogo de equipamientos en hojas de cálculo listas para adjuntar en proyectos comunitarios o cartas a la municipalidad.</li>
+              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛️ Capas Oficiales IDE Chile]</em> para verificar los 25 equipamientos con soporte estatal y contraste con las 65 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, luminarias, grifos de incendio).</li>
+              <li><strong>Evaluar Cobertura y Saturación OQT (Panel 02):</strong> Aplique el marco <em>ohsome Quality Analyst (HeiGIT)</em> para determinar el índice de madurez cartográfica de su cuadrante barrial.</li>
+              <li><strong>Exportar Metadatos Institucionales (Panel 05):</strong> Genere archivos XML bajo la norma <strong>ISO 19139 / Perfil Nacional de Metadatos</strong> para importación directa en nodos GeoNetwork o GeoNode municipales.</li>
             </ol>
           </div>
 
           <div class="doc-tarjeta-audiencia">
-            <div class="doc-audiencia-tag">📐 Para Geógrafos, Analistas SIG y Estudiantes</div>
-            <h4>¿Cómo explotar la infraestructura técnica?</h4>
-            <p>Diseñado bajo rigurosos estándares de interoperabilidad y ciencia abierta:</p>
+            <div class="doc-audiencia-tag">👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía</div>
+            <h4>¿Cómo levantar diagnósticos participativos en su barrio?</h4>
+            <p>No requiere conocimientos técnicos de SIG ni programación. Flujo rápido en 3 pasos:</p>
             <ol class="doc-pasos-lista">
-              <li><strong>Consultas Avanzadas Overpass QL (Panel 01):</strong> Filtre por claves complejas, operadores lógicos y relaciones espaciales directas al servidor de OSM.</li>
-              <li><strong>Auditoría Histórica ohsome (Panel 02):</strong> Evalúe la completitud y densidad cronológica bajo norma ISO 19157 con soporte dual v1 y v2.</li>
-              <li><strong>Metadatos ISO 19139 XML (Panel 05):</strong> Exporte fichas compatibles con el Perfil Nacional de Metadatos de IDE Chile para importar en GeoNetwork o QGIS.</li>
+              <li><strong>Consultas Barriales en 1-Clic (Panel 01):</strong> Active temáticas inmediatas (farmacias comunitarias, panaderías, paraderos Red, ciclovías, áreas verdes y casonas patrimoniales).</li>
+              <li><strong>Monitoreo de Proyectos Colaborativos (Panel 04):</strong> Revise iniciativas vecinales cartografiadas en UMap y agregue capas comunitarias al visor sin intermediarios.</li>
+              <li><strong>Descarga de Evidencia en Excel (Panel 07):</strong> Descargue el catálogo en hojas de cálculo <code>.xlsx</code> listas para respaldar presupuestos participativos o cartas a concejales.</li>
+            </ol>
+          </div>
+
+          <div class="doc-tarjeta-audiencia">
+            <div class="doc-audiencia-tag">🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana</div>
+            <h4>¿Cómo enriquecer y auditar la base cartográfica abierta?</h4>
+            <p>Diseñado para colaboradores de OpenStreetMap, iNaturalist y comunidades de datos libres:</p>
+            <ol class="doc-pasos-lista">
+              <li><strong>Constructor Visual y Overpass QL (Panel 01):</strong> Formule consultas personalizadas con filtros condicionales de calidad (<code>name</code>, <code>wheelchair</code>, <code>addr:street</code>, <code>operator</code>).</li>
+              <li><strong>Validación Global en Taginfo API (Paneles 01 y 06):</strong> Valide en vivo la frecuencia y claves de cualquier etiqueta antes de mapear en terreno.</li>
+              <li><strong>Control de Cambios en OSMCha (Panel 02):</strong> Detecte las últimas ediciones en el Bbox territorial con enlace directo a OSMCha para validar micro-contribuciones o revertir anomalías.</li>
+            </ol>
+          </div>
+
+          <div class="doc-tarjeta-audiencia">
+            <div class="doc-audiencia-tag">🎓 Perfil Académico / Geógrafos, Analistas SIG e Investigadores</div>
+            <h4>¿Cómo explotar la infraestructura geodésica y metodológica?</h4>
+            <p>Máximo rigor científico, trazabilidad bibliográfica e interoperabilidad analítica:</p>
+            <ol class="doc-pasos-lista">
+              <li><strong>Reproyección Conforme EPSG:32719 (Panel 02):</strong> Obtenga densidades espaciales por km² y superficies métricas rigurosas en metros cuadrados (m²) y hectáreas (ha) según la norma del IGM.</li>
+              <li><strong>Calidad Espacial Multidimensional ISO 19157 (Panel 02):</strong> Audite completitud, exactitud posicional, linaje y masa crítica de usuarios mediante el soporte dual ohsome v1 y v2.</li>
+              <li><strong>Interoperabilidad GeoJSON para QGIS (Panel 00):</strong> Exporte colecciones vectoriales con esquema normalizado de 14 atributos y 104 citas bibliográficas en norma APA 7ª ed.</li>
             </ol>
           </div>
         </div>
@@ -96,58 +118,62 @@ const ModuloManual = (() => {
               <rect width="100%" height="100%" fill="var(--papel-alto)" stroke="var(--linea)" stroke-width="1"/>
               <rect width="100%" height="100%" fill="url(#grid-doc)"/>
 
-              <!-- NODO 1: FUENTES -->
-              <g transform="translate(20, 35)">
-                <rect width="160" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="15" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--musgo-oscuro)">01. CAPTURA & FUENTES</text>
-                <line x1="15" y1="35" x2="145" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                <text x="15" y="58" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• OpenStreetMap (VGI)</text>
-                <text x="15" y="78" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• GBIF / iNaturalist</text>
-                <text x="15" y="98" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• UMap Colaborativo</text>
-                <text x="15" y="118" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• IDE Chile (SNIT)</text>
-                <text x="15" y="138" font-family="var(--fuente-datos)" font-size="10" fill="var(--tinta-suave)">WGS 84 (EPSG:4326)</text>
+              <!-- NODO 1: CAPTURA & APIS -->
+              <g transform="translate(15, 35)">
+                <rect width="175" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
+                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--musgo-oscuro)">01. CAPTURA & APIS</text>
+                <line x1="12" y1="33" x2="163" y2="33" stroke="var(--linea)" stroke-width="1"/>
+                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Overpass API (OSM)</text>
+                <text x="12" y="73" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Taginfo API v4</text>
+                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• GBIF Species & Occ.</text>
+                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• UMap Colaborativo</text>
+                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• IDE Chile (SNIT)</text>
+                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--tinta-suave)">WGS 84 (EPSG:4326)</text>
               </g>
 
-              <line x1="180" y1="110" x2="220" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="190" y1="110" x2="218" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
 
               <!-- NODO 2: PROCESAMIENTO & GEODESIA -->
-              <g transform="translate(225, 35)">
-                <rect width="180" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="15" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--agua)">02. MOTOR GEODÉSICO</text>
-                <line x1="15" y1="35" x2="165" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                <text x="15" y="58" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Reproyección Conforme</text>
-                <text x="15" y="78" font-family="var(--fuente-datos)" font-size="11" fill="var(--tinta)">  EPSG:32719 UTM 19S</text>
-                <text x="15" y="98" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Gauss / Shoelace Area</text>
-                <text x="15" y="118" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Superficie m² y ha</text>
-                <text x="15" y="138" font-family="var(--fuente-datos)" font-size="10" fill="var(--tinta-suave)">Snyder (USGS 1395)</text>
+              <g transform="translate(220, 35)">
+                <rect width="185" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
+                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--agua)">02. MOTOR GEODÉSICO</text>
+                <line x1="12" y1="33" x2="173" y2="33" stroke="var(--linea)" stroke-width="1"/>
+                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Reproyección Conforme</text>
+                <text x="12" y="73" font-family="var(--fuente-datos)" font-size="10" fill="var(--tinta)">  EPSG:32719 UTM 19S</text>
+                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Fórmulas de Snyder (1987)</text>
+                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Superficie en m², ha, km²</text>
+                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Densidad elem / km²</text>
+                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--tinta-suave)">Norma Oficial IGM Chile</text>
               </g>
 
-              <line x1="405" y1="110" x2="445" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="405" y1="110" x2="433" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-              <!-- NODO 3: CALIDAD & NORMALIZACIÓN -->
-              <g transform="translate(450, 35)">
-                <rect width="175" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="15" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--ocre)">03. CALIDAD & AUDITORÍA</text>
-                <line x1="15" y1="35" x2="160" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                <text x="15" y="58" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• ISO 19157 (Data Quality)</text>
-                <text x="15" y="78" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• ohsome API v1 y v2</text>
-                <text x="15" y="98" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Densidad obj / km²</text>
-                <text x="15" y="118" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Series Temporales</text>
-                <text x="15" y="138" font-family="var(--fuente-datos)" font-size="10" fill="var(--tinta-suave)">Proxy Serverless / Cache</text>
+              <!-- NODO 3: CALIDAD & AUDITORÍA -->
+              <g transform="translate(435, 35)">
+                <rect width="190" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
+                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--ocre)">03. CALIDAD & AUDITORÍA</text>
+                <line x1="12" y1="33" x2="178" y2="33" stroke="var(--linea)" stroke-width="1"/>
+                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ISO 19157 (Data Quality)</text>
+                <text x="12" y="73" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ohsome API v1 y v2-rc</text>
+                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ohsome Quality Analyst (OQT)</text>
+                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• OSM Changesets & OSMCha</text>
+                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Darwin Core Quality Issues</text>
+                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--tinta-suave)">HeiGIT / ISO / GBIF</text>
               </g>
 
-              <line x1="625" y1="110" x2="660" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="625" y1="110" x2="653" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
 
               <!-- NODO 4: SALIDAS INTEROPERABLES -->
-              <g transform="translate(665, 35)">
-                <rect width="155" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="15" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--tinta)">04. DISTRIBUCIÓN</text>
-                <line x1="15" y1="35" x2="140" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                <text x="15" y="58" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Visor Leaflet Web</text>
-                <text x="15" y="78" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• GeoJSON / CSV (QGIS)</text>
-                <text x="15" y="98" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• ISO 19139 XML (IDE)</text>
-                <text x="15" y="118" font-family="var(--fuente-lectura)" font-size="12" fill="var(--tinta)">• Libros Excel (.xlsx)</text>
-                <text x="15" y="138" font-family="var(--fuente-datos)" font-size="10" fill="var(--musgo)">CC BY-SA 4.0 / ODbL</text>
+              <g transform="translate(655, 35)">
+                <rect width="170" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
+                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--tinta)">04. DISTRIBUCIÓN</text>
+                <line x1="12" y1="33" x2="158" y2="33" stroke="var(--linea)" stroke-width="1"/>
+                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Visor Cartográfico Web</text>
+                <text x="12" y="73" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• GeoJSON / CSV (QGIS)</text>
+                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ISO 19139 XML (IDE Chile)</text>
+                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Libros Excel (.xlsx)</text>
+                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• 104 Citas APA 7ª ed.</text>
+                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--musgo)">Copyleft (CC / ODbL / GPL)</text>
               </g>
             </svg>
           </div>
@@ -546,69 +572,13 @@ out skel qt;</code></pre>
         </header>
 
         <div class="doc-texto-bloque">
-          <h3>1. Justificación Geodésica: La Distorsión de WGS 84 a Latitud -33.45°</h3>
+          <h3>Justificación Geodésica</h3>
           <p>
-            El sistema de referencia geodésico nativo de OpenStreetMap y GPS es <strong>WGS 84 (EPSG:4326)</strong>, cuyas coordenadas se expresan en grados angulares de latitud y longitud. A la latitud de Santiago Centro (-33°27' S), un grado de longitud equivale aproximadamente a <strong>92.950 metros</strong>, mientras que un grado de latitud equivale a <strong>110.910 metros</strong>. Tratar estas coordenadas angulares como planas produce una <strong>distorsión métrica superior al 19.3%</strong> en el cálculo de áreas y longitudes.
-          </p>
-          <p>
-            Por este motivo, para dar cumplimiento a los estándares del Instituto Geográfico Militar (IGM) y de la Infraestructura de Datos Espaciales de Chile (IDE Chile), el Atlas transforma cada coordenada al sistema oficial proyectado:
+            El sistema de referencia geodésico nativo de OpenStreetMap y GPS es <strong>WGS 84 (EPSG:4326)</strong>, cuyas coordenadas se expresan en grados angulares de latitud y longitud. Por este motivo, para dar cumplimiento a los estándares del Instituto Geográfico Militar (IGM) y de la Infraestructura de Datos Espaciales de Chile (IDE Chile), el Atlas transforma cada coordenada al sistema oficial proyectado:
           </p>
           <div class="doc-destacado-geodesico">
             <strong>Sistema Oficial Adoptado:</strong> WGS 84 / UTM Huso 19 Sur (EPSG:32719)<br>
             <span class="doc-pequeno">Elipsoide: WGS 84 | Semieje mayor (a): 6.378.137,0 m | Aplanamiento (1/f): 298,257223563 | Meridiano Central: 69° O | Falso Este: 500.000 m | Falso Norte: 10.000.000 m</span>
-          </div>
-
-          <!-- DIAGRAMA SVG 02: REPROYECCIÓN CONFORME -->
-          <div class="doc-diagrama-wrapper">
-            <div class="doc-diagrama-titulo">FIGURA 2. TRANSFORMACIÓN DE COORDENADAS: ELIPSOIDE WGS 84 A PLANO CONFORME UTM 19S</div>
-            <div class="doc-diagrama-svg">
-              <svg viewBox="0 0 840 200" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100%" height="100%" fill="var(--papel-alto)" stroke="var(--linea)" stroke-width="1"/>
-                
-                <!-- GLOBO / ELIPSOIDE WGS 84 -->
-                <g transform="translate(50, 20)">
-                  <circle cx="80" cy="80" r="70" fill="none" stroke="var(--linea)" stroke-width="1" stroke-dasharray="3,3"/>
-                  <ellipse cx="80" cy="80" rx="70" ry="35" fill="none" stroke="var(--linea)" stroke-width="1"/>
-                  <ellipse cx="80" cy="80" rx="35" ry="70" fill="none" stroke="var(--linea)" stroke-width="1"/>
-                  <circle cx="60" cy="100" r="4" fill="var(--alerta)"/>
-                  <text x="80" y="180" text-anchor="middle" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--tinta)">WGS 84 (EPSG:4326)</text>
-                  <text x="80" y="194" text-anchor="middle" font-family="var(--fuente-lectura)" font-size="10" fill="var(--tinta-suave)">Coordenadas angulares [φ, λ]</text>
-                  <text x="68" y="98" font-family="var(--fuente-datos)" font-size="9" fill="var(--alerta)">Santiago (-33.45°, -70.66°)</text>
-                </g>
-
-                <!-- FLECHA DE ECUACIONES SNYDER -->
-                <g transform="translate(240, 60)">
-                  <rect width="360" height="75" fill="var(--papel)" stroke="var(--ocre)" stroke-width="1"/>
-                  <text x="180" y="22" text-anchor="middle" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--ocre)">ECUACIONES CONFORMES DE SNYDER (1987)</text>
-                  <text x="180" y="42" text-anchor="middle" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">Transverse Mercator: Mapeo elipsoidal a cilindro secante transverso</text>
-                  <text x="180" y="60" text-anchor="middle" font-family="var(--fuente-datos)" font-size="10" fill="var(--musgo-oscuro)">k₀ = 0.9996 | Falso Este = 500.000 m | Falso Norte = 10.000.000 m</text>
-                  <line x1="-30" y1="37" x2="-5" y2="37" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
-                  <line x1="365" y1="37" x2="390" y2="37" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
-                </g>
-
-                <!-- PLANO MÉTRICO UTM 19S -->
-                <g transform="translate(650, 20)">
-                  <rect x="10" y="10" width="140" height="140" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                  <line x1="10" y1="80" x2="150" y2="80" stroke="var(--linea)" stroke-width="1"/>
-                  <line x1="80" y1="10" x2="80" y2="150" stroke="var(--linea)" stroke-width="1"/>
-                  <polygon points="40,40 120,50 100,120 30,110" fill="rgba(63,93,78,0.2)" stroke="var(--musgo-oscuro)" stroke-width="1.5"/>
-                  <circle cx="60" cy="90" r="3" fill="var(--musgo)"/>
-                  <text x="80" y="180" text-anchor="middle" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--tinta)">UTM 19S (EPSG:32719)</text>
-                  <text x="80" y="194" text-anchor="middle" font-family="var(--fuente-lectura)" font-size="10" fill="var(--tinta-suave)">Coordenadas métricas planas [X, Y]</text>
-                  <text x="80" y="88" text-anchor="middle" font-family="var(--fuente-datos)" font-size="9" font-weight="bold" fill="var(--musgo-oscuro)">Área Gauss (m² / ha)</text>
-                </g>
-              </svg>
-            </div>
-            <div class="doc-diagrama-epigrafe">La transformación Transverse Mercator convierte grados geográficos a metros euclidianos sin distorsión angular local, permitiendo aplicar la fórmula del área de Gauss (Shoelace).</div>
-          </div>
-
-          <h3>2. Algoritmo del Área de Gauss (Shoelace) en Coordenadas Planas</h3>
-          <p>
-            Una vez que los vértices del polígono se encuentran en metros UTM [Xᵢ, Yᵢ], se aplica la fórmula del agrimensor de Gauss:
-          </p>
-          <div class="doc-formula-caja">
-            <code>Área (m²) = 0.5 × | ∑ (Xᵢ × Yᵢ₊₁ − Xᵢ₊₁ × Yᵢ) |</code><br>
-            <span class="doc-pequeno">Donde i varía desde 1 hasta N vértices del polígono cerrado (Xₙ₊₁ = X₁, Yₙ₊₁ = Y₁). Para obtener hectáreas se divide exactamente por 10.000 (1 ha = 10.000 m²).</span>
           </div>
         </div>
       </section>
@@ -685,7 +655,7 @@ out skel qt;</code></pre>
         <div class="doc-texto-bloque">
           <h3>1. ¿Por qué prescindir de la Licencia MIT?</h3>
           <p>
-            La licencia MIT permite que terceros tomen el código y la cartografía comunitaria, los incorporen en plataformas cerradas privativas y restrinjan el acceso a la ciudadanía sin transferir ninguna mejora a la comunidad. En un proyecto de <strong>Información Geográfica Voluntaria desarrollada en una universidad pública o con vocación pública</strong>, esto vulneraría el principio de soberanía territorial de los datos abiertos.
+            La licencia MIT permite que terceros tomen el código y la cartografía comunitaria, los incorporen en plataformas cerradas privativas y restrinjan el acceso a la ciudadanía sin transferir ninguna mejora a la comunidad. En un proyecto de <strong>Información Geográfica Voluntaria desarrollado con fondos públicos</strong>, esto vulneraría el principio de soberanía territorial de los datos abiertos.
           </p>
 
           <!-- DIAGRAMA SVG 03: TRIÁNGULO DE LICENCIAS -->

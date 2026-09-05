@@ -3,6 +3,46 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 14 — Septiembre 2026 (Refinamiento Geodésico, Actores Territoriales en Quickstart y Actualización de Arquitectura)
+
+### Contexto y Requerimientos de la Entrega
+
+En atención estricta a las instrucciones del usuario:
+1. *"En 'Reproyección Conforme EPSG:32719 y Cálculo de Superficies Métricas' con la jusitificación goedésica es suficiente, puedes quitar = '2. Algoritmo del Área de Gauss (Shoelace) en Coordenadas Planas' y 'FIGURA 2. TRANSFORMACIÓN DE COORDENADAS: ELIPSOIDE WGS 84 A PLANO CONFORME UTM 19S'. también elimina 'A la latitud de Santiago Centro (-33°27' S), un grado de longitud equivale aproximadamente a 92.950 metros, mientras que un grado de latitud equivale a 110.910 metros. Tratar estas coordenadas angulares como planas produce una distorsión métrica superior al 19.3% en el cálculo de áreas y longitudes.'"*
+2. *"Lo mismo en 'En un proyecto de Información Geográfica Voluntaria desarrollada en una universidad pública o con vocación pública' elimina la parte 'en una universidad pública o con vocación pública' y coloca con 'desarrollado con fondos públicos'"*
+3. *"y por último, actualiza el archivo de arquitectura para que sea coincidente con la actual, incluyenda las apis que utiliza, etc..."*
+4. *"Y en 'Visión General y Guía de Inicio Rápido' utiliza los usuarios perfilados"*
+
+---
+
+### Diagnóstico, Soluciones y Hallazgos Metodológicos
+
+1. **Refinamiento Geodésico Riguroso (Sección 04 en `manual.js`):**
+   - Se removió la subsección secundaria sobre el algoritmo Shoelace (Fórmula de Gauss) y el diagrama SVG (Figura 2) de Snyder.
+   - Se eliminó la referencia a la distorsión del 19.3% a la latitud de Santiago Centro.
+   - Se conservó con máxima precisión la fundamentación geodésica del elipsoide WGS84, las ecuaciones conformes Transverse Mercator y los parámetros oficiales de la proyección WGS 84 / UTM Huso 19 Sur (EPSG:32719) en concordancia con los estándares del Instituto Geográfico Militar (IGM) e IDE Chile.
+
+2. **Ajuste Ético-Normativo en Licencias (Sección 06 en `manual.js`):**
+   - Se adaptó la argumentación contra la privatización de cartografía comunitaria:
+     `"En un proyecto de Información Geográfica Voluntaria desarrollado con fondos públicos, esto vulneraría el principio de soberanía territorial de los datos abiertos."`
+
+3. **Perfilado de Actores Territoriales en Quickstart (Sección 01 en `manual.js` y `MANUAL_USO.md`):**
+   - Se reemplazaron las tarjetas de flujo genéricas por 4 tarjetas operativas para los actores del territorio:
+     - **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN):** Detección de brechas catastrales comunales, contraste de micro-infraestructura VGI vs. capas oficiales del Estado, y exportación en GeoJSON/CSV estándar WGS 84.
+     - **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:** Monitoreo barrial, fiscalización de áreas verdes, registro de accesibilidad peatonal y biodiversidad urbana (GBIF) sin barreras tecnológicas.
+     - **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:** Validación de etiquetas locales con Taginfo API, verificación de cambios en tiempo real vía OSMCha y carga colaborativa estructurada.
+     - **🎓 Perfil Académico / Geógrafos, Analistas SIG e Investigadores:** Integración con PyQGIS / R Spatial, métricas espaciotemporales de completitud con HeiGIT ohsome y evaluación de calidad con el marco OQT.
+   - Se actualizó el diagrama SVG de Arquitectura del Ecosistema (FIGURA 1) integrando las 7 APIs y los 12 módulos clientes.
+
+4. **Sincronización Total de la Arquitectura de Software (`docs/ARQUITECTURA.md` y `src/docs/ARQUITECTURA.md`):**
+   - Diagrama ASCII de arquitectura de 4 capas (Fuentes / APIs Externas, Motor de Ingesta y Normalización en Navegador, Módulos Funcionales Especializados, y Capa de Presentación / Visualización).
+   - Inventario y especificación técnica de las 7 APIs integradas: Overpass API, ohsome API v1/v2, ohsome Quality Analyst (OQT), OSM Changesets API v0.6 / OSMCha, Taginfo API v4, GBIF Species & Occurrence API v1, y UMap.
+   - Documentación de los 12 módulos de cliente en `src/js/modulos/`.
+   - Esquema normalizado de atributos (14 campos) y catálogo de 90 descriptores (25 capas oficiales IDE Chile vs. 65 brechas de información VGI).
+   - Detalle de la paleta y tokens CSS liminales del estilo "Backrooms".
+
+---
+
 ## Entrega de turno 13 — Septiembre 2026 (Integración Funcional de APIs en Frontend: Taginfo, OQT, OSMCha y GBIF; Sinceramiento de Homologías IDE Chile y Acentuación Estética Backrooms)
 
 ### Contexto y Requerimientos de la Entrega
