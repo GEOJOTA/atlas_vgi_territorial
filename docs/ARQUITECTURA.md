@@ -36,35 +36,32 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 │   │ CAT-01..08  ││ Telemetría ││ v1/v2 HeiGIT││ Changesets ││DarwinCore ││ Embebido ││Snyder UTM ││
 │   └──────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬────┘└───┬───────┘│
 │          │             │             │             │             │             │         │          │
-│   ┌──────▼─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────▼───────┐│
-│   │                   MODELAMIENTO 3D & TELEDETECCIÓN VGI (modelamiento3d.js)                    ││
-│   │     Simple 3D Buildings (LOD1 Canvas) │ Mapillary API v4 (SfM) │ OpenAerialMap Dron API      ││
-│   └─────────────────────────────────────────────┬─────────────────────────────────────────────────┘│
-│                                                 │                                                 │
-│   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
-│   │                          DICCIONARIO TERRITORIAL (diccionario.js)                             │   │
-│   │     110 Descriptores Chile: 36 Capas Oficiales IDE Chile vs 74 Brechas VGI Comunitarias      │   │
-│   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
-│                                                 │                                                 │
-│   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
+│          └─────────────┴─────────────┼─────────────┴─────────────┴─────────────┴─────────┘          │
+│                                      │                                                               │
+│   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
+│   │                          DICCIONARIO TERRITORIAL (diccionario.js)                         │   │
+│   │     110 Descriptores Chile: 36 Capas Oficiales IDE Chile vs 74 Brechas VGI Comunitarias  │   │
+│   └──────────────────────────────────┬────────────────────────────────────────────────────────┘   │
+│                                      │                                                               │
+│   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
 │   │                    GENERADOR DUAL DE METADATOS ESPACIALES (metadatos.js)                  │   │
 │   │            ISO 19115:2014 (Núcleo JSON) + ISO 19139:2007 (XML Oficial IDE Chile)          │   │
 │   └───────────────────────────────────────────────────────────────────────────────────────────┘   │
-└──────────────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────────┘
-                   │          │          │          │          │          │          │
-                   ▼          ▼          ▼          ▼          ▼          ▼          ▼
-             ┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐
-             │ Overpass ││ Taginfo  ││  ohsome  ││  OSMCha  ││   GBIF   ││Mapillary ││OpenAerial│
-             │ API OSMF ││  API v4  ││ API v1/v2││Changesets││ Species/ ││ Graph v4 ││ Map UAV  │
-             │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence││   Meta   ││   HOT    │
-             └──────────┘└──────────┘└──────────┘└──────────┘└──────────┘└──────────┘└──────────┘
+└──────────────────┬──────────┬──────────┬──────────┬──────────┬────────────────────────────────────┘
+                   │          │          │          │          │
+                   ▼          ▼          ▼          ▼          ▼
+             ┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐
+             │ Overpass ││ Taginfo  ││  ohsome  ││  OSMCha  ││   GBIF   │
+             │ API OSMF ││  API v4  ││ API v1/v2││Changesets││ Species/ │
+             │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
+             └──────────┘└──────────┘└──────────┘└──────────┘└──────────┘
 ```
 
 ---
 
 ## 2. Inventario de APIs Externas Integradas en el Frontend
 
-El Atlas articula 9 servicios web geoespaciales y colaborativos de escala planetaria:
+El Atlas articula 7 servicios web geoespaciales y colaborativos de escala planetaria:
 
 | API / Servicio | Endpoint Base Oficial | Módulo Integrador | Función y Aplicación en el Atlas |
 |---|---|---|---|
@@ -73,8 +70,6 @@ El Atlas articula 9 servicios web geoespaciales y colaborativos de escala planet
 | **ohsome API (Dual v1 / v2)** | `https://api.ohsome.org/v1` (OSHDB Java)<br>`https://api.ohsome.org/v2` (Citus Python) | `src/js/modulos/ohsome.js` | Auditoría de evolución histórica espacio-temporal (series anuales P1Y), volumen de elementos vigentes, masa crítica de colaboradores activos e intensidad de contribución comunitaria. |
 | **ohsome Quality Analyst (OQT)** | Marco conceptual Herfort et al. (2023) / HeiGIT | `src/js/modulos/calidad_analyst.js` | Estimación del **Índice de Saturación de Mapeo**, clasificación de la tendencia territorial (*Levantamiento Dinámico* vs. *Consolidación Barrial*) y completitud de atributos críticos (`name`, `addr:street`, `wheelchair`, `operator`). |
 | **OSM Changesets API & OSMCha** | `https://api.openstreetmap.org/api/0.6/changesets`<br>`https://osmcha.org/changesets/{id}` | `src/js/modulos/calidad_analyst.js` | Control de cambios y validación de ediciones recientes en el Bbox de Barrio Brasil o por ID numérico de changeset con evaluación heurística y enlace directo a OSMCha. |
-| **Mapillary Graph API v4** | `https://graph.mapillary.com/images` | `src/js/modulos/modelamiento3d.js` | Extracción de imágenes a nivel de calle con telemetría de orientación de compás, altitud, cámara y enlace directo al visualizador fotogramétrico 3D (Structure-from-Motion / OpenSfM). |
-| **OpenAerialMap API (OAM)** | `https://api.openaerialmap.org/meta` | `src/js/modulos/modelamiento3d.js` | Catálogo de ortomosaicos aéreos y vuelos de dron (UAV) con resolución centimétrica (GSD cm/px), sensor, plataforma y servicios de teselas TMS para superposición en Leaflet. |
 | **GBIF Occurrence & Species API** | `https://api.gbif.org/v1/occurrence/search`<br>`https://api.gbif.org/v1/species/suggest` | `src/js/modulos/gbif.js` | Monitoreo de biodiversidad urbana y ciencia ciudadana (iNaturalist, museos), autocompletado taxonómico en vivo y extracción de banderas de calidad científica Darwin Core (`issues`). |
 | **UMap OpenStreetMap France** | `https://umap.openstreetmap.fr/es/map/...` | `src/js/modulos/umap.js` | Integración de proyectos cartográficos colaborativos locales, visualizador embebido y extracción de datos GeoJSON comunitarios. |
 
@@ -82,7 +77,7 @@ El Atlas articula 9 servicios web geoespaciales y colaborativos de escala planet
 
 ## 3. Módulos del Sistema Frontend (`src/js/modulos/`)
 
-La lógica de la aplicación se distribuye en 13 módulos desacoplados que exportan sus interfaces al objeto global `window`:
+La lógica de la aplicación se distribuye en 12 módulos desacoplados que exportan sus interfaces al objeto global `window`:
 
 ### 3.1 `mapa.js` (Visor Cartográfico Leaflet)
 - Motor: Leaflet 1.9.4.
@@ -98,7 +93,7 @@ La lógica de la aplicación se distribuye en 13 módulos desacoplados que expor
 
 ### 3.3 `taginfo.js` (Cliente Taginfo API v4)
 - Consulta asíncrona de telemetría global (`/tag/stats` y `/key/values`).
-- Renderizado de tarjetas interactivas de uso planetario en Panel 01 y Panel 07.
+- Renderizado de tarjetas interactivas de uso planetario en Panel 01 y Panel 06.
 
 ### 3.4 `calidad_analyst.js` (Control de Calidad OQT y Validación OSMCha)
 - Parser XML de `changesets?bbox=...` e inspección directa de changesets individuales por ID (`/changeset/{id}`).
@@ -118,37 +113,31 @@ La lógica de la aplicación se distribuye en 13 módulos desacoplados que expor
 - Extracción de identificadores y normalización de URLs de UMap.
 - Detección de capas vectoriales GeoJSON subyacentes.
 
-### 3.8 `modelamiento3d.js` (Modelamiento 3D, Mapillary y OpenAerialMap)
-- Motor de extrusión y proyección axonométrica 3D en `<canvas>` HTML5 con estética *backrooms* cartesiana (True 30° / 45°).
-- Extracción de atributos Simple 3D Buildings: `building:levels` (*3.2 m), `height`, `min_height`, `roof:shape`, `building:colour`.
-- Integración de Mapillary API v4 para imágenes a nivel de calle con telemetría de compás, altitud geodésica y enlace al visor fotogramétrico 3D.
-- Integración de OpenAerialMap (OAM) para ortomosaicos de dron con Ground Sample Distance (GSD cm/px) y teselas TMS.
-
-### 3.9 `geodesia.js` (Motor Geodésico Conforme EPSG:32719)
+### 3.8 `geodesia.js` (Motor Geodésico Conforme EPSG:32719)
 - Implementación conforme de las ecuaciones de Snyder (USGS Bulletin 1532 / 1395) para proyección Transverse Mercator desde elipsoide WGS84 a **UTM Huso 19 Sur (EPSG:32719)**.
 - Parámetros geodésicos: $a = 6.378.137\text{ m}$, $1/f = 298,257223563$, $\lambda_0 = -69^\circ\text{ O}$, $k_0 = 0.9996$, Falso Este $= 500.000\text{ m}$, Falso Norte $= 10.000.000\text{ m}$.
 - Conversión sistemática de superficies a metros cuadrados ($\text{m}^2$), hectáreas ($\text{ha}$) y kilómetros cuadrados ($\text{km}^2$), eliminando distorsiones angulares a la latitud de Santiago (-33.45°).
 
-### 3.10 `metadatos.js` (Generador Dual ISO 19115 / ISO 19139)
+### 3.9 `metadatos.js` (Generador Dual ISO 19115 / ISO 19139)
 - Generación de JSON con elementos núcleo de ISO 19115-1:2014.
 - Generación y descarga de XML conforme a **ISO 19139 / Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)**, validado con namespaces OGC (`gmd`, `gco`, `gml`) para interoperabilidad en GeoNetwork y GeoNode.
 
-### 3.11 `diccionario.js` (Catálogo Territorial de 110 Descriptores)
+### 3.10 `diccionario.js` (Catálogo Territorial de 110 Descriptores)
 - 110 etiquetas territoriales estratégicas y escalables para Chile clasificadas en 8 macro-categorías.
 - **Sinceramiento riguroso:** 36 capas con homología oficial demostrable en IDE Chile vs. 74 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
 - Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (74)]`, `[🏛️ Capas Oficiales IDE (36)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
 
-### 3.12 `licencias.js` (Marco Jurídico de Licenciamiento)
+### 3.11 `licencias.js` (Marco Jurídico de Licenciamiento)
 - Gestión del marco tripartito copyleft (ODbL 1.0 para datos espaciales OSM, CC BY-SA 4.0 para contenidos y fichas, GNU GPL v3 para código fuente).
 - Panel de descarga directa de los libros Excel (.xlsx) de catálogos y trazabilidad.
 
-### 3.13 `manual.js` (Documentación Técnica y Manual de Uso in-app)
-- Documentación exhaustiva estructurada en 10 secciones temáticas correspondientes a los paneles `00` a `09`.
+### 3.12 `manual.js` (Documentación Técnica y Manual de Uso in-app)
+- Documentación exhaustiva estructurada en 9 secciones temáticas correspondientes a los paneles `00` a `08`.
 - Guía de inicio rápido perfilada por actores territoriales.
-- Fichas metodológicas de las 8 macro-categorías con ejemplos Overpass QL, consultas ohsome, modelamiento 3D, teledetección UAV y bibliografía APA.
+- Fichas metodológicas de las 8 macro-categorías con ejemplos Overpass QL, consultas ohsome y bibliografía APA.
 
-### 3.14 `app.js` (Orquestador Central de Interfaz)
-- Coordinación de eventos entre los 13 submódulos, sincronización del Bbox entre paneles, actualización de previsualizaciones Overpass QL, gestión de perfiles de usuario y renderizado de resultados.
+### 3.13 `app.js` (Orquestador Central de Interfaz)
+- Coordinación de eventos entre los 12 submódulos, sincronización del Bbox entre paneles, actualización de previsualizaciones Overpass QL, gestión de perfiles de usuario y renderizado de resultados.
 
 ---
 

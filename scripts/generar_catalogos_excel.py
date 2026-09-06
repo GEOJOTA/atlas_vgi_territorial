@@ -204,30 +204,17 @@ def crear_catalogo_fuentes():
             "Registro de flora nativa (peumo, quillay, palma chilena) e introducida en jardines de Cienfuegos y Plaza Brasil."
         ],
         [
-            "Mapillary API v4 (Meta / Mapillary)",
-            "Imágenes colaborativas a nivel de calle, panorámicas 360° y fotogrametría 3D (SfM)",
-            "Global / Cobertura en Santiago Centro, Barrio Brasil y principales urbes de Chile",
+            "Mapillary / KartaView",
+            "Imágenes colaborativas a nivel de calle para reconocimiento de terreno y mobiliario urbano",
+            "Global / Urbano y Rural (Chile)",
             "2014 – Presente",
             "Continua por mapeadores móviles y ciclistas",
-            "Nivel de calle / submétrico con estimación de orientación de compás y altitud",
-            "Creative Commons Atribución-CompartirIgual (CC-BY-SA 4.0) para derivados OSM",
-            "REST Graph API v4 (graph.mapillary.com/images) y visor web 3D interactivo",
-            "Auditoría visual de fachadas, validación de alturas reales (building:levels), estado de veredas y mobiliario.",
-            "Requiere token de acceso público o institucional para consultas automatizadas.",
-            "Secuencias fotogramétricas de Almirante Barroso, Erasmo Escala, Maturana y Av. Brasil."
-        ],
-        [
-            "OpenAerialMap - OAM (HOT & OSM Community)",
-            "Ortomosaicos aéreos, fotografías de dron (UAV) y modelos digitales de elevación (DSM)",
-            "Global / Cuadrantes con relevamientos de dron en Chile",
-            "2015 – Presente",
-            "Bajo demanda tras misiones de vuelo o catástrofes",
-            "Centimétrica (GSD entre 2.5 y 8.0 cm/píxel)",
-            "Creative Commons Atribución (CC-BY 4.0 / CC-BY-SA)",
-            "REST Metadata API (api.openaerialmap.org/meta) y servicios de teselas TMS / WMTS",
-            "Base de teledetección de ultra-alta resolución para digitalización 3D de techumbres y catastro post-emergencia.",
-            "Cobertura no uniforme, restringida a áreas donde colectivos o investigadores realizaron vuelos.",
-            "Relevamiento fotogramétrico de Barrio Brasil / UAH y ortofotos de humedales y zonas típicas."
+            "Nivel de calle / submétrico con estimación de orientación de compás",
+            "Creative Commons (CC-BY-SA 4.0) / ODbL",
+            "API Mapillary v4 / Visores web integrados",
+            "Verificación visual de fachadas, señalética, accesibilidad universal y comercio barrial.",
+            "Requiere filtrado por secuencias y fecha para evitar imágenes desactualizadas.",
+            "Imágenes a nivel de calle en ejes viales principales de Barrio Brasil (Av. Brasil, Alameda)."
         ],
         [
             "IDE Chile / SNIT (Referencia Oficial)",
@@ -386,32 +373,7 @@ def crear_catalogo_fuentes():
             "Autocompletado taxonómico en vivo y resolución de nombres científicos en el buscador biológico",
             "GBIF Secretariat. (2024). GBIF Species API Reference. https://www.gbif.org/developer/species"
         ],
-        [
-            "Mapillary Graph API v4",
-            "Mapillary / Meta Platforms, Inc.",
-            "v4.0",
-            "https://graph.mapillary.com/images",
-            "GET",
-            "JSON (GeoJSON Features)",
-            "fields=id,computed_geometry,sequence,captured_at,thumb_1024_url,compass_angle,altitude&bbox=...",
-            "Acceso mediante Client Token (Bearer); cuota gratuita para investigación comunitaria",
-            "src/js/modulos/modelamiento3d.js (ModuloModelamiento3D)",
-            "Extracción de imágenes a nivel de calle para validación fotogramétrica 3D de fachadas y alturas",
-            "Mapillary. (2024). Mapillary API v4 Documentation. https://www.mapillary.com/developer/api-documentation"
-        ],
-        [
-            "OpenAerialMap Metadata API",
-            "Humanitarian OpenStreetMap Team (HOT) & OAM",
-            "v1.0",
-            "https://api.openaerialmap.org/meta",
-            "GET",
-            "JSON (OAM Catalog Spec)",
-            "bbox=-70.6720,-33.4505,-70.6580,-33.4350&limit=10",
-            "Acceso público abierto sin autenticación; soporte de teselas TMS abiertas",
-            "src/js/modulos/modelamiento3d.js (ModuloModelamiento3D)",
-            "Búsqueda de ortomosaicos y vuelos de dron con especificación de resolución de píxel (GSD cm/px)",
-            "HOT & OAM Community. (2024). OpenAerialMap API Specification. https://docs.openaerialmap.org/"
-        ],
+
         [
             "UMap Export Service",
             "OpenStreetMap / Framasoft",

@@ -81,16 +81,7 @@ Permite explorar avistamientos de flora y fauna procedentes de instituciones cie
 
 ---
 
-## 5. Modelamiento 3D, Fotogrametría y Teledetección VGI (Panel 04)
-
-Permite analizar la tercera dimensión y la resolución fotogramétrica del territorio combinando datos vectoriales y sensores remotos:
-- **Submódulo A (Visualizador Axonométrico 3D de Edificaciones):** Proyección cartesiana en tiempo real de las huellas de edificios sobre canvas interactivo (estética *backrooms* sobria). Las alturas se derivan del estándar `building:levels` (*3.2 m de entrepiso estándar), `height` y cubiertas (`roof:shape`). Controles de rotación en 45°, inclinación y factor de exageración vertical Z.
-- **Submódulo B (Fotogrametría y Nivel de Calle con Mapillary API v4):** Consulta de secuencias fotográficas a nivel de calle con orientación de compás, altitud geodésica y enlace al visor 3D oficial basado en Structure-from-Motion (OpenSfM).
-- **Submódulo C (Teledetección y Drones con OpenAerialMap):** Catálogo federado de ortomosaicos aéreos con especificación de Ground Sample Distance (GSD cm/píxel), plataforma UAV, sensor y servicios de teselas TMS para superposición directa.
-
----
-
-## 6. Cartografía Temática Comunitaria con UMap (Panel 05)
+## 5. Cartografía Temática Comunitaria con UMap (Panel 04)
 
 Visualiza iniciativas cartográficas vecinales y colectivas desarrolladas en UMap:
 - Selector de proyectos colaborativos predefinidos (casonas patrimoniales, ciclovías, huertos urbanos).
@@ -99,7 +90,7 @@ Visualiza iniciativas cartográficas vecinales y colectivas desarrolladas en UMa
 
 ---
 
-## 7. Fichas de Metadatos Estandarizadas (Panel 06)
+## 6. Fichas de Metadatos Estandarizadas (Panel 05)
 
 Permite generar la documentación técnica oficial del catastro territorial:
 1. Haz clic en **"Prellenar con datos de la última consulta"** para autocompletar el título, Bbox y linaje a partir del área de trabajo.
@@ -110,7 +101,7 @@ Permite generar la documentación técnica oficial del catastro territorial:
 
 ---
 
-## 8. Diccionario Territorial de 110 Descriptores (Panel 07)
+## 7. Diccionario Territorial de 110 Descriptores (Panel 06)
 
 Permite consultar la definición toponímica y la homología institucional de cada etiqueta con alcance nacional:
 - **Sinceramiento riguroso:** Distinción explícita entre 36 capas oficiales con soporte fiscal en IDE Chile vs. 74 Brechas VGI no catastradas por el Estado.
@@ -119,16 +110,16 @@ Permite consultar la definición toponímica y la homología institucional de ca
 
 ---
 
-## 9. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 08)
+## 8. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los tres libros de cálculo listos para anexar al informe formal de práctica:
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 110 descriptores escalables, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de 12 fuentes/servicios (Hoja 1) e inventario técnico de 13 endpoints de APIs (Hoja 2, incluyendo Mapillary v4 y OpenAerialMap).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas (Hoja 1) e inventario técnico de endpoints de APIs en vivo (Hoja 2).
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
 
 ---
 
-## 10. Manual de Uso y Documentación Oficial (Panel 09)
+## 9. Manual de Uso y Documentación Oficial (Panel 08)
 
 Módulo in-app con el compendio metodológico, justificación geodésica EPSG:32719, marco jurídico de datos abiertos en Chile y repositorio Git.
 

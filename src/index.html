@@ -36,12 +36,11 @@
       <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
       <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad y Validación (ohsome & OSMCha)</button></li>
       <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
-      <li><button data-panel="modelamiento-3d"><span class="marcador">04</span> Modelamiento 3D (Mapillary y Dron OSM)</button></li>
-      <li><button data-panel="proyectos-umap"><span class="marcador">05</span> Cartografía UMap</button></li>
-      <li><button data-panel="metadatos-iso"><span class="marcador">06</span> Metadatos ISO 19115 / IDE</button></li>
-      <li><button data-panel="diccionario"><span class="marcador">07</span> Diccionario Territorial</button></li>
-      <li><button data-panel="licencias"><span class="marcador">08</span> Catálogos y Licencias (.xlsx)</button></li>
-      <li><button data-panel="manual"><span class="marcador">09</span> Manual de Uso y Documentación</button></li>
+      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
+      <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
+      <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
+      <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
+      <li><button data-panel="manual"><span class="marcador">08</span> Manual de Uso y Documentación</button></li>
     </ul>
 
     <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
@@ -481,92 +480,10 @@
       </div>
     </section>
 
-    <!-- ---------- 04. MODELAMIENTO 3D & TELEDETECCIÓN ---------- -->
-    <section class="panel" id="panel-modelamiento-3d">
-      <header>
-        <span class="rotulo">04 / Simple 3D Buildings, Mapillary v4 & OpenAerialMap</span>
-        <h2>Modelamiento 3D, Fotogrametría y Teledetección VGI</h2>
-        <p class="descripcion">Explora la volumetría tridimensional de edificaciones a partir de atributos OSM (LOD1), contrasta con secuencias fotogramétricas a nivel de calle (Mapillary) y accede a ortomosaicos de dron de alta resolución (OpenAerialMap).</p>
-      </header>
-
-      <!-- SUBMÓDULO A: MODELAMIENTO 3D DE EDIFICACIONES -->
-      <div class="bloque">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo A: Visualizador Axonométrico 3D de Edificaciones (Simple 3D Buildings)</h3>
-          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[OGC CITYGML LOD1 // EPSG:32719]</span>
-        </div>
-        <p class="descripcion" style="margin-bottom:10px;">
-          Genera una proyección axonométrica cartesiana en tiempo real de las edificaciones del cuadrante barrial. Las alturas métricas se derivan del estándar <code>building:levels</code> (3.2 m por piso), <code>height</code>, <code>min_height</code> y formas de cubierta (<code>roof:shape</code>).
-        </p>
-
-        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
-          <button class="accion" id="btn-cargar-edificios-3d">🏢 Cargar Edificaciones 3D desde OSM (Overpass)</button>
-          <button class="accion secundaria" id="btn-rotar-3d-izq" title="Girar 45° a la izquierda">↺ Girar 45° Izq</button>
-          <button class="accion secundaria" id="btn-rotar-3d-der" title="Girar 45° a la derecha">↻ Girar 45° Der</button>
-          <button class="accion secundaria" id="btn-inclinacion-3d" title="Alternar ángulo de inclinación">📐 Alternar Inclinación</button>
-          <label style="font-size:0.75rem; font-family:var(--fuente-datos); margin-left:auto; display:flex; align-items:center; gap:6px;">
-            Exageración Z:
-            <select id="sel-escala-z-3d" style="font-size:0.78rem; padding:2px 6px;">
-              <option value="1.0">1.0x (Real)</option>
-              <option value="1.5" selected>1.5x (Sobrio)</option>
-              <option value="2.0">2.0x (Enfático)</option>
-            </select>
-          </label>
-        </div>
-
-        <div style="width:100%; overflow:hidden; border:1px solid var(--linea); border-radius:2px; background:#1c1c19;">
-          <canvas id="canvas-3d-territorio" height="420" style="display:block; width:100%; cursor:grab;"></canvas>
-        </div>
-        <div id="ficha-edificio-3d" style="margin-top:10px; font-size:0.78rem; font-family:var(--fuente-datos); color:var(--tinta-suave); padding:8px; background:var(--papel-alto); border:1px solid var(--linea);">
-          [3D_METRICS] Proyección axonométrica activa. Selecciona un territorio o presiona [Cargar Edificaciones 3D] para extruir el catastro de Barrio Brasil.
-        </div>
-      </div>
-
-      <!-- SUBMÓDULO B: MAPILLARY API V4 -->
-      <div class="bloque" style="margin-top:16px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo B: Fotogrametría y Nivel de Calle (Mapillary API v4)</h3>
-          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[STRUCTURE-FROM-MOTION // OPENSFM]</span>
-        </div>
-        <p class="descripcion" style="margin-bottom:10px;">
-          Inspecciona imágenes colaborativas georreferenciadas a nivel de calle para validar fachadas, número de pisos reales, accesibilidad y estado del arbolado urbano con orientación de compás y altitud geodésica.
-        </p>
-
-        <div class="fila-campos">
-          <div class="campo" style="flex:1.5; min-width:240px;">
-            <label for="mapillary-token-input">Mapillary Client Token (Opcional - Presiona consultar para catálogo institucional)</label>
-            <input type="password" id="mapillary-token-input" placeholder="MLY|... (deja vacío para catálogo comunitario)">
-          </div>
-          <div class="campo" style="flex:0.8; min-width:160px; display:flex; align-items:flex-end;">
-            <button class="accion" id="btn-consultar-mapillary" style="width:100%;">📷 Consultar Fotos de Calle</button>
-          </div>
-        </div>
-
-        <div id="contenedor-resultados-mapillary" style="margin-top:12px;"></div>
-      </div>
-
-      <!-- SUBMÓDULO C: OPENAERIALMAP (IMÁGENES DE DRON OSM) -->
-      <div class="bloque" style="margin-top:16px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo C: Teledetección y Vuelos Fotogramétricos de Dron (OpenAerialMap)</h3>
-          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[UAV ORTHOMOSAIC // GSD CENTIMÉTRICO]</span>
-        </div>
-        <p class="descripcion" style="margin-bottom:10px;">
-          Catálogo federado de imágenes de dron (UAV) abiertas para OpenStreetMap. Proporciona ortomosaicos con resolución de píxel centimétrica (GSD 3-5 cm/px), modelos digitales de superficie (DSM) y servicios de teselas TMS para superposición directa.
-        </p>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-          <button class="accion" id="btn-consultar-oam">🚁 Consultar Misiones de Dron (OAM API)</button>
-        </div>
-
-        <div id="contenedor-resultados-oam"></div>
-      </div>
-    </section>
-
-    <!-- ---------- 05. UMAP ---------- -->
+    <!-- ---------- 04. UMAP ---------- -->
     <section class="panel" id="panel-proyectos-umap">
       <header>
-        <span class="rotulo">05 / Cartografía Temática Comunitaria</span>
+        <span class="rotulo">04 / Cartografía Temática Comunitaria</span>
         <h2>Proyectos UMap</h2>
         <p class="descripcion">Visualiza proyectos cartográficos generados por colectivos territoriales y descarga su GeoJSON.</p>
       </header>
@@ -610,10 +527,10 @@
       </div>
     </section>
 
-    <!-- ---------- 06. METADATOS ISO ---------- -->
+    <!-- ---------- 05. METADATOS ISO ---------- -->
     <section class="panel" id="panel-metadatos-iso">
       <header>
-        <span class="rotulo">06 / ISO 19115 & ISO 19139 (IDE Chile)</span>
+        <span class="rotulo">05 / ISO 19115 & ISO 19139 (IDE Chile)</span>
         <h2>Ficha de Metadatos Estandarizada</h2>
         <p class="descripcion">Documenta el conjunto de datos geográficos para su catalogación oficial conforme al Perfil Nacional de Metadatos de la Infraestructura de Datos Geoespaciales de Chile.</p>
       </header>
@@ -733,10 +650,10 @@
       <div class="bloque resultado" id="resultado-metadatos" aria-live="polite"></div>
     </section>
 
-    <!-- ---------- 07. DICCIONARIO TERRITORIAL ---------- -->
+    <!-- ---------- 06. DICCIONARIO TERRITORIAL ---------- -->
     <section class="panel" id="panel-diccionario">
       <header>
-        <span class="rotulo">07 / Estándar y Diccionario de Datos</span>
+        <span class="rotulo">06 / Estándar y Diccionario de Datos</span>
         <h2>Diccionario de Metadatos y Atributos Territoriales</h2>
         <p class="descripcion">Definición de cada campo normalizado, homologación oficial con IDE Chile (SNIT) y glosario de etiquetas OpenStreetMap aplicadas a Barrio Brasil y la UAH.</p>
       </header>
@@ -760,20 +677,20 @@
       </div>
     </section>
 
-    <!-- ---------- 08. LICENCIAS Y CATÁLOGOS ---------- -->
+    <!-- ---------- 07. LICENCIAS Y CATÁLOGOS ---------- -->
     <section class="panel" id="panel-licencias">
       <header>
-        <span class="rotulo">08 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
+        <span class="rotulo">07 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
         <h2>Licencias Abiertas y Descarga de Catálogos Oficiales</h2>
         <p class="descripcion">Acceso directo a las matrices metodológicas en formato Excel (.xlsx) generadas para la práctica profesional y marco jurídico de cada fuente.</p>
       </header>
       <div class="bloque resultado" id="contenido-licencias"></div>
     </section>
 
-    <!-- ---------- 09. MANUAL DE USO Y DOCUMENTACIÓN ---------- -->
+    <!-- ---------- 08. MANUAL DE USO Y DOCUMENTACIÓN ---------- -->
     <section class="panel" id="panel-manual">
       <header>
-        <span class="rotulo">09 / Documentación Oficial & Manual de Uso</span>
+        <span class="rotulo">08 / Documentación Oficial & Manual de Uso</span>
         <h2>Manual de Uso del Atlas VGI, Guía Metodológica y Gobernanza Abierta</h2>
         <p class="descripcion">Documentación técnica integral estilo librería/paquete: flujo de trabajo territorial, guía exhaustiva de las 8 macro-categorías, cálculo geodésico EPSG:32719, control de calidad ISO 19157, marco de licenciamiento chileno y gobernanza colaborativa en Git.</p>
       </header>
@@ -797,7 +714,6 @@
 <script src="js/modulos/ohsome.js"></script>
 <script src="js/modulos/gbif.js"></script>
 <script src="js/modulos/umap.js"></script>
-<script src="js/modulos/modelamiento3d.js"></script>
 <script src="js/modulos/metadatos.js"></script>
 <script src="js/modulos/licencias.js"></script>
 <script src="js/modulos/manual.js"></script>
