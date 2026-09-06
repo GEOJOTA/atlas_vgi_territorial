@@ -34,13 +34,14 @@
     <ul class="capas-nav" id="lista-navegacion">
       <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
       <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
-      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad de Datos (ohsome v1)</button></li>
+      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad y Validación (ohsome & OSMCha)</button></li>
       <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
-      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
-      <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
-      <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
-      <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
-      <li><button data-panel="manual"><span class="marcador">08</span> Manual de Uso y Documentación</button></li>
+      <li><button data-panel="modelamiento-3d"><span class="marcador">04</span> Modelamiento 3D (Mapillary y Dron OSM)</button></li>
+      <li><button data-panel="proyectos-umap"><span class="marcador">05</span> Cartografía UMap</button></li>
+      <li><button data-panel="metadatos-iso"><span class="marcador">06</span> Metadatos ISO 19115 / IDE</button></li>
+      <li><button data-panel="diccionario"><span class="marcador">07</span> Diccionario Territorial</button></li>
+      <li><button data-panel="licencias"><span class="marcador">08</span> Catálogos y Licencias (.xlsx)</button></li>
+      <li><button data-panel="manual"><span class="marcador">09</span> Manual de Uso y Documentación</button></li>
     </ul>
 
     <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
@@ -269,16 +270,21 @@
       </div>
     </section>
 
-    <!-- ---------- 02. CALIDAD (OHSOME) ---------- -->
+    <!-- ---------- 02. CALIDAD (OHSOME & OSMCHA) ---------- -->
     <section class="panel" id="panel-calidad-ohsome">
       <header>
-        <span class="rotulo">02 / ohsome API (HeiGIT)</span>
-        <h2>Calidad y Evolución Espacio-Temporal OSM</h2>
-        <p class="descripcion">Evalúa el volumen, densidad de elementos por km² y la masa crítica de colaboradores históricos en el área seleccionada.</p>
+        <span class="rotulo">02 / ohsome API (HeiGIT) & OSMCha (OpenStreetMap Changeset Analyzer)</span>
+        <h2>Calidad de Datos, Saturación Espaciotemporal y Control de Cambios</h2>
+        <p class="descripcion">Evalúa el volumen histórico y la saturación de mapeo con ohsome API, e inspecciona la integridad de las últimas ediciones territoriales con la plataforma OSMCha.</p>
       </header>
 
+      <!-- SUBMÓDULO A: OHSOME API & OQT -->
       <div class="bloque">
-        <h3>Área y Filtro de Análisis</h3>
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo A: Métricas Históricas y Saturación OQT (ohsome API v1/v2)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[HeiGIT // ISO 19157]</span>
+        </div>
+
         <div class="fila-campos">
           <div class="campo"><label for="oh-oeste">Oeste</label><input type="number" step="any" id="oh-oeste"></div>
           <div class="campo"><label for="oh-sur">Sur</label><input type="number" step="any" id="oh-sur"></div>
@@ -342,27 +348,18 @@
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
           <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad (ohsome API)</button>
-          <button class="accion secundaria" id="btn-auditar-changesets-osmcha">🔎 Auditar Changesets Recientes y Validar en OSMCha</button>
         </div>
 
         <div class="caja-guia-referencia">
           <h4>📐 Fundamentación de Calidad Espacial Multidimensional (ISO 19157 / HeiGIT / OQT)</h4>
           <p>
-            La calidad de datos espaciales voluntarios (VGI) no se reduce a un porcentaje abstracto, sino que responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
+            La calidad de datos espaciales voluntarios (VGI) responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
           </p>
           <ul>
-            <li><strong>Soporte Dual ohsome v1 y v2:</strong>
-              <ul>
-                <li><strong>v1 (OSHDB):</strong> Motor histórico clásico basado en Java (Raifer et al., 2019). Acceso 100% libre sin credenciales, con soporte activo de HeiGIT hasta el 30 de noviembre de 2026.</li>
-                <li><strong>v2 (ohsomeDB):</strong> Nueva arquitectura reescrita en Python sobre PostgreSQL/PostGIS/Citus, optimizada para responder en segundos con soporte de hashtags de mapeo y exportación en Apache Parquet. Requiere API Key gratuita de HeiGIT.</li>
-                <li><strong>Resiliencia comunitaria:</strong> Si eliges v2 sin API Key o hay problemas de red, el Atlas conmuta automáticamente a v1 sin romper tu análisis.</li>
-              </ul>
-            </li>
-            <li><strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox (área de encuadre territorial) y densidad espacial de elementos por km² o hectárea pasa por una reproyección conforme Transverse Mercator desde WGS 84 a EPSG:32719 (norma oficial adoptada por el Instituto Geográfico Militar de Chile / IGM e Infraestructura de Datos Espaciales de Chile / IDE Chile). Esto elimina las distorsiones de escala angular que se producen al medir áreas planas sobre coordenadas en grados decimales a la latitud de Santiago (-33.44°).</li>
-            <li><strong>Sensibilidad Geométrica:</strong> La red vial se audita por continuidad lineal (<code>/elements/length</code> en km), las edificaciones y áreas verdes por superficie de huella construida (<code>/elements/area</code> en m²/ha), y el equipamiento por densidad puntual (<code>/elements/count</code>).</li>
-            <li><strong>ohsome Quality Analyst (OQT Framework):</strong> Evaluación intrínseca de saturación de mapeo, madurez cronológica y completitud de atributos esenciales (Herfort et al., 2023).</li>
-            <li><strong>Auditoría de Changesets y OSMCha:</strong> Detección de las últimas ediciones en el polígono barrial y enlace directo a OSMCha (Wille Marcel) para validación de vandalismo o micro-contribuciones.</li>
-            <li><strong>Citas académicas:</strong> Raifer et al. (2019) <em>OSHDB framework</em> (doi:10.1186/s40965-019-0061-3); Herfort et al. (2023) <em>ohsome quality analyst</em>; Haklay (2010) <em>How good is VGI?</em>; Goodchild (2007) <em>Citizens as sensors</em>.</li>
+            <li><strong>Soporte Dual ohsome v1 y v2:</strong> Motor histórico OSHDB libre y nueva base relacional ohsomeDB.</li>
+            <li><strong>Reproyección Geodésica Rigurosa a EPSG:32719:</strong> Todo cálculo métrico pasa por proyección conforme Transverse Mercator (UTM Huso 19 Sur) eliminando distorsiones angulares a la latitud de Santiago.</li>
+            <li><strong>Sensibilidad Geométrica:</strong> Red vial por longitud (/length), huellas de edificios por superficie (/area) y equipamientos por conteo (/count).</li>
+            <li><strong>ohsome Quality Analyst (OQT):</strong> Evaluación de saturación y madurez cartográfica territorial (Herfort et al., 2023).</li>
           </ul>
         </div>
       </div>
@@ -371,8 +368,38 @@
         <p class="descripcion">Todavía no hay ningún cálculo realizado.</p>
       </div>
 
-      <!-- Contenedor interactivo para OSM Changesets & OSMCha API -->
-      <div id="contenedor-auditoria-osmcha" style="margin-top:14px;"></div>
+      <!-- SUBMÓDULO B: CONTROL DE CAMBIOS Y VALIDACIÓN CON OSMCHA -->
+      <div class="bloque" style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo B: Control de Cambios y Validación de Ediciones (OSMCha / Changesets v0.6)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[OSMCHA // MAPBOX COMMUNITY]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:10px;">
+          Inspecciona las ediciones territoriales recientes realizadas por mapeadores en el área delimitada, evalúa heurísticas de calidad (volumen, comentarios, software de edición) e interactúa directamente con la plataforma OSMCha para auditar o validar cambios.
+        </p>
+
+        <div class="fila-campos">
+          <div class="campo" style="flex:1.5; min-width:240px;">
+            <label for="osmcha-filtro-modo">Modo de Consulta OSMCha</label>
+            <select id="osmcha-filtro-modo">
+              <option value="bbox" selected>📍 Ediciones Recientes en el Bbox Territorial Activo</option>
+              <option value="id">🔍 Buscar Changeset por ID Numérico Específico</option>
+            </select>
+          </div>
+          <div class="campo" id="contenedor-osmcha-id" style="display:none; flex:1; min-width:180px;">
+            <label for="osmcha-input-id">ID de Changeset (ej: 148202930)</label>
+            <input type="text" id="osmcha-input-id" placeholder="Ingresa número de changeset">
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+          <button class="accion" id="btn-ejecutar-validacion-osmcha">🔎 Validar Ediciones en OSMCha</button>
+          <button class="accion secundaria" id="btn-abrir-osmcha-externo">↗ Abrir Filtro Territorial en osmcha.org</button>
+        </div>
+
+        <!-- Contenedor interactivo para OSM Changesets & OSMCha API -->
+        <div id="contenedor-auditoria-osmcha" style="margin-top:14px;"></div>
+      </div>
     </section>
 
     <!-- ---------- 03. GBIF ---------- -->
@@ -454,10 +481,92 @@
       </div>
     </section>
 
-    <!-- ---------- 04. UMAP ---------- -->
+    <!-- ---------- 04. MODELAMIENTO 3D & TELEDETECCIÓN ---------- -->
+    <section class="panel" id="panel-modelamiento-3d">
+      <header>
+        <span class="rotulo">04 / Simple 3D Buildings, Mapillary v4 & OpenAerialMap</span>
+        <h2>Modelamiento 3D, Fotogrametría y Teledetección VGI</h2>
+        <p class="descripcion">Explora la volumetría tridimensional de edificaciones a partir de atributos OSM (LOD1), contrasta con secuencias fotogramétricas a nivel de calle (Mapillary) y accede a ortomosaicos de dron de alta resolución (OpenAerialMap).</p>
+      </header>
+
+      <!-- SUBMÓDULO A: MODELAMIENTO 3D DE EDIFICACIONES -->
+      <div class="bloque">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo A: Visualizador Axonométrico 3D de Edificaciones (Simple 3D Buildings)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[OGC CITYGML LOD1 // EPSG:32719]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:10px;">
+          Genera una proyección axonométrica cartesiana en tiempo real de las edificaciones del cuadrante barrial. Las alturas métricas se derivan del estándar <code>building:levels</code> (3.2 m por piso), <code>height</code>, <code>min_height</code> y formas de cubierta (<code>roof:shape</code>).
+        </p>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
+          <button class="accion" id="btn-cargar-edificios-3d">🏢 Cargar Edificaciones 3D desde OSM (Overpass)</button>
+          <button class="accion secundaria" id="btn-rotar-3d-izq" title="Girar 45° a la izquierda">↺ Girar 45° Izq</button>
+          <button class="accion secundaria" id="btn-rotar-3d-der" title="Girar 45° a la derecha">↻ Girar 45° Der</button>
+          <button class="accion secundaria" id="btn-inclinacion-3d" title="Alternar ángulo de inclinación">📐 Alternar Inclinación</button>
+          <label style="font-size:0.75rem; font-family:var(--fuente-datos); margin-left:auto; display:flex; align-items:center; gap:6px;">
+            Exageración Z:
+            <select id="sel-escala-z-3d" style="font-size:0.78rem; padding:2px 6px;">
+              <option value="1.0">1.0x (Real)</option>
+              <option value="1.5" selected>1.5x (Sobrio)</option>
+              <option value="2.0">2.0x (Enfático)</option>
+            </select>
+          </label>
+        </div>
+
+        <div style="width:100%; overflow:hidden; border:1px solid var(--linea); border-radius:2px; background:#1c1c19;">
+          <canvas id="canvas-3d-territorio" height="420" style="display:block; width:100%; cursor:grab;"></canvas>
+        </div>
+        <div id="ficha-edificio-3d" style="margin-top:10px; font-size:0.78rem; font-family:var(--fuente-datos); color:var(--tinta-suave); padding:8px; background:var(--papel-alto); border:1px solid var(--linea);">
+          [3D_METRICS] Proyección axonométrica activa. Selecciona un territorio o presiona [Cargar Edificaciones 3D] para extruir el catastro de Barrio Brasil.
+        </div>
+      </div>
+
+      <!-- SUBMÓDULO B: MAPILLARY API V4 -->
+      <div class="bloque" style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo B: Fotogrametría y Nivel de Calle (Mapillary API v4)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[STRUCTURE-FROM-MOTION // OPENSFM]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:10px;">
+          Inspecciona imágenes colaborativas georreferenciadas a nivel de calle para validar fachadas, número de pisos reales, accesibilidad y estado del arbolado urbano con orientación de compás y altitud geodésica.
+        </p>
+
+        <div class="fila-campos">
+          <div class="campo" style="flex:1.5; min-width:240px;">
+            <label for="mapillary-token-input">Mapillary Client Token (Opcional - Presiona consultar para catálogo institucional)</label>
+            <input type="password" id="mapillary-token-input" placeholder="MLY|... (deja vacío para catálogo comunitario)">
+          </div>
+          <div class="campo" style="flex:0.8; min-width:160px; display:flex; align-items:flex-end;">
+            <button class="accion" id="btn-consultar-mapillary" style="width:100%;">📷 Consultar Fotos de Calle</button>
+          </div>
+        </div>
+
+        <div id="contenedor-resultados-mapillary" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- SUBMÓDULO C: OPENAERIALMAP (IMÁGENES DE DRON OSM) -->
+      <div class="bloque" style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo C: Teledetección y Vuelos Fotogramétricos de Dron (OpenAerialMap)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[UAV ORTHOMOSAIC // GSD CENTIMÉTRICO]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:10px;">
+          Catálogo federado de imágenes de dron (UAV) abiertas para OpenStreetMap. Proporciona ortomosaicos con resolución de píxel centimétrica (GSD 3-5 cm/px), modelos digitales de superficie (DSM) y servicios de teselas TMS para superposición directa.
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+          <button class="accion" id="btn-consultar-oam">🚁 Consultar Misiones de Dron (OAM API)</button>
+        </div>
+
+        <div id="contenedor-resultados-oam"></div>
+      </div>
+    </section>
+
+    <!-- ---------- 05. UMAP ---------- -->
     <section class="panel" id="panel-proyectos-umap">
       <header>
-        <span class="rotulo">04 / Cartografía Temática Comunitaria</span>
+        <span class="rotulo">05 / Cartografía Temática Comunitaria</span>
         <h2>Proyectos UMap</h2>
         <p class="descripcion">Visualiza proyectos cartográficos generados por colectivos territoriales y descarga su GeoJSON.</p>
       </header>
@@ -501,10 +610,10 @@
       </div>
     </section>
 
-    <!-- ---------- 05. METADATOS ISO ---------- -->
+    <!-- ---------- 06. METADATOS ISO ---------- -->
     <section class="panel" id="panel-metadatos-iso">
       <header>
-        <span class="rotulo">05 / ISO 19115 & ISO 19139 (IDE Chile)</span>
+        <span class="rotulo">06 / ISO 19115 & ISO 19139 (IDE Chile)</span>
         <h2>Ficha de Metadatos Estandarizada</h2>
         <p class="descripcion">Documenta el conjunto de datos geográficos para su catalogación oficial conforme al Perfil Nacional de Metadatos de la Infraestructura de Datos Geoespaciales de Chile.</p>
       </header>
@@ -624,10 +733,10 @@
       <div class="bloque resultado" id="resultado-metadatos" aria-live="polite"></div>
     </section>
 
-    <!-- ---------- 06. DICCIONARIO TERRITORIAL ---------- -->
+    <!-- ---------- 07. DICCIONARIO TERRITORIAL ---------- -->
     <section class="panel" id="panel-diccionario">
       <header>
-        <span class="rotulo">06 / Estándar y Diccionario de Datos</span>
+        <span class="rotulo">07 / Estándar y Diccionario de Datos</span>
         <h2>Diccionario de Metadatos y Atributos Territoriales</h2>
         <p class="descripcion">Definición de cada campo normalizado, homologación oficial con IDE Chile (SNIT) y glosario de etiquetas OpenStreetMap aplicadas a Barrio Brasil y la UAH.</p>
       </header>
@@ -651,20 +760,20 @@
       </div>
     </section>
 
-    <!-- ---------- 07. LICENCIAS Y CATÁLOGOS ---------- -->
+    <!-- ---------- 08. LICENCIAS Y CATÁLOGOS ---------- -->
     <section class="panel" id="panel-licencias">
       <header>
-        <span class="rotulo">07 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
+        <span class="rotulo">08 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
         <h2>Licencias Abiertas y Descarga de Catálogos Oficiales</h2>
         <p class="descripcion">Acceso directo a las matrices metodológicas en formato Excel (.xlsx) generadas para la práctica profesional y marco jurídico de cada fuente.</p>
       </header>
       <div class="bloque resultado" id="contenido-licencias"></div>
     </section>
 
-    <!-- ---------- 08. MANUAL DE USO Y DOCUMENTACIÓN ---------- -->
+    <!-- ---------- 09. MANUAL DE USO Y DOCUMENTACIÓN ---------- -->
     <section class="panel" id="panel-manual">
       <header>
-        <span class="rotulo">08 / Documentación Oficial & Manual de Uso</span>
+        <span class="rotulo">09 / Documentación Oficial & Manual de Uso</span>
         <h2>Manual de Uso del Atlas VGI, Guía Metodológica y Gobernanza Abierta</h2>
         <p class="descripcion">Documentación técnica integral estilo librería/paquete: flujo de trabajo territorial, guía exhaustiva de las 8 macro-categorías, cálculo geodésico EPSG:32719, control de calidad ISO 19157, marco de licenciamiento chileno y gobernanza colaborativa en Git.</p>
       </header>
@@ -688,6 +797,7 @@
 <script src="js/modulos/ohsome.js"></script>
 <script src="js/modulos/gbif.js"></script>
 <script src="js/modulos/umap.js"></script>
+<script src="js/modulos/modelamiento3d.js"></script>
 <script src="js/modulos/metadatos.js"></script>
 <script src="js/modulos/licencias.js"></script>
 <script src="js/modulos/manual.js"></script>

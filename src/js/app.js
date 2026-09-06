@@ -600,19 +600,58 @@ function inicializarAplicacion() {
 
   document.getElementById('btn-consultar-ohsome').addEventListener('click', manejarConsultaOhsome);
 
-  const btnAuditarOSMCha = document.getElementById('btn-auditar-changesets-osmcha');
-  if (btnAuditarOSMCha) {
-    btnAuditarOSMCha.addEventListener('click', () => {
-      const bbox = leerBbox('oh');
-      if (!bbox) {
-        alert('Debes completar las coordenadas del área (Bbox) para auditar los changesets.');
-        return;
-      }
-      if (window.ModuloCalidadAnalyst) {
-        window.ModuloCalidadAnalyst.renderizarInspectorChangesets('contenedor-auditoria-osmcha', bbox);
+  // Control de Cambios y Validación de Ediciones con OSMCha (Changesets API v0.6)
+  const selModoOSMCha = document.getElementById('osmcha-filtro-modo');
+  const divContenedorIdOSMCha = document.getElementById('contenedor-osmcha-id');
+  if (selModoOSMCha && divContenedorIdOSMCha) {
+    selModoOSMCha.addEventListener('change', (e) => {
+      divContenedorIdOSMCha.style.display = e.target.value === 'id' ? 'block' : 'none';
+    });
+  }
+
+  const btnEjecutarOSMCha = document.getElementById('btn-ejecutar-validacion-osmcha');
+  if (btnEjecutarOSMCha) {
+    btnEjecutarOSMCha.addEventListener('click', () => {
+      const modo = selModoOSMCha ? selModoOSMCha.value : 'bbox';
+      if (modo === 'id') {
+        const inpId = document.getElementById('osmcha-input-id');
+        const csId = inpId ? inpId.value.trim() : '';
+        if (!csId) {
+          alert('Ingresa un número de changeset válido para consultar.');
+          return;
+        }
+        if (window.ModuloCalidadAnalyst) {
+          window.ModuloCalidadAnalyst.renderizarInspectorChangesets('contenedor-auditoria-osmcha', null, { changesetId: csId });
+        }
+      } else {
+        const bbox = leerBbox('oh') || window.NODO_CONFIG?.area_por_defecto?.bbox;
+        if (!bbox) {
+          alert('Debes completar las coordenadas del área (Bbox) para consultar los changesets.');
+          return;
+        }
+        if (window.ModuloCalidadAnalyst) {
+          window.ModuloCalidadAnalyst.renderizarInspectorChangesets('contenedor-auditoria-osmcha', bbox);
+        }
       }
     });
   }
+
+  const btnAbrirOSMChaExt = document.getElementById('btn-abrir-osmcha-externo');
+  if (btnAbrirOSMChaExt) {
+    btnAbrirOSMChaExt.addEventListener('click', () => {
+      const bbox = leerBbox('oh') || window.NODO_CONFIG?.area_por_defecto?.bbox;
+      if (bbox && bbox.length >= 4) {
+        const [o, s, e, n] = bbox;
+        const url = `https://osmcha.org/?filters=${encodeURIComponent(JSON.stringify({ in_bbox: `${o},${s},${e},${n}` }))}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } else {
+        window.open('https://osmcha.org/', '_blank', 'noopener,noreferrer');
+      }
+    });
+  }
+
+  // Configuración de eventos de Modelamiento 3D (Simple 3D Buildings, Mapillary y OpenAerialMap)
+  configurarEventosModelamiento3D();
 
   document.getElementById('btn-consultar-gbif').addEventListener('click', () => manejarConsultaGBIF(false));
   document.getElementById('btn-cargar-gbif-al-mapa').addEventListener('click', () => manejarConsultaGBIF(true));
@@ -775,10 +814,198 @@ function configurarNavegacion() {
         panelDestino.classList.add('activo');
         if (boton.dataset.panel === 'manual') {
           cargarResumenMetodologia();
+        } else if (boton.dataset.panel === 'modelamiento-3d') {
+          inicializarPanelModelamiento3D();
         }
       }
     });
   });
+}
+
+/* ---------------------- MODELAMIENTO 3D & TELEDETECCIÓN ---------------------- */
+
+function inicializarPanelModelamiento3D() {
+  if (window.ModuloModelamiento3D) {
+    window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio');
+  }
+}
+
+function configurarEventosModelamiento3D() {
+  const btnCargar3D = document.getElementById('btn-cargar-edificios-3d');
+  if (btnCargar3D) {
+    btnCargar3D.addEventListener('click', async () => {
+      const bbox = leerBbox('osm') || window.NODO_CONFIG?.area_por_defecto?.bbox;
+      const ficha = document.getElementById('ficha-edificio-3d');
+      if (ficha) {
+        ficha.innerHTML = '<span class="marcador-parpadeo">[OVERPASS_3D // CARGANDO]</span> Consultando catastro volumétrico de edificaciones en OSM...';
+      }
+
+      try {
+        let geojsonEdificios = null;
+        if (window.ModuloOSM && window.ModuloOSM.consultarOverpass) {
+          const [oeste, sur, este, norte] = bbox;
+          const q = `[out:json][timeout:25];(way["building"](${sur},${oeste},${norte},${este});relation["building"](${sur},${oeste},${norte},${este}););out body;>;out skel qt;`;
+          geojsonEdificios = await window.ModuloOSM.consultarOverpass(q);
+        }
+
+        if (window.ModuloModelamiento3D) {
+          const edificios = window.ModuloModelamiento3D.prepararEdificaciones3D(geojsonEdificios);
+          window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio', edificios);
+
+          if (ficha) {
+            const total = edificios.length;
+            const casonas = edificios.filter(e => e.patrimonio.includes('Patrimonio') || e.niveles <= 2).length;
+            const alturaProm = total > 0 ? (edificios.reduce((acc, e) => acc + e.alturaMetros, 0) / total).toFixed(1) : '0';
+            ficha.innerHTML = `
+              <strong>[CATASTRO 3D GENERADO // EPSG:32719]</strong> 
+              ${total} Edificaciones procesadas • Altura promedio: ${alturaProm} m • Inmuebles patrimoniales / baja altura: ${casonas} • 
+              Modelo CityGML LOD1 conforme al estándar Simple 3D Buildings.
+            `;
+          }
+        }
+      } catch (err) {
+        if (ficha) ficha.innerHTML = `[ERROR // OVERPASS_3D] No se pudieron cargar las geometrías (${err.message}). Mostrando bloque axonométrico de referencia.`;
+        if (window.ModuloModelamiento3D) window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio');
+      }
+    });
+  }
+
+  const btnRotIzq = document.getElementById('btn-rotar-3d-izq');
+  if (btnRotIzq) {
+    btnRotIzq.addEventListener('click', () => {
+      if (!window.ModuloModelamiento3D) return;
+      window.ModuloModelamiento3D.estado3D.anguloRotacion = (window.ModuloModelamiento3D.estado3D.anguloRotacion - 45 + 360) % 360;
+      window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio');
+    });
+  }
+
+  const btnRotDer = document.getElementById('btn-rotar-3d-der');
+  if (btnRotDer) {
+    btnRotDer.addEventListener('click', () => {
+      if (!window.ModuloModelamiento3D) return;
+      window.ModuloModelamiento3D.estado3D.anguloRotacion = (window.ModuloModelamiento3D.estado3D.anguloRotacion + 45) % 360;
+      window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio');
+    });
+  }
+
+  const btnInc = document.getElementById('btn-inclinacion-3d');
+  if (btnInc) {
+    btnInc.addEventListener('click', () => {
+      if (!window.ModuloModelamiento3D) return;
+      window.ModuloModelamiento3D.estado3D.anguloInclinacion = window.ModuloModelamiento3D.estado3D.anguloInclinacion === 30 ? 45 : 30;
+      window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio');
+    });
+  }
+
+  const selEscalaZ = document.getElementById('sel-escala-z-3d');
+  if (selEscalaZ) {
+    selEscalaZ.addEventListener('change', (e) => {
+      if (!window.ModuloModelamiento3D) return;
+      window.ModuloModelamiento3D.estado3D.escalaAltura = parseFloat(e.target.value) || 1.5;
+      window.ModuloModelamiento3D.renderizarCanvas3D('canvas-3d-territorio');
+    });
+  }
+
+  // Mapillary API v4
+  const btnMapillary = document.getElementById('btn-consultar-mapillary');
+  if (btnMapillary) {
+    btnMapillary.addEventListener('click', async () => {
+      const cont = document.getElementById('contenedor-resultados-mapillary');
+      if (!cont) return;
+      const bbox = leerBbox('osm') || window.NODO_CONFIG?.area_por_defecto?.bbox;
+      const token = document.getElementById('mapillary-token-input')?.value.trim() || null;
+
+      cont.innerHTML = '<div style="font-family:var(--fuente-datos); font-size:0.8rem; color:var(--musgo); padding:10px; border:1px dashed var(--linea);"><span class="marcador-parpadeo">[MAPILLARY // CONECTANDO]</span> Consultando imágenes georreferenciadas a nivel de calle...</div>';
+
+      try {
+        const res = await window.ModuloModelamiento3D.consultarMapillaryBbox(bbox, token);
+        const fotos = res.imagenes || [];
+        cont.innerHTML = `
+          <div style="background:var(--papel-alto); border:1px solid var(--linea); padding:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid var(--linea); padding-bottom:6px;">
+              <span style="font-family:var(--fuente-datos); font-size:0.75rem; color:var(--musgo); font-weight:700;">
+                [MAPILLARY V4 // ${res.total} SECUENCIAS IDENTIFICADAS]
+              </span>
+              <span style="font-family:var(--fuente-datos); font-size:0.7rem; color:var(--tinta-suave);">
+                Origen: ${res.origen === 'mapillary_api_v4_en_vivo' ? '🟢 API v4 en Vivo' : '🏛️ Catálogo Local Resiliente'}
+              </span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:12px;">
+              ${fotos.map(f => `
+                <div style="border:1px solid var(--linea); background:var(--papel); padding:8px; display:flex; flex-direction:column; gap:6px;">
+                  <div style="height:120px; overflow:hidden; background:#1c1c19; display:flex; align-items:center; justify-content:center;">
+                    <img src="${f.thumbUrl}" alt="${f.calle}" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+                  </div>
+                  <div style="font-family:var(--fuente-datos); font-size:0.75rem; font-weight:700; color:var(--tinta);">${f.calle}</div>
+                  <div style="font-family:var(--fuente-datos); font-size:0.7rem; color:var(--tinta-suave); display:flex; justify-content:space-between;">
+                    <span>🧭 ${f.compassAngle}°</span>
+                    <span>⛰️ ${f.altitude} m</span>
+                  </div>
+                  <div style="font-family:var(--fuente-datos); font-size:0.68rem; color:var(--tinta-suave);">${f.fecha}</div>
+                  <a href="https://www.mapillary.com/app/?pKey=${f.id}&focus=photo" target="_blank" rel="noopener noreferrer" class="accion secundaria" style="font-size:0.7rem; padding:3px 6px; text-align:center; text-decoration:none; margin-top:auto;">
+                    Ver en Mapillary 3D ↗
+                  </a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        cont.innerHTML = `<div style="padding:10px; color:var(--alerta); font-family:var(--fuente-datos); font-size:0.8rem;">[ERROR // MAPILLARY] ${err.message}</div>`;
+      }
+    });
+  }
+
+  // OpenAerialMap (Dron OSM)
+  const btnOAM = document.getElementById('btn-consultar-oam');
+  if (btnOAM) {
+    btnOAM.addEventListener('click', async () => {
+      const cont = document.getElementById('contenedor-resultados-oam');
+      if (!cont) return;
+      const bbox = leerBbox('osm') || window.NODO_CONFIG?.area_por_defecto?.bbox;
+
+      cont.innerHTML = '<div style="font-family:var(--fuente-datos); font-size:0.8rem; color:var(--musgo); padding:10px; border:1px dashed var(--linea);"><span class="marcador-parpadeo">[OAM // CONSULTANDO]</span> Buscando vuelos fotogramétricos de dron...</div>';
+
+      try {
+        const misiones = await window.ModuloModelamiento3D.consultarOpenAerialMap(bbox);
+        cont.innerHTML = `
+          <div style="background:var(--papel-alto); border:1px solid var(--linea); padding:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid var(--linea); padding-bottom:6px;">
+              <span style="font-family:var(--fuente-datos); font-size:0.75rem; color:var(--musgo); font-weight:700;">
+                [OPENAERIALMAP // ${misiones.length} MISIONES DE DRON DETECTADAS]
+              </span>
+              <a href="https://map.openaerialmap.org/" target="_blank" rel="noopener noreferrer" class="accion secundaria" style="font-size:0.72rem; padding:3px 8px; text-decoration:none;">
+                Explorador Global OAM ↗
+              </a>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              ${misiones.map(m => `
+                <div style="border:1px solid var(--linea); background:var(--papel); padding:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div style="flex:1; min-width:240px;">
+                    <div style="font-family:var(--fuente-datos); font-size:0.82rem; font-weight:700;">${m.titulo}</div>
+                    <div style="font-size:0.74rem; color:var(--tinta-suave); margin-top:2px;">
+                      Plataforma: <strong>${m.plataforma}</strong> • Sensor: ${m.sensor} • Fecha: ${m.fecha}
+                    </div>
+                    <div style="font-size:0.72rem; color:var(--musgo); font-family:var(--fuente-datos); margin-top:4px;">
+                      Proveedor: ${m.proveedor} • Licencia: ${m.licencia}
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-family:var(--fuente-datos); font-size:0.75rem; padding:3px 8px; background:rgba(91, 110, 78, 0.15); border:1px solid var(--musgo); color:var(--musgo-oscuro); font-weight:700;">
+                      GSD: ${m.gsd} cm/px
+                    </span>
+                    ${m.tmsUrl ? `<a href="${m.tmsUrl}" target="_blank" rel="noopener noreferrer" class="accion secundaria" style="font-size:0.72rem; padding:3px 8px; text-decoration:none;">Servicio TMS ↗</a>` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        cont.innerHTML = `<div style="padding:10px; color:var(--alerta); font-family:var(--fuente-datos); font-size:0.8rem;">[ERROR // OAM] ${err.message}</div>`;
+      }
+    });
+  }
 }
 
 function poblarSelectorTerritorios() {

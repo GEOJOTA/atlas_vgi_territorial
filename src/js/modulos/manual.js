@@ -62,9 +62,9 @@ const ModuloManual = (() => {
             <h4>¿Cómo utilizar el Atlas en la gestión pública comunal?</h4>
             <p>Orientado a directores SECPLAN, asesores urbanos y administradores de SIG municipal:</p>
             <ol class="doc-pasos-lista">
-              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛️ Capas Oficiales IDE Chile]</em> para verificar los 25 equipamientos con soporte estatal y contraste con las 65 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, luminarias, grifos de incendio).</li>
+              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 07):</strong> Utilice el filtro <em>[🏛️ Capas Oficiales IDE Chile]</em> para verificar los 25 equipamientos con soporte estatal y contraste con las 65 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, luminarias, grifos de incendio).</li>
               <li><strong>Evaluar Cobertura y Saturación OQT (Panel 02):</strong> Aplique el marco <em>ohsome Quality Analyst (HeiGIT)</em> para determinar el índice de madurez cartográfica de su cuadrante barrial.</li>
-              <li><strong>Exportar Metadatos Institucionales (Panel 05):</strong> Genere archivos XML bajo la norma <strong>ISO 19139 / Perfil Nacional de Metadatos</strong> para importación directa en nodos GeoNetwork o GeoNode municipales.</li>
+              <li><strong>Exportar Metadatos Institucionales (Panel 06):</strong> Genere archivos XML bajo la norma <strong>ISO 19139 / Perfil Nacional de Metadatos</strong> para importación directa en nodos GeoNetwork o GeoNode municipales.</li>
             </ol>
           </div>
 
@@ -74,8 +74,8 @@ const ModuloManual = (() => {
             <p>No requiere conocimientos técnicos de SIG ni programación. Flujo rápido en 3 pasos:</p>
             <ol class="doc-pasos-lista">
               <li><strong>Consultas Barriales en 1-Clic (Panel 01):</strong> Active temáticas inmediatas (farmacias comunitarias, panaderías, paraderos Red, ciclovías, áreas verdes y casonas patrimoniales).</li>
-              <li><strong>Monitoreo de Proyectos Colaborativos (Panel 04):</strong> Revise iniciativas vecinales cartografiadas en UMap y agregue capas comunitarias al visor sin intermediarios.</li>
-              <li><strong>Descarga de Evidencia en Excel (Panel 07):</strong> Descargue el catálogo en hojas de cálculo <code>.xlsx</code> listas para respaldar presupuestos participativos o cartas a concejales.</li>
+              <li><strong>Monitoreo de Proyectos Colaborativos (Panel 05):</strong> Revise iniciativas vecinales cartografiadas en UMap y agregue capas comunitarias al visor sin intermediarios.</li>
+              <li><strong>Descarga de Evidencia en Excel (Panel 08):</strong> Descargue el catálogo en hojas de cálculo <code>.xlsx</code> listas para respaldar presupuestos participativos o cartas a concejales.</li>
             </ol>
           </div>
 
@@ -85,7 +85,7 @@ const ModuloManual = (() => {
             <p>Diseñado para colaboradores de OpenStreetMap, iNaturalist y comunidades de datos libres:</p>
             <ol class="doc-pasos-lista">
               <li><strong>Constructor Visual y Overpass QL (Panel 01):</strong> Formule consultas personalizadas con filtros condicionales de calidad (<code>name</code>, <code>wheelchair</code>, <code>addr:street</code>, <code>operator</code>).</li>
-              <li><strong>Validación Global en Taginfo API (Paneles 01 y 06):</strong> Valide en vivo la frecuencia y claves de cualquier etiqueta antes de mapear en terreno.</li>
+              <li><strong>Validación Global en Taginfo API (Paneles 01 y 07):</strong> Valide en vivo la frecuencia y claves de cualquier etiqueta antes de mapear en terreno.</li>
               <li><strong>Control de Cambios en OSMCha (Panel 02):</strong> Detecte las últimas ediciones en el Bbox territorial con enlace directo a OSMCha para validar micro-contribuciones o revertir anomalías.</li>
             </ol>
           </div>
@@ -185,9 +185,9 @@ const ModuloManual = (() => {
       <section id="doc-modulos" class="doc-seccion">
         <header class="doc-seccion-header">
           <span class="doc-seccion-badge">Sección 02 / Componentes</span>
-          <h2>Guía Paso a Paso de los Módulos del Sistema (00 al 07)</h2>
+          <h2>Guía Paso a Paso de los Módulos del Sistema (00 al 09)</h2>
           <p class="doc-lead">
-            La arquitectura de la aplicación está dividida en 9 secciones funcionales especializadas. A continuación se describe la funcionalidad, entradas y salidas de cada una:
+            La arquitectura de la aplicación está dividida en 10 secciones funcionales especializadas. A continuación se describe la funcionalidad, entradas y salidas de cada una:
           </p>
         </header>
 
@@ -213,9 +213,9 @@ const ModuloManual = (() => {
           <div class="doc-modulo-fila">
             <div class="doc-modulo-num">02</div>
             <div class="doc-modulo-cuerpo">
-              <h4>Auditoría de Calidad Espacial (ohsome API v1 & v2)</h4>
-              <p>Módulo de evaluación cuantitativa según el estándar internacional ISO 19157 (Data Quality). Ejecuta consultas analíticas históricas contra el clúster de HeiGIT (Universidad de Heidelberg), calculando recuento total de entidades, densidad espacial por kilómetro cuadrado, masa crítica de colaboradores únicos y evolución temporal (2018 a la fecha).</p>
-              <div class="doc-modulo-meta"><strong>Salidas:</strong> Gráficos cronológicos de evolución, tarjetas de densidad por km² y tasa de completitud temática.</div>
+              <h4>Calidad y Validación Espacial (ohsome API & OSMCha)</h4>
+              <p>Módulo de evaluación cuantitativa según el estándar internacional ISO 19157 (Data Quality) y supervisión de micro-ediciones territoriales. Combina el cálculo histórico de densidad, completitud y usuarios únicos (ohsome / HeiGIT) con el control de cambios de la API de Changesets de OpenStreetMap y reglas heurísticas de OSMCha para auditar ediciones recientes, comentarios y herramientas de mapeo en el Bbox barrial.</p>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> Gráficos cronológicos de evolución, tarjetas de densidad por km², tabla de validación de changesets con badges de estado e hipervínculos a OSMCha.org.</div>
             </div>
           </div>
 
@@ -231,6 +231,15 @@ const ModuloManual = (() => {
           <div class="doc-modulo-fila">
             <div class="doc-modulo-num">04</div>
             <div class="doc-modulo-cuerpo">
+              <h4>Modelamiento 3D, Fotogrametría y Teledetección VGI</h4>
+              <p>Visualización axonométrica tridimensional de volúmenes de edificación (Simple 3D Buildings / OGC CityGML LOD1) extruidos desde huellas vectoriales de OSM mediante niveles (<code>building:levels</code>) y alturas métricas. Se articula con secuencias fotogramétricas a nivel de calle de la API Mapillary v4 (telemetría de orientación de cámara y enlace a reconstrucción OpenSfM) y catálogo de ortofotos de dron de alta resolución provenientes de OpenAerialMap (OAM).</p>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> Render axonométrico 3D interactivo en Canvas HTML5 con controles de perspectiva y escala Z, telemetría angular Mapillary y fichas técnicas UAV con resolución GSD (cm/px) y servicios TMS.</div>
+            </div>
+          </div>
+
+          <div class="doc-modulo-fila">
+            <div class="doc-modulo-num">05</div>
+            <div class="doc-modulo-cuerpo">
               <h4>Cartografía Colaborativa UMap</h4>
               <p>Integración de mapas comunitarios elaborados por colectivos territoriales, asambleas barriales y estudiantes en la plataforma abierta UMap de OpenStreetMap Francia. Demuestra la apropiación social del mapa y la geografía comunitaria.</p>
               <div class="doc-modulo-meta"><strong>Salidas:</strong> Visor embebido en iframe de alta definición con enlaces al proyecto cartográfico matriz.</div>
@@ -238,7 +247,7 @@ const ModuloManual = (() => {
           </div>
 
           <div class="doc-modulo-fila">
-            <div class="doc-modulo-num">05</div>
+            <div class="doc-modulo-num">06</div>
             <div class="doc-modulo-cuerpo">
               <h4>Generador de Metadatos ISO 19115 / ISO 19139 (IDE Chile)</h4>
               <p>Motor de autocarga reactiva de metadatos espaciales. Estandariza el título, resumen, categoría temática (MD_TopicCategoryCode), sistema geodésico, linaje de procesamiento y extensión geográfica con la superficie territorial calculada bajo EPSG:32719 UTM 19S.</p>
@@ -247,7 +256,7 @@ const ModuloManual = (() => {
           </div>
 
           <div class="doc-modulo-fila">
-            <div class="doc-modulo-num">06</div>
+            <div class="doc-modulo-num">07</div>
             <div class="doc-modulo-cuerpo">
               <h4>Diccionario Territorial y Atributos Normalizados</h4>
               <p>Glosario ontológico interactivo que traduce las claves y valores en inglés de OpenStreetMap a conceptos formales de la gestión territorial chilena, vinculándolos con las contrapartes estatales y el Catálogo de Objetos Geográficos de Chile v3.0 (IDE Chile / SNIT).</p>
@@ -256,11 +265,20 @@ const ModuloManual = (() => {
           </div>
 
           <div class="doc-modulo-fila">
-            <div class="doc-modulo-num">07</div>
+            <div class="doc-modulo-num">08</div>
             <div class="doc-modulo-cuerpo">
               <h4>Catálogos Oficiales en Excel (.xlsx) y Licencias</h4>
               <p>Centro de descarga institucional de las tres hojas de cálculo OpenXML (.xlsx) elaboradas para la defensa de la práctica profesional de Geografía, junto con la especificación del marco jurídico abierto (CC BY-SA 4.0, ODbL 1.0 y GNU AGPL-3.0).</p>
               <div class="doc-modulo-meta"><strong>Salidas:</strong> Descargas directas de <code>catalogo_fuentes_vgi.xlsx</code>, <code>perfil_metadatos_vgi.xlsx</code> y <code>categorias_tematicas_osm.xlsx</code>.</div>
+            </div>
+          </div>
+
+          <div class="doc-modulo-fila">
+            <div class="doc-modulo-num">09</div>
+            <div class="doc-modulo-cuerpo">
+              <h4>Manual de Uso y Documentación Territorial</h4>
+              <p>Compendio exhaustivo de documentación técnica y metodológica con 8 secciones temáticas integradas in-app, diagramas SVG interactivos de arquitectura y fórmulas geodésicas, catálogo detallado de macro-categorías (CAT-01 a CAT-08), glosario de términos VGI y 104 citas bibliográficas en formato APA 7ª edición.</p>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> Navegación hipertextual interna, buscador temático, código Overpass QL copiable y enlaces directos a bibliografía científica.</div>
             </div>
           </div>
         </div>
