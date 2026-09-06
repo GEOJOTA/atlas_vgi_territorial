@@ -57,111 +57,168 @@ def autoajustar_columnas(ws, max_len_cap=55):
 
 def crear_catalogo_fuentes():
     wb = openpyxl.Workbook()
+    
+    # ----------------------------------------------------
+    # HOJA 1: Catálogo Fuentes VGI
+    # ----------------------------------------------------
     ws1 = wb.active
     ws1.title = "Catálogo Fuentes VGI"
     
     ws1["A1"] = "ATLAS DE INFORMACIÓN GEOGRÁFICA VOLUNTARIA (VGI) — GESTIÓN TERRITORIAL"
     ws1["A1"].font = fuente_titulo
-    ws1["A2"] = "Catálogo Sistemático de Fuentes de Datos Colaborativos y Abiertos | Caso: Barrio Brasil y Universidad Alberto Hurtado (Santiago Centro, Chile)"
+    ws1["A2"] = "Catálogo Sistemático de Fuentes de Datos Colaborativos, APIs y Servicios Abiertos | Cobertura Nacional y Escala Barrial"
     ws1["A2"].font = fuente_subtitulo
     
-    headers = [
-        "Fuente", "Tipo de Dato", "Cobertura Espacial", "Cobertura Temporal",
+    headers1 = [
+        "Fuente / Servicio", "Tipo de Dato", "Cobertura Espacial", "Cobertura Temporal",
         "Frecuencia Actualización", "Escala / Nivel Detalle", "Licencia de Uso",
         "Protocolo / API de Acceso", "Utilidad en Gestión Territorial",
-        "Limitaciones Conocidas", "Ejemplo Caso Barrio Brasil / UAH"
+        "Limitaciones Conocidas", "Ejemplo Territorial (Barrio Brasil / Regiones)"
     ]
     
-    for c_idx, h in enumerate(headers, 1):
+    for c_idx, h in enumerate(headers1, 1):
         cell = ws1.cell(row=4, column=c_idx, value=h)
         cell.font = fuente_cabecera
         cell.fill = fill_cabecera
         cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
         cell.border = borde_fino
     ws1.row_dimensions[4].height = 28
+    ws1.freeze_panes = "A5"
     
-    filas = [
+    filas_fuentes = [
         [
-            "OpenStreetMap (OSM)",
+            "OpenStreetMap (OSM) / Overpass API",
             "Vectorial (puntos, líneas, polígonos con atributos semánticos)",
-            "Global / Comuna de Santiago (Barrio Brasil)",
+            "Global / Nacional (Chile) / Barrial y Comunal",
             "2004 – Presente (en tiempo real)",
             "Continua (minuto a minuto por colaboradores)",
-            "Detalle catastral / escala 1:1.000 a 1:5.000",
+            "Detalle catastral / escala 1:500 a 1:5.000",
             "Open Database License (ODbL) 1.0",
-            "Overpass API (QL) / OSM API 0.6",
-            "Catastro de infraestructura universitaria, equipamiento social, trazado vial y ciclovías.",
-            "Heterogeneidad en completitud semántica de etiquetas secundarias.",
-            "Pabellones UAH (Almirante Barroso/Erasmo Escala), paraderos Alameda, locales de Barrio Brasil."
+            "Overpass API (QL) / OSM API 0.6 / Balanceo en 4 servidores espejo",
+            "Catastro exhaustivo de equipamiento comunitario, accesibilidad peatonal, trazado vial, ciclovías y arbolado.",
+            "Heterogeneidad en completitud semántica entre comunas centrales y rurales.",
+            "Pabellones UAH (Almirante Barroso/Erasmo Escala), paraderos Alameda, locales de Barrio Brasil, ciclovías de Rosas."
         ],
         [
-            "ohsome (HeiGIT)",
-            "Estadísticas espacio-temporales y métricas de calidad",
-            "Global / Cuadrantes definidos por Bbox",
+            "ohsome API v1 & v2 (HeiGIT)",
+            "Estadísticas espacio-temporales agregadas y series históricas OLAP",
+            "Global / Cuadrantes definidos por Bbox o límites administrativos",
             "2007 – 2026 (historial completo de cambios)",
-            "Mensual / Sincronizado periódicamente",
-            "Agregado a nivel de polígono o cuadrante",
-            "Derivada ODbL (datos OSM subyacentes)",
-            "REST API v1 (/elements/count, /users/count)",
-            "Monitoreo de la dinámica de mapeo, madurez del catastro y recuento de colaboradores activos.",
+            "Mensual / Sincronizado periódicamente con OSHDB",
+            "Agregado a nivel de polígono, cuadrante o comuna",
+            "Derivada ODbL (datos OSM subyacentes) / Acceso Abierto HeiGIT",
+            "REST API v1 y v2 (/elements/count, /users/count, /elements/length, /elements/area)",
+            "Monitoreo de la dinámica de mapeo, madurez del catastro y recuento de colaboradores activos a lo largo del tiempo.",
             "Depende del retardo de ingestión de los extracts globales (toTimestamp).",
-            "Medición de densidad de edificaciones y colaboradores únicos en la manzana UAH últimos 5 años."
+            "Curva acumulativa de crecimiento de edificaciones y colaboradores únicos en la manzana UAH últimos 10 años."
+        ],
+        [
+            "ohsome Quality Analyst - OQT (HeiGIT)",
+            "Métricas e indicadores intrínsecos de calidad espacial (ISO 19157:2013)",
+            "Global / Cuadrantes urbanos y periurbanos",
+            "Historial comparativo multianual (2015 – 2026)",
+            "Bajo demanda / En tiempo real",
+            "Barrial, distrital o comunal",
+            "Acceso Abierto para investigación territorial",
+            "REST API OQT (/indicators/mapping-saturation, /indicators/attribute-completeness)",
+            "Evaluación intrínseca de calidad: cálculo del índice de saturación de mapeo y completitud de atributos clave.",
+            "Sensibilidad al tamaño muestral en áreas rurales de baja densidad de ediciones.",
+            "Determinación de la fase de consolidación vs expansión dinámica en Barrio Brasil y Santiago Centro."
+        ],
+        [
+            "OSM Changesets API v0.6 (OSMF)",
+            "Metadatos de transacciones espaciales (conjuntos de cambios / ediciones)",
+            "Global / Bounding box territorial acotado",
+            "2005 – Presente (tiempo real)",
+            "En vivo (transaccional al instante de cada subida)",
+            "Primitiva geográfica puntual o vectorial modificada",
+            "Open Database License (ODbL) 1.0",
+            "REST XML/JSON API v0.6 (api.openstreetmap.org/api/0.6/changesets)",
+            "Auditoría y fiscalización de micro-contribuciones recientes, trazabilidad de autores y detección de anomalías.",
+            "Requiere limitar la ventana espacial para evitar sobrecarga en servidores centrales de OSM.",
+            "Inspección de las últimas 25 ediciones espaciales en el perímetro Barrio Brasil / UAH."
+        ],
+        [
+            "OSMCha (Mapbox / Development Seed / Comunidad)",
+            "Plataforma de validación forense, control de calidad y detección de vandalismo",
+            "Global / Filtro por usuario, changeset o Bbox",
+            "2015 – Presente",
+            "Continua y sincronizada",
+            "Nivel de nodo, vía o relación",
+            "Código abierto (BSD-2-Clause) / Datos ODbL",
+            "REST API v1 (osmcha.org/api/v1/) y visor web interactivo",
+            "Revisión visual comparativa (antes/después) de cambios territoriales y validación colaborativa.",
+            "Operaciones avanzadas de marcado requieren autenticación OAuth de OpenStreetMap.",
+            "Auditoría directa con 1 clic desde el Atlas para verificar cambios comunitarios en el sector."
+        ],
+        [
+            "Taginfo API v4 (OSMF & Geofabrik)",
+            "Estadísticas de uso global y nacional de etiquetas, claves, valores y roles",
+            "Global e instancia nacional Chile (south-america:chile)",
+            "Base de datos consolidada (extracto planetario diario)",
+            "Diaria (medianoche UTC)",
+            "Esquema de base de datos / Nivel de etiqueta",
+            "ODbL 1.0 / CC-BY-SA 2.0",
+            "REST API v4 (taginfo.openstreetmap.org/api/4/tag/stats)",
+            "Validación de la legitimidad, difusión y consistencia de claves OSM antes de formular consultas territoriales.",
+            "Reporta distribución estadística global/nacional; no provee desglose sub-comunal directo.",
+            "Telemetría en tiempo real del uso de amenity=university y kerb=lowered en el panel de consultas."
         ],
         [
             "GBIF (Global Biodiversity Information Facility)",
-            "Registros biológicos puntuales georreferenciados",
-            "Global / Chile / Región Metropolitana",
+            "Registros biológicos puntuales georreferenciados bajo estándar Darwin Core",
+            "Global / Chile / Bbox de cuadrantes urbanos y rurales",
             "Histórica (siglo XIX) – Presente (iNaturalist)",
             "Diaria / Semanal",
-            "Puntual con radio de incertidumbre métrica",
+            "Puntual con radio de incertidumbre métrica y banderas de calidad científica",
             "CC0, CC-BY 4.0, CC-BY-NC 4.0 según publicador",
-            "Occurrence REST API v1 (/occurrence/search)",
-            "Diagnóstico de biodiversidad urbana, avifauna en plazas y arbolado patrimonial.",
-            "Sesgo hacia especies carismáticas y áreas con mayor flujo peatonal (parques).",
-            "Avistamientos de aves urbanas (Zonotrichia capensis, Columbina picui) en Plaza Brasil y campus UAH."
+            "Occurrence REST API v1 (/occurrence/search) y Species Suggest API (/species/suggest)",
+            "Diagnóstico de biodiversidad urbana, avifauna en plazas, corredores biológicos y arbolado nativo.",
+            "Sesgo hacia especies carismáticas y áreas con mayor flujo peatonal (parques y reservas).",
+            "Avistamientos de avifauna (chincol, zorzal, tórtola) y especies botánicas en Plaza Brasil y campus UAH."
         ],
         [
-            "UMap (OpenStreetMap)",
-            "Cartografía temática participativa (GeoJSON / capas)",
+            "UMap (OpenStreetMap / Framasoft)",
+            "Cartografía temática participativa en capas GeoJSON con simbología enriquecida",
             "Instancias locales / umap.openstreetmap.fr",
             "Según ciclo de vida del proyecto comunitario",
             "Esporádica (definida por el autor del mapa)",
-            "Barrial / Comunal",
-            "Declarada por el autor del proyecto",
+            "Barrial / Comunal / Regional",
+            "Declarada por el autor del proyecto (usualmente CC-BY / ODbL)",
             "Embebido iframe / Descarga directa GeoJSON",
-            "Integración de iniciativas ciudadanas previas (rutas patrimoniales, catastros comunitarios).",
-            "Inexistencia de API centralizada; posibles bloqueos de CORS en descarga directa.",
+            "Integración de iniciativas ciudadanas previas (rutas patrimoniales, catastros comunitarios de arbolado).",
+            "Inexistencia de API centralizada estandarizada; posibles restricciones CORS en clientes externos.",
             "Mapas colaborativos de casonas patrimoniales y circuitos culturales de Barrio Brasil."
         ],
         [
             "iNaturalist / Red de Ciencia Ciudadana",
             "Observaciones fotográficas validadas por comunidad (Grado de Investigación)",
-            "Nacional / Urbano (Santiago)",
+            "Nacional / Urbano y Rural (Chile)",
             "2015 – Presente",
             "Tiempo real / Continua",
             "Puntos con precisión GPS de teléfonos inteligentes",
             "Creative Commons (CC-BY, CC-BY-NC)",
-            "API iNaturalist v1 / Sincronizado vía GBIF",
-            "Identificación de especies arbóreas e invertebrados en plazas públicas y patios universitarios.",
-            "Menor cobertura en espacios privados o interiores de manzana.",
-            "Registro de flora nativa e introducida en jardines de Cienfuegos y Plaza Brasil."
+            "API iNaturalist v1 (api.inaturalist.org/v1/) / Sincronizado vía GBIF",
+            "Identificación comunitaria de especies arbóreas, avifauna e insectos polinizadores en plazas y campus.",
+            "Menor cobertura en espacios privados o interiores de manzana sin acceso público.",
+            "Registro de flora nativa (peumo, quillay, palma chilena) e introducida en jardines de Cienfuegos y Plaza Brasil."
         ],
         [
-            "IDE Chile (Referencia Oficial)",
-            "Capas vectoriales e información geográfica oficial del Estado",
+            "IDE Chile / SNIT (Referencia Oficial)",
+            "Capas vectoriales e información geográfica oficial del Estado de Chile",
             "Nacional / Regional / Comunal",
-            "Oficial / Censal (2017, 2024)",
-            "Anual / Semestral por ministerios",
-            "1:5.000 a 1:250.000",
-            "Datos Abiertos del Estado / Ley de Transparencia",
-            "WMS, WFS, CSW (Catálogo Nacional)",
-            "Línea base oficial para contrastar completitud de la VGI (límites censales, áreas protegidas).",
-            "Actualización lenta comparada con la dinámica de la VGI en terreno.",
-            "Límite comunal de Santiago, zonificación PRC Santiago y vialidad estructurante MOP/MINVU."
+            "Oficial / Censal (Censos 2017, 2024; catastros vigentes)",
+            "Anual / Semestral por ministerios y servicios públicos",
+            "1:1.000 a 1:250.000",
+            "Datos Abiertos del Estado / Ley N° 20.285 de Transparencia",
+            "Estándares OGC: WMS, WFS, CSW (Catálogo Nacional de Metadatos)",
+            "Línea base oficial para contrastar completitud de la VGI (validación cruzada de colegios, salud y vialidad).",
+            "Actualización lenta comparada con la dinámica de la VGI en terreno; ausencia de micro-datos barriales.",
+            "Límite comunal de Santiago, zonificación PRC Santiago, colegios MINEDUC y red asistencial MINSAL."
         ]
     ]
     
-    for r_idx, fila in enumerate(filas, 5):
+    for r_idx, fila in enumerate(filas_fuentes, 5):
         fill_actual = fill_zebra if r_idx % 2 == 0 else PatternFill(fill_type=None)
         for c_idx, val in enumerate(fila, 1):
             cell = ws1.cell(row=r_idx, column=c_idx, value=val)
@@ -171,13 +228,197 @@ def crear_catalogo_fuentes():
             cell.border = borde_fino
             cell.alignment = Alignment(vertical="top", wrap_text=True)
         ws1.row_dimensions[r_idx].height = 55
-        
     autoajustar_columnas(ws1, max_len_cap=35)
+    
+    # ----------------------------------------------------
+    # HOJA 2: Inventario de APIs y Endpoints Técnicos
+    # ----------------------------------------------------
+    ws2 = wb.create_sheet(title="Inventario APIs y Endpoints")
+    ws2["A1"] = "INVENTARIO TÉCNICO DE APIS, PROTOCOLOS Y SERVICIOS WEB INTEGRADOS"
+    ws2["A1"].font = fuente_titulo
+    ws2["A2"] = "Especificación de Endpoints, Métodos HTTP, Formatos y Cuotas para la Gestión Territorial del Atlas VGI"
+    ws2["A2"].font = fuente_subtitulo
+    
+    headers2 = [
+        "API / Servicio", "Organización Custodia", "Versión", "Endpoint Base / URL Oficial",
+        "Método HTTP", "Formato de Datos", "Parámetros Clave (Query / Body)",
+        "Límites / Cuotas de Uso", "Módulo Cliente en Atlas", "Función Territorial",
+        "Trazabilidad / Documentación Oficial (APA)"
+    ]
+    
+    for c_idx, h in enumerate(headers2, 1):
+        cell = ws2.cell(row=4, column=c_idx, value=h)
+        cell.font = fuente_cabecera
+        cell.fill = fill_cabecera
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = borde_fino
+    ws2.row_dimensions[4].height = 28
+    ws2.freeze_panes = "A5"
+    
+    filas_apis = [
+        [
+            "Overpass API",
+            "OpenStreetMap Foundation (OSMF)",
+            "0.7.62+",
+            "https://overpass-api.de/api/interpreter / https://overpass.openstreetmap.fr/api/interpreter",
+            "POST / GET",
+            "JSON (Overpass JSON) / GeoJSON",
+            "data=[out:json][timeout:35];(node...;way...;rel...;);out geom tags qt 400;",
+            "2 slots concurrentes por IP; timeout 25-180s; balanceo automático en 4 servidores espejo",
+            "src/js/modulos/osm.js (ModuloOSM)",
+            "Extracción vectorial en vivo de equipamientos, vías, ciclovías, áreas verdes y arbolado",
+            "OSMF. (2023). Overpass API Reference Manual. https://wiki.openstreetmap.org/wiki/Overpass_API"
+        ],
+        [
+            "ohsome API",
+            "Heidelberg Institute for Geoinformation Technology (HeiGIT)",
+            "v1 / v2",
+            "https://api.ohsome.org/v1/ / https://api.ohsome.org/v2/",
+            "GET / POST",
+            "JSON (GeoJSON para geometrías agregadas)",
+            "bboxes=-70.6720,-33.4505,-70.6580,-33.4350&time=2015-01-01/2026-01-01/P1Y&filter=...",
+            "Sin clave requerida en v1; v2 soporta API Key para mayor concurrencia y analítica avanzada",
+            "src/js/modulos/ohsome.js (ModuloOhsome)",
+            "Cálculo multitemporal de saturación de mapeo, evolución de atributos y recuento de colaboradores",
+            "HeiGIT. (2023). ohsome API Documentation (v1 & v2). https://api.ohsome.org/"
+        ],
+        [
+            "ohsome Quality Analyst (OQT)",
+            "Heidelberg Institute for Geoinformation Technology (HeiGIT)",
+            "v1 (Framework)",
+            "https://dashboard.ohsome.org/ (backend oqtApi)",
+            "POST / GET",
+            "JSON",
+            "topic=building-count&indicators=mapping-saturation,currentness,attribute-completeness&bbox=...",
+            "Servicio público académico para control de calidad espacial conforme a ISO 19157",
+            "src/js/modulos/calidad_analyst.js (ModuloCalidadAnalyst)",
+            "Evaluación intrínseca de calidad cartográfica y modelado de saturación de contribuciones",
+            "Herfort, L., et al. (2023). A framework for intrinsic quality assessment of OpenStreetMap data."
+        ],
+        [
+            "OSM Changesets API",
+            "OpenStreetMap Foundation (OSMF)",
+            "0.6",
+            "https://api.openstreetmap.org/api/0.6/changesets",
+            "GET",
+            "XML / JSON",
+            "bbox=-70.6720,-33.4505,-70.6580,-33.4350&closed=true",
+            "Límite razonable de tasa de peticiones; uso de User-Agent descriptivo obligatorio",
+            "src/js/modulos/calidad_analyst.js (ModuloCalidadAnalyst)",
+            "Auditoría de micro-contribuciones recientes y monitoreo de actividad comunitaria en Barrio Brasil",
+            "OSMF. (2024). OSM API 0.6 Documentation. https://wiki.openstreetmap.org/wiki/API_v0.6"
+        ],
+        [
+            "OSMCha API",
+            "Mapbox / Development Seed / Comunidad OSM",
+            "v1",
+            "https://osmcha.org/api/v1/changesets/",
+            "GET",
+            "JSON",
+            "in_bbox=-70.6720,-33.4505,-70.6580,-33.4350&page=1",
+            "Público para lectura; requiere token de autorización para validación/marcado de cambios",
+            "src/js/modulos/calidad_analyst.js (ModuloCalidadAnalyst)",
+            "Inspección forense visual de ediciones territoriales y detección de anomalías cartográficas",
+            "Wille, L., et al. (2023). OSMCha: Changeset Analyzer and Quality Validation Tool. https://osmcha.org/"
+        ],
+        [
+            "Taginfo API",
+            "OpenStreetMap Foundation & Geofabrik GmbH",
+            "v4",
+            "https://taginfo.openstreetmap.org/api/4/ / https://taginfo.geofabrik.de/south-america:chile",
+            "GET",
+            "JSON",
+            "/api/4/tag/stats?key=amenity&value=university / /api/4/key/values?key=amenity",
+            "Acceso público abierto; política de rate limit cortés (máx. 10 req/s)",
+            "src/js/modulos/taginfo.js (ModuloTaginfo)",
+            "Telemetría en tiempo real del uso, frecuencia y consistencia de etiquetas OSM a nivel global y Chile",
+            "OSMF & Geofabrik. (2024). Taginfo API v4 Documentation. https://taginfo.openstreetmap.org/taginfo/apidoc"
+        ],
+        [
+            "GBIF Occurrence API",
+            "Global Biodiversity Information Facility (GBIF)",
+            "v1",
+            "https://api.gbif.org/v1/occurrence/search",
+            "GET",
+            "JSON (Darwin Core Archive)",
+            "decimalLatitude=-33.4505,-33.4350&decimalLongitude=-70.6720,-70.6580&hasCoordinate=true&limit=100",
+            "Acceso libre sin clave; límite recomendado de 100 registros por llamada síncrona en cliente",
+            "src/js/modulos/gbif.js (ModuloGBIF)",
+            "Descarga de ocurrencias biológicas de avifauna, flora urbana y arbolado patrimonial georreferenciado",
+            "GBIF Secretariat. (2024). GBIF Occurrence API Reference. https://www.gbif.org/developer/summary"
+        ],
+        [
+            "GBIF Species Suggest API",
+            "Global Biodiversity Information Facility (GBIF)",
+            "v1",
+            "https://api.gbif.org/v1/species/suggest",
+            "GET",
+            "JSON",
+            "q=Platanus&limit=8",
+            "Público, optimizado para autocompletado reactivo en tiempo real en interfaces web",
+            "src/js/modulos/gbif.js (ModuloGBIF)",
+            "Autocompletado taxonómico en vivo y resolución de nombres científicos en el buscador biológico",
+            "GBIF Secretariat. (2024). GBIF Species API Reference. https://www.gbif.org/developer/species"
+        ],
+        [
+            "UMap Export Service",
+            "OpenStreetMap / Framasoft",
+            "v1 (REST / GeoJSON)",
+            "https://umap.openstreetmap.fr/es/map/{map_id}/geojson/",
+            "GET",
+            "GeoJSON (FeatureCollection)",
+            "map_id={id_mapa}&data_type=geojson",
+            "Sujeto a cabeceras CORS del servidor de instancia; enlace directo y embebido iframe",
+            "src/js/modulos/umap.js (ModuloUMap)",
+            "Visualización e integración de proyectos cartográficos comunitarios y rutas patrimoniales previas",
+            "Framasoft & OSM Community. (2023). UMap User Guide. https://wiki.openstreetmap.org/wiki/UMap"
+        ],
+        [
+            "iNaturalist API",
+            "California Academy of Sciences & National Geographic",
+            "v1",
+            "https://api.inaturalist.org/v1/observations",
+            "GET",
+            "JSON",
+            "nelat=-33.4350&nelng=-70.6580&swlat=-33.4505&swlng=-70.6720&quality_grade=research",
+            "Máximo 10.000 peticiones por día; 1 petición por segundo recomendada",
+            "Vía GBIF Occurrence / Módulo GBIF",
+            "Validación comunitaria de registros biológicos con fotografía e identificación por consenso",
+            "iNaturalist. (2024). iNaturalist API Reference (v1). https://api.inaturalist.org/v1/docs/"
+        ],
+        [
+            "IDE Chile OGC Services (SNIT)",
+            "Ministerio de Bienes Nacionales (Gobierno de Chile)",
+            "WMS 1.3.0 / WFS 2.0.0 / CSW 2.0.2",
+            "https://www.ide.cl/ / Geoportal Nacional",
+            "GET (KVP / XML)",
+            "GML / GeoJSON / Shapefile (ZIP) / XML CSW",
+            "SERVICE=WFS&REQUEST=GetFeature&TYPENAME=ide:establecimientos_salud&OUTPUTFORMAT=application/json",
+            "Acceso público bajo política de datos abiertos del Estado de Chile",
+            "Referencia Metodológica y Homologación en src/js/modulos/diccionario.js",
+            "Capa de referencia oficial para validación cruzada y contraste de brechas de información VGI",
+            "IDE Chile & SNIT. (2020). Catálogo de Objetos Geográficos de Chile v3.0. https://www.ide.cl/"
+        ]
+    ]
+    
+    for r_idx, fila in enumerate(filas_apis, 5):
+        fill_actual = fill_zebra if r_idx % 2 == 0 else PatternFill(fill_type=None)
+        for c_idx, val in enumerate(fila, 1):
+            cell = ws2.cell(row=r_idx, column=c_idx, value=val)
+            cell.font = fuente_dato
+            if fill_actual.fill_type:
+                cell.fill = fill_actual
+            cell.border = borde_fino
+            cell.alignment = Alignment(vertical="top", wrap_text=True)
+        ws2.row_dimensions[r_idx].height = 55
+    autoajustar_columnas(ws2, max_len_cap=40)
     
     ruta_salida = os.path.join(DOCS_DIR, "catalogo_fuentes_vgi.xlsx")
     wb.save(ruta_salida)
     print(f"[+] Generado: {ruta_salida}")
-
+    ruta_src = os.path.join(SRC_DOCS_DIR, "catalogo_fuentes_vgi.xlsx")
+    shutil.copyfile(ruta_salida, ruta_src)
+    print(f"[+] Sincronizado para descarga web: {ruta_src}")
 def crear_perfil_metadatos():
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -557,6 +798,26 @@ def crear_categorias_tematicas_osm():
         ['genus=Jubaea', 'Palma Chilena (Jubaea chilensis - Nativa Vulnerable)', 'CAT-08', 'Node', 'natural=tree, genus=Jubaea, protected=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / Ministerio del Medio Ambiente', 'Baja (Especie Protegida)', 'Ejemplares monumentales de palma chilena en plazas de Santiago', '(CONAF, 2019; MMA, 2022)'],
         ['genus=Schinus', 'Pimiento / Molle (Schinus areira - Nativo Resistente a Sequía)', 'CAT-08', 'Node', 'natural=tree, genus=Schinus', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / MMA', 'Alta', 'Pimientos nativos resistentes a escasez hídrica en Barrio Brasil', '(CONAF, 2019)'],
         ['genus=Quillaja', 'Quillay (Quillaja saponaria - Flora Esclerófila)', 'CAT-08', 'Node', 'natural=tree, genus=Quillaja, native=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / MMA', 'Media', 'Quillayes en platabandas sostenibles de la comuna de Santiago', '(CONAF, 2019; MMA, 2022)'],
+        ['amenity=training_centre', 'Centro de Capacitación Laboral / Sede OTEC', 'CAT-01', 'Node, Way', 'name, operator, training=vocational, addr:street', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'SENCE / Ministerio del Trabajo y Previsión Social', 'Media', 'Centros de capacitación laboral y sedes OTEC en Santiago Poniente y regiones', '(SENCE & Mintrab, 2022; OECD, 2017)'],
+        ['healthcare=centre', 'Posta de Salud Rural (PSR) / Estación Médico Rural', 'CAT-02', 'Node, Way', 'name, operator=DISAM|Salud Municipal, healthcare:speciality=rural', 'Establecimientos de Salud - Atención Primaria Rural (DEIS - MINSAL / IDE Chile)', 'MINSAL / Red Asistencial Rural', 'Alta en comunas rurales', 'Postas rurales en comunas periurbanas de la RM (Melipilla, Talagante, Tiltil) y regiones', '(MINSAL, 2023; IDE Chile, 2020)'],
+        ['amenity=social_facility', 'Establecimiento de Larga Estadía para Adultos Mayores (ELEAM)', 'CAT-02', 'Node, Way', 'name, social_facility=nursing_home, social_facility:for=senior', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Servicio Nacional del Adulto Mayor (SENAMA) / MDSF', 'Media', 'Residencias de adultos mayores en Barrio Brasil, Quinta Normal y ciudades regionales', '(SENAMA & MDSF, 2021)'],
+        ['man_made=water_tower', 'Copa de Agua Potable / Estanque Elevado de Regulación', 'CAT-02', 'Node, Way', 'man_made=water_tower, operator=Aguas Andinas|Comité APR, capacity', 'Sistemas de Agua Potable y Estanques de Regulación (DOH - MOP / IDE Chile)', 'Dirección de Obras Hidráulicas (DOH - MOP) / SISS', 'Alta', 'Copas de agua y estanques de distribución en Santiago Poniente y cabeceras comunales', '(DOH & MOP, 2022; SISS, 2022)'],
+        ['man_made=water_works', 'Planta de Agua Potable Rural (APR) / Servicio Sanitario Rural', 'CAT-02', 'Way, Node', 'name, operator=Comité APR|Cooperativa, service=rural', 'Sistemas de Agua Potable Rural (DOH - MOP / IDE Chile)', 'Subdirección de Servicios Sanitarios Rurales (DOH - MOP, Ley N° 20.998)', 'Muy Alta en zonas rurales', 'Cooperativas y comités de agua potable rural en cuencas de Maipo, Aconcagua y Maule', '(DOH & MOP, 2022; Ley N° 20.998)'],
+        ['emergency=fire_lookout', 'Torre de Detección de Incendios Forestales / Caseta CONAF', 'CAT-02', 'Node', 'name, operator=CONAF, lookout_type=tower, communication:radio=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Corporación Nacional Forestal (CONAF) / SENAPRED', 'Media', 'Torres de vigilancia en cerros islas y áreas de interfaz urbano-forestal en regiones', '(CONAF, 2022; SENAPRED, 2023)'],
+        ['amenity=coast_guard', 'Capitanía de Puerto / Alcaldía de Mar (DIRECTEMAR)', 'CAT-02', 'Node, Way', 'name, operator=Armada de Chile|DIRECTEMAR, contact:vhf', 'Capitanías de Puerto y Alcaldías de Mar (DIRECTEMAR / IDE Chile)', 'Dirección General del Territorio Marítimo y Marina Mercante (DIRECTEMAR)', 'Alta en todo el litoral', 'Alcaldías de mar y capitanías en puertos de Valparaíso, San Antonio, Talcahuano y fiordos australes', '(DIRECTEMAR & Armada de Chile, 2021)'],
+        ['amenity=ferry_terminal', 'Terminal de Transbordadores / Rampa de Barcazas de Conectividad', 'CAT-03', 'Node, Way', 'name, operator=Naviera Austral|Transmarchilay, ferry=yes', 'Terminales y Rampas de Conectividad Austral (DOP - MOP / IDE Chile)', 'Dirección de Obras Portuarias (DOP - MOP) / MTT', 'Alta en zonas insulares y australes', 'Rampas de conectividad en Pargua, Chacao, Quellón, Puerto Chacabuco y Punta Arenas', '(DOP & MOP, 2023; MTT, 2022)'],
+        ['railway=level_crossing', 'Cruce Ferroviario a Nivel con Barrera / Señalización', 'CAT-03', 'Node', 'crossing:barrier=full|half, crossing:light=yes, operator=EFE', 'Cruces Ferroviarios (EFE - MTT / IDE Chile)', 'Empresa de los Ferrocarriles del Estado (EFE) / MTT', 'Alta en ramales y troncales', 'Cruces a nivel de tren Nos-Alameda, Biotren y ramal Talca-Constitución', '(EFE & MTT, 2023)'],
+        ['barrier=toll_booth', 'Plaza de Peaje Interurbano / Pórtico Free Flow (TAG)', 'CAT-03', 'Node, Way', 'name, toll:tag=yes, operator=Autopista Central|Ruta del Maipo', 'Plazas de Peaje Concesionadas (DGC - MOP / IDE Chile)', 'Dirección General de Concesiones (DGC - MOP)', 'Alta en rutas interurbanas', 'Pórticos TAG en autopistas urbanas y plazas de peaje en Ruta 5 y Ruta 68', '(DGC & MOP, 2023)'],
+        ['aeroway=aerodrome', 'Aeródromo Comunal / Pista de Emergencia Aeromédica', 'CAT-03', 'Way, Relation, Node', 'name, iata, icao, aerodrome:type=public, operator=DGAC', 'Aeródromos y Helipuertos Públicos (DGAC / IDE Chile)', 'Dirección General de Aeronáutica Civil (DGAC)', 'Media', 'Aeródromo Tobalaba, Peldehue y pistas de enlace comunitario en regiones', '(DGAC, 2023)'],
+        ['highway=track', 'Camino Rural No Pavimentado / Huella de Servidumbre Agrícola', 'CAT-04', 'Way', 'tracktype=grade1|grade2|grade3, surface=unpaved|gravel', 'Red Vial Rural y Huellas (Dirección de Vialidad - MOP / IDE Chile)', 'Dirección de Vialidad (MOP) / Indap', 'Muy Alta en comunas rurales', 'Redes viales secundarias y huellas agrícolas en periferia de Santiago y regiones', '(Dirección de Vialidad & MOP, 2022)'],
+        ['highway=steps', 'Escalinata Peatonal de Cerro / Escalera Pública Barrial', 'CAT-04', 'Way', 'step_count, handrail=yes|no, surface=concrete|stone', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINVU / Municipalidades (Planes de Cerros)', 'Muy Alta en ciudades con pendiente', 'Escaleras de quebradas urbanas y accesos a cerros en Valparaíso y Santiago Poniente', '(MINVU, 2020; Municipalidad de Valparaíso, 2021)'],
+        ['leisure=marina', 'Caleta de Pescadores Artesanales / Muelle Artesanal', 'CAT-05', 'Way, Node', 'name, operator=Sindicato de Pescadores, mooring=yes', 'Caletas Pesqueras Artesanales (SERNAPESCA / IDE Chile)', 'Servicio Nacional de Pesca y Acuicultura (SERNAPESCA) / DOP MOP', 'Alta en borde costero', 'Caletas pesqueras artesanales (Caleta Portales, Caleta San Antonio, Caleta Angelmó)', '(SERNAPESCA & Subpesca, 2022)'],
+        ['historic=wayside_cross', 'Animita de Carretera / Gruta Popular Tradicional', 'CAT-06', 'Node', 'name, historic=wayside_cross|wayside_shrine, religion=christian|folk', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Consejo de Monumentos Nacionales (Patrimonio Cultural Inmaterial)', 'Muy Alta en rutas y esquinas', 'Animitas y grutas de devoción popular en esquinas barriales y calzadas interurbanas', '(CMN & MINCAP, 2022; Weigell, 2023)'],
+        ['amenity=shelter', 'Refugio Peatonal Rural / Garita de Espera de Transporte', 'CAT-07', 'Node, Way', 'shelter_type=public_transport, bench=yes, material=wood|metal', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Dirección de Vialidad (MOP) / Gobiernos Regionales', 'Muy Alta en rutas rurales', 'Garitas de madera y hormigón en paradas de micro rural e interprovincial', '(Dirección de Vialidad & MOP, 2022; MTT, 2021)'],
+        ['highway=elevator', 'Ascensor Público Urbano / Funicular de Transporte Inclusivo', 'CAT-07', 'Node', 'name, operator=Metro S.A.|Municipalidad, wheelchair=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINVU / SENADIS / Municipalidades', 'Alta en pasarelas y cerros', 'Ascensores en pasarelas de autopistas urbanas, estaciones de Metro y funiculares patrimoniales', '(MINVU, 2016; SENADIS, 2021)'],
+        ['natural=wetland', 'Humedal Urbano Protegido (Ley N° 21.202) / Pajonal / Salar', 'CAT-08', 'Way, Relation', 'name, wetland=marsh|tidalflat, protection_class=nature_reserve', 'Humedales Urbanos Declarados (MMA / IDE Chile)', 'Ministerio del Medio Ambiente (MMA - Inventario Nacional de Humedales)', 'Alta en valles y costa', 'Humedales urbanos protegidos en Quilicura, Batuco, Concón, Llanquihue y Valdivia', '(MMA, 2022; Ley N° 21.202)'],
+        ['genus=Cryptocarya', 'Peumo (Cryptocarya alba) - Árbol Nativo Esclerófilo', 'CAT-08', 'Node', 'natural=tree, species=Cryptocarya alba, taxon:clade=esclerofilo', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF (Programa de Arborización Urbana y Restauración)', 'Alta en Chile Central', 'Ejemplares nativos de peumo en parques urbanos y campus universitarios', '(CONAF, 2019; MMA, 2022)'],
+        ['genus=Maytenus', 'Maitén (Maytenus boaria) - Árbol Nativo Siempreverde', 'CAT-08', 'Node', 'natural=tree, species=Maytenus boaria, indigenous=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / Ministerio del Medio Ambiente', 'Alta en plazas y riberas', 'Maitenes protegidos en bandejones y áreas verdes comunitarias', '(CONAF, 2019; MMA, 2022)'],
     ]
 
     for r_idx, tag in enumerate(etiquetas_chile, 5):

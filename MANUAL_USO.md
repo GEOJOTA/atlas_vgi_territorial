@@ -93,11 +93,11 @@ Permite generar la documentación técnica oficial del catastro territorial:
 
 ---
 
-## 6. Diccionario Territorial de 90 Descriptores (Panel 06)
+## 6. Diccionario Territorial de 110 Descriptores (Panel 06)
 
-Permite consultar la definición toponímica y la homología institucional de cada etiqueta:
-- **Sinceramiento riguroso:** Distinción explícita entre 25 capas oficiales con soporte fiscal en IDE Chile vs. 65 Brechas VGI no catastradas por el Estado.
-- **Filtros de un clic:** Alterna rápidamente entre `[⚡ Solo Brechas VGI (65)]` y `[🏛️ Capas Oficiales IDE (25)]`.
+Permite consultar la definición toponímica y la homología institucional de cada etiqueta con alcance nacional:
+- **Sinceramiento riguroso:** Distinción explícita entre 36 capas oficiales con soporte fiscal en IDE Chile vs. 74 Brechas VGI no catastradas por el Estado.
+- **Filtros de un clic:** Alterna rápidamente entre `[⚡ Solo Brechas VGI (74)]` y `[🏛️ Capas Oficiales IDE (36)]`.
 - **Inspección Taginfo:** Cada tarjeta incluye botón de telemetría directa con la API oficial de Taginfo.
 
 ---
@@ -105,8 +105,8 @@ Permite consultar la definición toponímica y la homología institucional de ca
 ## 7. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los tres libros de cálculo listos para anexar al informe formal de práctica:
-- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 90 descriptores, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes VGI y oficiales.
+- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 110 descriptores escalables, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de 10 fuentes/servicios (Hoja 1) e inventario técnico de 11 endpoints de APIs (Hoja 2).
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
 
 ---

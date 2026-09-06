@@ -38,7 +38,7 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 │          │             │             │             │             │             │         │          │
 │   ┌──────▼─────────────▼─────────────▼─────────────▼─────────────▼─────────────▼─────────▼───────┐│
 │   │                          DICCIONARIO TERRITORIAL (diccionario.js)                             ││
-│   │      90 Descriptores Chile: 25 Capas Oficiales IDE Chile vs 65 Brechas VGI Comunitarias      ││
+│   │     110 Descriptores Chile: 36 Capas Oficiales IDE Chile vs 74 Brechas VGI Comunitarias      ││
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────────┘│
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
@@ -119,10 +119,10 @@ La lógica de la aplicación se distribuye en 12 módulos desacoplados que expor
 - Generación de JSON con elementos núcleo de ISO 19115-1:2014.
 - Generación y descarga de XML conforme a **ISO 19139 / Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)**, validado con namespaces OGC (`gmd`, `gco`, `gml`) para interoperabilidad en GeoNetwork y GeoNode.
 
-### 3.10 `diccionario.js` (Catálogo Territorial de 90 Descriptores)
-- 90 etiquetas territoriales estratégicas para Chile clasificadas en 8 macro-categorías.
-- **Sinceramiento riguroso:** 25 capas con homología oficial demostrable en IDE Chile vs. 65 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
-- Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (65)]`, `[🏛️ Capas Oficiales IDE (25)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
+### 3.10 `diccionario.js` (Catálogo Territorial de 110 Descriptores)
+- 110 etiquetas territoriales estratégicas y escalables para Chile clasificadas en 8 macro-categorías.
+- **Sinceramiento riguroso:** 36 capas con homología oficial demostrable en IDE Chile vs. 74 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
+- Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (74)]`, `[🏛️ Capas Oficiales IDE (36)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
 
 ### 3.11 `licencias.js` (Marco Jurídico de Licenciamiento)
 - Gestión del marco tripartito copyleft (ODbL 1.0 para datos espaciales OSM, CC BY-SA 4.0 para contenidos y fichas, GNU GPL v3 para código fuente).
@@ -190,11 +190,13 @@ La interfaz gráfica prescinde de componentes SaaS genéricos para adoptar un di
 
 En las carpetas `docs/` y `src/docs/` residen los libros de trabajo generados por `scripts/generar_catalogos_excel.py`:
 1. `categorias_tematicas_osm.xlsx`:
-   - Hoja 1: *Categorías Maestras* (8 macro-categorías, calidad ISO 19157 y normativas chilenas).
-   - Hoja 2: *Catálogo de Etiquetas Chile* (90 etiquetas depuradas: 25 capas oficiales vs 65 brechas VGI).
+   - Hoja 1: *Categorías Maestras* (8 macro-categorías escalables a nivel nacional, calidad ISO 19157 y normativas chilenas).
+   - Hoja 2: *Catálogo de Etiquetas Chile* (110 etiquetas depuradas y escalables a regiones: 36 capas oficiales vs 74 brechas VGI).
    - Hoja 3: *Perfil de Atributos VGI* (14 campos normalizados con reproyección EPSG:32719).
    - Hoja 4: *Bibliografía APA 7ª ed.* (104 referencias formales científicas, institucionales y normativas, con restricción estricta de cero autocitación).
-2. `catalogo_fuentes_vgi.xlsx`: Matriz de plataformas, coberturas, escalas y licencias.
+2. `catalogo_fuentes_vgi.xlsx`:
+   - Hoja 1: *Catálogo Fuentes VGI* (10 fuentes y plataformas abiertas: OSM, ohsome, OQT, OSM Changesets, OSMCha, Taginfo, GBIF, UMap, iNaturalist, IDE Chile).
+   - Hoja 2: *Inventario APIs y Endpoints* (11 especificaciones técnicas de endpoints, métodos HTTP, formatos, parámetros, cuotas de rate limit y módulos cliente).
 3. `perfil_metadatos_vgi.xlsx`: Especificación de jerarquía y tipos de datos ISO 19115.
 
 ---

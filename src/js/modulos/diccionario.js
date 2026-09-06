@@ -1029,6 +1029,206 @@ const ModuloDiccionario = (() => {
     "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
     "aplicacionUAH": "Quillayes en platabandas sostenibles de la comuna de Santiago",
     "citaAPA": "(CONAF, 2019; MMA, 2022)"
+  },
+  {
+    "tag": "amenity=training_centre",
+    "significado": "Centro de Capacitación Laboral / Sede OTEC",
+    "categoria": "CAT-01",
+    "grupo": "educacion_servicios",
+    "institucion": "SENCE / Ministerio del Trabajo y Previsión Social",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Centros de capacitación laboral y sedes OTEC en Santiago Poniente y regiones",
+    "citaAPA": "(SENCE & Mintrab, 2022; OECD, 2017)"
+  },
+  {
+    "tag": "healthcare=centre",
+    "significado": "Posta de Salud Rural (PSR) / Estación Médico Rural",
+    "categoria": "CAT-02",
+    "grupo": "educacion_servicios",
+    "institucion": "MINSAL / Red Asistencial Rural",
+    "ideChile": "Establecimientos de Salud - Atención Primaria Rural (DEIS - MINSAL / IDE Chile)",
+    "aplicacionUAH": "Postas rurales en comunas periurbanas de la RM (Melipilla, Talagante, Tiltil) y regiones",
+    "citaAPA": "(MINSAL, 2023; IDE Chile, 2020)"
+  },
+  {
+    "tag": "amenity=social_facility",
+    "significado": "Establecimiento de Larga Estadía para Adultos Mayores (ELEAM)",
+    "categoria": "CAT-02",
+    "grupo": "educacion_servicios",
+    "institucion": "Servicio Nacional del Adulto Mayor (SENAMA) / MDSF",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Residencias de adultos mayores en Barrio Brasil, Quinta Normal y ciudades regionales",
+    "citaAPA": "(SENAMA & MDSF, 2021)"
+  },
+  {
+    "tag": "man_made=water_tower",
+    "significado": "Copa de Agua Potable / Estanque Elevado de Regulación",
+    "categoria": "CAT-02",
+    "grupo": "educacion_servicios",
+    "institucion": "Dirección de Obras Hidráulicas (DOH - MOP) / SISS",
+    "ideChile": "Sistemas de Agua Potable y Estanques de Regulación (DOH - MOP / IDE Chile)",
+    "aplicacionUAH": "Copas de agua y estanques de distribución en Santiago Poniente y cabeceras comunales",
+    "citaAPA": "(DOH & MOP, 2022; SISS, 2022)"
+  },
+  {
+    "tag": "man_made=water_works",
+    "significado": "Planta de Agua Potable Rural (APR) / Servicio Sanitario Rural",
+    "categoria": "CAT-02",
+    "grupo": "educacion_servicios",
+    "institucion": "Subdirección de Servicios Sanitarios Rurales (DOH - MOP, Ley N° 20.998)",
+    "ideChile": "Sistemas de Agua Potable Rural (DOH - MOP / IDE Chile)",
+    "aplicacionUAH": "Cooperativas y comités de agua potable rural en cuencas de Maipo, Aconcagua y Maule",
+    "citaAPA": "(DOH & MOP, 2022; Ley N° 20.998)"
+  },
+  {
+    "tag": "emergency=fire_lookout",
+    "significado": "Torre de Detección de Incendios Forestales / Caseta CONAF",
+    "categoria": "CAT-02",
+    "grupo": "educacion_servicios",
+    "institucion": "Corporación Nacional Forestal (CONAF) / SENAPRED",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Torres de vigilancia en cerros islas y áreas de interfaz urbano-forestal en regiones",
+    "citaAPA": "(CONAF, 2022; SENAPRED, 2023)"
+  },
+  {
+    "tag": "amenity=coast_guard",
+    "significado": "Capitanía de Puerto / Alcaldía de Mar (DIRECTEMAR)",
+    "categoria": "CAT-02",
+    "grupo": "educacion_servicios",
+    "institucion": "Dirección General del Territorio Marítimo y Marina Mercante (DIRECTEMAR)",
+    "ideChile": "Capitanías de Puerto y Alcaldías de Mar (DIRECTEMAR / IDE Chile)",
+    "aplicacionUAH": "Alcaldías de mar y capitanías en puertos de Valparaíso, San Antonio, Talcahuano y fiordos australes",
+    "citaAPA": "(DIRECTEMAR & Armada de Chile, 2021)"
+  },
+  {
+    "tag": "amenity=ferry_terminal",
+    "significado": "Terminal de Transbordadores / Rampa de Barcazas de Conectividad",
+    "categoria": "CAT-03",
+    "grupo": "movilidad",
+    "institucion": "Dirección de Obras Portuarias (DOP - MOP) / MTT",
+    "ideChile": "Terminales y Rampas de Conectividad Austral (DOP - MOP / IDE Chile)",
+    "aplicacionUAH": "Rampas de conectividad en Pargua, Chacao, Quellón, Puerto Chacabuco y Punta Arenas",
+    "citaAPA": "(DOP & MOP, 2023; MTT, 2022)"
+  },
+  {
+    "tag": "railway=level_crossing",
+    "significado": "Cruce Ferroviario a Nivel con Barrera / Señalización",
+    "categoria": "CAT-03",
+    "grupo": "movilidad",
+    "institucion": "Empresa de los Ferrocarriles del Estado (EFE) / MTT",
+    "ideChile": "Cruces Ferroviarios (EFE - MTT / IDE Chile)",
+    "aplicacionUAH": "Cruces a nivel de tren Nos-Alameda, Biotren y ramal Talca-Constitución",
+    "citaAPA": "(EFE & MTT, 2023)"
+  },
+  {
+    "tag": "barrier=toll_booth",
+    "significado": "Plaza de Peaje Interurbano / Pórtico Free Flow (TAG)",
+    "categoria": "CAT-03",
+    "grupo": "movilidad",
+    "institucion": "Dirección General de Concesiones (DGC - MOP)",
+    "ideChile": "Plazas de Peaje Concesionadas (DGC - MOP / IDE Chile)",
+    "aplicacionUAH": "Pórticos TAG en autopistas urbanas y plazas de peaje en Ruta 5 y Ruta 68",
+    "citaAPA": "(DGC & MOP, 2023)"
+  },
+  {
+    "tag": "aeroway=aerodrome",
+    "significado": "Aeródromo Comunal / Pista de Emergencia Aeromédica",
+    "categoria": "CAT-03",
+    "grupo": "movilidad",
+    "institucion": "Dirección General de Aeronáutica Civil (DGAC)",
+    "ideChile": "Aeródromos y Helipuertos Públicos (DGAC / IDE Chile)",
+    "aplicacionUAH": "Aeródromo Tobalaba, Peldehue y pistas de enlace comunitario en regiones",
+    "citaAPA": "(DGAC, 2023)"
+  },
+  {
+    "tag": "highway=track",
+    "significado": "Camino Rural No Pavimentado / Huella de Servidumbre Agrícola",
+    "categoria": "CAT-04",
+    "grupo": "movilidad",
+    "institucion": "Dirección de Vialidad (MOP) / Indap",
+    "ideChile": "Red Vial Rural y Huellas (Dirección de Vialidad - MOP / IDE Chile)",
+    "aplicacionUAH": "Redes viales secundarias y huellas agrícolas en periferia de Santiago y regiones",
+    "citaAPA": "(Dirección de Vialidad & MOP, 2022)"
+  },
+  {
+    "tag": "highway=steps",
+    "significado": "Escalinata Peatonal de Cerro / Escalera Pública Barrial",
+    "categoria": "CAT-04",
+    "grupo": "movilidad",
+    "institucion": "MINVU / Municipalidades (Planes de Cerros)",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Escaleras de quebradas urbanas y accesos a cerros en Valparaíso y Santiago Poniente",
+    "citaAPA": "(MINVU, 2020; Municipalidad de Valparaíso, 2021)"
+  },
+  {
+    "tag": "leisure=marina",
+    "significado": "Caleta de Pescadores Artesanales / Muelle Artesanal",
+    "categoria": "CAT-05",
+    "grupo": "patrimonio_verde",
+    "institucion": "Servicio Nacional de Pesca y Acuicultura (SERNAPESCA) / DOP MOP",
+    "ideChile": "Caletas Pesqueras Artesanales (SERNAPESCA / IDE Chile)",
+    "aplicacionUAH": "Caletas pesqueras artesanales (Caleta Portales, Caleta San Antonio, Caleta Angelmó)",
+    "citaAPA": "(SERNAPESCA & Subpesca, 2022)"
+  },
+  {
+    "tag": "historic=wayside_cross",
+    "significado": "Animita de Carretera / Gruta Popular Tradicional",
+    "categoria": "CAT-06",
+    "grupo": "patrimonio_verde",
+    "institucion": "Consejo de Monumentos Nacionales (Patrimonio Cultural Inmaterial)",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Animitas y grutas de devoción popular en esquinas barriales y calzadas interurbanas",
+    "citaAPA": "(CMN & MINCAP, 2022; Weigell, 2023)"
+  },
+  {
+    "tag": "amenity=shelter",
+    "significado": "Refugio Peatonal Rural / Garita de Espera de Transporte",
+    "categoria": "CAT-07",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "Dirección de Vialidad (MOP) / Gobiernos Regionales",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Garitas de madera y hormigón en paradas de micro rural e interprovincial",
+    "citaAPA": "(Dirección de Vialidad & MOP, 2022; MTT, 2021)"
+  },
+  {
+    "tag": "highway=elevator",
+    "significado": "Ascensor Público Urbano / Funicular de Transporte Inclusivo",
+    "categoria": "CAT-07",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "MINVU / SENADIS / Municipalidades",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Ascensores en pasarelas de autopistas urbanas, estaciones de Metro y funiculares patrimoniales",
+    "citaAPA": "(MINVU, 2016; SENADIS, 2021)"
+  },
+  {
+    "tag": "natural=wetland",
+    "significado": "Humedal Urbano Protegido (Ley N° 21.202) / Pajonal / Salar",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "Ministerio del Medio Ambiente (MMA - Inventario Nacional de Humedales)",
+    "ideChile": "Humedales Urbanos Declarados (MMA / IDE Chile)",
+    "aplicacionUAH": "Humedales urbanos protegidos en Quilicura, Batuco, Concón, Llanquihue y Valdivia",
+    "citaAPA": "(MMA, 2022; Ley N° 21.202)"
+  },
+  {
+    "tag": "genus=Cryptocarya",
+    "significado": "Peumo (Cryptocarya alba) - Árbol Nativo Esclerófilo",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "CONAF (Programa de Arborización Urbana y Restauración)",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Ejemplares nativos de peumo en parques urbanos y campus universitarios",
+    "citaAPA": "(CONAF, 2019; MMA, 2022)"
+  },
+  {
+    "tag": "genus=Maytenus",
+    "significado": "Maitén (Maytenus boaria) - Árbol Nativo Siempreverde",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "CONAF / Ministerio del Medio Ambiente",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Maitenes protegidos en bandejones y áreas verdes comunitarias",
+    "citaAPA": "(CONAF, 2019; MMA, 2022)"
   }
 ];
 
@@ -1297,7 +1497,7 @@ const ModuloDiccionario = (() => {
         <div class="bloque" style="margin-top:20px;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
             <div>
-              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[CATÁLOGO TERRITORIAL CHILE // 90 DESCRIPTORES]</span>
+              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[CATÁLOGO TERRITORIAL CHILE // ${ETIQUETAS_TERRITORIALES_OSM.length} DESCRIPTORES]</span>
               <h3 style="margin:2px 0 0 0;">2. Glosario de Etiquetas OSM: Capas Oficiales IDE (${totalOficiales}) vs Brechas VGI (${totalBrechas})</h3>
             </div>
             <a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion secundaria" style="font-size:0.82rem; text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:5px 12px;">
@@ -1312,7 +1512,7 @@ const ModuloDiccionario = (() => {
           </div>
 
           <p class="descripcion">
-            <strong>Hallazgo metodológico para la gestión territorial:</strong> El análisis comparativo revela que <strong>${totalBrechas} de las 90 etiquetas prioritarias</strong> corresponden a microelementos barriales (accesibilidad universal, quioscos, comercio de proximidad, mobiliario urbano y arbolado por género) que carecen de cobertura en la información estatal abierta vigente. La VGI opera como una infraestructura complementaria insustituible para el diagnóstico comunal.
+            <strong>Hallazgo metodológico para la gestión territorial:</strong> El análisis comparativo revela que <strong>${totalBrechas} de las ${ETIQUETAS_TERRITORIALES_OSM.length} etiquetas prioritarias</strong> corresponden a microelementos barriales (accesibilidad universal, quioscos, comercio de proximidad, mobiliario urbano y arbolado por género) que carecen de cobertura en la información estatal abierta vigente. La VGI opera como una infraestructura complementaria insustituible para el diagnóstico comunal.
           </p>
           <div style="overflow-x:auto;">
             <table class="tabla-datos" style="margin-top:10px; font-size:0.86rem;">

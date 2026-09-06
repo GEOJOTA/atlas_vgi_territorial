@@ -3,6 +3,45 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 16 — Septiembre 2026 (Integración de Todas las APIs en Catálogo Fuentes Excel, Expansión a 110 Descriptores Territoriales Escalables y Sincronización 1:1)
+
+### Contexto y Requerimientos de la Entrega
+
+En atención estricta a las instrucciones del usuario:
+1. *"Integra en el catalogo de fuentes vgi .XLSX todas las apis que estamos utilizando."*
+2. *"También puedes robustecer e integrar más claves/entidades en el catalogo de etiquetas chile, recuerda que debe ser escalable por ende, debe ser robusto, extensivo y escalable a otros territorios del pais, recordando que deben estar integradas después en alguna de las categorias maestras, actualiza por ende, los .xlsx para hacerlos más escalables y revisa las fuentes para que sean todas trazables. Procede razonablemente, sin inventar."*
+
+---
+
+### Diagnóstico, Soluciones y Hallazgos Metodológicos
+
+1. **Integración Exhaustiva de APIs en `catalogo_fuentes_vgi.xlsx`:**
+   - **Hoja 1 (*Catálogo Fuentes VGI*):** Se expandió la matriz a las 10 fuentes y plataformas abiertas del ecosistema: Overpass API (OSM), ohsome API v1/v2 (HeiGIT), ohsome Quality Analyst (OQT), OSM Changesets API v0.6, OSMCha, Taginfo API v4, GBIF (Occurrence & Species API), UMap, iNaturalist e IDE Chile / SNIT.
+   - **Hoja 2 (*Inventario APIs y Endpoints* - Nueva):** Incorporación de ficha técnica exhaustiva con 11 servicios/endpoints detallando: Organización custodia, versión, URL base oficial, método HTTP, formato de intercambio (Overpass JSON, Darwin Core Archive, GeoJSON, XML), parámetros clave, cuotas de rate limit, módulo cliente JavaScript en el Atlas, función en la gestión territorial y cita bibliográfica oficial APA 7ª ed.
+
+2. **Expansión y Escalabilidad Nacional del Catálogo Territorial (110 Descriptores):**
+   - **Diagnóstico:** El catálogo previo de 90 etiquetas estaba altamente concentrado en dinámicas metropolitanas centrales (Santiago Centro / Barrio Brasil). Para garantizar **escalabilidad a otros territorios del país** (comunas rurales, borde costero, valles agrícolas, ciudades de ladera/cerro y zonas insulares/australes), se incorporaron 20 descriptores geográficos estratégicos de alta frecuencia en Chile.
+   - **Nuevos descriptores integrados en las 8 categorías maestras:**
+     - *CAT-01:* Centros de capacitación laboral y sedes OTEC (`amenity=training_centre`).
+     - *CAT-02:* Postas de Salud Rural (`healthcare=centre`), Establecimientos de Adultos Mayores ELEAM (`amenity=social_facility`), Copas y estanques de agua (`man_made=water_tower`), Plantas de Agua Potable Rural APR / SSR Ley 20.998 (`man_made=water_works`), Torres de vigilancia de incendios forestales CONAF (`emergency=fire_lookout`) y Capitanías de Puerto / Alcaldías de Mar (`amenity=coast_guard`).
+     - *CAT-03:* Terminales y rampas de transbordadores australes (`amenity=ferry_terminal`), Cruces ferroviarios a nivel con barrera (`railway=level_crossing`), Plazas de peaje y pórticos Free Flow TAG (`barrier=toll_booth`) y Aeródromos comunales DGAC (`aeroway=aerodrome`).
+     - *CAT-04:* Caminos y huellas rurales no pavimentadas (`highway=track`) y Escalinatas peatonales de cerros (`highway=steps`).
+     - *CAT-05:* Caletas pesqueras artesanales y muelles (`leisure=marina`).
+     - *CAT-06:* Animitas tradicionales y grutas de devoción popular (`historic=wayside_cross`).
+     - *CAT-07:* Refugios peatonales rurales y garitas (`amenity=shelter`) y Ascensores urbanos / funiculares (`highway=elevator`).
+     - *CAT-08:* Humedales urbanos declarados Ley 21.202 (`natural=wetland`), Peumo nativo (`genus=Cryptocarya`) y Maitén nativo (`genus=Maytenus`).
+   - **Sinceramiento de Homologías IDE Chile (Balance Nacional):**
+     - Exactamente **36 capas cuentan con contraparte fiscal oficial** en el Geoportal IDE Chile / SNIT (MINEDUC, DEIS-MINSAL, DTPM/MTT, EFE, DGAC, DOP-MOP, DOH-MOP, DGC-MOP, Vialidad-MOP, DIRECTEMAR, SERNAPESCA, CMN, CONAF, MMA, Carabineros, Bomberos).
+     - **74 descriptores representan microelementos de la vida barrial, accesibilidad universal y patrimonio vernáculo** catalogados como: `"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`.
+
+3. **Regeneración y Sincronización Total de Archivos:**
+   - Script `scripts/generar_catalogos_excel.py` actualizado y ejecutado con regeneración de los libros en `docs/` y sincronización a `src/docs/`.
+   - `src/js/modulos/diccionario.js` actualizado con los 110 descriptores y sintaxis validada (`jsc`).
+   - `src/index.html` actualizado en sus botones de filtro directo (`[⚡ Solo Brechas VGI (74)]` y `[🏛️ Capas Oficiales IDE (36)]`).
+   - `docs/ARQUITECTURA.md`, `src/docs/ARQUITECTURA.md` y `MANUAL_USO.md` sincronizados 1:1.
+
+---
+
 ## Entrega de turno 15 — Septiembre 2026 (Ajuste de Valor Temático Manual por Defecto en Explorador y Clarificación de Flujo de Datos Online vs Precargados)
 
 ### Contexto y Requerimientos de la Entrega
