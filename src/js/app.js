@@ -95,20 +95,9 @@ function actualizarOpcionesValoresSegunClave(clave) {
   }
 
   selValor.innerHTML = `
-    ${lista.map((item, idx) => `<option value="${item.valor}" data-nombre="${item.nombre}" data-color="${item.color}" ${idx === 0 ? 'selected' : ''}>${item.etiqueta}</option>`).join('')}
-    <option value="custom">✍️ — Escribir valor manual —</option>
+    <option value="custom" selected>✍️ — Escribir valor manual —</option>
+    ${lista.map(item => `<option value="${item.valor}" data-nombre="${item.nombre}" data-color="${item.color}">${item.etiqueta}</option>`).join('')}
   `;
-
-  // Pre-llenar el primer valor por defecto en los inputs manuales
-  const primero = lista[0];
-  if (primero) {
-    const inpValor = document.getElementById('custom-valor');
-    const inpNombre = document.getElementById('custom-nombre-capa');
-    const inpColor = document.getElementById('custom-color-capa');
-    if (inpValor) inpValor.value = primero.valor === '*' ? '' : primero.valor;
-    if (inpNombre) inpNombre.value = primero.nombre;
-    if (inpColor) inpColor.value = primero.color;
-  }
 }
 
 /* ---------------------- COHERENCIA INTERMODULAR Y AUTOCARGA ---------------------- */
@@ -278,11 +267,13 @@ function sincronizarCoherenciaEntreModulos(identificador, opciones = {}) {
     const inpNombre = document.getElementById('custom-nombre-capa');
     const inpColor = document.getElementById('custom-color-capa');
     const selEntidad = document.getElementById('custom-entidad');
+    const selValor = document.getElementById('custom-valor-select');
     if (inpClave) inpClave.value = opciones.clave || mapa.claveOSM;
     if (inpValor) inpValor.value = opciones.valor !== undefined ? (opciones.valor === '*' ? '' : opciones.valor) : (mapa.valorOSM === '*' ? '' : mapa.valorOSM);
     if (inpNombre) inpNombre.value = opciones.nombre || mapa.nombre;
     if (inpColor) inpColor.value = opciones.color || mapa.color;
     if (selEntidad) selEntidad.value = mapa.entidadOSM;
+    if (selValor) selValor.value = 'custom';
     if (typeof actualizarCodigoQLPreview === 'function') actualizarCodigoQLPreview();
   }
 
@@ -478,6 +469,8 @@ function inicializarAplicacion() {
       document.getElementById('custom-nombre-capa').value = nombre;
       document.getElementById('custom-color-capa').value = color;
       document.getElementById('custom-entidad').value = entidad;
+      const selValor = document.getElementById('custom-valor-select');
+      if (selValor) selValor.value = 'custom';
 
       actualizarCodigoQLPreview();
       sincronizarCoherenciaEntreModulos(clave, { valor, nombre, color, origen: 'sugerencia_ciudadana' });

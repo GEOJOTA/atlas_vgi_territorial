@@ -3,6 +3,32 @@
 
 Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
 
+## Entrega de turno 15 — Septiembre 2026 (Ajuste de Valor Temático Manual por Defecto en Explorador y Clarificación de Flujo de Datos Online vs Precargados)
+
+### Contexto y Requerimientos de la Entrega
+
+En atención estricta a las instrucciones del usuario:
+1. *"en 'Consultas y explorador' en el recuadro 'Valor temático frecuente (seleccionable)' quiero que venga de base seteado en 'Escribir valor manual' para que no se confundan las consultas por ejemplo si selecciono farmacias pero el recuadro dice universidades, simplemente para que sea menos confuso desde la perspectiva de los usuarios. No estoy pidiendo que elimines las demás, solo que una vez que el usuario entre a este recuadro venga de base seteado en 'Escribir valor manual' en vez de otro, y si ya el usuario quiere otra opción, que la seleccione él. Procede con esa modificación."*
+2. *"Lo otro una duda ¿los datos vienen precargados o se hacen las consultas online a las api cada vez que seleccionamos consulta? solo una duda. Procede"*
+
+---
+
+### Diagnóstico, Soluciones y Hallazgos Metodológicos
+
+1. **Ajuste en Selector de Valor Temático Frecuente (`#custom-valor-select`):**
+   - **Diagnóstico:** Anteriormente, la función `actualizarOpcionesValoresSegunClave(clave)` marcaba automáticamente la primera opción temática como `selected` (ej. `university` para `amenity`) y sobreescribía el campo de entrada manual. Al pulsar botones de sugerencias rápidas o cambiar filtros, se producía una disonancia visual donde el campo manual decía "pharmacy" pero el desplegable visible mostraba "Universidades", generando confusión en la experiencia de usuario.
+   - **Solución implementada:**
+     - En `src/index.html`, `#custom-valor-select` incluye de base la opción `<option value="custom" selected>✍️ — Escribir valor manual —</option>`.
+     - En `src/js/app.js`, la función `actualizarOpcionesValoresSegunClave` genera ahora la opción manual como primera y predeterminada (`selected`), preservando todas las demás alternativas frecuentes (`hospital`, `school`, `pharmacy`, etc.) sin autoseleccionarlas forzosamente ni sobreescribir el valor manual que el usuario esté ingresando.
+     - En la sincronización intermodular (`sincronizarCoherenciaEntreModulos`) y en los disparadores de sugerencias ciudadanas (`.btn-sugerencia-ciudadana`), `#custom-valor-select` se posiciona explícitamente en `custom` ("✍️ — Escribir valor manual —"), eliminando cualquier discrepancia entre el valor consultado y el selector temático.
+
+2. **Clarificación Arquitectónica: Modelo de Datos Online y en Vivo:**
+   - La plataforma **no utiliza datos precargados** para sus capas cartográficas ni estadísticas.
+   - Solo residen en el código cliente los catálogos de metadatos (las 90 etiquetas del Diccionario Territorial, las extensiones BBOX y las reglas de homologación IDE Chile).
+   - Todas las geometrías, atributos, curvas temporales de calidad y registros biológicos se obtienen mediante **consultas HTTP en tiempo real a las APIs oficiales** (Overpass API con balanceo en 4 servidores espejo, ohsome API v1/v2 de HeiGIT, GBIF Occurrence & Species API, OSM Changesets API v0.6 y Taginfo API v4), garantizando frescura total al segundo de ejecución.
+
+---
+
 ## Entrega de turno 14 — Septiembre 2026 (Refinamiento Geodésico, Actores Territoriales en Quickstart y Actualización de Arquitectura)
 
 ### Contexto y Requerimientos de la Entrega
