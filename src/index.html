@@ -59,8 +59,13 @@
         <p class="descripcion">Explora, visualiza y descarga datos territoriales colaborativos organizados en 8 categorías temáticas para el Barrio Brasil y el campus de la Universidad Alberto Hurtado.</p>
       </header>
 
-      <!-- Barra de herramientas del mapa -->
+      <!-- Barra de herramientas del mapa con selector de perspectiva 2D/3D -->
       <div class="barra-herramientas-mapa">
+        <div class="selector-modo-vista" role="group" aria-label="Perspectiva Cartográfica">
+          <button type="button" class="btn-modo-vista activo" id="btn-vista-2d" title="Visor Plano Bidimensional (Leaflet)"><span class="icono-vista">🗺️</span> Plano 2D</button>
+          <button type="button" class="btn-modo-vista" id="btn-vista-3d" title="Globo Terráqueo 3D Completo e Interactivo (WebGL / Three.js)"><span class="icono-vista">🌍</span> Globo 3D</button>
+        </div>
+
         <label for="sel-territorio" style="font-size:0.85rem; font-weight:600;">Territorio:</label>
         <select id="sel-territorio">
           <option value="barrio-brasil-ampliado">Barrio Brasil Completo (hasta Plaza Brasil)</option>
@@ -68,11 +73,29 @@
         </select>
         <button class="accion secundaria" id="btn-dibujar-bbox" title="Haz clic y arrastra en el mapa para definir un área personalizada">📐 Dibujar Bbox</button>
         <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">🎯 Encuadrar</button>
+
+        <!-- Controles específicos para el Globo 3D -->
+        <div class="barra-controles-globo" id="barra-controles-globo" style="display:none;">
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-centrar" title="Aproximar cámara suavemente a Barrio Brasil / Universidad Alberto Hurtado">🎯 Centrar Barrio Brasil</button>
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-rotacion" title="Activar/pausar giro orbital automático del planeta">🔄 Rotación</button>
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-planeta" title="Alejar la cámara para contemplar el planeta Tierra completo en el espacio">🌐 Planeta Completo</button>
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-atmosfera" title="Alternar el halo atmosférico de la Tierra">✨ Atmósfera</button>
+        </div>
+
         <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">📥 Exportar GeoJSON</button>
       </div>
 
-      <!-- Contenedor del mapa Leaflet -->
+      <!-- Contenedor del mapa Leaflet (Plano 2D) -->
       <div id="mapa-atlas" role="region" aria-label="Mapa interactivo del Atlas VGI"></div>
+
+      <!-- Contenedor del Globo Terráqueo 3D (WebGL / Globe.gl) -->
+      <div id="contenedor-globo-3d" style="display:none; position:relative; width:100%; height:520px; background:#0B0E0A; border:1px solid var(--linea); margin-top:14px; margin-bottom:16px; overflow:hidden;" role="region" aria-label="Globo terráqueo interactivo 3D">
+        <div id="globo-3d-canvas" style="width:100%; height:100%;"></div>
+        <div class="superposicion-globo-info" id="superposicion-globo-info">
+          <div class="badge-globo">🌍 PERSPECTIVA GEOESPACIAL 3D // GLOBO TERRÁQUEO COMPLETO</div>
+          <div class="sub-badge-globo">Arrastra para orbitar la Tierra • Rueda o pellizco para zoom • Clic para inspeccionar datos proyectados</div>
+        </div>
+      </div>
 
       <!-- Grilla de activación de las 8 categorías temáticas -->
       <div class="bloque">
@@ -82,6 +105,66 @@
           <!-- Se puebla dinámicamente desde app.js con las 8 categorías -->
         </div>
         <div id="estado-carga-capas" class="descripcion" style="font-size:0.82rem; font-style:italic;"></div>
+      </div>
+
+      <!-- Bloque de Capas Oficiales del Estado (IDE Chile & MINVU) -->
+      <div class="bloque bloque-oficial-ide" style="border:1px solid #1B4D3E; background:var(--papel-alto); padding:16px; margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+          <h3 style="margin:0; color:#1B4D3E; font-size:1.05rem;">🏛️ Capas Oficiales del Estado de Chile (IDE Chile & MINVU)</h3>
+          <span style="font-size:0.72rem; background:#1B4D3E; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">FEATURESERVER & WMS EN VIVO</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:12px;">Capas cartográficas oficiales contrastables con los datos VGI. Se consultan directamente desde los servicios <strong>ArcGIS FeatureServer</strong> y <strong>OGC WMS</strong> de la Infraestructura de Datos Geoespaciales de Chile (IDE Chile) y del Ministerio de Vivienda y Urbanismo (MINVU), amparados por la Ley N° 20.285 de Transparencia del Estado.</p>
+        <div class="grilla-categorias" id="contenedor-botones-oficiales-ide">
+          <button type="button" class="btn-categoria-oficial" id="btn-oficial-censo2024" data-capa="censo2024_manzanas">
+            <span class="icono-cat">🏢</span>
+            <div class="info-cat">
+              <strong>Censo 2024 (Manzanas)</strong>
+              <small>INE / IDE Chile (Población y Viviendas)</small>
+            </div>
+            <span class="badge-conteo-oficial" id="conteo-oficial-censo2024">0</span>
+          </button>
+          <button type="button" class="btn-categoria-oficial" id="btn-oficial-patrimonio" data-capa="minvu_patrimonio">
+            <span class="icono-cat">🏛️</span>
+            <div class="info-cat">
+              <strong>Patrimonio IPT (MINVU)</strong>
+              <small>ICH y Zonas Típicas (DDU)</small>
+            </div>
+            <span class="badge-conteo-oficial" id="conteo-oficial-patrimonio">0</span>
+          </button>
+          <button type="button" class="btn-categoria-oficial" id="btn-oficial-parques" data-capa="minvu_parques">
+            <span class="icono-cat">🌳</span>
+            <div class="info-cat">
+              <strong>Parques Urbanos (MINVU)</strong>
+              <small>Catastro Oficial de Parques DDU</small>
+            </div>
+            <span class="badge-conteo-oficial" id="conteo-oficial-parques">0</span>
+          </button>
+          <button type="button" class="btn-categoria-oficial" id="btn-oficial-barrios" data-capa="minvu_barrios_historicos">
+            <span class="icono-cat">🏘️</span>
+            <div class="info-cat">
+              <strong>Barrios Históricos (MINVU)</strong>
+              <small>Quiero Mi Barrio (Yungay/Brasil)</small>
+            </div>
+            <span class="badge-conteo-oficial" id="conteo-oficial-barrios">0</span>
+          </button>
+          <button type="button" class="btn-categoria-oficial" id="btn-oficial-cmn" data-capa="cmn_sitios_memoria">
+            <span class="icono-cat">🎖️</span>
+            <div class="info-cat">
+              <strong>Sitios Memoria CMN</strong>
+              <small>Monumentos Nacionales / Geoportal</small>
+            </div>
+            <span class="badge-conteo-oficial" id="conteo-oficial-cmn">0</span>
+          </button>
+          <button type="button" class="btn-categoria-oficial btn-wms-oficial" id="btn-oficial-wms-patrimonio" data-wms="minvu_patrimonio" title="Superponer la capa de teselas raster oficiales WMS del MINVU">
+            <span class="icono-cat">🗺️</span>
+            <div class="info-cat">
+              <strong>MINVU WMS Patrimonio</strong>
+              <small>Servicio OGC GetMap en vivo</small>
+            </div>
+            <span class="badge-conteo-oficial" style="background:#8F3A2C; color:#FFF;">WMS</span>
+          </button>
+        </div>
+        <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.82rem; font-style:italic; margin-top:8px;"></div>
       </div>
 
       <div class="bloque">
@@ -714,9 +797,12 @@
 
 <!-- Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
 <script src="js/config.js"></script>
 <script src="js/modulos/geodesia.js"></script>
 <script src="js/modulos/mapa.js"></script>
+<script src="js/modulos/ide_chile.js"></script>
+<script src="js/modulos/globo.js"></script>
 <script src="js/modulos/osm.js"></script>
 <script src="js/modulos/ohsome.js"></script>
 <script src="js/modulos/gbif.js"></script>

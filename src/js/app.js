@@ -13,6 +13,7 @@
 
 let ultimaConsultaRealizada = null;
 let capasCargadasPorCategoria = {};
+let capasOficialesCargadas = {};
 
 const DICCIONARIO_VALORES_OSM = {
   amenity: [
@@ -430,6 +431,8 @@ function inicializarAplicacion() {
   ModuloMapa.inicializar('mapa-atlas');
   crearBotonesCategorias();
   configurarEventosMapa();
+  configurarSelectorPerspectiva2Dy3D();
+  configurarCapasOficialesIDE();
   pintarEstadoConexion();
 
   const ml = window.ModuloLicencias || (typeof ModuloLicencias !== 'undefined' ? ModuloLicencias : null);
@@ -1006,6 +1009,7 @@ async function alternarCapaCategoria(categoria) {
     btn.classList.remove('activo');
     labelConteo.textContent = '—';
     delete capasCargadasPorCategoria[categoria.id];
+    sincronizarTodoEnGlobo3D();
     return;
   }
 
@@ -1043,6 +1047,7 @@ async function alternarCapaCategoria(categoria) {
     });
 
     capasCargadasPorCategoria[categoria.id] = geojson;
+    sincronizarTodoEnGlobo3D();
     btn.classList.remove('cargando');
     btn.classList.add('activo');
     estadoTexto.textContent = `Capa "${categoria.nombre}" cargada en vivo (${cantidad} elementos). Haz clic en los elementos del mapa para ver atributos y licencias.`;
@@ -1090,6 +1095,7 @@ async function alternarCapaCategoria(categoria) {
           icono: categoria.icono
         });
         capasCargadasPorCategoria[categoria.id] = geojsonLocal;
+        sincronizarTodoEnGlobo3D();
         btn.classList.remove('cargando');
         btn.classList.add('activo');
         estadoTexto.innerHTML = `Capa "${categoria.nombre}" cargada desde catálogo local validado (${cantidad} entidades en Barrio Brasil / UAH). <span class="descripcion">(Servidor Overpass saturado)</span>`;
@@ -1951,3 +1957,163 @@ function cargarResumenMetodologia() {
 
 function avisoError(mensaje) { return `<div class="aviso error">${mensaje}</div>`; }
 function avisoInfo(mensaje) { return `<div class="aviso">${mensaje}</div>`; }
+
+
+/* ==========================================================================
+   INTEGRACIÓN PERSPECTIVA 3D (GLOBO TERRÁQUEO) Y CAPAS OFICIALES IDE CHILE
+   ========================================================================== */
+
+function configurarSelectorPerspectiva2Dy3D() {
+  const btn2D = document.getElementById('btn-vista-2d');
+  const btn3D = document.getElementById('btn-vista-3d');
+  const mapaLeaflet = document.getElementById('mapa-atlas');
+  const contGlobo = document.getElementById('contenedor-globo-3d');
+  const barraGlobo = document.getElementById('barra-controles-globo');
+
+  if (!btn2D || !btn3D) return;
+
+  btn2D.addEventListener('click', () => {
+    btn2D.classList.add('activo');
+    btn3D.classList.remove('activo');
+    if (contGlobo) contGlobo.style.display = 'none';
+    if (barraGlobo) barraGlobo.style.display = 'none';
+    if (mapaLeaflet) {
+      mapaLeaflet.style.display = 'block';
+      if (window.ModuloMapa) ModuloMapa.invalidarTamano();
+    }
+  });
+
+  btn3D.addEventListener('click', () => {
+    btn3D.classList.add('activo');
+    btn2D.classList.remove('activo');
+    if (mapaLeaflet) mapaLeaflet.style.display = 'none';
+    if (contGlobo) contGlobo.style.display = 'block';
+    if (barraGlobo) barraGlobo.style.display = 'inline-flex';
+
+    if (window.ModuloGlobo) {
+      ModuloGlobo.inicializar('globo-3d-canvas');
+      sincronizarTodoEnGlobo3D();
+    }
+  });
+
+  document.getElementById('btn-globo-centrar')?.addEventListener('click', () => {
+    if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(2000);
+  });
+
+  document.getElementById('btn-globo-rotacion')?.addEventListener('click', (e) => {
+    if (window.ModuloGlobo) {
+      const activo = ModuloGlobo.alternarRotacion();
+      e.currentTarget.classList.toggle('activo', activo);
+    }
+  });
+
+  document.getElementById('btn-globo-planeta')?.addEventListener('click', () => {
+    if (window.ModuloGlobo) ModuloGlobo.vistaPlanetaCompleto(2000);
+  });
+
+  document.getElementById('btn-globo-atmosfera')?.addEventListener('click', (e) => {
+    if (window.ModuloGlobo) {
+      const activo = ModuloGlobo.alternarAtmosfera();
+      e.currentTarget.classList.toggle('activo', activo);
+    }
+  });
+}
+
+function configurarCapasOficialesIDE() {
+  const botones = document.querySelectorAll('.btn-categoria-oficial');
+  botones.forEach(btn => {
+    const idCapa = btn.dataset.capa;
+    const wmsCapa = btn.dataset.wms;
+
+    if (idCapa) {
+      btn.addEventListener('click', () => alternarCapaOficialIDE(idCapa, btn));
+    } else if (wmsCapa) {
+      btn.addEventListener('click', () => alternarCapaWMSOficial(wmsCapa, btn));
+    }
+  });
+}
+
+async function alternarCapaOficialIDE(idCapa, btn) {
+  const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
+  const badgeConteo = btn.querySelector('.badge-conteo-oficial');
+  const bbox = leerBbox('osm') || (window.NODO_CONFIG && window.NODO_CONFIG.area_por_defecto && window.NODO_CONFIG.area_por_defecto.bbox);
+
+  // Desactivar si ya está activa
+  if (btn.classList.contains('activo')) {
+    if (window.ModuloMapa) ModuloMapa.removerCapa(idCapa);
+    delete capasOficialesCargadas[idCapa];
+    btn.classList.remove('activo');
+    if (badgeConteo) badgeConteo.textContent = '0';
+    sincronizarTodoEnGlobo3D();
+    if (estadoTexto) estadoTexto.textContent = `Capa oficial "${idCapa}" desactivada.`;
+    return;
+  }
+
+  // Activar y cargar datos
+  btn.classList.add('cargando');
+  if (estadoTexto) estadoTexto.textContent = `Consultando servicio oficial FeatureServer de IDE Chile / MINVU…`;
+
+  try {
+    const res = await ModuloIDEChile.consultarCapaOficial(idCapa, bbox);
+    const def = res.def;
+
+    if (window.ModuloMapa) {
+      ModuloMapa.cargarCapaGeoJSON(idCapa, res.geojson, {
+        nombre: def.nombre,
+        color: def.color,
+        icono: def.icono
+      });
+    }
+
+    capasOficialesCargadas[idCapa] = res.geojson;
+    btn.classList.remove('cargando');
+    btn.classList.add('activo');
+    if (badgeConteo) badgeConteo.textContent = res.cantidad;
+
+    if (estadoTexto) {
+      estadoTexto.innerHTML = `
+        <span style="color:#1B4D3E; font-weight:600;">[OFICIAL ESTADO DE CHILE]:</span> 
+        Capa <strong>${def.nombre}</strong> cargada (${res.cantidad} entidades). 
+        <em>${res.fuenteUsada}</em>. 
+        <span style="color:var(--tinta-suave); display:block; font-size:0.75rem; margin-top:2px;">${def.declaracion}</span>
+      `;
+    }
+
+    sincronizarTodoEnGlobo3D();
+  } catch (err) {
+    btn.classList.remove('cargando');
+    console.error(`Error al cargar capa oficial ${idCapa}:`, err);
+    if (estadoTexto) estadoTexto.textContent = `Error al consultar servicio oficial: ${err.message}`;
+  }
+}
+
+function alternarCapaWMSOficial(idCapa, btn) {
+  const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
+  if (!window.ModuloIDEChile || !window.ModuloMapa) return;
+
+  const wmsLayer = ModuloIDEChile.crearCapaWMSLeaflet(idCapa);
+  if (!wmsLayer) return;
+
+  const activa = ModuloMapa.alternarCapaWMS(idCapa, wmsLayer);
+  btn.classList.toggle('activo', activa);
+
+  if (activa) {
+    if (estadoTexto) {
+      estadoTexto.innerHTML = `
+        <span style="color:#8F3A2C; font-weight:600;">[WMS OGC EN VIVO]:</span> 
+        Capa WMS GetMap de <strong>MINVU Patrimonio</strong> superpuesta en el visor 2D (OGC WMS 1.3.0).
+      `;
+    }
+  } else {
+    if (estadoTexto) estadoTexto.textContent = 'Capa WMS de Patrimonio desactivada.';
+  }
+}
+
+function sincronizarTodoEnGlobo3D() {
+  if (!window.ModuloGlobo || !ModuloGlobo.estaInicializado()) return;
+  const todasLasCapas = {
+    ...capasCargadasPorCategoria,
+    ...capasOficialesCargadas
+  };
+  ModuloGlobo.sincronizarCapas(todasLasCapas);
+}

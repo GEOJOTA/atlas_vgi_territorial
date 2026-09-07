@@ -26,14 +26,14 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
-│   │                  VISOR CARTOGRÁFICO Y ATLAS INTERACTIVO (mapa.js / Leaflet 1.9.4)         │   │
+│   │                  VISOR DUAL 2D/3D (mapa.js / Leaflet 1.9.4 & globo.js / Globe.gl 3D)         │   │
 │   │   Bbox Dinámico Interactivo │ 8 Capas Temáticas VGI │ Popups Normalizados │ Export QGIS   │   │
 │   └──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬──────────┬───────┘   │
 │          │             │             │             │             │             │          │           │
 │   ┌──────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼────┐┌───▼───────┐│
 │   │   osm.js    ││ taginfo.js ││  ohsome.js ││calidad_a.js││  gbif.js   ││ umap.js  ││geodesia.js││
 │   │ Overpass QL ││ Taginfo v4 ││ ohsome Dual││ OQT / OSMCha││Occur/Specs││ UMap Geo ││EPSG:32719 ││
-│   │ CAT-01..08  ││ Telemetría ││ v1/v2 HeiGIT││ Changesets ││DarwinCore ││ Embebido ││Snyder UTM ││
+│   │ CAT-01..10  ││ Telemetría ││ v1/v2 HeiGIT││ Changesets ││DarwinCore ││ Embebido ││Snyder UTM ││
 │   └──────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬────┘└───┬───────┘│
 │          │             │             │             │             │             │         │          │
 │          └─────────────┴─────────────┼─────────────┴─────────────┴─────────────┴─────────┘          │
@@ -72,12 +72,15 @@ El Atlas articula 8 servicios y protocolos de datos geoespaciales y colaborativo
 | **OSM Changesets API & OSMCha** | `https://api.openstreetmap.org/api/0.6/changesets`<br>`https://osmcha.org/changesets/{id}` | `src/js/modulos/calidad_analyst.js` | Control de cambios y validación de ediciones recientes en el Bbox de Barrio Brasil o por ID numérico de changeset con evaluación heurística y enlace directo a OSMCha. |
 | **GBIF Occurrence & Species API** | `https://api.gbif.org/v1/occurrence/search`<br>`https://api.gbif.org/v1/species/suggest` | `src/js/modulos/gbif.js` | Monitoreo de biodiversidad urbana y ciencia ciudadana (iNaturalist, museos), autocompletado taxonómico en vivo y extracción de banderas de calidad científica Darwin Core (`issues`). |
 | **UMap OpenStreetMap France** | `https://umap.openstreetmap.fr/es/map/...` | `src/js/modulos/umap.js` | Integración de proyectos cartográficos colaborativos locales, visualizador embebido y extracción de datos GeoJSON comunitarios. |
+| **ArcGIS FeatureServer (INE / IDE Chile)** | `https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7` | `src/js/modulos/ide_chile.js` | Microdatos georreferenciados del Censo de Población y Vivienda 2024 a nivel de manzana con recuento de población, hombres, mujeres y viviendas. |
+| **ArcGIS FeatureServer & WMS (MINVU / DDU)** | `https://geoide.minvu.cl/server/rest/services/` (IPT/Patrimonio, Catastro Parques, Barrios Históricos) | `src/js/modulos/ide_chile.js` | Catastro oficial de Inmuebles de Conservación Histórica (ICH), Zonas Típicas, Parques Urbanos y polígonos del Programa Quiero Mi Barrio. |
+| **Globe.gl / Three.js WebGL** | `https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js` | `src/js/modulos/globo.js` | Perspectiva esférica 3D moderna de la Tierra completa con atmósfera, rotación orbital y proyección tridimensional de capas vectoriales (polígonos extruidos, líneas elevadas y puntos 3D). |
 
 ---
 
 ## 3. Módulos del Sistema Frontend (`src/js/modulos/`)
 
-La lógica de la aplicación se distribuye en 12 módulos desacoplados que exportan sus interfaces al objeto global `window`:
+La lógica de la aplicación se distribuye en 14 módulos desacoplados que exportan sus interfaces al objeto global `window`:
 
 ### 3.1 `mapa.js` (Visor Cartográfico Leaflet)
 - Motor: Leaflet 1.9.4.
@@ -211,3 +214,18 @@ En las carpetas `docs/` y `src/docs/` residen los libros de trabajo generados po
   - Sintaxis JavaScript validada mediante motor JavaScriptCore (`jsc -s`).
   - Verificación del generador de catálogos mediante `python3 scripts/generar_catalogos_excel.py`.
   - Verificación de paridad binaria entre `docs/` y `src/docs/`.
+
+### 3.13 `ide_chile.js` (Integración de Servicios Oficiales IDE Chile & MINVU)
+- Consumo directo de servicios **ArcGIS FeatureServer** filtrados por envolvente espacial (Bbox) con salida nativa en GeoJSON.
+- Integración de capas **OGC WMS** de MINVU (`IPT/Patrimonio` y `Catastro_de_parques_urbanos`).
+- Resiliencia y fallback a conjuntos de respaldo locales validados en `src/data/` (Censo 2024, Patrimonio IPT, Parques Urbanos, Barrios Históricos, Monumentos CMN).
+- Generación de declaraciones institucionales completas, citas formales APA y conformidad con la Ley N° 20.285 de Transparencia y Acceso a la Información Pública.
+
+### 3.14 `globo.js` (Visualización Tridimensional Esférica — Globo 3D)
+- Motor de renderizado esférico WebGL / Three.js mediante `Globe.gl`.
+- Representación realista del planeta Tierra desde el espacio exterior con textura Blue Marble de la NASA, topografía en relieve (bump map), atmósfera dispersiva y fondo estelar.
+- Proyección tridimensional sincronizada de todas las capas vectoriales cargadas en el Atlas:
+  * **Polígonos 3D (`polygonsData`):** Huellas de edificaciones (`building=*`), uso de suelo (`landuse=*`), manzanas censales 2024 y patrimonio IPT con altitud de extrusión proporcional.
+  * **Líneas 3D (`pathsData`):** Redes viales, corredores de transporte y ciclovías elevadas con grosor dinámico.
+  * **Puntos 3D (`pointsData`):** Equipamientos urbanos, paraderos, registros de biodiversidad GBIF y monumentos CMN con columnas y esferas luminosas.
+- Cinemática de cámara: vuelo suave hacia Barrio Brasil / UAH (`lat: -33.4445, lng: -70.6620`), rotación orbital continua y vista de planeta completo.

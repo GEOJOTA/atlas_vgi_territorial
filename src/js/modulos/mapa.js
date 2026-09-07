@@ -32,8 +32,16 @@ const ModuloMapa = (() => {
     biodiversidad: '#1C523A',
     edificaciones: '#555555',
     cobertura_suelo: '#5B704E',
+    // Capas Oficiales IDE Chile y MINVU
+    censo2024_manzanas: '#1B4D3E',
+    minvu_patrimonio: '#8F3A2C',
+    minvu_parques: '#236B43',
+    minvu_barrios_historicos: '#7D5A2B',
+    cmn_sitios_memoria: '#4B5142',
     defecto: '#35586B'
   };
+
+  let capasWMSActivas = {};
 
   function inicializar(idContenedor = 'mapa-atlas') {
     const el = document.getElementById(idContenedor);
@@ -232,11 +240,19 @@ const ModuloMapa = (() => {
       },
       onEachFeature: (feature, layer) => {
         const props = feature.properties || {};
-        const nombre = props.nombre || props.name || props.especie || 'Sin denominación';
-        const subtipo = props.subtipo || props.amenity || props.shop || props.highway || props.historic || 'Elemento VGI';
-        const fuente = props.fuente || 'OpenStreetMap';
-        const licencia = props.licencia || 'ODbL 1.0';
-        const fecha = props.fecha || props.fecha_registro || 'No indicada';
+        const esOficial = !!props._idOficial;
+        const nombre = props._nombre || props.nombre || props.name || props.especie || 'Sin denominación';
+        const subtipo = props._subtipo || props.subtipo || props.amenity || props.shop || props.highway || props.historic || (esOficial ? 'Entidad Oficial del Estado' : 'Elemento VGI');
+        const fuente = props._fuente || props.fuente || 'OpenStreetMap';
+        const licencia = props._licencia || props.licencia || 'ODbL 1.0';
+        const fecha = props.fecha || props.fecha_registro || (esOficial ? 'Oficial 2024' : 'No indicada');
+
+        let filasExtraInfo = '';
+        if (props._extraInfo) {
+          Object.keys(props._extraInfo).forEach(k => {
+            filasExtraInfo += `<tr><td style="color:#4B5142; width:45%;">${k}:</td><td><strong>${props._extraInfo[k]}</strong></td></tr>`;
+          });
+        }
 
         const geomType = feature.geometry?.type || 'Point';
         const rotuloGeometria = geomType === 'Point' ? 'Punto 📍' :
@@ -257,14 +273,17 @@ const ModuloMapa = (() => {
               ${nombre}
             </h4>
             <table style="width:100%; font-size:0.78rem; border-collapse:collapse;">
-              <tr><td style="color:#4B5142; width:35%;">Tipo:</td><td><strong>${subtipo}</strong></td></tr>
+              ${esOficial ? `<tr><td colspan="2" style="background:#1B4D3E; color:#FFF; font-size:0.68rem; font-family:'IBM Plex Mono',monospace; padding:2px 6px; font-weight:bold; letter-spacing:0.04em; margin-bottom:4px; display:block;">🏛️ CAPA OFICIAL DEL ESTADO DE CHILE</td></tr>` : ''}
+              <tr><td style="color:#4B5142; width:38%;">Clasificación:</td><td><strong>${subtipo}</strong></td></tr>
+              ${filasExtraInfo}
               ${props.operador ? `<tr><td style="color:#4B5142;">Operador:</td><td>${props.operador}</td></tr>` : ''}
-              ${props.direccion ? `<tr><td style="color:#4B5142;">Dirección:</td><td>${props.direccion}</td></tr>` : ''}
+              ${props.direccion && !props._extraInfo?.['Dirección'] ? `<tr><td style="color:#4B5142;">Dirección:</td><td>${props.direccion}</td></tr>` : ''}
               ${props.accesibilidad ? `<tr><td style="color:#4B5142;">Accesible:</td><td>${props.accesibilidad}</td></tr>` : ''}
               ${props.superficie_m2 ? `<tr><td style="color:#4B5142;">Superficie:</td><td><strong>${props.superficie_m2.toLocaleString('es-CL')} m²</strong> <span style="font-size:0.72rem; color:#8F3A2C; font-weight:600;" title="Calculada mediante reproyección conforme a EPSG:32719 (UTM 19S) + Gauss">(EPSG:32719)</span>${props.superficie_ha ? ` <small>(${props.superficie_ha.toLocaleString('es-CL')} ha)</small>` : ''}</td></tr>` : ''}
               <tr><td style="color:#4B5142;">Fuente:</td><td>${fuente}</td></tr>
-              <tr><td style="color:#4B5142;">Fecha:</td><td>${fecha}</td></tr>
               <tr><td style="color:#4B5142;">Licencia:</td><td><small>${licencia}</small></td></tr>
+              ${props._declaracion ? `<tr><td colspan="2" style="font-size:0.68rem; color:#4B5142; padding-top:4px; border-top:1px dashed #C9BFA0; line-height:1.25;"><em>${props._declaracion}</em></td></tr>` : ''}
+              ${props._citaAPA ? `<tr><td colspan="2" style="font-size:0.65rem; color:#35586B; padding-top:2px; font-family:'IBM Plex Mono',monospace;"><strong>Cita:</strong> ${props._citaAPA}</td></tr>` : ''}
             </table>
           </div>
         `;
@@ -335,6 +354,38 @@ const ModuloMapa = (() => {
     }
   }
 
+  function invalidarTamano() {
+    if (mapa) {
+      setTimeout(() => {
+        try { mapa.invalidateSize(); } catch (_) {}
+      }, 60);
+    }
+  }
+
+  function alternarCapaWMS(idCapa, capaWMS) {
+    if (!mapa || !capaWMS) return false;
+    if (capasWMSActivas[idCapa]) {
+      mapa.removeLayer(capasWMSActivas[idCapa]);
+      delete capasWMSActivas[idCapa];
+      return false;
+    } else {
+      capaWMS.addTo(mapa);
+      capasWMSActivas[idCapa] = capaWMS;
+      return true;
+    }
+  }
+
+  function removerCapaWMS(idCapa) {
+    if (mapa && capasWMSActivas[idCapa]) {
+      mapa.removeLayer(capasWMSActivas[idCapa]);
+      delete capasWMSActivas[idCapa];
+    }
+  }
+
+  function obtenerCapasWMSActivas() {
+    return { ...capasWMSActivas };
+  }
+
   return {
     inicializar,
     actualizarRectanguloBbox,
@@ -347,6 +398,10 @@ const ModuloMapa = (() => {
     obtenerGeoJSONCompleto,
     exportarGeoJSONCargado,
     cambiarTerritorio,
+    invalidarTamano,
+    alternarCapaWMS,
+    removerCapaWMS,
+    obtenerCapasWMSActivas,
     COLORES_CATEGORIA
   };
 })();
