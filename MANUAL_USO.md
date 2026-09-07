@@ -11,7 +11,7 @@ En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Terr
 1. **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN):** Prioriza la auditoría de capas oficiales (25 capas) frente a brechas VGI (65 capas), metadatos ISO 19139 XML y matrices de equipamiento en Excel.
 2. **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:** Facilita diagnósticos barriales inmediatos con consultas en 1 clic (farmacias, áreas verdes, paraderos, reciclaje), mapeo colaborativo en UMap y toponimia barrial sin jerga técnica.
 3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:** Enfocado en la formulación de consultas Overpass QL avanzadas, validación global con **Taginfo API**, auditoría de changesets con **OSMCha** y detección de vacíos de microatributos (`wheelchair`, `surface`, `lit`).
-4. **🎓 Perfil Académico / Geógrafos, Analistas SIG e Investigadores:** Proporciona cálculo de densidades territoriales rigurosas mediante reproyección conforme a **EPSG:32719**, métricas de calidad ISO 19157 con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS y 104 fuentes bibliográficas APA 7ª ed.
+4. **🎓 Perfil Organizaciones No Gubernamentales (ONG):** Proporciona cálculo de densidades territoriales rigurosas mediante reproyección conforme a **EPSG:32719**, métricas de calidad ISO 19157 con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS y 104 fuentes bibliográficas APA 7ª ed.
 
 ---
 
@@ -101,20 +101,20 @@ Permite generar la documentación técnica oficial del catastro territorial:
 
 ---
 
-## 7. Diccionario Territorial de 110 Descriptores (Panel 06)
+## 7. Diccionario Territorial de 118 Descriptores (Panel 06)
 
 Permite consultar la definición toponímica y la homología institucional de cada etiqueta con alcance nacional:
-- **Sinceramiento riguroso:** Distinción explícita entre 36 capas oficiales con soporte fiscal en IDE Chile vs. 74 Brechas VGI no catastradas por el Estado.
-- **Filtros de un clic:** Alterna rápidamente entre `[⚡ Solo Brechas VGI (74)]` y `[🏛️ Capas Oficiales IDE (36)]`.
-- **Inspección Taginfo:** Cada tarjeta incluye botón de telemetría directa con la API oficial de Taginfo.
+- **Sinceramiento riguroso:** Distinción explícita entre 37 capas oficiales con soporte fiscal en IDE Chile vs. 81 Brechas VGI no catastradas por el Estado (incorporando descriptores Darwin Core de GBIF).
+- **Filtros de un clic:** Alterna rápidamente entre `[⚡ Solo Brechas VGI (81)]` y `[🏛️ Capas Oficiales IDE (37)]`.
+- **Inspección Taginfo y Darwin Core:** Cada tarjeta incluye botón de telemetría directa con la API oficial de Taginfo o enlace al estándar Darwin Core de GBIF.
 
 ---
 
 ## 8. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los tres libros de cálculo listos para anexar al informe formal de práctica:
-- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 110 descriptores escalables, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas (Hoja 1) e inventario técnico de endpoints de APIs en vivo (Hoja 2).
+- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 118 descriptores escalables con GBIF, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de 11 fuentes colaborativas (incluyendo Overture Maps Foundation) e inventario de 12 APIs y endpoints en vivo.
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
 
 ---

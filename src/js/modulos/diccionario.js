@@ -158,7 +158,7 @@ const ModuloDiccionario = (() => {
     "institucion": "MINEDUC / SLEP Santiago",
     "ideChile": "Establecimientos de Educación Escolar (MINEDUC / IDE Chile)",
     "aplicacionUAH": "Liceo Miguel Luis Amunátegui / Escuela Rep. de Panamá",
-    "citaAPA": "(MINEDUC, 2023; IDE Chile, 2020)"
+    "citaAPA": "(MINEDUC, 2023; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "amenity=kindergarten",
@@ -218,7 +218,7 @@ const ModuloDiccionario = (() => {
     "institucion": "MINSAL / FONASA (Modelo Salud Familiar)",
     "ideChile": "Establecimientos de Salud - Atención Primaria CESFAM (DEIS - MINSAL / IDE Chile)",
     "aplicacionUAH": "CESFAM N° 1 Ramón Corbalán Melgarejo",
-    "citaAPA": "(MINSAL, 2023; IDE Chile, 2020)"
+    "citaAPA": "(MINSAL, 2023; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "amenity=hospital",
@@ -228,7 +228,7 @@ const ModuloDiccionario = (() => {
     "institucion": "MINSAL / Red Asistencial Pública",
     "ideChile": "Establecimientos de Salud - Hospitales (DEIS - MINSAL / IDE Chile)",
     "aplicacionUAH": "Hospital San Juan de Dios / Posta Central",
-    "citaAPA": "(MINSAL, 2023; IDE Chile, 2020)"
+    "citaAPA": "(MINSAL, 2023; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "amenity=pharmacy",
@@ -338,7 +338,7 @@ const ModuloDiccionario = (() => {
     "institucion": "Ministerio de Justicia / Hacienda / Trabajo",
     "ideChile": "Inmuebles Fiscales y Servicios Públicos (Ministerio de Bienes Nacionales / IDE Chile)",
     "aplicacionUAH": "Sucursal Registro Civil Santiago Centro / ChileAtiende",
-    "citaAPA": "(ChileAtiende, 2023; IDE Chile, 2020)"
+    "citaAPA": "(ChileAtiende, 2023; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "amenity=community_centre",
@@ -688,7 +688,7 @@ const ModuloDiccionario = (() => {
     "institucion": "MINVU (Política Nacional de Parques Urbanos)",
     "ideChile": "Catastro de Parques Urbanos (MINVU / IDE Chile)",
     "aplicacionUAH": "Plaza Brasil (parque barrial estructurante)",
-    "citaAPA": "(MINVU, 2021; IDE Chile, 2020)"
+    "citaAPA": "(MINVU, 2021; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "leisure=playground",
@@ -978,7 +978,7 @@ const ModuloDiccionario = (() => {
     "institucion": "CONAF / MMA",
     "ideChile": "Catastro de Recursos Vegetacionales Nativos (CONAF / IDE Chile)",
     "aplicacionUAH": "Área arbolada densa en Parque Quinta Normal",
-    "citaAPA": "(CONAF, 2019; IDE Chile, 2020)"
+    "citaAPA": "(CONAF, 2019; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "genus=Platanus",
@@ -1048,7 +1048,7 @@ const ModuloDiccionario = (() => {
     "institucion": "MINSAL / Red Asistencial Rural",
     "ideChile": "Establecimientos de Salud - Atención Primaria Rural (DEIS - MINSAL / IDE Chile)",
     "aplicacionUAH": "Postas rurales en comunas periurbanas de la RM (Melipilla, Talagante, Tiltil) y regiones",
-    "citaAPA": "(MINSAL, 2023; IDE Chile, 2020)"
+    "citaAPA": "(MINSAL, 2023; IDE Chile / SNIT, 2024)"
   },
   {
     "tag": "amenity=social_facility",
@@ -1229,6 +1229,86 @@ const ModuloDiccionario = (() => {
     "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
     "aplicacionUAH": "Maitenes protegidos en bandejones y áreas verdes comunitarias",
     "citaAPA": "(CONAF, 2019; MMA, 2022)"
+  },
+  {
+    "tag": "dwc:scientificName",
+    "significado": "Nombre Científico del Taxón / Especie (Darwin Core)",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Chile / Ministerio del Medio Ambiente (MMA)",
+    "ideChile": "Especies Nativas e Introducidas (MMA / IDE Chile)",
+    "aplicacionUAH": "Taxonomía biológica de flora urbana y avifauna en Plaza Brasil y campus UAH",
+    "citaAPA": "(GBIF Secretariat, 2024; TDWG, 2023)"
+  },
+  {
+    "tag": "dwc:vernacularName",
+    "significado": "Nombre Común o Vernáculo en Chile (Darwin Core)",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "MMA / Inventario Nacional de Especies / Red de Ciencia Ciudadana",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Identificación comunitaria de especies: chincol, zorzal, tórtola, pimiento, quillay",
+    "citaAPA": "(GBIF Secretariat, 2024; MMA, 2022)"
+  },
+  {
+    "tag": "dwc:basisOfRecord",
+    "significado": "Tipo de Registro Biológico (HUMAN_OBSERVATION / iNaturalist)",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Secretariat / TDWG Darwin Core",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Observaciones comunitarias fotográficas con grado de investigación en Barrio Brasil",
+    "citaAPA": "(TDWG, 2023; GBIF Secretariat, 2024)"
+  },
+  {
+    "tag": "dwc:coordinateUncertaintyInMeters",
+    "significado": "Incertidumbre Posicional Métrica de Coordenada GPS",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Secretariat / IGM / ISO 19157",
+    "ideChile": "Exactitud Posicional Absoluta (gmd:DQ_AbsoluteExternalPositionalAccuracy / IDE Chile)",
+    "aplicacionUAH": "Radio de precisión métrica (<15 m) en registros móviles de biodiversidad urbana",
+    "citaAPA": "(Chapman, 2005a; ISO 19157:2013)"
+  },
+  {
+    "tag": "dwc:recordedBy",
+    "significado": "Observador Ciudadano / Colector de Ciencia Comunitaria",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Chile / iNaturalist / Comunidad",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Trazabilidad de autoría ciudadana de avistamientos de fauna y arbolado en el barrio",
+    "citaAPA": "(Goodchild, 2007; Haklay, 2013)"
+  },
+  {
+    "tag": "dwc:issues",
+    "significado": "Banderas de Calidad Espacial y Taxonómica (Darwin Core Issues)",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Secretariat / ISO 19157",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Auditoría algorítmica de anomalías en coordenadas y nombres taxonómicos",
+    "citaAPA": "(Chapman, 2005b; Chapman, 2010)"
+  },
+  {
+    "tag": "dwc:datasetKey",
+    "significado": "Identificador Persistente del Dataset Publicador (UUID)",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Secretariat / Nodos Participantes",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Trazabilidad DOI de repositorios institucionales y de ciencia ciudadana",
+    "citaAPA": "(Wilkinson et al., 2016; GBIF.org, 2025)"
+  },
+  {
+    "tag": "dwc:taxonRank",
+    "significado": "Jerarquía Taxonómica del Espécimen (Especie, Género, Familia)",
+    "categoria": "CAT-08",
+    "grupo": "accesibilidad_biodiv",
+    "institucion": "GBIF Secretariat / TDWG",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Resolución del nivel taxonómico de observaciones de flora y fauna en la cuenca de Santiago",
+    "citaAPA": "(TDWG, 2023; CONAF, 2019)"
   }
 ];
 
@@ -1446,7 +1526,10 @@ const ModuloDiccionario = (() => {
           <td>
             <code style="font-weight:600; color:var(--musgo); font-size:0.88rem;">${e.tag}</code>
             <div style="margin-top:4px;">
-              <button type="button" class="btn-taginfo-inspector" onclick="ModuloDiccionario.inspeccionarTaginfo('${e.tag}')" style="font-family:var(--fuente-datos); font-size:0.68rem; padding:1px 5px; background:var(--papel); border:1px solid var(--musgo); color:var(--musgo); cursor:pointer; display:inline-block;">⚡ Taginfo API</button>
+              ${e.tag.startsWith('dwc:')
+                ? `<a href="https://dwc.tdwg.org/terms/#${e.tag.replace('dwc:', '')}" target="_blank" rel="noopener" class="btn-taginfo-inspector" style="font-family:var(--fuente-datos); font-size:0.68rem; padding:1px 5px; background:var(--papel); border:1px solid var(--musgo); color:var(--musgo); text-decoration:none; display:inline-block;">🌿 GBIF Darwin Core ↗</a>`
+                : `<button type="button" class="btn-taginfo-inspector" onclick="ModuloDiccionario.inspeccionarTaginfo('${e.tag}')" style="font-family:var(--fuente-datos); font-size:0.68rem; padding:1px 5px; background:var(--papel); border:1px solid var(--musgo); color:var(--musgo); cursor:pointer; display:inline-block;">⚡ Taginfo API</button>`
+              }
             </div>
           </td>
           <td><strong>${e.significado}</strong></td>

@@ -64,6 +64,12 @@ const ModuloLicencias = (() => {
       licencia: 'Datos Abiertos del Gobierno de Chile (Ley N° 20.285)',
       implicancia: 'Uso libre para fines públicos, de investigación académica y toma de decisiones territoriales, con mención obligatoria al ministerio o servicio técnico emisor (MBN, INE, MINVU, MTT).',
       url: 'https://www.ide.cl'
+    },
+    {
+      nombre: 'Overture Maps Foundation (Linux Foundation / Meta / Microsoft / AWS / TomTom)',
+      licencia: 'CDLA-Permissive-2.0 / ODbL 1.0 (según Theme)',
+      implicancia: 'Datos globales abiertos estructurados en GeoParquet (Themes: Places, Buildings, Transportation, Base, Addresses). Permite descarga y uso abierto sin costo de API mediante Python CLI (overturemaps), DuckDB o visor interactivo Overture Explorer.',
+      url: 'https://overturemaps.org/'
     }
   ];
 
@@ -134,7 +140,7 @@ const ModuloLicencias = (() => {
           </div>
           <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
             <strong>3. Taxonomía de Categorías Temáticas OSM y Bibliografía APA (4 Hojas):</strong><br>
-            <span class="descripcion">Libro maestro que incluye: Hoja 1 (Categorías Maestras CAT-01 a CAT-08), Hoja 2 (Catálogo de 63 Etiquetas Chile), Hoja 3 (Diccionario de Atributos VGI con cálculo métrico EPSG:32719) y Hoja 4 (Aparato Bibliográfico de 64 fuentes en norma APA 7ª ed.).</span><br>
+            <span class="descripcion">Libro maestro que incluye: Hoja 1 (Categorías Maestras CAT-01 a CAT-08), Hoja 2 (Catálogo de 118 Descriptores Chile con etiquetas OSM y Darwin Core de GBIF: 37 capas oficiales vs 81 brechas VGI), Hoja 3 (Diccionario de Atributos VGI con cálculo métrico EPSG:32719) y Hoja 4 (Aparato Bibliográfico de 104 fuentes en norma APA 7ª ed.).</span><br>
             <a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion" style="display:inline-block; margin-top:8px; font-size:0.82rem; text-decoration:none; padding:4px 12px;">📊 Descargar categorias_tematicas_osm.xlsx (Maestro)</a>
           </div>
         </div>

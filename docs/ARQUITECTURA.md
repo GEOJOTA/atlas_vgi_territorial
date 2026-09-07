@@ -22,7 +22,7 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 │                                                                                                   │
 │   ┌───────────────────────────────────────────────────────────────────────────────────────────┐   │
 │   │                 SELECTOR DE ACTOR TERRITORIAL (PERFILES DE USUARIO)                       │   │
-│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🎓 Académico / SIG   │   │
+│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🏢 ONG / Fondos Públicos │   │
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
@@ -40,7 +40,7 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 │                                      │                                                               │
 │   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
 │   │                          DICCIONARIO TERRITORIAL (diccionario.js)                         │   │
-│   │     110 Descriptores Chile: 36 Capas Oficiales IDE Chile vs 74 Brechas VGI Comunitarias  │   │
+│   │     118 Descriptores Chile: 37 Capas Oficiales IDE Chile vs 81 Brechas VGI Comunitarias  │   │
 │   └──────────────────────────────────┬────────────────────────────────────────────────────────┘   │
 │                                      │                                                               │
 │   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
@@ -61,7 +61,7 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 
 ## 2. Inventario de APIs Externas Integradas en el Frontend
 
-El Atlas articula 7 servicios web geoespaciales y colaborativos de escala planetaria:
+El Atlas articula 8 servicios y protocolos de datos geoespaciales y colaborativos de escala planetaria:
 
 | API / Servicio | Endpoint Base Oficial | Módulo Integrador | Función y Aplicación en el Atlas |
 |---|---|---|---|
@@ -72,6 +72,7 @@ El Atlas articula 7 servicios web geoespaciales y colaborativos de escala planet
 | **OSM Changesets API & OSMCha** | `https://api.openstreetmap.org/api/0.6/changesets`<br>`https://osmcha.org/changesets/{id}` | `src/js/modulos/calidad_analyst.js` | Control de cambios y validación de ediciones recientes en el Bbox de Barrio Brasil o por ID numérico de changeset con evaluación heurística y enlace directo a OSMCha. |
 | **GBIF Occurrence & Species API** | `https://api.gbif.org/v1/occurrence/search`<br>`https://api.gbif.org/v1/species/suggest` | `src/js/modulos/gbif.js` | Monitoreo de biodiversidad urbana y ciencia ciudadana (iNaturalist, museos), autocompletado taxonómico en vivo y extracción de banderas de calidad científica Darwin Core (`issues`). |
 | **UMap OpenStreetMap France** | `https://umap.openstreetmap.fr/es/map/...` | `src/js/modulos/umap.js` | Integración de proyectos cartográficos colaborativos locales, visualizador embebido y extracción de datos GeoJSON comunitarios. |
+| **Overture Maps Foundation** | `https://explore.overturemaps.org/`<br>`s3://overturemaps-us-west-2/release/` | `src/js/app.js` (Panel 01) | Protocolo de acceso abierto a datos globales en GeoParquet / GeoJSON sin costo de API por consulta, con integración en 1 clic al visor Overture Explorer y generador CLI parametrizado al Bbox. |
 
 ---
 
@@ -122,10 +123,10 @@ La lógica de la aplicación se distribuye en 12 módulos desacoplados que expor
 - Generación de JSON con elementos núcleo de ISO 19115-1:2014.
 - Generación y descarga de XML conforme a **ISO 19139 / Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)**, validado con namespaces OGC (`gmd`, `gco`, `gml`) para interoperabilidad en GeoNetwork y GeoNode.
 
-### 3.10 `diccionario.js` (Catálogo Territorial de 110 Descriptores)
-- 110 etiquetas territoriales estratégicas y escalables para Chile clasificadas en 8 macro-categorías.
-- **Sinceramiento riguroso:** 36 capas con homología oficial demostrable en IDE Chile vs. 74 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
-- Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (74)]`, `[🏛️ Capas Oficiales IDE (36)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
+### 3.10 `diccionario.js` (Catálogo Territorial de 118 Descriptores)
+- 118 etiquetas y descriptores territoriales estratégicos y escalables para Chile clasificados en 8 macro-categorías (incorporando etiquetas OpenStreetMap y descriptores Darwin Core de GBIF).
+- **Sinceramiento riguroso:** 37 capas con homología oficial demostrable en IDE Chile vs. 81 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
+- Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (81)]`, `[🏛️ Capas Oficiales IDE (37)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
 
 ### 3.11 `licencias.js` (Marco Jurídico de Licenciamiento)
 - Gestión del marco tripartito copyleft (ODbL 1.0 para datos espaciales OSM, CC BY-SA 4.0 para contenidos y fichas, GNU GPL v3 para código fuente).
@@ -193,12 +194,12 @@ La interfaz gráfica prescinde de componentes SaaS genéricos para adoptar un di
 En las carpetas `docs/` y `src/docs/` residen los libros de trabajo generados por `scripts/generar_catalogos_excel.py`:
 1. `categorias_tematicas_osm.xlsx`:
    - Hoja 1: *Categorías Maestras* (8 macro-categorías escalables a nivel nacional, calidad ISO 19157 y normativas chilenas).
-   - Hoja 2: *Catálogo de Etiquetas Chile* (110 etiquetas depuradas y escalables a regiones: 36 capas oficiales vs 74 brechas VGI).
+   - Hoja 2: *Catálogo de Etiquetas Chile* (118 etiquetas y descriptores depurados y escalables a regiones: 37 capas oficiales vs 81 brechas VGI, integrando descriptores Darwin Core de GBIF).
    - Hoja 3: *Perfil de Atributos VGI* (14 campos normalizados con reproyección EPSG:32719).
    - Hoja 4: *Bibliografía APA 7ª ed.* (104 referencias formales científicas, institucionales y normativas, con restricción estricta de cero autocitación).
 2. `catalogo_fuentes_vgi.xlsx`:
-   - Hoja 1: *Catálogo Fuentes VGI* (10 fuentes y plataformas abiertas: OSM, ohsome, OQT, OSM Changesets, OSMCha, Taginfo, GBIF, UMap, iNaturalist, IDE Chile).
-   - Hoja 2: *Inventario APIs y Endpoints* (11 especificaciones técnicas de endpoints, métodos HTTP, formatos, parámetros, cuotas de rate limit y módulos cliente).
+   - Hoja 1: *Catálogo Fuentes VGI* (11 fuentes y plataformas abiertas: OSM, ohsome, OQT, OSM Changesets, OSMCha, Taginfo, GBIF, UMap, iNaturalist, IDE Chile, Overture Maps Foundation).
+   - Hoja 2: *Inventario APIs y Endpoints* (12 especificaciones técnicas de endpoints, métodos HTTP, formatos, parámetros, cuotas de rate limit y módulos cliente).
 3. `perfil_metadatos_vgi.xlsx`: Especificación de jerarquía y tipos de datos ISO 19115.
 
 ---

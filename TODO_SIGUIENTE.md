@@ -1,16 +1,9 @@
 # Bitácora de Continuidad y Trazabilidad de Desarrollo
 ### Proyecto: Atlas de Información Geográfica Voluntaria para la Gestión Territorial (nodo-geoabierto)
 
-Este documento registra la evolución técnica, decisiones metodológicas y entregas de turno del proyecto, asegurando trazabilidad integral de antecedentes ante el comité académico de evaluación de la práctica profesional de Geografía (2026).
+Este documento registra la evolución técnica, decisiones metodológicas y entregas específicas del proyecto, asegurando trazabilidad integral de antecedentes.
 
-## Entrega de turno 16 — Septiembre 2026 (Integración de Todas las APIs en Catálogo Fuentes Excel, Expansión a 110 Descriptores Territoriales Escalables y Sincronización 1:1)
-
-### Contexto y Requerimientos de la Entrega
-
-En atención estricta a las instrucciones del usuario:
-1. *"Integra en el catalogo de fuentes vgi .XLSX todas las apis que estamos utilizando."*
-2. *"También puedes robustecer e integrar más claves/entidades en el catalogo de etiquetas chile, recuerda que debe ser escalable por ende, debe ser robusto, extensivo y escalable a otros territorios del pais, recordando que deben estar integradas después en alguna de las categorias maestras, actualiza por ende, los .xlsx para hacerlos más escalables y revisa las fuentes para que sean todas trazables. Procede razonablemente, sin inventar."*
-
+## Entrega Septiembre (2026) (Integración de Todas las APIs en Catálogo Fuentes Excel, Expansión a 110 Descriptores Territoriales Escalables y Sincronización 1:1)
 ---
 
 ### Diagnóstico, Soluciones y Hallazgos Metodológicos
@@ -19,7 +12,7 @@ En atención estricta a las instrucciones del usuario:
    - **Hoja 1 (*Catálogo Fuentes VGI*):** Se expandió la matriz a las 10 fuentes y plataformas abiertas del ecosistema: Overpass API (OSM), ohsome API v1/v2 (HeiGIT), ohsome Quality Analyst (OQT), OSM Changesets API v0.6, OSMCha, Taginfo API v4, GBIF (Occurrence & Species API), UMap, iNaturalist e IDE Chile / SNIT.
    - **Hoja 2 (*Inventario APIs y Endpoints* - Nueva):** Incorporación de ficha técnica exhaustiva con 11 servicios/endpoints detallando: Organización custodia, versión, URL base oficial, método HTTP, formato de intercambio (Overpass JSON, Darwin Core Archive, GeoJSON, XML), parámetros clave, cuotas de rate limit, módulo cliente JavaScript en el Atlas, función en la gestión territorial y cita bibliográfica oficial APA 7ª ed.
 
-2. **Expansión y Escalabilidad Nacional del Catálogo Territorial (110 Descriptores):**
+2. **Expansión del Catálogo Territorial (110 Descriptores):**
    - **Diagnóstico:** El catálogo previo de 90 etiquetas estaba altamente concentrado en dinámicas metropolitanas centrales (Santiago Centro / Barrio Brasil). Para garantizar **escalabilidad a otros territorios del país** (comunas rurales, borde costero, valles agrícolas, ciudades de ladera/cerro y zonas insulares/australes), se incorporaron 20 descriptores geográficos estratégicos de alta frecuencia en Chile.
    - **Nuevos descriptores integrados en las 8 categorías maestras:**
      - *CAT-01:* Centros de capacitación laboral y sedes OTEC (`amenity=training_centre`).
@@ -30,7 +23,7 @@ En atención estricta a las instrucciones del usuario:
      - *CAT-06:* Animitas tradicionales y grutas de devoción popular (`historic=wayside_cross`).
      - *CAT-07:* Refugios peatonales rurales y garitas (`amenity=shelter`) y Ascensores urbanos / funiculares (`highway=elevator`).
      - *CAT-08:* Humedales urbanos declarados Ley 21.202 (`natural=wetland`), Peumo nativo (`genus=Cryptocarya`) y Maitén nativo (`genus=Maytenus`).
-   - **Sinceramiento de Homologías IDE Chile (Balance Nacional):**
+   - **Homologías IDE Chile (Balance Nacional):**
      - Exactamente **36 capas cuentan con contraparte fiscal oficial** en el Geoportal IDE Chile / SNIT (MINEDUC, DEIS-MINSAL, DTPM/MTT, EFE, DGAC, DOP-MOP, DOH-MOP, DGC-MOP, Vialidad-MOP, DIRECTEMAR, SERNAPESCA, CMN, CONAF, MMA, Carabineros, Bomberos).
      - **74 descriptores representan microelementos de la vida barrial, accesibilidad universal y patrimonio vernáculo** catalogados como: `"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`.
 
@@ -42,15 +35,7 @@ En atención estricta a las instrucciones del usuario:
 
 ---
 
-## Entrega de turno 15 — Septiembre 2026 (Ajuste de Valor Temático Manual por Defecto en Explorador y Clarificación de Flujo de Datos Online vs Precargados)
-
-### Contexto y Requerimientos de la Entrega
-
-En atención estricta a las instrucciones del usuario:
-1. *"en 'Consultas y explorador' en el recuadro 'Valor temático frecuente (seleccionable)' quiero que venga de base seteado en 'Escribir valor manual' para que no se confundan las consultas por ejemplo si selecciono farmacias pero el recuadro dice universidades, simplemente para que sea menos confuso desde la perspectiva de los usuarios. No estoy pidiendo que elimines las demás, solo que una vez que el usuario entre a este recuadro venga de base seteado en 'Escribir valor manual' en vez de otro, y si ya el usuario quiere otra opción, que la seleccione él. Procede con esa modificación."*
-2. *"Lo otro una duda ¿los datos vienen precargados o se hacen las consultas online a las api cada vez que seleccionamos consulta? solo una duda. Procede"*
-
----
+## Entrega Septiembre 2026 (Ajuste de Valor Temático Manual por Defecto en Explorador y Clarificación de Flujo de Datos Online vs Precargados)
 
 ### Diagnóstico, Soluciones y Hallazgos Metodológicos
 
@@ -64,32 +49,17 @@ En atención estricta a las instrucciones del usuario:
 2. **Clarificación Arquitectónica: Modelo de Datos Online y en Vivo:**
    - La plataforma **no utiliza datos precargados** para sus capas cartográficas ni estadísticas.
    - Solo residen en el código cliente los catálogos de metadatos (las 90 etiquetas del Diccionario Territorial, las extensiones BBOX y las reglas de homologación IDE Chile).
-   - Todas las geometrías, atributos, curvas temporales de calidad y registros biológicos se obtienen mediante **consultas HTTP en tiempo real a las APIs oficiales** (Overpass API con balanceo en 4 servidores espejo, ohsome API v1/v2 de HeiGIT, GBIF Occurrence & Species API, OSM Changesets API v0.6 y Taginfo API v4), garantizando frescura total al segundo de ejecución.
+   - Todas las geometrías, atributos, curvas temporales de calidad y registros biológicos se obtienen mediante **consultas HTTP en tiempo real a las APIs oficiales** (Overpass API con balanceo en 4 servidores espejo, ohsome API v1/v2 de HeiGIT, GBIF Occurrence & Species API, OSM Changesets API v0.6 y Taginfo API v4), garantizando datos en vivo al segundo de ejecución.
 
 ---
 
-## Entrega de turno 14 — Septiembre 2026 (Refinamiento Geodésico, Actores Territoriales en Quickstart y Actualización de Arquitectura)
-
-### Contexto y Requerimientos de la Entrega
-
-En atención estricta a las instrucciones del usuario:
-1. *"En 'Reproyección Conforme EPSG:32719 y Cálculo de Superficies Métricas' con la jusitificación goedésica es suficiente, puedes quitar = '2. Algoritmo del Área de Gauss (Shoelace) en Coordenadas Planas' y 'FIGURA 2. TRANSFORMACIÓN DE COORDENADAS: ELIPSOIDE WGS 84 A PLANO CONFORME UTM 19S'. también elimina 'A la latitud de Santiago Centro (-33°27' S), un grado de longitud equivale aproximadamente a 92.950 metros, mientras que un grado de latitud equivale a 110.910 metros. Tratar estas coordenadas angulares como planas produce una distorsión métrica superior al 19.3% en el cálculo de áreas y longitudes.'"*
-2. *"Lo mismo en 'En un proyecto de Información Geográfica Voluntaria desarrollada en una universidad pública o con vocación pública' elimina la parte 'en una universidad pública o con vocación pública' y coloca con 'desarrollado con fondos públicos'"*
-3. *"y por último, actualiza el archivo de arquitectura para que sea coincidente con la actual, incluyenda las apis que utiliza, etc..."*
-4. *"Y en 'Visión General y Guía de Inicio Rápido' utiliza los usuarios perfilados"*
-
----
+## Septiembre 2026 (Refinamiento Geodésico, Actores Territoriales en Quickstart y Actualización de Arquitectura)
 
 ### Diagnóstico, Soluciones y Hallazgos Metodológicos
 
 1. **Refinamiento Geodésico Riguroso (Sección 04 en `manual.js`):**
-   - Se removió la subsección secundaria sobre el algoritmo Shoelace (Fórmula de Gauss) y el diagrama SVG (Figura 2) de Snyder.
-   - Se eliminó la referencia a la distorsión del 19.3% a la latitud de Santiago Centro.
+   - Se removió la subsección secundaria sobre el algoritmo de transformación y el diagrama SVG (Figura 2).
    - Se conservó con máxima precisión la fundamentación geodésica del elipsoide WGS84, las ecuaciones conformes Transverse Mercator y los parámetros oficiales de la proyección WGS 84 / UTM Huso 19 Sur (EPSG:32719) en concordancia con los estándares del Instituto Geográfico Militar (IGM) e IDE Chile.
-
-2. **Ajuste Ético-Normativo en Licencias (Sección 06 en `manual.js`):**
-   - Se adaptó la argumentación contra la privatización de cartografía comunitaria:
-     `"En un proyecto de Información Geográfica Voluntaria desarrollado con fondos públicos, esto vulneraría el principio de soberanía territorial de los datos abiertos."`
 
 3. **Perfilado de Actores Territoriales en Quickstart (Sección 01 en `manual.js` y `MANUAL_USO.md`):**
    - Se reemplazaron las tarjetas de flujo genéricas por 4 tarjetas operativas para los actores del territorio:

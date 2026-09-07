@@ -228,6 +228,19 @@ def crear_catalogo_fuentes():
             "Línea base oficial para contrastar completitud de la VGI (validación cruzada de colegios, salud y vialidad).",
             "Actualización lenta comparada con la dinámica de la VGI en terreno; ausencia de micro-datos barriales.",
             "Límite comunal de Santiago, zonificación PRC Santiago, colegios MINEDUC y red asistencial MINSAL."
+        ],
+        [
+            "Overture Maps Foundation (Linux Foundation / Meta / MSFT / AWS / TomTom)",
+            "Vectorial abierta normalizada en GeoParquet (Themes: Places, Buildings, Transportation, Base, Addresses)",
+            "Global / Nacional (Chile) / Bbox comunal",
+            "2023 – Presente (Releases mensuales)",
+            "Mensual / Programada",
+            "Escala 1:1.000 a 1:10.000 (combinación OSM + ML + fuentes públicas)",
+            "CDLA-Permissive-2.0 / ODbL (según tema)",
+            "Cloud-native GeoParquet en AWS S3 / CLI Python overturemaps / DuckDB / Overture Explorer",
+            "Catastro normalizado de huellas de edificaciones (con altura 3D estimada), red de transporte multivariada y lugares de interés (POIs).",
+            "No dispone de API REST pública directa sin costo; el acceso estándar es batch/CLI vía GeoParquet o visor Overture Explorer.",
+            "Huellas de manzanas y edificios de Barrio Brasil / Campus UAH descargables en GeoJSON vía overturemaps CLI."
         ]
     ]
     
@@ -411,7 +424,20 @@ def crear_catalogo_fuentes():
             "Acceso público bajo política de datos abiertos del Estado de Chile",
             "Referencia Metodológica y Homologación en src/js/modulos/diccionario.js",
             "Capa de referencia oficial para validación cruzada y contraste de brechas de información VGI",
-            "IDE Chile & SNIT. (2020). Catálogo de Objetos Geográficos de Chile v3.0. https://www.ide.cl/"
+            "IDE Chile / SNIT. (2024). Catálogo Nacional de Features. https://www.ide.cl/documentos/catalogo-nacional-de-features.pdf"
+        ],
+        [
+            "Overture Maps Access Protocols (CLI & Explorer)",
+            "Overture Maps Foundation (Linux Foundation / Meta / Microsoft / AWS / TomTom)",
+            "Release Mensual (2024 – Presente)",
+            "https://explore.overturemaps.org/ / s3://overturemaps-us-west-2/release/",
+            "HTTP GET / CLI / SQL (DuckDB S3)",
+            "GeoParquet / GeoJSON (vía CLI o Explorer)",
+            "overturemaps download --bbox=-70.6720,-33.4505,-70.6580,-33.4350 -f geojson --type=building",
+            "Gratuito y sin clave en S3 público; sin costo de API (costo cero para consumidor)",
+            "src/js/modulos/osm.js / scripts/extractor_vgi.py / Visor Overture Explorer",
+            "Extracción alternativa de huellas de edificaciones 3D y validación cruzada con OpenStreetMap y capas IDE",
+            "Overture Maps Foundation. (2024). Overture Maps Documentation and Schema Reference. https://docs.overturemaps.org/"
         ]
     ]
     
@@ -594,7 +620,7 @@ def crear_categorias_tematicas_osm():
             "Muy Alta (>15.000 entidades educativas en Chile según Taginfo y MINEDUC)",
             "Ministerio de Educación (MINEDUC), Superintendencia de Educación Superior, JUNJI, Fundación Integra",
             "Campus Central y Facultades UAH (Almirante Barroso, Cienfuegos, Erasmo Escala), Casa Central UDP, USACH, Liceo Amunátegui.",
-            "(MINEDUC, 2023; IDE Chile, 2020; WikiProject Chile, 2024)"
+            "(MINEDUC, 2023; IDE Chile / SNIT, 2024; WikiProject Chile, 2024)"
         ],
         [
             "CAT-02",
@@ -642,7 +668,7 @@ def crear_categorias_tematicas_osm():
             "Muy Alta (>12.000 plazas, parques y canchas georreferenciadas en Taginfo Chile)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Política Nacional de Parques Urbanos), Instituto Nacional de Deportes (IND), Municipios",
             "Plaza Brasil (hito central con juegos de Federica Matta), Plaza Manuel Rodríguez, multicancha JJVV Barrio Brasil, bandejón Alameda Bernardo O'Higgins.",
-            "(MINVU, 2021; INE, 2017; IDE Chile, 2020)"
+            "(MINVU, 2021; INE, 2017; IDE Chile / SNIT, 2024)"
         ],
         [
             "CAT-06",
@@ -724,14 +750,14 @@ def crear_categorias_tematicas_osm():
     etiquetas_chile = [
         ['amenity=university', 'Campus Universitario / Sede Central', 'CAT-01', 'Node, Way, Relation', 'name, operator, building=university, addr:street', 'Establecimientos de Educación Superior (MINEDUC / IDE Chile)', 'MINEDUC / CRUCH', 'Alta', 'Universidad Alberto Hurtado (Casa Central Barroso 10)', '(MINEDUC, 2023; WikiProject Chile, 2024)'],
         ['amenity=college', 'Instituto Profesional (IP) / Centro Formación Técnica (CFT)', 'CAT-01', 'Node, Way', 'name, operator, college:type', 'Establecimientos de Educación Superior - IP y CFT (MINEDUC / IDE Chile)', 'MINEDUC / Subsecretaría de Educación Superior', 'Alta', 'Sedes de educación técnica en eje Alameda y República', '(MINEDUC, 2023)'],
-        ['amenity=school', 'Colegio / Escuela Básica / Liceo Tradicional', 'CAT-01', 'Way, Relation', 'name, operator, school:type, addr:street', 'Establecimientos de Educación Escolar (MINEDUC / IDE Chile)', 'MINEDUC / SLEP Santiago', 'Muy Alta', 'Liceo Miguel Luis Amunátegui / Escuela Rep. de Panamá', '(MINEDUC, 2023; IDE Chile, 2020)'],
+        ['amenity=school', 'Colegio / Escuela Básica / Liceo Tradicional', 'CAT-01', 'Way, Relation', 'name, operator, school:type, addr:street', 'Establecimientos de Educación Escolar (MINEDUC / IDE Chile)', 'MINEDUC / SLEP Santiago', 'Muy Alta', 'Liceo Miguel Luis Amunátegui / Escuela Rep. de Panamá', '(MINEDUC, 2023; IDE Chile / SNIT, 2024)'],
         ['amenity=kindergarten', 'Jardín Infantil / Sala Cuna (JUNJI / Integra)', 'CAT-01', 'Node, Way', 'name, operator=JUNJI|Fundación Integra', 'Establecimientos de Educación Parvularia (JUNJI - Integra / IDE Chile)', 'Subsecretaría de Educación Parvularia', 'Alta', 'Jardín Infantil Barrial JUNJI calle Cienfuegos', '(JUNJI, 2022; MINEDUC, 2023)'],
         ['amenity=library', 'Biblioteca Pública o Universitaria', 'CAT-01', 'Node, Way', 'name, operator, internet_access=wlan', 'Red de Bibliotecas Públicas (SERPAT / IDE Chile)', 'Servicio Nacional del Patrimonio Cultural (SERPAT)', 'Media', 'Biblioteca Central UAH / Biblioteca de Santiago', '(SERPAT, 2023; UAH, 2023)'],
         ['amenity=student_accommodation', 'Residencia Universitaria / Pensionado Estudiantil', 'CAT-01', 'Node, Way', 'name, operator, building=residential', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINEDUC / Instituciones Universitarias', 'Baja', 'Residencias universitarias en eje Almirante Barroso', '(MINEDUC, 2023)'],
         ['amenity=research_institute', 'Centro de Investigación / Instituto Científico', 'CAT-01', 'Node, Way', 'name, operator, research_institute:field', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Ministerio de Ciencia, Tecnología e Innovación', 'Media', 'Centros de investigación de facultades UAH', '(OECD, 2017; UAH, 2023)'],
         ['amenity=music_school', 'Conservatorio / Academia de Música y Artes', 'CAT-01', 'Node, Way', 'name, operator, subject=music', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINCAP / MINEDUC', 'Baja', 'Academias de música y arte en Barrio Brasil', '(MINCAP, 2022)'],
-        ['amenity=clinic', 'CESFAM / CECOSF / Consultorio de Salud Familiar', 'CAT-02', 'Node, Way', 'name, operator=DISAM|Salud Municipal, healthcare=centre', 'Establecimientos de Salud - Atención Primaria CESFAM (DEIS - MINSAL / IDE Chile)', 'MINSAL / FONASA (Modelo Salud Familiar)', 'Alta', 'CESFAM N° 1 Ramón Corbalán Melgarejo', '(MINSAL, 2023; IDE Chile, 2020)'],
-        ['amenity=hospital', 'Hospital Público / Complejo Hospitalario / Clínica', 'CAT-02', 'Node, Way, Relation', 'name, operator=Servicio de Salud, emergency=yes', 'Establecimientos de Salud - Hospitales (DEIS - MINSAL / IDE Chile)', 'MINSAL / Red Asistencial Pública', 'Alta', 'Hospital San Juan de Dios / Posta Central', '(MINSAL, 2023; IDE Chile, 2020)'],
+        ['amenity=clinic', 'CESFAM / CECOSF / Consultorio de Salud Familiar', 'CAT-02', 'Node, Way', 'name, operator=DISAM|Salud Municipal, healthcare=centre', 'Establecimientos de Salud - Atención Primaria CESFAM (DEIS - MINSAL / IDE Chile)', 'MINSAL / FONASA (Modelo Salud Familiar)', 'Alta', 'CESFAM N° 1 Ramón Corbalán Melgarejo', '(MINSAL, 2023; IDE Chile / SNIT, 2024)'],
+        ['amenity=hospital', 'Hospital Público / Complejo Hospitalario / Clínica', 'CAT-02', 'Node, Way, Relation', 'name, operator=Servicio de Salud, emergency=yes', 'Establecimientos de Salud - Hospitales (DEIS - MINSAL / IDE Chile)', 'MINSAL / Red Asistencial Pública', 'Alta', 'Hospital San Juan de Dios / Posta Central', '(MINSAL, 2023; IDE Chile / SNIT, 2024)'],
         ['amenity=pharmacy', 'Farmacia de Barrio / Farmacia Comunal Popular', 'CAT-02', 'Node, Way', 'name, dispensing=yes, opening_hours', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINSAL / Instituto de Salud Pública (ISP)', 'Muy Alta', 'Farmacia Popular Comuna de Santiago / Cruz Verde Brasil', '(ISP Chile, 2022; INE, 2021)'],
         ['amenity=dentist', 'Consulta Odontológica / Clínica Dental', 'CAT-02', 'Node', 'name, healthcare=dentist, healthcare:speciality', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINSAL / Colegio de Cirujano Dentistas', 'Media', 'Clínicas odontológicas universitarias en sector República', '(MINSAL, 2023)'],
         ['amenity=veterinary', 'Clínica Veterinaria / Atención de Mascotas', 'CAT-02', 'Node', 'name, healthcare=veterinary, emergency=yes|no', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'SUBDERE (Ley N° 21.020 Tenencia Responsable)', 'Media', 'Clínica veterinaria barrial en calle Maturana', '(SUBDERE, 2018)'],
@@ -742,7 +768,7 @@ def crear_categorias_tematicas_osm():
         ['amenity=fire_station', 'Compañía del Cuerpo de Bomberos de Chile', 'CAT-02', 'Node, Way', 'name, operator=Cuerpo de Bomberos de Santiago', 'Cuarteles de Bomberos (Bomberos de Chile / IDE Chile)', 'Junta Nacional de Cuerpos de Bomberos (Ley 20.564)', 'Alta', '11ª Compañía Pompa Italia (Calle República)', '(Bomberos de Chile, 2022)'],
         ['man_made=surveillance', 'Cámara de Televigilancia Municipal / Seguridad Ciudadana', 'CAT-02', 'Node', 'surveillance:type=camera, camera:mount=pole, operator', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Subsecretaría de Prevención del Delito / Seguridad Vecinal', 'Media', 'Cámaras de televigilancia en esquinas de Plaza Brasil', '(Ministerio del Interior, 2022)'],
         ['amenity=townhall', 'Municipalidad / Edificio Consistorial', 'CAT-02', 'Node, Way', 'name, admin_level=8, operator=Ilustre Municipalidad', 'Edificios Consistoriales Municipales (SUBDERE / IDE Chile)', 'SUBDERE / Municipalidad de Santiago', 'Alta', 'Casa Consistorial / Centro Comunitario Municipal Brasil', '(SUBDERE, 2022)'],
-        ['office=government', 'Oficina Pública Estatal (Registro Civil, SII, ChileAtiende)', 'CAT-02', 'Node, Way', 'name, operator=Gobierno de Chile, government', 'Inmuebles Fiscales y Servicios Públicos (Ministerio de Bienes Nacionales / IDE Chile)', 'Ministerio de Justicia / Hacienda / Trabajo', 'Alta', 'Sucursal Registro Civil Santiago Centro / ChileAtiende', '(ChileAtiende, 2023; IDE Chile, 2020)'],
+        ['office=government', 'Oficina Pública Estatal (Registro Civil, SII, ChileAtiende)', 'CAT-02', 'Node, Way', 'name, operator=Gobierno de Chile, government', 'Inmuebles Fiscales y Servicios Públicos (Ministerio de Bienes Nacionales / IDE Chile)', 'Ministerio de Justicia / Hacienda / Trabajo', 'Alta', 'Sucursal Registro Civil Santiago Centro / ChileAtiende', '(ChileAtiende, 2023; IDE Chile / SNIT, 2024)'],
         ['amenity=community_centre', 'Sede Social / Junta de Vecinos (JJVV)', 'CAT-02', 'Node, Way', 'name, community_centre=neighbourhood, operator', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'SUBDERE / Municipalidad de Santiago', 'Alta', 'Junta de Vecinos Barrio Brasil (calle Huérfanos)', '(INE, 2017; Municipalidad de Santiago, 2021)'],
         ['amenity=post_office', 'Sucursal Postal (CorreosChile, Chilexpress, Starken)', 'CAT-02', 'Node', 'name, brand=CorreosChile|Chilexpress, operator', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Ministerio de Transportes y Telecomunicaciones', 'Alta', 'Sucursal CorreosChile en calle Moneda / Alameda', '(Correos de Chile, 2023)'],
         ['shop=bakery', 'Panadería / Amasandería Tradicional Chilena', 'CAT-02', 'Node, Way', 'name, baked_goods=bread, opening_hours', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'SERCOTEC / Fomento Productivo Barrial', 'Muy Alta', 'Panadería Las Rosas Chicas / Panadería Brasil', '(SERCOTEC, 2022; INE, 2021)'],
@@ -777,7 +803,7 @@ def crear_categorias_tematicas_osm():
         ['amenity=charging_station', 'Estación de Carga de Vehículos Eléctricos', 'CAT-04', 'Node', 'socket:type2=yes, capacity, brand=Enel X', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Ministerio de Energía / SEC', 'Baja (en alza)', 'Electrolinera de carga rápida en eje Alameda', '(Ministerio de Energía, 2023)'],
         ['highway=living_street', 'Zona Calma / Calle de Coexistencia (Zona 30)', 'CAT-04', 'Way', 'maxspeed=30, surface=paving_stones', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONASET / MINVU', 'Media', 'Calles de velocidad reducida en torno a Plaza Brasil', '(CONASET, 2022; MINVU, 2020)'],
         ['highway=speed_display', 'Radar Pedagógico de Velocidad Vial', 'CAT-04', 'Node', 'traffic_calming=yes, maxspeed', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONASET / Dirección de Tránsito', 'Baja', 'Radar indicador de velocidad en calle Cienfuegos', '(CONASET, 2022)'],
-        ['leisure=park', 'Parque Urbano Público / Plaza Barrial', 'CAT-05', 'Way, Relation', 'name, surface=grass, access=yes', 'Catastro de Parques Urbanos (MINVU / IDE Chile)', 'MINVU (Política Nacional de Parques Urbanos)', 'Muy Alta', 'Plaza Brasil (parque barrial estructurante)', '(MINVU, 2021; IDE Chile, 2020)'],
+        ['leisure=park', 'Parque Urbano Público / Plaza Barrial', 'CAT-05', 'Way, Relation', 'name, surface=grass, access=yes', 'Catastro de Parques Urbanos (MINVU / IDE Chile)', 'MINVU (Política Nacional de Parques Urbanos)', 'Muy Alta', 'Plaza Brasil (parque barrial estructurante)', '(MINVU, 2021; IDE Chile / SNIT, 2024)'],
         ['leisure=playground', 'Área de Juegos Infantiles Modulares', 'CAT-05', 'Way, Node', 'min_age, max_age, surface=sand|rubber', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINVU / Municipalidad de Santiago', 'Alta', 'Esculturas lúdicas de Federica Matta en Plaza Brasil', '(MINVU, 2021)'],
         ['leisure=pitch', 'Cancha de Baby Fútbol / Multicancha Comunitaria', 'CAT-05', 'Way', 'sport=soccer|basketball, surface=asphalt|concrete', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Instituto Nacional de Deportes (IND)', 'Alta', 'Multicancha deportiva en JJVV Barrio Brasil', '(IND Chile, 2021)'],
         ['leisure=sports_centre', 'Polideportivo Municipal / Complejo Deportivo', 'CAT-05', 'Way, Relation', 'name, operator, sport=multi', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'IND / I. Municipalidad de Santiago', 'Media', 'Polideportivo Comunal Santiago Centro', '(IND Chile, 2021)'],
@@ -806,14 +832,14 @@ def crear_categorias_tematicas_osm():
         ['highway=pedestrian', 'Paseo Peatonal Exclusivo / Calle Peatonalizada', 'CAT-07', 'Way', 'surface=paving_stones|asphalt, motor_vehicle=no', 'Red Vial Urbana - Paseos Peatonales (MOP - SERVIU / IDE Chile)', 'MINVU / SECPLAN Santiago', 'Alta', 'Paseo peatonal Huérfanos Poniente y pasajes patrimoniales', '(MINVU, 2021)'],
         ['highway=ramp', 'Rampa de Acceso Peatonal con Pendiente Normada', 'CAT-07', 'Way', 'incline=8%, handrail=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MINVU (D.S. 50) / SENADIS', 'Media', 'Rampas con pasamanos en accesos de facultades UAH', '(MINVU, 2016; SENADIS, 2021)'],
         ['natural=tree', 'Árbol Urbano de Alineación en Acera o Plaza', 'CAT-08', 'Node', 'genus, species, circumference, height', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Corporación Nacional Forestal (CONAF) / Municipios', 'Muy Alta', 'Plátanos orientales y jacarandás en Av. Brasil', '(CONAF, 2019; MMA, 2022)'],
-        ['natural=wood', 'Masa Arbórea Continua / Bosquete Urbano', 'CAT-08', 'Way, Relation', 'type=forest, leaf_type=broadleaved', 'Catastro de Recursos Vegetacionales Nativos (CONAF / IDE Chile)', 'CONAF / MMA', 'Media', 'Área arbolada densa en Parque Quinta Normal', '(CONAF, 2019; IDE Chile, 2020)'],
+        ['natural=wood', 'Masa Arbórea Continua / Bosquete Urbano', 'CAT-08', 'Way, Relation', 'type=forest, leaf_type=broadleaved', 'Catastro de Recursos Vegetacionales Nativos (CONAF / IDE Chile)', 'CONAF / MMA', 'Media', 'Área arbolada densa en Parque Quinta Normal', '(CONAF, 2019; IDE Chile / SNIT, 2024)'],
         ['genus=Platanus', 'Plátano Oriental (Platanus orientalis / × acerifolia)', 'CAT-08', 'Node', 'natural=tree, genus=Platanus', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / Catastro Arbolado Urbano Santiago', 'Muy Alta', 'Alineaciones arbóreas históricas en Av. Brasil y bandejón Alameda', '(CONAF, 2019)'],
         ['genus=Jacaranda', 'Jacarandá (Jacaranda mimosifolia)', 'CAT-08', 'Node', 'natural=tree, genus=Jacaranda', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / Dirección de Aseo y Ornato', 'Alta', 'Jacarandás florecidos en primavera en torno a Plaza Brasil', '(CONAF, 2019)'],
         ['genus=Jubaea', 'Palma Chilena (Jubaea chilensis - Nativa Vulnerable)', 'CAT-08', 'Node', 'natural=tree, genus=Jubaea, protected=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / Ministerio del Medio Ambiente', 'Baja (Especie Protegida)', 'Ejemplares monumentales de palma chilena en plazas de Santiago', '(CONAF, 2019; MMA, 2022)'],
         ['genus=Schinus', 'Pimiento / Molle (Schinus areira - Nativo Resistente a Sequía)', 'CAT-08', 'Node', 'natural=tree, genus=Schinus', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / MMA', 'Alta', 'Pimientos nativos resistentes a escasez hídrica en Barrio Brasil', '(CONAF, 2019)'],
         ['genus=Quillaja', 'Quillay (Quillaja saponaria - Flora Esclerófila)', 'CAT-08', 'Node', 'natural=tree, genus=Quillaja, native=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / MMA', 'Media', 'Quillayes en platabandas sostenibles de la comuna de Santiago', '(CONAF, 2019; MMA, 2022)'],
         ['amenity=training_centre', 'Centro de Capacitación Laboral / Sede OTEC', 'CAT-01', 'Node, Way', 'name, operator, training=vocational, addr:street', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'SENCE / Ministerio del Trabajo y Previsión Social', 'Media', 'Centros de capacitación laboral y sedes OTEC en Santiago Poniente y regiones', '(SENCE & Mintrab, 2022; OECD, 2017)'],
-        ['healthcare=centre', 'Posta de Salud Rural (PSR) / Estación Médico Rural', 'CAT-02', 'Node, Way', 'name, operator=DISAM|Salud Municipal, healthcare:speciality=rural', 'Establecimientos de Salud - Atención Primaria Rural (DEIS - MINSAL / IDE Chile)', 'MINSAL / Red Asistencial Rural', 'Alta en comunas rurales', 'Postas rurales en comunas periurbanas de la RM (Melipilla, Talagante, Tiltil) y regiones', '(MINSAL, 2023; IDE Chile, 2020)'],
+        ['healthcare=centre', 'Posta de Salud Rural (PSR) / Estación Médico Rural', 'CAT-02', 'Node, Way', 'name, operator=DISAM|Salud Municipal, healthcare:speciality=rural', 'Establecimientos de Salud - Atención Primaria Rural (DEIS - MINSAL / IDE Chile)', 'MINSAL / Red Asistencial Rural', 'Alta en comunas rurales', 'Postas rurales en comunas periurbanas de la RM (Melipilla, Talagante, Tiltil) y regiones', '(MINSAL, 2023; IDE Chile / SNIT, 2024)'],
         ['amenity=social_facility', 'Establecimiento de Larga Estadía para Adultos Mayores (ELEAM)', 'CAT-02', 'Node, Way', 'name, social_facility=nursing_home, social_facility:for=senior', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Servicio Nacional del Adulto Mayor (SENAMA) / MDSF', 'Media', 'Residencias de adultos mayores en Barrio Brasil, Quinta Normal y ciudades regionales', '(SENAMA & MDSF, 2021)'],
         ['man_made=water_tower', 'Copa de Agua Potable / Estanque Elevado de Regulación', 'CAT-02', 'Node, Way', 'man_made=water_tower, operator=Aguas Andinas|Comité APR, capacity', 'Sistemas de Agua Potable y Estanques de Regulación (DOH - MOP / IDE Chile)', 'Dirección de Obras Hidráulicas (DOH - MOP) / SISS', 'Alta', 'Copas de agua y estanques de distribución en Santiago Poniente y cabeceras comunales', '(DOH & MOP, 2022; SISS, 2022)'],
         ['man_made=water_works', 'Planta de Agua Potable Rural (APR) / Servicio Sanitario Rural', 'CAT-02', 'Way, Node', 'name, operator=Comité APR|Cooperativa, service=rural', 'Sistemas de Agua Potable Rural (DOH - MOP / IDE Chile)', 'Subdirección de Servicios Sanitarios Rurales (DOH - MOP, Ley N° 20.998)', 'Muy Alta en zonas rurales', 'Cooperativas y comités de agua potable rural en cuencas de Maipo, Aconcagua y Maule', '(DOH & MOP, 2022; Ley N° 20.998)'],
@@ -832,6 +858,14 @@ def crear_categorias_tematicas_osm():
         ['natural=wetland', 'Humedal Urbano Protegido (Ley N° 21.202) / Pajonal / Salar', 'CAT-08', 'Way, Relation', 'name, wetland=marsh|tidalflat, protection_class=nature_reserve', 'Humedales Urbanos Declarados (MMA / IDE Chile)', 'Ministerio del Medio Ambiente (MMA - Inventario Nacional de Humedales)', 'Alta en valles y costa', 'Humedales urbanos protegidos en Quilicura, Batuco, Concón, Llanquihue y Valdivia', '(MMA, 2022; Ley N° 21.202)'],
         ['genus=Cryptocarya', 'Peumo (Cryptocarya alba) - Árbol Nativo Esclerófilo', 'CAT-08', 'Node', 'natural=tree, species=Cryptocarya alba, taxon:clade=esclerofilo', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF (Programa de Arborización Urbana y Restauración)', 'Alta en Chile Central', 'Ejemplares nativos de peumo en parques urbanos y campus universitarios', '(CONAF, 2019; MMA, 2022)'],
         ['genus=Maytenus', 'Maitén (Maytenus boaria) - Árbol Nativo Siempreverde', 'CAT-08', 'Node', 'natural=tree, species=Maytenus boaria, indigenous=yes', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'CONAF / Ministerio del Medio Ambiente', 'Alta en plazas y riberas', 'Maitenes protegidos en bandejones y áreas verdes comunitarias', '(CONAF, 2019; MMA, 2022)'],
+        ['dwc:scientificName', 'Nombre Científico del Taxón / Especie (Darwin Core)', 'CAT-08', 'Point', 'dwc:scientificName, dwc:kingdom, dwc:family, dwc:genus, dwc:specificEpithet', 'Especies Nativas e Introducidas (MMA / IDE Chile)', 'GBIF Chile / Ministerio del Medio Ambiente (MMA)', 'Muy Alta (>1.5M registros en Chile)', 'Taxonomía biológica de flora urbana y avifauna en Plaza Brasil y campus UAH', '(GBIF Secretariat, 2024; TDWG, 2023)'],
+        ['dwc:vernacularName', 'Nombre Común o Vernáculo en Chile (Darwin Core)', 'CAT-08', 'Point', 'dwc:vernacularName, dwc:language=es, dwc:locality', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'MMA / Inventario Nacional de Especies / Red de Ciencia Ciudadana', 'Alta (>300.000 observaciones)', 'Identificación comunitaria de especies: chincol, zorzal, tórtola, pimiento, quillay', '(GBIF Secretariat, 2024; MMA, 2022)'],
+        ['dwc:basisOfRecord', 'Tipo de Registro Biológico (HUMAN_OBSERVATION / iNaturalist)', 'CAT-08', 'Point', 'basisOfRecord=HUMAN_OBSERVATION|PRESERVED_SPECIMEN, recordedBy, eventDate', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / TDWG Darwin Core', 'Muy Alta (>85% observaciones)', 'Observaciones comunitarias fotográficas con grado de investigación en Barrio Brasil', '(TDWG, 2023; GBIF Secretariat, 2024)'],
+        ['dwc:coordinateUncertaintyInMeters', 'Incertidumbre Posicional Métrica de Coordenada GPS', 'CAT-08', 'Point', 'decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters, geodeticDatum=WGS84', 'Exactitud Posicional Absoluta (gmd:DQ_AbsoluteExternalPositionalAccuracy / IDE Chile)', 'GBIF Secretariat / IGM / ISO 19157', 'Alta (filtro de calidad espacial)', 'Radio de precisión métrica (<15 m) en registros móviles de biodiversidad urbana', '(Chapman, 2005a; ISO 19157:2013)'],
+        ['dwc:recordedBy', 'Observador Ciudadano / Colector de Ciencia Comunitaria', 'CAT-08', 'Point', 'recordedBy, identifiedBy, occurrenceID, collectionCode', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Chile / iNaturalist / Comunidad', 'Muy Alta (trazabilidad de autores)', 'Trazabilidad de autoría ciudadana de avistamientos de fauna y arbolado en el barrio', '(Goodchild, 2007; Haklay, 2013)'],
+        ['dwc:issues', 'Banderas de Calidad Espacial y Taxonómica (Darwin Core Issues)', 'CAT-08', 'Point', 'issues=COORDINATE_ROUNDED|GEODETIC_DATUM_ASSUMED_WGS84|TAXON_MATCH_FUZZY', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / ISO 19157', 'Muy Alta (auditoría algorítmica)', 'Auditoría algorítmica de anomalías en coordenadas y nombres taxonómicos', '(Chapman, 2005b; Chapman, 2010)'],
+        ['dwc:datasetKey', 'Identificador Persistente del Dataset Publicador (UUID)', 'CAT-08', 'Point, Colección', 'datasetKey, publishingOrgKey, license=CC-BY|CC0, citation', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / Nodos Participantes', 'Muy Alta (reproducibilidad científica)', 'Trazabilidad DOI de repositorios institucionales y de ciencia ciudadana', '(Wilkinson et al., 2016; GBIF.org, 2025)'],
+        ['dwc:taxonRank', 'Jerarquía Taxonómica del Espécimen (Especie, Género, Familia)', 'CAT-08', 'Point', 'taxonRank=SPECIES|GENUS|FAMILY, taxonomicStatus=ACCEPTED', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / TDWG', 'Muy Alta (jerarquía biológica)', 'Resolución del nivel taxonómico de observaciones de flora y fauna en la cuenca de Santiago', '(TDWG, 2023; CONAF, 2019)'],
     ]
 
     for r_idx, tag in enumerate(etiquetas_chile, 5):
@@ -1384,77 +1418,71 @@ def crear_categorias_tematicas_osm():
                 'Cell2Fire: A cell based forest fire growth model',
                 'https://arxiv.org/abs/1905.09317',
                 'Algoritmo de simulación espacial en cuadrícula para modelamiento dinámico de incendios en paisajes forestales.'],
-        [       '(IDE Chile, 2023)',
-                'Infraestructura de Datos Geoespaciales de Chile [IDE Chile]. (2023). Política Nacional de Información Geoespacial. '
+        [       '(IDE Chile, 2024)',
+                'Infraestructura de Datos Geoespaciales de Chile [IDE Chile]. (2024). Política de Gestión de Información Territorial — Geoespacial. '
                 'Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales, Gobierno de Chile.',
                 'Política de Estado Oficial',
                 'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2023',
-                'Política Nacional de Información Geoespacial',
-                'https://www.ide.cl',
+                '2024',
+                'Política de Gestión de Información Territorial — Geoespacial',
+                'https://www.ide.cl/politica/politica/',
                 'Documento rector de la política geoespacial de Chile: define la gobernanza, interoperabilidad, producción y '
                 'democratización de la información geográfica del Estado.'],
-        [       '(IDE Chile, 2020)',
-                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2020). Catálogo de Objetos Geográficos de Chile v3.0: '
-                'Estándar para la captura y clasificación de información geoespacial. Ministerio de Bienes Nacionales.',
-                'Estándar Técnico Oficial de Chile',
+        [       '(IDE Chile / SNIT, 2024)',
+                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2024). Catálogo Nacional de Features: '
+                'Descripción normalizada de capas geoespaciales elementales para instituciones del Estado de Chile. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
+                'Marco de Referencia Oficial',
                 'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2020',
-                'Catálogo de Objetos Geográficos de Chile v3.0',
-                'https://www.ide.cl',
-                'Estándar nacional mandatorio para la clasificación semántica, atributos y geometrías de las capas geoespaciales públicas '
-                'chilenas.'],
-        [       '(IDE Chile, 2018)',
-                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2018). Perfil Nacional de Metadatos de Chile v2.0 '
-                '(Basado en ISO 19115:2003 / ISO 19139:2007). Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
-                'Estándar Oficial de Metadatos',
+                '2024',
+                'Catálogo Nacional de Features',
+                'https://www.ide.cl/documentos/catalogo-nacional-de-features.pdf',
+                'Descripción normalizada de las capas geoespaciales elementales adoptadas por grupos de trabajo interministeriales, base para la validación cruzada con datos VGI del Atlas.'],
+        [       '(IDE Chile / SNIT, 2024b)',
+                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2024). Metadatos Geoespaciales: '
+                'Orientaciones para la documentación y gestión de la información geoespacial conforme a normas ISO. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
+                'Recomendación Técnica Oficial',
                 'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2018',
-                'Perfil Nacional de Metadatos de Chile v2.0',
-                'https://www.ide.cl',
-                'Especificación técnica del Perfil Nacional de Metadatos para catalogación de capas vectoriales y raster en el Estado de '
-                'Chile.'],
-        [       '(IDE Chile, 2016)',
-                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2016). Guía Técnica para la Estandarización y '
-                'Producción de Información Geoespacial. Ministerio de Bienes Nacionales.',
-                'Guía Técnica Ministerial',
+                '2024',
+                'Metadatos Geoespaciales (Guía técnica IDE Chile)',
+                'https://www.ide.cl/documentos/guia-metadatos.pdf',
+                'Orientaciones técnicas para mejorar la documentación y gestión de la información geoespacial, promoviendo estándares ISO 19115 e ISO 19139 para el intercambio interinstitucional.'],
+        [       '(IDE Chile / SNIT, 2024c)',
+                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2024). Integración de Estándares Internacionales ISO/TC 211 en Chile: '
+                'Hoja de ruta para la adopción nacional del catálogo de normas geoespaciales. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
+                'Recomendación Técnica Oficial',
                 'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2016',
-                'Guía Técnica para la Estandarización y Producción de Información Geoespacial',
-                'https://www.ide.cl',
-                'Directrices técnicas para la estructuración topológica, captura geodésica y atributos mínimos en la producción de datos '
-                'públicos.'],
-        [       '(IDE Chile, 2017)',
-                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2017). Marco Técnico y Metodológico para la Evaluación '
-                'de la Calidad de la Información Geográfica en Chile (Norma ISO 19157). Secretaría Ejecutiva SNIT.',
-                'Manual Metodológico Oficial',
-                'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2017',
-                'Marco Técnico y Metodológico para la Evaluación de la Calidad de la Información Geográfica en Chile',
-                'https://www.ide.cl',
-                'Metodología nacional oficial para evaluar completitud, consistencia lógica, exactitud posicional y exactitud temática '
-                'según ISO 19157.'],
-        [       '(IDE Chile, 2022)',
-                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2022). GeoNodo Chile: Plataforma Nacional de Datos '
-                'Geoespaciales Abiertos e Infraestructura de Servicios Web Geográficos (WMS, WFS, CSW). Ministerio de Bienes Nacionales.',
+                '2024',
+                'Integración de Estándares Internacionales ISO/TC 211 en Chile',
+                'https://www.ide.cl/documentos/recomendacion-estandares-iso-tc211.pdf',
+                'Hoja de ruta para la adopción nacional del catálogo ISO/TC 211, que respalda la implementación de ISO 19115, ISO 19157 e ISO 19110 en la producción geoespacial del Estado.'],
+        [       '(IDE Chile / SNIT, 2024d)',
+                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2024). Sistema de Referencia Geodésico para Chile, SIRGAS época 2016.0: '
+                'Marco de referencia publicado por el Instituto Geográfico Militar. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
+                'Marco de Referencia Geodésico Oficial',
+                'Secretaría Ejecutiva SNIT / IGM / IDE Chile',
+                '2024',
+                'Sistema de Referencia Geodésico para Chile, SIRGAS época 2016.0',
+                'https://www.ide.cl/documentos/sistema-referencia-geodesico-sirgas-2016.pdf',
+                'Marco de referencia geodésico oficial de Chile que sustenta el uso de EPSG:5361 (SIRGAS-Chile) y orienta la reproyección conforme a EPSG:32719 (UTM Huso 19S) utilizada en el Atlas.'],
+        [       '(IDE Chile, GeoNodo)',
+                'Infraestructura de Datos Geoespaciales de Chile [IDE Chile]. (s.f.). GeoNodo Chile: Plataforma Nacional de Datos '
+                'Geoespaciales Abiertos (Plataforma de publicación basada en GeoNode). Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
                 'Plataforma Nacional de Datos Abiertos',
                 'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2022',
+                's.f.',
                 'GeoNodo Chile: Plataforma Nacional de Datos Geoespaciales Abiertos',
-                'https://www.geonodo.cl',
+                'https://www.ide.cl/productos-y-servicios/herramientas/geonodo/',
                 'Catálogo nacional federado de servicios web interoperables OGC (WMS, WFS, WCS, CSW) que distribuye las capas '
-                'institucionales de Chile.'],
-        [       '(IDE Chile, 2021)',
-                'Infraestructura de Datos Espaciales de Chile [IDE Chile / SNIT]. (2021). Modelo de Interoperabilidad Geoespacial del '
-                'Estado de Chile: Jerarquía, Distribución y Acuerdos Interinstitucionales de Intercambio de Datos. Ministerio de Bienes '
-                'Nacionales.',
-                'Documento de Arquitectura Interinstitucional',
+                'institucionales de Chile. Accesible en https://www.geonodo.cl'],
+        [       '(IDE Chile / SNIT, 2024e)',
+                'Infraestructura de Datos Geoespaciales de Chile [IDE Chile / SNIT]. (2024). Interoperabilidad de servicios WMS: '
+                'Vocabularios, sintaxis y convenciones comunes para los Web Map Service de la red institucional chilena. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales.',
+                'Recomendación Técnica Oficial',
                 'Secretaría Ejecutiva SNIT / IDE Chile',
-                '2021',
-                'Modelo de Interoperabilidad Geoespacial del Estado de Chile',
-                'https://www.ide.cl',
-                'Marco normativo para la jerarquía de distribución, protocolos de intercambio y eliminación de redundancias entre '
-                'ministerios y municipalidades.'],
+                '2024',
+                'Interoperabilidad de servicios WMS',
+                'https://www.ide.cl/documentos/recomendacion-interoperabilidad-wms.pdf',
+                'Vocabularios, sintaxis y convenciones comunes para los Web Map Service de la red institucional chilena, que sustentan la interoperabilidad de las capas IDE Chile consumidas como referencia en el Atlas.'],
         [       '(Fuenzalida, 2025)',
                 'Fuenzalida, M. (2025). Taller Datos Abiertos e Infraestructura de Datos Espaciales en Chile: Integración de VGI y '
                 'Políticas Públicas. Conferencia y Seminario IDE Chile, Ministerio de Bienes Nacionales.',

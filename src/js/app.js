@@ -596,6 +596,61 @@ function inicializarAplicacion() {
     });
   }
 
+  // Integración Overture Maps Foundation (Visualizador y Generador CLI Gratuito)
+  const btnOverture = document.getElementById('btn-overture-maps');
+  const cntOverture = document.getElementById('contenedor-resultado-overture');
+  const btnCerrarOverture = document.getElementById('btn-cerrar-overture');
+  const btnCopiarOvertureCLI = document.getElementById('btn-copiar-overture-cli');
+
+  function actualizarDatosOverture() {
+    const bbox = leerBbox('osm') || window.NODO_CONFIG?.area_por_defecto?.bbox || [-70.6675, -33.4505, -70.6565, -33.4385];
+    const [oeste, sur, este, norte] = bbox;
+    const centroLat = ((sur + norte) / 2).toFixed(5);
+    const centroLon = ((oeste + este) / 2).toFixed(5);
+
+    const linkExplorer = document.getElementById('link-overture-explorer');
+    if (linkExplorer) {
+      linkExplorer.href = `https://explore.overturemaps.org/#15/${centroLat}/${centroLon}`;
+    }
+
+    const preCLI = document.getElementById('codigo-overture-cli');
+    if (preCLI) {
+      preCLI.textContent = `pip install overturemaps\noverturemaps download --bbox=${oeste},${sur},${este},${norte} -f geojson --type=building -o edificios_overture_barrio_brasil.geojson`;
+    }
+  }
+
+  if (btnOverture && cntOverture) {
+    btnOverture.addEventListener('click', () => {
+      const visible = cntOverture.style.display !== 'none';
+      if (!visible) {
+        actualizarDatosOverture();
+        cntOverture.style.display = 'block';
+        cntOverture.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        cntOverture.style.display = 'none';
+      }
+    });
+  }
+
+  if (btnCerrarOverture && cntOverture) {
+    btnCerrarOverture.addEventListener('click', () => {
+      cntOverture.style.display = 'none';
+    });
+  }
+
+  if (btnCopiarOvertureCLI) {
+    btnCopiarOvertureCLI.addEventListener('click', () => {
+      const preCLI = document.getElementById('codigo-overture-cli');
+      if (preCLI && navigator.clipboard) {
+        navigator.clipboard.writeText(preCLI.textContent).then(() => {
+          const original = btnCopiarOvertureCLI.textContent;
+          btnCopiarOvertureCLI.textContent = '✅ ¡Comando Copiado!';
+          setTimeout(() => { btnCopiarOvertureCLI.textContent = original; }, 2000);
+        });
+      }
+    });
+  }
+
   cargarConsultasGuardadas();
 
   document.getElementById('btn-consultar-ohsome').addEventListener('click', manejarConsultaOhsome);
@@ -1442,7 +1497,8 @@ function manejarCambioPerfilUsuario(e) {
     todos: 'Herramientas adaptadas para gestión territorial integral. Acceso general a todas las funciones.',
     institucion: '🏛️ Perfil Institucional / Municipal / IDE Chile: Prioriza metadatos normalizados (ISO 19115/19139), catastro de equipamiento crítico, licencias abiertas y control de calidad espacial.',
     comunidad: '👥 Perfil Comunitario / Vecinal: Facilita consultas rápidas en 1 clic para plazas, patrimonio, ciclovías, comercios locales y mapeo barrial colaborativo en UMap.',
-    voluntario: '🧭 Perfil Mapeador / Voluntario OSM: Herramientas analíticas avanzadas, métricas geométricas ohsome v1 (longitud/área/densidad), editor Overpass QL y taxonomía.'
+    voluntario: '🧭 Perfil Mapeador / Voluntario OSM: Herramientas analíticas avanzadas, métricas geométricas ohsome v1 (longitud/área/densidad), editor Overpass QL y taxonomía.',
+    ong: '🎓 Perfil Organizaciones No Gubernamentales (ONG): Proporciona cálculo de densidades territoriales rigurosas mediante reproyección EPSG:32719, calidad ISO 19157 con ohsome v1/v2, exportación GeoJSON para QGIS y fuentes bibliográficas (Fondecyt Chile 2026).'
   };
 
   if (badgeInfo) {
@@ -1454,6 +1510,7 @@ function manejarCambioPerfilUsuario(e) {
     institucion: ['metadatos-iso', 'calidad-ohsome', 'diccionario', 'licencias'],
     comunidad: ['inicio', 'explorador-osm', 'proyectos-umap', 'diccionario'],
     voluntario: ['explorador-osm', 'calidad-ohsome', 'diccionario', 'manual'],
+    ong: ['inicio', 'calidad-ohsome', 'biodiversidad-gbif', 'metadatos-iso', 'manual'],
     todos: []
   };
 
@@ -1484,7 +1541,8 @@ function manejarCambioPerfilUsuario(e) {
   const perfilesSugerencias = {
     institucion: ['amenity=pharmacy', 'amenity=university', 'highway=bus_stop', 'kerb=lowered', 'amenity=fire_station'],
     comunidad: ['shop=bakery', 'leisure=park', 'historic=*', 'amenity=cafe', 'amenity=bicycle_parking'],
-    voluntario: ['amenity=university', 'historic=*', 'kerb=lowered', 'amenity=pharmacy', 'highway=bus_stop']
+    voluntario: ['amenity=university', 'historic=*', 'kerb=lowered', 'amenity=pharmacy', 'highway=bus_stop'],
+    ong: ['amenity=university', 'natural=tree', 'kerb=lowered', 'leisure=park', 'historic=*']
   };
 
   const listaFiltro = perfilesSugerencias[perfil] || null;

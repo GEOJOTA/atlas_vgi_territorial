@@ -27,6 +27,7 @@
         <option value="institucion">🏛️ Autoridades / Instituciones (IDE/Muni)</option>
         <option value="comunidad">👥 Organizaciones Comunitarias / Vecinos</option>
         <option value="voluntario">🧭 Voluntarios / Mapeadores OSM</option>
+        <option value="ong">🎓 Organizaciones No Gubernamentales (ONG)</option>
       </select>
       <div id="badge-perfil-info" style="font-size:0.72rem; margin-top:6px; color:var(--tinta-suave); line-height:1.3;">Herramientas adaptadas para gestión territorial integral.</div>
     </div>
@@ -196,10 +197,43 @@
           <button class="accion secundaria" id="btn-validar-taginfo" title="Auditar telemetría y uso global con Taginfo API">⚡ Validar en Taginfo</button>
           <button class="accion secundaria" id="btn-guardar-consulta" title="Guardar esta consulta para usarla después">💾 Guardar</button>
           <button class="accion secundaria" id="btn-toggle-ql-avanzado" title="Ver o editar código Overpass QL">📝 Modo QL</button>
+          <button class="accion secundaria" id="btn-overture-maps" title="Explorar datos abiertos de Overture Maps Foundation (sin costo)">🌐 Overture Maps</button>
         </div>
 
         <!-- Contenedor interactivo para telemetría Taginfo API -->
         <div id="contenedor-resultado-taginfo-custom"></div>
+
+        <!-- Contenedor interactivo para Overture Maps Foundation (Sin costo) -->
+        <div id="contenedor-resultado-overture" style="display:none; margin-top:14px; padding:14px; background:var(--papel-alto); border:1px solid var(--musgo); border-left:4px solid var(--musgo);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+            <div>
+              <span class="marcador" style="background:var(--musgo); color:#fff; font-size:0.7rem; padding:2px 6px;">OVERTURE MAPS FOUNDATION // DATOS ABIERTOS</span>
+              <h4 style="margin:4px 0 6px 0; font-size:1rem; color:var(--musgo);">Extracción y Validación de Datos Overture Maps (Costo Cero)</h4>
+            </div>
+            <button type="button" class="accion secundaria" id="btn-cerrar-overture" style="font-size:0.75rem; padding:2px 8px;">✕ Cerrar</button>
+          </div>
+          <p style="font-size:0.85rem; line-height:1.4; margin:6px 0 10px 0; color:var(--tinta);">
+            <strong>Overture Maps Foundation</strong> (Linux Foundation / Meta / Microsoft / AWS / TomTom) distribuye datos geoespaciales globales abiertos bajo licencia CDLA-Permissive-2.0 y ODbL. A diferencia de Overpass API (que provee un endpoint HTTP transaccional en vivo), Overture publica conjuntos masivos en <strong>GeoParquet sobre AWS S3 público</strong> sin costo de API por consulta.
+          </p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:10px;">
+            <div style="background:var(--papel); border:1px solid var(--linea); padding:10px;">
+              <strong style="font-size:0.85rem; color:var(--musgo);">1. Visor Overture Explorer (En el Navegador)</strong>
+              <p style="font-size:0.8rem; color:var(--tinta-suave); margin:4px 0 8px 0;">Inspección visual interactiva de huellas 3D (buildings), lugares (places) y transporte dentro del cuadrante activo:</p>
+              <a id="link-overture-explorer" href="https://explore.overturemaps.org/#15/-33.4445/-70.6630" target="_blank" rel="noopener" class="accion" style="display:inline-block; font-size:0.8rem; padding:6px 14px; text-decoration:none;">
+                🗺️ Abrir Bbox en Overture Explorer ↗
+              </a>
+            </div>
+            <div style="background:var(--papel); border:1px solid var(--linea); padding:10px;">
+              <strong style="font-size:0.85rem; color:var(--musgo);">2. Descarga Directa GeoJSON (Python CLI Gratuito)</strong>
+              <p style="font-size:0.8rem; color:var(--tinta-suave); margin:4px 0 6px 0;">Comando oficial <code>overturemaps</code> parametrizado para el Bbox activo en el Atlas:</p>
+              <pre id="codigo-overture-cli" style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; background:var(--papel-alto); padding:6px 8px; border:1px solid var(--linea); overflow-x:auto; white-space:pre-wrap; margin:0 0 6px 0;"></pre>
+              <button type="button" class="accion secundaria" id="btn-copiar-overture-cli" style="font-size:0.75rem; padding:3px 10px;">📋 Copiar Comando</button>
+            </div>
+          </div>
+          <div style="margin-top:10px; font-size:0.78rem; color:var(--tinta-suave); font-family:var(--fuente-datos);">
+            <strong>Themes Disponibles:</strong> <code>buildings</code> (huellas y alturas), <code>places</code> (POIs comerciales y comunitarios), <code>transportation</code> (red vial segmentada), <code>base</code> (usos de suelo y aguas). Sin necesidad de API Key ni tarjetas de crédito.
+          </div>
+        </div>
 
         <!-- Editor avanzado Overpass QL (oculto por defecto) -->
         <div id="contenedor-ql-avanzado" style="display:none; margin-top:14px; padding-top:12px; border-top:1px dashed var(--linea);">
@@ -660,9 +694,9 @@
 
       <div class="bloque" style="margin-bottom:14px;">
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
-          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Etiquetas</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (74 Etiquetas sin Homólogo Estatal)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales IDE Chile (36 Capas)</button>
+          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (118)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (81 Descriptores sin Homólogo Estatal)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales IDE Chile (37 Capas)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema VGI (10 Atributos IDE)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
