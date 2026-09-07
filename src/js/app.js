@@ -60,10 +60,31 @@ const DICCIONARIO_VALORES_OSM = {
     { valor: 'sports_centre', etiqueta: '⚽ Canchas y Centros Deportivos (sports_centre)', nombre: 'Centros Deportivos', color: '#E74C3C' }
   ],
   building: [
-    { valor: 'yes', etiqueta: '🏢 Todas las Edificaciones Catastradas (yes)', nombre: 'Huella Construida', color: '#7F8C8D' },
-    { valor: 'residential', etiqueta: '🏠 Viviendas y Edificios Residenciales (residential)', nombre: 'Viviendas y Residencias', color: '#95A5A6' },
-    { valor: 'university', etiqueta: '🎓 Edificios Universitarios (university)', nombre: 'Pabellones Universitarios', color: '#1C523A' },
-    { valor: 'commercial', etiqueta: '🏪 Edificios Comerciales y Oficinas (commercial)', nombre: 'Edificios Comerciales', color: '#D35400' }
+    { valor: 'yes', etiqueta: '🏢 Todas las Edificaciones Catastradas (yes)', nombre: 'Huella Construida', color: '#555555' },
+    { valor: 'residential', etiqueta: '🏠 Viviendas y Casas Residenciales (residential)', nombre: 'Viviendas Residenciales', color: '#8A7968' },
+    { valor: 'apartments', etiqueta: '🏢 Edificios de Departamentos (apartments)', nombre: 'Edificios Residenciales', color: '#6A7B8C' },
+    { valor: 'house', etiqueta: '🏡 Casas Habitación Unifamiliares (house)', nombre: 'Casas Unifamiliares', color: '#9E7E63' },
+    { valor: 'commercial', etiqueta: '🏪 Edificios Comerciales y Oficinas (commercial)', nombre: 'Edificios Comerciales', color: '#D35400' },
+    { valor: 'civic', etiqueta: '🏛️ Edificios Cívicos e Institucionales (civic)', nombre: 'Edificios Cívicos', color: '#3A5A6B' },
+    { valor: 'university', etiqueta: '🎓 Pabellones Universitarios UAH (university)', nombre: 'Pabellones UAH', color: '#1C523A' },
+    { valor: 'school', etiqueta: '🎒 Pabellones Escolares (school)', nombre: 'Escuelas y Liceos', color: '#2E7D32' },
+    { valor: 'church', etiqueta: '⛪ Iglesias y Templos (church)', nombre: 'Templos e Iglesias', color: '#7D3C98' }
+  ],
+  landuse: [
+    { valor: '*', etiqueta: '🗺️ Todas las Coberturas y Usos de Suelo (*)', nombre: 'Usos de Suelo', color: '#5B704E' },
+    { valor: 'residential', etiqueta: '🏠 Zona Residencial / Habitacional (residential)', nombre: 'Suelo Residencial', color: '#8D7B68' },
+    { valor: 'commercial', etiqueta: '🏪 Zona Comercial y Servicios (commercial)', nombre: 'Suelo Comercial', color: '#D35400' },
+    { valor: 'education', etiqueta: '🎓 Recinto Educacional / Campus (education)', nombre: 'Suelo Educacional', color: '#1C523A' },
+    { valor: 'recreation_ground', etiqueta: '⚽ Recreación y Deportes al Aire Libre (recreation_ground)', nombre: 'Áreas Deportivas', color: '#2E8B57' },
+    { valor: 'grass', etiqueta: '🌿 Césped y Prados Urbanos (grass)', nombre: 'Césped Urbano', color: '#4CAF50' },
+    { valor: 'construction', etiqueta: '🏗️ Terreno en Obras / Construcción (construction)', nombre: 'Faenas de Construcción', color: '#E65100' }
+  ],
+  natural: [
+    { valor: 'tree', etiqueta: '🌳 Árbol Urbano Individual (tree)', nombre: 'Arbolado Urbano', color: '#1C523A' },
+    { valor: 'tree_row', etiqueta: '🌲 Alineación de Árboles en Calle (tree_row)', nombre: 'Alineación Arbórea', color: '#2E7D32' },
+    { valor: 'wood', etiqueta: '🌲 Bosquetes y Masas Arbóreas (wood)', nombre: 'Bosquetes Urbanos', color: '#1B5E20' },
+    { valor: 'scrub', etiqueta: '🌾 Matorral y Vegetación Arbustiva (scrub)', nombre: 'Matorrales Urbanos', color: '#689F38' },
+    { valor: 'water', etiqueta: '💧 Cuerpos de Agua y Fuentes (water)', nombre: 'Aguas y Fuentes', color: '#0288D1' }
   ],
   healthcare: [
     { valor: 'pharmacy', etiqueta: '💊 Farmacias (pharmacy)', nombre: 'Farmacias y Salud', color: '#B33928' },
@@ -592,61 +613,6 @@ function inicializarAplicacion() {
         actualizarCodigoQLPreview();
       } else {
         cnt.style.display = 'none';
-      }
-    });
-  }
-
-  // Integración Overture Maps Foundation (Visualizador y Generador CLI Gratuito)
-  const btnOverture = document.getElementById('btn-overture-maps');
-  const cntOverture = document.getElementById('contenedor-resultado-overture');
-  const btnCerrarOverture = document.getElementById('btn-cerrar-overture');
-  const btnCopiarOvertureCLI = document.getElementById('btn-copiar-overture-cli');
-
-  function actualizarDatosOverture() {
-    const bbox = leerBbox('osm') || window.NODO_CONFIG?.area_por_defecto?.bbox || [-70.6675, -33.4505, -70.6565, -33.4385];
-    const [oeste, sur, este, norte] = bbox;
-    const centroLat = ((sur + norte) / 2).toFixed(5);
-    const centroLon = ((oeste + este) / 2).toFixed(5);
-
-    const linkExplorer = document.getElementById('link-overture-explorer');
-    if (linkExplorer) {
-      linkExplorer.href = `https://explore.overturemaps.org/#15/${centroLat}/${centroLon}`;
-    }
-
-    const preCLI = document.getElementById('codigo-overture-cli');
-    if (preCLI) {
-      preCLI.textContent = `pip install overturemaps\noverturemaps download --bbox=${oeste},${sur},${este},${norte} -f geojson --type=building -o edificios_overture_barrio_brasil.geojson`;
-    }
-  }
-
-  if (btnOverture && cntOverture) {
-    btnOverture.addEventListener('click', () => {
-      const visible = cntOverture.style.display !== 'none';
-      if (!visible) {
-        actualizarDatosOverture();
-        cntOverture.style.display = 'block';
-        cntOverture.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } else {
-        cntOverture.style.display = 'none';
-      }
-    });
-  }
-
-  if (btnCerrarOverture && cntOverture) {
-    btnCerrarOverture.addEventListener('click', () => {
-      cntOverture.style.display = 'none';
-    });
-  }
-
-  if (btnCopiarOvertureCLI) {
-    btnCopiarOvertureCLI.addEventListener('click', () => {
-      const preCLI = document.getElementById('codigo-overture-cli');
-      if (preCLI && navigator.clipboard) {
-        navigator.clipboard.writeText(preCLI.textContent).then(() => {
-          const original = btnCopiarOvertureCLI.textContent;
-          btnCopiarOvertureCLI.textContent = '✅ ¡Comando Copiado!';
-          setTimeout(() => { btnCopiarOvertureCLI.textContent = original; }, 2000);
-        });
       }
     });
   }
@@ -1246,6 +1212,8 @@ async function manejarConsultaPersonalizada() {
     });
 
     // Cálculo métrico de superficies en polígonos
+    const puntos = geojson.features.filter(f => f.geometry && f.geometry.type === 'Point').length;
+    const lineas = geojson.features.filter(f => f.geometry && (f.geometry.type === 'LineString' || f.geometry.type === 'MultiLineString')).length;
     const poligonos = geojson.features.filter(f => f.geometry && (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'));
     const totalM2 = poligonos.reduce((acc, f) => acc + (f.properties?.superficie_m2 || 0), 0);
 
@@ -1306,7 +1274,7 @@ async function manejarConsultaPersonalizada() {
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <div class="indicador" style="margin:0;">
             <span class="valor">${total}</span>
-            <span class="etiqueta">elementos extraídos (${duracionSeg}s — ${res.servidor})</span>
+            <span class="etiqueta">elementos (📍 ${puntos} · 〰️ ${lineas} · ⬡ ${poligonos.length}) [${duracionSeg}s]</span>
           </div>
           ${badgeSuperficieHtml}
         </div>
@@ -1445,7 +1413,9 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
       return;
     }
 
-    const poligonos = geojson.features.filter(f => f.geometry && f.geometry.type === 'Polygon');
+    const puntos = geojson.features.filter(f => f.geometry && f.geometry.type === 'Point').length;
+    const lineas = geojson.features.filter(f => f.geometry && (f.geometry.type === 'LineString' || f.geometry.type === 'MultiLineString')).length;
+    const poligonos = geojson.features.filter(f => f.geometry && (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon'));
     const totalM2 = poligonos.reduce((acc, f) => acc + (f.properties?.superficie_m2 || 0), 0);
 
     let indicadorSuperficieHtml = '';
@@ -1473,7 +1443,10 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
 
     contenedor.innerHTML = `
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-        <div class="indicador"><span class="valor">${elementos.length}</span><span class="etiqueta">elementos encontrados</span></div>
+        <div class="indicador">
+          <span class="valor">${elementos.length}</span>
+          <span class="etiqueta">elementos (📍 ${puntos} puntos · 〰️ ${lineas} líneas · ⬡ ${poligonos.length} polígonos)</span>
+        </div>
         ${indicadorSuperficieHtml}
       </div>
       <table class="tabla-datos">

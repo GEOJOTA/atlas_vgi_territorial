@@ -228,19 +228,6 @@ def crear_catalogo_fuentes():
             "Línea base oficial para contrastar completitud de la VGI (validación cruzada de colegios, salud y vialidad).",
             "Actualización lenta comparada con la dinámica de la VGI en terreno; ausencia de micro-datos barriales.",
             "Límite comunal de Santiago, zonificación PRC Santiago, colegios MINEDUC y red asistencial MINSAL."
-        ],
-        [
-            "Overture Maps Foundation (Linux Foundation / Meta / MSFT / AWS / TomTom)",
-            "Vectorial abierta normalizada en GeoParquet (Themes: Places, Buildings, Transportation, Base, Addresses)",
-            "Global / Nacional (Chile) / Bbox comunal",
-            "2023 – Presente (Releases mensuales)",
-            "Mensual / Programada",
-            "Escala 1:1.000 a 1:10.000 (combinación OSM + ML + fuentes públicas)",
-            "CDLA-Permissive-2.0 / ODbL (según tema)",
-            "Cloud-native GeoParquet en AWS S3 / CLI Python overturemaps / DuckDB / Overture Explorer",
-            "Catastro normalizado de huellas de edificaciones (con altura 3D estimada), red de transporte multivariada y lugares de interés (POIs).",
-            "No dispone de API REST pública directa sin costo; el acceso estándar es batch/CLI vía GeoParquet o visor Overture Explorer.",
-            "Huellas de manzanas y edificios de Barrio Brasil / Campus UAH descargables en GeoJSON vía overturemaps CLI."
         ]
     ]
     
@@ -425,19 +412,6 @@ def crear_catalogo_fuentes():
             "Referencia Metodológica y Homologación en src/js/modulos/diccionario.js",
             "Capa de referencia oficial para validación cruzada y contraste de brechas de información VGI",
             "IDE Chile / SNIT. (2024). Catálogo Nacional de Features. https://www.ide.cl/documentos/catalogo-nacional-de-features.pdf"
-        ],
-        [
-            "Overture Maps Access Protocols (CLI & Explorer)",
-            "Overture Maps Foundation (Linux Foundation / Meta / Microsoft / AWS / TomTom)",
-            "Release Mensual (2024 – Presente)",
-            "https://explore.overturemaps.org/ / s3://overturemaps-us-west-2/release/",
-            "HTTP GET / CLI / SQL (DuckDB S3)",
-            "GeoParquet / GeoJSON (vía CLI o Explorer)",
-            "overturemaps download --bbox=-70.6720,-33.4505,-70.6580,-33.4350 -f geojson --type=building",
-            "Gratuito y sin clave en S3 público; sin costo de API (costo cero para consumidor)",
-            "src/js/modulos/osm.js / scripts/extractor_vgi.py / Visor Overture Explorer",
-            "Extracción alternativa de huellas de edificaciones 3D y validación cruzada con OpenStreetMap y capas IDE",
-            "Overture Maps Foundation. (2024). Overture Maps Documentation and Schema Reference. https://docs.overturemaps.org/"
         ]
     ]
     
@@ -705,6 +679,30 @@ def crear_categorias_tematicas_osm():
             "Corporación Nacional Forestal (CONAF - Arbolado Urbano), Ministerio del Medio Ambiente (MMA), GBIF Chile / Nodo Nacional",
             "Plátanos orientales (Platanus orientalis), jacarandás (Jacaranda mimosifolia), palmas chilenas (Jubaea chilensis), pimientos y quillayes en Av. Brasil y Alameda; avifauna: chincol (Zonotrichia capensis), zorzal (Turdus falcklandii).",
             "(CONAF, 2019; MMA, 2022; GBIF Secretariat, 2024; TDWG, 2023)"
+        ],
+        [
+            "CAT-09",
+            "Edificaciones, Huella Urbana y Volumetría",
+            "Catastro poligonal exhaustivo de edificaciones: viviendas unifamiliares, edificios residenciales en altura, conjuntos habitacionales, inmuebles comerciales, pabellones universitarios y cívicos, templos religiosos y construcciones auxiliares con cálculo de superficie métrica en m² (EPSG:32719).",
+            "building=yes, building=residential, building=apartments, building=house, building=commercial, building=civic, building=school, building=university, building=church, building:levels=*",
+            "Polígonos, Puntos",
+            'nwr["building"]({{bbox}});',
+            "Muy Alta (>4.500.000 huellas de edificios mapeadas en Chile vía OSM y proyectos comunitarios)",
+            "Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces), Dirección de Obras Municipales (DOM), IDE Chile / MINVU",
+            "Huellas construidas de la manzana UAH (Campus Barroso/Erasmo Escala), casonas patrimoniales de Barrio Brasil, torres residenciales y equipamientos cívicos.",
+            "(IDE Chile / SNIT, 2024; SII, 2023; WikiProject Chile, 2024)"
+        ],
+        [
+            "CAT-10",
+            "Coberturas de Suelo, Zonificación y Usos del Territorio",
+            "Polígonos de zonificación funcional y cobertura biofísica: áreas residenciales, comerciales, dotacionales/educacionales, polígonos recreativos y deportivos, suelos en faena o construcción, césped y áreas de suelo natural o vacante en la trama urbana.",
+            "landuse=residential, landuse=commercial, landuse=education, landuse=recreation_ground, landuse=grass, landuse=construction, natural=wood, natural=scrub, surface=asphalt, surface=paving_stones",
+            "Polígonos, Líneas",
+            'nwr["landuse"]({{bbox}}); nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});',
+            "Alta (>500.000 polígonos de zonificación y usos de suelo a nivel nacional en OSM)",
+            "Ministerio de Vivienda y Urbanismo (MINVU - Planes Reguladores Comunales e Intercomunales), IDE Chile, I. Municipalidad de Santiago",
+            "Zonificación funcional del Campus Universitario UAH, áreas residenciales consolidadas de Barrio Brasil, recintos recreativos de Plaza Brasil y suelos de conservación.",
+            "(MINVU, 2017; IDE Chile / SNIT, 2024; OGC, 2023)"
         ]
     ]
     
@@ -866,6 +864,22 @@ def crear_categorias_tematicas_osm():
         ['dwc:issues', 'Banderas de Calidad Espacial y Taxonómica (Darwin Core Issues)', 'CAT-08', 'Point', 'issues=COORDINATE_ROUNDED|GEODETIC_DATUM_ASSUMED_WGS84|TAXON_MATCH_FUZZY', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / ISO 19157', 'Muy Alta (auditoría algorítmica)', 'Auditoría algorítmica de anomalías en coordenadas y nombres taxonómicos', '(Chapman, 2005b; Chapman, 2010)'],
         ['dwc:datasetKey', 'Identificador Persistente del Dataset Publicador (UUID)', 'CAT-08', 'Point, Colección', 'datasetKey, publishingOrgKey, license=CC-BY|CC0, citation', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / Nodos Participantes', 'Muy Alta (reproducibilidad científica)', 'Trazabilidad DOI de repositorios institucionales y de ciencia ciudadana', '(Wilkinson et al., 2016; GBIF.org, 2025)'],
         ['dwc:taxonRank', 'Jerarquía Taxonómica del Espécimen (Especie, Género, Familia)', 'CAT-08', 'Point', 'taxonRank=SPECIES|GENUS|FAMILY, taxonomicStatus=ACCEPTED', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'GBIF Secretariat / TDWG', 'Muy Alta (jerarquía biológica)', 'Resolución del nivel taxonómico de observaciones de flora y fauna en la cuenca de Santiago', '(TDWG, 2023; CONAF, 2019)'],
+        ['building=yes', 'Huella de Edificación Catastrada / Manzana Construida', 'CAT-09', 'Way, Relation, Node', 'building=yes, addr:street, addr:housenumber, building:levels', 'Catastro Nacional de Bienes Raíces (SII / IDE Chile)', 'Servicio de Impuestos Internos (SII) / DOM', 'Muy Alta (>4.5M en Chile)', 'Huellas poligonales de manzanas patrimoniales y campus UAH', '(IDE Chile / SNIT, 2024; SII, 2023)'],
+        ['building=residential', 'Inmueble Residencial / Vivienda Colectiva o Casa Habitación', 'CAT-09', 'Way, Relation', 'building=residential, building:levels, residential', 'Catastro Habitacional Urbano (MINVU / IDE Chile)', 'MINVU / Dirección de Obras Municipales', 'Muy Alta', 'Inmuebles residenciales en calles Maturana, Brasil y Huérfanos', '(MINVU, 2020; INE, 2017)'],
+        ['building=apartments', 'Edificio Residencial en Altura / Departamentos', 'CAT-09', 'Way, Relation', 'building=apartments, building:levels, addr:flats', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Dirección de Obras Municipales / MINVU', 'Alta', 'Torres de departamentos en eje Alameda, San Pablo y Manuel Rodríguez', '(MINVU, 2020; Hidalgo, 2005)'],
+        ['building=house', 'Casa Habitación Unifamiliar / Vivienda Tradicional', 'CAT-09', 'Way, Relation', 'building=house, building:material, addr:street', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Dirección de Obras Municipales (DOM) / INE', 'Muy Alta', 'Casas tradicionales de 1 y 2 pisos en pasajes interiores de Barrio Brasil', '(INE, 2017; Municipalidad de Santiago, 2019)'],
+        ['building=commercial', 'Inmueble Comercial / Galería Comercial y Oficinas', 'CAT-09', 'Way, Relation', 'building=commercial, name, commercial:type', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'SERCOTEC / Rentas Municipales', 'Alta', 'Galerías comerciales y locales en Av. Brasil y Alameda', '(SERCOTEC, 2022; INE, 2021)'],
+        ['building=civic', 'Edificio Cívico / Dependencia Institucional del Estado', 'CAT-09', 'Way, Relation', 'building=civic, operator, office=government', 'Infraestructura Pública del Estado (MOP / IDE Chile)', 'Dirección de Arquitectura (MOP) / Bienes Nacionales', 'Alta', 'Edificios públicos de ministerios y servicios en Santiago Poniente', '(IDE Chile / SNIT, 2024; MOP, 2022)'],
+        ['building=school', 'Pabellón Escolar / Edificio de Escuela o Liceo', 'CAT-09', 'Way, Relation', 'building=school, operator, amenity=school', 'Establecimientos de Educación Escolar (MINEDUC / IDE Chile)', 'MINEDUC / SLEP Santiago', 'Muy Alta', 'Pabellones del Liceo Amunátegui y Escuela República de Panamá', '(MINEDUC, 2023; IDE Chile / SNIT, 2024)'],
+        ['building=university', 'Pabellón Universitario / Sede Académica Universitaria', 'CAT-09', 'Way, Relation', 'building=university, name, operator=UAH', 'Establecimientos de Educación Superior (MINEDUC / IDE Chile)', 'MINEDUC / CRUCH', 'Muy Alta', 'Pabellones y casonas académicas del campus UAH (Barroso / Erasmo Escala)', '(MINEDUC, 2023; UAH, 2023)'],
+        ['building=church', 'Templo Religioso / Iglesia o Capilla Patrimonial', 'CAT-09', 'Way, Relation', 'building=church, denomination=catholic, historic', 'Inmuebles Religiosos y Templos Catastrados (CMN / IDE Chile)', 'Consejo de Monumentos Nacionales / Arzobispado', 'Muy Alta', 'Basílica del Salvador e Iglesia San Lázaro en el entorno barrial', '(CMN & MINCAP, 2022; Ley N° 17.288)'],
+        ['building:levels', 'Número de Pisos / Altura de Edificación en Niveles', 'CAT-09', 'Way, Relation', 'building:levels=1|2|3|etc., height', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Dirección de Obras Municipales / MINVU', 'Alta', 'Catastro de alturas para análisis morfológico y rasantes en Barrio Brasil', '(MINVU, 2020; Municipalidad de Santiago, 2019)'],
+        ['landuse=residential', 'Zona de Uso de Suelo Residencial / Habitacional Consolidado', 'CAT-10', 'Way, Relation', 'landuse=residential, residential', 'Zonificación Planes Reguladores Comunales (MINVU / IDE Chile)', 'MINVU / Secretaría Técnica PRC Municipal', 'Muy Alta', 'Manzanas de uso predominantemente habitacional de la Zona Típica', '(MINVU, 2017; IDE Chile / SNIT, 2024)'],
+        ['landuse=commercial', 'Zona de Uso de Suelo Comercial y de Servicios', 'CAT-10', 'Way, Relation', 'landuse=commercial, name', 'Zonificación Planes Reguladores Comunales (MINVU / IDE Chile)', 'MINVU / Secretaría Técnica PRC Municipal', 'Alta', 'Corredores comerciales en Av. Brasil, Huérfanos y Alameda Poniente', '(MINVU, 2017; IDE Chile / SNIT, 2024)'],
+        ['landuse=education', 'Recinto de Uso Educacional / Campus Integrado', 'CAT-10', 'Way, Relation', 'landuse=education, operator, amenity=university', 'Zonificación de Equipamiento Educacional (MINVU / IDE Chile)', 'MINVU / MINEDUC', 'Alta', 'Polígono del Campus Universitario Universidad Alberto Hurtado', '(MINVU, 2017; MINEDUC, 2023)'],
+        ['landuse=recreation_ground', 'Recinto de Recreación y Deportes al Aire Libre', 'CAT-10', 'Way, Relation', 'landuse=recreation_ground, leisure=pitch', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Instituto Nacional de Deportes (IND) / MINVU', 'Alta', 'Canchas comunitarias y áreas recreativas exteriores en Barrio Brasil', '(IND Chile, 2021; MINVU, 2021)'],
+        ['landuse=construction', 'Terreno en Faena de Construcción / Obras Urbanas Activas', 'CAT-10', 'Way, Relation', 'landuse=construction, construction=building', 'Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)', 'Dirección de Obras Municipales / CChC', 'Media', 'Sitios en demolición, remodelación o edificación de nuevas obras', '(MINVU, 2020)'],
+        ['surface=asphalt', 'Cobertura de Calzada en Asfalto / Pavimento Flexible', 'CAT-10', 'Way', 'surface=asphalt, highway=primary|secondary|tertiary', 'Red Vial Pavimentada (Dirección de Vialidad - MOP / IDE Chile)', 'Dirección de Vialidad (MOP) / SERVIU Metropolitano', 'Muy Alta', 'Calzadas vehiculares principales de Av. Brasil, Alameda y Ricardo Cumming', '(Dirección de Vialidad & MOP, 2022; IDE Chile / SNIT, 2024)'],
     ]
 
     for r_idx, tag in enumerate(etiquetas_chile, 5):
@@ -906,7 +920,7 @@ def crear_categorias_tematicas_osm():
     
     diccionario_vgi = [
         ["id_vgi", "Texto (Alfanumérico)", "64", "Obligatorio", "osm_type + '/' + id", "gbifID / key", "ID_OBJETO / gmd:identifier", "Identificador global persistente único por entidad para evitar duplicados en QGIS."],
-        ["categoria", "Texto (Código CAT)", "32", "Obligatorio", "Clasificación según CAT-01 a CAT-08", "'Biodiversidad'", "gmd:topicCategory (ISO 19115)", "Categoría sectorial temática maestra para agregación y tabulaciones comunales."],
+        ["categoria", "Texto (Código CAT)", "32", "Obligatorio", "Clasificación según CAT-01 a CAT-10", "'Biodiversidad'", "gmd:topicCategory (ISO 19115)", "Categoría sectorial temática maestra para agregación y tabulaciones comunales."],
         ["subtipo", "Texto", "48", "Obligatorio", "amenity / shop / highway / etc.", "class / order / family", "Tipo de Objeto Catastral / Subclase", "Valor específico del uso de suelo o función de la entidad (ej: university, clinic, bus_stop)."],
         ["nombre", "Texto", "128", "Opcional", "tags.name || tags['name:es']", "scientificName || species", "gmd:title / Toponimia Oficial", "Nombre propio o denominación comercial reconocido por la comunidad en terreno."],
         ["operador", "Texto", "96", "Opcional", "tags.operator", "institutionCode || publishingOrgKey", "gmd:CI_ResponsibleParty / Custodio", "Institución pública, empresa u organización responsable de la mantención del recinto."],

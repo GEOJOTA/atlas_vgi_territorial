@@ -1309,6 +1309,166 @@ const ModuloDiccionario = (() => {
     "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
     "aplicacionUAH": "Resolución del nivel taxonómico de observaciones de flora y fauna en la cuenca de Santiago",
     "citaAPA": "(TDWG, 2023; CONAF, 2019)"
+  },
+  {
+    "tag": "building=yes",
+    "significado": "Huella de Edificación Catastrada / Manzana Construida",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Servicio de Impuestos Internos (SII) / DOM",
+    "ideChile": "Catastro Nacional de Bienes Raíces (SII / IDE Chile)",
+    "aplicacionUAH": "Huellas poligonales de manzanas patrimoniales y campus UAH",
+    "citaAPA": "(IDE Chile / SNIT, 2024; SII, 2023)"
+  },
+  {
+    "tag": "building=residential",
+    "significado": "Inmueble Residencial / Vivienda Colectiva o Casa Habitación",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "MINVU / Dirección de Obras Municipales",
+    "ideChile": "Catastro Habitacional Urbano (MINVU / IDE Chile)",
+    "aplicacionUAH": "Inmuebles residenciales en calles Maturana, Brasil y Huérfanos",
+    "citaAPA": "(MINVU, 2020; INE, 2017)"
+  },
+  {
+    "tag": "building=apartments",
+    "significado": "Edificio Residencial en Altura / Departamentos",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Dirección de Obras Municipales / MINVU",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Torres de departamentos en eje Alameda, San Pablo y Manuel Rodríguez",
+    "citaAPA": "(MINVU, 2020; Hidalgo, 2005)"
+  },
+  {
+    "tag": "building=house",
+    "significado": "Casa Habitación Unifamiliar / Vivienda Tradicional",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Dirección de Obras Municipales (DOM) / INE",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Casas tradicionales de 1 y 2 pisos en pasajes interiores de Barrio Brasil",
+    "citaAPA": "(INE, 2017; Municipalidad de Santiago, 2019)"
+  },
+  {
+    "tag": "building=commercial",
+    "significado": "Inmueble Comercial / Galería Comercial y Oficinas",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "SERCOTEC / Rentas Municipales",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Galerías comerciales y locales en Av. Brasil y Alameda",
+    "citaAPA": "(SERCOTEC, 2022; INE, 2021)"
+  },
+  {
+    "tag": "building=civic",
+    "significado": "Edificio Cívico / Dependencia Institucional del Estado",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Dirección de Arquitectura (MOP) / Bienes Nacionales",
+    "ideChile": "Infraestructura Pública del Estado (MOP / IDE Chile)",
+    "aplicacionUAH": "Edificios públicos de ministerios y servicios en Santiago Poniente",
+    "citaAPA": "(IDE Chile / SNIT, 2024; MOP, 2022)"
+  },
+  {
+    "tag": "building=school",
+    "significado": "Pabellón Escolar / Edificio de Escuela o Liceo",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "MINEDUC / SLEP Santiago",
+    "ideChile": "Establecimientos de Educación Escolar (MINEDUC / IDE Chile)",
+    "aplicacionUAH": "Pabellones del Liceo Amunátegui y Escuela República de Panamá",
+    "citaAPA": "(MINEDUC, 2023; IDE Chile / SNIT, 2024)"
+  },
+  {
+    "tag": "building=university",
+    "significado": "Pabellón Universitario / Sede Académica Universitaria",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "MINEDUC / CRUCH",
+    "ideChile": "Establecimientos de Educación Superior (MINEDUC / IDE Chile)",
+    "aplicacionUAH": "Pabellones y casonas académicas del campus UAH (Barroso / Erasmo Escala)",
+    "citaAPA": "(MINEDUC, 2023; UAH, 2023)"
+  },
+  {
+    "tag": "building=church",
+    "significado": "Templo Religioso / Iglesia o Capilla Patrimonial",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Consejo de Monumentos Nacionales / Arzobispado",
+    "ideChile": "Inmuebles Religiosos y Templos Catastrados (CMN / IDE Chile)",
+    "aplicacionUAH": "Basílica del Salvador e Iglesia San Lázaro en el entorno barrial",
+    "citaAPA": "(CMN & MINCAP, 2022; Ley N° 17.288)"
+  },
+  {
+    "tag": "building:levels",
+    "significado": "Número de Pisos / Altura de Edificación en Niveles",
+    "categoria": "CAT-09",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Dirección de Obras Municipales / MINVU",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Catastro de alturas para análisis morfológico y rasantes en Barrio Brasil",
+    "citaAPA": "(MINVU, 2020; Municipalidad de Santiago, 2019)"
+  },
+  {
+    "tag": "landuse=residential",
+    "significado": "Zona de Uso de Suelo Residencial / Habitacional Consolidado",
+    "categoria": "CAT-10",
+    "grupo": "edificaciones_suelo",
+    "institucion": "MINVU / Secretaría Técnica PRC Municipal",
+    "ideChile": "Zonificación Planes Reguladores Comunales (MINVU / IDE Chile)",
+    "aplicacionUAH": "Manzanas de uso predominantemente habitacional de la Zona Típica",
+    "citaAPA": "(MINVU, 2017; IDE Chile / SNIT, 2024)"
+  },
+  {
+    "tag": "landuse=commercial",
+    "significado": "Zona de Uso de Suelo Comercial y de Servicios",
+    "categoria": "CAT-10",
+    "grupo": "edificaciones_suelo",
+    "institucion": "MINVU / Secretaría Técnica PRC Municipal",
+    "ideChile": "Zonificación Planes Reguladores Comunales (MINVU / IDE Chile)",
+    "aplicacionUAH": "Corredores comerciales en Av. Brasil, Huérfanos y Alameda Poniente",
+    "citaAPA": "(MINVU, 2017; IDE Chile / SNIT, 2024)"
+  },
+  {
+    "tag": "landuse=education",
+    "significado": "Recinto de Uso Educacional / Campus Integrado",
+    "categoria": "CAT-10",
+    "grupo": "edificaciones_suelo",
+    "institucion": "MINVU / MINEDUC",
+    "ideChile": "Zonificación de Equipamiento Educacional (MINVU / IDE Chile)",
+    "aplicacionUAH": "Polígono del Campus Universitario Universidad Alberto Hurtado",
+    "citaAPA": "(MINVU, 2017; MINEDUC, 2023)"
+  },
+  {
+    "tag": "landuse=recreation_ground",
+    "significado": "Recinto de Recreación y Deportes al Aire Libre",
+    "categoria": "CAT-10",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Instituto Nacional de Deportes (IND) / MINVU",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Canchas comunitarias y áreas recreativas exteriores en Barrio Brasil",
+    "citaAPA": "(IND Chile, 2021; MINVU, 2021)"
+  },
+  {
+    "tag": "landuse=construction",
+    "significado": "Terreno en Faena de Construcción / Obras Urbanas Activas",
+    "categoria": "CAT-10",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Dirección de Obras Municipales / CChC",
+    "ideChile": "Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)",
+    "aplicacionUAH": "Sitios en demolición, remodelación o edificación de nuevas obras",
+    "citaAPA": "(MINVU, 2020)"
+  },
+  {
+    "tag": "surface=asphalt",
+    "significado": "Cobertura de Calzada en Asfalto / Pavimento Flexible",
+    "categoria": "CAT-10",
+    "grupo": "edificaciones_suelo",
+    "institucion": "Dirección de Vialidad (MOP) / SERVIU Metropolitano",
+    "ideChile": "Red Vial Pavimentada (Dirección de Vialidad - MOP / IDE Chile)",
+    "aplicacionUAH": "Calzadas vehiculares principales de Av. Brasil, Alameda y Ricardo Cumming",
+    "citaAPA": "(Dirección de Vialidad & MOP, 2022; IDE Chile / SNIT, 2024)"
   }
 ];
 
@@ -1376,6 +1536,22 @@ const ModuloDiccionario = (() => {
       icono: '♿',
       resumen: 'Rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles y arbolado viario de sombra.',
       filtro_grupo: 'accesibilidad_biodiv'
+    },
+    {
+      codigo: 'CAT-09',
+      id_manual: 'manual-cat-09',
+      nombre: 'Edificaciones y Huella Urbana',
+      icono: '🏢',
+      resumen: 'Catastro poligonal de edificaciones, viviendas, torres residenciales, campus UAH y volumetría construida.',
+      filtro_grupo: 'edificaciones_suelo'
+    },
+    {
+      codigo: 'CAT-10',
+      id_manual: 'manual-cat-10',
+      nombre: 'Coberturas y Usos de Suelo',
+      icono: '🗺️',
+      resumen: 'Zonificación funcional del suelo (residencial, comercial, educativo), áreas recreativas y rodados viales.',
+      filtro_grupo: 'edificaciones_suelo'
     }
   ];
 
@@ -1389,7 +1565,9 @@ const ModuloDiccionario = (() => {
       'CAT-05': 'manual-cat-05',
       'CAT-06': 'manual-cat-06',
       'CAT-07': 'manual-cat-07',
-      'CAT-08': 'manual-cat-08'
+      'CAT-08': 'manual-cat-08',
+      'CAT-09': 'manual-cat-09',
+      'CAT-10': 'manual-cat-10'
     };
     const targetId = mapIds[cod] || 'manual-cat-01';
     if (typeof window.navegarAManual === 'function') {
@@ -1464,7 +1642,7 @@ const ModuloDiccionario = (() => {
       <div class="dicc-tarjetas-seccion">
         <div class="dicc-tarjetas-header">
           <span class="marcador">[ESTÁNDAR // ISO 19110]</span>
-          <h3 style="display:inline; margin-left:6px;">Taxonomía Territorial: 8 Macro-Categorías VGI para Chile</h3>
+          <h3 style="display:inline; margin-left:6px;">Taxonomía Territorial: 10 Macro-Categorías VGI para Chile</h3>
           <p class="descripcion" style="margin-top:4px;">
             Seleccione <strong>[🔍 Filtrar]</strong> para aislar los descriptores de esa categoría en la tabla, o pulse <strong>[📖 Manual ↗]</strong> para abrir su ficha detallada en el <strong>Manual de Uso del Atlas</strong>:
           </p>
@@ -1496,7 +1674,7 @@ const ModuloDiccionario = (() => {
     const htmlAtributos = atributosFiltrados.map(a => {
       let enlaceDoc = '';
       if (a.campo === 'categoria') {
-        enlaceDoc = `<button type="button" class="dicc-tag-cat-link" onclick="window.navegarAManual('doc-categorias')" style="margin-left:4px; font-size:0.75rem;">Ver 8 Cats ↗</button>`;
+        enlaceDoc = `<button type="button" class="dicc-tag-cat-link" onclick="window.navegarAManual('doc-categorias')" style="margin-left:4px; font-size:0.75rem;">Ver 10 Cats ↗</button>`;
       } else if (a.campo === 'superficie_m2' || a.campo === 'superficie_ha') {
         enlaceDoc = `<button type="button" class="dicc-tag-cat-link" onclick="window.navegarAManual('doc-geodesia')" style="margin-left:4px; font-size:0.75rem;">Geodesia ↗</button>`;
       } else if (a.campo === 'licencia') {

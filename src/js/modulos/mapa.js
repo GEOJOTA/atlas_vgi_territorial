@@ -30,6 +30,8 @@ const ModuloMapa = (() => {
     patrimonio: '#8F3A2C',
     accesibilidad: '#4B5142',
     biodiversidad: '#1C523A',
+    edificaciones: '#555555',
+    cobertura_suelo: '#5B704E',
     defecto: '#35586B'
   };
 

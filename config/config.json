@@ -138,6 +138,28 @@
       "entidades": ["Arbolado urbano individual (OSM)", "Alineaciones de árboles en calles", "Parches boscosos y matorral urbano", "Jardines botánicos y comunitarios", "Avifauna de ciencia ciudadana (GBIF / iNaturalist)", "Flora nativa urbana (peumo, quillay, palma)"],
       "filtro_overpass": "node[\"natural\"=\"tree\"]; way[\"natural\"=\"tree_row\"]; nwr[\"natural\"~\"wood|scrub\"]; nwr[\"leisure\"=\"garden\"]; nwr[\"landuse\"=\"forest\"];",
       "descripcion": "Ecología y naturaleza urbana: arbolado viario en Av. Brasil, alineaciones arbóreas, jardines comunitarios y registros de avifauna y flora integrados desde GBIF y ciencia ciudadana"
+    },
+    {
+      "id": "edificaciones",
+      "codigo": "CAT-09",
+      "nombre": "Edificaciones y Huella Urbana",
+      "icono": "🏢",
+      "color": "#555555",
+      "geometrias": ["Polígonos (Huellas de Manzanas y Edificios)", "Puntos (Direcciones y Entradas)"],
+      "entidades": ["Viviendas unifamiliares y casonas", "Edificios residenciales en altura", "Pabellones universitarios UAH", "Inmuebles comerciales", "Edificios públicos y cívicos", "Templos e iglesias"],
+      "filtro_overpass": "nwr[\"building\"];",
+      "descripcion": "Catastro poligonal de edificaciones y volumetría construida: huellas de manzanas, casonas patrimoniales, campus UAH y edificaciones con cálculo de superficie métrica en m² (EPSG:32719 UTM 19S)"
+    },
+    {
+      "id": "cobertura_suelo",
+      "codigo": "CAT-10",
+      "nombre": "Coberturas y Usos de Suelo",
+      "icono": "🗺️",
+      "color": "#5B704E",
+      "geometrias": ["Polígonos (Zonificación Funcional y Áreas)", "Líneas (Ejes de Calzada y Pavimentos)"],
+      "entidades": ["Uso residencial", "Uso comercial y servicios", "Recintos educacionales", "Áreas recreativas y deportivas", "Suelos en faena o construcción", "Prados y cubiertas vegetales", "Pavimentos de asfalto y adoquines"],
+      "filtro_overpass": "nwr[\"landuse\"]; nwr[\"natural\"~\"wood|scrub|water|grassland\"]; nwr[\"leisure\"~\"park|garden|pitch\"]; way[\"surface\"~\"asphalt|paving_stones|cobblestone\"];",
+      "descripcion": "Zonificación funcional del suelo urbano y coberturas biofísicas: áreas residenciales, comerciales, dotacionales, deportivas y tipos de rodado/superficie de calzadas"
     }
   ],
 

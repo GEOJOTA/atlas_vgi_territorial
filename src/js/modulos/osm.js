@@ -92,6 +92,21 @@ const ModuloOSM = (() => {
         nwr["leisure"="garden"]({{bbox}});
         nwr["landuse"="forest"]({{bbox}});
       `
+    },
+    edificaciones: {
+      nombre: 'Edificaciones y Huella Urbana (Polígonos)',
+      filtro: `
+        nwr["building"]({{bbox}});
+      `
+    },
+    cobertura_suelo: {
+      nombre: 'Coberturas y Usos de Suelo (Polígonos y Líneas)',
+      filtro: `
+        nwr["landuse"]({{bbox}});
+        nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});
+        nwr["leisure"~"park|garden|pitch"]({{bbox}});
+        way["surface"~"asphalt|paving_stones|cobblestone"]({{bbox}});
+      `
     }
   };
 
@@ -203,13 +218,19 @@ const ModuloOSM = (() => {
 
         const esPoligono = esCerrado && (
           tags.building ||
-          tags.leisure ||
           tags.landuse ||
+          tags.leisure ||
           tags.amenity ||
           tags.historic ||
-          tags.natural === 'wood' ||
-          tags.natural === 'scrub' ||
+          tags.natural ||
           tags.shop ||
+          tags.tourism ||
+          tags.office ||
+          tags.craft ||
+          tags.aeroway ||
+          tags.emergency ||
+          tags.place ||
+          tags.boundary ||
           tags.area === 'yes'
         );
 
@@ -224,6 +245,21 @@ const ModuloOSM = (() => {
             coordinates: coords
           };
         }
+      } else if (el.type === 'relation' && Array.isArray(el.members)) {
+        // Soporte de relaciones multipolygon con miembros geométricos (out geom)
+        const outerMember = el.members.find(m => m.role === 'outer' && Array.isArray(m.geometry) && m.geometry.length >= 4);
+        if (outerMember) {
+          const coords = outerMember.geometry.map(p => [p.lon, p.lat]);
+          geometria = {
+            type: 'Polygon',
+            coordinates: [coords]
+          };
+        } else if (el.center && el.center.lat !== undefined && el.center.lon !== undefined) {
+          geometria = {
+            type: 'Point',
+            coordinates: [el.center.lon, el.center.lat]
+          };
+        }
       } else if (el.center && el.center.lat !== undefined && el.center.lon !== undefined) {
         geometria = {
           type: 'Point',
@@ -234,12 +270,12 @@ const ModuloOSM = (() => {
       if (!geometria) return;
 
       let infoSuperficie = null;
-      if (geometria.type === 'Polygon' && typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono) {
-        infoSuperficie = ModuloGeodesia.calcularSuperficiePoligono(coords);
+      if (geometria.type === 'Polygon' && Array.isArray(geometria.coordinates) && geometria.coordinates.length > 0 && typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono) {
+        infoSuperficie = ModuloGeodesia.calcularSuperficiePoligono(geometria.coordinates[0]);
       }
 
       const nombre = tags.name || tags['name:es'] || tags.operator || tags.description || 'Sin nombre';
-      const subtipo = tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.natural || tags.building || tags.railway || 'VGI';
+      const subtipo = tags.building || tags.landuse || tags.amenity || tags.shop || tags.highway || tags.leisure || tags.historic || tags.natural || tags.railway || 'VGI';
       const direccion = [tags['addr:street'], tags['addr:housenumber']].filter(Boolean).join(' ');
 
       features.push({

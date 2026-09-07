@@ -268,20 +268,20 @@ const ModuloManual = (() => {
             <div class="doc-modulo-num">08</div>
             <div class="doc-modulo-cuerpo">
               <h4>Manual de Uso y Documentación Territorial</h4>
-              <p>Compendio exhaustivo de documentación técnica y metodológica con 8 secciones temáticas integradas in-app, diagramas SVG interactivos de arquitectura y fórmulas geodésicas, catálogo detallado de macro-categorías (CAT-01 a CAT-08), glosario de términos VGI y 104 citas bibliográficas en formato APA 7ª edición.</p>
+              <p>Compendio exhaustivo de documentación técnica y metodológica con 8 secciones temáticas integradas in-app, diagramas SVG interactivos de arquitectura y fórmulas geodésicas, catálogo detallado de macro-categorías (CAT-01 a CAT-10), glosario de términos VGI y 104 citas bibliográficas en formato APA 7ª edición.</p>
               <div class="doc-modulo-meta"><strong>Salidas:</strong> Navegación hipertextual interna, buscador temático, código Overpass QL copiable y enlaces directos a bibliografía científica.</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SECCIÓN 03: CATÁLOGO EXHAUSTIVO DE LAS 8 MACRO-CATEGORÍAS -->
+      <!-- SECCIÓN 03: CATÁLOGO EXHAUSTIVO DE LAS 10 MACRO-CATEGORÍAS -->
       <section id="doc-categorias" class="doc-seccion">
         <header class="doc-seccion-header">
           <span class="doc-seccion-badge">Sección 03 / Taxonomía Territorial</span>
-          <h2>Guía Exhaustiva de las 8 Macro-Categorías (CAT-01 a CAT-08)</h2>
+          <h2>Guía Exhaustiva de las 10 Macro-Categorías (CAT-01 a CAT-10)</h2>
           <p class="doc-lead">
-            A continuación se presenta el desglose técnico y social de las 8 macro-categorías territoriales. Cada ficha incluye su propósito barrial, estándar legal vinculado, contrapartes públicas en Chile, consulta Overpass QL reproducible y casos de estudio en Barrio Brasil y el Campus UAH:
+            A continuación se presenta el desglose técnico y social de las 10 macro-categorías territoriales. Cada ficha incluye su propósito barrial, estándar legal vinculado, contrapartes públicas en Chile, consulta Overpass QL reproducible y casos de estudio en Barrio Brasil y el Campus UAH:
           </p>
         </header>
 
@@ -563,6 +563,71 @@ out skel qt;</code></pre>
 out body;
 &gt;;
 out skel qt;</code></pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- CAT-09: EDIFICACIONES Y HUELLA URBANA -->
+          <article id="manual-cat-09" class="doc-ficha-cat">
+            <div class="doc-ficha-cabecera">
+              <div class="doc-ficha-badge">CAT-09</div>
+              <div class="doc-ficha-titular">
+                <h3>Edificaciones y Huella Urbana (Polígonos)</h3>
+                <span class="doc-ficha-sub">Huellas poligonales de manzanas, edificaciones residenciales, universitarias, comerciales y cálculo métrico (EPSG:32719)</span>
+              </div>
+            </div>
+            <div class="doc-ficha-cuerpo">
+              <p><strong>Función en la Gestión Barrial:</strong> Provee el catastro exhaustivo de la huella física y volumetría construida de Barrio Brasil y el Campus UAH. A diferencia de las capas puntuales de equipamiento, este módulo extrae las geometrías poligonales cerradas de cada edificación (manzanas, pabellones universitarios, casonas y torres residenciales), computando en tiempo real su superficie métrica en metros cuadrados (m²) y hectáreas (ha) mediante reproyección conforme a EPSG:32719 (WGS 84 / UTM Huso 19 Sur) y la fórmula de Gauss (Shoelace), permitiendo evaluar densidades y coeficientes de ocupación del suelo.</p>
+              <div class="doc-cat-datos-grid">
+                <div><strong>Contraparte Estatal:</strong> Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces) / MINVU / DOM Santiago.</div>
+                <div><strong>Norma / Estándar:</strong> Ley General de Urbanismo y Construcciones (LGUC); OGUC Art. 2.1.24; D.S. N° 50 MINVU; ISO 19157 (Exactitud temática y de área).</div>
+                <div><strong>Equivalente IDE Chile:</strong> Catastro Nacional de Bienes Raíces (SII / IDE Chile) / Manzanas y Edificaciones Censales (INE).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Pabellones y patios de Casa Central UAH (Almirante Barroso 10), casonas de Erasmo Escala y Cienfuegos, y bloques de departamentos.</div>
+              </div>
+              <div class="doc-codigo-bloque">
+                <div class="doc-codigo-header">
+                  <span>Sintaxis Overpass QL Recomendada (CAT-09)</span>
+                  <button type="button" class="doc-btn-copiar" onclick="ModuloManual.copiarCodigo(this)">Copiar QL</button>
+                </div>
+                <pre><code>[out:json][timeout:35];
+(
+  nwr["building"]({{bbox}});
+);
+out geom tags qt 400;</code></pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- CAT-10: COBERTURAS Y USOS DE SUELO -->
+          <article id="manual-cat-10" class="doc-ficha-cat">
+            <div class="doc-ficha-cabecera">
+              <div class="doc-ficha-badge">CAT-10</div>
+              <div class="doc-ficha-titular">
+                <h3>Coberturas y Usos de Suelo (Polígonos y Líneas)</h3>
+                <span class="doc-ficha-sub">Zonificación funcional del suelo urbano, áreas de equipamiento, recreación y materiales de rodado vial</span>
+              </div>
+            </div>
+            <div class="doc-ficha-cuerpo">
+              <p><strong>Función en la Gestión Barrial:</strong> Caracteriza la distribución espacial de los usos del territorio (residencial, comercial, institucional y recreativo) y la materialidad superficial de la trama urbana (asfalto, adoquines patrimoniales y cubiertas vegetales). Facilita el contraste empírico entre la zonificación normativa del Plan Regulador Comunal (PRC) de Santiago y las funciones territoriales reales mapeadas colaborativamente por la comunidad.</p>
+              <div class="doc-cat-datos-grid">
+                <div><strong>Contraparte Estatal:</strong> MINVU (División de Desarrollo Urbano) / Dirección de Obras Municipales (DOM) / Dirección de Vialidad MOP.</div>
+                <div><strong>Norma / Estándar:</strong> Plan Regulador Comunal de Santiago (PRC); Ley N° 21.074 de Fortalecimiento de la Regionalización; OGC Land and Infrastructure Standards.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Zonificación Planes Reguladores Comunales (MINVU / IDE Chile) / Red Vial Pavimentada (MOP).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Recintos de uso educacional en Campus UAH, zonas de amortiguación residencial en pasajes interiores y calzadas adoquinadas tradicionales.</div>
+              </div>
+              <div class="doc-codigo-bloque">
+                <div class="doc-codigo-header">
+                  <span>Sintaxis Overpass QL Recomendada (CAT-10)</span>
+                  <button type="button" class="doc-btn-copiar" onclick="ModuloManual.copiarCodigo(this)">Copiar QL</button>
+                </div>
+                <pre><code>[out:json][timeout:35];
+(
+  nwr["landuse"]({{bbox}});
+  nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});
+  nwr["leisure"~"park|garden|pitch"]({{bbox}});
+  way["surface"~"asphalt|paving_stones|cobblestone"]({{bbox}});
+);
+out geom tags qt 400;</code></pre>
               </div>
             </div>
           </article>

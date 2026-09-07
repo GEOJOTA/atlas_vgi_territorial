@@ -113,8 +113,8 @@ Permite consultar la definición toponímica y la homología institucional de ca
 ## 8. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los tres libros de cálculo listos para anexar al informe formal de práctica:
-- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (Categorías Maestras, Catálogo Chile de 118 descriptores escalables con GBIF, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de 11 fuentes colaborativas (incluyendo Overture Maps Foundation) e inventario de 12 APIs y endpoints en vivo.
+- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras con soporte de huella construida y usos de suelo, Catálogo Chile de 134 descriptores territoriales escalables con GBIF, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de 10 fuentes colaborativas e inventario técnico de 11 APIs y endpoints en vivo.
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
 
 ---

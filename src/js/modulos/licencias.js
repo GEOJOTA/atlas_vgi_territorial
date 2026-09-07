@@ -64,12 +64,6 @@ const ModuloLicencias = (() => {
       licencia: 'Datos Abiertos del Gobierno de Chile (Ley N° 20.285)',
       implicancia: 'Uso libre para fines públicos, de investigación académica y toma de decisiones territoriales, con mención obligatoria al ministerio o servicio técnico emisor (MBN, INE, MINVU, MTT).',
       url: 'https://www.ide.cl'
-    },
-    {
-      nombre: 'Overture Maps Foundation (Linux Foundation / Meta / Microsoft / AWS / TomTom)',
-      licencia: 'CDLA-Permissive-2.0 / ODbL 1.0 (según Theme)',
-      implicancia: 'Datos globales abiertos estructurados en GeoParquet (Themes: Places, Buildings, Transportation, Base, Addresses). Permite descarga y uso abierto sin costo de API mediante Python CLI (overturemaps), DuckDB o visor interactivo Overture Explorer.',
-      url: 'https://overturemaps.org/'
     }
   ];
 

@@ -112,7 +112,8 @@
           <button type="button" class="btn-sugerencia-ciudadana" data-clave="historic" data-valor="*" data-operador="*" data-nombre="Patrimonio y Casonas" data-color="#800020">🏛️ Casonas Patrimoniales</button>
           <button type="button" class="btn-sugerencia-ciudadana" data-clave="kerb" data-valor="lowered" data-nombre="Rebajes de Cordón Accesibles" data-color="#4B0082" data-entidad="node">♿ Rebajes de Cordón</button>
           <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="fire_station" data-nombre="Bomberos y Emergencias" data-color="#C71585">🚒 Bomberos y Rescate</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="cafe" data-nombre="Cafés y Encuentro Barrial" data-color="#8B4513">☕ Cafeterías y Encuentro</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="building" data-valor="yes" data-operador="*" data-nombre="Huella Construida (Buildings)" data-color="#555555" data-entidad="way">🏢 Huella Construida (Buildings)</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-clave="landuse" data-valor="*" data-operador="*" data-nombre="Usos de Suelo (Landuse)" data-color="#5B704E" data-entidad="way">🗺️ Usos de Suelo (Landuse)</button>
         </div>
       </div>
 
@@ -134,11 +135,13 @@
             <label for="custom-clave-select">Clave Frecuente</label>
             <select id="custom-clave-select">
               <option value="amenity" selected>amenity (Equipamiento)</option>
+              <option value="building">building (Edificaciones y Huella Urbana)</option>
+              <option value="landuse">landuse (Uso y Cobertura de Suelo)</option>
               <option value="shop">shop (Comercio)</option>
               <option value="historic">historic (Patrimonio)</option>
               <option value="highway">highway (Vialidad / Cruces)</option>
-              <option value="building">building (Edificaciones)</option>
               <option value="leisure">leisure (Recreación / Plazas)</option>
+              <option value="natural">natural (Elementos Naturales / Coberturas)</option>
               <option value="healthcare">healthcare (Salud)</option>
               <option value="tourism">tourism (Turismo / Cultura)</option>
               <option value="emergency">emergency (Emergencias)</option>
@@ -197,43 +200,10 @@
           <button class="accion secundaria" id="btn-validar-taginfo" title="Auditar telemetría y uso global con Taginfo API">⚡ Validar en Taginfo</button>
           <button class="accion secundaria" id="btn-guardar-consulta" title="Guardar esta consulta para usarla después">💾 Guardar</button>
           <button class="accion secundaria" id="btn-toggle-ql-avanzado" title="Ver o editar código Overpass QL">📝 Modo QL</button>
-          <button class="accion secundaria" id="btn-overture-maps" title="Explorar datos abiertos de Overture Maps Foundation (sin costo)">🌐 Overture Maps</button>
         </div>
 
         <!-- Contenedor interactivo para telemetría Taginfo API -->
         <div id="contenedor-resultado-taginfo-custom"></div>
-
-        <!-- Contenedor interactivo para Overture Maps Foundation (Sin costo) -->
-        <div id="contenedor-resultado-overture" style="display:none; margin-top:14px; padding:14px; background:var(--papel-alto); border:1px solid var(--musgo); border-left:4px solid var(--musgo);">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
-            <div>
-              <span class="marcador" style="background:var(--musgo); color:#fff; font-size:0.7rem; padding:2px 6px;">OVERTURE MAPS FOUNDATION // DATOS ABIERTOS</span>
-              <h4 style="margin:4px 0 6px 0; font-size:1rem; color:var(--musgo);">Extracción y Validación de Datos Overture Maps (Costo Cero)</h4>
-            </div>
-            <button type="button" class="accion secundaria" id="btn-cerrar-overture" style="font-size:0.75rem; padding:2px 8px;">✕ Cerrar</button>
-          </div>
-          <p style="font-size:0.85rem; line-height:1.4; margin:6px 0 10px 0; color:var(--tinta);">
-            <strong>Overture Maps Foundation</strong> (Linux Foundation / Meta / Microsoft / AWS / TomTom) distribuye datos geoespaciales globales abiertos bajo licencia CDLA-Permissive-2.0 y ODbL. A diferencia de Overpass API (que provee un endpoint HTTP transaccional en vivo), Overture publica conjuntos masivos en <strong>GeoParquet sobre AWS S3 público</strong> sin costo de API por consulta.
-          </p>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:10px;">
-            <div style="background:var(--papel); border:1px solid var(--linea); padding:10px;">
-              <strong style="font-size:0.85rem; color:var(--musgo);">1. Visor Overture Explorer (En el Navegador)</strong>
-              <p style="font-size:0.8rem; color:var(--tinta-suave); margin:4px 0 8px 0;">Inspección visual interactiva de huellas 3D (buildings), lugares (places) y transporte dentro del cuadrante activo:</p>
-              <a id="link-overture-explorer" href="https://explore.overturemaps.org/#15/-33.4445/-70.6630" target="_blank" rel="noopener" class="accion" style="display:inline-block; font-size:0.8rem; padding:6px 14px; text-decoration:none;">
-                🗺️ Abrir Bbox en Overture Explorer ↗
-              </a>
-            </div>
-            <div style="background:var(--papel); border:1px solid var(--linea); padding:10px;">
-              <strong style="font-size:0.85rem; color:var(--musgo);">2. Descarga Directa GeoJSON (Python CLI Gratuito)</strong>
-              <p style="font-size:0.8rem; color:var(--tinta-suave); margin:4px 0 6px 0;">Comando oficial <code>overturemaps</code> parametrizado para el Bbox activo en el Atlas:</p>
-              <pre id="codigo-overture-cli" style="font-family:'IBM Plex Mono', monospace; font-size:0.75rem; background:var(--papel-alto); padding:6px 8px; border:1px solid var(--linea); overflow-x:auto; white-space:pre-wrap; margin:0 0 6px 0;"></pre>
-              <button type="button" class="accion secundaria" id="btn-copiar-overture-cli" style="font-size:0.75rem; padding:3px 10px;">📋 Copiar Comando</button>
-            </div>
-          </div>
-          <div style="margin-top:10px; font-size:0.78rem; color:var(--tinta-suave); font-family:var(--fuente-datos);">
-            <strong>Themes Disponibles:</strong> <code>buildings</code> (huellas y alturas), <code>places</code> (POIs comerciales y comunitarios), <code>transportation</code> (red vial segmentada), <code>base</code> (usos de suelo y aguas). Sin necesidad de API Key ni tarjetas de crédito.
-          </div>
-        </div>
 
         <!-- Editor avanzado Overpass QL (oculto por defecto) -->
         <div id="contenedor-ql-avanzado" style="display:none; margin-top:14px; padding-top:12px; border-top:1px dashed var(--linea);">
@@ -286,6 +256,8 @@
               <option value="patrimonio">CAT-06: Patrimonio, Cultura e Identidad Urbana</option>
               <option value="accesibilidad">CAT-07: Accesibilidad Universal y Cruces</option>
               <option value="biodiversidad">CAT-08: Biodiversidad Urbana (Arbolado)</option>
+              <option value="edificaciones">CAT-09: Edificaciones y Huella Urbana (building=*) [Polígonos]</option>
+              <option value="cobertura_suelo">CAT-10: Coberturas y Usos de Suelo (landuse=*) [Polígonos]</option>
             </select>
           </div>
           <div class="campo" style="flex:1; min-width:200px;">
@@ -694,14 +666,15 @@
 
       <div class="bloque" style="margin-bottom:14px;">
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
-          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (118)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (81 Descriptores sin Homólogo Estatal)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales IDE Chile (37 Capas)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema VGI (10 Atributos IDE)</button>
+          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (134)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (86 Descriptores sin Homólogo Estatal)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales IDE Chile (48 Capas)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema VGI (14 Atributos)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="patrimonio_verde">🌳 Plazas y Patrimonio (CAT 5-6)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="accesibilidad_biodiv">♿ Accesibilidad y Biodiversidad (CAT 7-8)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="edificaciones_suelo">🏢 Edificaciones y Suelos (CAT 9-10)</button>
         </div>
         <input type="text" id="filtro-diccionario" placeholder="🔍 Buscar por palabra clave, código IDE o etiqueta OSM (ej: accesibilidad, amenity, kerb, universidad, EPSG)..." style="width:100%; padding:8px 12px; font-size:0.9rem; border:1px solid var(--linea); background:var(--papel);">
       </div>
