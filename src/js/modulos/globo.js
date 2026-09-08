@@ -24,10 +24,15 @@ const ModuloGlobo = (() => {
   let globo = null;
   let contenedorId = 'globo-3d-canvas';
   let autoRotacionActiva = false;
-  let atmosferaActiva = true;
   let capasActivasSincronizadas = {};
   let capasPendientes = null;
-  let altitudActual = 0.025;
+  let altitudActual = 0.035;
+
+  // Umbral de altitud para conmutar automáticamente de 3D a 2D (escala barrial)
+  const UMBRAL_TRANSICION_2D_METROS = 2200; // < 2.2 km conmuta a vista 2D detallada
+  let transicionEnCurso = false;
+  let animandoVuelo = false;
+  let idLoopMonitoreo = null;
 
   // Paleta temática integral (VGI + Oficiales IDE Chile + Normativa IPT MINVU)
   const COLORES_POR_DEFECTO = {
@@ -97,32 +102,157 @@ const ModuloGlobo = (() => {
   }
 
   /**
-   * Listener reactivo al mover la cámara u orbitar: sólo actualiza telemetría HUD
+   * Monitoreo dinámico continuo de la cámara en Three.js:
+   * Calcula la altitud geodésica real en metros/km en función de la distancia al centro de la esfera (R=100)
+   * y desencadena la transición automática a visión 2D al alcanzar la escala barrial.
    */
-  function reaccionarCambioCamara() {
+  function monitorearCamaraYTransicion() {
     if (!globo) return;
+    const elemCont = document.getElementById(contenedorId);
+    if (!elemCont || elemCont.offsetParent === null) return;
+
+    const camara = globo.camera();
+    if (!camara) return;
+
+    // Distancia euclidiana de la cámara al centro del globo (R = 100)
+    const distCentro = camara.position.length();
+    // Altitud relativa sobre la superficie: (dist - 100) / 100
+    const altitudRelativa = Math.max(0.00002, (distCentro - 100) / 100);
+    // Radio real de la Tierra: 6.371.000 m
+    const altitudMetros = Math.round(altitudRelativa * 6371000);
+    altitudActual = altitudRelativa;
+
+    let latCentro = -33.4445;
+    let lngCentro = -70.6620;
     try {
       const pov = globo.pointOfView();
-      if (!pov || pov.altitude === undefined) return;
-      altitudActual = pov.altitude;
-      actualizarHUD(pov);
+      if (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) {
+        latCentro = pov.lat;
+        lngCentro = pov.lng;
+      }
     } catch (_) {}
+
+    actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro);
+
+    // Conmutación automática a 2D cuando la cámara se acerca a nivel barrial (< 2.2 km)
+    if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS && !transicionEnCurso && !animandoVuelo) {
+      ejecutarTransicionA2D(latCentro, lngCentro);
+    }
   }
 
   /**
-   * Despliega la telemetría en el HUD de la interfaz enfocada en Barrio Brasil
+   * Bucle reactivo continuo que actualiza la telemetría en cada frame de animación
    */
-  function actualizarHUD(pov) {
-    const elemHud = document.getElementById('globo-hud-escala');
-    if (!elemHud) return;
+  function iniciarBucleMonitoreoCamara() {
+    if (idLoopMonitoreo) cancelAnimationFrame(idLoopMonitoreo);
+    function tick() {
+      monitorearCamaraYTransicion();
+      idLoopMonitoreo = requestAnimationFrame(tick);
+    }
+    idLoopMonitoreo = requestAnimationFrame(tick);
+  }
 
-    const altM = Math.round(pov.altitude * 6371000);
-    const altTexto = altM < 1000 ? `${Math.round(altM / 10) * 10} m` : `${(altM / 1000).toFixed(1)} km`;
-    elemHud.innerHTML = `<span><strong>ALTITUD:</strong> ${altTexto}</span> &nbsp;|&nbsp; <span>🏘️ BARRIO BRASIL & ENTORNO UAH (3D)</span>`;
+  function detenerBucleMonitoreoCamara() {
+    if (idLoopMonitoreo) {
+      cancelAnimationFrame(idLoopMonitoreo);
+      idLoopMonitoreo = null;
+    }
   }
 
   /**
-   * Inicializa el globo terráqueo 3D en el contenedor especificado
+   * Despliega la telemetría dinámica en el HUD en tiempo real (se mueve fluidamente al hacer in/out)
+   */
+  function actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro) {
+    const elemHud = document.getElementById('globo-hud-escala');
+    if (elemHud) {
+      let escalaEtiqueta = '🪐 ESCALA PLANETARIA';
+      if (altitudMetros < 2500) {
+        escalaEtiqueta = '🔬 ESCALA BARRIAL (TRANSICIÓN 2D ACTIVA)';
+      } else if (altitudMetros < 25000) {
+        escalaEtiqueta = '🏘️ COMUNAL / BARRIO BRASIL';
+      } else if (altitudMetros < 150000) {
+        escalaEtiqueta = '🏙️ GRAN SANTIAGO METROPOLITANO';
+      } else if (altitudMetros < 1200000) {
+        escalaEtiqueta = '🇨🇱 REGIONAL CHILE CENTRAL';
+      }
+
+      let altTexto;
+      if (altitudMetros < 1000) {
+        altTexto = `${altitudMetros} m`;
+      } else if (altitudMetros < 100000) {
+        altTexto = `${(altitudMetros / 1000).toFixed(1)} km`;
+      } else {
+        altTexto = `${Math.round(altitudMetros / 1000)} km`;
+      }
+
+      elemHud.innerHTML = `<span><strong>ALTITUD:</strong> ${altTexto}</span> &nbsp;|&nbsp; <span>${escalaEtiqueta}</span>`;
+    }
+
+    const elemCoords = document.querySelector('.globo-hud-coords');
+    if (elemCoords) {
+      const cantCapas = Object.keys(capasActivasSincronizadas).length;
+      elemCoords.innerHTML = `LAT <strong>${latCentro.toFixed(4)}°</strong> | LON <strong>${lngCentro.toFixed(4)}°</strong> | CAPAS: <strong>${cantCapas}</strong>`;
+    }
+  }
+
+  /**
+   * Ejecuta la transición visual fluida desde el globo 3D hacia el mapa 2D detallado
+   */
+  function ejecutarTransicionA2D(lat, lng) {
+    if (transicionEnCurso) return;
+    transicionEnCurso = true;
+
+    // Alerta visual liminal Backrooms
+    const contGlobo = document.getElementById('contenedor-globo-3d');
+    if (contGlobo) {
+      const alerta = document.createElement('div');
+      alerta.className = 'alerta-transicion-hud';
+      alerta.innerHTML = '⚡ [DESCENSO A ESCALA BARRIAL] // CONMUTANDO A VISTA 2D DE ALTA RESOLUCIÓN';
+      contGlobo.appendChild(alerta);
+      setTimeout(() => alerta.remove(), 1200);
+    }
+
+    setTimeout(() => {
+      if (typeof window.conmutarVistaPerspectiva === 'function') {
+        window.conmutarVistaPerspectiva('2d', lat, lng);
+      }
+      setTimeout(() => {
+        transicionEnCurso = false;
+      }, 1500);
+    }, 220);
+  }
+
+  /**
+   * Controles manuales de aproximación/alejamiento
+   */
+  function acercar() {
+    if (!globo) return;
+    const pov = globo.pointOfView();
+    const altActual = pov.altitude !== undefined ? pov.altitude : altitudActual;
+    const nuevaAlt = Math.max(0.0001, altActual * 0.6);
+    animandoVuelo = true;
+    globo.pointOfView({ altitude: nuevaAlt }, 350);
+    setTimeout(() => {
+      animandoVuelo = false;
+      monitorearCamaraYTransicion();
+    }, 400);
+  }
+
+  function alejar() {
+    if (!globo) return;
+    const pov = globo.pointOfView();
+    const altActual = pov.altitude !== undefined ? pov.altitude : altitudActual;
+    const nuevaAlt = Math.min(2.5, altActual * 1.6);
+    animandoVuelo = true;
+    globo.pointOfView({ altitude: nuevaAlt }, 350);
+    setTimeout(() => {
+      animandoVuelo = false;
+      monitorearCamaraYTransicion();
+    }, 400);
+  }
+
+  /**
+   * Inicializa el globo terráqueo 3D en el contenedor especificado con el modelo táctico Night Earth
    */
   function inicializar(idElemento = 'globo-3d-canvas') {
     if (typeof Globe === 'undefined') {
@@ -138,9 +268,10 @@ const ModuloGlobo = (() => {
 
     contenedorId = idElemento;
 
-    // Si ya existe instancia previa, redimensionar y sincronizar capas pendientes
+    // Si ya existe instancia previa, redimensionar y reactivar loop
     if (globo) {
       redimensionar();
+      iniciarBucleMonitoreoCamara();
       if (capasPendientes) {
         const p = capasPendientes;
         capasPendientes = null;
@@ -155,12 +286,15 @@ const ModuloGlobo = (() => {
     const alto = elem.clientHeight || 540;
 
     try {
+      // Modelo táctico Night Earth con atmósfera esmeralda CRT y fondo de vigilancia
       globo = Globe()(elem)
         .width(ancho)
         .height(alto)
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-        .showAtmosphere(false)
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+        .backgroundColor('rgba(11, 14, 10, 0.96)')
+        .showAtmosphere(true)
+        .atmosphereColor('#10B981')
+        .atmosphereAltitude(0.09)
         // Capa de Polígonos 2D sobre la esfera (superficie flotante sin Z-fighting)
         .polygonGeoJsonGeometry(d => d.geometry)
         .polygonCapColor(d => {
@@ -193,7 +327,7 @@ const ModuloGlobo = (() => {
         .pointLng(d => d.lng)
         .pointColor(d => normalizarColorRgba(d.color || '#A97722', 0.95))
         .pointAltitude(0.008)
-        .pointRadius(0.0012)
+        .pointRadius(0.0016)
         .pointLabel(d => formatearTooltip(d))
         .onPointClick(punto => {
           mostrarDetalleEntidad(punto);
@@ -205,18 +339,32 @@ const ModuloGlobo = (() => {
         controles.autoRotate = false;
         controles.enableDamping = true;
         controles.dampingFactor = 0.08;
-        controles.minDistance = 100.02;
-        controles.maxDistance = 250.0;
-        controles.addEventListener('change', reaccionarCambioCamara);
+        // Permite que la cámara descienda suavemente hasta el umbral barrial (< 2.2 km)
+        controles.minDistance = 100.005;
+        controles.maxDistance = 350.0;
       }
 
       const camara = globo.camera();
       if (camara) {
-        camara.near = 0.005;
+        camara.near = 0.002;
         camara.updateProjectionMatrix();
       }
 
-      // Enfoque inicial directo y exclusivo a Barrio Brasil / UAH
+      // Listeners de eventos de interacción directa sobre el canvas para telemetría instantánea
+      elem.addEventListener('wheel', () => {
+        requestAnimationFrame(monitorearCamaraYTransicion);
+      }, { passive: true });
+      elem.addEventListener('pointermove', () => {
+        monitorearCamaraYTransicion();
+      }, { passive: true });
+      elem.addEventListener('touchmove', () => {
+        monitorearCamaraYTransicion();
+      }, { passive: true });
+
+      // Iniciar el monitoreo reactivo de altitud
+      iniciarBucleMonitoreoCamara();
+
+      // Enfoque orbital inicial a Barrio Brasil (altitud macro ~220 km)
       volarABarrioBrasil(1000);
 
       // Si había capas esperando, sincronizarlas de inmediato
@@ -230,7 +378,7 @@ const ModuloGlobo = (() => {
         redimensionar();
       });
 
-      console.log('[ModuloGlobo]: Globo 3D montado con éxito en proyección esférica 2D.');
+      console.log('[ModuloGlobo]: Globo 3D montado con éxito con telemetría dinámica de altitud.');
       return true;
     } catch (err) {
       console.error('[ModuloGlobo]: Error al montar Globe.gl:', err);
@@ -433,6 +581,11 @@ const ModuloGlobo = (() => {
     sincronizarCapas,
     volarABarrioBrasil,
     volarACoordenadas,
+    acercar,
+    alejar,
+    ejecutarTransicionA2D,
+    iniciarBucleMonitoreoCamara,
+    detenerBucleMonitoreoCamara,
     estaInicializado,
     obtenerInstancia
   };

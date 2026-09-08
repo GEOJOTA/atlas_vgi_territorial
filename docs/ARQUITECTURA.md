@@ -168,12 +168,16 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
 - Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** estructurado en 6 secciones oficiales en formato `.txt`.
 
 ### 3.16 `globo.js` (Visualizador Esférico 3D WebGL / Three.js vía Globe.gl)
+- Cartografía táctica nocturna de alta resolución (`earth-night.jpg`) con atmósfera phosphor CRT esmeralda (`#10B981`) y estética de vigilancia liminal Backrooms (A24).
+- Telemetría reactiva en tiempo real (`#globo-hud-escala`): cálculo instantáneo de altitud orbital calculada desde el vector de cámara Three.js y actualizada en cada ciclo de animación (`requestAnimationFrame`), superando la altitud estática.
+- Conmutación y transición multiescala fluida 3D a 2D: al hacer zoom in y descender por debajo del umbral barrial (`altitudMetros < 2200`), el visor activa una alerta visual liminal en el HUD y conmuta suavemente la perspectiva al mapa 2D de alta resolución (`#mapa-atlas`), posicionando la cámara en las coordenadas exactas observadas.
+- Retorno reactivo 2D a 3D: detector de escala regional en Leaflet (`zoom <= 11`) que despliega una insignia flotante interactiva para regresar al globo tridimensional con un solo clic.
 - Proyección tridimensional de geometrías 2D sobre la esfera terrestre sin inventar alturas verticales artificiales ni extrusiones distorsionadas (`polygonAltitude: 0.005`).
 - Eliminación de mapas de relieve (*bump maps*) y halos atmosféricos oclusivos para evitar el ocultamiento y enterramiento de polígonos bajo el terreno.
 - Normalización cromática estricta en RGBA nativo para evitar fallos de renderizado en Three.js causados por cadenas hexadecimales con canal alfa de 8 dígitos.
-- Líneas 1px estándar nítidas en Three.js (`pathStroke: null`) y marcadores de puntos cilíndricos proporcionados a la escala barrial (`pointRadius: 0.0012`).
-- Ajuste de plano de corte cercano (`camera.near: 0.005`) para permitir zoom orbital ultra cercano sin desaparecer geometrías por frustum culling.
-- Encuadre exclusivo centrado en **Barrio Brasil y entorno UAH** (`volarABarrioBrasil`), con soporte de vuelo hacia capas importadas (`volarACoordenadas`).
+- Líneas 1px estándar nítidas en Three.js (`pathStroke: null`) y marcadores de puntos cilíndricos proporcionados a la escala barrial (`pointRadius: 0.0016`).
+- Ajuste de plano de corte cercano (`camera.near: 0.002`) y rango de zoom orbital (`minDistance: 100.005`) para permitir zoom orbital ultra cercano sin desaparecer geometrías por frustum culling.
+- Encuadre exclusivo centrado en **Barrio Brasil y entorno UAH** (`volarABarrioBrasil`), con botones de zoom granular (`#btn-globo-zoomin`, `#btn-globo-zoomout`) y soporte de vuelo hacia capas importadas (`volarACoordenadas`).
 - Precarga automática de cartografía base barrial (edificaciones, patrimonio, espacio público) al conmutar a la vista 3D si no existen capas activas en sesión.
 
 ---

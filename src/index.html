@@ -79,6 +79,8 @@
         <!-- Controles específicos para el Globo 3D -->
         <div id="barra-controles-globo" style="display:none; align-items:center; gap:6px; flex-wrap:wrap;">
           <button type="button" class="accion secundaria btn-control-globo activo" id="btn-globo-centrar" title="Reencuadrar la vista 3D en Barrio Brasil y Universidad Alberto Hurtado">🏘️ Barrio Brasil 3D</button>
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-zoomin" title="Acercar cámara (acerca hacia la transición a visión 2D)">🔍 Acercar (+)</button>
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-zoomout" title="Alejar cámara (hacia escala regional/planetaria)">🔭 Alejar (-)</button>
         </div>
 
         <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">📥 Exportar GeoJSON</button>
@@ -100,7 +102,7 @@
         </div>
         <div class="globo-hud-bottom">
           <div id="globo-hud-escala" class="globo-hud-tag">
-            <span><strong>ALT:</strong> 120 m</span> &nbsp;|&nbsp; <span>🏘️ ESCALA BARRIAL / BARRIO BRASIL</span>
+            <span><strong>ALTITUD:</strong> 220 km</span> &nbsp;|&nbsp; <span>🪐 ESCALA PLANETARIA</span>
           </div>
           <div class="globo-hud-coords">
             CAPAS: 0 | ENTIDADES 3D: 0 | WGS84

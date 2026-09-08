@@ -1978,6 +1978,9 @@ function configurarSelectorPerspectiva2Dy3D() {
     btn3D.classList.remove('activo');
     if (contGlobo) contGlobo.style.display = 'none';
     if (barraGlobo) barraGlobo.style.display = 'none';
+    if (window.ModuloGlobo && typeof ModuloGlobo.detenerBucleMonitoreoCamara === 'function') {
+      ModuloGlobo.detenerBucleMonitoreoCamara();
+    }
     if (mapaLeaflet) {
       mapaLeaflet.style.display = 'block';
       if (window.ModuloMapa) ModuloMapa.invalidarTamano();
@@ -1993,6 +1996,9 @@ function configurarSelectorPerspectiva2Dy3D() {
 
     if (window.ModuloGlobo) {
       ModuloGlobo.inicializar('globo-3d-canvas');
+      if (typeof ModuloGlobo.iniciarBucleMonitoreoCamara === 'function') {
+        ModuloGlobo.iniciarBucleMonitoreoCamara();
+      }
 
       // Si no hay ninguna capa activa cargada en sesión, precargamos la cartografía de Barrio Brasil
       const hayCapasCargadas = Object.keys(capasCargadasPorCategoria).length > 0 ||
@@ -2014,9 +2020,77 @@ function configurarSelectorPerspectiva2Dy3D() {
     }
   });
 
+  // Conmutador global entre 2D y 3D con propagación de coordenadas
+  window.conmutarVistaPerspectiva = function(modo, lat, lng) {
+    if (modo === '2d') {
+      btn2D.click();
+      if (lat !== undefined && lng !== undefined && window.ModuloMapa) {
+        const mapaInst = ModuloMapa.obtenerInstanciaMapa();
+        if (mapaInst) {
+          mapaInst.setView([lat, lng], 16, { animate: true });
+        }
+      }
+    } else if (modo === '3d') {
+      btn3D.click();
+      if (lat !== undefined && lng !== undefined && window.ModuloGlobo) {
+        setTimeout(() => {
+          ModuloGlobo.volarACoordenadas(lat, lng, 0.035, 1200);
+        }, 150);
+      }
+    }
+  };
+
   document.getElementById('btn-globo-centrar')?.addEventListener('click', () => {
     if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(1200);
   });
+
+  document.getElementById('btn-globo-zoomin')?.addEventListener('click', () => {
+    if (window.ModuloGlobo && typeof ModuloGlobo.acercar === 'function') {
+      ModuloGlobo.acercar();
+    }
+  });
+
+  document.getElementById('btn-globo-zoomout')?.addEventListener('click', () => {
+    if (window.ModuloGlobo && typeof ModuloGlobo.alejar === 'function') {
+      ModuloGlobo.alejar();
+    }
+  });
+
+  // Badge flotante en el mapa 2D para retornar al Globo 3D al alejar zoom a escala metropolitana/regional
+  const contenedorMapa = document.getElementById('mapa-atlas');
+  if (contenedorMapa) {
+    let badgeGlobo2D = document.getElementById('badge-zoom-globo-2d');
+    if (!badgeGlobo2D) {
+      badgeGlobo2D = document.createElement('div');
+      badgeGlobo2D.id = 'badge-zoom-globo-2d';
+      badgeGlobo2D.className = 'badge-flotante-globo-2d';
+      badgeGlobo2D.style.display = 'none';
+      badgeGlobo2D.innerHTML = '🪐 Escala Regional detectada • [Ver en Globo 3D]';
+      badgeGlobo2D.title = 'Hacer clic para abrir la perspectiva planetaria/metropolitana 3D';
+      badgeGlobo2D.addEventListener('click', () => {
+        if (window.ModuloMapa) {
+          const mapaInst = ModuloMapa.obtenerInstanciaMapa();
+          const centro = mapaInst ? mapaInst.getCenter() : { lat: -33.4445, lng: -70.6620 };
+          window.conmutarVistaPerspectiva('3d', centro.lat, centro.lng);
+        } else {
+          window.conmutarVistaPerspectiva('3d');
+        }
+      });
+      contenedorMapa.appendChild(badgeGlobo2D);
+    }
+
+    const mapaInst = window.ModuloMapa?.obtenerInstanciaMapa();
+    if (mapaInst) {
+      mapaInst.on('zoomend', () => {
+        const z = mapaInst.getZoom();
+        if (z <= 11) {
+          badgeGlobo2D.style.display = 'inline-flex';
+        } else {
+          badgeGlobo2D.style.display = 'none';
+        }
+      });
+    }
+  }
 }
 
 /**

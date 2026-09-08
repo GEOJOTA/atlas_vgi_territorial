@@ -1333,6 +1333,57 @@ footer.pie-datos {
   border-radius: 2px;
 }
 
+.alerta-transicion-hud {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(16, 185, 129, 0.94);
+  color: #0B0E0A;
+  font-family: var(--fuente-datos);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 18px;
+  border: 1px solid #10B981;
+  border-radius: 3px;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.7);
+  z-index: 25;
+  pointer-events: none;
+  animation: pulsoTransicionHUD 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes pulsoTransicionHUD {
+  0% { transform: translate(-50%, -50%) scale(0.97); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.02); opacity: 1; }
+}
+
+.badge-flotante-globo-2d {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(17, 24, 18, 0.94);
+  color: #EDE6D6;
+  border: 1px solid #10B981;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--fuente-datos);
+  font-size: 0.76rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.badge-flotante-globo-2d:hover {
+  background: #10B981;
+  color: #0B0E0A;
+  font-weight: bold;
+}
+
 /* Sutiles sombras rasantes en tarjetas para realzar el papel tapiz Backrooms */
 .bloque, .panel-ficha, .doc-tarjeta-audiencia {
   box-shadow: 0 1px 3px rgba(35, 32, 20, 0.12);
