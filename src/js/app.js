@@ -2044,15 +2044,57 @@ function configurarSelectorPerspectiva2Dy3D() {
     if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(1200);
   });
 
-  document.getElementById('btn-globo-zoomin')?.addEventListener('click', () => {
-    if (window.ModuloGlobo && typeof ModuloGlobo.acercar === 'function') {
-      ModuloGlobo.acercar();
+  // Manejadores centralizados de zoom interactivo
+  const ejecutarAccionZoomIn = () => {
+    const contGlobo = document.getElementById('contenedor-globo-3d');
+    const es3D = contGlobo && contGlobo.style.display !== 'none';
+    if (es3D) {
+      if (window.ModuloGlobo && typeof ModuloGlobo.acercar === 'function') {
+        ModuloGlobo.acercar();
+      }
+    } else {
+      if (window.ModuloMapa) {
+        const mapaInst = ModuloMapa.obtenerInstanciaMapa();
+        if (mapaInst) mapaInst.zoomIn();
+      }
     }
-  });
+  };
 
-  document.getElementById('btn-globo-zoomout')?.addEventListener('click', () => {
-    if (window.ModuloGlobo && typeof ModuloGlobo.alejar === 'function') {
-      ModuloGlobo.alejar();
+  const ejecutarAccionZoomOut = () => {
+    const contGlobo = document.getElementById('contenedor-globo-3d');
+    const es3D = contGlobo && contGlobo.style.display !== 'none';
+    if (es3D) {
+      if (window.ModuloGlobo && typeof ModuloGlobo.alejar === 'function') {
+        ModuloGlobo.alejar();
+      }
+    } else {
+      if (window.ModuloMapa) {
+        const mapaInst = ModuloMapa.obtenerInstanciaMapa();
+        if (mapaInst) mapaInst.zoomOut();
+      }
+    }
+  };
+
+  // Botones en barra de herramientas superior
+  document.getElementById('btn-globo-zoomin')?.addEventListener('click', ejecutarAccionZoomIn);
+  document.getElementById('btn-globo-zoomout')?.addEventListener('click', ejecutarAccionZoomOut);
+
+  // Botones directos tácticos en el HUD del Globo 3D
+  document.getElementById('btn-hud-zoomin')?.addEventListener('click', ejecutarAccionZoomIn);
+  document.getElementById('btn-hud-zoomout')?.addEventListener('click', ejecutarAccionZoomOut);
+
+  // Atajos de teclado para zoom (+ y -) mientras la perspectiva 3D está activa
+  window.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target?.tagName)) return;
+    const contGlobo = document.getElementById('contenedor-globo-3d');
+    if (contGlobo && contGlobo.style.display !== 'none') {
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        ejecutarAccionZoomIn();
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        ejecutarAccionZoomOut();
+      }
     }
   });
 

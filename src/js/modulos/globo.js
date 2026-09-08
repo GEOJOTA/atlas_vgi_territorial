@@ -135,7 +135,7 @@ const ModuloGlobo = (() => {
     actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro);
 
     // Conmutación automática a 2D cuando la cámara se acerca a nivel barrial (< 2.2 km)
-    if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS && !transicionEnCurso && !animandoVuelo) {
+    if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS && !transicionEnCurso) {
       ejecutarTransicionA2D(latCentro, lngCentro);
     }
   }
@@ -222,33 +222,97 @@ const ModuloGlobo = (() => {
     }, 220);
   }
 
+  let animacionZoomActiva = null;
+
   /**
-   * Controles manuales de aproximación/alejamiento
+   * Controles manuales de aproximación/alejamiento con interpolación suave de distancia Three.js
    */
   function acercar() {
     if (!globo) return;
-    const pov = globo.pointOfView();
-    const altActual = pov.altitude !== undefined ? pov.altitude : altitudActual;
-    const nuevaAlt = Math.max(0.0001, altActual * 0.6);
-    animandoVuelo = true;
-    globo.pointOfView({ altitude: nuevaAlt }, 350);
-    setTimeout(() => {
-      animandoVuelo = false;
-      monitorearCamaraYTransicion();
-    }, 400);
+    const camara = globo.camera();
+    if (!camara) return;
+
+    const distActual = camara.position.length();
+    const alturaActual = Math.max(0.0001, distActual - 100);
+    // Reducir la altura sobre la superficie (acercar hacia la Tierra)
+    const nuevaAltura = Math.max(0.006, alturaActual * 0.55);
+    const distObjetivo = 100 + nuevaAltura;
+
+    ejecutarPasoZoom(distObjetivo, 180);
   }
 
   function alejar() {
     if (!globo) return;
-    const pov = globo.pointOfView();
-    const altActual = pov.altitude !== undefined ? pov.altitude : altitudActual;
-    const nuevaAlt = Math.min(2.5, altActual * 1.6);
-    animandoVuelo = true;
-    globo.pointOfView({ altitude: nuevaAlt }, 350);
-    setTimeout(() => {
-      animandoVuelo = false;
+    const camara = globo.camera();
+    if (!camara) return;
+
+    const distActual = camara.position.length();
+    const alturaActual = Math.max(0.0001, distActual - 100);
+    // Incrementar la altura sobre la superficie (alejar hacia escala planetaria)
+    const nuevaAltura = Math.min(250, alturaActual * 1.8 + 0.04);
+    const distObjetivo = 100 + nuevaAltura;
+
+    ejecutarPasoZoom(distObjetivo, 180);
+  }
+
+  /**
+   * Realiza una interpolación fluida de la distancia de la cámara al centro del globo (R=100)
+   * sincronizando OrbitControls y actualizando la telemetría en tiempo real
+   */
+  function ejecutarPasoZoom(distanciaObjetivo, duracionMs = 180) {
+    const camara = globo?.camera();
+    const controles = globo?.controls();
+    if (!camara) return;
+
+    if (animacionZoomActiva) {
+      cancelAnimationFrame(animacionZoomActiva);
+      animacionZoomActiva = null;
+    }
+
+    const distInicio = camara.position.length();
+    const tiempoInicio = performance.now();
+
+    if (controles) {
+      if (controles._sphericalDelta) {
+        controles._sphericalDelta.theta = 0;
+        controles._sphericalDelta.phi = 0;
+      }
+      if (typeof controles.target?.setScalar === 'function') {
+        controles.target.setScalar(0);
+      }
+      if (controles._scale !== undefined) {
+        controles._scale = 1;
+      }
+    }
+
+    function paso(ahora) {
+      const transcurrido = ahora - tiempoInicio;
+      const t = Math.min(1, transcurrido / duracionMs);
+      // Easing cúbico suave
+      const factorEasing = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      const distInterp = distInicio + (distanciaObjetivo - distInicio) * factorEasing;
+      camara.position.setLength(distInterp);
+
+      if (controles && typeof controles.update === 'function') {
+        controles.update();
+      }
+
       monitorearCamaraYTransicion();
-    }, 400);
+
+      if (t < 1) {
+        animacionZoomActiva = requestAnimationFrame(paso);
+      } else {
+        animacionZoomActiva = null;
+        camara.position.setLength(distanciaObjetivo);
+        if (controles && typeof controles.update === 'function') {
+          controles.update();
+        }
+        monitorearCamaraYTransicion();
+      }
+    }
+
+    animacionZoomActiva = requestAnimationFrame(paso);
   }
 
   /**

@@ -1333,6 +1333,50 @@ footer.pie-datos {
   border-radius: 2px;
 }
 
+/* Botonera táctica de zoom flotante sobre el visor 3D (Estética CRT Backrooms) */
+.globo-hud-zoom-controles {
+  position: absolute;
+  right: 14px;
+  top: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  z-index: 22;
+}
+
+.btn-hud-zoom {
+  width: 34px;
+  height: 34px;
+  background: rgba(17, 24, 18, 0.94);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.6);
+  border-radius: 3px;
+  font-family: var(--fuente-datos);
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  transition: all 0.15s ease;
+  user-select: none;
+  line-height: 1;
+}
+
+.btn-hud-zoom:hover {
+  background: #10B981;
+  color: #0B0E0A;
+  border-color: #10B981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.9);
+  transform: scale(1.05);
+}
+
+.btn-hud-zoom:active {
+  transform: scale(0.92);
+  background: #059669;
+}
+
 .alerta-transicion-hud {
   position: absolute;
   top: 50%;
