@@ -167,18 +167,15 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
 - **Aviso Legal y Descargo de Responsabilidad (Disclaimer)**: Incorporación preceptiva en el visor y en el informe descargable del aviso legal que estipula el carácter referencial/académico del informe, aclarando que bajo ninguna circunstancia reemplaza o sustituye al Certificado de Informaciones Previas (CIP) emitido privativamente por el Director de Obras Municipales conforme al Art. 116 de la LGUC.
 - Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** estructurado en 6 secciones oficiales en formato `.txt`.
 
-### 3.16 `globo.js` (Visualizador Esférico 3D WebGL / Three.js vía Globe.gl)
-- Cartografía táctica nocturna de alta resolución (`earth-night.jpg`) con atmósfera phosphor CRT esmeralda (`#10B981`) y estética de vigilancia liminal Backrooms (A24).
-- Telemetría reactiva en tiempo real (`#globo-hud-escala`): cálculo instantáneo de altitud orbital calculada desde el vector de cámara Three.js y actualizada en cada ciclo de animación (`requestAnimationFrame`), superando la altitud estática.
-- Conmutación y transición multiescala fluida 3D a 2D: al hacer zoom in y descender por debajo del umbral barrial (`altitudMetros < 2200`), el visor activa una alerta visual liminal en el HUD y conmuta suavemente la perspectiva al mapa 2D de alta resolución (`#mapa-atlas`), posicionando la cámara en las coordenadas exactas observadas.
-- Retorno reactivo 2D a 3D: detector de escala regional en Leaflet (`zoom <= 11`) que despliega una insignia flotante interactiva para regresar al globo tridimensional con un solo clic.
-- Proyección tridimensional de geometrías 2D sobre la esfera terrestre sin inventar alturas verticales artificiales ni extrusiones distorsionadas (`polygonAltitude: 0.005`).
-- Eliminación de mapas de relieve (*bump maps*) y halos atmosféricos oclusivos para evitar el ocultamiento y enterramiento de polígonos bajo el terreno.
-- Normalización cromática estricta en RGBA nativo para evitar fallos de renderizado en Three.js causados por cadenas hexadecimales con canal alfa de 8 dígitos.
-- Líneas 1px estándar nítidas en Three.js (`pathStroke: null`) y marcadores de puntos cilíndricos proporcionados a la escala barrial (`pointRadius: 0.0016`).
-- Ajuste de plano de corte cercano (`camera.near: 0.002`) y rango de zoom orbital (`minDistance: 100.005`) para permitir zoom orbital ultra cercano sin desaparecer geometrías por frustum culling.
-- Encuadre exclusivo centrado en **Barrio Brasil y entorno UAH** (`volarABarrioBrasil`), con botones de zoom granular (`#btn-globo-zoomin`, `#btn-globo-zoomout`) y soporte de vuelo hacia capas importadas (`volarACoordenadas`).
-- Precarga automática de cartografía base barrial (edificaciones, patrimonio, espacio público) al conmutar a la vista 3D si no existen capas activas en sesión.
+### 3.16 `globo.js` (Visualizador Táctico de Perspectiva 3D basado en Leaflet)
+- Motor cartográfico robusto construido sobre **Leaflet (`L.map`)**, eliminando la fragilidad de WebGL/Globe.gl y garantizando operatividad total del zoom (`map.zoomIn()`, `map.zoomOut()`), rueda del ratón y gestos táctiles.
+- Perspectiva 3D oblicua táctica mediante transformaciones espaciales CSS3 (`perspective(1200px)`, `rotateX(24deg)` sobre el panel cartográfico) con estética liminal de vigilancia Backrooms (película A24).
+- Cartografía base nocturna de alto contraste (CartoDB Dark Matter) enriquecida con HUD CRT (fósforo esmeralda `#10B981`, scanlines, telemetría y marcadores luminiscentes).
+- Telemetría dinámica en tiempo real (`#globo-hud-escala`): cálculo continuo de altitud barométrica/orbital a partir del nivel de zoom Web Mercator ($\text{altitudMetros} = 591.657.550 / 2^{\text{zoom}}$) y etiquetas multiescala (planetaria, regional, metropolitana, comunal, barrial).
+- Transición fluida automática 3D a 2D: al hacer zoom in y alcanzar escala barrial (Zoom $\ge$ 17 o altitud $\le 2.2\text{ km}$), el mapa aplana su inclinación (`rotateX(0deg)`), dispara una alerta visual en el HUD y conmuta de forma transparente al mapa 2D detallado (`#mapa-atlas`).
+- Retorno reactivo 2D a 3D: detector de escala regional en Leaflet (`zoom <= 11`) que despliega una insignia flotante interactiva para regresar a la perspectiva 3D con un solo clic.
+- Controles de zoom universales: botones en barra superior (`#btn-globo-zoomin`, `#btn-globo-zoomout`), botones tácticos directos en el HUD (`#btn-hud-zoomin`, `#btn-hud-zoomout`) y atajos de teclado (`+`, `-`).
+- Renderizado vectorial de alta fidelidad: todas las capas (VGI, 27 capas oficiales del Estado e importadas KMZ/KML/GeoJSON) se dibujan como capas vectoriales nativas Leaflet con popups temáticos.
 
 ---
 

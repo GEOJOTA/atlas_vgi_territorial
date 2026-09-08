@@ -1,38 +1,22 @@
 /*
   globo.js
   --------
-  Módulo de visualización tridimensional esférica (Globo Terráqueo 3D) para el Atlas VGI.
-  Construido sobre WebGL / Three.js mediante Globe.gl.
-
-  Características Principales:
-  1. Geometrías 2D planas sobre la superficie esférica (sin alturas artificiales inventadas):
-     - Polígonos de edificaciones, coberturas, zonificación PRC, áreas verdes y riesgos proyectados en 2D.
-     - Trazados de vías férreas, ciclovías y resguardos como líneas continuas con relieve visual.
-     - Puntos de equipamiento, monumentos y paraderos como marcadores sobre el terreno.
-  2. Sincronización Inmediata y Reactiva:
-     - Detección instantánea de capas activadas/desactivadas desde el catálogo 2D.
-     - Persistencia de estado entre vistas 2D y 3D.
-  3. Controles y Presets de Vuelo Orbital:
-     - 🪐 Vista Planetaria (Macro / Tierra Completa).
-     - 🇨🇱 Chile Central (Escala Regional).
-     - 🏙️ Gran Santiago (Escala Metropolitana).
-     - 🏘️ Barrio Brasil 3D (Escala Urbana de Detalle).
-     - Rotación orbital automática y halo atmosférico.
+  Módulo de visualización táctica tridimensional y perspectiva espacial para el Atlas VGI.
+  Implementado sobre arquitectura robusta Leaflet con motor de perspectiva 3D (CSS3 Transform),
+  cartografía táctica nocturna (Dark Matter), telemetría continua de altitud, HUD CRT Backrooms (A24)
+  y transición multiescala fluida 3D <-> 2D.
 */
 
 const ModuloGlobo = (() => {
-  let globo = null;
+  let mapa3D = null;
+  let grupoCapas3D = null;
   let contenedorId = 'globo-3d-canvas';
-  let autoRotacionActiva = false;
   let capasActivasSincronizadas = {};
   let capasPendientes = null;
-  let altitudActual = 0.035;
 
-  // Umbral de altitud para conmutar automáticamente de 3D a 2D (escala barrial)
-  const UMBRAL_TRANSICION_2D_METROS = 2200; // < 2.2 km conmuta a vista 2D detallada
+  // Umbral de altitud y zoom para conmutar automáticamente de 3D a 2D (escala barrial)
+  const UMBRAL_TRANSICION_2D_METROS = 2200; // < 2.2 km (Zoom >= 17) conmuta a vista 2D detallada
   let transicionEnCurso = false;
-  let animandoVuelo = false;
-  let idLoopMonitoreo = null;
 
   // Paleta temática integral (VGI + Oficiales IDE Chile + Normativa IPT MINVU)
   const COLORES_POR_DEFECTO = {
@@ -80,99 +64,34 @@ const ModuloGlobo = (() => {
   };
 
   /**
-   * Normaliza cualquier formato de color (#hex, rgb) a string rgba(...) nativo para Three.js / Globe.gl
+   * Calcula la altitud orbital/geodésica aproximada en metros según el nivel de zoom Leaflet
    */
-  function normalizarColorRgba(col, alpha = 0.85) {
-    if (!col) return `rgba(53, 88, 107, ${alpha})`;
-    if (typeof col !== 'string') return `rgba(53, 88, 107, ${alpha})`;
-    if (col.startsWith('rgba') || col.startsWith('rgb')) return col;
-    if (col.startsWith('#')) {
-      let c = col.replace('#', '');
-      if (c.length === 3) {
-        c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
-      }
-      if (c.length >= 6) {
-        const r = parseInt(c.substring(0, 2), 16);
-        const g = parseInt(c.substring(2, 4), 16);
-        const b = parseInt(c.substring(4, 6), 16);
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-      }
-    }
-    return col;
+  function calcularAltitudMetros(zoom) {
+    // Escala estándar Web Mercator: a zoom 0 ~ 591.657 km; a zoom 14 ~ 36 km; a zoom 17 ~ 4.5 km
+    const altitud = 591657550 / Math.pow(2, zoom);
+    return Math.round(altitud);
   }
 
   /**
-   * Monitoreo dinámico continuo de la cámara en Three.js:
-   * Calcula la altitud geodésica real en metros/km en función de la distancia al centro de la esfera (R=100)
-   * y desencadena la transición automática a visión 2D al alcanzar la escala barrial.
+   * Actualiza la telemetría dinámica del HUD (altitud, coordenadas y etiquetas de escala)
    */
-  function monitorearCamaraYTransicion() {
-    if (!globo) return;
-    const elemCont = document.getElementById(contenedorId);
-    if (!elemCont || elemCont.offsetParent === null) return;
+  function actualizarTelemetriaHUD() {
+    if (!mapa3D) return;
 
-    const camara = globo.camera();
-    if (!camara) return;
+    const zoom = mapa3D.getZoom();
+    const centro = mapa3D.getCenter();
+    const altitudMetros = calcularAltitudMetros(zoom);
 
-    // Distancia euclidiana de la cámara al centro del globo (R = 100)
-    const distCentro = camara.position.length();
-    // Altitud relativa sobre la superficie: (dist - 100) / 100
-    const altitudRelativa = Math.max(0.00002, (distCentro - 100) / 100);
-    // Radio real de la Tierra: 6.371.000 m
-    const altitudMetros = Math.round(altitudRelativa * 6371000);
-    altitudActual = altitudRelativa;
-
-    let latCentro = -33.4445;
-    let lngCentro = -70.6620;
-    try {
-      const pov = globo.pointOfView();
-      if (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) {
-        latCentro = pov.lat;
-        lngCentro = pov.lng;
-      }
-    } catch (_) {}
-
-    actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro);
-
-    // Conmutación automática a 2D cuando la cámara se acerca a nivel barrial (< 2.2 km)
-    if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS && !transicionEnCurso) {
-      ejecutarTransicionA2D(latCentro, lngCentro);
-    }
-  }
-
-  /**
-   * Bucle reactivo continuo que actualiza la telemetría en cada frame de animación
-   */
-  function iniciarBucleMonitoreoCamara() {
-    if (idLoopMonitoreo) cancelAnimationFrame(idLoopMonitoreo);
-    function tick() {
-      monitorearCamaraYTransicion();
-      idLoopMonitoreo = requestAnimationFrame(tick);
-    }
-    idLoopMonitoreo = requestAnimationFrame(tick);
-  }
-
-  function detenerBucleMonitoreoCamara() {
-    if (idLoopMonitoreo) {
-      cancelAnimationFrame(idLoopMonitoreo);
-      idLoopMonitoreo = null;
-    }
-  }
-
-  /**
-   * Despliega la telemetría dinámica en el HUD en tiempo real (se mueve fluidamente al hacer in/out)
-   */
-  function actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro) {
     const elemHud = document.getElementById('globo-hud-escala');
     if (elemHud) {
       let escalaEtiqueta = '🪐 ESCALA PLANETARIA';
-      if (altitudMetros < 2500) {
+      if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS || zoom >= 17) {
         escalaEtiqueta = '🔬 ESCALA BARRIAL (TRANSICIÓN 2D ACTIVA)';
-      } else if (altitudMetros < 25000) {
+      } else if (altitudMetros < 25000 || zoom >= 14) {
         escalaEtiqueta = '🏘️ COMUNAL / BARRIO BRASIL';
-      } else if (altitudMetros < 150000) {
+      } else if (altitudMetros < 150000 || zoom >= 11) {
         escalaEtiqueta = '🏙️ GRAN SANTIAGO METROPOLITANO';
-      } else if (altitudMetros < 1200000) {
+      } else if (altitudMetros < 1200000 || zoom >= 8) {
         escalaEtiqueta = '🇨🇱 REGIONAL CHILE CENTRAL';
       }
 
@@ -191,12 +110,17 @@ const ModuloGlobo = (() => {
     const elemCoords = document.querySelector('.globo-hud-coords');
     if (elemCoords) {
       const cantCapas = Object.keys(capasActivasSincronizadas).length;
-      elemCoords.innerHTML = `LAT <strong>${latCentro.toFixed(4)}°</strong> | LON <strong>${lngCentro.toFixed(4)}°</strong> | CAPAS: <strong>${cantCapas}</strong>`;
+      elemCoords.innerHTML = `LAT <strong>${centro.lat.toFixed(4)}°</strong> | LON <strong>${centro.lng.toFixed(4)}°</strong> | ZOOM: <strong>${zoom}</strong> | CAPAS: <strong>${cantCapas}</strong>`;
+    }
+
+    // Si desciende por debajo de 2.2 km (Zoom >= 17), conmutar fluidamente a visión 2D
+    if ((altitudMetros <= UMBRAL_TRANSICION_2D_METROS || zoom >= 17) && !transicionEnCurso) {
+      ejecutarTransicionA2D(centro.lat, centro.lng);
     }
   }
 
   /**
-   * Ejecuta la transición visual fluida desde el globo 3D hacia el mapa 2D detallado
+   * Ejecuta la conmutación fluida hacia el visor 2D
    */
   function ejecutarTransicionA2D(lat, lng) {
     if (transicionEnCurso) return;
@@ -205,6 +129,9 @@ const ModuloGlobo = (() => {
     // Alerta visual liminal Backrooms
     const contGlobo = document.getElementById('contenedor-globo-3d');
     if (contGlobo) {
+      contGlobo.classList.remove('perspectiva-inclinada');
+      contGlobo.classList.add('perspectiva-plana');
+
       const alerta = document.createElement('div');
       alerta.className = 'alerta-transicion-hud';
       alerta.innerHTML = '⚡ [DESCENSO A ESCALA BARRIAL] // CONMUTANDO A VISTA 2D DE ALTA RESOLUCIÓN';
@@ -218,109 +145,33 @@ const ModuloGlobo = (() => {
       }
       setTimeout(() => {
         transicionEnCurso = false;
-      }, 1500);
-    }, 220);
+        if (contGlobo) {
+          contGlobo.classList.remove('perspectiva-plana');
+          contGlobo.classList.add('perspectiva-inclinada');
+        }
+      }, 1200);
+    }, 250);
   }
 
-  let animacionZoomActiva = null;
-
   /**
-   * Controles manuales de aproximación/alejamiento con interpolación suave de distancia Three.js
+   * Controles directos y 100% confiables de aproximación y alejamiento
    */
   function acercar() {
-    if (!globo) return;
-    const camara = globo.camera();
-    if (!camara) return;
-
-    const distActual = camara.position.length();
-    const alturaActual = Math.max(0.0001, distActual - 100);
-    // Reducir la altura sobre la superficie (acercar hacia la Tierra)
-    const nuevaAltura = Math.max(0.006, alturaActual * 0.55);
-    const distObjetivo = 100 + nuevaAltura;
-
-    ejecutarPasoZoom(distObjetivo, 180);
+    if (!mapa3D) return;
+    mapa3D.zoomIn(1, { animate: true });
   }
 
   function alejar() {
-    if (!globo) return;
-    const camara = globo.camera();
-    if (!camara) return;
-
-    const distActual = camara.position.length();
-    const alturaActual = Math.max(0.0001, distActual - 100);
-    // Incrementar la altura sobre la superficie (alejar hacia escala planetaria)
-    const nuevaAltura = Math.min(250, alturaActual * 1.8 + 0.04);
-    const distObjetivo = 100 + nuevaAltura;
-
-    ejecutarPasoZoom(distObjetivo, 180);
+    if (!mapa3D) return;
+    mapa3D.zoomOut(1, { animate: true });
   }
 
   /**
-   * Realiza una interpolación fluida de la distancia de la cámara al centro del globo (R=100)
-   * sincronizando OrbitControls y actualizando la telemetría en tiempo real
-   */
-  function ejecutarPasoZoom(distanciaObjetivo, duracionMs = 180) {
-    const camara = globo?.camera();
-    const controles = globo?.controls();
-    if (!camara) return;
-
-    if (animacionZoomActiva) {
-      cancelAnimationFrame(animacionZoomActiva);
-      animacionZoomActiva = null;
-    }
-
-    const distInicio = camara.position.length();
-    const tiempoInicio = performance.now();
-
-    if (controles) {
-      if (controles._sphericalDelta) {
-        controles._sphericalDelta.theta = 0;
-        controles._sphericalDelta.phi = 0;
-      }
-      if (typeof controles.target?.setScalar === 'function') {
-        controles.target.setScalar(0);
-      }
-      if (controles._scale !== undefined) {
-        controles._scale = 1;
-      }
-    }
-
-    function paso(ahora) {
-      const transcurrido = ahora - tiempoInicio;
-      const t = Math.min(1, transcurrido / duracionMs);
-      // Easing cúbico suave
-      const factorEasing = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-      const distInterp = distInicio + (distanciaObjetivo - distInicio) * factorEasing;
-      camara.position.setLength(distInterp);
-
-      if (controles && typeof controles.update === 'function') {
-        controles.update();
-      }
-
-      monitorearCamaraYTransicion();
-
-      if (t < 1) {
-        animacionZoomActiva = requestAnimationFrame(paso);
-      } else {
-        animacionZoomActiva = null;
-        camara.position.setLength(distanciaObjetivo);
-        if (controles && typeof controles.update === 'function') {
-          controles.update();
-        }
-        monitorearCamaraYTransicion();
-      }
-    }
-
-    animacionZoomActiva = requestAnimationFrame(paso);
-  }
-
-  /**
-   * Inicializa el globo terráqueo 3D en el contenedor especificado con el modelo táctico Night Earth
+   * Inicializa el visor 3D táctico con motor Leaflet
    */
   function inicializar(idElemento = 'globo-3d-canvas') {
-    if (typeof Globe === 'undefined') {
-      console.warn('[ModuloGlobo]: La biblioteca Globe.gl no está disponible todavía en window.');
+    if (typeof L === 'undefined') {
+      console.error('[ModuloGlobo]: Leaflet (L) no está disponible.');
       return false;
     }
 
@@ -332,10 +183,16 @@ const ModuloGlobo = (() => {
 
     contenedorId = idElemento;
 
-    // Si ya existe instancia previa, redimensionar y reactivar loop
-    if (globo) {
-      redimensionar();
-      iniciarBucleMonitoreoCamara();
+    // Activar perspectiva inclinada en el contenedor
+    const contPadre = document.getElementById('contenedor-globo-3d');
+    if (contPadre) {
+      contPadre.classList.add('perspectiva-inclinada');
+    }
+
+    // Si ya existe instancia previa, redimensionar y sincronizar capas pendientes
+    if (mapa3D) {
+      mapa3D.invalidateSize();
+      actualizarTelemetriaHUD();
       if (capasPendientes) {
         const p = capasPendientes;
         capasPendientes = null;
@@ -346,297 +203,166 @@ const ModuloGlobo = (() => {
       return true;
     }
 
-    const ancho = elem.clientWidth || elem.parentElement?.clientWidth || 800;
-    const alto = elem.clientHeight || 540;
-
     try {
-      // Modelo táctico Night Earth con atmósfera esmeralda CRT y fondo de vigilancia
-      globo = Globe()(elem)
-        .width(ancho)
-        .height(alto)
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-        .backgroundColor('rgba(11, 14, 10, 0.96)')
-        .showAtmosphere(true)
-        .atmosphereColor('#10B981')
-        .atmosphereAltitude(0.09)
-        // Capa de Polígonos 2D sobre la esfera (superficie flotante sin Z-fighting)
-        .polygonGeoJsonGeometry(d => d.geometry)
-        .polygonCapColor(d => {
-          const col = d.properties._colorGlobo || d.properties.color || '#35586B';
-          return normalizarColorRgba(col, 0.85);
-        })
-        .polygonSideColor(d => {
-          const col = d.properties._colorGlobo || d.properties.color || '#35586B';
-          return normalizarColorRgba(col, 0.45);
-        })
-        .polygonStrokeColor(d => d.properties._colorGlobo || '#FFFFFF')
-        .polygonAltitude(0.005)
-        .polygonLabel(d => formatearTooltip(d))
-        .onPolygonClick(polygon => {
-          mostrarDetalleEntidad(polygon);
-        })
-        // Capa de Líneas/Caminos 2D (línea Three.js nítida sin deformación)
-        .pathPoints(d => d.coords)
-        .pathPointLat(p => p[1])
-        .pathPointLng(p => p[0])
-        .pathColor(d => d.color || '#2C4238')
-        .pathStroke(null)
-        .pathAltitude(0.006)
-        .pathLabel(d => formatearTooltip(d))
-        .onPathClick(linea => {
-          mostrarDetalleEntidad(linea);
-        })
-        // Capa de Puntos 2D (marcadores cilindro proporcionales a escala barrial)
-        .pointLat(d => d.lat)
-        .pointLng(d => d.lng)
-        .pointColor(d => normalizarColorRgba(d.color || '#A97722', 0.95))
-        .pointAltitude(0.008)
-        .pointRadius(0.0016)
-        .pointLabel(d => formatearTooltip(d))
-        .onPointClick(punto => {
-          mostrarDetalleEntidad(punto);
-        });
+      // Crear mapa Leaflet táctico de alto rendimiento
+      mapa3D = L.map(idElemento, {
+        center: [-33.4445, -70.6620],
+        zoom: 13,
+        zoomControl: false, // Usamos los botones dedicados con estética Backrooms
+        attributionControl: false,
+        maxZoom: 19,
+        minZoom: 3
+      });
 
-      // Configuración de controles orbitales Three.js y cámara
-      const controles = globo.controls();
-      if (controles) {
-        controles.autoRotate = false;
-        controles.enableDamping = true;
-        controles.dampingFactor = 0.08;
-        // Permite que la cámara descienda suavemente hasta el umbral barrial (< 2.2 km)
-        controles.minDistance = 100.005;
-        controles.maxDistance = 350.0;
-      }
+      // Capa base táctica nocturna (CartoDB Dark Matter)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd',
+        maxZoom: 20
+      }).addTo(mapa3D);
 
-      const camara = globo.camera();
-      if (camara) {
-        camara.near = 0.002;
-        camara.updateProjectionMatrix();
-      }
+      grupoCapas3D = L.featureGroup().addTo(mapa3D);
 
-      // Listeners de eventos de interacción directa sobre el canvas para telemetría instantánea
-      elem.addEventListener('wheel', () => {
-        requestAnimationFrame(monitorearCamaraYTransicion);
-      }, { passive: true });
-      elem.addEventListener('pointermove', () => {
-        monitorearCamaraYTransicion();
-      }, { passive: true });
-      elem.addEventListener('touchmove', () => {
-        monitorearCamaraYTransicion();
-      }, { passive: true });
+      // Listeners reactivos para actualizar el HUD en tiempo real al hacer zoom o pan
+      mapa3D.on('zoom', actualizarTelemetriaHUD);
+      mapa3D.on('zoomend', actualizarTelemetriaHUD);
+      mapa3D.on('move', actualizarTelemetriaHUD);
+      mapa3D.on('moveend', actualizarTelemetriaHUD);
 
-      // Iniciar el monitoreo reactivo de altitud
-      iniciarBucleMonitoreoCamara();
+      // Telemetría inicial
+      actualizarTelemetriaHUD();
 
-      // Enfoque orbital inicial a Barrio Brasil (altitud macro ~220 km)
-      volarABarrioBrasil(1000);
-
-      // Si había capas esperando, sincronizarlas de inmediato
-      const aCargar = capasPendientes || capasActivasSincronizadas;
-      if (aCargar && Object.keys(aCargar).length > 0) {
-        sincronizarCapas(aCargar);
+      // Sincronizar capas si ya estaban preparadas
+      if (capasPendientes) {
+        sincronizarCapas(capasPendientes);
         capasPendientes = null;
       }
 
-      window.addEventListener('resize', () => {
-        redimensionar();
-      });
-
-      console.log('[ModuloGlobo]: Globo 3D montado con éxito con telemetría dinámica de altitud.');
+      console.log('[ModuloGlobo]: Visor 3D táctico inicializado con motor Leaflet y perspectiva oblicua.');
       return true;
     } catch (err) {
-      console.error('[ModuloGlobo]: Error al montar Globe.gl:', err);
+      console.error('[ModuloGlobo]: Error al inicializar mapa 3D:', err);
       return false;
     }
   }
 
   /**
-   * Ajusta el canvas al tamaño del contenedor
+   * Ajusta el tamaño del mapa al contenedor
    */
   function redimensionar() {
-    if (!globo) return;
-    const elem = document.getElementById(contenedorId);
-    if (!elem) return;
-    const ancho = elem.clientWidth || elem.parentElement?.clientWidth || window.innerWidth || 800;
-    const alto = elem.clientHeight || 540;
-    if (ancho > 0 && alto > 0) {
-      globo.width(ancho).height(alto);
-    }
+    if (!mapa3D) return;
+    mapa3D.invalidateSize();
+    actualizarTelemetriaHUD();
   }
 
   /**
-   * Sincroniza todas las capas activas (VGI y Oficiales IDE) en el globo 3D
+   * Sincroniza las capas espaciales (VGI, Oficiales IDE, Importadas) en el visor 3D
    */
   function sincronizarCapas(coleccionCapas) {
     capasActivasSincronizadas = { ...(coleccionCapas || {}) };
 
-    if (!globo) {
+    if (!mapa3D || !grupoCapas3D) {
       capasPendientes = { ...(coleccionCapas || {}) };
       return;
     }
 
-    const poligonos = [];
-    const lineas = [];
-    const puntos = [];
+    grupoCapas3D.clearLayers();
+    let totalEntidades = 0;
 
     Object.keys(capasActivasSincronizadas).forEach(capaId => {
       const gj = capasActivasSincronizadas[capaId];
-      if (!gj || !gj.features) return;
+      if (!gj || !gj.features || gj.features.length === 0) return;
 
-      const color = COLORES_POR_DEFECTO[capaId] || COLORES_POR_DEFECTO.defecto;
+      const colorBase = COLORES_POR_DEFECTO[capaId] || COLORES_POR_DEFECTO.defecto;
+      totalEntidades += gj.features.length;
 
-      gj.features.forEach(feat => {
-        if (!feat || !feat.geometry) return;
-        const geom = feat.geometry;
-        const geomType = geom.type;
-        const props = { ...(feat.properties || {}) };
-
-        props._capaId = capaId;
-        props._colorGlobo = props._color || color;
-
-        if (geomType === 'Polygon' || geomType === 'MultiPolygon') {
-          poligonos.push({
-            type: 'Feature',
-            geometry: geom,
-            properties: props
-          });
-        } else if (geomType === 'LineString') {
-          lineas.push({
-            coords: geom.coordinates,
-            color: props._colorGlobo,
-            properties: props
-          });
-        } else if (geomType === 'MultiLineString') {
-          geom.coordinates.forEach(coordSet => {
-            lineas.push({
-              coords: coordSet,
-              color: props._colorGlobo,
-              properties: props
+      try {
+        const capaL = L.geoJSON(gj, {
+          style: feature => {
+            const props = feature.properties || {};
+            const col = props._color || props.color || colorBase;
+            return {
+              color: col,
+              weight: 2.2,
+              opacity: 0.95,
+              fillColor: col,
+              fillOpacity: 0.35
+            };
+          },
+          pointToLayer: (feature, latlng) => {
+            const props = feature.properties || {};
+            const col = props._color || props.color || colorBase;
+            return L.circleMarker(latlng, {
+              radius: 6,
+              fillColor: col,
+              color: '#10B981',
+              weight: 1.5,
+              opacity: 1,
+              fillOpacity: 0.85
             });
-          });
-        } else if (geomType === 'Point') {
-          puntos.push({
-            lat: geom.coordinates[1],
-            lng: geom.coordinates[0],
-            color: props._colorGlobo,
-            properties: props
-          });
-        } else if (geomType === 'MultiPoint') {
-          geom.coordinates.forEach(pt => {
-            puntos.push({
-              lat: pt[1],
-              lng: pt[0],
-              color: props._colorGlobo,
-              properties: props
-            });
-          });
-        }
-      });
+          },
+          onEachFeature: (feature, layer) => {
+            const props = feature.properties || {};
+            const nombre = props._nombre || props.nombre || props.name || props.NOM || props.NOM_COMUNA || 'Elemento Territorial 3D';
+            const subtipo = props._subtipo || props.subtipo || props.amenity || props.shop || props.highway || props.building || 'Dato Espacial';
+            const fuente = props._fuente || props.fuente || 'IDE Chile / OpenStreetMap';
+
+            layer.bindPopup(`
+              <div style="font-family:'IBM Plex Mono',monospace; background:#0B0E0A; color:#EDE6D6; padding:6px; font-size:0.75rem;">
+                <strong style="color:#10B981;">[VISTA TÁCTICA 3D]</strong><br>
+                <span style="font-weight:700; font-size:0.85rem;">${nombre}</span><br>
+                <span style="color:#94A3B8;">${subtipo}</span><br>
+                <small style="color:#64748B;">Fuente: ${fuente}</small>
+              </div>
+            `);
+          }
+        });
+
+        grupoCapas3D.addLayer(capaL);
+      } catch (e) {
+        console.warn(`[ModuloGlobo]: Error al renderizar capa ${capaId}:`, e);
+      }
     });
 
-    // Actualizar datos en el globo
-    globo.polygonsData(poligonos);
-    globo.pathsData(lineas);
-    globo.pointsData(puntos);
-
-    // Actualizar telemetría de capas en el HUD
     const elemCoords = document.querySelector('.globo-hud-coords');
-    if (elemCoords) {
+    if (elemCoords && mapa3D) {
+      const centro = mapa3D.getCenter();
+      const zoom = mapa3D.getZoom();
       const cantCapas = Object.keys(capasActivasSincronizadas).length;
-      const cantEntidades = poligonos.length + lineas.length + puntos.length;
-      elemCoords.innerHTML = `CAPAS: <strong>${cantCapas}</strong> | ENTIDADES 3D: <strong>${cantEntidades}</strong> | WGS84`;
-    }
-
-    console.log(`[ModuloGlobo]: Sincronizadas ${poligonos.length} polígonos, ${lineas.length} líneas y ${puntos.length} puntos en 3D.`);
-  }
-
-  /**
-   * Genera el HTML del tooltip al posar el cursor sobre un objeto 3D
-   */
-  function formatearTooltip(objeto) {
-    const props = objeto.properties || {};
-    const nombre = props._nombre || props.nombre || props.name || props.NOM || props.NOM_COMUNA || props.especie || 'Elemento Territorial';
-    const subtipo = props._subtipo || props.subtipo || props.amenity || props.shop || props.highway || props.building || 'Dato Geoespacial';
-    const fuente = props._fuente || props.fuente || 'OpenStreetMap / IDE Chile';
-    const color = props._colorGlobo || props._color || '#35586B';
-    const esOficial = !!props._idOficial || !!props.OBJECTID || !!props.ZONA || !!props.CUT;
-
-    return `
-      <div style="font-family:'Spectral', Georgia, serif; background:#181D16; color:#EDE6D6; padding:8px 12px; border:1px solid ${color}; border-radius:3px; max-width:280px; font-size:0.8rem; box-shadow:0 4px 14px rgba(0,0,0,0.6);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-          <span style="font-size:0.7rem; font-family:'IBM Plex Mono',monospace; color:${color}; font-weight:bold;">
-            ${esOficial ? '🏛️ OFICIAL ESTADO DE CHILE' : '📍 VGI ABIERTO'}
-          </span>
-          <span style="font-size:0.65rem; background:rgba(255,255,255,0.1); padding:1px 4px; border-radius:2px;">
-            ${props._capaId || 'Capa'}
-          </span>
-        </div>
-        <div style="font-weight:bold; font-size:0.9rem; margin-bottom:4px; color:#FFFFFF; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:3px;">
-          ${nombre}
-        </div>
-        <div style="font-size:0.75rem; color:#A4AE98; margin-bottom:3px;">
-          <strong>Clasificación:</strong> ${subtipo}
-        </div>
-        ${props.ZONA ? `<div style="font-size:0.72rem; color:#F59E0B;"><strong>Zona Normativa:</strong> ${props.ZONA}</div>` : ''}
-        ${props.UPERM ? `<div style="font-size:0.70rem; color:#A4AE98;"><strong>Usos Permitidos:</strong> ${props.UPERM.slice(0, 80)}…</div>` : ''}
-        ${props.superficie_m2 ? `<div style="font-size:0.72rem; color:#A4AE98;"><strong>Superficie:</strong> ${Number(props.superficie_m2).toLocaleString('es-CL')} m² (EPSG:32719)</div>` : ''}
-        ${props['Población Total'] ? `<div style="font-size:0.72rem; color:#A4AE98;"><strong>Población:</strong> ${props['Población Total']}</div>` : ''}
-        <div style="font-size:0.68rem; color:#7D8872; margin-top:4px;">
-          Fuente: ${fuente}
-        </div>
-      </div>
-    `;
-  }
-
-  /**
-   * Despliega la información modal/panel de una entidad 3D al hacer clic
-   */
-  function mostrarDetalleEntidad(objeto) {
-    const props = objeto.properties || {};
-    const nombre = props._nombre || props.nombre || props.name || props.NOM || props.especie || 'Elemento Territorial';
-    const institucion = props._institucion || props.fuente || 'OpenStreetMap / Colaborativo';
-    const cita = props._citaAPA || '';
-
-    const infoTexto = document.getElementById('estado-carga-capas');
-    if (infoTexto) {
-      infoTexto.innerHTML = `
-        <span style="color:var(--musgo); font-weight:600;">[Inspección Territorial 3D]:</span> 
-        <strong>${nombre}</strong> (${institucion}). 
-        ${cita ? `<br><small style="color:var(--tinta-suave);">Cita oficial: ${cita}</small>` : ''}
-      `;
+      elemCoords.innerHTML = `LAT <strong>${centro.lat.toFixed(4)}°</strong> | LON <strong>${centro.lng.toFixed(4)}°</strong> | ZOOM: <strong>${zoom}</strong> | ENTIDADES 3D: <strong>${totalEntidades}</strong>`;
     }
   }
 
   /**
-   * Enfoque orbital exclusivo a Barrio Brasil / Universidad Alberto Hurtado
+   * Enfoque centrado en Barrio Brasil / Universidad Alberto Hurtado
    */
-  function volarABarrioBrasil(duracionMs = 1200) {
-    if (!globo) return;
-    globo.pointOfView({
-      lat: -33.4445,
-      lng: -70.6620,
-      altitude: 0.035
-    }, duracionMs);
+  function volarABarrioBrasil(duracionMs = 1000) {
+    if (!mapa3D) return;
+    mapa3D.flyTo([-33.4445, -70.6620], 14, { duration: duracionMs / 1000 });
   }
 
   /**
-   * Vuela la cámara hacia coordenadas arbitrarias (útil para capas importadas o búsquedas)
+   * Vuela la cámara hacia coordenadas arbitrarias
    */
-  function volarACoordenadas(lat, lng, altitud = 0.035, duracionMs = 1200) {
-    if (!globo) return;
-    globo.pointOfView({
-      lat: Number(lat),
-      lng: Number(lng),
-      altitude: Number(altitud)
-    }, duracionMs);
+  function volarACoordenadas(lat, lng, zoom = 14, duracionMs = 1000) {
+    if (!mapa3D) return;
+    const z = typeof zoom === 'number' && zoom >= 3 && zoom <= 18 ? zoom : 14;
+    mapa3D.flyTo([Number(lat), Number(lng)], z, { duration: duracionMs / 1000 });
   }
 
   function estaInicializado() {
-    return globo !== null;
+    return mapa3D !== null;
   }
 
   function obtenerInstancia() {
-    return globo;
+    return mapa3D;
+  }
+
+  function iniciarBucleMonitoreoCamara() {
+    actualizarTelemetriaHUD();
+  }
+
+  function detenerBucleMonitoreoCamara() {
+    // En arquitectura Leaflet reactiva por eventos, no se requiere bucle polling invasivo
   }
 
   return {
@@ -651,7 +377,8 @@ const ModuloGlobo = (() => {
     iniciarBucleMonitoreoCamara,
     detenerBucleMonitoreoCamara,
     estaInicializado,
-    obtenerInstancia
+    obtenerInstancia,
+    obtenerMapaLeaflet: () => mapa3D
   };
 })();
 

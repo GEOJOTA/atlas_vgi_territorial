@@ -2034,7 +2034,7 @@ function configurarSelectorPerspectiva2Dy3D() {
       btn3D.click();
       if (lat !== undefined && lng !== undefined && window.ModuloGlobo) {
         setTimeout(() => {
-          ModuloGlobo.volarACoordenadas(lat, lng, 0.035, 1200);
+          ModuloGlobo.volarACoordenadas(lat, lng, 14, 1200);
         }, 150);
       }
     }

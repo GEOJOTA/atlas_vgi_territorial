@@ -1258,6 +1258,23 @@ footer.pie-datos {
    ESTÉTICA BACKROOMS A24 — INTERFAZ LIMINAL Y HUD ANALÓGICO
    ========================================================================== */
 
+#contenedor-globo-3d {
+  perspective: 1200px;
+}
+
+#contenedor-globo-3d.perspectiva-inclinada #globo-3d-canvas .leaflet-map-pane {
+  transform: rotateX(24deg) scale(1.05);
+  transform-origin: 50% 60%;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: contrast(1.15) brightness(0.92);
+}
+
+#contenedor-globo-3d.perspectiva-plana #globo-3d-canvas .leaflet-map-pane {
+  transform: rotateX(0deg) scale(1);
+  transform-origin: 50% 50%;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .globo-hud-scanlines {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
