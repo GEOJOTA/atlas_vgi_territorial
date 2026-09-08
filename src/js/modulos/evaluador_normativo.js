@@ -50,14 +50,9 @@ const ModuloEvaluadorNormativo = (() => {
   ];
 
   /**
-   * Aviso legal estándar y descargo de responsabilidad (Disclaimer)
+   * Aviso legal estándar y descargo de responsabilidad sintetizado
    */
-  const TEXTO_DISCLAIMER_LEGAL = `AVISO LEGAL Y DESCARGO DE RESPONSABILIDAD:
-La información provista por este Certificado de Informaciones Normativas VGI (CIN-VGI) y por la plataforma Atlas VGI UAH es de carácter estrictamente referencial, pedagógico, de investigación académica y de diagnóstico preliminar para la gestión comunitaria.
-
-BAJO NINGUNA CIRCUNSTANCIA este reporte constituye, sustituye o tiene la validez jurídica de un Certificado de Informaciones Previas (CIP), instrumento oficial que de acuerdo al Artículo 116 del D.F.L. N° 458 de 1975 (Ley General de Urbanismo y Construcciones - LGUC) debe ser otorgado y suscrito de manera privativa por el Director de Obras Municipales (DOM) de la comuna respectiva.
-
-Para la toma de decisiones legales, compraventa de predios, tramitación de permisos de edificación, subdivisiones, loteos, solicitudes de patentes comerciales o trámites sectoriales ante organismos públicos, el usuario DEBE consultar con detalle y atenerse al texto íntegro, oficial y vigente de la Ordenanza Local del Plan Regulador Comunal de Santiago y sus planos aprobatorios oficiales, y solicitar formalmente el Certificado de Informaciones Previas (CIP) ante la Dirección de Obras Municipales (DOM Santiago, Amunátegui 980, piso 2).`;
+  const TEXTO_DISCLAIMER_LEGAL = `La información provista por este Certificado de Informaciones Normativas VGI (CIN-VGI) es de carácter estrictamente referencial, BAJO NINGUNA CIRCUNSTANCIA este reporte constituye, sustituye o tiene la validez jurídica de un Certificado de Informaciones Previas (CIP), instrumento oficial que de acuerdo al Artículo 116 del D.F.L. N° 458 de 1975 (Ley General de Urbanismo y Construcciones - LGUC) debe ser otorgado y suscrito de manera privativa por el Director de Obras Municipales (DOM) de la comuna respectiva.`;
 
   /**
    * Diccionario Normativo Detallado de Zonas del PRC de Santiago (Barrio Brasil y entorno)
@@ -636,12 +631,11 @@ Ley General de Urbanismo y Construcciones (DFL 458/1975) & OGUC (D.S. 47/1992)
    * Infraestructura de Datos Geoespaciales de Chile (Geoportal / IDE Chile):
      https://www.geoportal.cl
 
-6. AVISO LEGAL Y DESCARGO DE RESPONSABILIDAD (DISCLAIMER):
+6. AVISO LEGAL:
 ${TEXTO_DISCLAIMER_LEGAL}
 
 ================================================================================
 Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territorial.
-Coordinación de Investigación VGI & Normativa Urbana.
 ================================================================================`;
   }
 
@@ -743,10 +737,9 @@ Coordinación de Investigación VGI & Normativa Urbana.
             </ul>
           </div>
 
-          <!-- Disclaimer Normativo Legal -->
+          <!-- Disclaimer Normativo Legal Sintetizado -->
           <div class="disclaimer-normativo">
-            <strong>⚠️ AVISO LEGAL Y DESCARGO DE RESPONSABILIDAD:</strong><br>
-            La información provista por este Certificado de Informaciones Normativas VGI (CIN-VGI) es estrictamente referencial, pedagógica y de investigación comunitaria. <strong>NO reemplaza ni sustituye al Certificado de Informaciones Previas (CIP)</strong> emitido por el Director de Obras Municipales conforme al Artículo 116 de la Ley General de Urbanismo y Construcciones (LGUC). Para trámites de edificación o patentes, debe consultar con detalle la Ordenanza Local vigente del Plan Regulador Comunal de Santiago y solicitar el CIP oficial ante la DOM Santiago.
+            <strong>⚠️ AVISO LEGAL:</strong> ${TEXTO_DISCLAIMER_LEGAL}
           </div>
         </div>
 
