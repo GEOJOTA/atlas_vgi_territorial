@@ -157,12 +157,15 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
 
 ### 3.15 `evaluador_normativo.js` (Motor de Consulta y Evaluación Espacial Normativa Territorial)
 - Auditoría espacial puntual y cruzada mediante algoritmos point-in-polygon en tiempo real:
-  - **Zonificación PRC Santiago**: Usos de suelo permitidos (`UPERM`) y prohibidos (`UPROH`), coeficientes y alturas.
+  - **Zonificación PRC Santiago y Diccionario Normativo**: Resuelve de forma específica las zonas normativas comunales (`Zona D`, `Zona E`, `Zona B`, `Zona A`, `Zona F`, `Zona G`), asociando sus artículos respectivos de la Ordenanza Local y decretos del Diario Oficial.
+  - **Desglose Exhaustivo de Prohibiciones (UPROH)**: Supera la fórmula genérica de la base de datos MINVU ("Todo uso no mencionado..."), detallando taxativamente las actividades prohibidas (industrias contaminantes, bodegas de acopio logístico masivo, talleres pesados con emanaciones, servitecas en pasajes interiores y ocio con impacto acústico vecinal D.S. 38/2011 MMA), fundamentado en el **Principio de Exclusión Negativa del Art. 2.1.24 de la OGUC**.
   - **Límite Urbano Oficial**: Verificación de área urbana amparada en Art. 52 LGUC.
   - **Áreas de Riesgo Normativas**: Alertas de inundación y remoción en masa (Art. 2.1.17 OGUC).
   - **Áreas Verdes y Resguardos**: Afectaciones de utilidad pública (Art. 59 LGUC) y franjas de amortiguación.
-  - **Protección Patrimonial**: Zonas de Conservación Histórica (ZCH) e Inmuebles de Conservación Histórica (ICH).
-- Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** en formato `.txt`.
+  - **Protección Patrimonial**: Zonas de Conservación Histórica (ZCH) e Inmuebles de Conservación Histórica (ICH) amparados por la Ley N° 17.288 (CMN) y Art. 60 LGUC.
+- **Catálogo de Ordenanzas Oficiales y Guía de Acceso**: Provee hipervínculos directos al expediente oficial del MINVU (Portal IPT Código 13101: ordenanza en PDF, memoria y planos 1:5.000), portal de la DOM Santiago y LeyChile de la Biblioteca del Congreso Nacional.
+- **Aviso Legal y Descargo de Responsabilidad (Disclaimer)**: Incorporación preceptiva en el visor y en el informe descargable del aviso legal que estipula el carácter referencial/académico del informe, aclarando que bajo ninguna circunstancia reemplaza o sustituye al Certificado de Informaciones Previas (CIP) emitido privativamente por el Director de Obras Municipales conforme al Art. 116 de la LGUC.
+- Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** estructurado en 6 secciones oficiales en formato `.txt`.
 
 ### 3.16 `globo.js` (Visualizador Esférico 3D WebGL / Three.js vía Globe.gl)
 - Proyección tridimensional de geometrías 2D sobre la esfera terrestre sin inventar alturas verticales artificiales ni extrusiones distorsionadas (`polygonAltitude: 0.005`).

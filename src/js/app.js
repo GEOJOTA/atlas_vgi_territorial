@@ -2683,9 +2683,8 @@ function configurarImportadorCapas() {
             const txt = ModuloEvaluadorNormativo.generarCertificadoTexto(inf);
             const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Certificado_Normativo_VGI_${inf.zonaPRC.codigo || 'SANTIAGO'}.txt`;
+            const codZona = (inf.prc && (inf.prc.codigo || inf.prc.zona)) ? (inf.prc.codigo || inf.prc.zona).replace(/\s+/g, '_') : 'SANTIAGO';
+            a.download = `Certificado_Normativo_VGI_${codZona}.txt`;
             a.click();
             URL.revokeObjectURL(url);
           });

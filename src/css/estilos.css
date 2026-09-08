@@ -1474,6 +1474,40 @@ footer.pie-datos {
   padding-top: 10px;
 }
 
+.campo-normativo.ancho-completo {
+  grid-column: 1 / -1;
+}
+
+.bloque-ordenanzas {
+  grid-column: 1 / -1;
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 10px 12px;
+  border-radius: 2px;
+}
+
+.bloque-ordenanzas a {
+  color: #60A5FA;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.disclaimer-normativo {
+  grid-column: 1 / -1;
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  border-left: 3px solid #D97706;
+  padding: 10px 12px;
+  border-radius: 2px;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: #D1D5DB;
+}
+
+.disclaimer-normativo strong {
+  color: #FBBF24;
+}
+
 /* Agrupadores visuales para el Catálogo Oficial */
 .cabecera-grupo-oficial {
   grid-column: 1 / -1;
