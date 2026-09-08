@@ -1992,7 +1992,10 @@ function configurarSelectorPerspectiva2Dy3D() {
 
     if (window.ModuloGlobo) {
       ModuloGlobo.inicializar('globo-3d-canvas');
-      sincronizarTodoEnGlobo3D();
+      setTimeout(() => {
+        ModuloGlobo.redimensionar();
+        sincronizarTodoEnGlobo3D();
+      }, 50);
     }
   });
 
@@ -2000,15 +2003,23 @@ function configurarSelectorPerspectiva2Dy3D() {
     if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(2000);
   });
 
+  document.getElementById('btn-globo-santiago')?.addEventListener('click', () => {
+    if (window.ModuloGlobo) ModuloGlobo.volarASantiago(2000);
+  });
+
+  document.getElementById('btn-globo-chile')?.addEventListener('click', () => {
+    if (window.ModuloGlobo) ModuloGlobo.volarAChile(2000);
+  });
+
+  document.getElementById('btn-globo-planeta')?.addEventListener('click', () => {
+    if (window.ModuloGlobo) ModuloGlobo.vistaPlanetaCompleto(2000);
+  });
+
   document.getElementById('btn-globo-rotacion')?.addEventListener('click', (e) => {
     if (window.ModuloGlobo) {
       const activo = ModuloGlobo.alternarRotacion();
       e.currentTarget.classList.toggle('activo', activo);
     }
-  });
-
-  document.getElementById('btn-globo-planeta')?.addEventListener('click', () => {
-    if (window.ModuloGlobo) ModuloGlobo.vistaPlanetaCompleto(2000);
   });
 
   document.getElementById('btn-globo-atmosfera')?.addEventListener('click', (e) => {

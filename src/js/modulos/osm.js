@@ -96,16 +96,16 @@ const ModuloOSM = (() => {
     edificaciones: {
       nombre: 'Edificaciones y Huella Urbana (Polígonos)',
       filtro: `
-        nwr["building"]({{bbox}});
+        way["building"]({{bbox}});
+        relation["building"]({{bbox}});
       `
     },
     cobertura_suelo: {
-      nombre: 'Coberturas y Usos de Suelo (Polígonos y Líneas)',
+      nombre: 'Coberturas y Usos de Suelo (Polígonos)',
       filtro: `
         nwr["landuse"]({{bbox}});
-        nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});
-        nwr["leisure"~"park|garden|pitch"]({{bbox}});
-        way["surface"~"asphalt|paving_stones|cobblestone"]({{bbox}});
+        nwr["natural"~"wood|scrub|water|grassland|tree_row"]({{bbox}});
+        nwr["leisure"~"park|garden|pitch|nature_reserve"]({{bbox}});
       `
     }
   };
@@ -142,7 +142,7 @@ const ModuloOSM = (() => {
       (
         ${cuerpoConsulta}
       );
-      out geom tags qt 400;
+      out geom tags qt 500;
     `;
   }
 
@@ -154,10 +154,11 @@ const ModuloOSM = (() => {
     const endpoints = (cfg.endpoints?.overpass_espejos && cfg.endpoints.overpass_espejos.length > 0)
       ? cfg.endpoints.overpass_espejos
       : [
-          'https://overpass.openstreetmap.fr/api/interpreter',
+          'https://overpass-api.de/api/interpreter',
           'https://lz4.overpass-api.de/api/interpreter',
           'https://z.overpass-api.de/api/interpreter',
-          'https://overpass-api.de/api/interpreter'
+          'https://overpass.kumi.systems/api/interpreter',
+          'https://overpass.openstreetmap.fr/api/interpreter'
         ];
 
     const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
@@ -167,7 +168,7 @@ const ModuloOSM = (() => {
       try {
         console.log(`[Overpass] Intentando consulta en: ${endpoint}`);
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s máximo por servidor
+        const timeoutId = setTimeout(() => controller.abort(), 25000); // 25s máximo por servidor
 
         const respuesta = await fetch(endpoint, {
           method: 'POST',

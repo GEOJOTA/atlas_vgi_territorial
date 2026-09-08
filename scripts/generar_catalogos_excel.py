@@ -440,6 +440,19 @@ def crear_catalogo_fuentes():
             "MINVU. (2024). Plataforma GeoIDE MINVU: Servicios Geográficos Interoperables. https://geoide.minvu.cl"
         ],
         [
+            "MINVU Instrumentos de Planificación Territorial (IPT FeatureServer)",
+            "Ministerio de Vivienda y Urbanismo (MINVU / DDU / SEREMI RM)",
+            "REST MapServer / FeatureServer",
+            "https://geoide.minvu.cl/server/rest/services/IPT/",
+            "GET (REST Query)",
+            "GeoJSON (FeatureCollection)",
+            "query?where=1=1&outFields=*&f=geojson",
+            "Acceso abierto institucional amparado por Ley N° 20.285 y regulado por la Ley General de Urbanismo y Construcciones (LGUC / OGUC)",
+            "src/data/ide_minvu_ipt_*.geojson & src/js/modulos/ide_chile.js",
+            "Zonificación PRC Santiago (192 zonas), PRMS Usos Metropolitanos (65 polígonos), Áreas Verdes IPT (308 polígonos), Áreas de Riesgo (13 zonas), Fajas de Resguardo (46 líneas) y Límite Urbano Oficial",
+            "MINVU. (2024). Catastro Nacional de Instrumentos de Planificación Territorial y Normativa Urbanística Oficial. División de Desarrollo Urbano, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/"
+        ],
+        [
             "Geoportal de Chile (Descargas Masivas Shapefile / GeoJSON)",
             "Infraestructura de Datos Geoespaciales de Chile (IDE Chile)",
             "Catálogo CKAN / CSW / WMS",
@@ -449,7 +462,7 @@ def crear_catalogo_fuentes():
             "download/{uuid}",
             "Licencia de Datos Abiertos del Estado de Chile",
             "src/data/ide_*.geojson & src/js/modulos/ide_chile.js",
-            "Integración y descarga masiva de 14 conjuntos oficiales (Educación Superior, Escolar, Parvularia, Salud DEIS, Bomberos, Carabineros, Metro, EFE, CMN)",
+            "Integración y descarga masiva de 20 conjuntos oficiales con más de 3.000 entidades (Educación Superior, Escolar, Parvularia, Salud DEIS, Bomberos, Carabineros, Metro, EFE, CMN, Normativa IPT)",
             "IDE Chile. (2024). Geoportal de Chile: Catálogo Nacional de Información Geoespacial Abierta. https://www.geoportal.cl"
         ],
         [

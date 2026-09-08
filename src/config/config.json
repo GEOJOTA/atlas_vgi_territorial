@@ -31,12 +31,13 @@
     }
   ],
   "endpoints": {
-    "overpass": "https://overpass.openstreetmap.fr/api/interpreter",
+    "overpass": "https://overpass-api.de/api/interpreter",
     "overpass_espejos": [
-      "https://overpass.openstreetmap.fr/api/interpreter",
+      "https://overpass-api.de/api/interpreter",
       "https://lz4.overpass-api.de/api/interpreter",
       "https://z.overpass-api.de/api/interpreter",
-      "https://overpass-api.de/api/interpreter"
+      "https://overpass.kumi.systems/api/interpreter",
+      "https://overpass.openstreetmap.fr/api/interpreter"
     ],
     "ohsome": "https://api.ohsome.org/v1",
     "ohsome_v1": "https://api.ohsome.org/v1",
@@ -141,7 +142,7 @@
       "color": "#555555",
       "geometrias": ["Polígonos (Huellas de Manzanas y Edificios)", "Puntos (Direcciones y Entradas)"],
       "entidades": ["Viviendas unifamiliares y casonas", "Edificios residenciales en altura", "Pabellones universitarios UAH", "Inmuebles comerciales", "Edificios públicos y cívicos", "Templos e iglesias"],
-      "filtro_overpass": "nwr[\"building\"];",
+      "filtro_overpass": "way[\"building\"]; relation[\"building\"];",
       "descripcion": "Catastro poligonal de edificaciones y volumetría construida: huellas de manzanas, casonas patrimoniales, campus UAH y edificaciones con cálculo de superficie métrica en m² (EPSG:32719 UTM 19S)"
     },
     {
@@ -151,9 +152,9 @@
       "icono": "🗺️",
       "color": "#5B704E",
       "geometrias": ["Polígonos (Zonificación Funcional y Áreas)", "Líneas (Ejes de Calzada y Pavimentos)"],
-      "entidades": ["Uso residencial", "Uso comercial y servicios", "Recintos educacionales", "Áreas recreativas y deportivas", "Suelos en faena o construcción", "Prados y cubiertas vegetales", "Pavimentos de asfalto y adoquines"],
-      "filtro_overpass": "nwr[\"landuse\"]; nwr[\"natural\"~\"wood|scrub|water|grassland\"]; nwr[\"leisure\"~\"park|garden|pitch\"]; way[\"surface\"~\"asphalt|paving_stones|cobblestone\"];",
-      "descripcion": "Zonificación funcional del suelo urbano y coberturas biofísicas: áreas residenciales, comerciales, dotacionales, deportivas y tipos de rodado/superficie de calzadas"
+      "entidades": ["Uso residencial", "Uso comercial y servicios", "Recintos educacionales", "Áreas recreativas y deportivas", "Suelos en faena o construcción", "Prados y cubiertas vegetales"],
+      "filtro_overpass": "nwr[\"landuse\"]; nwr[\"natural\"~\"wood|scrub|water|grassland|tree_row\"]; nwr[\"leisure\"~\"park|garden|pitch|nature_reserve\"];",
+      "descripcion": "Zonificación funcional del suelo urbano y coberturas biofísicas: áreas residenciales, comerciales, dotacionales, deportivas y áreas verdes naturales"
     }
   ],
   "idioma_interfaz": "es",

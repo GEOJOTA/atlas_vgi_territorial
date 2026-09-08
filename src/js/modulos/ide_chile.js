@@ -250,6 +250,102 @@ const ModuloIDEChile = (() => {
       descripcion: 'Delimitación oficial del área urbana censal de la comuna de Santiago.',
       declaracion: 'Cartografía base de límites urbanos del Instituto Nacional de Estadísticas e IDE Chile.',
       citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Límite Urbano Censal de Chile. Secretaría Ejecutiva SNIT / IDE Chile. https://services5.arcgis.com'
+    },
+    minvu_ipt_prc_santiago: {
+      id: 'minvu_ipt_prc_santiago',
+      nombre: 'PRC Santiago: Zonificación Normativa',
+      institucion: 'MINVU / I. Municipalidad de Santiago',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS MapServer / FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_RM_Norte/MapServer/31',
+      archivoLocal: 'data/ide_minvu_ipt_prc_santiago.geojson',
+      color: '#D97706',
+      icono: '📜',
+      geometria: 'Polígonos (Zonificación Comunal)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Zonificación urbana y normas urbanísticas oficiales del Plan Regulador Comunal de Santiago: usos permitidos (UPERM), usos prohibidos (UPROH), altura, rasante y decretos D.O.',
+      declaracion: 'Normativa urbanística oficial promulgada por la I. Municipalidad de Santiago y ratificada por MINVU DDU conforme a la Ley General de Urbanismo y Construcciones (DFL 458/1975).',
+      citaAPA: 'Ilustre Municipalidad de Santiago & Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Plan Regulador Comunal de Santiago: Zonificación y Ordenanza Local Oficial. DDU, MINVU / IDE Chile. https://geoide.minvu.cl/server/rest/services/IPT/PRC_RM_Norte/MapServer/31'
+    },
+    minvu_ipt_prms_usosuelo: {
+      id: 'minvu_ipt_prms_usosuelo',
+      nombre: 'PRMS: Usos de Suelo Metropolitanos',
+      institucion: 'MINVU / SEREMI Metropolitana de Vivienda y Urbanismo',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/5',
+      archivoLocal: 'data/ide_minvu_ipt_prms_usosuelo.geojson',
+      color: '#7C3AED',
+      icono: '📐',
+      geometria: 'Polígonos (Usos Metropolitanos)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Zonificación intercomunal y macro-usos del Plan Regulador Metropolitano de Santiago: parques intercomunales, equipamiento metropolitano y fajas de desarrollo.',
+      declaracion: 'Instrumento de Planificación Territorial Metropolitano regulado por el Art. 34 LGUC y administrado por SEREMI MINVU RM.',
+      citaAPA: 'Secretaría Regional Ministerial Metropolitana de Vivienda y Urbanismo [SEREMI MINVU RM]. (2024). Plan Regulador Metropolitano de Santiago (PRMS): Usos de Suelo Oficiales. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/5'
+    },
+    minvu_ipt_areas_verdes: {
+      id: 'minvu_ipt_areas_verdes',
+      nombre: 'Áreas Verdes Normativas IPT',
+      institucion: 'Ministerio de Vivienda y Urbanismo (MINVU)',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/%C3%81reas_verdes_IPT/FeatureServer/0',
+      archivoLocal: 'data/ide_minvu_ipt_areas_verdes.geojson',
+      color: '#059669',
+      icono: '🌳',
+      geometria: 'Polígonos (Áreas Verdes IPT)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Espacios verdes normados y declarados como tales por los Instrumentos de Planificación Territorial en la Comuna de Santiago (Plazas, Parques y Áreas Verdes Existentes y Proyectadas).',
+      declaracion: 'Catastro Oficial de Áreas Verdes bajo régimen de IPT según Art. 59 y Art. 2.1.30 OGUC.',
+      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Áreas Verdes Declaradas en Instrumentos de Planificación Territorial. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/%C3%81reas_verdes_IPT/FeatureServer'
+    },
+    minvu_ipt_areas_riesgo: {
+      id: 'minvu_ipt_areas_riesgo',
+      nombre: 'Áreas de Riesgo Normativas (IPT)',
+      institucion: 'MINVU / DDU / SEREMI RM',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/IPT_AREA_RIESGO/FeatureServer/0',
+      archivoLocal: 'data/ide_minvu_ipt_areas_riesgo.geojson',
+      color: '#DC2626',
+      icono: '⚠️',
+      geometria: 'Polígonos (Riesgo y Restricción)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Áreas bajo restricción urbanística por riesgo natural (remoción en masa, inundación, fallas geológicas) normadas en los PRC y PRMS conforme al Art. 2.1.17 de la OGUC.',
+      declaracion: 'Zonas de Protección por Riesgo oficialmente incorporadas en los planes reguladores comunales e intercomunales.',
+      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Áreas de Riesgo y Restricción en Instrumentos de Planificación Territorial de Chile. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/IPT_AREA_RIESGO/FeatureServer'
+    },
+    minvu_ipt_resguardo_infraestructura: {
+      id: 'minvu_ipt_resguardo_infraestructura',
+      nombre: 'Fajas de Resguardo e Infraestructura PRMS',
+      institucion: 'MINVU / SEREMI Metropolitana',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/0',
+      archivoLocal: 'data/ide_minvu_ipt_resguardo_infraestructura.geojson',
+      color: '#0284C7',
+      icono: '🛡️',
+      geometria: 'Líneas (Fajas de Resguardo)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Fajas y conos normativos de protección de infraestructura de transporte, ferrocarril, acueductos y servidumbres metropolitanas normadas por el PRMS.',
+      declaracion: 'Líneas de resguardo metropolitano de infraestructura conforme al Capítulo 8.4 de la Ordenanza del PRMS.',
+      citaAPA: 'Secretaría Regional Ministerial Metropolitana de Vivienda y Urbanismo [SEREMI MINVU RM]. (2024). Fajas de Resguardo de Infraestructura Metropolitana (PRMS). DDU, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer'
+    },
+    minvu_ipt_limite_urbano: {
+      id: 'minvu_ipt_limite_urbano',
+      nombre: 'Límite Urbano Oficial PRC (MINVU)',
+      institucion: 'MINVU / DDU / I. Municipalidad de Santiago',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/Limites_Urbanos/FeatureServer/0',
+      archivoLocal: 'data/ide_minvu_ipt_limite_urbano.geojson',
+      color: '#4F46E5',
+      icono: '📍',
+      geometria: 'Polígono (Límite Urbano Oficial)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Línea oficial legal que delimita el territorio urbano comunal normado por el Plan Regulador Comunal de Santiago conforme a la Ley General de Urbanismo y Construcciones.',
+      declaracion: 'Polígono legal publicado en Diario Oficial y consolidado en el Catastro Nacional de Límites Urbanos de MINVU.',
+      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Oficial de Límites Urbanos de Chile (PRC/PRI). DDU, MINVU / IDE Chile. https://geoide.minvu.cl/server/rest/services/IPT/Limites_Urbanos/FeatureServer'
     }
   };
 
@@ -450,6 +546,63 @@ const ModuloIDEChile = (() => {
         extraInfo = {
           'Comuna': props.d_COMUNA || 'Santiago',
           'Región': props.d_REGION || 'Metropolitana'
+        };
+      } else if (idCapa === 'minvu_ipt_prc_santiago') {
+        const zonaCodigo = props.ZONA || '';
+        const zonaNom = props.NOM || '';
+        nombreEntidad = zonaCodigo ? `Zona ${zonaCodigo}: ${zonaNom}` : (zonaNom || 'Zona Normativa PRC');
+        detalleTipo = `Plan Regulador Comunal de Santiago (${props.T_DO || 'Res.'} ${props.N_DOC || ''})`;
+        extraInfo = {
+          'Zona Normativa': zonaCodigo,
+          'Nombre Zona': zonaNom,
+          'Usos Permitidos': props.UPERM || 'Ver ordenanza local',
+          'Usos Prohibidos': props.UPROH || 'Ver ordenanza local',
+          'Fecha D.O.': props.P_DO || '-',
+          'Instrumento': `${props.T_DO || 'Resolución'} N° ${props.N_DOC || ''}`
+        };
+      } else if (idCapa === 'minvu_ipt_prms_usosuelo') {
+        nombreEntidad = props.NOMBRE || props.Capa || 'Uso de Suelo Metropolitano';
+        detalleTipo = props.UPREF || 'Zonificación PRMS (Metropolitano)';
+        extraInfo = {
+          'Uso Preferente': props.UPREF || '-',
+          'Uso Permitido': props.UPERM || '-',
+          'Normativa PRMS': props.NORMA || 'Ordenanza PRMS',
+          'Superficie (ha)': props.SUP_HA ? `${props.SUP_HA} ha` : '-',
+          'Comuna': props.COMUNA || 'Santiago'
+        };
+      } else if (idCapa === 'minvu_ipt_areas_verdes') {
+        nombreEntidad = props.NOMBRE || 'Área Verde Normada (IPT)';
+        detalleTipo = `Área Verde Normativa (${props.TIPO_AV || 'IPT'})`;
+        extraInfo = {
+          'Tipo de Área Verde': props.TIPO_AV || 'Área Verde',
+          'Zona Normativa': props.Zona || '-',
+          'Superficie Normativa': props.Ha ? `${Number(props.Ha).toFixed(2)} ha` : '-',
+          'Comuna': props.COMUNA || 'Santiago'
+        };
+      } else if (idCapa === 'minvu_ipt_areas_riesgo') {
+        nombreEntidad = props.NOM || props.NOMBRE || 'Área de Riesgo Normativa';
+        detalleTipo = props.CAT || props.Capa || 'Restricción por Riesgo (Art. 2.1.17 OGUC)';
+        extraInfo = {
+          'Tipo / Categoría de Riesgo': props.CAT || props.NOMBRE || 'Restricción',
+          'Condición Normativa': props.UPROH || props.NORMA || 'Restricción constructiva según OGUC',
+          'Comuna': props.COM || props.COMUNA || 'Santiago'
+        };
+      } else if (idCapa === 'minvu_ipt_resguardo_infraestructura') {
+        nombreEntidad = props.NOMBRE || props.Capa || 'Faja de Resguardo PRMS';
+        detalleTipo = 'Resguardo de Infraestructura Metropolitana';
+        extraInfo = {
+          'Infraestructura': props.NOMBRE || 'Corredor Metropolitano',
+          'Norma': props.NORMA || 'Cap. 8.4 PRMS',
+          'Capa': props.Capa || 'Faja de Resguardo'
+        };
+      } else if (idCapa === 'minvu_ipt_limite_urbano') {
+        nombreEntidad = `Límite Urbano Oficial Comuna de Santiago`;
+        detalleTipo = 'Límite Urbano Normativo PRC';
+        extraInfo = {
+          'Instrumento': props.INSTRUM || 'Plan Regulador Comunal de Santiago',
+          'Publicación D.O.': props.P_DO || '-',
+          'Norma Legal': `${props.T_DO || 'Resolución'} N° ${props.N_DO || ''}`,
+          'Administración': props.ADMIN || 'SEREMI MINVU / Municipalidad'
         };
       }
 
