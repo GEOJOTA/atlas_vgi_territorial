@@ -2020,17 +2020,111 @@ function configurarSelectorPerspectiva2Dy3D() {
 }
 
 function configurarCapasOficialesIDE() {
-  const botones = document.querySelectorAll('.btn-categoria-oficial');
-  botones.forEach(btn => {
-    const idCapa = btn.dataset.capa;
-    const wmsCapa = btn.dataset.wms;
+  const contenedor = document.getElementById('contenedor-botones-oficiales-ide');
+  if (!contenedor || !window.ModuloIDEChile) return;
 
-    if (idCapa) {
-      btn.addEventListener('click', () => alternarCapaOficialIDE(idCapa, btn));
-    } else if (wmsCapa) {
-      btn.addEventListener('click', () => alternarCapaWMSOficial(wmsCapa, btn));
-    }
+  const capas = ModuloIDEChile.obtenerCapasDisponibles();
+  contenedor.innerHTML = '';
+
+  capas.forEach(def => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-categoria-oficial';
+    btn.id = `btn-oficial-${def.id}`;
+    btn.dataset.capa = def.id;
+    btn.title = `${def.descripcion}\nInstitución: ${def.institucion}\nTipo: ${def.tipoServicio}`;
+    btn.innerHTML = `
+      <span class="icono-cat">${def.icono}</span>
+      <div class="info-cat">
+        <strong>${def.nombre}</strong>
+        <small>${def.institucion.split('/')[0].trim()}</small>
+      </div>
+      <span class="badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
+    `;
+
+    btn.addEventListener('click', () => alternarCapaOficialIDE(def.id, btn));
+    contenedor.appendChild(btn);
   });
+
+  // Botón para la capa raster WMS Patrimonio MINVU
+  const btnWMS = document.createElement('button');
+  btnWMS.type = 'button';
+  btnWMS.className = 'btn-categoria-oficial btn-wms-oficial';
+  btnWMS.id = 'btn-oficial-wms-patrimonio';
+  btnWMS.dataset.wms = 'minvu_patrimonio';
+  btnWMS.title = 'Superponer la capa oficial de teselas WMS GetMap de Patrimonio MINVU (OGC WMS 1.3.0)';
+  btnWMS.innerHTML = `
+    <span class="icono-cat">🗺️</span>
+    <div class="info-cat">
+      <strong>MINVU WMS Patrimonio</strong>
+      <small>Servicio OGC GetMap en vivo</small>
+    </div>
+    <span class="badge-conteo-oficial" style="background:#8F3A2C; color:#FFF;">WMS</span>
+  `;
+  btnWMS.addEventListener('click', () => alternarCapaWMSOficial('minvu_patrimonio', btnWMS));
+  contenedor.appendChild(btnWMS);
+
+  // Botón de descarga masiva
+  document.getElementById('btn-descargar-todo-ide')?.addEventListener('click', descargarColeccionOficialCompleta);
+}
+
+async function descargarColeccionOficialCompleta() {
+  const btn = document.getElementById('btn-descargar-todo-ide');
+  const textoOriginal = btn ? btn.textContent : '';
+  if (btn) btn.textContent = '⏳ Compilando 14 capas...';
+
+  const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
+  if (estadoTexto) estadoTexto.textContent = 'Compilando colección oficial consolidada de IDE Chile y Geoportal...';
+
+  const capas = ModuloIDEChile.obtenerCapasDisponibles();
+  const allFeatures = [];
+
+  for (const c of capas) {
+    try {
+      const res = await ModuloIDEChile.consultarCapaOficial(c.id);
+      if (res && res.geojson && res.geojson.features) {
+        res.geojson.features.forEach(f => {
+          const props = { ...(f.properties || {}) };
+          props._coleccion_oficial = c.id;
+          props._institucion_oficial = c.institucion;
+          allFeatures.push({
+            type: 'Feature',
+            geometry: f.geometry,
+            properties: props
+          });
+        });
+      }
+    } catch (_) {}
+  }
+
+  const fc = {
+    type: 'FeatureCollection',
+    name: 'Coleccion_Oficial_IDE_Chile_Geoportal_Santiago',
+    crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+    metadata: {
+      fuente: 'Infraestructura de Datos Geoespaciales de Chile (IDE Chile / SNIT), Geoportal de Chile, MINVU e INE',
+      licencia: 'Ley N° 20.285 de Transparencia de la Función Pública',
+      fecha_extraccion: new Date().toISOString(),
+      total_entidades: allFeatures.length
+    },
+    features: allFeatures
+  };
+
+  const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/geo+json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `coleccion-oficial-ide-chile-santiago-${new Date().toISOString().slice(0, 10)}.geojson`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  if (btn) btn.textContent = textoOriginal;
+  if (estadoTexto) {
+    estadoTexto.innerHTML = `
+      <span style="color:#1B4D3E; font-weight:600;">[DESCARGA COMPLETADA]:</span> 
+      Colección oficial consolidada exportada con éxito (${allFeatures.length} entidades oficiales en formato GeoJSON).
+    `;
+  }
 }
 
 async function alternarCapaOficialIDE(idCapa, btn) {

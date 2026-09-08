@@ -1,0 +1,2579 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.723068,
+          -33.444355
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN PABLO L1",
+        "linea": "L1",
+        "direccion": "Av. San Pablo 6190",
+        "comuna": "LO PRADO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.723086,
+          -33.451453
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro NEPTUNO",
+        "linea": "L1",
+        "direccion": "Av. Neptuno Oriente frente al 260",
+        "comuna": "LO PRADO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.714218,
+          -33.457279
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PAJARITOS",
+        "linea": "L1",
+        "direccion": "Av. General Bonilla 5900",
+        "comuna": "LO PRADO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.706398,
+          -33.457802
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LAS REJAS",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 6056",
+        "comuna": "ESTACION CENTRAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.699623,
+          -33.456448
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ECUADOR",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins Frente al 4620",
+        "comuna": "ESTACION CENTRAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.692307,
+          -33.454479
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN ALBERTO HURTADO",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins Frente al 4102",
+        "comuna": "ESTACION CENTRAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.688026,
+          -33.45359
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro UNIVERSIDAD DE SANTIAGO",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins Frente al 3702",
+        "comuna": "ESTACION CENTRAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.679977,
+          -33.451984
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ESTACION CENTRAL",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins Frente al 3322",
+        "comuna": "ESTACION CENTRAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.673515,
+          -33.449131
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro UNION LATINOAMERICANA",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 2841",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.666336,
+          -33.447174
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro REPUBLICA",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 2275",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.661224,
+          -33.4468
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS HEROES L1",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 1774",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.654968,
+          -33.445293
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LA MONEDA",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 1330",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.650337,
+          -33.444057
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro UNIVERSIDAD DE CHILE L1",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 1020",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.762993,
+          -33.501205
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTA LUCIA",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O´Higgins N°511",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.639809,
+          -33.439957
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro UNIVERSIDAD CATOLICA",
+        "linea": "L1",
+        "direccion": "Av. Libertador Bernardo O`Higgins 270",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.634651,
+          -33.437386
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BAQUEDANO L1",
+        "linea": "L1",
+        "direccion": "Av. Providencia 011",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.625229,
+          -33.432384
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SALVADOR",
+        "linea": "L1",
+        "direccion": "Av. Providencia 700",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.61982,
+          -33.428638
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MANUEL MONTT",
+        "linea": "L1",
+        "direccion": "Av. Providencia 1337",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.613861,
+          -33.425358
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PEDRO DE VALDIVIA",
+        "linea": "L1",
+        "direccion": "Av. Providencia 1880",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.608475,
+          -33.42271
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS LEONES L1",
+        "linea": "L1",
+        "direccion": "Av. Nueva Providencia 2249",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.600754,
+          -33.419029
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro TOBALABA L1",
+        "linea": "L1",
+        "direccion": "Av. Tobalaba 117",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.596329,
+          -33.416775
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro EL GOLF",
+        "linea": "L1",
+        "direccion": "Av. Apoquindo Frente al Nº3231",
+        "comuna": "LAS CONDES",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.590027,
+          -33.415928
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ALCANTARA",
+        "linea": "L1",
+        "direccion": "Av. Apoquindo Frente al 3885",
+        "comuna": "LAS CONDES",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.582848,
+          -33.413406
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ESCUELA MILITAR",
+        "linea": "L1",
+        "direccion": "Av. Apoquindo Frente al 4502",
+        "comuna": "LAS CONDES",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.569252,
+          -33.409248
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MANQUEHUE",
+        "linea": "L1",
+        "direccion": "Av. Apoquindo Frente al 5875",
+        "comuna": "LAS CONDES",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.55407,
+          -33.408165
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro HERNANDO DE MAGALLANES",
+        "linea": "L1",
+        "direccion": "Av. Apoquindo 7095",
+        "comuna": "LAS CONDES",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.544495,
+          -33.407986
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS DOMINICOS",
+        "linea": "L1",
+        "direccion": "Av. Apoquindo 8613",
+        "comuna": "LAS CONDES",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.646229,
+          -33.381132
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VESPUCIO NORTE",
+        "linea": "L2",
+        "direccion": "Ignacio Carrera Pinto altura 661",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.642593,
+          -33.391327
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ZAPADORES",
+        "linea": "L2",
+        "direccion": "Av. Recoleta 3754",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.642876,
+          -33.397617
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro DORSAL",
+        "linea": "L2",
+        "direccion": "Av. Recoleta 3202",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64325,
+          -33.405617
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro EINSTEIN",
+        "linea": "L2",
+        "direccion": "Av. Einstein 601",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.643768,
+          -33.413712
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CEMENTERIOS",
+        "linea": "L2",
+        "direccion": "Av. Recoleta 1502",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.645004,
+          -33.422512
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CERRO BLANCO",
+        "linea": "L2",
+        "direccion": "Av. Recoleta 860",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.646835,
+          -33.429024
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PATRONATO",
+        "linea": "L2",
+        "direccion": "Av. Recoleta 301",
+        "comuna": "RECOLETA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.653557,
+          -33.433472
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PUENTE CAL Y CANTO L2",
+        "linea": "L2",
+        "direccion": "General Mackenna 1100",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.660683,
+          -33.439316
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTA ANA L2",
+        "linea": "L2",
+        "direccion": "Compañía de Jesús N°1625",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.661224,
+          -33.4468
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS HEROES L2",
+        "linea": "L2",
+        "direccion": "Av. Libertador Bernardo O`Higgins 1774",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.667053,
+          -33.454498
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro TOESCA",
+        "linea": "L2",
+        "direccion": "Toesca 1635",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.709549,
+          -33.365799
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PARQUE O'HIGGINS",
+        "linea": "L2",
+        "direccion": "Av. Manuel Antonio Matta 1704",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.656738,
+          -33.470383
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro RONDIZZONI",
+        "linea": "L2",
+        "direccion": "Av. General Rondizzoni 1650",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.65023,
+          -33.475857
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro FRANKLIN L2",
+        "linea": "L2",
+        "direccion": "Placer 1310",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.649086,
+          -33.483219
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro EL LLANO",
+        "linea": "L2",
+        "direccion": "Gran Avenida Jose Miguel Carrera Frente al 3080",
+        "comuna": "SAN MIGUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.650581,
+          -33.489059
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN MIGUEL",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel Carrera Frente al 3806",
+        "comuna": "SAN MIGUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.65226,
+          -33.496746
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LO VIAL",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel Carrera Frente al 4688",
+        "comuna": "SAN MIGUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.654289,
+          -33.502548
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro DEPARTAMENTAL",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel Carrera Frente al 5350",
+        "comuna": "SAN MIGUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.656517,
+          -33.50983
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CIUDAD DEL NIÑO",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel Carrera Frente al 5940",
+        "comuna": "SAN MIGUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.65815,
+          -33.517353
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LO OVALLE",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel  Carrera 6560 - 6559",
+        "comuna": "LA CISTERNA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.661766,
+          -33.527534
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro EL PARRON",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel Carrera 7958",
+        "comuna": "LA CISTERNA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.664406,
+          -33.537651
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LA CISTERNA L2",
+        "linea": "L2",
+        "direccion": "Gran Avenida José Miguel Carrera 8870",
+        "comuna": "LA CISTERNA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.667236,
+          -33.545513
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro EL BOSQUE",
+        "linea": "L2",
+        "direccion": "Ernesto Riquelme 80",
+        "comuna": "SAN BERNARDO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.670341,
+          -33.560345
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro OBSERVATORIO",
+        "linea": "L2",
+        "direccion": "Av. Padre Hurtado 11828",
+        "comuna": "EL BOSQUE",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.673638,
+          -33.570657
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro COPA LO MARTINEZ",
+        "linea": "L2",
+        "direccion": "Av. Padre Hurtado 12287",
+        "comuna": "EL BOSQUE",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.676324,
+          -33.582233
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro HOSPITAL EL PINO",
+        "linea": "L2",
+        "direccion": "Av. Padre Hurtado 13378",
+        "comuna": "EL BOSQUE",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.729912,
+          -33.364983
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA QUILICURA",
+        "linea": "L3",
+        "direccion": "Av. Bernardo O Higgins 24",
+        "comuna": "QUILICURA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.719841,
+          -33.36673
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LO CRUZAT",
+        "linea": "L3",
+        "direccion": "Av. Manuel Antonio Matta 1034",
+        "comuna": "QUILICURA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.705925,
+          -33.365486
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro FERROCARRIL",
+        "linea": "L3",
+        "direccion": "Av. Manuel Antonio Matta 1950",
+        "comuna": "QUILICURA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.758102,
+          -33.384258
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS LIBERTADORES",
+        "linea": "L3",
+        "direccion": "Av. Américo Vespucio 2500",
+        "comuna": "QUILICURA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.685539,
+          -33.373062
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CARDENAL CARO",
+        "linea": "L3",
+        "direccion": "Av. José María Caro 1875",
+        "comuna": "CONCHALI",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.679634,
+          -33.385063
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VIVACETA",
+        "linea": "L3",
+        "direccion": "Av. Independencia 4765",
+        "comuna": "CONCHALI",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.670349,
+          -33.397388
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CONCHALI",
+        "linea": "L3",
+        "direccion": "Av. Independencia 3279",
+        "comuna": "CONCHALI",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.660928,
+          -33.406079
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA CHACABUCO",
+        "linea": "L3",
+        "direccion": "Julio Martinez Pradanus 1500",
+        "comuna": "INDEPENDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.654991,
+          -33.417759
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro HOSPITALES",
+        "linea": "L3",
+        "direccion": "Profesor Zañartu 1190",
+        "comuna": "INDEPENDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.652199,
+          -33.433224
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PUENTE CAL Y CANTO L3",
+        "linea": "L3",
+        "direccion": "General Mackenna 1010",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.652901,
+          -33.437069
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA DE ARMAS L3",
+        "linea": "L3",
+        "direccion": "Bandera 530",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.650337,
+          -33.444057
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro UNIVERSIDAD DE CHILE L3",
+        "linea": "L3",
+        "direccion": "Av. Libertador Bernardo O'Higgins 1020",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.650826,
+          -33.452122
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PARQUE ALMAGRO",
+        "linea": "L3",
+        "direccion": "Av. Santa Isabel 1110",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.643097,
+          -33.458027
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MATTA",
+        "linea": "L3",
+        "direccion": "Santa Rosa 1088",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.627304,
+          -33.454613
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro IRARRAZAVAL L3",
+        "linea": "L3",
+        "direccion": "Matta Oriente 240",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.613777,
+          -33.453438
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MONSEÑOR EYZAGUIRRE",
+        "linea": "L3",
+        "direccion": "Monseñor Eyzaguirre 39",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.605476,
+          -33.454666
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ÑUÑOA L3",
+        "linea": "L3",
+        "direccion": "Irarrazaval 2461",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.597328,
+          -33.45517
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CHILE-ESPAÑA",
+        "linea": "L3",
+        "direccion": "Irarrazaval 3227",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.5811,
+          -33.454807
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VILLA FREI",
+        "linea": "L3",
+        "direccion": "Irarrazaval 4675",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.571404,
+          -33.45224
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA EGAÑA L3",
+        "linea": "L3",
+        "direccion": "Irarrazaval 5738",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.558006,
+          -33.452484
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro FERNANDO CASTILLO VELASCO",
+        "linea": "L3",
+        "direccion": "Av. Alcalde Fernando Castillo Velasco 6831",
+        "comuna": "LA REINA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.600754,
+          -33.419029
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro TOBALABA L4",
+        "linea": "L4",
+        "direccion": "Av. Tobalaba 117",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.591286,
+          -33.426609
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CRISTOBAL COLON",
+        "linea": "L4",
+        "direccion": "Eliodoro Yañez 2987",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.584976,
+          -33.432323
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro FRANCISCO BILBAO",
+        "linea": "L4",
+        "direccion": "Francisco Bilbao 3785",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.576256,
+          -33.470551
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PRINCIPE DE GALES",
+        "linea": "L4",
+        "direccion": "Av. Americo Vespucio 1660",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.573402,
+          -33.461056
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SIMON BOLIVAR",
+        "linea": "L4",
+        "direccion": "Av. Americo Vespucio 760",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.571068,
+          -33.453831
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA EGAÑA L4",
+        "linea": "L4",
+        "direccion": "Av. Américo Vespucio 30",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.574249,
+          -33.462433
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS ORIENTALES",
+        "linea": "L4",
+        "direccion": "Av. Americo Vespucio 825",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.577934,
+          -33.468388
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro GRECIA",
+        "linea": "L4",
+        "direccion": "Av. Grecia 5280",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.57888,
+          -33.479141
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS PRESIDENTES",
+        "linea": "L4",
+        "direccion": "Av. Americo Vespucio  2469",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.579865,
+          -33.487705
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro QUILIN",
+        "linea": "L4",
+        "direccion": "Av. Americo Vespucio 3411",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.588493,
+          -33.502357
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LAS TORRES",
+        "linea": "L4",
+        "direccion": "Av. Américo Vespucio 5001",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.590515,
+          -33.507252
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MACUL",
+        "linea": "L4",
+        "direccion": "Av. Macul 6309",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.597054,
+          -33.519871
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VICUÑA MACKENNA L4",
+        "linea": "L4",
+        "direccion": "Av. Américo Vespucio Frente Al 7340",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.596977,
+          -33.526833
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VICENTE VALDES L4",
+        "linea": "L4",
+        "direccion": "Av. Vicuña Mackenna 7897",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.59182,
+          -33.538105
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ROJAS MAGALLANES",
+        "linea": "L4",
+        "direccion": "Av. Vicuña Mackenna Frente Al 8825",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.58802,
+          -33.545563
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro TRINIDAD",
+        "linea": "L4",
+        "direccion": "Av. Vicuña Mackenna Frente Al 9779",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.586411,
+          -33.552334
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN JOSE DE LA ESTRELLA",
+        "linea": "L4",
+        "direccion": "Av. Vicuña Mackenna Frente Al 10422",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.585289,
+          -33.561752
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS QUILLAYES",
+        "linea": "L4",
+        "direccion": "Av. Vicuña Mackenna Frente Al 11145",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.583466,
+          -33.569027
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ELISA CORREA",
+        "linea": "L4",
+        "direccion": "Av. Concha Y Toro 3999",
+        "comuna": "PUENTE ALTO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.582214,
+          -33.576679
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro HOSPITAL SOTERO DEL RIO",
+        "linea": "L4",
+        "direccion": "Av. Concha Y Toro 3458",
+        "comuna": "PUENTE ALTO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.580391,
+          -33.588634
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PROTECTORA DE LA INFANCIA",
+        "linea": "L4",
+        "direccion": "Av. Concha Y Toro 2410",
+        "comuna": "PUENTE ALTO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.577782,
+          -33.599468
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LAS MERCEDES",
+        "linea": "L4",
+        "direccion": "Av. Concha Y Toro 1099",
+        "comuna": "PUENTE ALTO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.576118,
+          -33.609119
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA DE PUENTE ALTO",
+        "linea": "L4",
+        "direccion": "Av. Concha Y Toro 265",
+        "comuna": "PUENTE ALTO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.597054,
+          -33.519871
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VICUÑA MACKENNA L4A",
+        "linea": "L4A",
+        "direccion": "Av. Américo Vespucio Frente Al 7340",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.605286,
+          -33.531521
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTA JULIA",
+        "linea": "L4A",
+        "direccion": "Av. Americo Vespucio Frente Al 8320",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.612518,
+          -33.540749
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LA GRANJA",
+        "linea": "L4A",
+        "direccion": "Av. Américo Vespucio 0741-E",
+        "comuna": "LA GRANJA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.634041,
+          -33.542164
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTA ROSA",
+        "linea": "L4A",
+        "direccion": "Av. Santa Rosa 8914",
+        "comuna": "LA GRANJA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.643288,
+          -33.540852
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN RAMON",
+        "linea": "L4A",
+        "direccion": "Av. Americo Vespucio 1775",
+        "comuna": "SAN RAMON",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.664406,
+          -33.537651
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LA CISTERNA L4A",
+        "linea": "L4A",
+        "direccion": "Gran Avenida José Miguel Carrera 8870",
+        "comuna": "LA CISTERNA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.75753,
+          -33.509056
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA DE MAIPU",
+        "linea": "L5",
+        "direccion": "Av. Pajaritos 1921",
+        "comuna": "MAIPU",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.757332,
+          -33.497204
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTIAGO BUERAS",
+        "linea": "L5",
+        "direccion": "Av. Pajaritos 3321",
+        "comuna": "MAIPU",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.736565,
+          -33.471561
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro DEL SOL",
+        "linea": "L5",
+        "direccion": "Av. Pajaritos 3801",
+        "comuna": "MAIPU",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.745621,
+          -33.481815
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MONTE TABOR",
+        "linea": "L5",
+        "direccion": "Av. Pajaritos 4460",
+        "comuna": "MAIPU",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.740013,
+          -33.474556
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LAS PARCELAS",
+        "linea": "L5",
+        "direccion": "Av. Pajaritos 5090",
+        "comuna": "MAIPU",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.739594,
+          -33.462315
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LAGUNA SUR",
+        "linea": "L5",
+        "direccion": "Av. Laguna Sur 7297",
+        "comuna": "PUDAHUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.74086,
+          -33.452045
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BARRANCAS",
+        "linea": "L5",
+        "direccion": "Av. Gral. Bonilla 8220",
+        "comuna": "PUDAHUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.741173,
+          -33.445488
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PUDAHUEL",
+        "linea": "L5",
+        "direccion": "Av. Teniente Cruz 800",
+        "comuna": "PUDAHUEL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.723068,
+          -33.444355
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN PABLO L5",
+        "linea": "L5",
+        "direccion": "Av. San Pablo 6190",
+        "comuna": "LO PRADO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.71685,
+          -33.443295
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LO PRADO",
+        "linea": "L5",
+        "direccion": "Av. San Pablo 5885",
+        "comuna": "LO PRADO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.706749,
+          -33.441219
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BLANQUEADO",
+        "linea": "L5",
+        "direccion": "Av. San Pablo 5199",
+        "comuna": "QUINTA NORMAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.691414,
+          -33.438477
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro GRUTA DE LOURDES",
+        "linea": "L5",
+        "direccion": "Av. San Pablo 4098",
+        "comuna": "QUINTA NORMAL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.668533,
+          -33.439152
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro QUINTA NORMAL",
+        "linea": "L5",
+        "direccion": "Catedral 3336",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.667618,
+          -33.447067
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CUMMING",
+        "linea": "L5",
+        "direccion": "Av. Ricardo Cumming 502",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.658386,
+          -33.438259
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTA ANA L5",
+        "linea": "L5",
+        "direccion": "Catedral 1512",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.666008,
+          -33.201782
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PLAZA DE ARMAS L5",
+        "linea": "L5",
+        "direccion": "21 De Mayo 543",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.644226,
+          -33.436394
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BELLAS ARTES",
+        "linea": "L5",
+        "direccion": "Mosqueto 515",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.634651,
+          -33.437386
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BAQUEDANO L5",
+        "linea": "L5",
+        "direccion": "Av. Providencia 011",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.630402,
+          -33.442501
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PARQUE BUSTAMANTE",
+        "linea": "L5",
+        "direccion": "Francisco Bilbao 084",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.633423,
+          -33.447853
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SANTA ISABEL",
+        "linea": "L5",
+        "direccion": "Santa Isabel N°088",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.627113,
+          -33.452541
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro IRARRAZAVAL L5",
+        "linea": "L5",
+        "direccion": "Av. Irarrazaval 351",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.617157,
+          -33.465889
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ÑUBLE L5",
+        "linea": "L5",
+        "direccion": "Carlos Dittborn 300",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.623055,
+          -33.47559
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro RODRIGO DE ARAYA",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna 2601",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.620247,
+          -33.48579
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CARLOS VALDOVINOS",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna 3745",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.618362,
+          -33.488937
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CAMINO AGRICOLA",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna 3953",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.616028,
+          -33.499359
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro SAN JOAQUIN",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna 4861",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.613831,
+          -33.508198
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PEDRERO",
+        "linea": "L5",
+        "direccion": "Av. Departamental 1901",
+        "comuna": "MACUL",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.605118,
+          -33.513519
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro MIRADOR",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna Frente A 6420",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.59761,
+          -33.524281
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BELLAVISTA DE LA FLORIDA",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna Costado De 165",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.596977,
+          -33.526833
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro VICENTE VALDES L5",
+        "linea": "L5",
+        "direccion": "Av. Vicuña Mackenna 7897",
+        "comuna": "LA FLORIDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.693596,
+          -33.483799
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro CERRILLOS",
+        "linea": "L6",
+        "direccion": "Martín De Solier 4598",
+        "comuna": "CERRILLOS",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.680138,
+          -33.479084
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LO VALLEDOR",
+        "linea": "L6",
+        "direccion": "Av. Carlos Valdovinos 3346",
+        "comuna": "PEDRO AGUIRRE CERDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.665001,
+          -33.47847
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro PEDRO AGUIRRE CERDA",
+        "linea": "L6",
+        "direccion": "Av. Carlos Valdovinos 2223",
+        "comuna": "PEDRO AGUIRRE CERDA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.649277,
+          -33.47625
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro FRANKLIN L6",
+        "linea": "L6",
+        "direccion": "Nataniel Cox 2370",
+        "comuna": "SANTIAGO",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6418,
+          -33.476051
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro BIO BIO",
+        "linea": "L6",
+        "direccion": "Av. Santa Rosa 2374",
+        "comuna": "SAN JOAQUIN",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.624168,
+          -33.4674
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ÑUBLE L6",
+        "linea": "L6",
+        "direccion": "Carlos Dittborn 733",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.607193,
+          -33.461983
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ESTADIO NACIONAL",
+        "linea": "L6",
+        "direccion": "Av. Grecia 2298",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.605476,
+          -33.454666
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro ÑUÑOA L6",
+        "linea": "L6",
+        "direccion": "Av. Irarrázaval 2461",
+        "comuna": "ÑUÑOA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.607185,
+          -33.438
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro INES DE SUAREZ",
+        "linea": "L6",
+        "direccion": "Av. Pedro De Valdivia 1664",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.607971,
+          -33.422237
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Metro LOS LEONES L6",
+        "linea": "L6",
+        "direccion": "Las Bellotas 200",
+        "comuna": "PROVIDENCIA",
+        "tipo": "Estación Red Metro de Santiago (DTPM)",
+        "fuente": "DTPM / Metro S.A. / IDE Chile / datos.gob.cl"
+      }
+    }
+  ]
+}

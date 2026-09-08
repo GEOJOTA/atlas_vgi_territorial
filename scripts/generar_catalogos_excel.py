@@ -412,6 +412,58 @@ def crear_catalogo_fuentes():
             "Referencia Metodológica y Homologación en src/js/modulos/diccionario.js",
             "Capa de referencia oficial para validación cruzada y contraste de brechas de información VGI",
             "IDE Chile / SNIT. (2024). Catálogo Nacional de Features. https://www.ide.cl/documentos/catalogo-nacional-de-features.pdf"
+        ],
+        [
+            "ArcGIS FeatureServer INE / IDE Chile (Censo 2024)",
+            "Instituto Nacional de Estadísticas (INE) / IDE Chile",
+            "REST FeatureServer 10.91",
+            "https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7",
+            "GET (REST Query)",
+            "GeoJSON (FeatureCollection)",
+            "where=1=1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&f=geojson",
+            "Acceso abierto sin clave API; microdatos georreferenciados a nivel de manzana censal",
+            "src/js/modulos/ide_chile.js (ModuloIDEChile)",
+            "Carga y visualización en vivo de las 351 manzanas censales de Barrio Brasil con población total, hombres, mujeres y viviendas",
+            "INE. (2024). Censo de Población y Vivienda 2024: Microdatos Georreferenciados. https://services5.arcgis.com"
+        ],
+        [
+            "ArcGIS FeatureServer & WMS MINVU (GeoIDE)",
+            "Ministerio de Vivienda y Urbanismo (MINVU / DDU)",
+            "REST MapServer / FeatureServer / WMS 1.3.0",
+            "https://geoide.minvu.cl/server/rest/services/",
+            "GET (REST Query & WMS GetMap)",
+            "GeoJSON & PNG Tiles",
+            "query?where=1=1&geometry={bbox}&f=geojson | WMSServer?request=GetMap&layers=0,1",
+            "Acceso abierto institucional conforme a la Ley N° 20.285 de Transparencia de la Administración del Estado",
+            "src/js/modulos/ide_chile.js (ModuloIDEChile)",
+            "Catastro oficial de Patrimonio IPT (571 entidades), Parques Urbanos (9 plazas), Barrios Históricos y teselas raster WMS",
+            "MINVU. (2024). Plataforma GeoIDE MINVU: Servicios Geográficos Interoperables. https://geoide.minvu.cl"
+        ],
+        [
+            "Geoportal de Chile (Descargas Masivas Shapefile / GeoJSON)",
+            "Infraestructura de Datos Geoespaciales de Chile (IDE Chile)",
+            "Catálogo CKAN / CSW / WMS",
+            "https://www.geoportal.cl/geoportal/catalog/download/ | https://datos.gob.cl",
+            "GET (Download)",
+            "Shapefile (ZIP) / GeoJSON / CSV Georreferenciado",
+            "download/{uuid}",
+            "Licencia de Datos Abiertos del Estado de Chile",
+            "src/data/ide_*.geojson & src/js/modulos/ide_chile.js",
+            "Integración y descarga masiva de 14 conjuntos oficiales (Educación Superior, Escolar, Parvularia, Salud DEIS, Bomberos, Carabineros, Metro, EFE, CMN)",
+            "IDE Chile. (2024). Geoportal de Chile: Catálogo Nacional de Información Geoespacial Abierta. https://www.geoportal.cl"
+        ],
+        [
+            "Globe.gl (Motor 3D WebGL / Three.js)",
+            "Vasturiano / Three.js Community",
+            "2.46.2",
+            "https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js",
+            "Client-side WebGL Canvas",
+            "Renderizado 3D esférico interactivo",
+            "Globe()(element).polygonsData(...).pathsData(...).pointsData(...)",
+            "Código abierto 100% libre bajo licencia MIT; sin claves ni costos",
+            "src/js/modulos/globo.js (ModuloGlobo)",
+            "Perspectiva esférica 3D moderna del globo terráqueo completo con proyección simultánea de capas VGI y oficiales IDE",
+            "Vasturiano. (2024). Globe.gl: 3D Globe Data Visualization. https://globe.gl/"
         ]
     ]
     

@@ -39,7 +39,16 @@ const ModuloGlobo = (() => {
     minvu_patrimonio: '#8F3A2C',
     minvu_parques: '#236B43',
     minvu_barrios_historicos: '#7D5A2B',
-    cmn_sitios_memoria: '#4B5142',
+    educacion_superior: '#1C523A',
+    educacion_escolar: '#285B75',
+    educacion_parvularia: '#417A63',
+    establecimientos_salud: '#B22222',
+    bomberos: '#C71585',
+    carabineros: '#2E5D3E',
+    estaciones_metro: '#B33928',
+    red_ferroviaria: '#34495E',
+    cmn_sitios_memoria: '#5C4033',
+    limite_urbano_censal: '#3B5998',
     defecto: '#35586B'
   };
 

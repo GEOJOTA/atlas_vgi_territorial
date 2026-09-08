@@ -110,59 +110,15 @@
       <!-- Bloque de Capas Oficiales del Estado (IDE Chile & MINVU) -->
       <div class="bloque bloque-oficial-ide" style="border:1px solid #1B4D3E; background:var(--papel-alto); padding:16px; margin-top:16px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
-          <h3 style="margin:0; color:#1B4D3E; font-size:1.05rem;">🏛️ Capas Oficiales del Estado de Chile (IDE Chile & MINVU)</h3>
-          <span style="font-size:0.72rem; background:#1B4D3E; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">FEATURESERVER & WMS EN VIVO</span>
+          <h3 style="margin:0; color:#1B4D3E; font-size:1.05rem;">🏛️ Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal & INE)</h3>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.78rem; padding:4px 9px;" title="Descargar paquete GeoJSON consolidado con todas las capas oficiales de IDE Chile">📥 Descargar Colección Oficial (.geojson)</button>
+            <span style="font-size:0.72rem; background:#1B4D3E; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">14 CAPAS DISPONIBLES</span>
+          </div>
         </div>
-        <p class="descripcion" style="margin-bottom:12px;">Capas cartográficas oficiales contrastables con los datos VGI. Se consultan directamente desde los servicios <strong>ArcGIS FeatureServer</strong> y <strong>OGC WMS</strong> de la Infraestructura de Datos Geoespaciales de Chile (IDE Chile) y del Ministerio de Vivienda y Urbanismo (MINVU), amparados por la Ley N° 20.285 de Transparencia del Estado.</p>
+        <p class="descripcion" style="margin-bottom:12px;">Capas cartográficas oficiales del Estado contrastables con los datos VGI comunitarios. Se integran directamente desde los servicios <strong>ArcGIS FeatureServer</strong>, <strong>OGC WMS</strong> y conjuntos abiertos de <strong>Geoportal de Chile</strong>, amparados por la Ley N° 20.285 de Transparencia de la Función Pública.</p>
         <div class="grilla-categorias" id="contenedor-botones-oficiales-ide">
-          <button type="button" class="btn-categoria-oficial" id="btn-oficial-censo2024" data-capa="censo2024_manzanas">
-            <span class="icono-cat">🏢</span>
-            <div class="info-cat">
-              <strong>Censo 2024 (Manzanas)</strong>
-              <small>INE / IDE Chile (Población y Viviendas)</small>
-            </div>
-            <span class="badge-conteo-oficial" id="conteo-oficial-censo2024">0</span>
-          </button>
-          <button type="button" class="btn-categoria-oficial" id="btn-oficial-patrimonio" data-capa="minvu_patrimonio">
-            <span class="icono-cat">🏛️</span>
-            <div class="info-cat">
-              <strong>Patrimonio IPT (MINVU)</strong>
-              <small>ICH y Zonas Típicas (DDU)</small>
-            </div>
-            <span class="badge-conteo-oficial" id="conteo-oficial-patrimonio">0</span>
-          </button>
-          <button type="button" class="btn-categoria-oficial" id="btn-oficial-parques" data-capa="minvu_parques">
-            <span class="icono-cat">🌳</span>
-            <div class="info-cat">
-              <strong>Parques Urbanos (MINVU)</strong>
-              <small>Catastro Oficial de Parques DDU</small>
-            </div>
-            <span class="badge-conteo-oficial" id="conteo-oficial-parques">0</span>
-          </button>
-          <button type="button" class="btn-categoria-oficial" id="btn-oficial-barrios" data-capa="minvu_barrios_historicos">
-            <span class="icono-cat">🏘️</span>
-            <div class="info-cat">
-              <strong>Barrios Históricos (MINVU)</strong>
-              <small>Quiero Mi Barrio (Yungay/Brasil)</small>
-            </div>
-            <span class="badge-conteo-oficial" id="conteo-oficial-barrios">0</span>
-          </button>
-          <button type="button" class="btn-categoria-oficial" id="btn-oficial-cmn" data-capa="cmn_sitios_memoria">
-            <span class="icono-cat">🎖️</span>
-            <div class="info-cat">
-              <strong>Sitios Memoria CMN</strong>
-              <small>Monumentos Nacionales / Geoportal</small>
-            </div>
-            <span class="badge-conteo-oficial" id="conteo-oficial-cmn">0</span>
-          </button>
-          <button type="button" class="btn-categoria-oficial btn-wms-oficial" id="btn-oficial-wms-patrimonio" data-wms="minvu_patrimonio" title="Superponer la capa de teselas raster oficiales WMS del MINVU">
-            <span class="icono-cat">🗺️</span>
-            <div class="info-cat">
-              <strong>MINVU WMS Patrimonio</strong>
-              <small>Servicio OGC GetMap en vivo</small>
-            </div>
-            <span class="badge-conteo-oficial" style="background:#8F3A2C; color:#FFF;">WMS</span>
-          </button>
+          <!-- Generado dinámicamente desde app.js con las 14 capas oficiales y WMS -->
         </div>
         <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.82rem; font-style:italic; margin-top:8px;"></div>
       </div>
