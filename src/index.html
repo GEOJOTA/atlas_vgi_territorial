@@ -73,12 +73,11 @@
         </select>
         <button class="accion secundaria" id="btn-dibujar-bbox" title="Haz clic y arrastra en el mapa para definir un área personalizada">📐 Dibujar Bbox</button>
         <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">🎯 Encuadrar</button>
+        <button type="button" class="accion secundaria" id="btn-inspector-normativo" title="Activa el inspector para hacer clic en el mapa y auditar zonificación PRC, normas OGUC y riesgos">⚖️ Inspector Normativo</button>
 
         <!-- Controles específicos para el Globo 3D -->
-        <div class="barra-controles-globo" id="barra-controles-globo" style="display:none;">
-          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-centrar" title="Aproximar cámara suavemente a Barrio Brasil / Universidad Alberto Hurtado">🎯 Centrar Barrio Brasil</button>
         <div id="barra-controles-globo" style="display:none; align-items:center; gap:6px; flex-wrap:wrap;">
-          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-centrar" title="Volar a nivel de calle y edificios 3D en Barrio Brasil">🏘️ Barrio Brasil 3D</button>
+          <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-centrar" title="Volar a nivel de calle en Barrio Brasil">🏘️ Barrio Brasil 3D</button>
           <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-santiago" title="Escala Metropolitana de Santiago">🏙️ Gran Santiago</button>
           <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-chile" title="Escala Regional de Chile Central">🇨🇱 Chile Central</button>
           <button type="button" class="accion secundaria btn-control-globo" id="btn-globo-planeta" title="Alejar la cámara para contemplar el planeta Tierra completo en el espacio">🪐 Planeta Completo</button>
@@ -92,25 +91,24 @@
       <!-- Contenedor del mapa Leaflet (Plano 2D) -->
       <div id="mapa-atlas" role="region" aria-label="Mapa interactivo del Atlas VGI"></div>
 
+      <!-- Contenedor flotante del Inspector Normativo IPT -->
+      <div id="contenedor-inspector-normativo" style="display:none; margin-top:10px;"></div>
+
       <!-- Contenedor del Globo Terráqueo 3D (WebGL / Globe.gl) con HUD Liminal A24 -->
       <div id="contenedor-globo-3d" style="display:none; position:relative; width:100%; height:540px; background:#0B0E0A; border:1px solid var(--linea); margin-top:14px; margin-bottom:16px; overflow:hidden;" role="region" aria-label="Globo terráqueo interactivo 3D">
         <div id="globo-3d-canvas" style="width:100%; height:100%;"></div>
         <div class="globo-hud-scanlines"></div>
         <div class="globo-hud-top">
-          <span class="globo-hud-rec">● REC [00:14:26]</span>
-          <span class="globo-hud-canal">NODO-00 // ASYNC GEOLAB // BARRIO BRASIL</span>
+          <span class="globo-hud-rec">● VISTA 3D ACTIVA</span>
+          <span class="globo-hud-canal">NODO-00 // PERSPECTIVA GEOESPACIAL // BARRIO BRASIL & UAH</span>
         </div>
         <div class="globo-hud-bottom">
           <div id="globo-hud-escala" class="globo-hud-tag">
-            <span><strong>ALT:</strong> 120 m</span> &nbsp;|&nbsp; <span>🏘️ NIVEL BARRIO / EDIFICACIONES 3D</span>
+            <span><strong>ALT:</strong> 120 m</span> &nbsp;|&nbsp; <span>🏘️ ESCALA BARRIAL / BARRIO BRASIL</span>
           </div>
           <div class="globo-hud-coords">
-            LAT -33.4445° | LON -70.6620° | WGS84 / SIRGAS
+            CAPAS: 0 | ENTIDADES 3D: 0 | WGS84
           </div>
-        </div>
-        <div class="superposicion-globo-info" id="superposicion-globo-info">
-          <div class="badge-globo">🌍 PERSPECTIVA GEOESPACIAL 3D // ESCALA DINÁMICA MULTI-NIVEL</div>
-          <div class="sub-badge-globo">Rueda del mouse: Zoom reactivo dinámico • Arrastrar: Órbita 3D • Clic: Ficha normativa</div>
         </div>
       </div>
 
@@ -129,8 +127,8 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
           <h3 style="margin:0; color:#1B4D3E; font-size:1.05rem;">🏛️ Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
           <div style="display:flex; gap:6px; align-items:center;">
-            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.78rem; padding:4px 9px;" title="Descargar paquete GeoJSON consolidado con las 20 capas oficiales de IDE Chile y MINVU IPT">📥 Descargar Colección Oficial (.geojson)</button>
-            <span style="font-size:0.72rem; background:#1B4D3E; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">20 CAPAS DISPONIBLES</span>
+            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.78rem; padding:4px 9px;" title="Descargar paquete GeoJSON consolidado con las 27 capas oficiales de IDE Chile y MINVU IPT">📥 Descargar Colección Oficial (.geojson)</button>
+            <span style="font-size:0.72rem; background:#1B4D3E; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">27 CAPAS DISPONIBLES</span>
           </div>
         </div>
         <p class="descripcion" style="margin-bottom:12px;">Capas cartográficas oficiales del Estado contrastables con los datos VGI comunitarios. Se integran directamente desde los servicios <strong>ArcGIS FeatureServer</strong>, <strong>OGC WMS</strong> y conjuntos abiertos de <strong>Geoportal de Chile</strong> y <strong>MINVU GeoIDE</strong>, amparados por la Ley N° 20.285 de Transparencia de la Función Pública y la Ley General de Urbanismo y Construcciones (LGUC).</p>
@@ -776,6 +774,7 @@
 <script src="js/modulos/mapa.js"></script>
 <script src="js/modulos/ide_chile.js"></script>
 <script src="js/modulos/globo.js"></script>
+<script src="js/modulos/evaluador_normativo.js"></script>
 <script src="js/modulos/osm.js"></script>
 <script src="js/modulos/ohsome.js"></script>
 <script src="js/modulos/gbif.js"></script>

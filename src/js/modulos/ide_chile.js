@@ -346,6 +346,176 @@ const ModuloIDEChile = (() => {
       descripcion: 'Línea oficial legal que delimita el territorio urbano comunal normado por el Plan Regulador Comunal de Santiago conforme a la Ley General de Urbanismo y Construcciones.',
       declaracion: 'Polígono legal publicado en Diario Oficial y consolidado en el Catastro Nacional de Límites Urbanos de MINVU.',
       citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Oficial de Límites Urbanos de Chile (PRC/PRI). DDU, MINVU / IDE Chile. https://geoide.minvu.cl/server/rest/services/IPT/Limites_Urbanos/FeatureServer'
+    },
+    ide_minvu_campamentos: {
+      id: 'ide_minvu_campamentos',
+      nombre: 'Catastro Campamentos 2024 (MINVU)',
+      institucion: 'Ministerio de Vivienda y Urbanismo (MINVU)',
+      ministerio: 'Programa de Asentamientos Precarios',
+      tipoServicio: 'ArcGIS MapServer / FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Catastros/Catastros_campamentos/MapServer/0',
+      archivoLocal: 'data/ide_minvu_campamentos.geojson',
+      color: '#E11D48',
+      icono: '⛺',
+      geometria: 'Puntos y Polígonos (Campamentos)',
+      grupo: 'social_comunidades',
+      descripcion: 'Catastro Oficial de Campamentos 2024 del MINVU: asentamientos informales, número de hogares, tenencia y planes de erradicación/radicación.',
+      declaracion: 'Información oficial provista por el Departamento de Asentamientos Precarios del MINVU bajo la Política Nacional de Campamentos.',
+      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Nacional Oficial de Campamentos 2024. Secretaría Ejecutiva SNIT / IDE Chile. https://geoide.minvu.cl/server/rest/services/Catastros/Catastros_campamentos/MapServer/0'
+    },
+    ide_minvu_condominios_sociales: {
+      id: 'ide_minvu_condominios_sociales',
+      nombre: 'Condominios Sociales (MINVU)',
+      institucion: 'MINVU / División de Desarrollo Urbano',
+      ministerio: 'Ministerio de Vivienda y Urbanismo',
+      tipoServicio: 'ArcGIS MapServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Catastros/Catastro_de_condominios_sociales/MapServer/0',
+      archivoLocal: 'data/ide_minvu_condominios_sociales.geojson',
+      color: '#D97706',
+      icono: '🏢',
+      geometria: 'Puntos y Polígonos (Copropiedades)',
+      grupo: 'social_comunidades',
+      descripcion: 'Catastro nacional de condominios sociales y copropiedades habitacionales públicas construidas bajo la Ley de Copropiedad Inmobiliaria (Ley N° 21.442).',
+      declaracion: 'Catastro provisto por la División de Desarrollo Urbano del MINVU conforme al Registro de Condominios Sociales.',
+      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Nacional de Condominios Sociales. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/Catastros/Catastro_de_condominios_sociales/MapServer/0'
+    },
+    ide_minvu_inventario_humedales: {
+      id: 'ide_minvu_inventario_humedales',
+      nombre: 'Inventario de Humedales (MMA / MINVU)',
+      institucion: 'Ministerio del Medio Ambiente (MMA) / MINVU',
+      ministerio: 'División de Recursos Naturales y Biodiversidad',
+      tipoServicio: 'ArcGIS MapServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Inventario_de_Humedales/MapServer/0',
+      archivoLocal: 'data/ide_minvu_inventario_humedales.geojson',
+      color: '#0284C7',
+      icono: '🪷',
+      geometria: 'Polígonos (Humedales Urbanos y Rurales)',
+      grupo: 'medio_ambiente_riesgos',
+      descripcion: 'Inventario oficial de humedales urbanos y ecosistemas acuáticos continentales protegidos bajo la Ley N° 21.202 y su reglamento.',
+      declaracion: 'Catastro consolidado por el Ministerio del Medio Ambiente y la División de Desarrollo Urbano del MINVU para salvaguarda ambiental e IPT.',
+      citaAPA: 'Ministerio del Medio Ambiente [MMA] & MINVU. (2024). Inventario Nacional de Humedales y Humedales Urbanos Protegidos (Ley N° 21.202). IDE Chile. https://geoide.minvu.cl/server/rest/services/Inventario_de_Humedales/MapServer/0'
+    },
+    ide_minvu_unidades_vecinales_rsh: {
+      id: 'ide_minvu_unidades_vecinales_rsh',
+      nombre: 'Unidades Vecinales & RSH (MDS / MINVU)',
+      institucion: 'Ministerio de Desarrollo Social y Familia (MDS) / MINVU',
+      ministerio: 'Subsecretaría de Evaluación Social',
+      tipoServicio: 'ArcGIS MapServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Informacion_Externa/Unidades_Vecinales_con_RSH/MapServer/0',
+      archivoLocal: 'data/ide_minvu_unidades_vecinales_rsh.geojson',
+      color: '#6366F1',
+      icono: '🏘️',
+      geometria: 'Polígonos (Unidades Vecinales)',
+      grupo: 'social_comunidades',
+      descripcion: 'Delimitación territorial de unidades vecinales oficiales con indicadores consolidados del Registro Social de Hogares (RSH 2024).',
+      declaracion: 'Información geoespacial oficial provista por el Ministerio de Desarrollo Social y Familia y MINVU bajo la Ley N° 19.418.',
+      citaAPA: 'Ministerio de Desarrollo Social y Familia [MDSF] & MINVU. (2024). Delimitación de Unidades Vecinales con Registro Social de Hogares. IDE Chile. https://geoide.minvu.cl/server/rest/services/Informacion_Externa/Unidades_Vecinales_con_RSH/MapServer/0'
+    },
+    ide_minvu_ipt_prms_riesgo: {
+      id: 'ide_minvu_ipt_prms_riesgo',
+      nombre: 'PRMS: Riesgos Metropolitanos (Inundación / Remoción)',
+      institucion: 'MINVU / SEREMI Metropolitana',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/3',
+      archivoLocal: 'data/ide_minvu_ipt_prms_riesgo.geojson',
+      color: '#DC2626',
+      icono: '🌋',
+      geometria: 'Polígonos (Zonas de Riesgo Intercomunal)',
+      grupo: 'normativa_ipt',
+      descripcion: 'Áreas de restricción por riesgo geológico, fallas activas, remoción en masa e inundación fluvial normadas por el Plan Regulador Metropolitano de Santiago (PRMS).',
+      declaracion: 'Zonas normativas de riesgo metropolitano reguladas por el Art. 2.1.17 de la OGUC y la Ordenanza del PRMS.',
+      citaAPA: 'Secretaría Regional Ministerial Metropolitana de Vivienda y Urbanismo [SEREMI MINVU RM]. (2024). Áreas de Riesgo Metropolitano (PRMS): Fallas, Inundación y Remoción. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/3'
+    },
+    ide_subdere_dpa_comunas: {
+      id: 'ide_subdere_dpa_comunas',
+      nombre: 'División Político-Administrativa (SUBDERE / IGM)',
+      institucion: 'Subsecretaría de Desarrollo Regional (SUBDERE) / IGM / IDE Chile',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'ArcGIS FeatureServer',
+      urlServicio: 'https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/SIET_comunas_16R_gdb/FeatureServer/0',
+      archivoLocal: 'data/ide_subdere_dpa_comunas.geojson',
+      color: '#475569',
+      icono: '🇨🇱',
+      geometria: 'Polígonos (Límites Comunales Oficiales)',
+      grupo: 'demografia',
+      descripcion: 'Límites comunales y provinciales oficiales de Chile (División Político-Administrativa) con códigos únicos territoriales (CUT).',
+      declaracion: 'Cartografía base oficial de la República de Chile provista por SUBDERE, INE e Instituto Geográfico Militar (IGM).',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE] & IGM. (2024). División Político Administrativa Oficial de Chile (DPA). IDE Chile. https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/SIET_comunas_16R_gdb/FeatureServer/0'
+    },
+    ide_minvu_ciclovias: {
+      id: 'ide_minvu_ciclovias',
+      nombre: 'Red Oficial de Ciclovías (MINVU / DTPM)',
+      institucion: 'Ministerio de Vivienda y Urbanismo (MINVU) / DTPM',
+      ministerio: 'División de Desarrollo Urbano (DDU)',
+      tipoServicio: 'ArcGIS MapServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Planes_Programas/Ciclov%C3%ADas_Minvu/MapServer/0',
+      archivoLocal: 'data/ide_minvu_ciclovias.geojson',
+      color: '#10B981',
+      icono: '🚲',
+      geometria: 'Líneas (Ciclovías Consolidadas)',
+      grupo: 'movilidad_activa',
+      descripcion: 'Ejes de ciclovías consolidadas y de alto estándar normadas por MINVU bajo la Ley de Convivencia Vial (Ley N° 21.088).',
+      declaracion: 'Catastro de infraestructura vial cicloinclusiva oficial administrado por MINVU y DTPM.',
+      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Red Nacional de Ciclovías Urbanas de Chile. IDE Chile / Planes y Programas MINVU. https://geoide.minvu.cl/server/rest/services/Planes_Programas/Ciclov%C3%ADas_Minvu/MapServer/0'
+    }
+  };
+
+  // Diccionario multirregional escalable de endpoints IPT en MINVU GeoIDE
+  const SERVICIOS_IPT_CHILE = {
+    'RM': {
+      nombre: 'Región Metropolitana de Santiago',
+      servicios: {
+        prc_norte: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_RM_Norte/MapServer',
+        prc_sur: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_RM_Sur/MapServer',
+        prms: 'https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer',
+        areas_verdes: 'https://geoide.minvu.cl/server/rest/services/IPT/%C3%81reas_verdes_IPT/FeatureServer',
+        areas_riesgo: 'https://geoide.minvu.cl/server/rest/services/IPT/IPT_AREA_RIESGO/FeatureServer',
+        limites_urbanos: 'https://geoide.minvu.cl/server/rest/services/IPT/Limites_Urbanos/FeatureServer',
+        patrimonio: 'https://geoide.minvu.cl/server/rest/services/IPT/Patrimonio/MapServer'
+      }
+    },
+    '05_VALPARAISO': {
+      nombre: 'Región de Valparaíso',
+      servicios: {
+        prc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_Valpara%C3%ADso/MapServer',
+        premval: 'https://geoide.minvu.cl/server/rest/services/IPT/PREMVAL/MapServer',
+        pri: 'https://geoide.minvu.cl/server/rest/services/IPT/PRI_Valparaiso/MapServer'
+      }
+    },
+    '08_BIOBIO': {
+      nombre: 'Región del Biobío',
+      servicios: {
+        prc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_Biobio/MapServer',
+        prmc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRMC/MapServer'
+      }
+    },
+    '09_ARAUCANIA': {
+      nombre: 'Región de La Araucanía',
+      servicios: {
+        prc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_Araucania/MapServer',
+        pri: 'https://geoide.minvu.cl/server/rest/services/IPT/PRI_Araucan%C3%ADa/MapServer'
+      }
+    },
+    '02_ANTOFAGASTA': {
+      nombre: 'Región de Antofagasta',
+      servicios: {
+        prc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_Antofagasta/MapServer',
+        pri: 'https://geoide.minvu.cl/server/rest/services/IPT/PRI_Antofagasta/MapServer'
+      }
+    },
+    '16_NUBLE': {
+      nombre: 'Región de Ñuble',
+      servicios: {
+        prc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_Nuble/MapServer',
+        pri: 'https://geoide.minvu.cl/server/rest/services/IPT/PRI_Chill%C3%A1n___Chill%C3%A1n_Viejo/MapServer'
+      }
+    },
+    '10_LOS_LAGOS': {
+      nombre: 'Región de Los Lagos',
+      servicios: {
+        prc: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_Los_Lagos/MapServer'
+      }
     }
   };
 
@@ -604,6 +774,64 @@ const ModuloIDEChile = (() => {
           'Norma Legal': `${props.T_DO || 'Resolución'} N° ${props.N_DO || ''}`,
           'Administración': props.ADMIN || 'SEREMI MINVU / Municipalidad'
         };
+      } else if (idCapa === 'ide_minvu_campamentos') {
+        nombreEntidad = props.Nombre_Campamento || props.NOMBRE || 'Campamento Precario';
+        detalleTipo = 'Asentamiento Precario (Catastro Oficial 2024)';
+        extraInfo = {
+          'Hogares': props.N_HOGARES || props.HOGARES || '-',
+          'Tipo de Terreno': props.TIPO_TERRENO || 'Fiscal / Privado',
+          'Estrategia MINVU': props.ESTRATEGIA || 'Radicación / Relocalización',
+          'Comuna': props.COMUNA || 'Santiago'
+        };
+      } else if (idCapa === 'ide_minvu_condominios_sociales') {
+        nombreEntidad = props.NOM || 'Condominio Social';
+        detalleTipo = props.PROGRAMA || 'Copropiedad Inmobiliaria Social (Ley 21.442)';
+        extraInfo = {
+          'Viviendas Totales': props.VIV_TOT || '-',
+          'Bloques': props.BLOQUES || '-',
+          'Dirección': `${props.DIRECC || ''} ${props.NUM_P_EDIF || ''}`.trim() || 'Santiago',
+          'Año Recepción': props.AÑO_RECEP || '-'
+        };
+      } else if (idCapa === 'ide_minvu_inventario_humedales') {
+        nombreEntidad = props.nombre_humedal || props.NOM_HUM || props.nombre || 'Humedal Protegido';
+        detalleTipo = props.tipo_humedal || 'Humedal Urbano / Continental (Ley 21.202)';
+        extraInfo = {
+          'Clasificación': props.tipo_humedal || 'Humedal',
+          'Superficie (ha)': props.superficie_ha ? `${Number(props.superficie_ha).toFixed(2)} ha` : '-',
+          'Comuna': props.nom_comuna || props.COMUNA || 'Santiago'
+        };
+      } else if (idCapa === 'ide_minvu_unidades_vecinales_rsh') {
+        nombreEntidad = `Unidad Vecinal N° ${props.uv_carto || props.t_uv_nom || props.OBJECTID}`;
+        detalleTipo = 'Unidad Vecinal Oficial (MDS / RSH 2024)';
+        extraInfo = {
+          'Comuna': props.t_com_nom || 'Santiago',
+          'Provincia': props.t_prov_nom || 'Santiago',
+          'ID Cartográfico': props.t_id_uv_ca || '-'
+        };
+      } else if (idCapa === 'ide_minvu_ipt_prms_riesgo') {
+        nombreEntidad = `Zona de Riesgo PRMS: ${props.ZONA || props.DESCRIP || 'Riesgo Natural'}`;
+        detalleTipo = 'Área de Riesgo Metropolitano (Art. 2.1.17 OGUC)';
+        extraInfo = {
+          'Tipo de Riesgo': props.TIPO_RIESGO || props.DESCRIP || 'Inundación / Remoción en Masa',
+          'Marco Normativo': 'Art. 2.1.17 OGUC / PRMS',
+          'Instrumento': 'Plan Regulador Metropolitano de Santiago'
+        };
+      } else if (idCapa === 'ide_subdere_dpa_comunas') {
+        nombreEntidad = `Comuna de ${props.NOM_COMUNA || props.COMUNA || 'Santiago'}`;
+        detalleTipo = 'División Político-Administrativa (SUBDERE / IGM)';
+        extraInfo = {
+          'Código CUT': props.CUT || '-',
+          'Provincia': props.NOM_PROVINCIA || props.PROVINCIA || '-',
+          'Región': props.NOM_REGION || props.REGION || 'Metropolitana de Santiago'
+        };
+      } else if (idCapa === 'ide_minvu_ciclovias') {
+        nombreEntidad = props.NOMBRE || props.CALLE || 'Ciclovía Urbana';
+        detalleTipo = 'Infraestructura Cicloinclusiva Oficial (MINVU)';
+        extraInfo = {
+          'Eje Vial': props.CALLE || props.NOMBRE || '-',
+          'Estado': props.ESTADO || 'Consolidada',
+          'Sentido': props.SENTIDO || 'Bidireccional'
+        };
       }
 
       props._idOficial = idCapa;
@@ -658,6 +886,7 @@ const ModuloIDEChile = (() => {
 
   return {
     CAPAS_OFICIALES,
+    SERVICIOS_IPT_CHILE,
     consultarCapaOficial,
     crearCapaWMSLeaflet,
     obtenerCapasDisponibles,

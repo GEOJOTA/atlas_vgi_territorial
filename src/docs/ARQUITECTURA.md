@@ -75,13 +75,15 @@ El Atlas articula 8 servicios y protocolos de datos geoespaciales y colaborativo
 | **ArcGIS FeatureServer (INE / IDE Chile)** | `https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7` | `src/js/modulos/ide_chile.js` | Microdatos georreferenciados del Censo de Población y Vivienda 2024 a nivel de manzana con recuento de población, hombres, mujeres y viviendas. |
 | **ArcGIS FeatureServer & WMS (MINVU / DDU)** | `https://geoide.minvu.cl/server/rest/services/` (IPT/Patrimonio, Catastro Parques, Barrios Históricos) | `src/js/modulos/ide_chile.js` | Catastro oficial de Inmuebles de Conservación Histórica (ICH), Zonas Típicas, Parques Urbanos y polígonos del Programa Quiero Mi Barrio. |
 | **MINVU IPT FeatureServer (Normativa Urbanística)** | `https://geoide.minvu.cl/server/rest/services/IPT/` (PRC Santiago, PRMS Uso Suelo, Áreas Verdes IPT, Áreas de Riesgo, Resguardo, Límite Urbano) | `src/js/modulos/ide_chile.js` | Instrumentos de Planificación Territorial (IPT) y capas normativas: zonificación comunal (192 zonas), usos permitidos/prohibidos, ordenanza metropolitana PRMS, áreas de riesgo natural y fajas de protección. |
-| **Globe.gl / Three.js WebGL** | `https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js` | `src/js/modulos/globo.js` | Perspectiva esférica 3D moderna con Nivel de Detalle Dinámico (LOD): extrusión volumétrica de edificaciones (pisos building:levels), parcelas, fajas y balizas con escalado reactivo a la altitud de la cámara. |
+| **MINVU Catastros & Programas** | `https://geoide.minvu.cl/server/rest/services/Catastros/` y `Planes_Programas/` | `src/js/modulos/ide_chile.js` | Catastro Oficial de Campamentos 2024, Condominios Sociales (Ley 21.442), Inventario de Humedales (Ley 21.202), Unidades Vecinales con RSH (MDS) y Red de Ciclovías. |
+| **Evaluador Normativo Territorial** | Motor cliente JS Point-in-Polygon + Ficha HUD | `src/js/modulos/evaluador_normativo.js` | Consulta interactiva por clic de zonificación PRC Santiago (UPERM/UPROH), afectación por riesgo (Art. 2.1.17 OGUC), límites urbanos y emisión de Certificados CIN-VGI. |
+| **Globe.gl / Three.js WebGL** | `https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js` | `src/js/modulos/globo.js` | Perspectiva esférica 3D moderna sobre globo terráqueo con proyección plana 2D de entidades (polígonos, líneas y puntos sin alturas artificiales) y sincronización reactiva instantánea. |
 
 ---
 
 ## 3. Módulos del Sistema Frontend (`src/js/modulos/`)
 
-La lógica de la aplicación se distribuye en 14 módulos desacoplados que exportan sus interfaces al objeto global `window`:
+La lógica de la aplicación se distribuye en 16 módulos desacoplados que exportan sus interfaces al objeto global `window`:
 
 ### 3.1 `mapa.js` (Visor Cartográfico Leaflet)
 - Motor: Leaflet 1.9.4.

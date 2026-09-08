@@ -411,6 +411,7 @@ const ModuloMapa = (() => {
     alternarCapaWMS,
     removerCapaWMS,
     obtenerCapasWMSActivas,
+    obtenerInstanciaMapa: () => mapa,
     COLORES_CATEGORIA
   };
 })();

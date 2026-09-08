@@ -1992,10 +1992,14 @@ function configurarSelectorPerspectiva2Dy3D() {
 
     if (window.ModuloGlobo) {
       ModuloGlobo.inicializar('globo-3d-canvas');
+      requestAnimationFrame(() => {
+        ModuloGlobo.redimensionar();
+        sincronizarTodoEnGlobo3D();
+      });
       setTimeout(() => {
         ModuloGlobo.redimensionar();
         sincronizarTodoEnGlobo3D();
-      }, 50);
+      }, 100);
     }
   });
 
@@ -2030,31 +2034,99 @@ function configurarSelectorPerspectiva2Dy3D() {
   });
 }
 
+let modoInspectorNormativoActivo = false;
+
 function configurarCapasOficialesIDE() {
   const contenedor = document.getElementById('contenedor-botones-oficiales-ide');
   if (!contenedor || !window.ModuloIDEChile) return;
 
-  const capas = ModuloIDEChile.obtenerCapasDisponibles();
+  const capasMap = {};
+  ModuloIDEChile.obtenerCapasDisponibles().forEach(c => { capasMap[c.id] = c; });
+
+  const GRUPOS_OFICIALES = [
+    {
+      id: 'normativa_ipt',
+      nombre: '📜 Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT)',
+      ids: [
+        'minvu_ipt_prc_santiago',
+        'minvu_ipt_prms_usosuelo',
+        'minvu_ipt_limite_urbano',
+        'minvu_ipt_resguardo_infraestructura',
+        'ide_minvu_ipt_prms_riesgo',
+        'minvu_ipt_areas_riesgo'
+      ]
+    },
+    {
+      id: 'medio_ambiente',
+      nombre: '🌳 Medio Ambiente, Parques & Recursos Hídricos (MMA / MINVU / DGA)',
+      ids: [
+        'minvu_ipt_areas_verdes',
+        'minvu_parques',
+        'ide_minvu_inventario_humedales'
+      ]
+    },
+    {
+      id: 'comunidades_vivienda',
+      nombre: '👥 Comunidades, Campamentos & Registro Social (MINVU / MDS / INE)',
+      ids: [
+        'ide_minvu_campamentos',
+        'ide_minvu_condominios_sociales',
+        'ide_minvu_unidades_vecinales_rsh',
+        'censo2024_manzanas',
+        'minvu_barrios_historicos',
+        'limite_urbano_censal'
+      ]
+    },
+    {
+      id: 'equipamiento_patrimonio',
+      nombre: '🏛️ Equipamiento Público, Patrimonio & Movilidad (CMN / MINEDUC / MINSAL / MTT / SUBDERE)',
+      ids: [
+        'minvu_patrimonio',
+        'cmn_sitios_memoria',
+        'educacion_escolar',
+        'educacion_superior',
+        'educacion_parvularia',
+        'establecimientos_salud',
+        'bomberos',
+        'carabineros',
+        'estaciones_metro',
+        'red_ferroviaria',
+        'ide_minvu_ciclovias',
+        'ide_subdere_dpa_comunas'
+      ]
+    }
+  ];
+
   contenedor.innerHTML = '';
 
-  capas.forEach(def => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn-categoria-oficial';
-    btn.id = `btn-oficial-${def.id}`;
-    btn.dataset.capa = def.id;
-    btn.title = `${def.descripcion}\nInstitución: ${def.institucion}\nTipo: ${def.tipoServicio}`;
-    btn.innerHTML = `
-      <span class="icono-cat">${def.icono}</span>
-      <div class="info-cat">
-        <strong>${def.nombre}</strong>
-        <small>${def.institucion.split('/')[0].trim()}</small>
-      </div>
-      <span class="badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
-    `;
+  GRUPOS_OFICIALES.forEach(grp => {
+    const cabecera = document.createElement('div');
+    cabecera.className = 'cabecera-grupo-oficial';
+    cabecera.innerHTML = grp.nombre;
+    contenedor.appendChild(cabecera);
 
-    btn.addEventListener('click', () => alternarCapaOficialIDE(def.id, btn));
-    contenedor.appendChild(btn);
+    grp.ids.forEach(idCapa => {
+      const def = capasMap[idCapa];
+      if (!def) return;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-categoria-oficial';
+      btn.id = `btn-oficial-${def.id}`;
+      btn.dataset.capa = def.id;
+      btn.title = `${def.descripcion}\nInstitución: ${def.institucion}\nTipo: ${def.tipoServicio}`;
+      btn.innerHTML = `
+        <span class="icono-cat">${def.icono}</span>
+        <div class="info-cat">
+          <strong>${def.nombre}</strong>
+          <small>${def.institucion.split('/')[0].trim()}</small>
+        </div>
+        <span class="badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
+      `;
+
+      btn.addEventListener('click', () => alternarCapaOficialIDE(def.id, btn));
+      contenedor.appendChild(btn);
+    });
   });
 
   // Botón para la capa raster WMS Patrimonio MINVU
@@ -2075,8 +2147,98 @@ function configurarCapasOficialesIDE() {
   btnWMS.addEventListener('click', () => alternarCapaWMSOficial('minvu_patrimonio', btnWMS));
   contenedor.appendChild(btnWMS);
 
-  // Botón de descarga masiva
   document.getElementById('btn-descargar-todo-ide')?.addEventListener('click', descargarColeccionOficialCompleta);
+  inicializarInspectorNormativo();
+}
+
+function inicializarInspectorNormativo() {
+  const btnInspector = document.getElementById('btn-inspector-normativo');
+  const contInspector = document.getElementById('contenedor-inspector-normativo');
+  if (!btnInspector || !contInspector) return;
+
+  btnInspector.addEventListener('click', () => {
+    modoInspectorNormativoActivo = !modoInspectorNormativoActivo;
+    btnInspector.classList.toggle('activo', modoInspectorNormativoActivo);
+
+    if (modoInspectorNormativoActivo) {
+      contInspector.style.display = 'block';
+      contInspector.innerHTML = `
+        <div class="ficha-normativa-hud">
+          <div class="ficha-normativa-header">
+            <span class="badge-alerta-normativa seguro">⚖️ MODO INSPECTOR NORMATIVO ACTIVO</span>
+            <span class="ficha-normativa-id">Haz clic en cualquier punto del mapa para auditar zonificación y riesgos</span>
+          </div>
+          <p style="font-size:0.8rem; margin:8px 0; color:var(--tinta-suave);">El inspector analizará automáticamente la zonificación PRC Santiago (usos permitidos UPERM / prohibidos UPROH), límite urbano oficial, áreas de riesgo (Art. 2.1.17 OGUC), áreas verdes normadas y afectación patrimonial.</p>
+        </div>
+      `;
+    } else {
+      contInspector.style.display = 'none';
+      contInspector.innerHTML = '';
+    }
+  });
+
+  const mapa = ModuloMapa.obtenerInstanciaMapa && ModuloMapa.obtenerInstanciaMapa();
+  if (mapa) {
+    mapa.on('click', async (e) => {
+      if (!modoInspectorNormativoActivo) return;
+      ejecutarConsultaInspector(e.latlng.lat, e.latlng.lng);
+    });
+  }
+}
+
+async function ejecutarConsultaInspector(lat, lng) {
+  const contInspector = document.getElementById('contenedor-inspector-normativo');
+  if (!contInspector || !window.ModuloEvaluadorNormativo) return;
+
+  contInspector.style.display = 'block';
+  contInspector.innerHTML = `<div class="ficha-normativa-hud" style="text-align:center; padding:18px;">⏳ Auditando normativa urbanística para lat: ${lat.toFixed(5)}, lng: ${lng.toFixed(5)}...</div>`;
+
+  const capasRequeridas = [
+    'minvu_ipt_prc_santiago',
+    'minvu_ipt_prms_usosuelo',
+    'minvu_ipt_limite_urbano',
+    'minvu_ipt_areas_riesgo',
+    'ide_minvu_ipt_prms_riesgo',
+    'minvu_ipt_areas_verdes',
+    'minvu_patrimonio',
+    'ide_minvu_unidades_vecinales_rsh',
+    'ide_minvu_campamentos',
+    'ide_minvu_inventario_humedales'
+  ];
+
+  for (const cId of capasRequeridas) {
+    if (!capasOficialesCargadas[cId] && window.ModuloIDEChile) {
+      try {
+        const res = await ModuloIDEChile.consultarCapaOficial(cId);
+        if (res && res.geojson) {
+          capasOficialesCargadas[cId] = res.geojson;
+        }
+      } catch (_) {}
+    }
+  }
+
+  const todasLasCapas = {
+    ...capasCargadasPorCategoria,
+    ...capasOficialesCargadas
+  };
+
+  const resultado = ModuloEvaluadorNormativo.consultarPuntoNormativo(lat, lng, todasLasCapas);
+  contInspector.innerHTML = ModuloEvaluadorNormativo.renderizarFichaNormativaHTML(resultado);
+
+  document.getElementById('btn-cerrar-ficha-normativa')?.addEventListener('click', () => {
+    contInspector.style.display = 'none';
+  });
+
+  document.getElementById('btn-descargar-cin-txt')?.addEventListener('click', () => {
+    const texto = ModuloEvaluadorNormativo.generarCertificadoTexto(resultado);
+    const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Certificado-Informaciones-Normativas-VGI-${lat.toFixed(4)}_${lng.toFixed(4)}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 }
 
 async function descargarColeccionOficialCompleta() {
@@ -2215,7 +2377,7 @@ function alternarCapaWMSOficial(idCapa, btn) {
 }
 
 function sincronizarTodoEnGlobo3D() {
-  if (!window.ModuloGlobo || !ModuloGlobo.estaInicializado()) return;
+  if (!window.ModuloGlobo) return;
   const todasLasCapas = {
     ...capasCargadasPorCategoria,
     ...capasOficialesCargadas

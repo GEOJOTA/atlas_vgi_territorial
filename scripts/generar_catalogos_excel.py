@@ -462,8 +462,21 @@ def crear_catalogo_fuentes():
             "download/{uuid}",
             "Licencia de Datos Abiertos del Estado de Chile",
             "src/data/ide_*.geojson & src/js/modulos/ide_chile.js",
-            "Integración y descarga masiva de 20 conjuntos oficiales con más de 3.000 entidades (Educación Superior, Escolar, Parvularia, Salud DEIS, Bomberos, Carabineros, Metro, EFE, CMN, Normativa IPT)",
+            "Integración y descarga masiva de 27 conjuntos oficiales del Estado con más de 6.000 entidades (Campamentos 2024, Condominios Sociales, Humedales Ley 21.202, UV RSH, PRMS Riesgos, DPA SUBDERE, Ciclovías, Educación, Salud, Bomberos, Metro, EFE, CMN, Normativa IPT)",
             "IDE Chile. (2024). Geoportal de Chile: Catálogo Nacional de Información Geoespacial Abierta. https://www.geoportal.cl"
+        ],
+        [
+            "Módulo de Evaluación y Consulta Normativa Territorial (CIN-VGI)",
+            "Atlas VGI UAH / MINVU / DDU / Municipalidad de Santiago",
+            "Motor Espacial JavaScript / Point-in-Polygon",
+            "https://geoide.minvu.cl/server/rest/services/IPT/",
+            "Auditoría Espacial & Evaluación Cruzada VGI vs IPT",
+            "Reporte Ficha HUD, GeoJSON y Certificado TXT (.txt)",
+            "consultarPuntoNormativo(lat, lng) & evaluarCompatibilidadVGI()",
+            "Software libre y código abierto bajo licencia AGPL-3.0; datos abiertos Ley N° 20.285",
+            "src/js/modulos/evaluador_normativo.js (ModuloEvaluadorNormativo)",
+            "Inspector interactivo por clic para auditar zonificación PRC Santiago (UPERM/UPROH), límite urbano, áreas de riesgo (Art. 2.1.17 OGUC), áreas verdes normadas y emisión de Certificados de Informaciones Normativas VGI (CIN-VGI)",
+            "Lescano, J. P. (2026). Motor de Evaluación Espacial Normativa y Certificación Territorial VGI. Universidad Alberto Hurtado."
         ],
         [
             "Globe.gl (Motor 3D WebGL / Three.js)",
@@ -475,7 +488,7 @@ def crear_catalogo_fuentes():
             "Globe()(element).polygonsData(...).pathsData(...).pointsData(...)",
             "Código abierto 100% libre bajo licencia MIT; sin claves ni costos",
             "src/js/modulos/globo.js (ModuloGlobo)",
-            "Perspectiva esférica 3D moderna del globo terráqueo completo con proyección simultánea de capas VGI y oficiales IDE",
+            "Perspectiva esférica 3D del globo terráqueo completo con proyección simultánea de capas VGI y oficiales IDE en 2D sin alturas artificiales",
             "Vasturiano. (2024). Globe.gl: 3D Globe Data Visualization. https://globe.gl/"
         ]
     ]

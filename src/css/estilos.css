@@ -1344,3 +1344,152 @@ footer.pie-datos {
   border-right: 1px solid #B8AD82;
 }
 
+/* ==========================================================================
+   FICHA NORMATIVA HUD — EVALUADOR ESPACIAL IPT & OGUC (A24 BACKROOMS)
+   ========================================================================== */
+
+.ficha-normativa-hud {
+  background: #141812;
+  color: #EDE6D6;
+  border: 1px solid #B8AD82;
+  border-left: 4px solid #10B981;
+  border-radius: 3px;
+  padding: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  font-family: var(--fuente-lectura);
+}
+
+.ficha-normativa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.badge-alerta-normativa {
+  font-family: var(--fuente-datos);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-alerta-normativa.seguro {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid #10B981;
+}
+
+.badge-alerta-normativa.peligro {
+  background: rgba(220, 38, 38, 0.25);
+  color: #F87171;
+  border: 1px solid #DC2626;
+  animation: parpadeoRec 1.8s infinite ease-in-out;
+}
+
+.ficha-normativa-id {
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  color: #A3A3A3;
+}
+
+.ficha-normativa-cuerpo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.campo-normativo {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 10px;
+  border-radius: 2px;
+}
+
+.campo-normativo.alerta-box {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.4);
+  grid-column: 1 / -1;
+}
+
+.campo-normativo.patrimonio-box {
+  background: rgba(217, 119, 6, 0.08);
+  border-color: rgba(217, 119, 6, 0.4);
+  grid-column: 1 / -1;
+}
+
+.etiqueta-normativa {
+  display: block;
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9CA3AF;
+  margin-bottom: 3px;
+}
+
+.valor-normativo {
+  font-size: 0.86rem;
+  color: #FFFFFF;
+}
+
+.valor-normativo.zona-destacada {
+  color: #F59E0B;
+  font-weight: bold;
+}
+
+.texto-normativo {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 3px 0 0 0;
+}
+
+.texto-normativo.permitido {
+  color: #A7F3D0;
+}
+
+.texto-normativo.prohibido {
+  color: #FECACA;
+}
+
+.lista-riesgos, .lista-patrimonio {
+  margin: 4px 0 0 16px;
+  padding: 0;
+  font-size: 0.78rem;
+}
+
+.ficha-normativa-acciones {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+/* Agrupadores visuales para el Catálogo Oficial */
+.cabecera-grupo-oficial {
+  grid-column: 1 / -1;
+  font-family: var(--fuente-datos);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1B4D3E;
+  background: #DFD6B8;
+  padding: 6px 12px;
+  border: 1px solid #B8AD82;
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
