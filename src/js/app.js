@@ -433,6 +433,7 @@ function inicializarAplicacion() {
   configurarEventosMapa();
   configurarSelectorPerspectiva2Dy3D();
   configurarCapasOficialesIDE();
+  configurarImportadorCapas();
   pintarEstadoConexion();
 
   const ml = window.ModuloLicencias || (typeof ModuloLicencias !== 'undefined' ? ModuloLicencias : null);
@@ -2378,9 +2379,320 @@ function alternarCapaWMSOficial(idCapa, btn) {
 
 function sincronizarTodoEnGlobo3D() {
   if (!window.ModuloGlobo) return;
+  const capasImportadas = window.ModuloImportadorCapas ? ModuloImportadorCapas.obtenerCapasImportadas() : {};
+  const capasImportadasGeojson = {};
+  Object.values(capasImportadas).forEach(capa => {
+    if (capa.activa && capa.geojson) {
+      capasImportadasGeojson[capa.id] = capa.geojson;
+    }
+  });
+
   const todasLasCapas = {
     ...capasCargadasPorCategoria,
-    ...capasOficialesCargadas
+    ...capasOficialesCargadas,
+    ...capasImportadasGeojson
   };
   ModuloGlobo.sincronizarCapas(todasLasCapas);
 }
+
+/**
+ * Módulo Controlador de Interfaz: Importador de Capas Espaciales Locales
+ * Permite subir y visualizar .kmz, .kml, .geojson, .gpx y .csv en 2D, 3D y auditoría normativa.
+ */
+function configurarImportadorCapas() {
+  const btnAbrir = document.getElementById('btn-abrir-importador');
+  const seccionImportador = document.getElementById('seccion-importador-capas');
+  const dropZone = document.getElementById('zona-drop-importacion');
+  const fileInput = document.getElementById('input-archivo-capa');
+  const contenedorCapas = document.getElementById('contenedor-capas-importadas');
+  const grillaCapas = document.getElementById('grilla-capas-importadas');
+  const contadorCapas = document.getElementById('contador-capas-importadas');
+  const btnLimpiar = document.getElementById('btn-limpiar-capas-importadas');
+  const estadoTexto = document.getElementById('estado-importacion-capas');
+
+  if (!dropZone || !fileInput) return;
+
+  // Botón de salto rápido en barra superior
+  if (btnAbrir && seccionImportador) {
+    btnAbrir.addEventListener('click', () => {
+      seccionImportador.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      seccionImportador.style.transition = 'box-shadow 0.3s ease';
+      seccionImportador.style.boxShadow = '0 0 16px rgba(122, 112, 69, 0.45)';
+      setTimeout(() => {
+        seccionImportador.style.boxShadow = 'none';
+      }, 1500);
+    });
+  }
+
+  // Clic en la dropzone para activar selector de archivos
+  dropZone.addEventListener('click', (e) => {
+    if (e.target.tagName !== 'LABEL' && e.target.tagName !== 'INPUT') {
+      fileInput.click();
+    }
+  });
+
+  // Eventos de arrastrar y soltar (Drag & Drop)
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.classList.add('dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.classList.remove('dragover');
+    });
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    const archivos = e.dataTransfer.files;
+    if (archivos && archivos.length > 0) {
+      procesarListaArchivos(archivos);
+    }
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    const archivos = e.target.files;
+    if (archivos && archivos.length > 0) {
+      procesarListaArchivos(archivos);
+      fileInput.value = ''; // Reset para permitir subir el mismo archivo si fue editado
+    }
+  });
+
+  // Botón para limpiar todas las capas importadas
+  if (btnLimpiar) {
+    btnLimpiar.addEventListener('click', () => {
+      if (!window.ModuloImportadorCapas) return;
+      const todas = ModuloImportadorCapas.obtenerCapasImportadas();
+      Object.keys(todas).forEach(idCapa => {
+        ModuloMapa.removerCapa(idCapa);
+        ModuloImportadorCapas.removerCapa(idCapa);
+      });
+      grillaCapas.innerHTML = '';
+      if (contenedorCapas) contenedorCapas.style.display = 'none';
+      if (contadorCapas) contadorCapas.textContent = '0';
+      if (estadoTexto) estadoTexto.textContent = 'Todas las capas importadas han sido removidas de la sesión.';
+      sincronizarTodoEnGlobo3D();
+    });
+  }
+
+  async function procesarListaArchivos(archivos) {
+    if (!window.ModuloImportadorCapas || !window.ModuloMapa) {
+      alert('Los módulos del mapa e importador aún no están disponibles.');
+      return;
+    }
+
+    if (estadoTexto) {
+      estadoTexto.innerHTML = `<span style="color:#7A7045; font-weight:600;">⏳ Procesando ${archivos.length} archivo(s)...</span>`;
+    }
+
+    let procesadosExito = 0;
+    let errores = [];
+
+    for (let i = 0; i < archivos.length; i++) {
+      const archivo = archivos[i];
+      try {
+        const capa = await ModuloImportadorCapas.procesarArchivo(archivo);
+
+        // Cargar en el visor Leaflet
+        ModuloMapa.cargarCapaGeoJSON(capa.id, capa.geojson, {
+          color: capa.color,
+          icono: capa.icono,
+          nombre: capa.nombre
+        });
+
+        // Encuadrar automáticamente hacia la capa importada
+        const bbox = ModuloImportadorCapas.calcularBbox(capa.geojson);
+        if (bbox) {
+          const mapaInstancia = ModuloMapa.obtenerInstanciaMapa();
+          if (mapaInstancia) {
+            mapaInstancia.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]], { padding: [30, 30] });
+          }
+          if (window.ModuloGlobo && ModuloGlobo.estaInicializado && ModuloGlobo.estaInicializado()) {
+            const latCentro = (bbox[1] + bbox[3]) / 2;
+            const lngCentro = (bbox[0] + bbox[2]) / 2;
+            ModuloGlobo.volarACoordenadas(latCentro, lngCentro, 0.05, 1600);
+          }
+        }
+
+        // Renderizar tarjeta en la grilla
+        renderizarTarjetaCapaImportada(capa);
+        procesadosExito++;
+      } catch (err) {
+        console.error(`Error al procesar archivo ${archivo.name}:`, err);
+        errores.push(`${archivo.name}: ${err.message}`);
+      }
+    }
+
+    // Sincronizar con el Globo 3D
+    sincronizarTodoEnGlobo3D();
+
+    // Actualizar contadores y visibilidad del contenedor
+    const capasActuales = Object.keys(ModuloImportadorCapas.obtenerCapasImportadas()).length;
+    if (contadorCapas) contadorCapas.textContent = String(capasActuales);
+    if (contenedorCapas) contenedorCapas.style.display = capasActuales > 0 ? 'block' : 'none';
+
+    if (estadoTexto) {
+      if (errores.length === 0) {
+        estadoTexto.innerHTML = `
+          <span style="color:#10B981; font-weight:600;">✓ ¡Éxito!</span> 
+          Se importaron ${procesadosExito} capa(s) correctamente y se desplegaron en el mapa 2D y Globo 3D.
+        `;
+      } else {
+        estadoTexto.innerHTML = `
+          <span style="color:#DC2626; font-weight:600;">⚠️ Importación completada con observaciones:</span> 
+          ${procesadosExito} procesadas. Errores: ${errores.join(' | ')}
+        `;
+      }
+    }
+  }
+
+  function renderizarTarjetaCapaImportada(capa) {
+    if (!grillaCapas) return;
+
+    // Si ya existe tarjeta previa con el mismo ID, removerla
+    const tarjetaPrevia = document.getElementById(`tarjeta-capa-${capa.id}`);
+    if (tarjetaPrevia) tarjetaPrevia.remove();
+
+    const tarjeta = document.createElement('div');
+    tarjeta.className = 'tarjeta-capa-importada';
+    tarjeta.id = `tarjeta-capa-${capa.id}`;
+    tarjeta.style.borderLeftColor = capa.color;
+
+    tarjeta.innerHTML = `
+      <div class="tarjeta-capa-cabecera">
+        <div class="tarjeta-capa-titulo">
+          ${capa.icono} ${capa.nombre}
+        </div>
+        <span class="badge-formato-capa">${capa.formato}</span>
+      </div>
+      <div class="tarjeta-capa-meta">
+        <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:${capa.color}; vertical-align:middle;"></span>
+        <span>${capa.cantidad.toLocaleString('es-CL')} entidades</span>
+        <span>•</span>
+        <span>${capa.archivoOriginal}</span>
+      </div>
+      <div class="tarjeta-capa-acciones">
+        <button type="button" class="btn-accion-capa btn-toggle-capa" title="Mostrar u ocultar la capa en el mapa">👁️ Ocultar</button>
+        <button type="button" class="btn-accion-capa btn-encuadrar-capa" title="Centrar y encuadrar el visor en esta capa">🎯 Encuadrar</button>
+        <button type="button" class="btn-accion-capa btn-auditar-capa" title="Auditar compatibilidad normativa con el PRC Santiago">⚖️ Auditar PRC</button>
+        <button type="button" class="btn-accion-capa peligro btn-eliminar-capa" title="Eliminar capa de la sesión">🗑️ Eliminar</button>
+      </div>
+    `;
+
+    // Evento Ocultar / Mostrar
+    const btnToggle = tarjeta.querySelector('.btn-toggle-capa');
+    btnToggle.addEventListener('click', () => {
+      const activa = ModuloImportadorCapas.alternarCapa(capa.id);
+      tarjeta.classList.toggle('inactiva', !activa);
+      btnToggle.textContent = activa ? '👁️ Ocultar' : '👁️ Mostrar';
+
+      if (activa) {
+        ModuloMapa.cargarCapaGeoJSON(capa.id, capa.geojson, {
+          color: capa.color,
+          icono: capa.icono,
+          nombre: capa.nombre
+        });
+      } else {
+        ModuloMapa.removerCapa(capa.id);
+      }
+      sincronizarTodoEnGlobo3D();
+    });
+
+    // Evento Encuadrar
+    const btnEncuadrar = tarjeta.querySelector('.btn-encuadrar-capa');
+    btnEncuadrar.addEventListener('click', () => {
+      const bbox = ModuloImportadorCapas.calcularBbox(capa.geojson);
+      if (bbox) {
+        const mapaInstancia = ModuloMapa.obtenerInstanciaMapa();
+        if (mapaInstancia) {
+          mapaInstancia.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]], { padding: [30, 30] });
+        }
+        if (window.ModuloGlobo && ModuloGlobo.estaInicializado && ModuloGlobo.estaInicializado()) {
+          const latCentro = (bbox[1] + bbox[3]) / 2;
+          const lngCentro = (bbox[0] + bbox[2]) / 2;
+          ModuloGlobo.volarACoordenadas(latCentro, lngCentro, 0.05, 1500);
+        }
+      }
+    });
+
+    // Evento Auditar Normativa
+    const btnAuditar = tarjeta.querySelector('.btn-auditar-capa');
+    btnAuditar.addEventListener('click', () => {
+      if (!window.ModuloEvaluadorNormativo) {
+        alert('El Módulo de Evaluación Normativa no está cargado.');
+        return;
+      }
+      // Obtener la primera coordenada o centroide de la primera entidad
+      const f0 = capa.geojson.features && capa.geojson.features[0];
+      if (!f0 || !f0.geometry) {
+        alert('La capa no posee geometrías evaluables.');
+        return;
+      }
+      let latTarget = null;
+      let lngTarget = null;
+      const geom = f0.geometry;
+      if (geom.type === 'Point') {
+        lngTarget = geom.coordinates[0];
+        latTarget = geom.coordinates[1];
+      } else if (geom.type === 'LineString' || geom.type === 'MultiPoint') {
+        lngTarget = geom.coordinates[0][0];
+        latTarget = geom.coordinates[0][1];
+      } else if (geom.type === 'Polygon') {
+        lngTarget = geom.coordinates[0][0][0];
+        latTarget = geom.coordinates[0][0][1];
+      } else if (geom.type === 'MultiPolygon') {
+        lngTarget = geom.coordinates[0][0][0][0];
+        latTarget = geom.coordinates[0][0][0][1];
+      }
+
+      if (latTarget !== null && lngTarget !== null) {
+        const inf = ModuloEvaluadorNormativo.consultarPuntoNormativo(latTarget, lngTarget);
+        const contInspector = document.getElementById('contenedor-inspector-normativo');
+        if (contInspector) {
+          contInspector.innerHTML = ModuloEvaluadorNormativo.renderizarFichaNormativaHTML(inf);
+          contInspector.style.display = 'block';
+          contInspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+          // Configurar botones de la ficha
+          document.getElementById('btn-cerrar-ficha-normativa')?.addEventListener('click', () => {
+            contInspector.style.display = 'none';
+          });
+          document.getElementById('btn-descargar-cin-txt')?.addEventListener('click', () => {
+            const txt = ModuloEvaluadorNormativo.generarCertificadoTexto(inf);
+            const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Certificado_Normativo_VGI_${inf.zonaPRC.codigo || 'SANTIAGO'}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+          });
+        }
+      } else {
+        alert('No se pudieron extraer coordenadas representativas de la capa.');
+      }
+    });
+
+    // Evento Eliminar
+    const btnEliminar = tarjeta.querySelector('.btn-eliminar-capa');
+    btnEliminar.addEventListener('click', () => {
+      ModuloMapa.removerCapa(capa.id);
+      ModuloImportadorCapas.removerCapa(capa.id);
+      tarjeta.remove();
+
+      const restantes = Object.keys(ModuloImportadorCapas.obtenerCapasImportadas()).length;
+      if (contadorCapas) contadorCapas.textContent = String(restantes);
+      if (contenedorCapas) contenedorCapas.style.display = restantes > 0 ? 'block' : 'none';
+      if (estadoTexto) estadoTexto.textContent = `Capa "${capa.nombre}" eliminada.`;
+      sincronizarTodoEnGlobo3D();
+    });
+
+    grillaCapas.prepend(tarjeta);
+  }
+}
+

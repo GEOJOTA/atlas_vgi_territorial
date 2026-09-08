@@ -74,6 +74,7 @@
         <button class="accion secundaria" id="btn-dibujar-bbox" title="Haz clic y arrastra en el mapa para definir un área personalizada">📐 Dibujar Bbox</button>
         <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">🎯 Encuadrar</button>
         <button type="button" class="accion secundaria" id="btn-inspector-normativo" title="Activa el inspector para hacer clic en el mapa y auditar zonificación PRC, normas OGUC y riesgos">⚖️ Inspector Normativo</button>
+        <button type="button" class="accion secundaria" id="btn-abrir-importador" title="Importar capas espaciales locales (.kmz, .kml, .geojson, .gpx, .csv)">📂 Importar Capas</button>
 
         <!-- Controles específicos para el Globo 3D -->
         <div id="barra-controles-globo" style="display:none; align-items:center; gap:6px; flex-wrap:wrap;">
@@ -136,6 +137,41 @@
           <!-- Generado dinámicamente desde app.js con las 20 capas oficiales y WMS -->
         </div>
         <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.82rem; font-style:italic; margin-top:8px;"></div>
+      </div>
+
+      <!-- Bloque de Importación de Capas Personalizadas del Usuario -->
+      <div class="bloque bloque-importador" id="seccion-importador-capas" style="border:1px dashed #7A7045; background:var(--papel-alto); padding:16px; margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <h3 style="margin:0; color:var(--musgo-oscuro); font-size:1.05rem;">📂 Importador de Capas Locales (.KMZ, .KML, .GeoJSON, .GPX, .CSV)</h3>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span style="font-size:0.72rem; background:#7A7045; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">FORMATOS ESTÁNDAR</span>
+          </div>
+        </div>
+        <p class="descripcion" style="margin-bottom:12px;">Carga tus propias capas espaciales directamente desde tu equipo sin necesidad de descargarlas en el servidor ni almacenarlas en el repositorio. Soporta archivos <strong>.kmz</strong> (descomprimidos en memoria del navegador vía JSZip), <strong>.kml</strong>, <strong>.geojson / .json</strong>, <strong>.gpx</strong> y <strong>.csv</strong> con coordenadas. Las capas importadas se visualizan en el mapa 2D, se sincronizan con el Globo 3D y pueden auditarse mediante el Módulo de Evaluación Normativa.</p>
+        
+        <!-- Zona Dropzone Drag & Drop -->
+        <div id="zona-drop-importacion" class="zona-drop-importacion">
+          <div class="zona-drop-icono">📁 ➔ 🗺️</div>
+          <div class="zona-drop-titulo">Arrastra y suelta aquí tus archivos espaciales</div>
+          <div class="zona-drop-subtitulo">Soporta .kmz, .kml, .geojson, .json, .gpx, .csv, .tsv (procesamiento 100% en navegador)</div>
+          <label for="input-archivo-capa" class="accion secundaria btn-seleccionar-archivo">
+            Seleccionar Archivo Local
+          </label>
+          <input type="file" id="input-archivo-capa" accept=".kmz,.kml,.geojson,.json,.gpx,.csv,.tsv" multiple style="display:none;">
+        </div>
+
+        <div id="estado-importacion-capas" class="descripcion" style="font-size:0.82rem; font-style:italic; margin-top:8px;"></div>
+
+        <!-- Lista / Grilla de capas importadas -->
+        <div id="contenedor-capas-importadas" style="margin-top:14px; display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h4 style="margin:0; font-size:0.88rem; color:var(--musgo-oscuro); text-transform:uppercase; letter-spacing:0.04em;">Capas Cargadas en Sesión (<span id="contador-capas-importadas">0</span>):</h4>
+            <button type="button" class="accion secundaria" id="btn-limpiar-capas-importadas" style="font-size:0.75rem; padding:3px 8px;" title="Remover todas las capas importadas de la sesión">🗑️ Limpiar Todo</button>
+          </div>
+          <div id="grilla-capas-importadas" class="grilla-capas-importadas">
+            <!-- Renderizado dinámico de tarjetas de capa importada -->
+          </div>
+        </div>
       </div>
 
       <div class="bloque">
@@ -769,9 +805,12 @@
 <!-- Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js"></script>
+<script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
 <script src="js/config.js"></script>
 <script src="js/modulos/geodesia.js"></script>
 <script src="js/modulos/mapa.js"></script>
+<script src="js/modulos/importador_capas.js"></script>
 <script src="js/modulos/ide_chile.js"></script>
 <script src="js/modulos/globo.js"></script>
 <script src="js/modulos/evaluador_normativo.js"></script>

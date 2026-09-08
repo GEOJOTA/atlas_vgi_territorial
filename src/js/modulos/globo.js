@@ -424,6 +424,18 @@ const ModuloGlobo = (() => {
   }
 
   /**
+   * Vuela la cámara hacia coordenadas arbitrarias (útil para capas importadas)
+   */
+  function volarACoordenadas(lat, lng, altitud = 0.05, duracionMs = 1500) {
+    if (!globo) return;
+    globo.pointOfView({
+      lat: Number(lat),
+      lng: Number(lng),
+      altitude: Number(altitud)
+    }, duracionMs);
+  }
+
+  /**
    * Alterna la rotación orbital automática del globo
    */
   function alternarRotacion() {
@@ -460,6 +472,7 @@ const ModuloGlobo = (() => {
     volarABarrioBrasil,
     volarASantiago,
     volarAChile,
+    volarACoordenadas,
     vistaPlanetaCompleto,
     alternarRotacion,
     alternarAtmosfera,

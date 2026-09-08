@@ -1492,4 +1492,150 @@ footer.pie-datos {
   gap: 6px;
 }
 
+/* ==========================================================================
+   ESTILOS: IMPORTADOR DE CAPAS ESPACIALES (.KMZ, .KML, .GEOJSON, .GPX, .CSV)
+   ========================================================================== */
+.zona-drop-importacion {
+  border: 2px dashed #B8AD82;
+  border-radius: 4px;
+  padding: 24px 16px;
+  text-align: center;
+  background: rgba(223, 214, 184, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.zona-drop-importacion:hover {
+  border-color: #7A7045;
+  background: rgba(223, 214, 184, 0.38);
+}
+
+.zona-drop-importacion.dragover {
+  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+  transform: scale(1.008);
+}
+
+.zona-drop-icono {
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+  transition: transform 0.2s ease;
+}
+
+.zona-drop-importacion:hover .zona-drop-icono {
+  transform: translateY(-2px);
+}
+
+.zona-drop-titulo {
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.zona-drop-subtitulo {
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+  margin-bottom: 12px;
+}
+
+.btn-seleccionar-archivo {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+}
+
+.grilla-capas-importadas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 10px;
+}
+
+.tarjeta-capa-importada {
+  background: var(--papel);
+  border: 1px solid var(--linea);
+  padding: 10px 12px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.tarjeta-capa-importada:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta-capa-importada.inactiva {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+}
+
+.tarjeta-capa-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tarjeta-capa-titulo {
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.25;
+  word-break: break-word;
+  color: var(--tinta);
+}
+
+.tarjeta-capa-meta {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  color: var(--tinta-suave);
+}
+
+.badge-formato-capa {
+  background: #23281F;
+  color: #A7F3D0;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+}
+
+.tarjeta-capa-acciones {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  border-top: 1px dashed var(--linea);
+  padding-top: 6px;
+}
+
+.btn-accion-capa {
+  font-size: 0.72rem;
+  padding: 3px 7px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid var(--linea);
+  background: var(--papel-alto);
+  color: var(--tinta);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-accion-capa:hover {
+  background: var(--linea);
+}
+
+.btn-accion-capa.peligro:hover {
+  background: #FEE2E2;
+  color: #DC2626;
+  border-color: #FCA5A5;
+}
+
 

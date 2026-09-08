@@ -143,7 +143,31 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
 - Fichas metodológicas de las 8 macro-categorías con ejemplos Overpass QL, consultas ohsome y bibliografía APA.
 
 ### 3.13 `app.js` (Orquestador Central de Interfaz)
-- Coordinación de eventos entre los 12 submódulos, sincronización del Bbox entre paneles, actualización de previsualizaciones Overpass QL, gestión de perfiles de usuario y renderizado de resultados.
+- Coordinación de eventos entre los 15 submódulos, sincronización del Bbox entre paneles, actualización de previsualizaciones Overpass QL, gestión de perfiles de usuario y renderizado de resultados.
+
+### 3.14 `importador_capas.js` (Motor de Importación de Capas Espaciales Multi-formato)
+- Ingestión client-side de archivos espaciales locales en formatos estándar:
+  - **.kmz (Google Earth)**: Descompresión binaria en memoria del navegador mediante **JSZip** y conversión a GeoJSON mediante `@tmcw/togeojson` con fallback XML nativo.
+  - **.kml (Keyhole Markup Language)**: Parseo directo de Placemarks de puntos, líneas y polígonos.
+  - **.geojson / .json**: Colecciones de objetos espaciales RFC 7946 en WGS84.
+  - **.gpx (GPS Exchange Format)**: Waypoints, tracks y rutas de navegación comunitaria.
+  - **.csv / .tsv (Tablas delimitadas)**: Detección inteligente de variantes de columnas de coordenadas (`lat`, `latitude`, `y` / `lon`, `longitude`, `x`), normalización de decimales y generación de entidades puntuales.
+- Asignación cromática rotativa y metadatos unificados (`_capaId`, `_color`, `_colorGlobo`, `_fuente`).
+- Sincronización inmediata con el visor Leaflet 2D y el Globo 3D, junto a control de encuadre, alternancia de visibilidad y auditoría normativa directa.
+
+### 3.15 `evaluador_normativo.js` (Motor de Consulta y Evaluación Espacial Normativa Territorial)
+- Auditoría espacial puntual y cruzada mediante algoritmos point-in-polygon en tiempo real:
+  - **Zonificación PRC Santiago**: Usos de suelo permitidos (`UPERM`) y prohibidos (`UPROH`), coeficientes y alturas.
+  - **Límite Urbano Oficial**: Verificación de área urbana amparada en Art. 52 LGUC.
+  - **Áreas de Riesgo Normativas**: Alertas de inundación y remoción en masa (Art. 2.1.17 OGUC).
+  - **Áreas Verdes y Resguardos**: Afectaciones de utilidad pública (Art. 59 LGUC) y franjas de amortiguación.
+  - **Protección Patrimonial**: Zonas de Conservación Histórica (ZCH) e Inmuebles de Conservación Histórica (ICH).
+- Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** en formato `.txt`.
+
+### 3.16 `globo.js` (Visualizador Esférico 3D WebGL / Three.js vía Globe.gl)
+- Proyección tridimensional de geometrías 2D sobre la esfera terrestre sin inventar alturas verticales artificiales (`polygonAltitude: 0.0018`).
+- HUD analógico con estética Backrooms / CRT (sin etiquetas "ASYNC" innecesarias) y telemetría de monitoreo continuo.
+- Presets de vuelo orbital: Barrio Brasil, Gran Santiago, Chile Central y Planeta Completo, con capacidad de vuelo hacia capas importadas por el usuario (`volarACoordenadas`).
 
 ---
 
