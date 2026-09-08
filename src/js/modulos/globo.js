@@ -75,6 +75,28 @@ const ModuloGlobo = (() => {
   };
 
   /**
+   * Normaliza cualquier formato de color (#hex, rgb) a string rgba(...) nativo para Three.js / Globe.gl
+   */
+  function normalizarColorRgba(col, alpha = 0.85) {
+    if (!col) return `rgba(53, 88, 107, ${alpha})`;
+    if (typeof col !== 'string') return `rgba(53, 88, 107, ${alpha})`;
+    if (col.startsWith('rgba') || col.startsWith('rgb')) return col;
+    if (col.startsWith('#')) {
+      let c = col.replace('#', '');
+      if (c.length === 3) {
+        c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+      }
+      if (c.length >= 6) {
+        const r = parseInt(c.substring(0, 2), 16);
+        const g = parseInt(c.substring(2, 4), 16);
+        const b = parseInt(c.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+    }
+    return col;
+  }
+
+  /**
    * Listener reactivo al mover la cámara u orbitar: sólo actualiza telemetría HUD
    */
   function reaccionarCambioCamara() {
@@ -88,31 +110,15 @@ const ModuloGlobo = (() => {
   }
 
   /**
-   * Despliega la telemetría en el HUD de la interfaz
+   * Despliega la telemetría en el HUD de la interfaz enfocada en Barrio Brasil
    */
   function actualizarHUD(pov) {
     const elemHud = document.getElementById('globo-hud-escala');
     if (!elemHud) return;
 
     const altM = Math.round(pov.altitude * 6371000);
-    let altTexto = '';
-    let detalleTexto = '';
-
-    if (pov.altitude < 0.04) {
-      altTexto = `${Math.round(altM / 10) * 10} m`;
-      detalleTexto = '🏘️ ESCALA BARRIAL / BARRIO BRASIL';
-    } else if (pov.altitude < 0.15) {
-      altTexto = `${(altM / 1000).toFixed(1)} km`;
-      detalleTexto = '🏙️ ESCALA COMUNAL / SANTIAGO';
-    } else if (pov.altitude < 0.7) {
-      altTexto = `${Math.round(altM / 1000)} km`;
-      detalleTexto = '🗺️ ESCALA METROPOLITANA';
-    } else {
-      altTexto = `${Math.round(altM / 1000)} km`;
-      detalleTexto = '🪐 ESCALA PLANETARIA';
-    }
-
-    elemHud.innerHTML = `<span><strong>ALT:</strong> ${altTexto}</span> &nbsp;|&nbsp; <span>${detalleTexto}</span>`;
+    const altTexto = altM < 1000 ? `${Math.round(altM / 10) * 10} m` : `${(altM / 1000).toFixed(1)} km`;
+    elemHud.innerHTML = `<span><strong>ALTITUD:</strong> ${altTexto}</span> &nbsp;|&nbsp; <span>🏘️ BARRIO BRASIL & ENTORNO UAH (3D)</span>`;
   }
 
   /**
@@ -153,60 +159,65 @@ const ModuloGlobo = (() => {
         .width(ancho)
         .height(alto)
         .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
         .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
-        .showAtmosphere(true)
-        .atmosphereColor('#70a9dc')
-        .atmosphereAltitude(0.20)
-        // Capa de Polígonos 2D sobre la esfera (sin extrusión vertical artificial)
+        .showAtmosphere(false)
+        // Capa de Polígonos 2D sobre la esfera (superficie flotante sin Z-fighting)
         .polygonGeoJsonGeometry(d => d.geometry)
         .polygonCapColor(d => {
           const col = d.properties._colorGlobo || d.properties.color || '#35586B';
-          return col.startsWith('#') ? col + 'B3' : col;
+          return normalizarColorRgba(col, 0.85);
         })
-        .polygonSideColor(() => 'transparent')
+        .polygonSideColor(d => {
+          const col = d.properties._colorGlobo || d.properties.color || '#35586B';
+          return normalizarColorRgba(col, 0.45);
+        })
         .polygonStrokeColor(d => d.properties._colorGlobo || '#FFFFFF')
-        .polygonAltitude(0.0018)
+        .polygonAltitude(0.005)
         .polygonLabel(d => formatearTooltip(d))
         .onPolygonClick(polygon => {
           mostrarDetalleEntidad(polygon);
         })
-        // Capa de Líneas/Caminos 2D
+        // Capa de Líneas/Caminos 2D (línea Three.js nítida sin deformación)
         .pathPoints(d => d.coords)
         .pathPointLat(p => p[1])
         .pathPointLng(p => p[0])
         .pathColor(d => d.color || '#2C4238')
-        .pathStroke(2.2)
-        .pathAltitude(0.0022)
+        .pathStroke(null)
+        .pathAltitude(0.006)
         .pathLabel(d => formatearTooltip(d))
         .onPathClick(linea => {
           mostrarDetalleEntidad(linea);
         })
-        // Capa de Puntos 2D
+        // Capa de Puntos 2D (marcadores cilindro proporcionales a escala barrial)
         .pointLat(d => d.lat)
         .pointLng(d => d.lng)
-        .pointColor(d => d.color || '#A97722')
-        .pointAltitude(0.0025)
-        .pointRadius(0.032)
+        .pointColor(d => normalizarColorRgba(d.color || '#A97722', 0.95))
+        .pointAltitude(0.008)
+        .pointRadius(0.0012)
         .pointLabel(d => formatearTooltip(d))
         .onPointClick(punto => {
           mostrarDetalleEntidad(punto);
         });
 
-      // Configuración de controles orbitales Three.js
+      // Configuración de controles orbitales Three.js y cámara
       const controles = globo.controls();
       if (controles) {
         controles.autoRotate = false;
-        controles.autoRotateSpeed = 0.5;
         controles.enableDamping = true;
         controles.dampingFactor = 0.08;
-        controles.minDistance = 100.2;
-        controles.maxDistance = 600.0;
+        controles.minDistance = 100.02;
+        controles.maxDistance = 250.0;
         controles.addEventListener('change', reaccionarCambioCamara);
       }
 
-      // Enfoque inicial a Barrio Brasil / Santiago de Chile
-      volarABarrioBrasil(1200);
+      const camara = globo.camera();
+      if (camara) {
+        camara.near = 0.005;
+        camara.updateProjectionMatrix();
+      }
+
+      // Enfoque inicial directo y exclusivo a Barrio Brasil / UAH
+      volarABarrioBrasil(1000);
 
       // Si había capas esperando, sincronizarlas de inmediato
       const aCargar = capasPendientes || capasActivasSincronizadas;
@@ -385,76 +396,27 @@ const ModuloGlobo = (() => {
   }
 
   /**
-   * Presets de vuelo cinemático con altitudes adaptativas
+   * Enfoque orbital exclusivo a Barrio Brasil / Universidad Alberto Hurtado
    */
-  function volarABarrioBrasil(duracionMs = 1500) {
+  function volarABarrioBrasil(duracionMs = 1200) {
     if (!globo) return;
     globo.pointOfView({
       lat: -33.4445,
       lng: -70.6620,
-      altitude: 0.025
-    }, duracionMs);
-  }
-
-  function volarASantiago(duracionMs = 1500) {
-    if (!globo) return;
-    globo.pointOfView({
-      lat: -33.445,
-      lng: -70.660,
-      altitude: 0.12
-    }, duracionMs);
-  }
-
-  function volarAChile(duracionMs = 1500) {
-    if (!globo) return;
-    globo.pointOfView({
-      lat: -33.45,
-      lng: -70.65,
-      altitude: 0.85
-    }, duracionMs);
-  }
-
-  function vistaPlanetaCompleto(duracionMs = 1500) {
-    if (!globo) return;
-    globo.pointOfView({
-      lat: -25.0,
-      lng: -70.0,
-      altitude: 2.2
+      altitude: 0.035
     }, duracionMs);
   }
 
   /**
-   * Vuela la cámara hacia coordenadas arbitrarias (útil para capas importadas)
+   * Vuela la cámara hacia coordenadas arbitrarias (útil para capas importadas o búsquedas)
    */
-  function volarACoordenadas(lat, lng, altitud = 0.05, duracionMs = 1500) {
+  function volarACoordenadas(lat, lng, altitud = 0.035, duracionMs = 1200) {
     if (!globo) return;
     globo.pointOfView({
       lat: Number(lat),
       lng: Number(lng),
       altitude: Number(altitud)
     }, duracionMs);
-  }
-
-  /**
-   * Alterna la rotación orbital automática del globo
-   */
-  function alternarRotacion() {
-    if (!globo) return false;
-    const controles = globo.controls();
-    if (!controles) return false;
-    autoRotacionActiva = !autoRotacionActiva;
-    controles.autoRotate = autoRotacionActiva;
-    return autoRotacionActiva;
-  }
-
-  /**
-   * Alterna el halo atmosférico
-   */
-  function alternarAtmosfera() {
-    if (!globo) return false;
-    atmosferaActiva = !atmosferaActiva;
-    globo.showAtmosphere(atmosferaActiva);
-    return atmosferaActiva;
   }
 
   function estaInicializado() {
@@ -470,12 +432,7 @@ const ModuloGlobo = (() => {
     redimensionar,
     sincronizarCapas,
     volarABarrioBrasil,
-    volarASantiago,
-    volarAChile,
     volarACoordenadas,
-    vistaPlanetaCompleto,
-    alternarRotacion,
-    alternarAtmosfera,
     estaInicializado,
     obtenerInstancia
   };

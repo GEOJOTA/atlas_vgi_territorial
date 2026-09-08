@@ -165,9 +165,13 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
 - Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** en formato `.txt`.
 
 ### 3.16 `globo.js` (Visualizador Esférico 3D WebGL / Three.js vía Globe.gl)
-- Proyección tridimensional de geometrías 2D sobre la esfera terrestre sin inventar alturas verticales artificiales (`polygonAltitude: 0.0018`).
-- HUD analógico con estética Backrooms / CRT (sin etiquetas "ASYNC" innecesarias) y telemetría de monitoreo continuo.
-- Presets de vuelo orbital: Barrio Brasil, Gran Santiago, Chile Central y Planeta Completo, con capacidad de vuelo hacia capas importadas por el usuario (`volarACoordenadas`).
+- Proyección tridimensional de geometrías 2D sobre la esfera terrestre sin inventar alturas verticales artificiales ni extrusiones distorsionadas (`polygonAltitude: 0.005`).
+- Eliminación de mapas de relieve (*bump maps*) y halos atmosféricos oclusivos para evitar el ocultamiento y enterramiento de polígonos bajo el terreno.
+- Normalización cromática estricta en RGBA nativo para evitar fallos de renderizado en Three.js causados por cadenas hexadecimales con canal alfa de 8 dígitos.
+- Líneas 1px estándar nítidas en Three.js (`pathStroke: null`) y marcadores de puntos cilíndricos proporcionados a la escala barrial (`pointRadius: 0.0012`).
+- Ajuste de plano de corte cercano (`camera.near: 0.005`) para permitir zoom orbital ultra cercano sin desaparecer geometrías por frustum culling.
+- Encuadre exclusivo centrado en **Barrio Brasil y entorno UAH** (`volarABarrioBrasil`), con soporte de vuelo hacia capas importadas (`volarACoordenadas`).
+- Precarga automática de cartografía base barrial (edificaciones, patrimonio, espacio público) al conmutar a la vista 3D si no existen capas activas en sesión.
 
 ---
 

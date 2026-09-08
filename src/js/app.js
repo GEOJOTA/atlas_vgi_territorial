@@ -1984,7 +1984,7 @@ function configurarSelectorPerspectiva2Dy3D() {
     }
   });
 
-  btn3D.addEventListener('click', () => {
+  btn3D.addEventListener('click', async () => {
     btn3D.classList.add('activo');
     btn2D.classList.remove('activo');
     if (mapaLeaflet) mapaLeaflet.style.display = 'none';
@@ -1993,6 +1993,15 @@ function configurarSelectorPerspectiva2Dy3D() {
 
     if (window.ModuloGlobo) {
       ModuloGlobo.inicializar('globo-3d-canvas');
+
+      // Si no hay ninguna capa activa cargada en sesión, precargamos la cartografía de Barrio Brasil
+      const hayCapasCargadas = Object.keys(capasCargadasPorCategoria).length > 0 ||
+                               Object.keys(capasOficialesCargadas).length > 0 ||
+                               (window.ModuloImportadorCapas && Object.keys(ModuloImportadorCapas.obtenerCapasImportadas()).length > 0);
+      if (!hayCapasCargadas) {
+        await precargarDatosBaseParaGlobo3D();
+      }
+
       requestAnimationFrame(() => {
         ModuloGlobo.redimensionar();
         sincronizarTodoEnGlobo3D();
@@ -2000,39 +2009,47 @@ function configurarSelectorPerspectiva2Dy3D() {
       setTimeout(() => {
         ModuloGlobo.redimensionar();
         sincronizarTodoEnGlobo3D();
-      }, 100);
+        ModuloGlobo.volarABarrioBrasil(1000);
+      }, 120);
     }
   });
 
   document.getElementById('btn-globo-centrar')?.addEventListener('click', () => {
-    if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(2000);
+    if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(1200);
   });
+}
 
-  document.getElementById('btn-globo-santiago')?.addEventListener('click', () => {
-    if (window.ModuloGlobo) ModuloGlobo.volarASantiago(2000);
-  });
+/**
+ * Precarga de datos territoriales de Barrio Brasil para visualización 3D inmediata
+ */
+async function precargarDatosBaseParaGlobo3D() {
+  const estadoTexto = document.getElementById('estado-carga-capas');
+  if (estadoTexto) estadoTexto.innerHTML = '<span style="color:#2D4436; font-weight:600;">[3D]: Precargando capas base de Barrio Brasil...</span>';
 
-  document.getElementById('btn-globo-chile')?.addEventListener('click', () => {
-    if (window.ModuloGlobo) ModuloGlobo.volarAChile(2000);
-  });
+  const capasBase = [
+    { id: 'edificaciones', archivo: 'data/capa_edificaciones.geojson' },
+    { id: 'patrimonio', archivo: 'data/capa_patrimonio.geojson' },
+    { id: 'espacio_publico', archivo: 'data/capa_espacio_publico.geojson' }
+  ];
 
-  document.getElementById('btn-globo-planeta')?.addEventListener('click', () => {
-    if (window.ModuloGlobo) ModuloGlobo.vistaPlanetaCompleto(2000);
-  });
-
-  document.getElementById('btn-globo-rotacion')?.addEventListener('click', (e) => {
-    if (window.ModuloGlobo) {
-      const activo = ModuloGlobo.alternarRotacion();
-      e.currentTarget.classList.toggle('activo', activo);
+  for (const c of capasBase) {
+    if (!capasCargadasPorCategoria[c.id]) {
+      try {
+        const res = await fetch(c.archivo);
+        if (res.ok) {
+          const gj = await res.json();
+          capasCargadasPorCategoria[c.id] = gj;
+          const btn = document.getElementById(`btn-cat-${c.id}`);
+          const label = document.getElementById(`conteo-cat-${c.id}`);
+          if (btn) btn.classList.add('activo');
+          if (label && gj.features) label.textContent = `${gj.features.length}`;
+        }
+      } catch (_) {}
     }
-  });
+  }
 
-  document.getElementById('btn-globo-atmosfera')?.addEventListener('click', (e) => {
-    if (window.ModuloGlobo) {
-      const activo = ModuloGlobo.alternarAtmosfera();
-      e.currentTarget.classList.toggle('activo', activo);
-    }
-  });
+  sincronizarTodoEnGlobo3D();
+  if (estadoTexto) estadoTexto.innerHTML = '<span style="color:#2D4436; font-weight:600;">[3D]: Capas base de Barrio Brasil desplegadas en la esfera 3D.</span>';
 }
 
 let modoInspectorNormativoActivo = false;
