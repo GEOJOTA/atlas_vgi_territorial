@@ -6,6 +6,9 @@
   functions = "netlify/functions"
   command = ""
 
+[functions]
+  included_files = ["src/data/**", "data/**"]
+
 # Redirecciones de API serverless
 [[redirects]]
   from = "/api/consulta"

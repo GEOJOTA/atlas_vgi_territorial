@@ -110,7 +110,7 @@ exports.handler = async function (event, context) {
       (
         ${tipoEntidad}${filtro}(${bboxOverpass});
       );
-      out geom tags qt 400;
+      out geom tags 400;
     `;
   }
 
@@ -119,13 +119,13 @@ exports.handler = async function (event, context) {
   for (const endpoint of OVERPASS_ESPEJOS) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s máx por servidor para no exceder límite de Netlify Functions
+      const timeoutId = setTimeout(() => controller.abort(), 4500); // 4.5s por servidor para conmutar rápido dentro del presupuesto Netlify
 
       const respuesta = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'User-Agent': 'AtlasVGI-NetlifyFunction/1.0'
+          'User-Agent': 'AtlasVGI/1.0 (contacto@uahurtado.cl)'
         },
         body: 'data=' + encodeURIComponent(consultaQL),
         signal: controller.signal
@@ -157,6 +157,41 @@ exports.handler = async function (event, context) {
       ultimoError = `Status ${respuesta.status} en ${endpoint}`;
     } catch (e) {
       ultimoError = e.message;
+    }
+  }
+
+  // Contingencia: Si todos los espejos Overpass fallaron, intentar servir catálogo local empaquetado
+  const fs = require('fs');
+  const path = require('path');
+  const claveCandidata = (body.categoria || body.etiqueta || body.clave || '').trim();
+  const rutasContingencia = [
+    path.join(__dirname, '..', '..', 'src', 'data', `capa_${claveCandidata}.geojson`),
+    path.join(__dirname, '..', '..', 'data', `capa_${claveCandidata}.geojson`),
+    path.join(__dirname, '..', '..', 'src', 'data', 'atlas_vgi_barrio_brasil_uah_completo.geojson'),
+    path.join(__dirname, '..', '..', 'data', 'atlas_vgi_barrio_brasil_uah_completo.geojson')
+  ];
+
+  for (const r of rutasContingencia) {
+    if (fs.existsSync(r)) {
+      try {
+        const contenido = JSON.parse(fs.readFileSync(r, 'utf8'));
+        return {
+          statusCode: 200,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            'Cache-Control': 'public, max-age=300'
+          },
+          body: JSON.stringify({
+            ok: true,
+            desdeCache: true,
+            servidor: 'Catálogo local de contingencia (Barrio Brasil / UAH)',
+            total: (contenido.features || []).length,
+            geojson: contenido,
+            consultaEjecutada: consultaQL
+          })
+        };
+      } catch (_) {}
     }
   }
 

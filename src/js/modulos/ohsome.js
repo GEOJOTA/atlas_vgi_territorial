@@ -191,12 +191,12 @@ const ModuloOhsome = (() => {
     }
 
     // ----------------------------------------------------
-    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local) con timeout ágil de 1.2s
+    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local) con timeout adecuado (7s)
     // ----------------------------------------------------
     if (proxyCalidadDisponible !== false) {
       try {
         const ctlProxy = new AbortController();
-        const tProxy = setTimeout(() => ctlProxy.abort(), 1200);
+        const tProxy = setTimeout(() => ctlProxy.abort(), 7000);
         const resProxy = await fetch('/api/calidad', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -214,12 +214,11 @@ const ModuloOhsome = (() => {
             cacheOhsome.set(claveCache, resultado);
             return resultado;
           }
-        } else {
+        } else if (resProxy.status === 404) {
           proxyCalidadDisponible = false;
         }
       } catch (errProxy) {
-        proxyCalidadDisponible = false;
-        console.warn('[ohsome] /api/calidad no accesible (modo directo en cliente activo):', errProxy.message);
+        console.warn('[ohsome] /api/calidad no accesible o lento (modo directo en cliente activo):', errProxy.message);
       }
     }
 
@@ -256,7 +255,7 @@ const ModuloOhsome = (() => {
 
         const [conteoActual, usuarios, serieTemporal, resEspecial, resContribuciones] = await Promise.all(promesasV2);
 
-        return procesarResultadosIndicadores({
+        const resV2 = procesarResultadosIndicadores({
           tipoGeo,
           conteoActual,
           usuarios,
@@ -268,20 +267,23 @@ const ModuloOhsome = (() => {
           motor: 'ohsomeDB (PostgreSQL / Citus / Python)',
           fueFallback: false
         });
+        if (claveCache) cacheOhsome.set(claveCache, resV2);
+        return resV2;
       } catch (errV2) {
         console.warn(`[ohsome] Consulta v2 directa no permitida por CORS o falta de API Key (${errV2.message}). Conmutando automáticamente a v1 (OSHDB)...`);
-        const resV1 = await ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo);
+        const resV1 = await ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo, claveCache);
         resV1.fueFallback = true;
         resV1.motivoFallback = errV2.status === 401 ? 'Requiere API Key de HeiGIT' : 'Conmutación por política CORS / Red';
+        if (claveCache) cacheOhsome.set(claveCache, resV1);
         return resV1;
       }
     }
 
     // Flujo predeterminado v1 (OSHDB - acceso libre)
-    return ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo);
+    return ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo, claveCache);
   }
 
-  async function ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo) {
+  async function ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo, claveCache = null) {
     const promesas = [
       consultarEndpointV1('/elements/count', bbox, filtro, fechaFin),
       consultarEndpointV1('/users/count', bbox, filtro, ventanaTiempo).catch(e => {
@@ -332,7 +334,9 @@ const ModuloOhsome = (() => {
       motor: 'OSHDB (HeiGIT Java Engine)',
       fueFallback: false
     });
-    cacheOhsome.set(claveCache, resultadoFinal);
+    if (claveCache) {
+      cacheOhsome.set(claveCache, resultadoFinal);
+    }
     return resultadoFinal;
   }
 

@@ -330,11 +330,11 @@ const ModuloOSM = (() => {
   async function consultarPersonalizada(parametros) {
     const { bbox, clave, valor, operador, entidad, queryPersonalizada, nombreConsulta = 'Personalizada' } = parametros;
 
-    // 1. Intentar llamar al backend (/api/consulta) con un timeout ágil de 1.2s (solo si está disponible)
+    // 1. Intentar llamar al backend (/api/consulta) con un timeout adecuado para Netlify (7.5s)
     if (backendDisponible !== false) {
       try {
         const controllerBackend = new AbortController();
-        const timeoutBackend = setTimeout(() => controllerBackend.abort(), 1200);
+        const timeoutBackend = setTimeout(() => controllerBackend.abort(), 7500);
         const respuestaBackend = await fetch('/api/consulta', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -355,12 +355,11 @@ const ModuloOSM = (() => {
               desdeBackend: true
             };
           }
-        } else {
+        } else if (respuestaBackend.status === 404) {
           backendDisponible = false;
         }
       } catch (errBackend) {
-        backendDisponible = false;
-        console.warn('Backend /api/consulta no accesible (modo client-side activo):', errBackend.message);
+        console.warn('Backend /api/consulta no accesible o lento (modo client-side activo):', errBackend.message);
       }
     }
 
