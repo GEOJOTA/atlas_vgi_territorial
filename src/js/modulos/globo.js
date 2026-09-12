@@ -18,7 +18,8 @@ const ModuloGlobo = (() => {
   let altitudActual = 0.035;
 
   // Umbral geodésico para conmutar automáticamente de 3D a visión 2D de alta resolución
-  const UMBRAL_TRANSICION_2D_METROS = 2200; // < 2.2 km conmuta a vista 2D barrial
+  // 14.000 m (~14 km, altitud orbital <= 0.0022): escala donde la perspectiva 3D da paso al callejero barrial
+  const UMBRAL_TRANSICION_2D_METROS = 14000;
   let transicionEnCurso = false;
   let idLoopMonitoreo = null;
 
@@ -94,35 +95,33 @@ const ModuloGlobo = (() => {
    * Calcula la altitud geodésica real en metros/km en función de la distancia al centro de la esfera (R=100)
    * y desencadena la transición automática a visión 2D al alcanzar la escala barrial.
    */
+  /**
+   * Monitoreo dinámico continuo de la cámara en Three.js / Globe.gl:
+   * Obtiene la posición y altitud geodésica exacta en tiempo real (directamente de pointOfView),
+   * actualiza la telemetría en el HUD en cada frame y activa la transición automática a 2D
+   * cuando la altitud desciende a nivel barrial (<= UMBRAL_TRANSICION_2D_METROS = 14 km).
+   */
   function monitorearCamaraYTransicion() {
     if (!globo) return;
     const elemCont = document.getElementById(contenedorId);
     if (!elemCont || elemCont.offsetParent === null) return;
 
-    const camara = globo.camera();
-    if (!camara) return;
-
-    // Distancia euclidiana de la cámara al centro del globo (R = 100)
-    const distCentro = camara.position.length();
-    // Altitud relativa sobre la superficie: (dist - 100) / 100
-    const altitudRelativa = Math.max(0.00001, (distCentro - 100) / 100);
-    // Radio real de la Tierra: 6.371.000 m
-    const altitudMetros = Math.round(altitudRelativa * 6371000);
-    altitudActual = altitudRelativa;
-
-    let latCentro = -33.4445;
-    let lngCentro = -70.6620;
+    let pov;
     try {
-      const pov = globo.pointOfView();
-      if (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) {
-        latCentro = pov.lat;
-        lngCentro = pov.lng;
-      }
+      pov = globo.pointOfView();
     } catch (_) {}
+    if (!pov || typeof pov.altitude !== 'number' || isNaN(pov.altitude)) return;
+
+    // Altitud geodésica real en metros: 1 unidad = 6.371.000 m
+    const altitudMetros = Math.round(pov.altitude * 6371000);
+    altitudActual = pov.altitude;
+
+    const latCentro = (typeof pov.lat === 'number' && !isNaN(pov.lat)) ? pov.lat : -33.4445;
+    const lngCentro = (typeof pov.lng === 'number' && !isNaN(pov.lng)) ? pov.lng : -70.6620;
 
     actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro);
 
-    // Conmutación automática a 2D cuando la cámara se acerca a nivel barrial (< 2.2 km)
+    // Conmutación automática a 2D cuando la cámara se acerca a nivel barrial (<= 14 km)
     if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS && !transicionEnCurso) {
       ejecutarTransicionA2D(latCentro, lngCentro);
     }
@@ -148,20 +147,20 @@ const ModuloGlobo = (() => {
   }
 
   /**
-   * Despliega la telemetría dinámica en el HUD en tiempo real (se actualiza fluidamente al hacer in/out)
+   * Despliega la telemetría dinámica en el HUD en tiempo real a través de los 5 niveles escalares
    */
   function actualizarHUDTelemetria(altitudMetros, latCentro, lngCentro) {
     const elemHud = document.getElementById('globo-hud-escala');
     if (elemHud) {
-      let escalaEtiqueta = '🪐 ESCALA PLANETARIA';
+      let escalaEtiqueta = '🪐 ESCALA PLANETARIA (GLOBO)';
       if (altitudMetros <= UMBRAL_TRANSICION_2D_METROS) {
-        escalaEtiqueta = '🔬 ESCALA BARRIAL (TRANSICIÓN 2D ACTIVA)';
-      } else if (altitudMetros < 25000) {
-        escalaEtiqueta = '🏘️ COMUNAL / BARRIO BRASIL';
+        escalaEtiqueta = '🔬 ESCALA BARRIAL (TRANSICIÓN A 2D)';
+      } else if (altitudMetros < 35000) {
+        escalaEtiqueta = '🏘️ ESCALA COMUNAL (BARRIO BRASIL & UAH)';
       } else if (altitudMetros < 150000) {
-        escalaEtiqueta = '🏙️ GRAN SANTIAGO METROPOLITANO';
+        escalaEtiqueta = '🏙️ ESCALA METROPOLITANA (GRAN SANTIAGO)';
       } else if (altitudMetros < 1200000) {
-        escalaEtiqueta = '🇨🇱 REGIONAL CHILE CENTRAL';
+        escalaEtiqueta = '🇨🇱 ESCALA REGIONAL (CHILE CENTRAL)';
       }
 
       let altTexto;
@@ -197,7 +196,7 @@ const ModuloGlobo = (() => {
     if (transicionEnCurso) return;
     transicionEnCurso = true;
 
-    // Alerta visual liminal Backrooms
+    // Alerta visual táctica CRT Backrooms
     const contGlobo = document.getElementById('contenedor-globo-3d');
     if (contGlobo) {
       const alerta = document.createElement('div');
@@ -213,73 +212,109 @@ const ModuloGlobo = (() => {
       }
       setTimeout(() => {
         transicionEnCurso = false;
-      }, 1200);
+      }, 1500);
     }, 220);
   }
 
   /**
-   * Controles manuales de aproximación y alejamiento:
-   * Utilizan de forma directa la aceleración dolly del motor OrbitControls de Three.js,
-   * garantizando respuesta inmediata en 3D, animación fluida y telemetría dinámica reactiva.
+   * Manejador de rueda del mouse (wheel) en el canvas 3D:
+   * Proporciona zoom multiescala fluido y reactivo en cada notch de la rueda,
+   * convergiendo hacia Barrio Brasil al descender y conmutando a 2D al cruzar el umbral barrial.
    */
-  function acercar() {
+  function manejarWheelZoom(e) {
+    e.preventDefault();
+    e.stopPropagation();
     if (!globo) return;
-    const controles = globo.controls();
-    if (controles && typeof controles.dollyIn === 'function') {
-      let paso = 0;
-      const totalPasos = 4;
-      const factorPaso = Math.pow(0.68, 1 / totalPasos);
-      function animarZoomIn() {
-        if (paso < totalPasos && globo && globo.controls()) {
-          globo.controls().dollyIn(factorPaso);
-          globo.controls().update();
-          monitorearCamaraYTransicion();
-          paso++;
-          requestAnimationFrame(animarZoomIn);
-        }
-      }
-      requestAnimationFrame(animarZoomIn);
+
+    const pov = globo.pointOfView();
+    let alt = (pov && typeof pov.altitude === 'number' && !isNaN(pov.altitude)) ? pov.altitude : 0.035;
+    let lat = (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) ? pov.lat : -33.4445;
+    let lng = (pov && typeof pov.lng === 'number' && !isNaN(pov.lng)) ? pov.lng : -70.6620;
+
+    const delta = e.deltaY;
+    // delta < 0: acercar (zoom in) | delta > 0: alejar (zoom out)
+    const factor = delta < 0 ? 0.72 : 1.38;
+    let nuevaAlt = Math.max(0.0012, Math.min(2.5, alt * factor));
+
+    // Si nos acercamos y la altitud cae a nivel barrial (< 14 km), transición automática a 2D
+    if (delta < 0 && alt <= 0.0025) {
+      ejecutarTransicionA2D(lat, lng);
       return;
     }
 
-    // Mecanismo de respaldo seguro mediante pointOfView
+    // Al descender desde escalas macro (> 500 km), orientar suavemente hacia Barrio Brasil
+    if (delta < 0 && alt > 0.08) {
+      const peso = alt > 0.6 ? 0.25 : 0.12;
+      lat = lat * (1 - peso) + (-33.4445) * peso;
+      lng = lng * (1 - peso) + (-70.6620) * peso;
+    }
+
+    globo.pointOfView({ lat, lng, altitude: nuevaAlt }, 100);
+    requestAnimationFrame(monitorearCamaraYTransicion);
+  }
+
+  /**
+   * Controles manuales multiescala de aproximación y alejamiento (Botones + / - y Atajos de Teclado):
+   * Realizan transiciones de cámara fluidas y deterministas entre los 5 niveles del Atlas:
+   *   Nivel 0: Planeta Completo (~14.000 km, alt: 2.2)
+   *   Nivel 1: Regional Chile Central (~2.200 km, alt: 0.35)
+   *   Nivel 2: Metropolitano Gran Santiago (~380 km, alt: 0.06)
+   *   Nivel 3: Comunal Barrio Brasil & UAH (~76 km, alt: 0.012)
+   *   Nivel 4: Barrial previo a 2D (~14 km, alt: 0.0022) -> Transición automática fluida a visión 2D
+   */
+  function acercar() {
+    if (!globo) return;
     const pov = globo.pointOfView();
-    const lat = (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) ? pov.lat : -33.4445;
-    const lng = (pov && typeof pov.lng === 'number' && !isNaN(pov.lng)) ? pov.lng : -70.6620;
-    const alt = (pov && typeof pov.altitude === 'number' && !isNaN(pov.altitude)) ? pov.altitude : altitudActual;
-    const nuevaAlt = Math.max(0.0001, alt * 0.68);
-    globo.pointOfView({ lat, lng, altitude: nuevaAlt }, 200);
-    setTimeout(monitorearCamaraYTransicion, 220);
+    let alt = (pov && typeof pov.altitude === 'number' && !isNaN(pov.altitude)) ? pov.altitude : 2.0;
+    let lat = (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) ? pov.lat : -33.4445;
+    let lng = (pov && typeof pov.lng === 'number' && !isNaN(pov.lng)) ? pov.lng : -70.6620;
+
+    // Si la cámara ya está en escala barrial límite (alt <= 0.0035 o ~22 km) y se vuelve a pulsar (+),
+    // conmutar inmediatamente a la vista 2D de alta resolución
+    if (alt <= 0.0035) {
+      ejecutarTransicionA2D(lat, lng);
+      return;
+    }
+
+    let nuevaAlt;
+    if (alt > 0.7) {
+      nuevaAlt = 0.35; // De Planeta a Chile Central
+    } else if (alt > 0.12) {
+      nuevaAlt = 0.06; // De Chile Central a Gran Santiago
+    } else if (alt > 0.02) {
+      nuevaAlt = 0.012; // De Gran Santiago a Barrio Brasil
+    } else {
+      nuevaAlt = 0.0022; // De Barrio Brasil a escala barrial límite
+    }
+
+    // Convergencia progresiva hacia Barrio Brasil
+    lat = lat * 0.25 + (-33.4445) * 0.75;
+    lng = lng * 0.25 + (-70.6620) * 0.75;
+
+    globo.pointOfView({ lat, lng, altitude: nuevaAlt }, 650);
+    setTimeout(monitorearCamaraYTransicion, 700);
   }
 
   function alejar() {
     if (!globo) return;
-    const controles = globo.controls();
-    if (controles && typeof controles.dollyOut === 'function') {
-      let paso = 0;
-      const totalPasos = 4;
-      const factorPaso = Math.pow(0.68, 1 / totalPasos);
-      function animarZoomOut() {
-        if (paso < totalPasos && globo && globo.controls()) {
-          globo.controls().dollyOut(factorPaso);
-          globo.controls().update();
-          monitorearCamaraYTransicion();
-          paso++;
-          requestAnimationFrame(animarZoomOut);
-        }
-      }
-      requestAnimationFrame(animarZoomOut);
-      return;
+    const pov = globo.pointOfView();
+    let alt = (pov && typeof pov.altitude === 'number' && !isNaN(pov.altitude)) ? pov.altitude : 0.012;
+    let lat = (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) ? pov.lat : -33.4445;
+    let lng = (pov && typeof pov.lng === 'number' && !isNaN(pov.lng)) ? pov.lng : -70.6620;
+
+    let nuevaAlt;
+    if (alt < 0.005) {
+      nuevaAlt = 0.012; // De Barrial a Barrio Brasil (~76 km)
+    } else if (alt < 0.035) {
+      nuevaAlt = 0.06; // De Barrio Brasil a Gran Santiago (~380 km)
+    } else if (alt < 0.2) {
+      nuevaAlt = 0.35; // De Santiago a Chile Central (~2.200 km)
+    } else {
+      nuevaAlt = 2.2; // A Planeta Completo (~14.000 km)
     }
 
-    // Mecanismo de respaldo seguro mediante pointOfView
-    const pov = globo.pointOfView();
-    const lat = (pov && typeof pov.lat === 'number' && !isNaN(pov.lat)) ? pov.lat : -33.4445;
-    const lng = (pov && typeof pov.lng === 'number' && !isNaN(pov.lng)) ? pov.lng : -70.6620;
-    const alt = (pov && typeof pov.altitude === 'number' && !isNaN(pov.altitude)) ? pov.altitude : altitudActual;
-    const nuevaAlt = Math.min(2.5, alt * 1.47 + 0.005);
-    globo.pointOfView({ lat, lng, altitude: nuevaAlt }, 200);
-    setTimeout(monitorearCamaraYTransicion, 220);
+    globo.pointOfView({ lat, lng, altitude: nuevaAlt }, 650);
+    setTimeout(monitorearCamaraYTransicion, 700);
   }
 
   /**
@@ -365,7 +400,7 @@ const ModuloGlobo = (() => {
           return normalizarColorRgba(col, 0.40);
         })
         .polygonStrokeColor(d => d.properties._colorGlobo || '#10B981')
-        .polygonAltitude(0.0045)
+        .polygonAltitude(0.0005)
         .polygonLabel(d => formatearTooltip(d))
         .onPolygonClick(polygon => { mostrarDetalleEntidad(polygon); })
         // Capa de Líneas/Caminos 2D
@@ -374,15 +409,15 @@ const ModuloGlobo = (() => {
         .pathPointLng(p => p[0])
         .pathColor(d => d.color || '#10B981')
         .pathStroke(null)
-        .pathAltitude(0.006)
+        .pathAltitude(0.0008)
         .pathLabel(d => formatearTooltip(d))
         .onPathClick(linea => { mostrarDetalleEntidad(linea); })
         // Capa de Puntos 2D
         .pointLat(d => d.lat)
         .pointLng(d => d.lng)
         .pointColor(d => normalizarColorRgba(d.color || '#A97722', 0.95))
-        .pointAltitude(0.008)
-        .pointRadius(0.0035)
+        .pointAltitude(0.0012)
+        .pointRadius(0.0022)
         .pointLabel(d => formatearTooltip(d))
         .onPointClick(punto => { mostrarDetalleEntidad(punto); });
 
@@ -404,10 +439,10 @@ const ModuloGlobo = (() => {
       if (controles) {
         controles.autoRotate    = false;
         controles.enableDamping = true;
-        controles.dampingFactor = 0.08;
+        controles.dampingFactor = 0.12;
+        controles.rotateSpeed   = 0.6;
         controles.minDistance   = 100.0001;
         controles.maxDistance   = 1000.0;
-        controles.zoomSpeed     = 1.2;
       }
 
       // ── Cámara near plane ──
@@ -417,14 +452,15 @@ const ModuloGlobo = (() => {
         camara.updateProjectionMatrix();
       }
 
-      // ── Listeners de telemetría ──
-      elem.addEventListener('wheel',       () => requestAnimationFrame(monitorearCamaraYTransicion), { passive: true });
-      elem.addEventListener('pointermove', () => monitorearCamaraYTransicion(), { passive: true });
-      elem.addEventListener('touchmove',   () => monitorearCamaraYTransicion(), { passive: true });
+      // ── Listeners interactivos y telemetría ──
+      // Interceptamos la rueda del ratón (wheel) para zoom multiescala fluido y sin bloqueos
+      elem.addEventListener('wheel', manejarWheelZoom, { passive: false });
+      elem.addEventListener('pointermove', () => requestAnimationFrame(monitorearCamaraYTransicion), { passive: true });
+      elem.addEventListener('touchmove',   () => requestAnimationFrame(monitorearCamaraYTransicion), { passive: true });
 
       iniciarBucleMonitoreoCamara();
 
-      // Enfoque inicial a Barrio Brasil
+      // Enfoque inicial a Barrio Brasil (~76 km, alt: 0.012)
       volarABarrioBrasil(1000);
 
       // Sincronizar capas pendientes
@@ -612,35 +648,46 @@ const ModuloGlobo = (() => {
   }
 
   /**
-   * Enfoque orbital exclusivo a Barrio Brasil / Universidad Alberto Hurtado
+   * Enfoque orbital exclusivo a Barrio Brasil / Universidad Alberto Hurtado (~76 km, alt: 0.012)
    */
-  function volarABarrioBrasil(duracionMs = 1200) {
+  function volarABarrioBrasil(duracionMs = 1000) {
     if (!globo) return;
+    transicionEnCurso = true;
     globo.pointOfView({
       lat: -33.4445,
       lng: -70.6620,
-      altitude: 0.035
+      altitude: 0.012
     }, duracionMs);
+    setTimeout(() => {
+      transicionEnCurso = false;
+      monitorearCamaraYTransicion();
+    }, duracionMs + 100);
   }
 
   /**
-   * Vuela la cámara hacia coordenadas arbitrarias (útil para capas importadas o búsquedas)
+   * Vuela la cámara hacia coordenadas arbitrarias con mapeo fiel de niveles de zoom
    */
-  function volarACoordenadas(lat, lng, altitud = 0.035, duracionMs = 1200) {
+  function volarACoordenadas(lat, lng, altitud = 0.012, duracionMs = 1000) {
     if (!globo) return;
+    transicionEnCurso = true;
     let alt = Number(altitud);
-    // Si viene un nivel de zoom tipo Leaflet (ej. 10 a 19), convertirlo a altitud orbital equivalente
+    // Si viene un nivel de zoom tipo Leaflet (ej. 8 a 19), convertirlo a altitud orbital equivalente
     if (alt >= 3.0) {
-      if (alt >= 16) alt = 0.0008;
-      else if (alt >= 14) alt = 0.035;
-      else if (alt >= 10) alt = 0.15;
-      else alt = 0.5;
+      if (alt >= 16) alt = 0.0025;
+      else if (alt >= 14) alt = 0.012;
+      else if (alt >= 11) alt = 0.06;
+      else if (alt >= 8) alt = 0.35;
+      else alt = 2.2;
     }
     globo.pointOfView({
       lat: Number(lat),
       lng: Number(lng),
       altitude: alt
     }, duracionMs);
+    setTimeout(() => {
+      transicionEnCurso = false;
+      monitorearCamaraYTransicion();
+    }, duracionMs + 100);
   }
 
   function estaInicializado() {
