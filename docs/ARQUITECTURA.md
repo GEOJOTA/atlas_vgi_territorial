@@ -26,7 +26,7 @@ El sistema sigue una arquitectura centrada en el cliente (*client-side first*) c
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
-│   │                  VISOR DUAL 2D/3D (mapa.js / Leaflet 1.9.4 & globo.js / Globe.gl 3D)         │   │
+│   │                  VISOR CARTOGRÁFICO INTERACTIVO (mapa.js / Leaflet 1.9.4)                     │   │
 │   │   Bbox Dinámico Interactivo │ 8 Capas Temáticas VGI │ Popups Normalizados │ Export QGIS   │   │
 │   └──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬──────────┬───────┘   │
 │          │             │             │             │             │             │          │           │
@@ -76,14 +76,13 @@ El Atlas articula 8 servicios y protocolos de datos geoespaciales y colaborativo
 | **ArcGIS FeatureServer & WMS (MINVU / DDU)** | `https://geoide.minvu.cl/server/rest/services/` (IPT/Patrimonio, Catastro Parques, Barrios Históricos) | `src/js/modulos/ide_chile.js` | Catastro oficial de Inmuebles de Conservación Histórica (ICH), Zonas Típicas, Parques Urbanos y polígonos del Programa Quiero Mi Barrio. |
 | **MINVU IPT FeatureServer (Normativa Urbanística)** | `https://geoide.minvu.cl/server/rest/services/IPT/` (PRC Santiago, PRMS Uso Suelo, Áreas Verdes IPT, Áreas de Riesgo, Resguardo, Límite Urbano) | `src/js/modulos/ide_chile.js` | Instrumentos de Planificación Territorial (IPT) y capas normativas: zonificación comunal (192 zonas), usos permitidos/prohibidos, ordenanza metropolitana PRMS, áreas de riesgo natural y fajas de protección. |
 | **MINVU Catastros & Programas** | `https://geoide.minvu.cl/server/rest/services/Catastros/` y `Planes_Programas/` | `src/js/modulos/ide_chile.js` | Catastro Oficial de Campamentos 2024, Condominios Sociales (Ley 21.442), Inventario de Humedales (Ley 21.202), Unidades Vecinales con RSH (MDS) y Red de Ciclovías. |
-| **Evaluador Normativo Territorial** | Motor cliente JS Point-in-Polygon + Ficha HUD | `src/js/modulos/evaluador_normativo.js` | Consulta interactiva por clic de zonificación PRC Santiago (UPERM/UPROH), afectación por riesgo (Art. 2.1.17 OGUC), límites urbanos y emisión de Certificados CIN-VGI. |
-| **Globe.gl / Three.js WebGL** | `https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js` | `src/js/modulos/globo.js` | Perspectiva esférica 3D moderna sobre globo terráqueo con proyección plana 2D de entidades (polígonos, líneas y puntos sin alturas artificiales) y sincronización reactiva instantánea. |
+| **Evaluador Normativo Territorial** | Motor cliente JS Point-in-Polygon + Ficha Normativa | `src/js/modulos/evaluador_normativo.js` | Consulta interactiva por clic de zonificación PRC Santiago (UPERM/UPROH), afectación por riesgo (Art. 2.1.17 OGUC), límites urbanos y emisión de Certificados CIN-VGI. |
 
 ---
 
 ## 3. Módulos del Sistema Frontend (`src/js/modulos/`)
 
-La lógica de la aplicación se distribuye en 16 módulos desacoplados que exportan sus interfaces al objeto global `window`:
+La lógica de la aplicación se distribuye en 15 módulos desacoplados que exportan sus interfaces al objeto global `window`:
 
 ### 3.1 `mapa.js` (Visor Cartográfico Leaflet)
 - Motor: Leaflet 1.9.4.
@@ -152,8 +151,8 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
   - **.geojson / .json**: Colecciones de objetos espaciales RFC 7946 en WGS84.
   - **.gpx (GPS Exchange Format)**: Waypoints, tracks y rutas de navegación comunitaria.
   - **.csv / .tsv (Tablas delimitadas)**: Detección inteligente de variantes de columnas de coordenadas (`lat`, `latitude`, `y` / `lon`, `longitude`, `x`), normalización de decimales y generación de entidades puntuales.
-- Asignación cromática rotativa y metadatos unificados (`_capaId`, `_color`, `_colorGlobo`, `_fuente`).
-- Sincronización inmediata con el visor Leaflet 2D y el Globo 3D, junto a control de encuadre, alternancia de visibilidad y auditoría normativa directa.
+- Asignación cromática rotativa y metadatos unificados (`_capaId`, `_color`, `_fuente`).
+- Sincronización inmediata con el visor Leaflet 2D, junto a control de encuadre, alternancia de visibilidad y auditoría normativa directa.
 
 ### 3.15 `evaluador_normativo.js` (Motor de Consulta y Evaluación Espacial Normativa Territorial)
 - Auditoría espacial puntual y cruzada mediante algoritmos point-in-polygon en tiempo real:
@@ -166,16 +165,6 @@ La lógica de la aplicación se distribuye en 16 módulos desacoplados que expor
 - **Catálogo de Ordenanzas Oficiales y Guía de Acceso**: Provee hipervínculos directos al expediente oficial del MINVU (Portal IPT Código 13101: ordenanza en PDF, memoria y planos 1:5.000), portal de la DOM Santiago y LeyChile de la Biblioteca del Congreso Nacional.
 - **Aviso Legal y Descargo de Responsabilidad (Disclaimer)**: Incorporación preceptiva en el visor y en el informe descargable del aviso legal que estipula el carácter referencial/académico del informe, aclarando que bajo ninguna circunstancia reemplaza o sustituye al Certificado de Informaciones Previas (CIP) emitido privativamente por el Director de Obras Municipales conforme al Art. 116 de la LGUC.
 - Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** estructurado en 6 secciones oficiales en formato `.txt`.
-
-### 3.16 `globo.js` (Visualizador Táctico de Perspectiva 3D basado en Leaflet)
-- Motor cartográfico robusto construido sobre **Leaflet (`L.map`)**, eliminando la fragilidad de WebGL/Globe.gl y garantizando operatividad total del zoom (`map.zoomIn()`, `map.zoomOut()`), rueda del ratón y gestos táctiles.
-- Perspectiva 3D oblicua táctica mediante transformaciones espaciales CSS3 (`perspective(1200px)`, `rotateX(24deg)` sobre el panel cartográfico) con estética liminal de vigilancia Backrooms (película A24).
-- Cartografía base nocturna de alto contraste (CartoDB Dark Matter) enriquecida con HUD CRT (fósforo esmeralda `#10B981`, scanlines, telemetría y marcadores luminiscentes).
-- Telemetría dinámica en tiempo real (`#globo-hud-escala`): cálculo continuo de altitud barométrica/orbital a partir del nivel de zoom Web Mercator ($\text{altitudMetros} = 591.657.550 / 2^{\text{zoom}}$) y etiquetas multiescala (planetaria, regional, metropolitana, comunal, barrial).
-- Transición fluida automática 3D a 2D: al hacer zoom in y alcanzar escala barrial (Zoom $\ge$ 17 o altitud $\le 2.2\text{ km}$), el mapa aplana su inclinación (`rotateX(0deg)`), dispara una alerta visual en el HUD y conmuta de forma transparente al mapa 2D detallado (`#mapa-atlas`).
-- Retorno reactivo 2D a 3D: detector de escala regional en Leaflet (`zoom <= 11`) que despliega una insignia flotante interactiva para regresar a la perspectiva 3D con un solo clic.
-- Controles de zoom universales: botones en barra superior (`#btn-globo-zoomin`, `#btn-globo-zoomout`), botones tácticos directos en el HUD (`#btn-hud-zoomin`, `#btn-hud-zoomout`) y atajos de teclado (`+`, `-`).
-- Renderizado vectorial de alta fidelidad: todas las capas (VGI, 27 capas oficiales del Estado e importadas KMZ/KML/GeoJSON) se dibujan como capas vectoriales nativas Leaflet con popups temáticos.
 
 ---
 
@@ -217,12 +206,12 @@ Cada entidad capturada desde las distintas plataformas se normaliza bajo un esqu
 
 ---
 
-## 6. Sistema Estético "Backrooms" (Atmósfera Liminal y Sobriedad)
+## 6. Sistema Estético de Alto Contraste y Accesibilidad (WCAG AAA)
 
-La interfaz gráfica prescinde de componentes SaaS genéricos para adoptar un diseño sobrio y riguroso de archivo analógico:
-- **Paleta Institucional Liminal:** Papel de archivo desaturado (`#D7D0B4`), niveles de panel elevado (`#E3DCC3`), tinta carbón profundo (`#1B1E15`), tinta de máquina de escribir desgastada (`#424939`), verde terminal búnker (`#2D4436`), ámbar de lámpara de sodio (`#A06D1A`), azul plomo de tubería (`#294455`) y juntas acústicas (`#B9B08C`).
-- **Trama de Fondo Continua:** Rejilla ortogonal de **48px × 48px** que evoca placas de cielo falso acústico de oficinas gubernamentales o tablero milimétrico.
-- **Geometría Rectilínea y Telemetría:** Bordes estrictamente en ángulo recto (`border-radius: 0;`), botones planos táctiles, tipografía monoespaciada de consola analógica (`IBM Plex Mono`) y marcador con pulso tenue de telemetría de fósforo CRT (`.marcador-parpadeo`).
+La interfaz gráfica prioriza la claridad, legibilidad y discernimiento intuitivo para usuarios no avanzados, líderes comunitarios y técnicos municipales:
+- **Paleta Institucional de Alto Contraste:** Fondo base Slate-50 (`#F8FAFC`), tarjetas y paneles en blanco puro (`#FFFFFF`), texto principal Slate-900 (`#0F172A`, relación de contraste > 15:1), texto secundario Slate-700 (`#334155`), acento institucional verde esmeralda/teal (`#0F766E`), azul cartográfico (`#0284C7`), advertencias en ámbar (`#B45309`) y restricciones normativas en rojo (`#B91C1C`).
+- **Tipografía Moderna y Discernible:** Tipografía de lectura sans-serif moderna (`Inter` / sistema nativo) para toda la interfaz, botones y formularios, manteniendo monoespaciada (`IBM Plex Mono`) exclusivamente para códigos, etiquetas y coordenadas espaciales.
+- **Geometría y Accesibilidad:** Bordes nítidos (`border: 1px solid #CBD5E1;`), esquinas redondeadas amigables (`border-radius: 6px;`), sombras sutiles que aportan profundidad jerárquica y estados de foco y hover claramente diferenciados.
 
 ---
 
@@ -250,17 +239,3 @@ En las carpetas `docs/` y `src/docs/` residen los libros de trabajo generados po
   - Verificación del generador de catálogos mediante `python3 scripts/generar_catalogos_excel.py`.
   - Verificación de paridad binaria entre `docs/` y `src/docs/`.
 
-### 3.13 `ide_chile.js` (Integración de Servicios Oficiales IDE Chile & MINVU)
-- Consumo directo de servicios **ArcGIS FeatureServer** filtrados por envolvente espacial (Bbox) con salida nativa en GeoJSON.
-- Integración de capas **OGC WMS** de MINVU (`IPT/Patrimonio` y `Catastro_de_parques_urbanos`).
-- Resiliencia y fallback a conjuntos de respaldo locales validados en `src/data/` (Censo 2024, Patrimonio IPT, Parques Urbanos, Barrios Históricos, Monumentos CMN).
-- Generación de declaraciones institucionales completas, citas formales APA y conformidad con la Ley N° 20.285 de Transparencia y Acceso a la Información Pública.
-
-### 3.14 `globo.js` (Visualización Tridimensional Esférica — Globo 3D)
-- Motor de renderizado esférico WebGL / Three.js mediante `Globe.gl`.
-- Representación realista del planeta Tierra desde el espacio exterior con textura Blue Marble de la NASA, topografía en relieve (bump map), atmósfera dispersiva y fondo estelar.
-- Proyección tridimensional sincronizada de todas las capas vectoriales cargadas en el Atlas:
-  * **Polígonos 3D (`polygonsData`):** Huellas de edificaciones (`building=*`), uso de suelo (`landuse=*`), manzanas censales 2024 y patrimonio IPT con altitud de extrusión proporcional.
-  * **Líneas 3D (`pathsData`):** Redes viales, corredores de transporte y ciclovías elevadas con grosor dinámico.
-  * **Puntos 3D (`pointsData`):** Equipamientos urbanos, paraderos, registros de biodiversidad GBIF y monumentos CMN con columnas y esferas luminosas.
-- Cinemática de cámara: vuelo suave hacia Barrio Brasil / UAH (`lat: -33.4445, lng: -70.6620`), rotación orbital continua y vista de planeta completo.

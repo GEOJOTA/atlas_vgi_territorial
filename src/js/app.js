@@ -431,7 +431,6 @@ function inicializarAplicacion() {
   ModuloMapa.inicializar('mapa-atlas');
   crearBotonesCategorias();
   configurarEventosMapa();
-  configurarSelectorPerspectiva2Dy3D();
   configurarCapasOficialesIDE();
   configurarImportadorCapas();
   pintarEstadoConexion();
@@ -1010,7 +1009,6 @@ async function alternarCapaCategoria(categoria) {
     btn.classList.remove('activo');
     labelConteo.textContent = '—';
     delete capasCargadasPorCategoria[categoria.id];
-    sincronizarTodoEnGlobo3D();
     return;
   }
 
@@ -1048,7 +1046,6 @@ async function alternarCapaCategoria(categoria) {
     });
 
     capasCargadasPorCategoria[categoria.id] = geojson;
-    sincronizarTodoEnGlobo3D();
     btn.classList.remove('cargando');
     btn.classList.add('activo');
     estadoTexto.textContent = `Capa "${categoria.nombre}" cargada en vivo (${cantidad} elementos). Haz clic en los elementos del mapa para ver atributos y licencias.`;
@@ -1096,7 +1093,6 @@ async function alternarCapaCategoria(categoria) {
           icono: categoria.icono
         });
         capasCargadasPorCategoria[categoria.id] = geojsonLocal;
-        sincronizarTodoEnGlobo3D();
         btn.classList.remove('cargando');
         btn.classList.add('activo');
         estadoTexto.innerHTML = `Capa "${categoria.nombre}" cargada desde catálogo local validado (${cantidad} entidades en Barrio Brasil / UAH). <span class="descripcion">(Servidor Overpass saturado)</span>`;
@@ -1961,212 +1957,8 @@ function avisoInfo(mensaje) { return `<div class="aviso">${mensaje}</div>`; }
 
 
 /* ==========================================================================
-   INTEGRACIÓN PERSPECTIVA 3D (GLOBO TERRÁQUEO) Y CAPAS OFICIALES IDE CHILE
+   INTEGRACIÓN DE CAPAS OFICIALES IDE CHILE Y AUDITORÍA NORMATIVA
    ========================================================================== */
-
-function configurarSelectorPerspectiva2Dy3D() {
-  const btn2D = document.getElementById('btn-vista-2d');
-  const btn3D = document.getElementById('btn-vista-3d');
-  const mapaLeaflet = document.getElementById('mapa-atlas');
-  const contGlobo = document.getElementById('contenedor-globo-3d');
-  const barraGlobo = document.getElementById('barra-controles-globo');
-
-  if (!btn2D || !btn3D) return;
-
-  btn2D.addEventListener('click', () => {
-    btn2D.classList.add('activo');
-    btn3D.classList.remove('activo');
-    if (contGlobo) contGlobo.style.display = 'none';
-    if (barraGlobo) barraGlobo.style.display = 'none';
-    if (window.ModuloGlobo && typeof ModuloGlobo.detenerBucleMonitoreoCamara === 'function') {
-      ModuloGlobo.detenerBucleMonitoreoCamara();
-    }
-    if (mapaLeaflet) {
-      mapaLeaflet.style.display = 'block';
-      if (window.ModuloMapa) ModuloMapa.invalidarTamano();
-    }
-  });
-
-  btn3D.addEventListener('click', async () => {
-    btn3D.classList.add('activo');
-    btn2D.classList.remove('activo');
-    if (mapaLeaflet) mapaLeaflet.style.display = 'none';
-    if (contGlobo) contGlobo.style.display = 'block';
-    if (barraGlobo) barraGlobo.style.display = 'inline-flex';
-
-    if (window.ModuloGlobo) {
-      ModuloGlobo.inicializar('globo-3d-canvas');
-      if (typeof ModuloGlobo.iniciarBucleMonitoreoCamara === 'function') {
-        ModuloGlobo.iniciarBucleMonitoreoCamara();
-      }
-
-      // Si no hay ninguna capa activa cargada en sesión, precargamos la cartografía de Barrio Brasil
-      const hayCapasCargadas = Object.keys(capasCargadasPorCategoria).length > 0 ||
-                               Object.keys(capasOficialesCargadas).length > 0 ||
-                               (window.ModuloImportadorCapas && Object.keys(ModuloImportadorCapas.obtenerCapasImportadas()).length > 0);
-      if (!hayCapasCargadas) {
-        await precargarDatosBaseParaGlobo3D();
-      }
-
-      requestAnimationFrame(() => {
-        ModuloGlobo.redimensionar();
-        sincronizarTodoEnGlobo3D();
-      });
-      setTimeout(() => {
-        ModuloGlobo.redimensionar();
-        sincronizarTodoEnGlobo3D();
-        ModuloGlobo.volarABarrioBrasil(1000);
-      }, 120);
-    }
-  });
-
-  // Conmutador global entre 2D y 3D con propagación de coordenadas
-  window.conmutarVistaPerspectiva = function(modo, lat, lng) {
-    if (modo === '2d') {
-      btn2D.click();
-      if (lat !== undefined && lng !== undefined && window.ModuloMapa) {
-        const mapaInst = ModuloMapa.obtenerInstanciaMapa();
-        if (mapaInst) {
-          mapaInst.setView([lat, lng], 16, { animate: true });
-        }
-      }
-    } else if (modo === '3d') {
-      btn3D.click();
-      if (lat !== undefined && lng !== undefined && window.ModuloGlobo) {
-        setTimeout(() => {
-          ModuloGlobo.volarACoordenadas(lat, lng, 14, 1200);
-        }, 150);
-      }
-    }
-  };
-
-  document.getElementById('btn-globo-centrar')?.addEventListener('click', () => {
-    if (window.ModuloGlobo) ModuloGlobo.volarABarrioBrasil(1200);
-  });
-
-  // Manejadores centralizados de zoom interactivo
-  const ejecutarAccionZoomIn = () => {
-    const contGlobo = document.getElementById('contenedor-globo-3d');
-    const es3D = contGlobo && contGlobo.style.display !== 'none';
-    if (es3D) {
-      if (window.ModuloGlobo && typeof ModuloGlobo.acercar === 'function') {
-        ModuloGlobo.acercar();
-      }
-    } else {
-      if (window.ModuloMapa) {
-        const mapaInst = ModuloMapa.obtenerInstanciaMapa();
-        if (mapaInst) mapaInst.zoomIn();
-      }
-    }
-  };
-
-  const ejecutarAccionZoomOut = () => {
-    const contGlobo = document.getElementById('contenedor-globo-3d');
-    const es3D = contGlobo && contGlobo.style.display !== 'none';
-    if (es3D) {
-      if (window.ModuloGlobo && typeof ModuloGlobo.alejar === 'function') {
-        ModuloGlobo.alejar();
-      }
-    } else {
-      if (window.ModuloMapa) {
-        const mapaInst = ModuloMapa.obtenerInstanciaMapa();
-        if (mapaInst) mapaInst.zoomOut();
-      }
-    }
-  };
-
-  // Botones en barra de herramientas superior
-  document.getElementById('btn-globo-zoomin')?.addEventListener('click', ejecutarAccionZoomIn);
-  document.getElementById('btn-globo-zoomout')?.addEventListener('click', ejecutarAccionZoomOut);
-
-  // Botones directos tácticos en el HUD del Globo 3D
-  document.getElementById('btn-hud-zoomin')?.addEventListener('click', ejecutarAccionZoomIn);
-  document.getElementById('btn-hud-zoomout')?.addEventListener('click', ejecutarAccionZoomOut);
-
-  // Atajos de teclado para zoom (+ y -) mientras la perspectiva 3D está activa
-  window.addEventListener('keydown', (e) => {
-    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target?.tagName)) return;
-    const contGlobo = document.getElementById('contenedor-globo-3d');
-    if (contGlobo && contGlobo.style.display !== 'none') {
-      if (e.key === '+' || e.key === '=') {
-        e.preventDefault();
-        ejecutarAccionZoomIn();
-      } else if (e.key === '-' || e.key === '_') {
-        e.preventDefault();
-        ejecutarAccionZoomOut();
-      }
-    }
-  });
-
-  // Badge flotante en el mapa 2D para retornar al Globo 3D al alejar zoom a escala metropolitana/regional
-  const contenedorMapa = document.getElementById('mapa-atlas');
-  if (contenedorMapa) {
-    let badgeGlobo2D = document.getElementById('badge-zoom-globo-2d');
-    if (!badgeGlobo2D) {
-      badgeGlobo2D = document.createElement('div');
-      badgeGlobo2D.id = 'badge-zoom-globo-2d';
-      badgeGlobo2D.className = 'badge-flotante-globo-2d';
-      badgeGlobo2D.style.display = 'none';
-      badgeGlobo2D.innerHTML = '🪐 Escala Regional detectada • [Ver en Globo 3D]';
-      badgeGlobo2D.title = 'Hacer clic para abrir la perspectiva planetaria/metropolitana 3D';
-      badgeGlobo2D.addEventListener('click', () => {
-        if (window.ModuloMapa) {
-          const mapaInst = ModuloMapa.obtenerInstanciaMapa();
-          const centro = mapaInst ? mapaInst.getCenter() : { lat: -33.4445, lng: -70.6620 };
-          window.conmutarVistaPerspectiva('3d', centro.lat, centro.lng);
-        } else {
-          window.conmutarVistaPerspectiva('3d');
-        }
-      });
-      contenedorMapa.appendChild(badgeGlobo2D);
-    }
-
-    const mapaInst = window.ModuloMapa?.obtenerInstanciaMapa();
-    if (mapaInst) {
-      mapaInst.on('zoomend', () => {
-        const z = mapaInst.getZoom();
-        if (z <= 11) {
-          badgeGlobo2D.style.display = 'inline-flex';
-        } else {
-          badgeGlobo2D.style.display = 'none';
-        }
-      });
-    }
-  }
-}
-
-/**
- * Precarga de datos territoriales de Barrio Brasil para visualización 3D inmediata
- */
-async function precargarDatosBaseParaGlobo3D() {
-  const estadoTexto = document.getElementById('estado-carga-capas');
-  if (estadoTexto) estadoTexto.innerHTML = '<span style="color:#2D4436; font-weight:600;">[3D]: Precargando capas base de Barrio Brasil...</span>';
-
-  const capasBase = [
-    { id: 'edificaciones', archivo: 'data/capa_edificaciones.geojson' },
-    { id: 'patrimonio', archivo: 'data/capa_patrimonio.geojson' },
-    { id: 'espacio_publico', archivo: 'data/capa_espacio_publico.geojson' }
-  ];
-
-  for (const c of capasBase) {
-    if (!capasCargadasPorCategoria[c.id]) {
-      try {
-        const res = await fetch(c.archivo);
-        if (res.ok) {
-          const gj = await res.json();
-          capasCargadasPorCategoria[c.id] = gj;
-          const btn = document.getElementById(`btn-cat-${c.id}`);
-          const label = document.getElementById(`conteo-cat-${c.id}`);
-          if (btn) btn.classList.add('activo');
-          if (label && gj.features) label.textContent = `${gj.features.length}`;
-        }
-      } catch (_) {}
-    }
-  }
-
-  sincronizarTodoEnGlobo3D();
-  if (estadoTexto) estadoTexto.innerHTML = '<span style="color:#2D4436; font-weight:600;">[3D]: Capas base de Barrio Brasil desplegadas en la esfera 3D.</span>';
-}
 
 let modoInspectorNormativoActivo = false;
 
@@ -2445,7 +2237,6 @@ async function alternarCapaOficialIDE(idCapa, btn) {
     delete capasOficialesCargadas[idCapa];
     btn.classList.remove('activo');
     if (badgeConteo) badgeConteo.textContent = '0';
-    sincronizarTodoEnGlobo3D();
     if (estadoTexto) estadoTexto.textContent = `Capa oficial "${idCapa}" desactivada.`;
     return;
   }
@@ -2479,8 +2270,6 @@ async function alternarCapaOficialIDE(idCapa, btn) {
         <span style="color:var(--tinta-suave); display:block; font-size:0.75rem; margin-top:2px;">${def.declaracion}</span>
       `;
     }
-
-    sincronizarTodoEnGlobo3D();
   } catch (err) {
     btn.classList.remove('cargando');
     console.error(`Error al cargar capa oficial ${idCapa}:`, err);
@@ -2510,27 +2299,9 @@ function alternarCapaWMSOficial(idCapa, btn) {
   }
 }
 
-function sincronizarTodoEnGlobo3D() {
-  if (!window.ModuloGlobo) return;
-  const capasImportadas = window.ModuloImportadorCapas ? ModuloImportadorCapas.obtenerCapasImportadas() : {};
-  const capasImportadasGeojson = {};
-  Object.values(capasImportadas).forEach(capa => {
-    if (capa.activa && capa.geojson) {
-      capasImportadasGeojson[capa.id] = capa.geojson;
-    }
-  });
-
-  const todasLasCapas = {
-    ...capasCargadasPorCategoria,
-    ...capasOficialesCargadas,
-    ...capasImportadasGeojson
-  };
-  ModuloGlobo.sincronizarCapas(todasLasCapas);
-}
-
 /**
  * Módulo Controlador de Interfaz: Importador de Capas Espaciales Locales
- * Permite subir y visualizar .kmz, .kml, .geojson, .gpx y .csv en 2D, 3D y auditoría normativa.
+ * Permite subir y visualizar .kmz, .kml, .geojson, .gpx y .csv en el visor y auditoría normativa.
  */
 function configurarImportadorCapas() {
   const btnAbrir = document.getElementById('btn-abrir-importador');
@@ -2609,7 +2380,6 @@ function configurarImportadorCapas() {
       if (contenedorCapas) contenedorCapas.style.display = 'none';
       if (contadorCapas) contadorCapas.textContent = '0';
       if (estadoTexto) estadoTexto.textContent = 'Todas las capas importadas han sido removidas de la sesión.';
-      sincronizarTodoEnGlobo3D();
     });
   }
 
@@ -2645,11 +2415,6 @@ function configurarImportadorCapas() {
           if (mapaInstancia) {
             mapaInstancia.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]], { padding: [30, 30] });
           }
-          if (window.ModuloGlobo && ModuloGlobo.estaInicializado && ModuloGlobo.estaInicializado()) {
-            const latCentro = (bbox[1] + bbox[3]) / 2;
-            const lngCentro = (bbox[0] + bbox[2]) / 2;
-            ModuloGlobo.volarACoordenadas(latCentro, lngCentro, 0.05, 1600);
-          }
         }
 
         // Renderizar tarjeta en la grilla
@@ -2661,9 +2426,6 @@ function configurarImportadorCapas() {
       }
     }
 
-    // Sincronizar con el Globo 3D
-    sincronizarTodoEnGlobo3D();
-
     // Actualizar contadores y visibilidad del contenedor
     const capasActuales = Object.keys(ModuloImportadorCapas.obtenerCapasImportadas()).length;
     if (contadorCapas) contadorCapas.textContent = String(capasActuales);
@@ -2673,7 +2435,7 @@ function configurarImportadorCapas() {
       if (errores.length === 0) {
         estadoTexto.innerHTML = `
           <span style="color:#10B981; font-weight:600;">✓ ¡Éxito!</span> 
-          Se importaron ${procesadosExito} capa(s) correctamente y se desplegaron en el mapa 2D y Globo 3D.
+          Se importaron ${procesadosExito} capa(s) correctamente y se desplegaron en el mapa interactivo.
         `;
       } else {
         estadoTexto.innerHTML = `
@@ -2733,7 +2495,6 @@ function configurarImportadorCapas() {
       } else {
         ModuloMapa.removerCapa(capa.id);
       }
-      sincronizarTodoEnGlobo3D();
     });
 
     // Evento Encuadrar
@@ -2744,11 +2505,6 @@ function configurarImportadorCapas() {
         const mapaInstancia = ModuloMapa.obtenerInstanciaMapa();
         if (mapaInstancia) {
           mapaInstancia.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]], { padding: [30, 30] });
-        }
-        if (window.ModuloGlobo && ModuloGlobo.estaInicializado && ModuloGlobo.estaInicializado()) {
-          const latCentro = (bbox[1] + bbox[3]) / 2;
-          const lngCentro = (bbox[0] + bbox[2]) / 2;
-          ModuloGlobo.volarACoordenadas(latCentro, lngCentro, 0.05, 1500);
         }
       }
     });
@@ -2821,7 +2577,6 @@ function configurarImportadorCapas() {
       if (contadorCapas) contadorCapas.textContent = String(restantes);
       if (contenedorCapas) contenedorCapas.style.display = restantes > 0 ? 'block' : 'none';
       if (estadoTexto) estadoTexto.textContent = `Capa "${capa.nombre}" eliminada.`;
-      sincronizarTodoEnGlobo3D();
     });
 
     grillaCapas.prepend(tarjeta);

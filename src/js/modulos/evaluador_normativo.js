@@ -11,7 +11,7 @@
   - Ley N° 21.442 de Copropiedad Inmobiliaria y Catastro de Campamentos MINVU 2024
 
   Provee:
-  1. Inspector Normativo Puntual por Clic en Mapa (Leaflet 2D y Globo 3D).
+  1. Inspector Normativo Puntual por Clic en Mapa Interactivo (Leaflet 2D).
   2. Motor de Evaluación Cruzada VGI vs. Zonificación Oficial (Compatibilidad de usos).
   3. Auditoría de Exposición a Zonas de Riesgo y Protección Ambiental.
   4. Generación y Descarga de Certificado de Informaciones Normativas VGI (CIN-VGI).
@@ -667,9 +667,9 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
           <div class="campo-normativo ancho-completo">
             <span class="etiqueta-normativa">Zonificación PRC Santiago & Instrumento Local:</span>
             <span class="valor-normativo zona-destacada">${prc ? prc.zona : 'Zona D'} — ${prc ? prc.nombreZona : 'Residencial Mixta Poniente'}</span>
-            <div style="font-size:0.75rem; color:#D1D5DB; margin-top:4px;">
+            <div class="meta-ordenanza-prc">
               📜 <strong>Ordenanza Local:</strong> ${prc && prc.articuloOrdenanza ? prc.articuloOrdenanza : 'Artículo 26 de la Ordenanza Local del PRC de Santiago'} 
-              <br><span style="color:#9CA3AF;">Aprobación: ${prc && prc.decreto ? prc.decreto : 'Resolución N° 26 (D.O. 27/01/1990)'}</span>
+              <br><span>Aprobación: ${prc && prc.decreto ? prc.decreto : 'Resolución N° 26 (D.O. 27/01/1990)'}</span>
             </div>
           </div>
 
@@ -690,19 +690,19 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
             <p class="texto-normativo permitido">${prc ? (prc.usosPermitidosDetalle || prc.usosPermitidos) : 'Residencial (vivienda unifamiliar/colectiva), equipamiento vecinal (comercio hasta 250 m², educación básica, salud ambulatoria, servicios inofensivos), áreas verdes y espacio público.'}</p>
           </div>
 
-          <div class="campo-normativo ancho-completo">
-            <span class="etiqueta-normativa" style="color:#F87171;">Usos Prohibidos y Principio de Exclusión Negativa (UPROH - Art. 2.1.24 OGUC):</span>
-            <p style="font-size:0.74rem; color:#E5E7EB; margin:2px 0 6px 0; font-style:italic;">
+          <div class="campo-normativo ancho-completo campo-prohibidos">
+            <span class="etiqueta-normativa etiqueta-prohibido">Usos Prohibidos y Principio de Exclusión Negativa (UPROH - Art. 2.1.24 OGUC):</span>
+            <p class="nota-exclusion-oguc">
               ⚖️ <em>"Todo uso no mencionado expresamente como permitido se entiende legalmente prohibido" (Art. 2.1.24 OGUC). En específico, para esta zona se prohíben taxativamente:</em>
             </p>
-            <ul class="lista-riesgos" style="color:#FECACA; line-height:1.45;">
+            <ul class="lista-riesgos lista-prohibidos">
               ${prohibidosLista.map(item => `<li>🚫 ${item}</li>`).join('')}
             </ul>
           </div>
 
           ${tieneRiesgo ? `
             <div class="campo-normativo alerta-box">
-              <span class="etiqueta-normativa" style="color:#DC2626;">Gravamen por Riesgo Natural (Art. 2.1.17 OGUC):</span>
+              <span class="etiqueta-normativa etiqueta-alerta">Gravamen por Riesgo Natural (Art. 2.1.17 OGUC):</span>
               <ul class="lista-riesgos">
                 ${inf.areasRiesgo.map(r => `<li><strong>${r.tipo}:</strong> ${r.norma} <em>(${r.fuente})</em></li>`).join('')}
               </ul>
@@ -711,7 +711,7 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
 
           ${inf.patrimonio.length > 0 ? `
             <div class="campo-normativo patrimonio-box">
-              <span class="etiqueta-normativa" style="color:#D97706;">Protección Patrimonial Normativa (ICH / ZCH / Ley 17.288):</span>
+              <span class="etiqueta-normativa etiqueta-patrimonio">Protección Patrimonial Normativa (ICH / ZCH / Ley 17.288):</span>
               <ul class="lista-patrimonio">
                 ${inf.patrimonio.map(p => `<li>🏛️ ${p.nombre} (${p.categoria}) — ${p.distanciaMetros === 0 ? 'En zona protegida' : `A ${p.distanciaMetros} m de distancia`}</li>`).join('')}
               </ul>
@@ -720,8 +720,8 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
 
           <!-- Bloque de Localización de Ordenanzas Oficiales -->
           <div class="bloque-ordenanzas">
-            <span class="etiqueta-normativa" style="color:#60A5FA;">📖 ¿Dónde encontrar las ordenanzas oficiales completas?</span>
-            <ul style="margin:6px 0 0 16px; padding:0; font-size:0.75rem; line-height:1.45; color:#D1D5DB;">
+            <span class="etiqueta-normativa etiqueta-fuente">📖 ¿Dónde encontrar las ordenanzas oficiales completas?</span>
+            <ul class="lista-enlaces-ordenanzas">
               <li>
                 <strong>Portal IPT MINVU (Expediente digital oficial):</strong><br>
                 <a href="https://portalipt.minvu.cl/instrumentos/13101" target="_blank" rel="noopener noreferrer">portalipt.minvu.cl/instrumentos/13101</a> (Texto en PDF de la Ordenanza Local, Memoria y Planos de Zonificación Oficial 1:5.000).

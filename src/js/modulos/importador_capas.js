@@ -318,7 +318,7 @@ const ModuloImportadorCapas = (() => {
   }
 
   /**
-   * Normaliza los atributos de cada feature para compatibilidad total con popups y visor 3D
+   * Normaliza los atributos de cada feature para compatibilidad total con popups y visor cartográfico
    */
   function normalizarFeatures(geojson, idCapa, nombreArchivo, color) {
     geojson.features.forEach((f, idx) => {
@@ -327,7 +327,6 @@ const ModuloImportadorCapas = (() => {
       props._capaId = idCapa;
       props._idUsuario = `${idCapa}_${idx}`;
       props._fuente = `Capa Importada: ${nombreArchivo}`;
-      props._colorGlobo = color;
       props._color = color;
       props._nombre = props.name || props.nombre || props.Name || props.NOMBRE || props.title || `Entidad #${idx + 1}`;
       props._subtipo = props.tipo || props.type || props.category || props.categoria || f.geometry.type;

@@ -3,7 +3,7 @@
 
 Prototipo de plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado como producto de práctica profesional de la carrera de Geografía de la Universidad Alberto Hurtado (2026), en el marco de un proyecto de investigación Fondecyt Regular sobre VGI y gestión territorial.
 
-Integra un **visor cartográfico interactivo 2D/3D**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), 27 capas oficiales del Estado (MINVU GeoIDE, IDE Chile, SUBDERE) y exportación a GeoJSON, CSV, metadatos ISO 19115 y Excel.
+Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), 27 capas oficiales del Estado (MINVU GeoIDE, IDE Chile, SUBDERE) y exportación a GeoJSON, CSV, metadatos ISO 19115 y Excel.
 
 > **Sin API keys requeridas.** Toda la funcionalidad opera con CDN públicos y APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile).
 
@@ -17,7 +17,7 @@ Cuando una institución pública, organización comunitaria o voluntario quiere 
 2. **Incertidumbre de calidad:** ¿Cuántos colaboradores han editado? ¿Cuándo fue la última actualización? ¿Cómo distinguir datos confiables?
 3. **Falta de interoperabilidad oficial:** Los datos casi nunca tienen metadatos compatibles con el estándar IDE Chile (ISO 19115 / ISO 19139).
 
-El **Atlas VGI** resuelve esto integrando consulta espacial, visor 2D/3D interactivo, métricas de calidad, evaluación normativa territorial y exportación estructurada.
+El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico interactivo, métricas de calidad, evaluación normativa territorial y exportación estructurada.
 
 ---
 
@@ -67,12 +67,11 @@ Descargadas desde **MINVU GeoIDE**, **IDE Chile** y **SUBDERE**, incluyendo: PRC
 
 | Módulo | Descripción |
 |---|---|
-| **Visor 2D** | Leaflet + OpenStreetMap; activación por categoría, popups con cita APA oficial |
-| **Visor 3D** | Globe.gl (WebGL) sin API key; textura Night Earth, atmósfera esmeralda #10B981, telemetría HUD reactiva, transición automática 3D→2D al acercarse a escala barrial (<2.2 km) |
+| **Visor Cartográfico** | Leaflet 1.9.4 + OpenStreetMap; activación interactiva por categoría VGI y capas oficiales IDE Chile, popups con atributos, cita APA y zoom automático |
 | **Calidad VGI** | ohsome API v1/v2: completitud, evolución temporal P1Y, densidad espacial, OQT Score, contribuyentes activos; OSMCha para integridad de changesets |
 | **Índice de Calidad VGI (ICV)** | Score compuesto por categoría: completitud + actualidad + consistencia geométrica + densidad |
 | **CIN-VGI (normativa)** | Inspector territorial por clic: PRC Santiago, usos permitidos/prohibidos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio; exporta certificado .txt con disclaimer legal (Art. 116 LGUC) |
-| **Importador de capas** | KMZ, KML, GeoJSON, GPX, CSV con detección automática de coordenadas |
+| **Importador de capas** | KMZ, KML, GeoJSON, GPX, CSV con detección automática de coordenadas y auditoría normativa directa |
 | **Metadatos ISO 19115** | Fichas por capa, exportables a XML y Excel |
 
 ---
@@ -83,11 +82,10 @@ Descargadas desde **MINVU GeoIDE**, **IDE Chile** y **SUBDERE**, incluyendo: PRC
 atlas_vgi_uah/
 ├── src/
 │   ├── index.html              # Aplicación principal (no requiere build)
-│   ├── css/estilos.css         # Estilos (estética Backrooms A24 / HUD cartográfico)
+│   ├── css/estilos.css         # Estilos (paleta de alto contraste, accesible WCAG AAA, diseño limpio)
 │   ├── js/
 │   │   ├── app.js              # Controlador principal
 │   │   └── modulos/
-│   │       ├── globo.js        # Visor 3D Globe.gl (WebGL, sin API key)
 │   │       ├── mapa.js         # Visor 2D Leaflet
 │   │       ├── ohsome.js       # Métricas calidad VGI (ohsome API)
 │   │       ├── calidad_analyst.js  # ICV e inspector changesets

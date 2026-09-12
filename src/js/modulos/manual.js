@@ -195,10 +195,10 @@ const ModuloManual = (() => {
           <div class="doc-modulo-fila">
             <div class="doc-modulo-num">00</div>
             <div class="doc-modulo-cuerpo">
-              <h4>Visor y Atlas Cartográfico VGI — Perspectiva Dual 2D y Globo 3D</h4>
-              <p>Visualizador interactivo dual que articula un <strong>mapa planar bidimensional (Leaflet 1.9.4)</strong> con una <strong>perspectiva 3D esférica moderna tipo globo terráqueo completo (Globe.gl / Three.js / WebGL)</strong>. Permite alternar con un solo clic entre la cartografía topográfica 2D y el globo terráqueo tridimensional completo, visualizando la Tierra desde el espacio exterior con rotación orbital continua y aproximación cinemática suave hacia Barrio Brasil y la Universidad Alberto Hurtado.</p>
-              <p><strong>Integración Oficial del Estado de Chile (IDE Chile & MINVU):</strong> Conecta directamente en tiempo real con servicios <strong>ArcGIS FeatureServer</strong> y <strong>OGC WMS</strong> oficiales: microdatos de las 351 manzanas del Censo 2024 (INE), Catastro de Patrimonio IPT (MINVU DDU), Parques Urbanos, Barrios Históricos y Sitios de Memoria CMN (datos.gob.cl / Geoportal), proyectables simultáneamente en el plano 2D y en la esfera 3D.</p>
-              <div class="doc-modulo-meta"><strong>Salidas:</strong> Renderizado 2D/3D de capas GeoJSON (polígonos extruidos, líneas elevadas y puntos 3D), popups normalizados con declaraciones institucionales de la Ley N° 20.285, citas APA 7ª ed., teselas WMS GetMap y descarga directa GeoJSON para QGIS.</div>
+              <h4>Visor y Atlas Cartográfico VGI Interactivo</h4>
+              <p>Visualizador geoespacial interactivo de alta resolución basado en <strong>Leaflet</strong>. Permite explorar, filtrar y superponer la cartografía territorial de Barrio Brasil y el campus de la Universidad Alberto Hurtado con alta velocidad, contraste óptimo y facilidad de uso para toda clase de usuarios.</p>
+              <p><strong>Integración Oficial del Estado de Chile (IDE Chile & MINVU):</strong> Conecta directamente en tiempo real con servicios <strong>ArcGIS FeatureServer</strong> y <strong>OGC WMS</strong> oficiales: microdatos de las manzanas del Censo 2024 (INE), Catastro de Patrimonio IPT (MINVU DDU), Parques Urbanos, Barrios Históricos y Sitios de Memoria CMN (datos.gob.cl / Geoportal), proyectables simultáneamente en el mapa.</p>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> Renderizado de capas GeoJSON (polígonos, líneas y puntos), popups normalizados con declaraciones institucionales de la Ley N° 20.285, citas APA 7ª ed., teselas WMS GetMap y descarga directa GeoJSON para QGIS.</div>
             </div>
           </div>
 

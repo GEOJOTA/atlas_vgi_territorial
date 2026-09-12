@@ -479,17 +479,17 @@ def crear_catalogo_fuentes():
             "Lescano, J. P. (2026). Motor de Evaluación Espacial Normativa y Certificación Territorial VGI. Universidad Alberto Hurtado."
         ],
         [
-            "Globe.gl (Motor 3D WebGL / Three.js)",
-            "Vasturiano / Three.js Community",
-            "2.46.2",
-            "https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js",
-            "Client-side WebGL Canvas",
-            "Renderizado 3D esférico interactivo",
-            "Globe()(element).polygonsData(...).pathsData(...).pointsData(...)",
-            "Código abierto 100% libre bajo licencia MIT; sin claves ni costos",
-            "src/js/modulos/globo.js (ModuloGlobo)",
-            "Perspectiva esférica 3D del globo terráqueo completo con proyección simultánea de capas VGI y oficiales IDE en 2D sin alturas artificiales",
-            "Vasturiano. (2024). Globe.gl: 3D Globe Data Visualization. https://globe.gl/"
+            "JSZip & toGeoJSON (Motor de Importación Espacial Multi-formato)",
+            "Stuk / Mapbox / Open Source Community",
+            "3.10.1 / 0.1.1",
+            "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js & @tmcw/togeojson",
+            "Client-side FileReader & Decompression",
+            "Ingestión y normalización de archivos espaciales locales",
+            "ModuloImportadorCapas.procesarArchivo(file)",
+            "Código abierto 100% libre bajo licencias MIT / BSD; sin claves ni costos",
+            "src/js/modulos/importador_capas.js (ModuloImportadorCapas)",
+            "Ingestión multi-formato de capas comunitarias (.kmz, .kml, .geojson, .gpx, .csv) con detección de coordenadas y auditoría normativa automática",
+            "MacWright, T. (2024). toGeoJSON: Convert KML and GPX to GeoJSON. https://github.com/tmcw/togeojson"
         ]
     ]
     
