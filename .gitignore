@@ -10,3 +10,5 @@ data/cache_consultas/*
 __pycache__/
 *.pyc
 *.numbers
+Entregables/
+*entregables*
