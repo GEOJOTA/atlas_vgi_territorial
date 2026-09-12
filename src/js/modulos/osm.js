@@ -161,10 +161,10 @@ const ModuloOSM = (() => {
 
     const cfg = window.NODO_CONFIG || {};
     const endpoints = (cfg.endpoints?.overpass_espejos && cfg.endpoints.overpass_espejos.length > 0)
-      ? cfg.endpoints.overpass_espejos.slice(0, 2)
+      ? cfg.endpoints.overpass_espejos
       : [
           'https://overpass-api.de/api/interpreter',
-          'https://overpass.kumi.systems/api/interpreter'
+          'https://lz4.overpass-api.de/api/interpreter'
         ];
 
     const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
@@ -174,7 +174,7 @@ const ModuloOSM = (() => {
       try {
         console.log(`[Overpass] Intentando consulta en: ${endpoint}`);
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4500); // 4.5s máx por servidor para conmutación rápida
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s máx por servidor
 
         const respuesta = await fetch(endpoint, {
           method: 'POST',

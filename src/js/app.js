@@ -1597,9 +1597,6 @@ async function manejarConsultaOhsome() {
     let htmlBadgeVersion = '';
     if (indicadores.fueFallback) {
       htmlBadgeVersion = `
-    let htmlBadgeVersion = '';
-    if (indicadores.fueFallback) {
-      htmlBadgeVersion = `
         <div class="caja-cuadrado" style="background:rgba(245, 158, 11, 0.12); border-left:6px solid var(--ocre); border-radius:12px; padding:16px; margin-bottom:18px;">
           <strong style="color:var(--ocre); font-size:0.95rem;">ℹ️ Conmutación Automática a ohsome API v1 (Motor OSHDB):</strong><br>
           <span style="font-size:0.88rem; color:var(--tinta-suave);">La consulta solicitada a la API v2 no pudo autenticarse (${indicadores.motivoFallback || 'Requiere API Key válida de HeiGIT'}). Se ejecutó exitosamente la consulta mediante <strong>ohsome API v1</strong> garantizando la continuidad operativa.</span>

@@ -7,10 +7,8 @@
 */
 
 const OVERPASS_ESPEJOS = [
-  'https://overpass.openstreetmap.fr/api/interpreter',
-  'https://lz4.overpass-api.de/api/interpreter',
-  'https://z.overpass-api.de/api/interpreter',
-  'https://overpass-api.de/api/interpreter'
+  'https://overpass-api.de/api/interpreter',
+  'https://lz4.overpass-api.de/api/interpreter'
 ];
 
 exports.handler = async function (event, context) {

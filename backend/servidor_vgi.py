@@ -33,10 +33,8 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 PUERTO = 8000
 
 OVERPASS_ESPEJOS = [
-    "https://overpass.openstreetmap.fr/api/interpreter",
-    "https://lz4.overpass-api.de/api/interpreter",
-    "https://z.overpass-api.de/api/interpreter",
-    "https://overpass-api.de/api/interpreter"
+    "https://overpass-api.de/api/interpreter",
+    "https://lz4.overpass-api.de/api/interpreter"
 ]
 
 try:
@@ -156,11 +154,23 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
             self.send_error(404, "Endpoint de API no encontrado")
 
     def do_GET(self):
+        if self.path in ("/", ""):
+            self.path = "/index.html"
+
         # Servir datos estáticos adicionales de data/ o docs/ si se solicitan
         if self.path.startswith("/data/"):
             archivo = os.path.join(BASE_DIR, self.path.lstrip("/"))
+            if not os.path.isfile(archivo):
+                archivo = os.path.join(SRC_DIR, self.path.lstrip("/"))
             if os.path.isfile(archivo):
                 self.servir_archivo_externo(archivo, "application/geo+json")
+                return
+        elif self.path.startswith("/config/"):
+            archivo = os.path.join(SRC_DIR, self.path.lstrip("/"))
+            if not os.path.isfile(archivo):
+                archivo = os.path.join(BASE_DIR, self.path.lstrip("/"))
+            if os.path.isfile(archivo):
+                self.servir_archivo_externo(archivo, "application/json; charset=utf-8")
                 return
         elif self.path.startswith("/docs/"):
             archivo = os.path.join(BASE_DIR, self.path.lstrip("/"))
@@ -304,6 +314,29 @@ class ManejadorVGI(SimpleHTTPRequestHandler):
                 continue
 
         if elementos is None:
+            # Contingencia local en disco si Overpass está inaccesible
+            clave_candidata = body.get("categoria") or body.get("etiqueta") or body.get("clave", "")
+            for ruta_candidata in [
+                os.path.join(DATA_DIR, f"capa_{clave_candidata}.geojson"),
+                os.path.join(SRC_DIR, "data", f"capa_{clave_candidata}.geojson"),
+                os.path.join(DATA_DIR, "atlas_vgi_barrio_brasil_uah_completo.geojson"),
+                os.path.join(SRC_DIR, "data", "atlas_vgi_barrio_brasil_uah_completo.geojson")
+            ]:
+                if os.path.isfile(ruta_candidata):
+                    try:
+                        with open(ruta_candidata, "r", encoding="utf-8") as f:
+                            gj_local = json.load(f)
+                        self.responder_json(200, {
+                            "ok": True,
+                            "desdeCache": True,
+                            "servidor": "Catálogo local de contingencia (Barrio Brasil / UAH)",
+                            "total": len(gj_local.get("features", [])),
+                            "geojson": gj_local,
+                            "consulta": query_overpass
+                        })
+                        return
+                    except Exception:
+                        pass
             self.responder_json(502, {"ok": False, "error": "Overpass temporalmente no disponible en todos los espejos"})
             return
 
