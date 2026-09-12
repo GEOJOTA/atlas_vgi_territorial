@@ -34,7 +34,7 @@ def set_cell_margins(cell, top=100, bottom=100, left=150, right=150):
         tcMar.append(node)
     tcPr.append(tcMar)
 
-def set_callout_box(cell, border_hex="06B6D4", fill_hex="F0F9FF"):
+def set_callout_box(cell, border_hex="2E6DA4", fill_hex="F0F4F8"):
     set_cell_background(cell, fill_hex)
     tcPr = cell._tc.get_or_add_tcPr()
     tcBorders = OxmlElement('w:tcBorders')
@@ -80,7 +80,7 @@ def create_doc(title_text, subtitle_text="Práctica Profesional de Geografía 20
     table = doc.add_table(rows=1, cols=1)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     cell = table.cell(0, 0)
-    set_cell_background(cell, "0F172A")
+    set_cell_background(cell, "1A3A5C") # Deep Navy / Midnight Blue
     set_cell_margins(cell, top=180, bottom=180, left=200, right=200)
     
     cp = cell.paragraphs[0]
@@ -89,11 +89,11 @@ def create_doc(title_text, subtitle_text="Práctica Profesional de Geografía 20
     run_sub.font.name = "Arial"
     run_sub.font.size = Pt(9.5)
     run_sub.font.bold = True
-    run_sub.font.color.rgb = RGBColor(56, 189, 248)
+    run_sub.font.color.rgb = RGBColor(214, 228, 240) # #D6E4F0 Soft Ice Blue
     
     run_title = cp.add_run(title_text)
     run_title.font.name = "Arial"
-    run_title.font.size = Pt(15)
+    run_title.font.size = Pt(14.5)
     run_title.font.bold = True
     run_title.font.color.rgb = RGBColor(255, 255, 255)
     
@@ -107,9 +107,9 @@ def add_h1(doc, text):
     p.paragraph_format.keep_with_next = True
     run = p.add_run(text)
     run.font.name = "Arial"
-    run.font.size = Pt(13.5)
+    run.font.size = Pt(13)
     run.font.bold = True
-    run.font.color.rgb = RGBColor(15, 23, 42)
+    run.font.color.rgb = RGBColor(26, 58, 92) # #1A3A5C
     return p
 
 def add_h2(doc, text):
@@ -119,9 +119,9 @@ def add_h2(doc, text):
     p.paragraph_format.keep_with_next = True
     run = p.add_run(text)
     run.font.name = "Arial"
-    run.font.size = Pt(11.5)
+    run.font.size = Pt(11)
     run.font.bold = True
-    run.font.color.rgb = RGBColor(8, 145, 178)
+    run.font.color.rgb = RGBColor(46, 109, 164) # #2E6DA4
     return p
 
 def add_h3(doc, text):
@@ -133,7 +133,7 @@ def add_h3(doc, text):
     run.font.name = "Arial"
     run.font.size = Pt(10)
     run.font.bold = True
-    run.font.color.rgb = RGBColor(51, 65, 85)
+    run.font.color.rgb = RGBColor(44, 62, 80) # #2C3E50
     return p
 
 def add_p(doc, text, bold_prefix=None, italic=False):
@@ -145,12 +145,12 @@ def add_p(doc, text, bold_prefix=None, italic=False):
         r_pre.font.name = "Arial"
         r_pre.font.size = Pt(9.5)
         r_pre.font.bold = True
-        r_pre.font.color.rgb = RGBColor(15, 23, 42)
+        r_pre.font.color.rgb = RGBColor(26, 58, 92)
     run = p.add_run(text)
     run.font.name = "Arial"
     run.font.size = Pt(9.5)
     run.font.italic = italic
-    run.font.color.rgb = RGBColor(51, 65, 85)
+    run.font.color.rgb = RGBColor(44, 62, 80)
     return p
 
 def add_bullet(doc, text, bold_prefix=None):
@@ -162,18 +162,18 @@ def add_bullet(doc, text, bold_prefix=None):
         r_pre.font.name = "Arial"
         r_pre.font.size = Pt(9.5)
         r_pre.font.bold = True
-        r_pre.font.color.rgb = RGBColor(15, 23, 42)
+        r_pre.font.color.rgb = RGBColor(26, 58, 92)
     run = p.add_run(text)
     run.font.name = "Arial"
     run.font.size = Pt(9.5)
-    run.font.color.rgb = RGBColor(51, 65, 85)
+    run.font.color.rgb = RGBColor(44, 62, 80)
     return p
 
 def add_callout(doc, text, title="MARCO REGULATORIO Y NORMATIVO:"):
     table = doc.add_table(rows=1, cols=1)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     cell = table.cell(0, 0)
-    set_callout_box(cell, border_hex="06B6D4", fill_hex="F0F9FF")
+    set_callout_box(cell, border_hex="2E6DA4", fill_hex="F0F4F8")
     set_cell_margins(cell, top=100, bottom=100, left=140, right=140)
     
     p = cell.paragraphs[0]
@@ -185,12 +185,12 @@ def add_callout(doc, text, title="MARCO REGULATORIO Y NORMATIVO:"):
         r_title.font.name = "Arial"
         r_title.font.size = Pt(9)
         r_title.font.bold = True
-        r_title.font.color.rgb = RGBColor(8, 145, 178)
+        r_title.font.color.rgb = RGBColor(46, 109, 164)
         
     r_body = p.add_run(text)
     r_body.font.name = "Arial"
     r_body.font.size = Pt(9)
-    r_body.font.color.rgb = RGBColor(30, 41, 59)
+    r_body.font.color.rgb = RGBColor(44, 62, 80)
     doc.add_paragraph()
 
 def set_table_borders(table, border_hex="CBD5E1"):
@@ -215,7 +215,7 @@ def add_styled_table(doc, headers, rows_data, highlight_rows=None):
     hdr_cells = table.rows[0].cells
     for i, header_text in enumerate(headers):
         hdr_cells[i].text = header_text
-        set_cell_background(hdr_cells[i], "D0D0D0") # 100% Dark Bold Text on Soft Light Gray
+        set_cell_background(hdr_cells[i], "2E6DA4") # Royal Blue Header
         set_cell_margins(hdr_cells[i], top=100, bottom=100, left=120, right=120)
         for p in hdr_cells[i].paragraphs:
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
@@ -223,15 +223,32 @@ def add_styled_table(doc, headers, rows_data, highlight_rows=None):
                 r.font.name = "Arial"
                 r.font.size = Pt(8.5)
                 r.font.bold = True
-                r.font.color.rgb = RGBColor(15, 23, 42) # #0F172A
+                r.font.color.rgb = RGBColor(255, 255, 255) # White Text
                 
     for r_idx, row in enumerate(rows_data):
         row_cells = table.rows[r_idx + 1].cells
         primer_valor = str(row[0]).upper() if len(row) > 0 else ""
-        es_resaltado = (r_idx in highlight_rows) or any(k in primer_valor for k in ["FASE", "HITO", "TOTAL", "ETAPA", "CATEGORÍA", "MARCO"])
         
-        bg_hex = "D7E5ED" if es_resaltado else ("EFEFEF" if r_idx % 2 == 1 else "FFFFFF")
+        # Asignar tonos por Objetivo / Fase conforme a PLAN DE TRABAJO PRACTICA 2026.xlsx
+        bg_hex = "F7FAFC" if r_idx % 2 == 1 else "FFFFFF"
+        es_resaltado = (r_idx in highlight_rows)
         
+        if ("OE 1" in primer_valor) or ("FASE 1" in primer_valor):
+            bg_hex = "DEEAF1" # Soft Slate Blue
+            es_resaltado = True
+        elif ("OE 2" in primer_valor) or ("FASE 2" in primer_valor):
+            bg_hex = "E2EFDA" # Soft Sage Green
+            es_resaltado = True
+        elif ("OE 3" in primer_valor) or ("FASE 3" in primer_valor):
+            bg_hex = "FFF2CC" # Soft Pastel Amber
+            es_resaltado = True
+        elif ("OE 4" in primer_valor) or ("FASE 4" in primer_valor):
+            bg_hex = "FCE4D6" # Soft Pastel Peach
+            es_resaltado = True
+        elif es_resaltado or any(k in primer_valor for k in ["HITO", "TOTAL", "ETAPA", "CATEGORÍA", "MARCO"]):
+            bg_hex = "DEEAF1"
+            es_resaltado = True
+
         for c_idx, cell_value in enumerate(row):
             row_cells[c_idx].text = str(cell_value)
             set_cell_background(row_cells[c_idx], bg_hex)
@@ -244,7 +261,7 @@ def add_styled_table(doc, headers, rows_data, highlight_rows=None):
                         r.font.bold = True
                         r.font.color.rgb = RGBColor(15, 23, 42)
                     else:
-                        r.font.color.rgb = RGBColor(51, 65, 85)
+                        r.font.color.rgb = RGBColor(44, 62, 80)
                     
     doc.add_paragraph()
 
@@ -381,7 +398,9 @@ def build_entregable_02():
     ws.title = "Fuentes VGI & APIs"
     
     title_font = Font(name="Calibri", size=14, bold=True, color="FFFFFF")
-    title_fill = PatternFill(start_color="0F172A", end_color="0F172A", fill_type="solid")
+    title_fill = PatternFill(start_color="1A3A5C", end_color="1A3A5C", fill_type="solid")
+    sub_font = Font(name="Calibri", size=10, italic=True, color="555555")
+    sub_fill = PatternFill(start_color="D6E4F0", end_color="D6E4F0", fill_type="solid")
     
     ws.merge_cells("A1:F1")
     ws["A1"] = "ENTREGABLE 02 — CATÁLOGO DE FUENTES VGI E INVENTARIO DE APIS ABIERTAS"
@@ -390,15 +409,22 @@ def build_entregable_02():
     ws["A1"].alignment = Alignment(horizontal="center", vertical="center")
     ws.row_dimensions[1].height = 35
     
-    hdr_font = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
-    hdr_fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
+    ws.merge_cells("A2:F2")
+    ws["A2"] = "Práctica Profesional de Geografía 2026 — Universidad Alberto Hurtado | Inventario Sistemático de APIs y Servicios Abiertos"
+    ws["A2"].font = sub_font
+    ws["A2"].fill = sub_fill
+    ws["A2"].alignment = Alignment(horizontal="center", vertical="center")
+    ws.row_dimensions[2].height = 22
+    
+    hdr_font = Font(name="Calibri", size=10.5, bold=True, color="FFFFFF")
+    hdr_fill = PatternFill(start_color="2E6DA4", end_color="2E6DA4", fill_type="solid")
     
     ws.append([]) # Blank row
     ws.append(headers)
-    ws.row_dimensions[3].height = 25
+    ws.row_dimensions[4].height = 26
     
     for col in range(1, len(headers) + 1):
-        cell = ws.cell(row=3, column=col)
+        cell = ws.cell(row=4, column=col)
         cell.font = hdr_font
         cell.fill = hdr_fill
         cell.alignment = Alignment(horizontal="center", vertical="center")
@@ -410,16 +436,16 @@ def build_entregable_02():
         bottom=Side(style='thin', color='CBD5E1')
     )
     
-    for r_idx, row in enumerate(rows, start=4):
+    for r_idx, row in enumerate(rows, start=5):
         ws.append(row)
-        ws.row_dimensions[r_idx].height = 22
-        fill_color = "F8FAFC" if r_idx % 2 == 1 else "FFFFFF"
+        ws.row_dimensions[r_idx].height = 24
+        fill_color = "F7FAFC" if r_idx % 2 == 1 else "FFFFFF"
         row_fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type="solid")
         for col_idx in range(1, len(row) + 1):
             cell = ws.cell(row=r_idx, column=col_idx)
             cell.fill = row_fill
             cell.border = thin_border
-            cell.font = Font(name="Calibri", size=10)
+            cell.font = Font(name="Calibri", size=10, color="2C3E50")
             cell.alignment = Alignment(vertical="center", wrap_text=True)
             
     ws.column_dimensions['A'].width = 6
@@ -469,7 +495,9 @@ def build_entregable_03():
     ws.title = "Categorías & Descriptores VGI"
     
     title_font = Font(name="Calibri", size=14, bold=True, color="FFFFFF")
-    title_fill = PatternFill(start_color="0F172A", end_color="0F172A", fill_type="solid")
+    title_fill = PatternFill(start_color="1A3A5C", end_color="1A3A5C", fill_type="solid")
+    sub_font = Font(name="Calibri", size=10, italic=True, color="555555")
+    sub_fill = PatternFill(start_color="D6E4F0", end_color="D6E4F0", fill_type="solid")
     
     ws.merge_cells("A1:G1")
     ws["A1"] = "ENTREGABLE 03 — MATRIZ DE CATEGORÍAS TEMÁTICAS Y DESCRIPTORES VGI"
@@ -478,15 +506,22 @@ def build_entregable_03():
     ws["A1"].alignment = Alignment(horizontal="center", vertical="center")
     ws.row_dimensions[1].height = 35
     
-    hdr_font = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
-    hdr_fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
+    ws.merge_cells("A2:G2")
+    ws["A2"] = "Práctica Profesional de Geografía 2026 — Universidad Alberto Hurtado | Matriz de 10 Macro-Categorías y 134 Descriptores"
+    ws["A2"].font = sub_font
+    ws["A2"].fill = sub_fill
+    ws["A2"].alignment = Alignment(horizontal="center", vertical="center")
+    ws.row_dimensions[2].height = 22
+    
+    hdr_font = Font(name="Calibri", size=10.5, bold=True, color="FFFFFF")
+    hdr_fill = PatternFill(start_color="2E6DA4", end_color="2E6DA4", fill_type="solid")
     
     ws.append([])
     ws.append(headers)
-    ws.row_dimensions[3].height = 25
+    ws.row_dimensions[4].height = 26
     
     for col in range(1, len(headers) + 1):
-        cell = ws.cell(row=3, column=col)
+        cell = ws.cell(row=4, column=col)
         cell.font = hdr_font
         cell.fill = hdr_fill
         cell.alignment = Alignment(horizontal="center", vertical="center")
@@ -498,16 +533,16 @@ def build_entregable_03():
         bottom=Side(style='thin', color='CBD5E1')
     )
     
-    for r_idx, row in enumerate(rows, start=4):
+    for r_idx, row in enumerate(rows, start=5):
         ws.append(row)
         ws.row_dimensions[r_idx].height = 24
-        fill_color = "F8FAFC" if r_idx % 2 == 1 else "FFFFFF"
+        fill_color = "F7FAFC" if r_idx % 2 == 1 else "FFFFFF"
         row_fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type="solid")
         for col_idx in range(1, len(row) + 1):
             cell = ws.cell(row=r_idx, column=col_idx)
             cell.fill = row_fill
             cell.border = thin_border
-            cell.font = Font(name="Calibri", size=10)
+            cell.font = Font(name="Calibri", size=10, color="2C3E50")
             cell.alignment = Alignment(vertical="center", wrap_text=True)
             
     ws.column_dimensions['A'].width = 10
@@ -656,12 +691,24 @@ def build_metadatos_excel():
     ws = wb.active
     ws.title = "Perfil Metadatos ISO 19115"
     
+    title_font = Font(name="Calibri", size=14, bold=True, color="FFFFFF")
+    title_fill = PatternFill(start_color="1A3A5C", end_color="1A3A5C", fill_type="solid")
+    sub_font = Font(name="Calibri", size=10, italic=True, color="555555")
+    sub_fill = PatternFill(start_color="D6E4F0", end_color="D6E4F0", fill_type="solid")
+    
     ws.merge_cells("A1:E1")
     ws["A1"] = "ENTREGABLE 07 — PERFIL NACIONAL DE METADATOS ESPACIALES (ISO 19115 / ISO 19139 / IDE CHILE)"
-    ws["A1"].font = Font(name="Calibri", size=14, bold=True, color="FFFFFF")
-    ws["A1"].fill = PatternFill(start_color="0F172A", end_color="0F172A", fill_type="solid")
+    ws["A1"].font = title_font
+    ws["A1"].fill = title_fill
     ws["A1"].alignment = Alignment(horizontal="center", vertical="center")
     ws.row_dimensions[1].height = 35
+    
+    ws.merge_cells("A2:E2")
+    ws["A2"] = "Práctica Profesional de Geografía 2026 — Universidad Alberto Hurtado | Perfil de Metadatos de la Geodatabase VGI"
+    ws["A2"].font = sub_font
+    ws["A2"].fill = sub_fill
+    ws["A2"].alignment = Alignment(horizontal="center", vertical="center")
+    ws.row_dimensions[2].height = 22
     
     headers = ["Campo ISO 19115", "Elemento XML ISO 19139", "Obligatoriedad SNIT", "Valor Barrio Brasil / UAH", "Descripción y Regla de Validación"]
     rows = [
@@ -681,13 +728,13 @@ def build_metadatos_excel():
     
     ws.append([])
     ws.append(headers)
-    ws.row_dimensions[3].height = 25
+    ws.row_dimensions[4].height = 26
     
-    hdr_font = Font(name="Calibri", size=11, bold=True, color="0F172A")
-    hdr_fill = PatternFill(start_color="D0D0D0", end_color="D0D0D0", fill_type="solid")
+    hdr_font = Font(name="Calibri", size=10.5, bold=True, color="FFFFFF")
+    hdr_fill = PatternFill(start_color="2E6DA4", end_color="2E6DA4", fill_type="solid")
     
     for col in range(1, len(headers) + 1):
-        cell = ws.cell(row=3, column=col)
+        cell = ws.cell(row=4, column=col)
         cell.font = hdr_font
         cell.fill = hdr_fill
         cell.alignment = Alignment(horizontal="center", vertical="center")
@@ -699,16 +746,16 @@ def build_metadatos_excel():
         bottom=Side(style='thin', color='CBD5E1')
     )
     
-    for r_idx, row in enumerate(rows, start=4):
+    for r_idx, row in enumerate(rows, start=5):
         ws.append(row)
         ws.row_dimensions[r_idx].height = 24
-        fill_color = "EFEFEF" if r_idx % 2 == 1 else "FFFFFF"
+        fill_color = "F7FAFC" if r_idx % 2 == 1 else "FFFFFF"
         row_fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type="solid")
         for col_idx in range(1, len(row) + 1):
             cell = ws.cell(row=r_idx, column=col_idx)
             cell.fill = row_fill
             cell.border = thin_border
-            cell.font = Font(name="Calibri", size=10)
+            cell.font = Font(name="Calibri", size=10, color="2C3E50")
             cell.alignment = Alignment(vertical="center", wrap_text=True)
             
     ws.column_dimensions['A'].width = 20
