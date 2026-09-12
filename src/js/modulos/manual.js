@@ -93,7 +93,7 @@ const ModuloManual = (() => {
           <div class="doc-tarjeta-audiencia">
             <div class="doc-audiencia-tag">🎓 Perfil Organizaciones No Gubernamentales (ONG)</div>
             <h4>¿Cómo aprovechar el Atlas para la gestión territorial con fondos públicos?</h4>
-            <p>Máximo rigor metodológico, trazabilidad bibliográfica y defensa académica en el marco de iniciativas con fondos públicos (Fondecyt Chile 2026):</p>
+            <p>Máximo rigor metodológico, trazabilidad bibliográfica y defensa académica en el marco de la Práctica Profesional de Geografía UAH (2026):</p>
             <ol class="doc-pasos-lista">
               <li><strong>Reproyección Conforme EPSG:32719 (Panel 02):</strong> Obtenga densidades espaciales por km² y superficies métricas rigurosas en metros cuadrados (m²) y hectáreas (ha) según la norma del IGM.</li>
               <li><strong>Calidad Espacial Multidimensional ISO 19157 (Panel 02):</strong> Audite completitud, exactitud posicional, linaje y masa crítica de usuarios mediante el soporte dual ohsome v1 y v2.</li>
