@@ -65,7 +65,7 @@ def create_doc(title_text, subtitle_text="Práctica Profesional de Geografía 20
         hp = header.paragraphs[0]
         hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         hrun = hp.add_run("Atlas VGI Barrio Brasil — Universidad Alberto Hurtado (Práctica 2026)")
-        hrun.font.name = "Arial"
+        hrun.font.name = "Calibri"
         hrun.font.size = Pt(8.5)
         hrun.font.color.rgb = RGBColor(100, 116, 139)
         
@@ -73,7 +73,7 @@ def create_doc(title_text, subtitle_text="Práctica Profesional de Geografía 20
         fp = footer.paragraphs[0]
         fp.alignment = WD_ALIGN_PARAGRAPH.LEFT
         frun = fp.add_run("Departamento de Geografía UAH | Documento Oficial de Entregable")
-        frun.font.name = "Arial"
+        frun.font.name = "Calibri"
         frun.font.size = Pt(8.5)
         frun.font.color.rgb = RGBColor(100, 116, 139)
 
@@ -86,13 +86,13 @@ def create_doc(title_text, subtitle_text="Práctica Profesional de Geografía 20
     cp = cell.paragraphs[0]
     cp.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run_sub = cp.add_run(f"{subtitle_text.upper()}\n")
-    run_sub.font.name = "Arial"
+    run_sub.font.name = "Calibri"
     run_sub.font.size = Pt(9.5)
     run_sub.font.bold = True
     run_sub.font.color.rgb = RGBColor(214, 228, 240) # #D6E4F0 Soft Ice Blue
     
     run_title = cp.add_run(title_text)
-    run_title.font.name = "Arial"
+    run_title.font.name = "Calibri"
     run_title.font.size = Pt(14.5)
     run_title.font.bold = True
     run_title.font.color.rgb = RGBColor(255, 255, 255)
@@ -105,9 +105,10 @@ def add_h1(doc, text):
     p.paragraph_format.space_before = Pt(14)
     p.paragraph_format.space_after = Pt(6)
     p.paragraph_format.keep_with_next = True
+    p.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run = p.add_run(text)
-    run.font.name = "Arial"
-    run.font.size = Pt(13)
+    run.font.name = "Calibri"
+    run.font.size = Pt(14)
     run.font.bold = True
     run.font.color.rgb = RGBColor(26, 58, 92) # #1A3A5C
     return p
@@ -117,9 +118,10 @@ def add_h2(doc, text):
     p.paragraph_format.space_before = Pt(11)
     p.paragraph_format.space_after = Pt(4)
     p.paragraph_format.keep_with_next = True
+    p.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run = p.add_run(text)
-    run.font.name = "Arial"
-    run.font.size = Pt(11)
+    run.font.name = "Calibri"
+    run.font.size = Pt(12.5)
     run.font.bold = True
     run.font.color.rgb = RGBColor(46, 109, 164) # #2E6DA4
     return p
@@ -129,43 +131,46 @@ def add_h3(doc, text):
     p.paragraph_format.space_before = Pt(8)
     p.paragraph_format.space_after = Pt(2)
     p.paragraph_format.keep_with_next = True
+    p.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run = p.add_run(text)
-    run.font.name = "Arial"
-    run.font.size = Pt(10)
+    run.font.name = "Calibri"
+    run.font.size = Pt(11.5)
     run.font.bold = True
     run.font.color.rgb = RGBColor(44, 62, 80) # #2C3E50
     return p
 
 def add_p(doc, text, bold_prefix=None, italic=False):
     p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(4)
-    p.paragraph_format.line_spacing = 1.15
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p.paragraph_format.space_after = Pt(6)
+    p.paragraph_format.line_spacing = 1.5
     if bold_prefix:
         r_pre = p.add_run(bold_prefix)
-        r_pre.font.name = "Arial"
-        r_pre.font.size = Pt(9.5)
+        r_pre.font.name = "Calibri"
+        r_pre.font.size = Pt(11)
         r_pre.font.bold = True
         r_pre.font.color.rgb = RGBColor(26, 58, 92)
     run = p.add_run(text)
-    run.font.name = "Arial"
-    run.font.size = Pt(9.5)
+    run.font.name = "Calibri"
+    run.font.size = Pt(11)
     run.font.italic = italic
     run.font.color.rgb = RGBColor(44, 62, 80)
     return p
 
 def add_bullet(doc, text, bold_prefix=None):
     p = doc.add_paragraph(style='List Bullet')
-    p.paragraph_format.space_after = Pt(3)
-    p.paragraph_format.line_spacing = 1.15
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.line_spacing = 1.5
     if bold_prefix:
         r_pre = p.add_run(bold_prefix)
-        r_pre.font.name = "Arial"
-        r_pre.font.size = Pt(9.5)
+        r_pre.font.name = "Calibri"
+        r_pre.font.size = Pt(11)
         r_pre.font.bold = True
         r_pre.font.color.rgb = RGBColor(26, 58, 92)
     run = p.add_run(text)
-    run.font.name = "Arial"
-    run.font.size = Pt(9.5)
+    run.font.name = "Calibri"
+    run.font.size = Pt(11)
     run.font.color.rgb = RGBColor(44, 62, 80)
     return p
 
@@ -177,19 +182,20 @@ def add_callout(doc, text, title="MARCO REGULATORIO Y NORMATIVO:"):
     set_cell_margins(cell, top=100, bottom=100, left=140, right=140)
     
     p = cell.paragraphs[0]
-    p.paragraph_format.space_after = Pt(2)
-    p.paragraph_format.line_spacing = 1.15
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.line_spacing = 1.5
     
     if title:
         r_title = p.add_run(f"{title}\n")
-        r_title.font.name = "Arial"
-        r_title.font.size = Pt(9)
+        r_title.font.name = "Calibri"
+        r_title.font.size = Pt(11)
         r_title.font.bold = True
         r_title.font.color.rgb = RGBColor(46, 109, 164)
         
     r_body = p.add_run(text)
-    r_body.font.name = "Arial"
-    r_body.font.size = Pt(9)
+    r_body.font.name = "Calibri"
+    r_body.font.size = Pt(11)
     r_body.font.color.rgb = RGBColor(44, 62, 80)
     doc.add_paragraph()
 
@@ -220,8 +226,8 @@ def add_styled_table(doc, headers, rows_data, highlight_rows=None):
         for p in hdr_cells[i].paragraphs:
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
             for r in p.runs:
-                r.font.name = "Arial"
-                r.font.size = Pt(8.5)
+                r.font.name = "Calibri"
+                r.font.size = Pt(9.5)
                 r.font.bold = True
                 r.font.color.rgb = RGBColor(255, 255, 255) # White Text
                 
@@ -255,8 +261,8 @@ def add_styled_table(doc, headers, rows_data, highlight_rows=None):
             set_cell_margins(row_cells[c_idx], top=80, bottom=80, left=100, right=100)
             for p in row_cells[c_idx].paragraphs:
                 for r in p.runs:
-                    r.font.name = "Arial"
-                    r.font.size = Pt(8)
+                    r.font.name = "Calibri"
+                    r.font.size = Pt(9)
                     if es_resaltado:
                         r.font.bold = True
                         r.font.color.rgb = RGBColor(15, 23, 42)
