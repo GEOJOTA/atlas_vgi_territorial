@@ -58,18 +58,18 @@ const ModuloManual = (() => {
 
         <div class="doc-grid-audiencias">
           <div class="doc-tarjeta-audiencia">
-            <div class="doc-audiencia-tag">🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN)</div>
+            <div class="doc-audiencia-tag">🏛 Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN)</div>
             <h4>¿Cómo utilizar el Atlas en la gestión pública comunal?</h4>
             <p>Orientado a directores SECPLAN, asesores urbanos y administradores de SIG municipal:</p>
             <ol class="doc-pasos-lista">
-              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛️ Capas Oficiales IDE Chile]</em> para verificar los 25 equipamientos con soporte estatal y contraste con las 65 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, luminarias, grifos de incendio).</li>
+              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛 Capas Oficiales IDE Chile]</em> para verificar los 25 equipamientos con soporte estatal y contraste con las 65 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, luminarias, grifos de incendio).</li>
               <li><strong>Evaluar Cobertura y Saturación OQT (Panel 02):</strong> Aplique el marco <em>ohsome Quality Analyst (HeiGIT)</em> para determinar el índice de madurez cartográfica de su cuadrante barrial.</li>
               <li><strong>Exportar Metadatos Institucionales (Panel 05):</strong> Genere archivos XML bajo la norma <strong>ISO 19139 / Perfil Nacional de Metadatos</strong> para importación directa en nodos GeoNetwork o GeoNode municipales.</li>
             </ol>
           </div>
 
           <div class="doc-tarjeta-audiencia">
-            <div class="doc-audiencia-tag">👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía</div>
+            <div class="doc-audiencia-tag">🗫 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía</div>
             <h4>¿Cómo levantar diagnósticos participativos en su barrio?</h4>
             <p>No requiere conocimientos técnicos de SIG ni programación. Flujo rápido en 3 pasos:</p>
             <ol class="doc-pasos-lista">
@@ -80,7 +80,7 @@ const ModuloManual = (() => {
           </div>
 
           <div class="doc-tarjeta-audiencia">
-            <div class="doc-audiencia-tag">🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana</div>
+            <div class="doc-audiencia-tag">⌖ Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana</div>
             <h4>¿Cómo enriquecer y auditar la base cartográfica abierta?</h4>
             <p>Diseñado para colaboradores de OpenStreetMap, iNaturalist y comunidades de datos libres:</p>
             <ol class="doc-pasos-lista">
@@ -91,7 +91,7 @@ const ModuloManual = (() => {
           </div>
 
           <div class="doc-tarjeta-audiencia">
-            <div class="doc-audiencia-tag">🎓 Perfil Organizaciones No Gubernamentales (ONG)</div>
+            <div class="doc-audiencia-tag">🔬 Perfil Organizaciones No Gubernamentales (ONG) & Investigación</div>
             <h4>¿Cómo aprovechar el Atlas para la gestión territorial con fondos públicos?</h4>
             <p>Máximo rigor metodológico, trazabilidad bibliográfica y defensa académica en el marco de la Práctica Profesional de Geografía UAH (2026):</p>
             <ol class="doc-pasos-lista">

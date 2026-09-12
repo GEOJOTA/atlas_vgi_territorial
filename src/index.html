@@ -23,11 +23,11 @@
     <div style="padding:10px 12px; margin:10px 0 14px 0; background:var(--papel-alto); border:1px solid var(--linea); border-radius:2px;">
       <label for="sel-perfil-usuario" style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--musgo); display:block; margin-bottom:4px;">Perfil de Actor Territorial:</label>
       <select id="sel-perfil-usuario" style="width:100%; font-size:0.8rem; padding:4px; border:1px solid var(--linea); background:var(--papel);">
-        <option value="todos" selected>🌐 Vista General Territorial</option>
-        <option value="institucion">🏛️ Autoridades / Instituciones (IDE/Muni)</option>
-        <option value="comunidad">👥 Organizaciones Comunitarias / Vecinos</option>
-        <option value="voluntario">🧭 Voluntarios / Mapeadores OSM</option>
-        <option value="ong">🎓 Organizaciones No Gubernamentales (ONG)</option>
+        <option value="todos" selected>◈ Vista General Territorial</option>
+        <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
+        <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
+        <option value="voluntario">⌖ Voluntarios / Mapeadores OSM</option>
+        <option value="ong">🔬 Organizaciones No Gubernamentales (ONG)</option>
       </select>
       <div id="badge-perfil-info" style="font-size:0.72rem; margin-top:6px; color:var(--tinta-suave); line-height:1.3;">Herramientas adaptadas para gestión territorial integral.</div>
     </div>
@@ -52,14 +52,14 @@
   <main class="contenido">
     <!-- BARRA SUPERIOR DE PROFUNDIDAD (PESTAÑAS RÁPIDAS DE NAVEGACIÓN) -->
     <nav class="barra-pestanas-profundidad" aria-label="Navegación directa entre capas y módulos">
-      <button type="button" class="pestana-nodo activa" data-panel="inicio"><span class="insignia-nodo">00</span> 🗺️ Visor Táctico</button>
-      <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">01</span> 🔍 Consultas Overpass</button>
-      <button type="button" class="pestana-nodo" data-panel="calidad-ohsome"><span class="insignia-nodo">02</span> 📈 Calidad & ICV</button>
-      <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> 🌿 Biodiversidad GBIF</button>
-      <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> 📍 Cartografía UMap</button>
-      <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📜 Metadatos ISO 19115</button>
-      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> 📚 Diccionario (110 Capas)</button>
-      <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖️ Licencias & Catálogos</button>
+      <button type="button" class="pestana-nodo activa" data-panel="inicio"><span class="insignia-nodo">00</span> ◈ Visor Cartográfico</button>
+      <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">01</span> ⌕ Consultas Overpass</button>
+      <button type="button" class="pestana-nodo" data-panel="calidad-ohsome"><span class="insignia-nodo">02</span> 📊 Calidad & ICV</button>
+      <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
+      <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> ⬚ Cartografía UMap</button>
+      <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
+      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (110 Capas)</button>
+      <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
       <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual & Entregables</button>
     </nav>
 
@@ -67,7 +67,7 @@
     <section class="panel activo" id="panel-inicio">
       <header class="hero-introduccion-atlas">
         <div class="insignia-fondecyt">
-          🏛️ PRÁCTICA PROFESIONAL DE GEOGRAFÍA 2026 · DEPARTAMENTO DE GEOGRAFÍA UAH
+          ☩ PRÁCTICA PROFESIONAL DE GEOGRAFÍA 2026 · DEPARTAMENTO DE GEOGRAFÍA UAH
         </div>
         <h1 class="titulo-hero">Atlas de Información Geográfica Voluntaria para la Gestión Territorial</h1>
         <p class="subtitulo-hero">
@@ -76,25 +76,25 @@
         
         <div class="grilla-resumen-introduccion">
           <div class="caja-tarjeta-hero">
-            <span class="icono-hero">🗺️</span>
+            <span class="icono-hero">◈</span>
             <h3>¿Qué es el Atlas VGI?</h3>
             <p>Una plataforma de Infraestructura de Datos Espaciales (IDE) abierta que integra cartografía colaborativa (OpenStreetMap, GBIF, UMap) con capas oficiales del Estado de Chile (IDE Chile / SNIT), permitiendo auditar brechas de información barrial sin costo de licencias ni servidores dedicados.</p>
           </div>
 
           <div class="caja-tarjeta-hero">
-            <span class="icono-hero">📍</span>
+            <span class="icono-hero">⌖</span>
             <h3>Territorio de Estudio</h3>
             <p>Polígono patrimonial y universitario de Barrio Brasil: eje Alameda, campus central UAH (calles Cienfuegos, Erasmo Escala, Almirante Barroso), estaciones de Metro Los Héroes (L1/L2) y Santa Ana (L2/L5), entorno de Plaza Brasil y ciclovías estructurantes.</p>
           </div>
 
           <div class="caja-tarjeta-hero">
-            <span class="icono-hero">⚡</span>
+            <span class="icono-hero">⇄</span>
             <h3>Datos en Tiempo Real</h3>
             <p>No utiliza bases precargadas estáticas. Conecta directamente a las APIs oficiales (Overpass QL, ohsome v1/v2, GBIF, Taginfo y OGC WMS) para extraer geometrías, métricas de calidad ISO 19157 y metadatos ISO 19115 al segundo de ejecución.</p>
           </div>
 
           <div class="caja-tarjeta-hero">
-            <span class="icono-hero">👥</span>
+            <span class="icono-hero">🗫</span>
             <h3>4 Perfiles Territoriales</h3>
             <p>Herramientas adaptadas para Autoridades (SECPLAN/Muni), Vecinos/Juntas de Vecinos, Voluntarios/Mapeadores OSM y ONGs/Investigadores con exportación directa a GeoJSON (QGIS), CSV y Excel (.xlsx).</p>
           </div>
@@ -111,12 +111,12 @@
           </select>
         </div>
 
-        <button class="accion secundaria" id="btn-dibujar-bbox" title="Haz clic y arrastra en el mapa para definir un área personalizada">📐 Dibujar Bbox</button>
-        <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">🎯 Encuadrar</button>
-        <button type="button" class="accion secundaria" id="btn-inspector-normativo" title="Activa el inspector para hacer clic en el mapa y auditar zonificación PRC, normas OGUC y riesgos">⚖️ Inspector Normativo</button>
+        <button class="accion secundaria" id="btn-dibujar-bbox" title="Haz clic y arrastra en el mapa para definir un área personalizada">⛶ Dibujar Bbox</button>
+        <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">☉ Encuadrar</button>
+        <button type="button" class="accion secundaria" id="btn-inspector-normativo" title="Activa el inspector para hacer clic en el mapa y auditar zonificación PRC, normas OGUC y riesgos">⚖ Inspector Normativo</button>
         <button type="button" class="accion secundaria" id="btn-abrir-importador" title="Importar capas espaciales locales (.kmz, .kml, .geojson, .gpx, .csv)">📂 Importar Capas</button>
 
-        <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">📥 Exportar GeoJSON</button>
+        <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">⎘ Exportar GeoJSON</button>
       </div>
 
       <!-- Contenedor del mapa Leaflet -->
@@ -131,15 +131,15 @@
         <!-- Columna Lateral Derecha: Panel de Profundidad & Analítica Manifold -->
         <aside class="panel-profundidad-derecha">
           <div style="border-bottom: 1px solid var(--linea); padding-bottom: 8px;">
-            <h3 style="margin: 0 0 4px 0; font-size: 1.05rem; color: var(--musgo);">⚡ Manifold & Telemetría</h3>
+            <h3 style="margin: 0 0 4px 0; font-size: 1.05rem; color: var(--musgo);">☵ Manifold & Telemetría</h3>
             <p style="margin: 0; font-size: 0.78rem; color: var(--tinta-suave);">Inspección relacional multidimensional en tiempo real.</p>
           </div>
 
           <div class="pestanas-profundidad-derecha">
             <button type="button" class="btn-subpanel activa" data-target="subpanel-metricas">📊 Métricas</button>
-            <button type="button" class="btn-subpanel" data-target="subpanel-ide">🏛️ Capas IDE</button>
-            <button type="button" class="btn-subpanel" data-target="subpanel-normativa">⚖️ Normativa</button>
-            <button type="button" class="btn-subpanel" data-target="subpanel-importador">📂 Cargar</button>
+            <button type="button" class="btn-subpanel" data-target="subpanel-ide">🏛 Capas IDE</button>
+            <button type="button" class="btn-subpanel" data-target="subpanel-normativa">⚖ Normativa</button>
+            <button type="button" class="btn-subpanel" data-target="subpanel-importador">⬚ Cargar</button>
           </div>
 
           <!-- Subpanel 1: Métricas & Resumen VGI -->
@@ -187,7 +187,7 @@
             <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--ocre);">Auditoría Normativa IPT & LGUC:</h4>
             <p style="font-size: 0.78rem; color: var(--tinta-suave); margin-bottom: 10px;">Audita las restricciones del Plan Regulador Comunal de Santiago y zona patrimonial UAH.</p>
             <div style="padding: 10px; background: rgba(30, 41, 59, 0.6); border: 1px solid var(--linea); border-radius: 6px; font-size: 0.8rem; line-height: 1.4;">
-              Haz clic en el botón <strong>"⚖️ Inspector Normativo"</strong> en la barra superior para seleccionar cualquier coordenada en el mapa.
+              Haz clic en el botón <strong>"⚖ Inspector Normativo"</strong> en la barra superior para seleccionar cualquier coordenada en el mapa.
             </div>
           </div>
 
@@ -220,9 +220,9 @@
       <!-- Bloque de Capas Oficiales del Estado (IDE Chile, MINVU & Normativa IPT) -->
       <div class="bloque bloque-oficial-ide" style="border:2px solid var(--musgo); background:var(--papel); padding:26px; margin-top:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-          <h3 style="margin:0; color:var(--musgo); font-size:1.3rem;">🏛️ Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
+          <h3 style="margin:0; color:var(--musgo); font-size:1.3rem;">🏛 Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
           <div style="display:flex; gap:10px; align-items:center;">
-            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.88rem; padding:8px 14px;" title="Descargar paquete GeoJSON consolidado con las 27 capas oficiales de IDE Chile y MINVU IPT">📥 Descargar Colección Oficial (.geojson)</button>
+            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.88rem; padding:8px 14px;" title="Descargar paquete GeoJSON consolidado con las 27 capas oficiales de IDE Chile y MINVU IPT">⎘ Descargar Colección Oficial (.geojson)</button>
             <span style="font-size:0.82rem; background:var(--musgo); color:#000000; padding:4px 12px; border-radius:6px; font-family:var(--fuente-datos); font-weight:800;">27 CAPAS DISPONIBLES</span>
           </div>
         </div>
@@ -231,19 +231,19 @@
         <!-- Cuadrados Estructurados de Categorías Oficiales -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:18px;">
           <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--musgo); font-size:1.02rem;">📜 Normativa Urbanística & IPT (MINVU)</h4>
+            <h4 style="margin:0 0 6px 0; color:var(--musgo); font-size:1.02rem;">⚖ Normativa Urbanística & IPT (MINVU)</h4>
             <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">PRC Santiago, Usos de suelo PRMS, Zonas de Riesgo y Resguardo de Infraestructura.</p>
           </div>
           <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--esmeralda); font-size:1.02rem;">🌳 Medio Ambiente & Recursos Hídricos</h4>
+            <h4 style="margin:0 0 6px 0; color:var(--esmeralda); font-size:1.02rem;">☘ Medio Ambiente & Recursos Hídricos</h4>
             <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Inventario Humedales MINVU, Áreas Verdes IPT y Parques Urbanos de Santiago.</p>
           </div>
           <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--violeta); font-size:1.02rem;">👥 Comunidades & Censo 2024 (INE)</h4>
+            <h4 style="margin:0 0 6px 0; color:var(--violeta); font-size:1.02rem;">🗫 Comunidades & Censo 2024 (INE)</h4>
             <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Microdatos Manzanas Censo 2024, Campamentos MINVU y Condominios Sociales.</p>
           </div>
           <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--agua); font-size:1.02rem;">🏛️ Equipamiento & Movilidad EFE/Metro</h4>
+            <h4 style="margin:0 0 6px 0; color:var(--agua); font-size:1.02rem;">🏛 Equipamiento & Movilidad EFE/Metro</h4>
             <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Sitios de Memoria CMN, Patrimonio MINVU, Estaciones Metro y Red EFE.</p>
           </div>
         </div>

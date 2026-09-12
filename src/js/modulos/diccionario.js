@@ -1477,7 +1477,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-01',
       id_manual: 'manual-cat-01',
       nombre: 'Movilidad y Transporte Urbano',
-      icono: '🚌',
+      icono: '🚆',
       resumen: 'Paraderos Red Movilidad, estaciones Metro Los Héroes y Santa Ana, ciclovías y vías estructurantes.',
       filtro_grupo: 'movilidad'
     },
@@ -1485,7 +1485,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-02',
       id_manual: 'manual-cat-02',
       nombre: 'Equipamiento Comunitario y Social',
-      icono: '🎓',
+      icono: '🏫',
       resumen: 'Campus universitario UAH (Almirante Barroso, Erasmo Escala), colegios, salas cuna y juntas vecinales.',
       filtro_grupo: 'educacion_servicios'
     },
@@ -1501,7 +1501,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-04',
       id_manual: 'manual-cat-04',
       nombre: 'Comercio y Economía Barrial',
-      icono: '🥖',
+      icono: '🏬',
       resumen: 'Amasanderías artesanales, panaderías, ferias libres semanales, cafés culturales y almacenes de barrio.',
       filtro_grupo: 'educacion_servicios'
     },
@@ -1517,7 +1517,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-06',
       id_manual: 'manual-cat-06',
       nombre: 'Espacio Público, Deporte y Recreación',
-      icono: '🌳',
+      icono: '🌲',
       resumen: 'Plaza Brasil, multicanchas barriales, plazas de bolsillo, bebederos públicos y juegos infantiles.',
       filtro_grupo: 'patrimonio_verde'
     },
@@ -1525,7 +1525,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-07',
       id_manual: 'manual-cat-07',
       nombre: 'Patrimonio Urbano y Cultura',
-      icono: '🏛️',
+      icono: '🏛',
       resumen: 'Cités residenciales históricos, casonas protegidas, Inmuebles de Conservación Histórica (ICH) y museos.',
       filtro_grupo: 'patrimonio_verde'
     },
@@ -1533,7 +1533,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-08',
       id_manual: 'manual-cat-08',
       nombre: 'Medio Ambiente y Accesibilidad Universal',
-      icono: '♿',
+      icono: '🦯',
       resumen: 'Rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles y arbolado viario de sombra.',
       filtro_grupo: 'accesibilidad_biodiv'
     },
@@ -1541,7 +1541,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-09',
       id_manual: 'manual-cat-09',
       nombre: 'Edificaciones y Huella Urbana',
-      icono: '🏢',
+      icono: '🏙',
       resumen: 'Catastro poligonal de edificaciones, viviendas, torres residenciales, campus UAH y volumetría construida.',
       filtro_grupo: 'edificaciones_suelo'
     },
@@ -1549,7 +1549,7 @@ const ModuloDiccionario = (() => {
       codigo: 'CAT-10',
       id_manual: 'manual-cat-10',
       nombre: 'Coberturas y Usos de Suelo',
-      icono: '🗺️',
+      icono: '▧',
       resumen: 'Zonificación funcional del suelo (residencial, comercial, educativo), áreas recreativas y rodados viales.',
       filtro_grupo: 'edificaciones_suelo'
     }
