@@ -1,175 +1,167 @@
 # Atlas de Información Geográfica Voluntaria para la Gestión Territorial
-### Nodo GeoAbierto — Caso Piloto: Barrio Brasil y Universidad Alberto Hurtado (Santiago Centro, Chile)
+### Nodo GeoAbierto — Caso Piloto: Barrio Brasil · Universidad Alberto Hurtado (Santiago, Chile)
 
-Plataforma web (Spatial Data Infrastructure) de código abierto y flujo de datos reproducible para consultar, evaluar y documentar datos geoespaciales de fuentes colaborativas (OpenStreetMap, GBIF, ohsome, UMap) con visor cartográfico interactivo, taxonomía de 8 categorías territoriales, métricas de calidad y metadatos bajo el estándar ISO 19115 e ISO 19139 (Perfil Nacional IDE Chile).
+Prototipo de plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado como producto de práctica profesional de la carrera de Geografía de la Universidad Alberto Hurtado (2026), en el marco de un proyecto de investigación Fondecyt Regular sobre VGI y gestión territorial.
 
-Nace en el marco de un proyecto de investigación pública (ingresar número de identificación) (2026), pensada para que cualquier persona pueda consultar, descargar y auditar datos de Información Geográfica Voluntaria (VGI) sin costo de licencias ni servidores dedicados.
+Integra un **visor cartográfico interactivo 2D/3D**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), 27 capas oficiales del Estado (MINVU GeoIDE, IDE Chile, SUBDERE) y exportación a GeoJSON, CSV, metadatos ISO 19115 y Excel.
 
----
-
-## 1. Por qué existe
-
-Cuando una institución pública, voluntario u organización comunitaria local quiere usar datos colaborativos como OpenStreetMap, GBIF o UMap para un diagnóstico urbano, o bien, acceder a datos que le permitan argumentar una posición en procesos decisionales a distintas escalas, normalmente enfrenta tres problemas:
-
-1. **Dispersión y heterogeneidad:** Los datos están dispersos en distintas APIs, con sintaxis disímiles y sin normalización de atributos.
-2. **Incertidumbre de calidad:** Es difícil saber si el área está completa o abandonada (¿cuántos colaboradores han editado?, ¿cuál es la densidad de equipamientos?, ¿cuándo fue la última actualización? o bien ¿cuál es la confiabilidad que se puede tener en este dato? ¿como distinguir la calidad y legitimidd de los datos que necesito?)
-3. **Falta de interoperabilidad oficial:** Los datos casi nunca cuentan con fichas de metadatos compatibles con el estándar oficial de la Infraestructura de Datos Geoespaciales de Chile (IDE Chile / SNIT / ISO 19115/19139) que pueda ser de utilidad en procesos decisionales.
-
-El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico interactivo, métricas de calidad y exportación directa tanto a formatos SIG (GeoJSON, CSV) como a metadatos XML y hojas de cálculo Excel (.xlsx).
+> **Sin API keys requeridas.** Toda la funcionalidad opera con CDN públicos y APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile).
 
 ---
 
-## 2. Territorio Piloto: Barrio Brasil y Universidad Alberto Hurtado
+## 1. Contexto y motivación
 
-El primer prototipo se encuentra en el sector patrimonial y universitario de **Barrio Brasil**, Santiago Centro:
-- **Bounding Box predeterminado:** `[-70.6675, -33.4505, -70.6565, -33.4385]` (WGS84).
-- **Cobertura urbana:** Campus patrimonial UAH (calles Almirante Barroso, Erasmo Escala, Cienfuegos, Los Héroes), eje Alameda Bernardo O'Higgins, estaciones de metro Los Héroes y Santa Ana, ciclovías estructurantes y entorno tradicional de Plaza Brasil.
+Cuando una institución pública, organización comunitaria o voluntario quiere usar datos colaborativos como OpenStreetMap o GBIF para un diagnóstico urbano local, normalmente enfrenta tres problemas:
+
+1. **Dispersión y heterogeneidad:** APIs con sintaxis disímiles y sin normalización de atributos.
+2. **Incertidumbre de calidad:** ¿Cuántos colaboradores han editado? ¿Cuándo fue la última actualización? ¿Cómo distinguir datos confiables?
+3. **Falta de interoperabilidad oficial:** Los datos casi nunca tienen metadatos compatibles con el estándar IDE Chile (ISO 19115 / ISO 19139).
+
+El **Atlas VGI** resuelve esto integrando consulta espacial, visor 2D/3D interactivo, métricas de calidad, evaluación normativa territorial y exportación estructurada.
 
 ---
 
-## 2.1. Usuarios de la plataforma
+## 2. Territorio piloto
 
-El Atlas de Información Geográfica está pensando para cuatro usuarios principalmente:
+**Barrio Brasil**, Santiago Centro (EPSG:4326):
+- **Bounding Box:** `[-70.6675, -33.4505, -70.6565, -33.4385]`
+- Campus UAH (Almirante Barroso, Erasmo Escala, Cienfuegos), Plaza Brasil, eje Alameda, Metro Los Héroes (L1/L2) y Santa Ana (L2/L5).
 
-    a. Organizaciones Comunitarias Locales / Juntas de Vecinos: (Ejemplos: Población Centenario (JJVV), Ambrosio O´Higgins (JJVV), N° 3 Capuchinos (JJVV), Santa Ana (JJVV), Brasil (JJVV), General Bulnes (JJVV), Emporio La Cosecha)
+---
 
-    b. Voluntarios / Productores: (Ejemplos: alpacamaps, rollercoasting, felipeeugenio, jptolosa...) 
+## 3. Usuarios de la plataforma
 
-    c. Instituciones / Autoridades: (Ejemplos: Municipalidad de Santiago, )
+| Tipo | Ejemplos |
+|---|---|
+| Organizaciones comunitarias / JJVV | JJVV Brasil, Santa Ana, Capuchinos, Ambrosio O'Higgins |
+| Voluntarios / productores VGI | Colaboradores OSM activos en el área |
+| Instituciones / autoridades | Municipalidad de Santiago, SECPLAN, SEREMI MINVU RM |
+| ONGs / Fundaciones | TECHO-Chile, SUR, MapBiomas Chile, Fundación TERRAM |
 
-    d. Organizaciones No Gubernamentales (ONG) / Fundaciones: (Ejemplos: TECHO-CHILE, SUR, MapBiomas Chile, Fundación TERRAM)
+---
 
-Los anteriores nos permiten contextualizar las necesidades de datos y justificar las decisiones en torno a las categorías temáticas y maestras que utilizamos dentro del Atlas. 
+## 4. Las 8 categorías temáticas VGI
 
-## 3. Las 8 Categorías Temáticas VGI
+Basadas en las taxonomías de **OpenStreetMap** y **GBIF Darwin Core**:
 
-La plataforma organiza la información en 8 categorías esenciales para la gestión territorial:
-
-| Cód. | Categoría Temática | Etiquetas OSM / Fuente | Relevancia Barrio Brasil / UAH |
+| Cód. | Categoría | Fuente OSM / GBIF | Relevancia Barrio Brasil |
 |---|---|---|---|
-| **CAT-01** | Educación y Universidad | `amenity=university\|college\|library\|school` | Campus Central UAH, facultades, bibliotecas, auditorios |
-
-    La cateogoría de Educación y Universidad permite identificar aquellos recintos educativos de distinto nivel (jardines, secundario, media, universitaria, técnico, u otro) o entidades asociadas a la educación y lectura (ej. librerias) que se encuentre catastrado dentro del bounding box. 
-
-| **CAT-02** | Servicios y Comercio | `shop=*`, `amenity=cafe\|restaurant\|bank\|pharmacy` | Comercio local en Av. Brasil, Huérfanos y farmacias |
-
-    La categoría de servicios y comercio permite identificar aquellas entidades asociadas a la transacción o encuentro de algún tipo de servicio, usualmente bajo el medio de una transacción económica. 
-
-| **CAT-03** | Movilidad y Transporte | `railway=station`, `highway=bus_stop` | Metro Los Héroes (L1/L2), Santa Ana (L2/L5), paraderos Red |
-
-    La categoría de movilidad y transporte permite identificar principalmente las estaciones de metro y bus, calles, intersecciones asociadas a la trama vial del Barrio Brasil. 
-
-| **CAT-04** | Movilidad Activa | `highway=cycleway`, `amenity=bicycle_parking` | Ciclovía calle Rosas, ciclobanda Brasil, biciestacionamientos |
-
-    La categoría de movilidad activa permite acceder a las ciclovias y estacionamientos de bicicletas, entre otros servicios asociados a la movilidad que no esté asociada a un automóvil.
-
-| **CAT-05** | Áreas Verdes y Plazas | `leisure=park\|playground`, `landuse=grass` | Plaza Brasil, bandejón central de Alameda |
-
-    .
-
-| **CAT-06** | Patrimonio y Cultura | `historic=*`, `heritage=*`, `amenity=theatre` | Zona Típica Barrio Brasil, casonas UAH, Basílica del Salvador |
-
-    .
-
-| **CAT-07** | Accesibilidad Universal | `kerb=*`, `highway=crossing`, `wheelchair=*` | Rebajes de cordón en cruces de Alameda, veredas accesibles |
-
-    .
-
-| **CAT-08** | Biodiversidad Urbana | `natural=tree` + GBIF Occurrence API | Arbolado patrimonial y avistamientos de avifauna/flora |
-
-    .
+| CAT-01 | Educación y Universidad | `amenity=university\|school\|library` | Campus UAH, facultades, colegios |
+| CAT-02 | Servicios y Comercio | `shop=*`, `amenity=cafe\|pharmacy\|bank` | Comercio local Av. Brasil, Huérfanos |
+| CAT-03 | Movilidad y Transporte | `railway=station`, `highway=bus_stop` | Metro Los Héroes, Santa Ana, paraderos |
+| CAT-04 | Movilidad Activa | `highway=cycleway`, `amenity=bicycle_parking` | Ciclovía Rosas, ciclobanda Brasil |
+| CAT-05 | Áreas Verdes y Espacio Público | `leisure=park\|playground`, `landuse=grass` | Plaza Brasil, bandejones Alameda |
+| CAT-06 | Patrimonio y Cultura | `historic=*`, `heritage=*` | Zona Típica, Basílica del Salvador, UAH |
+| CAT-07 | Accesibilidad Universal | `kerb=*`, `wheelchair=*` | Rebajes de cordón, veredas accesibles |
+| CAT-08 | Biodiversidad Urbana | `natural=tree` + GBIF Occurrence API | Arbolado viario, avifauna (iNaturalist) |
 
 ---
 
-## 4. Documentación Oficial en Excel (.xlsx)
+## 5. Capas oficiales del Estado integradas (27 capas)
 
-En la carpeta `docs/` se encuentran tres libros de cálculo formalmente estructurados para la práctica:
-
-1. **`docs/catalogo_fuentes_vgi.xlsx`**: Inventario sistemático de fuentes (OpenStreetMap, ohsome, GBIF, UMap, iNaturalist, IDE Chile) con cobertura, escala, licencia y utilidad.
-2. **`docs/perfil_metadatos_vgi.xlsx`**: Perfil de metadatos ISO 19115 / IDE Chile con elementos núcleo, tipos de datos y mapeo al estándar SNIT.
-3. **`docs/categorias_tematicas_osm.xlsx`**: Taxonomía de las 8 categorías, filtros Overpass QL y diccionario de datos normalizado.
+Descargadas desde **MINVU GeoIDE**, **IDE Chile** y **SUBDERE**, incluyendo: PRC Santiago, PRMS, límite urbano, campamentos MINVU 2024, condominios sociales, humedales (Ley 21.202), parques urbanos, patrimonio, sitios de memoria (CMN), educación, salud, Metro, red ferroviaria y ciclovías (Ley 21.088).
 
 ---
 
-## 5. Estructura del Repositorio
+## 6. Módulos y características
+
+| Módulo | Descripción |
+|---|---|
+| **Visor 2D** | Leaflet + OpenStreetMap; activación por categoría, popups con cita APA oficial |
+| **Visor 3D** | Globe.gl (WebGL) sin API key; textura Night Earth, atmósfera esmeralda #10B981, telemetría HUD reactiva, transición automática 3D→2D al acercarse a escala barrial (<2.2 km) |
+| **Calidad VGI** | ohsome API v1/v2: completitud, evolución temporal P1Y, densidad espacial, OQT Score, contribuyentes activos; OSMCha para integridad de changesets |
+| **Índice de Calidad VGI (ICV)** | Score compuesto por categoría: completitud + actualidad + consistencia geométrica + densidad |
+| **CIN-VGI (normativa)** | Inspector territorial por clic: PRC Santiago, usos permitidos/prohibidos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio; exporta certificado .txt con disclaimer legal (Art. 116 LGUC) |
+| **Importador de capas** | KMZ, KML, GeoJSON, GPX, CSV con detección automática de coordenadas |
+| **Metadatos ISO 19115** | Fichas por capa, exportables a XML y Excel |
+
+---
+
+## 7. Estructura del repositorio
 
 ```
-nodo-geoabierto/
-├── README.md                      Documentación general del proyecto
-├── MANUAL_USO.md                  Manual de uso para personas técnicas y no técnicas
-├── TODO_SIGUIENTE.md               Bitácora de continuidad y trazabilidad de turnos
-├── config/
-│   └── config.json                Configuración territorial, categorías y endpoints
-├── docs/
-│   ├── ARQUITECTURA.md            Decisiones técnicas y diseño de la solución
-│   ├── TRAZABILIDAD_ACADEMICA.md   Memoria metodológica y defensa ante comité
-│   ├── catalogo_fuentes_vgi.xlsx  Catálogo de fuentes VGI en Excel
-│   ├── perfil_metadatos_vgi.xlsx  Perfil ISO 19115 / IDE Chile en Excel
-│   └── categorias_tematicas_osm.xlsx Taxonomía OSM y diccionario de datos en Excel
-├── scripts/
-│   ├── generar_catalogos_excel.py Generador de las hojas Excel con openpyxl
-│   ├── extractor_vgi.py           CLI en Python para descarga y normalización territorial
-│   └── deploy_git.sh              Automatización de control de versiones Git
-├── data/                          Archivos GeoJSON normalizados y resumen CSV
+atlas_vgi_uah/
 ├── src/
-│   ├── index.html                 Interfaz web del Atlas (sin frameworks pesados)
-│   ├── css/estilos.css            Hoja de estilos (estética carta topográfica / libreta de campo)
-│   ├── config/config.json         Copia sincronizada de configuración para despliegues
-│   └── js/
-│       ├── app.js                 Orquestador de eventos y vistas
-│       ├── config.js              Cargador multiruta resiliente de configuración
-│       └── modulos/
-│           ├── mapa.js            Visor cartográfico interactivo Leaflet 1.9.4
-│           ├── osm.js             Consultas Overpass QL con servidores espejo
-│           ├── ohsome.js          Métricas de calidad multidimensionales (HeiGIT)
-│           ├── diccionario.js     Diccionario de metadatos y glosario territorial OSM
-│           ├── gbif.js            Registros de biodiversidad y ciencia ciudadana
-│           ├── umap.js            Embebido y descarga de proyectos UMap
-│           ├── metadatos.js       Generador dual ISO 19115 (JSON) e ISO 19139 (XML)
-│           └── licencias.js       Panel de licencias abiertas y acceso a documentos
-├── netlify/functions/             Funciones serverless (/api/consulta, /api/calidad)
-└── netlify.toml                   Configuración de despliegue en Netlify
+│   ├── index.html              # Aplicación principal (no requiere build)
+│   ├── css/estilos.css         # Estilos (estética Backrooms A24 / HUD cartográfico)
+│   ├── js/
+│   │   ├── app.js              # Controlador principal
+│   │   └── modulos/
+│   │       ├── globo.js        # Visor 3D Globe.gl (WebGL, sin API key)
+│   │       ├── mapa.js         # Visor 2D Leaflet
+│   │       ├── ohsome.js       # Métricas calidad VGI (ohsome API)
+│   │       ├── calidad_analyst.js  # ICV e inspector changesets
+│   │       ├── evaluador_normativo.js  # CIN-VGI / PRC / OGUC
+│   │       ├── importador_capas.js # Importador multi-formato
+│   │       ├── gbif.js         # Biodiversidad (GBIF API)
+│   │       ├── osm.js          # Overpass API
+│   │       ├── ide_chile.js    # Capas MINVU GeoIDE / IDE Chile
+│   │       └── metadatos.js    # ISO 19115
+│   ├── data/                   # 27 capas GeoJSON (VGI + oficiales)
+│   ├── config/config.json      # Categorías, metadatos, bbox
+│   └── docs/                   # Catálogos Excel y documentación
+├── backend/servidor_vgi.py     # Proxy Flask para ohsome (opcional)
+├── netlify/functions/          # Serverless (Netlify deploy)
+├── scripts/
+│   ├── extractor_vgi.py        # Descarga OSM/GBIF
+│   ├── descargar_capas_normativas_ide.py
+│   └── generar_catalogos_excel.py
+└── .github/workflows/deploy.yml
 ```
 
 ---
 
-## 6. Cómo levantarlo en local
-
-Solo requiere Python 3 estándar:
+## 8. Arranque rápido
 
 ```bash
-# Levantar el backend local con caché y endpoints /api:
-python3 backend/servidor_vgi.py
-# Abrir en el navegador: http://localhost:8000
+# Clonar
+git clone https://github.com/GEOJOTA/atlas_vgi_uah.git
+cd atlas_vgi_uah
+
+# Opción A: abrir directamente (no requiere npm ni build)
+open src/index.html
+
+# Opción B: servidor local simple
+python3 -m http.server 8080 --directory src
+# → http://localhost:8080
+
+# Opción C: backend proxy ohsome (opcional, resuelve CORS)
+pip install flask flask-cors requests
+python backend/servidor_vgi.py
+# → http://localhost:5050
 ```
 
-### Para extraer datos directamente por terminal (Python):
-```bash
-# Descargar todas las capas de Barrio Brasil / UAH en data/
-python3 scripts/extractor_vgi.py --categoria todas
-
-# Descargar solo educación
-python3 scripts/extractor_vgi.py --categoria educacion
+**Variables de entorno opcionales (`.env`)** — solo para ohsome API v2 (la v1 es acceso libre):
+```
+HEIGIT_API_KEY=tu_clave_opcional
 ```
 
 ---
 
-## 7. Despliegue y Control de Versiones Git
+## 9. Fuentes de datos y licencias
 
-El proyecto cuenta con sincronización continua hacia GitHub y Netlify:
-```bash
-git push origin main
-```
-Configurado con el autor oficial (`GEOJOTA <juanpablolescanovillegas@gmail.com>`) en el repositorio:
-`https://github.com/GEOJOTA/atlas_vgi_uah.git`
+| Fuente | Licencia | Uso |
+|---|---|---|
+| OpenStreetMap | ODbL 1.0 (© colaboradores OSM) | Capas VGI temáticas |
+| GBIF | CC-BY 4.0 / CC0 | Biodiversidad urbana (CAT-08) |
+| MINVU GeoIDE | Datos Públicos del Estado (Ley 20.285) | IPT, campamentos, ciclovías |
+| IDE Chile / SUBDERE | Datos Públicos del Estado | DPA, límites urbanos |
+| INE Censo 2024 | Datos Públicos del Estado | Manzanas censales |
+| CMN | Datos Públicos del Estado | Sitios de Memoria |
 
 ---
 
-## 8. Marco de Licenciamiento Abierto y Gobernanza (Chile / VGI)
+## 10. Cita académica
 
-El proyecto adopta un marco tripartito de reciprocidad obligatoria (*copyleft*), descartando licencias excesivamente permisivas (MIT) para proteger los bienes comunes digitales contra el cercamiento privativo comercial:
+```
+Lescano, J.P. (2026). Atlas de Información Geográfica Voluntaria para la Gestión
+Territorial — Caso Piloto Barrio Brasil. Práctica Profesional, Carrera de
+Geografía, Universidad Alberto Hurtado.
+https://github.com/GEOJOTA/atlas_vgi_uah
+```
 
-- **Contenido, Cartografía, Metadatos y Manual de Uso:** [Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.es), en concordancia con la Ley N° 17.336 de Propiedad Intelectual y la Ley N° 20.285 de Datos Abiertos del Estado de Chile.
-- **Bases de Datos Espaciales y Vectores VGI:** [Open Database License (ODbL) v1.0](https://opendatacommons.org/licenses/odbl/) de la OpenStreetMap Foundation (atribución a *© Colaboradores de OpenStreetMap*).
-- **Código Fuente de la Plataforma Web y Backend:** [GNU Affero General Public License v3.0 (GNU AGPLv3)](https://www.gnu.org/licenses/agpl-3.0.html), garantizando que cualquier bifurcación web distribuya su código a la comunidad.
-- **Contribuciones Git:** Abiertas bajo el modelo de *Contribución por Permiso* (Fork & Pull Request con auditoría y revisión del mantenedor institucional). Consultar el **Manual de Uso del Atlas (Panel 08)** para directrices técnicas.
+_Marco: Proyecto Fondecyt Regular — Investigador responsable: Manuel Fuenzalida (UAH)_
+
+---
+
+*Datos VGI actualizados en tiempo real desde OpenStreetMap Overpass API. Capas oficiales descargadas septiembre 2026.*
