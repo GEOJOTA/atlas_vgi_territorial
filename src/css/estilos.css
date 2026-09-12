@@ -1,67 +1,69 @@
 /*
   ==========================================================================
   Nodo GeoAbierto — Atlas de Información Geográfica Voluntaria
-  Hoja de Estilos de Alto Nivel: Táctico, Multidimensional y Accesible (WCAG AAA)
+  Hoja de Estilos de Accesibilidad Universal, Alto Contraste y Legibilidad (WCAG AAA)
   ==========================================================================
-  Diseño adaptativo de pantalla completa (Command Center Layout), paleta oscura 
-  con estructuración por capas/cuadrados diferenciados, tarjetas elevadas,
-  efectos Manifold relacionales y paletas cromáticas temáticas por módulo.
+  Diseño optimizado para legibilidad inmediata por personas que usan lentes o tienen
+  baja visión, con tipografía grande, jerarquías cromáticas por módulo, cajas y 
+  cuadrados elevados con bordes reforzados y amplio espaciado holgado sin compresión.
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap');
 
 :root {
-  /* Tipografía de Alto Nivel */
+  /* Tipografía de Alta Legibilidad */
   --fuente-titulos: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --fuente-lectura: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --fuente-datos: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
 
-  /* Paleta Oscura Táctica por Niveles y Cuadrados */
-  --fondo-app: #060911;         /* Nivel 0: Obsidian Black Base */
-  --papel: #0d1527;             /* Nivel 1: Slate Glass Surface */
-  --papel-alto: #141f36;        /* Nivel 2: Elevated Container Box */
-  --papel-tarjeta: #1a2845;      /* Nivel 3: Inner Card Box */
-  --papel-hover: #223459;       /* Nivel 4: Active Focus Box */
-  --papel-rehundido: #080d1a;   /* Rehundido: Inputs & Code Blocks */
+  /* Paleta Oscura Táctica de Alto Contraste (WCAG 2.1 AAA > 16:1) */
+  --fondo-app: #050810;         /* Nivel 0: Obsidian Black Base */
+  --papel: #0d1527;             /* Nivel 1: Slate Surface Container */
+  --papel-alto: #14203a;        /* Nivel 2: Elevated Section Box */
+  --papel-tarjeta: #1a294a;      /* Nivel 3: Inner Card Box (Cuadrados) */
+  --papel-hover: #233762;       /* Nivel 4: Active Hover Box */
+  --papel-rehundido: #070c18;   /* Rehundido: Inputs & Code Blocks */
 
-  /* Paleta Tipográfica de Alto Contraste (WCAG AAA > 15:1) */
-  --tinta: #f8fafc;             /* Text Principal Nítido */
-  --tinta-suave: #cbd5e1;       /* Subtítulos y Leyendas */
-  --tinta-tenue: #94a3b8;       /* Metadatos y Notas */
+  /* Paleta Tipográfica Nítida para Usuarios con Lentes */
+  --tinta: #ffffff;             /* Texto Principal Blanco Puro (Máximo Contraste) */
+  --tinta-suave: #e2e8f0;       /* Subtítulos y Texto Secundario (Slate-200) */
+  --tinta-tenue: #cbd5e1;       /* Etiquetas y Notas Auxiliares (Slate-300) */
 
-  /* Delimitaciones y Bordes Estructurados */
-  --linea: rgba(255, 255, 255, 0.14);
-  --linea-fuerte: rgba(6, 182, 212, 0.45);
-  --linea-tarjeta: rgba(255, 255, 255, 0.18);
+  /* Bordes Ricos Estructurados */
+  --linea: rgba(255, 255, 255, 0.18);
+  --linea-fuerte: rgba(6, 182, 212, 0.55);
+  --linea-tarjeta: rgba(255, 255, 255, 0.25);
 
-  /* Acentos Cromáticos Neón por Módulo */
+  /* Acentos Cromáticos Neón Distintivos por Módulo */
   --musgo: #06b6d4;             /* Cyan Neón (Visor & Principal) */
   --musgo-oscuro: #0891b2;
-  --musgo-claro: rgba(6, 182, 212, 0.18);
+  --musgo-claro: rgba(6, 182, 212, 0.2);
 
   --agua: #38bdf8;              /* Sky Neón (Consultas & Metadatos) */
   --agua-oscuro: #0284c7;
-  --agua-claro: rgba(56, 189, 248, 0.16);
+  --agua-claro: rgba(56, 189, 248, 0.2);
 
   --ocre: #f59e0b;              /* Amber Neón (Overpass & Advertencias) */
-  --ocre-claro: rgba(245, 158, 11, 0.18);
+  --ocre-claro: rgba(245, 158, 11, 0.2);
 
   --alerta: #f43f5e;            /* Crimson Neón (Restricciones & UMap) */
-  --alerta-claro: rgba(244, 63, 94, 0.18);
+  --alerta-claro: rgba(244, 63, 94, 0.2);
 
   --esmeralda: #10b981;         /* Emerald Neón (GBIF & Calidad) */
-  --esmeralda-claro: rgba(16, 185, 129, 0.18);
+  --esmeralda-claro: rgba(16, 185, 129, 0.2);
 
-  --violeta: #a855f7;           /* Purple Neón (Trazabilidad & ohsome) */
-  --violeta-claro: rgba(168, 85, 247, 0.18);
+  --violeta: #a855f7;           /* Purple Neón (ohsome & Trazabilidad) */
+  --violeta-claro: rgba(168, 85, 247, 0.2);
 
-  /* Sombras Tácticas y Glass Filter */
-  --radio-borde: 10px;
-  --radio-sm: 6px;
-  --sombra-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
-  --sombra-md: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.15);
-  --sombra-lg: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(6, 182, 212, 0.2);
-  --glass-filter: blur(16px);
+  --teal: #0d9488;              /* Teal Turquesa (Diccionario) */
+
+  /* Sombras Tácticas y Radios Cómodos */
+  --radio-borde: 12px;
+  --radio-sm: 8px;
+  --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --sombra-md: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 2px rgba(255, 255, 255, 0.2);
+  --sombra-lg: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 30px rgba(6, 182, 212, 0.25);
+  --glass-filter: blur(18px);
 }
 
 * {
@@ -74,8 +76,8 @@ html, body {
   background: var(--fondo-app);
   color: var(--tinta);
   font-family: var(--fuente-lectura);
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 16px;              /* Base Font Size Ampliada */
+  line-height: 1.68;            /* Espaciado Holgado */
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -83,31 +85,39 @@ html, body {
 body {
   background-color: var(--fondo-app);
   background-image: 
-    radial-gradient(circle at 12% 18%, rgba(6, 182, 212, 0.09) 0%, transparent 45%),
-    radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 60%);
+    radial-gradient(circle at 10% 15%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--fuente-titulos);
-  color: var(--tinta);
+  color: #ffffff;
   letter-spacing: -0.02em;
+  margin-top: 0;
 }
+
+h1 { font-size: 2.4rem; font-weight: 800; line-height: 1.25; }
+h2 { font-size: 1.95rem; font-weight: 800; line-height: 1.3; }
+h3 { font-size: 1.45rem; font-weight: 700; line-height: 1.35; }
+h4 { font-size: 1.2rem; font-weight: 700; line-height: 1.4; }
 
 a {
   color: var(--musgo);
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
+  font-weight: 600;
   transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 a:hover {
   color: var(--agua);
-  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
 }
 
 a:focus, button:focus, input:focus, select:focus, textarea:focus {
-  outline: 2px solid var(--musgo);
-  outline-offset: 2px;
+  outline: 3px solid var(--musgo);
+  outline-offset: 3px;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.5);
 }
 
 /* ==========================================================================
@@ -117,21 +127,21 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 .barra-pestanas-profundidad {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
-  background: rgba(13, 21, 39, 0.95);
+  gap: 10px;
+  padding: 14px 22px;
+  background: rgba(13, 21, 39, 0.96);
   backdrop-filter: var(--glass-filter);
-  border-bottom: 1px solid var(--linea);
+  border-bottom: 2px solid var(--linea);
   position: sticky;
   top: 0;
   z-index: 100;
   overflow-x: auto;
   scrollbar-width: thin;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
 .barra-pestanas-profundidad::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
 }
 .barra-pestanas-profundidad::-webkit-scrollbar-thumb {
   background: var(--musgo-oscuro);
@@ -141,15 +151,15 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 .pestana-nodo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: rgba(26, 40, 69, 0.6);
-  border: 1px solid var(--linea-tarjeta);
-  border-radius: 8px;
+  gap: 10px;
+  padding: 10px 18px;
+  background: rgba(26, 41, 74, 0.7);
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 10px;
   color: var(--tinta-suave);
   font-family: var(--fuente-titulos);
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: 0.92rem;
+  font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -157,26 +167,27 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .pestana-nodo:hover {
   background: var(--papel-hover);
-  color: var(--tinta);
+  color: #ffffff;
   border-color: var(--musgo);
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.3);
 }
 
 .pestana-nodo.activa {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(16, 185, 129, 0.22) 100%);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(16, 185, 129, 0.25) 100%);
   border-color: var(--musgo);
   color: #ffffff;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 24px rgba(6, 182, 212, 0.45);
 }
 
 .pestana-nodo .insignia-nodo {
   font-family: var(--fuente-datos);
-  font-size: 0.72rem;
-  padding: 2px 6px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
+  font-size: 0.78rem;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
   color: var(--musgo);
+  font-weight: 700;
 }
 
 /* ==========================================================================
@@ -185,32 +196,32 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .envoltorio {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 290px 1fr;
   min-height: 100vh;
   position: relative;
   z-index: 1;
 }
 
 .barra-lateral {
-  background: rgba(13, 21, 39, 0.96);
+  background: rgba(13, 21, 39, 0.98);
   backdrop-filter: var(--glass-filter);
-  border-right: 1px solid var(--linea);
-  padding: 20px 0;
+  border-right: 2px solid var(--linea);
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 6px 0 24px rgba(0, 0, 0, 0.65);
   z-index: 20;
 }
 
 .marca {
-  padding: 0 20px 18px 20px;
-  border-bottom: 1px solid var(--linea);
-  margin-bottom: 14px;
+  padding: 0 22px 20px 22px;
+  border-bottom: 2px solid var(--linea);
+  margin-bottom: 16px;
 }
 
 .marca h1 {
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.35rem;
+  font-weight: 900;
   margin: 0 0 4px 0;
   background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
   -webkit-background-clip: text;
@@ -225,52 +236,53 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 .capas-nav li {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .capas-nav button {
   width: 100%;
   text-align: left;
-  padding: 11px 20px;
+  padding: 12px 22px;
   background: transparent;
   border: none;
-  border-left: 4px solid transparent;
+  border-left: 5px solid transparent;
   color: var(--tinta-suave);
   font-family: var(--fuente-lectura);
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 0.94rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   transition: all 0.2s ease;
 }
 
 .capas-nav button:hover {
   background: var(--papel-alto);
-  color: var(--tinta);
+  color: #ffffff;
   border-left-color: var(--musgo);
 }
 
 .capas-nav button[aria-current="true"] {
-  background: linear-gradient(90deg, rgba(6, 182, 212, 0.22) 0%, transparent 100%);
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.25) 0%, transparent 100%);
   border-left-color: var(--musgo);
   color: #ffffff;
-  font-weight: 700;
-  box-shadow: inset 3px 0 10px rgba(6, 182, 212, 0.25);
+  font-weight: 800;
+  box-shadow: inset 4px 0 12px rgba(6, 182, 212, 0.3);
 }
 
 .capas-nav button .marcador {
   font-family: var(--fuente-datos);
-  font-size: 0.74rem;
-  padding: 2px 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  font-size: 0.78rem;
+  padding: 3px 7px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
   color: var(--musgo);
+  font-weight: 700;
 }
 
 /* ==========================================================================
-   CONTENIDO PRINCIPAL Y PANELES DILATADOS POR MÓDULOS
+   CONTENIDO PRINCIPAL Y PANELES DILATADOS CON ESPACIADO HOLGADO
    ========================================================================== */
 
 .contenido {
@@ -283,7 +295,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .panel {
   display: none;
-  padding: 28px;
+  padding: 32px 36px;
   animation: fadeInPanel 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -292,39 +304,41 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 @keyframes fadeInPanel {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 header {
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--linea);
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--linea);
 }
 
 header .rotulo {
   font-family: var(--fuente-datos);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--musgo);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
+  display: inline-block;
+  margin-bottom: 4px;
 }
 
 header h2 {
-  font-size: 1.85rem;
-  font-weight: 800;
-  margin: 6px 0 8px 0;
+  font-size: 2.1rem;
+  font-weight: 900;
+  margin: 6px 0 10px 0;
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 header .descripcion {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--tinta-suave);
-  max-width: 960px;
-  line-height: 1.6;
+  max-width: 1000px;
+  line-height: 1.68;
 }
 
 /* ==========================================================================
@@ -333,15 +347,15 @@ header .descripcion {
 
 .disposicion-visor-comando {
   display: grid;
-  grid-template-columns: 1fr 390px;
-  gap: 22px;
-  margin-bottom: 28px;
+  grid-template-columns: 1fr 410px;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1360px) {
   .disposicion-visor-comando {
-    grid-template-columns: 1fr 340px;
-    gap: 18px;
+    grid-template-columns: 1fr 360px;
+    gap: 20px;
   }
 }
 
@@ -354,32 +368,32 @@ header .descripcion {
 .area-mapa-principal {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 #mapa-atlas {
-  height: 640px;
+  height: 660px;
   width: 100%;
   border-radius: var(--radio-borde);
-  border: 1px solid var(--linea-fuerte);
+  border: 2px solid var(--linea-fuerte);
   box-shadow: var(--sombra-lg);
   position: relative;
   z-index: 10;
-  background: #090e1a;
+  background: #080d19;
 }
 
 /* Panel de Profundidad Lateral Derecho Estructurado */
 .panel-profundidad-derecha {
-  background: rgba(13, 21, 39, 0.9);
+  background: rgba(13, 21, 39, 0.95);
   backdrop-filter: var(--glass-filter);
-  border: 1px solid var(--linea-fuerte);
+  border: 2px solid var(--linea-fuerte);
   border-radius: var(--radio-borde);
-  padding: 18px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   box-shadow: var(--sombra-md);
-  height: 704px;
+  height: 728px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -394,20 +408,20 @@ header .descripcion {
 
 .pestanas-profundidad-derecha {
   display: flex;
-  gap: 6px;
-  border-bottom: 1px solid var(--linea);
-  padding-bottom: 12px;
+  gap: 8px;
+  border-bottom: 2px solid var(--linea);
+  padding-bottom: 14px;
 }
 
 .pestanas-profundidad-derecha button {
   flex: 1;
-  padding: 8px 6px;
-  background: rgba(26, 40, 69, 0.6);
-  border: 1px solid var(--linea-tarjeta);
-  border-radius: 6px;
+  padding: 10px 8px;
+  background: rgba(26, 41, 74, 0.7);
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 8px;
   color: var(--tinta-suave);
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 800;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
@@ -415,7 +429,7 @@ header .descripcion {
 
 .pestanas-profundidad-derecha button:hover {
   background: var(--papel-alto);
-  color: var(--tinta);
+  color: #ffffff;
   border-color: var(--musgo);
 }
 
@@ -423,7 +437,7 @@ header .descripcion {
   background: var(--musgo-claro);
   border-color: var(--musgo);
   color: var(--musgo);
-  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.4);
 }
 
 .subpanel-profundidad {
@@ -442,71 +456,71 @@ header .descripcion {
 .barra-herramientas-mapa {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
-  padding: 14px 18px;
-  background: rgba(20, 31, 54, 0.95);
+  padding: 16px 22px;
+  background: rgba(20, 32, 58, 0.95);
   backdrop-filter: var(--glass-filter);
-  border: 1px solid var(--linea-fuerte);
+  border: 2px solid var(--linea-fuerte);
   border-radius: var(--radio-borde);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   box-shadow: var(--sombra-sm);
 }
 
 .grupo-control-territorio {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .grupo-control-territorio label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--agua);
 }
 
 .grupo-control-territorio select, select, input[type="text"], input[type="number"], textarea {
   background: var(--papel-rehundido);
-  border: 1px solid var(--linea-tarjeta);
-  color: var(--tinta);
-  padding: 8px 14px;
-  border-radius: 6px;
+  border: 2px solid var(--linea-tarjeta);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 8px;
   font-family: var(--fuente-lectura);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .grupo-control-territorio select:focus, select:focus, input:focus, textarea:focus {
   border-color: var(--musgo);
-  box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.45);
 }
 
 button.accion {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 18px;
+  gap: 10px;
+  padding: 10px 20px;
   background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #ffffff;
   font-family: var(--fuente-titulos);
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 4px 18px rgba(6, 182, 212, 0.4);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button.accion:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.55);
 }
 
 button.accion.secundaria {
-  background: rgba(26, 40, 69, 0.8);
-  border: 1px solid var(--linea-tarjeta);
-  color: var(--tinta);
+  background: rgba(26, 41, 74, 0.85);
+  border: 2px solid var(--linea-tarjeta);
+  color: #ffffff;
   box-shadow: none;
 }
 
@@ -517,91 +531,100 @@ button.accion.secundaria:hover {
 }
 
 /* ==========================================================================
-   ESTRUCTURACIÓN POR BLOQUES, CAJAS Y CUADRADOS CON COLORIDO POR SECCIÓN
+   ESTRUCTURACIÓN POR BLOQUES Y CAJAS-CUADRADOS DE ALTA LEGIBILIDAD
    ========================================================================== */
 
 .bloque {
   background: var(--papel);
   backdrop-filter: var(--glass-filter);
-  border: 1px solid var(--linea-tarjeta);
+  border: 2px solid var(--linea-tarjeta);
   border-radius: var(--radio-borde);
-  padding: 22px;
-  margin-bottom: 22px;
+  padding: 26px;
+  margin-bottom: 26px;
   box-shadow: var(--sombra-md);
   position: relative;
 }
 
 .bloque h3 {
-  font-size: 1.15rem;
-  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  margin: 0 0 10px 0;
   color: var(--musgo);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* Cajas y Cuadrados de Contenido Elevado */
 .caja-cuadrado {
   background: var(--papel-tarjeta);
-  border: 1px solid var(--linea-tarjeta);
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 12px;
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 16px;
   box-shadow: var(--sombra-sm);
 }
 
 .caja-guia-referencia {
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid var(--musgo);
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 16px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 2px solid var(--musgo);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .caja-guia-referencia h4 {
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
   color: var(--musgo);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
+
+/* Identidad Cromática por Paneles */
+#panel-explorador-osm .bloque { border-top: 4px solid var(--ocre); }
+#panel-calidad-ohsome .bloque { border-top: 4px solid var(--violeta); }
+#panel-biodiversidad-gbif .bloque { border-top: 4px solid var(--esmeralda); }
+#panel-proyectos-umap .bloque { border-top: 4px solid var(--alerta); }
+#panel-metadatos-iso .bloque { border-top: 4px solid var(--agua); }
+#panel-diccionario .bloque { border-top: 4px solid var(--teal); }
+#panel-licencias .bloque, #panel-manual .bloque { border-top: 4px solid var(--ocre); }
 
 /* Grillas de Categorías */
 .grilla-categorias {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 14px;
-  margin-top: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
 }
 
 .tarjeta-categoria {
   background: var(--papel-tarjeta);
-  border: 1px solid var(--linea-tarjeta);
-  border-radius: 8px;
-  padding: 14px 16px;
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 10px;
+  padding: 16px 18px;
   cursor: pointer;
   transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .tarjeta-categoria:hover {
   border-color: var(--musgo);
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
   background: var(--papel-hover);
 }
 
 .tarjeta-categoria.activa {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(16, 185, 129, 0.16) 100%);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.28) 0%, rgba(16, 185, 129, 0.2) 100%);
   border-color: var(--musgo);
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 24px rgba(6, 182, 212, 0.4);
 }
 
 .tarjeta-categoria h4 {
   margin: 0;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--tinta);
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -609,36 +632,57 @@ button.accion.secundaria:hover {
 
 .tarjeta-categoria .insignia-conteo {
   font-family: var(--fuente-datos);
-  font-size: 0.74rem;
-  padding: 2px 8px;
-  background: rgba(6, 182, 212, 0.25);
-  border-radius: 12px;
+  font-size: 0.8rem;
+  padding: 3px 9px;
+  background: rgba(6, 182, 212, 0.3);
+  border-radius: 14px;
   color: var(--musgo);
-  font-weight: 700;
+  font-weight: 800;
 }
 
-/* Formulario de Campos */
+/* Formulario de Campos con Espaciado Holgado */
 .fila-campos {
   display: flex;
-  gap: 14px;
+  gap: 18px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .campo {
   flex: 1;
-  min-width: 220px;
+  min-width: 240px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .campo label {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--agua);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+}
+
+/* Botones de Sugerencias Ciudadanas */
+.btn-sugerencia-ciudadana {
+  padding: 10px 14px;
+  background: var(--papel-tarjeta);
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.btn-sugerencia-ciudadana:hover {
+  background: var(--papel-hover);
+  border-color: var(--musgo);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
 }
 
 /* ==========================================================================
@@ -648,45 +692,46 @@ button.accion.secundaria:hover {
 table.tabla-datos {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 14px;
-  font-size: 0.88rem;
+  margin-top: 18px;
+  font-size: 0.95rem;
   background: var(--papel-tarjeta);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid var(--linea-tarjeta);
+  border: 2px solid var(--linea-tarjeta);
 }
 
 table.tabla-datos th {
-  background: rgba(20, 31, 54, 0.95);
+  background: rgba(20, 32, 58, 0.98);
   color: var(--musgo);
   font-family: var(--fuente-titulos);
   text-align: left;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border-bottom: 2px solid var(--linea);
-  font-weight: 700;
+  font-weight: 800;
 }
 
 table.tabla-datos td {
-  padding: 11px 14px;
+  padding: 13px 16px;
   border-bottom: 1px solid var(--linea);
   color: var(--tinta-suave);
 }
 
 table.tabla-datos tr:hover td {
   background: var(--papel-hover);
-  color: var(--tinta);
+  color: #ffffff;
 }
 
 .bloque-codigo-ql, pre.codigo-xml {
   background: var(--papel-rehundido);
-  border: 1px solid var(--linea-tarjeta);
-  border-radius: 8px;
-  padding: 14px;
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 10px;
+  padding: 18px;
   font-family: var(--fuente-datos);
-  font-size: 0.84rem;
+  font-size: 0.92rem;
   color: var(--musgo);
   overflow-x: auto;
   white-space: pre-wrap;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -700,11 +745,11 @@ table.tabla-datos tr:hover td {
 
   .barra-lateral {
     border-right: none;
-    border-bottom: 1px solid var(--linea);
+    border-bottom: 2px solid var(--linea);
   }
 
   #mapa-atlas {
-    height: 460px;
+    height: 480px;
   }
 
   .panel-profundidad-derecha {
