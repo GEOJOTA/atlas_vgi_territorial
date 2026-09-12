@@ -426,7 +426,12 @@ function inicializarAplicacion() {
   const cfg = window.NODO_CONFIG;
   if (!cfg) return;
 
+  if (window.ManifoldCanvas) {
+    window.ManifoldCanvas.init('manifold-bg-container');
+  }
+
   configurarNavegacion();
+  configurarSubpanelesDerecha();
   precargarCamposDesdeConfig();
   ModuloMapa.inicializar('mapa-atlas');
   crearBotonesCategorias();
@@ -823,20 +828,42 @@ function inicializarAplicacion() {
 /* ---------------------- NAVEGACIÓN ---------------------- */
 
 function configurarNavegacion() {
-  const botones = document.querySelectorAll('#lista-navegacion button');
-  botones.forEach(boton => {
-    boton.addEventListener('click', () => {
-      botones.forEach(b => b.setAttribute('aria-current', 'false'));
-      boton.setAttribute('aria-current', 'true');
+  const botonesSidebar = document.querySelectorAll('#lista-navegacion button');
+  const botonesPestanas = document.querySelectorAll('.barra-pestanas-profundidad button');
 
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
-      const panelDestino = document.getElementById('panel-' + boton.dataset.panel);
-      if (panelDestino) {
-        panelDestino.classList.add('activo');
-        if (boton.dataset.panel === 'manual') {
-          cargarResumenMetodologia();
-        }
+  const activarPanel = (panelId) => {
+    botonesSidebar.forEach(b => b.setAttribute('aria-current', b.dataset.panel === panelId ? 'true' : 'false'));
+    botonesPestanas.forEach(b => b.classList.toggle('activa', b.dataset.panel === panelId));
+
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
+    const panelDestino = document.getElementById('panel-' + panelId);
+    if (panelDestino) {
+      panelDestino.classList.add('activo');
+      if (panelId === 'manual') {
+        cargarResumenMetodologia();
       }
+    }
+  };
+
+  botonesSidebar.forEach(boton => {
+    boton.addEventListener('click', () => activarPanel(boton.dataset.panel));
+  });
+
+  botonesPestanas.forEach(boton => {
+    boton.addEventListener('click', () => activarPanel(boton.dataset.panel));
+  });
+}
+
+function configurarSubpanelesDerecha() {
+  const btns = document.querySelectorAll('.pestanas-profundidad-derecha .btn-subpanel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('activa'));
+      btn.classList.add('activa');
+
+      document.querySelectorAll('.subpanel-profundidad').forEach(p => p.classList.remove('activo'));
+      const target = document.getElementById(btn.dataset.target);
+      if (target) target.classList.add('activo');
     });
   });
 }
