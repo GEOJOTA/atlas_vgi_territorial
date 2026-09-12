@@ -65,10 +65,40 @@
 
     <!-- ---------- 00. VISOR Y ATLAS VGI (LEAFLET) ---------- -->
     <section class="panel activo" id="panel-inicio">
-      <header>
-        <span class="rotulo">00 / Práctica Profesional 2026 — Visor Cartográfico</span>
-        <h2>Atlas de Información Geográfica Voluntaria</h2>
-        <p class="descripcion">Explora, visualiza y descarga datos territoriales colaborativos organizados en 8 categorías temáticas para el Barrio Brasil y el campus de la Universidad Alberto Hurtado.</p>
+      <header class="hero-introduccion-atlas">
+        <div class="insignia-fondecyt">
+          🏛️ PROYECTO DE INVESTIGACIÓN FONDECYT REGULAR N° 1261256 (ANID 2026) · DEPARTAMENTO DE GEOGRAFÍA UAH
+        </div>
+        <h1 class="titulo-hero">Atlas de Información Geográfica Voluntaria para la Gestión Territorial</h1>
+        <p class="subtitulo-hero">
+          Caso Piloto: Barrio Brasil y Campus Universidad Alberto Hurtado (Santiago Centro, Chile)
+        </p>
+        
+        <div class="grilla-resumen-introduccion">
+          <div class="caja-tarjeta-hero">
+            <span class="icono-hero">🗺️</span>
+            <h3>¿Qué es el Atlas VGI?</h3>
+            <p>Una plataforma de Infraestructura de Datos Espaciales (IDE) abierta que integra cartografía colaborativa (OpenStreetMap, GBIF, UMap) con capas oficiales del Estado de Chile (IDE Chile / SNIT), permitiendo auditar brechas de información barrial sin costo de licencias ni servidores dedicados.</p>
+          </div>
+
+          <div class="caja-tarjeta-hero">
+            <span class="icono-hero">📍</span>
+            <h3>Territorio de Estudio</h3>
+            <p>Polígono patrimonial y universitario de Barrio Brasil: eje Alameda, campus central UAH (calles Cienfuegos, Erasmo Escala, Almirante Barroso), estaciones de Metro Los Héroes (L1/L2) y Santa Ana (L2/L5), entorno de Plaza Brasil y ciclovías estructurantes.</p>
+          </div>
+
+          <div class="caja-tarjeta-hero">
+            <span class="icono-hero">⚡</span>
+            <h3>Datos en Tiempo Real</h3>
+            <p>No utiliza bases precargadas estáticas. Conecta directamente a las APIs oficiales (Overpass QL, ohsome v1/v2, GBIF, Taginfo y OGC WMS) para extraer geometrías, métricas de calidad ISO 19157 y metadatos ISO 19115 al segundo de ejecución.</p>
+          </div>
+
+          <div class="caja-tarjeta-hero">
+            <span class="icono-hero">👥</span>
+            <h3>4 Perfiles Territoriales</h3>
+            <p>Herramientas adaptadas para Autoridades (SECPLAN/Muni), Vecinos/Juntas de Vecinos, Voluntarios/Mapeadores OSM y ONGs/Investigadores con exportación directa a GeoJSON (QGIS), CSV y Excel (.xlsx).</p>
+          </div>
+        </div>
       </header>
 
       <!-- Barra de herramientas del mapa -->
@@ -188,19 +218,40 @@
       </div>
 
       <!-- Bloque de Capas Oficiales del Estado (IDE Chile, MINVU & Normativa IPT) -->
-      <div class="bloque bloque-oficial-ide" style="border:1px solid #1B4D3E; background:var(--papel-alto); padding:16px; margin-top:16px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
-          <h3 style="margin:0; color:#1B4D3E; font-size:1.05rem;">🏛️ Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
-          <div style="display:flex; gap:6px; align-items:center;">
-            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.78rem; padding:4px 9px;" title="Descargar paquete GeoJSON consolidado con las 27 capas oficiales de IDE Chile y MINVU IPT">📥 Descargar Colección Oficial (.geojson)</button>
-            <span style="font-size:0.72rem; background:#1B4D3E; color:#FFFFFF; padding:2px 8px; border-radius:2px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">27 CAPAS DISPONIBLES</span>
+      <div class="bloque bloque-oficial-ide" style="border:2px solid var(--musgo); background:var(--papel); padding:26px; margin-top:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <h3 style="margin:0; color:var(--musgo); font-size:1.3rem;">🏛️ Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.88rem; padding:8px 14px;" title="Descargar paquete GeoJSON consolidado con las 27 capas oficiales de IDE Chile y MINVU IPT">📥 Descargar Colección Oficial (.geojson)</button>
+            <span style="font-size:0.82rem; background:var(--musgo); color:#000000; padding:4px 12px; border-radius:6px; font-family:var(--fuente-datos); font-weight:800;">27 CAPAS DISPONIBLES</span>
           </div>
         </div>
-        <p class="descripcion" style="margin-bottom:12px;">Capas cartográficas oficiales del Estado contrastables con los datos VGI comunitarios. Se integran directamente desde los servicios <strong>ArcGIS FeatureServer</strong>, <strong>OGC WMS</strong> y conjuntos abiertos de <strong>Geoportal de Chile</strong> y <strong>MINVU GeoIDE</strong>, amparados por la Ley N° 20.285 de Transparencia de la Función Pública y la Ley General de Urbanismo y Construcciones (LGUC).</p>
-        <div class="grilla-categorias" id="contenedor-botones-oficiales-ide">
-          <!-- Generado dinámicamente desde app.js con las 20 capas oficiales y WMS -->
+        <p class="descripcion" style="margin-bottom:16px;">Capas cartográficas oficiales del Estado contrastables con los datos VGI comunitarios. Se integran directamente desde los servicios <strong>ArcGIS FeatureServer</strong>, <strong>OGC WMS</strong> y conjuntos abiertos de <strong>Geoportal de Chile</strong> y <strong>MINVU GeoIDE</strong>, amparados por la Ley N° 20.285 de Transparencia de la Función Pública y la Ley General de Urbanismo y Construcciones (LGUC).</p>
+
+        <!-- Cuadrados Estructurados de Categorías Oficiales -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:18px;">
+          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
+            <h4 style="margin:0 0 6px 0; color:var(--musgo); font-size:1.02rem;">📜 Normativa Urbanística & IPT (MINVU)</h4>
+            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">PRC Santiago, Usos de suelo PRMS, Zonas de Riesgo y Resguardo de Infraestructura.</p>
+          </div>
+          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
+            <h4 style="margin:0 0 6px 0; color:var(--esmeralda); font-size:1.02rem;">🌳 Medio Ambiente & Recursos Hídricos</h4>
+            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Inventario Humedales MINVU, Áreas Verdes IPT y Parques Urbanos de Santiago.</p>
+          </div>
+          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
+            <h4 style="margin:0 0 6px 0; color:var(--violeta); font-size:1.02rem;">👥 Comunidades & Censo 2024 (INE)</h4>
+            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Microdatos Manzanas Censo 2024, Campamentos MINVU y Condominios Sociales.</p>
+          </div>
+          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
+            <h4 style="margin:0 0 6px 0; color:var(--agua); font-size:1.02rem;">🏛️ Equipamiento & Movilidad EFE/Metro</h4>
+            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Sitios de Memoria CMN, Patrimonio MINVU, Estaciones Metro y Red EFE.</p>
+          </div>
         </div>
-        <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.82rem; font-style:italic; margin-top:8px;"></div>
+
+        <div class="grilla-categorias" id="contenedor-botones-oficiales-ide">
+          <!-- Generado dinámicamente desde app.js con las 27 capas oficiales y WMS -->
+        </div>
+        <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.88rem; font-style:italic; margin-top:12px;"></div>
       </div>
 
       <!-- Bloque de Importación de Capas Personalizadas del Usuario -->
