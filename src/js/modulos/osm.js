@@ -146,19 +146,25 @@ const ModuloOSM = (() => {
     `;
   }
 
+  // Caché en memoria para evitar re-consultar Overpass innecesariamente
+  const cacheConsultas = new Map();
+
   /**
    * Ejecuta la consulta probando servidores espejo si el principal falla
    */
   async function consultar(bbox, etiquetaOPreset, consultaDirecta = null) {
+    const claveCache = `${JSON.stringify(bbox)}_${etiquetaOPreset}_${consultaDirecta || ''}`;
+    if (cacheConsultas.has(claveCache)) {
+      console.log(`[Overpass] Retornando datos desde caché en memoria para ${etiquetaOPreset}`);
+      return cacheConsultas.get(claveCache);
+    }
+
     const cfg = window.NODO_CONFIG || {};
     const endpoints = (cfg.endpoints?.overpass_espejos && cfg.endpoints.overpass_espejos.length > 0)
-      ? cfg.endpoints.overpass_espejos
+      ? cfg.endpoints.overpass_espejos.slice(0, 2)
       : [
           'https://overpass-api.de/api/interpreter',
-          'https://lz4.overpass-api.de/api/interpreter',
-          'https://z.overpass-api.de/api/interpreter',
-          'https://overpass.kumi.systems/api/interpreter',
-          'https://overpass.openstreetmap.fr/api/interpreter'
+          'https://overpass.kumi.systems/api/interpreter'
         ];
 
     const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
@@ -168,7 +174,7 @@ const ModuloOSM = (() => {
       try {
         console.log(`[Overpass] Intentando consulta en: ${endpoint}`);
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 25000); // 25s máximo por servidor
+        const timeoutId = setTimeout(() => controller.abort(), 4500); // 4.5s máx por servidor para conmutación rápida
 
         const respuesta = await fetch(endpoint, {
           method: 'POST',
@@ -180,7 +186,9 @@ const ModuloOSM = (() => {
 
         if (respuesta.ok) {
           const datos = await respuesta.json();
-          return datos.elements || [];
+          const elementos = datos.elements || [];
+          cacheConsultas.set(claveCache, elementos);
+          return elementos;
         }
         ultimoError = new Error(`Servidor ${endpoint} respondió con status ${respuesta.status}`);
       } catch (err) {
@@ -313,6 +321,8 @@ const ModuloOSM = (() => {
     };
   }
 
+  let backendDisponible = null;
+
   /**
    * Consulta personalizada avanzada que intenta llamar al backend (/api/consulta)
    * y si este no está disponible, resuelve directamente en el cliente mediante Overpass.
@@ -320,32 +330,38 @@ const ModuloOSM = (() => {
   async function consultarPersonalizada(parametros) {
     const { bbox, clave, valor, operador, entidad, queryPersonalizada, nombreConsulta = 'Personalizada' } = parametros;
 
-    // 1. Intentar llamar al backend (/api/consulta) con un timeout de 8 segundos
-    try {
-      const controllerBackend = new AbortController();
-      const timeoutBackend = setTimeout(() => controllerBackend.abort(), 8000);
-      const respuestaBackend = await fetch('/api/consulta', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(parametros),
-        signal: controllerBackend.signal
-      });
-      clearTimeout(timeoutBackend);
+    // 1. Intentar llamar al backend (/api/consulta) con un timeout ágil de 1.2s (solo si está disponible)
+    if (backendDisponible !== false) {
+      try {
+        const controllerBackend = new AbortController();
+        const timeoutBackend = setTimeout(() => controllerBackend.abort(), 1200);
+        const respuestaBackend = await fetch('/api/consulta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(parametros),
+          signal: controllerBackend.signal
+        });
+        clearTimeout(timeoutBackend);
 
-      if (respuestaBackend.ok) {
-        const datos = await respuestaBackend.json();
-        if (datos.ok && datos.geojson && datos.geojson.features) {
-          console.log(`[+] Consulta personalizada resuelta exitosamente vía backend (${datos.servidor}): ${datos.total} elementos`);
-          return {
-            total: datos.total,
-            geojson: datos.geojson,
-            servidor: datos.servidor,
-            desdeBackend: true
-          };
+        if (respuestaBackend.ok) {
+          const datos = await respuestaBackend.json();
+          if (datos.ok && datos.geojson && datos.geojson.features) {
+            backendDisponible = true;
+            console.log(`[+] Consulta personalizada resuelta exitosamente vía backend (${datos.servidor}): ${datos.total} elementos`);
+            return {
+              total: datos.total,
+              geojson: datos.geojson,
+              servidor: datos.servidor,
+              desdeBackend: true
+            };
+          }
+        } else {
+          backendDisponible = false;
         }
+      } catch (errBackend) {
+        backendDisponible = false;
+        console.warn('Backend /api/consulta no accesible (modo client-side activo):', errBackend.message);
       }
-    } catch (errBackend) {
-      console.warn('Backend /api/consulta no accesible o excedió 8s. Resolviendo directamente en navegador...', errBackend.message);
     }
 
     // 2. Fallback: Resolución directa en el navegador

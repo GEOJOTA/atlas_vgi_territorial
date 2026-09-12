@@ -9,24 +9,35 @@
 
 const ModuloGBIF = (() => {
 
+  const cacheTaxon = new Map();
+  const cacheOcurrencias = new Map();
+
   /**
    * Sugiere taxones en tiempo real usando GBIF Species Suggest API
    */
   async function sugerirTaxon(texto) {
     if (!texto || texto.trim().length < 2) return [];
+    const tLimpio = texto.trim().toLowerCase();
+    if (cacheTaxon.has(tLimpio)) return cacheTaxon.get(tLimpio);
+
     const base = (typeof window !== 'undefined' && window.NODO_CONFIG?.endpoints?.gbif) || 'https://api.gbif.org/v1';
     const url = `${base}/species/suggest?q=${encodeURIComponent(texto.trim())}&limit=6`;
 
     try {
-      const res = await fetch(url);
+      const ctl = new AbortController();
+      const tId = setTimeout(() => ctl.abort(), 3500);
+      const res = await fetch(url, { signal: ctl.signal });
+      clearTimeout(tId);
       if (!res.ok) return [];
       const datos = await res.json();
-      return datos.map(item => ({
+      const resultado = datos.map(item => ({
         canonicalName: item.canonicalName || item.scientificName,
         scientificName: item.scientificName,
         kingdom: item.kingdom,
         rank: item.rank
       }));
+      cacheTaxon.set(tLimpio, resultado);
+      return resultado;
     } catch (e) {
       console.warn('[GBIF] Error en autocompletado taxonómico:', e.message);
       return [];
@@ -34,6 +45,12 @@ const ModuloGBIF = (() => {
   }
 
   async function buscarOcurrencias({ nombre, bbox, limite = 50, basisOfRecord = 'ALL' }) {
+    const claveCache = `${nombre || ''}_${JSON.stringify(bbox)}_${limite}_${basisOfRecord}`;
+    if (cacheOcurrencias.has(claveCache)) {
+      console.log('[GBIF] Retornando ocurrencias desde caché en memoria');
+      return cacheOcurrencias.get(claveCache);
+    }
+
     const base = (typeof window !== 'undefined' && window.NODO_CONFIG?.endpoints?.gbif) || 'https://api.gbif.org/v1';
     const parametros = new URLSearchParams({
       limit: String(limite),
@@ -57,7 +74,17 @@ const ModuloGBIF = (() => {
     const urlFinal = `${base}/occurrence/search?${parametros.toString()}`;
     console.log(`[GBIF] Consultando ocurrencias: ${urlFinal}`);
 
-    const respuesta = await fetch(urlFinal);
+    const ctl = new AbortController();
+    const tId = setTimeout(() => ctl.abort(), 4500);
+    let respuesta;
+    try {
+      respuesta = await fetch(urlFinal, { signal: ctl.signal });
+      clearTimeout(tId);
+    } catch (err) {
+      clearTimeout(tId);
+      throw new Error(`Timeout o error de conexión con GBIF: ${err.message}`);
+    }
+
     if (!respuesta.ok) {
       throw new Error(`GBIF respondió con error ${respuesta.status}`);
     }

@@ -2183,7 +2183,7 @@ async function ejecutarConsultaInspector(lat, lng) {
     'ide_minvu_inventario_humedales'
   ];
 
-  for (const cId of capasRequeridas) {
+  await Promise.all(capasRequeridas.map(async (cId) => {
     if (!capasOficialesCargadas[cId] && window.ModuloIDEChile) {
       try {
         const res = await ModuloIDEChile.consultarCapaOficial(cId);
@@ -2192,7 +2192,7 @@ async function ejecutarConsultaInspector(lat, lng) {
         }
       } catch (_) {}
     }
-  }
+  }));
 
   const todasLasCapas = {
     ...capasCargadasPorCategoria,
@@ -2229,23 +2229,29 @@ async function descargarColeccionOficialCompleta() {
   const capas = ModuloIDEChile.obtenerCapasDisponibles();
   const allFeatures = [];
 
-  for (const c of capas) {
+  const resultados = await Promise.all(capas.map(async (c) => {
     try {
-      const res = await ModuloIDEChile.consultarCapaOficial(c.id);
-      if (res && res.geojson && res.geojson.features) {
-        res.geojson.features.forEach(f => {
-          const props = { ...(f.properties || {}) };
-          props._coleccion_oficial = c.id;
-          props._institucion_oficial = c.institucion;
-          allFeatures.push({
-            type: 'Feature',
-            geometry: f.geometry,
-            properties: props
-          });
+      return await ModuloIDEChile.consultarCapaOficial(c.id);
+    } catch (_) {
+      return null;
+    }
+  }));
+
+  resultados.forEach((res, idx) => {
+    const c = capas[idx];
+    if (res && res.geojson && res.geojson.features) {
+      res.geojson.features.forEach(f => {
+        const props = { ...(f.properties || {}) };
+        props._coleccion_oficial = c.id;
+        props._institucion_oficial = c.institucion;
+        allFeatures.push({
+          type: 'Feature',
+          geometry: f.geometry,
+          properties: props
         });
-      }
-    } catch (_) {}
-  }
+      });
+    }
+  });
 
   const fc = {
     type: 'FeatureCollection',

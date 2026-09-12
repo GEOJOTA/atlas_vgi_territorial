@@ -519,10 +519,16 @@ const ModuloIDEChile = (() => {
     }
   };
 
+  const cacheCapasOficiales = new Map();
+
   /**
    * Consulta una capa oficial: intenta FeatureServer en vivo si corresponde, con fallback al GeoJSON local
    */
   async function consultarCapaOficial(idCapa, bbox = null) {
+    if (cacheCapasOficiales.has(idCapa)) {
+      return cacheCapasOficiales.get(idCapa);
+    }
+
     const def = CAPAS_OFICIALES[idCapa];
     if (!def) {
       throw new Error(`Capa oficial "${idCapa}" no reconocida en el catálogo.`);
@@ -534,13 +540,13 @@ const ModuloIDEChile = (() => {
     let geojson = null;
     let fuenteUsada = 'Servicio Oficial en Vivo';
 
-    // 1. Intento de consulta en vivo al FeatureServer si está definido
+    // 1. Intento de consulta en vivo al FeatureServer si está definido (timeout ágil de 2s)
     if (def.urlServicio && def.tipoServicio.indexOf('FeatureServer') !== -1) {
       const urlLive = `${def.urlServicio}/query?where=1%3D1&geometry=${minX}%2C${minY}%2C${maxX}%2C${maxY}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&f=geojson`;
 
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
 
         const resp = await fetch(urlLive, {
           signal: controller.signal,
@@ -852,12 +858,14 @@ const ModuloIDEChile = (() => {
       };
     });
 
-    return {
+    const resultadoFinal = {
       def,
       fuenteUsada,
       geojson,
       cantidad: geojson.features.length
     };
+    cacheCapasOficiales.set(idCapa, resultadoFinal);
+    return resultadoFinal;
   }
 
   /**

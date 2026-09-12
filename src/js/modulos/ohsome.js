@@ -177,33 +177,50 @@ const ModuloOhsome = (() => {
     };
   }
 
+  let proxyCalidadDisponible = null;
+  const cacheOhsome = new Map();
+
   /**
    * Calcula los indicadores de calidad especializados según tipo de entidad (compatible con v1 y v2)
    */
   async function calcularIndicadores(bbox, filtro = 'building=* and type:way', intervalo = 'P1Y', version = 'v1', apiKey = '') {
-    // ----------------------------------------------------
-    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local)
-    // ----------------------------------------------------
-    try {
-      const ctlProxy = new AbortController();
-      const tProxy = setTimeout(() => ctlProxy.abort(), 7000);
-      const resProxy = await fetch('/api/calidad', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bbox, filtro, intervalo, version, apiKey }),
-        signal: ctlProxy.signal
-      });
-      clearTimeout(tProxy);
+    const claveCache = `${JSON.stringify(bbox)}_${filtro}_${intervalo}_${version}`;
+    if (cacheOhsome.has(claveCache)) {
+      console.log('[ohsome] Retornando indicadores de calidad desde caché en memoria');
+      return cacheOhsome.get(claveCache);
+    }
 
-      if (resProxy.ok) {
-        const dataProxy = await resProxy.json();
-        if (dataProxy && dataProxy.ok) {
-          console.log('[ohsome] Métrica de calidad calculada con éxito vía /api/calidad.');
-          return normalizarRespuestaProxy(dataProxy, version);
+    // ----------------------------------------------------
+    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local) con timeout ágil de 1.2s
+    // ----------------------------------------------------
+    if (proxyCalidadDisponible !== false) {
+      try {
+        const ctlProxy = new AbortController();
+        const tProxy = setTimeout(() => ctlProxy.abort(), 1200);
+        const resProxy = await fetch('/api/calidad', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bbox, filtro, intervalo, version, apiKey }),
+          signal: ctlProxy.signal
+        });
+        clearTimeout(tProxy);
+
+        if (resProxy.ok) {
+          const dataProxy = await resProxy.json();
+          if (dataProxy && dataProxy.ok) {
+            proxyCalidadDisponible = true;
+            console.log('[ohsome] Métrica de calidad calculada con éxito vía /api/calidad.');
+            const resultado = normalizarRespuestaProxy(dataProxy, version);
+            cacheOhsome.set(claveCache, resultado);
+            return resultado;
+          }
+        } else {
+          proxyCalidadDisponible = false;
         }
+      } catch (errProxy) {
+        proxyCalidadDisponible = false;
+        console.warn('[ohsome] /api/calidad no accesible (modo directo en cliente activo):', errProxy.message);
       }
-    } catch (errProxy) {
-      console.warn('[ohsome] /api/calidad no respondió a tiempo o no disponible, recurriendo a consulta directa:', errProxy.message);
     }
 
     // ----------------------------------------------------
@@ -303,7 +320,7 @@ const ModuloOhsome = (() => {
       promesaContribuciones
     ]);
 
-    return procesarResultadosIndicadores({
+    const resultadoFinal = procesarResultadosIndicadores({
       tipoGeo,
       conteoActual,
       usuarios,
@@ -315,6 +332,8 @@ const ModuloOhsome = (() => {
       motor: 'OSHDB (HeiGIT Java Engine)',
       fueFallback: false
     });
+    cacheOhsome.set(claveCache, resultadoFinal);
+    return resultadoFinal;
   }
 
   function procesarResultadosIndicadores(params) {
