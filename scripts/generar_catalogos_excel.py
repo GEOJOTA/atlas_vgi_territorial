@@ -20,20 +20,22 @@ SRC_DOCS_DIR = os.path.join(BASE_DIR, "src", "docs")
 os.makedirs(DOCS_DIR, exist_ok=True)
 os.makedirs(SRC_DOCS_DIR, exist_ok=True)
 
-# Paleta editorial: carta topográfica / institucional
-COLOR_MUSGO = "2C4238"
-COLOR_CABECERA = "3F5D4E"
-COLOR_ZEBRA = "F4F0E4"
+# Paleta editorial: Formato Informe Práctica (Gantt D0D0D0 / D7E5ED / EFEFEF)
+COLOR_MUSGO = "0F172A"
+COLOR_CABECERA = "D0D0D0"
+COLOR_DESTACADO = "D7E5ED"
+COLOR_ZEBRA = "EFEFEF"
 COLOR_BLANCO = "FFFFFF"
-COLOR_BORDE = "C9BFA0"
+COLOR_BORDE = "CBD5E1"
 
-fuente_titulo = Font(name="Arial", size=14, bold=True, color=COLOR_MUSGO)
-fuente_subtitulo = Font(name="Arial", size=10, italic=True, color="555555")
-fuente_cabecera = Font(name="Arial", size=11, bold=True, color=COLOR_BLANCO)
+fuente_titulo = Font(name="Arial", size=14, bold=True, color="0F172A")
+fuente_subtitulo = Font(name="Arial", size=10, italic=True, color="475569")
+fuente_cabecera = Font(name="Arial", size=11, bold=True, color="0F172A")
 fuente_dato = Font(name="Arial", size=10)
 fuente_codigo = Font(name="Courier New", size=9)
 
 fill_cabecera = PatternFill(start_color=COLOR_CABECERA, end_color=COLOR_CABECERA, fill_type="solid")
+fill_destacado = PatternFill(start_color=COLOR_DESTACADO, end_color=COLOR_DESTACADO, fill_type="solid")
 fill_zebra = PatternFill(start_color=COLOR_ZEBRA, end_color=COLOR_ZEBRA, fill_type="solid")
 
 borde_fino = Border(

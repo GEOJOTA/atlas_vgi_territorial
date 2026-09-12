@@ -648,104 +648,127 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
     const tieneRiesgo = inf.areasRiesgo.length > 0;
     const esUrbano = inf.limiteUrbano;
     const prohibidosLista = (prc && prc.usosProhibidosDetallados) ? prc.usosProhibidosDetallados : [
-      'Industrias de todo tipo (molestas, insalubres, contaminantes o peligrosas).',
-      'Grandes bodegas de acopio y centros de distribución logística.',
-      'Talleres automotrices pesados y estaciones de servicio en pasajes interiores.',
-      'Actividades de ocio con música amplificada que vulneren el D.S. N° 38/2011 MMA.'
+      'Industrias de todo tipo (peligrosas, insalubres, contaminantes y molestas), fábricas y maestranzas.',
+      'Almacenamiento y Logística: Grandes bodegas de acopio mayorista y centros de distribución logística.',
+      'Servicios Automotrices de Alto Impacto: Estaciones de servicio en calles locales, talleres de desabolladura y pintura al horno, desarmadurías.',
+      'Transporte: Terminales de buses interurbanos o rurales y terminales de camiones de alto tonelaje.',
+      'Esparcimiento Ruidoso: Discotecas y salas de eventos con música amplificada colindantes con viviendas (D.S. N° 38/2011 MMA).'
     ];
 
     return `
       <div class="ficha-normativa-hud">
+        <!-- Encabezado de Estado y Geolocalización -->
         <div class="ficha-normativa-header">
           <span class="badge-alerta-normativa ${tieneRiesgo ? 'peligro' : 'seguro'}">
-            ${tieneRiesgo ? '⚠️ ZONA CON RESTRICCIÓN DE RIESGO' : '✅ ÁREA CONFORME A NORMATIVA'}
+            ${tieneRiesgo ? '⚠️ ATENCIÓN: ÁREA AFECTA A RESTRICCIÓN DE RIESGO NATURAL (Art. 2.1.17 OGUC)' : '✅ CONFORME A NORMATIVA VGI (SIN GRAVAMEN DE RIESGO)'}
           </span>
-          <span class="ficha-normativa-id">LAT ${c.lat.toFixed(4)}° | LON ${c.lng.toFixed(4)}° // SIRGAS WGS84</span>
+          <span class="ficha-normativa-id">
+            📍 LAT ${c.lat.toFixed(5)}° S | LON ${c.lng.toFixed(5)}° O // SIRGAS-Chile / WGS84 (EPSG:4326)
+          </span>
         </div>
 
         <div class="ficha-normativa-cuerpo">
-          <div class="campo-normativo ancho-completo">
-            <span class="etiqueta-normativa">Zonificación PRC Santiago & Instrumento Local:</span>
-            <span class="valor-normativo zona-destacada">${prc ? prc.zona : 'Zona D'} — ${prc ? prc.nombreZona : 'Residencial Mixta Poniente'}</span>
-            <div class="meta-ordenanza-prc">
-              📜 <strong>Ordenanza Local:</strong> ${prc && prc.articuloOrdenanza ? prc.articuloOrdenanza : 'Artículo 26 de la Ordenanza Local del PRC de Santiago'} 
-              <br><span>Aprobación: ${prc && prc.decreto ? prc.decreto : 'Resolución N° 26 (D.O. 27/01/1990)'}</span>
+          <!-- Tarjeta 1: Instrumento Regulador y Zonificación PRC -->
+          <div class="caja-tarjeta-normativa">
+            <span class="etiqueta-normativa-card">🏛️ Instrumento Regulador & Zonificación Comunal:</span>
+            <div class="valor-normativo-destacado">${prc ? prc.zona : 'Zona D'} — ${prc ? prc.nombreZona : 'Residencial Mixta Poniente'}</div>
+            <div class="meta-ordenanza-prc" style="margin-top:6px; font-size:0.92rem; color:var(--tinta-suave); line-height:1.6;">
+              📜 <strong>Ordenanza Local:</strong> ${prc && prc.articuloOrdenanza ? prc.articuloOrdenanza : 'Artículo 26 de la Ordenanza Local del PRC de Santiago'}
+              <br>⚖️ <strong>Decreto / Aprobación D.O.:</strong> ${prc && prc.decreto ? prc.decreto : 'Resolución N° 26 (D.O. 27/01/1990) y modificaciones vigentes'}
+            </div>
+            <div class="grilla-2col-normativa" style="margin-top:12px; padding-top:12px; border-top:1px dashed var(--linea);">
+              <div>
+                <span style="font-size:0.8rem; color:var(--tinta-tenue); display:block; text-transform:uppercase; font-weight:700;">Límite Urbano Oficial (Art. 52 LGUC):</span>
+                <strong style="color:${esUrbano ? '#34d399' : '#f59e0b'}; font-size:0.95rem;">${esUrbano ? '✅ Dentro del Límite Urbano Oficial' : '⚠️ Área de Extensión / Condición Especial'}</strong>
+              </div>
+              ${inf.unidadVecinal ? `
+                <div>
+                  <span style="font-size:0.8rem; color:var(--tinta-tenue); display:block; text-transform:uppercase; font-weight:700;">Unidad Vecinal Oficial (RSH / MDS):</span>
+                  <strong style="color:var(--tinta); font-size:0.95rem;">U.V. N° ${inf.unidadVecinal.numero} (${inf.unidadVecinal.comuna})</strong>
+                </div>
+              ` : ''}
             </div>
           </div>
 
-          <div class="campo-normativo">
-            <span class="etiqueta-normativa">Límite Urbano Oficial (Art. 52 LGUC):</span>
-            <span class="valor-normativo">${esUrbano ? '✅ Dentro del Límite Urbano Oficial' : '⚠️ Área de Extensión / Especial'}</span>
-          </div>
-
-          ${inf.unidadVecinal ? `
-            <div class="campo-normativo">
-              <span class="etiqueta-normativa">Unidad Vecinal Oficial (RSH / MDS):</span>
-              <span class="valor-normativo">U.V. N° ${inf.unidadVecinal.numero} (${inf.unidadVecinal.comuna})</span>
-            </div>
-          ` : ''}
-
-          <div class="campo-normativo ancho-completo">
-            <span class="etiqueta-normativa">Usos de Suelo Permitidos (UPERM):</span>
-            <p class="texto-normativo permitido">${prc ? (prc.usosPermitidosDetalle || prc.usosPermitidos) : 'Residencial (vivienda unifamiliar/colectiva), equipamiento vecinal (comercio hasta 250 m², educación básica, salud ambulatoria, servicios inofensivos), áreas verdes y espacio público.'}</p>
-          </div>
-
-          <div class="campo-normativo ancho-completo campo-prohibidos">
-            <span class="etiqueta-normativa etiqueta-prohibido">Usos Prohibidos y Principio de Exclusión Negativa (UPROH - Art. 2.1.24 OGUC):</span>
-            <p class="nota-exclusion-oguc">
-              ⚖️ <em>"Todo uso no mencionado expresamente como permitido se entiende legalmente prohibido" (Art. 2.1.24 OGUC). En específico, para esta zona se prohíben taxativamente:</em>
+          <!-- Tarjeta 2: Usos de Suelo Permitidos (UPERM) -->
+          <div class="caja-tarjeta-normativa caja-permitidos">
+            <span class="etiqueta-normativa-card" style="color:#34d399;">✅ Usos de Suelo Permitidos (UPERM):</span>
+            <p class="texto-normativo permitido" style="margin:6px 0 0 0; font-size:0.96rem; color:var(--tinta-suave); line-height:1.65;">
+              ${prc ? (prc.usosPermitidosDetalle || prc.usosPermitidos) : 'Residencial (vivienda unifamiliar/colectiva), equipamiento vecinal (comercio minorista hasta 250 m², educación básica, salud ambulatoria, servicios inofensivos), áreas verdes públicas y espacios comunitarios.'}
             </p>
-            <ul class="lista-riesgos lista-prohibidos">
-              ${prohibidosLista.map(item => `<li>🚫 ${item}</li>`).join('')}
+          </div>
+
+          <!-- Tarjeta 3: Usos Prohibidos (UPROH - Exclusión Negativa Art. 2.1.24 OGUC) -->
+          <div class="caja-tarjeta-normativa caja-prohibidos">
+            <span class="etiqueta-normativa-card" style="color:#fbbf24;">🚫 Usos Expresamente Prohibidos (UPROH) & Principio de Exclusión Negativa (Art. 2.1.24 OGUC):</span>
+            <div style="background:rgba(245, 158, 11, 0.12); border:1.5px solid var(--ocre); border-radius:8px; padding:12px; margin:8px 0 12px 0; font-size:0.88rem; color:var(--tinta-suave);">
+              ⚖️ <em>"Todo uso, destino o actividad que no se encuentre expresamente individualizado como permitido en la Ordenanza Local se entiende legalmente prohibido" (Art. 2.1.24 OGUC). En específico, para esta zona rigen las siguientes prohibiciones taxativas:</em>
+            </div>
+            <ul class="lista-riesgos lista-prohibidos" style="margin:0; padding-left:20px; color:var(--tinta-suave); font-size:0.92rem; line-height:1.65;">
+              ${prohibidosLista.map(item => `<li style="margin-bottom:6px;">❌ <strong>${item}</strong></li>`).join('')}
             </ul>
           </div>
 
-          ${tieneRiesgo ? `
-            <div class="campo-normativo alerta-box">
-              <span class="etiqueta-normativa etiqueta-alerta">Gravamen por Riesgo Natural (Art. 2.1.17 OGUC):</span>
-              <ul class="lista-riesgos">
+          <!-- Tarjeta 4: Gravámenes y Zonas de Riesgo Natural (Art. 2.1.17 OGUC) -->
+          <div class="caja-tarjeta-normativa ${tieneRiesgo ? 'caja-riesgo' : ''}">
+            <span class="etiqueta-normativa-card" style="color:${tieneRiesgo ? '#f87171' : '#34d399'};">
+              ${tieneRiesgo ? '⚠️ Gravamen por Riesgo Natural & Falla Geológica (Art. 2.1.17 OGUC):' : '🛡️ Evaluación de Riesgo Natural (Art. 2.1.17 OGUC):'}
+            </span>
+            ${tieneRiesgo ? `
+              <ul class="lista-riesgos" style="margin:6px 0 0 0; padding-left:20px; color:#fecdd3; font-size:0.92rem;">
                 ${inf.areasRiesgo.map(r => `<li><strong>${r.tipo}:</strong> ${r.norma} <em>(${r.fuente})</em></li>`).join('')}
               </ul>
-            </div>
-          ` : ''}
-
-          ${inf.patrimonio.length > 0 ? `
-            <div class="campo-normativo patrimonio-box">
-              <span class="etiqueta-normativa etiqueta-patrimonio">Protección Patrimonial Normativa (ICH / ZCH / Ley 17.288):</span>
-              <ul class="lista-patrimonio">
-                ${inf.patrimonio.map(p => `<li>🏛️ ${p.nombre} (${p.categoria}) — ${p.distanciaMetros === 0 ? 'En zona protegida' : `A ${p.distanciaMetros} m de distancia`}</li>`).join('')}
-              </ul>
-            </div>
-          ` : ''}
-
-          <!-- Bloque de Localización de Ordenanzas Oficiales -->
-          <div class="bloque-ordenanzas">
-            <span class="etiqueta-normativa etiqueta-fuente">📖 ¿Dónde encontrar las ordenanzas oficiales completas?</span>
-            <ul class="lista-enlaces-ordenanzas">
-              <li>
-                <strong>Portal IPT MINVU (Expediente digital oficial):</strong><br>
-                <a href="https://portalipt.minvu.cl/instrumentos/13101" target="_blank" rel="noopener noreferrer">portalipt.minvu.cl/instrumentos/13101</a> (Texto en PDF de la Ordenanza Local, Memoria y Planos de Zonificación Oficial 1:5.000).
-              </li>
-              <li style="margin-top:5px;">
-                <strong>DOM I. Municipalidad de Santiago:</strong><br>
-                <a href="https://www.munistgo.cl/plan-regulador/" target="_blank" rel="noopener noreferrer">munistgo.cl/plan-regulador/</a> (Texto refundido y trámites de CIP en Amunátegui 980, piso 2).
-              </li>
-              <li style="margin-top:5px;">
-                <strong>Biblioteca del Congreso Nacional (LeyChile):</strong><br>
-                <a href="https://www.bcn.cl/leychile/navegar?idNorma=13560" target="_blank" rel="noopener noreferrer">bcn.cl/leychile (LGUC DFL 458 / OGUC DS 47)</a>.
-              </li>
-            </ul>
+            ` : `
+              <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave);">
+                ✅ El punto consultado se encuentra <strong>libre de afección por zonas de riesgo natural</strong> (inundación, remoción en masa o fallas geológicas normadas en Art. 2.1.17 OGUC).
+              </p>
+            `}
           </div>
 
-          <!-- Disclaimer Normativo Legal Sintetizado -->
-          <div class="disclaimer-normativo">
-            <strong>⚠️ AVISO LEGAL:</strong> ${TEXTO_DISCLAIMER_LEGAL}
+          <!-- Tarjeta 5: Protección Patrimonial (ZCH / ICH / Ley 17.288) -->
+          <div class="caja-tarjeta-normativa caja-patrimonio">
+            <span class="etiqueta-normativa-card" style="color:#c084fc;">🏛️ Protección Patrimonial Normativa (ICH / ZCH / Ley N° 17.288 CMN):</span>
+            ${inf.patrimonio.length > 0 ? `
+              <ul class="lista-patrimonio" style="margin:6px 0 0 0; padding-left:20px; color:var(--tinta-suave); font-size:0.92rem;">
+                ${inf.patrimonio.map(p => `<li>🏛️ <strong>${p.nombre}</strong> (${p.categoria}) — ${p.distanciaMetros === 0 ? 'En zona protegida' : `A ${p.distanciaMetros} m de distancia`}</li>`).join('')}
+              </ul>
+            ` : `
+              <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave);">
+                Fuera del perímetro inmediato de Inmuebles o Zonas de Conservación Histórica declaradas.
+              </p>
+            `}
+          </div>
+
+          <!-- Tarjeta 6: Catálogo de Fuentes y Ordenanzas Oficiales -->
+          <div class="caja-tarjeta-normativa caja-fuentes">
+            <span class="etiqueta-normativa-card" style="color:#38bdf8;">📖 Expedientes Digitales y Ordenanzas Oficiales del Estado:</span>
+            <div class="grilla-2col-normativa" style="margin-top:10px;">
+              <div style="background:rgba(56, 189, 248, 0.08); border:1px solid var(--linea-tarjeta); border-radius:8px; padding:12px;">
+                <strong style="color:var(--agua); font-size:0.9rem;">Portal IPT MINVU (Código 13101):</strong><br>
+                <span style="font-size:0.82rem; color:var(--tinta-suave);">Texto PDF de Ordenanza Local, Memoria y Planos 1:5.000.</span><br>
+                <a href="https://portalipt.minvu.cl/instrumentos/13101" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;">portalipt.minvu.cl/instrumentos/13101 ↗</a>
+              </div>
+              <div style="background:rgba(56, 189, 248, 0.08); border:1px solid var(--linea-tarjeta); border-radius:8px; padding:12px;">
+                <strong style="color:var(--agua); font-size:0.9rem;">DOM I. Municipalidad de Santiago:</strong><br>
+                <span style="font-size:0.82rem; color:var(--tinta-suave);">Trámite de CIP Oficial (Amunátegui 980, piso 2).</span><br>
+                <a href="https://www.munistgo.cl/plan-regulador/" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;">munistgo.cl/plan-regulador/ ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjeta 7: Disclaimer Normativo Legal -->
+          <div class="caja-tarjeta-normativa caja-disclaimer">
+            <span class="etiqueta-normativa-card" style="color:#cbd5e1;">⚠️ Aviso Legal & Descargo de Responsabilidad Jurídica:</span>
+            <p style="margin:4px 0 0 0; font-size:0.84rem; color:var(--tinta-tenue); line-height:1.6;">
+              ${TEXTO_DISCLAIMER_LEGAL}
+            </p>
           </div>
         </div>
 
-        <div class="ficha-normativa-acciones">
-          <button type="button" class="accion" id="btn-descargar-cin-txt">📄 Descargar Certificado CIN-VGI (.txt)</button>
-          <button type="button" class="accion secundaria" id="btn-cerrar-ficha-normativa">Cerrar</button>
+        <!-- Botones de Acción -->
+        <div class="ficha-normativa-acciones" style="display:flex; gap:12px; justify-content:flex-end; margin-top:8px;">
+          <button type="button" class="accion" id="btn-descargar-cin-txt" style="font-size:0.92rem; padding:10px 18px;">📄 Descargar Certificado CIN-VGI (.txt)</button>
+          <button type="button" class="accion secundaria" id="btn-cerrar-ficha-normativa" style="font-size:0.92rem; padding:10px 18px;">Cerrar Ficha</button>
         </div>
       </div>
     `;

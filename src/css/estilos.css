@@ -632,6 +632,133 @@ button.accion.secundaria:hover {
   font-size: 1.15rem;
 }
 
+/* ==========================================================================
+   FICHA INSPECTOR NORMATIVO (CUADRADOS ELEVADOS & ALTO CONSTRASTE)
+   ========================================================================== */
+.ficha-normativa-hud {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--papel-alto);
+  border: 2.5px solid var(--musgo);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--sombra-lg);
+}
+
+.ficha-normativa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--linea);
+}
+
+.badge-alerta-normativa {
+  font-family: var(--fuente-titulos);
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-alerta-normativa.seguro {
+  background: rgba(16, 185, 129, 0.2);
+  border: 2px solid var(--esmeralda);
+  color: #34d399;
+}
+
+.badge-alerta-normativa.peligro {
+  background: rgba(244, 63, 94, 0.2);
+  border: 2px solid var(--alerta);
+  color: #fecdd3;
+}
+
+.ficha-normativa-id {
+  font-family: var(--fuente-datos);
+  font-size: 0.85rem;
+  color: var(--tinta-tenue);
+  font-weight: 600;
+}
+
+.ficha-normativa-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.caja-tarjeta-normativa {
+  background: var(--papel-tarjeta);
+  border: 2px solid var(--linea-tarjeta);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--sombra-sm);
+  transition: all 0.2s ease;
+}
+
+.caja-tarjeta-normativa:hover {
+  border-color: var(--musgo);
+  background: var(--papel-hover);
+  transform: translateY(-2px);
+}
+
+.caja-tarjeta-normativa.caja-permitidos {
+  border-left: 6px solid var(--esmeralda);
+}
+
+.caja-tarjeta-normativa.caja-prohibidos {
+  border-left: 6px solid var(--ocre);
+}
+
+.caja-tarjeta-normativa.caja-riesgo {
+  border-left: 6px solid var(--alerta);
+}
+
+.caja-tarjeta-normativa.caja-patrimonio {
+  border-left: 6px solid var(--violeta);
+}
+
+.caja-tarjeta-normativa.caja-fuentes {
+  border-left: 6px solid var(--agua);
+}
+
+.caja-tarjeta-normativa.caja-disclaimer {
+  border-left: 6px solid #64748b;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.grilla-2col-normativa {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.etiqueta-normativa-card {
+  font-family: var(--fuente-titulos);
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--agua);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.valor-normativo-destacado {
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
 /* Identidad Cromática por Paneles */
 #panel-explorador-osm .bloque { border-top: 5px solid var(--ocre); }
 #panel-calidad-ohsome .bloque { border-top: 5px solid var(--violeta); }

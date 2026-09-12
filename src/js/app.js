@@ -1597,48 +1597,55 @@ async function manejarConsultaOhsome() {
     let htmlBadgeVersion = '';
     if (indicadores.fueFallback) {
       htmlBadgeVersion = `
-        <div class="aviso" style="background:#FFF3CD; border-left:4px solid #F39C12; color:#856404; margin-bottom:14px; font-size:0.85rem;">
-          ℹ️ <strong>Conmutación automática a ohsome API v1:</strong> La consulta solicitada a la API v2 no pudo autenticarse (${indicadores.motivoFallback || 'Requiere API Key válida de HeiGIT'}). Se utilizó exitosamente <strong>ohsome API v1 (Motor OSHDB)</strong> sin interrumpir el análisis.
+    let htmlBadgeVersion = '';
+    if (indicadores.fueFallback) {
+      htmlBadgeVersion = `
+        <div class="caja-cuadrado" style="background:rgba(245, 158, 11, 0.12); border-left:6px solid var(--ocre); border-radius:12px; padding:16px; margin-bottom:18px;">
+          <strong style="color:var(--ocre); font-size:0.95rem;">ℹ️ Conmutación Automática a ohsome API v1 (Motor OSHDB):</strong><br>
+          <span style="font-size:0.88rem; color:var(--tinta-suave);">La consulta solicitada a la API v2 no pudo autenticarse (${indicadores.motivoFallback || 'Requiere API Key válida de HeiGIT'}). Se ejecutó exitosamente la consulta mediante <strong>ohsome API v1</strong> garantizando la continuidad operativa.</span>
         </div>
       `;
     } else {
-      const colorVersion = indicadores.version === 'v2' ? '#1C523A' : '#35586B';
+      const colorVersion = indicadores.version === 'v2' ? 'var(--esmeralda)' : 'var(--agua)';
       htmlBadgeVersion = `
-        <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:12px; padding:4px 10px; background:var(--papel-alto); border:1px solid var(--linea); border-radius:12px; font-size:0.8rem;">
-          <span style="font-weight:bold; color:${colorVersion};">● ohsome API ${indicadores.version.toUpperCase()}</span>
-          <span style="color:var(--tinta-suave);">Motor: ${indicadores.motor}</span>
+        <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:16px; padding:6px 14px; background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:12px; font-size:0.86rem; box-shadow:var(--sombra-sm);">
+          <span style="font-weight:800; color:${colorVersion}; font-family:var(--fuente-datos);">● OHSOME API ${indicadores.version.toUpperCase()}</span>
+          <span style="color:var(--tinta-suave); font-weight:600;">Motor Analytics: ${indicadores.motor}</span>
         </div>
       `;
     }
 
-    // Badge de métrica geométrica especializada según API
+    // Indicadores métricos geométricos
     let htmlMetricaGeo = '';
     if (indicadores.metricaGeometrica) {
       if (indicadores.metricaGeometrica.tipo === 'longitud') {
         htmlMetricaGeo = `
-          <div class="indicador" style="border-left: 3px solid #2E8B57;">
-            <span class="valor">${indicadores.metricaGeometrica.valorKm.toLocaleString()} km</span>
-            <span class="etiqueta">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorMetros.toLocaleString()} m)</span>
+          <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--esmeralda);">
+            <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">MAGNITUD LINEAL EN RED</span>
+            <div style="font-size:1.6rem; font-weight:900; color:#34d399; font-family:var(--fuente-titulos);">${indicadores.metricaGeometrica.valorKm.toLocaleString('es-CL')} km</div>
+            <span style="font-size:0.82rem; color:var(--tinta-suave);">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorMetros.toLocaleString('es-CL')} m lineales)</span>
           </div>
         `;
       } else if (indicadores.metricaGeometrica.tipo === 'superficie') {
         htmlMetricaGeo = `
-          <div class="indicador" style="border-left: 3px solid #B8860B;">
-            <span class="valor">${indicadores.metricaGeometrica.valorM2.toLocaleString('es-CL')} m²</span>
-            <span class="etiqueta">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorHectareas.toLocaleString('es-CL')} ha / ${indicadores.metricaGeometrica.valorKm2} km²) [EPSG:32719]</span>
+          <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--ocre);">
+            <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">COBERTURA DE SUPERFICIE</span>
+            <div style="font-size:1.5rem; font-weight:900; color:#fbbf24; font-family:var(--fuente-titulos);">${indicadores.metricaGeometrica.valorM2.toLocaleString('es-CL')} m²</div>
+            <span style="font-size:0.82rem; color:var(--tinta-suave);">${indicadores.metricaGeometrica.etiqueta} (${indicadores.metricaGeometrica.valorHectareas.toLocaleString('es-CL')} ha / ${indicadores.metricaGeometrica.valorKm2} km²) [EPSG:32719]</span>
           </div>
         `;
       }
     } else {
       htmlMetricaGeo = `
-        <div class="indicador" style="border-left: 3px solid #4682B4;">
-          <span class="valor">${indicadores.elementosAhora.toLocaleString()}</span>
-          <span class="etiqueta">Entidad puntual (puntos / nodos discretos)</span>
+        <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--agua);">
+          <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">TIPO DE GEOMETRÍA</span>
+          <div style="font-size:1.4rem; font-weight:900; color:#38bdf8; font-family:var(--fuente-titulos);">${indicadores.elementosAhora.toLocaleString('es-CL')} Entidades</div>
+          <span style="font-size:0.82rem; color:var(--tinta-suave);">Entidad de geometría puntual (nodos / puntos discretos en WGS84)</span>
         </div>
       `;
     }
 
-    // Unificación de series cronológicas anuales (elementos, usuarios, contribuciones)
+    // Unificación de series cronológicas anuales
     const mapaSeries = {};
     (indicadores.elementosPorAnio || []).forEach(item => {
       mapaSeries[item.fecha] = { fecha: item.fecha, elementos: item.valor, usuarios: '—', contribuciones: '—' };
@@ -1655,9 +1662,9 @@ async function manejarConsultaOhsome() {
     const filasSerie = Object.values(mapaSeries).sort((a, b) => a.fecha.localeCompare(b.fecha)).map(p => `
       <tr>
         <td><strong>${p.fecha}</strong></td>
-        <td>${typeof p.elementos === 'number' ? p.elementos.toLocaleString() : p.elementos}</td>
-        <td>${typeof p.usuarios === 'number' ? p.usuarios.toLocaleString() : p.usuarios}</td>
-        <td>${typeof p.contribuciones === 'number' ? p.contribuciones.toLocaleString() : p.contribuciones}</td>
+        <td>${typeof p.elementos === 'number' ? p.elementos.toLocaleString('es-CL') : p.elementos}</td>
+        <td>${typeof p.usuarios === 'number' ? p.usuarios.toLocaleString('es-CL') : p.usuarios}</td>
+        <td>${typeof p.contribuciones === 'number' ? p.contribuciones.toLocaleString('es-CL') : p.contribuciones}</td>
       </tr>
     `).join('');
 
@@ -1669,106 +1676,123 @@ async function manejarConsultaOhsome() {
       : '—';
     const ratioEdicion = indicadores.ratioContribucionPorUsuario ? `${indicadores.ratioContribucionPorUsuario} edit/user` : '—';
 
-    // Lista de referencias académicas y bibliografía científica
+    // Lista de referencias académicas
     const listaRefs = (indicadores.referencias || []).map(r => `
-      <li style="margin-bottom:6px; font-size:0.78rem; line-height:1.4;">
+      <li style="margin-bottom:8px; font-size:0.84rem; line-height:1.5;">
         <strong>${r.autor}</strong> — <em>${r.titulo}</em>.
-        ${r.doi ? `<a href="https://doi.org/${r.doi}" target="_blank" rel="noopener" style="color:var(--musgo); text-decoration:underline;">doi:${r.doi}</a>` : ''}
-        ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener" style="color:var(--musgo); text-decoration:underline;">${r.url}</a>` : ''}
+        ${r.doi ? `<br><a href="https://doi.org/${r.doi}" target="_blank" rel="noopener" style="color:var(--musgo); text-decoration:underline;">https://doi.org/${r.doi} ↗</a>` : ''}
+        ${r.url ? `<br><a href="${r.url}" target="_blank" rel="noopener" style="color:var(--musgo); text-decoration:underline;">${r.url} ↗</a>` : ''}
       </li>
     `).join('');
 
-    // Cálculo de indicadores intrínsecos de calidad OQT (ohsome Quality Analyst / Herfort et al., 2023)
+    // Índice OQT de Saturación y Madurez Territorial (HeiGIT / Herfort et al., 2023)
     let htmlOQT = '';
     if (window.ModuloCalidadAnalyst) {
       const oqt = window.ModuloCalidadAnalyst.calcularIndicadoresOQT(indicadores, []);
       htmlOQT = `
-        <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--musgo); padding:14px; margin-top:16px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <div class="caja-cuadrado" style="border:2px solid var(--violeta); background:var(--papel-alto); padding:24px; margin-top:22px; border-top:6px solid var(--violeta);">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--linea); padding-bottom:12px; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
             <div>
-              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase; letter-spacing:0.06em;">[OQT // OHSOME QUALITY ANALYST FRAMEWORK]</span>
-              <h4 style="margin:2px 0 0 0; font-size:1rem; font-family:var(--fuente-datos);">Índice de Saturación y Madurez Territorial (HeiGIT / ISO 19157)</h4>
+              <span style="font-family:var(--fuente-datos); font-size:0.78rem; color:var(--violeta); text-transform:uppercase; letter-spacing:0.06em; font-weight:800;">[MARCO HEIGIT OQT // OHSOME QUALITY ANALYST]</span>
+              <h3 style="margin:4px 0 0 0; font-size:1.35rem; color:#ffffff;">Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)</h3>
             </div>
-            <span style="font-family:var(--fuente-datos); font-size:0.8rem; background:var(--papel); border:1px solid var(--musgo); padding:3px 8px; font-weight:600; color:var(--musgo);">Score de Madurez: ${oqt.scoreSaturacion}/100</span>
+            <div style="font-family:var(--fuente-datos); font-size:1.1rem; background:rgba(168, 85, 247, 0.18); border:2px solid var(--violeta); padding:6px 16px; border-radius:12px; font-weight:800; color:#e9d5ff;">
+              Score de Madurez: ${oqt.scoreSaturacion}/100
+            </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:10px;">
-            <div style="background:var(--papel); padding:10px; border:1px solid var(--linea);">
-              <span style="font-size:0.7rem; font-family:var(--fuente-datos); color:var(--tinta-suave); display:block;">ESTADO DE SATURACIÓN</span>
-              <strong style="font-size:1.02rem; color:var(--musgo); font-family:var(--fuente-datos);">${oqt.saturacion}</strong>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-bottom:16px;">
+            <div style="background:var(--papel-tarjeta); padding:16px; border:2px solid var(--linea-tarjeta); border-radius:10px;">
+              <span style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); display:block; font-weight:700;">ESTADO DE SATURACIÓN FISICA</span>
+              <strong style="font-size:1.15rem; color:var(--violeta); font-family:var(--fuente-titulos); font-weight:900;">${oqt.saturacion}</strong>
             </div>
-            <div style="background:var(--papel); padding:10px; border:1px solid var(--linea);">
-              <span style="font-size:0.7rem; font-family:var(--fuente-datos); color:var(--tinta-suave); display:block;">TENDENCIA ESPACIO-TEMPORAL</span>
-              <strong style="font-size:0.92rem; color:var(--tinta);">${oqt.tendencia}</strong>
+            <div style="background:var(--papel-tarjeta); padding:16px; border:2px solid var(--linea-tarjeta); border-radius:10px;">
+              <span style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); display:block; font-weight:700;">TENDENCIA ESPACIO-TEMPORAL</span>
+              <strong style="font-size:1.05rem; color:#ffffff; font-weight:800;">${oqt.tendencia}</strong>
             </div>
           </div>
-          <p class="descripcion" style="margin:0; font-size:0.78rem;">
-            Marco metodológico: Herfort et al. (2023). <em>A framework for assessing completeness in OpenStreetMap</em>. El índice evalúa la estabilidad de la curva acumulativa de edición. Una pendiente atenuada indica que la cobertura geométrica básica está consolidada en el territorio, permitiendo a la gestión territorial focalizarse en la actualización de microatributos de accesibilidad y fiscalización de servicios.
-          </p>
+
+          <div style="background:rgba(13, 21, 39, 0.85); border:1.5px solid var(--linea-tarjeta); border-radius:10px; padding:16px; font-size:0.9rem; color:var(--tinta-suave); line-height:1.65;">
+            📖 <strong>¿Qué representa este indicador?</strong><br>
+            El <em>Índice de Saturación y Madurez Territorial</em> (Herfort et al., 2023) analiza el comportamiento histórico de la curva acumulativa de elementos espaciales extraídos por ohsome API (OSHDB). Cuando la pendiente anual de la curva de nuevas geometrías se atenúa mientras las ediciones por usuario se mantienen altas, el polígono territorial ha alcanzado la <strong>saturación de huella primaria</strong>. Esto significa que la cartografía base (geometría de calles y edificios) se encuentra consolidada, permitiendo reorientar los esfuerzos comunitarios y municipales hacia la actualización de <strong>microatributos cualitativos de accesibilidad (Art. 2.6.3 / D.S. 50), nombres de locales y fiscalización de ordenanzas</strong>.
+          </div>
         </div>
       `;
     }
 
     contenedor.innerHTML = `
       ${htmlBadgeVersion}
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:16px;">
-        <div class="indicador">
-          <span class="valor">${indicadores.elementosAhora.toLocaleString()}</span>
-          <span class="etiqueta">Elementos vigentes (${indicadores.fechaCorte})</span>
+
+      <!-- Grilla de Tarjetas con Métricas de Calidad -->
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:20px;">
+        <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--musgo);">
+          <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">ELEMENTOS VIGENTES</span>
+          <div style="font-size:1.6rem; font-weight:900; color:#ffffff; font-family:var(--fuente-titulos);">${indicadores.elementosAhora.toLocaleString('es-CL')}</div>
+          <span style="font-size:0.82rem; color:var(--tinta-suave);">Objetos activos al ${indicadores.fechaCorte}</span>
         </div>
+
         ${htmlMetricaGeo}
-        <div class="indicador" style="border-left: 3px solid #8F3A2C;">
-          <span class="valor">${densInfo ? densInfo.densidad.toFixed(1) : '—'}</span>
-          <span class="etiqueta">Densidad espacial (elem / km²)</span>
-          <div style="font-size:0.72rem; color:var(--tinta-suave); margin-top:4px; line-height:1.35;">
-            Área Bbox: ${densInfo ? `<strong>${densInfo.areaM2.toLocaleString('es-CL')} m²</strong> (${densInfo.areaHa.toLocaleString('es-CL')} ha / ${densInfo.areaKm2} km²)` : '—'}<br>
-            Densidad por m²: ${densInfo && densInfo.densidadM2 ? `<strong>${(densInfo.densidadM2 * 10000).toFixed(2)} elem / 10.000 m²</strong> (${(densInfo.densidadM2 * 1000).toFixed(3)} elem / 1.000 m²)` : '—'}<br>
-            <strong style="color:#8F3A2C;">Reproyectado a EPSG:32719</strong> (UTM 19S)
+
+        <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--alerta);">
+          <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">DENSIDAD ESPACIAL METRICA</span>
+          <div style="font-size:1.5rem; font-weight:900; color:#f87171; font-family:var(--fuente-titulos);">${densInfo ? densInfo.densidad.toFixed(1) : '—'} <small style="font-size:0.8rem;">elem/km²</small></div>
+          <div style="font-size:0.8rem; color:var(--tinta-suave); margin-top:4px; line-height:1.4;">
+            Área Bbox: ${densInfo ? `<strong>${densInfo.areaM2.toLocaleString('es-CL')} m²</strong> (${densInfo.areaHa.toLocaleString('es-CL')} ha)` : '—'}<br>
+            Densidad por m²: ${densInfo && densInfo.densidadM2 ? `<strong>${(densInfo.densidadM2 * 10000).toFixed(2)} elem / 10.000 m²</strong>` : '—'}<br>
+            <strong style="color:#f87171;">Reproyectado a EPSG:32719</strong> (Shoelace Gauss)
           </div>
         </div>
-        <div class="indicador">
-          <span class="valor">${ultimosUsuarios}</span>
-          <span class="etiqueta">Colaboradores activos (último período)</span>
+
+        <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--agua);">
+          <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">COLABORADORES ÚNICOS</span>
+          <div style="font-size:1.6rem; font-weight:900; color:#38bdf8; font-family:var(--fuente-titulos);">${ultimosUsuarios}</div>
+          <span style="font-size:0.82rem; color:var(--tinta-suave);">Mapeadores activos en el último período</span>
         </div>
-        <div class="indicador">
-          <span class="valor">${typeof ultimasContribuciones === 'number' ? ultimasContribuciones.toLocaleString() : ultimasContribuciones}</span>
-          <span class="etiqueta">Contribuciones / Ediciones registradas</span>
+
+        <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--violeta);">
+          <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">CONTRIBUCIONES REGISTRADAS</span>
+          <div style="font-size:1.5rem; font-weight:900; color:#c084fc; font-family:var(--fuente-titulos);">${typeof ultimasContribuciones === 'number' ? ultimasContribuciones.toLocaleString('es-CL') : ultimasContribuciones}</div>
+          <span style="font-size:0.82rem; color:var(--tinta-suave);">Ediciones / Commits espacio-temporales</span>
         </div>
-        <div class="indicador">
-          <span class="valor">${ratioEdicion}</span>
-          <span class="etiqueta">Intensidad comunitaria (ediciones / colab)</span>
+
+        <div class="caja-tarjeta-normativa" style="border-left: 6px solid var(--esmeralda);">
+          <span style="font-size:0.8rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700;">INTENSIDAD COMUNITARIA</span>
+          <div style="font-size:1.5rem; font-weight:900; color:#34d399; font-family:var(--fuente-titulos);">${ratioEdicion}</div>
+          <span style="font-size:0.82rem; color:var(--tinta-suave);">Tasa media de ediciones por colaborador</span>
         </div>
       </div>
 
       ${htmlOQT}
 
-      <h3 style="margin-top:20px;">Evolución Histórica Multidimensional (ohsome API v1)</h3>
-      <p class="descripcion">Serie cronológica anual analizada sobre la base histórica de datos espaciales (OSHDB):</p>
-      <table class="tabla-datos">
-        <thead>
-          <tr>
-            <th>Período / Año</th>
-            <th>Elementos Totales</th>
-            <th>Colaboradores Únicos</th>
-            <th>Contribuciones / Cambios</th>
-          </tr>
-        </thead>
-        <tbody>${filasSerie}</tbody>
-      </table>
+      <div class="caja-cuadrado" style="margin-top:22px;">
+        <h3 style="margin-top:0; color:#ffffff;">Evolución Histórica Multidimensional (ohsome API / OSHDB)</h3>
+        <p class="descripcion" style="margin-bottom:14px;">Serie cronológica anual extraída directamente de la base de datos histórica de OpenStreetMap (HeiGIT):</p>
+        <table class="tabla-datos">
+          <thead>
+            <tr>
+              <th>Período / Año</th>
+              <th>Elementos Totales</th>
+              <th>Colaboradores Únicos</th>
+              <th>Contribuciones / Cambios</th>
+            </tr>
+          </thead>
+          <tbody>${filasSerie}</tbody>
+        </table>
+      </div>
 
-      <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:14px; margin-top:16px;">
-        <h4 style="margin:0 0 8px 0; font-size:0.9rem; color:var(--musgo);">📐 Rigor Metodológico y Criterios de Calidad Espacial</h4>
-        <p class="descripcion" style="margin-bottom:8px;">
+      <div class="caja-cuadrado" style="border-left:6px solid var(--musgo); margin-top:22px;">
+        <h4 style="margin:0 0 10px 0; font-size:1.1rem; color:var(--musgo);">📐 Rigor Metodológico, Reproyección y Criterios ISO 19157</h4>
+        <p class="descripcion" style="margin-bottom:10px; font-size:0.92rem; line-height:1.65; color:var(--tinta-suave);">
           <strong>Reproyección Geodésica Rigurosa a EPSG:32719 (WGS 84 / UTM Huso 19 Sur):</strong> Todo cálculo métrico de superficie del Bbox territorial (${densInfo ? `${densInfo.areaM2.toLocaleString('es-CL')} m² / ${densInfo.areaHa.toLocaleString('es-CL')} ha / ${densInfo.areaKm2} km²` : ''}) y densidad espacial de elementos se obtiene proyectando los vértices geográficos mediante las ecuaciones conformes de Transverse Mercator (Snyder, 1987) al sistema oficial de referencia <strong>EPSG:32719</strong> (meridiano central 69°O, elipsoide WGS84, falso este 500.000 m, falso norte 10.000.000 m) y aplicando la fórmula de Gauss (Shoelace). Esto garantiza concordancia con las normas del Instituto Geográfico Militar (IGM) y la Infraestructura de Datos Espaciales de Chile (IDE Chile / SNIT), expresando consistentemente cada dimensión superficial en metros cuadrados (m²), hectáreas (ha) y kilómetros cuadrados (km²).
         </p>
-        <p class="descripcion" style="margin-bottom:8px;">
+        <p class="descripcion" style="margin-bottom:10px; font-size:0.92rem; line-height:1.65; color:var(--tinta-suave);">
           <strong>Sensibilidad geométrica:</strong> Conforme a la API v1 de ohsome, las geometrías lineales evalúan continuidad de red en kilómetros lineales (calles y ciclovías), mientras que los polígonos cuantifican la superficie de huella construida o áreas verdes en hectáreas y metros cuadrados.
         </p>
-        <p class="descripcion" style="margin-bottom:8px;">
+        <p class="descripcion" style="margin-bottom:12px; font-size:0.92rem; line-height:1.65; color:var(--tinta-suave);">
           <strong>Madurez y Linaje:</strong> El ratio de contribuciones por usuario y la masa crítica de colaboradores permiten evaluar si la cartografía de Barrio Brasil depende de pocos mapeadores esporádicos o de una comunidad activa recurrente (Haklay, 2010; Neis & Zipf, 2012).
         </p>
-        <h5 style="margin:12px 0 6px 0; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--tinta-suave);">Referencias Académicas y Documentales:</h5>
-        <ul style="padding-left:18px; margin:0; color:var(--tinta-suave);">
+        <h5 style="margin:14px 0 8px 0; font-size:0.86rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--tinta);">Referencias Académicas y Documentales:</h5>
+        <ul style="padding-left:20px; margin:0; color:var(--tinta-suave);">
           ${listaRefs}
         </ul>
       </div>
