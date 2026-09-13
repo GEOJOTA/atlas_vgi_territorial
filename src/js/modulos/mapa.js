@@ -81,7 +81,8 @@ const ModuloMapa = (() => {
       center: centro,
       zoom: zoom,
       layers: [cartoPositron],
-      zoomControl: true
+      zoomControl: true,
+      preferCanvas: true
     });
 
     const mapasBase = {

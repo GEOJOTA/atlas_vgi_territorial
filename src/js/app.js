@@ -2014,81 +2014,76 @@ function configurarCapasOficialesIDE() {
   const contenedor = document.getElementById('contenedor-botones-oficiales-ide');
   if (!contenedor || !window.ModuloIDEChile) return;
 
+  const todasCapas = window.ModuloIDEChile.obtenerCapasDisponibles();
   const capasMap = {};
-  ModuloIDEChile.obtenerCapasDisponibles().forEach(c => { capasMap[c.id] = c; });
+  todasCapas.forEach(c => { capasMap[c.id] = c; });
 
   const GRUPOS_OFICIALES = [
     {
       id: 'normativa_ipt',
-      nombre: '📜 Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT)',
-      ids: [
-        'minvu_ipt_prc_santiago',
-        'minvu_ipt_prms_usosuelo',
-        'minvu_ipt_limite_urbano',
-        'minvu_ipt_resguardo_infraestructura',
-        'ide_minvu_ipt_prms_riesgo',
-        'minvu_ipt_areas_riesgo'
-      ]
+      nombre: '📜 Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT / DPA)',
+      filtroGrupo: (c) => c.grupo === 'normativa_ipt'
     },
     {
       id: 'medio_ambiente',
-      nombre: '🌳 Medio Ambiente, Parques & Recursos Hídricos (MMA / MINVU / DGA)',
-      ids: [
-        'minvu_ipt_areas_verdes',
-        'minvu_parques',
-        'ide_minvu_inventario_humedales'
-      ]
+      nombre: '🌳 Medio Ambiente, Parques, Recursos Hídricos & Suelos (MMA / MINVU / DGA / CONAF)',
+      filtroGrupo: (c) => c.grupo === 'medio_ambiente_riesgos'
     },
     {
       id: 'comunidades_vivienda',
-      nombre: '👥 Comunidades, Campamentos & Registro Social (MINVU / MDS / INE)',
-      ids: [
-        'ide_minvu_campamentos',
-        'ide_minvu_condominios_sociales',
-        'ide_minvu_unidades_vecinales_rsh',
-        'censo2024_manzanas',
-        'minvu_barrios_historicos',
-        'limite_urbano_censal'
-      ]
+      nombre: '👥 Comunidades, RSH, Vulnerabilidad Socioterritorial & BIDAT (MDS / MINVU / INE)',
+      filtroGrupo: (c) => c.grupo === 'social_comunidades'
     },
     {
       id: 'equipamiento_patrimonio',
-      nombre: '🏛️ Equipamiento Público, Patrimonio & Movilidad (CMN / MINEDUC / MINSAL / MTT / SUBDERE)',
-      ids: [
-        'minvu_patrimonio',
-        'cmn_sitios_memoria',
-        'educacion_escolar',
-        'educacion_superior',
-        'educacion_parvularia',
-        'establecimientos_salud',
-        'bomberos',
-        'carabineros',
-        'estaciones_metro',
-        'red_ferroviaria',
-        'ide_minvu_ciclovias',
-        'ide_subdere_dpa_comunas'
-      ]
+      nombre: '🏛️ Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL)',
+      filtroGrupo: (c) => ['educacion', 'salud', 'patrimonio', 'equipamiento_infraestructura'].includes(c.grupo)
+    },
+    {
+      id: 'seguridad',
+      nombre: '🛡️ Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED)',
+      filtroGrupo: (c) => c.grupo === 'seguridad'
+    },
+    {
+      id: 'movilidad_economico',
+      nombre: '🚲 Movilidad, Transporte, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA)',
+      filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'economico_agricola'].includes(c.grupo)
     }
   ];
 
   contenedor.innerHTML = '';
 
-  GRUPOS_OFICIALES.forEach(grp => {
-    const cabecera = document.createElement('div');
-    cabecera.className = 'cabecera-grupo-oficial';
-    cabecera.innerHTML = grp.nombre;
-    contenedor.appendChild(cabecera);
+  // Render collapsible modern accordions for each macro group
+  GRUPOS_OFICIALES.forEach((grp, idx) => {
+    const capasEnGrupo = todasCapas.filter(grp.filtroGrupo);
+    if (capasEnGrupo.length === 0) return;
 
-    grp.ids.forEach(idCapa => {
-      const def = capasMap[idCapa];
-      if (!def) return;
+    const details = document.createElement('details');
+    details.className = 'acordeon-grupo-oficial';
+    if (idx < 2) details.open = true; // Open first 2 groups by default
 
+    const summary = document.createElement('summary');
+    summary.className = 'cabecera-acordeon-oficial';
+    summary.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+        <span style="font-weight:700; font-size:1.02rem; color:var(--musgo);">${grp.nombre}</span>
+        <span class="badge-acordeon-conteo">${capasEnGrupo.length} CAPAS</span>
+      </div>
+    `;
+    details.appendChild(summary);
+
+    const grillaCapas = document.createElement('div');
+    grillaCapas.className = 'grilla-capas-acordeon';
+
+    capasEnGrupo.forEach(def => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-categoria-oficial';
       btn.id = `btn-oficial-${def.id}`;
       btn.dataset.capa = def.id;
-      btn.title = `${def.descripcion}\nInstitución: ${def.institucion}\nTipo: ${def.tipoServicio}`;
+      btn.title = `${def.descripcion}
+Institución: ${def.institucion}
+Tipo: ${def.tipoServicio}`;
       btn.innerHTML = `
         <span class="icono-cat">${def.icono}</span>
         <div class="info-cat">
@@ -2098,22 +2093,29 @@ function configurarCapasOficialesIDE() {
         <span class="badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
       `;
 
-      btn.addEventListener('click', () => alternarCapaOficialIDE(def.id, btn));
-      contenedor.appendChild(btn);
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alternarCapaOficialIDE(def.id, btn);
+      });
+      grillaCapas.appendChild(btn);
     });
+
+    details.appendChild(grillaCapas);
+    contenedor.appendChild(details);
   });
 
-  // Botón para la capa raster WMS Patrimonio MINVU
+  // WMS Patrimonio MINVU button
   const btnWMS = document.createElement('button');
   btnWMS.type = 'button';
   btnWMS.className = 'btn-categoria-oficial btn-wms-oficial';
   btnWMS.id = 'btn-oficial-wms-patrimonio';
+  btnWMS.style.marginTop = '14px';
   btnWMS.dataset.wms = 'minvu_patrimonio';
   btnWMS.title = 'Superponer la capa oficial de teselas WMS GetMap de Patrimonio MINVU (OGC WMS 1.3.0)';
   btnWMS.innerHTML = `
     <span class="icono-cat">🗺️</span>
     <div class="info-cat">
-      <strong>MINVU WMS Patrimonio</strong>
+      <strong>MINVU WMS Patrimonio en Vivo</strong>
       <small>Servicio OGC GetMap en vivo</small>
     </div>
     <span class="badge-conteo-oficial" style="background:#8F3A2C; color:#FFF;">WMS</span>
