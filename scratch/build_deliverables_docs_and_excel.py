@@ -375,7 +375,7 @@ def build_entregable_02():
     doc = create_doc("ENTREGABLE 02 — Catálogo de Fuentes VGI e Inventario de APIs Abiertas")
     
     add_h1(doc, "1. Descripción del Inventario de Fuentes")
-    add_p(doc, "El Atlas VGI integra en tiempo real 10 plataformas y APIs abiertas de escala global y nacional para la compilación, validación, evaluación de calidad y despliegue de la información geográfica del Barrio Brasil y campus UAH.")
+    add_p(doc, "El Atlas VGI integra en tiempo real 10 plataformas y APIs abiertas de escala global y nacional, además de 74 capas cartográficas oficiales del Estado de Chile para la compilación, validación, evaluación de calidad y despliegue de la información geográfica del Barrio Brasil y campus UAH.")
     
     headers = ["#", "API / Plataforma", "Endpoint Base", "Módulo JS", "Función en el Atlas", "Licencia"]
     rows = [
@@ -388,7 +388,7 @@ def build_entregable_02():
         ["7", "GBIF Occurrence & Species API", "https://api.gbif.org/v1/occurrence/search", "src/js/modulos/gbif.js", "Biodiversidad urbana, autocompletado taxonómico en vivo y calidad Darwin Core.", "CC0 / CC-BY"],
         ["8", "UMap OpenStreetMap France", "https://umap.openstreetmap.fr/es/map/", "src/js/modulos/umap.js", "Integración de proyectos cartográficos colaborativos locales y exportación GeoJSON.", "AGPLv3"],
         ["9", "iNaturalist API", "https://api.inaturalist.org/v1/observations", "src/js/modulos/gbif.js", "Observaciones biológicas de ciencia ciudadana federadas a través de GBIF.", "CC-BY 4.0"],
-        ["10", "IDE Chile / MINVU / INE Censo 2024", "https://geoide.minvu.cl/server/rest/services/", "src/js/modulos/ide_chile.js", "Microdatos Censo 2024, 27 capas oficiales de normativa IPT, áreas verdes y patrimonio.", "Ley 20.285"]
+        ["10", "IDE Chile / MINVU / INE Censo 2024 / BIDAT / GEOMOP", "https://geoide.minvu.cl / https://bidat.gob.cl", "src/js/modulos/ide_chile.js", "Microdatos Censo 2024, 74 capas oficiales de normativa IPT, áreas verdes, patrimonio y vulnerabilidad RSH.", "Ley 20.285 / ODbL"]
     ]
     add_styled_table(doc, headers, rows)
     
