@@ -303,6 +303,11 @@ const ModuloMapa = (() => {
 
     capasTematicasActivas[idCapa] = capa;
     grupoCapasTematicas.addLayer(capa);
+
+    // Ajuste automático de encuadre para que las geometrías aparezcan inmediatamente en pantalla
+    if (opciones.ajustarVista !== false && capa.getBounds && capa.getBounds().isValid()) {
+      mapa.fitBounds(capa.getBounds(), { padding: [40, 40], maxZoom: 16 });
+    }
   }
 
   function removerCapa(idCapa) {

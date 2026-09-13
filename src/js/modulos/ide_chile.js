@@ -1991,8 +1991,8 @@ const ModuloIDEChile = (() => {
     let geojson = null;
     let fuenteUsada = 'Servicio Oficial en Vivo';
 
-    // 1. Intento de consulta en vivo al FeatureServer si está definido (timeout ágil de 2s)
-    if (def.urlServicio && def.tipoServicio.indexOf('FeatureServer') !== -1) {
+    // 1. Intento de consulta en vivo al FeatureServer si es un endpoint REST real (timeout ágil de 2s)
+    if (def.urlServicio && def.urlServicio.includes('/FeatureServer')) {
       const urlLive = `${def.urlServicio}/query?where=1%3D1&geometry=${minX}%2C${minY}%2C${maxX}%2C${maxY}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&f=geojson`;
 
       try {
