@@ -837,7 +837,7 @@ const ModuloIDEChile = (() => {
       id: 'capa_46',
       num_bbdd: 46,
       nombre: "Predios",
-      institucion: "IDE Chile / Geoportal de Chile (Catálogo 35406)",
+      institucion: "Ministerio de Vivienda y Urbanismo (MINVU) / IDE Chile",
       ministerio: "Organismo Público del Estado de Chile",
       tipoServicio: "Servicio OGC / ArcGIS FeatureServer / Shapefile / CSV BIDAT",
       urlServicio: "https://geoportal.cl/geoportal/catalog/35406/Predios",
@@ -847,9 +847,9 @@ const ModuloIDEChile = (() => {
       geometria: "Puntos (Predios Catastrales Georreferenciados)",
       grupo: "normativa_ipt",
       joinInfo: null,
-      descripcion: "Catastro oficial de predios urbanos georreferenciados en Barrio Brasil y Santiago Poniente, conteniendo rol de avalúo, dirección oficial, destino del inmueble, avalúo fiscal, superficie de terreno y construida, y año de construcción. Utilidad territorial: Identificación predial catastral oficial, determinación de avalúo fiscal, destino de suelo y seguimiento a subdivisiones prediales.",
+      descripcion: "Información oficial correspondiente a la división predial (MINVU, Catálogo Geoportal 35406). En el ámbito de estudio de Santiago Centro y Barrio Brasil, comprende el catastro georreferenciado de predios urbanos con rol de avalúo, dirección oficial, destino del inmueble, avalúo fiscal, superficie y año de construcción.",
       declaracion: "Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.",
-      citaAPA: "Estado de Chile. (2026). Predios (Capa N° 46). IDE Chile / Geoportal de Chile (Catálogo 35406). https://geoportal.cl/geoportal/catalog/35406/Predios"
+      citaAPA: "Ministerio de Vivienda y Urbanismo. (2019). Predios (Catálogo N° 35406). IDE Chile / Geoportal de Chile. https://geoportal.cl/geoportal/catalog/35406/Predios"
     },
     'capa_47': {
       id: 'capa_47',
