@@ -32,7 +32,7 @@ El visor cartográfico principal permite consultar e inspeccionar espacialmente 
 3. Al soltar el ratón, se dibujará el rectángulo punteado y se actualizarán automáticamente las coordenadas numéricas en todos los paneles de la plataforma.
 
 ### 1.3 Activación de Capas Temáticas VGI
-Debajo del mapa encontrarás la botonera con las 8 categorías territoriales:
+Debajo del mapa encontrarás la botonera con las 10 categorías territoriales (CAT-01 a CAT-10):
 - 🎓 **CAT-01: Educación y Universidad** (Campus UAH, facultades, bibliotecas)
 - 🏪 **CAT-02: Servicios y Comercio** (locales comerciales, farmacias, bancos)
 - 🚌 **CAT-03: Movilidad y Transporte** (Metro Los Héroes, paraderos Red)

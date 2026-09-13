@@ -1,29 +1,35 @@
 {
   "type": "FeatureCollection",
-  "name": "DIFROL_Pasos_Fronterizos_Habilitados_Chile",
   "features": [
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.0825,
-          -32.8272
+          -71.099538,
+          -44.550542
         ]
       },
       "properties": {
-        "nombre": "Paso Internacional Los Libertadores (Sistema Cristo Redentor)",
-        "pais_vecino": "República Argentina (Provincia de Mendoza)",
-        "region_chilena": "Región de Valparaíso / Conectividad Directa RM Santiago",
-        "ruta_acceso": "Ruta 60 CH (Chile) / Ruta Nacional 7 (Argentina)",
-        "altitud_msnm": 3185,
-        "tipo_paso": "Paso Terrestre Mayor / Carretero Pavimentado",
-        "complejo_fronterizo": "Complejo Fronterizo Los Libertadores (Control Integrado)",
-        "horario_operacion": "24 Horas en temporada estival / Sujeto a vialidad invernal",
-        "flujo_anual": "1.850.000 personas y 85% de la carga terrestre del Mercosur hacia Chile",
-        "decreto_difrol": "D.S. N° 456 MINREL / Convenio Bilateral Chileno-Argentino",
-        "servicios_presentes": "PDI Migraciones, Aduanas (SNA), SAG Sanidad Agropecuaria y Carabineros",
-        "utilidad_territorial": "Principal corredor logístico bioceánico del país; abastecimiento estratégico de alimentos, combustibles y comercio exterior para el Área Metropolitana de Santiago."
+        "nombre": "Río Frías - Appeleg",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta X-25 (ripio)",
+        "complejo": "no aplica",
+        "cota": "925",
+        "reten": "Retén Río Cisnes (F), distante a 20 km del paso.",
+        "latitud": "44° 33’",
+        "longitud": "71° 06’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Coihaique",
+        "comuna": "Lago Verde",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
       }
     },
     {
@@ -31,23 +37,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -69.895,
-          -33.625
+          -71.461155,
+          -39.582476
         ]
       },
       "properties": {
-        "nombre": "Paso Portillo de Piuquenes (Cajón del Maipo)",
-        "pais_vecino": "República Argentina (Valle de Uco / Tunuyán, Mendoza)",
-        "region_chilena": "Región Metropolitana de Santiago (Provincia de Cordillera)",
-        "ruta_acceso": "Ruta G-25 San José de Maipo / Valle del Río Yeso",
-        "altitud_msnm": 4030,
-        "tipo_paso": "Paso Cordillerano Histórico Estival (Trekking / Cabalgatas)",
-        "complejo_fronterizo": "Avanzada Fronteriza San Gabriel (Carabineros de Chile)",
-        "horario_operacion": "Estival Temporal (Diciembre a Marzo)",
-        "flujo_anual": "4.200 turistas y expedicionarios de alta montaña",
-        "decreto_difrol": "D.S. N° 1.205 / Reconocimiento Histórico Ruta Sanmartiniana 1817",
-        "servicios_presentes": "Control de Carabineros y SAG Retén Fronterizo San Gabriel",
-        "utilidad_territorial": "Soberanía territorial en la cuenca alta del Maipo, fomento del turismo de intereses especiales y resguardo de la reserva hídrica de la capital."
+        "nombre": "Mamuil Malal",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 199-CH (pavimento)",
+        "complejo": "Mamuil Malal",
+        "cota": "1210",
+        "reten": "Tenencia Curarrehue (F), distante a 37 km del paso",
+        "latitud": "39° 35’",
+        "longitud": "71° 27’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "La Araucanía",
+        "provincia": "Cautín",
+        "comuna": "Curarrehue",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
       }
     },
     {
@@ -55,23 +68,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.395,
-          -35.989
+          -70.520293,
+          -35.205759
         ]
       },
       "properties": {
-        "nombre": "Paso Internacional Pehuenche",
-        "pais_vecino": "República Argentina (Malargüe, Mendoza)",
-        "region_chilena": "Región del Maule / Macrocentro",
-        "ruta_acceso": "Ruta 115 CH (Pavimentada)",
-        "altitud_msnm": 2553,
-        "tipo_paso": "Paso Carretero Internacional Permanente",
-        "complejo_fronterizo": "Complejo Pehuenche (DIFROL / Gobernación de Talca)",
-        "horario_operacion": "Habilitado todo el año (excepto nevadas extraordinarias)",
-        "flujo_anual": "320.000 pasajeros y carga comercial secundaria",
-        "decreto_difrol": "Tratado de Maipú de Integración y Cooperación",
-        "servicios_presentes": "PDI, Aduana, SAG y Carabineros de Chile",
-        "utilidad_territorial": "Vía de contingencia y redundancia logística metropolitana ante bloqueos por temporales en el Paso Los Libertadores."
+        "nombre": "Vergara",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones y vehículos particulares",
+        "acceso": "camino regional principal, J-55 (suelo natural)",
+        "complejo": "San Pedro de Vergara",
+        "cota": "2505",
+        "reten": "Retén Los Queñes (F), distante a 45 km del paso.",
+        "latitud": "35° 12’",
+        "longitud": "70° 31’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Pehuenche (Chile-Argentina)",
+        "region": "Maule",
+        "provincia": "Curicó",
+        "comuna": "Romeral",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
       }
     },
     {
@@ -79,23 +99,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.4785,
-          -35.197
+          -70.256299,
+          -30.707036
         ]
       },
       "properties": {
-        "nombre": "Paso Vergara (El Planchón)",
-        "pais_vecino": "República Argentina (Malargüe, Mendoza)",
-        "region_chilena": "Región del Maule / Conexión Curicó",
-        "ruta_acceso": "Ruta J-55 Romeral",
-        "altitud_msnm": 2502,
-        "tipo_paso": "Paso Estival Estacional de Cordillera",
-        "complejo_fronterizo": "Población San Pedro (Avanzada Temporal)",
-        "horario_operacion": "Verano (Noviembre a Abril)",
-        "flujo_anual": "15.000 usuarios",
-        "decreto_difrol": "D.S. N° 672 MINREL",
-        "servicios_presentes": "Carabineros y SAG",
-        "utilidad_territorial": "Fiscalización de veranadas ganaderas transfronterizas y prevención de introducción de plagas agrícolas exóticas."
+        "nombre": "Portillo del Ventillo",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4322",
+        "reten": "sin información",
+        "latitud": "30° 43’",
+        "longitud": "70° 16’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
       }
     },
     {
@@ -103,23 +130,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.3015,
-          -18.318
+          -68.585103,
+          -20.558675
         ]
       },
       "properties": {
-        "nombre": "Paso Internacional Chacalluta (Límite Norte)",
-        "pais_vecino": "República del Perú (Departamento de Tacna)",
-        "region_chilena": "Región de Arica y Parinacota",
-        "ruta_acceso": "Ruta 5 Norte Panamericana (Km 2.091)",
-        "altitud_msnm": 65,
-        "tipo_paso": "Paso Terrestre Urbano-Costero de Máximo Flujo Nacional",
-        "complejo_fronterizo": "Complejo Fronterizo Chacalluta (Control Integrado Binacional)",
-        "horario_operacion": "24 Horas / 365 Días continuos",
-        "flujo_anual": "Más de 6.500.000 cruces de personas por año",
-        "decreto_difrol": "Tratado de Lima de 1929 y Convención de Tránsito de 1930",
-        "servicios_presentes": "PDI, SUNAT (Perú), Aduanas de Chile, SAG, SENASA",
-        "utilidad_territorial": "Monitoreo de la movilidad macrofronteriza septentrional e integración económica y sanitaria con la Alianza del Pacífico."
+        "nombre": "Abra Oriente de Napa",
+        "pais": "Bolivia",
+        "trafico": "Solo peatones e importación de mineral de azufre boliviano",
+        "acceso": "camino regional de acceso A-971 (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3785",
+        "reten": "Tenencia Ujina (F), distante a 19 km del paso",
+        "latitud": "20° 30’",
+        "longitud": "68° 35'",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Tarapacá",
+        "provincia": "Tamarugal",
+        "comuna": "Pica",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
       }
     },
     {
@@ -127,23 +161,2386 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.655,
-          -40.715
+          -71.672466,
+          -40.100403
         ]
       },
       "properties": {
-        "nombre": "Paso Internacional Cardenal Antonio Samoré",
-        "pais_vecino": "República Argentina (Villa La Angostura / Bariloche)",
-        "region_chilena": "Región de Los Lagos / Puyehue",
-        "ruta_acceso": "Ruta 215 CH",
-        "altitud_msnm": 1305,
-        "tipo_paso": "Segundo Paso Terrestre Comercial de Chile",
-        "complejo_fronterizo": "Complejo Cardenal Samoré",
-        "horario_operacion": "Continuo 24/7 (Baja cota que facilita operación invernal)",
-        "flujo_anual": "1.100.000 personas y 120.000 camiones de carga",
-        "decreto_difrol": "Tratado de Paz y Amistad de 1984",
-        "servicios_presentes": "PDI, Aduana, SAG y Gendarmería Nacional",
-        "utilidad_territorial": "Conectividad territorial con la Patagonia austral mediante régimen de Chile - Chile a través de territorio argentino."
+        "nombre": "Huahum",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 203-CH (grava tratada)",
+        "complejo": "no aplica",
+        "cota": "635",
+        "reten": "Tenencia Pirihueico (F), distante a 600 metros del paso.",
+        "latitud": "40° 06’",
+        "longitud": "71° 41’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Ríos",
+        "provincia": "Valdivia",
+        "comuna": "Panguipulli",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.299173,
+          -26.873709
+        ]
+      },
+      "properties": {
+        "nombre": "San Francisco",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional con carácter internacional, ruta 31-CH (pavimento básico)",
+        "complejo": "San Franscisco",
+        "cota": "4745",
+        "reten": "Retén Laguna Verde Maricunga (TF), distante a 22 km del paso",
+        "latitud": "26° 52’",
+        "longitud": "68° 18’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración ATACALAR (Chile-Argentina)",
+        "region": "Atacama",
+        "provincia": "Copiapó",
+        "comuna": "Copiapó",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.944538,
+          -40.712339
+        ]
+      },
+      "properties": {
+        "nombre": "Cardenal Antonio Samoré",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 215-CH (pavimento)",
+        "complejo": "Cardenal Antonio Samoré",
+        "cota": "1305",
+        "reten": "Tenencia Pajaritos (F), distante a 22 km del paso",
+        "latitud": "40° 42’",
+        "longitud": "71° 56’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Osorno",
+        "comuna": "Puyehue",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.55561,
+          -45.522297
+        ]
+      },
+      "properties": {
+        "nombre": "Coihaique",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional de carácter internacional, ruta 243-CH (grava tratada)",
+        "complejo": "Coyhaique Alto",
+        "cota": "795",
+        "reten": "Tenencia Coyhaique Alto (F) , distante a 5 km del paso",
+        "latitud": "45° 31’",
+        "longitud": "71° 33’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Coihaique",
+        "comuna": "Coyhaique",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.299035,
+          -28.069793
+        ]
+      },
+      "properties": {
+        "nombre": "Pircas Negras",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta C-33 (grava tratada)",
+        "complejo": "Pircas Negras-Barrancas Blancas",
+        "cota": "4164",
+        "reten": "Retén Sacramento (F), distante a 148 km del paso",
+        "latitud": "28° 04’",
+        "longitud": "69° 18’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Cabecera única en Argentina",
+        "comite": "Comité de Integración ATACALAR (Chile-Argentina)",
+        "region": "Atacama",
+        "provincia": "Copiapó",
+        "comuna": "Tierra Amarilla",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.854088,
+          -47.15769
+        ]
+      },
+      "properties": {
+        "nombre": "Roballos",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta X-83 (ripio)",
+        "complejo": "no aplica",
+        "cota": "715",
+        "reten": "Retén Entrada Baker (F), distante a 11 km del paso",
+        "latitud": "47° 09’",
+        "longitud": "71° 51’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Capitán Prat",
+        "comuna": "Cochrane",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.801323,
+          -34.222483
+        ]
+      },
+      "properties": {
+        "nombre": "Cajón del Maipo",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "camino regional comunal G-465",
+        "complejo": "no aplica",
+        "cota": "3430",
+        "reten": "Tenencia San Gabriel (F), distante a 114 km del paso.",
+        "latitud": "34° 14’",
+        "longitud": "69° 48’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Sin dato/No especificado",
+        "region": "Metropolitana de Santiago",
+        "provincia": "Cordillera",
+        "comuna": "San José de Maipo",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.062858,
+          -23.226611
+        ]
+      },
+      "properties": {
+        "nombre": "Jama Norte y Jama Sur",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "camino regional con carácter internacional, ruta 27-CH (pavimento)",
+        "complejo": "no aplica",
+        "cota": "4200",
+        "reten": "Subcomisaría San Pedro de Atacama, distante a 168 km del paso",
+        "latitud": "23° 13’",
+        "longitud": "67° 03’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración NOA-Norte Grande (Chile-Argentina)",
+        "region": "Antofagasta",
+        "provincia": "El Loa",
+        "comuna": "San Pedro de Atacama",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.261273,
+          -23.844449
+        ]
+      },
+      "properties": {
+        "nombre": "Sico",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 23-CH (grava tratada)",
+        "complejo": "Sico",
+        "cota": "4090",
+        "reten": "Retén Toconao, distante a 185 km del paso y Avanzada El Laco, distante a 15 km del paso.",
+        "latitud": "23° 50’",
+        "longitud": "67° 15’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Cabecera única en Argentina",
+        "comite": "Comité de Integración NOA-Norte Grande (Chile-Argentina)",
+        "region": "Antofagasta",
+        "provincia": "El Loa",
+        "comuna": "San Pedro de Atacama",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.467953,
+          -17.590517
+        ]
+      },
+      "properties": {
+        "nombre": "Visviri",
+        "pais": "Bolivia",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal  A-93 (pavimento básico)",
+        "complejo": "Visviri",
+        "cota": "4064",
+        "reten": "Tenencia Visviri (F), distante a 1,5  km del paso",
+        "latitud": "17° 35’",
+        "longitud": "69° 28’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Cabecera única en Chile",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Arica y Parinacota",
+        "provincia": "Parinacota",
+        "comuna": "Camarones",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.72854,
+          -42.105774
+        ]
+      },
+      "properties": {
+        "nombre": "Río Puelo (Fluvial)",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional comunal no llega al paso, ruta V-721 (ripio)",
+        "complejo": "no aplica",
+        "cota": "220",
+        "reten": "Retén Paso El Bolsón (F), distante a 14 km. del paso.",
+        "latitud": "42° 06’",
+        "longitud": "71° 44’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Llanquihue",
+        "comuna": "Cochamó",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.733333,
+          -45.582608
+        ]
+      },
+      "properties": {
+        "nombre": "Triana",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, X-59 (grava tratada)",
+        "complejo": "no aplica",
+        "cota": "750",
+        "reten": "Retén Lago Cástor (F), distante a 1 km del paso.",
+        "latitud": "45° 55’",
+        "longitud": "71° 39’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Coihaique",
+        "comuna": "Coyhaique",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.124055,
+          -37.453744
+        ]
+      },
+      "properties": {
+        "nombre": "Pichachén",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal Q-45 (ripio)",
+        "complejo": "Pichachén",
+        "cota": "2060",
+        "reten": "Tenencia Antuco (F), distante a 65 km del paso.",
+        "latitud": "37° 27’",
+        "longitud": "71° 07’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Biobío",
+        "provincia": "Biobío",
+        "comuna": "Antuco",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.320283,
+          -48.211554
+        ]
+      },
+      "properties": {
+        "nombre": "Río Mayer, Ribera Norte",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional comunal, ruta X-905 (ripio)",
+        "complejo": "no aplica",
+        "cota": "450",
+        "reten": "Tenencia Río Mayer (F), distante a 200 km del paso.",
+        "latitud": "48° 13’",
+        "longitud": "72° 16’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Capitán Prat",
+        "comuna": "O’Higgins",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.661387,
+          -46.584458
+        ]
+      },
+      "properties": {
+        "nombre": "Río Jeinemeni",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter nacional, ruta 265-CH (pavimento)",
+        "complejo": "Río Jeinemeni",
+        "cota": "255",
+        "reten": "3ª Comisaría Chile Chico (F), distante a 3 km del paso.",
+        "latitud": "46° 33’",
+        "longitud": "71° 40’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "General Carrera",
+        "comuna": "Chile Chico",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.755176,
+          -43.175636
+        ]
+      },
+      "properties": {
+        "nombre": "Futaleufú",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 231-CH (pavimento)",
+        "complejo": "Futaleufú",
+        "cota": "335",
+        "reten": "Tenencia El Límite (F), distante a 300 km. del paso.",
+        "latitud": "43° 11’",
+        "longitud": "71° 45’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Palena",
+        "comuna": "Futaleufú",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.242242,
+          -30.664652
+        ]
+      },
+      "properties": {
+        "nombre": "Miranda",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4296",
+        "reten": "sin información",
+        "latitud": "30° 40’",
+        "longitud": "70° 14’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Río Hurtado",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.590263,
+          -19.830246
+        ]
+      },
+      "properties": {
+        "nombre": "Apacheta de Irpa o Cancosa",
+        "pais": "Bolivia",
+        "trafico": "Solo cruce de peatones",
+        "acceso": "camino regional comunal A-963 (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4010",
+        "reten": "Retén Cancosa, distante a 3,5 km del paso",
+        "latitud": "19° 50’",
+        "longitud": "68° 35’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Tarapacá",
+        "provincia": "Tamarugal",
+        "comuna": "Pica",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.70684,
+          -43.587865
+        ]
+      },
+      "properties": {
+        "nombre": "Río Encuentro",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 235-CH (pavimento básico)",
+        "complejo": "Río Encuentro",
+        "cota": "425",
+        "reten": "Tenencia Río Encuentro (F), distante a 1 km del paso.",
+        "latitud": "43° 35’",
+        "longitud": "71° 45’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Palena",
+        "comuna": "Palena",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.798918,
+          -22.881227
+        ]
+      },
+      "properties": {
+        "nombre": "Portezuelo del Cajón",
+        "pais": "Bolivia",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal en proceso de enrolamiento, S/R-B-23, cruce con ruta 27-CH (ripio)",
+        "complejo": "San Pedro de Atacama e Hito Cajón",
+        "cota": "4480",
+        "reten": "Subcomisaría San Pedro de Atacama, distante a 45 km del paso",
+        "latitud": "22° 53’",
+        "longitud": "67° 48’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Antofagasta",
+        "provincia": "El Loa",
+        "comuna": "San Pedro de Atacama",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.314145,
+          -18.310363
+        ]
+      },
+      "properties": {
+        "nombre": "Concordia",
+        "pais": "Perú",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional longitudina, ruta 5 (pavimento doble calzada)",
+        "complejo": "Chacalluta",
+        "cota": "74",
+        "reten": "4 Subcomisaría Chacalluta (F), distante a 5,8 km del paso",
+        "latitud": "18° 18’",
+        "longitud": "70° 19’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Doble Cabecera",
+        "comite": "Comité de Integración y Desarrollo Fronterizo (Chile-Perú)",
+        "region": "Arica y Parinacota",
+        "provincia": "Arica",
+        "comuna": "Arica",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.074169,
+          -18.284648
+        ]
+      },
+      "properties": {
+        "nombre": "Portezuelo de Chungará -Tambo Quemado",
+        "pais": "Bolivia",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 11-CH (pavimento)",
+        "complejo": "Chungará-Tambo Quemado",
+        "cota": "4680",
+        "reten": "Tenencia Chungará (F) , distante a 7 km del paso",
+        "latitud": "18° 16’",
+        "longitud": "69° 04’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Doble Cabecera",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Arica y Parinacota",
+        "provincia": "Parinacota",
+        "comuna": "Arica",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.809721,
+          -44.249032
+        ]
+      },
+      "properties": {
+        "nombre": "Las Pampas / Lago Verde",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta X-13 (ripio)",
+        "complejo": "no aplica",
+        "cota": "515",
+        "reten": "Retén Lago Verde (F), distante a 4 km del paso",
+        "latitud": "44° 15’",
+        "longitud": "71° 48’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Coihaique",
+        "comuna": "Lago Verde",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.348071,
+          -51.586235
+        ]
+      },
+      "properties": {
+        "nombre": "Dorotea",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 250-CH (pavimento)",
+        "complejo": "Dorotea",
+        "cota": "605",
+        "reten": "Retén Dorotea (F), distante a 2 km del paso",
+        "latitud": "51° 35’",
+        "longitud": "72° 20’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Última Esperanza",
+        "comuna": "Natales",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.668829,
+          -48.864641
+        ]
+      },
+      "properties": {
+        "nombre": "Lago O´Higgins-San Martín (Lacustre)",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional de acceso, ruta X-915 (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "250",
+        "reten": "Tenencia Teniente Hernán Merino Correa (F), distante a 2 km del paso.",
+        "latitud": "48° 31’",
+        "longitud": "72° 36’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Capitán Prat",
+        "comuna": "O’Higgins",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.082367,
+          -32.817896
+        ]
+      },
+      "properties": {
+        "nombre": "Sistema Cristo Redentor",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 60-CH (pavimento)",
+        "complejo": "Los Libertadores",
+        "cota": "3220",
+        "reten": "Subcomisaría Los Libertadores (F), distante a 5 km del paso.",
+        "latitud": "32° 49’",
+        "longitud": "70° 04’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Doble Cabecera para personas y buses en Chile y Cabecera única en Argentina para cargas",
+        "comite": "Comité de Integración Cristo Redentor (Chile-Argentina)",
+        "region": "Valparaíso",
+        "provincia": "Los Andes",
+        "comuna": "Valparaíso",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.673395,
+          -40.102964
+        ]
+      },
+      "properties": {
+        "nombre": "Huahum (Fluvial)",
+        "pais": "Argentina",
+        "trafico": "Solo canotaje local en río Huahum (breve ingreso y salida de Chile)",
+        "acceso": "camino nacional con carácter internacional, ruta 203-CH (grava tratada)",
+        "complejo": "Huahum",
+        "cota": "622",
+        "reten": "Tenencia Pirihueico (F), distante a 600 metros del paso.",
+        "latitud": "40° 06’",
+        "longitud": "71° 40’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Ríos",
+        "provincia": "Valdivia",
+        "comuna": "Panguipulli",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.11654,
+          -37.199981
+        ]
+      },
+      "properties": {
+        "nombre": "Buta Mallín",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "camino regional principal Q-45 (ripio)",
+        "complejo": "no aplica",
+        "cota": "1915",
+        "reten": "Tenencia Antuco (F), distante a 24 km. del paso.",
+        "latitud": "37° 12’ 24”",
+        "longitud": "71° 07’ 06”",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Biobío",
+        "provincia": "Biobío",
+        "comuna": "Antuco",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.12022,
+          -49.169801
+        ]
+      },
+      "properties": {
+        "nombre": "Marconi",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones (acceso a campo de hielo sur)",
+        "acceso": "camino regional comunal (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "1525",
+        "reten": "Tenencia Teniente Hernán Merino Correa (F), distante a 80 km. del paso.",
+        "latitud": "49° 10’",
+        "longitud": "73° 07’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Capitán Prat",
+        "comuna": "O’Higgins",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.289754,
+          -24.451349
+        ]
+      },
+      "properties": {
+        "nombre": "Socompa",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal B-55 (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3875",
+        "reten": "Retén Socompa, distante a 50 m del paso",
+        "latitud": "24° 27’",
+        "longitud": "68° 17’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración NOA-Norte Grande (Chile-Argentina)",
+        "region": "Antofagasta",
+        "provincia": "Antofagasta",
+        "comuna": "Calama",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.346082,
+          -45.232691
+        ]
+      },
+      "properties": {
+        "nombre": "Pampa Alta",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta X-45 (grava tratada)",
+        "complejo": "no aplica",
+        "cota": "865",
+        "reten": "Retén Puesto Viejo (F), distante a 4 km del paso",
+        "latitud": "45° 14’",
+        "longitud": "71° 22’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Coihaique",
+        "comuna": "Coyhaique",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.646278,
+          -45.914249
+        ]
+      },
+      "properties": {
+        "nombre": "Huemules",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 245-CH (pavimento)",
+        "complejo": "Huemules",
+        "cota": "500",
+        "reten": "Subcomisaria Balmaceda (F), distante a 400 km del paso",
+        "latitud": "45° 55’",
+        "longitud": "71° 39’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Cabecera única en Chile",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Coihaique",
+        "comuna": "Coyhaique",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.846645,
+          -41.508274
+        ]
+      },
+      "properties": {
+        "nombre": "Río Manso",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional de acceso, V-649 (ripio)",
+        "complejo": "no aplica",
+        "cota": "480",
+        "reten": "Retén Paso El León (F), distante a 3 km. del paso.",
+        "latitud": "41° 31’",
+        "longitud": "71° 51’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Llanquihue",
+        "comuna": "Cochamó",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.815833,
+          -48.960116
+        ]
+      },
+      "properties": {
+        "nombre": "Hito IV—B o Dos Lagunas",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones",
+        "acceso": "camino regional de acceso, ruta X-915 (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "706",
+        "reten": "Tenencia Teniente Hernán Merino Correa (F), distante a 15 km del paso.",
+        "latitud": "48° 57’",
+        "longitud": "72° 49’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Capitán Prat",
+        "comuna": "O’Higgins",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.304463,
+          -30.960276
+        ]
+      },
+      "properties": {
+        "nombre": "Los Azules",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3751",
+        "reten": "sin información",
+        "latitud": "30° 57’",
+        "longitud": "70° 19’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.555181,
+          -31.515583
+        ]
+      },
+      "properties": {
+        "nombre": "Casa de Piedra",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3689",
+        "reten": "sin información",
+        "latitud": "31° 33’",
+        "longitud": "70° 34’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Choapa",
+        "comuna": "Illapel",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.825717,
+          -30.192795
+        ]
+      },
+      "properties": {
+        "nombre": "Agua Negra",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 41-CH (ripio)",
+        "complejo": "Agua Negra",
+        "cota": "4780",
+        "reten": "Tenencia Juntas del Toro (F), distante a 83 km del paso.",
+        "latitud": "30° 12’",
+        "longitud": "69° 51’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Elqui",
+        "comuna": "Vicuña",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.426577,
+          -31.85429
+        ]
+      },
+      "properties": {
+        "nombre": "Mondaca",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3939",
+        "reten": "sin información",
+        "latitud": "31° 51’",
+        "longitud": "70° 25’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Choapa",
+        "comuna": "Salamanca",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.511049,
+          -31.671627
+        ]
+      },
+      "properties": {
+        "nombre": "Puentecillas",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3985",
+        "reten": "sin información",
+        "latitud": "31° 40’",
+        "longitud": "70° 31’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Choapa",
+        "comuna": "Salamanca",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.54361,
+          -31.304488
+        ]
+      },
+      "properties": {
+        "nombre": "Del Azufre",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3650",
+        "reten": "sin información",
+        "latitud": "31° 18’",
+        "longitud": "70° 33’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.528163,
+          -31.270122
+        ]
+      },
+      "properties": {
+        "nombre": "Calderón",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3636",
+        "reten": "sin información",
+        "latitud": "31° 16’",
+        "longitud": "70° 32’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.394073,
+          -35.981732
+        ]
+      },
+      "properties": {
+        "nombre": "Pehuenche",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 115-CH (pavimento)",
+        "complejo": "Pehuenche",
+        "cota": "2553",
+        "reten": "Retén La Mina (F), distante a 62 km del paso.",
+        "latitud": "35° 58’",
+        "longitud": "70° 23’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Pehuenche (Chile-Argentina)",
+        "region": "Maule",
+        "provincia": "Talca",
+        "comuna": "San Clemente",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.128349,
+          -37.827101
+        ]
+      },
+      "properties": {
+        "nombre": "Copahue",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones y vehículos particulares",
+        "acceso": "camino regional de acceso Q-699 (ripio)",
+        "complejo": "no aplica",
+        "cota": "2015",
+        "reten": "Avanzada Trapa Trapa (F), distante a 23 km del paso.",
+        "latitud": "37° 49’",
+        "longitud": "71° 07’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Biobío",
+        "provincia": "Biobío",
+        "comuna": "Alto Biobío",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.519811,
+          -52.141798
+        ]
+      },
+      "properties": {
+        "nombre": "Integración Austral",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de cáracter internacional, ruta 255-CH (pavimento)",
+        "complejo": "Integración Austral",
+        "cota": "164",
+        "reten": "Tenencia Monte Aymond (F), distante a 300 metros del paso.",
+        "latitud": "52° 08’",
+        "longitud": "69° 30’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Doble Cabecera",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Magallanes",
+        "comuna": "San Gregorio",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.415619,
+          -39.120351
+        ]
+      },
+      "properties": {
+        "nombre": "De Reigolil",
+        "pais": "Argentina",
+        "trafico": "Solo cruce local de indígenas a rogativas religiosas",
+        "acceso": "cruce local para rogativas religiosas indigenas",
+        "complejo": "no aplica",
+        "cota": "1120",
+        "reten": "Tenencia Regiolil (F), distante a 6 km del paso.",
+        "latitud": "39° 07’",
+        "longitud": "71° 25’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "La Araucanía",
+        "provincia": "Cautín",
+        "comuna": "Curarrehue",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.267981,
+          -38.83362
+        ]
+      },
+      "properties": {
+        "nombre": "Icalma",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal S-51-R (pavimento)",
+        "complejo": "Paso Icama",
+        "cota": "1300",
+        "reten": "Retén Icalma (F), distante a 3 km del paso.",
+        "latitud": "38° 50’",
+        "longitud": "71° 16’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "La Araucanía",
+        "provincia": "Malleco",
+        "comuna": "Lonquimay",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.857731,
+          -41.220605
+        ]
+      },
+      "properties": {
+        "nombre": "Vuriloche",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones",
+        "acceso": "camino regional comunal (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "1390",
+        "reten": "Avanzada Vuriloche (TF), distante a 1 km. del paso.",
+        "latitud": "41° 13’",
+        "longitud": "71° 51’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Llanquihue",
+        "comuna": "Puerto Varas",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.739001,
+          -52.28375
+        ]
+      },
+      "properties": {
+        "nombre": "Daniel Frontera",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "terrestre (gaso-oleoducto)",
+        "complejo": "no aplica",
+        "cota": "90",
+        "reten": "Retén Cañadon Grande (F), distante a 40 km del paso.",
+        "latitud": "52° 13’",
+        "longitud": "68° 57’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Magallanes",
+        "comuna": "San Gregorio",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.681203,
+          -39.788905
+        ]
+      },
+      "properties": {
+        "nombre": "Carirriñe",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 201-CH (ripio)",
+        "complejo": "Paso Carirriñe",
+        "cota": "1215",
+        "reten": "Tenencia Liquiñe (F), distante a 22 km del paso.",
+        "latitud": "39° 47’",
+        "longitud": "71° 40’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Ríos",
+        "provincia": "Valdivia",
+        "comuna": "Panguipulli",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.874666,
+          -33.633174
+        ]
+      },
+      "properties": {
+        "nombre": "Port. De Piuquenes",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones",
+        "acceso": "camino regional comunal, G-455",
+        "complejo": "no aplica",
+        "cota": "4035",
+        "reten": "Tenencia San Gabriel (F), distante a 58 km del paso.",
+        "latitud": "33° 36’",
+        "longitud": "69° 52’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Sin dato/No especificado",
+        "region": "Metropolitana de Santiago",
+        "provincia": "Cordillera",
+        "comuna": "San José de Maipo",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.275039,
+          -30.782294
+        ]
+      },
+      "properties": {
+        "nombre": "Valle Hermoso",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4125",
+        "reten": "sin información",
+        "latitud": "40° 47’",
+        "longitud": "70° 17’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.560137,
+          -48.483706
+        ]
+      },
+      "properties": {
+        "nombre": "Río Mosco",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta X-91 (ripio)",
+        "complejo": "no aplica",
+        "cota": "270",
+        "reten": "Subcomisaría Villa O’Higgins (F), distante a 800 m. del paso.",
+        "latitud": "48° 29’",
+        "longitud": "72° 33’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "Capitán Prat",
+        "comuna": "O’Higgins",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.258937,
+          -51.245998
+        ]
+      },
+      "properties": {
+        "nombre": "Río Don Guillermo",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 251-CH (pavimento)",
+        "complejo": "Río Don Guillermo",
+        "cota": "260",
+        "reten": "Retén Torres del Paine (f), distante a 7 km del paso",
+        "latitud": "51° 15’",
+        "longitud": "72° 15’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Última Esperanza",
+        "comuna": "Torres del Paine",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.015258,
+          -29.31956
+        ]
+      },
+      "properties": {
+        "nombre": "Pascua-Lama",
+        "pais": "Argentina",
+        "trafico": "Solo para tránsito en área de operaciones ex mina Pascua-Lama",
+        "acceso": "camino regional comunal C-501 (ripio)",
+        "complejo": "no aplica",
+        "cota": "5100",
+        "reten": "Retén Conay (TF), distante a 45 km del paso.",
+        "latitud": "29° 19’ 19”",
+        "longitud": "70° 00’ 50”",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración ATACALAR (Chile-Argentina)",
+        "region": "Atacama",
+        "provincia": "Huasco",
+        "comuna": "Diego de Almagro",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.229758,
+          -21.212888
+        ]
+      },
+      "properties": {
+        "nombre": "Salar de Ollagüe (Ollagüe)",
+        "pais": "Bolivia",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 21-CH (pavimento básico)",
+        "complejo": "Salar de Ollagüe",
+        "cota": "3695",
+        "reten": "Tenencia Ollagüe (F), distante a 2 km del paso",
+        "latitud": "21° 12’",
+        "longitud": "68° 13’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Antofagasta",
+        "provincia": "El Loa",
+        "comuna": "Ollagüe",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.72757,
+          -46.27535
+        ]
+      },
+      "properties": {
+        "nombre": "Ingeniero Ibáñez-Pallavecini",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional principal, ruta X-65 (pavimento)",
+        "complejo": "Ingeniero Ibáñez-Pallavicini",
+        "cota": "327",
+        "reten": "Tenencia Puerto Ibáñez (F), distante a 20 km del paso.",
+        "latitud": "46° 16’",
+        "longitud": "71° 43’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Aysén del Gral. Carlos Ibáñez del Campo",
+        "provincia": "General Carrera",
+        "comuna": "Río Ibáñez",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.298757,
+          -51.684662
+        ]
+      },
+      "properties": {
+        "nombre": "Casas Viejas (Laurita)",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de cáracter internacional, ruta 253-CH (grava tratada)",
+        "complejo": "Laurita-Casas Viejas",
+        "cota": "240",
+        "reten": "Subcomisaria Casas Viejas (F), distante a 1 km del paso.",
+        "latitud": "51° 41’",
+        "longitud": "72° 18’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Última Esperanza",
+        "comuna": "Natales",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.606641,
+          -52.778418
+        ]
+      },
+      "properties": {
+        "nombre": "Alfa Cullén",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "terrestre (gasoducto)",
+        "complejo": "no aplica",
+        "cota": "54",
+        "reten": "Retén Cerro Sombrero (F), distante a 98 km. del paso.",
+        "latitud": "52° 47’",
+        "longitud": "68° 36’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Tierra del Fuego",
+        "comuna": "Primavera",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.896814,
+          -38.663421
+        ]
+      },
+      "properties": {
+        "nombre": "Pino Hachado",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional con carácter internacional, ruta 181-CH (pavimento)",
+        "complejo": "Pino Hachado-Luicura",
+        "cota": "1885",
+        "reten": "Tenencia Liucura (F), distante a 24 km del paso",
+        "latitud": "38° 40’",
+        "longitud": "70° 53’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "La Araucanía",
+        "provincia": "Malleco",
+        "comuna": "Lonquimay",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.271271,
+          -23.875382
+        ]
+      },
+      "properties": {
+        "nombre": "Laguna  de Sico",
+        "pais": "Argentina",
+        "trafico": "Importación/exportación de electricidad de alta tensión",
+        "acceso": "camino nacional con carácter internacional, ruta 23-CH (grava tratada)",
+        "complejo": "no aplica",
+        "cota": "4090",
+        "reten": "Retén de Socaire (TF), distante a 21 km  del paso",
+        "latitud": "23° 52’ 17”",
+        "longitud": "67° 16’ 11”",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración NOA-Norte Grande (Chile-Argentina)",
+        "region": "Antofagasta",
+        "provincia": "El Loa",
+        "comuna": "San Pedro de Atacama",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.947227,
+          -52.223367
+        ]
+      },
+      "properties": {
+        "nombre": "Daniel Posesión",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "terrestre (gaso-oleoducto)",
+        "complejo": "no aplica",
+        "cota": "80",
+        "reten": "Retén Cañadon Grande (F), distante a 20 km del paso.",
+        "latitud": "52° 13’",
+        "longitud": "68° 57’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Magallanes",
+        "comuna": "San Gregorio",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.827971,
+          -41.069144
+        ]
+      },
+      "properties": {
+        "nombre": "Pérez Rosales",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones y vehículos particulares",
+        "acceso": "camino nacional de carácter internacional,  ruta 225-CH (ripio)",
+        "complejo": "Peulla",
+        "cota": "1020",
+        "reten": "Tenencia Casa Pangue (F), distante a 7 km del paso.",
+        "latitud": "41° 04’",
+        "longitud": "71° 49’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Los Lagos",
+        "provincia": "Llanquihue",
+        "comuna": "Puerto Varas",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.606413,
+          -53.319993
+        ]
+      },
+      "properties": {
+        "nombre": "San Sebastián",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 257-CH (pavimento)",
+        "complejo": "San Sebastián",
+        "cota": "10",
+        "reten": "Tenencia San Sebastián (F), a 5 km del paso.",
+        "latitud": "53° 19'",
+        "longitud": "68° 37'",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Tierra del Fuego",
+        "comuna": "Porvenir",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.620303,
+          -19.274907
+        ]
+      },
+      "properties": {
+        "nombre": "Cerrito Prieto (Colchane-Pisiga)",
+        "pais": "Bolivia",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino nacional de carácter internacional, ruta 15-CH (pavimento)",
+        "complejo": "Colchane-Pisiga",
+        "cota": "3695",
+        "reten": "Subcomisaría Colchane, distante a 2 km del paso.",
+        "latitud": "19° 16’",
+        "longitud": "68° 37’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Doble Cabecera",
+        "comite": "Comité de Frontera (Chile-Bolivia)",
+        "region": "Tarapacá",
+        "provincia": "Tamarugal",
+        "comuna": "Colchane",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.062858,
+          -23.226611
+        ]
+      },
+      "properties": {
+        "nombre": "Jama",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional con carácter internacional, ruta 27-CH (pavimento)",
+        "complejo": "Jama",
+        "cota": "4200",
+        "reten": "Subcomisaría San Pedro de Atacama, distante a 168 km del paso",
+        "latitud": "23° 14’",
+        "longitud": "67° 04’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Integrado, Cabecera única en Argentina",
+        "comite": "Comité de Integración NOA-Norte Grande (Chile-Argentina)",
+        "region": "Antofagasta",
+        "provincia": "El Loa",
+        "comuna": "San Pedro de Atacama",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.291511,
+          -34.884781
+        ]
+      },
+      "properties": {
+        "nombre": "Las Damas",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones y vehículos particulares",
+        "acceso": "camino regional principal I-45 (ripio)",
+        "complejo": "no aplica",
+        "cota": "3050",
+        "reten": "Retén Vegas del Flaco (TF), distante a 18 km del Paso.",
+        "latitud": "34° 53' 33”",
+        "longitud": "70° 17' 44”",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Ocasional",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Las Leñas (Chile-Argentina)",
+        "region": "Libertador Gral. Bernardo O’Higgins",
+        "provincia": "Colchagua",
+        "comuna": "San Fernando",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.419443,
+          -52.332451
+        ]
+      },
+      "properties": {
+        "nombre": "Monte Dinero",
+        "pais": "Argentina",
+        "trafico": "Paso de gasoducto",
+        "acceso": "terrestre (gaso-oleoducto)",
+        "complejo": "no aplica",
+        "cota": "68",
+        "reten": "Retén Cañadon Grande (F), distante a 50 km del paso.",
+        "latitud": "52° 20’",
+        "longitud": "68° 36’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Magallanes",
+        "comuna": "San Gregorio",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.262964,
+          -30.738372
+        ]
+      },
+      "properties": {
+        "nombre": "Guana",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4289",
+        "reten": "sin información",
+        "latitud": "30° 44’",
+        "longitud": "70° 16’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.273593,
+          -30.777428
+        ]
+      },
+      "properties": {
+        "nombre": "Del Portillo",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4046",
+        "reten": "sin información",
+        "latitud": "30° 46’",
+        "longitud": "70° 16’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Limarí",
+        "comuna": "Monte Patria",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.240737,
+          -31.921751
+        ]
+      },
+      "properties": {
+        "nombre": "Las Ojotas",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4068",
+        "reten": "sin información",
+        "latitud": "31° 55’",
+        "longitud": "70° 14’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Choapa",
+        "comuna": "Salamanca",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.348787,
+          -32.085978
+        ]
+      },
+      "properties": {
+        "nombre": "Quebrada Fría",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3618",
+        "reten": "sin información",
+        "latitud": "32° 05’",
+        "longitud": "70° 21’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Choapa",
+        "comuna": "Salamanca",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.31697,
+          -32.159155
+        ]
+      },
+      "properties": {
+        "nombre": "Las Llaretas",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de ganado y arrieros a veranadas en Argentina",
+        "acceso": "camino regional comunal  (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "3364",
+        "reten": "sin información",
+        "latitud": "32° 09’",
+        "longitud": "70° 19’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Agua Negra (Chile-Argentina)",
+        "region": "Coquimbo",
+        "provincia": "Choapa",
+        "comuna": "Salamanca",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.674277,
+          -17.659363
+        ]
+      },
+      "properties": {
+        "nombre": "Laguna Blanca – El Ayro",
+        "pais": "Perú",
+        "trafico": "Solo a personal peruano de canales Uchusuma y Mauri",
+        "acceso": "camino regional principal A-23 (grava tratada)",
+        "complejo": "no aplica",
+        "cota": "4261",
+        "reten": "sin información",
+        "latitud": "17° 39’ 23”",
+        "longitud": "69° 40’ 34”",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración y Desarrollo Fronterizo (Chile-Perú)",
+        "region": "Arica y Parinacota",
+        "provincia": "Parinacota",
+        "comuna": "Camarones",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.139872,
+          -36.895743
+        ]
+      },
+      "properties": {
+        "nombre": "Minas-Ñuble",
+        "pais": "Argentina",
+        "trafico": "Solo cruce de peatones y vehículos particulares",
+        "acceso": "camino regional principal, N-31 (ripio)",
+        "complejo": "no aplica",
+        "cota": "1530",
+        "reten": "sin información",
+        "latitud": "36° 53’ 41”",
+        "longitud": "71° 08’ 19”",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Ocasional",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Los Lagos (Chile-Argentina)",
+        "region": "Ñuble",
+        "provincia": "Ñuble",
+        "comuna": "San Fabián",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.800882,
+          -17.763095
+        ]
+      },
+      "properties": {
+        "nombre": "Huaylillas Norte",
+        "pais": "Perú",
+        "trafico": "Solo a personal peruano de canales Uchusuma y Mauri",
+        "acceso": "camino regional de acceso A-107 (suelo natural)",
+        "complejo": "no aplica",
+        "cota": "4255",
+        "reten": "sin información",
+        "latitud": "17° 45’ 48”",
+        "longitud": "69° 48’ 26”",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración y Desarrollo Fronterizo (Chile-Perú)",
+        "region": "Arica y Parinacota",
+        "provincia": "Parinacota",
+        "comuna": "Camarones",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.577619,
+          -54.892015
+        ]
+      },
+      "properties": {
+        "nombre": "Pto. Williams - Pto. Almanza",
+        "pais": "Argentina",
+        "trafico": "Personas, vehículos y carga",
+        "acceso": "camino regional comunal, ruta X-905 (ripio)",
+        "complejo": "no aplica",
+        "cota": "0",
+        "reten": "4 Comisaria Puerto Williams (F), distante a 2 km. del paso.",
+        "latitud": "54° 55’",
+        "longitud": "67° 37’",
+        "posicionam": "Valor no oficial",
+        "habilitacn": "Permanente",
+        "tipo_contr": "Sin dato/No especificado",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Antártica Chilena",
+        "comuna": "Cabo de Hornos (Ex - Navarino)",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.60756,
+          -54.000092
+        ]
+      },
+      "properties": {
+        "nombre": "Rio Bellavista  (Ex Radman)",
+        "pais": "Argentina",
+        "trafico": "Solo paso de personas y operaciones de admisión y salida temporal de mercancías por turistas",
+        "acceso": "camino regional de acceso, cruce ruta Y-85 - Y-769 (ripio)",
+        "complejo": "Río Bellavista",
+        "cota": "111",
+        "reten": "Retén Pampa Guanaco (F), distante a 11 km del paso.",
+        "latitud": "54° 00’",
+        "longitud": "68° 41’",
+        "posicionam": "Valor oficial",
+        "habilitacn": "Temporal",
+        "tipo_contr": "Convencional",
+        "comite": "Comité de Integración Austral (Chile-Argentina)",
+        "region": "Magallanes y de la Antártica Chilena",
+        "provincia": "Tierra del Fuego",
+        "comuna": "Timaukel",
+        "institucion": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "fuente": "https://geoportal.cl/geoportal/catalog/36573/Pasos%20Fronterizos",
+        "utilidad_territorial": "Puntos oficiales de control migratorio, aduanero y fitozoosanitario en pasos internacionales terrestres de la República de Chile."
       }
     }
   ]

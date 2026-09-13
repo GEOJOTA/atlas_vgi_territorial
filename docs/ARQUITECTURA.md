@@ -65,7 +65,7 @@ El Atlas articula 8 servicios y protocolos de datos geoespaciales y colaborativo
 
 | API / Servicio | Endpoint Base Oficial | Módulo Integrador | Función y Aplicación en el Atlas |
 |---|---|---|---|
-| **Overpass API v0.7** | `https://overpass-api.de/api/interpreter`<br>`https://lz4.overpass-api.de/api/interpreter`<br>`https://z.overpass-api.de/api/interpreter` | `src/js/modulos/osm.js` | Extracción vectorial de geometrías (nodos, vías, relaciones) según las 8 macro-categorías temáticas y filtros personalizados Overpass QL dentro del Bbox territorial. |
+| **Overpass API v0.7** | `https://overpass-api.de/api/interpreter`<br>`https://lz4.overpass-api.de/api/interpreter`<br>`https://z.overpass-api.de/api/interpreter` | `src/js/modulos/osm.js` | Extracción vectorial de geometrías (nodos, vías, relaciones) según las 10 macro-categorías temáticas (CAT-01 a CAT-10) y filtros personalizados Overpass QL dentro del Bbox territorial. |
 | **Taginfo API v4** | `https://taginfo.openstreetmap.org/api/4/` | `src/js/modulos/taginfo.js` | Consulta interactiva en tiempo real del recuento global de objetos (nodos, vías, relaciones), porcentaje de representatividad en el planeta y valores más frecuentes para cualquier clave OSM. |
 | **ohsome API (Dual v1 / v2)** | `https://api.ohsome.org/v1` (OSHDB Java)<br>`https://api.ohsome.org/v2` (Citus Python) | `src/js/modulos/ohsome.js` | Auditoría de evolución histórica espacio-temporal (series anuales P1Y), volumen de elementos vigentes, masa crítica de colaboradores activos e intensidad de contribución comunitaria. |
 | **ohsome Quality Analyst (OQT)** | Marco conceptual Herfort et al. (2023) / HeiGIT | `src/js/modulos/calidad_analyst.js` | Estimación del **Índice de Saturación de Mapeo**, clasificación de la tendencia territorial (*Levantamiento Dinámico* vs. *Consolidación Barrial*) y completitud de atributos críticos (`name`, `addr:street`, `wheelchair`, `operator`). |
@@ -128,7 +128,7 @@ La lógica de la aplicación se distribuye en 15 módulos desacoplados que expor
 - Generación y descarga de XML conforme a **ISO 19139 / Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)**, validado con namespaces OGC (`gmd`, `gco`, `gml`) para interoperabilidad en GeoNetwork y GeoNode.
 
 ### 3.10 `diccionario.js` (Catálogo Territorial de 118 Descriptores)
-- 118 etiquetas y descriptores territoriales estratégicos y escalables para Chile clasificados en 8 macro-categorías (incorporando etiquetas OpenStreetMap y descriptores Darwin Core de GBIF).
+- 118 etiquetas y descriptores territoriales estratégicos y escalables para Chile clasificados en 10 macro-categorías (CAT-01 a CAT-10) (incorporando etiquetas OpenStreetMap y descriptores Darwin Core de GBIF).
 - **Sinceramiento riguroso:** 37 capas con homología oficial demostrable en IDE Chile vs. 81 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
 - Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (81)]`, `[🏛️ Capas Oficiales IDE (37)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
 
@@ -139,7 +139,7 @@ La lógica de la aplicación se distribuye en 15 módulos desacoplados que expor
 ### 3.12 `manual.js` (Documentación Técnica y Manual de Uso in-app)
 - Documentación exhaustiva estructurada en 9 secciones temáticas correspondientes a los paneles `00` a `08`.
 - Guía de inicio rápido perfilada por actores territoriales.
-- Fichas metodológicas de las 8 macro-categorías con ejemplos Overpass QL, consultas ohsome y bibliografía APA.
+- Fichas metodológicas de las 10 macro-categorías (CAT-01 a CAT-10) con ejemplos Overpass QL, consultas ohsome y bibliografía APA.
 
 ### 3.13 `app.js` (Orquestador Central de Interfaz)
 - Coordinación de eventos entre los 15 submódulos, sincronización del Bbox entre paneles, actualización de previsualizaciones Overpass QL, gestión de perfiles de usuario y renderizado de resultados.
@@ -190,7 +190,7 @@ Cada entidad capturada desde las distintas plataformas se normaliza bajo un esqu
 | Campo Normalizado | Tipo de Dato | Equivalencia IDE Chile / ISO 19115 | Descripción y Función Territorial |
 |---|---|---|---|
 | `id_vgi` | Alfanumérico | `ID_OBJETO` (`gmd:identifier`) | Identificador unívoco global (`fuente/tipo/id`). |
-| `categoria` | Código CAT | `gmd:topicCategory` (ISO 19115) | Clasificación en una de las 8 macro-categorías del Atlas. |
+| `categoria` | Código CAT | `gmd:topicCategory` (ISO 19115) | Clasificación en una de las 10 macro-categorías (CAT-01 a CAT-10) del Atlas. |
 | `subtipo` | Texto | `SubclaseCatastral` | Denominación funcional específica (`pharmacy`, `park`, etc.). |
 | `nombre` | Texto | `ToponimiaOficial` (`gmd:title`) | Nombre propio barrial o comercial del recinto. |
 | `operador` | Texto | `PuntoDeContacto` (`gmd:CI_ResponsibleParty`) | Institución o empresa administradora responsable. |

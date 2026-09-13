@@ -22,9 +22,9 @@ const ModuloDiccionario = (() => {
     {
       campo: 'categoria',
       nombre: 'Categoría Temática VGI',
-      tipo: 'Texto (Código CAT-01 a CAT-08)',
-      definicion: 'Clasificación sectorial del objeto territorial según la taxonomía del Atlas (educación, salud/servicios, transporte, ciclovías, áreas verdes, patrimonio, accesibilidad, biodiversidad).',
-      ejemplo: 'CAT-01 (Educación)',
+      tipo: 'Texto (Código CAT-01 a CAT-10)',
+      definicion: 'Clasificación sectorial del objeto territorial según la taxonomía del Atlas (educación, servicios y comercio barrial, transporte público, movilidad activa, áreas verdes y recreación, patrimonio cultural, accesibilidad universal, biodiversidad urbana, edificaciones y coberturas de suelo).',
+      ejemplo: 'CAT-01 (Educación y Universidad)',
       equivalenciaIDE: 'Categoría Temática ISO 19115 (gmd:topicCategory)',
       importancia: 'Facilita la agregación estadística y el análisis multicriterio para diagnósticos comunales.'
     },
@@ -1476,65 +1476,65 @@ const ModuloDiccionario = (() => {
     {
       codigo: 'CAT-01',
       id_manual: 'manual-cat-01',
-      nombre: 'Movilidad y Transporte Urbano',
-      icono: '🚆',
-      resumen: 'Paraderos Red Movilidad, estaciones Metro Los Héroes y Santa Ana, ciclovías y vías estructurantes.',
-      filtro_grupo: 'movilidad'
+      nombre: 'Educación y Universidad',
+      icono: '🏫',
+      resumen: 'Campus universitario UAH (Almirante Barroso, Erasmo Escala), facultades, institutos, colegios, liceos y bibliotecas.',
+      filtro_grupo: 'educacion_servicios'
     },
     {
       codigo: 'CAT-02',
       id_manual: 'manual-cat-02',
-      nombre: 'Equipamiento Comunitario y Social',
-      icono: '🏫',
-      resumen: 'Campus universitario UAH (Almirante Barroso, Erasmo Escala), colegios, salas cuna y juntas vecinales.',
+      nombre: 'Servicios, Comercio y Salud Barrial',
+      icono: '🏬',
+      resumen: 'Comercio de barrio, almacenes, panaderías, farmacias, CESFAM N° 5, clínicas comunitarias, bancos y gastronomía.',
       filtro_grupo: 'educacion_servicios'
     },
     {
       codigo: 'CAT-03',
       id_manual: 'manual-cat-03',
-      nombre: 'Salud y Bienestar',
-      icono: '🏥',
-      resumen: 'CESFAM N° 5, SAPU, farmacias de turno, clínicas veterinarias y desfibriladores de emergencia (DEA).',
-      filtro_grupo: 'educacion_servicios'
+      nombre: 'Movilidad y Transporte Público',
+      icono: '🚆',
+      resumen: 'Paraderos Red Movilidad, estaciones Metro Los Héroes (L1/L2), Santa Ana (L2/L5), Cumming (L5) y corredores viales.',
+      filtro_grupo: 'movilidad'
     },
     {
       codigo: 'CAT-04',
       id_manual: 'manual-cat-04',
-      nombre: 'Comercio y Economía Barrial',
-      icono: '🏬',
-      resumen: 'Amasanderías artesanales, panaderías, ferias libres semanales, cafés culturales y almacenes de barrio.',
-      filtro_grupo: 'educacion_servicios'
+      nombre: 'Movilidad Activa y Ciclovías',
+      icono: '🚲',
+      resumen: 'Ciclovías segregadas Rosas y Brasil, ciclobandas, biciestacionamientos públicos y campus UAH, y talleres comunitarios.',
+      filtro_grupo: 'movilidad'
     },
     {
       codigo: 'CAT-05',
       id_manual: 'manual-cat-05',
-      nombre: 'Seguridad y Emergencias',
-      icono: '🚒',
-      resumen: '11ª y 12ª Compañías de Bomberos de Santiago, 3ª Comisaría de Carabineros y red de grifos contra incendios.',
-      filtro_grupo: 'educacion_servicios'
+      nombre: 'Áreas Verdes, Deporte y Espacio Público',
+      icono: '🌲',
+      resumen: 'Plaza Brasil, bandejones arbolados de Alameda, multicanchas comunitarias, juegos infantiles, bancos y bebederos.',
+      filtro_grupo: 'patrimonio_verde'
     },
     {
       codigo: 'CAT-06',
       id_manual: 'manual-cat-06',
-      nombre: 'Espacio Público, Deporte y Recreación',
-      icono: '🌲',
-      resumen: 'Plaza Brasil, multicanchas barriales, plazas de bolsillo, bebederos públicos y juegos infantiles.',
+      nombre: 'Patrimonio Histórico y Cultura',
+      icono: '🏛',
+      resumen: 'Zona Típica Barrio Brasil, Inmuebles de Conservación Histórica (ICH), Basílica del Salvador, Casonas UAH y museos.',
       filtro_grupo: 'patrimonio_verde'
     },
     {
       codigo: 'CAT-07',
       id_manual: 'manual-cat-07',
-      nombre: 'Patrimonio Urbano y Cultura',
-      icono: '🏛',
-      resumen: 'Cités residenciales históricos, casonas protegidas, Inmuebles de Conservación Histórica (ICH) y museos.',
-      filtro_grupo: 'patrimonio_verde'
+      nombre: 'Accesibilidad Universal y Caminabilidad',
+      icono: '🦯',
+      resumen: 'Vados peatonales y rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles, pasos cebra demarcados y rampas.',
+      filtro_grupo: 'accesibilidad_biodiv'
     },
     {
       codigo: 'CAT-08',
       id_manual: 'manual-cat-08',
-      nombre: 'Medio Ambiente y Accesibilidad Universal',
-      icono: '🦯',
-      resumen: 'Rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles y arbolado viario de sombra.',
+      nombre: 'Biodiversidad Urbana y Arbolado',
+      icono: '☘',
+      resumen: 'Arbolado viario de alineación (plátano oriental, quillay, jacarandá), plazas, jardines y registros de ciencia ciudadana GBIF.',
       filtro_grupo: 'accesibilidad_biodiv'
     },
     {
@@ -1542,7 +1542,7 @@ const ModuloDiccionario = (() => {
       id_manual: 'manual-cat-09',
       nombre: 'Edificaciones y Huella Urbana',
       icono: '🏙',
-      resumen: 'Catastro poligonal de edificaciones, viviendas, torres residenciales, campus UAH y volumetría construida.',
+      resumen: 'Catastro poligonal de edificaciones, huellas de manzanas, volumetría construida y cálculo de superficie en m² (EPSG:32719).',
       filtro_grupo: 'edificaciones_suelo'
     },
     {
@@ -1550,7 +1550,7 @@ const ModuloDiccionario = (() => {
       id_manual: 'manual-cat-10',
       nombre: 'Coberturas y Usos de Suelo',
       icono: '▧',
-      resumen: 'Zonificación funcional del suelo (residencial, comercial, educativo), áreas recreativas y rodados viales.',
+      resumen: 'Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo) y superficies biofísicas.',
       filtro_grupo: 'edificaciones_suelo'
     }
   ];
@@ -1637,7 +1637,7 @@ const ModuloDiccionario = (() => {
     const totalOficiales = ETIQUETAS_TERRITORIALES_OSM.filter(e => !e.ideChile.startsWith('Sin capa homóloga')).length;
     const totalBrechas = ETIQUETAS_TERRITORIALES_OSM.filter(e => e.ideChile.startsWith('Sin capa homóloga')).length;
 
-    // 1. Tarjetas Superiores Sobrias e Interactivas de las 8 Macro-Categorías
+    // 1. Tarjetas Superiores Sobrias e Interactivas de las 10 Macro-Categorías
     const tarjetasCategoriasHTML = `
       <div class="dicc-tarjetas-seccion">
         <div class="dicc-tarjetas-header">

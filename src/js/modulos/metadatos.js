@@ -54,7 +54,7 @@ const ModuloMetadatos = (() => {
       linaje: {
         declaracion: datos.linaje || 'Datos extraídos en vivo desde OpenStreetMap y GBIF vía Overpass QL.',
         fechaConsulta: ahora.slice(0, 10),
-        procesamiento: 'Normalización de atributos según taxonomía VGI de 8 categorías y cálculo de superficies métricas en m² (EPSG:32719).'
+        procesamiento: 'Normalización de atributos según taxonomía VGI de 10 categorías (CAT-01 a CAT-10) y cálculo de superficies métricas en m² (EPSG:32719).'
       },
       restriccionesDeUso: {
         licencia: datos.restricciones || 'Open Database License (ODbL) 1.0 para datos OSM; CC-BY para registros biológicos.',

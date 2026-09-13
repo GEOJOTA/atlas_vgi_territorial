@@ -1,24 +1,20 @@
 {
   "type": "FeatureCollection",
-  "name": "PJUD_Tribunales_Justicia_Santiago",
   "features": [
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6575,
-          -33.4615
+          -70.31330208561657,
+          -18.47960017571747
         ]
       },
       "properties": {
-        "nombre": "Centro de Justicia de Santiago (PJUD)",
-        "direccion": "Av. Pedro Montt 1606, Santiago Sur",
-        "jurisdiccion": "Corte de Apelaciones de Santiago",
-        "tribunales_alojados": "Juzgados de Garantía (1° al 14°) y TOP (1° al 7°)",
-        "administracion": "Corporación Administrativa del Poder Judicial (CAPJ)",
-        "capacidad": "104 salas de audiencia operativas",
-        "utilidad_territorial": "Garantía de acceso a la justicia penal, proximidad en defensorías públicas y seguridad ciudadana."
+        "DIRECCION": "CALLE OHIGGINS 749",
+        "COMUNA": "ARICA",
+        "REGION": "ARICA Y PARINACOTA",
+        "PAIS": "CHILE"
       }
     },
     {
@@ -26,18 +22,943 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6495,
-          -33.4395
+          -70.15074364600775,
+          -20.209876879400575
         ]
       },
       "properties": {
-        "nombre": "Palacio de los Tribunales de Justicia (Corte Suprema y Corte de Apelaciones)",
-        "direccion": "Compañía de Jesús 1140, Santiago Centro",
-        "jurisdiccion": "Corte Suprema de Justicia de la República de Chile",
-        "tribunales_alojados": "Corte Suprema y Corte de Apelaciones de Santiago",
-        "administracion": "Poder Judicial de Chile",
-        "capacidad": "Salas plenarias de alta judicatura y biblioteca jurídica",
-        "utilidad_territorial": "Cúspide del Estado de Derecho, recursos de protección ambiental y urbanística ciudadana."
+        "DIRECCION": "PATRICIO LYNCH 60",
+        "COMUNA": "IQUIQUE",
+        "REGION": "IQUIQUE",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.39640827173669,
+          -23.647334196411933
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SUCRE 500",
+        "COMUNA": "ANTOFAGASTA",
+        "REGION": "ANTOFAGASTA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.93218575809169,
+          -22.469158137445536
+        ]
+      },
+      "properties": {
+        "DIRECCION": "AVENIDA GRECIA 1179",
+        "COMUNA": "CALAMA",
+        "REGION": "ANTOFAGASTA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.33795265336978,
+          -27.360905239083998
+        ]
+      },
+      "properties": {
+        "DIRECCION": "AVENIDA CIRCUNVALACION 125",
+        "COMUNA": "COPIAPO",
+        "REGION": "ATACAMA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.76636703331945,
+          -28.570383802027116
+        ]
+      },
+      "properties": {
+        "DIRECCION": "GUILLERMO MATTA 302",
+        "COMUNA": "VALLENAR",
+        "REGION": "ATACAMA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.33818562818935,
+          -29.95230165888584
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ALDUNATE 955",
+        "COMUNA": "COQUIMBO",
+        "REGION": "COQUIMBO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.24985510002503,
+          -29.90172869975729
+        ]
+      },
+      "properties": {
+        "DIRECCION": "BALMACEDA 370",
+        "COMUNA": "LA SERENA",
+        "REGION": "COQUIMBO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.20716206293116,
+          -30.605198317295187
+        ]
+      },
+      "properties": {
+        "DIRECCION": "VICUÑA MACKENNA 575",
+        "COMUNA": "OVALLE",
+        "REGION": "COQUIMBO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.40522554325943,
+          -33.32306616644691
+        ]
+      },
+      "properties": {
+        "DIRECCION": "AV. PORTALES 542",
+        "COMUNA": "CASABLANCA",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.23330359183149,
+          -32.448184504324885
+        ]
+      },
+      "properties": {
+        "DIRECCION": "VICUÑA MACKENNA 268",
+        "COMUNA": "LA LIGUA",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.26876298452679,
+          -33.00938416937883
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ECHAURREN 560",
+        "COMUNA": "LIMACHE",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.60256440014503,
+          -32.8324335001728
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SANTA TERESA 301",
+        "COMUNA": "LOS ANDES",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.24534329431802,
+          -32.878882323796375
+        ]
+      },
+      "properties": {
+        "DIRECCION": "RAMON FREIRE 190",
+        "COMUNA": "QUILLOTA",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.44087968658125,
+          -33.04863776923746
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ESMERALDA 440",
+        "COMUNA": "QUILPUE",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.61281925138142,
+          -33.60028660267677
+        ]
+      },
+      "properties": {
+        "DIRECCION": "LUIS ALBERTO ARAYA 2220",
+        "COMUNA": "SAN ANTONIO",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.72903974235281,
+          -32.749104724202624
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ARTURO PRAT 532",
+        "COMUNA": "SAN FELIPE",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.63074620020225,
+          -33.03968130020347
+        ]
+      },
+      "properties": {
+        "DIRECCION": "TOMAS RAMOS 98",
+        "COMUNA": "VALPARAISO",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.36442177496187,
+          -33.04255387208672
+        ]
+      },
+      "properties": {
+        "DIRECCION": "QUINTA 91",
+        "COMUNA": "VILLA ALEMANA",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.55017300046742,
+          -33.013107000017925
+        ]
+      },
+      "properties": {
+        "DIRECCION": "10 NORTE 655",
+        "COMUNA": "VINA DEL MAR",
+        "REGION": "VALPARAISO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.40940131768491,
+          -35.326940772831044
+        ]
+      },
+      "properties": {
+        "DIRECCION": "BLANCO 390",
+        "COMUNA": "CONSTITUCION",
+        "REGION": "EL MAULE",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2434925456434,
+          -34.986003350075876
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ESTADO 661",
+        "COMUNA": "CURICO",
+        "REGION": "EL MAULE",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.61433818154839,
+          -35.842324514113685
+        ]
+      },
+      "properties": {
+        "DIRECCION": "LEON BUSTOS 0817",
+        "COMUNA": "LINARES",
+        "REGION": "EL MAULE",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.82110384098799,
+          -36.14570303205927
+        ]
+      },
+      "properties": {
+        "DIRECCION": "BUIN 665",
+        "COMUNA": "PARRAL",
+        "REGION": "EL MAULE",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.65942396097013,
+          -35.42418144481165
+        ]
+      },
+      "properties": {
+        "DIRECCION": "5 ORIENTE 3 NORTE 1361",
+        "COMUNA": "TALCA",
+        "REGION": "EL MAULE",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.1053675997446,
+          -36.60679970038844
+        ]
+      },
+      "properties": {
+        "DIRECCION": "HERMINDA MARTIN 590",
+        "COMUNA": "CHILLAN",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.04707969028,
+          -36.82524993575412
+        ]
+      },
+      "properties": {
+        "DIRECCION": "CASTELLON 432",
+        "COMUNA": "CONCEPCION",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.1438599439565,
+          -37.02951252683377
+        ]
+      },
+      "properties": {
+        "DIRECCION": "CARVALLO 831",
+        "COMUNA": "CORONEL",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.36223700003892,
+          -37.48068049969739
+        ]
+      },
+      "properties": {
+        "DIRECCION": "VICUÑA MACKENNA 699",
+        "COMUNA": "LOS ANGELES",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.11017550054893,
+          -36.72011570009808
+        ]
+      },
+      "properties": {
+        "DIRECCION": "COLON 1115",
+        "COMUNA": "TALCAHUANO",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.94576020030927,
+          -36.62269660026401
+        ]
+      },
+      "properties": {
+        "DIRECCION": "MANUEL MONTT 1051",
+        "COMUNA": "TOME",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.56348879979078,
+          -37.094688200453746
+        ]
+      },
+      "properties": {
+        "DIRECCION": "GENERAL CRUZ 1134",
+        "COMUNA": "YUMBEL",
+        "REGION": "BIOBIO",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.70719312942997,
+          -37.796889900124086
+        ]
+      },
+      "properties": {
+        "DIRECCION": "COLIPI 148",
+        "COMUNA": "ANGOL",
+        "REGION": "ARAUCANIA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.59480643425553,
+          -38.74197241244277
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN MARTIN 524",
+        "COMUNA": "TEMUCO",
+        "REGION": "ARAUCANIA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.13685040058051,
+          -40.57229889994584
+        ]
+      },
+      "properties": {
+        "DIRECCION": "OHIGGINS 538",
+        "COMUNA": "OSORNO",
+        "REGION": "LOS LAGOS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.23989085237139,
+          -39.82658475234444
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ANIBAL PINTO 1925",
+        "COMUNA": "VALDIVIA",
+        "REGION": "LOS RIOS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.82781872783698,
+          -41.86802744285944
+        ]
+      },
+      "properties": {
+        "DIRECCION": "PUDETO 201",
+        "COMUNA": "ANCUD",
+        "REGION": "LOS LAGOS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.76591490044858,
+          -42.478063399917744
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SARGENTO ALDEA 463",
+        "COMUNA": "CASTRO",
+        "REGION": "LOS LAGOS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.91854126424327,
+          -41.47011975294089
+        ]
+      },
+      "properties": {
+        "DIRECCION": "EGAÑA 1141",
+        "COMUNA": "PUERTO MONTT",
+        "REGION": "LOS LAGOS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.98703686957275,
+          -41.31406133782159
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ESTACION 120",
+        "COMUNA": "PUERTO VARAS",
+        "REGION": "LOS LAGOS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.06584352322605,
+          -45.56921162054327
+        ]
+      },
+      "properties": {
+        "DIRECCION": "CALLE MORALEDA 448",
+        "COMUNA": "COYHAIQUE",
+        "REGION": "AYSEN",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.9026705281134,
+          -53.151807089176394
+        ]
+      },
+      "properties": {
+        "DIRECCION": "JOSE MIGUEL CARRERA 450",
+        "COMUNA": "PUNTA ARENAS",
+        "REGION": "MAGALLANES",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6762934734132,
+          -33.201817533495515
+        ]
+      },
+      "properties": {
+        "DIRECCION": "CHACABUCO 195",
+        "COMUNA": "COLINA",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64839110025812,
+          -33.437314699821584
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN ANTONIO 477",
+        "COMUNA": "SANTIAGO",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64846148601018,
+          -33.43729120574372
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN ANTONIO 477",
+        "COMUNA": "SANTIAGO",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64843333142268,
+          -33.43736168896615
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN ANTONIO 477",
+        "COMUNA": "SANTIAGO",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64839110025812,
+          -33.437314699821584
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN ANTONIO 477",
+        "COMUNA": "SANTIAGO",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.57865903671774,
+          -33.594581344784146
+        ]
+      },
+      "properties": {
+        "DIRECCION": "CONCHA Y TORO 1691",
+        "COMUNA": "PUENTE ALTO",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.70593493167878,
+          -33.5963890065717
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN JOSE 545",
+        "COMUNA": "SAN BERNARDO",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.65296452868719,
+          -33.499423427813504
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN NICOLAS 1085",
+        "COMUNA": "SAN MIGUEL",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.65334930060592,
+          -33.499317731168176
+        ]
+      },
+      "properties": {
+        "DIRECCION": "SAN NICOLAS 1085",
+        "COMUNA": "SAN MIGUEL",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.73118911337875,
+          -34.152505957124504
+        ]
+      },
+      "properties": {
+        "DIRECCION": "ILLANES 1140",
+        "COMUNA": "RANCAGUA",
+        "REGION": "OHIGGINS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.9925315723876,
+          -34.5701071454045
+        ]
+      },
+      "properties": {
+        "DIRECCION": "NINCUNLAUTA 1800",
+        "COMUNA": "SAN FERNANDO",
+        "REGION": "OHIGGINS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.86235799002824,
+          -34.40976001147983
+        ]
+      },
+      "properties": {
+        "DIRECCION": "DIEGO PORTALES 258",
+        "COMUNA": "RENGO",
+        "REGION": "OHIGGINS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.3575223344201,
+          -34.632096431068895
+        ]
+      },
+      "properties": {
+        "DIRECCION": "DIEGO PORTALES 546",
+        "COMUNA": "SANTA CRUZ",
+        "REGION": "OHIGGINS",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.68246951474832,
+          -33.43538247212235
+        ]
+      },
+      "properties": {
+        "DIRECCION": "JUAN MIRANDA 818",
+        "COMUNA": "QUINTA NORMAL",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.22088468713018,
+          -33.685436873366925
+        ]
+      },
+      "properties": {
+        "DIRECCION": "CORREA 490",
+        "COMUNA": "MELIPILLA",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.74312984503472,
+          -33.72533606937491
+        ]
+      },
+      "properties": {
+        "DIRECCION": "MANUEL MONTT 376",
+        "COMUNA": "BUIN",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.90407228947323,
+          -33.606726529312304
+        ]
+      },
+      "properties": {
+        "DIRECCION": "18 DE SEPTIEMBRE 172",
+        "COMUNA": "PEÑAFLOR",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.93227679170519,
+          -33.6650648321298
+        ]
+      },
+      "properties": {
+        "DIRECCION": "OHIGGINS",
+        "COMUNA": "TALAGANTE",
+        "REGION": "METROPOLITANA",
+        "PAIS": "CHILE"
       }
     }
   ]

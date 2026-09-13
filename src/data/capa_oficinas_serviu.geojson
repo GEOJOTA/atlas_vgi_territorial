@@ -1,68 +1,1200 @@
 {
   "type": "FeatureCollection",
-  "name": "capa_oficinas_serviu",
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  },
   "features": [
     {
       "type": "Feature",
+      "id": 1,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.648,
-          -33.4452
+          -70.9029713076708,
+          -53.15699263909645
         ]
       },
       "properties": {
-        "nombre": "SERVIU Metropolitano — Sede Central y Plataforma de Postulaciones",
-        "direccion": "Serrano 73, Santiago Centro",
-        "tipo_oficina": "Sede Central Regional",
-        "servicios": "Postulación subsidios habitacionales (DS49, DS1, DS19), escrituración, pago de subsidios a constructoras",
-        "horario": "Lunes a Viernes 08:30 a 14:00 hrs",
-        "dependencia": "Ministerio de Vivienda y Urbanismo",
-        "utilidad_territorial": "Atención masiva a postulantes del Gran Santiago y ejecución material de obras de pavimentación y vivienda."
+        "OBJECTID": 1,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "12",
+        "PROVINCIA": "Magallanes",
+        "COMUNA": "12101",
+        "CUT": "12101",
+        "DIR": "Croacia Nº 722, Edificio Servicios Públicos",
+        "FON": 612714470,
+        "HAT": "9:00 a 12:30 h ",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
       }
     },
     {
       "type": "Feature",
+      "id": 2,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6515,
-          -33.4438
+          -72.51022746672261,
+          -51.73106165000348
         ]
       },
       "properties": {
-        "nombre": "Oficina de Información, Reclamos y Sugerencias (OIRS Central MINVU)",
-        "direccion": "Av. Libertador Bernardo O'Higgins 924, Santiago Centro",
-        "tipo_oficina": "Atención Ciudadana OIRS Ministerial",
-        "servicios": "Recepción de solicitudes ciudadanas bajo Ley de Transparencia, orientaciones normativas DDU y reclamos de fiscalización",
-        "horario": "Lunes a Viernes 09:00 a 14:00 hrs",
-        "dependencia": "MINVU Nivel Central",
-        "utilidad_territorial": "Canal oficial vinculante de respuesta y fiscalización ciudadana ante trámites ministeriales."
+        "OBJECTID": 2,
+        "TIPO": "OFICINA",
+        "REGION": "12",
+        "PROVINCIA": "124",
+        "COMUNA": "12401",
+        "CUT": "12401",
+        "DIR": "Ladrilleros Nº 516",
+        "FON": 600901111,
+        "HAT": "9:00 a 14:00 h ",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
       }
     },
     {
       "type": "Feature",
+      "id": 3,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.672,
-          -33.441
+          -72.0772483679455,
+          -45.572103661125624
         ]
       },
       "properties": {
-        "nombre": "Oficina Técnica Territorial Barrio Yungay / Brasil (SERVIU Poniente)",
-        "direccion": "Huérfanos 2610, Santiago Poniente",
-        "tipo_oficina": "Centro Técnico y Asistencia Habitacional Territorial",
-        "servicios": "Inspección técnica de cités y pasajes patrimoniales, subsidios de mejoramiento y conservación arquitectónica",
-        "horario": "Lunes a Viernes 09:00 a 13:30 hrs",
-        "dependencia": "SERVIU Metropolitano",
-        "utilidad_territorial": "Acompañamiento en terreno para la rehabilitación de viviendas patrimoniales y prevención de derrumbes estructurales."
+        "OBJECTID": 3,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "11",
+        "PROVINCIA": "111",
+        "COMUNA": "11101",
+        "CUT": "11101",
+        "DIR": "Ramón Freire N° 5",
+        "FON": 569424088,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.765129668525,
+          -42.483293054685234
+        ]
+      },
+      "properties": {
+        "OBJECTID": 4,
+        "TIPO": "OFICINA",
+        "REGION": "10",
+        "PROVINCIA": "102",
+        "COMUNA": "10201",
+        "CUT": "10201",
+        "DIR": "Balmaceda N° 261",
+        "FON": 652638404,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales con excepción de desglose valor subsidio y desbloqueo cuenta de ahorro para la vivienda que se tramitan por Formulario de Contacto"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.82226802008117,
+          -41.870329875900985
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5,
+        "TIPO": "OFICINA",
+        "REGION": "10",
+        "PROVINCIA": "102",
+        "COMUNA": "10202",
+        "CUT": "10202",
+        "DIR": "San Carlos 598",
+        "FON": 652625412,
+        "HAT": null,
+        "TRA": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.94460675156677,
+          -41.4718608997985
+        ]
+      },
+      "properties": {
+        "OBJECTID": 6,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "10",
+        "PROVINCIA": "Llanquihue",
+        "COMUNA": "10101",
+        "CUT": "10101",
+        "DIR": "Urmeneta N° 680",
+        "FON": 652280155,
+        "HAT": "08:30 A 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.13580364573446,
+          -40.57479243666071
+        ]
+      },
+      "properties": {
+        "OBJECTID": 7,
+        "TIPO": "OFICINA",
+        "REGION": "10",
+        "PROVINCIA": "Osorno",
+        "COMUNA": "10301",
+        "CUT": "10301",
+        "DIR": "Mackenna N° 851, 4° Piso",
+        "FON": 642256305,
+        "HAT": "08:30 A 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.08007671637291,
+          -40.2958641744584
+        ]
+      },
+      "properties": {
+        "OBJECTID": 8,
+        "TIPO": "OFICINA",
+        "REGION": "14",
+        "PROVINCIA": "Ranco",
+        "COMUNA": "14201",
+        "CUT": "14201",
+        "DIR": "Letelier 447",
+        "FON": 642320220,
+        "HAT": "8:30 a 16:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.23881646333076,
+          -39.813653871735085
+        ]
+      },
+      "properties": {
+        "OBJECTID": 9,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "14",
+        "PROVINCIA": "Valdivia",
+        "COMUNA": "14101",
+        "CUT": "14101",
+        "DIR": "Av. Alemania N° 799,",
+        "FON": 632283504,
+        "HAT": "8:30 a 17:30 h ",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.59137043311269,
+          -38.74401457523184
+        ]
+      },
+      "properties": {
+        "OBJECTID": 10,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "09",
+        "PROVINCIA": "Cautín",
+        "COMUNA": "09101",
+        "CUT": "9101",
+        "DIR": "O'Higgins N° 830",
+        "FON": 452964435,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.70847437966424,
+          -37.79807006492585
+        ]
+      },
+      "properties": {
+        "OBJECTID": 11,
+        "TIPO": "OFICINA",
+        "REGION": "09",
+        "PROVINCIA": "Malleco",
+        "COMUNA": "09201",
+        "CUT": "9201",
+        "DIR": "Lautaro N° 226, Edificio Gobernación, 2° Piso",
+        "FON": 452726200,
+        "HAT": "09:00 a 14:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.65752532974622,
+          -37.61132924123651
+        ]
+      },
+      "properties": {
+        "OBJECTID": 12,
+        "TIPO": "OFICINA",
+        "REGION": "08",
+        "PROVINCIA": "Arauco",
+        "COMUNA": "08201",
+        "CUT": "8201",
+        "DIR": "Eleuterio Ramírez N°195",
+        "FON": 712983706,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.35069241788754,
+          -37.46211573423161
+        ]
+      },
+      "properties": {
+        "OBJECTID": 13,
+        "TIPO": "OFICINA",
+        "REGION": "08",
+        "PROVINCIA": "083",
+        "COMUNA": "08301",
+        "CUT": "8301",
+        "DIR": "Colón 950",
+        "FON": 712983803,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.05980780493681,
+          -36.82945448335287
+        ]
+      },
+      "properties": {
+        "OBJECTID": 14,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "08",
+        "PROVINCIA": "Concepción",
+        "COMUNA": "08101",
+        "CUT": "8101",
+        "DIR": "Avenida Arturo Prat #575",
+        "FON": 800600666,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.10418105761767,
+          -36.60612815553446
+        ]
+      },
+      "properties": {
+        "OBJECTID": 15,
+        "TIPO": "OFICINA",
+        "REGION": "16",
+        "PROVINCIA": null,
+        "COMUNA": "16101",
+        "CUT": "8401",
+        "DIR": "18 de Septiembre #530 (3 piso)",
+        "FON": 940291322,
+        "HAT": "08:30 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.82262582702283,
+          -36.13960556346738
+        ]
+      },
+      "properties": {
+        "OBJECTID": 16,
+        "TIPO": "OFICINA",
+        "REGION": "07",
+        "PROVINCIA": "Linares",
+        "COMUNA": "07404",
+        "CUT": "7404",
+        "DIR": "Balmaceda N°216 Of. 3",
+        "FON": 712415201,
+        "HAT": "09:00 a 13:10 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.31340704521452,
+          -35.96667735154042
+        ]
+      },
+      "properties": {
+        "OBJECTID": 17,
+        "TIPO": "OFICINA",
+        "REGION": "07",
+        "PROVINCIA": "Cauquenes",
+        "COMUNA": "07201",
+        "CUT": "7201",
+        "DIR": "Dirección Calle Antonio Varas N° 689-A",
+        "FON": 712983602,
+        "HAT": "08:30 a 13:15 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.59933933853036,
+          -35.84345895323892
+        ]
+      },
+      "properties": {
+        "OBJECTID": 18,
+        "TIPO": "OFICINA",
+        "REGION": "07",
+        "PROVINCIA": "Linares",
+        "COMUNA": "07401",
+        "CUT": "7401",
+        "DIR": "Freire N° 680",
+        "FON": 712983614,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 19,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.6662140650221,
+          -35.42507941123472
+        ]
+      },
+      "properties": {
+        "OBJECTID": 19,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "07",
+        "PROVINCIA": "Talca",
+        "COMUNA": "07101",
+        "CUT": "7101",
+        "DIR": "2 Norte N° 720",
+        "FON": 712983313,
+        "HAT": "09:00 a 13:10 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 20,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.40709906110207,
+          -35.32818537269762
+        ]
+      },
+      "properties": {
+        "OBJECTID": 20,
+        "TIPO": "OFICINA",
+        "REGION": "07",
+        "PROVINCIA": "Talca",
+        "COMUNA": "07102",
+        "CUT": "7102",
+        "DIR": "Echeverría N° 460",
+        "FON": 712983641,
+        "HAT": "08:30 a 13:15 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 21,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.23862722590877,
+          -34.98504452474985
+        ]
+      },
+      "properties": {
+        "OBJECTID": 21,
+        "TIPO": "OFICINA",
+        "REGION": "07",
+        "PROVINCIA": "Curicó",
+        "COMUNA": "07301",
+        "CUT": "7301",
+        "DIR": "Carmen esquina Merced, Edificio Público N°2, piso 3°",
+        "FON": 752763703,
+        "HAT": "09:00 a 13:10 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 22,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.36436378471133,
+          -34.639059316714295
+        ]
+      },
+      "properties": {
+        "OBJECTID": 22,
+        "TIPO": "OFICINA",
+        "REGION": "06",
+        "PROVINCIA": "Colchagua",
+        "COMUNA": "06310",
+        "CUT": "6310",
+        "DIR": "Calle 5 de abril N° 146",
+        "FON": 722565223,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 23,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.98939650537375,
+          -34.58445032491422
+        ]
+      },
+      "properties": {
+        "OBJECTID": 23,
+        "TIPO": "OFICINA",
+        "REGION": "06",
+        "PROVINCIA": "Colchagua",
+        "COMUNA": "06301",
+        "CUT": "6301",
+        "DIR": "Cardenal Jose Maria Caro N° 530",
+        "FON": 957790277,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 24,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.00436107622164,
+          -34.388996722993305
+        ]
+      },
+      "properties": {
+        "OBJECTID": 24,
+        "TIPO": "OFICINA",
+        "REGION": "06",
+        "PROVINCIA": "Cardenal Caro",
+        "COMUNA": "06201",
+        "CUT": "6201",
+        "DIR": "J.J. Aguirre 507",
+        "FON": 722565182,
+        "HAT": "08:30 A 13:30 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 25,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.74741998169361,
+          -34.16944201987928
+        ]
+      },
+      "properties": {
+        "OBJECTID": 25,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "06",
+        "PROVINCIA": "Cachapoal",
+        "COMUNA": "06101",
+        "CUT": "6101",
+        "DIR": "Brasil 912, Rancagua",
+        "FON": 722341502,
+        "HAT": "08:30 A 13:30 h",
+        "TRA": "Trámites generales con excepción de desglose valor subsidio y desbloqueo cuenta de ahorro para la vivienda que se tramitan por Formulario de Contacto"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 26,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.20148010395796,
+          -33.68383144067185
+        ]
+      },
+      "properties": {
+        "OBJECTID": 26,
+        "TIPO": "OFICINA",
+        "REGION": "13",
+        "PROVINCIA": "Melipilla",
+        "COMUNA": "13501",
+        "CUT": "13501",
+        "DIR": "Avenida Pablo Neruda N°0349",
+        "FON": 229014227,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 27,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.92957939740327,
+          -33.664899890218756
+        ]
+      },
+      "properties": {
+        "OBJECTID": 27,
+        "TIPO": "OFICINA",
+        "REGION": "13",
+        "PROVINCIA": "Talagante",
+        "COMUNA": "13601",
+        "CUT": "13601",
+        "DIR": "Avenida Bernardo O higgins N°1188. Piso 1. Edificio Servicios Públicos",
+        "FON": 562290142,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 28,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.57386247561519,
+          -33.60740200543175
+        ]
+      },
+      "properties": {
+        "OBJECTID": 28,
+        "TIPO": "OFICINA",
+        "REGION": "13",
+        "PROVINCIA": "Cordillera",
+        "COMUNA": "13201",
+        "CUT": "13201",
+        "DIR": "Avenida Jose Manuel Irarrázaval 0180. Oficina 209. Piso 2",
+        "FON": 228504079,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 29,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.61173464046865,
+          -33.61440857102986
+        ]
+      },
+      "properties": {
+        "OBJECTID": 29,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "San Antonio",
+        "COMUNA": "05601",
+        "CUT": "5601",
+        "DIR": "Avenida Divina Providencia 538",
+        "FON": 322263508,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámite general"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 30,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.70361997268121,
+          -33.59247103782445
+        ]
+      },
+      "properties": {
+        "OBJECTID": 30,
+        "TIPO": "OFICINA",
+        "REGION": "13",
+        "PROVINCIA": "Maipo",
+        "COMUNA": "13401",
+        "CUT": "13401",
+        "DIR": " O´Higgins 770",
+        "FON": 228592956,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 31,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.64948579045439,
+          -33.44468102957836
+        ]
+      },
+      "properties": {
+        "OBJECTID": 31,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "13",
+        "PROVINCIA": "Santiago",
+        "COMUNA": "13101",
+        "CUT": "13101",
+        "DIR": "Arturo Prat Nº 80",
+        "FON": 229014507,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 32,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.62688606892004,
+          -33.04067919755045
+        ]
+      },
+      "properties": {
+        "OBJECTID": 32,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "05",
+        "PROVINCIA": "Valparaíso",
+        "COMUNA": "05101",
+        "CUT": "5101",
+        "DIR": "Prat 856 Piso 2, Edificio Rapa Nui",
+        "FON": 322186825,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 33,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.24796574059827,
+          -32.87775757317893
+        ]
+      },
+      "properties": {
+        "OBJECTID": 33,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "Quillota",
+        "COMUNA": "05501",
+        "CUT": "5501",
+        "DIR": "Calle Condell N° 150",
+        "FON": 322263560,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 34,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.72525502493342,
+          -32.75486637728104
+        ]
+      },
+      "properties": {
+        "OBJECTID": 34,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "057",
+        "COMUNA": "05701",
+        "CUT": "5701",
+        "DIR": "Av. Libertador Bernardo O'Higgins N° 115",
+        "FON": 322263533,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 35,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.23321499310293,
+          -32.44831759205428
+        ]
+      },
+      "properties": {
+        "OBJECTID": 35,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "Petorca",
+        "COMUNA": "05401",
+        "CUT": "5401",
+        "DIR": "Avenida Vicuña Mackena N° 198 depto 14",
+        "FON": 322263575,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 36,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.16949983280661,
+          -31.63236107104045
+        ]
+      },
+      "properties": {
+        "OBJECTID": 36,
+        "TIPO": "OFICINA",
+        "REGION": "04",
+        "PROVINCIA": "Choapa",
+        "COMUNA": "04201",
+        "CUT": "4201",
+        "DIR": "Valdivieso N° 344, Of. 11 - 12 y 14",
+        "FON": 956364181,
+        "HAT": "08:30 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 37,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.20699138680365,
+          -30.605648078958996
+        ]
+      },
+      "properties": {
+        "OBJECTID": 37,
+        "TIPO": "OFICINA",
+        "REGION": "04",
+        "PROVINCIA": "Limarí",
+        "COMUNA": "04301",
+        "CUT": "4301",
+        "DIR": "Edificio Público Vicuña Mackenna N° 310, Of. 101",
+        "FON": 956241138,
+        "HAT": "08:30 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 38,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.25166760356102,
+          -29.898144259558055
+        ]
+      },
+      "properties": {
+        "OBJECTID": 38,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "04",
+        "PROVINCIA": "Elqui",
+        "COMUNA": "04101",
+        "CUT": "4101",
+        "DIR": "Almagro N° 372, Piso 1",
+        "FON": 973948476,
+        "HAT": "08:30 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 39,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.30661493623104,
+          -28.468384979857227
+        ]
+      },
+      "properties": {
+        "OBJECTID": 39,
+        "TIPO": "OFICINA",
+        "REGION": "03",
+        "PROVINCIA": "Huasco",
+        "COMUNA": "03301",
+        "CUT": "3301",
+        "DIR": "Arturo Prat N° 1600",
+        "FON": 512611627,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 40,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.33222543336576,
+          -27.365669953822344
+        ]
+      },
+      "properties": {
+        "OBJECTID": 40,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "03",
+        "PROVINCIA": "Copiapó",
+        "COMUNA": "03101",
+        "CUT": "3101",
+        "DIR": "Los Carrera 830, 1er. piso",
+        "FON": 522202800,
+        "HAT": "09:00 a 13:30 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 41,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.48665169311144,
+          -25.407601226802353
+        ]
+      },
+      "properties": {
+        "OBJECTID": 41,
+        "TIPO": "OFICINA",
+        "REGION": "02",
+        "PROVINCIA": "021",
+        "COMUNA": "02104",
+        "CUT": "2104",
+        "DIR": "Prat 525, subterráneo Municipalidad",
+        "FON": 552611034,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Para conocer los trámites gestionados visite nuestra página web: https://serviuantofagasta.minvu.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 42,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.39925197693714,
+          -23.64655343117341
+        ]
+      },
+      "properties": {
+        "OBJECTID": 42,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "02",
+        "PROVINCIA": "021",
+        "COMUNA": "02101",
+        "CUT": "2101",
+        "DIR": "Washington 2551, 2do piso",
+        "FON": 552415107,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Para conocer los trámites gestionados visite nuestra página web: https://serviuantofagasta.minvu.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 43,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.92956972602006,
+          -22.458038431697698
+        ]
+      },
+      "properties": {
+        "OBJECTID": 43,
+        "TIPO": "OFICINA",
+        "REGION": "02",
+        "PROVINCIA": "El Loa",
+        "COMUNA": "02201",
+        "CUT": "2201",
+        "DIR": "Madame Curie N° 2324",
+        "FON": 552342582,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Para conocer los trámites gestionados visite nuestra página web: https://serviuantofagasta.minvu.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 44,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.197116965003,
+          -22.092533066081764
+        ]
+      },
+      "properties": {
+        "OBJECTID": 44,
+        "TIPO": "OFICINA",
+        "REGION": "02",
+        "PROVINCIA": "Tocopilla",
+        "COMUNA": "02301",
+        "CUT": "2301",
+        "DIR": "Freire N° 1425",
+        "FON": 552811761,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Para conocer los trámites gestionados visite nuestra página web: https://serviuantofagasta.minvu.gob.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 45,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.15054933553347,
+          -20.209164312083296
+        ]
+      },
+      "properties": {
+        "OBJECTID": 45,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "01",
+        "PROVINCIA": "Iquique",
+        "COMUNA": "01101",
+        "CUT": "1101",
+        "DIR": "Patricio Lynch N°50",
+        "FON": 572811110,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámite general"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 46,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.31952705422364,
+          -18.47644662146873
+        ]
+      },
+      "properties": {
+        "OBJECTID": 46,
+        "TIPO": "SERVIU REGIONAL",
+        "REGION": "15",
+        "PROVINCIA": "Arica",
+        "COMUNA": "15101",
+        "CUT": "15101",
+        "DIR": "18 de Septiembre N° 122",
+        "FON": 582391000,
+        "HAT": "08:30 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 47,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.43041039167309,
+          -27.148848370063405
+        ]
+      },
+      "properties": {
+        "OBJECTID": 47,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "Isla de Pascua",
+        "COMUNA": "05201",
+        "CUT": "5201",
+        "DIR": null,
+        "FON": 322552028,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 48,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.68520860130374,
+          -45.40850072674224
+        ]
+      },
+      "properties": {
+        "OBJECTID": 48,
+        "TIPO": "OFICINA",
+        "REGION": "11",
+        "PROVINCIA": "112",
+        "COMUNA": "11201",
+        "CUT": "11201",
+        "DIR": "Yuseff Laibe N°190",
+        "FON": 600901111,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 49,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.70717396857748,
+          -42.91538714294428
+        ]
+      },
+      "properties": {
+        "OBJECTID": 49,
+        "TIPO": "OFICINA",
+        "REGION": "10",
+        "PROVINCIA": "Palena",
+        "COMUNA": "10401",
+        "CUT": "10401",
+        "DIR": "Libertad & Padre Juan Todesco",
+        "FON": 652721471,
+        "HAT": "10:00 a 13:00 h",
+        "TRA": "Si una oficina está cerrada por medidas sanitarias preventivas o no ofrece el trámite que necesitas realizar, puedes hacer tu consulta o solicitud en https://www.minvu.gob.cl/contactenos/formulario-de-contacto/"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 50,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.57655378251319,
+          -47.253183212972644
+        ]
+      },
+      "properties": {
+        "OBJECTID": 50,
+        "TIPO": "OFICINA",
+        "REGION": "11",
+        "PROVINCIA": "Capitán Prat",
+        "COMUNA": "11301",
+        "CUT": "11301",
+        "DIR": "Teniente Merino N°32",
+        "FON": 600901111,
+        "HAT": "08:30 a 14:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 51,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.62286023124503,
+          -33.04337217382205
+        ]
+      },
+      "properties": {
+        "OBJECTID": 51,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "Valparaíso",
+        "COMUNA": "05101",
+        "CUT": "5101",
+        "DIR": "Bellavista N° 120",
+        "FON": 322263264,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 53,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.42418816364572,
+          -33.06285685060711
+        ]
+      },
+      "properties": {
+        "OBJECTID": 53,
+        "TIPO": "OFICINA",
+        "REGION": "05",
+        "PROVINCIA": "051",
+        "COMUNA": "05801",
+        "CUT": null,
+        "DIR": "venida Marga Marga N° 2204",
+        "FON": 322263584,
+        "HAT": "09:00 a 13:00 h",
+        "TRA": "Trámites generales"
       }
     }
   ]

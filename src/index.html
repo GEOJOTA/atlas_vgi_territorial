@@ -58,7 +58,7 @@
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
       <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> ⬚ Cartografía UMap</button>
       <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
-      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (110 Capas)</button>
+      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (101 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
       <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual & Entregables</button>
     </nav>
@@ -110,7 +110,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo 10 capas VGI comunitarias y 27 capas oficiales del Estado (IDE Chile, MINVU, INE Censo 2024, EFE y Metro). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
+            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 74 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
@@ -240,7 +240,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
           <h3 style="margin:0; color:var(--musgo); font-size:1.3rem;">🏛 Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
           <div style="display:flex; gap:10px; align-items:center;">
-            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.88rem; padding:8px 14px;" title="Descargar paquete GeoJSON consolidado con las 27 capas oficiales de IDE Chile y MINVU IPT">⎘ Descargar Colección Oficial (.geojson)</button>
+            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.88rem; padding:8px 14px;" title="Descargar paquete GeoJSON consolidado con las 74 capas oficiales del Estado de Chile">⎘ Descargar Colección Oficial (.geojson)</button>
             <span style="font-size:0.82rem; background:var(--musgo); color:#000000; padding:4px 12px; border-radius:6px; font-family:var(--fuente-datos); font-weight:800;">101 CAPAS DISPONIBLES</span>
           </div>
         </div>
@@ -267,7 +267,7 @@
         </div>
 
         <div class="grilla-categorias" id="contenedor-botones-oficiales-ide">
-          <!-- Generado dinámicamente desde app.js con las 27 capas oficiales y WMS -->
+          <!-- Generado dinámicamente desde app.js con las 74 capas oficiales del Estado y WMS -->
         </div>
         <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.88rem; font-style:italic; margin-top:12px;"></div>
       </div>
@@ -920,7 +920,7 @@
 
         <h3>Linaje, Metodología y Restricciones</h3>
         <div class="fila-campos">
-          <div class="campo" style="flex:1"><label for="md-linaje">Linaje / Proceso de captura</label><textarea id="md-linaje" rows="2">Extraído de OpenStreetMap vía Overpass API QL y de GBIF Occurrence API. Normalizado según taxonomía de 8 categorías temáticas VGI en septiembre de 2026.</textarea></div>
+          <div class="campo" style="flex:1"><label for="md-linaje">Linaje / Proceso de captura</label><textarea id="md-linaje" rows="2">Extraído de OpenStreetMap vía Overpass API QL y de GBIF Occurrence API. Normalizado según taxonomía de 10 categorías maestras VGI en septiembre de 2026.</textarea></div>
         </div>
         <div class="fila-campos">
           <div class="campo" style="flex:1.2;">
@@ -1004,7 +1004,7 @@
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
           <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (134)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (86 Descriptores sin Homólogo Estatal)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales IDE Chile (48 Capas)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales del Estado (74 Capas BBDD)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema VGI (14 Atributos)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
@@ -1053,7 +1053,7 @@
       <header>
         <span class="rotulo">08 / Documentación Oficial & Manual de Uso</span>
         <h2>Manual de Uso del Atlas VGI, Guía Metodológica y Gobernanza Abierta</h2>
-        <p class="descripcion">Documentación técnica integral estilo librería/paquete: flujo de trabajo territorial, guía exhaustiva de las 8 macro-categorías, cálculo geodésico EPSG:32719, control de calidad ISO 19157, marco de licenciamiento chileno y gobernanza colaborativa en Git.</p>
+        <p class="descripcion">Documentación técnica integral estilo librería/paquete: flujo de trabajo territorial, guía exhaustiva de las 10 macro-categorías (CAT-01 a CAT-10), cálculo geodésico EPSG:32719, control de calidad ISO 19157, marco de licenciamiento chileno y gobernanza colaborativa en Git.</p>
       </header>
 
       <!-- Guía Rápida de Uso y Relación con el Atlas -->
@@ -1089,22 +1089,22 @@
 <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
 <script src="js/config.js?v=20260913_4"></script>
-<script src="js/modulos/geodesia.js?v=20260913_4"></script>
-<script src="js/modulos/mapa.js?v=20260913_4"></script>
-<script src="js/modulos/importador_capas.js?v=20260913_4"></script>
-<script src="js/modulos/ide_chile.js?v=20260913_4"></script>
-<script src="js/modulos/evaluador_normativo.js?v=20260913_4"></script>
-<script src="js/modulos/osm.js?v=20260913_4"></script>
-<script src="js/modulos/ohsome.js?v=20260913_4"></script>
-<script src="js/modulos/gbif.js?v=20260913_4"></script>
-<script src="js/modulos/umap.js?v=20260913_4"></script>
-<script src="js/modulos/metadatos.js?v=20260913_4"></script>
-<script src="js/modulos/licencias.js?v=20260913_4"></script>
-<script src="js/modulos/manual.js?v=20260913_4"></script>
-<script src="js/modulos/taginfo.js?v=20260913_4"></script>
-<script src="js/modulos/calidad_analyst.js?v=20260913_4"></script>
-<script src="js/modulos/diccionario.js?v=20260913_4"></script>
-<script src="js/modulos/manifold_canvas.js?v=20260913_4"></script>
-<script src="js/app.js?v=20260913_4"></script>
+<script src="js/modulos/geodesia.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/mapa.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/importador_capas.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/ide_chile.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/evaluador_normativo.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/osm.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/ohsome.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/gbif.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/umap.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/metadatos.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/licencias.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/manual.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/taginfo.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/calidad_analyst.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/diccionario.js?v=20260913_101capas_10cat"></script>
+<script src="js/modulos/manifold_canvas.js?v=20260913_101capas_10cat"></script>
+<script src="js/app.js?v=20260913_101capas_10cat"></script>
 </body>
 </html>

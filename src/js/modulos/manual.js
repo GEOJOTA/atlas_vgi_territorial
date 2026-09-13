@@ -8,7 +8,7 @@
   Incluye:
   1. Guía de Inicio Rápido (Quickstart) para usuarios no técnicos y técnicos.
   2. Guía paso a paso de los módulos 00 al 07 con ejemplos prácticos.
-  3. Catálogo exhaustivo de las 8 macro-categorías (CAT-01 a CAT-08) con anclas directas.
+  3. Catálogo exhaustivo de las 10 macro-categorías (CAT-01 a CAT-10) con anclas directas.
   4. Reproyección geodésica conforme EPSG:32719 (Snyder, 1987) y cálculo de m² y ha.
   5. Evaluación de calidad según ISO 19157 y ohsome API (v1 y v2).
   6. Marco de licenciamiento abierto adaptado a Chile (CC BY-SA 4.0 / ODbL / AGPL-3.0).
@@ -27,7 +27,7 @@ const ModuloManual = (() => {
         <div class="doc-nav-enlaces">
           <a href="#doc-quickstart" class="doc-nav-link"><span class="doc-num">01</span> Inicio Rápido</a>
           <a href="#doc-modulos" class="doc-nav-link"><span class="doc-num">02</span> Módulos 00-07</a>
-          <a href="#doc-categorias" class="doc-nav-link"><span class="doc-num">03</span> 8 Macro-Categorías</a>
+          <a href="#doc-categorias" class="doc-nav-link"><span class="doc-num">03</span> 10 Macro-Categorías</a>
           <a href="#doc-geodesia" class="doc-nav-link"><span class="doc-num">04</span> Geodesia UTM 19S</a>
           <a href="#doc-calidad" class="doc-nav-link"><span class="doc-num">05</span> Calidad ISO 19157</a>
           <a href="#doc-gobernanza" class="doc-nav-link"><span class="doc-num">06</span> Licencias & Git</a>
@@ -252,7 +252,7 @@ const ModuloManual = (() => {
             <div class="doc-modulo-cuerpo">
               <h4>Diccionario Territorial y Atributos Normalizados</h4>
               <p>Glosario ontológico interactivo que traduce las claves y valores en inglés de OpenStreetMap a conceptos formales de la gestión territorial chilena, vinculándolos con las contrapartes estatales y el Catálogo de Objetos Geográficos de Chile v3.0 (IDE Chile / SNIT).</p>
-              <div class="doc-modulo-meta"><strong>Salidas:</strong> 8 tarjetas interactivas de macro-categorías con filtrado en vivo y enlaces al manual, tabla de 63 etiquetas territoriales y 14 atributos normalizados.</div>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> 10 tarjetas interactivas de macro-categorías (CAT-01 a CAT-10) con filtrado en vivo y enlaces al manual, tabla de 63 etiquetas territoriales y 14 atributos normalizados.</div>
             </div>
           </div>
 
@@ -286,24 +286,24 @@ const ModuloManual = (() => {
           </p>
         </header>
 
-        <div class="doc-fichas-categorias">
+                <div class="doc-fichas-categorias">
 
-          <!-- CAT-01: MOVILIDAD -->
+          <!-- CAT-01: EDUCACIÓN Y UNIVERSIDAD -->
           <article id="manual-cat-01" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-01</div>
               <div class="doc-ficha-titular">
-                <h3>Movilidad y Transporte Urbano</h3>
-                <span class="doc-ficha-sub">Transporte público integrado, paraderos Red Movilidad, Metro de Santiago y conectividad peatonal</span>
+                <h3>Educación y Universidad</h3>
+                <span class="doc-ficha-sub">Educación superior, campus universitarios, liceos tradicionales, colegios, jardines infantiles y bibliotecas</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> Barrio Brasil es una zona de alta fricción espacial y convergencia metropolitana, articulada por los ejes estructurantes de Alameda Libertador Bernardo O'Higgins, Avenida Brasil, Manuel Rodríguez y Matucana. Esta categoría permite monitorear la distribución espacial de los puntos de acceso al sistema de transporte público, tiempos de caminata, frecuencias y cobertura de refugios peatonales.</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Barrio Brasil y su entorno albergan un polo de convergencia académica y estudiantil de alcance metropolitano articulado en torno al Campus Patrimonial de la Universidad Alberto Hurtado (UAH), conviviendo armónicamente con establecimientos educacionales emblemáticos (Liceo de Aplicación), colegios de formación general, salas cuna de la red JUNJI/Integra y centros de documentación. Esta categoría modela los flujos cotidianos de la población flotante estudiantil, la accesibilidad al equipamiento docente y el dinamismo cívico generado por la vida universitaria.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> MTT / Directorio de Transporte Público Metropolitano (DTPM) / Metro de Santiago S.A.</div>
-                <div><strong>Norma / Estándar:</strong> Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM, 2023).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Capa Nacional de Transporte e Infraestructura Vial (SNIT).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> Estación intermodal Los Héroes (Líneas 1 y 2), Estación Santa Ana (Líneas 2 y 5), paradas troncales Red en Alameda y Av. Brasil.</div>
+                <div><strong>Contraparte Estatal:</strong> MINEDUC / Subsecretaría de Educación Superior / JUNJI / Fundación Integra.</div>
+                <div><strong>Norma / Estándar:</strong> Directorio Oficial de Establecimientos (MINEDUC); Estándares de Infraestructura Parvularia (JUNJI); Ley N° 21.091 sobre Educación Superior.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Directorio Oficial de Establecimientos Educacionales (MINEDUC / IDE Chile).</div>
+                <div><strong>Casos en Barrio Brasil / UAH:</strong> Casa Central UAH (Almirante Barroso 10), Facultad de Ciencias Sociales (Cienfuegos 46), Aulas Erasmo Escala, Liceo de Aplicación (Ricardo Cumming), Jardines JUNJI.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -312,10 +312,8 @@ const ModuloManual = (() => {
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  node["highway"="bus_stop"]({{bbox}});
-  node["railway"="station"]["station"="subway"]({{bbox}});
-  node["railway"="subway_entrance"]({{bbox}});
-  way["highway"~"primary|secondary|tertiary"]({{bbox}});
+  nwr["amenity"~"university|college|library|school|kindergarten"]({{bbox}});
+  nwr["building"~"university|school|college|kindergarten|library"]({{bbox}});
 );
 out body;
 &gt;;
@@ -324,22 +322,22 @@ out skel qt;</code></pre>
             </div>
           </article>
 
-          <!-- CAT-02: EQUIPAMIENTO COMUNITARIO -->
+          <!-- CAT-02: SERVICIOS, COMERCIO Y SALUD BARRIAL -->
           <article id="manual-cat-02" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-02</div>
               <div class="doc-ficha-titular">
-                <h3>Equipamiento Comunitario y Social</h3>
-                <span class="doc-ficha-sub">Educación superior, colegios, jardines infantiles, sedes vecinales y servicios cívicos</span>
+                <h3>Servicios, Comercio y Salud Barrial</h3>
+                <span class="doc-ficha-sub">Comercio de proximidad, almacenes, gastronomía, ferias libres, farmacias, centros de salud (APS) y servicios cívicos</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> Agrupa la infraestructura esencial para la reproducción social y la vida de barrio. En el sector sur del polígono destaca el polo universitario de la Universidad Alberto Hurtado (UAH), que convive con establecimientos educacionales tradicionales (Liceo de Aplicación, colegios de educación básica) y organizaciones comunitarias de base.</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Estructura la vitalidad socioeconómica y los servicios de cuidado indispensables para la vida de barrio bajo el paradigma de la ciudad de 15 minutos. Consolida la oferta de abastecimiento cotidiano (almacenes tradicionales, panaderías, ferias libres, locales gastronómicos en torno a Plaza Brasil), la red de salud primaria y urgencia (CESFAM, postas, farmacias comunitarias) y los servicios institucionales (sucursales bancarias, notarías, correos y comisarías), asegurando cobertura y autonomía funcional para residentes y transeúntes.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> Ministerio de Educación (MINEDUC) / JUNJI / Ministerio de Desarrollo Social y Familia.</div>
-                <div><strong>Norma / Estándar:</strong> Directorio Oficial de Establecimientos (MINEDUC, 2023); Estándares de Infraestructura Parvularia (JUNJI, 2022).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Catastro de Equipamiento Social y Comunitario (IDE Chile / INE).</div>
-                <div><strong>Casos en Barrio Brasil / UAH:</strong> Casa Central UAH (Almirante Barroso 10), Facultad de Ciencias Sociales (Cienfuegos 46), Salas Cuna JUNJI, Junta de Vecinos Barrio Brasil.</div>
+                <div><strong>Contraparte Estatal:</strong> MINSAL / SEREMI de Salud RM / SERCOTEC / Municipalidad de Santiago / Carabineros de Chile.</div>
+                <div><strong>Norma / Estándar:</strong> Modelo de Atención Integral de Salud Familiar y Comunitaria (MINSAL); Ley de Rentas Municipales (D.L. 3.063); D.S. N° 469/1993 de Establecimientos de Salud.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Establecimientos de Salud DEIS (MINSAL / IDE Chile) / Catastro de Comercio Barrial (IDE Chile).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> CESFAM Ignacio Domeyko, Farmacia Municipal Santiago, locales comerciales y gastronómicos en Av. Brasil, feria libre de Cumming, 3ª Comisaría de Santiago.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -348,9 +346,9 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  nwr["amenity"~"university|college|school|kindergarten"]({{bbox}});
-  nwr["amenity"~"community_centre|social_facility"]({{bbox}});
-  nwr["office"="government"]({{bbox}});
+  nwr["shop"]({{bbox}});
+  nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station"]({{bbox}});
+  nwr["building"~"retail|commercial|supermarket"]({{bbox}});
 );
 out body;
 &gt;;
@@ -359,22 +357,22 @@ out skel qt;</code></pre>
             </div>
           </article>
 
-          <!-- CAT-03: SALUD -->
+          <!-- CAT-03: MOVILIDAD Y TRANSPORTE PÚBLICO -->
           <article id="manual-cat-03" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-03</div>
               <div class="doc-ficha-titular">
-                <h3>Salud y Bienestar</h3>
-                <span class="doc-ficha-sub">Atención Primaria de Salud (APS), CESFAM, farmacias de turno, postas y equipamiento DEA</span>
+                <h3>Movilidad y Transporte Público</h3>
+                <span class="doc-ficha-sub">Transporte público integrado, paraderos Red Movilidad, estaciones de Metro y ejes viales troncales</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> La infraestructura sanitaria de proximidad garantiza el derecho a la salud comunitaria. En Chile, la red asistencial primaria municipal se estructura mediante Centros de Salud Familiar (CESFAM) y Servicios de Atención Primaria de Urgencia (SAPU), complementados por farmacias barriales y dispositivos de desfibrilación externa automática (DEA).</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Barrio Brasil constituye una zona de alta fricción espacial y convergencia metropolitana delimitada por ejes estructurantes de primer orden (Alameda Bernardo O'Higgins, Av. Brasil, Manuel Rodríguez y Matucana). Esta categoría evalúa la distribución territorial y densidad de la infraestructura del sistema integrado de transporte, tiempos de caminata a puntos de embarque, confort en paraderos y la transferencia intermodal entre servicios troncales de buses y la red subterránea.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> Ministerio de Salud (MINSAL) / DEIS / Servicio de Salud Metropolitano Central.</div>
-                <div><strong>Norma / Estándar:</strong> Clasificación de la Red Asistencial (MINSAL, 2023); Ley N° 21.156 de Desfibriladores Externos Automáticos (2019).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Infraestructura Sanitaria de la Red Pública y Privada (IDE Chile / DEIS).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> CESFAM N° 5 (Santiago Centro), farmacias de turno en Av. Brasil y Alameda, clínicas veterinarias comunitarias.</div>
+                <div><strong>Contraparte Estatal:</strong> MTT / Directorio de Transporte Público Metropolitano (DTPM) / Metro de Santiago S.A.</div>
+                <div><strong>Norma / Estándar:</strong> Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM, 2023); Manual de Vialidad Urbana (REDEVU / MINVU).</div>
+                <div><strong>Equivalente IDE Chile:</strong> Capa Nacional de Transporte e Infraestructura Vial (MTT / SNIT).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Estación intermodal Los Héroes (Líneas 1 y 2), Estación Santa Ana (Líneas 2 y 5), paradas troncales Red en Alameda y Av. Brasil.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -383,9 +381,12 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  nwr["amenity"~"clinic|pharmacy|hospital|doctors|dentist"]({{bbox}});
-  node["emergency"="defibrillator"]({{bbox}});
-  node["amenity"="veterinary"]({{bbox}});
+  node["highway"="bus_stop"]({{bbox}});
+  node["railway"~"station|subway_entrance"]({{bbox}});
+  node["public_transport"~"platform|stop_position"]({{bbox}});
+  way["highway"~"primary|secondary|tertiary|trunk"]({{bbox}});
+  way["railway"="subway"]({{bbox}});
+  nwr["amenity"="bus_station"]({{bbox}});
 );
 out body;
 &gt;;
@@ -394,22 +395,22 @@ out skel qt;</code></pre>
             </div>
           </article>
 
-          <!-- CAT-04: COMERCIO -->
+          <!-- CAT-04: MOVILIDAD ACTIVA Y CICLOVÍAS -->
           <article id="manual-cat-04" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-04</div>
               <div class="doc-ficha-titular">
-                <h3>Comercio y Economía Barrial</h3>
-                <span class="doc-ficha-sub">Almacenes de barrio, panaderías, ferias libres tradicionales, librerías y oficios</span>
+                <h3>Movilidad Activa y Ciclovías</h3>
+                <span class="doc-ficha-sub">Red de ciclovías segregadas, sendas peatonales, estacionamientos para ciclos y talleres comunitarios</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> El comercio minorista tradicional y los servicios de pequeña escala sostienen la vitalidad económica y la seguridad ciudadana por medio de los 'ojos en la calle' (Jacobs, 1961). En Barrio Brasil destaca la presencia de amasanderías tradicionales, botillerías históricas, librerías universitarias y las ferias libres periódicas que abastecen a la población de frutas y verduras frescas.</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Promueve la movilidad sostenible no motorizada y la pacificación del tráfico rodado en el damero barrial. Cataloga el estado físico, perfil geométrico, tipo de segregación vial y continuidad de las vías para ciclos en calles históricas, cuantificando la dotación de estacionamientos seguros para bicicletas (bicicleteros públicos y universitarios) y la conectividad con la red central de ciclovías de la comuna de Santiago.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> Instituto Nacional de Estadísticas (INE) / SERCOTEC / Municipalidad de Santiago.</div>
-                <div><strong>Norma / Estándar:</strong> Catastro de Ferias Libres (ASOF, 2021); Directorio Nacional de Empresas Minoristas (INE, 2021).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Directorio Comercial e Industrial (SII / INE / IDE Chile).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> Panaderías y pastelerías en Huérfanos y Brasil, ferias libres de fin de semana, cafés culturales y almacenes de abarrotes.</div>
+                <div><strong>Contraparte Estatal:</strong> MTT / SECTRA / SERVIU Metropolitano / Municipalidad de Santiago.</div>
+                <div><strong>Norma / Estándar:</strong> Manual de Vialidad del Ciclo (MINVU / MTT, 2015); Ley de Convivencia Vial (Ley N° 21.088); D.S. N° 102/2019 MTT.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Red Nacional de Ciclovías (IDE Chile / SECTRA).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Ciclovías de calles Rosas y Compañía de Jesús, bicicleteros interiores Campus UAH, estaciones de arriendo Bike Santiago.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -418,8 +419,14 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  nwr["shop"~"convenience|bakery|supermarket|greengrocer|books"]({{bbox}});
-  nwr["amenity"~"marketplace|cafe|restaurant"]({{bbox}});
+  way["highway"="cycleway"]({{bbox}});
+  way["cycleway"]({{bbox}});
+  way["cycleway:left"]({{bbox}});
+  way["cycleway:right"]({{bbox}});
+  way["cycleway:both"]({{bbox}});
+  way["highway"~"footway|path"]["bicycle"~"yes|designated"]({{bbox}});
+  nwr["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});
+  nwr["shop"="bicycle"]({{bbox}});
 );
 out body;
 &gt;;
@@ -428,22 +435,22 @@ out skel qt;</code></pre>
             </div>
           </article>
 
-          <!-- CAT-05: SEGURIDAD -->
+          <!-- CAT-05: ÁREAS VERDES, DEPORTE Y ESPACIO PÚBLICO -->
           <article id="manual-cat-05" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-05</div>
               <div class="doc-ficha-titular">
-                <h3>Seguridad y Emergencias</h3>
-                <span class="doc-ficha-sub">Compañías de bomberos, comisarías de carabineros, red de grifos contra incendios y gestión de riesgos</span>
+                <h3>Áreas Verdes, Deporte y Espacio Público</h3>
+                <span class="doc-ficha-sub">Plazas públicas, plazoletas, canchas deportivas, juegos infantiles y mobiliario urbano de descanso</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> La morfología patrimonial de Barrio Brasil (casonas de adobe, madera y tabiquería del siglo XIX y principios del XX) presenta una alta vulnerabilidad ante siniestros de incendio. El catastro geoespacial de la red de grifos operativos, cuarteles de bomberos y unidades de vigilancia preventiva es un insumo crítico para la gestión del riesgo de desastres a escala de manzana.</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Cuantifica y diagnostica la dotación superficial y calidad del espacio público recreativo abierto a la ciudadanía. Permite verificar los estándares de superficie verde por habitante (m²/hab) recomendados por el CNDU y la OMS, registrar el equipamiento lúdico y deportivo (canchas multiuso, máquinas de ejercicios) y monitorear el mobiliario de descanso y permanencia (bancas, bebederos públicos e iluminación) que fomentan la vida comunitaria barrial.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> SENAPRED / Carabineros de Chile / Junta Nacional de Bomberos de Chile.</div>
-                <div><strong>Norma / Estándar:</strong> Ley N° 20.564 Marco de Bomberos de Chile (2022); Plan Estratégico GRD (SENAPRED, 2023).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Infraestructura para la Gestión del Riesgo y Emergencias (IDE Chile / SENAPRED).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> 11ª y 12ª Compañías del Cuerpo de Bomberos de Santiago, 3ª Comisaría de Santiago Central, red de grifos urbanos de Aguas Andinas.</div>
+                <div><strong>Contraparte Estatal:</strong> MINVU / Parque Metropolitano (PARQUEMET) / IND / Municipalidad de Santiago.</div>
+                <div><strong>Norma / Estándar:</strong> Política Nacional de Parques Urbanos (MINVU, 2021); Estándares Urbanos Indicativos de Áreas Verdes (CNDU, 2018); OGUC Art. 2.2.4.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Catastro Nacional de Áreas Verdes Urbanas (MINVU / IDE Chile).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Plaza Brasil (juegos de Federica Matta), Plaza Manuel Rodríguez, multicanchas barriales de Maturana, plazoletas de bolsillo.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -452,8 +459,9 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  nwr["amenity"~"fire_station|police"]({{bbox}});
-  node["emergency"="fire_hydrant"]({{bbox}});
+  nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station"]({{bbox}});
+  nwr["landuse"~"grass|village_green|recreation_ground"]({{bbox}});
+  node["amenity"~"bench|drinking_water"]({{bbox}});
 );
 out body;
 &gt;;
@@ -462,22 +470,22 @@ out skel qt;</code></pre>
             </div>
           </article>
 
-          <!-- CAT-06: ESPACIO PÚBLICO -->
+          <!-- CAT-06: PATRIMONIO HISTÓRICO Y CULTURA -->
           <article id="manual-cat-06" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-06</div>
               <div class="doc-ficha-titular">
-                <h3>Espacio Público, Deporte y Recreación</h3>
-                <span class="doc-ficha-sub">Plazas barriales, parques urbanos, multicanchas públicas, mobiliario y bebederos</span>
+                <h3>Patrimonio Histórico y Cultura</h3>
+                <span class="doc-ficha-sub">Monumentos Históricos, Zonas Típicas, cités tradicionales, basílicas, museos, teatros y centros culturales</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> La dotación de espacio público por habitante es uno de los principales indicadores de equidad y justicia espacial. La Plaza Brasil constituye el epicentro del encuentro comunitario, juegos infantiles, actividades culturales y esparcimiento al aire libre, articulándose con plazas de bolsillo y multicanchas deportivas.</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Barrio Brasil posee una trascendental jerarquía histórica declarada formalmente como Zona Típica por el Consejo de Monumentos Nacionales (CMN). Esta categoría documenta la riqueza de la arquitectura neoclásica y modernista de fines del siglo XIX y principios del XX, las tipologías residenciales colectivas de inmenso valor sociocomunitario como los pasajes y cités, templos religiosos de protección patrimonial y los centros de difusión artística y teatral barriales.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> Ministerio de Vivienda y Urbanismo (MINVU) / Instituto Nacional de Deportes (IND).</div>
-                <div><strong>Norma / Estándar:</strong> Política Nacional de Parques Urbanos (MINVU, 2021); Catastro Nacional de Recintos Deportivos (IND, 2021).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Áreas Verdes Públicas y Recintos Deportivos (MINVU / IDE Chile).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> Plaza Brasil (polígono principal con juegos escultóricos de Federici), multicanchas barriales en pasajes, bebederos públicos.</div>
+                <div><strong>Contraparte Estatal:</strong> Servicio Nacional del Patrimonio Cultural (SERPAT) / CMN / Ministerio de las Culturas, las Artes y el Patrimonio.</div>
+                <div><strong>Norma / Estándar:</strong> Ley N° 17.288 de Monumentos Nacionales; Decreto Exento N° 126/2000 del Mineduc (Declaratoria Zona Típica Barrio Brasil); Convenio UNESCO 1972.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Capa Nacional de Patrimonio y Monumentos Históricos (CMN / IDE Chile).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Cités de calles Huérfanos, Compañía y Cienfuegos; Basílica del Salvador; Palacio Rivas; Galería Concreta; Galpón Víctor Jara.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -486,43 +494,10 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  nwr["leisure"~"park|pitch|playground|sports_centre"]({{bbox}});
-  node["amenity"="drinking_water"]({{bbox}});
-  node["leisure"="fitness_station"]({{bbox}});
-);
-out body;
-&gt;;
-out skel qt;</code></pre>
-              </div>
-            </div>
-          </article>
-
-          <!-- CAT-07: PATRIMONIO -->
-          <article id="manual-cat-07" class="doc-ficha-cat">
-            <div class="doc-ficha-cabecera">
-              <div class="doc-ficha-badge">CAT-07</div>
-              <div class="doc-ficha-titular">
-                <h3>Patrimonio Urbano y Cultura</h3>
-                <span class="doc-ficha-sub">Zonas típicas, monumentos históricos, Inmuebles de Conservación Histórica (ICH) y cités residenciales</span>
-              </div>
-            </div>
-            <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> Barrio Brasil posee una invaluable riqueza arquitectónica de finales del siglo XIX e inicios del XX. Alberga la Zona Típica declarada por el Consejo de Monumentos Nacionales, decenas de Inmuebles de Conservación Histórica (ICH) catalogados en el Plan Regulador Comunal de Santiago y una densa red de cités obreros y pasajes residenciales tradicionales (Hidalgo, 2005).</p>
-              <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> Consejo de Monumentos Nacionales (CMN) / SERPAT / Dirección de Obras de la I. Municipalidad de Santiago.</div>
-                <div><strong>Norma / Estándar:</strong> Ley N° 17.288 de Monumentos Nacionales (2020); Catálogo Patrimonial del Plan Regulador Comunal de Santiago (2019).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Capa Nacional de Patrimonio y Monumentos Históricos (CMN / IDE Chile).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> Cités de calles Huérfanos, Compañía y Cienfuegos; Basílica del Salvador; Palacio Rivas; Centros culturales comunitarios.</div>
-              </div>
-              <div class="doc-codigo-bloque">
-                <div class="doc-codigo-header">
-                  <span>Sintaxis Overpass QL Recomendada (CAT-07)</span>
-                  <button type="button" class="doc-btn-copiar" onclick="ModuloManual.copiarCodigo(this)">Copiar QL</button>
-                </div>
-                <pre><code>[out:json][timeout:25];
-(
   nwr["historic"]({{bbox}});
   nwr["heritage"]({{bbox}});
+  nwr["building"~"church|cathedral|chapel"]({{bbox}});
+  nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre"]({{bbox}});
   nwr["tourism"~"museum|artwork|gallery"]({{bbox}});
 );
 out body;
@@ -532,22 +507,61 @@ out skel qt;</code></pre>
             </div>
           </article>
 
-          <!-- CAT-08: MEDIO AMBIENTE Y ACCESIBILIDAD -->
+          <!-- CAT-07: ACCESIBILIDAD UNIVERSAL Y CAMINABILIDAD -->
+          <article id="manual-cat-07" class="doc-ficha-cat">
+            <div class="doc-ficha-cabecera">
+              <div class="doc-ficha-badge">CAT-07</div>
+              <div class="doc-ficha-titular">
+                <h3>Accesibilidad Universal y Caminabilidad</h3>
+                <span class="doc-ficha-sub">Ruta accesible continua, rebajes de solera (vados), pavimentos podotáctiles, rampas peatonales y cruces D.S. 50</span>
+              </div>
+            </div>
+            <div class="doc-ficha-cuerpo">
+              <p><strong>Función en la Gestión Barrial:</strong> Eje fundamental de justicia espacial y diseño urbano inclusivo. Permite auditar en terreno el cumplimiento riguroso de la 'ruta accesible' continua estipulada por el Decreto Supremo N° 50 de MINVU (OGUC Art. 2.2.8) para personas con discapacidad visual, motriz, coches infantiles y personas mayores, registrando rebajes de acera normativos en esquinas, franjas podotáctiles de advertencia, señalética sonora en semáforos y pendientes en rampas peatonales.</p>
+              <div class="doc-cat-datos-grid">
+                <div><strong>Contraparte Estatal:</strong> Servicio Nacional de la Discapacidad (SENADIS) / MINVU / DOM Municipalidad de Santiago.</div>
+                <div><strong>Norma / Estándar:</strong> D.S. N° 50 OGUC Accesibilidad Universal (MINVU, 2016); Ley N° 20.422 sobre Igualdad de Oportunidades; ISO 21542:2021.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Catastro de Cruces y Accesibilidad Urbana (IDE Chile / SENADIS).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Rebajes de solera en esquinas de Av. Brasil con Huérfanos, veredas accesibles en campus UAH, cruces accesibles en Alameda.</div>
+              </div>
+              <div class="doc-codigo-bloque">
+                <div class="doc-codigo-header">
+                  <span>Sintaxis Overpass QL Recomendada (CAT-07)</span>
+                  <button type="button" class="doc-btn-copiar" onclick="ModuloManual.copiarCodigo(this)">Copiar QL</button>
+                </div>
+                <pre><code>[out:json][timeout:25];
+(
+  node["kerb"]({{bbox}});
+  node["highway"="crossing"]({{bbox}});
+  node["tactile_paving"]({{bbox}});
+  node["wheelchair"]({{bbox}});
+  way["highway"~"footway|pedestrian"]({{bbox}});
+  way["highway"="steps"]["ramp"~"yes|separate"]({{bbox}});
+  way["ramp"]({{bbox}});
+);
+out body;
+&gt;;
+out skel qt;</code></pre>
+              </div>
+            </div>
+          </article>
+
+          <!-- CAT-08: BIODIVERSIDAD URBANA Y ARBOLADO -->
           <article id="manual-cat-08" class="doc-ficha-cat">
             <div class="doc-ficha-cabecera">
               <div class="doc-ficha-badge">CAT-08</div>
               <div class="doc-ficha-titular">
-                <h3>Medio Ambiente Urbano y Accesibilidad Universal</h3>
-                <span class="doc-ficha-sub">Accesibilidad física D.S. 50 MINVU, rebajes de acera, baldosas podotáctiles y arbolado viario</span>
+                <h3>Biodiversidad Urbana y Arbolado</h3>
+                <span class="doc-ficha-sub">Arbolado viario de alineación, especies nativas e introducidas, jardines polinizadores y mitigación de islas de calor</span>
               </div>
             </div>
             <div class="doc-ficha-cuerpo">
-              <p><strong>Función en la Gestión Barrial:</strong> Integra la dimensión ambiental y la justicia espacial inclusiva. Permite evaluar si las aceras y cruces cumplen con la 'ruta accesible' continua establecida por el Decreto Supremo N° 50 del MINVU (OGUC Art. 2.2.8) para personas con discapacidad o movilidad reducida, cruzando esta información con el arbolado de sombra y mitigación de islas de calor urbano (CONAF, 2019; MMA, 2022).</p>
+              <p><strong>Función en la Gestión Barrial:</strong> Caracteriza la infraestructura ecológica y la masa vegetal urbana que provee servicios ecosistémicos críticos en el centro histórico, tales como la mitigación de las islas de calor urbano (ICU), la captura de material particulado y la provisión de sombra estival para la caminabilidad. Permite inventariar especies de árboles en calzadas y patios interiores (Plátanos Orientales, Jacarandás, Peumos), evaluar su estado fitosanitario y promover corredores biológicos barriales.</p>
               <div class="doc-cat-datos-grid">
-                <div><strong>Contraparte Estatal:</strong> SENADIS / MINVU / Ministerio del Medio Ambiente (MMA) / CONAF.</div>
-                <div><strong>Norma / Estándar:</strong> D.S. N° 50 OGUC Accesibilidad Universal (MINVU, 2016); ISO 21542:2021 (Building construction — Accessibility).</div>
-                <div><strong>Equivalente IDE Chile:</strong> Catastro de Cruces y Accesibilidad Urbana / Infraestructura Verde Urbana (IDE Chile).</div>
-                <div><strong>Casos en Barrio Brasil:</strong> Rebajes de solera en esquinas de Av. Brasil con Huérfanos, veredas accesibles en campus UAH, alineaciones de Plátanos Orientales y Jacarandás.</div>
+                <div><strong>Contraparte Estatal:</strong> CONAF / Ministerio del Medio Ambiente (MMA) / Dirección de Medio Ambiente Municipalidad de Santiago.</div>
+                <div><strong>Norma / Estándar:</strong> Ley Marco de Cambio Climático (Ley N° 21.455); Guía de Arbolado Urbano (CONAF, 2019); Estándares de Santiago Verde.</div>
+                <div><strong>Equivalente IDE Chile:</strong> Infraestructura Verde y Catastro de Arbolado Urbano (MMA / CONAF / IDE Chile).</div>
+                <div><strong>Casos en Barrio Brasil:</strong> Alineaciones arboladas en bandejón central de Av. Brasil, árboles en calles Almirante Barroso y Huérfanos, patios arbolados del Campus UAH.</div>
               </div>
               <div class="doc-codigo-bloque">
                 <div class="doc-codigo-header">
@@ -556,10 +570,11 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:25];
 (
-  node["kerb"]({{bbox}});
-  node["highway"="crossing"]["wheelchair"]({{bbox}});
   node["natural"="tree"]({{bbox}});
-  way["cycleway"]({{bbox}});
+  way["natural"="tree_row"]({{bbox}});
+  nwr["natural"~"wood|scrub"]({{bbox}});
+  nwr["leisure"="garden"]({{bbox}});
+  nwr["landuse"="forest"]({{bbox}});
 );
 out body;
 &gt;;
@@ -592,7 +607,8 @@ out skel qt;</code></pre>
                 </div>
                 <pre><code>[out:json][timeout:35];
 (
-  nwr["building"]({{bbox}});
+  way["building"]({{bbox}});
+  relation["building"]({{bbox}});
 );
 out geom tags qt 400;</code></pre>
               </div>
@@ -624,8 +640,8 @@ out geom tags qt 400;</code></pre>
                 <pre><code>[out:json][timeout:35];
 (
   nwr["landuse"]({{bbox}});
-  nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});
-  nwr["leisure"~"park|garden|pitch"]({{bbox}});
+  nwr["natural"~"wood|scrub|water|grassland|tree_row"]({{bbox}});
+  nwr["leisure"~"park|garden|pitch|nature_reserve"]({{bbox}});
   way["surface"~"asphalt|paving_stones|cobblestone"]({{bbox}});
 );
 out geom tags qt 400;</code></pre>

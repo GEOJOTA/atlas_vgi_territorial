@@ -844,7 +844,7 @@ const ModuloIDEChile = (() => {
       archivoLocal: "data/capa_predios.geojson",
       color: "#D97706",
       icono: "🏢",
-      geometria: "Puntos (Predios Catastrales Georreferenciados)",
+      geometria: "Polígonos (Catastro Predial Urbano MINVU)",
       grupo: "normativa_ipt",
       joinInfo: null,
       descripcion: "Información oficial correspondiente a la división predial (MINVU, Catálogo Geoportal 35406). En el ámbito de estudio de Santiago Centro y Barrio Brasil, comprende el catastro georreferenciado de predios urbanos con rol de avalúo, dirección oficial, destino del inmueble, avalúo fiscal, superficie y año de construcción.",

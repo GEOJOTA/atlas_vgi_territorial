@@ -3,7 +3,7 @@
   ------
   Consultas espaciales a OpenStreetMap vía Overpass API.
   Incluye:
-  - Soporte para las 8 categorías temáticas VGI del Atlas.
+  - Soporte para las 10 categorías temáticas VGI del Atlas (CAT-01 a CAT-10).
   - Fallback automático entre servidores espejo (overpass-api.de, kumi.systems, mail.ru).
   - Normalizador de elementos Overpass (nodes, ways, relations) a estándar GeoJSON (FeatureCollection).
 */

@@ -1,101 +1,292 @@
 {
   "type": "FeatureCollection",
-  "name": "capa_seremi_ministeriales",
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  },
   "features": [
     {
       "type": "Feature",
+      "id": 1,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6485,
-          -33.4442
+          -70.32032269566405,
+          -18.478633707154067
         ]
       },
       "properties": {
-        "nombre": "SEREMI de Vivienda y Urbanismo Región Metropolitana (SEREMI MINVU RM)",
-        "direccion": "Av. Libertador Bernardo O'Higgins 874, Santiago Centro",
-        "ministerio": "Ministerio de Vivienda y Urbanismo",
-        "titular": "Secretario(a) Regional Ministerial MINVU RM",
-        "competencias": "Aprobación de enmiendas al PRMS, evaluación técnica de Planes Reguladores Comunales y subsidios DS49/DS19",
-        "utilidad_territorial": "Conducción de la política habitacional y ordenamiento territorial intercomunal para los 52 municipios de la RM."
+        "OBJECTID": 1,
+        "REG": "Arica y Parinacota",
+        "PROV": "Arica",
+        "COM": "Arica",
+        "DIREC": "Sotomayor 216, 1er piso"
       }
     },
     {
       "type": "Feature",
+      "id": 3,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6542,
-          -33.4475
+          -70.15054962209604,
+          -20.20920123857744
         ]
       },
       "properties": {
-        "nombre": "SEREMI de Salud Región Metropolitana",
-        "direccion": "Padre Miguel de Olivares 1229, Santiago Centro",
-        "ministerio": "Ministerio de Salud",
-        "titular": "Secretario(a) Regional Ministerial de Salud RM",
-        "competencias": "Fiscalización de la Autoridad Sanitaria, sumarios sanitarios, calidad de aguas, residuos y salud ocupacional",
-        "utilidad_territorial": "Vigilancia epidemiológica comunal, clausuras preventivas y garantía de condiciones sanitarias en el hábitat."
+        "OBJECTID": 3,
+        "REG": "Tarapacá",
+        "PROV": "Iquique",
+        "COM": "Iquique",
+        "DIREC": "Patricio Lynch N° 50, Remodelación Oscar Bonilla"
       }
     },
     {
       "type": "Feature",
+      "id": 4,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6575,
-          -33.438
+          -70.39934153178446,
+          -23.66466848068999
         ]
       },
       "properties": {
-        "nombre": "SEREMI de Educación Región Metropolitana (SEREMI Mineduc RM)",
-        "direccion": "San Martín 642, Santiago Centro",
-        "ministerio": "Ministerio de Educación",
-        "titular": "Secretario(a) Regional Ministerial de Educación RM",
-        "competencias": "Supervisión pedagógica territorial, fiscalización de infraestructura escolar y gestión de cupos SAE",
-        "utilidad_territorial": "Aseguramiento del derecho a la educación pública y administración de la red de escuelas en la zona metropolitana."
+        "OBJECTID": 4,
+        "REG": "Antofagasta",
+        "PROV": "Anyofagasta",
+        "COM": "Antofagasta",
+        "DIREC": "Diaz Gana N°1071"
       }
     },
     {
       "type": "Feature",
+      "id": 5,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.653,
-          -33.4418
+          -70.33268032136101,
+          -27.36839773615869
         ]
       },
       "properties": {
-        "nombre": "SEREMI del Medio Ambiente Región Metropolitana",
-        "direccion": "Moneda 970, piso 14, Santiago Centro",
-        "ministerio": "Ministerio del Medio Ambiente",
-        "titular": "Secretario(a) Regional Ministerial del Medio Ambiente RM",
-        "competencias": "Gestión del Plan de Prevención y Descontaminación Atmosférica (PPDA RM), Humedales Urbanos y SCAM",
-        "utilidad_territorial": "Coordinación ambiental interinstitucional para mitigar la contaminación del aire y proteger el patrimonio natural del valle."
+        "OBJECTID": 5,
+        "REG": "Atacama",
+        "PROV": "Copiapó",
+        "COM": "Copiapó",
+        "DIREC": "Atacama N° 711"
       }
     },
     {
       "type": "Feature",
+      "id": 6,
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -70.6555,
-          -33.4435
+          -71.25152956933279,
+          -29.898221471355185
         ]
       },
       "properties": {
-        "nombre": "SEREMI de Transportes y Telecomunicaciones Región Metropolitana",
-        "direccion": "Amunátegui 58, Santiago Centro",
-        "ministerio": "Ministerio de Transportes y Telecomunicaciones",
-        "titular": "Secretario(a) Regional Ministerial de Transportes RM",
-        "competencias": "Regulación del transporte público Red Movilidad, fiscalización de pistas 'Solo Bus', ciclovías y semaforización UOCT",
-        "utilidad_territorial": "Planificación y descongestión de la movilidad urbana sostenible y control vial del transporte mayor y menor."
+        "OBJECTID": 6,
+        "REG": "Coquimbo",
+        "PROV": "Elqui",
+        "COM": "La Serena",
+        "DIREC": "Almagro 372"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.62686407367032,
+          -33.04071062956107
+        ]
+      },
+      "properties": {
+        "OBJECTID": 7,
+        "REG": "Valparaíso",
+        "PROV": "Valparaíso",
+        "COM": "Valparaíso",
+        "DIREC": "Arturo Prat N° 856, Pisos 2-7-8, Edificio Rapa Nui"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6490885284863,
+          -33.44401583322014
+        ]
+      },
+      "properties": {
+        "OBJECTID": 8,
+        "REG": "Metropolitana",
+        "PROV": "Santiago",
+        "COM": "Santiago",
+        "DIREC": "Alameda 874, piso 8"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.73684300014608,
+          -34.166405785510285
+        ]
+      },
+      "properties": {
+        "OBJECTID": 9,
+        "REG": "Libertador General Bernardo O'Higgins\r\n",
+        "PROV": "Cachopoal",
+        "COM": "Rancagua",
+        "DIREC": "Alameda 176"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.66618503326875,
+          -35.424948352821914
+        ]
+      },
+      "properties": {
+        "OBJECTID": 10,
+        "REG": "Maule",
+        "PROV": "Talca",
+        "COM": "Talca",
+        "DIREC": "2 Norte N° 720"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.10504601755697,
+          -36.6094791274798
+        ]
+      },
+      "properties": {
+        "OBJECTID": 11,
+        "REG": "Ñuble",
+        "PROV": "Diaguillín",
+        "COM": "Chillán",
+        "DIREC": "Maipón N° 342"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.05148018869106,
+          -36.82850069301658
+        ]
+      },
+      "properties": {
+        "OBJECTID": 12,
+        "REG": "Biobío",
+        "PROV": "Concepción",
+        "COM": "Concepción",
+        "DIREC": "Rengo N° 384"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.58969855787618,
+          -38.74193576168135
+        ]
+      },
+      "properties": {
+        "OBJECTID": 13,
+        "REG": "La Araucanía",
+        "PROV": "Cautín",
+        "COM": "Temuco",
+        "DIREC": "Manuel Bulnes #853"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.24972185636973,
+          -39.823533852207376
+        ]
+      },
+      "properties": {
+        "OBJECTID": 14,
+        "REG": "Los Ríos",
+        "PROV": "Valdivia",
+        "COM": "Valdivia",
+        "DIREC": "General Lagos N° 1356"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.93911520919947,
+          -41.46847267228547
+        ]
+      },
+      "properties": {
+        "OBJECTID": 15,
+        "REG": "Los Lagos",
+        "PROV": "Llanquihue",
+        "COM": "Puerto Montt",
+        "DIREC": "Av. Décima Región N° 480, Piso 3 Edificio Anexo"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.06284641112215,
+          -45.5756979844593
+        ]
+      },
+      "properties": {
+        "OBJECTID": 16,
+        "REG": "Aysén del General Carlos Ibáñez del Campo\r\n",
+        "PROV": "Coihaique",
+        "COM": "Coihaique",
+        "DIREC": "Ramón Freire N° 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.90301571409024,
+          -53.1569365589405
+        ]
+      },
+      "properties": {
+        "OBJECTID": 17,
+        "REG": "Magallanes y de la Antártica Chilena",
+        "PROV": "Magallanes",
+        "COM": "Punta Arenas",
+        "DIREC": "Croacia N° 722, Piso 3"
       }
     }
   ]
