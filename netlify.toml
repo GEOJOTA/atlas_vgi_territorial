@@ -7,7 +7,7 @@
   command = ""
 
 [functions]
-  included_files = ["src/data/**", "data/**"]
+  included_files = ["src/data/atlas_vgi_barrio_brasil_uah_completo.geojson"]
 
 # Redirecciones de API serverless
 [[redirects]]
