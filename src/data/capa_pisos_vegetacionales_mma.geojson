@@ -1,0 +1,126 @@
+{
+  "type": "FeatureCollection",
+  "name": "MMA_Pisos_Vegetacionales_Chile_Central_Luebert_Pliscoff",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.78,
+              -33.3
+            ],
+            [
+              -70.52,
+              -33.3
+            ],
+            [
+              -70.52,
+              -33.65
+            ],
+            [
+              -70.78,
+              -33.65
+            ],
+            [
+              -70.78,
+              -33.3
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Matorral Espinoso Mediterráneo Interior (Valle Central de Santiago)",
+        "clasificacion_botanica": "Formación de Matorral Espinoso Caducifolio (Acacia caven / Prosopis chilensis)",
+        "autor_clasificacion": "Luebert & Pliscoff (2017) / Ministerio del Medio Ambiente",
+        "altitud_rango": "400 a 800 m s.n.m. (Cuenca y Depresión Intermedia)",
+        "especies_indicadoras": "Espino (Acacia caven), Algarrobo (Prosopis chilensis), Trevo (Retanilla trinervia)",
+        "estado_conservacion": "En Peligro Crítico (CR) por expansión urbana y sellado de suelo",
+        "superficie_ha": 98500,
+        "utilidad_territorial": "Planificación del arbolado urbano resistente a la sequía, reforestación de corredores biológicos urbanos y compensación por pérdida de suelo permeable."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.52,
+              -33.25
+            ],
+            [
+              -70.35,
+              -33.25
+            ],
+            [
+              -70.35,
+              -33.75
+            ],
+            [
+              -70.52,
+              -33.75
+            ],
+            [
+              -70.52,
+              -33.25
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Bosque Esclerófilo Mediterráneo Andino (Precordillera de Santiago)",
+        "clasificacion_botanica": "Bosque Esclerófilo Laurifolio de Ladera (Cryptocarya alba / Quillaja saponaria)",
+        "autor_clasificacion": "Luebert & Pliscoff (2017) / MMA",
+        "altitud_rango": "800 a 1.800 m s.n.m. (Piedemonte cordillerano de Peñalolén, La Florida y Lo Barnechea)",
+        "especies_indicadoras": "Quillay (Quillaja saponaria), Peumo (Cryptocarya alba), Litre (Lithraea caustica), Guayacán (Porlieria chilensis)",
+        "estado_conservacion": "Vulnerable (VU) ante incendios forestales y parcelaciones de agrado",
+        "superficie_ha": 142000,
+        "utilidad_territorial": "Faja amortiguadora contra aluviones y remociones en masa provenientes de las quebradas precordilleranas (San Ramón, Macul)."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.35,
+              -33.2
+            ],
+            [
+              -69.85,
+              -33.2
+            ],
+            [
+              -69.85,
+              -33.85
+            ],
+            [
+              -70.35,
+              -33.85
+            ],
+            [
+              -70.35,
+              -33.2
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Estepa Altoandina Mediterránea de los Andes de Santiago",
+        "clasificacion_botanica": "Formación de Subarbustos y Cojines Altoandinos (Chuquiraga oppositifolia / Azorella compacta)",
+        "autor_clasificacion": "Luebert & Pliscoff (2017) / MMA",
+        "altitud_rango": "1.800 a 3.400 m s.n.m. (Alta Cordillera y Vegas Glaciares)",
+        "especies_indicadoras": "Hierba del platero (Chuquiraga oppositifolia), Llareta (Azorella), Coirón (Festuca gracillima)",
+        "estado_conservacion": "Vulnerable (VU) por cambio climático y retroceso de la isoterma cero",
+        "superficie_ha": 265000,
+        "utilidad_territorial": "Protección de humedales altoandinos (bofedales/vegas) esenciales para la purificación natural del agua potable del Gran Santiago."
+      }
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "type": "FeatureCollection",
+  "name": "Sitios_Prioritarios_Conservacion_Biodiversidad_Santiago_MMA",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.6455,
+              -33.4385
+            ],
+            [
+              -70.6425,
+              -33.4395
+            ],
+            [
+              -70.6418,
+              -33.4435
+            ],
+            [
+              -70.6442,
+              -33.4445
+            ],
+            [
+              -70.6458,
+              -33.4415
+            ],
+            [
+              -70.6455,
+              -33.4385
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Cerro Santa Lucía (Huelén)",
+        "categoria": "Sitio Prioritario de Biodiversidad Urbana y Refugio Ecosistémico",
+        "ecosistema": "Relicto de Bosque Esclerófilo Andino y Masa Arbórea Urbana",
+        "marco_legal": "Ley N° 19.300 Art. 10 y 11 / Ley N° 21.600 (SBAP) / Monumento Histórico",
+        "organismo_competente": "Ministerio del Medio Ambiente (MMA) / SBAP / I. Municipalidad de Santiago",
+        "superficie_ha": 6.53,
+        "especies_destacadas": "Quillay (Quillaja saponaria), Espino (Acacia caven), Avifauna nativa (Zorzal, Chincol, Cernícalo)",
+        "amenazas_antropicas": "Isla de calor urbana, compactación edáfica, contaminación atmosférica y lumínica",
+        "utilidad_territorial": "Evaluación preventiva obligatoria en el SEIA para proyectos circundantes. Amortiguación bioclimática, refugio biológico de polinizadores y educación ambiental."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.686,
+              -33.439
+            ],
+            [
+              -70.678,
+              -33.439
+            ],
+            [
+              -70.678,
+              -33.4455
+            ],
+            [
+              -70.686,
+              -33.4455
+            ],
+            [
+              -70.686,
+              -33.439
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Parque Quinta Normal (Jardín Botánico y Humedal Arbóreo Urbano)",
+        "categoria": "Sitio Prioritario de Conservación y Reservorio Botánico",
+        "ecosistema": "Parque Urbano Arbolado Centenario y Laguna Seminutricia",
+        "marco_legal": "Ley N° 19.300 / Ley N° 21.202 (Humedales Urbanos) / Ley N° 21.600 (SBAP)",
+        "organismo_competente": "Ministerio del Medio Ambiente (MMA) / SEREMI Medio Ambiente RM",
+        "superficie_ha": 35.5,
+        "especies_destacadas": "Araucaria angustifolia, Palmera chilena (Jubaea chilensis), Cedros, Garza chica, Taguas",
+        "amenazas_antropicas": "Déficit hídrico estival, envejecimiento de copas, presión recreacional no controlada",
+        "utilidad_territorial": "Mitigación activa del efecto isla de calor en el poniente de Santiago, captura anual de carbono (GEI) e infiltración freática."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.666,
+              -33.456
+            ],
+            [
+              -70.655,
+              -33.456
+            ],
+            [
+              -70.655,
+              -33.468
+            ],
+            [
+              -70.666,
+              -33.468
+            ],
+            [
+              -70.666,
+              -33.456
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Parque O'Higgins (Pulmón Verde Sur de Santiago)",
+        "categoria": "Área de Alto Valor Ambiental y Zona de Amortiguación Urbana",
+        "ecosistema": "Bosque Urbano Mixto, Praderas y Sistema de Lagunas",
+        "marco_legal": "PRMS Art. 5.2.3 / Ley N° 19.300 / Ley N° 21.600 (SBAP)",
+        "organismo_competente": "I. Municipalidad de Santiago / Ministerio del Medio Ambiente (MMA)",
+        "superficie_ha": 76.8,
+        "especies_destacadas": "Pimientos (Schinus molle), Acacias, Eucaliptos históricos, Avifauna ribereña y quirópteros",
+        "amenazas_antropicas": "Impermeabilización superficial por eventos masivos, fragmentación de biotopos",
+        "utilidad_territorial": "Gran sumidero de material particulado (MP10 / MP2.5), enfriamiento microclimático comunal y recarga de la napa freática del Maipo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.695,
+              -33.431
+            ],
+            [
+              -70.638,
+              -33.4325
+            ],
+            [
+              -70.638,
+              -33.435
+            ],
+            [
+              -70.695,
+              -33.4335
+            ],
+            [
+              -70.695,
+              -33.431
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Corredor Biológico Ribera Río Mapocho (Tramo Comunal Santiago / Yungay)",
+        "categoria": "Corredor Ecológico Fluvial y Sitio Prioritario de Conectividad",
+        "ecosistema": "Ecosistema Ripario y Cauce Aluvial Activo",
+        "marco_legal": "Ley N° 19.300 / Ley N° 21.202 / Código de Aguas (DGA / MOP) / Ley N° 21.600 (SBAP)",
+        "organismo_competente": "Ministerio del Medio Ambiente (MMA) / Dirección General de Aguas (DGA) / DOH MOP",
+        "superficie_ha": 48.2,
+        "especies_destacadas": "Sauce amargo (Salix humboldtiana), Baccharis salicifolia, Garzas, Queltehues, Golondrinas",
+        "amenazas_antropicas": "Vertimiento clandestino de escombros, canalización rígida de riberas, pérdida de continuidad biológica",
+        "utilidad_territorial": "Conector biológico este-oeste entre la Cordillera de los Andes y el valle central, disipador térmico y control de crecidas aluviales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.648,
+              -33.4345
+            ],
+            [
+              -70.635,
+              -33.4355
+            ],
+            [
+              -70.635,
+              -33.4385
+            ],
+            [
+              -70.648,
+              -33.437
+            ],
+            [
+              -70.648,
+              -33.4345
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Parque Forestal y Parque Balmaceda (Eje Verde Central)",
+        "categoria": "Corredor Verde Urbano y Amortiguación Ecosistémica",
+        "ecosistema": "Arbolado Continuo de Ribera y Paisaje Cultural Protegido",
+        "marco_legal": "Ley N° 17.288 (Zona Típica CMN) / Ley N° 19.300 / Plan de Descontaminación Atmosférica RM",
+        "organismo_competente": "Consejo de Monumentos Nacionales (CMN) / MMA / Municipalidad de Santiago",
+        "superficie_ha": 17.1,
+        "especies_destacadas": "Plátanos orientales centenarios, Palmeras washingtonias, Crespón, Peumos nativos",
+        "amenazas_antropicas": "Tráfico vehicular colindante, compactación de suelos por eventos, estrés hídrico",
+        "utilidad_territorial": "Filtro de contaminantes en el eje central de la capital, regulación del viento térmico y preservación del patrimonio arbóreo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.64,
+              -33.428
+            ],
+            [
+              -70.622,
+              -33.415
+            ],
+            [
+              -70.615,
+              -33.425
+            ],
+            [
+              -70.63,
+              -33.432
+            ],
+            [
+              -70.64,
+              -33.428
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Cerro San Cristóbal (Parque Metropolitano - Ladera Sur / Acceso Pío Nono)",
+        "categoria": "Sitio Prioritario Regional para la Conservación de la Biodiversidad (MMA)",
+        "ecosistema": "Matorral y Bosque Esclerófilo de Ladera Central",
+        "marco_legal": "Estrategia Regional de Biodiversidad MMA / Ley N° 19.300 / Ley N° 21.600 (SBAP)",
+        "organismo_competente": "Ministerio de Vivienda y Urbanismo (PARQUEMET) / Ministerio del Medio Ambiente",
+        "superficie_ha": 722.0,
+        "especies_destacadas": "Espino, Litre, Peumo, Guayacán, Zorro chilla, Culebra de cola larga, Picaflor gigante",
+        "amenazas_antropicas": "Riesgo de incendios forestales de interfaz urbana, especies exóticas invasoras",
+        "utilidad_territorial": "Nodo emisor de biodiversidad hacia los parques urbanos comunales, estabilización de pendientes contra remoción en masa y regulación hidrológica."
+      }
+    }
+  ]
+}

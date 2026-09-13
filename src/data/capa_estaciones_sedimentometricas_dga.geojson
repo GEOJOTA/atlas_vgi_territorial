@@ -1,0 +1,75 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_estaciones_sedimentometricas_dga",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.521,
+          -33.365
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Sedimentométrica Río Mapocho en Los Almendros",
+        "codigo_bna": "05722001-2",
+        "institucion": "Dirección General de Aguas (DGA / MOP)",
+        "cuenca": "Cuenca del Río Maipo (057)",
+        "subcuenca": "Río Mapocho Alto",
+        "altitud_msnm": 780.0,
+        "parametro_monitoreado": "Concentración de sedimentos en suspensión (mg/L) y arrastre de fondo",
+        "transporte_anual_estimado": "185.000 toneladas/año",
+        "utilidad_territorial": "Cálculo de tasas de erosión cordillerana, vida útil de tranques y turbiedad crítica para plantas de agua potable."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.435,
+          -33.595
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Sedimentométrica Río Maipo en El Manzano",
+        "codigo_bna": "05701002-6",
+        "institucion": "Dirección General de Aguas (DGA / MOP)",
+        "cuenca": "Cuenca del Río Maipo (057)",
+        "subcuenca": "Río Maipo Alto",
+        "altitud_msnm": 850.0,
+        "parametro_monitoreado": "Caudal de sólidos en suspensión y turbidez nephelométrica (NTU)",
+        "transporte_anual_estimado": "420.000 toneladas/año",
+        "utilidad_territorial": "Alerta temprana de turbiedad extrema que obliga al cierre preventivo de las plantas Las Vizcachas y La Florida (Aguas Andinas)."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.762,
+          -33.485
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Sedimentométrica Río Mapocho en Rinconada de Maipú",
+        "codigo_bna": "05725001-9",
+        "institucion": "Dirección General de Aguas (DGA / MOP)",
+        "cuenca": "Cuenca del Río Maipo (057)",
+        "subcuenca": "Río Mapocho Bajo",
+        "altitud_msnm": 435.0,
+        "parametro_monitoreado": "Sedimentos finos fluviales y arrastre post-descarga urbana",
+        "transporte_anual_estimado": "290.000 toneladas/año",
+        "utilidad_territorial": "Monitoreo del colmataje de canales agrícolas aguas abajo del Gran Santiago y sedimentación en zonas de riego de Talagante."
+      }
+    }
+  ]
+}

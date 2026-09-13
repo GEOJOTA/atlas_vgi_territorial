@@ -1,0 +1,94 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_catastro_predial_sii",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.668,
+              -33.441
+            ],
+            [
+              -70.666,
+              -33.441
+            ],
+            [
+              -70.666,
+              -33.443
+            ],
+            [
+              -70.668,
+              -33.443
+            ],
+            [
+              -70.668,
+              -33.441
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Manzana Predial 13101-0428 (Barrio Brasil Centro)",
+        "rol_matriz_sii": "13101-0428-001",
+        "destino_predial": "Habitacional Mixto con Comercio Menor en Primera Planta",
+        "numero_predios_internos": 28,
+        "superficie_terreno_m2": 4250.0,
+        "avaluo_fiscal_total_muf": 185200.0,
+        "coeficiente_constructibilidad": 2.4,
+        "conservador_bienes_raices": "CBR Santiago (Fojas 1420 N° 1102)",
+        "utilidad_territorial": "Determinación del régimen tributario municipal (contribuciones), estructura de la propiedad y recaudación territorial."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.672,
+              -33.438
+            ],
+            [
+              -70.67,
+              -33.438
+            ],
+            [
+              -70.67,
+              -33.44
+            ],
+            [
+              -70.672,
+              -33.44
+            ],
+            [
+              -70.672,
+              -33.438
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Manzana Predial 13101-0315 (Barrio Yungay Patrimonial)",
+        "rol_matriz_sii": "13101-0315-004",
+        "destino_predial": "Habitacional Colectivo (Cités y Casas de Fachada Continua)",
+        "numero_predios_internos": 34,
+        "superficie_terreno_m2": 5100.0,
+        "avaluo_fiscal_total_muf": 142000.0,
+        "coeficiente_constructibilidad": 1.8,
+        "conservador_bienes_raices": "CBR Santiago (Fojas 2150 N° 1890)",
+        "utilidad_territorial": "Protección ante subdivisión predial especulativa y cálculo de avalúos en zonas con exención tributaria patrimonial."
+      }
+    }
+  ]
+}

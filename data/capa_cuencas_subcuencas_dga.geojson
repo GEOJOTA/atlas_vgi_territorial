@@ -1,0 +1,145 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_cuencas_subcuencas_dga",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.85,
+              -33.2
+            ],
+            [
+              -70.3,
+              -33.15
+            ],
+            [
+              -70.0,
+              -33.3
+            ],
+            [
+              -70.05,
+              -33.65
+            ],
+            [
+              -70.35,
+              -33.75
+            ],
+            [
+              -70.75,
+              -33.55
+            ],
+            [
+              -70.85,
+              -33.2
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Subcuenca Río Mapocho Medio (Código BNA 0573)",
+        "cuenca_madre": "Cuenca del Río Maipo (057)",
+        "superficie_km2": 1475.2,
+        "comunas_incluidas": "Santiago, Providencia, Las Condes, Vitacura, Recoleta, Quinta Normal, Cerro Navia, Pudahuel",
+        "regimen_hidrologico": "Mixto nivo-pluvial con crecidas invernales y deshielos primaverales",
+        "disponibilidad_hidrica": "Agotada según Decretos de Escasez Hídrica DGA",
+        "utilidad_territorial": "Unidad hidrológica fundamental para la planificación del drenaje urbano, balance hídrico comunal y mitigación de anegamientos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.45,
+              -33.5
+            ],
+            [
+              -69.8,
+              -33.45
+            ],
+            [
+              -69.75,
+              -34.2
+            ],
+            [
+              -70.3,
+              -34.3
+            ],
+            [
+              -70.55,
+              -33.8
+            ],
+            [
+              -70.45,
+              -33.5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Subcuenca Río Maipo Alto (Código BNA 0571)",
+        "cuenca_madre": "Cuenca del Río Maipo (057)",
+        "superficie_km2": 4980.5,
+        "comunas_incluidas": "San José de Maipo, Pirque, Puente Alto",
+        "regimen_hidrologico": "Nival dominante con aporte de glaciares andinos de roca",
+        "disponibilidad_hidrica": "Principal fuente de agua potable para más de 7 millones de habitantes de la RM",
+        "utilidad_territorial": "Cabecera de cuenca estratégica para la seguridad hídrica metropolitana y conservación de glaciares de reserva."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -71.65,
+              -33.6
+            ],
+            [
+              -70.8,
+              -33.3
+            ],
+            [
+              -70.6,
+              -33.65
+            ],
+            [
+              -70.85,
+              -34.15
+            ],
+            [
+              -71.6,
+              -33.95
+            ],
+            [
+              -71.65,
+              -33.6
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Subcuenca Río Maipo Bajo y Desembocadura (Código BNA 0574)",
+        "cuenca_madre": "Cuenca del Río Maipo (057)",
+        "superficie_km2": 3120.8,
+        "comunas_incluidas": "Talagante, Melipilla, San Pedro, San Antonio, Santo Domingo",
+        "regimen_hidrologico": "Pluvial con regulación de aportes aguas arriba",
+        "disponibilidad_hidrica": "Intensivo uso agrícola de exportación y estuario de alto valor ecológico",
+        "utilidad_territorial": "Sustento de la agricultura del valle central y protección del humedal estuarial de Llolleo."
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_generacion_electrica_sen",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.698,
+          -33.415
+        ]
+      },
+      "properties": {
+        "nombre": "Central Termoeléctrica Renca (Turbogas de Respaldo SEN)",
+        "operador": "Generadora Metropolitana / Coordinador Eléctrico Nacional",
+        "tecnologia": "Turbina de Gas en Ciclo Abierto (Respaldo)",
+        "potencia_bruta_mw": 370.0,
+        "tension_inyeccion_kv": 110.0,
+        "combustible": "Gas Natural / Diésel de Emergencia",
+        "estado_operativo": "Operativa / Reserva Estratégica del Gran Santiago",
+        "utilidad_territorial": "Garantía de suministro eléctrico ante contingencias críticas y estabilidad de tensión en el valle de Santiago."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.365,
+          -33.59
+        ]
+      },
+      "properties": {
+        "nombre": "Central Hidroeléctrica Los Maitenes (Río Colorado - Maipo)",
+        "operador": "AES Andes / SEN",
+        "tecnologia": "Hidroeléctrica de Pasada",
+        "potencia_bruta_mw": 30.8,
+        "tension_inyeccion_kv": 110.0,
+        "caudal_diseno": "7.5 m³/s",
+        "estado_operativo": "Operativa / Generación Limpia Renovable",
+        "utilidad_territorial": "Generación hidroeléctrica renovable de pasada aprovechando los recursos hídricos de la alta cuenca del Maipo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.732,
+          -33.431
+        ]
+      },
+      "properties": {
+        "nombre": "Subestación Seccionadora Cerro Navia 220/110 kV",
+        "operador": "Transelec / Coordinador Eléctrico Nacional",
+        "tecnologia": "Subestación de Transformación y Seccionamiento",
+        "capacidad_mva": 900.0,
+        "tension_nominal_kv": "220 / 110 kV",
+        "estado_operativo": "Nudo Estratégico Troncal Metropolitano",
+        "utilidad_territorial": "Principal nudo troncal de recepción de la energía proveniente del norte (Polpaico) y distribución hacia el anillo central."
+      }
+    }
+  ]
+}

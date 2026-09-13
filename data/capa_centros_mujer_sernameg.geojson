@@ -1,0 +1,72 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_centros_mujer_sernameg",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6698,
+          -33.4412
+        ]
+      },
+      "properties": {
+        "nombre": "Centro de la Mujer Santiago Poniente (SERNAMEG / Municipalidad)",
+        "direccion": "Compañía de Jesús 2145, Barrio Brasil",
+        "tipo_centro": "Centro de Atención Psicosocial y Jurídica Ambulatoria",
+        "marco_legal": "Ley N° 20.066 sobre Violencia Intrafamiliar",
+        "servicios_ofrecidos": "Apoyo psicológico, patrocinio judicial gratuito, orientación social y talleres de empoderamiento",
+        "telefono_emergencia": "Fono Orientación 1455 (Gratuito y Confidencial)",
+        "horario": "Lunes a Viernes 09:00 a 18:00 hrs",
+        "utilidad_territorial": "Atención especializada inmediata ante situaciones de violencia de género y restitución de derechos en el territorio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6625,
+          -33.445
+        ]
+      },
+      "properties": {
+        "nombre": "Centro de Atención Reparatoria Integral en Violencias Contra las Mujeres (CARI Metropolitano)",
+        "direccion": "Almirante Barroso 75, Santiago Poniente",
+        "tipo_centro": "Centro Especializado de Reparación de Alta Complejidad",
+        "marco_legal": "Ley N° 21.675 para Prevenir, Sancionar y Erradicar la Violencia de Género",
+        "servicios_ofrecidos": "Psicoterapia reparatoria de largo plazo, psiquiatría y acompañamiento socioterritorial",
+        "telefono_emergencia": "Fono Orientación 1455",
+        "horario": "Lunes a Viernes 08:30 a 17:30 hrs",
+        "utilidad_territorial": "Reparación del daño psicológico y psicosocial severo en víctimas de agresiones graves a escala metropolitana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.655,
+          -33.439
+        ]
+      },
+      "properties": {
+        "nombre": "Centro de Apoyo a Víctimas de Delitos (CAVD Santiago Centro)",
+        "direccion": "Moneda 1025, Santiago Centro",
+        "tipo_centro": "Programa CAVD / Subsecretaría de Prevención del Delito",
+        "marco_legal": "Programa Gubernamental de Atención Integral a Víctimas de Delitos Violentos",
+        "servicios_ofrecidos": "Primera respuesta legal, psicológica y social inmediata a víctimas de delitos contra las personas",
+        "telefono_emergencia": "600 818 1000",
+        "horario": "Lunes a Viernes 09:00 a 18:00 hrs",
+        "utilidad_territorial": "Disminución del impacto traumático y asesoría jurídica penal en el centro histórico metropolitano."
+      }
+    }
+  ]
+}

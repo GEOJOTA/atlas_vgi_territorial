@@ -1,0 +1,107 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_sedes_municipales",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6536,
+          -33.4372
+        ]
+      },
+      "properties": {
+        "nombre": "Palacio Consistorial de Santiago (Sede Central Municipal)",
+        "direccion": "Plaza de Armas s/n, Santiago Centro",
+        "tipo_sede": "Edificio Consistorial / Alcaldía",
+        "servicios": "Alcaldía, Secretaría Municipal, Concejo Comunal, OIRS Central",
+        "horario": "Lunes a Viernes 09:00 a 14:00 hrs",
+        "administracion": "I. Municipalidad de Santiago",
+        "utilidad_territorial": "Sede del gobierno comunal, máxima autoridad administrativa y toma de decisiones sobre planificación y presupuestos barriales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6792,
+          -33.4445
+        ]
+      },
+      "properties": {
+        "nombre": "Edificio Santiago Social y Participación Ciudadana (DIDECO Matucana)",
+        "direccion": "Avenida Matucana 272, Barrio Yungay / Brasil",
+        "tipo_sede": "Dirección de Desarrollo Comunitario (DIDECO)",
+        "servicios": "Registro Social de Hogares, Subsidios Estatales, Oficina de Organizaciones Comunitarias",
+        "horario": "Lunes a Viernes 08:30 a 14:00 hrs",
+        "administracion": "I. Municipalidad de Santiago",
+        "utilidad_territorial": "Centro neurálgico de atención social barrial y articulación directa con las Juntas de Vecinos del poniente comunal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6558,
+          -33.4338
+        ]
+      },
+      "properties": {
+        "nombre": "Dirección de Obras Municipales (DOM Santiago)",
+        "direccion": "Amunátegui 980, Santiago Centro",
+        "tipo_sede": "Dirección Técnica de Obras y Urbanismo",
+        "servicios": "Permisos de Edificación, Recepciones Definitivas, Certificados de Informaciones Previas (CIP)",
+        "horario": "Lunes a Viernes 09:00 a 13:30 hrs",
+        "administracion": "I. Municipalidad de Santiago",
+        "utilidad_territorial": "Fiscalización del cumplimiento de la Ley General de Urbanismo y Construcciones (LGUC) y del Plan Regulador Comunal (PRC)."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6521,
+          -33.4402
+        ]
+      },
+      "properties": {
+        "nombre": "Sede Regional SUBDERE Metropolitana",
+        "direccion": "Morandé 115, Santiago Centro",
+        "tipo_sede": "Secretaría Regional de Desarrollo Regional y Administrativo",
+        "servicios": "Financiamiento PMU (Programa Mejoramiento Urbano) y PMB (Programa Mejoramiento de Barrios)",
+        "horario": "Lunes a Viernes 09:00 a 17:30 hrs",
+        "administracion": "Ministerio del Interior / SUBDERE",
+        "utilidad_territorial": "Transferencia de fondos de inversión pública a municipios para luminarias, veredas y recuperación de espacios públicos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6441,
+          -33.4612
+        ]
+      },
+      "properties": {
+        "nombre": "Centro Comunitario y Delegación Sur Carol Urzúa",
+        "direccion": "Santa Rosa 1727, Santiago Sur",
+        "tipo_sede": "Delegación Municipal y Centro Comunitario",
+        "servicios": "Oficina de Infancia, Adulto Mayor, Mediación Vecinal y Cowork Comunitario",
+        "horario": "Lunes a Sábado 09:00 a 18:00 hrs",
+        "administracion": "I. Municipalidad de Santiago",
+        "utilidad_territorial": "Descentralización operativa de servicios municipales hacia la zona sur comunal para acortar brechas de accesibilidad."
+      }
+    }
+  ]
+}

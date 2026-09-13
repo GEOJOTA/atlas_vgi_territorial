@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONAF_Red_Viveros_Forestales_Nativos_RM",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.628,
+          -33.578
+        ]
+      },
+      "properties": {
+        "nombre": "Vivero Forestal Central CONAF Antumapu",
+        "institucion": "Corporación Nacional Forestal (CONAF) / Universidad de Chile",
+        "direccion": "Av. Santa Rosa 11315, La Pintana, Región Metropolitana",
+        "capacidad_produccion": "450.000 plantas nativas por temporada",
+        "especies_prioritarias": "Quillay, Peumo, Espino, Algarrobo, Maitén, Belloto del Norte",
+        "destino_produccion": "Programa Comunitario de Arborización Urbana y Restauración de Cuencas",
+        "utilidad_territorial": "Abastecimiento de especies arbóreas nativas para municipios metropolitanos para mitigar la isla de calor y aumentar m² de sombra."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.785,
+          -33.745
+        ]
+      },
+      "properties": {
+        "nombre": "Vivero Forestal Experimental Isla de Maipo (CONAF / INFOR)",
+        "institucion": "Instituto Forestal (INFOR) / CONAF",
+        "direccion": "Camino Las Parcelas s/n, Isla de Maipo",
+        "capacidad_produccion": "220.000 plántulas tecnificadas",
+        "especies_prioritarias": "Guayacán, Algarrobo chileno, Quebracho, Romerillo",
+        "destino_produccion": "Restauración de suelos erosionados y barreras contra la desertificación",
+        "utilidad_territorial": "Desarrollo de germoplasma resistente a la hipersequía para el sector rural y periurbano de la cuenca del Maipo."
+      }
+    }
+  ]
+}

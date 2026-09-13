@@ -507,6 +507,89 @@ def crear_catalogo_fuentes():
         ws2.row_dimensions[r_idx].height = 55
     autoajustar_columnas(ws2, max_len_cap=40)
     
+    # ----------------------------------------------------
+    # HOJA 3: Capas Oficiales e Indicadores del Estado (101 Capas)
+    # ----------------------------------------------------
+    ws3 = wb.create_sheet(title="Capas Oficiales e Indicadores")
+    ws3["A1"] = "CATÁLOGO MAESTRO DE CAPAS OFICIALES E INDICADORES TERRITORIALES DEL ESTADO DE CHILE"
+    ws3["A1".format()].font = fuente_titulo
+    ws3["A2"] = "101 Capas Cartográficas e Indicadores de Políticas Públicas | Desagregación Censal, Barrial, Vecinal (Ley N° 19.418) e Inversión BIP (Ley N° 20.285)"
+    ws3["A2"].font = fuente_subtitulo
+    
+    headers3 = [
+        "N°", "ID Capa", "Nombre Temático Oficial", "Institución Custodia",
+        "Ministerio / Organismo", "Tipo de Servicio", "Geometría",
+        "Grupo Temático (Política Pública)", "Unidad de Agregación / Join Base",
+        "Archivo Local de Respaldo", "Descripción Territorial y Metodología",
+        "Cita Bibliográfica APA (7ª ed.) / Base Legal"
+    ]
+    
+    for c_idx, h in enumerate(headers3, 1):
+        cell = ws3.cell(row=4, column=c_idx, value=h)
+        cell.font = fuente_cabecera
+        cell.fill = fill_cabecera
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = borde_fino
+    ws3.row_dimensions[4].height = 28
+    ws3.freeze_panes = "A5"
+    
+    # Extraer dinámicamente desde src/js/modulos/ide_chile.js
+    import re
+    ide_js_path = os.path.join(BASE_DIR, "src", "js", "modulos", "ide_chile.js")
+    with open(ide_js_path, "r", encoding="utf-8") as f_ide:
+        ide_code = f_ide.read()
+    
+    start_c = ide_code.find('const CAPAS_OFICIALES = {')
+    end_c = ide_code.find('  const SERVICIOS_IPT_CHILE = {')
+    chunk_c = ide_code[start_c:end_c]
+    pattern_c = re.compile(r'^\s{4}([\'"]?[a-zA-Z0-9_]+[\'"]?):\s*\{([^}]+)\}', re.MULTILINE)
+    matches_c = pattern_c.findall(chunk_c)
+    
+    filas_oficiales = []
+    for idx_c, (k_raw, body_c) in enumerate(matches_c, 1):
+        k_id = k_raw.strip("'\"")
+        nom_m = re.search(r'[\'"]?nombre[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        inst_m = re.search(r'[\'"]?institucion[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        min_m = re.search(r'[\'"]?ministerio[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        tipo_m = re.search(r'[\'"]?tipoServicio[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        geom_m = re.search(r'[\'"]?geometria[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        grp_m = re.search(r'[\'"]?grupo[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        arch_m = re.search(r'[\'"]?archivoLocal[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        desc_m = re.search(r'[\'"]?descripcion[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        cita_m = re.search(r'[\'"]?citaAPA[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        join_m = re.search(r'[\'"]?joinInfo[\'"]?:\s*[\'"]([^\'"]+)[\'"]', body_c)
+        
+        nom_val = nom_m.group(1) if nom_m else k_id
+        inst_val = inst_m.group(1) if inst_m else "Estado de Chile"
+        min_val = min_m.group(1) if min_m else "Gobierno de Chile"
+        tipo_val = tipo_m.group(1) if tipo_m else "Servicio Oficial"
+        geom_val = geom_m.group(1) if geom_m else "Vectorial"
+        grp_val = grp_m.group(1) if grp_m else "General"
+        arch_val = arch_m.group(1) if arch_m else "data/"
+        desc_val = desc_m.group(1) if desc_m else ""
+        cita_val = cita_m.group(1) if cita_m else ""
+        join_val = join_m.group(1) if join_m else "Delimitación Directa"
+        
+        filas_oficiales.append([
+            idx_c, k_id, nom_val, inst_val, min_val, tipo_val,
+            geom_val, grp_val, join_val, arch_val, desc_val, cita_val
+        ])
+    
+    for r_idx, fila in enumerate(filas_oficiales, 5):
+        fill_actual = fill_zebra if r_idx % 2 == 0 else PatternFill(fill_type=None)
+        for c_idx, val in enumerate(fila, 1):
+            cell = ws3.cell(row=r_idx, column=c_idx, value=val)
+            cell.font = fuente_dato
+            if fill_actual.fill_type:
+                cell.fill = fill_actual
+            cell.border = borde_fino
+            if c_idx in [1, 7, 8, 9]:
+                cell.alignment = Alignment(horizontal="center", vertical="top", wrap_text=True)
+            else:
+                cell.alignment = Alignment(vertical="top", wrap_text=True)
+        ws3.row_dimensions[r_idx].height = 42
+    autoajustar_columnas(ws3, max_len_cap=38)
+    
     ruta_salida = os.path.join(DOCS_DIR, "catalogo_fuentes_vgi.xlsx")
     wb.save(ruta_salida)
     print(f"[+] Generado: {ruta_salida}")

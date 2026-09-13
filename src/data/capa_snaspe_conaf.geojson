@@ -1,0 +1,126 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONAF_SNASPE_Areas_Silvestres_Protegidas_RM_Centro",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.48,
+              -33.7
+            ],
+            [
+              -70.39,
+              -33.7
+            ],
+            [
+              -70.39,
+              -33.78
+            ],
+            [
+              -70.48,
+              -33.78
+            ],
+            [
+              -70.48,
+              -33.7
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Parque Nacional Río Clarillo",
+        "categoria_manejo": "Parque Nacional (UICN Categoría II) / SNASPE",
+        "decreto_creacion": "D.S. N° 19/2020 del Ministerio del Medio Ambiente",
+        "superficie_oficial_ha": 13085,
+        "region_comuna": "Región Metropolitana / Pirque",
+        "administrador": "Corporación Nacional Forestal (CONAF)",
+        "biodiversidad_protegida": "Último gran relicto de bosque esclerófilo primario de la cuenca de Santiago, hábitat del gato colocolo, güiña, torcaza y zorro culpeo",
+        "utilidad_territorial": "Protección estricta de la cuenca del Río Clarillo, conservación de agua pura y banco genético de flora esclerófila andina."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.12,
+              -33.73
+            ],
+            [
+              -70.04,
+              -33.73
+            ],
+            [
+              -70.04,
+              -33.8
+            ],
+            [
+              -70.12,
+              -33.8
+            ],
+            [
+              -70.12,
+              -33.73
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Monumento Natural El Morado",
+        "categoria_manejo": "Monumento Natural (UICN Categoría III) / SNASPE",
+        "decreto_creacion": "D.S. N° 538/1974 del Ministerio de Agricultura",
+        "superficie_oficial_ha": 3009,
+        "region_comuna": "Región Metropolitana / San José de Maipo (Baños Morales)",
+        "administrador": "CONAF Región Metropolitana",
+        "biodiversidad_protegida": "Glaciar San Francisco, Laguna El Morado, cerro El Morado (5.060 m) y ecosistema periglaciar andino",
+        "utilidad_territorial": "Monitoreo del retroceso glaciar provocado por el calentamiento global y turismo ecológico de alta montaña regulado."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.36,
+              -33.27
+            ],
+            [
+              -70.28,
+              -33.27
+            ],
+            [
+              -70.28,
+              -33.36
+            ],
+            [
+              -70.36,
+              -33.36
+            ],
+            [
+              -70.36,
+              -33.27
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Santuario de la Naturaleza Yerba Loca",
+        "categoria_manejo": "Santuario de la Naturaleza (Ley N° 17.288) / Área Protegida",
+        "decreto_creacion": "Decreto Supremo N° 937/1973 de Educación / CMN",
+        "superficie_oficial_ha": 11575,
+        "region_comuna": "Región Metropolitana / Lo Barnechea (Camino a Farellones)",
+        "administrador": "Municipalidad de Lo Barnechea / CONAF",
+        "biodiversidad_protegida": "Glaciares La Paloma y El Altar, cóndores andinos y cuenca prístina del estero Yerba Loca",
+        "utilidad_territorial": "Resguardo del principal corredor hídrico y glaciar del norte metropolitano, impidiendo la contaminación minera de cabecera."
+      }
+    }
+  ]
+}

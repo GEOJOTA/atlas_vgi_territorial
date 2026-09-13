@@ -1,0 +1,114 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_canales_riego_cnr",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.55,
+            -33.55
+          ],
+          [
+            -70.575,
+            -33.48
+          ],
+          [
+            -70.598,
+            -33.438
+          ],
+          [
+            -70.615,
+            -33.421
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Canal San Carlos (Canal Matriz Asociación del Canal del Maipo)",
+        "asociacion_canalistas": "Sociedad del Canal de Maipo",
+        "tipo_cauce": "Canal artificial revestido de hormigón armado",
+        "caudal_porteo_nominal": "12.0 m³/s",
+        "bocatoma": "Río Maipo en Las Vertientes (San José de Maipo)",
+        "longitud_km": 28.5,
+        "destinatarios": "Riego agrícola, plantas de agua potable y recarga de acuíferos urbanos",
+        "utilidad_territorial": "Principal arteria de trasvase hídrico que cruza el Gran Santiago garantizando el riego de parques y áreas verdes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.62,
+            -33.395
+          ],
+          [
+            -70.65,
+            -33.405
+          ],
+          [
+            -70.69,
+            -33.415
+          ],
+          [
+            -70.74,
+            -33.42
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Canal El Carmen (Derivación Norte del Río Mapocho)",
+        "asociacion_canalistas": "Asociación de Canalistas de El Carmen",
+        "tipo_cauce": "Canal de tierra con tramos entubados",
+        "caudal_porteo_nominal": "3.5 m³/s",
+        "bocatoma": "Ribera Norte del Río Mapocho en Providencia",
+        "longitud_km": 16.2,
+        "destinatarios": "Riego periurbano de Conchalí, Huechuraba y Quilicura",
+        "utilidad_territorial": "Abastecimiento de los relictos agrícolas y áreas verdes del cono norte de la cuenca metropolitana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.675,
+            -33.435
+          ],
+          [
+            -70.671,
+            -33.439
+          ],
+          [
+            -70.668,
+            -33.444
+          ],
+          [
+            -70.662,
+            -33.448
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Trazado Histórico Acequia Matriz Yungay — Brasil (Soterrada)",
+        "asociacion_canalistas": "Red Histórica Municipal de Desagües y Acequias de Riego",
+        "tipo_cauce": "Bóveda subterránea de ladrillo y tubería colectora histórica",
+        "caudal_porteo_nominal": "0.8 m³/s",
+        "bocatoma": "Antigua derivación del Río Mapocho en Cal y Canto",
+        "longitud_km": 3.8,
+        "destinatarios": "Riego patrimonial de las quintas de agrado del siglo XIX (Barrio Yungay)",
+        "utilidad_territorial": "Identificación de fajas de servidumbre patrimonial subterránea para evitar socavones y filtraciones en fundaciones."
+      }
+    }
+  ]
+}

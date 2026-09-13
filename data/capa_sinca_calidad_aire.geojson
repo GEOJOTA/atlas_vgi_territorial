@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "name": "MMA_SINCA_Red_Monitoreo_Calidad_Aire_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.658,
+          -33.4625
+        ]
+      },
+      "properties": {
+        "nombre": "Estación de Monitoreo Atmosférico SINCA Parque O'Higgins",
+        "codigo_sinca": "SINCA-RM-POH",
+        "tipo_estacion": "Estación de Monitoreo con Representatividad Poblacional (EMRP)",
+        "parametros": "MP2.5, MP10, O3, NO2, CO, SO2 y Meteorología",
+        "calidad_aire_ica": "Bueno (Índice ICAP: 45 pts)",
+        "norma_primaria": "D.S. N° 12/2011 MMA (Norma Primaria Anual y Diaria MP2.5)",
+        "operador": "SEREMI del Medio Ambiente RM / MMA",
+        "utilidad_territorial": "Activación de medidas del Plan de Prevención y Descontaminación Atmosférica (PPDA RM), alerta sanitaria escolar y restricción vehicular."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.678,
+          -33.44
+        ]
+      },
+      "properties": {
+        "nombre": "Estación de Monitoreo Atmosférico SINCA Estación Central / Matucana",
+        "codigo_sinca": "SINCA-RM-EC",
+        "tipo_estacion": "EMRP Tráfico Urbano y Residencial",
+        "parametros": "MP2.5, MP10, Black Carbon y Ruido Ambiental",
+        "calidad_aire_ica": "Regular (Índice ICAP: 78 pts)",
+        "norma_primaria": "D.S. N° 12/2011 MMA",
+        "operador": "MMA / SEREMI Salud RM",
+        "utilidad_territorial": "Vigilancia de la exposición a material particulado fino en zonas de alta congestión de buses y peatones."
+      }
+    }
+  ]
+}

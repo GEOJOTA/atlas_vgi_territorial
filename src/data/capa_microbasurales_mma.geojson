@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "SUBDERE_MMA_Microbasurales_Puntos_Criticos_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6755,
+          -33.4475
+        ]
+      },
+      "properties": {
+        "nombre": "Punto Crítico Matucana con Blanco Garcés",
+        "ubicacion": "Eje Matucana Poniente, Barrio Yungay Sur",
+        "volumen_estimado": "25 a 35 m³ de escombros y voluminosos",
+        "riesgo_sanitario": "Alto (Vectores, proliferación de microbasural)",
+        "frecuencia_retiro": "Retiro Quincenal Municipal (DIMAO)",
+        "origen_residuo": "Residuos de construcción menor, enseres domésticos",
+        "utilidad_territorial": "Focalización de operativos municipales de tolvas comunitarias gratuitas y erradicación mediante áreas verdes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.672,
+          -33.468
+        ]
+      },
+      "properties": {
+        "nombre": "Punto Crítico Faja Ferroviaria San Alfonso",
+        "ubicacion": "Límite Estación Central / Santiago Sur",
+        "volumen_estimado": "40 a 50 m³",
+        "riesgo_sanitario": "Muy Alto (Riesgo de combustión y vectores)",
+        "frecuencia_retiro": "Retiro Mensual Coordinado EFE / Municipalidad",
+        "origen_residuo": "Descarga clandestina vehicular",
+        "utilidad_territorial": "Monitoreo sancionatorio por Ley N° 20.879 sobre transporte de basura y recuperación del espacio cívico."
+      }
+    }
+  ]
+}

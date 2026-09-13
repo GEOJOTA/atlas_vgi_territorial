@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "ODEPA_Mercados_Centrales_Abastecimiento_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6505,
+          -33.4338
+        ]
+      },
+      "properties": {
+        "nombre": "Mercado Central de Santiago (Monumento Histórico)",
+        "direccion": "Ismael Valdés Vergara 832, Ribera Sur del Mapocho",
+        "tipo_mercado": "Mercado Tradicional Minorista y Gastronómico",
+        "locales_activos": 240,
+        "productos_principales": "Pescados, mariscos frescos, hortalizas y gastronomía popular",
+        "afluencia_semanal": "35.000 clientes y turistas",
+        "utilidad_territorial": "Seguridad alimentaria, comercialización directa de productos del mar y patrimonio cultural inmaterial de la ciudad."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.652,
+          -33.4285
+        ]
+      },
+      "properties": {
+        "nombre": "Central Mayorista y Minorista La Vega Central",
+        "direccion": "Dávila Baeza 700, Recoleta (Borde Norte Santiago)",
+        "tipo_mercado": "Gran Central Mayorista y Abasto Alimentario Metropolitano",
+        "locales_activos": 1200,
+        "productos_principales": "Frutas, verduras, legumbres, tubérculos y abarrotes",
+        "afluencia_semanal": "180.000 personas",
+        "utilidad_territorial": "Formación de precios testigo de la canasta básica de alimentos y garantía de abastecimiento para ferias libres."
+      }
+    }
+  ]
+}

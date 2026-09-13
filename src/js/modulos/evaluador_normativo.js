@@ -405,16 +405,16 @@ const ModuloEvaluadorNormativo = (() => {
       }
     }
 
-    // 7. Unidades Vecinales & RSH
-    const capaUV = capas['ide_minvu_unidades_vecinales_rsh'];
+    // 7. Unidades Vecinales & RSH (Priorizando BIDAT 2026 bajo Ley N° 19.418)
+    const capaUV = capas['unidades_vecinales_bidat'] || capas['ide_minvu_unidades_vecinales_rsh'] || capas['capa_66'] || capas['bbdd_66'];
     if (capaUV && capaUV.features) {
       for (let f of capaUV.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
           res.unidadVecinal = {
-            numero: f.properties.uv_carto || f.properties.t_uv_nom || f.properties.OBJECTID,
-            comuna: f.properties.t_com_nom || 'Santiago',
-            provincia: f.properties.t_prov_nom || 'Santiago',
-            idCartografico: f.properties.t_id_uv_ca
+            numero: f.properties.t_uv_nom || f.properties.uv_carto || f.properties.OBJECTID || f.properties.id_uv || 'S/N',
+            comuna: f.properties.t_com_nom || f.properties.comuna || 'Santiago',
+            provincia: f.properties.t_prov_nom || f.properties.provincia || 'Santiago',
+            idCartografico: f.properties.t_id_uv_ca || f.properties.id_uv || f.properties.uv_carto || 'N/A'
           };
           break;
         }

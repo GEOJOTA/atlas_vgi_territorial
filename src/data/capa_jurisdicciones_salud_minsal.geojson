@@ -1,0 +1,136 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_jurisdicciones_salud_minsal",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.69,
+              -33.42
+            ],
+            [
+              -70.64,
+              -33.425
+            ],
+            [
+              -70.635,
+              -33.48
+            ],
+            [
+              -70.72,
+              -33.52
+            ],
+            [
+              -70.78,
+              -33.48
+            ],
+            [
+              -70.69,
+              -33.42
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Servicio de Salud Metropolitano Central (SSMC)",
+        "red_asistencial": "Hospital de Urgencia Asistencia Pública (HUAP), Hospital San Borja Arriarán, Hospital El Carmen de Maipú",
+        "comunas_jurisdiccion": "Santiago, Estación Central, Maipú, Cerrillos",
+        "poblacion_beneficiaria": 1280450,
+        "centros_salud_primaria": 24,
+        "hospitales_base": 3,
+        "sede_direccion": "Victoria Subercaseaux 381, Santiago",
+        "utilidad_territorial": "Macro-red asistencial pública que coordina las urgencias, camas críticas y derivaciones de la población del centro poniente."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.72,
+              -33.32
+            ],
+            [
+              -70.62,
+              -33.3
+            ],
+            [
+              -70.6,
+              -33.42
+            ],
+            [
+              -70.67,
+              -33.415
+            ],
+            [
+              -70.72,
+              -33.32
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Servicio de Salud Metropolitano Norte (SSMN)",
+        "red_asistencial": "Hospital San José, Instituto Nacional del Cáncer, Hospital Roberto del Río",
+        "comunas_jurisdiccion": "Recoleta, Independencia, Conchalí, Huechuraba, Quilicura, Colina, Lampa, Til Til",
+        "poblacion_beneficiaria": 985200,
+        "centros_salud_primaria": 31,
+        "hospitales_base": 4,
+        "sede_direccion": "Maruri 272, Independencia",
+        "utilidad_territorial": "Atención especializada pediátrica y oncológica de la zona norte de la cuenca metropolitana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.63,
+              -33.39
+            ],
+            [
+              -70.48,
+              -33.35
+            ],
+            [
+              -70.52,
+              -33.48
+            ],
+            [
+              -70.635,
+              -33.44
+            ],
+            [
+              -70.63,
+              -33.39
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Servicio de Salud Metropolitano Oriente (SSMO)",
+        "red_asistencial": "Hospital del Salvador, Hospital Luis Calvo Mackenna, Hospital Militar, Instituto Nacional del Tórax",
+        "comunas_jurisdiccion": "Providencia, Las Condes, Vitacura, Lo Barnechea, Ñuñoa, La Reina, Peñalolén, Macul",
+        "poblacion_beneficiaria": 1105000,
+        "centros_salud_primaria": 28,
+        "hospitales_base": 6,
+        "sede_direccion": "Av. Salvador 364, Providencia",
+        "utilidad_territorial": "Complejo asistencial de alta especialidad cardiológica, torácica y trasplantes a nivel nacional."
+      }
+    }
+  ]
+}

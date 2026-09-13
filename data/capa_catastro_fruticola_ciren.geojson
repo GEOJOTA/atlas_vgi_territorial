@@ -1,0 +1,92 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_catastro_fruticola_ciren",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.82,
+              -33.68
+            ],
+            [
+              -70.75,
+              -33.68
+            ],
+            [
+              -70.76,
+              -33.74
+            ],
+            [
+              -70.83,
+              -33.73
+            ],
+            [
+              -70.82,
+              -33.68
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Polo Frutícola de Nogales (Juglans regia) — Valle del Maipo (Buin / Paine)",
+        "especie_frutal": "Nogal (Variedad Serr y Chandler)",
+        "superficie_plantada_ha": 3450.0,
+        "sistema_riego": "Riego Tecnificado por Goteo y Microaspersión (92% tecnificación)",
+        "destino_produccion": "Exportación a mercados asiáticos y europeos (88%)",
+        "rendimiento_promedio": "5.2 toneladas/hectárea",
+        "fuente_catastro": "Catastro Frutícola CIREN — ODEPA 2025",
+        "utilidad_territorial": "Planificación de la demanda hídrica consuntiva agrícola en la cuenca y protección de suelos de aptitud preferente."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -71.18,
+              -33.64
+            ],
+            [
+              -71.05,
+              -33.64
+            ],
+            [
+              -71.06,
+              -33.72
+            ],
+            [
+              -71.19,
+              -33.71
+            ],
+            [
+              -71.18,
+              -33.64
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Polo Frutícola de Cerezos y Cítricos — Sector Melipilla",
+        "especie_frutal": "Cerezo (Prunus avium) y Limonero (Citrus limon)",
+        "superficie_plantada_ha": 2890.0,
+        "sistema_riego": "Riego por goteo con telemetría de humedad",
+        "destino_produccion": "Mercado internacional y abastecimiento de ferias libres de la RM",
+        "rendimiento_promedio": "8.4 toneladas/ha",
+        "fuente_catastro": "CIREN — ODEPA 2025",
+        "utilidad_territorial": "Cálculo del empleo estacional agrícola y equilibrio territorial entre lo rural y metropolitano."
+      }
+    }
+  ]
+}

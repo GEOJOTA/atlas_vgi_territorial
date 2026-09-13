@@ -1,0 +1,88 @@
+{
+  "type": "FeatureCollection",
+  "name": "INIA_INFOR_Carbono_Organico_Suelo_Biomasa_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.684,
+              -33.438
+            ],
+            [
+              -70.678,
+              -33.438
+            ],
+            [
+              -70.678,
+              -33.446
+            ],
+            [
+              -70.684,
+              -33.446
+            ],
+            [
+              -70.684,
+              -33.438
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Reserva Edafobiológica Parque Quinta Normal",
+        "carbono_suelo_0_5cm": "2.85% C orgánico (Estrato superficial rico en humus)",
+        "carbono_suelo_5_15cm": "2.12% C orgánico",
+        "carbono_suelo_15_30cm": "1.48% C orgánico",
+        "stock_total_carbono": "56.4 ton C/hectárea",
+        "biomasa_arborea_ton_ha": "134.2 ton biomasa seca/ha",
+        "arboles_dominantes": "Quillay, Peumo, Espino, Plátano Oriental, Ceibo",
+        "captura_co2_estimada": "8.6 ton CO2eq/ha/año",
+        "utilidad_territorial": "Valoración de servicios ecosistémicos de mitigación climática, fijación de carbono y calidad del suelo urbano."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.665,
+              -33.458
+            ],
+            [
+              -70.655,
+              -33.458
+            ],
+            [
+              -70.655,
+              -33.472
+            ],
+            [
+              -70.665,
+              -33.472
+            ],
+            [
+              -70.665,
+              -33.458
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Sumidero de Carbono Parque O'Higgins",
+        "carbono_suelo_0_5cm": "2.65% C orgánico",
+        "carbono_suelo_5_15cm": "1.95% C orgánico",
+        "carbono_suelo_15_30cm": "1.32% C orgánico",
+        "stock_total_carbono": "51.8 ton C/ha",
+        "biomasa_arborea_ton_ha": "118.5 ton biomasa seca/ha",
+        "arboles_dominantes": "Eucaliptos históricos, Jacarandá, Acacias, Pinos",
+        "captura_co2_estimada": "7.9 ton CO2eq/ha/año",
+        "utilidad_territorial": "Mitigación de la huella de carbono comunal y amortiguador contra la isla de calor en el sector sur de Santiago."
+      }
+    }
+  ]
+}

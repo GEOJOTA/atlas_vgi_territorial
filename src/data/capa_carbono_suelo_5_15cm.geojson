@@ -1,0 +1,92 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_carbono_suelo_5_15cm",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.686,
+              -33.441
+            ],
+            [
+              -70.678,
+              -33.441
+            ],
+            [
+              -70.678,
+              -33.447
+            ],
+            [
+              -70.686,
+              -33.447
+            ],
+            [
+              -70.686,
+              -33.441
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Estrato Radicular Medio Parque Quinta Normal (5-15 cm)",
+        "estrato_profundidad": "5 a 15 centímetros (Horizonte A)",
+        "carbono_organico_pct": "2.25% Carbono Orgánico del Suelo (COS)",
+        "densidad_aparente": "1.25 g/cm³",
+        "stock_carbono_ton_ha": "28.1 ton C/ha",
+        "materia_organica_pct": "3.88% M.O.",
+        "actividad_biologica": "Alta densidad de raíces finas y micorrizas fijadoras",
+        "utilidad_territorial": "Estrato clave para la estabilidad estructural del suelo, infiltración profunda de aguas lluvias y nutrición de árboles."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.665,
+              -33.456
+            ],
+            [
+              -70.655,
+              -33.456
+            ],
+            [
+              -70.655,
+              -33.468
+            ],
+            [
+              -70.665,
+              -33.468
+            ],
+            [
+              -70.665,
+              -33.456
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Estrato Radicular Medio Parque O'Higgins (5-15 cm)",
+        "estrato_profundidad": "5 a 15 cm",
+        "carbono_organico_pct": "2.05% COS",
+        "densidad_aparente": "1.28 g/cm³",
+        "stock_carbono_ton_ha": "26.2 ton C/ha",
+        "materia_organica_pct": "3.53% M.O.",
+        "actividad_biologica": "Media-alta",
+        "utilidad_territorial": "Almacén edáfico estable no susceptible a volatilización inmediata por laboreo o pisoteo superficial."
+      }
+    }
+  ]
+}

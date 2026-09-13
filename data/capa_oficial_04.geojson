@@ -1,0 +1,72 @@
+{
+  "type": "FeatureCollection",
+  "name": "MOP_Contratos_Concesionados_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.68,
+            -33.4345
+          ],
+          [
+            -70.66,
+            -33.434
+          ],
+          [
+            -70.64,
+            -33.4335
+          ],
+          [
+            -70.625,
+            -33.433
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Concesión Sistema Oriente - Poniente (Autopista Costanera Norte)",
+        "concesionaria": "Sociedad Concesionaria Costanera Norte S.A.",
+        "decreto_supremo": "D.S. MOP N° 900 (Ley de Concesiones)",
+        "longitud_km": 42.7,
+        "tarifa_sistema": "Televía Free Flow Multi-tag interoperable",
+        "estado_concesion": "En Operación y Mantenimiento Vial",
+        "utilidad_territorial": "Evaluación del impacto de infraestructura concesionada en la segregación urbana barrial y cálculo de tiempos de viaje."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.6615,
+            -33.425
+          ],
+          [
+            -70.663,
+            -33.44
+          ],
+          [
+            -70.665,
+            -33.46
+          ],
+          [
+            -70.667,
+            -33.475
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Concesión Sistema Norte - Sur (Autopista Central)",
+        "concesionaria": "Sociedad Concesionaria Autopista Central S.A.",
+        "decreto_supremo": "D.S. MOP N° 616",
+        "longitud_km": 60.5,
+        "tarifa_sistema": "Free Flow / Pórticos de Cobro Electrónico",
+        "estado_concesion": "En Operación y Conservación",
+        "utilidad_territorial": "Monitoreo de flujo vehicular metropolitano, contaminación acústica y faja de servidumbre urbana de la Ruta 5."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "CIREN_Erosion_Impermeabilizacion_Suelos_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.675,
+              -33.435
+            ],
+            [
+              -70.655,
+              -33.435
+            ],
+            [
+              -70.655,
+              -33.455
+            ],
+            [
+              -70.675,
+              -33.455
+            ],
+            [
+              -70.675,
+              -33.435
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Sector Centro Poniente (Barrio Brasil / Yungay) — Suelo Sellado",
+        "grado_impermeabilizacion": "86.8% de suelo completamente sellado por edificación y pavimento",
+        "coeficiente_escorrentia": "0.82 (Muy alto coeficiente en lluvias intensas)",
+        "capacidad_infiltracion": "< 4.5 mm/hora (Edafología urbana altamente modificada)",
+        "riesgo_anegamiento": "Medio en cruces viales sin colector pluvial secundario",
+        "utilidad_territorial": "Exigencia prioritaria de Sistemas Urbanos de Drenaje Sostenible (SUDS), pavimentos porosos y jardines de infiltración."
+      }
+    }
+  ]
+}

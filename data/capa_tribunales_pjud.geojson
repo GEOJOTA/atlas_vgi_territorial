@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "PJUD_Tribunales_Justicia_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6575,
+          -33.4615
+        ]
+      },
+      "properties": {
+        "nombre": "Centro de Justicia de Santiago (PJUD)",
+        "direccion": "Av. Pedro Montt 1606, Santiago Sur",
+        "jurisdiccion": "Corte de Apelaciones de Santiago",
+        "tribunales_alojados": "Juzgados de Garantía (1° al 14°) y TOP (1° al 7°)",
+        "administracion": "Corporación Administrativa del Poder Judicial (CAPJ)",
+        "capacidad": "104 salas de audiencia operativas",
+        "utilidad_territorial": "Garantía de acceso a la justicia penal, proximidad en defensorías públicas y seguridad ciudadana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6495,
+          -33.4395
+        ]
+      },
+      "properties": {
+        "nombre": "Palacio de los Tribunales de Justicia (Corte Suprema y Corte de Apelaciones)",
+        "direccion": "Compañía de Jesús 1140, Santiago Centro",
+        "jurisdiccion": "Corte Suprema de Justicia de la República de Chile",
+        "tribunales_alojados": "Corte Suprema y Corte de Apelaciones de Santiago",
+        "administracion": "Poder Judicial de Chile",
+        "capacidad": "Salas plenarias de alta judicatura y biblioteca jurídica",
+        "utilidad_territorial": "Cúspide del Estado de Derecho, recursos de protección ambiental y urbanística ciudadana."
+      }
+    }
+  ]
+}

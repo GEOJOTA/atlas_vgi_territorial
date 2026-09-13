@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "name": "MejorNinez_Oficinas_Locales_Ninez_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.666,
+          -33.4385
+        ]
+      },
+      "properties": {
+        "nombre": "Oficina Local de la Niñez (OLN) Barrio Brasil / Santiago Poniente",
+        "direccion": "Santo Domingo 2088, Barrio Brasil",
+        "institucion": "Servicio de Protección Especializada a la Niñez y Adolescencia (Mejor Niñez) / I. Municipalidad de Santiago",
+        "marco_legal": "Ley N° 21.430 sobre Garantías y Protección Integral de los Derechos de la Niñez",
+        "atenciones_mes": "420 niños, niñas, adolescentes y sus cuidadores",
+        "programas": "Prevención psicosocial ambulatoria, alerta temprana de vulneraciones y revinculación educativa",
+        "utilidad_territorial": "Protección comunitaria inmediata de la niñez, articulación con escuelas públicas del barrio y derivación oportuna."
+      }
+    }
+  ]
+}

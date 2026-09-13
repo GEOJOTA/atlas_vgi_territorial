@@ -423,7 +423,7 @@ def build_02():
         ["7", "GBIF Occurrence API", "https://api.gbif.org/v1/occurrence/search", "src/js/modulos/gbif.js", "CC0 / CC-BY", "Biodiversidad urbana, avifauna en Plaza Brasil y calidad Darwin Core de observaciones."],
         ["8", "uMap France", "https://umap.openstreetmap.fr/es/map/", "src/js/modulos/umap.js", "AGPLv3", "Integración de proyectos cartográficos colaborativos locales y exportación directa."],
         ["9", "iNaturalist API", "https://api.inaturalist.org/v1/observations", "src/js/modulos/gbif.js", "CC-BY 4.0", "Ciencia ciudadana biológica federada a través de nodos GBIF."],
-        ["10", "IDE Chile / MINVU / INE", "https://geoide.minvu.cl / ArcGIS REST", "src/js/modulos/ide_chile.js", "Ley 20.285", "Microdatos Censo 2024, 27 capas oficiales de zonificación PRC Santiago, riesgos y áreas verdes."]
+        ["10", "IDE Chile / MINVU / MDSF / INE", "https://geoide.minvu.cl / https://bidat.gob.cl", "src/js/modulos/ide_chile.js", "Ley 20.285 / 19.418", "Microdatos Censo 2024, 101 capas oficiales de zonificación PRC, BIDAT/RSH, DEIS, MOP y BIP Inversiones."]
     ]
     add_styled_table(doc, headers_f, rows_f, oe_tag="OE 1")
     
@@ -677,7 +677,7 @@ def build_09():
         ["Módulo 03", "Biodiversidad Urbana GBIF", "Exploración de avifauna y flora nativa.", "Autocompletado taxonómico, tarjetas Darwin Core de especies.", "Simbología diferenciada por reino biológico."],
         ["Módulo 04", "Glosario y Homologación", "Diccionario territorial de 134 términos.", "Tabla interactiva de homologación OSM vs. IDE Chile / MINVU.", "Buscador reactivo con resaltado de coincidencias."],
         ["Módulo 05", "Metadatos Estandarizados", "Ficha técnica y catalogación estatal.", "Generador dual JSON (ISO 19115) y XML (ISO 19139 / SNIT).", "Botones de descarga y copiado en 1 clic."],
-        ["Módulo 06", "Colección Oficial IDE Chile", "Contraste con 27 capas del Estado.", "Selectores de servicios MINVU, INE Censo 2024, Bomberos, Metro.", "Citas formales APA 7ª edición por capa."],
+        ["Módulo 06", "Colección Oficial IDE Chile", "Contraste con 101 capas e indicadores del Estado.", "Selectores de servicios MINVU, INE Censo 2024, BIDAT RSH, Bomberos, Metro.", "Citas formales APA 7ª edición por capa."],
         ["Módulo 07", "Inspector Normativo Territorial", "Evaluación urbanística por clic en mapa.", "Reporte de zonificación PRC Santiago, riesgos PRMS y Certificado CIN.", "Descargo legal preventivo destacado."],
         ["Módulo 08", "Centro de Descargas y uMap", "Transferencia de datos y cartografía libre.", "Descarga GeoJSON, planillas Excel sincronizadas y visor uMap.", "Formatos interoperables abiertos."]
     ]
@@ -709,7 +709,7 @@ def build_10():
         ["osm.js", "src/js/modulos/osm.js", "430 líneas", "Consultas Overpass QL, failover entre espejos y caché en memoria.", "Ninguna (Fetch API)"],
         ["ohsome.js", "src/js/modulos/ohsome.js", "500 líneas", "Consumo de API ohsome v1/v2, cálculo de métricas históricas y series anuales.", "Ninguna (Fetch API)"],
         ["gbif.js", "src/js/modulos/gbif.js", "150 líneas", "Autocompletado taxonómico y consultas de biodiversidad urbana.", "Ninguna (Fetch API)"],
-        ["ide_chile.js", "src/js/modulos/ide_chile.js", "910 líneas", "Integración de 27 capas oficiales de servicios del Estado y metadatos SNIT.", "Ninguna (Fetch API)"],
+        ["ide_chile.js", "src/js/modulos/ide_chile.js", "2.280 líneas", "Integración de 101 capas e indicadores oficiales del Estado, Leaflet Canvas y metadatos SNIT.", "Ninguna (Fetch API)"],
         ["evaluador_normativo.js", "src/js/modulos/evaluador_normativo.js", "790 líneas", "Motor point-in-polygon contra PRC Santiago, fajas de riesgo y Certificado CIN.", "Ninguna (Turf / Nativo)"],
         ["geodesia.js", "src/js/modulos/geodesia.js", "180 líneas", "Reproyección de coordenadas a UTM 19S (EPSG:32719) y Shoelace en m².", "Ninguna (Matemática Pura)"],
         ["metadatos.js", "src/js/modulos/metadatos.js", "340 líneas", "Generador dual de metadatos espaciales en JSON (ISO 19115) y XML (ISO 19139).", "Ninguna (DOMParser)"]
@@ -805,7 +805,7 @@ def build_13():
     headers_c = ["Script Python", "Comando de Ejecución", "Parámetros", "Salida Generada"]
     rows_c = [
         ["extractor_vgi.py", "python scripts/extractor_vgi.py", "--bbox [W, S, E, N]", "10 capas GeoJSON normalizadas en src/data/."],
-        ["descargar_capas_normativas_ide.py", "python scripts/descargar_capas_normativas_ide.py", "--region 13", "27 capas oficiales IDE Chile / MINVU."],
+        ["procesar_bbdd_vgi.py", "python scripts/procesar_bbdd_vgi.py", "--modo completo", "101 capas e indicadores oficiales del Estado (BIDAT RSH, BIP, DEIS, MOP)."],
         ["generar_catalogos_excel.py", "python scripts/generar_catalogos_excel.py", "--salida docs/", "3 planillas Excel sincronizadas con metadatos."],
         ["servidor_vgi.py", "python backend/servidor_vgi.py", "--port 8080", "Servidor local con endpoints /api/consulta y /api/calidad."]
     ]

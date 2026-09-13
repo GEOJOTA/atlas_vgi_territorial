@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "INFOR_Plantas_Industria_Forestal_Primaria_RM",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.715,
+          -33.615
+        ]
+      },
+      "properties": {
+        "nombre": "Complejo de Aserrío Primario y Secado San Bernardo",
+        "empresa_operadora": "Maderas Metropolitanas S.A. / Catastro INFOR",
+        "ubicacion": "Parque Industrial San Bernardo Sur",
+        "capacidad_procesamiento": "45.000 m³ de madera en rollo anuales",
+        "tipo_industria": "Aserradero primario de madera estructural para construcción y embalaje",
+        "abastecimiento": "Plantaciones sustentables de pino radiata y eucalipto de la zona central",
+        "utilidad_territorial": "Disponibilidad de madera certificada para vivienda social e industrializada, minimizando la huella de carbono en el transporte de materiales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.88,
+          -33.285
+        ]
+      },
+      "properties": {
+        "nombre": "Planta de Astillado y Biomasa Forestal Lampa Poniente",
+        "empresa_operadora": "Bioenergía Andina Ltda. / Registro INFOR",
+        "ubicacion": "Camino El Noviciado, Lampa",
+        "capacidad_procesamiento": "30.000 toneladas de biomasa seca/año",
+        "tipo_industria": "Procesamiento y valorización de biomasa leñosa para energía térmica limpia",
+        "abastecimiento": "Residuos de manejo forestal y podas municipales",
+        "utilidad_territorial": "Fomento de la economía circular y transición energética de industrias hacia calderas de pellets no contaminantes."
+      }
+    }
+  ]
+}

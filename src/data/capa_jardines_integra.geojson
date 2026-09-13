@@ -1,0 +1,92 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_jardines_integra",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6715,
+          -33.4385
+        ]
+      },
+      "properties": {
+        "nombre": "Jardín Infantil y Sala Cuna Integra Rayito de Luz",
+        "direccion": "San Pablo 2480, Barrio Brasil",
+        "nivel_atencion": "Sala Cuna Menor, Sala Cuna Mayor y Nivel Medio Menor",
+        "capacidad_matricula": 112,
+        "sostenedor": "Fundación Integra / Mineduc",
+        "reconocimiento_oficial": "Resolución Exenta N° 3421 Mineduc",
+        "alimentacion_junaeb": "100% cobertura alimentaria integral",
+        "utilidad_territorial": "Cuidado infantil temprano y apoyo fundamental a madres trabajadoras en el sector poniente histórico."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6658,
+          -33.4428
+        ]
+      },
+      "properties": {
+        "nombre": "Jardín Infantil Integra Antu Mahuida",
+        "direccion": "Maturana 420, Barrio Brasil",
+        "nivel_atencion": "Nivel Medio Menor y Nivel Medio Mayor",
+        "capacidad_matricula": 96,
+        "sostenedor": "Fundación Integra / Mineduc",
+        "reconocimiento_oficial": "Resolución Exenta N° 1890 Mineduc",
+        "alimentacion_junaeb": "100% cobertura integral",
+        "utilidad_territorial": "Estimulación socioemocional y pedagógica gratuita para familias vulnerables del polígono Brasil-Yungay."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6582,
+          -33.451
+        ]
+      },
+      "properties": {
+        "nombre": "Sala Cuna y Jardín Infantil Integra Los Pinitos",
+        "direccion": "Calle Dieciocho 350, Santiago Centro",
+        "nivel_atencion": "Sala Cuna y Nivel Medio",
+        "capacidad_matricula": 88,
+        "sostenedor": "Fundación Integra / Mineduc",
+        "reconocimiento_oficial": "Resolución Exenta N° 2105 Mineduc",
+        "alimentacion_junaeb": "100% cobertura alimentaria",
+        "utilidad_territorial": "Acceso inclusivo a educación inicial pública en el eje patrimonial Dieciocho."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.651,
+          -33.465
+        ]
+      },
+      "properties": {
+        "nombre": "Jardín Infantil Integra Semillitas del Parque",
+        "direccion": "Rondizzoni 1940, Santiago Sur",
+        "nivel_atencion": "Sala Cuna y Niveles Medios",
+        "capacidad_matricula": 120,
+        "sostenedor": "Fundación Integra / Mineduc",
+        "reconocimiento_oficial": "Resolución Exenta N° 4512 Mineduc",
+        "alimentacion_junaeb": "100% cobertura integral",
+        "utilidad_territorial": "Cobertura preescolar estratégica para los sectores residenciales adyacentes al Parque O'Higgins."
+      }
+    }
+  ]
+}

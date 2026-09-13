@@ -1,0 +1,76 @@
+{
+  "type": "FeatureCollection",
+  "name": "MOP_Red_Vial_Nacional_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.661,
+            -33.428
+          ],
+          [
+            -70.6625,
+            -33.435
+          ],
+          [
+            -70.664,
+            -33.445
+          ],
+          [
+            -70.6655,
+            -33.458
+          ],
+          [
+            -70.667,
+            -33.472
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Eje Autopista Central (Ruta 5 Norte-Sur Santiago)",
+        "codigo_camino": "Ruta 5 Urbana",
+        "calzada": "Doble Calzada Segregada (Trinchera Cubierta)",
+        "longitud_km": 5.4,
+        "organismo_tuicion": "Dirección de Vialidad / Concesiones MOP",
+        "flujo_promedio": "142.000 veh/día",
+        "utilidad_territorial": "Eje estructurante de articulación longitudinal de Chile; análisis de barreras acústicas y permeabilidad peatonal transversal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.685,
+            -33.435
+          ],
+          [
+            -70.665,
+            -33.434
+          ],
+          [
+            -70.645,
+            -33.433
+          ],
+          [
+            -70.63,
+            -33.432
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Eje Ribera Río Mapocho — Santa María / Costanera",
+        "codigo_camino": "Ruta Costanera",
+        "calzada": "Calzada Expresa y Vía de Enlace",
+        "longitud_km": 4.8,
+        "organismo_tuicion": "Dirección de Vialidad MOP",
+        "flujo_promedio": "98.000 veh/día",
+        "utilidad_territorial": "Conectividad oriente-poniente del valle de Santiago y resguardo de la faja hidráulica de amortiguación del Mapocho."
+      }
+    }
+  ]
+}

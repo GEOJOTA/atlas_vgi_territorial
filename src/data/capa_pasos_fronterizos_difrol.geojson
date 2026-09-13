@@ -1,0 +1,150 @@
+{
+  "type": "FeatureCollection",
+  "name": "DIFROL_Pasos_Fronterizos_Habilitados_Chile",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.0825,
+          -32.8272
+        ]
+      },
+      "properties": {
+        "nombre": "Paso Internacional Los Libertadores (Sistema Cristo Redentor)",
+        "pais_vecino": "República Argentina (Provincia de Mendoza)",
+        "region_chilena": "Región de Valparaíso / Conectividad Directa RM Santiago",
+        "ruta_acceso": "Ruta 60 CH (Chile) / Ruta Nacional 7 (Argentina)",
+        "altitud_msnm": 3185,
+        "tipo_paso": "Paso Terrestre Mayor / Carretero Pavimentado",
+        "complejo_fronterizo": "Complejo Fronterizo Los Libertadores (Control Integrado)",
+        "horario_operacion": "24 Horas en temporada estival / Sujeto a vialidad invernal",
+        "flujo_anual": "1.850.000 personas y 85% de la carga terrestre del Mercosur hacia Chile",
+        "decreto_difrol": "D.S. N° 456 MINREL / Convenio Bilateral Chileno-Argentino",
+        "servicios_presentes": "PDI Migraciones, Aduanas (SNA), SAG Sanidad Agropecuaria y Carabineros",
+        "utilidad_territorial": "Principal corredor logístico bioceánico del país; abastecimiento estratégico de alimentos, combustibles y comercio exterior para el Área Metropolitana de Santiago."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.895,
+          -33.625
+        ]
+      },
+      "properties": {
+        "nombre": "Paso Portillo de Piuquenes (Cajón del Maipo)",
+        "pais_vecino": "República Argentina (Valle de Uco / Tunuyán, Mendoza)",
+        "region_chilena": "Región Metropolitana de Santiago (Provincia de Cordillera)",
+        "ruta_acceso": "Ruta G-25 San José de Maipo / Valle del Río Yeso",
+        "altitud_msnm": 4030,
+        "tipo_paso": "Paso Cordillerano Histórico Estival (Trekking / Cabalgatas)",
+        "complejo_fronterizo": "Avanzada Fronteriza San Gabriel (Carabineros de Chile)",
+        "horario_operacion": "Estival Temporal (Diciembre a Marzo)",
+        "flujo_anual": "4.200 turistas y expedicionarios de alta montaña",
+        "decreto_difrol": "D.S. N° 1.205 / Reconocimiento Histórico Ruta Sanmartiniana 1817",
+        "servicios_presentes": "Control de Carabineros y SAG Retén Fronterizo San Gabriel",
+        "utilidad_territorial": "Soberanía territorial en la cuenca alta del Maipo, fomento del turismo de intereses especiales y resguardo de la reserva hídrica de la capital."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.395,
+          -35.989
+        ]
+      },
+      "properties": {
+        "nombre": "Paso Internacional Pehuenche",
+        "pais_vecino": "República Argentina (Malargüe, Mendoza)",
+        "region_chilena": "Región del Maule / Macrocentro",
+        "ruta_acceso": "Ruta 115 CH (Pavimentada)",
+        "altitud_msnm": 2553,
+        "tipo_paso": "Paso Carretero Internacional Permanente",
+        "complejo_fronterizo": "Complejo Pehuenche (DIFROL / Gobernación de Talca)",
+        "horario_operacion": "Habilitado todo el año (excepto nevadas extraordinarias)",
+        "flujo_anual": "320.000 pasajeros y carga comercial secundaria",
+        "decreto_difrol": "Tratado de Maipú de Integración y Cooperación",
+        "servicios_presentes": "PDI, Aduana, SAG y Carabineros de Chile",
+        "utilidad_territorial": "Vía de contingencia y redundancia logística metropolitana ante bloqueos por temporales en el Paso Los Libertadores."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.4785,
+          -35.197
+        ]
+      },
+      "properties": {
+        "nombre": "Paso Vergara (El Planchón)",
+        "pais_vecino": "República Argentina (Malargüe, Mendoza)",
+        "region_chilena": "Región del Maule / Conexión Curicó",
+        "ruta_acceso": "Ruta J-55 Romeral",
+        "altitud_msnm": 2502,
+        "tipo_paso": "Paso Estival Estacional de Cordillera",
+        "complejo_fronterizo": "Población San Pedro (Avanzada Temporal)",
+        "horario_operacion": "Verano (Noviembre a Abril)",
+        "flujo_anual": "15.000 usuarios",
+        "decreto_difrol": "D.S. N° 672 MINREL",
+        "servicios_presentes": "Carabineros y SAG",
+        "utilidad_territorial": "Fiscalización de veranadas ganaderas transfronterizas y prevención de introducción de plagas agrícolas exóticas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.3015,
+          -18.318
+        ]
+      },
+      "properties": {
+        "nombre": "Paso Internacional Chacalluta (Límite Norte)",
+        "pais_vecino": "República del Perú (Departamento de Tacna)",
+        "region_chilena": "Región de Arica y Parinacota",
+        "ruta_acceso": "Ruta 5 Norte Panamericana (Km 2.091)",
+        "altitud_msnm": 65,
+        "tipo_paso": "Paso Terrestre Urbano-Costero de Máximo Flujo Nacional",
+        "complejo_fronterizo": "Complejo Fronterizo Chacalluta (Control Integrado Binacional)",
+        "horario_operacion": "24 Horas / 365 Días continuos",
+        "flujo_anual": "Más de 6.500.000 cruces de personas por año",
+        "decreto_difrol": "Tratado de Lima de 1929 y Convención de Tránsito de 1930",
+        "servicios_presentes": "PDI, SUNAT (Perú), Aduanas de Chile, SAG, SENASA",
+        "utilidad_territorial": "Monitoreo de la movilidad macrofronteriza septentrional e integración económica y sanitaria con la Alianza del Pacífico."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.655,
+          -40.715
+        ]
+      },
+      "properties": {
+        "nombre": "Paso Internacional Cardenal Antonio Samoré",
+        "pais_vecino": "República Argentina (Villa La Angostura / Bariloche)",
+        "region_chilena": "Región de Los Lagos / Puyehue",
+        "ruta_acceso": "Ruta 215 CH",
+        "altitud_msnm": 1305,
+        "tipo_paso": "Segundo Paso Terrestre Comercial de Chile",
+        "complejo_fronterizo": "Complejo Cardenal Samoré",
+        "horario_operacion": "Continuo 24/7 (Baja cota que facilita operación invernal)",
+        "flujo_anual": "1.100.000 personas y 120.000 camiones de carga",
+        "decreto_difrol": "Tratado de Paz y Amistad de 1984",
+        "servicios_presentes": "PDI, Aduana, SAG y Gendarmería Nacional",
+        "utilidad_territorial": "Conectividad territorial con la Patagonia austral mediante régimen de Chile - Chile a través de territorio argentino."
+      }
+    }
+  ]
+}

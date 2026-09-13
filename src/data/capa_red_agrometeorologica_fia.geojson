@@ -1,0 +1,69 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_red_agrometeorologica_fia",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.628,
+          -33.565
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Agroclimática INIA La Platina (La Pintana)",
+        "codigo_red": "AGRO-RM-01",
+        "red_nacional": "Red Agrometeorológica Nacional (RAN / FIA / INIA)",
+        "parametros_agro": "Evapotranspiración de Referencia (ETo), Horas Frío (< 7°C), Grados Días, Radiación Fotosintéticamente Activa (PAR)",
+        "cultivos_asociados": "Hortalizas de hoja, nogales, uva de mesa y frutales de carozo",
+        "alerta_heladas": "Sensor de temperatura de bulbo húmedo para predicción de heladas agrometeorológicas",
+        "utilidad_territorial": "Optimización del calendario de riego tecnificado, prevención de estrés térmico y protección de la huerta periférica."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.92,
+          -33.66
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Agroclimática Talagante — El Monte",
+        "codigo_red": "AGRO-RM-04",
+        "red_nacional": "RAN / Fedefruta / Minagri",
+        "parametros_agro": "Humedad del suelo a 30cm y 60cm, ETo Penman-Monteith, Viento dominante",
+        "cultivos_asociados": "Paltos, cítricos, maíz para semilla",
+        "alerta_heladas": "Monitoreo de inversiones térmicas de fondo de valle",
+        "utilidad_territorial": "Soporte agrotecnológico para pequeños y medianos productores del valle del Maipo medio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.735,
+          -33.725
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Agroclimática Buin — Valle de Paine",
+        "codigo_red": "AGRO-RM-07",
+        "red_nacional": "RAN / FIA / INIA",
+        "parametros_agro": "Acumulación de horas frío para receso invernal de frutales caducifolios",
+        "cultivos_asociados": "Cerezos de exportación y viñedos de cepas finas",
+        "alerta_heladas": "Alerta temprana de heladas tardías de primavera",
+        "utilidad_territorial": "Seguridad agroalimentaria y resiliencia climática del polo frutícola metropolitano sur."
+      }
+    }
+  ]
+}

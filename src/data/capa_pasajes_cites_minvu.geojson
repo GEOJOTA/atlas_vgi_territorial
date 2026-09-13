@@ -1,0 +1,63 @@
+{
+  "type": "FeatureCollection",
+  "name": "MINVU_Pasajes_Cites_Historicos_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6672,
+          -33.4412
+        ]
+      },
+      "properties": {
+        "nombre": "Cité Lucrecia Valdés de Barros",
+        "direccion": "Huérfanos 2850, Barrio Brasil / Yungay",
+        "ano_construccion": 1924,
+        "tipologia": "Cité Residencial de Fachada Continua con Pasaje Central Común",
+        "unidades_vivienda": 16,
+        "estado_conservacion": "Bueno / Zona Típica Barrio Yungay",
+        "utilidad_territorial": "Protección de tipologías residenciales colectivas tradicionales, mejoramiento sanitario y cohesión comunitaria vecinal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6635,
+          -33.4435
+        ]
+      },
+      "properties": {
+        "nombre": "Pasaje Hurtado Rodríguez",
+        "direccion": "Erasmo Escala / Libertad, Barrio Brasil",
+        "ano_construccion": 1918,
+        "tipologia": "Pasaje Peatonal Residencial Adoquinado",
+        "unidades_vivienda": 22,
+        "estado_conservacion": "Bueno / Arquitectura Neoclásica Popular",
+        "utilidad_territorial": "Patrimonio arquitectónico popular y resguardo de la vida de barrio a escala humana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6695,
+          -33.442
+        ]
+      },
+      "properties": {
+        "nombre": "Cité Adriana Cousiño",
+        "direccion": "Compañía de Jesús 2760, Barrio Yungay",
+        "ano_construccion": 1928,
+        "tipologia": "Cité Colectivo Modernista en C-Shape",
+        "unidades_vivienda": 28,
+        "estado_conservacion": "Zona Típica (CMN)",
+        "utilidad_territorial": "Preservación del tejido social comunitario y prevención del deterioro físico habitacional."
+      }
+    }
+  ]
+}

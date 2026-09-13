@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_lineas_transmision_sen",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.732,
+            -33.431
+          ],
+          [
+            -70.715,
+            -33.455
+          ],
+          [
+            -70.698,
+            -33.485
+          ],
+          [
+            -70.685,
+            -33.515
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Línea de Transmisión 110 kV Cerro Navia — Ochagavía",
+        "tension_nominal_kv": 110.0,
+        "propietario": "Transelec S.A. / CEN",
+        "tipo_circuito": "Doble circuito aéreo sobre torres de acero galvanizado",
+        "longitud_km": 12.8,
+        "faja_servidumbre_metros": 20.0,
+        "estado_operativo": "En Operación Normal",
+        "utilidad_territorial": "Transporte de alta tensión hacia los centros de transformación barriales y delimitación de franjas de seguridad eléctrica."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.825,
+            -33.15
+          ],
+          [
+            -70.785,
+            -33.28
+          ],
+          [
+            -70.745,
+            -33.41
+          ],
+          [
+            -70.732,
+            -33.431
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Línea Troncal 220 kV Polpaico — Cerro Navia",
+        "tension_nominal_kv": 220.0,
+        "propietario": "Transelec S.A. / CEN",
+        "tipo_circuito": "Circuito simple de alta capacidad troncal",
+        "longitud_km": 34.5,
+        "faja_servidumbre_metros": 40.0,
+        "estado_operativo": "Eje Troncal Nacional",
+        "utilidad_territorial": "Inyección masiva de energía solar del norte grande al consumo residencial e industrial del Gran Santiago."
+      }
+    }
+  ]
+}

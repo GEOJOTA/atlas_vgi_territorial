@@ -2026,18 +2026,18 @@ function configurarCapasOficialesIDE() {
     },
     {
       id: 'medio_ambiente',
-      nombre: '🌳 Medio Ambiente, Parques, Recursos Hídricos & Suelos (MMA / MINVU / DGA / CONAF)',
-      filtroGrupo: (c) => c.grupo === 'medio_ambiente_riesgos'
+      nombre: '🌳 Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF)',
+      filtroGrupo: (c) => ['medio_ambiente_riesgos', 'espacio_publico'].includes(c.grupo)
     },
     {
       id: 'comunidades_vivienda',
-      nombre: '👥 Comunidades, RSH, Vulnerabilidad Socioterritorial & BIDAT (MDS / MINVU / INE)',
-      filtroGrupo: (c) => c.grupo === 'social_comunidades'
+      nombre: '👥 Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDS / MINVU / INE)',
+      filtroGrupo: (c) => ['social_comunidades', 'demografia'].includes(c.grupo)
     },
     {
       id: 'equipamiento_patrimonio',
       nombre: '🏛️ Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL)',
-      filtroGrupo: (c) => ['educacion', 'salud', 'patrimonio', 'equipamiento_infraestructura'].includes(c.grupo)
+      filtroGrupo: (c) => ['educacion', 'salud', 'patrimonio', 'equipamiento_infraestructura', 'servicios'].includes(c.grupo)
     },
     {
       id: 'seguridad',
@@ -2046,8 +2046,8 @@ function configurarCapasOficialesIDE() {
     },
     {
       id: 'movilidad_economico',
-      nombre: '🚲 Movilidad, Transporte, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA)',
-      filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'economico_agricola'].includes(c.grupo)
+      nombre: '🚲 Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA)',
+      filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'economico_agricola', 'transporte'].includes(c.grupo)
     }
   ];
 
@@ -2177,6 +2177,7 @@ async function ejecutarConsultaInspector(lat, lng) {
     'ide_minvu_ipt_prms_riesgo',
     'minvu_ipt_areas_verdes',
     'minvu_patrimonio',
+    'unidades_vecinales_bidat',
     'ide_minvu_unidades_vecinales_rsh',
     'ide_minvu_campamentos',
     'ide_minvu_inventario_humedales'

@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "SUBTEL_Infraestructura_Telecomunicaciones_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6558,
+          -33.4442
+        ]
+      },
+      "properties": {
+        "nombre": "Torre Central de Telecomunicaciones Entel",
+        "operador": "Entel Chile S.A.",
+        "altura_metros": 127.4,
+        "tecnologias": "5G NR, 4G LTE-A, Enlaces de Microondas Troncales",
+        "cumplimiento_ley": "Ley N° 20.599 de Antenas y Torres / SUBTEL",
+        "potencia_radiada": "Conforme a estándar internacional OMS (< 10 µW/cm²)",
+        "utilidad_territorial": "Monitoreo de conectividad digital comunal, soporte a teletrabajo/teleducación y fiscalización de radiación electromagnética."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.668,
+          -33.4405
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Celular Mimetizada Yungay — Movistar / WOM",
+        "operador": "Telefónica Chile / WOM",
+        "altura_metros": 24.0,
+        "tecnologias": "5G NR (Banda 3.5 GHz) y 4G LTE",
+        "cumplimiento_ley": "Estructura mimetizada con arbolado urbano (Ley 20.599)",
+        "potencia_radiada": "Nivel Seguro Verificado por SUBTEL",
+        "utilidad_territorial": "Cobertura de datos móviles de alta velocidad en el Barrio Brasil sin alterar la visual patrimonial."
+      }
+    }
+  ]
+}

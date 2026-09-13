@@ -1,0 +1,66 @@
+{
+  "type": "FeatureCollection",
+  "name": "MOP_Proyectos_Mandatados_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6582,
+          -33.4398
+        ]
+      },
+      "properties": {
+        "nombre": "Restauración y Puesta en Valor Palacio Pereira",
+        "tipo_obra": "Edificación Pública Mandatada (Patrimonio & Cultura)",
+        "mandante": "Ministerio de las Culturas, las Artes y el Patrimonio (MINCAP)",
+        "ejecutor": "Dirección de Arquitectura / MOP",
+        "monto_inversion": "$14.850.000.000 CLP",
+        "estado_obra": "Operativo / Recepcionado",
+        "superficie_m2": 6450,
+        "utilidad_territorial": "Monitoreo de infraestructura pública interinstitucional, preservación patrimonial y dotación de equipamiento cultural barrial."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6685,
+          -33.4362
+        ]
+      },
+      "properties": {
+        "nombre": "Conservación Integral Eje Matucana — Museo de la Memoria",
+        "tipo_obra": "Espacio Público y Conectividad Urbana",
+        "mandante": "Gobierno Regional Metropolitano de Santiago (GORE RM)",
+        "ejecutor": "Dirección de Vialidad / MOP",
+        "monto_inversion": "$3.240.000.000 CLP",
+        "estado_obra": "En Conservación Activa",
+        "superficie_m2": 18200,
+        "utilidad_territorial": "Mejoramiento del entorno urbano y peatonal en el límite comunal Poniente de Santiago con Quinta Normal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6515,
+          -33.4372
+        ]
+      },
+      "properties": {
+        "nombre": "Modernización Museo Histórico Nacional (Plaza de Armas)",
+        "tipo_obra": "Infraestructura Cultural y Restauración",
+        "mandante": "Servicio Nacional del Patrimonio Cultural (SERPAT)",
+        "ejecutor": "Dirección de Arquitectura / MOP",
+        "monto_inversion": "$8.900.000.000 CLP",
+        "estado_obra": "En Etapa de Licitación / Diseño Final",
+        "superficie_m2": 4200,
+        "utilidad_territorial": "Fortalecimiento de la memoria histórica nacional, acceso ciudadano a museos y regeneración del casco fundacional."
+      }
+    }
+  ]
+}

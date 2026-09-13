@@ -1,0 +1,86 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_circuitos_turisticos_sernatur",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.6658,
+            -33.4402
+          ],
+          [
+            -70.6685,
+            -33.441
+          ],
+          [
+            -70.6725,
+            -33.4418
+          ],
+          [
+            -70.6765,
+            -33.4395
+          ],
+          [
+            -70.6795,
+            -33.4415
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Circuito Patrimonial y Arquitectónico Barrio Brasil — Yungay",
+        "categoria_turistica": "Ruta Cultural Peatonal Guiada",
+        "hitos_principales": "Plaza Brasil, Iglesia de la Preciosa Sangre, Pasaje Lucrecia Valdés, Plaza Yungay, Museo de la Educación",
+        "longitud_circuito_km": 2.6,
+        "tiempo_recorrido": "2 horas a pie",
+        "institucion_patrocinante": "SERNATUR / Corporación para el Desarrollo de Santiago",
+        "utilidad_territorial": "Fomento del turismo barrial sostenible, dinamización de la economía creativa local y puesta en valor del patrimonio inmueble."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.655,
+            -33.443
+          ],
+          [
+            -70.6535,
+            -33.4428
+          ],
+          [
+            -70.648,
+            -33.4435
+          ],
+          [
+            -70.6435,
+            -33.4415
+          ],
+          [
+            -70.641,
+            -33.4395
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Eje Cívico Patrimonial Alameda — Palacio La Moneda — Cerro Santa Lucía",
+        "categoria_turistica": "Circuito Histórico Republicano de la Capital",
+        "hitos_principales": "Barrio Cívico, Palacio de La Moneda, Iglesia San Francisco, Cerro Huelén (Santa Lucía), GAM",
+        "longitud_circuito_km": 3.1,
+        "tiempo_recorrido": "2.5 horas",
+        "institucion_patrocinante": "SERNATUR / Ilustre Municipalidad de Santiago",
+        "utilidad_territorial": "Paseo cívico fundacional de Chile de escala internacional para visitantes y delegaciones diplomáticas."
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "name": "MINVU_Sedes_Institucionales_SEREMI_SERVIU",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.652,
+          -33.444
+        ]
+      },
+      "properties": {
+        "nombre": "SERVIU Metropolitano — Sede Central de Atención",
+        "institucion": "Servicio de Vivienda y Urbanización Metropolitano (MINVU)",
+        "direccion": "Arturo Prat 48, Santiago Centro",
+        "servicios": "Postulación subsidios DS49, DS01, DS19, escrituración y condominios sociales",
+        "atencion_diaria": "1.200 usuarios presenciales",
+        "utilidad_territorial": "Gestión directa de la política habitacional de emergencia y atención prioritaria a comités de vivienda."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6485,
+          -33.4435
+        ]
+      },
+      "properties": {
+        "nombre": "SEREMI MINVU Región Metropolitana",
+        "institucion": "Secretaría Regional Ministerial de Vivienda y Urbanismo RM",
+        "direccion": "Av. Libertador Bernardo O'Higgins 874, piso 8, Santiago",
+        "servicios": "Aprobación IPT comunales (PRC), coordinación de inversiones urbano-habitacionales",
+        "atencion_diaria": "Atención Institucional y Técnica Municipal",
+        "utilidad_territorial": "Tuición normativa sobre la planificación urbana metropolitana y aprobación de planes reguladores."
+      }
+    }
+  ]
+}

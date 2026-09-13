@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "name": "MOP_DMC_Zonificacion_Bioclimatica_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.69,
+              -33.425
+            ],
+            [
+              -70.63,
+              -33.425
+            ],
+            [
+              -70.63,
+              -33.48
+            ],
+            [
+              -70.69,
+              -33.48
+            ],
+            [
+              -70.69,
+              -33.425
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Zona Bioclimática Csb — Valle Central de Santiago",
+        "clasificacion_koppen": "Csb (Mediterráneo templado cálido con estación seca prolongada)",
+        "temperatura_media": "15.4 °C (Máximas estivales > 34.5 °C)",
+        "precipitacion_media": "312.5 mm/año (90% en período mayo-agosto)",
+        "deficit_hidrico": "940 mm/año de déficit de evapotranspiración potencial",
+        "isla_calor_urbana": "+2.8 °C en sectores densamente sellados respecto a parques",
+        "utilidad_territorial": "Diseño bioclimático de viviendas (Art. 4.1.10 OGUC), cálculo de transmitancia térmica y arbolado de mitigación térmica."
+      }
+    }
+  ]
+}

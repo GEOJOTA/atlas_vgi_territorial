@@ -1,0 +1,155 @@
+{
+  "type": "FeatureCollection",
+  "name": "DIFROL_Delimitacion_Fronteriza_Faja_Seguridad_Nacional",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.0825,
+            -32.8272
+          ],
+          [
+            -70.15,
+            -33.02
+          ],
+          [
+            -70.215,
+            -33.23
+          ],
+          [
+            -69.77,
+            -33.36
+          ],
+          [
+            -69.88,
+            -33.73
+          ],
+          [
+            -69.89,
+            -33.79
+          ],
+          [
+            -69.83,
+            -34.16
+          ],
+          [
+            -70.08,
+            -34.58
+          ],
+          [
+            -70.395,
+            -35.197
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Límite Político Internacional Chile - Argentina (Tramo Región Metropolitana / Macrocentro)",
+        "tipo_entidad": "Línea Divisoria Continental de Aguas y Altas Cumbres",
+        "marco_juridico": "Tratado de Límites de 1881 / Protocolo de 1893 / Laudo Arbitral de 1902",
+        "organismo_custodia": "Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL)",
+        "hitos_principales": "Hito Cristo Redentor, Hito Tupungato, Hito San José, Hito Maipo",
+        "longitud_km": 365.4,
+        "utilidad_territorial": "Demarcación jurídica soberana de la República de Chile; base de referencia geopolítica para la soberanía territorial y preservación de glaciares andinos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.0825,
+              -32.8272
+            ],
+            [
+              -70.15,
+              -33.02
+            ],
+            [
+              -70.215,
+              -33.23
+            ],
+            [
+              -69.77,
+              -33.36
+            ],
+            [
+              -69.88,
+              -33.73
+            ],
+            [
+              -69.89,
+              -33.79
+            ],
+            [
+              -69.83,
+              -34.16
+            ],
+            [
+              -70.08,
+              -34.58
+            ],
+            [
+              -70.395,
+              -35.197
+            ],
+            [
+              -70.52,
+              -35.18
+            ],
+            [
+              -70.21,
+              -34.55
+            ],
+            [
+              -69.96,
+              -34.13
+            ],
+            [
+              -70.02,
+              -33.76
+            ],
+            [
+              -70.01,
+              -33.7
+            ],
+            [
+              -69.9,
+              -33.33
+            ],
+            [
+              -70.34,
+              -33.2
+            ],
+            [
+              -70.27,
+              -32.99
+            ],
+            [
+              -70.2,
+              -32.8
+            ],
+            [
+              -70.0825,
+              -32.8272
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Faja de Seguridad Fronteriza de 10 km (DFL N° 4 de 1967)",
+        "tipo_entidad": "Zona de Exclusión y Control Geopolítico Estratégico",
+        "marco_juridico": "DFL N° 4 de 1967 del Ministerio de Relaciones Exteriores y D.L. N° 1.939 de 1977",
+        "ancho_faja": "10 kilómetros medidos perpendicularmente desde el límite internacional",
+        "restriccion_inmuebles": "Obligación de autorización previa de DIFROL para que personas naturales o jurídicas extranjeras adquieran o arrienden inmuebles",
+        "superficie_ha": 365400,
+        "organismo_control": "DIFROL / Ministerio de Defensa Nacional / Jefatura de Zonas Fronterizas de Carabineros",
+        "utilidad_territorial": "Preservación de la seguridad y defensa nacional, resguardo de las cuencas glaciares de recarga del Río Maipo y control dominial en alta montaña."
+      }
+    }
+  ]
+}

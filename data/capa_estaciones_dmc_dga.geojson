@@ -1,0 +1,71 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_estaciones_dmc_dga",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6828,
+          -33.4447
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Meteorológica Quinta Normal (DMC Santiago)",
+        "codigo_nacional": "330020",
+        "institucion": "Dirección Meteorológica de Chile (DMC)",
+        "altitud_msnm": 527.0,
+        "tipo_estacion": "Estación Climatológica Principal de Referencia Histórica (desde 1866)",
+        "precipitacion_media_anual": "312.5 mm",
+        "temperatura_media": "14.4 °C",
+        "sensores": "Pluviómetro digital, termohigrómetro, barómetro, piranómetro solar, anemómetro 10m",
+        "utilidad_territorial": "Punto de referencia climatológico oficial y serie histórica centenaria para el análisis del cambio climático en Chile Central."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.7944,
+          -33.393
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Meteorológica Aeropuerto Pudahuel (DMC)",
+        "codigo_nacional": "330019",
+        "institucion": "Dirección Meteorológica de Chile (DMC)",
+        "altitud_msnm": 474.0,
+        "tipo_estacion": "Sinóptica Aeronáutica y Alerta Temprana",
+        "sensores": "Techo de nubes (ceílómetro), visibilidad RVR, ráfagas extremas, radar meteorológico",
+        "utilidad_territorial": "Seguridad de la navegación aérea y detección anticipada de frentes fríos y tormentas convectivas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.551,
+          -33.456
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Meteorológica Tobalaba (DMC Oriente)",
+        "codigo_nacional": "330030",
+        "institucion": "Dirección Meteorológica de Chile (DMC)",
+        "altitud_msnm": 650.0,
+        "tipo_estacion": "Automática Urbana Precordillerana",
+        "sensores": "Pluviometría, temperatura, humedad relativa, viento",
+        "utilidad_territorial": "Monitoreo del gradiente térmico y pluviométrico del cono oriente y precordillera de Santiago."
+      }
+    }
+  ]
+}

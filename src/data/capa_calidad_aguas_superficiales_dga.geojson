@@ -1,0 +1,69 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_calidad_aguas_superficiales_dga",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.612,
+          -33.421
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Calidad de Agua Río Mapocho Entrada Urbana (Torre Telefónica)",
+        "codigo_bna": "05722003-8",
+        "institucion": "DGA / Red Nacional de Monitoreo de Calidad",
+        "parametros_medidos": "Oxígeno Disuelto (8.4 mg/L), pH (7.6), Conductividad Eléctrica (720 µS/cm), DBO5 (< 3 mg/L)",
+        "frecuencia_muestreo": "Mensual continuo con sonda multiparámetro telemétrica",
+        "cumplimiento_normativo": "Cumple Norma Secundaria de Calidad Ambiental (D.S. N° 9/2015 MMA)",
+        "utilidad_territorial": "Vigilancia de la calidad hídrica previo al ingreso al sector urbano denso y control de descargas no autorizadas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.715,
+          -33.498
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Calidad de Agua Zanjón de la Aguada Desembocadura Mapocho",
+        "codigo_bna": "05730005-4",
+        "institucion": "DGA / Red Nacional de Monitoreo de Calidad",
+        "parametros_medidos": "Oxígeno Disuelto (5.8 mg/L), pH (7.4), Metales pesados (Cobre, Zinc trazas), Coliformes Fecales",
+        "frecuencia_muestreo": "Mensual físico-química y biológica",
+        "cumplimiento_normativo": "Alerta por conductividad elevada asociada a escorrentía pluvial urbana",
+        "utilidad_territorial": "Evaluación del impacto del colector sur del Gran Santiago antes de su entrega al cauce del Maipo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.585,
+          -33.429
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Calidad de Agua Canal San Carlos Entrada a Santiago",
+        "codigo_bna": "05721008-3",
+        "institucion": "DGA / Red Nacional de Monitoreo de Calidad",
+        "parametros_medidos": "Oxígeno Disuelto (7.9 mg/L), pH (7.8), Conductividad (540 µS/cm)",
+        "frecuencia_muestreo": "Quincenal",
+        "cumplimiento_normativo": "Apta para riego sin restricciones (NCh 1333)",
+        "utilidad_territorial": "Garantía de calidad para el riego de parques metropolitanos y derivaciones a canales comunitarios."
+      }
+    }
+  ]
+}

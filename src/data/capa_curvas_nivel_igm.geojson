@@ -1,0 +1,93 @@
+{
+  "type": "FeatureCollection",
+  "name": "IGM_Curvas_Nivel_Equidistancia_10m_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.69,
+            -33.45
+          ],
+          [
+            -70.66,
+            -33.448
+          ],
+          [
+            -70.63,
+            -33.446
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Curva de Nivel Cota 540 m s.n.m.",
+        "cota_msnm": 540,
+        "equidistancia": "10 metros",
+        "fuente": "Instituto Geográfico Militar (IGM)",
+        "pendiente_media": "1.2% (Pendiente suave valle central)",
+        "direccion_drenaje": "Hacia el poniente (Río Mapocho)",
+        "utilidad_territorial": "Modelación altimétrica para escorrentía pluvial, diseño de redes de alcantarillado y cálculo de pendientes urbanas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.69,
+            -33.44
+          ],
+          [
+            -70.66,
+            -33.438
+          ],
+          [
+            -70.63,
+            -33.436
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Curva de Nivel Cota 550 m s.n.m.",
+        "cota_msnm": 550,
+        "equidistancia": "10 metros",
+        "fuente": "Instituto Geográfico Militar (IGM)",
+        "pendiente_media": "1.4%",
+        "direccion_drenaje": "Hacia el río Mapocho",
+        "utilidad_territorial": "Determinación de cotas de rasante y topografía de soporte a instrumentos de planificación territorial."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -70.645,
+            -33.44
+          ],
+          [
+            -70.643,
+            -33.441
+          ],
+          [
+            -70.642,
+            -33.443
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Curva de Nivel Cota 620 m s.n.m. (Cerro Santa Lucía)",
+        "cota_msnm": 620,
+        "equidistancia": "10 metros",
+        "fuente": "IGM / DPA",
+        "pendiente_media": "35% (Cerro Isla)",
+        "direccion_drenaje": "Radial",
+        "utilidad_territorial": "Modelación de amenazas de desprendimiento de rocas y estabilidad de taludes en cerros isla."
+      }
+    }
+  ]
+}

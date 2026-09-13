@@ -1,0 +1,126 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_huella_urbana_historica",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.675,
+              -33.43
+            ],
+            [
+              -70.635,
+              -33.43
+            ],
+            [
+              -70.635,
+              -33.46
+            ],
+            [
+              -70.675,
+              -33.46
+            ],
+            [
+              -70.675,
+              -33.43
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Huella Urbana Fundacional y Centenario (Año 1910)",
+        "periodo_historico": "1541 - 1910 (Plano Damero Fundacional e Higienismo Vicuña Mackenna)",
+        "superficie_ha": 1820.5,
+        "poblacion_epoca": "350.000 habitantes",
+        "limites_historicos": "Río Mapocho al Norte, Ferrocarril al Sur (Matta), Cordillera de la Costa al Poniente (Matucana), Camino de Cintura al Oriente (Vicuña Mackenna)",
+        "utilidad_territorial": "Comprensión del damero colonial fundacional y el diseño del 'Camino de Cintura' de Benjamín Vicuña Mackenna."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.73,
+              -33.39
+            ],
+            [
+              -70.56,
+              -33.39
+            ],
+            [
+              -70.57,
+              -33.52
+            ],
+            [
+              -70.74,
+              -33.51
+            ],
+            [
+              -70.73,
+              -33.39
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Huella Urbana de Expansión Industrial y PRMS (Año 1960)",
+        "periodo_historico": "1910 - 1960 (Industrialización por Sustitución de Importaciones y Plan Intercomunal de Santiago)",
+        "superficie_ha": 20450.0,
+        "poblacion_epoca": "1.950.000 habitantes",
+        "caracteristicas": "Aparición de cordones industriales en San Miguel y Vicuña Mackenna, poblaciones CORVI y primeros loteos suburbanos oriente",
+        "utilidad_territorial": "Registro de la primera planificación regulada intercomunal diseñada por Juan Parrochia y el equipo del PRMS de 1960."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.78,
+              -33.34
+            ],
+            [
+              -70.5,
+              -33.32
+            ],
+            [
+              -70.52,
+              -33.6
+            ],
+            [
+              -70.79,
+              -33.58
+            ],
+            [
+              -70.78,
+              -33.34
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Huella Urbana Gran Santiago Consolidado (Año 2026)",
+        "periodo_historico": "1990 - 2026 (Metropolización continua y densificación interior)",
+        "superficie_ha": 68500.0,
+        "poblacion_epoca": "7.250.000 habitantes",
+        "caracteristicas": "Conurbación de 37 comunas metropolitanas continuas, expansión sobre suelos agrícolas periféricos y verticalización céntrica",
+        "utilidad_territorial": "Línea base para la contención del límite urbano metropolitano y medición de la huella de impermeabilización del valle."
+      }
+    }
+  ]
+}

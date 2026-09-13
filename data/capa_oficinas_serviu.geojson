@@ -1,0 +1,69 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_oficinas_serviu",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.648,
+          -33.4452
+        ]
+      },
+      "properties": {
+        "nombre": "SERVIU Metropolitano — Sede Central y Plataforma de Postulaciones",
+        "direccion": "Serrano 73, Santiago Centro",
+        "tipo_oficina": "Sede Central Regional",
+        "servicios": "Postulación subsidios habitacionales (DS49, DS1, DS19), escrituración, pago de subsidios a constructoras",
+        "horario": "Lunes a Viernes 08:30 a 14:00 hrs",
+        "dependencia": "Ministerio de Vivienda y Urbanismo",
+        "utilidad_territorial": "Atención masiva a postulantes del Gran Santiago y ejecución material de obras de pavimentación y vivienda."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6515,
+          -33.4438
+        ]
+      },
+      "properties": {
+        "nombre": "Oficina de Información, Reclamos y Sugerencias (OIRS Central MINVU)",
+        "direccion": "Av. Libertador Bernardo O'Higgins 924, Santiago Centro",
+        "tipo_oficina": "Atención Ciudadana OIRS Ministerial",
+        "servicios": "Recepción de solicitudes ciudadanas bajo Ley de Transparencia, orientaciones normativas DDU y reclamos de fiscalización",
+        "horario": "Lunes a Viernes 09:00 a 14:00 hrs",
+        "dependencia": "MINVU Nivel Central",
+        "utilidad_territorial": "Canal oficial vinculante de respuesta y fiscalización ciudadana ante trámites ministeriales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.672,
+          -33.441
+        ]
+      },
+      "properties": {
+        "nombre": "Oficina Técnica Territorial Barrio Yungay / Brasil (SERVIU Poniente)",
+        "direccion": "Huérfanos 2610, Santiago Poniente",
+        "tipo_oficina": "Centro Técnico y Asistencia Habitacional Territorial",
+        "servicios": "Inspección técnica de cités y pasajes patrimoniales, subsidios de mejoramiento y conservación arquitectónica",
+        "horario": "Lunes a Viernes 09:00 a 13:30 hrs",
+        "dependencia": "SERVIU Metropolitano",
+        "utilidad_territorial": "Acompañamiento en terreno para la rehabilitación de viviendas patrimoniales y prevención de derrumbes estructurales."
+      }
+    }
+  ]
+}

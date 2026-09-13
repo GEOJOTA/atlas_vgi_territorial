@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "DGA_Red_Hidrometrica_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6385,
+          -33.4342
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Fluviométrica Río Mapocho en Purísima",
+        "codigo_bna": "05730005-2",
+        "cuenca": "Cuenca del Río Maipo (Subcuenca Río Mapocho Medio)",
+        "parametro": "Nivel hidrométrico (m), Caudal instantáneo (m³/s), Turbidez",
+        "caudal_medio": "8.4 m³/s (Crecidas históricas > 150 m³/s)",
+        "transmision": "Transmisión Satelital GPRS DGA en tiempo real",
+        "utilidad_territorial": "Alerta temprana ante crecidas aluviales y desbordes del Río Mapocho hacia el centro metropolitano."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.655,
+          -33.4735
+        ]
+      },
+      "properties": {
+        "nombre": "Estación de Aforo Zanjón de la Aguada en San Diego",
+        "codigo_bna": "05730018-4",
+        "cuenca": "Subcuenca Zanjón de la Aguada",
+        "parametro": "Caudal pluvial, Nivel de crecida y sedimentometría",
+        "caudal_medio": "3.2 m³/s (Capacidad de porteo 120 m³/s)",
+        "transmision": "Telemetría Continua DGA / DOH",
+        "utilidad_territorial": "Control preventivo de anegamientos en el sector sur de Santiago y gestión integrada de aguas pluviales."
+      }
+    }
+  ]
+}

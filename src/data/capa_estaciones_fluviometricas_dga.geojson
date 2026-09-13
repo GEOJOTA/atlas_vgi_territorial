@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_estaciones_fluviometricas_dga",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.638,
+          -33.434
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Fluviométrica Río Mapocho en Puente Purísima",
+        "codigo_bna": "05722002-0",
+        "institucion": "Dirección General de Aguas (DGA / MOP)",
+        "cuenca_bna": "Cuenca del Río Maipo (057)",
+        "subcuenca": "Río Mapocho Medio",
+        "altitud_msnm": 535.0,
+        "tipo_sensor": "Sensor Limnígrafo de Radar y Sensor de Presión Hidrostática",
+        "caudal_medio_m3s": 8.4,
+        "caudal_maximo_crecida_m3s": 142.0,
+        "transmision_datos": "Telemetría Satelital GOES en Tiempo Real (cada 15 min)",
+        "utilidad_territorial": "Alerta temprana de crecidas aluviales fluviales, cierre preventivo de compuertas y seguridad de puentes urbanos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.521,
+          -33.365
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Fluviométrica Río Mapocho en Los Almendros",
+        "codigo_bna": "05722001-2",
+        "institucion": "Dirección General de Aguas (DGA / MOP)",
+        "cuenca_bna": "Cuenca del Río Maipo (057)",
+        "subcuenca": "Río Mapocho Alto",
+        "altitud_msnm": 780.0,
+        "tipo_sensor": "Limnígrafo ultrasónico",
+        "caudal_medio_m3s": 5.2,
+        "caudal_maximo_crecida_m3s": 110.0,
+        "transmision_datos": "Satelital continua",
+        "utilidad_territorial": "Control del caudal cordillerano que ingresa al canal de aguas bajas de la capital."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.695,
+          -33.491
+        ]
+      },
+      "properties": {
+        "nombre": "Estación Fluviométrica Zanjón de la Aguada en San Jerónimo",
+        "codigo_bna": "05730001-1",
+        "institucion": "Dirección General de Aguas (DGA / MOP)",
+        "cuenca_bna": "Cuenca del Río Maipo (057)",
+        "subcuenca": "Zanjón de la Aguada",
+        "altitud_msnm": 490.0,
+        "tipo_sensor": "Sensor acústico Doppler (ADCP)",
+        "caudal_medio_m3s": 3.1,
+        "caudal_maximo_crecida_m3s": 65.0,
+        "transmision_datos": "Telemetría GPRS / Móvil",
+        "utilidad_territorial": "Prevención de desbordes en los pasos bajo nivel y zonas residenciales del sur de Santiago."
+      }
+    }
+  ]
+}

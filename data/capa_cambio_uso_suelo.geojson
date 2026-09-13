@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONAF_CIREN_Dinamica_Cambio_Suelo_Santiago",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.67,
+              -33.438
+            ],
+            [
+              -70.65,
+              -33.438
+            ],
+            [
+              -70.65,
+              -33.455
+            ],
+            [
+              -70.67,
+              -33.455
+            ],
+            [
+              -70.67,
+              -33.438
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Área de Densificación Urbana Consolidada (Santiago Centro Poniente)",
+        "transicion_1990_2026": "De tejido de baja altura y casonas con patio a edificios de renta y mixtos en altura",
+        "variacion_cobertura_vegetal": "-12.8% de área verde privada interior en 30 años",
+        "incremento_constructibilidad": "+34.5% de m² construidos habitacionales",
+        "densidad_actual_estimada": "385 hab/hectárea",
+        "utilidad_territorial": "Planificación de modificaciones al Plan Regulador Comunal (PRC) para controlar sobrealturas y garantizar servicios."
+      }
+    }
+  ]
+}

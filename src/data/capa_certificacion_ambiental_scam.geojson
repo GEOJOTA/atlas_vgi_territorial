@@ -1,0 +1,129 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_certificacion_ambiental_scam",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.685,
+              -33.43
+            ],
+            [
+              -70.635,
+              -33.43
+            ],
+            [
+              -70.635,
+              -33.475
+            ],
+            [
+              -70.685,
+              -33.475
+            ],
+            [
+              -70.685,
+              -33.43
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Ilustre Municipalidad de Santiago (Comuna Central)",
+        "nivel_certificacion": "Nivel de Excelencia Sobresaliente (SCAM Etapa IV)",
+        "resolucion_mma": "Resolución Exenta N° 842/2023 MMA",
+        "vigencia": "2023 - 2026",
+        "estrategia_ambiental": "Estrategia Ambiental Comunal: Gestión Integral de Residuos, Eficiencia Energética, Arbolado Nativo Resiliente y Comité Ambiental Comunal (CAC)",
+        "poblacion_comunal": 530400,
+        "utilidad_territorial": "Auditoría de los compromisos de sustentabilidad comunal, participación ciudadana activa en reciclaje y neutralidad de carbono."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.635,
+              -33.42
+            ],
+            [
+              -70.585,
+              -33.415
+            ],
+            [
+              -70.59,
+              -33.45
+            ],
+            [
+              -70.635,
+              -33.445
+            ],
+            [
+              -70.635,
+              -33.42
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Ilustre Municipalidad de Providencia",
+        "nivel_certificacion": "Nivel de Gobernanza Ambiental Climática (SCAM Etapa V)",
+        "resolucion_mma": "Resolución Exenta N° 1105/2024 MMA",
+        "vigencia": "2024 - 2027",
+        "estrategia_ambiental": "Plazas de Bolsillo sustentables, riego por goteo con aguas grises tratadas y red de ciclovías de cero emisiones",
+        "poblacion_comunal": 158000,
+        "utilidad_territorial": "Referente de mitigación de la isla de calor mediante arbolado urbano y drenaje sostenible."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.73,
+              -33.44
+            ],
+            [
+              -70.685,
+              -33.44
+            ],
+            [
+              -70.685,
+              -33.475
+            ],
+            [
+              -70.73,
+              -33.475
+            ],
+            [
+              -70.73,
+              -33.44
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "nombre": "Ilustre Municipalidad de Estación Central",
+        "nivel_certificacion": "Nivel Intermedio (SCAM Etapa II)",
+        "resolucion_mma": "Resolución Exenta N° 450/2025 MMA",
+        "vigencia": "2025 - 2027",
+        "estrategia_ambiental": "Plan de mitigación ante megatorres habitacionales, reforestación de platabandas y erradicación de microbasurales",
+        "poblacion_comunal": 210000,
+        "utilidad_territorial": "Exigencia de mejores estándares ambientales en comunas con alta presión inmobiliaria."
+      }
+    }
+  ]
+}

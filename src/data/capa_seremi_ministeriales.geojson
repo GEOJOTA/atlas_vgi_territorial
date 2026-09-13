@@ -1,0 +1,102 @@
+{
+  "type": "FeatureCollection",
+  "name": "capa_seremi_ministeriales",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6485,
+          -33.4442
+        ]
+      },
+      "properties": {
+        "nombre": "SEREMI de Vivienda y Urbanismo Región Metropolitana (SEREMI MINVU RM)",
+        "direccion": "Av. Libertador Bernardo O'Higgins 874, Santiago Centro",
+        "ministerio": "Ministerio de Vivienda y Urbanismo",
+        "titular": "Secretario(a) Regional Ministerial MINVU RM",
+        "competencias": "Aprobación de enmiendas al PRMS, evaluación técnica de Planes Reguladores Comunales y subsidios DS49/DS19",
+        "utilidad_territorial": "Conducción de la política habitacional y ordenamiento territorial intercomunal para los 52 municipios de la RM."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6542,
+          -33.4475
+        ]
+      },
+      "properties": {
+        "nombre": "SEREMI de Salud Región Metropolitana",
+        "direccion": "Padre Miguel de Olivares 1229, Santiago Centro",
+        "ministerio": "Ministerio de Salud",
+        "titular": "Secretario(a) Regional Ministerial de Salud RM",
+        "competencias": "Fiscalización de la Autoridad Sanitaria, sumarios sanitarios, calidad de aguas, residuos y salud ocupacional",
+        "utilidad_territorial": "Vigilancia epidemiológica comunal, clausuras preventivas y garantía de condiciones sanitarias en el hábitat."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6575,
+          -33.438
+        ]
+      },
+      "properties": {
+        "nombre": "SEREMI de Educación Región Metropolitana (SEREMI Mineduc RM)",
+        "direccion": "San Martín 642, Santiago Centro",
+        "ministerio": "Ministerio de Educación",
+        "titular": "Secretario(a) Regional Ministerial de Educación RM",
+        "competencias": "Supervisión pedagógica territorial, fiscalización de infraestructura escolar y gestión de cupos SAE",
+        "utilidad_territorial": "Aseguramiento del derecho a la educación pública y administración de la red de escuelas en la zona metropolitana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.653,
+          -33.4418
+        ]
+      },
+      "properties": {
+        "nombre": "SEREMI del Medio Ambiente Región Metropolitana",
+        "direccion": "Moneda 970, piso 14, Santiago Centro",
+        "ministerio": "Ministerio del Medio Ambiente",
+        "titular": "Secretario(a) Regional Ministerial del Medio Ambiente RM",
+        "competencias": "Gestión del Plan de Prevención y Descontaminación Atmosférica (PPDA RM), Humedales Urbanos y SCAM",
+        "utilidad_territorial": "Coordinación ambiental interinstitucional para mitigar la contaminación del aire y proteger el patrimonio natural del valle."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6555,
+          -33.4435
+        ]
+      },
+      "properties": {
+        "nombre": "SEREMI de Transportes y Telecomunicaciones Región Metropolitana",
+        "direccion": "Amunátegui 58, Santiago Centro",
+        "ministerio": "Ministerio de Transportes y Telecomunicaciones",
+        "titular": "Secretario(a) Regional Ministerial de Transportes RM",
+        "competencias": "Regulación del transporte público Red Movilidad, fiscalización de pistas 'Solo Bus', ciclovías y semaforización UOCT",
+        "utilidad_territorial": "Planificación y descongestión de la movilidad urbana sostenible y control vial del transporte mayor y menor."
+      }
+    }
+  ]
+}
