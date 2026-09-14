@@ -2004,7 +2004,20 @@ const ModuloIDEChile = (() => {
       }
     }
 
-    // 2. Carga desde repositorio local validado en src/data/
+    // 2. Consulta a Base de Datos en la Nube (Supabase PostGIS / Storage CDN) con Fallback
+    if (!geojson && window.ModuloDBClient) {
+      try {
+        const resDb = await window.ModuloDBClient.consultarCapa(idCapa, def, bbox);
+        if (resDb && resDb.geojson) {
+          geojson = resDb.geojson;
+          fuenteUsada = `${def.institucion} [${resDb.origenUsado}]`;
+        }
+      } catch (eDb) {
+        console.warn(`[ModuloIDEChile]: DB Client no pudo resolver ${idCapa}: ${eDb.message}`);
+      }
+    }
+
+    // 3. Carga de respaldo directo desde repositorio local validado en src/data/
     if (!geojson) {
       const rutas = [
         def.archivoLocal,
@@ -2026,7 +2039,7 @@ const ModuloIDEChile = (() => {
     }
 
     if (!geojson) {
-      throw new Error(`No fue posible cargar la capa oficial "${def.nombre}" ni en vivo ni desde el repositorio local.`);
+      throw new Error(`No fue posible cargar la capa oficial "${def.nombre}" ni en vivo ni desde la base de datos ni desde el repositorio local.`);
     }
 
     // Normalizar atributos de cada feature para visualización y popup estándar

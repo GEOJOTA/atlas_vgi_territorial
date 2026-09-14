@@ -438,6 +438,7 @@ function inicializarAplicacion() {
   configurarEventosMapa();
   configurarCapasOficialesIDE();
   configurarImportadorCapas();
+  configurarPanelBaseDatos();
   pintarEstadoConexion();
 
   const ml = window.ModuloLicencias || (typeof ModuloLicencias !== 'undefined' ? ModuloLicencias : null);
@@ -865,6 +866,74 @@ function configurarSubpanelesDerecha() {
       const target = document.getElementById(btn.dataset.target);
       if (target) target.classList.add('activo');
     });
+  });
+}
+
+function configurarPanelBaseDatos() {
+  const inpUrl = document.getElementById('input-supabase-url');
+  const inpKey = document.getElementById('input-supabase-anon-key');
+  const btnConectar = document.getElementById('btn-conectar-bd');
+  const btnProbar = document.getElementById('btn-probar-bd');
+  const badgeEstado = document.getElementById('sidebar-bd-estado');
+  const mensajeEl = document.getElementById('sidebar-bd-mensaje');
+
+  if (!badgeEstado || !window.ModuloDBClient) return;
+
+  const cfg = window.ModuloDBClient.obtenerConfig();
+  if (inpUrl && cfg.url) inpUrl.value = cfg.url;
+  if (inpKey && cfg.anonKey) inpKey.value = cfg.anonKey;
+
+  const actualizarBadge = (conectado, texto) => {
+    if (conectado) {
+      badgeEstado.textContent = '🟢 PostGIS Activo';
+      badgeEstado.style.color = 'var(--esmeralda)';
+    } else {
+      badgeEstado.textContent = texto || '📁 Modo Local (Fallback)';
+      badgeEstado.style.color = 'var(--ocre)';
+    }
+  };
+
+  if (cfg.url && cfg.anonKey) {
+    actualizarBadge(true);
+  }
+
+  btnConectar?.addEventListener('click', async () => {
+    const url = (inpUrl?.value || '').trim();
+    const key = (inpKey?.value || '').trim();
+
+    if (!url || !key) {
+      if (mensajeEl) {
+        mensajeEl.textContent = 'Ingresa la URL y la Anon Key de Supabase.';
+        mensajeEl.style.color = 'var(--ocre)';
+      }
+      return;
+    }
+
+    if (mensajeEl) {
+      mensajeEl.textContent = 'Conectando y probando PostGIS…';
+      mensajeEl.style.color = 'var(--musgo)';
+    }
+    window.ModuloDBClient.guardarCredenciales(url, key);
+
+    const res = await window.ModuloDBClient.probarConexion();
+    actualizarBadge(res.ok);
+    if (mensajeEl) {
+      mensajeEl.textContent = res.mensaje;
+      mensajeEl.style.color = res.ok ? 'var(--esmeralda)' : 'var(--alerta)';
+    }
+  });
+
+  btnProbar?.addEventListener('click', async () => {
+    if (mensajeEl) {
+      mensajeEl.textContent = 'Enviando ping de telemetría a Supabase…';
+      mensajeEl.style.color = 'var(--musgo)';
+    }
+    const res = await window.ModuloDBClient.probarConexion();
+    actualizarBadge(res.ok);
+    if (mensajeEl) {
+      mensajeEl.textContent = res.mensaje;
+      mensajeEl.style.color = res.ok ? 'var(--esmeralda)' : 'var(--alerta)';
+    }
   });
 }
 

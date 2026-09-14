@@ -158,6 +158,7 @@
             <button type="button" class="btn-subpanel" data-target="subpanel-ide">🏛 Capas IDE</button>
             <button type="button" class="btn-subpanel" data-target="subpanel-normativa">⚖ Normativa</button>
             <button type="button" class="btn-subpanel" data-target="subpanel-importador">⬚ Cargar</button>
+            <button type="button" class="btn-subpanel" data-target="subpanel-bd">⚡ BD PostGIS</button>
           </div>
 
           <!-- Subpanel 1: Métricas & Resumen VGI -->
@@ -215,6 +216,39 @@
             <p style="font-size: 0.78rem; color: var(--tinta-suave); margin-bottom: 10px;">Procesamiento 100% cliente en el navegador.</p>
             <div style="border: 2px dashed var(--linea-fuerte); padding: 16px; border-radius: 8px; text-align: center; font-size: 0.8rem; color: var(--tinta-suave);">
               Usa el módulo importador en la sección principal para cargar tus capas espaciales localmente.
+            </div>
+          </div>
+
+          <!-- Subpanel 5: Base de Datos Espacial Supabase PostGIS -->
+          <div class="subpanel-profundidad" id="subpanel-bd">
+            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--esmeralda);">⚡ Base de Datos PostGIS:</h4>
+            <p style="font-size: 0.78rem; color: var(--tinta-suave); margin-bottom: 10px;">PostgreSQL 15+ con extensión PostGIS en Supabase (Open Source & Gratuito).</p>
+            
+            <div style="background: rgba(30, 41, 59, 0.6); border: 1px solid var(--linea); border-radius: 6px; padding: 10px; margin-bottom: 10px; font-size: 0.8rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span>Estado del Motor:</span>
+                <strong id="sidebar-bd-estado" style="color: var(--ocre); font-size: 0.75rem;">📁 Modo Local (Fallback)</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--tinta-tenue);">
+                <span>Capacidad Almacenamiento:</span>
+                <strong style="color: var(--musgo);">500 MB DB + 1 GB CDN</strong>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div>
+                <label for="input-supabase-url" style="font-size: 0.72rem; color: var(--tinta-tenue); display: block; margin-bottom: 2px;">Supabase URL:</label>
+                <input type="text" id="input-supabase-url" placeholder="https://xyz.supabase.co" style="width: 100%; font-size: 0.75rem; padding: 4px 6px; background: var(--papel); border: 1px solid var(--linea); color: var(--tinta); border-radius: 4px;">
+              </div>
+              <div>
+                <label for="input-supabase-anon-key" style="font-size: 0.72rem; color: var(--tinta-tenue); display: block; margin-bottom: 2px;">Supabase Anon Key:</label>
+                <input type="password" id="input-supabase-anon-key" placeholder="eyJhbGciOi..." style="width: 100%; font-size: 0.75rem; padding: 4px 6px; background: var(--papel); border: 1px solid var(--linea); color: var(--tinta); border-radius: 4px;">
+              </div>
+              <div style="display: flex; gap: 6px; margin-top: 4px;">
+                <button type="button" class="accion" id="btn-conectar-bd" style="flex: 1; font-size: 0.75rem; padding: 6px;">Conectar BD</button>
+                <button type="button" class="accion secundaria" id="btn-probar-bd" style="font-size: 0.75rem; padding: 6px;">Probar Ping</button>
+              </div>
+              <div id="sidebar-bd-mensaje" style="font-size: 0.72rem; margin-top: 4px; color: var(--tinta-suave); font-style: italic;"></div>
             </div>
           </div>
 
@@ -1088,23 +1122,25 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
-<script src="js/config.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/geodesia.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/mapa.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/importador_capas.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/ide_chile.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/evaluador_normativo.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/osm.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/ohsome.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/gbif.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/umap.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/metadatos.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/licencias.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/manual.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/taginfo.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/calidad_analyst.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/diccionario.js?v=20260913_acordeones_v3"></script>
-<script src="js/modulos/manifold_canvas.js?v=20260913_acordeones_v3"></script>
-<script src="js/app.js?v=20260913_acordeones_v3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js?v=20260914_db_v1"></script>
+<script src="js/modulos/db_client.js?v=20260914_db_v1"></script>
+<script src="js/modulos/geodesia.js?v=20260914_db_v1"></script>
+<script src="js/modulos/mapa.js?v=20260914_db_v1"></script>
+<script src="js/modulos/importador_capas.js?v=20260914_db_v1"></script>
+<script src="js/modulos/ide_chile.js?v=20260914_db_v1"></script>
+<script src="js/modulos/evaluador_normativo.js?v=20260914_db_v1"></script>
+<script src="js/modulos/osm.js?v=20260914_db_v1"></script>
+<script src="js/modulos/ohsome.js?v=20260914_db_v1"></script>
+<script src="js/modulos/gbif.js?v=20260914_db_v1"></script>
+<script src="js/modulos/umap.js?v=20260914_db_v1"></script>
+<script src="js/modulos/metadatos.js?v=20260914_db_v1"></script>
+<script src="js/modulos/licencias.js?v=20260914_db_v1"></script>
+<script src="js/modulos/manual.js?v=20260914_db_v1"></script>
+<script src="js/modulos/taginfo.js?v=20260914_db_v1"></script>
+<script src="js/modulos/calidad_analyst.js?v=20260914_db_v1"></script>
+<script src="js/modulos/diccionario.js?v=20260914_db_v1"></script>
+<script src="js/modulos/manifold_canvas.js?v=20260914_db_v1"></script>
+<script src="js/app.js?v=20260914_db_v1"></script>
 </body>
 </html>

@@ -50,6 +50,20 @@ const CONFIG_PREDETERMINADA = {
     gbif: 'https://api.gbif.org/v1',
     umap_instancia_sugerida: 'https://umap.openstreetmap.fr'
   },
+  base_datos: {
+    proveedor: 'supabase',
+    nombre_motor: 'PostgreSQL 15+ con extensión PostGIS',
+    tipo: 'Open Source Cloud Spatial Database',
+    url: '', // Configurar con URL de Supabase (ej: https://xyz.supabase.co)
+    anon_key: '', // Llave pública anónima de Supabase
+    storage_bucket: 'atlas-geojson',
+    modo: 'auto', // 'auto' (Supabase con fallback local), 'supabase' o 'local'
+    tablas: {
+      metadata: 'capas_metadata',
+      entidades: 'capas_entidades',
+      rpc_bbox: 'fn_obtener_capa_bbox'
+    }
+  },
   categorias_osm: [
     {
       id: 'educacion',
