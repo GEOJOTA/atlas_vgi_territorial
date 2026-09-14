@@ -16,8 +16,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 DB_USER = "postgres"
-DB_PASS = "pamplinas123"
-DB_HOST = "db.tkfzmmlhhxqhzgqavsqr.supabase.co"
+DB_PASS = os.environ.get("DB_PASS", "")
+DB_HOST = os.environ.get("DB_HOST", "db.example.supabase.co")
 DB_PORT = 5432
 DB_NAME = "postgres"
 

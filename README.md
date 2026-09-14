@@ -180,7 +180,7 @@ python3 -m http.server 8080 --directory src
 python3 scripts/subir_base_datos_supabase.py --dry-run
 
 # Sincronización con Supabase Storage CDN:
-export SUPABASE_URL="https://tkfzmmlhhxqhzgqavsqr.supabase.co"
+export SUPABASE_URL="https://[TU-PROYECTO].supabase.co"
 export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
 python3 scripts/subir_base_datos_supabase.py --upload-storage
 

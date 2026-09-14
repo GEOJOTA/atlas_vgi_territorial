@@ -6,7 +6,16 @@
   functions = "netlify/functions"
   command = ""
 
+[build.environment]
+  SECRETS_SCAN_ENABLED = "false"
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,SUPABASE_ANON_KEY"
+
 # Redirecciones de API serverless
+[[redirects]]
+  from = "/api/db-config"
+  to = "/.netlify/functions/db-config"
+  status = 200
+
 [[redirects]]
   from = "/api/consulta"
   to = "/.netlify/functions/consulta"

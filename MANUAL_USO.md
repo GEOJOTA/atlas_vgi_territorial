@@ -219,7 +219,7 @@ Para analistas SIG o geógrafos que requieran procesar datos por lotes en consol
 python3 scripts/subir_base_datos_supabase.py --dry-run
 
 # 2. Ingesta masiva y sincronización con Supabase PostGIS:
-export SUPABASE_URL="https://tkfzmmlhhxqhzgqavsqr.supabase.co"
+export SUPABASE_URL="https://[TU-PROYECTO].supabase.co"
 export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
 python3 scripts/subir_base_datos_supabase.py --upload-storage
 

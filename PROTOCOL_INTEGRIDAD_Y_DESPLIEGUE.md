@@ -34,7 +34,7 @@ Este documento establece las directrices obligatorias de desarrollo, gestión de
 
 3. **Gestión Segura de Variables de Entorno y Secretos**:
    - **En Netlify**: Configurar las variables en *Site configuration -> Environment variables*:
-     - `SUPABASE_URL`: `https://tkfzmmlhhxqhzgqavsqr.supabase.co`
+     - `SUPABASE_URL`: `https://[TU-PROYECTO].supabase.co`
      - `SUPABASE_ANON_KEY`: Llave pública anónima de lectura (`sb_publishable_...`).
    - **En GitHub Actions**: Configurar en *Settings -> Secrets and variables -> Actions*:
      - `SUPABASE_URL` y `SUPABASE_ANON_KEY` para la ejecución del workflow de mantenimiento.

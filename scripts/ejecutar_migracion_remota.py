@@ -16,8 +16,8 @@ SCHEMA_SQL = os.path.join(BASE_DIR, "scripts", "db", "01_schema_postgis.sql")
 SEED_SQL = os.path.join(BASE_DIR, "scripts", "db", "02_seed_metadata.sql")
 
 DB_USER = "postgres"
-DB_PASS = "pamplinas123"
-DB_HOST = "db.tkfzmmlhhxqhzgqavsqr.supabase.co"
+DB_PASS = os.environ.get("DB_PASS", "")
+DB_HOST = os.environ.get("DB_HOST", "db.example.supabase.co")
 DB_PORT = 5432
 DB_NAME = "postgres"
 

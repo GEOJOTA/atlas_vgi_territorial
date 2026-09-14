@@ -67,7 +67,7 @@ Dispones de dos pipelines automatizados en Python para la ingesta de datos:
 ### 5.1 Subida al Bucket de Almacenamiento CDN (`scripts/subir_base_datos_supabase.py`)
 Sube todos los archivos GeoJSON al bucket público para descarga directa:
 ```bash
-export SUPABASE_URL="https://tkfzmmlhhxqhzgqavsqr.supabase.co"
+export SUPABASE_URL="https://[TU-PROYECTO].supabase.co"
 export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
 
 python3 scripts/subir_base_datos_supabase.py --upload-storage
@@ -116,7 +116,7 @@ Para que tu base de datos **dure en el tiempo de forma permanente y nunca se sus
 1. Ya hemos configurado la acción automatizada en [`.github/workflows/supabase_keepalive.yml`](../.github/workflows/supabase_keepalive.yml).
 2. En tu repositorio de GitHub (`https://github.com/GEOJOTA/atlas_vgi_uah`), ve a **Settings** -> **Secrets and variables** -> **Actions**.
 3. Añade dos secretos del repositorio:
-   - `SUPABASE_URL`: La URL de tu proyecto Supabase (`https://tkfzmmlhhxqhzgqavsqr.supabase.co`).
+   - `SUPABASE_URL`: La URL de tu proyecto Supabase (`https://[TU-PROYECTO].supabase.co`).
    - `SUPABASE_ANON_KEY`: La clave anónima pública de tu proyecto.
 4. El workflow de GitHub se ejecutará automáticamente **cada 3 días**, realizando una consulta ligera de telemetría que mantendrá la base de datos despierta de por vida a costo \$0.
 

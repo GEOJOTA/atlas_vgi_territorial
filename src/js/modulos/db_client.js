@@ -30,6 +30,33 @@ const ModuloDBClient = (() => {
   };
 
   /**
+   * Carga dinámicamente la configuración de base de datos desde la API serverless /api/db-config
+   * evitando exponer credenciales en el código fuente del repositorio.
+   */
+  async function cargarConfiguracionRemota() {
+    if (dbConfig.url && dbConfig.anonKey) return dbConfig;
+    try {
+      const resp = await fetch('/api/db-config');
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data && data.url && data.anon_key) {
+          dbConfig.url = data.url.trim().replace(/\/+$/, '');
+          dbConfig.anonKey = data.anon_key.trim();
+          dbConfig.storageBucket = data.storage_bucket || dbConfig.storageBucket;
+          dbConfig.activo = true;
+          estadoConexion.fuenteActiva = 'Supabase PostGIS / Cloud Storage';
+          console.log('[ModuloDBClient]: Credenciales suministradas dinámicamente vía /api/db-config.');
+          probarConexion();
+          return dbConfig;
+        }
+      }
+    } catch (e) {
+      // Entorno local sin serverless functions
+    }
+    return dbConfig;
+  }
+
+  /**
    * Inicializa la configuración de base de datos desde NODO_CONFIG o almacenamiento local
    */
   function inicializar(configExterna) {
@@ -50,6 +77,7 @@ const ModuloDBClient = (() => {
     } else {
       dbConfig.activo = false;
       estadoConexion.fuenteActiva = 'Local (Archivos GeoJSON)';
+      cargarConfiguracionRemota();
     }
 
     console.log(`[ModuloDBClient]: Inicializado. Proveedor: ${dbConfig.proveedor}. Activo: ${dbConfig.activo}`);
@@ -107,6 +135,10 @@ const ModuloDBClient = (() => {
   async function consultarCapa(idCapa, defCapa, bbox) {
     let geojson = null;
     let origenUsado = '';
+
+    if (!dbConfig.url && dbConfig.modo !== 'local') {
+      await cargarConfiguracionRemota();
+    }
 
     // =========================================================================
     // INTENTO 1: Consulta a PostGIS vía RPC de Supabase si está activo
@@ -218,6 +250,7 @@ const ModuloDBClient = (() => {
 
   return {
     inicializar,
+    cargarConfiguracionRemota,
     probarConexion,
     consultarCapa,
     guardarCredenciales,

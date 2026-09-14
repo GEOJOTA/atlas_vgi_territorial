@@ -54,8 +54,8 @@ const CONFIG_PREDETERMINADA = {
     proveedor: 'supabase',
     nombre_motor: 'PostgreSQL 15+ con extensión PostGIS',
     tipo: 'Open Source Cloud Spatial Database',
-    url: 'https://tkfzmmlhhxqhzgqavsqr.supabase.co',
-    anon_key: 'sb_publishable_ruwh1h_qtG-5i-OY5SKysA_zhkB4w5h',
+    url: '',
+    anon_key: '',
     storage_bucket: 'atlas-geojson',
     modo: 'auto', // 'auto' (Supabase con fallback local), 'supabase' o 'local'
     tablas: {

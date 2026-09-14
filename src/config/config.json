@@ -46,8 +46,8 @@
     "proveedor": "supabase",
     "nombre_motor": "PostgreSQL 17+ con extensión PostGIS 3.3",
     "tipo": "Open Source Cloud Spatial Database",
-    "url": "https://tkfzmmlhhxqhzgqavsqr.supabase.co",
-    "anon_key": "sb_publishable_ruwh1h_qtG-5i-OY5SKysA_zhkB4w5h",
+    "url": "",
+    "anon_key": "",
     "storage_bucket": "atlas-geojson",
     "modo": "auto"
   },
