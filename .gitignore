@@ -12,4 +12,7 @@ __pycache__/
 *.numbers
 Entregables/
 *entregables*
-*atlas_vgi_barrio_brasil_uah_completo*
+
+scratch/
+*.rar
+*.zip
