@@ -2342,7 +2342,19 @@ const ModuloIDEChile = (() => {
   }
 
   function obtenerDefinicion(idCapa) {
-    return CAPAS_OFICIALES[idCapa] || null;
+    if (!idCapa) return null;
+    if (CAPAS_OFICIALES[idCapa]) return CAPAS_OFICIALES[idCapa];
+    if (typeof idCapa === 'string') {
+      if (idCapa.startsWith('capa_')) {
+        const alias = idCapa.replace('capa_', 'bbdd_');
+        if (CAPAS_OFICIALES[alias]) return CAPAS_OFICIALES[alias];
+      }
+      if (idCapa.startsWith('bbdd_')) {
+        const alias = idCapa.replace('bbdd_', 'capa_');
+        if (CAPAS_OFICIALES[alias]) return CAPAS_OFICIALES[alias];
+      }
+    }
+    return null;
   }
 
   return {

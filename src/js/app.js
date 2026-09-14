@@ -2072,9 +2072,12 @@ function configurarCapasOficialesIDE() {
     const summary = document.createElement('summary');
     summary.className = 'cabecera-acordeon-oficial';
     summary.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-        <span style="font-weight:700; font-size:1.02rem; color:var(--musgo);">${grp.nombre}</span>
-        <span class="badge-acordeon-conteo">${capasEnGrupo.length} CAPAS</span>
+      <div class="cabecera-acordeon-contenido">
+        <span class="titulo-acordeon-oficial">${grp.nombre}</span>
+        <div class="meta-acordeon-oficial">
+          <span class="badge-acordeon-conteo">${capasEnGrupo.length} CAPAS</span>
+          <span class="flecha-acordeon-oficial">▾</span>
+        </div>
       </div>
     `;
     details.appendChild(summary);
@@ -2129,6 +2132,35 @@ Tipo: ${def.tipoServicio}`;
   `;
   btnWMS.addEventListener('click', () => alternarCapaWMSOficial('minvu_patrimonio', btnWMS));
   contenedor.appendChild(btnWMS);
+
+  // Poblar subpanel rápido de capas en la barra lateral
+  const contSidebar = document.getElementById('sidebar-lista-ide-rapida');
+  if (contSidebar) {
+    contSidebar.innerHTML = '';
+    todasCapas.slice(0, 24).forEach(def => {
+      const item = document.createElement('div');
+      item.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:7px 10px; background:var(--papel-tarjeta); border:1px solid var(--linea-tarjeta); border-radius:6px; font-size:0.78rem; cursor:pointer; transition:all 0.2s ease;';
+      item.innerHTML = `
+        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:180px; color:#ffffff;" title="${def.nombre}">${def.icono} ${def.nombre}</span>
+        <span style="font-size:0.68rem; background:rgba(6,182,212,0.15); border:1px solid var(--musgo); color:var(--musgo); padding:2px 6px; border-radius:4px; font-weight:700;">TOGGLE</span>
+      `;
+      item.addEventListener('mouseenter', () => { item.style.borderColor = 'var(--musgo)'; item.style.background = 'var(--papel-hover)'; });
+      item.addEventListener('mouseleave', () => { item.style.borderColor = 'var(--linea-tarjeta)'; item.style.background = 'var(--papel-tarjeta)'; });
+      item.addEventListener('click', () => {
+        const btnMain = document.getElementById(`btn-oficial-${def.id}`);
+        if (btnMain) {
+          // Abrir el acordeón contenedor si está cerrado
+          const detailsParent = btnMain.closest('details');
+          if (detailsParent) detailsParent.open = true;
+          btnMain.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          btnMain.click();
+        } else {
+          alternarCapaOficialIDE(def.id, item);
+        }
+      });
+      contSidebar.appendChild(item);
+    });
+  }
 
   document.getElementById('btn-descargar-todo-ide')?.addEventListener('click', descargarColeccionOficialCompleta);
   inicializarInspectorNormativo();
