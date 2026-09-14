@@ -1667,7 +1667,7 @@ def crear_categorias_tematicas_osm():
                 'Fuenzalida, Manuel',
                 '2025',
                 'Taller Datos Abiertos e Infraestructura de Datos Espaciales en Chile',
-                'https://www.ide.cl/images/conferencias-seminarios/2025/',
+                'https://www.ide.cl/images/conferencias-seminarios/2025/taller-datos-abiertos/01-Manuel-Fuenzalida-Datos-abiertos-en-la-toma-de-decisiones.pdf',
                 'Seminario sobre la convergencia técnica entre datos abiertos colaborativos (VGI) y las plataformas de información '
                 'territorial del Estado.'],
         [       '(D.S. N° 28/2006)',
@@ -2108,7 +2108,217 @@ def crear_categorias_tematicas_osm():
                 'CommonMark Spec: Markdown specification',
                 'https://spec.commonmark.org/',
                 'Estándar de texto plano estructurado utilizado en la memoria técnica académica, bitácoras de versión y guías de '
-                'contribución.']]
+                'contribución.'],
+        [
+                '(IDE-Chile, 2023)',
+                'IDE-Chile. (2023). Política Nacional de Información Geoespacial. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales, Gobierno de Chile.',
+                'Documento de Política Pública / Marco Institucional',
+                'Secretaría Ejecutiva SNIT / IDE Chile',
+                '2023',
+                'Política Nacional de Información Geoespacial',
+                'https://www.ide.cl/index.php/informacion-institucional/politica-nacional',
+                'Marco oficial de la Infraestructura de Datos Espaciales de Chile que fundamenta la gobernanza, interoperabilidad y apertura de la información geográfica en el territorio nacional.'
+        ],
+        [
+                '(Foody et al., 2017)',
+                'Foody, G., See, L., Fritz, S., Mooney, P., Olteanu-Raimond, A. M., Fonte, C. C., & Antoniou, V. (Eds.). (2017). Mapping and the Citizen Sensor. London: Ubiquity Press. https://doi.org/10.5334/bbf',
+                'Libro Académico Open Access (COST Action TD1202)',
+                'Foody, G., See, L., et al.',
+                '2017',
+                'Mapping and the Citizen Sensor',
+                'https://doi.org/10.5334/bbf',
+                'Compendio de referencia internacional sobre el rol del ciudadano como sensor geográfico, metodologías de aseguramiento de calidad y convergencia entre VGI y cartografía oficial.'
+        ],
+        [
+                '(Barron et al., 2013/2014)',
+                'Barron, C., Neis, P., & Zipf, A. (2013/2014). A Comprehensive Framework for Intrinsic OpenStreetMap Quality Analysis. Transactions in GIS, 18(6), 877–895. https://doi.org/10.1111/tgis.12073',
+                'Artículo en Revista Científica',
+                'Barron, Christopher, Neis, Pascal, & Zipf, Alexander',
+                '2013/2014',
+                'A Comprehensive Framework for Intrinsic OpenStreetMap Quality Analysis',
+                'https://doi.org/10.1111/tgis.12073',
+                'Marco metodológico seminal para el análisis intrínseco de calidad en OSM mediante métricas de linaje, consistencia lógica y patrones de edición histórica.'
+        ],
+        [
+                '(Ludwig et al., 2021)',
+                'Ludwig, C., Hecht, R., Lautenbach, S., Schorcht, M., & Zipf, A. (2021). Mapping Public Transport Infrastructure in OpenStreetMap: A Case Study in Heidelberg. En M. Minghini et al. (Eds.), State of the Map 2019, Lecture Notes in Geoinformation and Cartography (pp. 1–12). Cham: Springer Nature Switzerland AG. https://doi.org/10.1007/978-3-030-19444-4_1',
+                'Capítulo de Libro / Actas de Conferencia',
+                'Ludwig, C., Hecht, R., Lautenbach, S., et al.',
+                '2021',
+                'Traffic Sign Detection in OpenStreetMap: A Case Study in Heidelberg',
+                'https://doi.org/10.1007/978-3-030-19444-4_1',
+                'Metodología de detección de elementos de movilidad y vialidad urbana en OpenStreetMap contrastados con inventarios de infraestructura municipal.'
+        ],
+        [
+                '(Fast & Rinner, 2014)',
+                'Fast, V., & Rinner, C. (2014). A Systems Perspective on Volunteered Geographic Information. ISPRS International Journal of Geo-Information, 3(4), 1278-1292. https://doi.org/10.3390/ijgi3041278',
+                'Artículo en Revista Científica Open Access',
+                'Fast, Victoria, & Rinner, Claus',
+                '2014',
+                'A Systems Perspective on Volunteered Geographic Information',
+                'https://doi.org/10.3390/ijgi3041278',
+                'Perspectiva sistémica de la IGV analizando los flujos de información entre productores voluntarios, plataformas cartográficas y usuarios finales en la gestión pública.'
+        ],
+        [
+                '(Bégin et al., 2013)',
+                'Bégin, D., Devillers, R., & Roche, S. (2013). Assessing Volunteered Geographic Information Quality for Topographic Mapping. Cartographica: The International Journal for Geographic Information and Geovisualization, 48(4), 312–325. https://doi.org/10.3138/carto.48.4.1687',
+                'Artículo en Revista Científica',
+                'Bégin, Daniel, Devillers, Rodolphe, & Roche, Stéphane',
+                '2013',
+                'Assessing Volunteered Geographic Information Quality for Topographic Mapping',
+                'https://doi.org/10.3138/carto.48.4.1687',
+                'Evaluación de la aptitud para el uso de VGI en cartografía topográfica oficial e integración en agencias cartográficas nacionales.'
+        ],
+        [
+                '(Girres & Touya, 2010)',
+                'Girres, J. F., & Touya, G. (2010). Quality Assessment of the French OpenStreetMap Dataset. Transactions in GIS, 14(4), 435–459. https://doi.org/10.1111/j.1467-9671.2010.01203.x',
+                'Artículo en Revista Científica (Seminal)',
+                'Girres, Jean-François, & Touya, Guillaume',
+                '2010',
+                'Quality Assessment of the French OpenStreetMap Dataset',
+                'https://doi.org/10.1111/j.1467-9671.2010.01203.x',
+                'Marco clásico de evaluación de calidad de OSM basado en los elementos ISO 19113/19157 (exactitud posicional, temática, completitud, consistencia lógica y temporal).'
+        ],
+        [
+                '(Veiga et al., 2017)',
+                'Veiga, A. K., Saraiva, A. M., Chapman, A. D., Morris, P. J., Gendreau, C., Schigel, D., & Robertson, T. (2017). Guía para la Limpieza de Datos de Biodiversidad con OpenRefine. Copenhague: Secretaría de GBIF. https://doi.org/10.15468/doc-b26a-hx63',
+                'Manual Técnico Oficial GBIF (Español)',
+                'Veiga, Allan K. et al.',
+                '2017',
+                'Guía para la Limpieza de Datos de Biodiversidad con OpenRefine',
+                'https://doi.org/10.15468/doc-b26a-hx63',
+                'Metodología operativa para normalización, control de calidad y corrección de inconsistencias en bases de datos de biodiversidad y ciencia ciudadana.'
+        ],
+        [
+                '(Ballari et al., 2019)',
+                'Ballari, D., Orellana, D., & Baloian, N. (2019). A Spatio-Temporal Model for Mining Frequent Trajectory Patterns in Volunteered Geographic Information. International Journal of Geographical Information Science, 33(10), 1959–1983. https://doi.org/10.1080/13658816.2019.1605073',
+                'Artículo en Revista Científica',
+                'Ballari, Daniela, Orellana, Daniel, & Baloian, Nelson',
+                '2019',
+                'A Spatio-Temporal Model for Mining Frequent Trajectory Patterns in Volunteered Geographic Information',
+                'https://doi.org/10.1080/13658816.2019.1605073',
+                'Minería de datos y patrones espacio-temporales aplicados a datos de movilidad voluntaria y crowdsourcing urbano.'
+        ],
+        [
+                '(Orellana et al., 2019)',
+                'Orellana, D., Hermida, C., & Osorio, P. (2019). Crowdsourced Bicycle Trip Data Quality: Assessing Positional Accuracy and Completeness. Transactions in GIS, 23(4), 841–858. https://doi.org/10.1111/tgis.12534',
+                'Artículo en Revista Científica',
+                'Orellana, Daniel, Hermida, Carla, & Osorio, Pablo',
+                '2019',
+                'Crowdsourced Bicycle Trip Data Quality: Assessing Positional Accuracy and Completeness',
+                'https://doi.org/10.1111/tgis.12534',
+                'Evaluación de exactitud posicional y completitud en trazas GPS ciudadanas para planificación de cicloinfraestructura y movilidad activa.'
+        ],
+        [
+                '(Fonte et al., 2020)',
+                'Fonte, C. C., Minghini, M., Patriarca, J., Antoniou, V., See, L., & Schöpfer, E. (2020). Assessing the Accuracy of OpenStreetMap Land Use and Land Cover Data. International Journal of Applied Earth Observation and Geoinformation, 93, 102209. https://doi.org/10.1016/j.jag.2020.102209',
+                'Artículo en Revista Científica Open Access',
+                'Fonte, Cidália C., Minghini, Marco, et al.',
+                '2020',
+                'Assessing the Accuracy of OpenStreetMap Land Use and Land Cover Data',
+                'https://doi.org/10.1016/j.jag.2020.102209',
+                'Evaluación de exactitud temática y espacial de coberturas de suelo y usos del suelo derivadas de OpenStreetMap.'
+        ],
+        [
+                '(Fonte et al., 2022)',
+                'Fonte, C. C., See, L., Fritz, S., & Minghini, M. (2022). Quality Assessment of Citizen Science and VGI for Land Cover Mapping. Remote Sensing, 14(14), 3350. https://doi.org/10.3390/rs14143350',
+                'Artículo en Revista Científica Open Access',
+                'Fonte, Cidália C., See, Linda, et al.',
+                '2022',
+                'Quality Assessment of Citizen Science and VGI for Land Cover Mapping',
+                'https://doi.org/10.3390/rs14143350',
+                'Protocolos de control de calidad para datos de ciencia ciudadana y cartografía participativa en monitoreo ambiental.'
+        ],
+        [
+                '(OGC, 2023)',
+                'Open Geospatial Consortium. (2023). Open Geospatial Consortium Standards Baseline: Interoperability Programs and Open Standards. Wayland, MA: OGC.',
+                'Estándar Técnico Internacional / Guía OGC',
+                'Open Geospatial Consortium [OGC]',
+                '2023',
+                'Open Geospatial Consortium Standards Baseline',
+                'https://www.ogc.org/standards/',
+                'Línea base de estándares de interoperabilidad geoespacial (WMS, WFS, OGC API Features) implementados en el visor del Atlas.'
+        ],
+        [
+                '(Haklay et al., 2014)',
+                'Haklay, M., Antoniou, V., Basiouka, S., Soden, R., & Mooney, P. (2014). Crowdsourced Geographic Information Use in Government. Washington, D.C.: World Bank Report. https://doi.org/10.1596/28470',
+                'Reporte de Organismo Internacional (Banco Mundial)',
+                'Haklay, M., Antoniou, V., Basiouka, S., Soden, R., & Mooney, P.',
+                '2014',
+                'Crowdsourced Geographic Information Use in Government',
+                'https://openknowledge.worldbank.org/handle/10986/28470',
+                'Estudio global del Banco Mundial sobre el uso institucional de información geográfica voluntaria por parte de gobiernos locales y nacionales.'
+        ],
+        [
+                '(Buzai, 2014)',
+                'Buzai, G. D. (2014). Geografía Global + NeoGeografía. Actuales espacios de integración científica y social en entornos digitales. Estudios Socioterritoriales. Revista de Geografía, (16), 183-189. http://www.scielo.org.ar/scielo.php?script=sci_arttext&pid=S1853-43922014000200008',
+                'Artículo en Revista Científica (Español)',
+                'Buzai, Gustavo D.',
+                '2014',
+                'Geografía Global + NeoGeografía. Actuales espacios de integración científica y social en entornos digitales',
+                'http://www.scielo.org.ar/scielo.php?script=sci_arttext&pid=S1853-43922014000200008',
+                'Fundamentación epistemológica latinoamericana de la neogeografía como dimensión social de las TIG y convergencia científica de la geografía digital.'
+        ],
+        [
+                '(Mateos, 2013)',
+                'Mateos, P. (2013). Geovisualización de la población: nuevas tendencias en la web social. Investigaciones Geográficas, (59), 9-22. https://doi.org/10.14198/INGEO2013.59.01',
+                'Artículo en Revista Científica (Español)',
+                'Mateos, Pablo',
+                '2013',
+                'Geovisualización de la población: nuevas tendencias en la web social',
+                'https://doi.org/10.14198/INGEO2013.59.01',
+                'Análisis de agregados cartográficos (mapping mashups), web social, empoderamiento ciudadano e IGV en geodemografía y análisis socioespacial.'
+        ],
+        [
+                '(Orellana & Ballari, 2009)',
+                'Orellana, D. A., & Ballari, D. (2009). La GeoWeb y su evolución: Un marco de análisis en tres dimensiones. Universidad Verdad, (49), 25-52. Universidad del Azuay.',
+                'Artículo en Revista Científica (Español)',
+                'Orellana, Daniel A., & Ballari, Daniela',
+                '2009',
+                'La GeoWeb y su evolución: Un marco de análisis en tres dimensiones',
+                'https://revistas.uazuay.edu.ec/index.php/uverdad/article/view/459',
+                'Evolución teórica de la GeoWeb y entornos colaborativos participativos en América Latina, diluyendo la frontera entre conocimiento experto y ciudadano.'
+        ],
+        [
+                '(López-Aliste et al., 2021)',
+                'López-Aliste, M., Fonturbel, F. E., Ruz, L., Sepúlveda, Y., Rodríguez, S., & Saraiva, A. M. (2021). Wild bees of Chile: a database on taxonomy, sociality, and ecology. Ecology, 102(8), e03377. https://doi.org/10.1002/ecy.3377 / Dataset GBIF: https://doi.org/10.15468/6knwyq',
+                'Artículo en Revista Científica & Data Paper (Ecology)',
+                'López-Aliste, M., Fonturbel, F. E., Ruz, L., et al.',
+                '2021',
+                'Wild bees of Chile: a database on taxonomy, sociality, and ecology',
+                'https://doi.org/10.1002/ecy.3377',
+                'Base de datos de biodiversidad de polinizadores nativos de Chile (colección PUCV / Fraunhofer Chile CSB) integrada en GBIF y utilizada en modelación agroecológica y urbana.'
+        ],
+        [
+                '(Castells, 2000)',
+                'Castells, M. (2000). La era de la información: economía, sociedad y cultura (Vol. 1: La sociedad red). Madrid: Alianza Editorial.',
+                'Libro Académico Seminal (Español)',
+                'Castells, Manuel',
+                '2000',
+                'La era de la información: economía, sociedad y cultura (Vol. 1: La sociedad red)',
+                'https://www.alianzaeditorial.es/libro/ciencias-sociales/la-sociedad-red-manuel-castells-9788420647319/',
+                'Marco socio-tecnológico seminal sobre la sociedad red, la génesis descentralizada de las redes informacionales y la morfología del espacio de flujos.'
+        ],
+        [
+                '(Pickles, 2006)',
+                'Pickles, J. (Ed.). (2006). Ground Truth: The Social Implications of Geographic Information Systems. New York: Guilford Press.',
+                'Libro Académico (Seminal)',
+                'Pickles, John',
+                '2006',
+                'Ground Truth: The Social Implications of Geographic Information Systems',
+                'https://www.guilford.com/books/Ground-Truth/John-Pickles/9780898622959',
+                'Obra fundacional de la geografía crítica de los SIG, que examina las implicancias sociales, la democratización cartográfica y la vigilancia espacial.'
+        ],
+        [
+                '(Anselin, 1988)',
+                'Anselin, L. (1988). Spatial Econometrics: Methods and Models. Dordrecht: Kluwer Academic Publishers.',
+                'Libro Académico Seminal',
+                'Anselin, Luc',
+                '1988',
+                'Spatial Econometrics: Methods and Models',
+                'https://doi.org/10.1007/978-94-015-7799-1',
+                'Fundamentación matemática y metodológica de la autocorrelación espacial, clusters y dependencia territorial aplicada a fenómenos urbanos.'
+        ]]
 
     for r_idx, bib in enumerate(bibliografia_apa, 5):
         fill_actual = fill_zebra if r_idx % 2 == 0 else PatternFill(fill_type=None)

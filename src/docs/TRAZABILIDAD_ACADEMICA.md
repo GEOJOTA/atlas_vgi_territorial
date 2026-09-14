@@ -124,7 +124,7 @@ Toda la taxonomía, junto con su correlación de atributos, linaje de procesamie
 1. **Hoja 1: `Categorías Maestras (Chile)`**: Define las 10 macro-categorías (CAT-01 a CAT-10), sus contrapartes públicas, código de capa, consulta base Overpass QL y frecuencia observada en Taginfo Chile.
 2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula los 134 descriptores territoriales depurados (48 oficiales IDE Chile vs 86 brechas VGI comunitarias) con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa estatal homóloga, organismo rector y ejemplo empírico en Barrio Brasil / UAH.
 3. **Hoja 3: `Diccionario Atributos VGI`**: Detalla los 14 atributos normalizados de las entidades geoespaciales (incluyendo `superficie_m2`, `superficie_ha` y `srs_superficie` bajo proyección EPSG:32719 UTM 19S), indicando tipo de dato, cardinalidad, regla de cálculo y correspondencia con el Perfil Nacional de Metadatos (ISO 19110 / ISO 19115).
-4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 104 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando la totalidad de las 51 referencias del Seminario de Grado de Geografía UAH y los marcos normativos del Atlas), con hipervínculos oficiales activos y trazabilidad verificable.
+4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 125 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando la totalidad de las 51 referencias del Seminario de Grado de Geografía UAH, 8 fuentes epistemológicas e hispanoamericanas del texto y 66 normas y marcos técnicos del Atlas), con hipervínculos oficiales activos y trazabilidad verificable.
 
 ---
 
@@ -253,7 +253,7 @@ Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -3
 
 ## 7. Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)
 
-Todas las fuentes citadas a lo largo de este documento, en la interfaz web del Atlas y en el catálogo Excel consolidado ([`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx)) se encuentran estandarizadas bajo la norma **APA 7ª edición** (104 referencias formales) organizadas por tipología documental:
+Todas las fuentes citadas a lo largo de este documento, en la interfaz web del Atlas y en el catálogo Excel consolidado ([`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx)) se encuentran estandarizadas bajo la norma **APA 7ª edición** (125 referencias formales) organizadas por tipología documental:
 
 ### 7.1 Normas Técnicas Internacionales ISO y Estándares OGC
 - Biodiversity Information Standards [TDWG]. (2023). *Darwin Core standard: Quick reference guide*. Biodiversity Information Standards. https://dwc.tdwg.org/terms/

@@ -104,7 +104,7 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
 | **Taginfo API Explorer** | Telemetría planetaria en tiempo real de claves y valores OSM con recuentos globales |
 | **Biodiversidad Urbana GBIF** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas Darwin Core |
 | **Metadatos ISO 19115 / 19139** | Fichas técnicas exportables a JSON y XML oficial de IDE Chile (SNIT / GeoNetwork) |
-| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales y 104 citas APA |
+| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales y 125 citas APA |
 
 ---
 
@@ -146,11 +146,11 @@ atlas_vgi_uah/
 │   └── extractor_vgi.py                # Extractor automatizado Overpass QL
 ├── docs/
 │   ├── ARQUITECTURA.md                 # Especificación técnica del sistema y diagramas
-│   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md # Compendio de 104 fuentes APA (Seminario + Atlas)
+│   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md # Compendio de 125 fuentes APA (Seminario + Atlas)
 │   ├── GUIA_BASE_DATOS_SUPABASE.md     # Manual de aprovisionamiento PostGIS en la nube
 │   ├── TRAZABILIDAD_ACADEMICA.md       # Memoria metodológica y epistemológica (Fondecyt)
 │   ├── catalogo_fuentes_vgi.xlsx       # Matriz analítica de fuentes colaborativas
-│   ├── categorias_tematicas_osm.xlsx   # Matriz de categorías, descriptores y 104 citas APA
+│   ├── categorias_tematicas_osm.xlsx   # Matriz de categorías, descriptores y 125 citas APA
 │   └── perfil_metadatos_vgi.xlsx       # Estructura ISO 19115 nacional
 ├── MANUAL_USO.md                       # Manual operativo para los 4 perfiles territoriales
 ├── PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md # Protocolo de integridad cartográfica y CI/CD

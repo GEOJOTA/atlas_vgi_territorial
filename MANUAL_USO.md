@@ -203,10 +203,10 @@ Permite consultar la definición toponímica y la homología institucional de ca
 ## 12. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para anexar al informe formal de práctica:
-- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
+- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
 - **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas e inventario técnico de APIs y endpoints del Estado.
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
-- **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 104 fuentes APA 7ª ed. (integrando las 51 obras del Seminario de Grado UAH y las 53 normas técnicas y marcos legales del Atlas).
+- **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando las 51 obras oficiales del Seminario de Grado UAH, 8 fuentes epistemológicas del texto y 66 normas técnicas y marcos legales del Atlas).
 
 ---
 
