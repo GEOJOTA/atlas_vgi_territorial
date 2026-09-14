@@ -160,41 +160,6 @@ exports.handler = async function (event, context) {
     }
   }
 
-  // Contingencia: Si todos los espejos Overpass fallaron, intentar servir catálogo local empaquetado
-  const fs = require('fs');
-  const path = require('path');
-  const claveCandidata = (body.categoria || body.etiqueta || body.clave || '').trim();
-  const rutasContingencia = [
-    path.join(__dirname, '..', '..', 'src', 'data', `capa_${claveCandidata}.geojson`),
-    path.join(__dirname, '..', '..', 'data', `capa_${claveCandidata}.geojson`),
-    path.join(__dirname, '..', '..', 'src', 'data', 'atlas_vgi_barrio_brasil_uah_completo.geojson'),
-    path.join(__dirname, '..', '..', 'data', 'atlas_vgi_barrio_brasil_uah_completo.geojson')
-  ];
-
-  for (const r of rutasContingencia) {
-    if (fs.existsSync(r)) {
-      try {
-        const contenido = JSON.parse(fs.readFileSync(r, 'utf8'));
-        return {
-          statusCode: 200,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-            'Cache-Control': 'public, max-age=300'
-          },
-          body: JSON.stringify({
-            ok: true,
-            desdeCache: true,
-            servidor: 'Catálogo local de contingencia (Barrio Brasil / UAH)',
-            total: (contenido.features || []).length,
-            geojson: contenido,
-            consultaEjecutada: consultaQL
-          })
-        };
-      } catch (_) {}
-    }
-  }
-
   return {
     statusCode: 502,
     headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
