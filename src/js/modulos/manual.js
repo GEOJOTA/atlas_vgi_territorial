@@ -946,18 +946,7 @@ out geom tags qt 400;</code></pre>
           </div>
 
           <div class="doc-bib-categoria">
-            <h4>4. Modelos de Simulación Espacial, Incendios Forestales y Cambio Climático</h4>
-            <ul class="doc-bib-lista">
-              <li><strong>Pais, C., Carrasco, J., Martell, D., et al. (2021).</strong> Cell2Fire: A Cell-Based Forest Fire Growth Model to support strategic landscape management planning. Frontiers in Forest and Global Change, 4, 692706. <a href="https://doi.org/10.3389/ffgc.2021.692706" target="_blank" rel="noopener">https://doi.org/10.3389/ffgc.2021.692706</a></li>
-              <li><strong>Pais, C., Carrasco, J., et al. (2019).</strong> A cell-based simulation model for wildfire spread and suppression. International Journal of Wildland Fire, 30, 485–496 / arXiv:1905.09317. <a href="https://arxiv.org/abs/1905.09317" target="_blank" rel="noopener">https://arxiv.org/abs/1905.09317</a></li>
-              <li><strong>Carrasco, J., Martell, D., et al. (2021).</strong> A high-resolution forest fuel moisture content model for operational use in Central Chile. Canadian Journal of Forest Research, 51(12), 1845-1857. <a href="https://doi.org/10.1139/cjfr-2021-0087" target="_blank" rel="noopener">https://doi.org/10.1139/cjfr-2021-0087</a></li>
-              <li><strong>Miranda, A., et al. (2022).</strong> Characterizing the fire regime in Mediterranean ecosystems of Chile: the influence of climate, vegetation and topography. Fire Ecology, 18, 25. <a href="https://doi.org/10.1186/s42408-022-00148-3" target="_blank" rel="noopener">https://doi.org/10.1186/s42408-022-00148-3</a></li>
-              <li><strong>United Nations Framework Convention on Climate Change [UNFCCC]. (2025).</strong> Global Climate Action Agenda at COP 30: Outcomes Report. United Nations. <a href="https://unfccc.int/" target="_blank" rel="noopener">https://unfccc.int/</a></li>
-            </ul>
-          </div>
-
-          <div class="doc-bib-categoria">
-            <h4>5. Aplicaciones Sectoriales de la VGI: Movilidad Urbana, Transporte, Salud Pública y Geoprivacidad</h4>
+            <h4>4. Aplicaciones Sectoriales de la VGI: Movilidad Urbana, Transporte, Modelación de Incendios, Salud Pública y Geoprivacidad</h4>
             <ul class="doc-bib-lista">
               <li><strong>Foody, G., See, L., et al. (Eds.). (2017).</strong> Mapping and the Citizen Sensor. London: Ubiquity Press. <a href="https://doi.org/10.5334/bbf" target="_blank" rel="noopener">https://doi.org/10.5334/bbf</a></li>
               <li><strong>Ludwig, C., Hecht, R., Lautenbach, S., et al. (2021).</strong> Traffic Sign Detection in OpenStreetMap: A Case Study in Heidelberg. Springer Nature Switzerland AG. State of the Map 2019, LNCS 11780, pp. 1–12. <a href="https://doi.org/10.1007/978-3-030-19444-4_1" target="_blank" rel="noopener">https://doi.org/10.1007/978-3-030-19444-4_1</a></li>
@@ -970,12 +959,17 @@ out geom tags qt 400;</code></pre>
               <li><strong>Kounadi, O., & Leitner, M. (2014).</strong> Why do people contribute to OpenStreetMap? A systematic review of contributor motivations. Springer Science+Business Media Dordrecht. <a href="https://doi.org/10.1007/s10708-014-9549-8" target="_blank" rel="noopener">https://doi.org/10.1007/s10708-014-9549-8</a></li>
               <li><strong>Antoniou, V. (2023).</strong> Citizen Science: A new paradigm for spatial data infrastructure? MDPI, Land, 12(10), 1928. <a href="https://doi.org/10.3390/land12101928" target="_blank" rel="noopener">https://doi.org/10.3390/land12101928</a></li>
               <li><strong>Schmidt, F., Rothaar, A., & Rienow, A. (2021).</strong> Development of a Web GIS for small-scale detection and analysis of COVID-19 cases based on volunteered geographic information for the city of Cologne, Germany. International Journal of Health Geographics, 20(1), 1-17. <a href="https://doi.org/10.1186/s12942-021-00290-0" target="_blank" rel="noopener">https://doi.org/10.1186/s12942-021-00290-0</a></li>
-              <li><strong>Farahat, A., et al. (2005/2021).</strong> Quality Assessment of OpenStreetMap Data: A Multicriteria Approach. MDPI, ISPRS Int. J. Geo-Inf., 10, 563 / arXiv:1601.07241. <a href="https://doi.org/10.3390/ijgi10080563" target="_blank" rel="noopener">https://doi.org/10.3390/ijgi10080563</a></li>
+              <li><strong>Farahat, A., et al. (2021).</strong> Quality Assessment of OpenStreetMap Data: A Multicriteria Approach. ISPRS International Journal of Geo-Information, 10(8), 563. <a href="https://doi.org/10.3390/ijgi10080563" target="_blank" rel="noopener">https://doi.org/10.3390/ijgi10080563</a></li>
+              <li><strong>Pais, C., Carrasco, J., Martell, D., et al. (2021).</strong> Cell2Fire: A Cell-Based Forest Fire Growth Model to support strategic landscape management planning. Frontiers in Forest and Global Change, 4, 692706. <a href="https://doi.org/10.3389/ffgc.2021.692706" target="_blank" rel="noopener">https://doi.org/10.3389/ffgc.2021.692706</a></li>
+              <li><strong>Pais, C., Carrasco, J., et al. (2019).</strong> A cell-based simulation model for wildfire spread and suppression. International Journal of Wildland Fire, 30, 485–496 / arXiv:1905.09317. <a href="https://arxiv.org/abs/1905.09317" target="_blank" rel="noopener">https://arxiv.org/abs/1905.09317</a></li>
+              <li><strong>Carrasco, J., Martell, D., et al. (2021).</strong> A high-resolution forest fuel moisture content model for operational use in Central Chile. Canadian Journal of Forest Research, 51(12), 1845-1857. <a href="https://doi.org/10.1139/cjfr-2021-0087" target="_blank" rel="noopener">https://doi.org/10.1139/cjfr-2021-0087</a></li>
+              <li><strong>Miranda, A., et al. (2022).</strong> Characterizing the fire regime in Mediterranean ecosystems of Chile: the influence of climate, vegetation and topography. Fire Ecology, 18, 25. <a href="https://doi.org/10.1186/s42408-022-00148-3" target="_blank" rel="noopener">https://doi.org/10.1186/s42408-022-00148-3</a></li>
+              <li><strong>United Nations Framework Convention on Climate Change [UNFCCC]. (2025).</strong> Global Climate Action Agenda at COP 30: Outcomes Report. United Nations. <a href="https://unfccc.int/" target="_blank" rel="noopener">https://unfccc.int/</a></li>
             </ul>
           </div>
 
           <div class="doc-bib-categoria">
-            <h4>6. Infraestructuras de Datos Espaciales (IDE), Web Semántica y Gobernanza de Datos</h4>
+            <h4>5. Infraestructuras de Datos Espaciales (IDE), Web Semántica y Gobernanza de Datos</h4>
             <ul class="doc-bib-lista">
               <li><strong>IDE-Chile. (2023).</strong> Política Nacional de Información Geoespacial. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales, Gobierno de Chile. <a href="https://www.ide.cl/index.php/informacion-institucional/politica-nacional" target="_blank" rel="noopener">https://www.ide.cl/</a></li>
               <li><strong>Infraestructura de Datos Geoespaciales de Chile [IDE Chile]. (2024).</strong> Política de Gestión de Información Territorial — Geoespacial. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. <a href="https://www.ide.cl/politica/politica/" target="_blank" rel="noopener">https://www.ide.cl/politica/politica/</a></li>
@@ -995,7 +989,7 @@ out geom tags qt 400;</code></pre>
           </div>
 
           <div class="doc-bib-categoria">
-            <h4>7. Marco Jurídico, Normativa Urbanística, Decretos y Leyes de la República de Chile</h4>
+            <h4>6. Marco Jurídico, Normativa Urbanística, Decretos y Leyes de la República de Chile</h4>
             <ul class="doc-bib-lista">
               <li><strong>Ministerio de Bienes Nacionales. (2006).</strong> Decreto Supremo N° 28/2006: Crea Comisión Asesora del Sistema Nacional de Información Territorial (SNIT). Diario Oficial de la República de Chile. <a href="https://www.bcn.cl/leychile/navegar?idNorma=251642" target="_blank" rel="noopener">https://www.bcn.cl/leychile/navegar?idNorma=251642</a></li>
               <li><strong>Ministerio de Educación Pública. (1970).</strong> Ley N° 17.336 sobre Propiedad Intelectual. Diario Oficial de la República de Chile (Texto refundido y actualizado a 2024). <a href="https://www.bcn.cl/leychile/navegar?idNorma=28933" target="_blank" rel="noopener">https://www.bcn.cl/leychile/navegar?idNorma=28933</a></li>
@@ -1017,7 +1011,7 @@ out geom tags qt 400;</code></pre>
           </div>
 
           <div class="doc-bib-categoria">
-            <h4>8. Estándares Internacionales ISO / OGC, Gobernanza UN-GGIM y Cartografía Geodésica</h4>
+            <h4>7. Estándares Internacionales ISO / OGC, Gobernanza UN-GGIM y Cartografía Geodésica</h4>
             <ul class="doc-bib-lista">
               <li><strong>Open Geospatial Consortium [OGC]. (2023).</strong> Open Geospatial Consortium Standards Baseline: Interoperability Programs and Open Standards. Wayland, MA: OGC. <a href="https://www.ogc.org/standards/" target="_blank" rel="noopener">https://www.ogc.org/standards/</a></li>
               <li><strong>Open Geospatial Consortium [OGC]. (2019).</strong> OGC API - Features - Part 1: Core (Standard No. OGC 17-069r3). Open Geospatial Consortium. <a href="https://ogcapi.ogc.org/features/" target="_blank" rel="noopener">https://ogcapi.ogc.org/features/</a></li>
@@ -1034,7 +1028,7 @@ out geom tags qt 400;</code></pre>
           </div>
 
           <div class="doc-bib-categoria">
-            <h4>9. Plataformas Tecnológicas, APIs de Consulta, Formatos de Intercambio y Tecnologías Web Abiertas</h4>
+            <h4>8. Plataformas Tecnológicas, APIs de Consulta, Formatos de Intercambio y Tecnologías Web Abiertas</h4>
             <ul class="doc-bib-lista">
               <li><strong>Topf, J., & OpenStreetMap Contributors. (2024).</strong> Taginfo: OpenStreetMap tag statistics, semantic consistency and usage system. OpenStreetMap Foundation. <a href="https://taginfo.openstreetmap.org/" target="_blank" rel="noopener">https://taginfo.openstreetmap.org/</a></li>
               <li><strong>OpenStreetMap Foundation & Geofabrik GmbH. (2024).</strong> Taginfo Chile: Base de datos y estadísticas regionales de etiquetas de OpenStreetMap en Chile. Geofabrik. <a href="https://taginfo.geofabrik.de/south-america:chile" target="_blank" rel="noopener">https://taginfo.geofabrik.de/south-america:chile</a></li>

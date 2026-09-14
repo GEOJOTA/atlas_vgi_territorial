@@ -337,7 +337,7 @@ Todas las fuentes citadas a lo largo de este documento, en la interfaz web del A
 - Chapman, A. D. (2005b). *Principles and methods of data cleaning: Primary species and species-occurrence data*. Global Biodiversity Information Facility (GBIF). https://www.gbif.org/document/80528
 - Chapman, A. D. (2010). *Data quality, data cleaning and data validation techniques: Training manual for courses*. Global Biodiversity Information Facility (GBIF). https://www.gbif.org/document/80530
 - Committee on Data of the International Science Council [CODATA]. (2020). *Twenty-Year Review of GBIF: An independent review of the Global Biodiversity Information Facility*. CODATA. https://doi.org/10.35035/ctzm-hz97
-- Farahat, A., El-Haddad, M., & Sallam, M. (2005). Knowledge discovery in GIS data. Cairo University. *arXiv preprint arXiv:1601.07241*. https://arxiv.org/abs/1601.07241
+- Farahat, A., El-Haddad, M., & Sallam, M. (2021). Quality Assessment of OpenStreetMap Data: A Multicriteria Approach. *ISPRS International Journal of Geo-Information*, 10(8), 563. https://doi.org/10.3390/ijgi10080563
 - Global Biodiversity Information Facility [GBIF]. (2022). *Introducción a GBIF: La infraestructura mundial de información sobre biodiversidad*. Secretariado de GBIF. https://www.gbif.org/
 - Global Biodiversity Information Facility [GBIF]. (2023). *2023-2027 GBIF Strategic Framework: Enabling biodiversity-positive decisions*. GBIF Secretariat. https://www.gbif.org/
 - Global Biodiversity Information Facility [GBIF]. (2025a). *Technical Guidance for EBRD clients on uploading biodiversity data to the Global Biodiversity Information Facility*. GBIF Secretariat. https://www.gbif.org/

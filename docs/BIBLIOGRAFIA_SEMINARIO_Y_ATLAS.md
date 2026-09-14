@@ -123,11 +123,11 @@ A continuación se presenta la transcripción y verificación exacta de las 51 r
 - **Enlace / Identificador:** [https://doi.org/10.1177/1556264614544103](https://doi.org/10.1177/1556264614544103)
 - **Pertinencia Territorial:** Principios éticos de geoseguridad, confidencialidad espacial y protección de datos territoriales sensibles en plataformas públicas.
 
-### 18. Farahat, A. et al. (2005). “Quality Assessment of OpenStreetMap Data: A Multicriteria Approach”. MDPI, ISPRS Int. J. Geo-Inf. 2021, 10, 563. https://doi.org/10.3390/ijgi10080563.
+### 18. Farahat, A. et al. (2021). “Quality Assessment of OpenStreetMap Data: A Multicriteria Approach”. MDPI, ISPRS Int. J. Geo-Inf. 2021, 10, 563. https://doi.org/10.3390/ijgi10080563.
 - **Cita Breve:** `(Farahat et al., 2005)`
-- **Tipología:** Documento Técnico / Conferencia
-- **Enlace / Identificador:** [https://arxiv.org/abs/1601.07241](https://arxiv.org/abs/1601.07241)
-- **Pertinencia Territorial:** Minería de datos espaciales y extracción de patrones en infraestructuras de información geográfica.
+- **Tipología:** Artículo en Revista Científica Open Access
+- **Enlace / Identificador:** [https://doi.org/10.3390/ijgi10080563](https://doi.org/10.3390/ijgi10080563)
+- **Pertinencia Territorial:** Evaluación multicriterio de calidad en datos de OpenStreetMap aplicando componentes de consistencia lógica y completitud.
 
 ### 19. Antoniou, V. Skopeliti, A. (2015). “Measures of Reasoning and Spatial Data Quality in VGI”. MDPI, ISPRS Int. J. Geo-Inf. 2015, 4, 1724-1741; doi:10.3390/ijgi4031724.
 - **Cita Breve:** `(Antoniou & Skopeliti, 2015)`
