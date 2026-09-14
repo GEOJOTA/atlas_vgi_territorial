@@ -47,6 +47,15 @@
     "gbif": "https://api.gbif.org/v1",
     "umap_instancia_sugerida": "https://umap.openstreetmap.fr"
   },
+  "base_datos": {
+    "proveedor": "supabase",
+    "nombre_motor": "PostgreSQL 17+ con extensión PostGIS 3.3",
+    "tipo": "Open Source Cloud Spatial Database",
+    "url": "https://tkfzmmlhhxqhzgqavsqr.supabase.co",
+    "anon_key": "sb_publishable_ruwh1h_qtG-5i-OY5SKysA_zhkB4w5h",
+    "storage_bucket": "atlas-geojson",
+    "modo": "auto"
+  },
 
   "categorias_osm": [
     {

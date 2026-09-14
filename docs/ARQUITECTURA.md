@@ -1,191 +1,289 @@
 # Arquitectura del Sistema — Atlas de Información Geográfica Voluntaria para la Gestión Territorial
 
 **Repositorio Oficial:** [`https://github.com/GEOJOTA/atlas_vgi_uah.git`](https://github.com/GEOJOTA/atlas_vgi_uah.git)  
-**Entorno Operativo:** Web estática desacoplada + Funciones Serverless + Pipeline CLI en Python 3  
-**Área Piloto:** Barrio Brasil / Manzana Campus Universidad Alberto Hurtado (Santiago Centro, Chile)  
+**Entorno Operativo:** Web estática desacoplada (SPA) + Clúster Espacial PostgreSQL 17 / PostGIS 3.3 (Supabase) + Storage CDN + Funciones Serverless + Pipeline CLI en Python 3  
+**Caso Piloto:** Barrio Brasil / Manzana Campus Universidad Alberto Hurtado (Santiago Centro, Chile)  
 **Sistema Geodésico Oficial:** WGS 84 / UTM Huso 19 Sur (EPSG:32719)  
-**Estándares Clave:** ISO 19115-1:2014, ISO 19139:2007, ISO 19157:2013, ISO 19110:2016, IDE Chile (SNIT)
+**Estándares Clave:** ISO 19115-1:2014, ISO 19139:2007, ISO 19157:2013, ISO 19110:2016, OGC WMS/WFS, PostGIS 3.3, IDE Chile (SNIT)
 
 ---
 
 ## 1. Principios de Diseño y Arquitectura General
 
-El sistema sigue una arquitectura centrada en el cliente (*client-side first*) con alta resiliencia de red y costo de infraestructura cero:
-1. **Desacoplamiento e Inmediatez:** La totalidad de las consultas espaciales, transformaciones geodésicas, renderizado cartográfico y validación de metadatos se ejecuta directamente en el navegador del usuario final sin requerir base de datos privativa ni servidores intermediarios obligatorios.
-2. **Resiliencia y Conmutación de Espejos (Failover):** Los módulos clientes incorporan listas de servidores alternativos, conmutación automática de versiones (ej: ohsome v2 a v1) y controladores de tiempo de espera (`AbortController`).
-3. **Capa Serverless Auxiliar:** Para entornos corporativos con restricciones estrictas de CORS o límites de peticiones, se dispone de endpoints serverless en Netlify Functions (`netlify/functions/`) y un servidor local en Python (`backend/servidor_vgi.py`).
-4. **Pipeline CLI Científico:** Se incluye un motor paralelo en Python 3 puro (`scripts/extractor_vgi.py` y `scripts/generar_catalogos_excel.py`) que replica el modelo de datos y genera productos reproducibles en GeoJSON, CSV y hojas de cálculo OpenXML (.xlsx).
+El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*client-side first* con aceleración espacial en la nube)**, concebida para operar permanentemente con costo de infraestructura cero (\$0/mes):
+
+1. **Desacoplamiento e Inmediatez:** La totalidad de la interfaz de usuario, renderizado cartográfico (Leaflet 1.9.4), cálculo geodésico y evaluación de calidad opera directamente en el navegador del usuario final sin dependencias obligatorias de compilación (*zero-build architecture*).
+2. **Capa de Base de Datos Espacial en la Nube (Supabase PostGIS):**
+   - Aloja las **107 capas oficiales del Estado** y **129.262 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
+   - Incorpora índices espaciales R-Tree `GIST` y la función RPC `fn_obtener_capa_bbox`, permitiendo consultas espaciales filtradas por el Bbox del usuario en milisegundos.
+   - Aloja los archivos GeoJSON completos en el bucket público de CDN `atlas-geojson`.
+3. **Resiliencia y Conmutación de Triple Contingencia (Failover):**
+   - **Nivel 1:** Consulta espacial PostGIS RPC en la nube (recorte geométrico instantáneo en servidor).
+   - **Nivel 2:** Descarga directa desde Supabase Storage CDN (`atlas-geojson`).
+   - **Nivel 3:** Fallback local autónomo desde el directorio local `data/` en caso de corte de red o ausencia de credenciales.
+4. **Mantenimiento Autónomo de Por Vida (Keep-Alive Anti-Pausa):**
+   - El workflow [`.github/workflows/supabase_keepalive.yml`](../.github/workflows/supabase_keepalive.yml) ejecuta una consulta ligera de telemetría cada 3 días en GitHub Actions, garantizando que el clúster gratuito nunca se pause por inactividad.
+5. **Pipeline CLI Científico Reproducible:** Motor en Python 3 (`scripts/subir_base_datos_supabase.py`, `scripts/cargar_entidades_postgis.py`, `scripts/generar_catalogos_excel.py`) para auditoría criptográfica SHA256, ingesta masiva y regeneración de catálogos Excel OpenXML (.xlsx).
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                              NAVEGADOR DEL USUARIO (FRONTEND WEB)                                │
+│                              NAVEGADOR DEL USUARIO (FRONTEND WEB SPA)                             │
 │                                                                                                   │
 │   ┌───────────────────────────────────────────────────────────────────────────────────────────┐   │
 │   │                 SELECTOR DE ACTOR TERRITORIAL (PERFILES DE USUARIO)                       │   │
-│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🏢 ONG / Fondos Públicos │   │
+│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🔬 ONG / Investigador │   │
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
 │   │                  VISOR CARTOGRÁFICO INTERACTIVO (mapa.js / Leaflet 1.9.4)                     │   │
-│   │   Bbox Dinámico Interactivo │ 8 Capas Temáticas VGI │ Popups Normalizados │ Export QGIS   │   │
+│   │   Bbox Dinámico │ 10 Categorías VGI (CAT-01..10) │ 107 Capas Oficiales IDE │ Export QGIS  │   │
 │   └──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬──────────┬───────┘   │
 │          │             │             │             │             │             │          │           │
 │   ┌──────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼────┐┌───▼───────┐│
-│   │   osm.js    ││ taginfo.js ││  ohsome.js ││calidad_a.js││  gbif.js   ││ umap.js  ││geodesia.js││
-│   │ Overpass QL ││ Taginfo v4 ││ ohsome Dual││ OQT / OSMCha││Occur/Specs││ UMap Geo ││EPSG:32719 ││
-│   │ CAT-01..10  ││ Telemetría ││ v1/v2 HeiGIT││ Changesets ││DarwinCore ││ Embebido ││Snyder UTM ││
+│   │  db_client  ││   osm.js   ││ taginfo.js ││  ohsome.js ││calidad_a.js││  gbif.js ││geodesia.js││
+│   │PostGIS RPC /││Overpass QL ││ Taginfo v4 ││ ohsome Dual││ OQT/OSMCha ││Occur/Specs││EPSG:32719 ││
+│   │ Storage CDN ││CAT-01..10  ││ Telemetría ││ v1/v2 HeiGIT││ Changesets││DarwinCore││Snyder UTM ││
 │   └──────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬──────┘└─────┬────┘└───┬───────┘│
 │          │             │             │             │             │             │         │          │
 │          └─────────────┴─────────────┼─────────────┴─────────────┴─────────────┴─────────┘          │
 │                                      │                                                               │
 │   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
+│   │                 MOTOR DE EVALUACIÓN NORMATIVA TERRITORIAL (evaluador_normativo.js)        │   │
+│   │       PRC Santiago (192 zonas) │ OGUC Art. 2.1.24 / 2.1.17 │ Certificado CIN-VGI (.txt)   │   │
+│   └──────────────────────────────────┬────────────────────────────────────────────────────────┘   │
+│                                      │                                                               │
+│   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
 │   │                          DICCIONARIO TERRITORIAL (diccionario.js)                         │   │
-│   │     118 Descriptores Chile: 37 Capas Oficiales IDE Chile vs 81 Brechas VGI Comunitarias  │   │
+│   │     134 Descriptores Chile: 48 Capas Oficiales IDE Chile vs 86 Brechas VGI Comunitarias   │   │
 │   └──────────────────────────────────┬────────────────────────────────────────────────────────┘   │
 │                                      │                                                               │
 │   ┌──────────────────────────────────▼────────────────────────────────────────────────────────┐   │
 │   │                    GENERADOR DUAL DE METADATOS ESPACIALES (metadatos.js)                  │   │
 │   │            ISO 19115:2014 (Núcleo JSON) + ISO 19139:2007 (XML Oficial IDE Chile)          │   │
 │   └───────────────────────────────────────────────────────────────────────────────────────────┘   │
-└──────────────────┬──────────┬──────────┬──────────┬──────────┬────────────────────────────────────┘
-                   │          │          │          │          │
-                   ▼          ▼          ▼          ▼          ▼
-             ┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐
-             │ Overpass ││ Taginfo  ││  ohsome  ││  OSMCha  ││   GBIF   │
-             │ API OSMF ││  API v4  ││ API v1/v2││Changesets││ Species/ │
-             │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
-             └──────────┘└──────────┘└──────────┘└──────────┘└──────────┘
+└──────────────┬──────────────────┬──────────┬──────────┬──────────┬──────────┬─────────────────────┘
+               │                  │          │          │          │          │
+               ▼                  ▼          ▼          ▼          ▼          ▼
+ ┌────────────────────────┐ ┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐
+ │    SUPABASE CLOUD      │ │ Overpass ││ Taginfo  ││  ohsome  ││  OSMCha  ││   GBIF   │
+ │ PostgreSQL 17+PostGIS  │ │ API OSMF ││  API v4  ││ API v1/v2││Changesets││ Species/ │
+ │ • 107 capas_metadata   │ │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
+ │ • 129.262 entidades GIST│ └──────────┘└──────────┘└──────────┘└──────────┘└──────────┘
+ │ • Storage atlas-geojson│
+ └────────────────────────┘
+               │
+   (Fallback si no hay red)
+               ▼
+ ┌────────────────────────┐
+ │   data/*.geojson       │
+ │ Almacenamiento Local   │
+ └────────────────────────┘
 ```
 
 ---
 
-## 2. Inventario de APIs Externas Integradas en el Frontend
+## 2. Inventario de APIs Externas y Servicios en la Nube Integrados
 
-El Atlas articula 8 servicios y protocolos de datos geoespaciales y colaborativos de escala planetaria:
+El Atlas articula 10 servicios y protocolos de datos geoespaciales y colaborativos:
 
 | API / Servicio | Endpoint Base Oficial | Módulo Integrador | Función y Aplicación en el Atlas |
 |---|---|---|---|
-| **Overpass API v0.7** | `https://overpass-api.de/api/interpreter`<br>`https://lz4.overpass-api.de/api/interpreter`<br>`https://z.overpass-api.de/api/interpreter` | `src/js/modulos/osm.js` | Extracción vectorial de geometrías (nodos, vías, relaciones) según las 10 macro-categorías temáticas (CAT-01 a CAT-10) y filtros personalizados Overpass QL dentro del Bbox territorial. |
-| **Taginfo API v4** | `https://taginfo.openstreetmap.org/api/4/` | `src/js/modulos/taginfo.js` | Consulta interactiva en tiempo real del recuento global de objetos (nodos, vías, relaciones), porcentaje de representatividad en el planeta y valores más frecuentes para cualquier clave OSM. |
-| **ohsome API (Dual v1 / v2)** | `https://api.ohsome.org/v1` (OSHDB Java)<br>`https://api.ohsome.org/v2` (Citus Python) | `src/js/modulos/ohsome.js` | Auditoría de evolución histórica espacio-temporal (series anuales P1Y), volumen de elementos vigentes, masa crítica de colaboradores activos e intensidad de contribución comunitaria. |
-| **ohsome Quality Analyst (OQT)** | Marco conceptual Herfort et al. (2023) / HeiGIT | `src/js/modulos/calidad_analyst.js` | Estimación del **Índice de Saturación de Mapeo**, clasificación de la tendencia territorial (*Levantamiento Dinámico* vs. *Consolidación Barrial*) y completitud de atributos críticos (`name`, `addr:street`, `wheelchair`, `operator`). |
-| **OSM Changesets API & OSMCha** | `https://api.openstreetmap.org/api/0.6/changesets`<br>`https://osmcha.org/changesets/{id}` | `src/js/modulos/calidad_analyst.js` | Control de cambios y validación de ediciones recientes en el Bbox de Barrio Brasil o por ID numérico de changeset con evaluación heurística y enlace directo a OSMCha. |
-| **GBIF Occurrence & Species API** | `https://api.gbif.org/v1/occurrence/search`<br>`https://api.gbif.org/v1/species/suggest` | `src/js/modulos/gbif.js` | Monitoreo de biodiversidad urbana y ciencia ciudadana (iNaturalist, museos), autocompletado taxonómico en vivo y extracción de banderas de calidad científica Darwin Core (`issues`). |
-| **UMap OpenStreetMap France** | `https://umap.openstreetmap.fr/es/map/...` | `src/js/modulos/umap.js` | Integración de proyectos cartográficos colaborativos locales, visualizador embebido y extracción de datos GeoJSON comunitarios. |
-| **ArcGIS FeatureServer (INE / IDE Chile)** | `https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7` | `src/js/modulos/ide_chile.js` | Microdatos georreferenciados del Censo de Población y Vivienda 2024 a nivel de manzana con recuento de población, hombres, mujeres y viviendas. |
-| **ArcGIS FeatureServer & WMS (MINVU / DDU)** | `https://geoide.minvu.cl/server/rest/services/` (IPT/Patrimonio, Catastro Parques, Barrios Históricos) | `src/js/modulos/ide_chile.js` | Catastro oficial de Inmuebles de Conservación Histórica (ICH), Zonas Típicas, Parques Urbanos y polígonos del Programa Quiero Mi Barrio. |
-| **MINVU IPT FeatureServer (Normativa Urbanística)** | `https://geoide.minvu.cl/server/rest/services/IPT/` (PRC Santiago, PRMS Uso Suelo, Áreas Verdes IPT, Áreas de Riesgo, Resguardo, Límite Urbano) | `src/js/modulos/ide_chile.js` | Instrumentos de Planificación Territorial (IPT) y capas normativas: zonificación comunal (192 zonas), usos permitidos/prohibidos, ordenanza metropolitana PRMS, áreas de riesgo natural y fajas de protección. |
-| **MINVU Catastros & Programas** | `https://geoide.minvu.cl/server/rest/services/Catastros/` y `Planes_Programas/` | `src/js/modulos/ide_chile.js` | Catastro Oficial de Campamentos 2024, Condominios Sociales (Ley 21.442), Inventario de Humedales (Ley 21.202), Unidades Vecinales con RSH (MDS) y Red de Ciclovías. |
-| **Evaluador Normativo Territorial** | Motor cliente JS Point-in-Polygon + Ficha Normativa | `src/js/modulos/evaluador_normativo.js` | Consulta interactiva por clic de zonificación PRC Santiago (UPERM/UPROH), afectación por riesgo (Art. 2.1.17 OGUC), límites urbanos y emisión de Certificados CIN-VGI. |
+| **Supabase PostGIS RPC** | `https://tkfzmmlhhxqhzgqavsqr.supabase.co/rest/v1/rpc/fn_obtener_capa_bbox` | `src/js/modulos/db_client.js` | Consultas espaciales de alta velocidad con recorte geométrico en servidor mediante índices R-Tree `GIST` sobre 129.262 entidades vectoriales. |
+| **Supabase Storage CDN** | `https://tkfzmmlhhxqhzgqavsqr.supabase.co/storage/v1/object/public/atlas-geojson/` | `src/js/modulos/db_client.js` | Descarga directa de archivos GeoJSON optimizados servidos a través de la red de distribución de contenido (CDN) global. |
+| **Overpass API v0.7** | `https://overpass-api.de/api/interpreter`<br>`https://lz4.overpass-api.de/api/interpreter`<br>`https://z.overpass-api.de/api/interpreter` | `src/js/modulos/osm.js` | Extracción vectorial en vivo de geometrías (nodos, vías, relaciones) para las 10 macro-categorías VGI (CAT-01 a CAT-10) dentro del Bbox territorial con rotación automática entre 3 espejos. |
+| **Taginfo API v4** | `https://taginfo.openstreetmap.org/api/4/` | `src/js/modulos/taginfo.js` | Validación en tiempo real del recuento global de objetos, representatividad porcentual en el planeta y valores más frecuentes para cualquier clave OSM. |
+| **ohsome API (Dual v1 / v2)** | `https://api.ohsome.org/v1` (OSHDB Java)<br>`https://api.ohsome.org/v2` (Citus Python) | `src/js/modulos/ohsome.js` | Auditoría de evolución histórica espacio-temporal (series anuales P1Y), volumen de elementos vigentes, masa crítica de colaboradores activos e intensidad de contribución. |
+| **ohsome Quality Analyst (OQT)** | Marco conceptual Herfort et al. (2023) / HeiGIT | `src/js/modulos/calidad_analyst.js` | Estimación del **Índice de Saturación de Mapeo**, clasificación de la madurez territorial (*Levantamiento Dinámico* vs. *Consolidación Barrial*) y completitud de atributos críticos. |
+| **OSM Changesets API & OSMCha** | `https://api.openstreetmap.org/api/0.6/changesets`<br>`https://osmcha.org/changesets/{id}` | `src/js/modulos/calidad_analyst.js` | Control de cambios y validación de ediciones recientes en el Bbox de Barrio Brasil o por ID numérico de changeset con enlace directo a OSMCha. |
+| **GBIF Occurrence & Species API** | `https://api.gbif.org/v1/occurrence/search`<br>`https://api.gbif.org/v1/species/suggest` | `src/js/modulos/gbif.js` | Monitoreo de biodiversidad urbana y ciencia ciudadana (iNaturalist, museos), autocompletado taxonómico en vivo y extracción de banderas Darwin Core (`issues`). |
+| **UMap OpenStreetMap France** | `https://umap.openstreetmap.fr/` | `src/js/modulos/umap.js` | Visualización de iniciativas cartográficas vecinales y extracción de capas vectoriales GeoJSON comunitarias. |
+| **ArcGIS FeatureServer & WMS (MINVU / IDE Chile)** | `https://geoide.minvu.cl/server/rest/services/` | `src/js/modulos/ide_chile.js` | Superposición WMS de patrimonio en vivo y capas de Instrumentos de Planificación Territorial (PRC Santiago, PRMS). |
 
 ---
 
 ## 3. Módulos del Sistema Frontend (`src/js/modulos/`)
 
-La lógica de la aplicación se distribuye en 15 módulos desacoplados que exportan sus interfaces al objeto global `window`:
+La arquitectura se articula en 16 módulos desacoplados coordinados por el controlador central:
 
-### 3.1 `mapa.js` (Visor Cartográfico Leaflet)
-- Motor: Leaflet 1.9.4.
-- Capas base libres: CartoDB Positron, OpenStreetMap Estándar y OpenTopoMap.
-- Herramienta de encuadre y selector reactivo de Bounding Box con dibujo interactivo.
-- Carga dinámica, agrupación y toggle de las 8 capas temáticas VGI.
-- Popups estandarizados con atributos normalizados, enlaces al diccionario y licencias.
+### 3.1 `db_client.js` (Conector Cloud PostGIS / Supabase Storage)
+- Administrador central de la conexión con el clúster **PostgreSQL 17.6 + PostGIS 3.3 en Supabase**.
+- Implementa la estrategia de **triple failover**:
+  1. Consulta la función RPC `fn_obtener_capa_bbox` para recorte espacial exacto en servidor.
+  2. Si no responde, descarga la capa completa desde el bucket público CDN `atlas-geojson`.
+  3. Si no hay conexión a internet o fallan las credenciales, activa el fallback local descargando desde `data/capa_bbdd_XX.geojson`.
+- Persistencia de credenciales seguras en `localStorage`.
+- Monitoreo del estado en tiempo real con alertas visuales (`🟢 PostGIS Activo` / `📁 Modo Local`).
 
-### 3.2 `osm.js` (Cliente Overpass API)
-- Construcción y serialización de consultas espaciales Overpass QL para CAT-01 a CAT-08.
-- Sistema de failover con conmutación automática entre 3 servidores espejo.
-- Conversión de respuestas XML/JSON a GeoJSON FeatureCollection con coordenadas WGS84.
+### 3.2 `mapa.js` (Visor Cartográfico Leaflet 1.9.4)
+- Motor cartográfico 2D de alto rendimiento.
+- Capas base intercambiables: CartoDB Positron, OpenStreetMap Estándar y OpenTopoMap.
+- Herramienta interactiva "📐 Dibujar Bbox" para redelimitar el polígono de estudio dinámicamente.
+- Coordinación de capas de las 10 categorías VGI y las 107 capas oficiales del Estado.
+- Popups normalizados con atributos clave, citas bibliográficas APA 7ª ed. y enlace al diccionario.
 
-### 3.3 `taginfo.js` (Cliente Taginfo API v4)
-- Consulta asíncrona de telemetría global (`/tag/stats` y `/key/values`).
-- Renderizado de tarjetas interactivas de uso planetario en Panel 01 y Panel 06.
+### 3.3 `ide_chile.js` (Catálogo Oficial de 107 Capas del Estado)
+- Renderiza los **6 macro-grupos temáticos oficiales** mediante acordeones colapsables a ancho completo (100%):
+  - *Normativa Urbanística & IPT* (MINVU / PRC Santiago / PRMS / DPA)
+  - *Medio Ambiente, Parques & Recursos Hídricos* (MMA / DGA / CONAF / CIREN)
+  - *Comunidades, RSH, Vulnerabilidad & Demografía* (MDSF / INE Censo 2024 / MINVU)
+  - *Equipamiento Público, Educación, Salud & Patrimonio* (CMN / MINEDUC / MINSAL / IND)
+  - *Seguridad, Bomberos & Emergencias* (Carabineros / CBS / DIFROL)
+  - *Movilidad, Transporte, Red Metro, Inversión Pública & Economía* (MOP / MTT / BIP / CNE / ODEPA)
+- Badges dinámicos de conteo de entidades y estado de carga.
+- Conexión con `db_client.js` para descarga inteligente vía PostGIS RPC o Storage CDN.
 
-### 3.4 `calidad_analyst.js` (Control de Calidad OQT y Validación OSMCha)
-- Parser XML de `changesets?bbox=...` e inspección directa de changesets individuales por ID (`/changeset/{id}`).
-- Motor de reglas heurísticas de calidad (longitud de comentarios, volumen de cambios >500, identificación de software de edición como JOSM, iD, StreetComplete, Vespucci).
-- Algoritmo de cálculo del Índice de Saturación de Mapeo y evaluación de madurez barrial.
+### 3.4 `evaluador_normativo.js` (Motor de Evaluación Normativa Territorial CIN-VGI)
+- Algoritmo Point-in-Polygon (PIP) en cliente para auditar cualquier coordenada en Santiago Centro:
+  - Cruce con las 192 zonas del **Plan Regulador Comunal de Santiago (PRC)**.
+  - Usos de suelo permitidos y prohibidos fundados en el **Principio de Exclusión Negativa (Art. 2.1.24 OGUC)**.
+  - Afectaciones por riesgo de inundación o remoción en masa (Art. 2.1.17 OGUC).
+  - Afectaciones patrimoniales (Zonas Típicas e Inmuebles de Conservación Histórica, Ley 17.288 / Art. 60 LGUC).
+- Generación y descarga del **Certificado CIN-VGI (.txt)** con fecha, coordenadas UTM 19S y advertencia legal (Art. 116 LGUC).
 
-### 3.5 `ohsome.js` (Motor Histórico HeiGIT)
-- Detección automática del horizonte temporal máximo (`toTimestamp` vía `/metadata`).
-- Cálculo de series cronológicas anuales (elementos, usuarios, contribuciones).
-- Soporte dual: v1 libre sin token (OSHDB) y v2 optimizada con API Key opcional.
+### 3.5 `importador_capas.js` (Motor Multi-formato de Ingesta Local)
+- Ingestión 100% en cliente sin subir datos a servidores de terceros:
+  - **.kmz**: Descompresión binaria en memoria con **JSZip** y parseo XML con toGeoJSON.
+  - **.kml**: Parseo directo de Placemarks.
+  - **.geojson / .json**: GeoJSON estándar RFC 7946 en WGS84.
+  - **.gpx**: Waypoints y tracks de GPS.
+  - **.csv / .tsv**: Detección inteligente de columnas geográficas (`lat`, `lon`, `x`, `y`).
+- Integración inmediata en el mapa Leaflet con auditoría normativa por clic.
 
-### 3.6 `gbif.js` (Biodiversidad y Taxonomía)
-- Autocompletado taxonómico en vivo (`sugerirTaxon`) conectado a la Species API.
-- Búsqueda de registros por Bbox y extracción de banderas Darwin Core (`issues`).
+### 3.6 `osm.js` (Cliente Overpass API)
+- Serialización de consultas Overpass QL para CAT-01 a CAT-10.
+- Mecanismo de failover con conmutación automática entre 3 servidores espejo (de, lz4, z).
 
-### 3.7 `umap.js` (Cartografía Colaborativa)
-- Extracción de identificadores y normalización de URLs de UMap.
-- Detección de capas vectoriales GeoJSON subyacentes.
+### 3.7 `taginfo.js` (Cliente Taginfo API v4)
+- Consulta asíncrona de estadísticas globales de uso de etiquetas en OpenStreetMap (`/tag/stats` y `/key/values`).
 
-### 3.8 `geodesia.js` (Motor Geodésico Conforme EPSG:32719)
-- Implementación conforme de las ecuaciones de Snyder (USGS Bulletin 1532 / 1395) para proyección Transverse Mercator desde elipsoide WGS84 a **UTM Huso 19 Sur (EPSG:32719)**.
-- Parámetros geodésicos: $a = 6.378.137\text{ m}$, $1/f = 298,257223563$, $\lambda_0 = -69^\circ\text{ O}$, $k_0 = 0.9996$, Falso Este $= 500.000\text{ m}$, Falso Norte $= 10.000.000\text{ m}$.
-- Conversión sistemática de superficies a metros cuadrados ($\text{m}^2$), hectáreas ($\text{ha}$) y kilómetros cuadrados ($\text{km}^2$), eliminando distorsiones angulares a la latitud de Santiago (-33.45°).
+### 3.8 `calidad_analyst.js` (Control de Calidad OQT y OSMCha)
+- Parser XML de changesets en el Bbox barrial y evaluación heurística de calidad.
+- Cálculo del Índice de Saturación de Mapeo y evaluación de madurez barrial.
 
-### 3.9 `metadatos.js` (Generador Dual ISO 19115 / ISO 19139)
+### 3.9 `ohsome.js` (Motor Histórico HeiGIT)
+- Series cronológicas anuales P1Y sobre OSHDB.
+- Soporte dual: v1 libre sin autenticación y v2 con clave opcional.
+
+### 3.10 `gbif.js` (Biodiversidad y Taxonomía Darwin Core)
+- Autocompletado taxonómico (Species API) y extracción de ocurrencias con banderas de calidad (`issues`).
+
+### 3.11 `umap.js` (Cartografía Colaborativa UMap)
+- Normalización de URLs de UMap y renderizado de proyectos cartográficos comunitarios locales.
+
+### 3.12 `geodesia.js` (Motor Geodésico Conforme EPSG:32719)
+- Ecuaciones conformes de Snyder (USGS) para reproyección desde WGS84 a **UTM Huso 19 Sur (EPSG:32719)**.
+- Cálculo exacto de superficies en metros cuadrados ($	ext{m}^2$) y hectáreas ($	ext{ha}$) sin distorsión angular.
+
+### 3.13 `metadatos.js` (Generador Dual ISO 19115 / ISO 19139)
 - Generación de JSON con elementos núcleo de ISO 19115-1:2014.
-- Generación y descarga de XML conforme a **ISO 19139 / Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)**, validado con namespaces OGC (`gmd`, `gco`, `gml`) para interoperabilidad en GeoNetwork y GeoNode.
+- Generación de XML conforme a **ISO 19139 / Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)**, listo para cosechar en GeoNetwork y GeoNode.
 
-### 3.10 `diccionario.js` (Catálogo Territorial de 118 Descriptores)
-- 118 etiquetas y descriptores territoriales estratégicos y escalables para Chile clasificados en 10 macro-categorías (CAT-01 a CAT-10) (incorporando etiquetas OpenStreetMap y descriptores Darwin Core de GBIF).
-- **Sinceramiento riguroso:** 37 capas con homología oficial demostrable en IDE Chile vs. 81 brechas VGI comunitarias (`"Sin capa homóloga en IDE Chile (Dato VGI / Brecha de información oficial)"`).
-- Filtros interactivos de un clic: `[🌐 Todos]`, `[⚡ Solo Brechas VGI (81)]`, `[🏛️ Capas Oficiales IDE (37)]`, `[🏛️ Esquema VGI]`, y filtros temáticos CAT.
+### 3.14 `diccionario.js` (Catálogo Territorial de 134 Descriptores)
+- 134 descriptores depurados y escalables para Chile clasificados en las 10 categorías VGI.
+- Sinceramiento estricto: 48 capas oficiales IDE vs. 86 brechas VGI ciudadanas.
 
-### 3.11 `licencias.js` (Marco Jurídico de Licenciamiento)
-- Gestión del marco tripartito copyleft (ODbL 1.0 para datos espaciales OSM, CC BY-SA 4.0 para contenidos y fichas, GNU GPL v3 para código fuente).
-- Panel de descarga directa de los libros Excel (.xlsx) de catálogos y trazabilidad.
+### 3.15 `licencias.js` (Marco Jurídico de Licenciamiento)
+- Gestión del marco tripartito: ODbL 1.0 (datos OSM), CC BY-SA 4.0 (fichas y contenidos), GNU GPL v3 (código fuente).
 
-### 3.12 `manual.js` (Documentación Técnica y Manual de Uso in-app)
-- Documentación exhaustiva estructurada en 9 secciones temáticas correspondientes a los paneles `00` a `08`.
-- Guía de inicio rápido perfilada por actores territoriales.
-- Fichas metodológicas de las 10 macro-categorías (CAT-01 a CAT-10) con ejemplos Overpass QL, consultas ohsome y bibliografía APA.
-
-### 3.13 `app.js` (Orquestador Central de Interfaz)
-- Coordinación de eventos entre los 15 submódulos, sincronización del Bbox entre paneles, actualización de previsualizaciones Overpass QL, gestión de perfiles de usuario y renderizado de resultados.
-
-### 3.14 `importador_capas.js` (Motor de Importación de Capas Espaciales Multi-formato)
-- Ingestión client-side de archivos espaciales locales en formatos estándar:
-  - **.kmz (Google Earth)**: Descompresión binaria en memoria del navegador mediante **JSZip** y conversión a GeoJSON mediante `@tmcw/togeojson` con fallback XML nativo.
-  - **.kml (Keyhole Markup Language)**: Parseo directo de Placemarks de puntos, líneas y polígonos.
-  - **.geojson / .json**: Colecciones de objetos espaciales RFC 7946 en WGS84.
-  - **.gpx (GPS Exchange Format)**: Waypoints, tracks y rutas de navegación comunitaria.
-  - **.csv / .tsv (Tablas delimitadas)**: Detección inteligente de variantes de columnas de coordenadas (`lat`, `latitude`, `y` / `lon`, `longitude`, `x`), normalización de decimales y generación de entidades puntuales.
-- Asignación cromática rotativa y metadatos unificados (`_capaId`, `_color`, `_fuente`).
-- Sincronización inmediata con el visor Leaflet 2D, junto a control de encuadre, alternancia de visibilidad y auditoría normativa directa.
-
-### 3.15 `evaluador_normativo.js` (Motor de Consulta y Evaluación Espacial Normativa Territorial)
-- Auditoría espacial puntual y cruzada mediante algoritmos point-in-polygon en tiempo real:
-  - **Zonificación PRC Santiago y Diccionario Normativo**: Resuelve de forma específica las zonas normativas comunales (`Zona D`, `Zona E`, `Zona B`, `Zona A`, `Zona F`, `Zona G`), asociando sus artículos respectivos de la Ordenanza Local y decretos del Diario Oficial.
-  - **Desglose Exhaustivo de Prohibiciones (UPROH)**: Supera la fórmula genérica de la base de datos MINVU ("Todo uso no mencionado..."), detallando taxativamente las actividades prohibidas (industrias contaminantes, bodegas de acopio logístico masivo, talleres pesados con emanaciones, servitecas en pasajes interiores y ocio con impacto acústico vecinal D.S. 38/2011 MMA), fundamentado en el **Principio de Exclusión Negativa del Art. 2.1.24 de la OGUC**.
-  - **Límite Urbano Oficial**: Verificación de área urbana amparada en Art. 52 LGUC.
-  - **Áreas de Riesgo Normativas**: Alertas de inundación y remoción en masa (Art. 2.1.17 OGUC).
-  - **Áreas Verdes y Resguardos**: Afectaciones de utilidad pública (Art. 59 LGUC) y franjas de amortiguación.
-  - **Protección Patrimonial**: Zonas de Conservación Histórica (ZCH) e Inmuebles de Conservación Histórica (ICH) amparados por la Ley N° 17.288 (CMN) y Art. 60 LGUC.
-- **Catálogo de Ordenanzas Oficiales y Guía de Acceso**: Provee hipervínculos directos al expediente oficial del MINVU (Portal IPT Código 13101: ordenanza en PDF, memoria y planos 1:5.000), portal de la DOM Santiago y LeyChile de la Biblioteca del Congreso Nacional.
-- **Aviso Legal y Descargo de Responsabilidad (Disclaimer)**: Incorporación preceptiva en el visor y en el informe descargable del aviso legal que estipula el carácter referencial/académico del informe, aclarando que bajo ninguna circunstancia reemplaza o sustituye al Certificado de Informaciones Previas (CIP) emitido privativamente por el Director de Obras Municipales conforme al Art. 116 de la LGUC.
-- Emisión instantánea y descarga del **Certificado de Informaciones Normativas VGI (CIN-VGI)** estructurado en 6 secciones oficiales en formato `.txt`.
+### 3.16 `app.js` (Orquestador Central de Interfaz)
+- Gestión de ciclo de vida de la aplicación, cambio de perfiles territoriales, sincronización de Bbox y control de paneles.
 
 ---
 
-## 4. Perfiles de Actor Territorial (Gestión Orientada a Usuarios)
+## 4. Base de Datos Espacial en la Nube (PostgreSQL 17.6 + PostGIS 3.3 en Supabase)
 
-El sistema incorpora un conmutador de perfil en la cabecera (`#sel-perfil-usuario`) que adapta dinámicamente las prioridades del Atlas:
+### 4.1 Esquema Relacional DDL (`scripts/db/01_schema_postgis.sql`)
 
-1. **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipalidad / SECPLAN):**
-   - Prioriza la fiscalización del catastro comunal, el contraste de capas oficiales vs. brechas comunitarias, la exportación de metadatos ISO 19139 XML y la descarga de matrices Excel para sustentar instrumentos de planificación (PLADECO, PRC).
-2. **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:**
-   - Facilita consultas inmediatas de 1 clic para equipamiento cotidiano (farmacias, panaderías, áreas verdes, paraderos, zonas de reciclaje), mapeo participativo en UMap y consulta toponímica en lenguaje claro.
-3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:**
-   - Habilita el constructor avanzado Overpass QL, validación global de etiquetas con Taginfo API, control de changesets en OSMCha e identificación de vacíos en microatributos (`wheelchair`, `surface`, `lit`).
-4. **🎓 Perfil Académico / Geógrafos, Analistas SIG e Investigadores:**
-   - Enfocado en análisis espacial cuantitativo, rigor geodésico con reproyección a EPSG:32719, cálculo de densidades por km², exportación GeoJSON para QGIS y trazabilidad con 104 fuentes bibliográficas en norma APA 7ª ed.
+```sql
+-- 1. Extensión espacial PostGIS
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- 2. Tabla de Metadatos de las 107 Capas Oficiales
+CREATE TABLE IF NOT EXISTS public.capas_metadata (
+    id TEXT PRIMARY KEY,
+    nombre TEXT NOT NULL,
+    categoria TEXT NOT NULL,
+    subcategoria TEXT,
+    institucion TEXT,
+    geometria_tipo TEXT,
+    conteo_entidades INTEGER DEFAULT 0,
+    fuente_url TEXT,
+    cita_apa TEXT,
+    archivo_geojson TEXT,
+    actualizado_al TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 3. Tabla de Entidades Espaciales Vectorizadas (129.262 registros)
+CREATE TABLE IF NOT EXISTS public.capas_entidades (
+    id BIGSERIAL PRIMARY KEY,
+    capa_id TEXT NOT NULL REFERENCES public.capas_metadata(id) ON DELETE CASCADE,
+    nombre TEXT,
+    tipo TEXT,
+    propiedades JSONB DEFAULT '{}'::jsonb,
+    geom GEOMETRY NOT NULL
+);
+
+-- 4. Índice Espacial R-Tree GIST y de búsqueda
+CREATE INDEX IF NOT EXISTS idx_capas_entidades_geom ON public.capas_entidades USING GIST (geom);
+CREATE INDEX IF NOT EXISTS idx_capas_entidades_capa_id ON public.capas_entidades (capa_id);
+```
+
+### 4.2 Función Espacial RPC para Recortes Dinámicos por Bbox
+
+```sql
+CREATE OR REPLACE FUNCTION public.fn_obtener_capa_bbox(
+    p_capa_id TEXT,
+    p_min_lon DOUBLE PRECISION,
+    p_min_lat DOUBLE PRECISION,
+    p_max_lon DOUBLE PRECISION,
+    p_max_lat DOUBLE PRECISION
+)
+RETURNS JSONB
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
+    v_bbox GEOMETRY;
+    v_geojson JSONB;
+BEGIN
+    v_bbox := ST_MakeEnvelope(p_min_lon, p_min_lat, p_max_lon, p_max_lat, 4326);
+    SELECT jsonb_build_object(
+        'type', 'FeatureCollection',
+        'features', COALESCE(jsonb_agg(
+            jsonb_build_object(
+                'type', 'Feature',
+                'geometry', ST_AsGeoJSON(ST_Force2D(e.geom))::jsonb,
+                'properties', e.propiedades || jsonb_build_object(
+                    '_nombre', e.nombre,
+                    '_tipo', e.tipo,
+                    '_capaId', e.capa_id
+                )
+            )
+        ), '[]'::jsonb)
+    ) INTO v_geojson
+    FROM public.capas_entidades e
+    WHERE e.capa_id = p_capa_id
+      AND e.geom && v_bbox
+      AND ST_Intersects(e.geom, v_bbox);
+
+    RETURN v_geojson;
+END;
+$$;
+```
 
 ---
 
-## 5. Modelo de Datos y Esquema Normalizado VGI (14 Atributos)
+## 5. Perfiles de Actor Territorial (Gestión Orientada a Usuarios)
 
-Cada entidad capturada desde las distintas plataformas se normaliza bajo un esquema de 14 campos compatibles con la norma ISO 19110 y el Catálogo de Objetos Geográficos de Chile:
+El sistema adapta su comportamiento según el perfil seleccionado en la cabecera:
+1. **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipalidad / SECPLAN):** Prioriza IPT (PRC Santiago), microdatos Censo 2024, exportación XML ISO 19139 y auditoría de metadatos.
+2. **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:** Diagnósticos en 1 clic de servicios cotidianos (farmacias, áreas verdes, paraderos, ferias), mapas colaborativos en UMap.
+3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:** Constructor Overpass QL avanzado, validación Taginfo API, control de changesets en OSMCha y vacíos de microatributos de accesibilidad.
+4. **🔬 Perfil Investigadores / ONGs y Gestores:** Reproyección métrica EPSG:32719, series anuales ohsome, densidades espaciales por km² y citas APA 7ª ed.
+
+---
+
+## 6. Modelo de Datos y Esquema Normalizado VGI (14 Atributos)
 
 | Campo Normalizado | Tipo de Dato | Equivalencia IDE Chile / ISO 19115 | Descripción y Función Territorial |
 |---|---|---|---|
@@ -196,46 +294,40 @@ Cada entidad capturada desde las distintas plataformas se normaliza bajo un esqu
 | `operador` | Texto | `PuntoDeContacto` (`gmd:CI_ResponsibleParty`) | Institución o empresa administradora responsable. |
 | `direccion` | Texto | `LocalizacionDomiciliaria` | Calle y número catastral de acceso principal. |
 | `accesibilidad` | Texto | `CalidadDeAccesoUniversal` | Condición para silla de ruedas (`yes`, `limited`, `no`). |
-| `superficie_m2` | Numérico (Float) | `SuperficieMetricaM2` | Área euclidiana calculada en proyección EPSG:32719. |
-| `superficie_ha` | Numérico (Float) | `SuperficieMetricaHa` | Superficie expresada en hectáreas ($1\text{ ha} = 10.000\text{ m}^2$). |
-| `fuente` | Texto | `LinajeProcedencia` (`gmd:LI_Lineage`) | Plataforma de adquisición primaria (OSM, GBIF, UMap). |
+| `superficie_m2` | Numérico (Float) | `SuperficieMetricaM2` | Área euclidiana calculada en proyección EPSG:32719 UTM 19S. |
+| `superficie_ha` | Numérico (Float) | `SuperficieMetricaHa` | Superficie expresada en hectáreas ($1	ext{ ha} = 10.000	ext{ m}^2$). |
+| `fuente` | Texto | `LinajeProcedencia` (`gmd:LI_Lineage`) | Plataforma de adquisición primaria (OSM, GBIF, UMap, PostGIS). |
 | `fecha` | Fecha (ISO 8601) | `FechaDeRegistro` | Timestamp de captura o última edición registrada. |
-| `licencia` | Texto | `RestriccionesLegales` (`gmd:MD_LegalConstraints`) | Marco jurídico aplicable (ODbL 1.0, CC-BY 4.0). |
+| `licencia` | Texto | `RestriccionesLegales` (`gmd:MD_LegalConstraints`) | Marco jurídico aplicable (ODbL 1.0, CC-BY 4.0, Ley 20.285). |
 | `coordenadas` | Array [Lon, Lat] | `SIRGAS_Chile` (EPSG:4326 / EPSG:5361) | Geometría espacial absoluta en grados decimales WGS84. |
 | `ide_chile` | Texto | `CapaHomologaEstatal` | Homología oficial demostrable o declaración de Brecha VGI. |
 
 ---
 
-## 6. Sistema Estético de Alto Contraste y Accesibilidad (WCAG AAA)
-
-La interfaz gráfica prioriza la claridad, legibilidad y discernimiento intuitivo para usuarios no avanzados, líderes comunitarios y técnicos municipales:
-- **Paleta Institucional de Alto Contraste:** Fondo base Slate-50 (`#F8FAFC`), tarjetas y paneles en blanco puro (`#FFFFFF`), texto principal Slate-900 (`#0F172A`, relación de contraste > 15:1), texto secundario Slate-700 (`#334155`), acento institucional verde esmeralda/teal (`#0F766E`), azul cartográfico (`#0284C7`), advertencias en ámbar (`#B45309`) y restricciones normativas en rojo (`#B91C1C`).
-- **Tipografía Moderna y Discernible:** Tipografía de lectura sans-serif moderna (`Inter` / sistema nativo) para toda la interfaz, botones y formularios, manteniendo monoespaciada (`IBM Plex Mono`) exclusivamente para códigos, etiquetas y coordenadas espaciales.
-- **Geometría y Accesibilidad:** Bordes nítidos (`border: 1px solid #CBD5E1;`), esquinas redondeadas amigables (`border-radius: 6px;`), sombras sutiles que aportan profundidad jerárquica y estados de foco y hover claramente diferenciados.
-
----
-
 ## 7. Catálogos Estructurados en Excel (.xlsx) y Trazabilidad APA
 
-En las carpetas `docs/` y `src/docs/` residen los libros de trabajo generados por `scripts/generar_catalogos_excel.py`:
+Ubicados en `docs/` y `src/docs/`, generados automáticamente mediante `scripts/generar_catalogos_excel.py`:
 1. `categorias_tematicas_osm.xlsx`:
-   - Hoja 1: *Categorías Maestras* (10 macro-categorías escalables a nivel nacional, incluyendo Huella Construida y Coberturas de Suelo, calidad ISO 19157 y normativas chilenas).
-   - Hoja 2: *Catálogo de Etiquetas Chile* (134 etiquetas y descriptores depurados y escalables a regiones: 48 capas oficiales vs 86 brechas VGI, integrando descriptores Darwin Core de GBIF).
+   - Hoja 1: *Categorías Maestras* (10 macro-categorías territoriales, calidad ISO 19157 y normativas chilenas).
+   - Hoja 2: *Catálogo de Etiquetas Chile* (134 descriptores depurados: 48 oficiales vs. 86 brechas VGI).
    - Hoja 3: *Perfil de Atributos VGI* (14 campos normalizados con reproyección EPSG:32719).
-   - Hoja 4: *Bibliografía APA 7ª ed.* (104 referencias formales científicas, institucionales y normativas, con restricción estricta de cero autocitación).
-2. `catalogo_fuentes_vgi.xlsx`:
-   - Hoja 1: *Catálogo Fuentes VGI* (10 fuentes y plataformas abiertas: OSM, ohsome, OQT, OSM Changesets, OSMCha, Taginfo, GBIF, UMap, iNaturalist, IDE Chile).
-   - Hoja 2: *Inventario APIs y Endpoints* (11 especificaciones técnicas de endpoints, métodos HTTP, formatos, parámetros, cuotas de rate limit y módulos cliente).
-3. `perfil_metadatos_vgi.xlsx`: Especificación de jerarquía y tipos de datos ISO 19115.
+   - Hoja 4: *Bibliografía APA 7ª ed.* (104 referencias formales científicas, institucionales y normativas).
+2. `catalogo_fuentes_vgi.xlsx`: Matriz de fuentes colaborativas e inventario técnico de endpoints.
+3. `perfil_metadatos_vgi.xlsx`: Especificación de jerarquía y tipos de datos ISO 19115 nacional.
 
 ---
 
-## 8. Infraestructura de Despliegue y Pruebas
+## 8. Infraestructura de Despliegue, CI/CD y Mantenimiento
 
-- **Alojamiento:** Netlify con integración continua (`CI/CD`) vinculada a la rama `main` del repositorio `https://github.com/GEOJOTA/atlas_vgi_uah.git`.
-- **Configuración Serverless:** `netlify.toml` con redirecciones y headers de seguridad.
-- **Validación Automatizada:**
-  - Sintaxis JavaScript validada mediante motor JavaScriptCore (`jsc -s`).
-  - Verificación del generador de catálogos mediante `python3 scripts/generar_catalogos_excel.py`.
-  - Verificación de paridad binaria entre `docs/` y `src/docs/`.
+- **Frontend Estático:** Alojado en **Netlify** con integración continua vinculada a la rama `main`.
+- **Variables de Entorno Netlify:** `SUPABASE_URL` y `SUPABASE_ANON_KEY` configuradas como variables protegidas.
+- **Workflow Keep-Alive Anti-Pausa:** [`.github/workflows/supabase_keepalive.yml`](../.github/workflows/supabase_keepalive.yml) ejecuta un ping automático cada 3 días en GitHub Actions.
+- **Auditoría Automatizada:**
+  - Sintaxis JavaScript verificada con el motor JavaScriptCore (`jsc -s`).
+  - Verificación de catálogos y consistencia de datos mediante Python 3.
+  - Sincronización estricta entre `docs/` y `src/docs/`.
 
+---
+
+*Atlas VGI Barrio Brasil — Escuela de Geografía, Universidad Alberto Hurtado.*  
+*Investigación Fondecyt Regular & Práctica Profesional 2026.*

@@ -1,14 +1,14 @@
 # Guía de Integración y Uso: Base de Datos Espacial Gratuita, Permanente y Open Source (Supabase PostGIS)
 
-Esta guía detalla el procedimiento para activar, poblar y conectar la base de datos geoespacial del **Atlas VGI Barrio Brasil / UAH** utilizando **Supabase (PostgreSQL 15+ con extensión espacial PostGIS)**.
+Esta guía detalla el procedimiento para activar, poblar y conectar la base de datos geoespacial del **Atlas VGI Barrio Brasil / UAH** utilizando **Supabase (PostgreSQL 17+ con extensión espacial PostGIS 3.3)**.
 
 ---
 
 ## 1. ¿Por qué Supabase (PostgreSQL + PostGIS)?
 
 1. **100% Código Abierto (Open Source):**
-   - Motor relacional **PostgreSQL** estándar de la industria.
-   - Extensión espacial **PostGIS** (el estándar internacional para SIG, análisis territorial e índices espaciales R-Tree / GIST).
+   - Motor relacional **PostgreSQL 17.6** estándar de la industria.
+   - Extensión espacial **PostGIS 3.3** (el estándar internacional para SIG, análisis territorial e índices espaciales R-Tree / GIST).
 2. **Totalmente Gratuito y Permanente:**
    - Plan *Free Tier* de por vida sin necesidad de tarjeta de crédito ni periodos de prueba limitados (a diferencia de pruebas de 14 o 30 días de otros proveedores).
    - Incluye **500 MB de base de datos relacional** y **1 GB de almacenamiento de objetos (Storage CDN)**.
@@ -60,23 +60,26 @@ Esta guía detalla el procedimiento para activar, poblar y conectar la base de d
 
 ---
 
-## 5. Subida Automatizada de las Capas (Script de Ingesta)
+## 5. Carga de Datos Espaciales e Ingesta Masiva
 
-Para subir todos los archivos `.geojson` locales al bucket de Storage de Supabase en un solo comando:
+Dispones de dos pipelines automatizados en Python para la ingesta de datos:
 
-1. Obtén tus credenciales en el panel de Supabase:
-   - Ve a **Project Settings** (ícono de engranaje) -> **API**.
-   - Copia la **Project URL** (ej: `https://abcdefghijkl.supabase.co`).
-   - Copia la **service_role key** (llave secreta con permisos de escritura para scripts de backend).
+### 5.1 Subida al Bucket de Almacenamiento CDN (`scripts/subir_base_datos_supabase.py`)
+Sube todos los archivos GeoJSON al bucket público para descarga directa:
+```bash
+export SUPABASE_URL="https://tkfzmmlhhxqhzgqavsqr.supabase.co"
+export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
 
-2. En tu terminal local, ejecuta:
-   ```bash
-   export SUPABASE_URL="https://TU_PROYECTO.supabase.co"
-   export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
+python3 scripts/subir_base_datos_supabase.py --upload-storage
+```
+*Sube los 180 archivos GeoJSON con verificación criptográfica de integridad SHA256.*
 
-   python3 scripts/subir_base_datos_supabase.py --upload-storage
-   ```
-   *El script subirá secuencialmente los 180 archivos GeoJSON mostrando el progreso y verificación de integridad criptográfica SHA256.*
+### 5.2 Vectorización e Inserción Masiva en PostGIS (`scripts/cargar_entidades_postgis.py`)
+Inserta directamente las entidades vectoriales en la tabla `public.capas_entidades` de PostgreSQL mediante conexión directa SSL:
+```bash
+python3 scripts/cargar_entidades_postgis.py
+```
+*Carga **129.262 entidades espaciales** con geometrías 2D validadas (`ST_Force2D`) e índices R-Tree `GIST`, permitiendo consultas espaciales por Bbox en milisegundos.*
 
 ---
 
@@ -113,6 +116,10 @@ Para que tu base de datos **dure en el tiempo de forma permanente y nunca se sus
 1. Ya hemos configurado la acción automatizada en [`.github/workflows/supabase_keepalive.yml`](../.github/workflows/supabase_keepalive.yml).
 2. En tu repositorio de GitHub (`https://github.com/GEOJOTA/atlas_vgi_uah`), ve a **Settings** -> **Secrets and variables** -> **Actions**.
 3. Añade dos secretos del repositorio:
-   - `SUPABASE_URL`: La URL de tu proyecto Supabase.
+   - `SUPABASE_URL`: La URL de tu proyecto Supabase (`https://tkfzmmlhhxqhzgqavsqr.supabase.co`).
    - `SUPABASE_ANON_KEY`: La clave anónima pública de tu proyecto.
-4. El workflow de GitHub se ejecutará automáticamente **cada 3 días**, realizando una consulta ligera de telemetría que mantendrá la base de datos despierta de por vida a costo $0.
+4. El workflow de GitHub se ejecutará automáticamente **cada 3 días**, realizando una consulta ligera de telemetría que mantendrá la base de datos despierta de por vida a costo \$0.
+
+---
+
+*Atlas VGI Barrio Brasil — Escuela de Geografía, Universidad Alberto Hurtado (2026).*

@@ -62,7 +62,7 @@ const ModuloManual = (() => {
             <h4>¿Cómo utilizar el Atlas en la gestión pública comunal?</h4>
             <p>Orientado a directores SECPLAN, asesores urbanos y administradores de SIG municipal:</p>
             <ol class="doc-pasos-lista">
-              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛 Capas Oficiales IDE Chile]</em> para verificar los 25 equipamientos con soporte estatal y contraste con las 65 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, luminarias, grifos de incendio).</li>
+              <li><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛 Capas Oficiales IDE Chile]</em> para verificar las 48 capas oficiales con soporte estatal y contraste con las 86 <em>[⚡ Brechas VGI]</em> comunitarias no catastradas por el Estado (rebajes de solera, baldosas táctiles, ciclovías comunitarias, luminarias, grifos de incendio).</li>
               <li><strong>Evaluar Cobertura y Saturación OQT (Panel 02):</strong> Aplique el marco <em>ohsome Quality Analyst (HeiGIT)</em> para determinar el índice de madurez cartográfica de su cuadrante barrial.</li>
               <li><strong>Exportar Metadatos Institucionales (Panel 05):</strong> Genere archivos XML bajo la norma <strong>ISO 19139 / Perfil Nacional de Metadatos</strong> para importación directa en nodos GeoNetwork o GeoNode municipales.</li>
             </ol>
@@ -196,9 +196,9 @@ const ModuloManual = (() => {
             <div class="doc-modulo-num">00</div>
             <div class="doc-modulo-cuerpo">
               <h4>Visor y Atlas Cartográfico VGI Interactivo</h4>
-              <p>Visualizador geoespacial interactivo de alta resolución basado en <strong>Leaflet</strong>. Permite explorar, filtrar y superponer la cartografía territorial de Barrio Brasil y el campus de la Universidad Alberto Hurtado con alta velocidad, contraste óptimo y facilidad de uso para toda clase de usuarios.</p>
-              <p><strong>Integración Oficial del Estado de Chile (IDE Chile & MINVU):</strong> Conecta directamente en tiempo real con servicios <strong>ArcGIS FeatureServer</strong> y <strong>OGC WMS</strong> oficiales: microdatos de las manzanas del Censo 2024 (INE), Catastro de Patrimonio IPT (MINVU DDU), Parques Urbanos, Barrios Históricos y Sitios de Memoria CMN (datos.gob.cl / Geoportal), proyectables simultáneamente en el mapa.</p>
-              <div class="doc-modulo-meta"><strong>Salidas:</strong> Renderizado de capas GeoJSON (polígonos, líneas y puntos), popups normalizados con declaraciones institucionales de la Ley N° 20.285, citas APA 7ª ed., teselas WMS GetMap y descarga directa GeoJSON para QGIS.</div>
+              <p>Visualizador geoespacial interactivo de alta resolución basado en <strong>Leaflet 1.9.4</strong>. Permite explorar, filtrar y superponer la cartografía territorial de Barrio Brasil y el campus de la Universidad Alberto Hurtado con alta velocidad, contraste óptimo (WCAG AAA) y herramientas interactivas (Dibujar Bbox, selector de territorios, exportación a QGIS).</p>
+              <p><strong>Catálogo Oficial de 107 Capas del Estado e Inspector Normativo:</strong> Organizado en 6 macro-grupos temáticos en acordeones colapsables interactivos (Normativa IPT, Medio Ambiente, Vulnerabilidad RSH, Equipamiento y Patrimonio, Seguridad, Movilidad y Economía). Incluye el <strong>Inspector Normativo CIN-VGI</strong> (auditoría en 1 clic de zonificación PRC Santiago, OGUC y descarga de certificado técnico con advertencia legal Art. 116 LGUC), el <strong>Importador Multi-formato</strong> (KMZ en memoria con JSZip, KML, GeoJSON, GPX, CSV) y el conector a la <strong>Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 en Supabase</strong> con 129.262 entidades vectorizadas indexadas con GIST.</p>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> Renderizado de capas vectoriales, popups con atributos oficiales y citas APA 7ª ed., consultas espaciales en milisegundos por RPC PostGIS, teselas WMS GetMap y descarga directa GeoJSON para SIG.</div>
             </div>
           </div>
 
@@ -252,7 +252,7 @@ const ModuloManual = (() => {
             <div class="doc-modulo-cuerpo">
               <h4>Diccionario Territorial y Atributos Normalizados</h4>
               <p>Glosario ontológico interactivo que traduce las claves y valores en inglés de OpenStreetMap a conceptos formales de la gestión territorial chilena, vinculándolos con las contrapartes estatales y el Catálogo de Objetos Geográficos de Chile v3.0 (IDE Chile / SNIT).</p>
-              <div class="doc-modulo-meta"><strong>Salidas:</strong> 10 tarjetas interactivas de macro-categorías (CAT-01 a CAT-10) con filtrado en vivo y enlaces al manual, tabla de 63 etiquetas territoriales y 14 atributos normalizados.</div>
+              <div class="doc-modulo-meta"><strong>Salidas:</strong> 10 tarjetas interactivas de macro-categorías (CAT-01 a CAT-10) con filtrado en vivo y enlaces al manual, catálogo depurado de 134 descriptores territoriales (48 oficiales IDE vs. 86 brechas VGI comunitarias) y 14 atributos normalizados.</div>
             </div>
           </div>
 

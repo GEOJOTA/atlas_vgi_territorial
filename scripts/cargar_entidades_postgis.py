@@ -111,7 +111,7 @@ def main():
                     params[param_geom] = geom_json_str
                     params[param_props] = props_json_str
 
-                    values_clauses.append(f"(:cid, ST_SetSRID(ST_GeomFromGeoJSON(:{param_geom}), 4326), (:{param_props})::jsonb)")
+                    values_clauses.append(f"(:cid, ST_Force2D(ST_SetSRID(ST_GeomFromGeoJSON(:{param_geom}), 4326)), (:{param_props})::jsonb)")
 
                 if values_clauses:
                     query = f"INSERT INTO public.capas_entidades (capa_id, geom, properties) VALUES {', '.join(values_clauses)};"

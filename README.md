@@ -3,9 +3,9 @@
 
 Prototipo de plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado como producto de práctica profesional de la carrera de Geografía de la Universidad Alberto Hurtado (2026), en el marco de un proyecto de investigación Fondecyt Regular sobre VGI y gestión territorial.
 
-Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **101 capas cartográficas integradas** (10 categorías maestras VGI, 17 capas base territoriales y 74 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE) y exportación a GeoJSON, CSV, metadatos ISO 19115 y catálogos Excel.
+Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **117 capas cartográficas integradas** (10 categorías maestras VGI y 107 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con **129.262 entidades espaciales vectorizadas e indexadas con GIST**, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
 
-> **Sin API keys requeridas.** Toda la funcionalidad opera con CDN públicos y APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile).
+> **Acceso libre y código abierto.** Toda la funcionalidad opera con CDN públicos, APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile) y base de datos PostGIS gratuita en la nube con fallback local transparente.
 
 ---
 
@@ -17,26 +17,26 @@ Cuando una institución pública, organización comunitaria o voluntario quiere 
 2. **Incertidumbre de calidad:** ¿Cuántos colaboradores han editado? ¿Cuándo fue la última actualización? ¿Cómo distinguir datos confiables?
 3. **Falta de interoperabilidad oficial:** Los datos casi nunca tienen metadatos compatibles con el estándar IDE Chile (ISO 19115 / ISO 19139).
 
-El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico interactivo, métricas de calidad, evaluación normativa territorial y exportación estructurada.
+El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico interactivo, métricas de calidad, evaluación normativa territorial, base de datos relacional espacial y exportación estructurada.
 
 ---
 
 ## 2. Territorio piloto
 
 **Barrio Brasil**, Santiago Centro (EPSG:4326):
-- **Bounding Box:** `[-70.6675, -33.4505, -70.6565, -33.4385]`
-- Campus UAH (Almirante Barroso, Erasmo Escala, Cienfuegos), Plaza Brasil, eje Alameda, Metro Los Héroes (L1/L2) y Santa Ana (L2/L5).
+- **Bounding Box:** `[-70.6720, -33.4505, -70.6580, -33.4350]` (Barrio Brasil Completo) / `[-70.6675, -33.4505, -70.6565, -33.4385]` (Manzana Campus UAH)
+- Campus UAH (Almirante Barroso, Erasmo Escala, Cienfuegos), Plaza Brasil, eje Alameda, Metro Los Héroes (L1/L2), Santa Ana (L2/L5) y Cumming (L5).
 
 ---
 
-## 3. Usuarios de la plataforma
+## 3. Usuarios de la plataforma (Perfiles de Actor Territorial)
 
-| Tipo | Ejemplos |
-|---|---|
-| Organizaciones comunitarias / JJVV | JJVV Brasil, Santa Ana, Capuchinos, Ambrosio O'Higgins |
-| Voluntarios / productores VGI | Colaboradores OSM activos en el área |
-| Instituciones / autoridades | Municipalidad de Santiago, SECPLAN, SEREMI MINVU RM |
-| ONGs / Fundaciones | TECHO-Chile, SUR, MapBiomas Chile, Fundación TERRAM |
+| Tipo | Ejemplos | Foco Operativo |
+|---|---|---|
+| **🏛️ Institucional / Autoridades** | Municipalidad de Santiago, SECPLAN, SEREMI MINVU RM, IDE Chile | Fiscalización de IPT (PRC Santiago), microdatos Censo 2024, exportación XML ISO 19139 |
+| **👥 Organizaciones Comunitarias / JJVV** | JJVV Barrio Brasil, Santa Ana, Capuchinos, Concha y Toro | Diagnóstico barrial en 1 clic (salud, ferias, áreas verdes), cartografía vecinal en UMap |
+| **🧭 Voluntarios / Mapeadores OSM** | Colaboradores OSM activos, colectivos ciclistas | Consultas Overpass QL avanzadas, Taginfo API, control de cambios en OSMCha y vacíos de accesibilidad |
+| **🔬 Investigadores / ONGs** | UAH, TECHO-Chile, SUR, Fundación TERRAM, MapBiomas | Reproyección métrica EPSG:32719, densidades territoriales, series históricas ohsome, citas APA |
 
 ---
 
@@ -46,137 +46,181 @@ Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y
 
 | Cód. | Categoría Maestra | Fuente OSM / GBIF | Enfoque Territorial Barrio Brasil |
 |---|---|---|---|
-| **CAT-01** | Educación y Universidad | `amenity=university\|college\|school\|library` | Campus patrimonial UAH (Almirante Barroso, Erasmo Escala), facultades, institutos, colegios, liceos y bibliotecas |
-| **CAT-02** | Servicios, Comercio y Salud Barrial | `shop=*`, `amenity=pharmacy\|clinic\|doctors\|cafe\|bank` | Comercio de proximidad Av. Brasil/Huérfanos, farmacias, CESFAM N° 5, clínicas comunitarias, amasanderías y bancos |
-| **CAT-03** | Movilidad y Transporte Público | `railway=station\|subway_entrance`, `highway=bus_stop` | Red Movilidad, paraderos de buses, estaciones de Metro Los Héroes (L1/L2), Santa Ana (L2/L5), Cumming (L5) y corredores viales |
-| **CAT-04** | Movilidad Activa y Ciclovías | `highway=cycleway`, `amenity=bicycle_parking\|bicycle_rental` | Ciclovías segregadas Rosas y Brasil, ciclobandas, estacionamientos de bicicletas públicos/UAH, arriendo y talleres |
-| **CAT-05** | Áreas Verdes, Deporte y Espacio Público | `leisure=park\|playground\|pitch`, `landuse=grass` | Plaza Brasil, bandejones arbolados Alameda, canchas comunitarias, juegos infantiles, bancos y bebederos públicos |
-| **CAT-06** | Patrimonio Histórico y Cultura | `historic=*`, `heritage=*`, `amenity=arts_centre\|theatre` | Zona Típica Barrio Brasil, Inmuebles de Conservación Histórica (ICH), Basílica del Salvador, Casonas UAH, museos y memoriales |
-| **CAT-07** | Accesibilidad Universal y Caminabilidad | `kerb=*`, `wheelchair=*`, `tactile_paving=*`, `highway=crossing` | Vados peatonales y rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles, pasos cebra demarcados y rampas peatonales |
-| **CAT-08** | Biodiversidad Urbana y Arbolado | `natural=tree\|tree_row\|wood` + GBIF Occurrence API | Arbolado viario de alineación (plátano oriental, jacarandá, quillay), plazas, jardines y registros de avifauna y flora de ciencia ciudadana |
-| **CAT-09** | Edificaciones y Huella Urbana | `way["building"]`, `relation["building"]` | Catastro poligonal de edificaciones, huellas de manzanas, volumetría construida y cálculo de superficie métrica en m² (EPSG:32719) |
-| **CAT-10** | Coberturas y Usos de Suelo | `landuse=*`, `natural=*`, `leisure=*` | Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo) y superficies biofísicas según PRC Santiago |
+| **CAT-01** | Educación y Universidad | `amenity=university|college|school|library` | Campus patrimonial UAH (Almirante Barroso, Erasmo Escala), facultades, colegios, liceos y bibliotecas |
+| **CAT-02** | Servicios, Comercio y Salud Barrial | `shop=*`, `amenity=pharmacy|clinic|doctors|cafe|bank` | Comercio de proximidad Av. Brasil/Huérfanos, farmacias, CESFAM N° 5, clínicas comunitarias y bancos |
+| **CAT-03** | Movilidad y Transporte Público | `railway=station|subway_entrance`, `highway=bus_stop` | Red Movilidad, paraderos de buses, estaciones de Metro Los Héroes (L1/L2), Santa Ana (L2/L5) y Cumming (L5) |
+| **CAT-04** | Movilidad Activa y Ciclovías | `highway=cycleway`, `amenity=bicycle_parking|bicycle_rental` | Ciclovías segregadas Rosas y Brasil, ciclobandas, estacionamientos de bicicletas públicos/UAH y talleres |
+| **CAT-05** | Áreas Verdes, Deporte y Espacio Público | `leisure=park|playground|pitch`, `landuse=grass` | Plaza Brasil, bandejones arbolados Alameda, canchas comunitarias, juegos infantiles y bebederos |
+| **CAT-06** | Patrimonio Histórico y Cultura | `historic=*`, `heritage=*`, `amenity=arts_centre|theatre` | Zona Típica Barrio Brasil, Inmuebles de Conservación Histórica (ICH), Basílica del Salvador, Casonas UAH y teatros |
+| **CAT-07** | Accesibilidad Universal y Caminabilidad | `kerb=*`, `wheelchair=*`, `tactile_paving=*`, `highway=crossing` | Vados peatonales y rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles y cruces semaforizados |
+| **CAT-08** | Biodiversidad Urbana y Arbolado | `natural=tree|tree_row|wood` + GBIF Occurrence API | Arbolado viario de alineación (plátano oriental, jacarandá, quillay) y registros biológicos Darwin Core |
+| **CAT-09** | Edificaciones y Huella Urbana | `way["building"]`, `relation["building"]` | Catastro poligonal de edificaciones, huellas de manzanas, volumetría construida y cálculo de superficie en m² (EPSG:32719) |
+| **CAT-10** | Coberturas y Usos de Suelo | `landuse=*`, `natural=*`, `leisure=*` | Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo) y superficies biofísicas |
 
 ---
 
-## 5. Capas oficiales del Estado de Chile integradas (74 capas BBDD + 27 base = 101 capas)
+## 5. Capas oficiales del Estado de Chile integradas (107 capas oficiales + 10 VGI = 117 capas)
 
-Integración cartográfica fidedigna de las **74 capas oficiales de la Administración del Estado de Chile** catalogadas desde la base de datos oficial (`BBDD.xlsx`), amparadas por la **Ley N° 20.285 de Transparencia y Acceso a la Información Pública**:
+El visor integra **107 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en **6 macro-grupos con acordeones interactivos colapsables a ancho completo (100%)**:
 
-1. **Ministerio de Obras Públicas (MOP / GEOMOP / DGA / Vialidad / DIRPLAN):**
-   - Proyectos Mandatados, Red Vial Nacional, Red Hidrométrica BNA, Contratos Concesionados, Contratos MOP, Red Fluviométrica, Estaciones Meteorológicas DGA, Estaciones Sedimentométricas, Estaciones de Calidad de Aguas Superficiales, Cuencas Banco Nacional de Aguas e Índice de Calidad de Aguas (ICA).
-2. **Ministerio de Vivienda y Urbanismo (MINVU / IDE Minvu / Geoportal 35406):**
-   - Predios urbanos oficiales (MINVU / Geoportal 35406, 2.500 polígonos parcelarios reales en Santiago Centro), Áreas Funcionales Urbanas (AFU 2026), Zonificación Térmica, Cités y Pasajes residenciales, Secretarías Regionales Ministeriales (SEREMIs), Oficinas SERVIU, Continuo de Construcciones Urbanas (CCU) e Instrumentos de Planificación Territorial (PRC Santiago y PRMS).
-3. **Dirección Nacional de Fronteras y Límites del Estado (DIFROL / MINREL):**
-   - Pasos Fronterizos oficiales (82 pasos internacionales terrestres de Chile con Argentina, Perú y Bolivia) y Delimitación de Faja y Zona Fronteriza de Seguridad (DFL N° 4 de 1967).
-4. **Geoportal de Chile e IDE Chile (Organismos Sectoriales):**
-   - Juzgados de Familia (PJUD), Antenas en Servicio Ley de Torres (SUBTEL), Sedes Municipales (SUBDERE), Cuarteles y Plan Cuadrante (Carabineros de Chile), Cuerpos de Bomberos, Jardines Infantiles (JUNJI y Fundación Integra), Establecimientos de Educación Escolar, Parvularia y Superior (MINEDUC), Establecimientos de Salud y Territorios Sanitarios (MINSAL / DEIS), Centros de la Mujer (SERNAMEG), Ferias Libres (ODEPA), Sitios Prioritarios y Calidad del Aire SINCA (MMA), Circuitos Turísticos (SERNATUR), División Política Administrativa (DPA 2023), Certificación Ambiental Municipal (SCAM), Nivel de Erosión (CIREN), Zonas Climáticas Köppen-Geiger y Curvas de Nivel topográficas cada 10m (IGM).
-5. **Ministerio de Agricultura (MINAGRI / CONAF / SAG / ODEPA / CNR / INFOR / FIA):**
-   - Sistema Nacional de Áreas Silvestres Protegidas del Estado (SNASPE CONAF), Viveros certificados SAG, Estaciones Meteorológicas Automáticas (FIA), Industria Forestal Primaria (INFOR), Mercados Mayoristas de Abasto (ODEPA), Cobertura Nacional de Canales de Riego (CNR), Catastro de Recursos Vegetacionales, Cambio de Uso de la Tierra (2001-2023), Cubierta Frutal CIREN 2025 y Carbono Orgánico del Suelo (0-5, 5-15, 15-30 cm).
-6. **Ministerio de Desarrollo Social y Familia (BiDat / RSH / Subsecretaría de Evaluación Social):**
-   - Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Índice Global de Vulnerabilidad Socioterritorial (IGVUST 2026), Banco Integrado de Proyectos (BIP Inversiones Públicas 2019-2027), y 8 indicadores sociodemográficos vecinales del Registro Social de Hogares (dependencia funcional, cuidados, estratificación socioeconómica por tramos CSE 40%, niñez, mujeres jefas de hogar, personas mayores y formalidad laboral).
-7. **Ministerio de Energía / Comisión Nacional de Energía (CNE / IDE Energía):**
-   - Centrales de Generación Eléctrica, Subestaciones y Líneas de Transmisión Eléctrica de alta tensión del Sistema Eléctrico Nacional (SEN).
+1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
+   - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT (Art. 2.1.17 OGUC), Fajas de Resguardo y Límites Urbanos Oficiales (Art. 52 LGUC).
+2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
+   - Catastro de Parques Urbanos MINVU, Red Hidrométrica Nacional BNA (DGA), Inventario de Humedales Urbanos (Ley 21.202), Sistema Nacional de Áreas Silvestres Protegidas (SNASPE CONAF), Cobertura de Canales de Riego (CNR), Cuencas Hidrográficas BNA y Carbono Orgánico del Suelo (COS CIREN).
+3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDSF / MINVU / INE Censo 2024):**
+   - Microdatos del Censo de Población y Vivienda 2024 a nivel de manzana, Unidades Vecinales Oficiales 2026 (Ley 19.418), Catastro Oficial de Campamentos MINVU, Condominios Sociales (Ley 21.442) y 8 indicadores socioterritoriales del Registro Social de Hogares (BiDat MDSF).
+4. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND):**
+   - Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Establecimientos de Educación Escolar y Superior (MINEDUC), Hospitales y CESFAM (DEIS MINSAL), Infraestructura Deportiva IND y Jardines Botánicos.
+5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
+   - Cuarteles del Cuerpo de Bomberos de Santiago, Comisarías de Carabineros de Chile (Plan Cuadrante), Pasos Fronterizos Internacionales Oficiales (DIFROL) y Zonas de Seguridad Fronteriza (DFL N° 4).
+6. 🚲 **Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / CNE / ODEPA):**
+   - Red de Estaciones de Metro de Santiago (Líneas 1, 2 y 5), Red Ferroviaria EFE, Red Vial Nacional (GEOMOP), Contratos Concesionados MOP, Banco Integrado de Proyectos (BIP 2019-2027), Subestaciones Eléctricas SEN (CNE) y Ferias Libres (ODEPA).
 
 ---
 
-## 6. Módulos y características
+## 6. Base de Datos Espacial en la Nube (PostgreSQL 17.6 + PostGIS 3.3 en Supabase)
+
+El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extensión PostGIS 3.3**, 100% libre, gratuito y permanente:
+
+- **129.262 Entidades Vectoriales Vectorizadas:** Almacenadas en la tabla relacional `public.capas_entidades`, optimizando más de 630 MB de archivos GeoJSON de texto a 210 MB binarios con geometrías validadas.
+- **Catálogo de Metadatos Relacional:** Tabla `public.capas_metadata` con los 107 registros oficiales, citas APA 7ª ed., instituciones de procedencia y conteos de entidades.
+- **Índices Espaciales R-Tree GIST:** Consultas espaciales ultrarrápidas mediante la función RPC `fn_obtener_capa_bbox`, permitiendo al visor Leaflet consultar únicamente las geometrías contenidas en el Bbox activo en milisegundos.
+- **Storage CDN (`atlas-geojson`):** Bucket público de alta disponibilidad para descarga directa de coberturas completas.
+- **Arquitectura con Fallback de Triple Contingencia:** Si falla la conexión a internet o no se han configurado credenciales, el visor conmuta de forma transparente al directorio local `data/`.
+- **Mantenimiento Keep-Alive Permanente a Costo $0:** El workflow [`.github/workflows/supabase_keepalive.yml`](.github/workflows/supabase_keepalive.yml) ejecuta un ping de telemetría cada 3 días desde GitHub Actions, asegurando que la base de datos nunca se suspenda por inactividad.
+
+---
+
+## 7. Módulos y características
 
 | Módulo | Descripción |
 |---|---|
-| **Visor Cartográfico** | Leaflet 1.9.4 + OpenStreetMap; activación interactiva por categoría VGI y capas oficiales IDE Chile, popups con atributos, cita APA y zoom automático |
-| **Calidad VGI** | ohsome API v1/v2: completitud, evolución temporal P1Y, densidad espacial, OQT Score, contribuyentes activos; OSMCha para integridad de changesets |
+| **Visor Cartográfico 2D** | Leaflet 1.9.4 + OpenStreetMap; activación interactiva por categoría VGI y acordeones colapsables oficiales IDE Chile, popups con atributos, cita APA y zoom automático |
+| **⚡ BD PostGIS** | Pestaña de conexión y telemetría en tiempo real con clúster PostgreSQL 17 + PostGIS 3.3 en Supabase con fallback local autónomo |
+| **Calidad VGI (ohsome)** | ohsome API v1/v2: completitud, evolución temporal P1Y, densidad espacial métrica (EPSG:32719), OQT Score, contribuyentes activos; OSMCha para integridad de changesets |
 | **Índice de Calidad VGI (ICV)** | Score compuesto por categoría: completitud + actualidad + consistencia geométrica + densidad |
-| **CIN-VGI (normativa)** | Inspector territorial por clic: PRC Santiago, usos permitidos/prohibidos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio; exporta certificado .txt con disclaimer legal (Art. 116 LGUC) |
-| **Importador de capas** | KMZ, KML, GeoJSON, GPX, CSV con detección automática de coordenadas y auditoría normativa directa |
-| **Metadatos ISO 19115** | Fichas por capa, exportables a XML y Excel |
+| **CIN-VGI (Inspector Normativo)** | Inspector territorial por clic: PRC Santiago, usos permitidos/prohibidos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio; exporta certificado .txt con disclaimer legal (Art. 116 LGUC) |
+| **Importador de capas locales** | KMZ (JSZip en memoria), KML, GeoJSON, GPX, CSV con detección automática de coordenadas y auditoría normativa directa |
+| **Taginfo API Explorer** | Telemetría planetaria en tiempo real de claves y valores OSM con recuentos globales |
+| **Biodiversidad Urbana GBIF** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas Darwin Core |
+| **Metadatos ISO 19115 / 19139** | Fichas técnicas exportables a JSON y XML oficial de IDE Chile (SNIT / GeoNetwork) |
+| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales y 104 citas APA |
 
 ---
 
-## 7. Estructura del repositorio
+## 8. Estructura del repositorio
 
 ```
 atlas_vgi_uah/
 ├── src/
-│   ├── index.html              # Aplicación principal (no requiere build)
-│   ├── css/estilos.css         # Estilos (paleta de alto contraste, accesible WCAG AAA, diseño limpio)
+│   ├── index.html                      # Aplicación principal SPA (no requiere build)
+│   ├── css/estilos.css                 # Paleta institucional de alto contraste (WCAG AAA)
 │   ├── js/
-│   │   ├── app.js              # Controlador principal
+│   │   ├── app.js                      # Controlador principal y enrutador de eventos
+│   │   ├── config.js                   # Configuración centralizada y credenciales
 │   │   └── modulos/
-│   │       ├── mapa.js         # Visor 2D Leaflet
-│   │       ├── ohsome.js       # Métricas calidad VGI (ohsome API)
-│   │       ├── calidad_analyst.js  # ICV e inspector changesets
-│   │       ├── evaluador_normativo.js  # CIN-VGI / PRC / OGUC
-│   │       ├── importador_capas.js # Importador multi-formato
-│   │       ├── gbif.js         # Biodiversidad (GBIF API)
-│   │       ├── osm.js          # Overpass API
-│   │       ├── ide_chile.js    # Capas MINVU GeoIDE / IDE Chile
-│   │       └── metadatos.js    # ISO 19115
-│   ├── data/                   # 101 capas GeoJSON (10 VGI + 17 base + 74 oficiales Estado)
-│   ├── config/config.json      # Categorías, metadatos, bbox
-│   └── docs/                   # Catálogos Excel y documentación
-├── backend/servidor_vgi.py     # Proxy Flask para ohsome (opcional)
-├── netlify/functions/          # Serverless (Netlify deploy)
+│   │       ├── mapa.js                 # Visor 2D Leaflet y control de capas
+│   │       ├── db_client.js            # Cliente PostGIS RPC y Supabase Storage CDN
+│   │       ├── ide_chile.js            # Catálogo oficial de 107 capas del Estado
+│   │       ├── evaluador_normativo.js  # Motor CIN-VGI / PRC Santiago / OGUC
+│   │       ├── ohsome.js               # Métricas calidad VGI (ohsome API dual v1/v2)
+│   │       ├── calidad_analyst.js      # ICV e inspector changesets OSMCha
+│   │       ├── importador_capas.js     # Importador multi-formato (KMZ/KML/GeoJSON/GPX/CSV)
+│   │       ├── taginfo.js              # Validador planetario Taginfo API
+│   │       ├── gbif.js                 # Biodiversidad urbana y Darwin Core
+│   │       ├── geodesia.js             # Reproyección Snyder EPSG:32719 UTM 19S
+│   │       └── metadatos.js            # Generador ISO 19115 (JSON) e ISO 19139 (XML)
+│   ├── data/                           # 107 capas GeoJSON oficiales + 10 VGI
+│   ├── config/config.json              # Configuración JSON sincronizada
+│   └── docs/                           # Catálogos Excel (.xlsx) de acceso público
+├── backend/servidor_vgi.py             # Servidor proxy Flask opcional para CORS
+├── netlify/functions/                  # Endpoints serverless ligeros para Netlify
+├── netlify.toml                        # Configuración de despliegue y headers de seguridad
 ├── scripts/
-│   ├── extractor_vgi.py        # Descarga OSM/GBIF
-│   ├── descargar_capas_normativas_ide.py
-│   └── generar_catalogos_excel.py
-└── .github/workflows/deploy.yml
+│   ├── db/
+│   │   ├── 01_schema_postgis.sql       # Esquema DDL PostGIS, tablas, índices GIST y RPC
+│   │   └── 02_seed_metadata.sql        # Inserción de metadatos de las 107 capas
+│   ├── subir_base_datos_supabase.py    # Pipeline CLI de sincronización y subida CDN
+│   ├── cargar_entidades_postgis.py     # Ingesta masiva de 129.262 entidades en PostGIS
+│   ├── generar_catalogos_excel.py      # Generador de matrices Excel (.xlsx) con openpyxl
+│   └── extractor_vgi.py                # Extractor automatizado Overpass QL
+├── docs/
+│   ├── ARQUITECTURA.md                 # Especificación técnica del sistema y diagramas
+│   ├── GUIA_BASE_DATOS_SUPABASE.md     # Manual de aprovisionamiento PostGIS en la nube
+│   ├── TRAZABILIDAD_ACADEMICA.md       # Memoria metodológica y epistemológica (Fondecyt)
+│   ├── catalogo_fuentes_vgi.xlsx       # Matriz analítica de fuentes colaborativas
+│   ├── categorias_tematicas_osm.xlsx   # Matriz de categorías, descriptores y 104 citas APA
+│   └── perfil_metadatos_vgi.xlsx       # Estructura ISO 19115 nacional
+├── MANUAL_USO.md                       # Manual operativo para los 4 perfiles territoriales
+├── PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md # Protocolo de integridad cartográfica y CI/CD
+└── .github/workflows/
+    ├── deploy.yml                      # Despliegue continuo
+    └── supabase_keepalive.yml          # Ping automático cada 3 días anti-pausa
 ```
 
 ---
 
-## 8. Arranque rápido
+## 9. Arranque rápido y Pipeline CLI
 
 ```bash
-# Clonar
+# 1. Clonar el repositorio
 git clone https://github.com/GEOJOTA/atlas_vgi_uah.git
 cd atlas_vgi_uah
 
-# Opción A: abrir directamente (no requiere npm ni build)
+# Opción A: Abrir directamente en el navegador (cliente estático puro)
 open src/index.html
 
-# Opción B: servidor local simple
+# Opción B: Servidor local simple
 python3 -m http.server 8080 --directory src
 # → http://localhost:8080
 
-# Opción C: backend proxy ohsome (opcional, resuelve CORS)
-pip install flask flask-cors requests
-python backend/servidor_vgi.py
-# → http://localhost:5050
-```
+# 2. Pipeline CLI de Procesamiento y Base de Datos (Python 3):
+# Auditoría de integridad de capas GeoJSON:
+python3 scripts/subir_base_datos_supabase.py --dry-run
 
-**Variables de entorno opcionales (`.env`)** — solo para ohsome API v2 (la v1 es acceso libre):
-```
-HEIGIT_API_KEY=tu_clave_opcional
+# Sincronización con Supabase Storage CDN:
+export SUPABASE_URL="https://tkfzmmlhhxqhzgqavsqr.supabase.co"
+export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
+python3 scripts/subir_base_datos_supabase.py --upload-storage
+
+# Regeneración de catálogos Excel:
+python3 scripts/generar_catalogos_excel.py
 ```
 
 ---
 
-## 9. Fuentes de datos y licencias
+## 10. Fuentes de datos y licencias
 
-| Fuente | Licencia | Uso |
+| Fuente | Licencia | Rol en el Atlas |
 |---|---|---|
-| OpenStreetMap | ODbL 1.0 (© colaboradores OSM) | Capas VGI temáticas |
-| GBIF | CC-BY 4.0 / CC0 | Biodiversidad urbana (CAT-08) |
-| MINVU GeoIDE | Datos Públicos del Estado (Ley 20.285) | IPT, campamentos, ciclovías |
-| IDE Chile / SUBDERE | Datos Públicos del Estado | DPA, límites urbanos |
-| INE Censo 2024 | Datos Públicos del Estado | Manzanas censales |
-| CMN | Datos Públicos del Estado | Sitios de Memoria |
+| **OpenStreetMap** | ODbL 1.0 (© colaboradores OSM) | Capas VGI temáticas (CAT-01 a CAT-10) |
+| **GBIF / iNaturalist** | CC-BY 4.0 / CC0 | Biodiversidad urbana y ciencia ciudadana (CAT-08) |
+| **MINVU GeoIDE** | Datos Públicos del Estado (Ley 20.285) | IPT PRC Santiago, PRMS, parques urbanos, campamentos |
+| **IDE Chile / SUBDERE** | Datos Públicos del Estado | DPA, sedes municipales, juzgados de familia |
+| **INE Censo 2024** | Datos Públicos del Estado | Microdatos censales de población y vivienda a nivel de manzana |
+| **MOP / GEOMOP / DGA** | Datos Públicos del Estado | Red vial, obras concesionadas, estaciones hidrométricas y cuencas |
+| **CMN** | Datos Públicos del Estado | Monumentos Históricos, Zonas Típicas y Sitios de Memoria |
+| **MDSF (BiDat)** | Datos Públicos del Estado | Unidades Vecinales Oficiales e indicadores del Registro Social de Hogares |
+| **DIFROL** | Datos Públicos del Estado | Pasos fronterizos internacionales y faja de seguridad |
+| **CNE** | Datos Públicos del Estado | Infraestructura de transmisión y subestaciones eléctricas |
 
 ---
 
-## 10. Cita académica
+## 11. Cita académica y marco de investigación
 
-```
-Lescano, J.P. (2026). Atlas de Información Geográfica Voluntaria para la Gestión
-Territorial — Caso Piloto Barrio Brasil. Práctica Profesional, Carrera de
-Geografía, Universidad Alberto Hurtado.
-https://github.com/GEOJOTA/atlas_vgi_uah
+```bibtex
+@misc{lescano2026atlas,
+  author       = {Lescano Villegas, Juan Pablo},
+  title        = {Atlas de Información Geográfica Voluntaria para la Gestión Territorial: Caso Piloto Barrio Brasil},
+  year         = {2026},
+  howpublished = {Práctica Profesional, Escuela de Geografía, Universidad Alberto Hurtado},
+  address      = {Santiago, Chile},
+  url          = {https://github.com/GEOJOTA/atlas_vgi_uah}
+}
 ```
 
-_Marco: Proyecto Fondecyt Regular — Investigador responsable: Manuel Fuenzalida (UAH)_
+_Desarrollado en el marco del Proyecto Fondecyt Regular sobre VGI y Gobernanza Territorial — Investigador Responsable: Dr. Manuel Fuenzalida (Universidad Alberto Hurtado)._
 
 ---
 
-*Datos VGI actualizados en tiempo real desde OpenStreetMap Overpass API. Capas oficiales descargadas septiembre 2026.*
+*Atlas VGI Barrio Brasil — Nodo GeoAbierto. Plataforma optimizada con PostgreSQL 17 + PostGIS 3.3. Septiembre 2026.*
