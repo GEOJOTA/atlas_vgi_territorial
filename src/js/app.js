@@ -2021,32 +2021,32 @@ function configurarCapasOficialesIDE() {
   const GRUPOS_OFICIALES = [
     {
       id: 'normativa_ipt',
-      nombre: '📜 Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT / DPA)',
-      filtroGrupo: (c) => c.grupo === 'normativa_ipt'
+      nombre: '📜 Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT / DPA / PRC / PRMS)',
+      filtroGrupo: (c) => ['normativa_ipt'].includes(c.grupo)
     },
     {
       id: 'medio_ambiente',
-      nombre: '🌳 Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF)',
+      nombre: '🌳 Medio Ambiente, Recursos Hídricos, Parques & Suelos (MMA / MINVU / DGA / CONAF / CIREN)',
       filtroGrupo: (c) => ['medio_ambiente_riesgos', 'espacio_publico'].includes(c.grupo)
     },
     {
       id: 'comunidades_vivienda',
-      nombre: '👥 Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDS / MINVU / INE)',
+      nombre: '👥 Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDSF / MINVU / INE / BIDAT)',
       filtroGrupo: (c) => ['social_comunidades', 'demografia'].includes(c.grupo)
     },
     {
       id: 'equipamiento_patrimonio',
-      nombre: '🏛️ Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL)',
+      nombre: '🏛️ Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND / SERNAMEG)',
       filtroGrupo: (c) => ['educacion', 'salud', 'patrimonio', 'equipamiento_infraestructura', 'servicios'].includes(c.grupo)
     },
     {
       id: 'seguridad',
-      nombre: '🛡️ Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED)',
-      filtroGrupo: (c) => c.grupo === 'seguridad'
+      nombre: '🛡️ Seguridad, Bomberos, Fronteras & Emergencias (Carabineros / CBS / SENAPRED / DIFROL)',
+      filtroGrupo: (c) => ['seguridad'].includes(c.grupo)
     },
     {
       id: 'movilidad_economico',
-      nombre: '🚲 Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA)',
+      nombre: '🚲 Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA / CNE)',
       filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'economico_agricola', 'transporte'].includes(c.grupo)
     },
     {
@@ -2072,9 +2072,12 @@ function configurarCapasOficialesIDE() {
     const summary = document.createElement('summary');
     summary.className = 'cabecera-acordeon-oficial';
     summary.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-        <span style="font-weight:700; font-size:1.02rem; color:var(--musgo);">${grp.nombre}</span>
-        <span class="badge-acordeon-conteo">${capasEnGrupo.length} CAPAS</span>
+      <div class="cabecera-acordeon-contenido">
+        <span class="titulo-acordeon-oficial">${grp.nombre}</span>
+        <div class="meta-acordeon-oficial">
+          <span class="badge-acordeon-conteo">${capasEnGrupo.length} CAPAS</span>
+          <span class="flecha-acordeon-oficial" aria-hidden="true">▾</span>
+        </div>
       </div>
     `;
     details.appendChild(summary);
@@ -2088,9 +2091,7 @@ function configurarCapasOficialesIDE() {
       btn.className = 'btn-categoria-oficial';
       btn.id = `btn-oficial-${def.id}`;
       btn.dataset.capa = def.id;
-      btn.title = `${def.descripcion}
-Institución: ${def.institucion}
-Tipo: ${def.tipoServicio}`;
+      btn.title = `${def.descripcion}\nInstitución: ${def.institucion}\nTipo: ${def.tipoServicio}`;
       btn.innerHTML = `
         <span class="icono-cat">${def.icono}</span>
         <div class="info-cat">
@@ -2107,28 +2108,56 @@ Tipo: ${def.tipoServicio}`;
       grillaCapas.appendChild(btn);
     });
 
+    // En el grupo de patrimonio/equipamiento, integrar el botón de servicio WMS Patrimonio MINVU
+    if (grp.id === 'equipamiento_patrimonio') {
+      const btnWMS = document.createElement('button');
+      btnWMS.type = 'button';
+      btnWMS.className = 'btn-categoria-oficial btn-wms-oficial';
+      btnWMS.id = 'btn-oficial-wms-patrimonio';
+      btnWMS.dataset.wms = 'minvu_patrimonio';
+      btnWMS.title = 'Superponer la capa oficial de teselas WMS GetMap de Patrimonio MINVU (OGC WMS 1.3.0)';
+      btnWMS.innerHTML = `
+        <span class="icono-cat">🗺️</span>
+        <div class="info-cat">
+          <strong>MINVU WMS Patrimonio en Vivo</strong>
+          <small>Servicio OGC GetMap en vivo</small>
+        </div>
+        <span class="badge-conteo-oficial" style="background:#8F3A2C; color:#FFF;">WMS</span>
+      `;
+      btnWMS.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alternarCapaWMSOficial('minvu_patrimonio', btnWMS);
+      });
+      grillaCapas.appendChild(btnWMS);
+    }
+
     details.appendChild(grillaCapas);
     contenedor.appendChild(details);
   });
 
-  // WMS Patrimonio MINVU button
-  const btnWMS = document.createElement('button');
-  btnWMS.type = 'button';
-  btnWMS.className = 'btn-categoria-oficial btn-wms-oficial';
-  btnWMS.id = 'btn-oficial-wms-patrimonio';
-  btnWMS.style.marginTop = '14px';
-  btnWMS.dataset.wms = 'minvu_patrimonio';
-  btnWMS.title = 'Superponer la capa oficial de teselas WMS GetMap de Patrimonio MINVU (OGC WMS 1.3.0)';
-  btnWMS.innerHTML = `
-    <span class="icono-cat">🗺️</span>
-    <div class="info-cat">
-      <strong>MINVU WMS Patrimonio en Vivo</strong>
-      <small>Servicio OGC GetMap en vivo</small>
-    </div>
-    <span class="badge-conteo-oficial" style="background:#8F3A2C; color:#FFF;">WMS</span>
-  `;
-  btnWMS.addEventListener('click', () => alternarCapaWMSOficial('minvu_patrimonio', btnWMS));
-  contenedor.appendChild(btnWMS);
+  // Poblar la lista rápida en la barra lateral (subpanel IDE)
+  const listaRapida = document.getElementById('sidebar-lista-ide-rapida');
+  if (listaRapida) {
+    listaRapida.innerHTML = '';
+    todasCapas.slice(0, 20).forEach(def => {
+      const item = document.createElement('div');
+      item.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:rgba(30,41,59,0.5); border-radius:6px; font-size:0.75rem; border:1px solid var(--linea);';
+      item.innerHTML = `
+        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:180px; color:#ffffff;" title="${def.nombre}">${def.icono} ${def.nombre}</span>
+        <button type="button" style="font-size:0.68rem; padding:3px 8px; background:var(--musgo); color:#FFF; border:none; border-radius:4px; cursor:pointer; font-weight:700;">Cargar</button>
+      `;
+      item.querySelector('button').addEventListener('click', () => {
+        const btn = document.getElementById(`btn-oficial-${def.id}`);
+        if (btn) {
+          const detailsParent = btn.closest('details');
+          if (detailsParent) detailsParent.open = true;
+          btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          alternarCapaOficialIDE(def.id, btn);
+        }
+      });
+      listaRapida.appendChild(item);
+    });
+  }
 
   document.getElementById('btn-descargar-todo-ide')?.addEventListener('click', descargarColeccionOficialCompleta);
   inicializarInspectorNormativo();
@@ -2228,7 +2257,7 @@ async function ejecutarConsultaInspector(lat, lng) {
 async function descargarColeccionOficialCompleta() {
   const btn = document.getElementById('btn-descargar-todo-ide');
   const textoOriginal = btn ? btn.textContent : '';
-  if (btn) btn.textContent = '⏳ Compilando 14 capas...';
+  if (btn) btn.textContent = '⏳ Compilando colección de 101 capas...';
 
   const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
   if (estadoTexto) estadoTexto.textContent = 'Compilando colección oficial consolidada de IDE Chile y Geoportal...';

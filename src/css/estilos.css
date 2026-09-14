@@ -1544,61 +1544,108 @@ table.tabla-datos tr:hover td {
 /* ==========================================================================
    ACORDEONES DE CATEGORÍAS MACRO - CATÁLOGO DE 101 CAPAS (OPTIMIZACIÓN UI)
    ========================================================================== */
+.contenedor-acordeones-oficiales {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  margin-top: 18px;
+}
+
 .acordeon-grupo-oficial {
-  margin-bottom: 14px;
-  border: 1px solid var(--linea-tarjeta);
+  width: 100%;
+  margin-bottom: 0;
+  border: 1.5px solid var(--linea-tarjeta);
   border-radius: 12px;
   overflow: hidden;
   background: var(--papel-tarjeta);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--sombra-sm);
 }
 
 .acordeon-grupo-oficial[open] {
-  border-color: rgba(43, 89, 74, 0.4);
-  box-shadow: 0 4px 16px rgba(43, 89, 74, 0.08);
+  border-color: var(--esmeralda);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.15);
 }
 
 .cabecera-acordeon-oficial {
-  background: linear-gradient(135deg, rgba(244, 241, 234, 0.95), rgba(235, 230, 220, 0.95));
-  padding: 12px 18px;
+  background: rgba(30, 41, 59, 0.7);
+  padding: 14px 20px;
   cursor: pointer;
   user-select: none;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
   list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
+  border-bottom: 1px solid transparent;
 }
 
 .cabecera-acordeon-oficial::-webkit-details-marker {
   display: none;
 }
 
-.acordeon-grupo-oficial[open] .cabecera-acordeon-oficial {
-  border-bottom: 1px solid var(--linea-tarjeta);
-  background: linear-gradient(135deg, #EAE5D8, #DFD8C6);
+.cabecera-acordeon-oficial:hover {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: var(--linea-tarjeta);
 }
 
-.cabecera-acordeon-oficial:hover {
-  background: #E4DDCB;
+.acordeon-grupo-oficial[open] .cabecera-acordeon-oficial {
+  border-bottom: 1px solid var(--linea-tarjeta);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.cabecera-acordeon-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.titulo-acordeon-oficial {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.35;
+}
+
+.meta-acordeon-oficial {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .badge-acordeon-conteo {
   background: var(--musgo);
-  color: #FFFFFF;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 4px 10px;
+  color: #ffffff;
+  font-family: var(--fuente-datos);
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 4px 12px;
   border-radius: 20px;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.flecha-acordeon-oficial {
+  font-size: 1.15rem;
+  color: var(--musgo);
+  transition: transform 0.25s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.acordeon-grupo-oficial[open] .flecha-acordeon-oficial {
+  transform: rotate(180deg);
 }
 
 .grilla-capas-acordeon {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 10px;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.6);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.4);
 }
