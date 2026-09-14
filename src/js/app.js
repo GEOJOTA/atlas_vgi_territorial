@@ -2048,15 +2048,22 @@ function configurarCapasOficialesIDE() {
       id: 'movilidad_economico',
       nombre: '🚲 Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA)',
       filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'economico_agricola', 'transporte'].includes(c.grupo)
+    },
+    {
+      id: 'otras_fuentes',
+      nombre: '📦 Otras Fuentes Públicas & Capas Temáticas del Estado de Chile',
+      filtroGrupo: (c) => true
     }
   ];
 
   contenedor.innerHTML = '';
+  const capasProcesadas = new Set();
 
   // Render collapsible modern accordions for each macro group
   GRUPOS_OFICIALES.forEach((grp, idx) => {
-    const capasEnGrupo = todasCapas.filter(grp.filtroGrupo);
+    const capasEnGrupo = todasCapas.filter(c => !capasProcesadas.has(c.id) && grp.filtroGrupo(c));
     if (capasEnGrupo.length === 0) return;
+    capasEnGrupo.forEach(c => capasProcesadas.add(c.id));
 
     const details = document.createElement('details');
     details.className = 'acordeon-grupo-oficial';
