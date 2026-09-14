@@ -206,6 +206,7 @@ En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles lo
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 104 Citas Bibliográficas APA 7ª ed.).
 - **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas e inventario técnico de APIs y endpoints del Estado.
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
+- **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 104 fuentes APA 7ª ed. (integrando las 51 obras del Seminario de Grado UAH y las 53 normas técnicas y marcos legales del Atlas).
 
 ---
 

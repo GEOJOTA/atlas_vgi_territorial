@@ -146,6 +146,7 @@ atlas_vgi_uah/
 │   └── extractor_vgi.py                # Extractor automatizado Overpass QL
 ├── docs/
 │   ├── ARQUITECTURA.md                 # Especificación técnica del sistema y diagramas
+│   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md # Compendio de 104 fuentes APA (Seminario + Atlas)
 │   ├── GUIA_BASE_DATOS_SUPABASE.md     # Manual de aprovisionamiento PostGIS en la nube
 │   ├── TRAZABILIDAD_ACADEMICA.md       # Memoria metodológica y epistemológica (Fondecyt)
 │   ├── catalogo_fuentes_vgi.xlsx       # Matriz analítica de fuentes colaborativas

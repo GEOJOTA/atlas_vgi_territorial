@@ -122,9 +122,9 @@ Para resolver esta brecha sin distorsionar el estándar internacional de OSM ni 
 #### Catálogo Excel Automatizado de 4 Hojas (`categorias_tematicas_osm.xlsx`)
 Toda la taxonomía, junto con su correlación de atributos, linaje de procesamiento y fuentes documentales, se encuentra consolidada en el archivo oficial [`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx) (sincronizado automáticamente en `src/docs/` para su descarga desde la interfaz web):
 1. **Hoja 1: `Categorías Maestras (Chile)`**: Define las 10 macro-categorías (CAT-01 a CAT-10), sus contrapartes públicas, código de capa, consulta base Overpass QL y frecuencia observada en Taginfo Chile.
-2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula las 63 etiquetas críticas con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa IDE Chile homóloga, organismo rector, frecuencia de uso comunitaria y ejemplo empírico en Barrio Brasil / UAH.
+2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula los 134 descriptores territoriales depurados (48 oficiales IDE Chile vs 86 brechas VGI comunitarias) con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa estatal homóloga, organismo rector y ejemplo empírico en Barrio Brasil / UAH.
 3. **Hoja 3: `Diccionario Atributos VGI`**: Detalla los 14 atributos normalizados de las entidades geoespaciales (incluyendo `superficie_m2`, `superficie_ha` y `srs_superficie` bajo proyección EPSG:32719 UTM 19S), indicando tipo de dato, cardinalidad, regla de cálculo y correspondencia con el Perfil Nacional de Metadatos (ISO 19110 / ISO 19115).
-4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 33 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición, con hipervínculos oficiales activos y trazabilidad verificable.
+4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 104 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando la totalidad de las 51 referencias del Seminario de Grado de Geografía UAH y los marcos normativos del Atlas), con hipervínculos oficiales activos y trazabilidad verificable.
 
 ---
 
