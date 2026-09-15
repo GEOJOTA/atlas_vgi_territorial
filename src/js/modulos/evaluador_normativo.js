@@ -275,7 +275,7 @@ const ModuloEvaluadorNormativo = (() => {
             nombreZona: f.properties.NOM_ZONA || f.properties.NOMBRE || infoDic.nombreOficial,
             articuloOrdenanza: infoDic.articulo,
             decreto: f.properties.P_DO ? `Resolución N° ${f.properties.N_DOC || '26'} (D.O. ${f.properties.P_DO})` : infoDic.decretoAprobatorio,
-            instrumento: 'Plan Regulador Comunal de Santiago',
+            instrumento: f.properties.COMUNA || f.properties.COMUNA_ORIGEN ? `Plan Regulador Comunal (${f.properties.COMUNA || f.properties.COMUNA_ORIGEN})` : 'Plan Regulador Comunal (PRC)',
             principioExclusion: infoDic.explicacionPrincipioExclusion,
             usosPermitidos: f.properties.UPERM || infoDic.usosPermitidosDetalle,
             usosPermitidosDetalle: infoDic.usosPermitidosDetalle,

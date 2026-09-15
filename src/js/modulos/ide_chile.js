@@ -259,23 +259,22 @@ const ModuloIDEChile = (() => {
     },
     minvu_ipt_prc_santiago: {
       id: 'minvu_ipt_prc_santiago',
-      nombre: 'PRC Santiago: Zonificación Normativa',
-      institucion: 'MINVU / I. Municipalidad de Santiago',
-      ministerio: 'División de Desarrollo Urbano (DDU)',
+      nombre: 'Planes Reguladores Comunales (PRC - RM): Zonificación Comunal',
+      institucion: 'MINVU / Municipios de la Región Metropolitana',
+      ministerio: 'División de Desarrollo Urbano (DDU) / DOM Municipales',
       tipoServicio: 'ArcGIS MapServer / FeatureServer',
-      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC_RM_Norte/MapServer/31',
       archivoLocal: 'data/ide_minvu_ipt_prc_santiago.geojson',
       color: '#D97706',
-      icono: '⚖',
+      icono: '🏛️',
       geometria: 'Polígonos (Zonificación Comunal)',
       grupo: 'normativa_ipt',
-      descripcion: 'Zonificación urbana y normas urbanísticas oficiales del Plan Regulador Comunal de Santiago: usos permitidos (UPERM), usos prohibidos (UPROH), altura, rasante y decretos D.O.',
-      declaracion: 'Normativa urbanística oficial promulgada por la I. Municipalidad de Santiago y ratificada por MINVU DDU conforme a la Ley General de Urbanismo y Construcciones (DFL 458/1975).',
-      citaAPA: 'Ilustre Municipalidad de Santiago & Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Plan Regulador Comunal de Santiago: Zonificación y Ordenanza Local Oficial. DDU, MINVU / IDE Chile. https://geoide.minvu.cl/server/rest/services/IPT/PRC_RM_Norte/MapServer/31'
+      descripcion: 'Zonificación urbana y normas urbanísticas oficiales comunales de los municipios de la Región Metropolitana (Santiago, Providencia, Las Condes, Ñuñoa, Maipú, Vitacura, Renca, San Bernardo, etc.): usos permitidos (UPERM), usos prohibidos (UPROH), altura, rasante y decretos D.O. Escala comunal / municipal específica.',
+      declaracion: 'Normativa urbanística oficial promulgada por los municipios de la Región Metropolitana y ratificada por MINVU DDU conforme a la Ley General de Urbanismo y Construcciones (DFL 458/1975).',
+      citaAPA: 'Municipios de la Región Metropolitana & Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Planes Reguladores Comunales (PRC): Zonificación y Ordenanzas Locales Oficiales. DDU, MINVU / IDE Chile.'
     },
     minvu_ipt_prms_usosuelo: {
       id: 'minvu_ipt_prms_usosuelo',
-      nombre: 'PRMS: Usos de Suelo Metropolitanos',
+      nombre: 'Plan Regulador Metropolitano (PRMS): Usos de Suelo Regional',
       institucion: 'MINVU / SEREMI Metropolitana de Vivienda y Urbanismo',
       ministerio: 'División de Desarrollo Urbano (DDU)',
       tipoServicio: 'ArcGIS FeatureServer',
@@ -285,9 +284,9 @@ const ModuloIDEChile = (() => {
       icono: '▧',
       geometria: 'Polígonos (Usos Metropolitanos)',
       grupo: 'normativa_ipt',
-      descripcion: 'Zonificación intercomunal y macro-usos del Plan Regulador Metropolitano de Santiago: parques intercomunales, equipamiento metropolitano y fajas de desarrollo.',
+      descripcion: 'Zonificación intercomunal y macro-usos del Plan Regulador Metropolitano de Santiago (PRMS): parques intercomunales, equipamiento metropolitano, áreas rurales e infraestructura intercomunal. Escala regional / intercomunal.',
       declaracion: 'Instrumento de Planificación Territorial Metropolitano regulado por el Art. 34 LGUC y administrado por SEREMI MINVU RM.',
-      citaAPA: 'Secretaría Regional Ministerial Metropolitana de Vivienda y Urbanismo [SEREMI MINVU RM]. (2024). Plan Regulador Metropolitano de Santiago (PRMS): Usos de Suelo Oficiales. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/5'
+      citaAPA: 'Secretaría Regional Ministerial Metropolitana de Vivienda y Urbanismo [SEREMI MINVU RM]. (2024). Plan Regulador Metropolitano de Santiago (PRMS): Usos de Suelo Oficiales. DDU, MINVU.'
     },
     minvu_ipt_areas_verdes: {
       id: 'minvu_ipt_areas_verdes',
