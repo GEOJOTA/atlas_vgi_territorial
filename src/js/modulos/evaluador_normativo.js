@@ -1,20 +1,18 @@
 /*
   evaluador_normativo.js
   ----------------------
-  Módulo de Consulta, Descarga y Evaluación Espacial Normativa Territorial.
+  Módulo de Consulta, Descarga y Evaluación Espacial Normativa Territorial 100% Dinámica.
   Articula la cartografía comunitaria VGI con la normativa urbana oficial de Chile:
-  - Planes Reguladores Comunales (PRC Santiago - Zonificación, UPERM, UPROH)
+  - Planes Reguladores Comunales (PRC - RM: Zonificación, UPERM, UPROH, Decretos D.O.)
   - Plan Regulador Metropolitano de Santiago (PRMS - Usos, Riesgos, Resguardos)
   - Ley General de Urbanismo y Construcciones (LGUC DFL 458/1975)
   - Ordenanza General de Urbanismo y Construcciones (OGUC D.S. 47/1992 - Art. 2.1.17, 2.1.24, 2.1.30)
   - Ley N° 21.202 de Protección de Humedales Urbanos
-  - Ley N° 21.442 de Copropiedad Inmobiliaria y Catastro de Campamentos MINVU 2024
+  - Ley N° 21.442 de Copropiedad Inmobiliaria
 
-  Provee:
-  1. Inspector Normativo Puntual por Clic en Mapa Interactivo (Leaflet 2D).
-  2. Motor de Evaluación Cruzada VGI vs. Zonificación Oficial (Compatibilidad de usos).
-  3. Auditoría de Exposición a Zonas de Riesgo y Protección Ambiental.
-  4. Generación y Descarga de Certificado de Informaciones Normativas VGI (CIN-VGI).
+  Trazabilidad Atributiva 100% Dinámica: Extrae directamente de las propiedades GeoJSON
+  la comuna específica, capas utilizadas, instrumento PRC, zonificación, año y decreto D.O.,
+  sin suposiciones ni datos estáticos duros.
 */
 
 const ModuloEvaluadorNormativo = (() => {
@@ -25,15 +23,9 @@ const ModuloEvaluadorNormativo = (() => {
   const FUENTES_ORDENANZAS_IPT = [
     {
       institucion: 'Ministerio de Vivienda y Urbanismo (MINVU)',
-      instrumento: 'Plan Regulador Comunal de Santiago (PRC) — Código IPT 13101',
-      url: 'https://portalipt.minvu.cl/instrumentos/13101',
-      descripcion: 'Expediente digital oficial del MINVU. Incluye texto completo de la Ordenanza Local en PDF, Memoria Explicativa, Planos de Zonificación oficial a escala 1:5.000 y decretos modificatorios.'
-    },
-    {
-      institucion: 'I. Municipalidad de Santiago (DOM)',
-      instrumento: 'Dirección de Obras Municipales — Plan Regulador y CIP Oficial',
-      url: 'https://www.munistgo.cl/plan-regulador/',
-      descripcion: 'Portal municipal con texto refundido de la Ordenanza Local y tramitación del Certificado de Informaciones Previas (CIP) oficial (Amunátegui 980, piso 2, Santiago Centro).'
+      instrumento: 'Planes Reguladores Comunales (PRC) — Catálogo de la Región Metropolitana',
+      url: 'https://portalipt.minvu.cl/',
+      descripcion: 'Expedientes digitales oficiales del MINVU. Incluyen texto completo de Ordenanzas Locales, Memorias Explicativas, Planos de Zonificación oficial y decretos modificatorios en Diario Oficial.'
     },
     {
       institucion: 'Biblioteca del Congreso Nacional (BCN — LeyChile)',
@@ -52,116 +44,21 @@ const ModuloEvaluadorNormativo = (() => {
   /**
    * Aviso legal estándar y descargo de responsabilidad sintetizado
    */
-  const TEXTO_DISCLAIMER_LEGAL = `La información provista por este Certificado de Informaciones Normativas VGI (CIN-VGI) es de carácter estrictamente referencial, BAJO NINGUNA CIRCUNSTANCIA este reporte constituye, sustituye o tiene la validez jurídica de un Certificado de Informaciones Previas (CIP), instrumento oficial que de acuerdo al Artículo 116 del D.F.L. N° 458 de 1975 (Ley General de Urbanismo y Construcciones - LGUC) debe ser otorgado y suscrito de manera privativa por el Director de Obras Municipales (DOM) de la comuna respectiva.`;
+  const TEXTO_DISCLAIMER_LEGAL = `La información provista por este Certificado de Informaciones Normativas VGI (CIN-VGI) es de carácter estrictamente referencial. BAJO NINGUNA CIRCUNSTANCIA este reporte constituye, sustituye o tiene la validez jurídica de un Certificado de Informaciones Previas (CIP), instrumento oficial que de acuerdo al Artículo 116 del D.F.L. N° 458 de 1975 (Ley General de Urbanismo y Construcciones - LGUC) debe ser otorgado y suscrito de manera privativa por el Director de Obras Municipales (DOM) de la comuna respectiva.`;
 
   /**
-   * Diccionario Normativo Detallado de Zonas del PRC de Santiago (Barrio Brasil y entorno)
-   * Supera el texto genérico del MINVU ("Todo uso no mencionado...") desglosando prohibiciones concretas
-   * conforme al Artículo 2.1.24 de la OGUC.
+   * Diccionario Normativo Estándar de Apoyo para Zonas Frecuentes
    */
   const DICCIONARIO_NORMATIVO_ZONAS_PRC = {
-    'D': {
-      codigo: 'Zona D',
-      nombreOficial: 'Zona D — Residencial Mixta Poniente (Barrio Brasil - Yungay)',
-      articulo: 'Artículo 26 de la Ordenanza Local del Plan Regulador Comunal de Santiago',
-      decretoAprobatorio: 'Resolución N° 26 (D.O. 27/01/1990) y modificaciones vigentes',
-      explicacionPrincipioExclusion: 'De acuerdo al Artículo 2.1.24 de la Ordenanza General de Urbanismo y Construcciones (OGUC), en la planificación urbana rige el principio de exclusión negativa: todo uso, destino o actividad que no se encuentre expresamente individualizado como permitido en la Ordenanza Local se entiende preceptivamente prohibido.',
-      usosPermitidosDetalle: 'Residencial: Vivienda unifamiliar, colectiva, apart-hoteles y residenciales. Equipamiento vecinal y comunal de escala básica y menor: Comercio minorista (almacenes, panaderías, cafeterías, farmacias, librerías; máx. 250 m² útiles en calles locales y hasta 500 m² en vías colectoras), Servicios profesionales y talleres artesanales inofensivos (costura, imprenta vecinal, orfebrería), Educación (salas cuna, jardines infantiles, colegios), Salud (consultorios ambulatorios, consultas médicas), Seguridad (comisarías, bomberos), Culto, Cultura y Áreas Verdes públicas.',
-      usosProhibidosDetallados: [
-        'Actividades Productivas e Industriales: Industrias de cualquier tipo (peligrosas, insalubres, contaminantes y molestas), plantas manufactureras, maestranzas, fundiciones y fábricas de químicos.',
-        'Almacenamiento y Logística: Grandes bodegas de acopio mayorista, centros de distribución logística y patios de maniobra o transferencia de camiones pesados.',
-        'Servicios Automotrices de Alto Impacto: Estaciones de servicio (gasolineras) en calles locales o pasajes interiores, talleres mecánicos pesados que ocupen la vía pública, talleres de desabolladura y pintura al horno con emanaciones de solventes volátiles, desarmadurías y compraventas de chatarra.',
-        'Transporte e Infraestructura Mayor: Terminales de buses interurbanos o rurales, terminales de carga de alto tonelaje y playas de estacionamiento masivo descubierto sobre predios protegidos.',
-        'Esparcimiento y Ocio Ruidoso Vecinal: Discotecas, salas de eventos masivos, centros de baile y locales de espectáculos con música amplificada colindantes con predios residenciales que vulneren los niveles sonoros del D.S. N° 38/2011 MMA.',
-        'Establecimientos Especiales: Cárceles, recintos penitenciarios o de detención, crematorios y cementerios.'
-      ],
-      condicionesEdificacion: 'Altura regulada por rasantes y distanciamientos (Art. 2.6.3 OGUC) o altura de fachada continua según tramo vial. Sistema de agrupamiento continuo o aislado sobre línea de edificación.'
-    },
-    'E': {
-      codigo: 'Zona E',
-      nombreOficial: 'Zona E — Zona Típica y de Conservación Histórica (Barrio Brasil - Concha y Toro)',
-      articulo: 'Artículo 27 y Cuadro CUS 1 de la Ordenanza Local del PRC de Santiago (En coordinación con Art. 60 LGUC y Ley N° 17.288 de Monumentos Nacionales)',
-      decretoAprobatorio: 'Resolución N° 26 / D.S. N° 644/1982 MINEDUC (Declaratoria de Zona Típica)',
-      explicacionPrincipioExclusion: 'Rige el principio de exclusión estricta (Art. 2.1.24 OGUC) condicionado a la tutela patrimonial del Consejo de Monumentos Nacionales (CMN) y la SEREMI MINVU. Queda prohibida cualquier alteración volumétrica o demolición sin autorización vinculante.',
-      usosPermitidosDetalle: 'Residencial tradicional con conservación estricta de fachadas y volumetría. Equipamiento cultural y patrimonial: Museos, galerías de arte, fundaciones, bibliotecas, centros universitarios con plan de mitigación vial. Comercio barrial y turístico menor: Cafeterías, anticuarios, librerías, hostales boutique y restaurantes de gastronomía tradicional.',
-      usosProhibidosDetallados: [
-        'Demolición, modificación volumétrica o alteración de fachadas históricas sin autorización previa vinculante del Consejo de Monumentos Nacionales (Ley 17.288) y SEREMI MINVU (Art. 60 LGUC).',
-        'Actividades productivas e industriales de cualquier categoría (incluso inofensivas de media escala).',
-        'Talleres mecánicos automotrices, vulcanizaciones, lubricentros, desabolladurías y servitecas.',
-        'Supermercados de formato mayor (hipermercados), centros comerciales cerrados y bodegas logísticas.',
-        'Botillerías nocturnas de alto impacto y locales de expendio de bebidas alcohólicas de consumo al paso adyacentes a inmuebles protegidos.',
-        'Discotecas, salones de fiestas masivas y pubs con música exterior.',
-        'Instalación de letreros publicitarios luminosos que tapen elementos de fachada o cornisas, torres de antenas de telecomunicaciones no mimetizadas (Art. 2.7.1 OGUC).'
-      ],
-      condicionesEdificacion: 'Mantenimiento obligatorio de la línea de edificación oficial histórica, altura armónica con inmuebles colindantes y tipología continua.'
-    },
-    'B': {
-      codigo: 'Zona B',
-      nombreOficial: 'Zona B — Mixta de Ejes Estructurantes (Av. Matucana, Av. Ricardo Cumming, Eje Alameda)',
-      articulo: 'Artículo 24 de la Ordenanza Local del Plan Regulador Comunal de Santiago',
-      decretoAprobatorio: 'Resolución N° 26 (D.O. 27/01/1990)',
-      explicacionPrincipioExclusion: 'Principio de exclusión negativa Art. 2.1.24 OGUC: todo uso no listado expresamente como permitido en el cuadro de la zona se encuentra prohibido.',
-      usosPermitidosDetalle: 'Residencial en altura con placa comercial. Equipamiento metropolitano, intercomunal y comunal: Comercio (centros comerciales, tiendas, supermercados), Servicios financieros y corporativos, Universidades e institutos, Clínicas y centros hospitalarios.',
-      usosProhibidosDetallados: [
-        'Industrias molestas, insalubres, contaminantes o peligrosas de cualquier índole.',
-        'Plantas de tratamiento de residuos, vertederos o acopio de chatarra al aire libre.',
-        'Almacenamiento de sustancias químicas peligrosas o inflamables.',
-        'Actividades con emanaciones de gases tóxicos o ruidos molestos por sobre la norma ambiental.'
-      ],
-      condicionesEdificacion: 'Edificación continua en zócalo y aislada sobre placa según rasantes OGUC.'
-    },
-    'A': {
-      codigo: 'Zona A',
-      nombreOficial: 'Zona A — Centro Cívico, Institucional y Financiero',
-      articulo: 'Artículo 23 de la Ordenanza Local del Plan Regulador Comunal de Santiago',
-      decretoAprobatorio: 'Resolución N° 26 (D.O. 27/01/1990)',
-      explicacionPrincipioExclusion: 'Principio de exclusión negativa Art. 2.1.24 OGUC.',
-      usosPermitidosDetalle: 'Equipamiento institucional del Estado, sedes corporativas, servicios financieros, comercio central, residencial en edificación continua, turismo y cultura.',
-      usosProhibidosDetallados: [
-        'Industrias y manufacturas de cualquier escala.',
-        'Talleres automotrices pesados, desarmadurías y compraventa de vehículos usados en superficie.',
-        'Grandes bodegas de carga intermodal y actividades agropecuarias.'
-      ],
-      condicionesEdificacion: 'Edificación continua obligatoria respetando alturas de fachada cívica y gálibos patrimoniales.'
-    },
-    'F': {
-      codigo: 'Zona F',
-      nombreOficial: 'Zona F — Parques y Grandes Áreas Verdes Comunales',
-      articulo: 'Artículo 29 de la Ordenanza Local del PRC de Santiago y Art. 59 LGUC',
-      decretoAprobatorio: 'Resolución N° 26 (D.O. 27/01/1990)',
-      explicacionPrincipioExclusion: 'Suelo de utilidad pública protegido por Art. 59 LGUC.',
-      usosPermitidosDetalle: 'Áreas verdes, parques comunales, plazas, paseos peatonales, instalaciones de esparcimiento al aire libre y equipamiento complementario menor.',
-      usosProhibidosDetallados: [
-        'Toda edificación residencial, comercial o industrial permanente que desafecte el uso público del suelo.',
-        'Depósitos de materiales, acopio de escombros y vertederos.',
-        'Playas de estacionamiento comercial que no constituyan mitigación directa del área verde.'
-      ],
-      condicionesEdificacion: 'Edificaciones complementarias menores restringidas a porcentaje mínimo de ocupación de suelo (Art. 2.1.30 OGUC).'
-    },
-    'G': {
-      codigo: 'Zona G',
-      nombreOficial: 'Zona G — Plazas y Espacio Público Peatonal',
-      articulo: 'Artículo 30 de la Ordenanza Local del PRC de Santiago y Art. 2.1.30 OGUC',
-      decretoAprobatorio: 'Resolución N° 26 (D.O. 27/01/1990)',
-      explicacionPrincipioExclusion: 'Destino exclusivo a espacio público y vialidad peatonal.',
-      usosPermitidosDetalle: 'Espacio público, plazas peatonales, mobiliario urbano, áreas verdes y circulaciones.',
-      usosProhibidosDetallados: [
-        'Cualquier edificación privada o comercial permanente.',
-        'Actividades productivas, talleres y bodegaje.',
-        'Cierre perimetral o privación de acceso público.'
-      ],
-      condicionesEdificacion: 'Uso público irrestricto conforme a la OGUC.'
-    },
     'DEFAULT': {
       codigo: 'Zona Regulada PRC',
-      nombreOficial: 'Zona Urbana Regulada por Plan Regulador Comunal de Santiago',
-      articulo: 'Ordenanza Local del Plan Regulador Comunal de Santiago',
-      decretoAprobatorio: 'Resolución N° 26 (D.O. 27/01/1990) y modificaciones vigentes',
-      explicacionPrincipioExclusion: 'De acuerdo al Artículo 2.1.24 de la OGUC, rige el principio de exclusión negativa: todo uso, destino o actividad no enunciado taxativamente como permitido se encuentra legalmente prohibido.',
-      usosPermitidosDetalle: 'Residencial y equipamiento de acuerdo al cuadro de usos de suelo correspondiente.',
+      nombreOficial: 'Zona Urbana Regulada por Plan Regulador Comunal',
+      articulo: 'Ordenanza Local del Plan Regulador Comunal',
+      explicacionPrincipioExclusion: 'De acuerdo al Artículo 2.1.24 de la OGUC, rige el principio de exclusión negativa: todo uso, destino o actividad no enunciado taxativamente como permitido en la respectiva Ordenanza Local se encuentra legalmente prohibido.',
+      usosPermitidosDetalle: 'Residencial y equipamiento de acuerdo al cuadro de usos de suelo de la zona normada.',
       usosProhibidosDetallados: [
         'Industrias molestas, insalubres, contaminantes o peligrosas de cualquier escala.',
-        'Grandes bodegas y centros de acopio sin mitigación vial adecuada.',
+        'Grandes bodegas y centros de acopio mayorista sin mitigación vial adecuada.',
         'Talleres mecánicos pesados y actividades que vulneren los niveles sonoros del D.S. N° 38/2011 MMA.',
         'Cualquier uso de suelo o destino no consignado expresamente como permitido en la respectiva Ordenanza Local (Art. 2.1.24 OGUC).'
       ],
@@ -190,7 +87,7 @@ const ModuloEvaluadorNormativo = (() => {
     if (geom.type === 'Polygon') {
       if (!puntoEnPoligono(pt, geom.coordinates[0])) return false;
       for (let k = 1; k < geom.coordinates.length; k++) {
-        if (puntoEnPoligono(pt, geom.coordinates[k])) return false; // Agujero
+        if (puntoEnPoligono(pt, geom.coordinates[k])) return false;
       }
       return true;
     } else if (geom.type === 'MultiPolygon') {
@@ -211,9 +108,6 @@ const ModuloEvaluadorNormativo = (() => {
     return false;
   }
 
-  /**
-   * Distancia euclidiana aproximada en metros entre dos coordenadas WGS84
-   */
   function distanciaMetros(lng1, lat1, lng2, lat2) {
     const R = 6371000;
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -226,10 +120,9 @@ const ModuloEvaluadorNormativo = (() => {
   }
 
   /**
-   * Realiza la consulta normativa integral de un punto (lat, lng) contra todas las capas cargadas
+   * Consulta normativa espacial 100% DINÁMICA
    */
   function consultarPuntoNormativo(lat, lng, capas = null) {
-    // Salvaguarda si capas no fue provisto
     if (!capas) {
       if (typeof window !== 'undefined') {
         capas = {
@@ -244,6 +137,8 @@ const ModuloEvaluadorNormativo = (() => {
     const res = {
       coordenadas: { lat, lng },
       timestamp: new Date().toISOString(),
+      comunaEspecifica: null,
+      capasConsultadas: [],
       prc: null,
       zonaPRC: null,
       prms: null,
@@ -260,77 +155,101 @@ const ModuloEvaluadorNormativo = (() => {
       disclaimerLegal: TEXTO_DISCLAIMER_LEGAL
     };
 
-    // 1. Zonificación PRC Santiago
-    const capaPRC = capas['minvu_ipt_prc_santiago'];
+    // Registrar dinámicamente todas las capas cargadas evaluadas
+    Object.keys(capas).forEach(k => {
+      const cObj = capas[k];
+      if (cObj && cObj.features) {
+        res.capasConsultadas.push({
+          id: k,
+          nombre: cObj.def?.nombre || k,
+          institucion: cObj.def?.institucion || 'Estado de Chile',
+          archivo: cObj.def?.archivoLocal || 'Capa GeoJSON'
+        });
+      }
+    });
+
+    // 1. División Político-Administrativa (Comuna DPA)
+    const capaDPA = capas['ide_subdere_dpa_comunas'] || capas['capa_bbdd_43'];
+    if (capaDPA && capaDPA.features) {
+      for (let f of capaDPA.features) {
+        if (puntoEnGeometria(lng, lat, f.geometry)) {
+          const props = f.properties || {};
+          const nomCom = props.COMUNA || props.NOM_COMUNA || props.NOM_COM || props.CUT_COM;
+          if (nomCom) res.comunaEspecifica = nomCom;
+          res.dpa = {
+            comuna: nomCom,
+            provincia: props.PROVINCIA || props.NOM_PROV,
+            region: props.REGION || props.NOM_REG,
+            cut: props.CUT_COM || props.CUT_2018 || props.CUT
+          };
+          break;
+        }
+      }
+    }
+
+    // 2. Zonificación PRC Comunal (Dinámica desde geometrías recortadas/integérimas)
+    const capaPRC = capas['minvu_ipt_prc_santiago'] || capas['capa_ipt_prc_comunal'];
     if (capaPRC && capaPRC.features) {
       for (let f of capaPRC.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
-          const zonaRaw = (f.properties.ZONA || f.properties.NOM_ZONA || 'D').trim().toUpperCase();
-          const zonaKey = zonaRaw.replace(/^ZONA\s+/, '')[0] || 'D';
-          const infoDic = DICCIONARIO_NORMATIVO_ZONAS_PRC[zonaKey] || DICCIONARIO_NORMATIVO_ZONAS_PRC['DEFAULT'];
+          const props = f.properties || {};
+          const comunaNom = props.COMUNA || props.COMUNA_ORIGEN || props.NOM_COMUNA || props.NOM_COM || res.comunaEspecifica || 'No especificada';
+          const zonaCod = props.ZONA || props.NOM_ZONA || props.CODIGO || 'Regulada';
+          const zonaNombre = props.NOM_ZONA || props.NOMBRE || props.DESCRIP || `Zona Normativa ${zonaCod}`;
+          const instNom = props.INSTRUM || props.PRC || `Plan Regulador Comunal de ${comunaNom}`;
+          const fechaDO = props.P_DO || props.FECHA_DO || props.FECHA || (props.N_DOC ? `Doc. N° ${props.N_DOC}` : null);
+          const normaDec = props.N_DOC ? `Resolución / Decreto N° ${props.N_DOC}${fechaDO ? ` (D.O. ${fechaDO})` : ''}` : (fechaDO ? `Publicación D.O. ${fechaDO}` : 'Ordenanza Local Vigente');
 
           res.prc = {
-            zona: f.properties.ZONA || f.properties.NOM_ZONA || infoDic.codigo,
-            codigo: zonaKey,
-            nombreZona: f.properties.NOM_ZONA || f.properties.NOMBRE || infoDic.nombreOficial,
-            articuloOrdenanza: infoDic.articulo,
-            decreto: f.properties.P_DO ? `Resolución N° ${f.properties.N_DOC || '26'} (D.O. ${f.properties.P_DO})` : infoDic.decretoAprobatorio,
-            instrumento: f.properties.COMUNA || f.properties.COMUNA_ORIGEN ? `Plan Regulador Comunal (${f.properties.COMUNA || f.properties.COMUNA_ORIGEN})` : 'Plan Regulador Comunal (PRC)',
-            principioExclusion: infoDic.explicacionPrincipioExclusion,
-            usosPermitidos: f.properties.UPERM || infoDic.usosPermitidosDetalle,
-            usosPermitidosDetalle: infoDic.usosPermitidosDetalle,
-            usosProhibidos: (f.properties.UPROH && !f.properties.UPROH.toLowerCase().includes('todo uso no mencionado'))
-              ? f.properties.UPROH
-              : 'Industrias de todo tipo, bodegas masivas de acopio, talleres mecánicos pesados con emanaciones, estaciones de servicio en calles locales, terminales de transporte y actividades molestas.',
-            usosProhibidosDetallados: infoDic.usosProhibidosDetallados,
-            alturaMax: f.properties.ALT_MAX || f.properties.ALTURA || infoDic.condicionesEdificacion,
-            densidadMax: f.properties.DENSIDAD || 'Según norma de zona'
+            comuna: comunaNom,
+            zona: zonaCod,
+            codigo: zonaCod,
+            nombreZona: zonaNombre,
+            instrumento: instNom,
+            decreto: normaDec,
+            fechaPublicacion: fechaDO || 'Consultar Diario Oficial',
+            articuloOrdenanza: props.NORMA || props.ARTICULO || `Ordenanza Local del PRC de ${comunaNom}`,
+            usosPermitidos: props.UPERM || props.USO_PERM || 'Residencial y equipamiento de acuerdo al cuadro de usos de la zona.',
+            usosProhibidos: props.UPROH || props.USO_PROH || 'Industrias molestas, acopio masivo, talleres pesados y todo uso no mencionado expresamente (Art. 2.1.24 OGUC).',
+            alturaMax: props.ALT_MAX || props.ALTURA || props.NORMA || 'Según rasantes y distanciamientos OGUC',
+            densidadMax: props.DENSIDAD || 'Según norma de zona',
+            propiedadesOriginales: props
           };
+
+          if (!res.comunaEspecifica && comunaNom) {
+            res.comunaEspecifica = comunaNom;
+          }
           break;
         }
       }
     }
-
-    // Si no se encontró en la capa pero estamos en Barrio Brasil / Santiago Centro, proveer Zona D por defecto
-    if (!res.prc && lat <= -33.42 && lat >= -33.48 && lng >= -70.70 && lng <= -70.62) {
-      const infoD = DICCIONARIO_NORMATIVO_ZONAS_PRC['D'];
-      res.prc = {
-        zona: infoD.codigo,
-        codigo: 'D',
-        nombreZona: infoD.nombreOficial,
-        articuloOrdenanza: infoD.articulo,
-        decreto: infoD.decretoAprobatorio,
-        instrumento: 'Plan Regulador Comunal de Santiago',
-        principioExclusion: infoD.explicacionPrincipioExclusion,
-        usosPermitidos: infoD.usosPermitidosDetalle,
-        usosPermitidosDetalle: infoD.usosPermitidosDetalle,
-        usosProhibidos: 'Industrias de todo tipo, bodegas de acopio, talleres mecánicos pesados, estaciones de servicio en pasajes y actividades molestas.',
-        usosProhibidosDetallados: infoD.usosProhibidosDetallados,
-        alturaMax: infoD.condicionesEdificacion,
-        densidadMax: 'Según norma de zona'
-      };
-    }
-
-    // Alias para compatibilidad
     res.zonaPRC = res.prc;
 
-    // 2. PRMS Usos Metropolitanos
-    const capaPRMS = capas['minvu_ipt_prms_usosuelo'];
+    // 3. PRMS Usos Metropolitanos (Dinámico)
+    const capaPRMS = capas['minvu_ipt_prms_usosuelo'] || capas['capa_ipt_prms_metropolitano'];
     if (capaPRMS && capaPRMS.features) {
       for (let f of capaPRMS.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
+          const props = f.properties || {};
           res.prms = {
-            macroZona: f.properties.ZONA || f.properties.NOMBRE || 'Zona Metropolitana',
-            tipoUso: f.properties.USO || f.properties.TIPO || 'Área Urbana Consolidada Metropolitano',
-            normativa: 'Capítulo 8.3 PRMS'
+            macroZona: props.ZONA || props.NOMBRE || props.SECTOR || 'Zona Metropolitana',
+            usoPreferente: props.UPREF || props.USO || props.TIPO || 'Área Urbana Metropolitano',
+            tipoUso: props.UPREF || props.USO || 'Uso Metropolitano Intercomunal',
+            normativa: props.NORMA || 'Capítulo 8.3 PRMS',
+            superficieHa: props.SUP_HA ? `${props.SUP_HA} ha` : null,
+            comuna: props.COMUNA || null,
+            propiedadesOriginales: props
           };
+          if (!res.comunaEspecifica && props.COMUNA) {
+            res.comunaEspecifica = props.COMUNA;
+          }
           break;
         }
       }
     }
 
-    // 3. Límite Urbano Oficial
-    const capaLU = capas['minvu_ipt_limite_urbano'] || capas['limite_urbano_censal'];
+    // 4. Límite Urbano Oficial
+    const capaLU = capas['minvu_ipt_limite_urbano'] || capas['limite_urbano_censal'] || capas['capa_ipt_limite_urbano'];
     if (capaLU && capaLU.features) {
       for (let f of capaLU.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
@@ -340,114 +259,90 @@ const ModuloEvaluadorNormativo = (() => {
       }
     }
 
-    // 4. Áreas de Riesgo Normativas (Art. 2.1.17 OGUC)
+    // 5. Áreas de Riesgo Normativas (Art. 2.1.17 OGUC)
     const capaRiesgoPRC = capas['minvu_ipt_areas_riesgo'];
     if (capaRiesgoPRC && capaRiesgoPRC.features) {
       for (let f of capaRiesgoPRC.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
+          const p = f.properties || {};
           res.areasRiesgo.push({
-            tipo: f.properties.CAT || f.properties.NOMBRE || 'Riesgo Natural',
-            norma: f.properties.UPROH || 'Restricción Art. 2.1.17 OGUC',
-            fuente: 'PRC Santiago'
+            tipo: p.CAT || p.NOMBRE || p.ZONA || 'Riesgo Natural',
+            norma: p.UPROH || p.NORMA || 'Restricción Art. 2.1.17 OGUC',
+            fuente: `PRC ${p.COMUNA || p.COM || 'Comunal'}`
           });
         }
       }
     }
 
-    const capaRiesgoPRMS = capas['ide_minvu_ipt_prms_riesgo'];
+    const capaRiesgoPRMS = capas['ide_minvu_ipt_prms_riesgo'] || capas['capa_ipt_prms_riesgo'];
     if (capaRiesgoPRMS && capaRiesgoPRMS.features) {
       for (let f of capaRiesgoPRMS.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
+          const p = f.properties || {};
           res.areasRiesgo.push({
-            tipo: f.properties.ZONA || f.properties.DESCRIP || 'Riesgo Metropolitano',
-            norma: 'Restricción por Falla Geológica / Inundación (PRMS)',
+            tipo: p.ZONA || p.DESCRIP || p.NOMBRE || 'Riesgo Metropolitano',
+            norma: p.NORMA || 'Restricción por Inundación / Falla Geológica (PRMS)',
             fuente: 'PRMS Metropolitano'
           });
         }
       }
     }
 
-    // 5. Áreas Verdes Normativas IPT
+    // 6. Áreas Verdes Normativas IPT
     const capaAV = capas['minvu_ipt_areas_verdes'];
     if (capaAV && capaAV.features) {
       for (let f of capaAV.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
+          const p = f.properties || {};
           res.areasVerdes.push({
-            nombre: f.properties.NOMBRE || 'Área Verde Normada',
-            tipo: f.properties.TIPO_AV || 'Plaza / Parque',
-            superficie: f.properties.Ha ? `${Number(f.properties.Ha).toFixed(2)} ha` : '-'
+            nombre: p.NOMBRE || 'Área Verde Normada',
+            tipo: p.TIPO_AV || p.TIPO || 'Plaza / Parque',
+            superficie: p.Ha ? `${Number(p.Ha).toFixed(2)} ha` : '-'
           });
         }
       }
     }
 
-    // 6. Patrimonio e Inmuebles de Conservación Histórica
+    // 7. Patrimonio e Inmuebles protegidos
     const capaPatrimonio = capas['minvu_patrimonio'] || capas['cmn_sitios_memoria'];
     if (capaPatrimonio && capaPatrimonio.features) {
       for (let f of capaPatrimonio.features) {
+        const p = f.properties || {};
         if (f.geometry.type === 'Point') {
           const coords = f.geometry.coordinates;
           const dist = distanciaMetros(lng, lat, coords[0], coords[1]);
-          if (dist <= 80) {
+          if (dist <= 100) {
             res.patrimonio.push({
-              nombre: f.properties.NOMBRE || f.properties.name || 'Inmueble Patrimonial',
-              categoria: f.properties.CATEGORIA || f.properties.TIPO || 'ICH / Monumento',
+              nombre: p.NOMBRE || p.name || 'Inmueble Patrimonial',
+              categoria: p.CATEGORIA || p.TIPO || 'ICH / Monumento',
               distanciaMetros: Math.round(dist)
             });
           }
         } else if (puntoEnGeometria(lng, lat, f.geometry)) {
           res.patrimonio.push({
-            nombre: f.properties.NOMBRE || 'Zona de Conservación Histórica (ZCH)',
-            categoria: 'ZCH Normada por IPT',
+            nombre: p.NOMBRE || 'Zona de Conservación Histórica (ZCH)',
+            categoria: p.CATEGORIA || 'Zona Protegida IPT',
             distanciaMetros: 0
           });
         }
       }
     }
 
-    // 7. Unidades Vecinales & RSH (Priorizando BIDAT 2026 bajo Ley N° 19.418)
-    const capaUV = capas['unidades_vecinales_bidat'] || capas['ide_minvu_unidades_vecinales_rsh'] || capas['capa_66'] || capas['bbdd_66'];
+    // 8. Unidad Vecinal Oficial (RSH)
+    const capaUV = capas['ide_minvu_unidades_vecinales_rsh'] || capas['capa_unidades_vecinales_bidat'];
     if (capaUV && capaUV.features) {
       for (let f of capaUV.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {
+          const p = f.properties || {};
           res.unidadVecinal = {
-            numero: f.properties.t_uv_nom || f.properties.uv_carto || f.properties.OBJECTID || f.properties.id_uv || 'S/N',
-            comuna: f.properties.t_com_nom || f.properties.comuna || 'Santiago',
-            provincia: f.properties.t_prov_nom || f.properties.provincia || 'Santiago',
-            idCartografico: f.properties.t_id_uv_ca || f.properties.id_uv || f.properties.uv_carto || 'N/A'
+            numero: p.uv_carto || p.t_uv_nom || p.OBJECTID || 'S/N',
+            comuna: p.t_com_nom || p.COMUNA || res.comunaEspecifica || 'Metropolitana',
+            provincia: p.t_prov_nom || '-'
           };
-          break;
-        }
-      }
-    }
-
-    // 8. Proximidad a Campamentos, Humedales y Condominios Sociales (buffer de 500m)
-    const capaCamp = capas['ide_minvu_campamentos'];
-    if (capaCamp && capaCamp.features) {
-      for (let f of capaCamp.features) {
-        if (f.geometry && f.geometry.type === 'Point') {
-          const c = f.geometry.coordinates;
-          const dist = distanciaMetros(lng, lat, c[0], c[1]);
-          if (dist <= 1000) {
-            res.campamentosCercanos.push({
-              nombre: f.properties.Nombre_Campamento || f.properties.NOMBRE || 'Campamento',
-              hogares: f.properties.N_HOGARES || f.properties.HOGARES || '-',
-              distanciaM: Math.round(dist)
-            });
+          if (!res.comunaEspecifica && p.t_com_nom) {
+            res.comunaEspecifica = p.t_com_nom;
           }
-        }
-      }
-    }
-
-    const capaHum = capas['ide_minvu_inventario_humedales'];
-    if (capaHum && capaHum.features) {
-      for (let f of capaHum.features) {
-        if (puntoEnGeometria(lng, lat, f.geometry)) {
-          res.humedalesCercanos.push({
-            nombre: f.properties.nombre_humedal || f.properties.nombre || 'Humedal Urbano',
-            tipo: f.properties.tipo_humedal || 'Humedal Ley 21.202',
-            enPoligono: true
-          });
+          break;
         }
       }
     }
@@ -456,118 +351,72 @@ const ModuloEvaluadorNormativo = (() => {
   }
 
   /**
-   * Motor de Evaluación Cruzada: Contrasta capas VGI comunitarias con la zonificación oficial
+   * Evalúa la compatibilidad de uso VGI vs Zonificación Oficial en tiempo real
    */
-  function evaluarCompatibilidadVGI(capasVGI, capaPRC, capasRiesgo = []) {
-    const estadisticas = {
-      totalEntidades: 0,
-      compatibles: 0,
-      incompatibles: 0,
-      enZonaRiesgo: 0,
-      detalles: []
-    };
-
-    if (!capaPRC || !capaPRC.features) {
-      return estadisticas;
+  function evaluarCompatibilidadVGI(tipoActividadVGI, informeNormativo) {
+    const prc = informeNormativo.prc;
+    if (!prc) {
+      return {
+        compatible: true,
+        calificacion: 'SIN RESTRICCIÓN PRC REGISTRADA',
+        fundamentoLegal: 'El punto consultado no registra zonificación PRC activa en la cobertura o se ubica fuera del límite urbano consolidado.',
+        mitigacionesRequeridas: []
+      };
     }
 
-    Object.keys(capasVGI).forEach(catId => {
-      const gj = capasVGI[catId];
-      if (!gj || !gj.features) return;
+    const actLower = String(tipoActividadVGI || '').toLowerCase();
+    const uProhLower = String(prc.usosProhibidos || '').toLowerCase();
+    const uPermLower = String(prc.usosPermitidos || '').toLowerCase();
 
-      gj.features.forEach(feat => {
-        if (!feat || !feat.geometry) return;
-        estadisticas.totalEntidades++;
+    // Verificación de prohibiciones explícitas
+    const esProhibido = uProhLower.includes(actLower) || 
+      (actLower.includes('taller') && uProhLower.includes('taller')) ||
+      (actLower.includes('industria') && uProhLower.includes('industria')) ||
+      (actLower.includes('bodega') && uProhLower.includes('bodega'));
 
-        let lng, lat;
-        if (feat.geometry.type === 'Point') {
-          lng = feat.geometry.coordinates[0];
-          lat = feat.geometry.coordinates[1];
-        } else if (feat.geometry.type === 'Polygon') {
-          lng = feat.geometry.coordinates[0][0][0];
-          lat = feat.geometry.coordinates[0][0][1];
-        } else {
-          return;
-        }
+    if (esProhibido) {
+      return {
+        compatible: false,
+        calificacion: 'INCOMPATIBLE / PROHIBIDO (Art. 2.1.24 OGUC)',
+        fundamentoLegal: `De acuerdo al Principio de Exclusión Negativa del Art. 2.1.24 de la OGUC y la Ordenanza Local del ${prc.instrumento}, el destino "${tipoActividadVGI}" está expresamente prohibido en la ${prc.zona}.`,
+        mitigacionesRequeridas: ['Revisar cambio de destino en DOM', 'No procede tramitación de CIP favorable']
+      };
+    }
 
-        const props = feat.properties || {};
-        const nombre = props.name || props.nombre || props.amenity || props.shop || 'Entidad VGI';
-        const subtipo = props.amenity || props.shop || props.highway || props.building || catId;
+    const esPermitido = uPermLower.includes(actLower) || 
+      (actLower.includes('comercio') && uPermLower.includes('comercio')) ||
+      (actLower.includes('vivienda') && uPermLower.includes('vivienda')) ||
+      (actLower.includes('educacion') && uPermLower.includes('educacion'));
 
-        // Encontrar zona PRC
-        let zonaNorma = null;
-        for (let z of capaPRC.features) {
-          if (puntoEnGeometria(lng, lat, z.geometry)) {
-            zonaNorma = z.properties;
-            break;
-          }
-        }
+    if (esPermitido) {
+      return {
+        compatible: true,
+        calificacion: 'COMPATIBLE / PERMITIDO (UPERM)',
+        fundamentoLegal: `El uso o destino "${tipoActividadVGI}" se encuentra considerado dentro de los usos permitidos (UPERM) para la ${prc.zona} en el ${prc.instrumento}.`,
+        mitigacionesRequeridas: ['Acreditar cumplimiento de rasantes y distanciamientos (Art. 2.6.3 OGUC)', 'Cumplir norma de emisiones acústicas D.S. N° 38/2011 MMA']
+      };
+    }
 
-        // Evaluar riesgo
-        let enRiesgo = false;
-        let tipoRiesgo = null;
-        for (let cr of capasRiesgo) {
-          if (cr && cr.features) {
-            for (let rf of cr.features) {
-              if (puntoEnGeometria(lng, lat, rf.geometry)) {
-                enRiesgo = true;
-                tipoRiesgo = rf.properties.CAT || rf.properties.ZONA || 'Riesgo Normado';
-                break;
-              }
-            }
-          }
-          if (enRiesgo) break;
-        }
-
-        if (enRiesgo) {
-          estadisticas.enZonaRiesgo++;
-        }
-
-        // Determinar compatibilidad heurística según UPERM / UPROH
-        let estado = 'COMPATIBLE';
-        if (zonaNorma) {
-          const uproh = (zonaNorma.UPROH || '').toLowerCase();
-          if (uproh.includes(subtipo.toLowerCase())) {
-            estado = 'INCOMPATIBLE';
-            estadisticas.incompatibles++;
-          } else {
-            estadisticas.compatibles++;
-          }
-        } else {
-          estadisticas.compatibles++;
-        }
-
-        estadisticas.detalles.push({
-          nombre,
-          subtipo,
-          categoria: catId,
-          coordenadas: [lat, lng],
-          zonaPRC: zonaNorma ? (zonaNorma.ZONA || zonaNorma.NOM_ZONA) : 'Sin Zonificación',
-          estado,
-          enRiesgo,
-          tipoRiesgo
-        });
-      });
-    });
-
-    return estadisticas;
+    return {
+      compatible: false,
+      calificacion: 'RESTRICCIÓN POR EXCLUSIÓN (Art. 2.1.24 OGUC)',
+      fundamentoLegal: `Principio de exclusión negativa Art. 2.1.24 OGUC: La actividad "${tipoActividadVGI}" no aparece expresamente listada en los usos permitidos de la ${prc.zona} (${prc.instrumento}), por lo que se presume legalmente prohibida.`,
+      mitigacionesRequeridas: ['Solicitar pronunciamiento formal a la Dirección de Obras Municipales (DOM)']
+    };
   }
 
   /**
-   * Genera el contenido formateado del Certificado de Informaciones Normativas VGI (CIN-VGI)
+   * Genera el contenido formateado del Certificado CIN-VGI en formato texto (.txt)
    */
   function generarCertificadoTexto(informe) {
     const c = informe.coordenadas;
-    const prc = informe.prc || {};
-    const prms = informe.prms || {};
-    const uv = informe.unidadVecinal || {};
-    const prohibidosLista = prc.usosProhibidosDetallados || [
-      'Actividades Productivas e Industriales: Industrias de todo tipo (peligrosas, insalubres, contaminantes y molestas), fábricas y maestranzas.',
-      'Almacenamiento y Logística: Grandes bodegas de acopio mayorista y centros de distribución logística.',
-      'Servicios Automotrices de Alto Impacto: Estaciones de servicio en calles locales, talleres de desabolladura y pintura al horno, desarmadurías.',
-      'Transporte: Terminales de buses interurbanos o rurales y terminales de camiones de alto tonelaje.',
-      'Esparcimiento Ruidoso: Discotecas y salas de eventos con música amplificada colindantes con viviendas (D.S. N° 38/2011 MMA).'
-    ];
+    const prc = informe.prc;
+    const prms = informe.prms;
+    const uv = informe.unidadVecinal;
+    const comuna = informe.comunaEspecifica || (prc ? prc.comuna : 'Región Metropolitana');
+
+    let txtCapas = (informe.capasConsultadas || []).map(cp => `    * [CAPA]: ${cp.nombre} | Institución: ${cp.institucion} | Archivo: ${cp.archivo}`).join('\n');
+    if (!txtCapas) txtCapas = '    * [CAPAS]: Capas oficiales de la Región Metropolitana cargadas en memoria.';
 
     return `================================================================================
 REPÚBLICA DE CHILE — UNIVERSIDAD ALBERTO HURTADO
@@ -576,140 +425,141 @@ CERTIFICADO DE INFORMACIONES NORMATIVAS VGI (CIN-VGI)
 Ley General de Urbanismo y Construcciones (DFL 458/1975) & OGUC (D.S. 47/1992)
 ================================================================================
 
-1. ANTECEDENTES DE LA CONSULTA TERRITORIAL:
+1. ANTECEDENTES DE LA CONSULTA TERRITORIAL DINÁMICA:
    - Fecha y Hora de Emisión: ${new Date().toLocaleString('es-CL')}
    - Coordenadas WGS84: Latitud ${c.lat.toFixed(5)}° S, Longitud ${c.lng.toFixed(5)}° O
    - Sistema Geodésico de Referencia: SIRGAS-Chile / WGS84 (EPSG:4326)
-   - Proyección Cartográfica Local: UTM Huso 19 Sur (EPSG:32719)
-   - Territorio Piloto: Barrio Brasil / Sector Poniente, Comuna de Santiago
+   - Comuna Evaluada: ${comuna}
+   - Unidad Vecinal Oficial: ${uv ? `U.V. N° ${uv.numero} (${uv.comuna})` : 'Información no asociada'}
 
-2. ENCUADRE EN PLANES REGULADORES OFICIALES Y ORDENANZAS LOCALES:
-   - Comuna: ${uv.comuna || 'Santiago'}
-   - Unidad Vecinal Oficial: ${uv.numero ? `Unidad Vecinal N° ${uv.numero}` : 'Sector Centro Poniente'}
-   - Límite Urbano Oficial: ${informe.limiteUrbano ? 'DENTRO DEL LÍMITE URBANO OFICIAL (Art. 52 LGUC)' : 'FUERA DE LÍMITE URBANO / CONDICIÓN ESPECIAL'}
-   - Instrumento Comunal: ${prc.instrumento || 'Plan Regulador Comunal de Santiago'}
-   - Zonificación Normativa: ${prc.zona || 'Zona D'} (${prc.nombreZona || 'Residencial Mixta Poniente'})
-   - Artículo Aplicable: ${prc.articuloOrdenanza || 'Artículo 26 de la Ordenanza Local del PRC de Santiago'}
-   - Decreto / Aprobación D.O.: ${prc.decreto || 'Resolución N° 26 (D.O. 27/01/1990) y modificaciones vigentes'}
-   - Macro-Zonificación Metropolitano (PRMS): ${prms.macroZona || 'Área Urbana Consolidada Metropolitano (Cap. 8.3 PRMS)'}
+2. CAPAS E INSTRUMENTOS CONSULTADOS EN ESTA UBICACIÓN:
+${txtCapas}
 
-3. CONDICIONES URBANÍSTICAS, USOS DE SUELO Y ANÁLISIS DETALLADO DE PROHIBICIONES:
+3. ENCUADRE NORMATIVO EN PLANES REGULADORES OFICIALES:
+   - Límite Urbano Oficial: ${informe.limiteUrbano ? 'DENTRO DEL LÍMITE URBANO OFICIAL (Art. 52 LGUC)' : 'ÁREA DE EXTENSIÓN URBANA O CONDICIÓN ESPECIAL'}
+   - Instrumento Comunal (PRC): ${prc ? prc.instrumento : 'Sin zonificación comunal específica en la cobertura'}
+   - Zonificación PRC: ${prc ? `${prc.zona} — ${prc.nombreZona}` : 'Sin datos de zona en el punto'}
+   - Decreto / Aprobación D.O.: ${prc ? prc.decreto : 'No indicado'}
+   - Macro-Zonificación Metropolitano (PRMS): ${prms ? `${prms.macroZona} (${prms.usoPreferente})` : 'Área Urbana Metropolitano'}
+
+4. CONDICIONES URBANÍSTICAS Y USOS DE SUELO (DESGLOSE DE DATOS ORIGINALES):
    - Usos de Suelo Permitidos (UPERM):
-     ${prc.usosPermitidosDetalle || prc.usosPermitidos || 'Residencial (vivienda unifamiliar/colectiva), equipamiento vecinal (comercio, educación básica, salud ambulatoria, servicios inofensivos), áreas verdes.'}
+     ${prc ? prc.usosPermitidos : 'No aplica'}
+
+   - Usos Expresamente Prohibidos (UPROH):
+     ${prc ? prc.usosProhibidos : 'No aplica'}
 
    - Principio de Exclusión Negativa (Art. 2.1.24 OGUC):
-     En el ordenamiento urbanístico chileno rige el principio de especialidad y legalidad:
-     "TODO USO, DESTINO O ACTIVIDAD NO MENCIONADO EXPRESAMENTE COMO PERMITIDO SE ENTIENDE PROHIBIDO" (Art. 2.1.24 OGUC).
+     "Todo uso, destino o actividad no mencionado expresamente como permitido en la Ordenanza Local se entiende legalmente prohibido."
 
-   - Usos Expresamente Prohibidos para esta Zona (UPROH Detallado):
-     ${prohibidosLista.map(item => `* [PROHIBIDO] ${item}`).join('\n     ')}
+   - Condiciones de Edificación y Rasantes:
+     ${prc ? prc.alturaMax : 'Regulado por OGUC'}
 
-   - Condiciones de Edificación, Rasantes y Agrupamiento:
-     ${prc.alturaMax || 'Regulado por rasantes y distanciamientos (Art. 2.6.3 OGUC) o altura de fachada continua según tramo vial.'}
-
-4. GRAVÁMENES, RESTRICCIONES Y SALVAGUARDAS NORMATIVAS:
-   - Afectación por Áreas de Riesgo Natural (Art. 2.1.17 OGUC):
-     ${informe.areasRiesgo.length > 0 ? informe.areasRiesgo.map(r => `* [ALERTA] ${r.tipo}: ${r.norma} (Fuente: ${r.fuente})`).join('\n     ') : 'NINGUNA RESTRICCIÓN POR RIESGO REGISTRADA EN EL EMPLAZAMIENTO.'}
+5. GRAVÁMENES Y RESTRICCIONES NORMATIVAS:
+   - Áreas de Riesgo Natural (Art. 2.1.17 OGUC):
+     ${informe.areasRiesgo.length > 0 ? informe.areasRiesgo.map(r => `* [ALERTA] ${r.tipo}: ${r.norma} (${r.fuente})`).join('\n     ') : 'Ninguna restricción por riesgo registrada en esta ubicación.'}
    - Declaratoria de Utilidad Pública / Áreas Verdes (Art. 59 LGUC):
-     ${informe.areasVerdes.length > 0 ? informe.areasVerdes.map(a => `* ${a.nombre} (${a.tipo} - ${a.superficie})`).join('\n     ') : 'Punto no afecto a declaratoria de parque o área verde de utilidad pública.'}
+     ${informe.areasVerdes.length > 0 ? informe.areasVerdes.map(a => `* ${a.nombre} (${a.tipo} - ${a.superficie})`).join('\n     ') : 'Punto no afecto a declaratoria de parque de utilidad pública.'}
    - Protección Patrimonial (ZCH / ICH / Ley N° 17.288 CMN):
-     ${informe.patrimonio.length > 0 ? informe.patrimonio.map(p => `* 🏛️ ${p.nombre} [${p.categoria}] (Distancia: ${p.distanciaMetros === 0 ? 'En zona protegida' : `${p.distanciaMetros} m`})`).join('\n     ') : 'Fuera del perímetro inmediato de Zona de Conservación Histórica.'}
-   - Inventario Nacional de Humedales Urbanos (Ley N° 21.202):
-     ${informe.humedalesCercanos.length > 0 ? informe.humedalesCercanos.map(h => `* ${h.nombre} (${h.tipo})`).join('\n     ') : 'Sin humedales urbanos inventariados en el radio de influencia directa.'}
-
-5. CATÁLOGO DE ORDENANZAS OFICIALES Y GUÍA DE ACCESO CIUDADANO:
-   Para consultar, verificar y descargar el texto legal íntegro, ordenanzas, memorias y planos oficiales:
-   * Portal IPT MINVU (Expediente Oficial PRC Santiago — Código IPT 13101):
-     https://portalipt.minvu.cl/instrumentos/13101
-     (Descarga de Ordenanza Local en PDF, Memoria Explicativa y Planos Oficiales 1:5.000).
-   * Dirección de Obras Municipales (DOM) — I. Municipalidad de Santiago:
-     https://www.munistgo.cl/plan-regulador/
-     Dirección física para tramitación de CIP: Amunátegui 980, piso 2, Santiago Centro.
-   * Biblioteca del Congreso Nacional (LeyChile):
-     https://www.bcn.cl/leychile/navegar?idNorma=13560
-     (Texto íntegro actualizado de la LGUC DFL N° 458 y OGUC D.S. N° 47).
-   * Infraestructura de Datos Geoespaciales de Chile (Geoportal / IDE Chile):
-     https://www.geoportal.cl
+     ${informe.patrimonio.length > 0 ? informe.patrimonio.map(p => `* 🏛️ ${p.nombre} [${p.categoria}] (${p.distanciaMetros === 0 ? 'En zona protegida' : `${p.distanciaMetros} m`})`).join('\n     ') : 'Fuera del perímetro inmediato de conservación histórica.'}
 
 6. AVISO LEGAL:
 ${TEXTO_DISCLAIMER_LEGAL}
 
 ================================================================================
-Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territorial.
+Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información Territorial.
 ================================================================================`;
   }
 
   /**
-   * Genera el HTML para desplegar en el modal o HUD del Atlas
+   * Renderiza el HTML dinámico de la Ficha Normativa (Modal / HUD)
    */
   function renderizarFichaNormativaHTML(inf) {
     const c = inf.coordenadas;
     const prc = inf.prc;
+    const prms = inf.prms;
     const tieneRiesgo = inf.areasRiesgo.length > 0;
     const esUrbano = inf.limiteUrbano;
-    const prohibidosLista = (prc && prc.usosProhibidosDetallados) ? prc.usosProhibidosDetallados : [
-      'Industrias de todo tipo (peligrosas, insalubres, contaminantes y molestas), fábricas y maestranzas.',
-      'Almacenamiento y Logística: Grandes bodegas de acopio mayorista y centros de distribución logística.',
-      'Servicios Automotrices de Alto Impacto: Estaciones de servicio en calles locales, talleres de desabolladura y pintura al horno, desarmadurías.',
-      'Transporte: Terminales de buses interurbanos o rurales y terminales de camiones de alto tonelaje.',
-      'Esparcimiento Ruidoso: Discotecas y salas de eventos con música amplificada colindantes con viviendas (D.S. N° 38/2011 MMA).'
-    ];
+    const comuna = inf.comunaEspecifica || (prc ? prc.comuna : 'Región Metropolitana');
+
+    let htmlCapas = (inf.capasConsultadas || []).map(cp => `
+      <div style="background:rgba(255,255,255,0.04); border:1px solid var(--linea-tarjeta); border-radius:6px; padding:6px 10px; font-size:0.82rem;">
+        <strong style="color:var(--agua);">${cp.nombre}</strong> <span style="color:var(--tinta-tenue);">(${cp.institucion})</span>
+      </div>
+    `).join('');
 
     return `
       <div class="ficha-normativa-hud">
-        <!-- Encabezado de Estado y Geolocalización -->
+        <!-- Encabezado de Geolocalización -->
         <div class="ficha-normativa-header">
           <span class="badge-alerta-normativa ${tieneRiesgo ? 'peligro' : 'seguro'}">
-            ${tieneRiesgo ? '⚠️ ATENCIÓN: ÁREA AFECTA A RESTRICCIÓN DE RIESGO NATURAL (Art. 2.1.17 OGUC)' : '✅ CONFORME A NORMATIVA VGI (SIN GRAVAMEN DE RIESGO)'}
+            ${tieneRiesgo ? '⚠️ ATENCIÓN: ÁREA AFECTA A RESTRICCIÓN DE RIESGO NATURAL (Art. 2.1.17 OGUC)' : '✅ CONSULTA EVALUADA (SIN GRAVAMEN DE RIESGO)'}
           </span>
           <span class="ficha-normativa-id">
-            📍 LAT ${c.lat.toFixed(5)}° S | LON ${c.lng.toFixed(5)}° O // SIRGAS-Chile / WGS84 (EPSG:4326)
+            📍 LAT ${c.lat.toFixed(5)}° S | LON ${c.lng.toFixed(5)}° O // COMUNA: <strong>${comuna.toUpperCase()}</strong>
           </span>
         </div>
 
         <div class="ficha-normativa-cuerpo">
-          <!-- Tarjeta 1: Instrumento Regulador y Zonificación PRC -->
-          <div class="caja-tarjeta-normativa">
-            <span class="etiqueta-normativa-card">🏛️ Instrumento Regulador & Zonificación Comunal:</span>
-            <div class="valor-normativo-destacado">${prc ? prc.zona : 'Zona D'} — ${prc ? prc.nombreZona : 'Residencial Mixta Poniente'}</div>
-            <div class="meta-ordenanza-prc" style="margin-top:6px; font-size:0.92rem; color:var(--tinta-suave); line-height:1.6;">
-              📜 <strong>Ordenanza Local:</strong> ${prc && prc.articuloOrdenanza ? prc.articuloOrdenanza : 'Artículo 26 de la Ordenanza Local del PRC de Santiago'}
-              <br>⚖️ <strong>Decreto / Aprobación D.O.:</strong> ${prc && prc.decreto ? prc.decreto : 'Resolución N° 26 (D.O. 27/01/1990) y modificaciones vigentes'}
+
+          <!-- Tarjeta 1: Capas e Instrumentos Consultados -->
+          <div class="caja-tarjeta-normativa" style="border-left:4px solid var(--agua);">
+            <span class="etiqueta-normativa-card" style="color:var(--agua);">📖 Capas e Instrumentos Integrados Evaluados en este Punto:</span>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:6px; margin-top:8px;">
+              ${htmlCapas || '<span style="font-size:0.85rem; color:var(--tinta-suave);">Capas oficiales cargadas en memoria.</span>'}
             </div>
+          </div>
+
+          <!-- Tarjeta 2: Instrumento Regulador y Zonificación PRC -->
+          <div class="caja-tarjeta-normativa">
+            <span class="etiqueta-normativa-card">🏛️ Instrumento Regulador & Zonificación Comunal (${comuna}):</span>
+            ${prc ? `
+              <div class="valor-normativo-destacado">${prc.zona} — ${prc.nombreZona}</div>
+              <div class="meta-ordenanza-prc" style="margin-top:6px; font-size:0.92rem; color:var(--tinta-suave); line-height:1.6;">
+                📜 <strong>Instrumento:</strong> ${prc.instrumento}<br>
+                ⚖️ <strong>Decreto / Publicación:</strong> ${prc.decreto}<br>
+                📑 <strong>Artículo / Norma:</strong> ${prc.articuloOrdenanza}
+              </div>
+            ` : `
+              <div style="padding:10px; background:rgba(245, 158, 11, 0.1); border-radius:6px; font-size:0.9rem; color:var(--ocre); margin-top:6px;">
+                ⚠️ <strong>Sin zonificación comunal PRC activa registrada en la ubicación exacta.</strong>
+                <br><span style="font-size:0.82rem; color:var(--tinta-suave);">El punto se ubica fuera del área urbana zonificada del PRC o en sector rural/intercomunal regulado por el PRMS.</span>
+              </div>
+            `}
             <div class="grilla-2col-normativa" style="margin-top:12px; padding-top:12px; border-top:1px dashed var(--linea);">
               <div>
                 <span style="font-size:0.8rem; color:var(--tinta-tenue); display:block; text-transform:uppercase; font-weight:700;">Límite Urbano Oficial (Art. 52 LGUC):</span>
                 <strong style="color:${esUrbano ? '#34d399' : '#f59e0b'}; font-size:0.95rem;">${esUrbano ? '✅ Dentro del Límite Urbano Oficial' : '⚠️ Área de Extensión / Condición Especial'}</strong>
               </div>
-              ${inf.unidadVecinal ? `
+              ${prms ? `
                 <div>
-                  <span style="font-size:0.8rem; color:var(--tinta-tenue); display:block; text-transform:uppercase; font-weight:700;">Unidad Vecinal Oficial (RSH / MDS):</span>
-                  <strong style="color:var(--tinta); font-size:0.95rem;">U.V. N° ${inf.unidadVecinal.numero} (${inf.unidadVecinal.comuna})</strong>
+                  <span style="font-size:0.8rem; color:var(--tinta-tenue); display:block; text-transform:uppercase; font-weight:700;">Plan Regulador Metropolitano (PRMS):</span>
+                  <strong style="color:var(--tinta); font-size:0.95rem;">${prms.macroZona} (${prms.usoPreferente})</strong>
                 </div>
               ` : ''}
             </div>
           </div>
 
-          <!-- Tarjeta 2: Usos de Suelo Permitidos (UPERM) -->
+          <!-- Tarjeta 3: Usos de Suelo Permitidos (UPERM) -->
           <div class="caja-tarjeta-normativa caja-permitidos">
-            <span class="etiqueta-normativa-card" style="color:#34d399;">✅ Usos de Suelo Permitidos (UPERM):</span>
-            <p class="texto-normativo permitido" style="margin:6px 0 0 0; font-size:0.96rem; color:var(--tinta-suave); line-height:1.65;">
-              ${prc ? (prc.usosPermitidosDetalle || prc.usosPermitidos) : 'Residencial (vivienda unifamiliar/colectiva), equipamiento vecinal (comercio minorista hasta 250 m², educación básica, salud ambulatoria, servicios inofensivos), áreas verdes públicas y espacios comunitarios.'}
+            <span class="etiqueta-normativa-card" style="color:#34d399;">✅ Usos de Suelo Permitidos (UPERM - Atributos de Capa):</span>
+            <p class="texto-normativo permitido" style="margin:6px 0 0 0; font-size:0.94rem; color:var(--tinta-suave); line-height:1.65;">
+              ${prc ? prc.usosPermitidos : 'No hay datos de UPERM registados para esta ubicación.'}
             </p>
           </div>
 
-          <!-- Tarjeta 3: Usos Prohibidos (UPROH - Exclusión Negativa Art. 2.1.24 OGUC) -->
+          <!-- Tarjeta 4: Usos Prohibidos (UPROH - OGUC Art. 2.1.24) -->
           <div class="caja-tarjeta-normativa caja-prohibidos">
-            <span class="etiqueta-normativa-card" style="color:#fbbf24;">🚫 Usos Expresamente Prohibidos (UPROH) & Principio de Exclusión Negativa (Art. 2.1.24 OGUC):</span>
-            <div style="background:rgba(245, 158, 11, 0.12); border:1.5px solid var(--ocre); border-radius:8px; padding:12px; margin:8px 0 12px 0; font-size:0.88rem; color:var(--tinta-suave);">
-              ⚖️ <em>"Todo uso, destino o actividad que no se encuentre expresamente individualizado como permitido en la Ordenanza Local se entiende legalmente prohibido" (Art. 2.1.24 OGUC). En específico, para esta zona rigen las siguientes prohibiciones taxativas:</em>
+            <span class="etiqueta-normativa-card" style="color:#fbbf24;">🚫 Usos Expresamente Prohibidos (UPROH) & Exclusión Negativa (Art. 2.1.24 OGUC):</span>
+            <div style="background:rgba(245, 158, 11, 0.12); border:1.5px solid var(--ocre); border-radius:8px; padding:10px; margin:8px 0 8px 0; font-size:0.86rem; color:var(--tinta-suave);">
+              ⚖️ <em>"Todo uso, destino o actividad que no se encuentre expresamente individualizado como permitido en la Ordenanza Local se entiende legalmente prohibido" (Art. 2.1.24 OGUC).</em>
             </div>
-            <ul class="lista-riesgos lista-prohibidos" style="margin:0; padding-left:20px; color:var(--tinta-suave); font-size:0.92rem; line-height:1.65;">
-              ${prohibidosLista.map(item => `<li style="margin-bottom:6px;">❌ <strong>${item}</strong></li>`).join('')}
-            </ul>
+            <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave); line-height:1.6;">
+              ${prc ? prc.usosProhibidos : 'No hay datos de UPROH registrados en esta ubicación.'}
+            </p>
           </div>
 
-          <!-- Tarjeta 4: Gravámenes y Zonas de Riesgo Natural (Art. 2.1.17 OGUC) -->
+          <!-- Tarjeta 5: Gravámenes por Riesgo Natural (Art. 2.1.17 OGUC) -->
           <div class="caja-tarjeta-normativa ${tieneRiesgo ? 'caja-riesgo' : ''}">
             <span class="etiqueta-normativa-card" style="color:${tieneRiesgo ? '#f87171' : '#34d399'};">
               ${tieneRiesgo ? '⚠️ Gravamen por Riesgo Natural & Falla Geológica (Art. 2.1.17 OGUC):' : '🛡️ Evaluación de Riesgo Natural (Art. 2.1.17 OGUC):'}
@@ -720,40 +570,23 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
               </ul>
             ` : `
               <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave);">
-                ✅ El punto consultado se encuentra <strong>libre de afección por zonas de riesgo natural</strong> (inundación, remoción en masa o fallas geológicas normadas en Art. 2.1.17 OGUC).
+                ✅ El punto consultado no registra interferencia por áreas de riesgo natural en las capas oficiales evaluadas.
               </p>
             `}
           </div>
 
-          <!-- Tarjeta 5: Protección Patrimonial (ZCH / ICH / Ley 17.288) -->
+          <!-- Tarjeta 6: Protección Patrimonial (ICH / ZCH) -->
           <div class="caja-tarjeta-normativa caja-patrimonio">
-            <span class="etiqueta-normativa-card" style="color:#c084fc;">🏛️ Protección Patrimonial Normativa (ICH / ZCH / Ley N° 17.288 CMN):</span>
+            <span class="etiqueta-normativa-card" style="color:#c084fc;">🏛️ Protección Patrimonial (ICH / ZCH / Ley N° 17.288 CMN):</span>
             ${inf.patrimonio.length > 0 ? `
               <ul class="lista-patrimonio" style="margin:6px 0 0 0; padding-left:20px; color:var(--tinta-suave); font-size:0.92rem;">
                 ${inf.patrimonio.map(p => `<li>🏛️ <strong>${p.nombre}</strong> (${p.categoria}) — ${p.distanciaMetros === 0 ? 'En zona protegida' : `A ${p.distanciaMetros} m de distancia`}</li>`).join('')}
               </ul>
             ` : `
               <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave);">
-                Fuera del perímetro inmediato de Inmuebles o Zonas de Conservación Histórica declaradas.
+                Sin declaración patrimonial registrada en el punto consultado.
               </p>
             `}
-          </div>
-
-          <!-- Tarjeta 6: Catálogo de Fuentes y Ordenanzas Oficiales -->
-          <div class="caja-tarjeta-normativa caja-fuentes">
-            <span class="etiqueta-normativa-card" style="color:#38bdf8;">📖 Expedientes Digitales y Ordenanzas Oficiales del Estado:</span>
-            <div class="grilla-2col-normativa" style="margin-top:10px;">
-              <div style="background:rgba(56, 189, 248, 0.08); border:1px solid var(--linea-tarjeta); border-radius:8px; padding:12px;">
-                <strong style="color:var(--agua); font-size:0.9rem;">Portal IPT MINVU (Código 13101):</strong><br>
-                <span style="font-size:0.82rem; color:var(--tinta-suave);">Texto PDF de Ordenanza Local, Memoria y Planos 1:5.000.</span><br>
-                <a href="https://portalipt.minvu.cl/instrumentos/13101" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;">portalipt.minvu.cl/instrumentos/13101 ↗</a>
-              </div>
-              <div style="background:rgba(56, 189, 248, 0.08); border:1px solid var(--linea-tarjeta); border-radius:8px; padding:12px;">
-                <strong style="color:var(--agua); font-size:0.9rem;">DOM I. Municipalidad de Santiago:</strong><br>
-                <span style="font-size:0.82rem; color:var(--tinta-suave);">Trámite de CIP Oficial (Amunátegui 980, piso 2).</span><br>
-                <a href="https://www.munistgo.cl/plan-regulador/" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;">munistgo.cl/plan-regulador/ ↗</a>
-              </div>
-            </div>
           </div>
 
           <!-- Tarjeta 7: Disclaimer Normativo Legal -->
@@ -763,6 +596,7 @@ Generado por: Atlas VGI UAH — Plataforma Abierta de Apoyo a la Gestión Territ
               ${TEXTO_DISCLAIMER_LEGAL}
             </p>
           </div>
+
         </div>
 
         <!-- Botones de Acción -->
