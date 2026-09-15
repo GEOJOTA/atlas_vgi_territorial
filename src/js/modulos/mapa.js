@@ -142,27 +142,50 @@ const ModuloMapa = (() => {
   }
 
   function configurarEventosDibujoBbox() {
-    mapa.on('mousedown', (e) => {
+    if (!mapa) return;
+    const container = mapa.getContainer();
+
+    container.addEventListener('pointerdown', (e) => {
       if (!dibujandoBbox) return;
-      puntoInicioBbox = e.latlng;
+      if (e.target && e.target.closest('.leaflet-control-container, .leaflet-popup')) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const rect = container.getBoundingClientRect();
+      const containerPoint = L.point(e.clientX - rect.left, e.clientY - rect.top);
+      puntoInicioBbox = mapa.containerPointToLatLng(containerPoint);
+
       if (rectanguloTemporal) mapa.removeLayer(rectanguloTemporal);
       rectanguloTemporal = L.rectangle([puntoInicioBbox, puntoInicioBbox], {
         color: '#8F3A2C',
         weight: 2,
         dashArray: '4, 4',
-        fillOpacity: 0.15
+        fillOpacity: 0.2
       }).addTo(mapa);
       mapa.dragging.disable();
     });
 
-    mapa.on('mousemove', (e) => {
+    container.addEventListener('pointermove', (e) => {
       if (!dibujandoBbox || !puntoInicioBbox || !rectanguloTemporal) return;
-      rectanguloTemporal.setBounds([puntoInicioBbox, e.latlng]);
+      e.preventDefault();
+      const rect = container.getBoundingClientRect();
+      const containerPoint = L.point(e.clientX - rect.left, e.clientY - rect.top);
+      const latlngActual = mapa.containerPointToLatLng(containerPoint);
+      rectanguloTemporal.setBounds([puntoInicioBbox, latlngActual]);
     });
 
-    mapa.on('mouseup', (e) => {
+    const finalizarDibujo = (e) => {
       if (!dibujandoBbox || !puntoInicioBbox) return;
-      const puntoFin = e.latlng;
+      if (e) e.preventDefault();
+
+      let puntoFin = puntoInicioBbox;
+      if (e && e.clientX && e.clientY) {
+        const rect = container.getBoundingClientRect();
+        const containerPoint = L.point(e.clientX - rect.left, e.clientY - rect.top);
+        puntoFin = mapa.containerPointToLatLng(containerPoint);
+      }
+
       mapa.dragging.enable();
       dibujandoBbox = false;
 
@@ -177,8 +200,7 @@ const ModuloMapa = (() => {
       }
       puntoInicioBbox = null;
 
-      // Actualizar si tiene dimensión válida
-      if (Math.abs(este - oeste) > 0.0005 && Math.abs(norte - sur) > 0.0005) {
+      if (Math.abs(este - oeste) > 0.0001 && Math.abs(norte - sur) > 0.0001) {
         const nuevoBbox = [
           Number(oeste.toFixed(5)),
           Number(sur.toFixed(5)),
@@ -188,24 +210,31 @@ const ModuloMapa = (() => {
         actualizarRectanguloBbox(nuevoBbox);
         document.dispatchEvent(new CustomEvent('nodo:bbox-cambiado', { detail: { bbox: nuevoBbox } }));
       }
-      
-      const btn = document.getElementById('btn-dibujar-bbox');
-      if (btn) btn.classList.remove('activo');
-    });
+
+      desactivarModoDibujoBbox();
+    };
+
+    container.addEventListener('pointerup', finalizarDibujo);
   }
 
   function activarModoDibujoBbox() {
     dibujandoBbox = true;
     const btn = document.getElementById('btn-dibujar-bbox');
     if (btn) btn.classList.add('activo');
-    if (mapa) mapa.getContainer().style.cursor = 'crosshair';
+    if (mapa) {
+      mapa.getContainer().style.cursor = 'crosshair';
+      mapa.dragging.disable();
+    }
   }
 
   function desactivarModoDibujoBbox() {
     dibujandoBbox = false;
     const btn = document.getElementById('btn-dibujar-bbox');
     if (btn) btn.classList.remove('activo');
-    if (mapa) mapa.getContainer().style.cursor = '';
+    if (mapa) {
+      mapa.getContainer().style.cursor = '';
+      mapa.dragging.enable();
+    }
   }
 
   /**

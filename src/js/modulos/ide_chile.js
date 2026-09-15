@@ -1959,7 +1959,7 @@ const ModuloIDEChile = (() => {
   const cacheCapasOficiales = new Map();
 
   /**
-   * Consulta una capa oficial: intenta FeatureServer en vivo si corresponde, con fallback al GeoJSON local
+   * Consulta una capa oficial: prioriza la carga local, luego base de datos, y finalmente servicio en vivo
    */
   async function consultarCapaOficial(idCapa, bbox = null) {
     if (cacheCapasOficiales.has(idCapa)) {
@@ -1971,39 +1971,9 @@ const ModuloIDEChile = (() => {
       throw new Error(`Capa oficial "${idCapa}" no reconocida en el catálogo.`);
     }
 
-    const bboxConsulta = bbox || (window.NODO_CONFIG && window.NODO_CONFIG.area_por_defecto && window.NODO_CONFIG.area_por_defecto.bbox) || [-70.675, -33.450, -70.650, -33.435];
-    const [minX, minY, maxX, maxY] = bboxConsulta;
-
     let geojson = null;
     let fuenteUsada = 'Servicio Oficial en Vivo';
 
-    // 1. Intento de consulta en vivo al FeatureServer si está definido (timeout ágil de 2s)
-    if (def.urlServicio && def.tipoServicio.indexOf('FeatureServer') !== -1) {
-      const urlLive = `${def.urlServicio}/query?where=1%3D1&geometry=${minX}%2C${minY}%2C${maxX}%2C${maxY}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=*&f=geojson`;
-
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2000);
-
-        const resp = await fetch(urlLive, {
-          signal: controller.signal,
-          headers: { 'Accept': 'application/json' }
-        });
-        clearTimeout(timeoutId);
-
-        if (resp.ok) {
-          const data = await resp.json();
-          if (data && data.features && data.features.length > 0) {
-            geojson = data;
-            fuenteUsada = `${def.institucion} (FeatureServer en Vivo)`;
-          }
-        }
-      } catch (errLive) {
-        console.warn(`[ModuloIDEChile]: FeatureServer en vivo no respondió para ${idCapa} (${errLive.message}). Activando réplica local validada...`);
-      }
-    }
-
-    // 2. Consulta a Base de Datos en la Nube (Supabase PostGIS / Storage CDN) con Fallback
     if (!geojson && window.ModuloDBClient) {
       try {
         const resDb = await window.ModuloDBClient.consultarCapa(idCapa, def, bbox);

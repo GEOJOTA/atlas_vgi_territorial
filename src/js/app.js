@@ -2394,7 +2394,7 @@ async function descargarColeccionOficialCompleta() {
 async function alternarCapaOficialIDE(idCapa, btn) {
   const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
   const badgeConteo = btn.querySelector('.badge-conteo-oficial');
-  const bbox = leerBbox('osm') || (window.NODO_CONFIG && window.NODO_CONFIG.area_por_defecto && window.NODO_CONFIG.area_por_defecto.bbox);
+  const bbox = null; // Cargar la capa ÍNTEGRA sin limitar por el BBox barrial
 
   // Desactivar si ya está activa
   if (btn.classList.contains('activo')) {
@@ -2408,10 +2408,10 @@ async function alternarCapaOficialIDE(idCapa, btn) {
 
   // Activar y cargar datos
   btn.classList.add('cargando');
-  if (estadoTexto) estadoTexto.textContent = `Consultando servicio oficial FeatureServer de IDE Chile / MINVU…`;
+  if (estadoTexto) estadoTexto.textContent = `Cargando conjunto cartográfico oficial íntegro de la Región Metropolitana…`;
 
   try {
-    const res = await ModuloIDEChile.consultarCapaOficial(idCapa, bbox);
+    const res = await ModuloIDEChile.consultarCapaOficial(idCapa, null);
     const def = res.def;
 
     if (window.ModuloMapa) {
