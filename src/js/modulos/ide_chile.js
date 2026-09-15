@@ -1974,6 +1974,30 @@ const ModuloIDEChile = (() => {
     let geojson = null;
     let fuenteUsada = 'Servicio Oficial en Vivo';
 
+    // 1. Carga prioritaria desde repositorio local validado en data/ o src/data/ (100% de geometrías e integridad atributiva)
+    if (def.archivoLocal) {
+      const rutas = [
+        def.archivoLocal,
+        `./${def.archivoLocal}`,
+        `../${def.archivoLocal}`,
+        `src/${def.archivoLocal}`,
+        `data/${def.archivoLocal.split('/').pop()}`,
+        `src/data/${def.archivoLocal.split('/').pop()}`
+      ];
+
+      for (const r of rutas) {
+        try {
+          const resp = await fetch(r);
+          if (resp.ok) {
+            geojson = await resp.json();
+            fuenteUsada = `${def.institucion} (Conjunto Oficial Integrado Local)`;
+            break;
+          }
+        } catch (_) {}
+      }
+    }
+
+    // 2. Consulta a Base de Datos en la Nube (Supabase PostGIS / Storage CDN) como respaldo si no existe local
     if (!geojson && window.ModuloDBClient) {
       try {
         const resDb = await window.ModuloDBClient.consultarCapa(idCapa, def, bbox);
@@ -1983,27 +2007,6 @@ const ModuloIDEChile = (() => {
         }
       } catch (eDb) {
         console.warn(`[ModuloIDEChile]: DB Client no pudo resolver ${idCapa}: ${eDb.message}`);
-      }
-    }
-
-    // 3. Carga de respaldo directo desde repositorio local validado en src/data/
-    if (!geojson) {
-      const rutas = [
-        def.archivoLocal,
-        `./${def.archivoLocal}`,
-        `../${def.archivoLocal}`,
-        `src/${def.archivoLocal}`
-      ];
-
-      for (const r of rutas) {
-        try {
-          const resp = await fetch(r);
-          if (resp.ok) {
-            geojson = await resp.json();
-            fuenteUsada = `${def.institucion} (Conjunto Oficial Descargado / Geoportal)`;
-            break;
-          }
-        } catch (_) {}
       }
     }
 

@@ -141,13 +141,11 @@ const ModuloDBClient = (() => {
     }
 
     // =========================================================================
-    // INTENTO 1: Consulta a PostGIS vía RPC de Supabase si está activo
+    // INTENTO 1: Consulta a PostGIS vía RPC de Supabase si está activo Y si se pasa BBox explícito
     // =========================================================================
-    if (dbConfig.activo && dbConfig.url && dbConfig.modo !== 'local') {
+    if (dbConfig.activo && dbConfig.url && dbConfig.modo !== 'local' && Array.isArray(bbox) && bbox.length === 4) {
       try {
-        const [minx, miny, maxx, maxy] = Array.isArray(bbox) && bbox.length === 4
-          ? bbox
-          : [-70.6720, -33.4505, -70.6580, -33.4350];
+        const [minx, miny, maxx, maxy] = bbox;
 
         const rpcUrl = `${dbConfig.url}/rest/v1/rpc/fn_obtener_capa_bbox`;
         const controller = new AbortController();
