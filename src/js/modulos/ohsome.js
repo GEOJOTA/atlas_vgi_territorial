@@ -31,7 +31,7 @@ const ModuloOhsome = (() => {
     if (fechaMaximaDisponible) return fechaMaximaDisponible;
     try {
       const ctl = new AbortController();
-      const tId = setTimeout(() => ctl.abort(), 3500);
+      const tId = setTimeout(() => ctl.abort(), 8000);
       const res = await fetch(`${baseEndpoint}/metadata`, { signal: ctl.signal });
       clearTimeout(tId);
       if (res.ok) {
@@ -39,14 +39,14 @@ const ModuloOhsome = (() => {
         const toTs = meta.extractRegion?.temporalExtent?.toTimestamp;
         if (toTs) {
           fechaMaximaDisponible = toTs.slice(0, 10);
-          console.log(`[ohsome] Horizonte temporal detectado: ${fechaMaximaDisponible}`);
+          console.log(`[ohsome] Horizonte temporal detectado en servidor: ${fechaMaximaDisponible}`);
           return fechaMaximaDisponible;
         }
       }
     } catch (e) {
       console.warn('[ohsome] No se pudo leer metadata a tiempo, usando fecha de corte segura.');
     }
-    fechaMaximaDisponible = '2026-06-01';
+    fechaMaximaDisponible = '2026-07-27';
     return fechaMaximaDisponible;
   }
 
@@ -75,7 +75,7 @@ const ModuloOhsome = (() => {
     });
 
     const ctl = new AbortController();
-    const tId = setTimeout(() => ctl.abort(), 10000);
+    const tId = setTimeout(() => ctl.abort(), 25000); // 25s para permitir consultas OSHDB densas y multi-anuales
 
     try {
       const respuesta = await fetch(url, {
@@ -191,12 +191,12 @@ const ModuloOhsome = (() => {
     }
 
     // ----------------------------------------------------
-    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local) con timeout adecuado (7s)
+    // NIVEL 1: Intentar primero vía /api/calidad (Serverless / Local) con timeout rápido (2s)
     // ----------------------------------------------------
     if (proxyCalidadDisponible !== false) {
       try {
         const ctlProxy = new AbortController();
-        const tProxy = setTimeout(() => ctlProxy.abort(), 7000);
+        const tProxy = setTimeout(() => ctlProxy.abort(), 2000);
         const resProxy = await fetch('/api/calidad', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -285,7 +285,10 @@ const ModuloOhsome = (() => {
 
   async function ejecutarFlujoV1(bbox, filtro, tipoGeo, fechaFin, ventanaTiempo, claveCache = null) {
     const promesas = [
-      consultarEndpointV1('/elements/count', bbox, filtro, fechaFin),
+      consultarEndpointV1('/elements/count', bbox, filtro, fechaFin).catch(e => {
+        console.warn('[ohsome v1] Conteo puntual no disponible:', e.message);
+        return null;
+      }),
       consultarEndpointV1('/users/count', bbox, filtro, ventanaTiempo).catch(e => {
         console.warn('[ohsome v1] Usuarios no disponible:', e.message);
         return null;
@@ -363,7 +366,7 @@ const ModuloOhsome = (() => {
     };
 
     const resActual = extractArray(conteoActual);
-    const elementosAhora = resActual.length > 0 ? (resActual[0].value || 0) : 0;
+    let elementosAhora = resActual.length > 0 ? (resActual[0].value || 0) : 0;
 
     const listaUsuarios = extractArray(usuarios).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
@@ -374,6 +377,10 @@ const ModuloOhsome = (() => {
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),
       valor: Math.round(r.value || 0)
     }));
+
+    if (!elementosAhora && listaElementos.length > 0) {
+      elementosAhora = listaElementos[listaElementos.length - 1].valor || 0;
+    }
 
     const listaContribuciones = extractArray(resContribuciones).map(r => ({
       fecha: (r.fromTimestamp || r.timestamp || '').slice(0, 10),

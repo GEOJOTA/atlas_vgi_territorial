@@ -164,7 +164,8 @@ const ModuloOSM = (() => {
       ? cfg.endpoints.overpass_espejos
       : [
           'https://overpass-api.de/api/interpreter',
-          'https://lz4.overpass-api.de/api/interpreter'
+          'https://z.overpass-api.de/api/interpreter',
+          'https://overpass.kumi.systems/api/interpreter'
         ];
 
     const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
@@ -174,7 +175,7 @@ const ModuloOSM = (() => {
       try {
         console.log(`[Overpass] Intentando consulta en: ${endpoint}`);
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s máx por servidor
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s máx por servidor con fallback reactivo
 
         const respuesta = await fetch(endpoint, {
           method: 'POST',

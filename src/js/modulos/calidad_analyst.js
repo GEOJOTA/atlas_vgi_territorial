@@ -20,7 +20,7 @@ const ModuloCalidadAnalyst = (() => {
     const url = `https://api.openstreetmap.org/api/0.6/changesets?bbox=${oeste},${sur},${este},${norte}&closed=true`;
 
     const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    const timer = ctl ? setTimeout(() => ctl.abort(), 9000) : null;
+    const timer = ctl ? setTimeout(() => ctl.abort(), 18000) : null;
 
     try {
       const res = await fetch(url, ctl ? { signal: ctl.signal } : {});

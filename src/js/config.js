@@ -42,7 +42,8 @@ const CONFIG_PREDETERMINADA = {
     overpass: 'https://overpass-api.de/api/interpreter',
     overpass_espejos: [
       'https://overpass-api.de/api/interpreter',
-      'https://lz4.overpass-api.de/api/interpreter'
+      'https://z.overpass-api.de/api/interpreter',
+      'https://overpass.kumi.systems/api/interpreter'
     ],
     ohsome: 'https://api.ohsome.org/v1',
     ohsome_v1: 'https://api.ohsome.org/v1',
@@ -54,7 +55,7 @@ const CONFIG_PREDETERMINADA = {
     proveedor: 'supabase',
     nombre_motor: 'PostgreSQL 15+ con extensión PostGIS',
     tipo: 'Open Source Cloud Spatial Database',
-    url: '',
+    url: 'https://tkfzmmlhhxqhzgqavsqr.supabase.co',
     anon_key: '',
     storage_bucket: 'atlas-geojson',
     modo: 'auto', // 'auto' (Supabase con fallback local), 'supabase' o 'local'

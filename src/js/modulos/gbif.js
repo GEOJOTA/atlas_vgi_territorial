@@ -25,7 +25,7 @@ const ModuloGBIF = (() => {
 
     try {
       const ctl = new AbortController();
-      const tId = setTimeout(() => ctl.abort(), 3500);
+      const tId = setTimeout(() => ctl.abort(), 8000);
       const res = await fetch(url, { signal: ctl.signal });
       clearTimeout(tId);
       if (!res.ok) return [];
@@ -75,7 +75,7 @@ const ModuloGBIF = (() => {
     console.log(`[GBIF] Consultando ocurrencias: ${urlFinal}`);
 
     const ctl = new AbortController();
-    const tId = setTimeout(() => ctl.abort(), 4500);
+    const tId = setTimeout(() => ctl.abort(), 15000);
     let respuesta;
     try {
       respuesta = await fetch(urlFinal, { signal: ctl.signal });
