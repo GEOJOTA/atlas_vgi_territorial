@@ -298,6 +298,7 @@ const ModuloMapa = (() => {
                                 (geomType === 'LineString' || geomType === 'MultiLineString') ? 'Línea 〰️' :
                                 'Polígono ⬡';
 
+        const idBotonDetalle = `btn-mas-detalle-${Date.now()}-${Math.random().toString(36).slice(2,7)}`;
         const contenidoPopup = `
           <div class="popup-vgi" style="font-family:Spectral, Georgia, serif; max-width:260px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
@@ -324,9 +325,24 @@ const ModuloMapa = (() => {
               ${props._declaracion ? `<tr><td colspan="2" style="font-size:0.68rem; color:#4B5142; padding-top:4px; border-top:1px dashed #C9BFA0; line-height:1.25;"><em>${props._declaracion}</em></td></tr>` : ''}
               ${props._citaAPA ? `<tr><td colspan="2" style="font-size:0.65rem; color:#35586B; padding-top:2px; font-family:'IBM Plex Mono',monospace;"><strong>Cita:</strong> ${props._citaAPA}</td></tr>` : ''}
             </table>
+            <div style="margin-top:8px; border-top:1px solid #C9BFA0; padding-top:6px; text-align:right;">
+              <button id="${idBotonDetalle}" style="background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border:none; border-radius:5px; padding:5px 12px; font-size:0.75rem; font-weight:700; cursor:pointer; font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.82'" onmouseout="this.style.opacity='1'">Más detalles →</button>
+            </div>
           </div>
         `;
         layer.bindPopup(contenidoPopup);
+
+        // Vincular el botón «Más detalles» una vez el popup está abierto
+        layer.on('popupopen', () => {
+          const btn = document.getElementById(idBotonDetalle);
+          if (btn) {
+            btn.addEventListener('click', () => {
+              abrirSidebarDetalle(props, opciones, idCapa, icono, color);
+              layer.closePopup();
+            }, { once: true });
+          }
+        });
+
       }
     });
 
@@ -428,6 +444,231 @@ const ModuloMapa = (() => {
 
   function obtenerCapasWMSActivas() {
     return { ...capasWMSActivas };
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // SIDEBAR DE DETALLES — «Más detalles →»
+  // Muestra todas las propiedades del feature + metadatos de la capa y
+  // metacalidad del pipeline de procesamiento.
+  // ═══════════════════════════════════════════════════════════════════════
+
+  // Metadatos de origen por capa BIDAT (fuente, pipeline, notas)
+  const META_CAPAS_BIDAT = {
+    'IGVUST_UV_2026_Agosto': {
+      fuente: 'Ministerio de Desarrollo Social — BIDAT',
+      archivo_origen: '202608_igvust_uv_cuartil.csv',
+      descripcion: 'Índice de Gestión de Vulnerabilidad Social Territorial (IGVUST) por Unidad Vecinal. Cuartiles de vulnerabilidad socioeconómica calculados por el MDS para agosto 2026.',
+      join_tipo: 'Atributo UV directo (uv_rsh → t_id_uv_ca)',
+      clave_join: 'uv_rsh = t_id_uv_ca (9 dígitos)',
+      cobertura: '1,364 / 1,364 UV (100%)',
+      features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Ninguno (match perfecto)',
+      crs_entrada: 'EPSG:5360 (SIRGAS-Chile)', crs_salida: 'EPSG:4326 (WGS84)',
+      fecha_proceso: '2026-09-16', tamano_mb: 8.52,
+      licencia: 'Dato público — Ministerio de Desarrollo Social Chile'
+    },
+    'RSH_Sexo_UV_2026_Agosto': {
+      fuente: 'MDS BIDAT — Registro Social de Hogares', archivo_origen: 'ind_89_90_202608.csv',
+      descripcion: 'Personas en RSH desagregadas por sexo (hombres/mujeres) según Unidad Vecinal. Agosto 2026. Valores con baja frecuencia sustituidos por rangos textuales (confidencialidad RSH).',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Valores textuales promediados; nulos → 0 / "Sin dato"',
+      crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326', fecha_proceso: '2026-09-16', tamano_mb: 15.22,
+      licencia: 'Dato público — Ministerio de Desarrollo Social Chile'
+    },
+    'RSH_Dependencia_Funcional_UV_2026_Agosto': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_427_430_202608.csv',
+      descripcion: 'Personas con dependencia funcional (leve, moderada, severa) en RSH por UV. Agosto 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Valores textuales promediados; nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 17.90, licencia: 'Dato público — MDS Chile'
+    },
+    'NNA_RSH_Fonasa_Isapre_UV_2026_Junio': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_212_219_202606.csv',
+      descripcion: 'Niños, niñas y adolescentes (NNA) en RSH según sistema de salud (FONASA/ISAPRE) por UV. Junio 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 18.32, licencia: 'Dato público — MDS Chile'
+    },
+    'Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_213_220_202606.csv',
+      descripcion: 'Mujeres en RSH según sistema de salud (FONASA/ISAPRE) por UV. Junio 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 17.41, licencia: 'Dato público — MDS Chile'
+    },
+    'Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_214_221_202606.csv',
+      descripcion: 'Jóvenes en RSH por sistema de salud por UV. Junio 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 17.46, licencia: 'Dato público — MDS Chile'
+    },
+    'Hombres_RSH_Fonasa_Isapre_UV_2026_Junio': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_215_222_202606.csv',
+      descripcion: 'Hombres en RSH por sistema de salud por UV. Junio 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 17.41, licencia: 'Dato público — MDS Chile'
+    },
+    'Mayores_RSH_Fonasa_Isapre_UV_2026_Junio': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_216_223_202606.csv',
+      descripcion: 'Adultos mayores en RSH por sistema de salud por UV. Junio 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 16.87, licencia: 'Dato público — MDS Chile'
+    },
+    'RSH_Ocupados_Cotizando_UV_2026_Junio': {
+      fuente: 'MDS BIDAT', archivo_origen: 'ind_454_202606.csv',
+      descripcion: 'Personas ocupadas y cotizando en RSH por UV. Junio 2026.',
+      join_tipo: 'Atributo UV (float→int)', clave_join: '"unidad vecinal" → t_id_uv_ca',
+      cobertura: '1,355 / 1,364 UV (99.3%)', features_salida: 1364, features_excluidas: 0,
+      nulos_rellenos: 'Nulos → 0', crs_entrada: 'EPSG:5360', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 19.24, licencia: 'Dato público — MDS Chile'
+    },
+    'BIP_Iniciativas_Inversion_RM_Comunas': {
+      fuente: 'Ministerio de Desarrollo Social — SNI/BIP',
+      archivo_origen: 'base_inversiones_19-27.csv',
+      descripcion: 'Base de iniciativas de inversión pública SNI/BIP 2019–2027 para la Región Metropolitana. Serie histórica completa. Cada fila es una iniciativa con geometría de su comuna. Join por CUT comunal (CMN_CLAVE → CUT_COM de COMUNAS_v1.shp DPA 2023).',
+      join_tipo: 'Many-to-one: iniciativa → geometría de comuna',
+      clave_join: 'CMN_CLAVE (float→int) → CUT_COM del SHP DPA 2023',
+      cobertura: '52 / 52 comunas RM (100%)',
+      features_salida: 3765, features_excluidas: 1128,
+      razon_exclusion: 'CMN_CLAVE nulo en origen BIP (sin localización comunal asignada)',
+      nulos_rellenos: '39 columnas con nulos → 0 / "Sin dato"',
+      crs_entrada: 'SIRGAS-Chile (DPA 2023)', crs_salida: 'EPSG:4326',
+      fecha_proceso: '2026-09-16', tamano_mb: 176.73,
+      licencia: 'Dato público — Ministerio de Desarrollo Social Chile / SNI',
+      nota_critica: 'REG_CLAVE en BIP = 181 (código interno SNI, ≠ CUT 13 del INE). Verificado cruzando CMN_CLAVE con CUT de comunas RM.'
+    }
+  };
+
+  function fila(etiqueta, valor) {
+    const esNum = typeof valor === 'number';
+    const esVacio = valor === null || valor === undefined || valor === '' || valor === 'Sin dato' || valor === 0;
+    const claseValor = esNum ? 'detalle-valor num' : (esVacio ? 'detalle-valor vacio' : 'detalle-valor');
+    const textoValor = esVacio && valor !== 0 ? '—'
+      : (esNum && typeof valor === 'number' ? valor.toLocaleString('es-CL', { maximumFractionDigits: 4 }) : String(valor));
+    return `<div class="detalle-fila">
+      <span class="detalle-etiqueta">${etiqueta}</span>
+      <span class="${claseValor}">${textoValor}</span>
+    </div>`;
+  }
+
+  function seccion(titulo, contenido) {
+    return `<div class="detalle-seccion">
+      <p class="detalle-seccion-titulo">${titulo}</p>
+      ${contenido}
+    </div>`;
+  }
+
+  function abrirSidebarDetalle(props, opciones, idCapa, icono, color) {
+    const sidebar = document.getElementById('sidebar-detalle-bidat');
+    const cuerpo  = document.getElementById('sidebar-detalle-cuerpo');
+    const badge   = document.getElementById('sidebar-detalle-badge');
+    if (!sidebar || !cuerpo) return;
+
+    // Nombre de la capa para el badge
+    const nombreCapa = opciones?.nombre || idCapa || 'Capa';
+    if (badge) badge.textContent = icono ? `${icono} ${nombreCapa}` : nombreCapa;
+
+    // Obtener metadatos de la capa
+    const meta = META_CAPAS_BIDAT[idCapa] || {};
+
+    // ── Sección 1: Identificación del elemento ──────────────────────────
+    const nombre = props._nombre || props.nombre || props.name || props.NOMBRE || props.EBI_NOMBRE || '—';
+    const subtipo = props._subtipo || props.subtipo || props.EBI_ETAPA_POSTULA || '—';
+    const geomType = '—';
+    let s1 = '';
+    s1 += fila('Nombre / ID', nombre);
+    s1 += fila('Subtipo / Etapa', subtipo);
+    if (props.t_id_uv_ca || props.uv_rsh) s1 += fila('ID Unidad Vecinal', props.t_id_uv_ca || props.uv_rsh);
+    if (props.t_com_nom || props.COMUNA) s1 += fila('Comuna', props.t_com_nom || props.COMUNA);
+    if (props.t_prov_nom || props.PROVINCIA) s1 += fila('Provincia', props.t_prov_nom || props.PROVINCIA);
+    if (props.uv_carto) s1 += fila('Número UV', props.uv_carto);
+    if (props.EBI_CODIGO) s1 += fila('Código BIP', props.EBI_CODIGO);
+    if (props.EBI_ANO_POSTULA) s1 += fila('Año Postulación', props.EBI_ANO_POSTULA);
+    if (props.EBI_SITUACION) s1 += fila('Situación', props.EBI_SITUACION);
+    if (props.EBI_SIMBOLO_MONEDA) s1 += fila('Moneda', props.EBI_SIMBOLO_MONEDA);
+
+    // ── Sección 2: Datos cuantitativos (primeras 10 columnas numéricas) ─
+    let s2 = '';
+    let nCols = 0;
+    const excluirCols = new Set(['_nombre','_subtipo','_fuente','_licencia','_capaId','_idUsuario','_color','_extraInfo','_declaracion','_citaAPA','_idOficial','geometry']);
+    for (const [k, v] of Object.entries(props)) {
+      if (excluirCols.has(k)) continue;
+      if (typeof v === 'number' && nCols < 25) {
+        s2 += fila(k, v);
+        nCols++;
+      }
+    }
+    if (!s2) s2 = '<p style="font-size:0.78rem; color:var(--tinta-tenue);">No hay columnas numéricas adicionales.</p>';
+
+    // ── Sección 3: Todos los atributos de texto relevantes ──────────────
+    let s3 = '';
+    let nText = 0;
+    const excluirTexto = new Set([...excluirCols, 't_reg_ca','t_reg_nom','CUT_REG','REGION']);
+    for (const [k, v] of Object.entries(props)) {
+      if (excluirTexto.has(k)) continue;
+      if (typeof v === 'string' && v !== '' && v !== 'Sin dato' && nText < 25) {
+        s3 += fila(k, v);
+        nText++;
+      }
+    }
+    if (!s3) s3 = '<p style="font-size:0.78rem; color:var(--tinta-tenue);">Sin atributos de texto adicionales.</p>';
+
+    // ── Sección 4: Metadatos de la capa ─────────────────────────────────
+    let s4 = '';
+    s4 += fila('Fuente del dato', meta.fuente || props._fuente || 'OpenStreetMap');
+    s4 += fila('Archivo origen', meta.archivo_origen || '—');
+    s4 += fila('Tipo de join', meta.join_tipo || '—');
+    s4 += fila('Clave de join', meta.clave_join || '—');
+    s4 += fila('Cobertura UV/Comunas', meta.cobertura || '—');
+    s4 += fila('Features exportadas', meta.features_salida || '—');
+    s4 += fila('Features excluidas', meta.features_excluidas !== undefined ? meta.features_excluidas : '—');
+    if (meta.razon_exclusion) s4 += fila('Razón exclusión', meta.razon_exclusion);
+    s4 += fila('Nulos rellenados', meta.nulos_rellenos || '0');
+    s4 += fila('CRS entrada', meta.crs_entrada || 'EPSG:5360');
+    s4 += fila('CRS salida', meta.crs_salida || 'EPSG:4326');
+    s4 += fila('Fecha proceso', meta.fecha_proceso || '2026-09-16');
+    s4 += fila('Tamaño archivo', meta.tamano_mb ? `${meta.tamano_mb} MB` : '—');
+    s4 += fila('Licencia', meta.licencia || props._licencia || 'ODbL 1.0');
+
+    // ── Sección 5: Descripción y nota crítica ───────────────────────────
+    const descHtml = meta.descripcion
+      ? `<div class="detalle-metacalidad"><p>${meta.descripcion}</p>${meta.nota_critica ? `<p><strong>⚠ Nota:</strong> ${meta.nota_critica}</p>` : ''}</div>`
+      : '';
+
+    // ── Render completo ─────────────────────────────────────────────────
+    cuerpo.innerHTML = [
+      seccion('🏷 Identificación del Elemento', s1),
+      seccion('📊 Indicadores Numéricos', s2),
+      seccion('📋 Atributos del Dato', s3),
+      seccion('📂 Metadatos de Origen y Pipeline', s4),
+      meta.descripcion ? seccion('📖 Descripción de la Capa', descHtml) : ''
+    ].join('');
+
+    // Abrir sidebar
+    sidebar.classList.add('abierto');
+  }
+
+  function cerrarSidebarDetalle() {
+    const sidebar = document.getElementById('sidebar-detalle-bidat');
+    if (sidebar) sidebar.classList.remove('abierto');
+  }
+
+  // Inicializar botón de cierre cuando el DOM esté listo
+  if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnCerrar = document.getElementById('btn-cerrar-detalle');
+      if (btnCerrar) btnCerrar.addEventListener('click', cerrarSidebarDetalle);
+    });
   }
 
   return {

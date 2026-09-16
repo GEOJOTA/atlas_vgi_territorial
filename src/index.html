@@ -142,9 +142,27 @@
       <div class="disposicion-visor-comando">
         
         <!-- Columna Principal: Mapa Cartográfico -->
-        <div class="area-mapa-principal">
+        <div class="area-mapa-principal" style="position:relative;">
           <div id="mapa-atlas" role="region" aria-label="Mapa interactivo del Atlas VGI"></div>
+
+          <!-- Sidebar de Más Detalles (slide-in sobre el mapa) -->
+          <div id="sidebar-detalle-bidat" role="complementary" aria-label="Panel de detalles del elemento seleccionado">
+            <div id="sidebar-detalle-header">
+              <h4>
+                🔍 Detalles del Elemento
+                <span class="badge-capa" id="sidebar-detalle-badge">—</span>
+              </h4>
+              <button id="btn-cerrar-detalle" title="Cerrar panel de detalles" aria-label="Cerrar">✕</button>
+            </div>
+            <div id="sidebar-detalle-cuerpo">
+              <p style="color:var(--tinta-tenue); font-size:0.82rem; text-align:center; padding-top:40px;">
+                Haz clic en un elemento del mapa y luego en <strong style="color:var(--musgo)">Más detalles →</strong>
+              </p>
+            </div>
+          </div>
+
         </div>
+
 
         <!-- Columna Lateral Derecha: Panel de Profundidad & Analítica Manifold -->
         <aside class="panel-profundidad-derecha">
