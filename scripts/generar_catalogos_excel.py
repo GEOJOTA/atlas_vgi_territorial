@@ -425,7 +425,7 @@ def crear_catalogo_fuentes():
             "EPSG:4326 (WGS84)",
             "Acceso abierto oficial (Ley N° 20.285); 5 escalas territoriales independientes: Regional RM, Límites Urbanos, Localidades, Zonas/Distritos y Manzanas",
             "src/js/modulos/ide_chile.js (ModuloIDEChile)",
-            "Despliegue multiescalar de microdatos censales (RM y Comuna de Santiago) con desagregación de población, sexo, grupos etarios, etnias y viviendas",
+            "Despliegue multiescalar de microdatos censales de la Región Metropolitana (66.873 manzanas censales completas con 217 variables demográficas del INE) con desagregación de población, sexo, grupos etarios, etnias y viviendas",
             "INE. (2024). Censo de Población y Vivienda 2024: Cartografía y Microdatos Georreferenciados. https://www.ine.gob.cl"
         ],
         [

@@ -95,7 +95,7 @@ const ModuloIDEChile = (() => {
     },
     censo2024_manzanas: {
       id: 'censo2024_manzanas',
-      nombre: 'Censo 2024 (Manzanas Santiago / Barrio Brasil)',
+      nombre: 'Censo 2024 (Manzanas Censales RM)',
       institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
       ministerio: 'Ministerio de Economía, Fomento y Turismo',
       tipoServicio: 'GeoPackage Oficial INE / GeoJSON WGS84',
@@ -105,9 +105,9 @@ const ModuloIDEChile = (() => {
       icono: '⬚',
       geometria: 'Polígonos (Manzanas Censales)',
       grupo: 'demografia',
-      descripcion: 'Microdatos censales georreferenciados a nivel de manzana para la Comuna de Santiago (1.711 manzanas), cubriendo en alta resolución Barrio Brasil, Campus UAH y centro histórico.',
+      descripcion: 'Microdatos censales oficiales georreferenciados a nivel de manzana para la totalidad de la Región Metropolitana de Santiago (66.873 manzanas censales con 217 variables demográficas del INE).',
       declaracion: 'Microdatos oficiales provistos por el Instituto Nacional de Estadísticas (INE) y la Secretaría Ejecutiva SNIT / IDE Chile. Licencia de Datos Abiertos del Estado de Chile conforme a la Ley N° 20.285.',
-      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Microdatos Georreferenciados a Nivel de Manzana (Comuna de Santiago). IDE Chile. https://www.ine.gob.cl'
+      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Microdatos Georreferenciados a Nivel de Manzana (Región Metropolitana). IDE Chile. https://www.ine.gob.cl'
     },
     minvu_patrimonio: {
       id: 'minvu_patrimonio',
@@ -2053,9 +2053,12 @@ const ModuloIDEChile = (() => {
         try {
           const resp = await fetch(r);
           if (resp.ok) {
-            geojson = await resp.json();
-            fuenteUsada = `${def.institucion} (Conjunto Oficial Integrado Local)`;
-            break;
+            const data = await resp.json();
+            if (data && data.type === 'FeatureCollection' && Array.isArray(data.features)) {
+              geojson = data;
+              fuenteUsada = `${def.institucion} (Conjunto Oficial Integrado Local)`;
+              break;
+            }
           }
         } catch (_) {}
       }
