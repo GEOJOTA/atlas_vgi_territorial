@@ -31,10 +31,10 @@
     }
   ],
   "endpoints": {
-    "overpass": "https://overpass-api.de/api/interpreter",
+    "overpass": "https://z.overpass-api.de/api/interpreter",
     "overpass_espejos": [
-      "https://overpass-api.de/api/interpreter",
       "https://z.overpass-api.de/api/interpreter",
+      "https://overpass-api.de/api/interpreter",
       "https://overpass.kumi.systems/api/interpreter"
     ],
     "ohsome": "https://api.ohsome.org/v1",
