@@ -3,7 +3,7 @@
 
 Prototipo de plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado como producto de práctica profesional de la carrera de Geografía de la Universidad Alberto Hurtado (2026), en el marco de un proyecto de investigación Fondecyt Regular sobre VGI y gestión territorial.
 
-Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **117 capas cartográficas integradas** (10 categorías maestras VGI y 107 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con **129.262 entidades espaciales vectorizadas e indexadas con GIST**, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
+Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **121 capas cartográficas integradas** (10 categorías maestras VGI y 111 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 multiescalar y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con entidades espaciales vectorizadas e indexadas con GIST, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
 
 > **Acceso libre y código abierto.** Toda la funcionalidad opera con CDN públicos, APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile) y base de datos PostGIS gratuita en la nube con fallback local transparente.
 
@@ -59,16 +59,22 @@ Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y
 
 ---
 
-## 5. Capas oficiales del Estado de Chile integradas (107 capas oficiales + 10 VGI = 117 capas)
+## 5. Capas oficiales del Estado de Chile integradas (111 capas oficiales + 10 VGI = 121 capas)
 
-El visor integra **107 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en **6 macro-grupos con acordeones interactivos colapsables a ancho completo (100%)**:
+El visor integra **111 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en **6 macro-grupos con acordeones interactivos colapsables a ancho completo (100%)**:
 
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
    - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT (Art. 2.1.17 OGUC), Fajas de Resguardo y Límites Urbanos Oficiales (Art. 52 LGUC).
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
    - Catastro de Parques Urbanos MINVU, Red Hidrométrica Nacional BNA (DGA), Inventario de Humedales Urbanos (Ley 21.202), Sistema Nacional de Áreas Silvestres Protegidas (SNASPE CONAF), Cobertura de Canales de Riego (CNR), Cuencas Hidrográficas BNA y Carbono Orgánico del Suelo (COS CIREN).
-3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDSF / MINVU / INE Censo 2024):**
-   - Microdatos del Censo de Población y Vivienda 2024 a nivel de manzana, Unidades Vecinales Oficiales 2026 (Ley 19.418), Catastro Oficial de Campamentos MINVU, Condominios Sociales (Ley 21.442) y 8 indicadores socioterritoriales del Registro Social de Hogares (BiDat MDSF).
+3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía Multiescalar (MDSF / MINVU / INE Censo 2024):**
+   - **Integración Multiescalar Censo 2024 (INE / Región Metropolitana):** 5 niveles territoriales independientes:
+     - **Escala 1 — Marco Regional RM:** 1 polígono macroterritorial con delimitación oficial regional.
+     - **Escala 2 — Límites Urbanos Censales RM:** 106 áreas urbanas censales consolidadas con población y sexo.
+     - **Escala 3 — Localidades y Asentamientos RM:** 511 entidades pobladas urbanas y rurales con desglose demográfico.
+     - **Escala 4 — Zonas y Distritos Censales RM:** 1.865 polígonos distritales con variables sociodemográficas avanzadas.
+     - **Escala 5 — Manzanas Censales Santiago / Barrio Brasil:** 1.711 manzanas censales con microdatos completos de población, grupos etarios, inmigración y viviendas.
+   - Unidades Vecinales Oficiales 2026 (Ley 19.418), Catastro Oficial de Campamentos MINVU, Condominios Sociales (Ley 21.442) y 8 indicadores socioterritoriales del Registro Social de Hogares (BiDat MDSF).
 4. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND):**
    - Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Establecimientos de Educación Escolar y Superior (MINEDUC), Hospitales y CESFAM (DEIS MINSAL), Infraestructura Deportiva IND y Jardines Botánicos.
 5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**

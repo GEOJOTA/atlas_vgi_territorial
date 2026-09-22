@@ -29,21 +29,85 @@ const ModuloIDEChile = (() => {
     // =========================================================================
     // CAPAS OFICIALES BASE ORIGINALES (27 CAPAS BASE)
     // =========================================================================
-    censo2024_manzanas: {
-      id: 'censo2024_manzanas',
-      nombre: 'Censo 2024 (Manzanas)',
+    censo2024_regional: {
+      id: 'censo2024_regional',
+      nombre: 'Censo 2024 (Marco Regional RM)',
       institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
       ministerio: 'Ministerio de Economía, Fomento y Turismo',
-      tipoServicio: 'ArcGIS FeatureServer (Capa 7)',
-      urlServicio: 'https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7',
-      archivoLocal: 'data/ide_censo2024_manzanas.geojson',
-      color: '#1B4D3E',
-      icono: '⬚',
-      geometria: 'Polígonos (Manzanas)',
+      tipoServicio: 'GeoPackage Oficial INE / GeoJSON WGS84',
+      urlServicio: 'https://www.ine.gob.cl/estadisticas/sociales/censos-de-poblacion-y-vivienda/censo-2024',
+      archivoLocal: 'data/ide_censo2024_regional.geojson',
+      color: '#0A3D2E',
+      icono: '🗺️',
+      geometria: 'Polígono (Región Metropolitana)',
       grupo: 'demografia',
-      descripcion: 'Manzanas censales oficiales del Censo de Población y Vivienda 2024 con microdatos de población total, hombres, mujeres y viviendas particulares.',
-      declaracion: 'Datos provistos por el Instituto Nacional de Estadísticas (INE) y la Secretaría Ejecutiva SNIT / IDE Chile. Licencia de Datos Abiertos del Estado de Chile conforme a la Ley N° 20.285.',
-      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Microdatos Georreferenciados a Nivel de Manzana. IDE Chile. https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7'
+      descripcion: 'Delimitación oficial y marco macroterritorial de la Región Metropolitana de Santiago según el Censo de Población y Vivienda 2024.',
+      declaracion: 'Cartografía censal oficial provista por el Instituto Nacional de Estadísticas (INE) y la Infraestructura de Datos Geoespaciales de Chile (IDE Chile). Licencia de Datos Abiertos conforme a la Ley N° 20.285.',
+      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Cartografía y Marco Territorial Regional. IDE Chile. https://www.ine.gob.cl'
+    },
+    censo2024_limite_urbano: {
+      id: 'censo2024_limite_urbano',
+      nombre: 'Censo 2024 (Límites Urbanos Censales RM)',
+      institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
+      ministerio: 'Ministerio de Economía, Fomento y Turismo',
+      tipoServicio: 'GeoPackage Oficial INE / GeoJSON WGS84',
+      urlServicio: 'https://www.ine.gob.cl/estadisticas/sociales/censos-de-poblacion-y-vivienda/censo-2024',
+      archivoLocal: 'data/ide_censo2024_limite_urbano.geojson',
+      color: '#165B4C',
+      icono: '🏙️',
+      geometria: 'Polígonos (Límites Urbanos)',
+      grupo: 'demografia',
+      descripcion: 'Límites urbanos censales oficiales de la Región Metropolitana (106 áreas urbanas) con agregación de población, sexo y grupos etarios.',
+      declaracion: 'Cartografía censal oficial provista por el Instituto Nacional de Estadísticas (INE) y la Infraestructura de Datos Geoespaciales de Chile (IDE Chile).',
+      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Límites Urbanos Censales de la Región Metropolitana. IDE Chile. https://www.ine.gob.cl'
+    },
+    censo2024_localidades: {
+      id: 'censo2024_localidades',
+      nombre: 'Censo 2024 (Localidades y Asentamientos RM)',
+      institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
+      ministerio: 'Ministerio de Economía, Fomento y Turismo',
+      tipoServicio: 'GeoPackage Oficial INE / GeoJSON WGS84',
+      urlServicio: 'https://www.ine.gob.cl/estadisticas/sociales/censos-de-poblacion-y-vivienda/censo-2024',
+      archivoLocal: 'data/ide_censo2024_localidades.geojson',
+      color: '#1E7A56',
+      icono: '🏘️',
+      geometria: 'Polígonos (Localidades y Asentamientos)',
+      grupo: 'demografia',
+      descripcion: 'Localidades pobladas y asentamientos de la Región Metropolitana (511 entidades urbanas y rurales) con desglose de población, sexo y viviendas.',
+      declaracion: 'Cartografía censal oficial provista por el Instituto Nacional de Estadísticas (INE) y la Infraestructura de Datos Geoespaciales de Chile (IDE Chile).',
+      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Localidades y Entidades Pobladas de la Región Metropolitana. IDE Chile. https://www.ine.gob.cl'
+    },
+    censo2024_zonal: {
+      id: 'censo2024_zonal',
+      nombre: 'Censo 2024 (Zonas y Distritos Censales RM)',
+      institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
+      ministerio: 'Ministerio de Economía, Fomento y Turismo',
+      tipoServicio: 'GeoPackage Oficial INE / GeoJSON WGS84',
+      urlServicio: 'https://www.ine.gob.cl/estadisticas/sociales/censos-de-poblacion-y-vivienda/censo-2024',
+      archivoLocal: 'data/ide_censo2024_zonal.geojson',
+      color: '#279B6C',
+      icono: '⬡',
+      geometria: 'Polígonos (Distritos y Zonas Censales)',
+      grupo: 'demografia',
+      descripcion: 'Zonas y distritos censales de la Región Metropolitana (1.865 polígonos) con datos sociodemográficos consolidados de población, etnias, migración y vivienda.',
+      declaracion: 'Cartografía censal oficial provista por el Instituto Nacional de Estadísticas (INE) y la Infraestructura de Datos Geoespaciales de Chile (IDE Chile).',
+      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Distritos y Zonas Censales de la Región Metropolitana. IDE Chile. https://www.ine.gob.cl'
+    },
+    censo2024_manzanas: {
+      id: 'censo2024_manzanas',
+      nombre: 'Censo 2024 (Manzanas Santiago / Barrio Brasil)',
+      institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
+      ministerio: 'Ministerio de Economía, Fomento y Turismo',
+      tipoServicio: 'GeoPackage Oficial INE / GeoJSON WGS84',
+      urlServicio: 'https://www.ine.gob.cl/estadisticas/sociales/censos-de-poblacion-y-vivienda/censo-2024',
+      archivoLocal: 'data/ide_censo2024_manzanas.geojson',
+      color: '#34BF82',
+      icono: '⬚',
+      geometria: 'Polígonos (Manzanas Censales)',
+      grupo: 'demografia',
+      descripcion: 'Microdatos censales georreferenciados a nivel de manzana para la Comuna de Santiago (1.711 manzanas), cubriendo en alta resolución Barrio Brasil, Campus UAH y centro histórico.',
+      declaracion: 'Microdatos oficiales provistos por el Instituto Nacional de Estadísticas (INE) y la Secretaría Ejecutiva SNIT / IDE Chile. Licencia de Datos Abiertos del Estado de Chile conforme a la Ley N° 20.285.',
+      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Microdatos Georreferenciados a Nivel de Manzana (Comuna de Santiago). IDE Chile. https://www.ine.gob.cl'
     },
     minvu_patrimonio: {
       id: 'minvu_patrimonio',
@@ -2022,12 +2086,79 @@ const ModuloIDEChile = (() => {
       let detalleTipo = def.nombre;
       let extraInfo = {};
 
-      if (idCapa === 'censo2024_manzanas') {
-        const codManzana = props.COD_ENTIDAD_MANZANA || props.MANZANA || props.ID_NIVEL_CENSAL || `MZ-${idx + 1}`;
+      if (idCapa === 'censo2024_regional') {
+        const regionNom = props.REGION || 'Región Metropolitana de Santiago';
+        const codReg = props.COD_REGION || '13';
+        nombreEntidad = `Marco Regional: ${regionNom}`;
+        detalleTipo = 'Límite Político-Administrativo y Censal RM';
+        extraInfo = {
+          'Región': regionNom,
+          'Código Región': String(codReg),
+          'Unidad': 'Marco Macroterritorial Censo 2024',
+          'Fuente': 'Instituto Nacional de Estadísticas (INE)'
+        };
+      } else if (idCapa === 'censo2024_limite_urbano') {
+        const nomUrb = props.LOCALIDAD || props.COMUNA || props.ENTIDAD || `Área Urbana ${idx + 1}`;
         const poblacion = props.n_per !== undefined ? Number(props.n_per).toLocaleString('es-CL') : 'No disp.';
         const hombres = props.n_hombres !== undefined ? Number(props.n_hombres).toLocaleString('es-CL') : '-';
         const mujeres = props.n_mujeres !== undefined ? Number(props.n_mujeres).toLocaleString('es-CL') : '-';
-        const viviendas = props.n_viv !== undefined ? Number(props.n_viv).toLocaleString('es-CL') : 'No disp.';
+        const viviendas = props.n_viv !== undefined ? Number(props.n_viv).toLocaleString('es-CL') : (props.n_viv_par !== undefined ? Number(props.n_viv_par).toLocaleString('es-CL') : '-');
+        nombreEntidad = `Límite Urbano: ${nomUrb}`;
+        detalleTipo = `Población: ${poblacion} hab. | Comuna: ${props.COMUNA || '-'}`;
+        extraInfo = {
+          'Área / Localidad': nomUrb,
+          'Comuna': props.COMUNA || '-',
+          'Provincia': props.PROVINCIA || 'Santiago',
+          'Población Total': `${poblacion} personas`,
+          'Hombres': hombres,
+          'Mujeres': mujeres,
+          'Viviendas': viviendas,
+          'Código CUT': props.CUT || '-'
+        };
+      } else if (idCapa === 'censo2024_localidades') {
+        const nomLoc = props.LOCALIDAD || props.ENTIDAD || `Localidad ${idx + 1}`;
+        const poblacion = props.n_per !== undefined ? Number(props.n_per).toLocaleString('es-CL') : 'No disp.';
+        const hombres = props.n_hombres !== undefined ? Number(props.n_hombres).toLocaleString('es-CL') : '-';
+        const mujeres = props.n_mujeres !== undefined ? Number(props.n_mujeres).toLocaleString('es-CL') : '-';
+        const viviendas = props.n_viv !== undefined ? Number(props.n_viv).toLocaleString('es-CL') : (props.n_viv_par !== undefined ? Number(props.n_viv_par).toLocaleString('es-CL') : '-');
+        nombreEntidad = `Localidad: ${nomLoc}`;
+        detalleTipo = `Categoría: ${props.CATEGORIA || 'Entidad'} | ${poblacion} hab.`;
+        extraInfo = {
+          'Localidad / Asentamiento': nomLoc,
+          'Categoría': props.CATEGORIA || 'Entidad Poblada',
+          'Comuna': props.COMUNA || '-',
+          'Provincia': props.PROVINCIA || '-',
+          'Población Total': `${poblacion} personas`,
+          'Hombres': hombres,
+          'Mujeres': mujeres,
+          'Viviendas': viviendas,
+          'Conurbación': props.CONURBACION || '-'
+        };
+      } else if (idCapa === 'censo2024_zonal') {
+        const dist = props.DISTRITO || props.COD_DISTRITO || props.COD_ZONA || `Zona ${idx + 1}`;
+        const poblacion = props.n_per !== undefined ? Number(props.n_per).toLocaleString('es-CL') : 'No disp.';
+        const hombres = props.n_hombres !== undefined ? Number(props.n_hombres).toLocaleString('es-CL') : '-';
+        const mujeres = props.n_mujeres !== undefined ? Number(props.n_mujeres).toLocaleString('es-CL') : '-';
+        const viviendas = props.n_viv !== undefined ? Number(props.n_viv).toLocaleString('es-CL') : (props.n_viv_par !== undefined ? Number(props.n_viv_par).toLocaleString('es-CL') : '-');
+        nombreEntidad = `Distrito/Zona: ${dist}`;
+        detalleTipo = `Comuna: ${props.COMUNA || '-'} | Población: ${poblacion} hab.`;
+        extraInfo = {
+          'Distrito Censal': props.DISTRITO || props.COD_DISTRITO || '-',
+          'Código Zona': props.COD_ZONA || '-',
+          'Comuna': props.COMUNA || '-',
+          'Provincia': props.PROVINCIA || '-',
+          'Población Total': `${poblacion} personas`,
+          'Hombres': hombres,
+          'Mujeres': mujeres,
+          'Viviendas': viviendas,
+          'Inmigrantes': props.n_inmigrantes !== undefined ? Number(props.n_inmigrantes).toLocaleString('es-CL') : '-'
+        };
+      } else if (idCapa === 'censo2024_manzanas') {
+        const codManzana = props.MANZENT || props.COD_ENTIDAD_MANZANA || props.MANZANA || props.ID_NIVEL_CENSAL || `MZ-${idx + 1}`;
+        const poblacion = props.n_per !== undefined ? Number(props.n_per).toLocaleString('es-CL') : 'No disp.';
+        const hombres = props.n_hombres !== undefined ? Number(props.n_hombres).toLocaleString('es-CL') : '-';
+        const mujeres = props.n_mujeres !== undefined ? Number(props.n_mujeres).toLocaleString('es-CL') : '-';
+        const viviendas = props.n_viv !== undefined ? Number(props.n_viv).toLocaleString('es-CL') : (props.n_viv_par !== undefined ? Number(props.n_viv_par).toLocaleString('es-CL') : 'No disp.');
 
         nombreEntidad = `Manzana Censal ${codManzana}`;
         detalleTipo = `Población: ${poblacion} hab. | Viviendas: ${viviendas}`;
@@ -2037,7 +2168,11 @@ const ModuloIDEChile = (() => {
           'Mujeres': mujeres,
           'Viviendas Particulares': viviendas,
           'Comuna': props.COMUNA || 'Santiago',
-          'Código Censal': codManzana
+          'Código Manzana': codManzana,
+          'NNA (0-17 años)': (props.n_edad_0_5 !== undefined && props.n_edad_6_13 !== undefined && props.n_edad_14_17 !== undefined)
+            ? Number(props.n_edad_0_5 + props.n_edad_6_13 + props.n_edad_14_17).toLocaleString('es-CL') : '-',
+          'Adultos Mayores (60+)': props.n_edad_60_mas !== undefined ? Number(props.n_edad_60_mas).toLocaleString('es-CL') : '-',
+          'Población Inmigrante': props.n_inmigrantes !== undefined ? Number(props.n_inmigrantes).toLocaleString('es-CL') : '-'
         };
       } else if (idCapa === 'minvu_patrimonio') {
         nombreEntidad = props.NOMBRE || props.DENOMINACION || props.DIRECCION || 'Inmueble Patrimonial';

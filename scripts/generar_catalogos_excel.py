@@ -416,17 +416,17 @@ def crear_catalogo_fuentes():
             "IDE Chile / SNIT. (2024). Catálogo Nacional de Features. https://www.ide.cl/documentos/catalogo-nacional-de-features.pdf"
         ],
         [
-            "ArcGIS FeatureServer INE / IDE Chile (Censo 2024)",
+            "INE / IDE Chile — Censo 2024 Multiescalar (5 Capas Territoriales)",
             "Instituto Nacional de Estadísticas (INE) / IDE Chile",
-            "REST FeatureServer 10.91",
-            "https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/CPV2024_Microdato_gdb/FeatureServer/7",
-            "GET (REST Query)",
+            "GeoPackage Oficial INE / GeoJSON WGS84 Interoperable",
+            "https://www.ine.gob.cl/estadisticas/sociales/censos-de-poblacion-y-vivienda/censo-2024",
+            "GeoJSON Local / REST Query",
             "GeoJSON (FeatureCollection)",
-            "where=1=1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&f=geojson",
-            "Acceso abierto sin clave API; microdatos georreferenciados a nivel de manzana censal",
+            "EPSG:4326 (WGS84)",
+            "Acceso abierto oficial (Ley N° 20.285); 5 escalas territoriales independientes: Regional RM, Límites Urbanos, Localidades, Zonas/Distritos y Manzanas",
             "src/js/modulos/ide_chile.js (ModuloIDEChile)",
-            "Carga y visualización en vivo de las 351 manzanas censales de Barrio Brasil con población total, hombres, mujeres y viviendas",
-            "INE. (2024). Censo de Población y Vivienda 2024: Microdatos Georreferenciados. https://services5.arcgis.com"
+            "Despliegue multiescalar de microdatos censales (RM y Comuna de Santiago) con desagregación de población, sexo, grupos etarios, etnias y viviendas",
+            "INE. (2024). Censo de Población y Vivienda 2024: Cartografía y Microdatos Georreferenciados. https://www.ine.gob.cl"
         ],
         [
             "ArcGIS FeatureServer & WMS MINVU (GeoIDE)",

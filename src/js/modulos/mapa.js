@@ -32,8 +32,12 @@ const ModuloMapa = (() => {
     biodiversidad: '#1C523A',
     edificaciones: '#555555',
     cobertura_suelo: '#5B704E',
-    // Capas Oficiales IDE Chile y MINVU
-    censo2024_manzanas: '#1B4D3E',
+    // Capas Oficiales IDE Chile y MINVU - Censo 2024 Multiescalar
+    censo2024_regional: '#0A3D2E',
+    censo2024_limite_urbano: '#165B4C',
+    censo2024_localidades: '#1E7A56',
+    censo2024_zonal: '#279B6C',
+    censo2024_manzanas: '#34BF82',
     minvu_patrimonio: '#8F3A2C',
     minvu_parques: '#236B43',
     minvu_barrios_historicos: '#7D5A2B',

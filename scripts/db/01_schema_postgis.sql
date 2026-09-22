@@ -15,7 +15,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Catálogo de las 108 capas oficiales del Estado de Chile e indicadores territoriales
 -- ============================================================================
 CREATE TABLE IF NOT EXISTS public.capas_metadata (
-    id TEXT PRIMARY KEY,                           -- ej: 'bbdd_01', 'censo2024_manzanas'
+    id TEXT PRIMARY KEY,                           -- ej: 'bbdd_01', 'censo2024_regional', 'censo2024_manzanas'
     nombre TEXT NOT NULL,                          -- Denominación oficial de la capa
     institucion TEXT NOT NULL,                     -- Organismo rector (MINVU, INE, MOP, etc.)
     ministerio TEXT,                               -- Ministerio o cartera
