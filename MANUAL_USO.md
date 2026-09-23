@@ -9,7 +9,7 @@
 
 ## 0. Introducción y Perfiles de Actor Territorial
 
-El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **107 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024, MOP, CMN, MMA, MDSF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube.
+El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **111 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, MOP, CMN, MMA, MDSF BiDat) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 121 capas totales con las 10 categorías maestras VGI).
 
 En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual adapta y resalta las herramientas clave según la necesidad operativa del usuario:
 
@@ -58,18 +58,18 @@ Debajo del mapa encontrarás la botonera con las 10 categorías territoriales ci
 - Haz clic sobre cualquier punto, línea o polígono para abrir la **ficha popup**: muestra nombre, tipología, dirección, accesibilidad, institución, fecha de captura, fuente y cita bibliográfica APA.
 - Para ocultar la capa, basta con hacer clic nuevamente en su botón.
 
-### 1.4 Exportación a GeoJSON
-- Haz clic en **"📥 Exportar GeoJSON"** en la barra superior.
-- Se descargará un archivo `.geojson` con todas las capas actualmente visibles en el mapa, listo para arrastrar y soltar en **QGIS** o **ArcGIS Pro**.
+### 1.4 Exportación a GeoJSON y Descargas Directas
+- Haz clic en **"📥 Exportar GeoJSON"** en la barra superior para descargar todas las capas actualmente activas en el visor, listas para arrastrar y soltar en **QGIS** o **ArcGIS Pro**.
+- En el catálogo de capas oficiales, cada tarjeta dispone del botón directo **`📥`** para descargar el GeoJSON oficial completo sin intermediarios.
 
 ---
 
-## 2. Catálogo Oficial de 107 Capas del Estado de Chile (IDE Chile / BBDD)
+## 2. Catálogo Oficial de 111 Capas del Estado de Chile (IDE Chile / BBDD)
 
 Ubicado inmediatamente después del visor, este módulo permite contrastar la información colaborativa ciudadana con las capas oficiales de la Administración del Estado de Chile, amparadas por la **Ley N° 20.285 de Transparencia**.
 
 ### 2.1 Acordeones Temáticos Colapsables a Ancho Completo (100%)
-Las 107 capas se presentan agrupadas en **acordeones horizontales colapsables** con diseño táctico oscuro de alto contraste (WCAG AAA):
+Las 111 capas se presentan agrupadas en **acordeones horizontales colapsables** con diseño táctico oscuro de alto contraste (WCAG AAA):
 - **Cabecera interactiva:** Al hacer clic, se despliega o colapsa el grupo con una animación suave del chevron (`▾` rotatorio en 180°).
 - **Badge de conteo:** Muestra el número exacto de capas contenidas en cada macro-grupo.
 - **Apertura predeterminada:** Los dos primeros grupos se inicializan abiertos para proporcionar visibilidad inmediata.
@@ -80,13 +80,18 @@ Las 107 capas se presentan agrupadas en **acordeones horizontales colapsables** 
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
    - Parques Urbanos MINVU, Red Hidrométrica Nacional DGA, Inventario de Humedales Urbanos, SNASPE (CONAF), Cobertura de Canales de Riego (CNR), Cuencas BNA y Carbono Orgánico del Suelo (COS).
 3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDSF / MINVU / INE Censo 2024):**
-   - Manzanas censales Censo 2024 con microdatos poblacionales, Unidades Vecinales Oficiales (Ley 19.418), Campamentos MINVU, Condominios Sociales y 8 indicadores de vulnerabilidad del Registro Social de Hogares (BiDat).
+   - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y Manzanas con 217 variables censales del INE), Unidades Vecinales Oficiales (Ley 19.418), Campamentos MINVU, Condominios Sociales y 10 conjuntos de datos sociodemográficos y de inversión pública del Registro Social de Hogares (RSH), IGVUST e iniciativas BIP (BiDat MDSF / Hacienda).
 4. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND):**
    - Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI / Integra), Establecimientos Escolares y de Educación Superior (MINEDUC), Hospitales y CESFAM (DEIS / MINSAL), Infraestructura Deportiva y Jardines Botánicos.
 5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
    - Cuarteles de Bomberos, Comisarías de Carabineros de Chile, Pasos Fronterizos Internacionales (DIFROL) y Zonas de Seguridad Fronteriza.
 6. 🚲 **Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / CNE / ODEPA):**
    - Red de Estaciones de Metro de Santiago (L1, L2, L5), Red Ferroviaria EFE, Red Vial Nacional (GEOMOP), Contratos Concesionados MOP, Banco Integrado de Proyectos (BIP 2019-2027), Subestaciones Eléctricas (SEN / CNE) y Ferias Libres (ODEPA).
+
+### 2.3 Panel Lateral "Más detalles" con Alerta Informativa de Columnas
+Al hacer clic en cualquier entidad de una capa con alta densidad de variables (>15 columnas, RSH, Censo 2024, BIP, CONAF):
+- Se abre el panel lateral de detalles con un **aviso informativo destacado en color dorado**: indica que por motivos de rendimiento en el navegador se resumen los indicadores prioritarios.
+- Incluye el botón directo **`[📥 Descargar Capa Completa (.geojson)]`**, el cual descarga el archivo original sin recortes espaciales ni omisiones de atributos.
 
 ### 2.3 Capa OGC WMS de Patrimonio MINVU en Vivo
 - El botón **"🗺️ MINVU WMS Patrimonio en Vivo"** permite superponer directamente teselas georreferenciadas bajo el estándar **OGC WMS 1.3.0** servidas en tiempo real por la División de Desarrollo Urbano del MINVU (`geoide.minvu.cl`).
@@ -191,7 +196,7 @@ Genera la documentación técnica oficial del catastro territorial:
 
 ---
 
-## 11. Diccionario Territorial de 118 Descriptores (Panel 06)
+## 11. Diccionario Territorial de 134 Descriptores (Panel 06)
 
 Permite consultar la definición toponímica y la homología institucional de cada etiqueta:
 - **Sinceramiento conceptual:** Distingue rigurosamente entre **capas oficiales del Estado** (con respaldo legal en IDE Chile) y **brechas VGI ciudadanas** (datos colaborativos no catastrados formalmente por el Estado).
@@ -204,7 +209,7 @@ Permite consultar la definición toponímica y la homología institucional de ca
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para anexar al informe formal de práctica:
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas e inventario técnico de APIs y endpoints del Estado.
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **111 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, BiDat MDSF, MINVU, MOP, DGA, etc.).
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
 - **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando las 51 obras oficiales del Seminario de Grado UAH, 8 fuentes epistemológicas del texto y 66 normas técnicas y marcos legales del Atlas).
 
@@ -215,8 +220,8 @@ En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles lo
 Para analistas SIG o geógrafos que requieran procesar datos por lotes en consola:
 
 ```bash
-# 1. Auditoría de integridad de la base de datos geográfica (180 capas GeoJSON, 306.626 entidades):
-python3 scripts/subir_base_datos_supabase.py --dry-run
+# 1. Auditoría universal pre-despliegue de los 207 GeoJSONs (2.28 GB) y catálogos Excel:
+python3 scripts/verificar_integridad_despliegue.py
 
 # 2. Ingesta masiva y sincronización con Supabase PostGIS:
 export SUPABASE_URL="https://[TU-PROYECTO].supabase.co"

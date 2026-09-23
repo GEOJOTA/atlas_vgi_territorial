@@ -67,7 +67,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
  ┌────────────────────────┐ ┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐
  │    SUPABASE CLOUD      │ │ Overpass ││ Taginfo  ││  ohsome  ││  OSMCha  ││   GBIF   │
  │ PostgreSQL 17+PostGIS  │ │ API OSMF ││  API v4  ││ API v1/v2││Changesets││ Species/ │
- │ • 107 capas_metadata   │ │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
+ │ • 111 capas_metadata   │ │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
  │ • 129.262 entidades GIST│ └──────────┘└──────────┘└──────────┘└──────────┘└──────────┘
  │ • Storage atlas-geojson│
  └────────────────────────┘
@@ -118,18 +118,20 @@ La arquitectura se articula en 16 módulos desacoplados coordinados por el contr
 - Motor cartográfico 2D de alto rendimiento.
 - Capas base intercambiables: CartoDB Positron, OpenStreetMap Estándar y OpenTopoMap.
 - Herramienta interactiva "📐 Dibujar Bbox" para redelimitar el polígono de estudio dinámicamente.
-- Coordinación de capas de las 10 categorías VGI y las 107 capas oficiales del Estado.
+- Coordinación de capas de las 10 categorías VGI y las 111 capas oficiales del Estado (121 capas totales).
+- Panel lateral de «Más detalles» con alerta visual destacada para datasets con alta densidad de columnas (>15 atributos, RSH, Censo 2024, BIP, IGVUST, CONAF) y botón de descarga directa de la capa completa (.geojson) sin recortes espaciales ni de columnas.
 - Popups normalizados con atributos clave, citas bibliográficas APA 7ª ed. y enlace al diccionario.
 
-### 3.3 `ide_chile.js` (Catálogo Oficial de 107 Capas del Estado)
+### 3.3 `ide_chile.js` (Catálogo Oficial de 111 Capas del Estado)
 - Renderiza los **6 macro-grupos temáticos oficiales** mediante acordeones colapsables a ancho completo (100%):
   - *Normativa Urbanística & IPT* (MINVU / PRC Santiago / PRMS / DPA)
   - *Medio Ambiente, Parques & Recursos Hídricos* (MMA / DGA / CONAF / CIREN)
-  - *Comunidades, RSH, Vulnerabilidad & Demografía* (MDSF / INE Censo 2024 / MINVU)
+  - *Comunidades, RSH, Vulnerabilidad & Demografía* (MDSF / INE Censo 2024 multiescalar / MINVU / BiDat)
   - *Equipamiento Público, Educación, Salud & Patrimonio* (CMN / MINEDUC / MINSAL / IND)
   - *Seguridad, Bomberos & Emergencias* (Carabineros / CBS / DIFROL)
   - *Movilidad, Transporte, Red Metro, Inversión Pública & Economía* (MOP / MTT / BIP / CNE / ODEPA)
 - Badges dinámicos de conteo de entidades y estado de carga.
+- Botón directo de descarga `📥` en cada tarjeta de capa oficial.
 - Conexión con `db_client.js` para descarga inteligente vía PostGIS RPC o Storage CDN.
 
 ### 3.4 `evaluador_normativo.js` (Motor de Evaluación Normativa Territorial CIN-VGI)
