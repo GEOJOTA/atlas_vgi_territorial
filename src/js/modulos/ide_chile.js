@@ -1985,6 +1985,25 @@ const ModuloIDEChile = (() => {
       descripcion: "Catastro oficial de 3.483 intersecciones y cruces semaforizados integrados al Sistema de Control de Tránsito de la Región Metropolitana (SC-RM). Entrega oficial bajo Oficio N° 26105 / 2026 (Solicitud AN001T0026930), con códigos junction, vías intersectadas, comuna, modelo de controlador, comunicación y vigencia a julio 2026.",
       declaracion: "Información pública oficial del Ministerio de Transportes y Telecomunicaciones amparada por la Ley N° 20.285 de Transparencia de la Función Pública.",
       citaAPA: "Subsecretaría de Transportes & Unidad Operativa de Control de Tránsito [UOCT]. (2026). Catastro de Intersecciones Semaforizadas Conectadas al Sistema de Control de la Región Metropolitana (Oficio N° 26105, Solicitud AN001T0026930). Ministerio de Transportes y Telecomunicaciones."
+    },
+    'catastro_predial_sii': {
+      id: 'catastro_predial_sii',
+      num_bbdd: 'SII-01',
+      nombre: "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)",
+      institucion: "Servicio de Impuestos Internos (SII) / Geoproceso v4 Atlas VGI UAH",
+      ministerio: 'Ministerio de Hacienda / Depto. de Geografía UAH',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Nacional',
+      urlServicio: "https://www.sii.cl",
+      archivoLocal: 'data/capa_catastro_predial_sii.geojson',
+      archivoNacional: 'data/capa_catastro_predial_sii_nacional_v4.geojson',
+      color: '#D97706',
+      icono: '🏛️',
+      geometria: 'Puntos (Predios Geocodificados v4)',
+      grupo: 'edificaciones',
+      joinInfo: "ROL SII (Comuna - Manzana - Predio)",
+      descripcion: "Catastro de bienes raíces del Servicio de Impuestos Internos (SII) 2025 geocodificado de forma integral mediante el Geoproceso v4 (septiembre 2026). Contiene 1.380.649 propiedades geolocalizadas a escala nacional con ROL CIREN, ejes viales exactos/fuzzy y centroides censales urbanos y rurales (Censo 2024). Incluye avalúo fiscal, superficie de terreno y superficie construida.",
+      declaracion: 'Información pública del Catastro de Bienes Raíces del SII amparada por la Ley N° 20.285 de Transparencia de la Función Pública.',
+      citaAPA: "Servicio de Impuestos Internos [SII] & Universidad Alberto Hurtado [UAH]. (2026). Catastro Predial de Bienes Raíces Geocodificado v4 (1.380.649 predios). Atlas VGI Barrio Brasil / UAH. https://www.sii.cl"
     }
   };
 
@@ -2330,6 +2349,26 @@ const ModuloIDEChile = (() => {
           'Usos Prohibidos': props.UPROH || 'Ver ordenanza local',
           'Fecha D.O.': props.P_DO || '-',
           'Instrumento': `${props.T_DO || 'Resolución'} N° ${props.N_DOC || ''}`
+        };
+      } else if (idCapa === 'catastro_predial_sii' || idCapa.startsWith('catastro_sii')) {
+        const rolStr = props.rol || (props.manzana ? `${props.manzana}-${props.predio}` : 'Sin ROL');
+        const dirStr = props.direccion || props.rc_direccion || props.dc_direccion || 'Sin dirección registrada';
+        const comStr = props.comuna || 'Santiago';
+        const avaluoVal = props.avaluo_fiscal || props.rc_avaluo_total || props.dc_avaluo_fiscal;
+        const avaluoStr = avaluoVal ? `$${Number(avaluoVal).toLocaleString('es-CL')}` : 'No disponible';
+        const nivelGeo = (props.geocod_nivel || 'v4').toUpperCase();
+
+        nombreEntidad = `Predio ROL SII ${rolStr}`;
+        detalleTipo = `Dirección: ${dirStr} | Avalúo: ${avaluoStr} | Geocod: ${nivelGeo}`;
+        extraInfo = {
+          'ROL SII': rolStr,
+          'Dirección Catastral': dirStr,
+          'Comuna (Código/Nombre)': comStr,
+          'Avalúo Fiscal Total': avaluoStr,
+          'Superficie Terreno (m²)': props.sup_terreno_m2 ? `${Number(props.sup_terreno_m2).toLocaleString('es-CL')} m²` : '-',
+          'Superficie Construida (m²)': props.sup_construida_m2 ? `${Number(props.sup_construida_m2).toLocaleString('es-CL')} m²` : '-',
+          'Nivel Geocodificación': nivelGeo,
+          'Fuente de Origen': props.fuente || 'Catastro SII 2025 (Geoproceso v4)'
         };
       } else if (idCapa === 'minvu_ipt_prms_usosuelo') {
         nombreEntidad = props.NOMBRE || props.Capa || 'Uso de Suelo Metropolitano';

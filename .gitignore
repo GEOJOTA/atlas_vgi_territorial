@@ -16,3 +16,5 @@ Entregables/
 scratch/
 *.rar
 *.zip
+*.gpkg
+*_nacional_v4.geojson
