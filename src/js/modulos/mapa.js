@@ -55,6 +55,7 @@ const ModuloMapa = (() => {
   };
 
   let capasWMSActivas = {};
+  let layerActivoPopup = null;
 
   function inicializar(idContenedor = 'mapa-atlas') {
     const el = document.getElementById(idContenedor);
@@ -330,20 +331,32 @@ const ModuloMapa = (() => {
               ${props._citaAPA ? `<tr><td colspan="2" style="font-size:0.65rem; color:#35586B; padding-top:2px; font-family:'IBM Plex Mono',monospace;"><strong>Cita:</strong> ${props._citaAPA}</td></tr>` : ''}
             </table>
             <div style="margin-top:8px; border-top:1px solid #C9BFA0; padding-top:6px; text-align:right;">
-              <button id="${idBotonDetalle}" style="background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border:none; border-radius:5px; padding:5px 12px; font-size:0.75rem; font-weight:700; cursor:pointer; font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.82'" onmouseout="this.style.opacity='1'">Más detalles →</button>
+              <button id="${idBotonDetalle}" class="btn-mas-detalles-popup" style="background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border:none; border-radius:5px; padding:6px 14px; font-size:0.75rem; font-weight:700; cursor:pointer; font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em; transition:all 0.2s; box-shadow:0 2px 6px rgba(6,182,212,0.3);" onmouseover="this.style.opacity='0.85'; this.style.transform='translateY(-1px)';" onmouseout="this.style.opacity='1'; this.style.transform='none';">Más detalles →</button>
             </div>
           </div>
         `;
         layer.bindPopup(contenidoPopup);
 
-        // Vincular el botón «Más detalles» una vez el popup está abierto
+        // Guardar referencias internas en la entidad vectorial
+        layer._atlasProps = props;
+        layer._atlasOpciones = opciones;
+        layer._atlasIdCapa = idCapa;
+        layer._atlasIcono = icono;
+        layer._atlasColor = color;
+
+        // Vincular el botón «Más detalles» cada vez que el popup esté activo
         layer.on('popupopen', () => {
+          layerActivoPopup = layer;
           const btn = document.getElementById(idBotonDetalle);
           if (btn) {
-            btn.addEventListener('click', () => {
+            btn.onclick = (e) => {
+              if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
               abrirSidebarDetalle(props, opciones, idCapa, icono, color);
               layer.closePopup();
-            }, { once: true });
+            };
           }
         });
 
@@ -656,18 +669,34 @@ const ModuloMapa = (() => {
   };
   META_CAPAS_BIDAT['semaforos_rm_uoct_2026'] = {
     fuente: 'UOCT / MTT — Oficio N° 26105 / 2026',
-    descripcion: 'Catastro de Cruces e Intersecciones Semaforizadas Conectadas al Sistema de Control de Tránsito RM (3.483 intersecciones).',
+    descripcion: 'Catastro de Cruces e Intersecciones Semaforizadas Conectadas al Sistema de Control de Tránsito RM (3.483 intersecciones operativas en 47 comunas).',
     archivo_geojson: 'semaforos_rm_uoct_2026.geojson',
     columnas_totales: 14,
     tamano_mb: 1.51,
-    licencia: 'Información Pública — Ley N° 20.285 de Transparencia'
+    licencia: 'Información Pública Oficial — Ley N° 20.285 de Transparencia (Solicitud AN001T0026930)'
   };
+
+  // Aliases directos para los 5 niveles del Censo 2024 (con o sin prefijo ide_)
+  META_CAPAS_BIDAT['censo2024_regional'] = META_CAPAS_BIDAT['ide_censo2024_regional'];
+  META_CAPAS_BIDAT['censo2024_limite_urbano'] = META_CAPAS_BIDAT['ide_censo2024_limite_urbano'];
+  META_CAPAS_BIDAT['censo2024_localidades'] = META_CAPAS_BIDAT['ide_censo2024_localidades'];
+  META_CAPAS_BIDAT['censo2024_zonal'] = META_CAPAS_BIDAT['ide_censo2024_zonal'];
+  META_CAPAS_BIDAT['censo2024_manzanas'] = META_CAPAS_BIDAT['ide_censo2024_manzanas'];
+  META_CAPAS_BIDAT['ide_semaforos_rm_uoct_2026'] = META_CAPAS_BIDAT['semaforos_rm_uoct_2026'];
 
   function fila(etiqueta, valor) {
     const esNum = typeof valor === 'number';
-    const esVacio = valor === null || valor === undefined || valor === '' || valor === 'Sin dato' || valor === 0;
-    const valFmt = esNum ? valor.toLocaleString('es-CL') : (esVacio ? '—' : valor);
-    return `<tr><td class="detalle-clave">${etiqueta}</td><td class="detalle-valor ${esNum ? 'num' : ''}">${valFmt}</td></tr>`;
+    const esBool = typeof valor === 'boolean';
+    const esVacio = valor === null || valor === undefined || valor === '' || valor === 'Sin dato';
+    let valFmt = '—';
+    if (esNum) {
+      valFmt = Number.isInteger(valor) ? valor.toLocaleString('es-CL') : valor.toLocaleString('es-CL', { maximumFractionDigits: 4 });
+    } else if (esBool) {
+      valFmt = valor ? 'Sí' : 'No';
+    } else if (!esVacio) {
+      valFmt = valor;
+    }
+    return `<tr><td class="detalle-clave">${etiqueta}</td><td class="detalle-valor ${esNum ? 'num' : (esVacio ? 'vacio' : '')}">${valFmt}</td></tr>`;
   }
 
   function seccion(titulo, filasHtml) {
@@ -681,7 +710,7 @@ const ModuloMapa = (() => {
   }
 
   function abrirSidebarDetalle(props = {}, opciones = {}, idCapa, icono, color) {
-    const sidebar = document.getElementById('sidebar-detalle');
+    const sidebar = document.getElementById('sidebar-detalle-bidat') || document.getElementById('sidebar-detalle');
     const cuerpo  = document.getElementById('sidebar-detalle-cuerpo');
     const badge   = document.getElementById('sidebar-detalle-badge');
     if (!sidebar || !cuerpo) return;
@@ -691,35 +720,69 @@ const ModuloMapa = (() => {
     if (badge) badge.textContent = icono ? `${icono} ${nombreCapa}` : nombreCapa;
 
     // Obtener metadatos de la capa (soporta idCapa, alias bbdd_XX o nombre de archivo)
-    const meta = META_CAPAS_BIDAT[idCapa] || META_CAPAS_BIDAT[props._idOficial] || META_CAPAS_BIDAT[opciones?.id] || {};
+    let meta = META_CAPAS_BIDAT[idCapa] || META_CAPAS_BIDAT[props._idOficial] || META_CAPAS_BIDAT[opciones?.id] || {};
+
+    // Si es una capa oficial de ModuloIDEChile no listada en META_CAPAS_BIDAT, heredar de CAPAS_OFICIALES
+    const idOficial = idCapa || props._idOficial || opciones?.id;
+    const defOficial = window.ModuloIDEChile?.obtenerDefinicion ? window.ModuloIDEChile.obtenerDefinicion(idOficial) : (window.ModuloIDEChile?.CAPAS_OFICIALES?.[idOficial] || null);
+
+    if (defOficial) {
+      meta = {
+        fuente: meta.fuente || defOficial.institucion || 'Estado de Chile',
+        ministerio: meta.ministerio || defOficial.ministerio || 'Organismo del Estado',
+        archivo_origen: meta.archivo_origen || defOficial.archivoLocal || `data/${idOficial}.geojson`,
+        archivo_geojson: meta.archivo_geojson || (defOficial.archivoLocal ? defOficial.archivoLocal.split('/').pop() : `${idOficial}.geojson`),
+        descripcion: meta.descripcion || defOficial.descripcion || defOficial.nombre,
+        licencia: meta.licencia || defOficial.declaracion || 'Ley N° 20.285 de Transparencia',
+        citaAPA: meta.citaAPA || defOficial.citaAPA || `Estado de Chile. (2026). ${defOficial.nombre}.`,
+        columnas_totales: meta.columnas_totales || null,
+        tamano_mb: meta.tamano_mb || null,
+        join_tipo: meta.join_tipo,
+        clave_join: meta.clave_join,
+        cobertura: meta.cobertura,
+        features_salida: meta.features_salida,
+        features_excluidas: meta.features_excluidas,
+        razon_exclusion: meta.razon_exclusion,
+        nulos_rellenos: meta.nulos_rellenos,
+        crs_entrada: meta.crs_entrada,
+        crs_salida: meta.crs_salida,
+        fecha_proceso: meta.fecha_proceso,
+        nota_critica: meta.nota_critica
+      };
+    }
 
     // ── Alerta: Aviso de columnas no mostradas y descarga integral ─────────
     const totalColsProps = Object.keys(props).filter(k => !k.startsWith('_') && k !== 'geometry').length;
     const totalColsOrigen = meta.columnas_totales || totalColsProps;
-    const archivoGeoJSON = meta.archivo_geojson || (idCapa && idCapa.endsWith('.geojson') ? idCapa : (props._archivoLocal ? props._archivoLocal.split('/').pop() : `${idCapa}.geojson`));
+    const archivoGeoJSON = meta.archivo_geojson ||
+      (idCapa && idCapa.endsWith('.geojson') ? idCapa :
+      (props._archivoLocal ? props._archivoLocal.split('/').pop() : `${idCapa}.geojson`));
+    const nombreDescarga = archivoGeoJSON.split('/').pop();
+    const rutaDescarga = `data/${nombreDescarga}`;
     const tamanoMbStr = meta.tamano_mb ? `${meta.tamano_mb} MB` : 'GeoJSON Completo';
 
-    const mostrarAlerta = totalColsOrigen > 15 || meta.columnas_totales || (idCapa && (idCapa.includes('rsh') || idCapa.includes('RSH') || idCapa.includes('censo') || idCapa.includes('bbdd') || idCapa.includes('bip') || idCapa.includes('BIP') || idCapa.includes('IGVUST')));
+    const mostrarAlerta = totalColsOrigen > 10 || meta.columnas_totales ||
+      (idCapa && (idCapa.includes('rsh') || idCapa.includes('RSH') || idCapa.includes('censo') || idCapa.includes('bbdd') || idCapa.includes('bip') || idCapa.includes('BIP') || idCapa.includes('IGVUST') || idCapa.includes('semaforos')));
 
     const alertaColumnasHtml = mostrarAlerta ? `
-      <div class="detalle-alerta-columnas" style="background:rgba(234,179,8,0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:11px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
+      <div class="detalle-alerta-columnas" style="background:rgba(234,179,8,0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
         <div style="display:flex; align-items:flex-start; gap:10px;">
-          <span style="font-size:1.25rem; line-height:1.2;">⚠️</span>
+          <span style="font-size:1.3rem; line-height:1.2;">⚠️</span>
           <div style="flex:1;">
             <strong style="display:block; color:#EAB308; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
               AVISO DE VISUALIZACIÓN: COLUMNAS RESUMIDAS
             </strong>
             <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
-              Por motivos de rendimiento y legibilidad en el visor interactivo, <strong>no se están mostrando todas las columnas</strong> de esta entidad (${totalColsOrigen} columnas y variables presentes en el dataset oficial).
+              Por motivos de rendimiento y fluidez en el visor interactivo, <strong>no se están mostrando todas las columnas</strong> de esta entidad (${totalColsOrigen} columnas y variables presentes en el dataset oficial).
             </p>
             <p style="margin:5px 0 0 0; font-size:0.75rem; color:var(--tinta,#f8fafc); line-height:1.4;">
-              El conjunto cartográfico original incluye el 100% de los polígonos e información sociodemográfica íntegra sin recortar.
+              El conjunto cartográfico oficial incluye el 100% de las geometrías e información sociodemográfica íntegra sin simplificar.
             </p>
             <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <a href="data/${archivoGeoJSON}" download="${archivoGeoJSON}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:6px 13px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 5px rgba(0,0,0,0.25);">
+              <a href="${rutaDescarga}" download="${nombreDescarga}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:7px 14px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition:all 0.15s;" onmouseover="this.style.opacity='0.85'; this.style.transform='translateY(-1px)';" onmouseout="this.style.opacity='1'; this.style.transform='none';">
                 📥 Descargar Capa Completa (${tamanoMbStr})
               </a>
-              <span style="font-size:0.7rem; color:var(--tinta-tenue,#94a3b8); font-family:'IBM Plex Mono',monospace;">(Todas las columnas íntegras)</span>
+              <span style="font-size:0.7rem; color:var(--tinta-tenue,#94a3b8); font-family:'IBM Plex Mono',monospace;">(Todas las columnas e indicadores íntegros)</span>
             </div>
           </div>
         </div>
@@ -727,77 +790,113 @@ const ModuloMapa = (() => {
     ` : '';
 
     // ── Sección 1: Identificación del elemento ──────────────────────────
-    const nombre = props._nombre || props.nombre || props.name || props.NOMBRE || props.EBI_NOMBRE || '—';
-    const subtipo = props._subtipo || props.subtipo || props.EBI_ETAPA_POSTULA || '—';
-    const geomType = '—';
+    const nombre = props._nombre || props.nombre || props.name || props.NOMBRE || props.EBI_NOMBRE ||
+      (props.codigo_junction ? `Cruce ${props.codigo_junction}: ${props.acceso_1 || ''} / ${props.acceso_2 || ''}` : '') ||
+      (props.NOM_COM ? `Comuna ${props.NOM_COM}` : '') ||
+      (props.d_COMUNA ? `Comuna ${props.d_COMUNA}` : '') ||
+      (props.LOCALIDAD ? `Localidad ${props.LOCALIDAD}` : '') ||
+      (props.ENTIDAD ? `Entidad ${props.ENTIDAD}` : '') ||
+      '—';
+    const subtipo = props._subtipo || props.subtipo || props.EBI_ETAPA_POSTULA || props.amenity || props.shop || props.highway || props.historic || (defOficial ? defOficial.nombre : '—');
+
     let s1 = '';
-    s1 += fila('Nombre / ID', nombre);
-    s1 += fila('Subtipo / Etapa', subtipo);
+    s1 += fila('Nombre / Denominación', nombre);
+    s1 += fila('Subtipo / Clasificación', subtipo);
+    if (props.codigo_junction) s1 += fila('Código Junction (UOCT)', props.codigo_junction);
+    if (props.acceso_1) s1 += fila('Intersección Vía 1', props.acceso_1);
+    if (props.acceso_2) s1 += fila('Intersección Vía 2', props.acceso_2);
+    if (props.marca_control) s1 += fila('Controlador Semafórico', `${props.marca_control} ${props.modelo || ''}`.trim());
+    if (props.tipo_cabezal) s1 += fila('Tecnología Cabezal', props.tipo_cabezal);
+    if (props.tipo_comunicacion) s1 += fila('Enlace Comunicación', props.tipo_comunicacion);
+    if (props.estado) s1 += fila('Estado Operativo', props.estado);
+    if (props.vigencia) s1 += fila('Vigencia Oficial', props.vigencia);
     if (props.t_id_uv_ca || props.uv_rsh) s1 += fila('ID Unidad Vecinal', props.t_id_uv_ca || props.uv_rsh);
-    if (props.t_com_nom || props.COMUNA) s1 += fila('Comuna', props.t_com_nom || props.COMUNA);
-    if (props.t_prov_nom || props.PROVINCIA) s1 += fila('Provincia', props.t_prov_nom || props.PROVINCIA);
+    if (props.t_com_nom || props.COMUNA || props.comuna || props.d_COMUNA) s1 += fila('Comuna', props.t_com_nom || props.COMUNA || props.comuna || props.d_COMUNA);
+    if (props.t_prov_nom || props.PROVINCIA || props.d_PROVINCIA) s1 += fila('Provincia', props.t_prov_nom || props.PROVINCIA || props.d_PROVINCIA);
+    if (props.REGION || props.d_REGION) s1 += fila('Región', props.REGION || props.d_REGION);
     if (props.uv_carto) s1 += fila('Número UV', props.uv_carto);
-    if (props.EBI_CODIGO) s1 += fila('Código BIP', props.EBI_CODIGO);
+    if (props.CUT || props.CUT_COM) s1 += fila('Código Único Territorial (CUT)', props.CUT || props.CUT_COM);
+    if (props.EBI_CODIGO) s1 += fila('Código BIP / SNI', props.EBI_CODIGO);
     if (props.EBI_ANO_POSTULA) s1 += fila('Año Postulación', props.EBI_ANO_POSTULA);
     if (props.EBI_SITUACION) s1 += fila('Situación', props.EBI_SITUACION);
     if (props.EBI_SIMBOLO_MONEDA) s1 += fila('Moneda', props.EBI_SIMBOLO_MONEDA);
+    if (props.EBI_COSTO_TOTAL) s1 += fila('Costo Total Proyecto', props.EBI_COSTO_TOTAL);
+    if (props.direccion || props.DIRECCION || props.DIRECC) s1 += fila('Dirección', props.direccion || props.DIRECCION || props.DIRECC);
+    if (props.operador) s1 += fila('Operador', props.operador);
+    if (props.superficie_m2) s1 += fila('Superficie (m² EPSG:32719)', props.superficie_m2);
+    if (props.superficie_ha || props.Ha || props.SUP_HA) s1 += fila('Superficie (ha)', props.superficie_ha || props.Ha || props.SUP_HA);
 
-    // ── Sección 2: Datos cuantitativos (primeras 25 columnas numéricas) ─
+    // ── Sección 2: Datos cuantitativos y variables numéricas ────────────
     let s2 = '';
     let nCols = 0;
-    const excluirCols = new Set(['_nombre','_subtipo','_fuente','_licencia','_capaId','_idUsuario','_color','_extraInfo','_declaracion','_citaAPA','_idOficial','geometry']);
+    const excluirCols = new Set([
+      '_nombre','_subtipo','_fuente','_licencia','_capaId','_idUsuario','_color','_extraInfo','_declaracion','_citaAPA','_idOficial','geometry',
+      'OBJECTID','FID','id','ID','CUT','CUT_COM','COD_REGION','COD_PROVINCIA','COD_COMUNA','EBI_CODIGO','superficie_m2','superficie_ha'
+    ]);
     for (const [k, v] of Object.entries(props)) {
       if (excluirCols.has(k)) continue;
-      if (typeof v === 'number' && nCols < 25) {
+      if (typeof v === 'number' && nCols < 100) {
         s2 += fila(k, v);
         nCols++;
       }
     }
-    if (!s2) s2 = '<p style="font-size:0.78rem; color:var(--tinta-tenue);">No hay columnas numéricas adicionales.</p>';
+    if (!s2) s2 = '<p style="font-size:0.78rem; color:var(--tinta-tenue); margin:0;">No hay columnas numéricas adicionales.</p>';
 
-    // ── Sección 3: Todos los atributos de texto relevantes ──────────────
+    // ── Sección 3: Atributos del dato y variables de texto ──────────────
     let s3 = '';
     let nText = 0;
-    const excluirTexto = new Set([...excluirCols, 't_reg_ca','t_reg_nom','CUT_REG','REGION']);
+    const excluirTexto = new Set([
+      ...excluirCols,
+      't_reg_ca','t_reg_nom','CUT_REG','REGION','t_prov_nom','PROVINCIA','t_com_nom','COMUNA','comuna',
+      'codigo_junction','acceso_1','acceso_2','marca_control','modelo','tipo_cabezal','tipo_comunicacion','estado','vigencia',
+      'direccion','DIRECCION','DIRECC','operador','EBI_NOMBRE','EBI_ETAPA_POSTULA','EBI_SITUACION','EBI_SIMBOLO_MONEDA'
+    ]);
     for (const [k, v] of Object.entries(props)) {
       if (excluirTexto.has(k)) continue;
-      if (typeof v === 'string' && v !== '' && v !== 'Sin dato' && nText < 25) {
+      if (typeof v === 'boolean') {
+        s3 += fila(k, v);
+        nText++;
+      } else if (typeof v === 'string' && v !== '' && v !== 'Sin dato' && nText < 100) {
         s3 += fila(k, v);
         nText++;
       }
     }
-    if (!s3) s3 = '<p style="font-size:0.78rem; color:var(--tinta-tenue);">Sin atributos de texto adicionales.</p>';
+    if (!s3) s3 = '<p style="font-size:0.78rem; color:var(--tinta-tenue); margin:0;">Sin atributos de texto adicionales.</p>';
 
-    // ── Sección 4: Metadatos de la capa ─────────────────────────────────
+    // ── Sección 4: Metadatos de la capa y trazabilidad oficial ──────────
     let s4 = '';
-    s4 += fila('Fuente del dato', meta.fuente || props._fuente || 'OpenStreetMap');
-    s4 += fila('Archivo origen', meta.archivo_origen || '—');
-    s4 += fila('Tipo de join', meta.join_tipo || '—');
-    s4 += fila('Clave de join', meta.clave_join || '—');
-    s4 += fila('Cobertura UV/Comunas', meta.cobertura || '—');
-    s4 += fila('Features exportadas', meta.features_salida || '—');
-    s4 += fila('Features excluidas', meta.features_excluidas !== undefined ? meta.features_excluidas : '—');
-    if (meta.razon_exclusion) s4 += fila('Razón exclusión', meta.razon_exclusion);
-    s4 += fila('Nulos rellenados', meta.nulos_rellenos || '0');
-    s4 += fila('CRS entrada', meta.crs_entrada || 'EPSG:5360');
-    s4 += fila('CRS salida', meta.crs_salida || 'EPSG:4326');
-    s4 += fila('Fecha proceso', meta.fecha_proceso || '2026-09-16');
-    s4 += fila('Tamaño archivo', meta.tamano_mb ? `${meta.tamano_mb} MB` : '—');
-    s4 += fila('Licencia', meta.licencia || props._licencia || 'ODbL 1.0');
+    s4 += fila('Institución Oficial', meta.fuente || props._fuente || 'Estado de Chile');
+    if (meta.ministerio) s4 += fila('Ministerio / Cartera', meta.ministerio);
+    s4 += fila('Archivo de Origen', meta.archivo_origen || meta.archivo_geojson || '—');
+    if (meta.join_tipo) s4 += fila('Tipo de Join Espacial', meta.join_tipo);
+    if (meta.clave_join) s4 += fila('Clave de Join', meta.clave_join);
+    if (meta.cobertura) s4 += fila('Cobertura Territorial', meta.cobertura);
+    if (meta.features_salida) s4 += fila('Total Entidades', meta.features_salida);
+    if (meta.features_excluidas !== undefined && meta.features_excluidas !== '—') s4 += fila('Entidades Excluidas', meta.features_excluidas);
+    if (meta.razon_exclusion) s4 += fila('Causa de Exclusión', meta.razon_exclusion);
+    if (meta.crs_entrada) s4 += fila('CRS de Entrada', meta.crs_entrada);
+    s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+    if (meta.fecha_proceso) s4 += fila('Fecha de Procesamiento', meta.fecha_proceso);
+    if (meta.tamano_mb) s4 += fila('Tamaño del Dataset', `${meta.tamano_mb} MB`);
+    s4 += fila('Marco Legal / Licencia', meta.licencia || props._licencia || 'Ley N° 20.285 de Transparencia');
+    if (meta.citaAPA || props._citaAPA) s4 += fila('Cita Bibliográfica APA', meta.citaAPA || props._citaAPA);
 
     // ── Sección 5: Descripción y nota crítica ───────────────────────────
-    const descHtml = meta.descripcion
-      ? `<div class="detalle-metacalidad"><p>${meta.descripcion}</p>${meta.nota_critica ? `<p><strong>⚠ Nota:</strong> ${meta.nota_critica}</p>` : ''}</div>`
+    const descHtml = (meta.descripcion || meta.nota_critica)
+      ? `<div class="detalle-metacalidad">
+          ${meta.descripcion ? `<p>${meta.descripcion}</p>` : ''}
+          ${meta.nota_critica ? `<p style="margin-top:6px; color:#f59e0b;"><strong>⚠ Nota Crítica:</strong> ${meta.nota_critica}</p>` : ''}
+         </div>`
       : '';
 
     // ── Render completo ─────────────────────────────────────────────────
     cuerpo.innerHTML = [
       alertaColumnasHtml,
       seccion('🏷 Identificación del Elemento', s1),
-      seccion('📊 Indicadores Numéricos', s2),
-      seccion('📋 Atributos del Dato', s3),
-      seccion('📂 Metadatos de Origen y Pipeline', s4),
-      meta.descripcion ? seccion('📖 Descripción de la Capa', descHtml) : ''
+      seccion('📊 Indicadores Numéricos y Variables', s2),
+      seccion('📋 Atributos del Dato y Tipologías', s3),
+      seccion('📂 Metadatos de Origen y Trazabilidad Oficial', s4),
+      descHtml ? seccion('📖 Descripción de la Capa', descHtml) : ''
     ].join('');
 
     // Abrir sidebar
@@ -805,15 +904,59 @@ const ModuloMapa = (() => {
   }
 
   function cerrarSidebarDetalle() {
-    const sidebar = document.getElementById('sidebar-detalle-bidat');
+    const sidebar = document.getElementById('sidebar-detalle-bidat') || document.getElementById('sidebar-detalle');
     if (sidebar) sidebar.classList.remove('abierto');
   }
 
-  // Inicializar botón de cierre cuando el DOM esté listo
+  function exportarCapaPorId(idCapa) {
+    if (capasTematicasActivas[idCapa]) {
+      const gj = capasTematicasActivas[idCapa].toGeoJSON();
+      const blob = new Blob([JSON.stringify(gj, null, 2)], { type: 'application/geo+json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${idCapa}.geojson`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      return true;
+    }
+    return false;
+  }
+
+  // Inicializar listeners del sidebar (botón cerrar, tecla Escape y delegación de clics)
   if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', () => {
+    function inicializarListenersSidebar() {
       const btnCerrar = document.getElementById('btn-cerrar-detalle');
-      if (btnCerrar) btnCerrar.addEventListener('click', cerrarSidebarDetalle);
+      if (btnCerrar) btnCerrar.onclick = cerrarSidebarDetalle;
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', inicializarListenersSidebar);
+    } else {
+      inicializarListenersSidebar();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') cerrarSidebarDetalle();
+    });
+
+    // Delegación global para botones "Más detalles →" en cualquier popup
+    document.addEventListener('click', (e) => {
+      const btn = e.target && e.target.closest && (e.target.closest('.btn-mas-detalles-popup') || (e.target.id && e.target.id.startsWith('btn-mas-detalle-') ? e.target : null));
+      if (btn && layerActivoPopup && layerActivoPopup._atlasProps) {
+        e.preventDefault();
+        e.stopPropagation();
+        abrirSidebarDetalle(
+          layerActivoPopup._atlasProps,
+          layerActivoPopup._atlasOpciones,
+          layerActivoPopup._atlasIdCapa,
+          layerActivoPopup._atlasIcono,
+          layerActivoPopup._atlasColor
+        );
+        if (mapa) mapa.closePopup();
+      }
     });
   }
 
@@ -828,6 +971,9 @@ const ModuloMapa = (() => {
     limpiarTodasLasCapas,
     obtenerGeoJSONCompleto,
     exportarGeoJSONCargado,
+    exportarCapaPorId,
+    abrirSidebarDetalle,
+    cerrarSidebarDetalle,
     cambiarTerritorio,
     invalidarTamano,
     alternarCapaWMS,
