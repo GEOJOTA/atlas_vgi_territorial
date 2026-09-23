@@ -654,6 +654,14 @@ const ModuloMapa = (() => {
     tamano_mb: 284.4,
     licencia: 'Datos Abiertos — Corporación Nacional Forestal'
   };
+  META_CAPAS_BIDAT['semaforos_rm_uoct_2026'] = {
+    fuente: 'UOCT / MTT — Oficio N° 26105 / 2026',
+    descripcion: 'Catastro de Cruces e Intersecciones Semaforizadas Conectadas al Sistema de Control de Tránsito RM (3.483 intersecciones).',
+    archivo_geojson: 'semaforos_rm_uoct_2026.geojson',
+    columnas_totales: 14,
+    tamano_mb: 1.51,
+    licencia: 'Información Pública — Ley N° 20.285 de Transparencia'
+  };
 
   function fila(etiqueta, valor) {
     const esNum = typeof valor === 'number';

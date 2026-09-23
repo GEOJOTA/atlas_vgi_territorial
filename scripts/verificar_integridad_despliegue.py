@@ -18,6 +18,12 @@ import sys
 import glob
 import shutil
 
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_DATA = os.path.join(ROOT_DIR, 'src', 'data')
 DATA_DIR = os.path.join(ROOT_DIR, 'data')
@@ -34,7 +40,8 @@ ARCHIVOS_OBJETIVO = [
     'Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
     'IGVUST_UV_2026_Agosto.geojson',
     'Hombres_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
-    'BIP_Iniciativas_Inversion_RM_Comunas.geojson'
+    'BIP_Iniciativas_Inversion_RM_Comunas.geojson',
+    'semaforos_rm_uoct_2026.geojson'
 ]
 
 CATALOGOS_EXCEL = [

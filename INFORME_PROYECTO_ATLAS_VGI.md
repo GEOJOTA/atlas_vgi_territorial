@@ -73,7 +73,7 @@
 |---|---|
 | `mapa.js` | Visor Leaflet 1.9.4, control de capas, bbox dinamico, alerta de columnas |
 | `db_client.js` | Cliente PostGIS RPC + Supabase Storage CDN + fallback local |
-| `ide_chile.js` | 111 capas oficiales del Estado en 6 macro-grupos con acordeones |
+| `ide_chile.js` | 112 capas oficiales del Estado en 6 macro-grupos dentro de la Consola GIS |
 | `evaluador_normativo.js` | Inspector CIN-VGI: PRC Santiago, OGUC, patrimonio, certificado .txt |
 | `osm.js` | Consultas Overpass QL, CAT-01 a CAT-10, 3 servidores espejo |
 | `taginfo.js` | Telemetria global OSM en tiempo real (Taginfo API v4) |
@@ -91,7 +91,7 @@
 
 ---
 
-## 5. Capas del Atlas (121 totales)
+## 5. Capas del Atlas (122 totales)
 
 ### 5.1 Categorias VGI (10 — fuente OpenStreetMap + GBIF)
 
@@ -108,14 +108,14 @@
 | CAT-09 | Edificaciones y Huella Urbana | way["building"], relation["building"] |
 | CAT-10 | Coberturas y Usos de Suelo | landuse=*, natural=*, leisure=* |
 
-### 5.2 Capas Oficiales del Estado de Chile (111 — 6 macro-grupos)
+### 5.2 Capas Oficiales del Estado de Chile (112 — 6 macro-grupos)
 
 1. Normativa Urbanistica e IPT (MINVU / PRC Santiago / PRMS)
 2. Medio Ambiente, Parques y Recursos Hidricos (MMA / DGA / CONAF / CIREN)
-3. Comunidades, RSH, Vulnerabilidad y Demografia (MDSF / INE Censo 2024)
+3. Comunidades, RSH, Vulnerabilidad y Demografia (MDSF / INE Censo 2024 multiescalar)
 4. Equipamiento Publico, Educacion, Salud y Patrimonio (CMN / MINEDUC / MINSAL)
 5. Seguridad, Bomberos y Emergencias (Carabineros / CBS / DIFROL)
-6. Movilidad, Metro, Inversion Publica y Economia (MOP / MTT / CNE / ODEPA)
+6. Movilidad, Semáforos UOCT RM, Metro, Inversion Publica y Economia (UOCT / MTT / MOP / CNE / ODEPA)
 
 ---
 

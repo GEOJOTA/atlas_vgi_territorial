@@ -1073,44 +1073,84 @@ function crearBotonesCategorias() {
   contenedor.innerHTML = '';
 
   categorias.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn-categoria';
-    btn.id = `btn-cat-${cat.id}`;
-    const descGeom = cat.geometrias ? `\nGeometrías: ${cat.geometrias.join(', ')}` : '';
-    const descEntidades = cat.entidades ? `\nEntidades: ${cat.entidades.slice(0, 4).join(', ')}...` : '';
-    btn.title = `${cat.nombre} (${cat.codigo}):\n${cat.descripcion}${descEntidades}${descGeom}`;
-    btn.innerHTML = `
-      <span class="icono-cat">${cat.icono}</span>
-      <span>${cat.nombre}</span>
-      <span class="conteo-cat" id="conteo-cat-${cat.id}">—</span>
+    const card = document.createElement('div');
+    card.className = 'tarjeta-capa-gis vgi';
+    card.id = `card-vgi-${cat.id}`;
+    card.dataset.id = cat.id;
+    card.dataset.nombre = cat.nombre.toLowerCase();
+    card.dataset.codigo = (cat.codigo || '').toLowerCase();
+    card.dataset.desc = (cat.descripcion || '').toLowerCase();
+    card.dataset.tipo = 'vgi';
+    card.dataset.grupo = 'vgi';
+
+    const descGeom = cat.geometrias ? cat.geometrias[0] : 'Vectorial';
+    const tipoGeom = descGeom.split(' ')[0].toUpperCase();
+
+    card.innerHTML = `
+      <div class="tarjeta-capa-header">
+        <div class="tarjeta-capa-tag-grupo">
+          <span class="pill-institucion vgi">OSM / VGI</span>
+          <span class="pill-codigo">${cat.codigo}</span>
+        </div>
+        <span class="pill-geometria">${tipoGeom}</span>
+      </div>
+      <div class="tarjeta-capa-cuerpo">
+        <h4 class="tarjeta-capa-titulo">${cat.nombre}</h4>
+        <p class="tarjeta-capa-desc">${cat.descripcion}</p>
+      </div>
+      <div class="tarjeta-capa-footer">
+        <button type="button" class="btn-toggle-capa" id="btn-cat-${cat.id}" title="Alternar visualización de la capa en el mapa">
+          <span class="indicador-switch"></span>
+          <span class="texto-switch">Activar</span>
+        </button>
+        <div class="tarjeta-capa-acciones">
+          <span class="conteo-entidades-gis" id="conteo-cat-${cat.id}">—</span>
+          <a href="data/capa_${cat.id}.geojson" download="capa_${cat.id}.geojson" class="btn-accion-descarga-gis" title="Descargar archivo GeoJSON íntegro" onclick="event.stopPropagation();">
+            GeoJSON
+          </a>
+        </div>
+      </div>
     `;
 
-    btn.addEventListener('click', () => alternarCapaCategoria(cat));
-    contenedor.appendChild(btn);
+    const btn = card.querySelector(`#btn-cat-${cat.id}`);
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      alternarCapaCategoria(cat);
+    });
+    card.addEventListener('click', () => {
+      alternarCapaCategoria(cat);
+    });
+
+    contenedor.appendChild(card);
   });
 }
 
 async function alternarCapaCategoria(categoria) {
+  const card = document.getElementById(`card-vgi-${categoria.id}`);
   const btn = document.getElementById(`btn-cat-${categoria.id}`);
   const labelConteo = document.getElementById(`conteo-cat-${categoria.id}`);
+  const textoSwitch = btn ? btn.querySelector('.texto-switch') : null;
   const estadoTexto = document.getElementById('estado-carga-capas');
 
   // Sincronizar coherencia de módulos de consulta con la categoría seleccionada
   sincronizarCoherenciaEntreModulos(categoria.id, { origen: 'boton_categoria' });
 
   // Si ya está activa, la desactivamos
-  if (btn.classList.contains('activo')) {
+  if (btn && btn.classList.contains('activo')) {
     ModuloMapa.removerCapa(categoria.id);
     btn.classList.remove('activo');
-    labelConteo.textContent = '—';
+    if (card) card.classList.remove('activo');
+    if (textoSwitch) textoSwitch.textContent = 'Activar';
+    if (labelConteo) labelConteo.textContent = '—';
     delete capasCargadasPorCategoria[categoria.id];
+    actualizarTelemetriaCapasActivas();
     return;
   }
 
   // Activar y cargar datos
-  btn.classList.add('cargando');
-  estadoTexto.textContent = `Consultando ${categoria.nombre} en Overpass API…`;
+  if (btn) btn.classList.add('cargando');
+  if (card) card.classList.add('cargando');
+  if (estadoTexto) estadoTexto.textContent = `Consultando ${categoria.nombre} en Overpass API…`;
 
   const bbox = leerBbox('osm') || window.NODO_CONFIG.area_por_defecto.bbox;
 
@@ -1133,7 +1173,7 @@ async function alternarCapaCategoria(categoria) {
     }
 
     const cantidad = geojson.features.length;
-    labelConteo.textContent = `${cantidad}`;
+    if (labelConteo) labelConteo.textContent = `${cantidad} ent.`;
 
     ModuloMapa.cargarCapaGeoJSON(categoria.id, geojson, {
       nombre: categoria.nombre,
@@ -1142,9 +1182,17 @@ async function alternarCapaCategoria(categoria) {
     });
 
     capasCargadasPorCategoria[categoria.id] = geojson;
-    btn.classList.remove('cargando');
-    btn.classList.add('activo');
-    estadoTexto.textContent = `Capa "${categoria.nombre}" cargada en vivo (${cantidad} elementos). Haz clic en los elementos del mapa para ver atributos y licencias.`;
+    if (btn) {
+      btn.classList.remove('cargando');
+      btn.classList.add('activo');
+    }
+    if (card) {
+      card.classList.remove('cargando');
+      card.classList.add('activo');
+    }
+    if (textoSwitch) textoSwitch.textContent = 'En Mapa';
+    if (estadoTexto) estadoTexto.textContent = `Capa "${categoria.nombre}" cargada en vivo (${cantidad} elementos).`;
+    actualizarTelemetriaCapasActivas();
 
     ultimaConsultaRealizada = {
       bbox,
@@ -2084,6 +2132,233 @@ function avisoInfo(mensaje) { return `<div class="aviso">${mensaje}</div>`; }
 
 let modoInspectorNormativoActivo = false;
 
+function obtenerSiglaInstitucion(inst) {
+  if (!inst) return 'ESTADO';
+  const u = inst.toUpperCase();
+  if (u.includes('UOCT')) return 'UOCT';
+  if (u.includes('MINVU')) return 'MINVU';
+  if (u.includes('INE') || u.includes('CENSO')) return 'INE';
+  if (u.includes('MOP') || u.includes('GEOMOP')) return 'MOP';
+  if (u.includes('MINEDUC')) return 'MINEDUC';
+  if (u.includes('MINSAL') || u.includes('DEIS')) return 'MINSAL';
+  if (u.includes('CONAF')) return 'CONAF';
+  if (u.includes('DGA')) return 'DGA';
+  if (u.includes('BIP') || u.includes('MDS') || u.includes('RSH')) return 'MDS';
+  if (u.includes('ODEPA')) return 'ODEPA';
+  if (u.includes('SUBTEL')) return 'SUBTEL';
+  if (u.includes('BOMBEROS')) return 'CBS';
+  if (u.includes('EFE')) return 'EFE';
+  if (u.includes('METRO')) return 'METRO';
+  if (u.includes('DIFROL')) return 'DIFROL';
+  if (u.includes('SUBDERE')) return 'SUBDERE';
+  return inst.split('/')[0].split('(')[0].trim().slice(0, 10);
+}
+
+function obtenerTipoGeometria(def) {
+  const g = (def.geometria || '').toUpperCase();
+  if (g.includes('PUNTO') || g.includes('POINT')) return 'PUNTO';
+  if (g.includes('POLÍGONO') || g.includes('POLIGONO') || g.includes('POLYGON')) return 'POLÍGONO';
+  if (g.includes('LÍNEA') || g.includes('LINEA') || g.includes('LINE')) return 'LÍNEA';
+  if (def.tipoServicio && def.tipoServicio.includes('WMS')) return 'WMS';
+  return 'VECTORIAL';
+}
+
+function actualizarTelemetriaCapasActivas() {
+  const kpiActivas = document.getElementById('kpi-activas-capas');
+  const badgeTabActivas = document.getElementById('badge-conteo-activas');
+  const contenedorResumen = document.getElementById('contenedor-resumen-capas-activas');
+
+  const activasVGI = Object.keys(capasCargadasPorCategoria);
+  const activasOficiales = Object.keys(capasOficialesCargadas);
+  const totalActivas = activasVGI.length + activasOficiales.length;
+
+  if (kpiActivas) kpiActivas.textContent = totalActivas;
+  if (badgeTabActivas) badgeTabActivas.textContent = totalActivas;
+
+  if (!contenedorResumen) return;
+  if (totalActivas === 0) {
+    contenedorResumen.innerHTML = `
+      <div style="grid-column:1/-1; padding:24px; text-align:center; color:#94a3b8; font-size:0.88rem; background:rgba(15,23,42,0.5); border:1px dashed rgba(255,255,255,0.15); border-radius:8px;">
+        No hay capas activas superpuestas en el visor actualmente. Activa capas desde "Capas Oficiales del Estado" o "Capas Colaborativas VGI".
+      </div>
+    `;
+    return;
+  }
+
+  contenedorResumen.innerHTML = '';
+  activasVGI.forEach(cId => {
+    const card = document.createElement('div');
+    card.className = 'tarjeta-capa-gis vgi activo';
+    card.innerHTML = `
+      <div class="tarjeta-capa-header">
+        <span class="pill-institucion vgi">OSM / VGI</span>
+        <span class="pill-geometria">EN MAPA</span>
+      </div>
+      <div class="tarjeta-capa-cuerpo">
+        <h4 class="tarjeta-capa-titulo">${cId.toUpperCase()}</h4>
+        <p class="tarjeta-capa-desc">Capa colaborativa activa en el visor.</p>
+      </div>
+      <div class="tarjeta-capa-footer">
+        <button type="button" class="btn-gis-accion" style="padding:4px 8px; font-size:0.75rem;">✕ Remover del Mapa</button>
+      </div>
+    `;
+    card.querySelector('button').addEventListener('click', () => {
+      const btn = document.getElementById(`btn-cat-${cId}`);
+      if (btn) btn.click();
+    });
+    contenedorResumen.appendChild(card);
+  });
+
+  activasOficiales.forEach(cId => {
+    const def = window.ModuloIDEChile ? window.ModuloIDEChile.obtenerDefinicion(cId) : null;
+    const card = document.createElement('div');
+    card.className = 'tarjeta-capa-gis oficial activo';
+    const sigla = def ? obtenerSiglaInstitucion(def.institucion) : 'ESTADO';
+    card.innerHTML = `
+      <div class="tarjeta-capa-header">
+        <span class="pill-institucion oficial">${sigla}</span>
+        <span class="pill-geometria">EN MAPA</span>
+      </div>
+      <div class="tarjeta-capa-cuerpo">
+        <h4 class="tarjeta-capa-titulo">${def ? def.nombre : cId}</h4>
+        <p class="tarjeta-capa-desc">${def ? def.descripcion : 'Capa oficial del Estado de Chile'}</p>
+      </div>
+      <div class="tarjeta-capa-footer">
+        <button type="button" class="btn-gis-accion" style="padding:4px 8px; font-size:0.75rem;">✕ Remover del Mapa</button>
+      </div>
+    `;
+    card.querySelector('button').addEventListener('click', () => {
+      const btn = document.getElementById(`btn-oficial-${cId}`);
+      if (btn) btn.click();
+    });
+    contenedorResumen.appendChild(card);
+  });
+}
+
+function inicializarControlesConsolaGIS() {
+  // 1. Buscador en vivo
+  const inputBusqueda = document.getElementById('busqueda-capas-atlas');
+  const btnLimpiar = document.getElementById('btn-limpiar-busqueda-capas');
+
+  if (inputBusqueda) {
+    inputBusqueda.addEventListener('input', () => {
+      const q = inputBusqueda.value.trim().toLowerCase();
+      if (btnLimpiar) btnLimpiar.style.display = q.length > 0 ? 'block' : 'none';
+
+      const todasTarjetas = document.querySelectorAll('.tarjeta-capa-gis:not(.tarjeta-activa-resumen)');
+      todasTarjetas.forEach(card => {
+        if (!q) {
+          card.style.display = '';
+          return;
+        }
+        const nombre = card.dataset.nombre || '';
+        const institucion = card.dataset.institucion || '';
+        const desc = card.dataset.desc || '';
+        const codigo = card.dataset.codigo || '';
+        const id = card.dataset.id || '';
+
+        const coincide = nombre.includes(q) || institucion.includes(q) || desc.includes(q) || codigo.includes(q) || id.includes(q);
+        card.style.display = coincide ? '' : 'none';
+
+        if (coincide) {
+          const detailsParent = card.closest('details');
+          if (detailsParent) detailsParent.open = true;
+        }
+      });
+    });
+
+    if (btnLimpiar) {
+      btnLimpiar.addEventListener('click', () => {
+        inputBusqueda.value = '';
+        inputBusqueda.dispatchEvent(new Event('input'));
+        inputBusqueda.focus();
+      });
+    }
+  }
+
+  // 2. Chips de filtro temático
+  const chips = document.querySelectorAll('#contenedor-chips-filtro .chip-filtro');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('activo'));
+      chip.classList.add('activo');
+      const filtro = chip.dataset.filtro;
+
+      const pestanaOficial = document.querySelector('.pestana-capas[data-seccion="seccion-capas-oficiales"]');
+      const pestanaVGI = document.querySelector('.pestana-capas[data-seccion="seccion-capas-vgi"]');
+
+      if (filtro === 'vgi') {
+        if (pestanaVGI) pestanaVGI.click();
+        return;
+      } else {
+        if (pestanaOficial) pestanaOficial.click();
+      }
+
+      const acordes = document.querySelectorAll('.acordeon-grupo-oficial');
+      acordes.forEach(ac => {
+        if (filtro === 'todos') {
+          ac.style.display = '';
+        } else if (filtro === 'movilidad' && ac.dataset.grupoId === 'movilidad_transporte') {
+          ac.style.display = '';
+          ac.open = true;
+        } else if (filtro === 'normativa' && ac.dataset.grupoId === 'normativa_ipt') {
+          ac.style.display = '';
+          ac.open = true;
+        } else if (filtro === 'demografia' && ac.dataset.grupoId === 'comunidades_vivienda') {
+          ac.style.display = '';
+          ac.open = true;
+        } else if (filtro === 'medio_ambiente' && ac.dataset.grupoId === 'medio_ambiente') {
+          ac.style.display = '';
+          ac.open = true;
+        } else if (filtro === 'equipamiento' && ac.dataset.grupoId === 'equipamiento_patrimonio') {
+          ac.style.display = '';
+          ac.open = true;
+        } else if (filtro === 'seguridad' && ac.dataset.grupoId === 'seguridad') {
+          ac.style.display = '';
+          ac.open = true;
+        } else {
+          ac.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // 3. Navegación por pestañas
+  const pestanas = document.querySelectorAll('.consola-pestanas-nav .pestana-capas');
+  pestanas.forEach(p => {
+    p.addEventListener('click', () => {
+      pestanas.forEach(x => x.classList.remove('activa'));
+      p.classList.add('activa');
+      const targetSecId = p.dataset.seccion;
+
+      const secciones = ['seccion-capas-oficiales', 'seccion-capas-vgi', 'seccion-capas-activas'];
+      secciones.forEach(sId => {
+        const secEl = document.getElementById(sId);
+        if (secEl) {
+          secEl.style.display = sId === targetSecId ? 'block' : 'none';
+        }
+      });
+    });
+  });
+
+  // 4. Botón desactivar todas las capas
+  const btnDesactivarTodas = document.getElementById('btn-desactivar-todas-capas');
+  if (btnDesactivarTodas) {
+    btnDesactivarTodas.addEventListener('click', () => {
+      // Desactivar VGI
+      Object.keys(capasCargadasPorCategoria).forEach(cId => {
+        const btn = document.getElementById(`btn-cat-${cId}`);
+        if (btn) btn.click();
+      });
+      // Desactivar Oficiales
+      Object.keys(capasOficialesCargadas).forEach(cId => {
+        const btn = document.getElementById(`btn-oficial-${cId}`);
+        if (btn) btn.click();
+      });
+    });
+  }
+}
+
 function configurarCapasOficialesIDE() {
   const contenedor = document.getElementById('contenedor-botones-oficiales-ide');
   if (!contenedor || !window.ModuloIDEChile) return;
@@ -2095,37 +2370,37 @@ function configurarCapasOficialesIDE() {
   const GRUPOS_OFICIALES = [
     {
       id: 'normativa_ipt',
-      nombre: '📜 Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT / DPA)',
+      nombre: 'Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT / DPA)',
       filtroGrupo: (c) => c.grupo === 'normativa_ipt'
     },
     {
-      id: 'medio_ambiente',
-      nombre: '🌳 Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF)',
-      filtroGrupo: (c) => ['medio_ambiente_riesgos', 'espacio_publico'].includes(c.grupo)
+      id: 'movilidad_transporte',
+      nombre: 'Movilidad, Vialidad, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro)',
+      filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'transporte'].includes(c.grupo) || c.id.includes('semaforos')
     },
     {
       id: 'comunidades_vivienda',
-      nombre: '👥 Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDS / MINVU / INE)',
-      filtroGrupo: (c) => ['social_comunidades', 'demografia'].includes(c.grupo)
+      nombre: 'Demografía, Censo 2024, Vulnerabilidad Socioterritorial & RSH (INE / MDS)',
+      filtroGrupo: (c) => ['social_comunidades', 'demografia'].includes(c.grupo) || c.id.includes('censo')
+    },
+    {
+      id: 'medio_ambiente',
+      nombre: 'Medio Ambiente, Recursos Hídricos, Parques & Uso de Suelo (MMA / MINVU / DGA / CONAF)',
+      filtroGrupo: (c) => ['medio_ambiente_riesgos', 'espacio_publico'].includes(c.grupo)
     },
     {
       id: 'equipamiento_patrimonio',
-      nombre: '🏛️ Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL)',
+      nombre: 'Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL)',
       filtroGrupo: (c) => ['educacion', 'salud', 'patrimonio', 'equipamiento_infraestructura', 'servicios'].includes(c.grupo)
     },
     {
       id: 'seguridad',
-      nombre: '🛡️ Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED)',
+      nombre: 'Seguridad, Cuarteles de Bomberos & Emergencias (Carabineros / CBS / SENAPRED)',
       filtroGrupo: (c) => c.grupo === 'seguridad'
     },
     {
-      id: 'movilidad_economico',
-      nombre: '🚲 Movilidad, Transporte, Red Metro, Inversión Pública & Economía (MOP / MTT / BIP / ODEPA)',
-      filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'economico_agricola', 'transporte'].includes(c.grupo)
-    },
-    {
       id: 'otras_fuentes',
-      nombre: '📦 Otras Fuentes Públicas & Capas Temáticas del Estado de Chile',
+      nombre: 'Economía, Fomento, Inversión Pública & Otras Fuentes Públicas (BIP / ODEPA / SERCOTEC)',
       filtroGrupo: (c) => true
     }
   ];
@@ -2141,6 +2416,7 @@ function configurarCapasOficialesIDE() {
 
     const details = document.createElement('details');
     details.className = 'acordeon-grupo-oficial';
+    details.dataset.grupoId = grp.id;
     if (idx < 2) details.open = true; // Open first 2 groups by default
 
     const summary = document.createElement('summary');
@@ -2160,31 +2436,58 @@ function configurarCapasOficialesIDE() {
     grillaCapas.className = 'grilla-capas-acordeon';
 
     capasEnGrupo.forEach(def => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-categoria-oficial';
-      btn.id = `btn-oficial-${def.id}`;
-      btn.dataset.capa = def.id;
-      btn.title = `${def.descripcion}
-Institución: ${def.institucion}
-Tipo: ${def.tipoServicio}`;
+      const card = document.createElement('div');
+      card.className = 'tarjeta-capa-gis oficial';
+      card.id = `card-oficial-${def.id}`;
+      card.dataset.id = def.id;
+      card.dataset.nombre = def.nombre.toLowerCase();
+      card.dataset.institucion = (def.institucion || '').toLowerCase();
+      card.dataset.desc = (def.descripcion || '').toLowerCase();
+      card.dataset.tipo = 'oficial';
+      card.dataset.grupo = grp.id;
+
+      const sigla = obtenerSiglaInstitucion(def.institucion);
+      const claseSigla = sigla.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const tipoGeom = obtenerTipoGeometria(def);
       const archDescarga = def.archivoLocal || `data/${def.id}.geojson`;
       const nombreArchDescarga = archDescarga.split('/').pop();
-      btn.innerHTML = `
-        <span class="icono-cat">${def.icono}</span>
-        <div class="info-cat">
-          <strong>${def.nombre}</strong>
-          <small>${def.institucion.split('/')[0].trim()}</small>
+
+      card.innerHTML = `
+        <div class="tarjeta-capa-header">
+          <div class="tarjeta-capa-tag-grupo">
+            <span class="pill-institucion oficial ${claseSigla}" title="${def.institucion}">${sigla}</span>
+            <span class="pill-codigo">${def.num_bbdd ? `BBDD-${String(def.num_bbdd).padStart(2,'0')}` : def.id.toUpperCase().slice(0, 14)}</span>
+          </div>
+          <span class="pill-geometria">${tipoGeom}</span>
         </div>
-        <a href="${archDescarga}" download="${nombreArchDescarga}" class="btn-descarga-directa-oficial" title="Descargar archivo GeoJSON oficial íntegro (${nombreArchDescarga})" onclick="event.stopPropagation();" style="color:var(--musgo,#06b6d4); font-size:0.88rem; padding:3px 6px; border-radius:4px; text-decoration:none; margin-right:4px; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">📥</a>
-        <span class="badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
+        <div class="tarjeta-capa-cuerpo">
+          <h4 class="tarjeta-capa-titulo">${def.nombre}</h4>
+          <p class="tarjeta-capa-desc">${def.descripcion || ''}</p>
+        </div>
+        <div class="tarjeta-capa-footer">
+          <button type="button" class="btn-toggle-capa btn-categoria-oficial" id="btn-oficial-${def.id}" data-capa="${def.id}" title="Alternar capa en el mapa">
+            <span class="indicador-switch"></span>
+            <span class="texto-switch">Activar</span>
+          </button>
+          <div class="tarjeta-capa-acciones">
+            <span class="conteo-entidades-gis badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
+            <a href="${archDescarga}" download="${nombreArchDescarga}" class="btn-accion-descarga-gis" title="Descargar archivo GeoJSON oficial íntegro (${nombreArchDescarga})" onclick="event.stopPropagation();">
+              GeoJSON
+            </a>
+          </div>
+        </div>
       `;
 
-      btn.addEventListener('click', (e) => {
+      const btnToggle = card.querySelector(`#btn-oficial-${def.id}`);
+      btnToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        alternarCapaOficialIDE(def.id, btn);
+        alternarCapaOficialIDE(def.id, btnToggle);
       });
-      grillaCapas.appendChild(btn);
+      card.addEventListener('click', () => {
+        alternarCapaOficialIDE(def.id, btnToggle);
+      });
+
+      grillaCapas.appendChild(card);
     });
 
     details.appendChild(grillaCapas);
@@ -2209,6 +2512,10 @@ Tipo: ${def.tipoServicio}`;
   `;
   btnWMS.addEventListener('click', () => alternarCapaWMSOficial('minvu_patrimonio', btnWMS));
   contenedor.appendChild(btnWMS);
+
+  // Inicializar controles de la consola GIS
+  inicializarControlesConsolaGIS();
+  actualizarTelemetriaCapasActivas();
 
   // Poblar subpanel rápido de capas en la barra lateral
   const contSidebar = document.getElementById('sidebar-lista-ide-rapida');
@@ -2400,22 +2707,28 @@ async function descargarColeccionOficialCompleta() {
 }
 
 async function alternarCapaOficialIDE(idCapa, btn) {
+  const card = document.getElementById(`card-oficial-${idCapa}`);
   const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
-  const badgeConteo = btn.querySelector('.badge-conteo-oficial');
+  const badgeConteo = document.getElementById(`conteo-oficial-${idCapa}`) || (btn ? btn.querySelector('.badge-conteo-oficial') : null);
+  const textoSwitch = btn ? btn.querySelector('.texto-switch') : null;
   const bbox = null; // Cargar la capa ÍNTEGRA sin limitar por el BBox barrial
 
   // Desactivar si ya está activa
-  if (btn.classList.contains('activo')) {
+  if (btn && btn.classList.contains('activo')) {
     if (window.ModuloMapa) ModuloMapa.removerCapa(idCapa);
     delete capasOficialesCargadas[idCapa];
     btn.classList.remove('activo');
-    if (badgeConteo) badgeConteo.textContent = '0';
+    if (card) card.classList.remove('activo');
+    if (textoSwitch) textoSwitch.textContent = 'Activar';
+    if (badgeConteo) badgeConteo.textContent = '—';
     if (estadoTexto) estadoTexto.textContent = `Capa oficial "${idCapa}" desactivada.`;
+    actualizarTelemetriaCapasActivas();
     return;
   }
 
   // Activar y cargar datos
-  btn.classList.add('cargando');
+  if (btn) btn.classList.add('cargando');
+  if (card) card.classList.add('cargando');
   if (estadoTexto) estadoTexto.textContent = `Cargando conjunto cartográfico oficial íntegro de la Región Metropolitana…`;
 
   try {
@@ -2433,20 +2746,29 @@ async function alternarCapaOficialIDE(idCapa, btn) {
     }
 
     capasOficialesCargadas[idCapa] = res.geojson;
-    btn.classList.remove('cargando');
-    btn.classList.add('activo');
-    if (badgeConteo) badgeConteo.textContent = res.cantidad;
+    if (btn) {
+      btn.classList.remove('cargando');
+      btn.classList.add('activo');
+    }
+    if (card) {
+      card.classList.remove('cargando');
+      card.classList.add('activo');
+    }
+    if (textoSwitch) textoSwitch.textContent = 'En Mapa';
+    if (badgeConteo) badgeConteo.textContent = `${res.cantidad} ent.`;
 
     if (estadoTexto) {
       estadoTexto.innerHTML = `
-        <span style="color:#1B4D3E; font-weight:600;">[OFICIAL ESTADO DE CHILE]:</span> 
+        <span style="color:#06b6d4; font-weight:700;">[OFICIAL ESTADO DE CHILE]:</span> 
         Capa <strong>${def.nombre}</strong> cargada (${res.cantidad} entidades). 
         <em>${res.fuenteUsada}</em>. 
         <span style="color:var(--tinta-suave); display:block; font-size:0.75rem; margin-top:2px;">${def.declaracion}</span>
       `;
     }
+    actualizarTelemetriaCapasActivas();
   } catch (err) {
-    btn.classList.remove('cargando');
+    if (btn) btn.classList.remove('cargando');
+    if (card) card.classList.remove('cargando');
     console.error(`Error al cargar capa oficial ${idCapa}:`, err);
     if (estadoTexto) estadoTexto.textContent = `Error al consultar servicio oficial: ${err.message}`;
   }

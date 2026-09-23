@@ -46,7 +46,7 @@ Esta guía detalla el procedimiento para activar, poblar y conectar la base de d
 
 5. En una nueva pestaña del SQL Editor, copia y ejecuta el archivo:
    [`scripts/db/02_seed_metadata.sql`](../scripts/db/02_seed_metadata.sql)
-   - Esto insertará los metadatos completos y normalizados de las **111 capas oficiales del Estado** con citas APA, instituciones, categorías y conteos oficiales.
+   - Esto insertará los metadatos completos y normalizados de las **112 capas oficiales del Estado** con citas APA, instituciones, categorías y conteos oficiales.
 
 ---
 

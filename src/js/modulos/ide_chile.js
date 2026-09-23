@@ -1970,6 +1970,22 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
       citaAPA: "Estado de Chile. (2026). Personas en RSH ocupadas y cotizando, por modalidad contractual según tramo CSE - 2026 Junio (Capa N° 74). IDE Chile / Geoportal. https://bidat.gob.cl/details/ficha/dataset/personas-en-rsh-ocupadas-y-cotizando-por-modalidad-contractual-segun-tramo-cse-2026"
     },
+    'semaforos_rm_uoct_2026': {
+      id: 'semaforos_rm_uoct_2026',
+      nombre: "Cruces Semaforizados Conectados SC-RM (UOCT / MTT)",
+      institucion: "Unidad Operativa de Control de Tránsito (UOCT) / MTT",
+      ministerio: "Ministerio de Transportes y Telecomunicaciones",
+      tipoServicio: "Catastro Oficial GeoPackage / Transparencia Ley 20.285",
+      urlServicio: "https://www.uoct.gob.cl",
+      archivoLocal: "data/semaforos_rm_uoct_2026.geojson",
+      color: "#F59E0B",
+      icono: "🚦",
+      geometria: "Puntos (Cruces Semaforizados)",
+      grupo: "movilidad_transporte",
+      descripcion: "Catastro oficial de 3.483 intersecciones y cruces semaforizados integrados al Sistema de Control de Tránsito de la Región Metropolitana (SC-RM). Entrega oficial bajo Oficio N° 26105 / 2026 (Solicitud AN001T0026930), con códigos junction, vías intersectadas, comuna, modelo de controlador, comunicación y vigencia a julio 2026.",
+      declaracion: "Información pública oficial del Ministerio de Transportes y Telecomunicaciones amparada por la Ley N° 20.285 de Transparencia de la Función Pública.",
+      citaAPA: "Subsecretaría de Transportes & Unidad Operativa de Control de Tránsito [UOCT]. (2026). Catastro de Intersecciones Semaforizadas Conectadas al Sistema de Control de la Región Metropolitana (Oficio N° 26105, Solicitud AN001T0026930). Ministerio de Transportes y Telecomunicaciones."
+    }
   };
 
   // Diccionario multirregional escalable de endpoints IPT en MINVU GeoIDE

@@ -14,7 +14,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
 
 1. **Desacoplamiento e Inmediatez:** La totalidad de la interfaz de usuario, renderizado cartográfico (Leaflet 1.9.4), cálculo geodésico y evaluación de calidad opera directamente en el navegador del usuario final sin dependencias obligatorias de compilación (*zero-build architecture*).
 2. **Capa de Base de Datos Espacial en la Nube (Supabase PostGIS):**
-   - Aloja las **111 capas oficiales del Estado** (incorporando la desagregación multiescalar del Censo 2024 en 5 niveles territoriales independientes: Regional, Límites Urbanos, Localidades, Zonal y Manzanas) y más de **130.000 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
+   - Aloja las **112 capas oficiales del Estado** (incorporando la desagregación multiescalar del Censo 2024 en 5 niveles territoriales independientes y la red de semáforos conectados UOCT/MTT) y más de **130.000 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
    - Incorpora índices espaciales R-Tree `GIST` y la función RPC `fn_obtener_capa_bbox`, permitiendo consultas espaciales filtradas por el Bbox del usuario en milisegundos.
    - Aloja los archivos GeoJSON completos en el bucket público de CDN `atlas-geojson`.
 3. **Resiliencia y Conmutación de Triple Contingencia (Failover):**
@@ -36,7 +36,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
 │   │                  VISOR CARTOGRÁFICO INTERACTIVO (mapa.js / Leaflet 1.9.4)                     │   │
-│   │   Bbox Dinámico │ 10 Categorías VGI (CAT-01..10) │ 111 Capas Oficiales IDE │ Export QGIS  │   │
+│   │   Bbox Dinámico │ 10 Categorías VGI (CAT-01..10) │ 112 Capas Oficiales IDE │ Export QGIS  │   │
 │   └──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬──────────┬───────┘   │
 │          │             │             │             │             │             │          │           │
 │   ┌──────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼────┐┌───▼───────┐│
@@ -67,7 +67,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
  ┌────────────────────────┐ ┌──────────┐┌──────────┐┌──────────┐┌──────────┐┌──────────┐
  │    SUPABASE CLOUD      │ │ Overpass ││ Taginfo  ││  ohsome  ││  OSMCha  ││   GBIF   │
  │ PostgreSQL 17+PostGIS  │ │ API OSMF ││  API v4  ││ API v1/v2││Changesets││ Species/ │
- │ • 111 capas_metadata   │ │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
+ │ • 112 capas_metadata   │ │ Mirrors  ││Geofabrik ││  HeiGIT  ││ Community││Occurrence│
  │ • 129.262 entidades GIST│ └──────────┘└──────────┘└──────────┘└──────────┘└──────────┘
  │ • Storage atlas-geojson│
  └────────────────────────┘
@@ -118,18 +118,18 @@ La arquitectura se articula en 16 módulos desacoplados coordinados por el contr
 - Motor cartográfico 2D de alto rendimiento.
 - Capas base intercambiables: CartoDB Positron, OpenStreetMap Estándar y OpenTopoMap.
 - Herramienta interactiva "📐 Dibujar Bbox" para redelimitar el polígono de estudio dinámicamente.
-- Coordinación de capas de las 10 categorías VGI y las 111 capas oficiales del Estado (121 capas totales).
-- Panel lateral de «Más detalles» con alerta visual destacada para datasets con alta densidad de columnas (>15 atributos, RSH, Censo 2024, BIP, IGVUST, CONAF) y botón de descarga directa de la capa completa (.geojson) sin recortes espaciales ni de columnas.
+- Coordinación de capas de las 10 categorías VGI y las 112 capas oficiales del Estado (122 capas totales).
+- Panel lateral de «Más detalles» con alerta visual destacada para datasets con alta densidad de columnas (>15 atributos, RSH, Censo 2024, BIP, IGVUST, CONAF, UOCT) y botón de descarga directa de la capa completa (.geojson) sin recortes espaciales ni de columnas.
 - Popups normalizados con atributos clave, citas bibliográficas APA 7ª ed. y enlace al diccionario.
 
-### 3.3 `ide_chile.js` (Catálogo Oficial de 111 Capas del Estado)
-- Renderiza los **6 macro-grupos temáticos oficiales** mediante acordeones colapsables a ancho completo (100%):
+### 3.3 `ide_chile.js` (Catálogo Oficial de 112 Capas del Estado)
+- Renderiza los **6 macro-grupos temáticos oficiales** dentro de la Consola Técnica GIS (Workbench Profesional):
   - *Normativa Urbanística & IPT* (MINVU / PRC Santiago / PRMS / DPA)
   - *Medio Ambiente, Parques & Recursos Hídricos* (MMA / DGA / CONAF / CIREN)
   - *Comunidades, RSH, Vulnerabilidad & Demografía* (MDSF / INE Censo 2024 multiescalar / MINVU / BiDat)
   - *Equipamiento Público, Educación, Salud & Patrimonio* (CMN / MINEDUC / MINSAL / IND)
   - *Seguridad, Bomberos & Emergencias* (Carabineros / CBS / DIFROL)
-  - *Movilidad, Transporte, Red Metro, Inversión Pública & Economía* (MOP / MTT / BIP / CNE / ODEPA)
+  - *Movilidad, Transporte, Red Semafórica UOCT, Red Metro, Inversión Pública & Economía* (UOCT / MTT / MOP / BIP / CNE / ODEPA)
 - Badges dinámicos de conteo de entidades y estado de carga.
 - Botón directo de descarga `📥` en cada tarjeta de capa oficial.
 - Conexión con `db_client.js` para descarga inteligente vía PostGIS RPC o Storage CDN.
@@ -200,7 +200,7 @@ La arquitectura se articula en 16 módulos desacoplados coordinados por el contr
 -- 1. Extensión espacial PostGIS
 CREATE EXTENSION IF NOT EXISTS postgis;
 
--- 2. Tabla de Metadatos de las 111 Capas Oficiales (Censo 2024 Multiescalar)
+-- 2. Tabla de Metadatos de las 112 Capas Oficiales (Censo 2024 Multiescalar & Semáforos UOCT)
 CREATE TABLE IF NOT EXISTS public.capas_metadata (
     id TEXT PRIMARY KEY,
     nombre TEXT NOT NULL,

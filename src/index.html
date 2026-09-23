@@ -282,52 +282,99 @@
       <!-- Contenedor flotante del Inspector Normativo IPT -->
       <div id="contenedor-inspector-normativo" style="display:none; margin-top:10px;"></div>
 
-      <!-- Grilla de activación de las categorías temáticas -->
-      <div class="bloque">
-        <h3>Capas Temáticas VGI (Haz clic para cargar/ocultar en el mapa)</h3>
-        <p class="descripcion" style="margin-bottom:8px;">Las capas se consultan en tiempo real desde OpenStreetMap (Overpass API) y GBIF para el área delimitada, con respaldo en catálogo local validado.</p>
-        <div class="grilla-categorias" id="contenedor-botones-categorias">
-          <!-- Se puebla dinámicamente desde app.js con las 10 categorías -->
-        </div>
-        <div id="estado-carga-capas" class="descripcion" style="font-size:0.82rem; font-style:italic;"></div>
-      </div>
+      <!-- ========================================================================= -->
+      <!-- CONSOLA CARTOGRÁFICA Y CONTROL DE CAPAS (GIS-GRADE WORKBENCH)            -->
+      <!-- ========================================================================= -->
+      <section class="consola-capas-gis" id="consola-capas-gis" aria-label="Consola Cartográfica de Capas">
+        <!-- Encabezado de la Consola -->
+        <header class="consola-header">
+          <div class="consola-header-info">
+            <div class="consola-insignia">CATÁLOGO MAESTRO CARTOGRÁFICO</div>
+            <h3 class="consola-titulo">Consola de Control Cartográfico & Capas del Territorio</h3>
+            <p class="consola-subtitulo">
+              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 112 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA y CONAF).
+            </p>
+          </div>
+          <div class="consola-header-metricas">
+            <div class="kpi-consola">
+              <span class="kpi-valor" id="kpi-total-capas">122</span>
+              <span class="kpi-etiqueta">Capas Totales</span>
+            </div>
+            <div class="kpi-consola">
+              <span class="kpi-valor" id="kpi-activas-capas">0</span>
+              <span class="kpi-etiqueta">En Mapa</span>
+            </div>
+            <button type="button" class="accion secundaria btn-descarga-coleccion" id="btn-descargar-todo-ide" title="Descargar paquete consolidado GeoJSON de capas oficiales">
+              Descargar Colección (.geojson)
+            </button>
+          </div>
+        </header>
 
-      <!-- Bloque de Capas Oficiales del Estado (IDE Chile, MINVU & Normativa IPT) -->
-      <div class="bloque bloque-oficial-ide" style="border:2px solid var(--musgo); background:var(--papel); padding:26px; margin-top:24px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-          <h3 style="margin:0; color:var(--musgo); font-size:1.3rem;">🏛 Catálogo de Capas Oficiales del Estado de Chile (IDE Chile, MINVU, Geoportal, INE & Normativa IPT)</h3>
-          <div style="display:flex; gap:10px; align-items:center;">
-            <button type="button" class="accion secundaria" id="btn-descargar-todo-ide" style="font-size:0.88rem; padding:8px 14px;" title="Descargar paquete GeoJSON consolidado con las 74 capas oficiales del Estado de Chile">⎘ Descargar Colección Oficial (.geojson)</button>
-            <span style="font-size:0.82rem; background:var(--musgo); color:#000000; padding:4px 12px; border-radius:6px; font-family:var(--fuente-datos); font-weight:800;">101 CAPAS DISPONIBLES</span>
+        <!-- Barra de Búsqueda y Filtro Reactivo -->
+        <div class="consola-toolbar">
+          <div class="buscador-capas-contenedor">
+            <span class="buscador-icono">⌕</span>
+            <input type="search" id="busqueda-capas-atlas" class="input-busqueda-capas" placeholder="Buscar capa por nombre, institución (UOCT, MINVU, INE, MOP...), código o atributo..." autocomplete="off">
+            <button type="button" id="btn-limpiar-busqueda-capas" class="btn-limpiar-busqueda" style="display:none;" title="Limpiar filtro">✕</button>
           </div>
-        </div>
-        <p class="descripcion" style="margin-bottom:16px;">Capas cartográficas oficiales del Estado contrastables con los datos VGI comunitarios. Se integran directamente desde los servicios <strong>ArcGIS FeatureServer</strong>, <strong>OGC WMS</strong> y conjuntos abiertos de <strong>Geoportal de Chile</strong> y <strong>MINVU GeoIDE</strong>, amparados por la Ley N° 20.285 de Transparencia de la Función Pública y la Ley General de Urbanismo y Construcciones (LGUC).</p>
-
-        <!-- Cuadrados Estructurados de Categorías Oficiales -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:18px;">
-          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--musgo); font-size:1.02rem;">⚖ Normativa Urbanística & IPT (MINVU)</h4>
-            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">PRC Santiago, Usos de suelo PRMS, Zonas de Riesgo y Resguardo de Infraestructura.</p>
-          </div>
-          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--esmeralda); font-size:1.02rem;">☘ Medio Ambiente & Recursos Hídricos</h4>
-            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Inventario Humedales MINVU, Áreas Verdes IPT y Parques Urbanos de Santiago.</p>
-          </div>
-          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--violeta); font-size:1.02rem;">🗫 Comunidades & Censo 2024 (INE)</h4>
-            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Microdatos Manzanas Censo 2024, Campamentos MINVU y Condominios Sociales.</p>
-          </div>
-          <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:10px; padding:16px;">
-            <h4 style="margin:0 0 6px 0; color:var(--agua); font-size:1.02rem;">🏛 Equipamiento & Movilidad EFE/Metro</h4>
-            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Sitios de Memoria CMN, Patrimonio MINVU, Estaciones Metro y Red EFE.</p>
+          <div class="consola-toolbar-acciones">
+            <button type="button" class="btn-gis-accion" id="btn-desactivar-todas-capas" title="Desactivar todas las capas actualmente visibles en el mapa">
+              Desactivar Todas
+            </button>
           </div>
         </div>
 
-        <div class="contenedor-acordeones-oficiales" id="contenedor-botones-oficiales-ide">
-          <!-- Generado dinámicamente desde app.js con las 74 capas oficiales del Estado y WMS -->
+        <!-- Chips de Filtrado Temático Rápido -->
+        <div class="consola-chips-filtro" id="contenedor-chips-filtro">
+          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (122)</button>
+          <button type="button" class="chip-filtro" data-filtro="movilidad">Movilidad & Semáforos</button>
+          <button type="button" class="chip-filtro" data-filtro="normativa">Normativa & Urbanismo</button>
+          <button type="button" class="chip-filtro" data-filtro="demografia">Censo 2024 & Social</button>
+          <button type="button" class="chip-filtro" data-filtro="medio_ambiente">Medio Ambiente & Agua</button>
+          <button type="button" class="chip-filtro" data-filtro="equipamiento">Educación, Salud & Patrimonio</button>
+          <button type="button" class="chip-filtro" data-filtro="seguridad">Seguridad & Emergencias</button>
+          <button type="button" class="chip-filtro" data-filtro="vgi">VGI Comunitario OSM</button>
         </div>
-        <div id="estado-carga-capas-oficiales" class="descripcion" style="font-size:0.88rem; font-style:italic; margin-top:12px;"></div>
-      </div>
+
+        <!-- Navegación por Pestañas Segmentadas -->
+        <div class="consola-pestanas-nav">
+          <button type="button" class="pestana-capas activa" data-seccion="seccion-capas-oficiales">
+            Capas Oficiales del Estado <span class="badge-tab-conteo">112</span>
+          </button>
+          <button type="button" class="pestana-capas" data-seccion="seccion-capas-vgi">
+            Capas Colaborativas VGI (OSM/GBIF) <span class="badge-tab-conteo">10</span>
+          </button>
+          <button type="button" class="pestana-capas" data-seccion="seccion-capas-activas">
+            Capas Activas en Mapa <span class="badge-tab-conteo" id="badge-conteo-activas">0</span>
+          </button>
+        </div>
+
+        <!-- SECCIÓN 1: Capas Oficiales del Estado (Acordeones Estructurados) -->
+        <div class="seccion-panel-capas activa" id="seccion-capas-oficiales">
+          <div class="contenedor-acordeones-oficiales" id="contenedor-botones-oficiales-ide">
+            <!-- Renderizado dinámico desde app.js -->
+          </div>
+          <div id="estado-carga-capas-oficiales" class="descripcion estado-telemetria-carga"></div>
+        </div>
+
+        <!-- SECCIÓN 2: Capas Comunitarias VGI (OSM / GBIF) -->
+        <div class="seccion-panel-capas" id="seccion-capas-vgi" style="display:none;">
+          <p class="consola-seccion-desc">
+            Capas vectoriales consultadas en tiempo real a la API Overpass de OpenStreetMap y GBIF sobre el polígono territorial activo, validadas contra catálogo maestro.
+          </p>
+          <div class="grilla-capas-vgi" id="contenedor-botones-categorias">
+            <!-- Renderizado dinámico desde app.js -->
+          </div>
+          <div id="estado-carga-capas" class="descripcion estado-telemetria-carga"></div>
+        </div>
+
+        <!-- SECCIÓN 3: Capas Activas en Sesión -->
+        <div class="seccion-panel-capas" id="seccion-capas-activas" style="display:none;">
+          <div id="contenedor-resumen-capas-activas" class="grilla-capas-activas">
+            <!-- Se actualiza dinámicamente cuando se enciende/apaga una capa -->
+          </div>
+        </div>
+      </section>
 
       <!-- Bloque de Importación de Capas Personalizadas del Usuario -->
       <div class="bloque bloque-importador" id="seccion-importador-capas" style="border:1px dashed #7A7045; background:var(--papel-alto); padding:16px; margin-top:16px;">
