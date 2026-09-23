@@ -492,6 +492,19 @@ def crear_catalogo_fuentes():
             "src/js/modulos/importador_capas.js (ModuloImportadorCapas)",
             "Ingestión multi-formato de capas comunitarias (.kmz, .kml, .geojson, .gpx, .csv) con detección de coordenadas y auditoría normativa automática",
             "MacWright, T. (2024). toGeoJSON: Convert KML and GPX to GeoJSON. https://github.com/tmcw/togeojson"
+        ],
+        [
+            "BiDat — Banco Integrado de Datos del Estado de Chile (RSH, IGVUST y BIP)",
+            "Ministerio de Desarrollo Social y Familia (MDSF) / DIPRES",
+            "2026 (Agosto/Junio)",
+            "https://bidat.gob.cl/",
+            "REST / WFS / Descarga GeoJSON",
+            "GeoJSON WGS84 / CSV Tabular georreferenciado",
+            "Filtro por Unidad Vecinal (1.364 UVs RM) y Comunas RM (52 comunas)",
+            "Datos Abiertos del Estado de Chile amparados por Ley N° 20.285 de Transparencia",
+            "src/js/modulos/ide_chile.js & src/js/modulos/mapa.js",
+            "Integración de 10 datasets sociodemográficos y de inversión pública: Registro Social de Hogares por Sexo, Situación Ocupacional, Dependencia Funcional, Previsión Salud (NNA, Mujeres, Mayores, Jóvenes, Hombres), Índice Global de Vulnerabilidad Socioterritorial (IGVUST 2026) e Iniciativas de Inversión BIP RM en 52 comunas (hasta 142 variables).",
+            "Ministerio de Desarrollo Social y Familia. (2026). Banco Integrado de Datos (BiDat): Registro Social de Hogares e Inversión Pública. https://bidat.gob.cl"
         ]
     ]
     
@@ -508,12 +521,12 @@ def crear_catalogo_fuentes():
     autoajustar_columnas(ws2, max_len_cap=40)
     
     # ----------------------------------------------------
-    # HOJA 3: Capas Oficiales e Indicadores del Estado (101 Capas)
+    # HOJA 3: Capas Oficiales e Indicadores del Estado (111 Capas)
     # ----------------------------------------------------
     ws3 = wb.create_sheet(title="Capas Oficiales e Indicadores")
     ws3["A1"] = "CATÁLOGO MAESTRO DE CAPAS OFICIALES E INDICADORES TERRITORIALES DEL ESTADO DE CHILE"
-    ws3["A1".format()].font = fuente_titulo
-    ws3["A2"] = "101 Capas Cartográficas e Indicadores de Políticas Públicas | Desagregación Censal, Barrial, Vecinal (Ley N° 19.418) e Inversión BIP (Ley N° 20.285)"
+    ws3["A1"].font = fuente_titulo
+    ws3["A2"] = "111 Capas Cartográficas e Indicadores de Políticas Públicas | Desagregación Censal, Barrial, Vecinal (Ley N° 19.418) e Inversión BIP (Ley N° 20.285)"
     ws3["A2"].font = fuente_subtitulo
     
     headers3 = [

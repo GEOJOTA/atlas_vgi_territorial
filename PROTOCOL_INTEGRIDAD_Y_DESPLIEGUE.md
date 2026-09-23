@@ -12,11 +12,15 @@ Este documento establece las directrices obligatorias de desarrollo, gestión de
 
 2. **Integridad de Atributos y Diccionario de Variables**:
    - En las descargas GeoJSON, CSV y consultas PostGIS se debe conservar el **100% de las columnas y campos de datos originales** sin truncar atributos estatales.
-   - En los visores emergentes (popups de Leaflet), se presentan los atributos prioritarios para lectura rápida ciudadana (Nombre, Dirección, Institución, Comuna, Tipología, Cita APA), manteniendo la totalidad de la estructura tabular en la exportación.
+   - En los visores emergentes (popups de Leaflet) y panel lateral de "Más detalles", se presentan los atributos prioritarios para lectura rápida ciudadana (Nombre, Dirección, Institución, Comuna, Tipología, Cita APA), alertando explícitamente cuando las columnas se resumen y proveyendo botón de descarga directa de la capa completa con el 100% de sus variables originales.
 
-3. **Catálogo Maestro de 107 Capas Oficiales (+ 10 Capas VGI = 117 Capas Totales)**:
+3. **Catálogo Maestro de 111 Capas Oficiales (+ 10 Capas VGI = 121 Capas Totales)**:
    - El catálogo maestro oficial se encuentra implementado en `src/js/modulos/ide_chile.js`, estructurado en 6 macro-grupos temáticos con acordeones colapsables interactivos.
-   - La base de datos relacional almacena la totalidad de metadatos en la tabla `public.capas_metadata` (107 registros con citas APA e inventario de atributos) y vectoriza **129.262 entidades espaciales** en `public.capas_entidades`.
+   - La base de datos relacional almacena la totalidad de metadatos en la tabla `public.capas_metadata` (111 registros con citas APA e inventario de atributos) y vectoriza **129.262+ entidades espaciales** en `public.capas_entidades`.
+
+4. **Garantía Binaria Git LFS y Auditoría Pre-Despliegue**:
+   - Ningún conjunto de datos en `data/`, `src/data/` o `src/docs/` puede desplegarse como puntero de texto Git LFS sin resolver (130 bytes).
+   - Todo build en Netlify ejecuta de manera obligatoria el script `python3 scripts/verificar_integridad_despliegue.py`, el cual audita los 207 archivos GeoJSON y los 3 libros OpenXML (.xlsx), verificando validez de sintaxis y consistencia binaria al 100%.
 
 ---
 

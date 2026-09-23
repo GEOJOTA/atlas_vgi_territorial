@@ -605,27 +605,75 @@ const ModuloMapa = (() => {
   META_CAPAS_BIDAT['bbdd_73'] = META_CAPAS_BIDAT['Mayores_RSH_Fonasa_Isapre_UV_2026_Junio'];
   META_CAPAS_BIDAT['bbdd_74'] = META_CAPAS_BIDAT['RSH_Ocupados_Cotizando_UV_2026_Junio'];
 
+  // Mapear capas censales multiescalares INE y sectoriales complejas
+  META_CAPAS_BIDAT['ide_censo2024_regional'] = {
+    fuente: 'INE Chile — Censo 2024',
+    descripcion: 'Marco Macroterritorial Región Metropolitana (Censo 2024). Desagregación demográfica y de vivienda.',
+    archivo_geojson: 'ide_censo2024_regional.geojson',
+    columnas_totales: 213,
+    tamano_mb: 0.82,
+    licencia: 'Datos Abiertos — Instituto Nacional de Estadísticas'
+  };
+  META_CAPAS_BIDAT['ide_censo2024_limite_urbano'] = {
+    fuente: 'INE Chile — Censo 2024',
+    descripcion: 'Áreas Urbanas Censales de la Región Metropolitana (106 polígonos). Atributos sociodemográficos y tipologías de asentamiento.',
+    archivo_geojson: 'ide_censo2024_limite_urbano.geojson',
+    columnas_totales: 213,
+    tamano_mb: 6.48,
+    licencia: 'Datos Abiertos — Instituto Nacional de Estadísticas'
+  };
+  META_CAPAS_BIDAT['ide_censo2024_localidades'] = {
+    fuente: 'INE Chile — Censo 2024',
+    descripcion: 'Localidades y Asentamientos Urbanos y Rurales RM (511 polígonos). Población, hogares y categorías censales.',
+    archivo_geojson: 'ide_censo2024_localidades.geojson',
+    columnas_totales: 213,
+    tamano_mb: 17.16,
+    licencia: 'Datos Abiertos — Instituto Nacional de Estadísticas'
+  };
+  META_CAPAS_BIDAT['ide_censo2024_zonal'] = {
+    fuente: 'INE Chile — Censo 2024',
+    descripcion: 'Distritos y Zonas Censales RM (1.865 polígonos). Microdatos sociodemográficos desagregados por sexo, tramos etarios y viviendas.',
+    archivo_geojson: 'ide_censo2024_zonal.geojson',
+    columnas_totales: 213,
+    tamano_mb: 26.51,
+    licencia: 'Datos Abiertos — Instituto Nacional de Estadísticas'
+  };
+  META_CAPAS_BIDAT['ide_censo2024_manzanas'] = {
+    fuente: 'INE Chile — Censo 2024',
+    descripcion: 'Manzanas Censales de la Región Metropolitana (66.873 polígonos). Microdatos completos con 217 variables censales oficiales del INE.',
+    archivo_geojson: 'ide_censo2024_manzanas.geojson',
+    columnas_totales: 217,
+    tamano_mb: 496.87,
+    licencia: 'Datos Abiertos — Instituto Nacional de Estadísticas'
+  };
+  META_CAPAS_BIDAT['capa_bbdd_61'] = {
+    fuente: 'CONAF — Catastro Uso de Suelo',
+    descripcion: 'Monitoreo de Cambios de Uso de Suelo y Cobertura Vegetacional (13.121 polígonos). Serie multitemporal completa.',
+    archivo_geojson: 'capa_bbdd_61.geojson',
+    columnas_totales: 85,
+    tamano_mb: 284.4,
+    licencia: 'Datos Abiertos — Corporación Nacional Forestal'
+  };
+
   function fila(etiqueta, valor) {
     const esNum = typeof valor === 'number';
     const esVacio = valor === null || valor === undefined || valor === '' || valor === 'Sin dato' || valor === 0;
-    const claseValor = esNum ? 'detalle-valor num' : (esVacio ? 'detalle-valor vacio' : 'detalle-valor');
-    const textoValor = esVacio && valor !== 0 ? '—'
-      : (esNum && typeof valor === 'number' ? valor.toLocaleString('es-CL', { maximumFractionDigits: 4 }) : String(valor));
-    return `<div class="detalle-fila">
-      <span class="detalle-etiqueta">${etiqueta}</span>
-      <span class="${claseValor}">${textoValor}</span>
-    </div>`;
+    const valFmt = esNum ? valor.toLocaleString('es-CL') : (esVacio ? '—' : valor);
+    return `<tr><td class="detalle-clave">${etiqueta}</td><td class="detalle-valor ${esNum ? 'num' : ''}">${valFmt}</td></tr>`;
   }
 
-  function seccion(titulo, contenido) {
-    return `<div class="detalle-seccion">
-      <p class="detalle-seccion-titulo">${titulo}</p>
-      ${contenido}
-    </div>`;
+  function seccion(titulo, filasHtml) {
+    if (!filasHtml || filasHtml.trim() === '') return '';
+    return `
+      <div class="detalle-seccion">
+        <h5 class="detalle-seccion-titulo">${titulo}</h5>
+        <table class="detalle-tabla"><tbody>${filasHtml}</tbody></table>
+      </div>
+    `;
   }
 
-  function abrirSidebarDetalle(props, opciones, idCapa, icono, color) {
-    const sidebar = document.getElementById('sidebar-detalle-bidat');
+  function abrirSidebarDetalle(props = {}, opciones = {}, idCapa, icono, color) {
+    const sidebar = document.getElementById('sidebar-detalle');
     const cuerpo  = document.getElementById('sidebar-detalle-cuerpo');
     const badge   = document.getElementById('sidebar-detalle-badge');
     if (!sidebar || !cuerpo) return;
@@ -643,7 +691,9 @@ const ModuloMapa = (() => {
     const archivoGeoJSON = meta.archivo_geojson || (idCapa && idCapa.endsWith('.geojson') ? idCapa : (props._archivoLocal ? props._archivoLocal.split('/').pop() : `${idCapa}.geojson`));
     const tamanoMbStr = meta.tamano_mb ? `${meta.tamano_mb} MB` : 'GeoJSON Completo';
 
-    const alertaColumnasHtml = `
+    const mostrarAlerta = totalColsOrigen > 15 || meta.columnas_totales || (idCapa && (idCapa.includes('rsh') || idCapa.includes('RSH') || idCapa.includes('censo') || idCapa.includes('bbdd') || idCapa.includes('bip') || idCapa.includes('BIP') || idCapa.includes('IGVUST')));
+
+    const alertaColumnasHtml = mostrarAlerta ? `
       <div class="detalle-alerta-columnas" style="background:rgba(234,179,8,0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:11px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <span style="font-size:1.25rem; line-height:1.2;">⚠️</span>
@@ -666,7 +716,7 @@ const ModuloMapa = (() => {
           </div>
         </div>
       </div>
-    `;
+    ` : '';
 
     // ── Sección 1: Identificación del elemento ──────────────────────────
     const nombre = props._nombre || props.nombre || props.name || props.NOMBRE || props.EBI_NOMBRE || '—';
