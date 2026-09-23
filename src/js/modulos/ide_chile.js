@@ -1770,7 +1770,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/bases-de-datos-agosto-2026",
-      archivoLocal: 'data/capa_bbdd_64.geojson',
+      archivoLocal: 'data/IGVUST_UV_2026_Agosto.geojson',
+      archivoAlternativo: 'data/capa_bbdd_64.geojson',
       color: '#6366F1',
       icono: '👥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1788,7 +1789,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/registro-de-proyectos-de-inversion?page=1",
-      archivoLocal: 'data/capa_bbdd_65.geojson',
+      archivoLocal: 'data/BIP_Iniciativas_Inversion_RM_Comunas.geojson',
+      archivoAlternativo: 'data/capa_bbdd_65.geojson',
       color: '#3B82F6',
       icono: '🏫',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1824,7 +1826,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/personas-en-rsh-en-situacion-dependencia-funcional-segun-cse-2026",
-      archivoLocal: 'data/capa_bbdd_67.geojson',
+      archivoLocal: 'data/RSH_Dependencia_Funcional_UV_2026_Agosto.geojson',
+      archivoAlternativo: 'data/capa_bbdd_67.geojson',
       color: '#EF4444',
       icono: '🏥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1842,7 +1845,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/personas-en-rsh-segun-cse-y-sexo-2026",
-      archivoLocal: 'data/capa_bbdd_68.geojson',
+      archivoLocal: 'data/RSH_Sexo_UV_2026_Agosto.geojson',
+      archivoAlternativo: 'data/capa_bbdd_68.geojson',
       color: '#6366F1',
       icono: '👥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1860,7 +1864,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/nna-en-rsh-adscritas-fonasa-isapre-segun-cse-y-tipo-institucion-2026",
-      archivoLocal: 'data/capa_bbdd_69.geojson',
+      archivoLocal: 'data/NNA_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
+      archivoAlternativo: 'data/capa_bbdd_69.geojson',
       color: '#EF4444',
       icono: '🏥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1878,7 +1883,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/mujeres-en-rsh-adscritas-fonasa-isapre-segun-cse-y-tipo-institucion-2026",
-      archivoLocal: 'data/capa_bbdd_70.geojson',
+      archivoLocal: 'data/Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
+      archivoAlternativo: 'data/capa_bbdd_70.geojson',
       color: '#EF4444',
       icono: '🏥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1896,7 +1902,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/jovenes-en-rsh-adscritos-fonasa-isapre-segun-cse-y-tipo-institucion-2026",
-      archivoLocal: 'data/capa_bbdd_71.geojson',
+      archivoLocal: 'data/Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
+      archivoAlternativo: 'data/capa_bbdd_71.geojson',
       color: '#EF4444',
       icono: '🏥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1914,7 +1921,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/hombres-en-rsh-adscritos-fonasa-isapre-segun-cse-y-tipo-institucion-2026",
-      archivoLocal: 'data/capa_bbdd_72.geojson',
+      archivoLocal: 'data/Hombres_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
+      archivoAlternativo: 'data/capa_bbdd_72.geojson',
       color: '#EF4444',
       icono: '🏥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1932,7 +1940,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/personas-mayores-en-rsh-adscritos-fonasa-isapre-segun-cse-y-tipo-institucion-2026",
-      archivoLocal: 'data/capa_bbdd_73.geojson',
+      archivoLocal: 'data/Mayores_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
+      archivoAlternativo: 'data/capa_bbdd_73.geojson',
       color: '#EF4444',
       icono: '🏥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -1950,7 +1959,8 @@ const ModuloIDEChile = (() => {
       ministerio: 'Organismo Público del Estado de Chile',
       tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
       urlServicio: "https://bidat.gob.cl/details/ficha/dataset/personas-en-rsh-ocupadas-y-cotizando-por-modalidad-contractual-segun-tramo-cse-2026",
-      archivoLocal: 'data/capa_bbdd_74.geojson',
+      archivoLocal: 'data/RSH_Ocupados_Cotizando_UV_2026_Junio.geojson',
+      archivoAlternativo: 'data/capa_bbdd_74.geojson',
       color: '#6366F1',
       icono: '👥',
       geometria: 'Vectorial / Tabular Georreferenciada',
@@ -2048,6 +2058,14 @@ const ModuloIDEChile = (() => {
         `data/${def.archivoLocal.split('/').pop()}`,
         `src/data/${def.archivoLocal.split('/').pop()}`
       ];
+      if (def.archivoAlternativo) {
+        rutas.push(
+          def.archivoAlternativo,
+          `./${def.archivoAlternativo}`,
+          `data/${def.archivoAlternativo.split('/').pop()}`,
+          `src/data/${def.archivoAlternativo.split('/').pop()}`
+        );
+      }
 
       for (const r of rutas) {
         try {
@@ -2409,6 +2427,7 @@ const ModuloIDEChile = (() => {
       props._licencia = 'Ley N° 20.285 / Datos Abiertos Estado de Chile';
       props._citaAPA = def.citaAPA;
       props._declaracion = def.declaracion;
+      props._archivoLocal = def.archivoLocal;
       
       if (Object.keys(extraInfo).length === 0) {
         let count = 0;

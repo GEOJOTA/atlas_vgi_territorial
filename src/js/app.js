@@ -2163,12 +2163,15 @@ function configurarCapasOficialesIDE() {
       btn.title = `${def.descripcion}
 Institución: ${def.institucion}
 Tipo: ${def.tipoServicio}`;
+      const archDescarga = def.archivoLocal || `data/${def.id}.geojson`;
+      const nombreArchDescarga = archDescarga.split('/').pop();
       btn.innerHTML = `
         <span class="icono-cat">${def.icono}</span>
         <div class="info-cat">
           <strong>${def.nombre}</strong>
           <small>${def.institucion.split('/')[0].trim()}</small>
         </div>
+        <a href="${archDescarga}" download="${nombreArchDescarga}" class="btn-descarga-directa-oficial" title="Descargar archivo GeoJSON oficial íntegro (${nombreArchDescarga})" onclick="event.stopPropagation();" style="color:var(--musgo,#06b6d4); font-size:0.88rem; padding:3px 6px; border-radius:4px; text-decoration:none; margin-right:4px; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">📥</a>
         <span class="badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
       `;
 
@@ -2416,9 +2419,11 @@ async function alternarCapaOficialIDE(idCapa, btn) {
 
     if (window.ModuloMapa) {
       ModuloMapa.cargarCapaGeoJSON(idCapa, res.geojson, {
+        id: def.id,
         nombre: def.nombre,
         color: def.color,
-        icono: def.icono
+        icono: def.icono,
+        archivoLocal: def.archivoLocal
       });
     }
 

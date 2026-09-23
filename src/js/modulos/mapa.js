@@ -548,10 +548,62 @@ const ModuloMapa = (() => {
       nulos_rellenos: '39 columnas con nulos → 0 / "Sin dato"',
       crs_entrada: 'SIRGAS-Chile (DPA 2023)', crs_salida: 'EPSG:4326',
       fecha_proceso: '2026-09-16', tamano_mb: 176.73,
+      archivo_geojson: 'BIP_Iniciativas_Inversion_RM_Comunas.geojson',
+      columnas_totales: 92,
       licencia: 'Dato público — Ministerio de Desarrollo Social Chile / SNI',
       nota_critica: 'REG_CLAVE en BIP = 181 (código interno SNI, ≠ CUT 13 del INE). Verificado cruzando CMN_CLAVE con CUT de comunas RM.'
     }
   };
+
+  // Enlazar metadatos de archivo_geojson y columnas_totales para capas BIDAT / RSH
+  if (META_CAPAS_BIDAT['IGVUST_UV_2026_Agosto']) {
+    META_CAPAS_BIDAT['IGVUST_UV_2026_Agosto'].archivo_geojson = 'IGVUST_UV_2026_Agosto.geojson';
+    META_CAPAS_BIDAT['IGVUST_UV_2026_Agosto'].columnas_totales = 22;
+  }
+  if (META_CAPAS_BIDAT['RSH_Sexo_UV_2026_Agosto']) {
+    META_CAPAS_BIDAT['RSH_Sexo_UV_2026_Agosto'].archivo_geojson = 'RSH_Sexo_UV_2026_Agosto.geojson';
+    META_CAPAS_BIDAT['RSH_Sexo_UV_2026_Agosto'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['RSH_Dependencia_Funcional_UV_2026_Agosto']) {
+    META_CAPAS_BIDAT['RSH_Dependencia_Funcional_UV_2026_Agosto'].archivo_geojson = 'RSH_Dependencia_Funcional_UV_2026_Agosto.geojson';
+    META_CAPAS_BIDAT['RSH_Dependencia_Funcional_UV_2026_Agosto'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['NNA_RSH_Fonasa_Isapre_UV_2026_Junio']) {
+    META_CAPAS_BIDAT['NNA_RSH_Fonasa_Isapre_UV_2026_Junio'].archivo_geojson = 'NNA_RSH_Fonasa_Isapre_UV_2026_Junio.geojson';
+    META_CAPAS_BIDAT['NNA_RSH_Fonasa_Isapre_UV_2026_Junio'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio']) {
+    META_CAPAS_BIDAT['Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio'].archivo_geojson = 'Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio.geojson';
+    META_CAPAS_BIDAT['Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio']) {
+    META_CAPAS_BIDAT['Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio'].archivo_geojson = 'Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio.geojson';
+    META_CAPAS_BIDAT['Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['Hombres_RSH_Fonasa_Isapre_UV_2026_Junio']) {
+    META_CAPAS_BIDAT['Hombres_RSH_Fonasa_Isapre_UV_2026_Junio'].archivo_geojson = 'Hombres_RSH_Fonasa_Isapre_UV_2026_Junio.geojson';
+    META_CAPAS_BIDAT['Hombres_RSH_Fonasa_Isapre_UV_2026_Junio'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['Mayores_RSH_Fonasa_Isapre_UV_2026_Junio']) {
+    META_CAPAS_BIDAT['Mayores_RSH_Fonasa_Isapre_UV_2026_Junio'].archivo_geojson = 'Mayores_RSH_Fonasa_Isapre_UV_2026_Junio.geojson';
+    META_CAPAS_BIDAT['Mayores_RSH_Fonasa_Isapre_UV_2026_Junio'].columnas_totales = 110;
+  }
+  if (META_CAPAS_BIDAT['RSH_Ocupados_Cotizando_UV_2026_Junio']) {
+    META_CAPAS_BIDAT['RSH_Ocupados_Cotizando_UV_2026_Junio'].archivo_geojson = 'RSH_Ocupados_Cotizando_UV_2026_Junio.geojson';
+    META_CAPAS_BIDAT['RSH_Ocupados_Cotizando_UV_2026_Junio'].columnas_totales = 142;
+  }
+
+  // Mapear aliases bbdd_XX hacia las definiciones oficiales
+  META_CAPAS_BIDAT['bbdd_64'] = META_CAPAS_BIDAT['IGVUST_UV_2026_Agosto'];
+  META_CAPAS_BIDAT['bbdd_65'] = META_CAPAS_BIDAT['BIP_Iniciativas_Inversion_RM_Comunas'];
+  META_CAPAS_BIDAT['bbdd_67'] = META_CAPAS_BIDAT['RSH_Dependencia_Funcional_UV_2026_Agosto'];
+  META_CAPAS_BIDAT['bbdd_68'] = META_CAPAS_BIDAT['RSH_Sexo_UV_2026_Agosto'];
+  META_CAPAS_BIDAT['bbdd_69'] = META_CAPAS_BIDAT['NNA_RSH_Fonasa_Isapre_UV_2026_Junio'];
+  META_CAPAS_BIDAT['bbdd_70'] = META_CAPAS_BIDAT['Mujeres_RSH_Fonasa_Isapre_UV_2026_Junio'];
+  META_CAPAS_BIDAT['bbdd_71'] = META_CAPAS_BIDAT['Jovenes_RSH_Fonasa_Isapre_UV_2026_Junio'];
+  META_CAPAS_BIDAT['bbdd_72'] = META_CAPAS_BIDAT['Hombres_RSH_Fonasa_Isapre_UV_2026_Junio'];
+  META_CAPAS_BIDAT['bbdd_73'] = META_CAPAS_BIDAT['Mayores_RSH_Fonasa_Isapre_UV_2026_Junio'];
+  META_CAPAS_BIDAT['bbdd_74'] = META_CAPAS_BIDAT['RSH_Ocupados_Cotizando_UV_2026_Junio'];
 
   function fila(etiqueta, valor) {
     const esNum = typeof valor === 'number';
@@ -582,8 +634,39 @@ const ModuloMapa = (() => {
     const nombreCapa = opciones?.nombre || idCapa || 'Capa';
     if (badge) badge.textContent = icono ? `${icono} ${nombreCapa}` : nombreCapa;
 
-    // Obtener metadatos de la capa
-    const meta = META_CAPAS_BIDAT[idCapa] || {};
+    // Obtener metadatos de la capa (soporta idCapa, alias bbdd_XX o nombre de archivo)
+    const meta = META_CAPAS_BIDAT[idCapa] || META_CAPAS_BIDAT[props._idOficial] || META_CAPAS_BIDAT[opciones?.id] || {};
+
+    // ── Alerta: Aviso de columnas no mostradas y descarga integral ─────────
+    const totalColsProps = Object.keys(props).filter(k => !k.startsWith('_') && k !== 'geometry').length;
+    const totalColsOrigen = meta.columnas_totales || totalColsProps;
+    const archivoGeoJSON = meta.archivo_geojson || (idCapa && idCapa.endsWith('.geojson') ? idCapa : (props._archivoLocal ? props._archivoLocal.split('/').pop() : `${idCapa}.geojson`));
+    const tamanoMbStr = meta.tamano_mb ? `${meta.tamano_mb} MB` : 'GeoJSON Completo';
+
+    const alertaColumnasHtml = `
+      <div class="detalle-alerta-columnas" style="background:rgba(234,179,8,0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:11px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
+        <div style="display:flex; align-items:flex-start; gap:10px;">
+          <span style="font-size:1.25rem; line-height:1.2;">⚠️</span>
+          <div style="flex:1;">
+            <strong style="display:block; color:#EAB308; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
+              AVISO DE VISUALIZACIÓN: COLUMNAS RESUMIDAS
+            </strong>
+            <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
+              Por motivos de rendimiento y legibilidad en el visor interactivo, <strong>no se están mostrando todas las columnas</strong> de esta entidad (${totalColsOrigen} columnas y variables presentes en el dataset oficial).
+            </p>
+            <p style="margin:5px 0 0 0; font-size:0.75rem; color:var(--tinta,#f8fafc); line-height:1.4;">
+              El conjunto cartográfico original incluye el 100% de los polígonos e información sociodemográfica íntegra sin recortar.
+            </p>
+            <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <a href="data/${archivoGeoJSON}" download="${archivoGeoJSON}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:6px 13px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 5px rgba(0,0,0,0.25);">
+                📥 Descargar Capa Completa (${tamanoMbStr})
+              </a>
+              <span style="font-size:0.7rem; color:var(--tinta-tenue,#94a3b8); font-family:'IBM Plex Mono',monospace;">(Todas las columnas íntegras)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
 
     // ── Sección 1: Identificación del elemento ──────────────────────────
     const nombre = props._nombre || props.nombre || props.name || props.NOMBRE || props.EBI_NOMBRE || '—';
@@ -601,7 +684,7 @@ const ModuloMapa = (() => {
     if (props.EBI_SITUACION) s1 += fila('Situación', props.EBI_SITUACION);
     if (props.EBI_SIMBOLO_MONEDA) s1 += fila('Moneda', props.EBI_SIMBOLO_MONEDA);
 
-    // ── Sección 2: Datos cuantitativos (primeras 10 columnas numéricas) ─
+    // ── Sección 2: Datos cuantitativos (primeras 25 columnas numéricas) ─
     let s2 = '';
     let nCols = 0;
     const excluirCols = new Set(['_nombre','_subtipo','_fuente','_licencia','_capaId','_idUsuario','_color','_extraInfo','_declaracion','_citaAPA','_idOficial','geometry']);
@@ -651,6 +734,7 @@ const ModuloMapa = (() => {
 
     // ── Render completo ─────────────────────────────────────────────────
     cuerpo.innerHTML = [
+      alertaColumnasHtml,
       seccion('🏷 Identificación del Elemento', s1),
       seccion('📊 Indicadores Numéricos', s2),
       seccion('📋 Atributos del Dato', s3),
