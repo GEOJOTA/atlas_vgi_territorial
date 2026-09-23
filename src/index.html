@@ -6,7 +6,7 @@
 <title>Atlas de Información Geográfica Voluntaria — Barrio Brasil & UAH</title>
 <meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y entorno de la Universidad Alberto Hurtado.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/estilos.css?v=20260923_logo_uah">
+<link rel="stylesheet" href="css/estilos.css?v=20260923_contraste_blanco">
 </head>
 <body>
 
@@ -25,16 +25,16 @@
     </div>
 
     <!-- Selector de Perfil de Usuario -->
-    <div style="padding:10px 12px; margin:10px 0 14px 0; background:var(--papel-alto); border:1px solid var(--linea); border-radius:2px;">
-      <label for="sel-perfil-usuario" style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--musgo); display:block; margin-bottom:4px;">Perfil de Actor Territorial:</label>
-      <select id="sel-perfil-usuario" style="width:100%; font-size:0.8rem; padding:4px; border:1px solid var(--linea); background:var(--papel);">
+    <div style="padding:12px 14px; margin:10px 0 16px 0; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.38); border-radius:8px; box-shadow:0 3px 12px rgba(0,0,0,0.35);">
+      <label for="sel-perfil-usuario" style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#ffffff; display:block; margin-bottom:6px;">Perfil de Actor Territorial:</label>
+      <select id="sel-perfil-usuario" style="width:100%; font-size:0.82rem; padding:6px 8px; border:1.5px solid rgba(255,255,255,0.45); background:#070c18; color:#ffffff; border-radius:6px; font-weight:600;">
         <option value="todos" selected>◈ Vista General Territorial</option>
         <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
         <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
         <option value="voluntario">⌖ Voluntarios / Mapeadores OSM</option>
         <option value="ong">🔬 Organizaciones No Gubernamentales (ONG)</option>
       </select>
-      <div id="badge-perfil-info" style="font-size:0.72rem; margin-top:6px; color:var(--tinta-suave); line-height:1.3;">Herramientas adaptadas para gestión territorial integral.</div>
+      <div id="badge-perfil-info" style="font-size:0.75rem; margin-top:7px; color:#f8fafc; line-height:1.35; font-weight:500;">Herramientas adaptadas para gestión territorial integral.</div>
     </div>
 
     <ul class="capas-nav" id="lista-navegacion">
