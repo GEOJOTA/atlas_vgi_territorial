@@ -1179,20 +1179,20 @@ out skel qt;</code></pre>
               <!-- Bloque 2: Ficha Técnica 2x2 -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
-                  <div class="doc-spec-valor">Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces) / MINVU / DOM Santiago.</div>
+                  <div class="doc-spec-rotulo">🏛️ Contraparte Estatal / Fuente</div>
+                  <div class="doc-spec-valor">Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces 2025).</div>
                 </div>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
-                  <div class="doc-spec-valor">Ley General de Urbanismo y Construcciones (LGUC); OGUC Art. 2.1.24; D.S. N° 50 MINVU; ISO 19157 (Exactitud temática y de área).</div>
+                  <div class="doc-spec-valor">Ley General de Urbanismo y Construcciones (LGUC); OGUC Art. 2.1.24; D.S. N° 50 MINVU; ISO 19157 (Data Quality).</div>
                 </div>
                 <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Catastro Nacional de Bienes Raíces (SII / IDE Chile) / Manzanas y Edificaciones Censales (INE).</div>
+                  <div class="doc-spec-rotulo">🌐 Capa Equivalente & Cobertura</div>
+                  <div class="doc-spec-valor">Catastro Predial SII Geocodificado v4 (1.380.649 predios nacional en GeoPackage; 264.195 predios RM desplegados por peso). ⚠️ Geocodificación automatizada sujeta a error (según nivel) y/o vacíos de origen.</div>
                 </div>
                 <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Pabellones y patios de Casa Central UAH (Almirante Barroso 10), casonas de Erasmo Escala y Cienfuegos, y bloques de departamentos.</div>
+                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & RM</div>
+                  <div class="doc-spec-valor">Predios catastrados con ROL SII, domicilio, avalúo fiscal, superficie de terreno y superficie construida.</div>
                 </div>
               </div>
 

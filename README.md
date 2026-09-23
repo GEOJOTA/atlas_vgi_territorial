@@ -75,7 +75,8 @@ El visor integra **112 capas cartográficas oficiales de la Administración del 
      - **Escala 4 — Zonas y Distritos Censales RM:** 1.865 polígonos distritales con variables sociodemográficas avanzadas.
      - **Escala 5 — Manzanas Censales Santiago / Barrio Brasil:** 1.711 manzanas censales con microdatos completos de población, grupos etarios, inmigración y viviendas.
    - Unidades Vecinales Oficiales 2026 (Ley 19.418), Catastro Oficial de Campamentos MINVU, Condominios Sociales (Ley 21.442) y 10 conjuntos de datos sociodemográficos y de inversión pública del Registro Social de Hogares (RSH), IGVUST e iniciativas BIP (BiDat MDSF / Hacienda).
-4. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND):**
+4. 🏛️ **Equipamiento Público, Educación, Salud, Catastro Predial SII & Patrimonio (SII / CMN / MINEDUC / MINSAL / IND):**
+   - **Catastro Predial Servicio de Impuestos Internos (SII Geocodificado v4 2026):** Catastro predial de bienes raíces (1.380.649 propiedades geocodificadas a nivel nacional en GeoPackage; 264.195 predios desplegados en el visor web para la Región Metropolitana por peso de archivo). Fuente: Servicio de Impuestos Internos (SII). ⚠️ *Nota: Geocodificación automatizada sujeta a margen de error (según nivel) y/o vacíos de origen.*
    - Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Establecimientos de Educación Escolar y Superior (MINEDUC), Hospitales y CESFAM (DEIS MINSAL), Infraestructura Deportiva IND y Jardines Botánicos.
 5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
    - Cuarteles del Cuerpo de Bomberos de Santiago, Comisarías de Carabineros de Chile (Plan Cuadrante), Pasos Fronterizos Internacionales Oficiales (DIFROL) y Zonas de Seguridad Fronteriza (DFL N° 4).
