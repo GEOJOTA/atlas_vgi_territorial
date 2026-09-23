@@ -3,7 +3,7 @@
 # deploy_git.sh
 # -------------
 # Script de automatización de Git y control de versiones para Nodo GeoAbierto /
-# Atlas de Información Geográfica Voluntaria (Práctica Profesional 2026).
+# Atlas de Información Geográfica Voluntaria — Departamento de Geografía UAH (2026).
 # ==============================================================================
 
 REPO_DIR="/Users/geojplescano/Programas/Práctica profesional 2026 S2/nodo-geoabierto"

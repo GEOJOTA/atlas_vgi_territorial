@@ -1,5 +1,5 @@
 # Trazabilidad Académica y Memoria Metodológica
-### Proyecto de Práctica Profesional (2026 S2): Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)
+### Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto) — Departamento de Geografía, Universidad Alberto Hurtado (2026)
 
 **Autor:** Juan Pablo Lescano Villegas (`GEOJOTA` <juanpablolescanovillegas@gmail.com>)  
 **Área:** Geografía, Sistemas de Información Geográfica y Gestión Territorial  
@@ -124,7 +124,7 @@ Toda la taxonomía, junto con su correlación de atributos, linaje de procesamie
 1. **Hoja 1: `Categorías Maestras (Chile)`**: Define las 10 macro-categorías (CAT-01 a CAT-10), sus contrapartes públicas, código de capa, consulta base Overpass QL y frecuencia observada en Taginfo Chile.
 2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula los 134 descriptores territoriales depurados (48 oficiales IDE Chile vs 86 brechas VGI comunitarias) con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa estatal homóloga, organismo rector y ejemplo empírico en Barrio Brasil / UAH.
 3. **Hoja 3: `Diccionario Atributos VGI`**: Detalla los 14 atributos normalizados de las entidades geoespaciales (incluyendo `superficie_m2`, `superficie_ha` y `srs_superficie` bajo proyección EPSG:32719 UTM 19S), indicando tipo de dato, cardinalidad, regla de cálculo y correspondencia con el Perfil Nacional de Metadatos (ISO 19110 / ISO 19115).
-4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 125 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando la totalidad de las 51 referencias del Seminario de Grado de Geografía UAH, 8 fuentes epistemológicas e hispanoamericanas del texto y 66 normas y marcos técnicos del Atlas), con hipervínculos oficiales activos y trazabilidad verificable.
+4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 125 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando 51 referencias de investigación seminal, 8 obras epistemológicas e hispanoamericanas y 66 normas y marcos técnicos del Estado de Chile y globales), con hipervínculos oficiales activos y trazabilidad verificable.
 
 ---
 
@@ -203,7 +203,7 @@ El cálculo de áreas y densidades en el Atlas VGI cumple estrictamente con el e
 
 ## 4. Decisiones de Arquitectura y Defensa Técnica
 
-Ante la comisión de práctica profesional, cada componente técnico responde a una justificación deliberada:
+Ante la evaluación técnica y metodológica, cada componente técnico responde a una justificación deliberada:
 
 | Decisión Técnica | Alternativa Descartada | Justificación y Defensa Metodológica |
 |---|---|---|
@@ -213,7 +213,7 @@ Ante la comisión de práctica profesional, cada componente técnico responde a 
 | **Diferenciación por Perfiles de Actor Territorial** | Interfaz única monolítica genérica | Modula la experiencia para tres actores clave (autoridades/instituciones, organizaciones comunitarias/vecinos y voluntarios/mapeadores), reduciendo la brecha digital y destacando herramientas según necesidades de gestión. |
 | **Diccionario Territorial y Metadatos Normalizados** | Consulta a bases de datos sin glosario explicativo | Desmitifica la jerga informática de etiquetas de OpenStreetMap traduciéndola a 10 atributos estándar compatibles con IDE Chile (SNIT) e ISO 19115. |
 | **Constructor de Consultas Espaciales Dual + Sugerencias 1 Clic** | Búsqueda solo tabular predefinida o solo Overpass QL | Democratiza la consulta territorial permitiendo que vecinos ejecuten consultas en un solo clic, mientras que investigadores avanzados pueden construir expresiones complejas y descargar GeoJSON/CSV. |
-| **Delimitación Territorial Operativa (Barrio Brasil Completo y Manzana UAH)** | Catálogo metropolitano disperso (Providencia, Lo Barnechea, Casco Cívico) | Focaliza los recursos computacionales y de consulta en el área de estudio directa de la práctica profesional de Geografía, garantizando consistencia empírica en las 10 macro-categorías (CAT-01 a CAT-10) y evitando consultas descontextualizadas o sobrecarga innecesaria de APIs en Bboxes metropolitanos ajenos al caso piloto. |
+| **Delimitación Territorial Operativa (Barrio Brasil Completo y Manzana UAH)** | Catálogo metropolitano disperso (Providencia, Lo Barnechea, Casco Cívico) | Focaliza los recursos computacionales y de consulta en el área de estudio directa del proyecto territorial de Geografía, garantizando consistencia empírica en las 10 macro-categorías (CAT-01 a CAT-10) y evitando consultas descontextualizadas o sobrecarga innecesaria de APIs en Bboxes metropolitanos ajenos al caso piloto. |
 | **Taxonomía Multi-Entidad y Geometrías Mixtas (Puntos, Líneas y Polígonos)** | Modelo simplificado mono-entidad puntual (`out center`) | Supera la limitación reduccionista de representar fenómenos urbanos complejos como meros puntos. Permite capturar la verdadera morfología espacial (huellas poligonales de campus universitarios y plazas, redes lineales de ciclovías y vías de transporte, y equipamientos puntuales de servicios), cumpliendo con el principio de fidelidad topológica de ISO 19157. |
 | **Reproyección Geodésica a EPSG:32719 para Cálculo de Superficies y Densidad** | Cálculos euclidianos en grados o esferas simplificadas | Los grados decimales ($\Delta \lambda \times \Delta \phi$) no constituyen unidades métricas y distorsionan las áreas a la latitud de Santiago (-33.44°). La reproyección conforme a EPSG:32719 (WGS 84 / UTM Huso 19 Sur, elipsoide WGS84, meridiano central 69°O) mediante las ecuaciones de Snyder (1987) y la fórmula de Gauss garantiza exactitud métrica en $m^2$, $ha$ y $km^2$ bajo las normas del IGM e IDE Chile. |
 | **Respaldo Local Automático (Fallback)** | Bloqueo o error 429 cuando Overpass satura | Si la red pública de Overpass sufre congestión durante una defensa académica, el sistema conmuta automáticamente a los 1.316 registros locales pre-extraídos de Barrio Brasil y UAH. |

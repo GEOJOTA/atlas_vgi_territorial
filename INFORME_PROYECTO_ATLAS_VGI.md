@@ -10,7 +10,7 @@
 | **Nombre** | Atlas de Información Geográfica Voluntaria para la Gestión Territorial |
 | **Autor** | Juan Pablo Lescano Villegas |
 | **Contacto** | juanpablolescanovillegas@gmail.com |
-| **Institución** | Práctica Profesional — Escuela de Geografía, Universidad Alberto Hurtado (UAH) |
+| **Institución** | Departamento de Geografía, Universidad Alberto Hurtado (UAH) |
 | **Marco investigativo** | Proyecto Fondecyt Regular sobre VGI y Gobernanza Territorial (Dr. Manuel Fuenzalida, UAH) |
 | **Territorio piloto** | Barrio Brasil + Campus UAH — Santiago Centro, Chile |
 | **URL de producción** | https://atlasvgiuah.netlify.app/ |

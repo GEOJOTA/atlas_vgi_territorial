@@ -32,7 +32,7 @@ const ModuloMetadatos = (() => {
       identificacion: {
         titulo: datos.titulo || 'Catastro VGI Barrio Brasil — Universidad Alberto Hurtado',
         resumen: datos.resumen || 'Capa de datos espaciales voluntarios compilada para la gestión territorial.',
-        proposito: datos.proposito || 'Práctica profesional de geografía: evaluación y catálogo de datos VGI.',
+        proposito: datos.proposito || 'Evaluación, catalogación y gestión territorial con Información Geográfica Voluntaria (VGI).',
         categoriaTema: datos.categoriaTema || 'planningCadastre'
       },
       extensionGeografica: {
@@ -61,7 +61,7 @@ const ModuloMetadatos = (() => {
         acceso: 'Acceso público y libre reutilización con atribución a las fuentes comunitarias.'
       },
       puntoDeContacto: {
-        organizacion: datos.contactoOrganizacion || 'Práctica Profesional Geografía 2026 — Universidad Alberto Hurtado',
+        organizacion: datos.contactoOrganizacion || 'Departamento de Geografía — Universidad Alberto Hurtado 2026',
         persona: datos.contactoPersona || 'GEOJOTA',
         correo: datos.contactoCorreo || 'juanpablolescanovillegas@gmail.com',
         rol: datos.rol || 'custodian'

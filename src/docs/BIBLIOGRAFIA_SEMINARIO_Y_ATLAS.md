@@ -1,7 +1,7 @@
-# Aparato Bibliográfico Consolidado — Seminario de Grado & Atlas VGI Barrio Brasil
-### Proyecto de Práctica Profesional — Escuela de Geografía, Universidad Alberto Hurtado (2026)
+# Aparato Bibliográfico Consolidado — Corpus Científico & Atlas VGI Barrio Brasil
+### Departamento de Geografía — Universidad Alberto Hurtado (2026)
 
-Este documento reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad del corpus del **Seminario de Grado de Geografía UAH (51 obras del listado original + 8 obras epistemológicas e hispanoamericanas citadas en el cuerpo del texto)** con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria.
+Este documento reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad del corpus científico fundacional de Geografía UAH (51 obras seminales de investigación + 8 obras epistemológicas e hispanoamericanas de pensamiento geográfico) con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria.
 
 ---
 
@@ -10,16 +10,16 @@ Este documento reúne las **125 referencias formales estandarizadas en norma APA
 | Dimensión | Cantidad | Descripción |
 |---|---|---|
 | **Total Obras Registradas** | **125 referencias** | 100% depuradas en norma APA 7ª ed. con enlaces activos y DOIs verificados |
-| **Listado Oficial Seminario de Grado** | **51 referencias** | Obras seminales de VGI, ciencia ciudadana, calidad espacial, GBIF, Cell2Fire y modelos territoriales |
-| **Fuentes Citadas en Cuerpo del Seminario (Español / Epistemología)** | **8 referencias** | Aportes clave de Buzai, Mateos, Orellana & Ballari, Fuenzalida, López-Aliste (Ecology/GBIF), Castells, Pickles y Anselin |
+| **Corpus Científico de Literatura Seminal** | **51 referencias** | Obras seminales de VGI, ciencia ciudadana, calidad espacial, GBIF, Cell2Fire y modelos territoriales |
+| **Fuentes Hispanoamericanas y Pensamiento Geográfico** | **8 referencias** | Aportes clave de Buzai, Mateos, Orellana & Ballari, Fuenzalida, López-Aliste (Ecology/GBIF), Castells, Pickles y Anselin |
 | **Marco Normativo y Estándares Atlas Territorial** | **66 referencias** | Leyes de Chile, decretos, normas ISO/TC 211, estándares OGC, guías IDE Chile y especificaciones web |
 | **Autocitaciones** | **0** | Rigor metodológico estricto: cero distorsión por autocitación del autor |
 
 ---
 
-## 2. Corpus Completo del Seminario de Grado (51 Obras Originales)
+## 2. Corpus Científico de Literatura Seminal (51 Obras Fundacionales)
 
-A continuación se presenta la transcripción y verificación exacta de las 51 referencias bibliográficas del Seminario de Grado:
+A continuación se presenta la transcripción y verificación exacta de las 51 referencias bibliográficas de investigación y literatura seminal:
 
 ### 1. Schuurman, N. (2000). “Trouble in the Heartland: GIS and Its Critics in the 1990s”. Progress in Human Geography 24, 4, 569-90.
 - **Cita Breve:** `(Schuurman, 2000)`
@@ -329,55 +329,55 @@ A continuación se presenta la transcripción y verificación exacta de las 51 r
 
 ---
 
-## 3. Fuentes Hispanoamericanas y de Pensamiento Geográfico Citadas en el Cuerpo del Seminario
+## 3. Fuentes Hispanoamericanas y de Pensamiento Geográfico
 
-Durante el análisis textual de las 99 páginas de `seminario.pdf` se identificaron las siguientes fuentes en español y obras fundacionales citadas formalmente en el cuerpo del texto y en las notas al pie, las cuales complementan el marco teórico del proyecto territorial:
+Durante la formulación teórica y epistemológica del proyecto se identificaron las siguientes fuentes en español y obras fundacionales que complementan el marco conceptual del Atlas territorial:
 
 ### 52. Fuenzalida, Manuel (2025) — *Taller de Datos Abiertos e IDE Chile*
 - **Referencia APA:** Fuenzalida, M. (2025). Datos abiertos en la toma de decisiones. Taller de Datos Abiertos, Secretaría Ejecutiva SNIT / IDE Chile, Ministerio de Bienes Nacionales.
-- **Ubicación en Seminario:** Página 12, Nota al pie 1.
+- **Contexto Epistemológico:** Integración de datos abiertos colaborativos con la infraestructura estatal chilena.
 - **Enlace / Archivo:** [https://www.ide.cl/images/conferencias-seminarios/2025/taller-datos-abiertos/01-Manuel-Fuenzalida-Datos-abiertos-en-la-toma-de-decisiones.pdf](https://www.ide.cl/images/conferencias-seminarios/2025/taller-datos-abiertos/01-Manuel-Fuenzalida-Datos-abiertos-en-la-toma-de-decisiones.pdf)
 - **Pertinencia:** Integración de datos abiertos colaborativos con la infraestructura estatal chilena.
 
 ### 53. Buzai, Gustavo D. (2014) — *Geografía Global + NeoGeografía*
 - **Referencia APA:** Buzai, G. D. (2014). Geografía Global + NeoGeografía. Actuales espacios de integración científica y social en entornos digitales. Estudios Socioterritoriales. Revista de Geografía, (16), 183-189.
-- **Ubicación en Seminario:** Página 11.
+- **Contexto Epistemológico:** Neogeografía latinoamericana y dimensiones sociales de las TIG en entornos digitales.
 - **Enlace / SciELO:** [http://www.scielo.org.ar/scielo.php?script=sci_arttext&pid=S1853-43922014000200008](http://www.scielo.org.ar/scielo.php?script=sci_arttext&pid=S1853-43922014000200008)
 - **Pertinencia:** Fundamentación epistemológica latinoamericana de la neogeografía como dimensión social de las TIG.
 
 ### 54. Mateos, Pablo (2013) — *Geovisualización de la Población y Web Social*
 - **Referencia APA:** Mateos, P. (2013). Geovisualización de la población: nuevas tendencias en la web social. Investigaciones Geográficas, (59), 9-22.
-- **Ubicación en Seminario:** Página 11.
+- **Contexto Epistemológico:** Geovisualización demográfica, Web 2.0 y mashups cartográficos.
 - **Enlace / DOI:** [https://doi.org/10.14198/INGEO2013.59.01](https://doi.org/10.14198/INGEO2013.59.01)
 - **Pertinencia:** Análisis de mapping mashups, empoderamiento ciudadano e IGV en geodemografía.
 
 ### 55. Orellana, Daniel & Ballari, Daniela (2009) — *La GeoWeb y su Evolución*
 - **Referencia APA:** Orellana, D. A., & Ballari, D. (2009). La GeoWeb y su evolución: Un marco de análisis en tres dimensiones. Universidad Verdad, (49), 25-52. Universidad del Azuay.
-- **Ubicación en Seminario:** Página 11.
+- **Contexto Epistemológico:** Evolución conceptual y tridimensional de la GeoWeb en América Latina.
 - **Enlace / Archivo:** [https://revistas.uazuay.edu.ec/index.php/uverdad/article/view/459](https://revistas.uazuay.edu.ec/index.php/uverdad/article/view/459)
 - **Pertinencia:** Evolución teórica de la GeoWeb y entornos colaborativos en el contexto latinoamericano.
 
 ### 56. López-Aliste, Manuel et al. (2021) — *Base de Datos de Abejas Silvestres de Chile (Ecology / GBIF)*
 - **Referencia APA:** López-Aliste, M., Fonturbel, F. E., Ruz, L., Sepúlveda, Y., Rodríguez, S., & Saraiva, A. M. (2021). Wild bees of Chile: a database on taxonomy, sociality, and ecology. Ecology, 102(8), e03377.
-- **Ubicación en Seminario:** Página 67, Nota al pie 14 (Colección PUCV / Fraunhofer Chile CSB).
+- **Contexto Epistemológico:** Taxonomía, ecología y ciencia ciudadana de polinizadores nativos en Chile (Colección PUCV / Fraunhofer Chile CSB).
 - **Enlace / DOI:** [https://doi.org/10.1002/ecy.3377](https://doi.org/10.1002/ecy.3377) / Dataset GBIF: [https://doi.org/10.15468/6knwyq](https://doi.org/10.15468/6knwyq)
 - **Pertinencia:** Base de datos biológica de polinizadores nativos de Chile integrada en GBIF.
 
 ### 57. Castells, Manuel (2000) — *La Sociedad Red*
 - **Referencia APA:** Castells, M. (2000). La era de la información: economía, sociedad y cultura (Vol. 1: La sociedad red). Madrid: Alianza Editorial.
-- **Ubicación en Seminario:** Páginas 7 y 12.
+- **Contexto Epistemológico:** Teoría sociológica de las redes informacionales y la morfología del espacio de flujos.
 - **Enlace:** [https://www.alianzaeditorial.es/](https://www.alianzaeditorial.es/)
 - **Pertinencia:** Dimensión sociológica de las redes informacionales y la morfología del espacio de flujos.
 
 ### 58. Pickles, John (2006) — *Ground Truth: SIG Críticos*
 - **Referencia APA:** Pickles, J. (Ed.). (2006). Ground Truth: The Social Implications of Geographic Information Systems. New York: Guilford Press.
-- **Ubicación en Seminario:** Página 7.
+- **Contexto Epistemológico:** Fundamentos de los SIG críticos y representaciones socioespaciales.
 - **Enlace:** [https://www.guilford.com/books/Ground-Truth/John-Pickles/9780898622959](https://www.guilford.com/books/Ground-Truth/John-Pickles/9780898622959)
 - **Pertinencia:** Geografía crítica y consecuencias sociopolíticas de la información territorial digital.
 
 ### 59. Anselin, Luc (1988) — *Spatial Econometrics*
 - **Referencia APA:** Anselin, L. (1988). Spatial Econometrics: Methods and Models. Dordrecht: Kluwer Academic Publishers.
-- **Ubicación en Seminario:** Página 7.
+- **Contexto Epistemológico:** Fundamentos econométricos de la autocorrelación y dependencia espacial en Geografía.
 - **Enlace / DOI:** [https://doi.org/10.1007/978-94-015-7799-1](https://doi.org/10.1007/978-94-015-7799-1)
 - **Pertinencia:** Fundamentación cuantitativa de la autocorrelación y dependencia espacial en fenómenos urbanos.
 

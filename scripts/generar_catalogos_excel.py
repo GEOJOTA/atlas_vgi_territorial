@@ -697,7 +697,7 @@ def crear_perfil_metadatos():
         [
             13, "CI_ResponsibleParty.organisationName", "Organización Responsable", "Obligatorio (M)",
             "Carácter", "Punto de Contacto", "Nombre de la institución o colectivo a cargo del recurso.",
-            "Práctica Profesional Geografía 2026 — Nodo GeoAbierto / UAH"
+            "Departamento de Geografía Universidad Alberto Hurtado 2026 — Nodo GeoAbierto"
         ],
         [
             14, "CI_ResponsibleParty.electronicMailAddress", "Correo Electrónico de Contacto", "Obligatorio (M)",
@@ -1130,7 +1130,7 @@ def crear_categorias_tematicas_osm():
     ws4 = wb.create_sheet(title="Bibliografía y Fuentes APA")
     ws4["A1"] = "APARATO CRÍTICO, FUENTES OFICIALES Y BIBLIOGRAFÍA ACADÉMICA (NORMA APA 7ª ED.)"
     ws4["A1"].font = fuente_titulo
-    ws4["A2"] = "Trazabilidad documental, normativa técnica e institucional para la evaluación de práctica profesional de Geografía"
+    ws4["A2"] = "Trazabilidad documental, normativa técnica e institucional del Departamento de Geografía UAH (2026)"
     ws4["A2"].font = fuente_subtitulo
     
     headers4 = [

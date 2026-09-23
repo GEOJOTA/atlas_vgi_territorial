@@ -182,7 +182,7 @@ const CONFIG_PREDETERMINADA = {
     sistema_referencia: 'EPSG:4326 (WGS84)',
     sistema_referencia_nacional: 'EPSG:5361 (SIRGAS-Chile / UTM 19S)',
     idioma_recurso: 'spa',
-    punto_de_contacto_organizacion: 'Práctica Profesional Geografía 2026 — Nodo GeoAbierto / Universidad Alberto Hurtado',
+    punto_de_contacto_organizacion: 'Departamento de Geografía Universidad Alberto Hurtado 2026 — Nodo GeoAbierto',
     punto_de_contacto_correo: 'juanpablolescanovillegas@gmail.com',
     restricciones_defecto: 'Datos OpenStreetMap: Open Database License (ODbL) 1.0 (© colaboradores de OpenStreetMap). Datos GBIF: CC-BY 4.0 / CC0 según registro original.'
   }

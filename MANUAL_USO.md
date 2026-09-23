@@ -1,6 +1,6 @@
 # Manual de Uso Operativo — Atlas de Información Geográfica Voluntaria para la Gestión Territorial en el Barrio Brasil
 
-### Proyecto de Práctica Profesional de Geografía — Universidad Alberto Hurtado (2026)
+### Departamento de Geografía — Universidad Alberto Hurtado (2026)
 **Caso Piloto:** Barrio Brasil y Entorno Patrimonial UAH (Santiago Centro, Chile)  
 **Sistema Geodésico Oficial:** WGS 84 / UTM Huso 19 Sur (EPSG:32719)  
 **Estándares Aplicados:** ISO 19115-1:2014, ISO 19139:2007, ISO 19157:2013, OGC WMS/WFS, PostGIS 3.3, IDE Chile (SNIT)
@@ -207,11 +207,11 @@ Permite consultar la definición toponímica y la homología institucional de ca
 
 ## 12. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
 
-En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para anexar al informe formal de práctica:
+En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para análisis territorial y respaldo técnico:
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
 - **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **111 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, BiDat MDSF, MINVU, MOP, DGA, etc.).
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
-- **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando las 51 obras oficiales del Seminario de Grado UAH, 8 fuentes epistemológicas del texto y 66 normas técnicas y marcos legales del Atlas).
+- **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando 51 obras seminales de investigación, 8 fuentes epistemológicas e hispanoamericanas y 66 normas técnicas y marcos legales del Estado de Chile y globales).
 
 ---
 

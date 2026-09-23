@@ -120,7 +120,7 @@ const ModuloLicencias = (() => {
           <h3 style="margin:0;">📁 Catálogos Maestros y Matrices Metodológicas en Excel (.xlsx)</h3>
           <span class="doc-pequeno" style="font-family:'IBM Plex Mono', monospace;">Sincronizados en docs/ y src/docs/</span>
         </div>
-        <p class="descripcion">Hojas de cálculo oficiales generadas para la defensa académica de la práctica profesional de Geografía (UAH 2026):</p>
+        <p class="descripcion">Hojas de cálculo oficiales generadas para la plataforma y catalogación territorial (Departamento de Geografía UAH, 2026):</p>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
           <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
             <strong>1. Catálogo Sistemático de Fuentes VGI:</strong><br>

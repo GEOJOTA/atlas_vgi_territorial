@@ -72,5 +72,5 @@ git push origin main
 
 ---
 
-*Nodo GeoAbierto — Escuela de Geografía, Universidad Alberto Hurtado (UAH)*  
-*Investigación Fondecyt Regular & Práctica Profesional 2026*
+*Nodo GeoAbierto — Departamento de Geografía, Universidad Alberto Hurtado (UAH)*  
+*Investigación sobre VGI, Infraestructuras de Datos Espaciales y Gestión Territorial 2026*

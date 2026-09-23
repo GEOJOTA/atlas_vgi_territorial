@@ -93,7 +93,7 @@ const ModuloManual = (() => {
           <div class="doc-tarjeta-audiencia">
             <div class="doc-audiencia-tag">🔬 Perfil Organizaciones No Gubernamentales (ONG) & Investigación</div>
             <h4>¿Cómo aprovechar el Atlas para la gestión territorial con fondos públicos?</h4>
-            <p>Máximo rigor metodológico, trazabilidad bibliográfica y defensa académica en el marco de la Práctica Profesional de Geografía UAH (2026):</p>
+            <p>Máximo rigor metodológico, trazabilidad bibliográfica y validación territorial en el Departamento de Geografía Universidad Alberto Hurtado (2026):</p>
             <ol class="doc-pasos-lista">
               <li><strong>Reproyección Conforme EPSG:32719 (Panel 02):</strong> Obtenga densidades espaciales por km² y superficies métricas rigurosas en metros cuadrados (m²) y hectáreas (ha) según la norma del IGM.</li>
               <li><strong>Calidad Espacial Multidimensional ISO 19157 (Panel 02):</strong> Audite completitud, exactitud posicional, linaje y masa crítica de usuarios mediante el soporte dual ohsome v1 y v2.</li>
@@ -260,7 +260,7 @@ const ModuloManual = (() => {
             <div class="doc-modulo-num">07</div>
             <div class="doc-modulo-cuerpo">
               <h4>Catálogos Oficiales en Excel (.xlsx) y Licencias</h4>
-              <p>Centro de descarga institucional de las tres hojas de cálculo OpenXML (.xlsx) elaboradas para la defensa de la práctica profesional de Geografía, junto con la especificación del marco jurídico abierto (CC BY-SA 4.0, ODbL 1.0 y GNU AGPL-3.0).</p>
+              <p>Centro de descarga institucional de las tres hojas de cálculo OpenXML (.xlsx) elaboradas para el Atlas de Información Geográfica Voluntaria, junto con la especificación del marco jurídico abierto (CC BY-SA 4.0, ODbL 1.0 y GNU AGPL-3.0).</p>
               <div class="doc-modulo-meta"><strong>Salidas:</strong> Descargas directas de <code>catalogo_fuentes_vgi.xlsx</code>, <code>perfil_metadatos_vgi.xlsx</code> y <code>categorias_tematicas_osm.xlsx</code>.</div>
             </div>
           </div>
@@ -865,7 +865,7 @@ out geom tags qt 400;</code></pre>
           <span class="doc-seccion-badge">Sección 07 / Aparato Crítico</span>
           <h2>Aparato Bibliográfico Integral y Fuentes Académicas (Norma APA 7ª ed.)</h2>
           <p class="doc-lead">
-            Compendio exhaustivo de <strong>125 fuentes académicas, científicas, legales y técnicas</strong> integradas en el Atlas de Información Geográfica Voluntaria, articulando la totalidad de la literatura seminal del <strong>Seminario de Grado de Geografía UAH (51 obras originales + 8 fuentes epistemológicas del texto)</strong> con las normas técnicas internacionales y los marcos de gestión territorial del Estado de Chile:
+            Compendio exhaustivo de <strong>125 fuentes académicas, científicas, legales y técnicas</strong> integradas en el Atlas de Información Geográfica Voluntaria, articulando el corpus de literatura seminal y epistemológica de Geografía UAH (59 obras fundacionales e hispanoamericanas) con las normas técnicas internacionales y los marcos de gestión territorial del Estado de Chile:
           </p>
         </header>
 

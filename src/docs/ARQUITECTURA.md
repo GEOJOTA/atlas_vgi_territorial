@@ -313,10 +313,10 @@ Ubicados en `docs/` y `src/docs/`, generados automáticamente mediante `scripts/
    - Hoja 1: *Categorías Maestras* (10 macro-categorías territoriales, calidad ISO 19157 y normativas chilenas).
    - Hoja 2: *Catálogo de Etiquetas Chile* (134 descriptores depurados: 48 oficiales vs. 86 brechas VGI).
    - Hoja 3: *Perfil de Atributos VGI* (14 campos normalizados con reproyección EPSG:32719).
-   - Hoja 4: *Bibliografía APA 7ª ed.* (104 referencias formales científicas, institucionales y normativas, detalladas en `docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`).
+   - Hoja 4: *Bibliografía APA 7ª ed.* (125 referencias formales científicas, institucionales y normativas, detalladas en `docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`).
 2. `catalogo_fuentes_vgi.xlsx`: Matriz de fuentes colaborativas e inventario técnico de endpoints.
 3. `perfil_metadatos_vgi.xlsx`: Especificación de jerarquía y tipos de datos ISO 19115 nacional.
-4. `BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`: Compendio académico completo con trazabilidad de origen (Seminario de Grado UAH vs Atlas VGI).
+4. `BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`: Compendio académico completo con trazabilidad metodológica (Corpus Científico UAH & Atlas VGI).
 
 ---
 
@@ -332,5 +332,5 @@ Ubicados en `docs/` y `src/docs/`, generados automáticamente mediante `scripts/
 
 ---
 
-*Atlas VGI Barrio Brasil — Escuela de Geografía, Universidad Alberto Hurtado.*  
-*Investigación Fondecyt Regular & Práctica Profesional 2026.*
+*Atlas VGI Barrio Brasil — Departamento de Geografía, Universidad Alberto Hurtado.*  
+*Investigación sobre VGI, Infraestructuras de Datos Espaciales y Gestión Territorial 2026.*

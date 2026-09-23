@@ -1,7 +1,7 @@
 # Atlas de Información Geográfica Voluntaria para la Gestión Territorial
 ### Nodo GeoAbierto — Caso Piloto: Barrio Brasil · Universidad Alberto Hurtado (Santiago, Chile)
 
-Prototipo de plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado como producto de práctica profesional de la carrera de Geografía de la Universidad Alberto Hurtado (2026), en el marco de un proyecto de investigación Fondecyt Regular sobre VGI y gestión territorial.
+Plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado en el Departamento de Geografía de la Universidad Alberto Hurtado (2026), en el marco de la investigación sobre VGI, infraestructuras de datos espaciales y gestión territorial.
 
 Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **121 capas cartográficas integradas** (10 categorías maestras VGI y 111 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 multiescalar y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con entidades espaciales vectorizadas e indexadas con GIST, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
 
@@ -152,7 +152,7 @@ atlas_vgi_uah/
 │   └── extractor_vgi.py                # Extractor automatizado Overpass QL
 ├── docs/
 │   ├── ARQUITECTURA.md                 # Especificación técnica del sistema y diagramas
-│   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md # Compendio de 125 fuentes APA (Seminario + Atlas)
+│   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md # Compendio de 125 fuentes APA (Corpus Científico + Atlas)
 │   ├── GUIA_BASE_DATOS_SUPABASE.md     # Manual de aprovisionamiento PostGIS en la nube
 │   ├── TRAZABILIDAD_ACADEMICA.md       # Memoria metodológica y epistemológica (Fondecyt)
 │   ├── catalogo_fuentes_vgi.xlsx       # Matriz analítica de fuentes colaborativas
@@ -220,7 +220,7 @@ python3 scripts/generar_catalogos_excel.py
   author       = {Lescano Villegas, Juan Pablo},
   title        = {Atlas de Información Geográfica Voluntaria para la Gestión Territorial: Caso Piloto Barrio Brasil},
   year         = {2026},
-  howpublished = {Práctica Profesional, Escuela de Geografía, Universidad Alberto Hurtado},
+  howpublished = {Departamento de Geografía, Universidad Alberto Hurtado},
   address      = {Santiago, Chile},
   url          = {https://github.com/GEOJOTA/atlas_vgi_uah}
 }
