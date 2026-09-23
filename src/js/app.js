@@ -2051,6 +2051,11 @@ window.navegarAManual = function(seccionId) {
   setTimeout(() => {
     const el = document.getElementById(seccionId);
     if (el) {
+      if (el.tagName === 'DETAILS' || el.closest('details')) {
+        const det = el.tagName === 'DETAILS' ? el : el.closest('details');
+        det.open = true;
+        det.style.display = 'block';
+      }
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       el.classList.add('resaltado-temporal');
       setTimeout(() => el.classList.remove('resaltado-temporal'), 2500);

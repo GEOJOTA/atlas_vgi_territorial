@@ -1472,68 +1472,70 @@ table.tabla-datos tr:hover td {
   color: #000000;
 }
 
-/* 4. Sección 08 / Documentación Oficial & Manual de Uso */
+/* 4. Sección 08 / Documentación Oficial & Manual de Uso (Rediseño Estético de Alta Gama) */
 .documentacion-contenedor {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 36px;
+  width: 100%;
 }
 
+/* --- BARRA DE NAVEGACIÓN SUPERIOR DEL MANUAL (STICKY) --- */
 .doc-nav-superior {
-  background: rgba(13, 21, 39, 0.98);
-  backdrop-filter: var(--glass-filter);
-  border: 2px solid var(--linea-fuerte);
-  border-radius: 14px;
-  padding: 16px 22px;
+  background: rgba(10, 16, 30, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 95;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 16px rgba(6, 182, 212, 0.15);
+}
+
+.doc-nav-fila-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 14px;
-  position: sticky;
-  top: 0;
-  z-index: 90;
-  box-shadow: var(--sombra-md);
 }
 
-.doc-nav-enlaces {
+.doc-nav-marca {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
   align-items: center;
+  gap: 12px;
 }
 
-.doc-nav-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: var(--papel-tarjeta);
-  border: 1.5px solid var(--linea-tarjeta);
-  border-radius: 8px;
-  color: var(--tinta-suave);
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.2s ease;
+.doc-nav-icono {
+  font-size: 1.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(6, 182, 212, 0.4));
 }
 
-.doc-nav-link:hover {
-  background: var(--papel-hover);
-  color: #ffffff;
-  border-color: var(--musgo);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+.doc-nav-textos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.doc-num {
-  font-family: var(--fuente-datos);
-  font-size: 0.76rem;
-  color: var(--musgo);
+.doc-nav-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.05rem;
   font-weight: 800;
-  padding: 2px 6px;
-  background: rgba(6, 182, 212, 0.22);
-  border-radius: 4px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.doc-nav-sub {
+  font-family: var(--fuente-datos);
+  font-size: 0.8rem;
+  color: #cbd5e1;
 }
 
 .doc-descarga-accesos {
@@ -1545,218 +1547,1273 @@ table.tabla-datos tr:hover td {
 
 .doc-btn-descarga {
   padding: 8px 14px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(16, 185, 129, 0.25) 100%);
-  border: 1.5px solid var(--musgo);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(16, 185, 129, 0.2) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   border-radius: 8px;
   color: #ffffff;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.doc-btn-descarga:hover {
+  background: var(--musgo);
+  color: #060a14;
+  border-color: #ffffff;
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.6);
+  transform: translateY(-2px);
+}
+
+.doc-nav-enlaces {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.doc-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(20, 32, 58, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.doc-nav-link:hover {
+  background: rgba(6, 182, 212, 0.25);
+  color: #ffffff;
+  border-color: var(--musgo);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+}
+
+.doc-num {
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  color: #06b6d4;
+  font-weight: 800;
+  padding: 2px 5px;
+  background: rgba(6, 182, 212, 0.2);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  border-radius: 4px;
+}
+
+/* --- CONTENEDOR GENERAL DE CADA SECCIÓN DEL MANUAL --- */
+.doc-seccion {
+  background: rgba(13, 21, 39, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.32);
+  border-radius: 18px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  border-top: 5px solid var(--musgo);
+  position: relative;
+}
+
+.doc-seccion-header {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 20px;
+}
+
+.doc-seccion-badge {
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #06b6d4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(6, 182, 212, 0.16);
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #06b6d4;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.doc-seccion-header h2 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
+
+.doc-lead {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: #e2e8f0;
+  margin: 8px 0 0 0;
+}
+
+.doc-lead strong {
+  color: #ffffff;
+}
+
+/* --- SECCIÓN 01: TARJETAS DE AUDIENCIA / PERFILES --- */
+.doc-grid-audiencias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.doc-tarjeta-audiencia {
+  background: rgba(18, 28, 50, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.doc-tarjeta-audiencia:hover {
+  border-color: #ffffff;
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+  background: rgba(24, 38, 68, 0.95);
+}
+
+.audiencia-institucional { border-top: 5px solid #06b6d4; }
+.audiencia-comunitaria { border-top: 5px solid #10b981; }
+.audiencia-voluntaria { border-top: 5px solid #f59e0b; }
+.audiencia-investigacion { border-top: 5px solid #a855f7; }
+
+.doc-aud-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doc-audiencia-tag {
+  font-family: var(--fuente-datos);
+  font-size: 0.84rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.audiencia-institucional .doc-audiencia-tag { background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid #06b6d4; }
+.audiencia-comunitaria .doc-audiencia-tag { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
+.audiencia-voluntaria .doc-audiencia-tag { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; }
+.audiencia-investigacion .doc-audiencia-tag { background: rgba(168, 85, 247, 0.2); color: #a855f7; border: 1px solid #a855f7; }
+
+.doc-aud-subtag {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.doc-tarjeta-audiencia h4 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.doc-aud-intro {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.doc-pasos-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.doc-pasos-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #e2e8f0;
+}
+
+.doc-pasos-lista li strong {
+  color: #ffffff;
+}
+
+.doc-paso-num {
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  font-weight: 900;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #060a14;
+  margin-top: 2px;
+}
+
+.audiencia-institucional .doc-paso-num { background: #06b6d4; }
+.audiencia-comunitaria .doc-paso-num { background: #10b981; }
+.audiencia-voluntaria .doc-paso-num { background: #f59e0b; }
+.audiencia-investigacion .doc-paso-num { background: #a855f7; color: #ffffff; }
+
+/* --- MARCOS DE DIAGRAMAS SVG --- */
+.doc-diagrama-wrapper {
+  background: #060a14;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  margin-top: 8px;
+}
+
+.doc-diagrama-header {
+  background: rgba(15, 23, 42, 0.98);
+  padding: 10px 18px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.doc-diagrama-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.doc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.doc-dot-rojo { background: #ef4444; }
+.doc-dot-amarillo { background: #f59e0b; }
+.doc-dot-verde { background: #10b981; }
+
+.doc-diagrama-titulo {
+  font-family: var(--fuente-datos);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.doc-diagrama-svg {
+  padding: 18px;
+  background: #070c18;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.doc-diagrama-epigrafe {
+  padding: 10px 18px;
+  background: rgba(15, 23, 42, 0.9);
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  font-style: italic;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+/* --- SECCIÓN 02: GUÍA DE LOS 9 MÓDULOS --- */
+.doc-modulos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.doc-modulo-card {
+  background: rgba(18, 28, 50, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.doc-modulo-card:hover {
+  border-color: #06b6d4;
+  background: rgba(24, 38, 68, 0.95);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.25);
+}
+
+.doc-mod-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.doc-mod-num-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(6, 182, 212, 0.18);
+  border: 1.5px solid #06b6d4;
+  border-radius: 8px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+}
+
+.doc-mod-icono {
+  font-size: 1.1rem;
+}
+
+.doc-mod-num {
+  font-family: var(--fuente-datos);
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #06b6d4;
+}
+
+.doc-mod-titulos {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.doc-mod-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.doc-mod-tech-tag {
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.doc-mod-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.doc-mod-desc strong, .doc-mod-det strong {
+  color: #ffffff;
+}
+
+.doc-mod-salidas {
+  background: rgba(6, 182, 212, 0.08);
+  border-left: 3px solid #06b6d4;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+}
+
+.doc-mod-salidas-rotulo {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.doc-mod-salidas-texto {
+  color: #cbd5e1;
+}
+
+.doc-mod-footer {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.doc-btn-ir-modulo {
+  width: 100%;
+  padding: 9px 16px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(56, 189, 248, 0.15) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--fuente-titulos);
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.doc-btn-ir-modulo:hover {
+  background: #06b6d4;
+  color: #060a14;
+  border-color: #ffffff;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.5);
+  transform: translateY(-2px);
+}
+
+/* --- SECCIÓN 03: 10 MACRO-CATEGORÍAS (ACORDEONES INTERACTIVOS) --- */
+.doc-cat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 18px;
+  background: rgba(10, 16, 30, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+}
+
+.doc-cat-tabs-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 2px;
+  max-width: 100%;
+}
+
+.doc-cat-tab-btn {
+  padding: 6px 12px;
+  background: rgba(20, 32, 58, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.doc-cat-tab-btn:hover {
+  background: rgba(6, 182, 212, 0.25);
+  color: #ffffff;
+  border-color: #06b6d4;
+}
+
+.doc-cat-tab-btn.activo {
+  background: #06b6d4;
+  color: #060a14;
+  border-color: #ffffff;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+  font-weight: 900;
+}
+
+.doc-cat-acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.doc-btn-mini {
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.doc-btn-mini:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+
+.doc-fichas-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.doc-cat-acordeon {
+  background: rgba(16, 26, 46, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.32);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.doc-cat-acordeon[open] {
+  border-color: var(--cat-color, #06b6d4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 14px rgba(6, 182, 212, 0.18);
+}
+
+.doc-cat-summary {
+  background: rgba(20, 32, 58, 0.95);
+  padding: 16px 22px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.doc-cat-summary::-webkit-details-marker {
+  display: none;
+}
+
+.doc-cat-summary:hover {
+  background: rgba(28, 44, 78, 0.98);
+}
+
+.doc-cat-acordeon[open] .doc-cat-summary {
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(14, 22, 40, 0.98);
+}
+
+.doc-cat-sum-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.doc-cat-badge-pill {
+  font-family: var(--fuente-datos);
+  font-size: 0.84rem;
+  font-weight: 900;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1.5px solid;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.doc-cat-titulares {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.doc-cat-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.doc-cat-sub {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.doc-cat-sum-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.doc-cat-grupo-tag {
+  font-family: var(--fuente-datos);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.doc-acordeon-flecha {
+  font-size: 0.9rem;
+  color: var(--cat-color, #06b6d4);
+  transition: transform 0.25s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.doc-cat-acordeon[open] .doc-acordeon-flecha {
+  transform: rotate(180deg);
+}
+
+.doc-cat-contenido {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(10, 16, 30, 0.6);
+}
+
+/* Bloque 1: Función Territorial */
+.doc-cat-bloque-funcion {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 4px solid var(--cat-color, #06b6d4);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.doc-bloque-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 0.92rem;
+}
+
+.doc-bloque-texto {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+/* Bloque 2: Ficha Técnica 2x2 */
+.doc-cat-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.doc-spec-caja {
+  background: rgba(18, 28, 50, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doc-spec-rotulo {
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--cat-color, #06b6d4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.doc-spec-valor {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+/* Bloque 3: Consola Overpass QL */
+.doc-terminal-wrapper {
+  background: #050811;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.doc-terminal-header {
+  background: #0e172a;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+}
+
+.doc-terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.doc-terminal-title {
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin-left: 8px;
+}
+
+.doc-btn-copiar {
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  color: #ffffff;
+  font-family: var(--fuente-datos);
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.doc-btn-descarga:hover {
+.doc-btn-copiar:hover {
   background: var(--musgo);
-  color: #000000;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  color: #060a14;
+  border-color: #ffffff;
 }
 
-.doc-seccion {
-  background: var(--papel);
-  backdrop-filter: var(--glass-filter);
-  border: 2px solid var(--linea-tarjeta);
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--sombra-md);
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  border-top: 5px solid var(--musgo);
-  position: relative;
+.doc-btn-copiar.copiado-exito {
+  background: #10b981 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
 }
 
-.doc-seccion-header {
-  border-bottom: 2px solid var(--linea);
-  padding-bottom: 18px;
-}
-
-.doc-seccion-badge {
+.doc-terminal-code {
+  padding: 16px 20px;
+  margin: 0;
   font-family: var(--fuente-datos);
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--musgo);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: rgba(6, 182, 212, 0.15);
-  padding: 4px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--musgo);
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-.doc-lead {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--tinta-suave);
-  margin-top: 10px;
-}
-
-.doc-grid-audiencias {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 22px;
-}
-
-.doc-tarjeta-audiencia {
-  background: var(--papel-tarjeta);
-  border: 2px solid var(--linea-tarjeta);
-  border-radius: 14px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  box-shadow: var(--sombra-sm);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.doc-tarjeta-audiencia:hover {
-  border-color: var(--musgo);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.35);
-  background: var(--papel-hover);
-}
-
-.doc-audiencia-tag {
   font-size: 0.86rem;
-  font-weight: 800;
-  color: var(--agua);
-  background: rgba(56, 189, 248, 0.15);
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--agua);
-  width: fit-content;
+  line-height: 1.6;
+  color: #38bdf8;
+  overflow-x: auto;
+  background: #050811;
 }
 
-.doc-pasos-lista {
-  margin: 0;
-  padding-left: 20px;
-  color: var(--tinta-suave);
-  font-size: 0.94rem;
-  line-height: 1.65;
+.doc-terminal-code code {
+  font-family: inherit;
+  color: inherit;
 }
 
-.doc-pasos-lista li {
-  margin-bottom: 10px;
-}
-
-.doc-grid-modulos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 20px;
-}
-
-.doc-tarjeta-modulo {
-  background: var(--papel-tarjeta);
-  border: 2px solid var(--linea-tarjeta);
-  border-radius: 14px;
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: all 0.25s ease;
-}
-
-.doc-tarjeta-modulo:hover {
-  border-color: var(--musgo);
-  background: var(--papel-hover);
-  transform: translateY(-2px);
-}
-
-.doc-grid-cats {
+/* --- SECCIÓN 04: GEODESIA CONFORME EPSG:32719 --- */
+.doc-grid-geodesico {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 22px;
+  gap: 24px;
 }
 
-.doc-tarjeta-cat {
-  background: var(--papel-tarjeta);
-  border: 2px solid var(--linea-tarjeta);
+.doc-tarjeta-geodesica {
+  background: rgba(18, 28, 50, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.28);
   border-radius: 14px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.doc-cat-badge {
-  font-family: var(--fuente-datos);
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--musgo);
-  background: rgba(6, 182, 212, 0.2);
-  padding: 4px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--musgo);
-  width: fit-content;
-}
-
-.doc-lista-campos {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--tinta-suave);
-}
-
-.doc-lista-campos li {
-  padding: 6px 0;
-  border-bottom: 1px dashed var(--linea);
-}
-
-.doc-tabla-apa {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 14px;
-  font-size: 0.88rem;
-  background: var(--papel-tarjeta);
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1.5px solid var(--linea-tarjeta);
-}
-
-.doc-tabla-apa th {
-  background: rgba(20, 32, 58, 0.98);
-  color: var(--musgo);
-  text-align: left;
-  padding: 14px 16px;
-  font-weight: 800;
-  border-bottom: 2px solid var(--linea);
-}
-
-.doc-tabla-apa td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--linea);
-  color: var(--tinta-suave);
-}
-
-.doc-pasos-horizontal {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
 }
 
-.doc-paso-card {
-  background: var(--papel-tarjeta);
-  border: 2px solid var(--linea-tarjeta);
+.doc-geo-header {
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+  padding-bottom: 12px;
+}
+
+.doc-geo-badge {
+  font-family: var(--fuente-datos);
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.doc-tarjeta-geodesica h4 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.doc-geo-tabla-comparativa {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.doc-geo-fila {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+}
+
+.doc-geo-label {
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.doc-geo-val {
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.doc-geo-val.error-color {
+  color: #f87171;
+  font-weight: 700;
+}
+
+.doc-geo-explicacion {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.doc-geo-params-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.doc-param-item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+}
+
+.doc-param-k {
+  font-family: var(--fuente-datos);
+  font-size: 0.74rem;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.doc-param-v {
+  font-family: var(--fuente-datos);
+  font-size: 0.86rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* --- SECCIÓN 05: TABLA DE CALIDAD ISO 19157 --- */
+.doc-tabla-wrapper {
+  overflow-x: auto;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
-  padding: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.doc-tabla-calidad {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.doc-tabla-calidad th {
+  background: rgba(14, 22, 40, 0.98);
+  color: #ffffff;
+  font-family: var(--fuente-titulos);
+  font-weight: 800;
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+}
+
+.doc-tabla-calidad td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  line-height: 1.55;
+}
+
+.doc-tabla-calidad tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.doc-tabla-calidad tr:hover td {
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.doc-badge-dim {
+  font-family: var(--fuente-datos);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.dim-completitud { background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: #10b981; }
+.dim-temporal { background: rgba(6, 182, 212, 0.2); color: #06b6d4; border-color: #06b6d4; }
+.dim-densidad { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border-color: #f59e0b; }
+.dim-linaje { background: rgba(168, 85, 247, 0.2); color: #a855f7; border-color: #a855f7; }
+
+/* --- SECCIÓN 06: LICENCIAS TRIPARTITAS & GIT --- */
+.doc-grid-licencias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
+}
+
+.doc-tarjeta-licencia {
+  background: rgba(18, 28, 50, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lic-documentacion { border-top: 5px solid #06b6d4; }
+.lic-datos { border-top: 5px solid #38bdf8; }
+.lic-software { border-top: 5px solid #f59e0b; }
+
+.doc-lic-badge {
+  font-family: var(--fuente-datos);
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.lic-documentacion .doc-lic-badge { background: #06b6d4; color: #060a14; }
+.lic-datos .doc-lic-badge { background: #38bdf8; color: #060a14; }
+.lic-software .doc-lic-badge { background: #f59e0b; color: #060a14; }
+
+.doc-tarjeta-licencia h4 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.doc-lic-desc {
+  font-size: 0.86rem;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.doc-lic-puntos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-size: 0.86rem;
+  color: #e2e8f0;
+}
+
+.doc-caja-argumento-mit {
+  background: rgba(245, 158, 11, 0.08);
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.doc-caja-argumento-mit h4 {
+  color: #f59e0b;
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+
+.doc-caja-argumento-mit p {
+  color: #e2e8f0;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
+.doc-seccion-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.doc-seccion-sub h3 {
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.doc-enlace-repo-caja {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(10, 16, 30, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.doc-repo-icono {
+  font-size: 2rem;
+}
+
+.doc-repo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #ffffff;
+}
+
+.doc-repo-info a {
+  color: #06b6d4;
+  font-family: var(--fuente-datos);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.doc-repo-info a:hover {
+  color: #38bdf8;
+}
+
+/* --- SECCIÓN 07: APARATO BIBLIOGRÁFICO EXTENDIDO --- */
+.doc-bib-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 20px;
+  background: rgba(10, 16, 30, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  border-radius: 12px;
+}
+
+.doc-bib-busqueda-caja {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(20, 32, 58, 0.9);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 6px 14px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.doc-bib-buscar-icono {
+  font-size: 1rem;
+}
+
+.doc-bib-input-buscar {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: var(--fuente-lectura);
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+}
+
+.doc-bib-input-buscar::placeholder {
+  color: #94a3b8;
+}
+
+.doc-bib-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doc-bib-contador {
+  font-family: var(--fuente-datos);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.doc-bib-acordeones-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.doc-bib-acordeon {
+  background: rgba(16, 26, 46, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.doc-bib-acordeon[open] {
+  border-color: #06b6d4;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.doc-bib-summary {
+  background: rgba(20, 32, 58, 0.95);
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.doc-bib-summary::-webkit-details-marker {
+  display: none;
+}
+
+.doc-bib-summary:hover {
+  background: rgba(28, 44, 78, 0.98);
+}
+
+.doc-bib-acordeon[open] .doc-bib-summary {
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(14, 22, 40, 0.98);
+}
+
+.doc-bib-sum-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.doc-bib-num {
+  font-family: var(--fuente-datos);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #06b6d4;
+  background: rgba(6, 182, 212, 0.16);
+  border: 1px solid #06b6d4;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.doc-bib-cat-titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.doc-bib-sum-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.doc-bib-conteo-badge {
+  font-family: var(--fuente-datos);
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10b981;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.doc-bib-acordeon[open] .doc-acordeon-flecha {
+  transform: rotate(180deg);
+  color: #10b981;
+}
+
+.doc-bib-cuerpo {
+  padding: 20px 24px;
+  background: rgba(10, 16, 30, 0.6);
+}
+
+.doc-bib-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.doc-bib-item {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  padding-left: 2rem;
+  text-indent: -2rem;
+}
+
+.doc-bib-item strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.doc-bib-item a {
+  color: #38bdf8;
+  word-break: break-all;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.doc-bib-item a:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .doc-nav-superior {
+    padding: 14px 16px;
+  }
+  .doc-seccion {
+    padding: 24px 16px;
+  }
+  .doc-cat-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .doc-cat-sum-right {
+    align-self: flex-end;
+  }
+  .doc-bib-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 
