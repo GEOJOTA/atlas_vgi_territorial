@@ -1990,20 +1990,20 @@ const ModuloIDEChile = (() => {
       id: 'catastro_predial_sii',
       num_bbdd: 'SII-01',
       nombre: "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)",
-      institucion: "Servicio de Impuestos Internos (SII) / Geoproceso v4 Atlas VGI UAH",
-      ministerio: 'Ministerio de Hacienda / Depto. de Geografía UAH',
-      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Nacional',
+      institucion: "Servicio de Impuestos Internos (SII)",
+      ministerio: 'Ministerio de Hacienda',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana & Nacional',
       urlServicio: "https://www.sii.cl",
       archivoLocal: 'data/capa_catastro_predial_sii.geojson',
-      archivoNacional: 'data/capa_catastro_predial_sii_nacional_v4.geojson',
+      archivoNacional: 'data/Catastro_SII_Geocodificado_v4_Pais.gpkg',
       color: '#D97706',
       icono: '🏛️',
       geometria: 'Puntos (Predios Geocodificados v4)',
       grupo: 'edificaciones',
       joinInfo: "ROL SII (Comuna - Manzana - Predio)",
-      descripcion: "Catastro de bienes raíces del Servicio de Impuestos Internos (SII) 2025 geocodificado de forma integral mediante el Geoproceso v4 (septiembre 2026). Contiene 1.380.649 propiedades geolocalizadas a escala nacional con ROL CIREN, ejes viales exactos/fuzzy y centroides censales urbanos y rurales (Censo 2024). Incluye avalúo fiscal, superficie de terreno y superficie construida.",
-      declaracion: 'Información pública del Catastro de Bienes Raíces del SII amparada por la Ley N° 20.285 de Transparencia de la Función Pública.',
-      citaAPA: "Servicio de Impuestos Internos [SII] & Universidad Alberto Hurtado [UAH]. (2026). Catastro Predial de Bienes Raíces Geocodificado v4 (1.380.649 predios). Atlas VGI Barrio Brasil / UAH. https://www.sii.cl"
+      descripcion: "Catastro de bienes raíces del Servicio de Impuestos Internos (SII) 2025. Cobertura de visualización web correspondiente a la Región Metropolitana (Gran Santiago). ⚠️ Nota Metodológica: El resultado proviene de un procedimiento automatizado de geocodificación y está sujeto a margen de error (según el nivel de precisión: ROL MATCH, EXACT, FUZZY 85%, MANZANA/ENTIDAD) y/o posibles omisiones o vacíos en el catastro de origen.",
+      declaracion: 'Información pública del Catastro de Bienes Raíces del Servicio de Impuestos Internos (SII) amparada por la Ley N° 20.285 de Transparencia de la Función Pública. Los datos provienen de un proceso automatizado de geocodificación y pueden presentar inconsistencias o vacíos.',
+      citaAPA: "Servicio de Impuestos Internos [SII]. (2026). Catastro Predial de Bienes Raíces. Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl"
     }
   };
 
@@ -2368,7 +2368,8 @@ const ModuloIDEChile = (() => {
           'Superficie Terreno (m²)': props.sup_terreno_m2 ? `${Number(props.sup_terreno_m2).toLocaleString('es-CL')} m²` : '-',
           'Superficie Construida (m²)': props.sup_construida_m2 ? `${Number(props.sup_construida_m2).toLocaleString('es-CL')} m²` : '-',
           'Nivel Geocodificación': nivelGeo,
-          'Fuente de Origen': props.fuente || 'Catastro SII 2025 (Geoproceso v4)'
+          'Fuente de Origen': 'Servicio de Impuestos Internos (SII)',
+          'Nota / Calidad': 'Geocodificación automatizada sujeta a margen de error (según nivel) y/o vacíos de origen.'
         };
       } else if (idCapa === 'minvu_ipt_prms_usosuelo') {
         nombreEntidad = props.NOMBRE || props.Capa || 'Uso de Suelo Metropolitano';
