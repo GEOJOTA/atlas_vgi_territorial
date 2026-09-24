@@ -840,6 +840,9 @@ function configurarNavegacion() {
     const panelDestino = document.getElementById('panel-' + panelId);
     if (panelDestino) {
       panelDestino.classList.add('activo');
+      if (panelId === 'inicio' && window.ModuloMapa) {
+        window.ModuloMapa.invalidarTamano();
+      }
       if (panelId === 'manual') {
         cargarResumenMetodologia();
       }

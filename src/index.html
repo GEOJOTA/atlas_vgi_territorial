@@ -6,51 +6,57 @@
 <title>Atlas de Información Geográfica Voluntaria — Barrio Brasil & UAH</title>
 <meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y entorno de la Universidad Alberto Hurtado.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="css/estilos.css?v=20260923_manual_redesign">
+  <link rel="stylesheet" href="css/estilos.css?v=20260924_centered_layout">
 </head>
 <body>
 
 <div class="envoltorio">
 
-  <!-- ============ BARRA LATERAL: navegación entre "capas" de la plataforma ============ -->
+  <!-- ============ BARRA SUPERIOR DE COMANDO Y NAVEGACIÓN (CORTE EN COHERENCIA ACTIVA) ============ -->
   <nav class="barra-lateral" aria-label="Secciones de la plataforma">
-    <div class="marca">
-      <div class="marca-header">
-        <img src="img/UAH-Insignia.jpg" alt="Insignia Universidad Alberto Hurtado" class="marca-logo">
-        <div class="marca-texto">
-          <h1>Atlas VGI Territorial</h1>
-          <p id="nombre-organizacion">Consulta, calidad y metadatos VGI | Barrio Brasil & UAH</p>
+    <div class="barra-lateral-interior">
+      <div class="barra-lateral-fila-superior">
+        <div class="marca">
+          <div class="marca-header">
+            <img src="img/UAH-Insignia.jpg" alt="Insignia Universidad Alberto Hurtado" class="marca-logo">
+            <div class="marca-texto">
+              <h1>Atlas VGI Territorial</h1>
+              <p id="nombre-organizacion">Consulta, calidad y metadatos VGI | Barrio Brasil & UAH</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selector de Perfil de Usuario -->
+        <div class="contenedor-perfil-actor">
+          <label for="sel-perfil-usuario">Perfil de Actor Territorial:</label>
+          <select id="sel-perfil-usuario">
+            <option value="todos" selected>◈ Vista General Territorial</option>
+            <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
+            <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
+            <option value="voluntario">⌖ Voluntarios / Mapeadores OSM</option>
+            <option value="ong">🔬 Organizaciones No Gubernamentales (ONG)</option>
+          </select>
+          <div id="badge-perfil-info">Herramientas adaptadas para gestión territorial integral.</div>
         </div>
       </div>
+
+      <ul class="capas-nav" id="lista-navegacion">
+        <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
+        <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
+        <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad y Validación (ohsome & OSMCha)</button></li>
+        <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
+        <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
+        <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
+        <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
+        <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
+        <li><button data-panel="manual"><span class="marcador">08</span> Manual de Uso y Documentación</button></li>
+      </ul>
+
+      <div class="barra-lateral-fila-telemetria">
+        <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
+        <div class="badge-sincronizacion" id="badge-sincronizacion" style="display:none;"></div>
+      </div>
     </div>
-
-    <!-- Selector de Perfil de Usuario -->
-    <div style="padding:12px 14px; margin:10px 0 16px 0; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.38); border-radius:8px; box-shadow:0 3px 12px rgba(0,0,0,0.35);">
-      <label for="sel-perfil-usuario" style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#ffffff; display:block; margin-bottom:6px;">Perfil de Actor Territorial:</label>
-      <select id="sel-perfil-usuario" style="width:100%; font-size:0.82rem; padding:6px 8px; border:1.5px solid rgba(255,255,255,0.45); background:#070c18; color:#ffffff; border-radius:6px; font-weight:600;">
-        <option value="todos" selected>◈ Vista General Territorial</option>
-        <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
-        <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
-        <option value="voluntario">⌖ Voluntarios / Mapeadores OSM</option>
-        <option value="ong">🔬 Organizaciones No Gubernamentales (ONG)</option>
-      </select>
-      <div id="badge-perfil-info" style="font-size:0.75rem; margin-top:7px; color:#f8fafc; line-height:1.35; font-weight:500;">Herramientas adaptadas para gestión territorial integral.</div>
-    </div>
-
-    <ul class="capas-nav" id="lista-navegacion">
-      <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
-      <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
-      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad y Validación (ohsome & OSMCha)</button></li>
-      <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
-      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
-      <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
-      <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
-      <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
-      <li><button data-panel="manual"><span class="marcador">08</span> Manual de Uso y Documentación</button></li>
-    </ul>
-
-    <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
-    <div class="badge-sincronizacion" id="badge-sincronizacion" style="display:none; margin: 4px 14px 12px 14px; font-size: 0.76rem; line-height: 1.35; padding: 5px 8px; border-radius: 4px; background: var(--papel-alto); border: 1px solid var(--musgo); color: var(--musgo-oscuro);"></div>
   </nav>
 
   <!-- ============ CONTENIDO PRINCIPAL ============ -->

@@ -226,8 +226,9 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 .barra-pestanas-profundidad {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 14px 22px;
+  padding: 12px 22px;
   background: rgba(19, 32, 57, 0.96);
   backdrop-filter: var(--glass-filter);
   border-bottom: 2px solid rgba(255, 255, 255, 0.35);
@@ -297,40 +298,64 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 /* ==========================================================================
-   ESTRUCTURA GENERAL REPOSITORIA (COMMAND CENTER LAYOUT)
+   ESTRUCTURA GENERAL REPOSITORIA (COMMAND CENTER LAYOUT CENTRADO)
    ========================================================================== */
 
 .envoltorio {
-  display: grid;
-  grid-template-columns: 290px 1fr;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   min-height: 100vh;
   position: relative;
   z-index: 1;
 }
 
 .barra-lateral {
-  background: rgba(19, 32, 57, 0.97);
+  width: 100%;
+  background: rgba(19, 32, 57, 0.98);
   backdrop-filter: var(--glass-filter);
-  border-right: 2px solid rgba(255, 255, 255, 0.28);
-  padding: 24px 0;
+  border-bottom: 2.5px solid var(--musgo);
+  border-right: none;
+  padding: 20px 32px 16px 32px;
   display: flex;
   flex-direction: column;
-  box-shadow: 6px 0 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), 0 2px 14px rgba(6, 182, 212, 0.25);
   z-index: 20;
+  position: relative;
+}
+
+.barra-lateral-interior {
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.barra-lateral-fila-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+  padding-bottom: 14px;
 }
 
 .marca {
-  padding: 0 20px 18px 20px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
-  margin-bottom: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
-  border-radius: 6px;
+  padding: 0;
+  border-bottom: none;
+  margin-bottom: 0;
+  background: transparent;
+  flex: 1;
+  min-width: 320px;
 }
 
 .marca-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .marca-logo {
@@ -358,7 +383,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .marca h1,
 .marca-texto h1 {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 900;
   margin: 0 0 4px 0;
   color: #ffffff;
@@ -371,77 +396,151 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .marca p,
 .marca-texto p {
-  font-size: 0.76rem;
-  line-height: 1.3;
+  font-size: 0.80rem;
+  line-height: 1.35;
   margin: 0;
-  color: #ffffff;
+  color: var(--tinta-suave);
   font-weight: 500;
   word-break: break-word;
+}
+
+.contenedor-perfil-actor {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+  min-width: 320px;
+  max-width: 480px;
+}
+
+.contenedor-perfil-actor label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--musgo);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contenedor-perfil-actor select {
+  width: 100%;
+  font-size: 0.84rem;
+  padding: 7px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  background: #070c18;
+  color: #ffffff;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.contenedor-perfil-actor #badge-perfil-info {
+  font-size: 0.74rem;
+  margin-top: 6px;
+  color: #f8fafc;
+  line-height: 1.35;
+  font-weight: 500;
 }
 
 .capas-nav {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 2px 0 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
 }
 
 .capas-nav li {
-  margin-bottom: 6px;
+  margin-bottom: 0;
 }
 
 .capas-nav button {
   width: 100%;
   text-align: left;
-  padding: 12px 22px;
-  background: transparent;
-  border: none;
-  border-left: 5px solid transparent;
+  padding: 9px 12px;
+  background: rgba(26, 41, 74, 0.70);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
   color: #f1f5f9;
   font-family: var(--fuente-lectura);
-  font-size: 0.94rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .capas-nav button:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--papel-hover);
   color: #ffffff;
-  border-left-color: var(--musgo);
+  border-color: var(--musgo);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
 }
 
 .capas-nav button[aria-current="true"] {
-  background: linear-gradient(90deg, rgba(6, 182, 212, 0.22) 0%, rgba(16, 185, 129, 0.15) 100%);
-  border-left-color: var(--musgo);
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.32) 0%, rgba(16, 185, 129, 0.20) 100%);
+  border-color: var(--musgo);
   color: #ffffff;
   font-weight: 800;
-  box-shadow: inset 4px 0 14px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
 }
 
 .capas-nav button .marcador {
   font-family: var(--fuente-datos);
-  font-size: 0.78rem;
-  padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
+  border-radius: 5px;
   color: var(--tinta-suave);
   font-weight: 700;
 }
 
 .capas-nav button[aria-current="true"] .marcador {
-  background: rgba(0, 0, 0, 0.75);
-  border: 1px solid var(--musgo);
+  background: rgba(0, 0, 0, 0.85);
+  border-color: var(--musgo);
   color: var(--musgo);
   font-weight: 800;
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+}
+
+.barra-lateral-fila-telemetria {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.estado-conexion {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--tinta-tenue);
+  font-family: var(--fuente-datos);
+}
+
+.badge-sincronizacion {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(6, 182, 212, 0.14);
+  border: 1.5px solid var(--musgo);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.3);
+  font-family: var(--fuente-datos);
 }
 
 /* ==========================================================================
-   CONTENIDO PRINCIPAL Y PANELES DILATADOS CON ESPACIADO HOLGADO
+   CONTENIDO PRINCIPAL Y PANELES DILATADOS CON ESPACIADO HOLGADO Y CENTRADO
    ========================================================================== */
 
 .contenido {
@@ -454,7 +553,10 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .panel {
   display: none;
-  padding: 32px 36px;
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 32px 28px 48px 28px;
   animation: fadeInPanel 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1187,13 +1289,13 @@ table.tabla-datos tr:hover td {
    ========================================================================== */
 
 @media (max-width: 860px) {
-  .envoltorio {
-    grid-template-columns: 1fr;
+  .barra-lateral {
+    padding: 16px 18px;
   }
 
-  .barra-lateral {
-    border-right: none;
-    border-bottom: 2px solid var(--linea);
+  .contenedor-perfil-actor {
+    min-width: 100%;
+    max-width: 100%;
   }
 
   #mapa-atlas {
@@ -1202,6 +1304,10 @@ table.tabla-datos tr:hover td {
 
   .panel-profundidad-derecha {
     height: auto;
+  }
+
+  .panel {
+    padding: 20px 16px 40px 16px;
   }
 }
 
