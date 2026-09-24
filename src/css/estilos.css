@@ -85,11 +85,11 @@ html, body {
 body {
   background-color: var(--fondo-app);
   background-image: 
-    radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 80%),
-    radial-gradient(circle at 10% 30%, rgba(6, 182, 212, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 90% 70%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 65%),
+    radial-gradient(circle at 10% 25%, rgba(6, 182, 212, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 90% 75%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
   background-attachment: fixed;
 }
@@ -130,11 +130,11 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .hero-introduccion-atlas {
   background: linear-gradient(135deg, rgba(21, 35, 62, 0.94) 0%, rgba(29, 48, 83, 0.90) 100%);
-  border: 2px solid rgba(255, 255, 255, 0.45);
+  border: 2px solid var(--musgo);
   border-radius: 16px;
   padding: 34px;
   margin-bottom: 32px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(16px);
@@ -147,14 +147,14 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   font-family: var(--fuente-datos);
   font-size: 0.82rem;
   font-weight: 800;
-  color: #0b1322;
-  background: #ffffff;
-  border: 1.5px solid #ffffff;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
   padding: 6px 16px;
   border-radius: 8px;
   margin-bottom: 14px;
   letter-spacing: 0.05em;
-  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.06);
 }
 
 .titulo-hero {
@@ -252,47 +252,47 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   align-items: center;
   gap: 10px;
   padding: 10px 18px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(26, 41, 74, 0.75);
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
   border-radius: 10px;
-  color: #ffffff;
+  color: var(--tinta-suave);
   font-family: var(--fuente-titulos);
   font-size: 0.94rem;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(8px);
 }
 
 .pestana-nodo:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--papel-hover);
   color: #ffffff;
-  border-color: #ffffff;
+  border-color: var(--musgo);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35);
 }
 
 .pestana-nodo.activa {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #0b1322;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.45) 0%, rgba(16, 185, 129, 0.30) 100%);
+  border-color: var(--musgo);
+  color: #ffffff;
   font-weight: 800;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 24px rgba(6, 182, 212, 0.5);
 }
 
 .pestana-nodo.activa .insignia-nodo {
-  background: #0b1322;
-  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  color: var(--musgo);
+  border: 1px solid var(--musgo);
 }
 
 .pestana-nodo .insignia-nodo {
   font-family: var(--fuente-datos);
   font-size: 0.8rem;
   padding: 3px 8px;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 6px;
-  color: #ffffff;
+  color: var(--musgo);
   font-weight: 800;
 }
 
@@ -410,34 +410,34 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 .capas-nav button:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
-  border-left-color: #ffffff;
+  border-left-color: var(--musgo);
 }
 
 .capas-nav button[aria-current="true"] {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0%, rgba(6, 182, 212, 0.2) 100%);
-  border-left-color: #ffffff;
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.22) 0%, rgba(16, 185, 129, 0.15) 100%);
+  border-left-color: var(--musgo);
   color: #ffffff;
   font-weight: 800;
-  box-shadow: inset 4px 0 12px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 4px 0 14px rgba(6, 182, 212, 0.3);
 }
 
 .capas-nav button .marcador {
   font-family: var(--fuente-datos);
   font-size: 0.78rem;
   padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 6px;
-  color: #ffffff;
+  color: var(--tinta-suave);
   font-weight: 700;
 }
 
 .capas-nav button[aria-current="true"] .marcador {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #0d1527;
-  font-weight: 900;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--musgo);
+  color: var(--musgo);
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.35);
 }
 
 /* ==========================================================================
@@ -786,7 +786,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 .grupo-control-territorio label {
   font-size: 0.9rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--agua);
 }
 
 .grupo-control-territorio select, select, input[type="text"], input[type="number"], textarea {
@@ -801,8 +801,8 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 .grupo-control-territorio select:focus, select:focus, input:focus, textarea:focus {
-  border-color: #ffffff;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.45);
+  border-color: var(--musgo);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.45);
 }
 
 button.accion {
@@ -828,22 +828,21 @@ button.accion:hover {
 }
 
 button.accion.secundaria {
-  background: rgba(255, 255, 255, 0.10);
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  background: rgba(26, 41, 74, 0.85);
+  border: 1.5px solid var(--linea-tarjeta);
   color: #ffffff;
   font-weight: 700;
   padding: 9px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(8px);
 }
 
 button.accion.secundaria:hover {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #0b1322;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35);
+  background: var(--papel-alto);
+  border-color: var(--musgo);
+  color: var(--musgo);
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.35);
   transform: translateY(-2px);
 }
 
@@ -1150,11 +1149,11 @@ table.tabla-datos {
 
 table.tabla-datos th {
   background: rgba(27, 43, 75, 0.98);
-  color: #ffffff;
+  color: var(--musgo);
   font-family: var(--fuente-titulos);
   text-align: left;
   padding: 16px 18px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 2px solid var(--musgo);
   font-weight: 800;
   letter-spacing: 0.02em;
 }
@@ -2888,8 +2887,8 @@ table.tabla-datos tr:hover td {
 }
 
 .acordeon-grupo-oficial[open] {
-  border-color: #ffffff;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 255, 255, 0.15);
+  border-color: var(--musgo);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 16px rgba(6, 182, 212, 0.25);
 }
 
 .cabecera-acordeon-oficial {
@@ -2943,15 +2942,15 @@ table.tabla-datos tr:hover td {
 }
 
 .badge-acordeon-conteo {
-  background: #ffffff;
-  color: #0b1322;
+  background: var(--musgo);
+  color: #ffffff;
   font-family: var(--fuente-datos);
   font-size: 0.78rem;
   font-weight: 800;
   padding: 4px 12px;
   border-radius: 20px;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.35);
   white-space: nowrap;
 }
 
@@ -3020,15 +3019,15 @@ table.tabla-datos tr:hover td {
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #0b1322;
-  background: #ffffff;
-  border: 1.5px solid #ffffff;
+  color: var(--musgo);
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.45);
   padding: 4px 10px;
   border-radius: 6px;
   display: inline-block;
   margin-bottom: 8px;
   font-weight: 800;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
 }
 
 .consola-titulo {
@@ -3056,8 +3055,8 @@ table.tabla-datos tr:hover td {
 }
 
 .kpi-consola {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1.5px solid rgba(255, 255, 255, 0.42);
+  background: rgba(26, 42, 73, 0.85);
+  border: 1.5px solid var(--linea-tarjeta);
   border-radius: 10px;
   padding: 8px 16px;
   text-align: center;
@@ -3071,8 +3070,8 @@ table.tabla-datos tr:hover td {
   font-family: var(--fuente-datos);
   font-size: 1.25rem;
   font-weight: 900;
-  color: #ffffff;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  color: var(--musgo);
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
 }
 
 .kpi-etiqueta {
@@ -3131,8 +3130,8 @@ table.tabla-datos tr:hover td {
 
 .input-busqueda-capas:focus {
   outline: none;
-  border-color: #ffffff;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+  border-color: var(--musgo);
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.35);
   background: rgba(17, 28, 52, 0.95);
 }
 
@@ -3190,15 +3189,15 @@ table.tabla-datos tr:hover td {
 .chip-filtro:hover {
   background: rgba(255, 255, 255, 0.18);
   color: #ffffff;
-  border-color: #ffffff;
+  border-color: var(--musgo);
 }
 
 .chip-filtro.activo {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #0b1322;
+  background: rgba(6, 182, 212, 0.22);
+  border-color: var(--musgo);
+  color: #ffffff;
   font-weight: 800;
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.4);
 }
 
 /* Navegación de Pestañas Segmentadas */
@@ -3234,13 +3233,13 @@ table.tabla-datos tr:hover td {
 
 .pestana-capas.activa {
   color: #ffffff;
-  border-bottom-color: #ffffff;
+  border-bottom-color: var(--musgo);
   font-weight: 800;
 }
 
 .badge-tab-conteo {
-  background: #ffffff;
-  color: #0b1322;
+  background: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
   border-radius: 12px;
   padding: 2px 8px;
   font-size: 0.74rem;
@@ -3249,8 +3248,8 @@ table.tabla-datos tr:hover td {
 }
 
 .pestana-capas.activa .badge-tab-conteo {
-  background: #ffffff;
-  color: #0b1322;
+  background: rgba(6, 182, 212, 0.25);
+  color: var(--musgo);
 }
 
 .consola-seccion-desc {
@@ -3297,10 +3296,10 @@ table.tabla-datos tr:hover td {
 }
 
 .tarjeta-capa-gis.activo {
-  border-color: #ffffff;
-  border-left: 5px solid #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+  border-color: var(--musgo, #06b6d4);
+  border-left: 5px solid var(--musgo, #06b6d4);
+  background: rgba(6, 182, 212, 0.10);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
 }
 
 .tarjeta-capa-gis.cargando {
