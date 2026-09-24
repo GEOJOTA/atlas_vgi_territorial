@@ -332,13 +332,6 @@ function sincronizarCoherenciaEntreModulos(identificador, opciones = {}) {
     resumen: mapa.resumenMd,
     forzar: false
   });
-
-  // 7. Feedback visual de sincronización intermodular
-  const badgeSinc = document.getElementById('badge-sincronizacion');
-  if (badgeSinc) {
-    badgeSinc.style.display = 'block';
-    badgeSinc.innerHTML = `🔄 <strong>Coherencia activa:</strong> ${mapa.nombre} (${mapa.codigo}) vinculada en Overpass, ohsome y Metadatos.`;
-  }
 }
 
 function sincronizarCoherenciaDesdeOhsome(presetVal) {

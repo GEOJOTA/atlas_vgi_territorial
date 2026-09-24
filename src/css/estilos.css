@@ -396,54 +396,69 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   word-break: break-word;
 }
 
-.contenedor-perfil-actor {
-  padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  min-width: 320px;
-  max-width: 480px;
-}
-
-.perfil-actor-header {
+/* Crédito institucional sobrio en cabecera */
+.marca-credito-institucional {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  font-size: 0.76rem;
+  color: var(--tinta-tenue);
+  font-family: var(--fuente-datos);
+  letter-spacing: 0.03em;
 }
 
-.icono-perfil {
+.marca-credito-institucional .credito-fondecyt {
   color: var(--musgo);
-  font-size: 0.82rem;
+  font-weight: 700;
 }
 
-.contenedor-perfil-actor label {
-  font-size: 0.74rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--musgo);
-  cursor: pointer;
+.marca-credito-institucional .credito-separador {
+  color: rgba(255, 255, 255, 0.25);
 }
 
-.contenedor-perfil-actor select {
+.marca-credito-institucional .credito-departamento {
+  color: var(--tinta-suave);
+}
+
+/* Tarjeta interactiva de Perfil de Actor Territorial en el Hero */
+.caja-tarjeta-perfil-actor {
+  display: flex;
+  flex-direction: column;
+}
+
+.caja-tarjeta-perfil-actor .selector-actor-wrapper {
+  margin: 10px 0 10px 0;
+}
+
+.caja-tarjeta-perfil-actor select {
   width: 100%;
-  font-size: 0.84rem;
-  padding: 7px 10px;
-  border: 1.5px solid rgba(255, 255, 255, 0.45);
-  background: #070c18;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border: 1.5px solid var(--musgo);
+  background: rgba(10, 18, 32, 0.90);
   color: #ffffff;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.contenedor-perfil-actor #badge-perfil-info {
-  font-size: 0.74rem;
-  margin-top: 6px;
-  color: #f8fafc;
-  line-height: 1.35;
-  font-weight: 500;
+.caja-tarjeta-perfil-actor select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.caja-tarjeta-perfil-actor #badge-perfil-info {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--tinta-suave);
+  margin: 0;
 }
 
 /* Franja de Telemetría Táctica y Coherencia (Remate y Corte de la Caja) */

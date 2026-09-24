@@ -15,7 +15,7 @@
   <!-- ============ CABECERA PRINCIPAL TÁCTICA Y DE COMANDO ============ -->
   <header class="cabecera-principal-atlas" id="cabecera-atlas">
     <div class="cabecera-interior">
-      <!-- Fila 1: Identidad Institucional + Perfil de Actor Territorial -->
+      <!-- Fila 1: Identidad Institucional -->
       <div class="cabecera-fila-marca">
         <div class="marca">
           <div class="marca-header">
@@ -27,20 +27,10 @@
           </div>
         </div>
 
-        <!-- Selector de Perfil de Actor Territorial -->
-        <div class="contenedor-perfil-actor">
-          <div class="perfil-actor-header">
-            <span class="icono-perfil">◈</span>
-            <label for="sel-perfil-usuario">Perfil de Actor Territorial:</label>
-          </div>
-          <select id="sel-perfil-usuario" aria-label="Seleccionar perfil de actor territorial">
-            <option value="todos" selected>◈ Vista General Territorial</option>
-            <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
-            <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
-            <option value="voluntario">⌖ Voluntarios / Mapeadores OSM</option>
-            <option value="ong">🔬 Organizaciones No Gubernamentales (ONG)</option>
-          </select>
-          <div id="badge-perfil-info">Herramientas adaptadas para gestión territorial integral.</div>
+        <div class="marca-credito-institucional">
+          <span class="credito-fondecyt">FONDECYT 11240166</span>
+          <span class="credito-separador">·</span>
+          <span class="credito-departamento">Geografía UAH 2026</span>
         </div>
       </div>
     </div>
@@ -58,14 +48,13 @@
       <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
     </nav>
 
-    <!-- Fila 3: Telemetría de APIs y Coherencia Activa (remate y corte de la caja) -->
+    <!-- Fila 3: Telemetría de APIs (remate y corte táctico de la caja) -->
     <div class="franja-telemetria-coherencia">
       <div class="franja-telemetria-interior">
         <div class="telemetria-api-estado">
           <span class="punto-pulso-activo"></span>
           <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
         </div>
-        <div class="badge-sincronizacion" id="badge-sincronizacion" style="display:none;"></div>
       </div>
     </div>
   </header>
@@ -103,10 +92,20 @@
             <p>No utiliza bases precargadas estáticas. Conecta directamente a las APIs oficiales (Overpass QL, ohsome v1/v2, GBIF, Taginfo y OGC WMS) para extraer geometrías, métricas de calidad ISO 19157 y metadatos ISO 19115 al segundo de ejecución.</p>
           </div>
 
-          <div class="caja-tarjeta-hero">
-            <span class="icono-hero">🗫</span>
-            <h3>4 Perfiles Territoriales</h3>
-            <p>Herramientas adaptadas para Autoridades (SECPLAN/Muni), Vecinos/Juntas de Vecinos, Voluntarios/Mapeadores OSM y ONGs/Investigadores con exportación directa a GeoJSON (QGIS), CSV y Excel (.xlsx).</p>
+          <div class="caja-tarjeta-hero caja-tarjeta-perfil-actor">
+            <span class="icono-hero">◈</span>
+            <h3>Perfil de Actor Territorial</h3>
+            <div class="selector-actor-wrapper">
+              <label for="sel-perfil-usuario" class="sr-only">Seleccionar perfil de actor territorial:</label>
+              <select id="sel-perfil-usuario" aria-label="Seleccionar perfil de actor territorial">
+                <option value="todos" selected>◈ Vista General Territorial</option>
+                <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
+                <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
+                <option value="voluntario">⌖ Mapeadores / Voluntarios OSM</option>
+                <option value="ong">🔬 ONG / Investigación & Academia</option>
+              </select>
+            </div>
+            <p id="badge-perfil-info">Herramientas adaptadas para gestión territorial integral. Acceso general a todas las funciones.</p>
           </div>
         </div>
       </header>
