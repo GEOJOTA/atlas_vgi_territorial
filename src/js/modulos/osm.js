@@ -17,7 +17,7 @@ const ModuloOSM = (() => {
     educacion: {
       nombre: 'Educación y Universidad',
       filtro: `
-        nwr["amenity"~"university|college|library|school|kindergarten"]({{bbox}});
+        nwr["amenity"~"university|college|library|school|kindergarten|student_accommodation|research_institute|music_school|training_centre"]({{bbox}});
         nwr["building"~"university|school|college|kindergarten|library"]({{bbox}});
       `
     },
@@ -25,7 +25,11 @@ const ModuloOSM = (() => {
       nombre: 'Servicios y Comercio Barrial',
       filtro: `
         nwr["shop"]({{bbox}});
-        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station"]({{bbox}});
+        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|veterinary|bank|atm|post_office|marketplace|police|fire_station|townhall|community_centre|recycling|waste_basket|laundry|hairdresser|car_wash|fuel|cinema"]({{bbox}});
+        nwr["emergency"~"ambulance_station|defibrillator|fire_hydrant"]({{bbox}});
+        nwr["man_made"="surveillance"]({{bbox}});
+        nwr["office"="government"]({{bbox}});
+        node["highway"="street_lamp"]({{bbox}});
         nwr["building"~"retail|commercial|supermarket"]({{bbox}});
       `
     },
@@ -33,11 +37,12 @@ const ModuloOSM = (() => {
       nombre: 'Movilidad y Transporte',
       filtro: `
         node["highway"="bus_stop"]({{bbox}});
-        node["railway"~"station|subway_entrance"]({{bbox}});
+        node["railway"~"station|subway_entrance|halt"]({{bbox}});
         node["public_transport"~"platform|stop_position"]({{bbox}});
-        way["highway"~"primary|secondary|tertiary|trunk"]({{bbox}});
-        way["railway"="subway"]({{bbox}});
-        nwr["amenity"="bus_station"]({{bbox}});
+        way["highway"~"primary|secondary|tertiary|trunk|motorway"]({{bbox}});
+        way["railway"~"subway|rail|tram"]({{bbox}});
+        nwr["amenity"~"bus_station|ferry_terminal|taxi"]({{bbox}});
+        node["vending"="public_transport_tickets"]({{bbox}});
       `
     },
     movilidad_activa: {
@@ -49,16 +54,18 @@ const ModuloOSM = (() => {
         way["cycleway:right"]({{bbox}});
         way["cycleway:both"]({{bbox}});
         way["highway"~"footway|path"]["bicycle"~"yes|designated"]({{bbox}});
-        nwr["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});
+        nwr["amenity"~"bicycle_parking|bicycle_rental|bicycle_repair_station|charging_station"]({{bbox}});
         nwr["shop"="bicycle"]({{bbox}});
+        way["highway"~"living_street|pedestrian"]({{bbox}});
+        node["highway"="speed_display"]({{bbox}});
       `
     },
     espacio_publico: {
       nombre: 'Áreas Verdes y Espacio Público',
       filtro: `
-        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station"]({{bbox}});
-        nwr["landuse"~"grass|village_green|recreation_ground"]({{bbox}});
-        node["amenity"~"bench|drinking_water"]({{bbox}});
+        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station|stadium|track|dog_park"]({{bbox}});
+        nwr["landuse"~"grass|village_green|recreation_ground|cemetery"]({{bbox}});
+        node["amenity"~"bench|drinking_water|fountain|waste_basket"]({{bbox}});
       `
     },
     patrimonio: {
@@ -66,9 +73,9 @@ const ModuloOSM = (() => {
       filtro: `
         nwr["historic"]({{bbox}});
         nwr["heritage"]({{bbox}});
-        nwr["building"~"church|cathedral|chapel"]({{bbox}});
-        nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre"]({{bbox}});
-        nwr["tourism"~"museum|artwork|gallery"]({{bbox}});
+        nwr["building"~"church|cathedral|chapel|shrine|temple|monastery"]({{bbox}});
+        nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre|events_venue|cinema"]({{bbox}});
+        nwr["tourism"~"museum|artwork|gallery|attraction|monument|memorial"]({{bbox}});
       `
     },
     accesibilidad: {
@@ -77,7 +84,9 @@ const ModuloOSM = (() => {
         node["kerb"]({{bbox}});
         node["highway"="crossing"]({{bbox}});
         node["tactile_paving"]({{bbox}});
-        node["wheelchair"]({{bbox}});
+        node["traffic_signals:sound"="yes"]({{bbox}});
+        node["highway"="traffic_signals"]({{bbox}});
+        nwr["wheelchair"]({{bbox}});
         way["highway"~"footway|pedestrian"]({{bbox}});
         way["highway"="steps"]["ramp"~"yes|separate"]({{bbox}});
         way["ramp"]({{bbox}});
@@ -88,7 +97,8 @@ const ModuloOSM = (() => {
       filtro: `
         node["natural"="tree"]({{bbox}});
         way["natural"="tree_row"]({{bbox}});
-        nwr["natural"~"wood|scrub"]({{bbox}});
+        nwr["natural"~"wood|scrub|heath|grassland"]({{bbox}});
+        nwr["genus"~"Platanus|Jacaranda|Jubaea|Schinus|Quillaja"]({{bbox}});
         nwr["leisure"="garden"]({{bbox}});
         nwr["landuse"="forest"]({{bbox}});
       `
@@ -106,6 +116,7 @@ const ModuloOSM = (() => {
         nwr["landuse"]({{bbox}});
         nwr["natural"~"wood|scrub|water|grassland|tree_row"]({{bbox}});
         nwr["leisure"~"park|garden|pitch|nature_reserve"]({{bbox}});
+        nwr["waterway"]({{bbox}});
       `
     }
   };
@@ -175,7 +186,7 @@ const ModuloOSM = (() => {
       try {
         console.log(`[Overpass] Intentando consulta en: ${endpoint}`);
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s máx por servidor con fallback reactivo
+        const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s máx por servidor con fallback reactivo
 
         const respuesta = await fetch(endpoint, {
           method: 'POST',
@@ -198,7 +209,112 @@ const ModuloOSM = (() => {
       }
     }
 
-    throw new Error(`No se pudo conectar a Overpass tras intentar en ${endpoints.length} servidores espejo. Detalle: ${ultimoError?.message || 'Error de red o timeout'}`);
+    console.warn(`[Overpass] Servidores online no disponibles (${ultimoError?.message}). Recurriendo a la base de datos descargada localmente para RM...`);
+    const elementosFallback = await consultarLocalFallback(bbox, etiquetaOPreset);
+    cacheConsultas.set(claveCache, elementosFallback);
+    return elementosFallback;
+  }
+
+  /**
+   * Carga la base de datos local descargada de OSM para la Región Metropolitana
+   * y la filtra según el Bbox especificado y/o la categoría.
+   */
+  async function consultarLocalFallback(bbox, etiquetaOPreset) {
+    const mapaArchivos = {
+      educacion: 'capa_osm_rm_cat01_educacion.geojson',
+      servicios: 'capa_osm_rm_cat02_servicios.geojson',
+      transporte: 'capa_osm_rm_cat03_transporte.geojson',
+      movilidad_activa: 'capa_osm_rm_cat04_movilidad_activa.geojson',
+      espacio_publico: 'capa_osm_rm_cat05_espacio_publico.geojson',
+      patrimonio: 'capa_osm_rm_cat06_patrimonio.geojson',
+      accesibilidad: 'capa_osm_rm_cat07_accesibilidad.geojson',
+      biodiversidad: 'capa_osm_rm_cat08_biodiversidad.geojson',
+      edificaciones: 'capa_osm_rm_cat09_edificaciones.geojson',
+      cobertura_suelo: 'capa_osm_rm_cat10_cobertura_suelo.geojson'
+    };
+
+    const nombreArchivo = mapaArchivos[etiquetaOPreset] || 'capa_osm_rm_completo_vgi.geojson';
+    const rutasPosibles = [
+      `src/data/${nombreArchivo}`,
+      `data/${nombreArchivo}`,
+      `./src/data/${nombreArchivo}`,
+      `./data/${nombreArchivo}`
+    ];
+
+    let geojsonLocal = null;
+    for (const url of rutasPosibles) {
+      try {
+        const resp = await fetch(url);
+        if (resp.ok) {
+          geojsonLocal = await resp.json();
+          console.log(`[Overpass Fallback] Capa local cargada exitosamente desde: ${url}`);
+          break;
+        }
+      } catch (e) {
+        // Seguir intentando rutas alternativas
+      }
+    }
+
+    if (!geojsonLocal || !Array.isArray(geojsonLocal.features)) {
+      console.error(`[Overpass Fallback Error] No se pudo cargar GeoJSON local para ${nombreArchivo}`);
+      return [];
+    }
+
+    let featuresFiltradas = geojsonLocal.features;
+
+    // Filtrar por Bounding Box (AABB) si el parámetro bbox está provisto [w, s, e, n]
+    if (Array.isArray(bbox) && bbox.length === 4) {
+      const [w, s, e, n] = bbox;
+      featuresFiltradas = featuresFiltradas.filter(feat => {
+        const geom = feat.geometry;
+        if (!geom || !geom.coordinates) return false;
+
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+        function examinarCoords(c) {
+          if (typeof c[0] === 'number') {
+            const [x, y] = c;
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          } else if (Array.isArray(c)) {
+            c.forEach(examinarCoords);
+          }
+        }
+
+        examinarCoords(geom.coordinates);
+
+        return (minX <= e && maxX >= w && minY <= n && maxY >= s);
+      });
+    }
+
+    console.log(`[Overpass Fallback] Se filtraron ${featuresFiltradas.length} entidades de la base local dentro del BBOX ${JSON.stringify(bbox)}.`);
+
+    // Convertir features GeoJSON a la estructura interna de elementos Overpass para compatibilidad transparente
+    return featuresFiltradas.map(feat => {
+      const p = feat.properties || {};
+      const g = feat.geometry || {};
+      const elType = p.osm_type || (g.type === 'Point' ? 'node' : 'way');
+      const elId = p.osm_id || Math.floor(Math.random() * 10000000);
+
+      const elem = {
+        type: elType,
+        id: elId,
+        tags: p.etiquetas_completas || p
+      };
+
+      if (g.type === 'Point' && Array.isArray(g.coordinates)) {
+        elem.lon = g.coordinates[0];
+        elem.lat = g.coordinates[1];
+      } else if (g.type === 'LineString' && Array.isArray(g.coordinates)) {
+        elem.geometry = g.coordinates.map(c => ({ lon: c[0], lat: c[1] }));
+      } else if (g.type === 'Polygon' && Array.isArray(g.coordinates) && g.coordinates[0]) {
+        elem.geometry = g.coordinates[0].map(c => ({ lon: c[0], lat: c[1] }));
+      }
+
+      return elem;
+    });
   }
 
   /**
