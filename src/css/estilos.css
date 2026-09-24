@@ -473,32 +473,16 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   width: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
+  text-align: center;
 }
 
 .telemetria-api-estado {
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.punto-pulso-activo {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  display: inline-block;
-  animation: pulsoVerde 2s infinite;
-}
-
-@keyframes pulsoVerde {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  justify-content: center;
+  text-align: center;
 }
 
 .estado-conexion {
@@ -506,6 +490,8 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   font-size: 0.78rem;
   color: var(--tinta-tenue);
   font-family: var(--fuente-datos);
+  text-align: center;
+  letter-spacing: 0.02em;
 }
 
 .badge-sincronizacion {
