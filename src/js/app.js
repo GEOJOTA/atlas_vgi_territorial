@@ -2600,7 +2600,6 @@ async function ejecutarConsultaInspector(lat, lng) {
     'ide_minvu_ipt_prms_riesgo',
     'minvu_ipt_areas_verdes',
     'minvu_patrimonio',
-    'unidades_vecinales_bidat',
     'ide_minvu_unidades_vecinales_rsh',
     'ide_minvu_campamentos',
     'ide_minvu_inventario_humedales'

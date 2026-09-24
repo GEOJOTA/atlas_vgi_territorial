@@ -80,7 +80,7 @@ const ModuloManual = (() => {
             <ol class="doc-pasos-lista">
               <li>
                 <span class="doc-paso-num">1</span>
-                <div><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛 Capas Oficiales IDE Chile]</em> para verificar las 111 capas con soporte estatal y contraste con las <em>[⚡ Brechas VGI]</em> comunitarias no catastradas (rebajes de solera, ciclovías comunitarias, luminarias, grifos de incendio).</div>
+                <div><strong>Auditar Capas Oficiales vs. Brechas VGI (Panel 06):</strong> Utilice el filtro <em>[🏛 Capas Oficiales IDE Chile]</em> para verificar las 110 capas con soporte estatal y contraste con las <em>[⚡ Brechas VGI]</em> comunitarias no catastradas (rebajes de solera, ciclovías comunitarias, luminarias, grifos de incendio).</div>
               </li>
               <li>
                 <span class="doc-paso-num">2</span>

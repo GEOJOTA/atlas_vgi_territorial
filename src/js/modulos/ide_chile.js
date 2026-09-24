@@ -528,22 +528,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Catastro de infraestructura vial cicloinclusiva oficial administrado por MINVU y DTPM.',
       citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Red Nacional de Ciclovías Urbanas de Chile. IDE Chile / Planes y Programas MINVU. https://geoide.minvu.cl/server/rest/services/Planes_Programas/Ciclov%C3%ADas_Minvu/MapServer/0'
     },
-    unidades_vecinales_bidat: {
-      id: 'unidades_vecinales_bidat',
-      nombre: 'Unidades Vecinales 2026 & Vulnerabilidad RSH (BIDAT / MDS)',
-      institucion: 'Ministerio de Desarrollo Social y Familia (MDS) / BIDAT',
-      ministerio: 'Subsecretaría de Evaluación Social',
-      tipoServicio: 'BIDAT / RSH 2026 (Dataset Oficial)',
-      urlServicio: 'https://bidat.gob.cl/details/ficha/dataset/shape-de-unidades-vecinales-del-registro-social-de-hogares',
-      archivoLocal: 'data/capa_unidades_vecinales_bidat.geojson',
-      color: '#6366F1',
-      icono: '🗫',
-      geometria: 'Polígonos (Unidades Vecinales)',
-      grupo: 'social_comunidades',
-      descripcion: 'Unidades Vecinales 2026 enriquecidas con indicadores del Registro Social de Hogares (RSH) e Índice Global de Vulnerabilidad Socioterritorial (IGVUST 2026).',
-      declaracion: 'Datos provistos por el Ministerio de Desarrollo Social y Familia y procesados bajo confidencialidad estadística.',
-      citaAPA: 'Ministerio de Desarrollo Social y Familia [MDSF]. (2026). Indicadores de Vulnerabilidad Socioterritorial por Unidad Vecinal (BIDAT). https://bidat.gob.cl'
-    },
     salud_oficial_2026: {
       id: 'salud_oficial_2026',
       nombre: 'Establecimientos de Salud Febrero 2026 (DEIS / MINSAL)',
@@ -559,38 +543,6 @@ const ModuloIDEChile = (() => {
       descripcion: 'Red oficial de salud asistencial (CESFAM, Hospitales, Postas y CECOSF) en la comuna de Santiago.',
       declaracion: 'Catastro Oficial DEIS MINSAL Febrero 2026.',
       citaAPA: 'Ministerio de Salud [MINSAL]. (2026). Registro Nacional de Establecimientos de Salud (DEIS). https://datos.gob.cl'
-    },
-    educacion_superior_2026: {
-      id: 'educacion_superior_2026',
-      nombre: 'Educación Superior 2026 (MINEDUC)',
-      institucion: 'Ministerio de Educación (MINEDUC) / IDE Chile',
-      ministerio: 'Subsecretaría de Educación Superior',
-      tipoServicio: 'Geoportal de Chile (Shapefile)',
-      urlServicio: 'https://www.geoportal.cl',
-      archivoLocal: 'data/capa_educacion_superior.geojson',
-      color: '#10B981',
-      icono: '🏫',
-      geometria: 'Puntos (Sedes Universitarias)',
-      grupo: 'educacion',
-      descripcion: 'Catastro oficial de sedes universitarias e institutos superiores en Santiago Centro y Barrio Brasil.',
-      declaracion: 'Catastro Oficial MINEDUC de Educación Superior.',
-      citaAPA: 'Ministerio de Educación [MINEDUC]. (2026). Sedes e Inmuebles de Educación Superior. IDE Chile. https://www.geoportal.cl'
-    },
-    cuarteles_bomberos_2026: {
-      id: 'cuarteles_bomberos_2026',
-      nombre: 'Cuarteles de Bomberos (Junta Nacional / CBS)',
-      institucion: 'Junta Nacional de Cuerpos de Bomberos / CBS',
-      ministerio: 'Ministerio del Interior y Seguridad Pública',
-      tipoServicio: 'Geoportal de Chile',
-      urlServicio: 'https://www.geoportal.cl',
-      archivoLocal: 'data/capa_cuarteles_bomberos.geojson',
-      color: '#F59E0B',
-      icono: '🚒',
-      geometria: 'Puntos (Cuarteles)',
-      grupo: 'seguridad',
-      descripcion: 'Compañías del Cuerpo de Bomberos de Santiago que atienden Barrio Brasil, Yungay y Centro Histórico.',
-      declaracion: 'Catastro Oficial de Bomberos de Chile.',
-      citaAPA: 'Junta Nacional de Cuerpos de Bomberos. (2026). Cuarteles de Bomberos de Chile. Geoportal de Chile. https://www.geoportal.cl'
     },
     jardines_junji_integra: {
       id: 'jardines_junji_integra',
@@ -2551,6 +2503,16 @@ const ModuloIDEChile = (() => {
       if (idCapa.startsWith('bbdd_')) {
         const alias = idCapa.replace('bbdd_', 'capa_');
         if (CAPAS_OFICIALES[alias]) return CAPAS_OFICIALES[alias];
+      }
+      // Alias / fallback de compatibilidad para capas consolidadas:
+      if (idCapa === 'unidades_vecinales_bidat' || idCapa === 'capa_unidades_vecinales_bidat') {
+        return CAPAS_OFICIALES['ide_minvu_unidades_vecinales_rsh'];
+      }
+      if (idCapa === 'cuarteles_bomberos_2026' || idCapa === 'capa_cuarteles_bomberos') {
+        return CAPAS_OFICIALES['bomberos'];
+      }
+      if (idCapa === 'educacion_superior_2026' || idCapa === 'capa_educacion_superior') {
+        return CAPAS_OFICIALES['educacion_superior'];
       }
     }
     return null;

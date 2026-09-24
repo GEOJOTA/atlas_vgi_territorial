@@ -329,7 +329,7 @@ const ModuloEvaluadorNormativo = (() => {
     }
 
     // 8. Unidad Vecinal Oficial (RSH)
-    const capaUV = capas['ide_minvu_unidades_vecinales_rsh'] || capas['capa_unidades_vecinales_bidat'];
+    const capaUV = capas['ide_minvu_unidades_vecinales_rsh'];
     if (capaUV && capaUV.features) {
       for (let f of capaUV.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {

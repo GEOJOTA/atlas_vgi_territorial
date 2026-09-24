@@ -521,12 +521,12 @@ def crear_catalogo_fuentes():
     autoajustar_columnas(ws2, max_len_cap=40)
     
     # ----------------------------------------------------
-    # HOJA 3: Capas Oficiales e Indicadores del Estado (111 Capas)
+    # HOJA 3: Capas Oficiales e Indicadores del Estado (110 Capas)
     # ----------------------------------------------------
     ws3 = wb.create_sheet(title="Capas Oficiales e Indicadores")
     ws3["A1"] = "CATÁLOGO MAESTRO DE CAPAS OFICIALES E INDICADORES TERRITORIALES DEL ESTADO DE CHILE"
     ws3["A1"].font = fuente_titulo
-    ws3["A2"] = "111 Capas Cartográficas e Indicadores de Políticas Públicas | Desagregación Censal, Barrial, Vecinal (Ley N° 19.418) e Inversión BIP (Ley N° 20.285)"
+    ws3["A2"] = "110 Capas Cartográficas e Indicadores de Políticas Públicas | Desagregación Censal, Barrial, Vecinal (Ley N° 19.418) e Inversión BIP (Ley N° 20.285)"
     ws3["A2"].font = fuente_subtitulo
     
     headers3 = [
