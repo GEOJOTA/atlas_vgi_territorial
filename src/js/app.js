@@ -829,12 +829,14 @@ function inicializarAplicacion() {
 /* ---------------------- NAVEGACIÓN ---------------------- */
 
 function configurarNavegacion() {
-  const botonesSidebar = document.querySelectorAll('#lista-navegacion button');
-  const botonesPestanas = document.querySelectorAll('.barra-pestanas-profundidad button');
+  const botonesNav = Array.from(new Set(document.querySelectorAll('#lista-navegacion button, .barra-pestanas-profundidad button')));
 
   const activarPanel = (panelId) => {
-    botonesSidebar.forEach(b => b.setAttribute('aria-current', b.dataset.panel === panelId ? 'true' : 'false'));
-    botonesPestanas.forEach(b => b.classList.toggle('activa', b.dataset.panel === panelId));
+    botonesNav.forEach(b => {
+      const coincide = b.dataset.panel === panelId;
+      b.setAttribute('aria-current', coincide ? 'true' : 'false');
+      b.classList.toggle('activa', coincide);
+    });
 
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
     const panelDestino = document.getElementById('panel-' + panelId);
@@ -849,11 +851,7 @@ function configurarNavegacion() {
     }
   };
 
-  botonesSidebar.forEach(boton => {
-    boton.addEventListener('click', () => activarPanel(boton.dataset.panel));
-  });
-
-  botonesPestanas.forEach(boton => {
+  botonesNav.forEach(boton => {
     boton.addEventListener('click', () => activarPanel(boton.dataset.panel));
   });
 }

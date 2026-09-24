@@ -298,7 +298,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 /* ==========================================================================
-   ESTRUCTURA GENERAL REPOSITORIA (COMMAND CENTER LAYOUT CENTRADO)
+   CABECERA PRINCIPAL TÁCTICA Y DE COMANDO REFORMULADA (LAYOUT CENTRADO)
    ========================================================================== */
 
 .envoltorio {
@@ -310,37 +310,29 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   z-index: 1;
 }
 
-.barra-lateral {
+.cabecera-principal-atlas, .barra-lateral {
   width: 100%;
-  background: rgba(19, 32, 57, 0.98);
+  background: rgba(18, 30, 54, 0.98);
   backdrop-filter: var(--glass-filter);
   border-bottom: 2.5px solid var(--musgo);
-  border-right: none;
-  padding: 20px 32px 16px 32px;
-  display: flex;
-  flex-direction: column;
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), 0 2px 14px rgba(6, 182, 212, 0.25);
-  z-index: 20;
   position: relative;
+  z-index: 30;
 }
 
-.barra-lateral-interior {
+.cabecera-interior {
   max-width: 1560px;
   width: 100%;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  padding: 20px 32px 14px 32px;
 }
 
-.barra-lateral-fila-superior {
+.cabecera-fila-marca {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
-  padding-bottom: 14px;
+  gap: 24px;
 }
 
 .marca {
@@ -355,24 +347,24 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 .marca-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .marca-logo {
-  width: 52px;
-  height: 52px;
-  min-width: 52px;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #ffffff;
-  padding: 4px;
+  padding: 5px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), 0 0 12px rgba(255, 255, 255, 0.4);
   border: 2px solid #ffffff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .marca-logo:hover {
-  transform: scale(1.06);
+  transform: scale(1.05);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 255, 255, 0.6);
 }
 
@@ -383,7 +375,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .marca h1,
 .marca-texto h1 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 900;
   margin: 0 0 4px 0;
   color: #ffffff;
@@ -396,7 +388,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 
 .marca p,
 .marca-texto p {
-  font-size: 0.80rem;
+  font-size: 0.82rem;
   line-height: 1.35;
   margin: 0;
   color: var(--tinta-suave);
@@ -409,9 +401,21 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   background: rgba(255, 255, 255, 0.06);
   border: 1.5px solid rgba(255, 255, 255, 0.35);
   border-radius: 10px;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   min-width: 320px;
   max-width: 480px;
+}
+
+.perfil-actor-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.icono-perfil {
+  color: var(--musgo);
+  font-size: 0.82rem;
 }
 
 .contenedor-perfil-actor label {
@@ -420,8 +424,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--musgo);
-  display: block;
-  margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .contenedor-perfil-actor select {
@@ -443,81 +446,44 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   font-weight: 500;
 }
 
-.capas-nav {
-  list-style: none;
-  padding: 0;
-  margin: 2px 0 0 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 8px;
-}
-
-.capas-nav li {
-  margin-bottom: 0;
-}
-
-.capas-nav button {
+/* Franja de Telemetría Táctica y Coherencia (Remate y Corte de la Caja) */
+.franja-telemetria-coherencia {
   width: 100%;
-  text-align: left;
-  padding: 9px 12px;
-  background: rgba(26, 41, 74, 0.70);
-  border: 1.5px solid rgba(255, 255, 255, 0.22);
-  border-radius: 8px;
-  color: #f1f5f9;
-  font-family: var(--fuente-lectura);
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  background: rgba(8, 14, 26, 0.95);
+  padding: 8px 32px;
 }
 
-.capas-nav button:hover {
-  background: var(--papel-hover);
-  color: #ffffff;
-  border-color: var(--musgo);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
-}
-
-.capas-nav button[aria-current="true"] {
-  background: linear-gradient(90deg, rgba(6, 182, 212, 0.32) 0%, rgba(16, 185, 129, 0.20) 100%);
-  border-color: var(--musgo);
-  color: #ffffff;
-  font-weight: 800;
-  box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
-}
-
-.capas-nav button .marcador {
-  font-family: var(--fuente-datos);
-  font-size: 0.72rem;
-  padding: 2px 6px;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 5px;
-  color: var(--tinta-suave);
-  font-weight: 700;
-}
-
-.capas-nav button[aria-current="true"] .marcador {
-  background: rgba(0, 0, 0, 0.85);
-  border-color: var(--musgo);
-  color: var(--musgo);
-  font-weight: 800;
-  box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
-}
-
-.barra-lateral-fila-telemetria {
+.franja-telemetria-interior {
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.telemetria-api-estado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.punto-pulso-activo {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  display: inline-block;
+  animation: pulsoVerde 2s infinite;
+}
+
+@keyframes pulsoVerde {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
 .estado-conexion {

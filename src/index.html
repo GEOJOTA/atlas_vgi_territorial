@@ -12,10 +12,11 @@
 
 <div class="envoltorio">
 
-  <!-- ============ BARRA SUPERIOR DE COMANDO Y NAVEGACIÓN (CORTE EN COHERENCIA ACTIVA) ============ -->
-  <nav class="barra-lateral" aria-label="Secciones de la plataforma">
-    <div class="barra-lateral-interior">
-      <div class="barra-lateral-fila-superior">
+  <!-- ============ CABECERA PRINCIPAL TÁCTICA Y DE COMANDO ============ -->
+  <header class="cabecera-principal-atlas" id="cabecera-atlas">
+    <div class="cabecera-interior">
+      <!-- Fila 1: Identidad Institucional + Perfil de Actor Territorial -->
+      <div class="cabecera-fila-marca">
         <div class="marca">
           <div class="marca-header">
             <img src="img/UAH-Insignia.jpg" alt="Insignia Universidad Alberto Hurtado" class="marca-logo">
@@ -26,10 +27,13 @@
           </div>
         </div>
 
-        <!-- Selector de Perfil de Usuario -->
+        <!-- Selector de Perfil de Actor Territorial -->
         <div class="contenedor-perfil-actor">
-          <label for="sel-perfil-usuario">Perfil de Actor Territorial:</label>
-          <select id="sel-perfil-usuario">
+          <div class="perfil-actor-header">
+            <span class="icono-perfil">◈</span>
+            <label for="sel-perfil-usuario">Perfil de Actor Territorial:</label>
+          </div>
+          <select id="sel-perfil-usuario" aria-label="Seleccionar perfil de actor territorial">
             <option value="todos" selected>◈ Vista General Territorial</option>
             <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
             <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
@@ -39,31 +43,11 @@
           <div id="badge-perfil-info">Herramientas adaptadas para gestión territorial integral.</div>
         </div>
       </div>
-
-      <ul class="capas-nav" id="lista-navegacion">
-        <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
-        <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
-        <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad y Validación (ohsome & OSMCha)</button></li>
-        <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
-        <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
-        <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
-        <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
-        <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
-        <li><button data-panel="manual"><span class="marcador">08</span> Manual de Uso y Documentación</button></li>
-      </ul>
-
-      <div class="barra-lateral-fila-telemetria">
-        <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
-        <div class="badge-sincronizacion" id="badge-sincronizacion" style="display:none;"></div>
-      </div>
     </div>
-  </nav>
 
-  <!-- ============ CONTENIDO PRINCIPAL ============ -->
-  <main class="contenido">
-    <!-- BARRA SUPERIOR DE PROFUNDIDAD (PESTAÑAS RÁPIDAS DE NAVEGACIÓN) -->
-    <nav class="barra-pestanas-profundidad" aria-label="Navegación directa entre capas y módulos">
-      <button type="button" class="pestana-nodo activa" data-panel="inicio"><span class="insignia-nodo">00</span> ◈ Visor Cartográfico</button>
+    <!-- Fila 2: Pestañas de Navegación Única de Módulos (00 al 08) -->
+    <nav class="barra-pestanas-profundidad" id="lista-navegacion" aria-label="Navegación directa entre capas y módulos">
+      <button type="button" class="pestana-nodo activa" data-panel="inicio" aria-current="true"><span class="insignia-nodo">00</span> ◈ Visor y Atlas VGI</button>
       <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">01</span> ⌕ Consultas Overpass</button>
       <button type="button" class="pestana-nodo" data-panel="calidad-ohsome"><span class="insignia-nodo">02</span> 📊 Calidad & ICV</button>
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
@@ -71,8 +55,23 @@
       <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
       <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (101 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
-      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual & Entregables</button>
+      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
     </nav>
+
+    <!-- Fila 3: Telemetría de APIs y Coherencia Activa (remate y corte de la caja) -->
+    <div class="franja-telemetria-coherencia">
+      <div class="franja-telemetria-interior">
+        <div class="telemetria-api-estado">
+          <span class="punto-pulso-activo"></span>
+          <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
+        </div>
+        <div class="badge-sincronizacion" id="badge-sincronizacion" style="display:none;"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ CONTENIDO PRINCIPAL ============ -->
+  <main class="contenido">
 
     <!-- ---------- 00. VISOR Y ATLAS VGI (LEAFLET) ---------- -->
     <section class="panel activo" id="panel-inicio">
