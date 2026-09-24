@@ -6,58 +6,38 @@
 <title>Atlas de Información Geográfica Voluntaria — Barrio Brasil & UAH</title>
 <meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y entorno de la Universidad Alberto Hurtado.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="css/estilos.css?v=20260923_manual_redesign">
+  <link rel="stylesheet" href="css/estilos.css?v=20260924_centered_layout">
 </head>
 <body>
 
 <div class="envoltorio">
 
-  <!-- ============ BARRA LATERAL: navegación entre "capas" de la plataforma ============ -->
-  <nav class="barra-lateral" aria-label="Secciones de la plataforma">
-    <div class="marca">
-      <div class="marca-header">
-        <img src="img/UAH-Insignia.jpg" alt="Insignia Universidad Alberto Hurtado" class="marca-logo">
-        <div class="marca-texto">
-          <h1>Atlas VGI Territorial</h1>
-          <p id="nombre-organizacion">Consulta, calidad y metadatos VGI | Barrio Brasil & UAH</p>
+  <!-- ============ CABECERA PRINCIPAL TÁCTICA Y DE COMANDO ============ -->
+  <header class="cabecera-principal-atlas" id="cabecera-atlas">
+    <div class="cabecera-interior">
+      <!-- Fila 1: Identidad Institucional -->
+      <div class="cabecera-fila-marca">
+        <div class="marca">
+          <div class="marca-header">
+            <img src="img/UAH-Insignia.jpg" alt="Insignia Universidad Alberto Hurtado" class="marca-logo">
+            <div class="marca-texto">
+              <h1>Atlas VGI Territorial</h1>
+              <p id="nombre-organizacion">Consulta, calidad y metadatos VGI | Barrio Brasil & UAH</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="marca-credito-institucional">
+          <span class="credito-fondecyt">Proyecto F1261256</span>
+          <span class="credito-separador">·</span>
+          <span class="credito-departamento">Geografía UAH 2026</span>
         </div>
       </div>
     </div>
 
-    <!-- Selector de Perfil de Usuario -->
-    <div style="padding:12px 14px; margin:10px 0 16px 0; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.38); border-radius:8px; box-shadow:0 3px 12px rgba(0,0,0,0.35);">
-      <label for="sel-perfil-usuario" style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#ffffff; display:block; margin-bottom:6px;">Perfil de Actor Territorial:</label>
-      <select id="sel-perfil-usuario" style="width:100%; font-size:0.82rem; padding:6px 8px; border:1.5px solid rgba(255,255,255,0.45); background:#070c18; color:#ffffff; border-radius:6px; font-weight:600;">
-        <option value="todos" selected>◈ Vista General Territorial</option>
-        <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
-        <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
-        <option value="voluntario">⌖ Voluntarios / Mapeadores OSM</option>
-        <option value="ong">🔬 Organizaciones No Gubernamentales (ONG)</option>
-      </select>
-      <div id="badge-perfil-info" style="font-size:0.75rem; margin-top:7px; color:#f8fafc; line-height:1.35; font-weight:500;">Herramientas adaptadas para gestión territorial integral.</div>
-    </div>
-
-    <ul class="capas-nav" id="lista-navegacion">
-      <li><button data-panel="inicio" aria-current="true"><span class="marcador">00</span> Visor y Atlas VGI</button></li>
-      <li><button data-panel="explorador-osm"><span class="marcador">01</span> Consultas y Explorador</button></li>
-      <li><button data-panel="calidad-ohsome"><span class="marcador">02</span> Calidad y Validación (ohsome & OSMCha)</button></li>
-      <li><button data-panel="biodiversidad-gbif"><span class="marcador">03</span> Biodiversidad (GBIF)</button></li>
-      <li><button data-panel="proyectos-umap"><span class="marcador">04</span> Cartografía UMap</button></li>
-      <li><button data-panel="metadatos-iso"><span class="marcador">05</span> Metadatos ISO 19115 / IDE</button></li>
-      <li><button data-panel="diccionario"><span class="marcador">06</span> Diccionario Territorial</button></li>
-      <li><button data-panel="licencias"><span class="marcador">07</span> Catálogos y Licencias (.xlsx)</button></li>
-      <li><button data-panel="manual"><span class="marcador">08</span> Manual de Uso y Documentación</button></li>
-    </ul>
-
-    <p class="estado-conexion" id="estado-conexion">Conectando a Overpass, ohsome y GBIF en vivo…</p>
-    <div class="badge-sincronizacion" id="badge-sincronizacion" style="display:none; margin: 4px 14px 12px 14px; font-size: 0.76rem; line-height: 1.35; padding: 5px 8px; border-radius: 4px; background: var(--papel-alto); border: 1px solid var(--musgo); color: var(--musgo-oscuro);"></div>
-  </nav>
-
-  <!-- ============ CONTENIDO PRINCIPAL ============ -->
-  <main class="contenido">
-    <!-- BARRA SUPERIOR DE PROFUNDIDAD (PESTAÑAS RÁPIDAS DE NAVEGACIÓN) -->
-    <nav class="barra-pestanas-profundidad" aria-label="Navegación directa entre capas y módulos">
-      <button type="button" class="pestana-nodo activa" data-panel="inicio"><span class="insignia-nodo">00</span> ◈ Visor Cartográfico</button>
+    <!-- Fila 2: Pestañas de Navegación Única de Módulos (00 al 08) -->
+    <nav class="barra-pestanas-profundidad" id="lista-navegacion" aria-label="Navegación directa entre capas y módulos">
+      <button type="button" class="pestana-nodo activa" data-panel="inicio" aria-current="true"><span class="insignia-nodo">00</span> ◈ Visor y Atlas VGI</button>
       <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">01</span> ⌕ Consultas Overpass</button>
       <button type="button" class="pestana-nodo" data-panel="calidad-ohsome"><span class="insignia-nodo">02</span> 📊 Calidad & ICV</button>
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
@@ -65,8 +45,21 @@
       <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
       <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (101 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
-      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual & Entregables</button>
+      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
     </nav>
+
+    <!-- Fila 3: Telemetría de APIs (remate y corte táctico de la caja, centrado) -->
+    <div class="franja-telemetria-coherencia">
+      <div class="franja-telemetria-interior">
+        <div class="telemetria-api-estado">
+          <p class="estado-conexion" id="estado-conexion">🟢 APIs en vivo: Overpass (OSM), ohsome (HeiGIT) y GBIF conectadas.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ CONTENIDO PRINCIPAL ============ -->
+  <main class="contenido">
 
     <!-- ---------- 00. VISOR Y ATLAS VGI (LEAFLET) ---------- -->
     <section class="panel activo" id="panel-inicio">
@@ -98,10 +91,20 @@
             <p>No utiliza bases precargadas estáticas. Conecta directamente a las APIs oficiales (Overpass QL, ohsome v1/v2, GBIF, Taginfo y OGC WMS) para extraer geometrías, métricas de calidad ISO 19157 y metadatos ISO 19115 al segundo de ejecución.</p>
           </div>
 
-          <div class="caja-tarjeta-hero">
-            <span class="icono-hero">🗫</span>
-            <h3>4 Perfiles Territoriales</h3>
-            <p>Herramientas adaptadas para Autoridades (SECPLAN/Muni), Vecinos/Juntas de Vecinos, Voluntarios/Mapeadores OSM y ONGs/Investigadores con exportación directa a GeoJSON (QGIS), CSV y Excel (.xlsx).</p>
+          <div class="caja-tarjeta-hero caja-tarjeta-perfil-actor">
+            <span class="icono-hero">◈</span>
+            <h3>Perfil de Actor Territorial</h3>
+            <div class="selector-actor-wrapper">
+              <label for="sel-perfil-usuario" class="sr-only">Seleccionar perfil de actor territorial:</label>
+              <select id="sel-perfil-usuario" aria-label="Seleccionar perfil de actor territorial">
+                <option value="todos" selected>◈ Vista General Territorial</option>
+                <option value="institucion">🏛 Autoridades / Instituciones (IDE/Muni)</option>
+                <option value="comunidad">🗫 Organizaciones Comunitarias / Vecinos</option>
+                <option value="voluntario">⌖ Mapeadores / Voluntarios OSM</option>
+                <option value="ong">🔬 ONG / Investigación & Academia</option>
+              </select>
+            </div>
+            <p id="badge-perfil-info">Herramientas adaptadas para gestión territorial integral. Acceso general a todas las funciones.</p>
           </div>
         </div>
       </header>
@@ -115,7 +118,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 74 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
+            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 110 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
@@ -292,12 +295,12 @@
             <div class="consola-insignia">CATÁLOGO MAESTRO CARTOGRÁFICO</div>
             <h3 class="consola-titulo">Consola de Control Cartográfico & Capas del Territorio</h3>
             <p class="consola-subtitulo">
-              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 112 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA y CONAF).
+              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 110 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA y CONAF).
             </p>
           </div>
           <div class="consola-header-metricas">
             <div class="kpi-consola">
-              <span class="kpi-valor" id="kpi-total-capas">122</span>
+              <span class="kpi-valor" id="kpi-total-capas">120</span>
               <span class="kpi-etiqueta">Capas Totales</span>
             </div>
             <div class="kpi-consola">
@@ -326,7 +329,7 @@
 
         <!-- Chips de Filtrado Temático Rápido -->
         <div class="consola-chips-filtro" id="contenedor-chips-filtro">
-          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (122)</button>
+          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (120)</button>
           <button type="button" class="chip-filtro" data-filtro="movilidad">Movilidad & Semáforos</button>
           <button type="button" class="chip-filtro" data-filtro="normativa">Normativa & Urbanismo</button>
           <button type="button" class="chip-filtro" data-filtro="demografia">Censo 2024 & Social</button>
@@ -339,7 +342,7 @@
         <!-- Navegación por Pestañas Segmentadas -->
         <div class="consola-pestanas-nav">
           <button type="button" class="pestana-capas activa" data-seccion="seccion-capas-oficiales">
-            Capas Oficiales del Estado <span class="badge-tab-conteo">112</span>
+            Capas Oficiales del Estado <span class="badge-tab-conteo">110</span>
           </button>
           <button type="button" class="pestana-capas" data-seccion="seccion-capas-vgi">
             Capas Colaborativas VGI (OSM/GBIF) <span class="badge-tab-conteo">10</span>

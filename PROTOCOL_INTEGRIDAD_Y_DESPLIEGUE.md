@@ -14,9 +14,9 @@ Este documento establece las directrices obligatorias de desarrollo, gestión de
    - En las descargas GeoJSON, CSV y consultas PostGIS se debe conservar el **100% de las columnas y campos de datos originales** sin truncar atributos estatales.
    - En los visores emergentes (popups de Leaflet) y panel lateral de "Más detalles", se presentan los atributos prioritarios para lectura rápida ciudadana (Nombre, Dirección, Institución, Comuna, Tipología, Cita APA), alertando explícitamente cuando las columnas se resumen y proveyendo botón de descarga directa de la capa completa con el 100% de sus variables originales.
 
-3. **Catálogo Maestro de 112 Capas Oficiales (+ 10 Capas VGI = 122 Capas Totales)**:
-   - El catálogo maestro oficial se encuentra implementado en `src/js/modulos/ide_chile.js`, estructurado en 7 macro-grupos temáticos en la Consola Cartográfica GIS con búsqueda en vivo, filtros y acordeones interactivos. Incluye el catastro oficial de cruces semaforizados SC-RM (UOCT / MTT, Oficio N° 26105 / 2026).
-   - La base de datos relacional almacena la totalidad de metadatos en la tabla `public.capas_metadata` (112 registros con citas APA e inventario de atributos) y vectoriza **132.745+ entidades espaciales** en `public.capas_entidades`.
+3. **Catálogo Maestro de 110 Capas Oficiales (+ 10 Capas VGI = 120 Capas Totales)**:
+   - El catálogo maestro oficial se encuentra implementado en `src/js/modulos/ide_chile.js`, estructurado en 6 macro-grupos temáticos en la Consola Cartográfica GIS con búsqueda en vivo, filtros y acordeones interactivos. Incluye el catastro oficial de cruces semaforizados SC-RM (UOCT / MTT, Oficio N° 26105 / 2026).
+   - La base de datos relacional almacena la totalidad de metadatos en la tabla `public.capas_metadata` (110 registros con citas APA e inventario de atributos) y vectoriza **132.745+ entidades espaciales** en `public.capas_entidades`.
 
 4. **Garantía Binaria Git LFS y Auditoría Pre-Despliegue**:
    - Ningún conjunto de datos en `data/`, `src/data/` o `src/docs/` puede desplegarse como puntero de texto Git LFS sin resolver (130 bytes).
