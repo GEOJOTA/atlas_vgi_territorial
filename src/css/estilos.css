@@ -234,6 +234,57 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   z-index: 1000;
 }
 
+/* ==========================================================================
+   PANELES DE ACENTO BLANCOS DINÁMICOS EN FLANCOS DE CABECERA
+   ========================================================================== */
+
+.panel-acento-dinamico {
+  position: absolute;
+  top: 18px;
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35), inset 0 0 14px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: 5;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-acento-izq {
+  left: clamp(16px, 2.8vw, 64px);
+}
+
+.panel-acento-der {
+  right: clamp(16px, 2.8vw, 64px);
+}
+
+.panel-acento-izq::before {
+  content: '◈';
+  color: #ffffff;
+  font-size: 1.25rem;
+  opacity: 0.85;
+}
+
+.panel-acento-der::before {
+  content: '⌖';
+  color: var(--musgo);
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+/* Ocultar dinámicamente en resoluciones intermedias/estrechas para evitar solapamientos */
+@media (max-width: 1480px) {
+  .panel-acento-dinamico {
+    display: none !important;
+  }
+}
+
 .barra-pestanas-profundidad {
   display: flex;
   flex-wrap: wrap;
