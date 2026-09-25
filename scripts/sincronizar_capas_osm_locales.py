@@ -40,12 +40,17 @@ def main():
         orig_path = os.path.join(SRC_DATA_DIR, f_orig)
         
         feats = []
-        if os.path.exists(orig_path) and os.path.getsize(orig_path) > 500:
-            with open(orig_path, "r", encoding="utf-8") as f:
+        data_dest_path = os.path.join(DATA_DIR, f_dest)
+        if os.path.exists(data_dest_path) and os.path.getsize(data_dest_path) > 500:
+            with open(data_dest_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 feats = data.get("features", [])
         elif os.path.exists(src_path) and os.path.getsize(src_path) > 500:
             with open(src_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                feats = data.get("features", [])
+        elif os.path.exists(orig_path) and os.path.getsize(orig_path) > 500:
+            with open(orig_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 feats = data.get("features", [])
 
