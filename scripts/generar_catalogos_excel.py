@@ -733,7 +733,7 @@ def crear_categorias_tematicas_osm():
         "Cód.", "Categoría Temática", "Subcategorías y Alcance Territorial en Chile",
         "Etiquetas OSM Principales (Key=Value)", "Tipo Geometría",
         "Filtro Overpass QL Sugerido", "Frecuencia y Relevancia en Chile (Taginfo)",
-        "Organismo Rector / Contraparte Estatal", "Aplicación Territorial (Barrio Brasil / UAH)",
+        "Organismo Rector / Contraparte Estatal",
         "Cita Bibliográfica Abreviada (APA 7ª ed.)"
     ]
     
@@ -756,8 +756,7 @@ def crear_categorias_tematicas_osm():
             'nwr["amenity"~"university|college|school|kindergarten|library"]({{bbox}});',
             "Muy Alta (>15.000 entidades educativas en Chile según Taginfo y MINEDUC)",
             "Ministerio de Educación (MINEDUC), Superintendencia de Educación Superior, JUNJI, Fundación Integra",
-            "Campus Central y Facultades UAH (Almirante Barroso, Cienfuegos, Erasmo Escala), Casa Central UDP, USACH, Liceo Amunátegui.",
-            "(MINEDUC, 2023; IDE Chile / SNIT, 2024; WikiProject Chile, 2024)"
+            "(MINEDUC, s/f.; IDE Chile / SNIT, 2024; WikiProject Chile, 2024)"
         ],
         [
             "CAT-02",
@@ -768,8 +767,7 @@ def crear_categorias_tematicas_osm():
             'nwr["amenity"~"clinic|hospital|pharmacy|bank|marketplace|restaurant|cafe"]({{bbox}}); nwr["shop"~"bakery|convenience|supermarket"]({{bbox}});',
             "Muy Alta (>80.000 comercios y servicios registrados en Taginfo Chile)",
             "Ministerio de Salud (MINSAL), FONASA, SERCOTEC, I. Municipalidad de Santiago",
-            "Hospital San Juan de Dios, Posta Central, CESFAM N° 1, farmacias en Alameda y Av. Brasil, panaderías en Huérfanos y Maturana.",
-            "(MINSAL, 2023; INE, 2021; SERCOTEC, 2022)"
+            "(MINSAL, s/f.; INE, s/f.; SERCOTEC, s/f.)"
         ],
         [
             "CAT-03",
@@ -780,8 +778,7 @@ def crear_categorias_tematicas_osm():
             'node["railway"="station"]({{bbox}}); node["railway"="subway_entrance"]({{bbox}}); node["highway"="bus_stop"]({{bbox}}); way["railway"="subway"]({{bbox}});',
             "Muy Alta (>25.000 paradas Red y 143 estaciones de Metro activas en RM)",
             "Directorio de Transporte Público Metropolitano (DTPM), Ministerio de Transportes y Telecomunicaciones (MTT), Metro S.A.",
-            "Intermodal Metro Los Héroes (L1/L2), Metro Santa Ana (L2/L5), Metro Cumming (L5), paraderos troncales PA347 y PA377 en Alameda y Manuel Rodríguez.",
-            "(DTPM & MTT, 2023; Metro de Santiago, 2024; Taginfo Chile, 2026)"
+            "(DTPM, 2023; Metro de Santiago, s/f.; Taginfo Chile, s/f.)"
         ],
         [
             "CAT-04",
@@ -792,8 +789,7 @@ def crear_categorias_tematicas_osm():
             'way["highway"="cycleway"]({{bbox}}); way["cycleway"]({{bbox}}); node["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});',
             "Alta (>800 km de ciclovías en Gran Santiago con acelerada expansión post-pandemia)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Manual de Vialidad Cicloinclusiva), MTT, GORE Metropolitano",
-            "Ciclovía patrimonial calle Rosas, ciclobanda Av. Brasil, cicloestacionamientos en patios de facultades UAH y salidas de Metro.",
-            "(MINVU, 2020; MTT, 2021; WikiProject Chile, 2024)"
+            "(MINVU, 2020; MTT, s/f.; WikiProject Chile, 2024)"
         ],
         [
             "CAT-05",
@@ -804,8 +800,7 @@ def crear_categorias_tematicas_osm():
             'way["leisure"~"park|playground|pitch|fitness_station"]({{bbox}}); relation["leisure"="park"]({{bbox}}); node["amenity"="bench"]({{bbox}});',
             "Muy Alta (>12.000 plazas, parques y canchas georreferenciadas en Taginfo Chile)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Política Nacional de Parques Urbanos), Instituto Nacional de Deportes (IND), Municipios",
-            "Plaza Brasil (hito central con juegos de Federica Matta), Plaza Manuel Rodríguez, multicancha JJVV Barrio Brasil, bandejón Alameda Bernardo O'Higgins.",
-            "(MINVU, 2021; INE, 2017; IDE Chile / SNIT, 2024)"
+            "(MINVU, 2021; INE, s/f.; IDE Chile / SNIT, 2024)"
         ],
         [
             "CAT-06",
@@ -816,8 +811,7 @@ def crear_categorias_tematicas_osm():
             'nwr["historic"]({{bbox}}); nwr["heritage"]({{bbox}}); nwr["amenity"~"arts_centre|theatre|place_of_worship"]({{bbox}}); nwr["tourism"="museum"]({{bbox}});',
             "Alta (Alta concentración protegida por Ley N° 17.288 en Santiago Poniente)",
             "Consejo de Monumentos Nacionales (CMN), Ministerio de las Culturas, las Artes y el Patrimonio (MINCAP), Dirección de Obras Municipales (DOM)",
-            "Zona Típica Barrio Brasil (Decreto N° 433/1990), Casonas UAH, Basílica del Salvador, Cité Lucrecia Valdés, Galpón Víctor Jara, Museo de la Educación.",
-            "(CMN & MINCAP, 2022; Municipalidad de Santiago, 2019; Ley N° 17.288)"
+            "(CMN & MINCAP, s/f.; Municipalidad de Santiago, 2019; Ley N° 17.288)"
         ],
         [
             "CAT-07",
@@ -828,8 +822,7 @@ def crear_categorias_tematicas_osm():
             'node["kerb"~"lowered|flush"]({{bbox}}); node["highway"="crossing"]({{bbox}}); node["traffic_signals:sound"="yes"]({{bbox}}); nwr["wheelchair"~"yes|limited|no"]({{bbox}});',
             "Creciente y Estratégica (Estándar mandatorio según OGUC Art. 2.2.8 en Chile)",
             "Servicio Nacional de la Discapacidad (SENADIS), Ministerio de Vivienda y Urbanismo (MINVU), Ministerio de Desarrollo Social y Familia",
-            "Rebajes de cordón en Alameda esquina Cienfuegos y Barroso, accesos a nivel a estaciones Metro Los Héroes y Santa Ana, veredas de manzana UAH.",
-            "(MINVU, 2016 [D.S. 50]; SENADIS, 2021; ISO 21542:2021)"
+            "(MINVU, 2016 [D.S. 50]; SENADIS, s/f.; ISO 21542:2021)"
         ],
         [
             "CAT-08",
@@ -840,8 +833,7 @@ def crear_categorias_tematicas_osm():
             'node["natural"="tree"]({{bbox}}); way["natural"="wood"]({{bbox}}); /* + GBIF API Occurrence bbox */',
             "Muy Alta (>300.000 árboles georreferenciados en OSM Chile y >1.5M registros GBIF en Chile)",
             "Corporación Nacional Forestal (CONAF - Arbolado Urbano), Ministerio del Medio Ambiente (MMA), GBIF Chile / Nodo Nacional",
-            "Plátanos orientales (Platanus orientalis), jacarandás (Jacaranda mimosifolia), palmas chilenas (Jubaea chilensis), pimientos y quillayes en Av. Brasil y Alameda; avifauna: chincol (Zonotrichia capensis), zorzal (Turdus falcklandii).",
-            "(CONAF, 2019; MMA, 2022; GBIF Secretariat, 2024; TDWG, 2023)"
+            "(CONAF, 2019; MMA, s/f.; GBIF Secretariat, 2024; TDWG, 2023)"
         ],
         [
             "CAT-09",
@@ -852,8 +844,7 @@ def crear_categorias_tematicas_osm():
             'nwr["building"]({{bbox}});',
             "Muy Alta (>4.500.000 huellas de edificios mapeadas en Chile vía OSM y proyectos comunitarios)",
             "Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces), Dirección de Obras Municipales (DOM), IDE Chile / MINVU",
-            "Huellas construidas de la manzana UAH (Campus Barroso/Erasmo Escala), casonas patrimoniales de Barrio Brasil, torres residenciales y equipamientos cívicos.",
-            "(IDE Chile / SNIT, 2024; SII, 2023; WikiProject Chile, 2024)"
+            "(IDE Chile / SNIT, 2024; SII, s/f.; WikiProject Chile, 2024)"
         ],
         [
             "CAT-10",
@@ -864,8 +855,7 @@ def crear_categorias_tematicas_osm():
             'nwr["landuse"]({{bbox}}); nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});',
             "Alta (>500.000 polígonos de zonificación y usos de suelo a nivel nacional en OSM)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Planes Reguladores Comunales e Intercomunales), IDE Chile, I. Municipalidad de Santiago",
-            "Zonificación funcional del Campus Universitario UAH, áreas residenciales consolidadas de Barrio Brasil, recintos recreativos de Plaza Brasil y suelos de conservación.",
-            "(MINVU, 2017; IDE Chile / SNIT, 2024; OGC, 2023)"
+            "(MINVU, s/f.; IDE Chile / SNIT, 2024; OGC, 2023)"
         ]
     ]
     

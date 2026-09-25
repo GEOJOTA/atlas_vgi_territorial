@@ -134,7 +134,7 @@ const ModuloLicencias = (() => {
           </div>
           <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
             <strong>3. Taxonomía de Categorías Temáticas OSM y Bibliografía APA (4 Hojas):</strong><br>
-            <span class="descripcion">Libro maestro que incluye: Hoja 1 (Categorías Maestras CAT-01 a CAT-08), Hoja 2 (Catálogo de 118 Descriptores Chile con etiquetas OSM y Darwin Core de GBIF: 37 capas oficiales vs 81 brechas VGI), Hoja 3 (Diccionario de Atributos VGI con cálculo métrico EPSG:32719) y Hoja 4 (Aparato Bibliográfico de 104 fuentes en norma APA 7ª ed.).</span><br>
+            <span class="descripcion">Libro maestro que incluye: Hoja 1 (Categorías Maestras CAT-01 a CAT-10), Hoja 2 (Catálogo de Etiquetas Chile con especificación de atributos y geometrías recomendadas), Hoja 3 (Diccionario de Atributos VGI con cálculo métrico EPSG:32719) y Hoja 4 (Aparato Bibliográfico de 125 fuentes en norma APA 7ª ed.).</span><br>
             <a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion" style="display:inline-block; margin-top:8px; font-size:0.82rem; text-decoration:none; padding:4px 12px;">📊 Descargar categorias_tematicas_osm.xlsx (Maestro)</a>
           </div>
         </div>
