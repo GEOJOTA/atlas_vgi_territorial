@@ -249,7 +249,7 @@ const ModuloEvaluadorNormativo = (() => {
     }
 
     // 4. Límite Urbano Oficial
-    const capaLU = capas['minvu_ipt_limite_urbano'] || capas['limite_urbano_censal'] || capas['capa_ipt_limite_urbano'];
+    const capaLU = capas['minvu_ipt_limite_urbano'] || capas['censo2024_limite_urbano'] || capas['capa_ipt_limite_urbano'];
     if (capaLU && capaLU.features) {
       for (let f of capaLU.features) {
         if (puntoEnGeometria(lng, lat, f.geometry)) {

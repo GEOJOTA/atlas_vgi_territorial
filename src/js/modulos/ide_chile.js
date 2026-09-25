@@ -161,38 +161,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Polígonos oficiales del Programa de Recuperación de Barrios Patrimoniales del MINVU.',
       citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Delimitación Oficial de Barrios Históricos. Secretaría Ejecutiva de Barrios, MINVU. https://geoide.minvu.cl/server/rest/services/Planes_Programas/Barrios_Historicos/MapServer'
     },
-    educacion_superior: {
-      id: 'educacion_superior',
-      nombre: 'Educación Superior (MINEDUC)',
-      institucion: 'Ministerio de Educación (MINEDUC) / IDE Chile',
-      ministerio: 'Subsecretaría de Educación Superior',
-      tipoServicio: 'Geoportal de Chile (Shapefile Oficial)',
-      urlServicio: 'https://www.geoportal.cl/geoportal/catalog/download/0dde8427-113a-356a-bace-ed4d51ddcb05',
-      archivoLocal: 'data/ide_educacion_superior.geojson',
-      color: '#1C523A',
-      icono: '🏫',
-      geometria: 'Puntos (Sedes Universitarias)',
-      grupo: 'educacion',
-      descripcion: 'Catastro oficial de universidades, institutos profesionales y centros de formación técnica (incluyendo sedes de la Universidad Alberto Hurtado y planteles de Barrio Brasil/Santiago Centro).',
-      declaracion: 'Catastro Oficial de Instituciones de Educación Superior publicado por el MINEDUC en Geoportal de Chile.',
-      citaAPA: 'Ministerio de Educación [MINEDUC]. (2024). Catastro Nacional de Instituciones y Sedes de Educación Superior. Geoportal de Chile / IDE Chile. https://www.geoportal.cl'
-    },
-    educacion_escolar: {
-      id: 'educacion_escolar',
-      nombre: 'Colegios y Liceos (MINEDUC)',
-      institucion: 'Ministerio de Educación (MINEDUC) / IDE Chile',
-      ministerio: 'Subsecretaría de Educación',
-      tipoServicio: 'Geoportal de Chile (Shapefile Oficial)',
-      urlServicio: 'https://www.geoportal.cl/geoportal/catalog/download/d6bf9431-3282-3738-bd69-baf0d1ad63ec',
-      archivoLocal: 'data/ide_educacion_escolar.geojson',
-      color: '#285B75',
-      icono: '🏫',
-      geometria: 'Puntos (Establecimientos)',
-      grupo: 'educacion',
-      descripcion: 'Establecimientos de educación básica y media de Santiago Centro con información de dependencia, RBD y matrícula.',
-      declaracion: 'Datos abiertos de infraestructura escolar distribuidos por el MINEDUC e IDE Chile.',
-      citaAPA: 'Ministerio de Educación [MINEDUC]. (2024). Directorio Oficial de Establecimientos de Educación Escolar. IDE Chile / Geoportal. https://www.geoportal.cl'
-    },
     educacion_parvularia: {
       id: 'educacion_parvularia',
       nombre: 'Jardines y Salas Cuna (JUNJI / Integra)',
@@ -305,22 +273,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Conjunto publicado en el Portal de Datos Abiertos del Estado (datos.gob.cl) y Geoportal de Chile.',
       citaAPA: 'Consejo de Monumentos Nacionales [CMN]. (2024). Sitios de Memoria y Monumentos Nacionales con Declaratoria Oficial. Portal de Datos Abiertos del Estado de Chile. https://datos.gob.cl'
     },
-    limite_urbano_censal: {
-      id: 'limite_urbano_censal',
-      nombre: 'Límite Urbano Censal (INE)',
-      institucion: 'Instituto Nacional de Estadísticas (INE) / IDE Chile',
-      ministerio: 'Ministerio de Economía, Fomento y Turismo',
-      tipoServicio: 'ArcGIS FeatureServer',
-      urlServicio: 'https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/Limite_Urbano_Censal/FeatureServer/0',
-      archivoLocal: 'data/ide_limite_urbano_censal.geojson',
-      color: '#3B5998',
-      icono: '⛶',
-      geometria: 'Polígono (Límite Urbano)',
-      grupo: 'demografia',
-      descripcion: 'Delimitación oficial del área urbana censal de la comuna de Santiago.',
-      declaracion: 'Cartografía base de límites urbanos del Instituto Nacional de Estadísticas e IDE Chile.',
-      citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2024). Límite Urbano Censal de Chile. Secretaría Ejecutiva SNIT / IDE Chile. https://services5.arcgis.com'
-    },
     minvu_ipt_prc_santiago: {
       id: 'minvu_ipt_prc_santiago',
       nombre: 'Planes Reguladores Comunales (PRC - RM): Zonificación Comunal',
@@ -432,38 +384,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información oficial provista por el Departamento de Asentamientos Precarios del MINVU bajo la Política Nacional de Campamentos.',
       citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Nacional Oficial de Campamentos 2024. Secretaría Ejecutiva SNIT / IDE Chile. https://geoide.minvu.cl/server/rest/services/Catastros/Catastros_campamentos/MapServer/0'
     },
-    ide_minvu_condominios_sociales: {
-      id: 'ide_minvu_condominios_sociales',
-      nombre: 'Condominios Sociales (MINVU)',
-      institucion: 'MINVU / División de Desarrollo Urbano',
-      ministerio: 'Ministerio de Vivienda y Urbanismo',
-      tipoServicio: 'ArcGIS MapServer',
-      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Catastros/Catastro_de_condominios_sociales/MapServer/0',
-      archivoLocal: 'data/ide_minvu_condominios_sociales.geojson',
-      color: '#D97706',
-      icono: '🏙',
-      geometria: 'Puntos y Polígonos (Copropiedades)',
-      grupo: 'social_comunidades',
-      descripcion: 'Catastro nacional de condominios sociales y copropiedades habitacionales públicas construidas bajo la Ley de Copropiedad Inmobiliaria (Ley N° 21.442).',
-      declaracion: 'Catastro provisto por la División de Desarrollo Urbano del MINVU conforme al Registro de Condominios Sociales.',
-      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Nacional de Condominios Sociales. DDU, MINVU. https://geoide.minvu.cl/server/rest/services/Catastros/Catastro_de_condominios_sociales/MapServer/0'
-    },
-    ide_minvu_inventario_humedales: {
-      id: 'ide_minvu_inventario_humedales',
-      nombre: 'Inventario de Humedales (MMA / MINVU)',
-      institucion: 'Ministerio del Medio Ambiente (MMA) / MINVU',
-      ministerio: 'División de Recursos Naturales y Biodiversidad',
-      tipoServicio: 'ArcGIS MapServer',
-      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Inventario_de_Humedales/MapServer/0',
-      archivoLocal: 'data/ide_minvu_inventario_humedales.geojson',
-      color: '#0284C7',
-      icono: '💧',
-      geometria: 'Polígonos (Humedales Urbanos y Rurales)',
-      grupo: 'medio_ambiente_riesgos',
-      descripcion: 'Inventario oficial de humedales urbanos y ecosistemas acuáticos continentales protegidos bajo la Ley N° 21.202 y su reglamento.',
-      declaracion: 'Catastro consolidado por el Ministerio del Medio Ambiente y la División de Desarrollo Urbano del MINVU para salvaguarda ambiental e IPT.',
-      citaAPA: 'Ministerio del Medio Ambiente [MMA] & MINVU. (2024). Inventario Nacional de Humedales y Humedales Urbanos Protegidos (Ley N° 21.202). IDE Chile. https://geoide.minvu.cl/server/rest/services/Inventario_de_Humedales/MapServer/0'
-    },
     ide_minvu_unidades_vecinales_rsh: {
       id: 'ide_minvu_unidades_vecinales_rsh',
       nombre: 'Unidades Vecinales & RSH (MDS / MINVU)',
@@ -512,88 +432,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Cartografía base oficial de la República de Chile provista por SUBDERE, INE e Instituto Geográfico Militar (IGM).',
       citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE] & IGM. (2024). División Político Administrativa Oficial de Chile (DPA). IDE Chile. https://services5.arcgis.com/hUyD8u3TeZLKPe4T/ArcGIS/rest/services/SIET_comunas_16R_gdb/FeatureServer/0'
     },
-    ide_minvu_ciclovias: {
-      id: 'ide_minvu_ciclovias',
-      nombre: 'Red Oficial de Ciclovías (MINVU / DTPM)',
-      institucion: 'Ministerio de Vivienda y Urbanismo (MINVU) / DTPM',
-      ministerio: 'División de Desarrollo Urbano (DDU)',
-      tipoServicio: 'ArcGIS MapServer',
-      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Planes_Programas/Ciclov%C3%ADas_Minvu/MapServer/0',
-      archivoLocal: 'data/ide_minvu_ciclovias.geojson',
-      color: '#10B981',
-      icono: '🚲',
-      geometria: 'Líneas (Ciclovías Consolidadas)',
-      grupo: 'movilidad_activa',
-      descripcion: 'Ejes de ciclovías consolidadas y de alto estándar normadas por MINVU bajo la Ley de Convivencia Vial (Ley N° 21.088).',
-      declaracion: 'Catastro de infraestructura vial cicloinclusiva oficial administrado por MINVU y DTPM.',
-      citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Red Nacional de Ciclovías Urbanas de Chile. IDE Chile / Planes y Programas MINVU. https://geoide.minvu.cl/server/rest/services/Planes_Programas/Ciclov%C3%ADas_Minvu/MapServer/0'
-    },
-    salud_oficial_2026: {
-      id: 'salud_oficial_2026',
-      nombre: 'Establecimientos de Salud Febrero 2026 (DEIS / MINSAL)',
-      institucion: 'Ministerio de Salud (MINSAL) / DEIS',
-      ministerio: 'Subsecretaría de Redes Asistenciales',
-      tipoServicio: 'DEIS / MINSAL (Actualización 2026)',
-      urlServicio: 'https://datos.gob.cl',
-      archivoLocal: 'data/capa_salud_oficial.geojson',
-      color: '#EF4444',
-      icono: '🏥',
-      geometria: 'Puntos (Establecimientos)',
-      grupo: 'salud',
-      descripcion: 'Red oficial de salud asistencial (CESFAM, Hospitales, Postas y CECOSF) en la comuna de Santiago.',
-      declaracion: 'Catastro Oficial DEIS MINSAL Febrero 2026.',
-      citaAPA: 'Ministerio de Salud [MINSAL]. (2026). Registro Nacional de Establecimientos de Salud (DEIS). https://datos.gob.cl'
-    },
-    jardines_junji_integra: {
-      id: 'jardines_junji_integra',
-      nombre: 'Jardines Infantiles JUNJI & Integra',
-      institucion: 'JUNJI / Fundación Integra / MINEDUC',
-      ministerio: 'Subsecretaría de Educación Parvularia',
-      tipoServicio: 'Geoportal de Chile',
-      urlServicio: 'https://www.geoportal.cl',
-      archivoLocal: 'data/capa_jardines_junji.geojson',
-      color: '#8B5CF6',
-      icono: '👶',
-      geometria: 'Puntos (Jardines)',
-      grupo: 'educacion',
-      descripcion: 'Salas cuna y jardines infantiles de JUNJI y Fundación Integra en Santiago.',
-      declaracion: 'Directorio Oficial de Educación Parvularia.',
-      citaAPA: 'Subsecretaría de Educación Parvularia. (2026). Directorio de Educación Parvularia. Geoportal de Chile.'
-    },
-    infraestructura_deportiva: {
-      id: 'infraestructura_deportiva',
-      nombre: 'Infraestructura Deportiva (IND / MINDEP)',
-      institucion: 'Instituto Nacional del Deporte (IND) / MINDEP',
-      ministerio: 'Ministerio del Deporte',
-      tipoServicio: 'Geoportal de Chile',
-      urlServicio: 'https://www.geoportal.cl',
-      archivoLocal: 'data/capa_infraestructura_deportiva.geojson',
-      color: '#06B6D4',
-      icono: '⚽',
-      geometria: 'Puntos y Polígonos',
-      grupo: 'espacio_publico',
-      descripcion: 'Recintos deportivos, multicanchas y estadios catastrados por el Instituto Nacional del Deporte.',
-      declaracion: 'Catastro Oficial de Infraestructura Deportiva IND.',
-      citaAPA: 'Instituto Nacional del Deporte [IND]. (2026). Catastro de Recintos Deportivos. Geoportal de Chile.'
-    },
-    ferias_libres: {
-      id: 'ferias_libres',
-      nombre: 'Ferias Libres y Mercados Locales',
-      institucion: 'ODEPA / I. Municipalidad de Santiago',
-      ministerio: 'Ministerio de Agricultura / Municipal',
-      tipoServicio: 'Geoportal de Chile',
-      urlServicio: 'https://www.geoportal.cl',
-      archivoLocal: 'data/capa_ferias_libres.geojson',
-      color: '#F97316',
-      icono: '🧺',
-      geometria: 'Puntos (Ferias Libres)',
-      grupo: 'servicios',
-      descripcion: 'Ferias libres, mercados de barrio y puestos de abastecimiento tradicional en la comuna de Santiago.',
-      declaracion: 'Catastro Oficial de Ferias Libres ODEPA / MINAGRI.',
-      citaAPA: 'ODEPA & I. Municipalidad de Santiago. (2026). Catastro de Ferias Libres. Geoportal de Chile.'
-    },
-
-    // =========================================================================,
 
     // =========================================================================
     // CAPAS CATASTRADAS EN BBDD.XLSX (74 CAPAS ESTADO DE CHILE)
@@ -742,24 +580,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
       citaAPA: "Estado de Chile. (2026). Municipios (Capa N° 08). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35603/Municipios"
     },
-    'bbdd_09': {
-      id: 'bbdd_09',
-      num_bbdd: 9,
-      nombre: "Cuarteles de Bomberos",
-      institucion: "Estado de Chile / IDE Chile / geoportal.cl",
-      ministerio: 'Organismo Público del Estado de Chile',
-      tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
-      urlServicio: "https://geoportal.cl/geoportal/catalog/35003/Cuarteles%20de%20Carabineros",
-      archivoLocal: 'data/capa_bbdd_09.geojson',
-      color: '#F59E0B',
-      icono: '🛡️',
-      geometria: 'Vectorial / Tabular Georreferenciada',
-      grupo: 'seguridad',
-      joinInfo: "ORIGINAL",
-      descripcion: "Capa cartográfica e indicador territorial N° 09: Cuarteles de Bomberos. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
-      declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
-      citaAPA: "Estado de Chile. (2026). Cuarteles de Bomberos (Capa N° 09). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35003/Cuarteles%20de%20Carabineros"
-    },
     'bbdd_10': {
       id: 'bbdd_10',
       num_bbdd: 10,
@@ -867,24 +687,6 @@ const ModuloIDEChile = (() => {
       descripcion: "Capa cartográfica e indicador territorial N° 15: Centros de SERNAM. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
       declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
       citaAPA: "Estado de Chile. (2026). Centros de SERNAM (Capa N° 15). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35000/Centros%20de%20SERNAM"
-    },
-    'bbdd_16': {
-      id: 'bbdd_16',
-      num_bbdd: 16,
-      nombre: "Ferias Libres",
-      institucion: "Estado de Chile / IDE Chile / geoportal.cl",
-      ministerio: 'Organismo Público del Estado de Chile',
-      tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
-      urlServicio: "https://geoportal.cl/geoportal/catalog/35097/Ferias%20Libres",
-      archivoLocal: 'data/capa_bbdd_16.geojson',
-      color: '#F97316',
-      icono: '💰',
-      geometria: 'Vectorial / Tabular Georreferenciada',
-      grupo: 'economico_agricola',
-      joinInfo: "ORIGINAL",
-      descripcion: "Capa cartográfica e indicador territorial N° 16: Ferias Libres. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
-      declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
-      citaAPA: "Estado de Chile. (2026). Ferias Libres (Capa N° 16). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35097/Ferias%20Libres"
     },
     'bbdd_17': {
       id: 'bbdd_17',
@@ -1084,24 +886,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
       citaAPA: "Estado de Chile. (2026). Estaciones de Calidad de Aguas (Capa N° 27). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35154/Estaciones%20de%20calidad%20de%20aguas"
     },
-    'bbdd_28': {
-      id: 'bbdd_28',
-      num_bbdd: 28,
-      nombre: "Establecimientos de Salud Febrero 2026",
-      institucion: "Estado de Chile / IDE Chile / geoportal.cl",
-      ministerio: 'Organismo Público del Estado de Chile',
-      tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
-      urlServicio: "https://geoportal.cl/geoportal/catalog/37171/Establecimientos%20de%20salud%20de%20Chile%20Febrero%202026",
-      archivoLocal: 'data/capa_bbdd_28.geojson',
-      color: '#EF4444',
-      icono: '🏥',
-      geometria: 'Vectorial / Tabular Georreferenciada',
-      grupo: 'salud',
-      joinInfo: "ORIGINAL",
-      descripcion: "Capa cartográfica e indicador territorial N° 28: Establecimientos de Salud Febrero 2026. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
-      declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
-      citaAPA: "Estado de Chile. (2026). Establecimientos de Salud Febrero 2026 (Capa N° 28). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/37171/Establecimientos%20de%20salud%20de%20Chile%20Febrero%202026"
-    },
     'bbdd_29': {
       id: 'bbdd_29',
       num_bbdd: 29,
@@ -1227,24 +1011,6 @@ const ModuloIDEChile = (() => {
       descripcion: "Capa cartográfica e indicador territorial N° 35: Antenas en Servicio Ley de Torres. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
       declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
       citaAPA: "Estado de Chile. (2026). Antenas en Servicio Ley de Torres (Capa N° 35). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35911/Antenas%20en%20Servicio%20Ley%20de%20Torres"
-    },
-    'bbdd_36': {
-      id: 'bbdd_36',
-      num_bbdd: 36,
-      nombre: "Curva de 10m",
-      institucion: "Estado de Chile / IDE Chile / geoportal.cl",
-      ministerio: 'Organismo Público del Estado de Chile',
-      tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
-      urlServicio: "https://geoportal.cl/geoportal/catalog/35655/Curva%20de%2010m",
-      archivoLocal: 'data/capa_bbdd_36.geojson',
-      color: '#64748B',
-      icono: '🏛️',
-      geometria: 'Vectorial / Tabular Georreferenciada',
-      grupo: 'equipamiento_infraestructura',
-      joinInfo: "ORIGINAL",
-      descripcion: "Capa cartográfica e indicador territorial N° 36: Curva de 10m. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
-      declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
-      citaAPA: "Estado de Chile. (2026). Curva de 10m (Capa N° 36). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35655/Curva%20de%2010m"
     },
     'bbdd_37': {
       id: 'bbdd_37',
@@ -1389,24 +1155,6 @@ const ModuloIDEChile = (() => {
       descripcion: "Capa cartográfica e indicador territorial N° 44: Municipios con certificación ambiental (SCAM). Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
       declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
       citaAPA: "Estado de Chile. (2026). Municipios con certificación ambiental (SCAM) (Capa N° 44). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35656/Municipios%20con%20certificaci%C3%B3n%20ambiental%20%28SCAM%29"
-    },
-    'bbdd_45': {
-      id: 'bbdd_45',
-      num_bbdd: 45,
-      nombre: "Nivel de erosión",
-      institucion: "Estado de Chile / IDE Chile / geoportal.cl",
-      ministerio: 'Organismo Público del Estado de Chile',
-      tipoServicio: 'Vectorial GeoJSON / Tabular BIDAT / OGC WMS',
-      urlServicio: "https://geoportal.cl/geoportal/catalog/35651/Nivel%20de%20erosi%C3%B3n",
-      archivoLocal: 'data/capa_bbdd_45.geojson',
-      color: '#10B981',
-      icono: '🌳',
-      geometria: 'Vectorial / Tabular Georreferenciada',
-      grupo: 'medio_ambiente_riesgos',
-      joinInfo: "ORIGINAL",
-      descripcion: "Capa cartográfica e indicador territorial N° 45: Nivel de erosión. Catastrada e integrada al Atlas VGI con respaldo de metadatos estandarizados.",
-      declaracion: 'Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.',
-      citaAPA: "Estado de Chile. (2026). Nivel de erosión (Capa N° 45). IDE Chile / Geoportal. https://geoportal.cl/geoportal/catalog/35651/Nivel%20de%20erosi%C3%B3n"
     },
     'bbdd_46': {
       id: 'bbdd_46',
@@ -2208,24 +1956,6 @@ const ModuloIDEChile = (() => {
           'Viviendas': props.NRO_VIV || '-',
           'Año Inicio': props.A_INICIO || '2012'
         };
-      } else if (idCapa === 'educacion_superior') {
-        nombreEntidad = props.NOMBRE_INS || props.NOMBRE_INM || props.NOMBRE || 'Institución de Educación Superior';
-        detalleTipo = props.TIPO_INST || 'Universidad / IP / CFT';
-        extraInfo = {
-          'Tipo Institución': detalleTipo,
-          'Sede / Inmueble': props.NOMBRE_INM || '-',
-          'Dirección': `${props.DIRECCION || ''} ${props.NUMERO_DI || ''}`.trim() || 'Santiago',
-          'Comuna': props.COMUNA || 'Santiago'
-        };
-      } else if (idCapa === 'educacion_escolar') {
-        nombreEntidad = props.NOM_RBD || props.NOMBRE || 'Establecimiento Escolar';
-        detalleTipo = props.PAGO || props.DEPENDENCIA || 'Colegio / Escuela';
-        extraInfo = {
-          'RBD': props.RBD || '-',
-          'Dependencia': detalleTipo,
-          'Dirección': `${props.DIRECCION || ''} ${props.NUMERO || ''}`.trim() || 'Santiago',
-          'Comuna': props.COMUNA || 'Santiago'
-        };
       } else if (idCapa === 'educacion_parvularia') {
         nombreEntidad = props.NOM_EST || props.NOMBRE || 'Jardín Infantil';
         detalleTipo = props.ADMIN || props.TIPO || 'Educación Parvularia';
@@ -2281,13 +2011,6 @@ const ModuloIDEChile = (() => {
           'Decreto': props.decreto || 'No indicado',
           'Dirección': props.direccion || 'Santiago',
           'Comuna': props.comuna || 'Santiago'
-        };
-      } else if (idCapa === 'limite_urbano_censal') {
-        nombreEntidad = `Límite Urbano ${props.d_COMUNA || 'Santiago'}`;
-        detalleTipo = 'Área Urbana Censal (INE)';
-        extraInfo = {
-          'Comuna': props.d_COMUNA || 'Santiago',
-          'Región': props.d_REGION || 'Metropolitana'
         };
       } else if (idCapa === 'minvu_ipt_prc_santiago') {
         const zonaCodigo = props.ZONA || '';
@@ -2377,23 +2100,6 @@ const ModuloIDEChile = (() => {
           'Estrategia MINVU': props.ESTRATEGIA || 'Radicación / Relocalización',
           'Comuna': props.COMUNA || 'Santiago'
         };
-      } else if (idCapa === 'ide_minvu_condominios_sociales') {
-        nombreEntidad = props.NOM || 'Condominio Social';
-        detalleTipo = props.PROGRAMA || 'Copropiedad Inmobiliaria Social (Ley 21.442)';
-        extraInfo = {
-          'Viviendas Totales': props.VIV_TOT || '-',
-          'Bloques': props.BLOQUES || '-',
-          'Dirección': `${props.DIRECC || ''} ${props.NUM_P_EDIF || ''}`.trim() || 'Santiago',
-          'Año Recepción': props.AÑO_RECEP || '-'
-        };
-      } else if (idCapa === 'ide_minvu_inventario_humedales') {
-        nombreEntidad = props.nombre_humedal || props.NOM_HUM || props.nombre || 'Humedal Protegido';
-        detalleTipo = props.tipo_humedal || 'Humedal Urbano / Continental (Ley 21.202)';
-        extraInfo = {
-          'Clasificación': props.tipo_humedal || 'Humedal',
-          'Superficie (ha)': props.superficie_ha ? `${Number(props.superficie_ha).toFixed(2)} ha` : '-',
-          'Comuna': props.nom_comuna || props.COMUNA || 'Santiago'
-        };
       } else if (idCapa === 'ide_minvu_unidades_vecinales_rsh') {
         nombreEntidad = `Unidad Vecinal N° ${props.uv_carto || props.t_uv_nom || props.OBJECTID}`;
         detalleTipo = 'Unidad Vecinal Oficial (MDS / RSH 2024)';
@@ -2417,14 +2123,6 @@ const ModuloIDEChile = (() => {
           'Código CUT': props.CUT || '-',
           'Provincia': props.NOM_PROVINCIA || props.PROVINCIA || '-',
           'Región': props.NOM_REGION || props.REGION || 'Metropolitana de Santiago'
-        };
-      } else if (idCapa === 'ide_minvu_ciclovias') {
-        nombreEntidad = props.NOMBRE || props.CALLE || 'Ciclovía Urbana';
-        detalleTipo = 'Infraestructura Cicloinclusiva Oficial (MINVU)';
-        extraInfo = {
-          'Eje Vial': props.CALLE || props.NOMBRE || '-',
-          'Estado': props.ESTADO || 'Consolidada',
-          'Sentido': props.SENTIDO || 'Bidireccional'
         };
       }
 
@@ -2507,12 +2205,6 @@ const ModuloIDEChile = (() => {
       // Alias / fallback de compatibilidad para capas consolidadas:
       if (idCapa === 'unidades_vecinales_bidat' || idCapa === 'capa_unidades_vecinales_bidat') {
         return CAPAS_OFICIALES['ide_minvu_unidades_vecinales_rsh'];
-      }
-      if (idCapa === 'cuarteles_bomberos_2026' || idCapa === 'capa_cuarteles_bomberos') {
-        return CAPAS_OFICIALES['bomberos'];
-      }
-      if (idCapa === 'educacion_superior_2026' || idCapa === 'capa_educacion_superior') {
-        return CAPAS_OFICIALES['educacion_superior'];
       }
     }
     return null;
