@@ -235,33 +235,31 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 /* ==========================================================================
-   CUADRADOS BLANCOS DINÁMICOS EN FLANCOS DE CABECERA (LITERALLMENTE BLANCOS)
+   RECTÁNGULOS BLANCOS DINÁMICOS QUE LLENAN TODO EL ESPACIO VACÍO LATERAL
    ========================================================================== */
 
 .panel-acento-dinamico {
   position: absolute;
-  top: 18px;
-  width: 52px;
-  height: 52px;
+  top: 0;
+  bottom: 0;
+  width: calc((100% - 1560px) / 2);
   background: #ffffff;
   border: none;
-  border-radius: 6px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   pointer-events: none;
-  z-index: 5;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 1;
+  transition: opacity 0.2s ease;
 }
 
 .panel-acento-izq {
-  left: clamp(16px, 2.8vw, 64px);
+  left: 0;
 }
 
 .panel-acento-der {
-  right: clamp(16px, 2.8vw, 64px);
+  right: 0;
 }
 
-/* Ocultar dinámicamente si la pantalla se encoge */
-@media (max-width: 1480px) {
+/* Ocultar automáticamente si la pantalla es menor o igual al ancho del contenido (1560px) */
+@media (max-width: 1560px) {
   .panel-acento-dinamico {
     display: none !important;
   }
@@ -274,8 +272,8 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   justify-content: center;
   gap: 8px 10px;
   padding: 10px 20px;
+  max-width: 1560px;
   width: 100%;
-  max-width: 1680px;
   margin: 0 auto;
   box-sizing: border-box;
   background: rgba(15, 23, 42, 0.85);
