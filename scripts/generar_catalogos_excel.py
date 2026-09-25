@@ -756,7 +756,7 @@ def crear_categorias_tematicas_osm():
             'nwr["amenity"~"university|college|school|kindergarten|library"]({{bbox}});',
             "Muy Alta (>15.000 entidades educativas en Chile según Taginfo y MINEDUC)",
             "Ministerio de Educación (MINEDUC), Superintendencia de Educación Superior, JUNJI, Fundación Integra",
-            "(MINEDUC, s/f.; IDE Chile / SNIT, 2024; WikiProject Chile, 2024)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-02",
@@ -767,7 +767,7 @@ def crear_categorias_tematicas_osm():
             'nwr["amenity"~"clinic|hospital|pharmacy|bank|marketplace|restaurant|cafe"]({{bbox}}); nwr["shop"~"bakery|convenience|supermarket"]({{bbox}});',
             "Muy Alta (>80.000 comercios y servicios registrados en Taginfo Chile)",
             "Ministerio de Salud (MINSAL), FONASA, SERCOTEC, I. Municipalidad de Santiago",
-            "(MINSAL, s/f.; INE, s/f.; SERCOTEC, s/f.)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-03",
@@ -778,7 +778,7 @@ def crear_categorias_tematicas_osm():
             'node["railway"="station"]({{bbox}}); node["railway"="subway_entrance"]({{bbox}}); node["highway"="bus_stop"]({{bbox}}); way["railway"="subway"]({{bbox}});',
             "Muy Alta (>25.000 paradas Red y 143 estaciones de Metro activas en RM)",
             "Directorio de Transporte Público Metropolitano (DTPM), Ministerio de Transportes y Telecomunicaciones (MTT), Metro S.A.",
-            "(DTPM, 2023; Metro de Santiago, s/f.; Taginfo Chile, s/f.)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-04",
@@ -789,7 +789,7 @@ def crear_categorias_tematicas_osm():
             'way["highway"="cycleway"]({{bbox}}); way["cycleway"]({{bbox}}); node["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});',
             "Alta (>800 km de ciclovías en Gran Santiago con acelerada expansión post-pandemia)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Manual de Vialidad Cicloinclusiva), MTT, GORE Metropolitano",
-            "(MINVU, 2020; MTT, s/f.; WikiProject Chile, 2024)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-05",
@@ -800,7 +800,7 @@ def crear_categorias_tematicas_osm():
             'way["leisure"~"park|playground|pitch|fitness_station"]({{bbox}}); relation["leisure"="park"]({{bbox}}); node["amenity"="bench"]({{bbox}});',
             "Muy Alta (>12.000 plazas, parques y canchas georreferenciadas en Taginfo Chile)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Política Nacional de Parques Urbanos), Instituto Nacional de Deportes (IND), Municipios",
-            "(MINVU, 2021; INE, s/f.; IDE Chile / SNIT, 2024)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-06",
@@ -811,7 +811,7 @@ def crear_categorias_tematicas_osm():
             'nwr["historic"]({{bbox}}); nwr["heritage"]({{bbox}}); nwr["amenity"~"arts_centre|theatre|place_of_worship"]({{bbox}}); nwr["tourism"="museum"]({{bbox}});',
             "Alta (Alta concentración protegida por Ley N° 17.288 en Santiago Poniente)",
             "Consejo de Monumentos Nacionales (CMN), Ministerio de las Culturas, las Artes y el Patrimonio (MINCAP), Dirección de Obras Municipales (DOM)",
-            "(CMN & MINCAP, s/f.; Municipalidad de Santiago, 2019; Ley N° 17.288)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-07",
@@ -822,7 +822,7 @@ def crear_categorias_tematicas_osm():
             'node["kerb"~"lowered|flush"]({{bbox}}); node["highway"="crossing"]({{bbox}}); node["traffic_signals:sound"="yes"]({{bbox}}); nwr["wheelchair"~"yes|limited|no"]({{bbox}});',
             "Creciente y Estratégica (Estándar mandatorio según OGUC Art. 2.2.8 en Chile)",
             "Servicio Nacional de la Discapacidad (SENADIS), Ministerio de Vivienda y Urbanismo (MINVU), Ministerio de Desarrollo Social y Familia",
-            "(MINVU, 2016 [D.S. 50]; SENADIS, s/f.; ISO 21542:2021)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-08",
@@ -833,7 +833,7 @@ def crear_categorias_tematicas_osm():
             'node["natural"="tree"]({{bbox}}); way["natural"="wood"]({{bbox}}); /* + GBIF API Occurrence bbox */',
             "Muy Alta (>300.000 árboles georreferenciados en OSM Chile y >1.5M registros GBIF en Chile)",
             "Corporación Nacional Forestal (CONAF - Arbolado Urbano), Ministerio del Medio Ambiente (MMA), GBIF Chile / Nodo Nacional",
-            "(CONAF, 2019; MMA, s/f.; GBIF Secretariat, 2024; TDWG, 2023)"
+            "(WikiProject Chile, 2024; GBIF Secretariat, 2024; TDWG, 2023; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-09",
@@ -844,7 +844,7 @@ def crear_categorias_tematicas_osm():
             'nwr["building"]({{bbox}});',
             "Muy Alta (>4.500.000 huellas de edificios mapeadas en Chile vía OSM y proyectos comunitarios)",
             "Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces), Dirección de Obras Municipales (DOM), IDE Chile / MINVU",
-            "(IDE Chile / SNIT, 2024; SII, s/f.; WikiProject Chile, 2024)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-10",
@@ -855,7 +855,7 @@ def crear_categorias_tematicas_osm():
             'nwr["landuse"]({{bbox}}); nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});',
             "Alta (>500.000 polígonos de zonificación y usos de suelo a nivel nacional en OSM)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Planes Reguladores Comunales e Intercomunales), IDE Chile, I. Municipalidad de Santiago",
-            "(MINVU, s/f.; IDE Chile / SNIT, 2024; OGC, 2023)"
+            "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ]
     ]
     
