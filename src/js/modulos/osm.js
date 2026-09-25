@@ -16,32 +16,38 @@ const ModuloOSM = (() => {
   const PRESETS_CATEGORIAS = {
     educacion: {
       nombre: 'Educación y Universidad',
+      codigo: 'CAT-01',
       filtro: `
-        nwr["amenity"~"university|college|library|school|kindergarten"]({{bbox}});
+        nwr["amenity"~"university|college|library|school|kindergarten|childcare|language_school|music_school|driving_school"]({{bbox}});
         nwr["building"~"university|school|college|kindergarten|library"]({{bbox}});
       `
     },
     servicios: {
       nombre: 'Servicios y Comercio Barrial',
+      codigo: 'CAT-02',
       filtro: `
         nwr["shop"]({{bbox}});
-        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station"]({{bbox}});
+        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station|hospital|townhall"]({{bbox}});
         nwr["building"~"retail|commercial|supermarket"]({{bbox}});
+        nwr["healthcare"]({{bbox}});
       `
     },
     transporte: {
       nombre: 'Movilidad y Transporte',
+      codigo: 'CAT-03',
       filtro: `
         node["highway"="bus_stop"]({{bbox}});
-        node["railway"~"station|subway_entrance"]({{bbox}});
-        node["public_transport"~"platform|stop_position"]({{bbox}});
+        node["railway"~"station|subway_entrance|stop|halt|tram_stop"]({{bbox}});
+        node["public_transport"~"platform|stop_position|station"]({{bbox}});
         way["highway"~"primary|secondary|tertiary|trunk"]({{bbox}});
         way["railway"="subway"]({{bbox}});
-        nwr["amenity"="bus_station"]({{bbox}});
+        nwr["amenity"~"bus_station|ferry_terminal"]({{bbox}});
+        nwr["vending"="public_transport_tickets"]({{bbox}});
       `
     },
     movilidad_activa: {
       nombre: 'Movilidad Activa y Ciclovías',
+      codigo: 'CAT-04',
       filtro: `
         way["highway"="cycleway"]({{bbox}});
         way["cycleway"]({{bbox}});
@@ -55,14 +61,16 @@ const ModuloOSM = (() => {
     },
     espacio_publico: {
       nombre: 'Áreas Verdes y Espacio Público',
+      codigo: 'CAT-05',
       filtro: `
-        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station"]({{bbox}});
+        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station|dog_park|water_park"]({{bbox}});
         nwr["landuse"~"grass|village_green|recreation_ground"]({{bbox}});
         node["amenity"~"bench|drinking_water"]({{bbox}});
       `
     },
     patrimonio: {
       nombre: 'Patrimonio y Cultura',
+      codigo: 'CAT-06',
       filtro: `
         nwr["historic"]({{bbox}});
         nwr["heritage"]({{bbox}});
@@ -73,28 +81,31 @@ const ModuloOSM = (() => {
     },
     accesibilidad: {
       nombre: 'Accesibilidad Universal',
+      codigo: 'CAT-07',
       filtro: `
         node["kerb"]({{bbox}});
         node["highway"="crossing"]({{bbox}});
         node["tactile_paving"]({{bbox}});
         node["wheelchair"]({{bbox}});
         way["highway"~"footway|pedestrian"]({{bbox}});
-        way["highway"="steps"]["ramp"~"yes|separate"]({{bbox}});
+        way["highway"="steps"]({{bbox}});
         way["ramp"]({{bbox}});
       `
     },
     biodiversidad: {
       nombre: 'Biodiversidad Urbana',
+      codigo: 'CAT-08',
       filtro: `
         node["natural"="tree"]({{bbox}});
         way["natural"="tree_row"]({{bbox}});
-        nwr["natural"~"wood|scrub"]({{bbox}});
+        nwr["natural"~"wood|scrub|water|wetland"]({{bbox}});
         nwr["leisure"="garden"]({{bbox}});
         nwr["landuse"="forest"]({{bbox}});
       `
     },
     edificaciones: {
       nombre: 'Edificaciones y Huella Urbana (Polígonos)',
+      codigo: 'CAT-09',
       filtro: `
         way["building"]({{bbox}});
         relation["building"]({{bbox}});
@@ -102,10 +113,11 @@ const ModuloOSM = (() => {
     },
     cobertura_suelo: {
       nombre: 'Coberturas y Usos de Suelo (Polígonos)',
+      codigo: 'CAT-10',
       filtro: `
         nwr["landuse"]({{bbox}});
-        nwr["natural"~"wood|scrub|water|grassland|tree_row"]({{bbox}});
-        nwr["leisure"~"park|garden|pitch|nature_reserve"]({{bbox}});
+        nwr["natural"~"wood|scrub|water|grassland|bare_rock|wetland"]({{bbox}});
+        nwr["leisure"~"park|garden|pitch|nature_reserve|stadium"]({{bbox}});
       `
     }
   };
