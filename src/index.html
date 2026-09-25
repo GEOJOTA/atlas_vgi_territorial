@@ -455,18 +455,17 @@
         <p class="descripcion" style="margin-bottom:18px; color:var(--tinta-suave); font-size:0.95rem;">
           Haz clic en cualquiera de los accesos directos para consultar en tiempo real y mapear automáticamente los elementos prioritarios en el Barrio Brasil y entorno del Campus Universidad Alberto Hurtado:
         </p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(210px, 1fr)); gap:12px;" id="grilla-sugerencias-ciudadanas">
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="pharmacy" data-nombre="Farmacias y Salud" data-color="#38bdf8"><span style="color:#38bdf8;">🏥</span> Farmacias y Salud</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="shop" data-valor="bakery" data-nombre="Panaderías de Barrio" data-color="#f59e0b"><span style="color:#f59e0b;">🏬</span> Comercio y Panaderías</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="university" data-nombre="Campus Universitario UAH" data-color="#10b981"><span style="color:#10b981;">🏫</span> Campus UAH y Sedes</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="highway" data-valor="bus_stop" data-nombre="Paraderos Red Movilidad" data-color="#38bdf8" data-entidad="node"><span style="color:#38bdf8;">🚆</span> Paraderos Red Movilidad</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="bicycle_parking" data-nombre="Biciestacionamientos" data-color="#10b981" data-entidad="node"><span style="color:#10b981;">🚲</span> Biciestacionamientos</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="leisure" data-valor="park" data-nombre="Plazas y Parques" data-color="#10b981"><span style="color:#10b981;">🌲</span> Plazas y Áreas Verdes</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="historic" data-valor="*" data-operador="*" data-nombre="Patrimonio y Casonas" data-color="#a855f7"><span style="color:#a855f7;">🏛</span> Casonas Patrimoniales</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="kerb" data-valor="lowered" data-nombre="Rebajes de Cordón Accesibles" data-color="#38bdf8" data-entidad="node"><span style="color:#38bdf8;">🦯</span> Rebajes Accesibles D.S. 50</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="amenity" data-valor="fire_station" data-nombre="Bomberos y Emergencias" data-color="#f43f5e"><span style="color:#f43f5e;">🚒</span> Bomberos y Rescate</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="building" data-valor="yes" data-operador="*" data-nombre="Huella Construida (Buildings)" data-color="#06b6d4" data-entidad="way"><span style="color:#06b6d4;">🏙</span> Huella Construida (Edificios)</button>
-          <button type="button" class="btn-sugerencia-ciudadana" data-clave="landuse" data-valor="*" data-operador="*" data-nombre="Usos de Suelo (Landuse)" data-color="#10b981" data-entidad="way"><span style="color:#10b981;">▧</span> Usos de Suelo (Zonificación)</button>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px;" id="grilla-sugerencias-ciudadanas">
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-01" data-categoria="educacion" data-clave="amenity" data-valor="university" data-nombre="CAT-01: Educación y Universidad" data-color="#35586B" data-entidad="nwr"><span style="color:#38bdf8;">🏫</span> CAT-01: Educación y Universidad</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-02" data-categoria="servicios" data-clave="shop" data-valor="*" data-operador="*" data-nombre="CAT-02: Servicios y Comercio Barrial" data-color="#A97722" data-entidad="nwr"><span style="color:#f59e0b;">🏬</span> CAT-02: Servicios y Comercio Barrial</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-03" data-categoria="transporte" data-clave="highway" data-valor="bus_stop" data-nombre="CAT-03: Movilidad y Transporte" data-color="#2C4238" data-entidad="node"><span style="color:#34d399;">🚆</span> CAT-03: Movilidad y Transporte</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-04" data-categoria="movilidad_activa" data-clave="highway" data-valor="cycleway" data-nombre="CAT-04: Movilidad Activa y Ciclovías" data-color="#3F5D4E" data-entidad="way"><span style="color:#10b981;">🚲</span> CAT-04: Movilidad Activa y Ciclovías</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-05" data-categoria="espacio_publico" data-clave="leisure" data-valor="park" data-nombre="CAT-05: Áreas Verdes y Espacio Público" data-color="#236B43" data-entidad="nwr"><span style="color:#10b981;">🌲</span> CAT-05: Áreas Verdes y Espacio Público</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-06" data-categoria="patrimonio" data-clave="historic" data-valor="*" data-operador="*" data-nombre="CAT-06: Patrimonio y Cultura" data-color="#8F3A2C" data-entidad="nwr"><span style="color:#f43f5e;">🏛</span> CAT-06: Patrimonio y Cultura</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-07" data-categoria="accesibilidad" data-clave="kerb" data-valor="lowered" data-nombre="CAT-07: Accesibilidad Universal" data-color="#4B5142" data-entidad="node"><span style="color:#38bdf8;">🦯</span> CAT-07: Accesibilidad Universal</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-08" data-categoria="biodiversidad" data-clave="natural" data-valor="tree" data-nombre="CAT-08: Biodiversidad Urbana" data-color="#1C523A" data-entidad="node"><span style="color:#22c55e;">☘</span> CAT-08: Biodiversidad Urbana</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-09" data-categoria="edificaciones" data-clave="building" data-valor="yes" data-operador="*" data-nombre="CAT-09: Edificaciones y Huella Urbana" data-color="#06b6d4" data-entidad="way"><span style="color:#06b6d4;">🏙</span> CAT-09: Edificaciones y Huella</button>
+          <button type="button" class="btn-sugerencia-ciudadana" data-cat="CAT-10" data-categoria="cobertura_suelo" data-clave="landuse" data-valor="*" data-operador="*" data-nombre="CAT-10: Coberturas y Usos de Suelo" data-color="#10b981" data-entidad="way"><span style="color:#a855f7;">▧</span> CAT-10: Coberturas y Usos de Suelo</button>
         </div>
       </div>
 
@@ -669,28 +668,18 @@
         </div>
         <div class="fila-campos">
           <div class="campo" style="flex:2; min-width:260px;">
-            <label for="oh-preset-selector">Preset Geométrico y Temático (ohsome API v1)</label>
+            <label for="oh-preset-selector">Preset Temático ohsome (10 Macro-Categorías VGI)</label>
             <select id="oh-preset-selector">
-              <optgroup label="🏢 Polígonos (Métrica: Conteo + Área en m² y Hectáreas)">
-                <option value="building=* and type:way" selected>Edificaciones y Catastro Construido (building=*)</option>
-                <option value="leisure=park and (type:way or type:relation)">Plazas y Parques Urbanos (leisure=park)</option>
-                <option value="landuse=residential and (type:way or type:relation)">Zonas Residenciales y Barrios (landuse=residential)</option>
-              </optgroup>
-              <optgroup label="🚗 Líneas y Redes (Métrica: Conteo + Longitud en Kilómetros)">
-                <option value="highway=* and type:way">Red Vial Completa y Calles Urbanas (highway=*)</option>
-                <option value="(highway=cycleway or cycleway=*) and type:way">Red de Ciclovías y Movilidad Activa (cycleway=*)</option>
-                <option value="railway=subway and type:way">Líneas de Metro Subterráneo (railway=subway)</option>
-                <option value="highway=footway and type:way">Pasajes y Sendas Peatonales (highway=footway)</option>
-              </optgroup>
-              <optgroup label="📍 Puntos y Equipamientos (Métrica: Conteo de Nodos)">
-                <option value="amenity=university and (type:node or type:way)">Sedes y Facultades Universitarias UAH</option>
-                <option value="amenity=pharmacy and (type:node or type:way)">Farmacias y Boticas Comunitarias</option>
-                <option value="highway=bus_stop and type:node">Paraderos del Sistema Red Movilidad</option>
-                <option value="(highway=crossing or kerb=*) and type:node">Cruces Peatonales y Rebajes Accesibles</option>
-                <option value="historic=* and (type:node or type:way)">Inmuebles Patrimoniales y Casonas Históricas</option>
-                <option value="shop=* and (type:node or type:way)">Comercio Barrial y Abastecimiento</option>
-                <option value="natural=tree and type:node">Arbolado Urbano Georreferenciado</option>
-              </optgroup>
+              <option value="amenity=university and (type:node or type:way)">🏫 CAT-01: Educación y Universidad (amenity=university)</option>
+              <option value="(shop=* or amenity=pharmacy or amenity=clinic or amenity=restaurant or amenity=cafe) and (type:node or type:way)">🏬 CAT-02: Servicios, Comercio y Salud Barrial (shop=* / amenity=*)</option>
+              <option value="(highway=bus_stop or railway=station or railway=subway_entrance) and (type:node or type:way)">🚆 CAT-03: Movilidad y Transporte Público (bus_stop / metro)</option>
+              <option value="(highway=cycleway or cycleway=*) and type:way">🚲 CAT-04: Movilidad Activa y Ciclovías (cycleway=*)</option>
+              <option value="leisure=park and (type:way or type:relation)">🌲 CAT-05: Áreas Verdes y Espacio Público (leisure=park)</option>
+              <option value="(historic=* or heritage=*) and (type:node or type:way)">🏛 CAT-06: Patrimonio Histórico y Cultura (historic=*)</option>
+              <option value="(highway=crossing or kerb=*) and type:node">🦯 CAT-07: Accesibilidad Universal y Caminabilidad (crossing / kerb)</option>
+              <option value="natural=tree and type:node">☘ CAT-08: Biodiversidad Urbana y Arbolado (natural=tree)</option>
+              <option value="building=* and type:way" selected>🏙 CAT-09: Edificaciones y Huella Urbana (building=*)</option>
+              <option value="landuse=* and (type:way or type:relation)">▧ CAT-10: Coberturas y Usos de Suelo (landuse=*)</option>
               <option value="custom">✍️ — Filtro ohsome personalizado —</option>
             </select>
           </div>

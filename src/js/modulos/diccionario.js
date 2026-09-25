@@ -1720,8 +1720,6 @@ const ModuloDiccionario = (() => {
             <strong>${e.institucion || 'Comunidad OSM'}</strong><br>
             ${badgeHomologia}
           </td>
-          <td style="font-size:0.84rem; color:var(--tinta-suave);">${e.aplicacionUAH}</td>
-          <td style="font-size:0.80rem; font-family:var(--fuente-datos); background:var(--papel-alto);">${e.citaAPA || 'APA 7ª ed.'}</td>
         </tr>
       `;
     }).join('');
@@ -1783,12 +1781,10 @@ const ModuloDiccionario = (() => {
                   <th>Denominación Común en Chile</th>
                   <th>Categoría Atlas</th>
                   <th>Institución Contraparte / Homología IDE Chile</th>
-                  <th>Aplicación en Barrio Brasil / UAH</th>
-                  <th>Trazabilidad / Cita APA</th>
                 </tr>
               </thead>
               <tbody>
-                ${htmlEtiquetas.length > 0 ? htmlEtiquetas : '<tr><td colspan="6" style="text-align:center; padding:12px; color:var(--tinta-suave);">No hay etiquetas que coincidan con el filtro seleccionado.</td></tr>'}
+                ${htmlEtiquetas.length > 0 ? htmlEtiquetas : '<tr><td colspan="4" style="text-align:center; padding:12px; color:var(--tinta-suave);">No hay etiquetas que coincidan con el filtro seleccionado.</td></tr>'}
               </tbody>
             </table>
           </div>

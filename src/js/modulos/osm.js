@@ -110,6 +110,25 @@ const ModuloOSM = (() => {
     }
   };
 
+  // Mapeo bidireccional y alias de las 10 Macro-Categorías VGI
+  const ALIAS_MACRO = {
+    'CAT-01': 'educacion', 'cat-01': 'educacion',
+    'CAT-02': 'servicios', 'cat-02': 'servicios',
+    'CAT-03': 'transporte', 'cat-03': 'transporte',
+    'CAT-04': 'movilidad_activa', 'cat-04': 'movilidad_activa',
+    'CAT-05': 'espacio_publico', 'cat-05': 'espacio_publico',
+    'CAT-06': 'patrimonio', 'cat-06': 'patrimonio',
+    'CAT-07': 'accesibilidad', 'cat-07': 'accesibilidad',
+    'CAT-08': 'biodiversidad', 'cat-08': 'biodiversidad',
+    'CAT-09': 'edificaciones', 'cat-09': 'edificaciones',
+    'CAT-10': 'cobertura_suelo', 'cat-10': 'cobertura_suelo'
+  };
+  Object.entries(ALIAS_MACRO).forEach(([alias, target]) => {
+    if (PRESETS_CATEGORIAS[target]) {
+      PRESETS_CATEGORIAS[alias] = PRESETS_CATEGORIAS[target];
+    }
+  });
+
   /**
    * Construye consulta Overpass QL
    */

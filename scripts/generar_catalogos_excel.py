@@ -206,19 +206,6 @@ def crear_catalogo_fuentes():
             "Registro de flora nativa (peumo, quillay, palma chilena) e introducida en jardines de Cienfuegos y Plaza Brasil."
         ],
         [
-            "Mapillary / KartaView",
-            "Imágenes colaborativas a nivel de calle para reconocimiento de terreno y mobiliario urbano",
-            "Global / Urbano y Rural (Chile)",
-            "2014 – Presente",
-            "Continua por mapeadores móviles y ciclistas",
-            "Nivel de calle / submétrico con estimación de orientación de compás",
-            "Creative Commons (CC-BY-SA 4.0) / ODbL",
-            "API Mapillary v4 / Visores web integrados",
-            "Verificación visual de fachadas, señalética, accesibilidad universal y comercio barrial.",
-            "Requiere filtrado por secuencias y fecha para evitar imágenes desactualizadas.",
-            "Imágenes a nivel de calle en ejes viales principales de Barrio Brasil (Av. Brasil, Alameda)."
-        ],
-        [
             "IDE Chile / SNIT (Referencia Oficial)",
             "Capas vectoriales e información geográfica oficial del Estado de Chile",
             "Nacional / Regional / Comunal",
@@ -907,9 +894,8 @@ def crear_categorias_tematicas_osm():
     headers2 = [
         "Clave=Valor (OSM Tag)", "Denominación Común en Chile", "Categoría VGI",
         "Geometría Recomendada", "Atributos Complementarios Requeridos",
-        "Equivalencia Catálogo Objetos IDE Chile", "Institución / Norma de Referencia en Chile",
-        "Frecuencia Relativa en Taginfo Chile", "Ejemplo Concreto (Barrio Brasil / Santiago)",
-        "Fuente Oficial / Cita APA"
+        "Equivalencia Catálogo Objetos IDE Chile",
+        "Frecuencia Relativa en Taginfo Chile"
     ]
     
     for c_idx, h in enumerate(headers2, 1):
@@ -1058,7 +1044,9 @@ def crear_categorias_tematicas_osm():
         ['surface=asphalt', 'Cobertura de Calzada en Asfalto / Pavimento Flexible', 'CAT-10', 'Way', 'surface=asphalt, highway=primary|secondary|tertiary', 'Red Vial Pavimentada (Dirección de Vialidad - MOP / IDE Chile)', 'Dirección de Vialidad (MOP) / SERVIU Metropolitano', 'Muy Alta', 'Calzadas vehiculares principales de Av. Brasil, Alameda y Ricardo Cumming', '(Dirección de Vialidad & MOP, 2022; IDE Chile / SNIT, 2024)'],
     ]
 
-    for r_idx, tag in enumerate(etiquetas_chile, 5):
+    for r_idx, tag_raw in enumerate(etiquetas_chile, 5):
+        # Filtrar columnas: omitir Institución (idx 6), Ejemplo (idx 8) y Cita APA (idx 9)
+        tag = [tag_raw[i] for i in [0, 1, 2, 3, 4, 5, 7] if i < len(tag_raw)]
         fill_actual = fill_zebra if r_idx % 2 == 0 else PatternFill(fill_type=None)
         for c_idx, val in enumerate(tag, 1):
             cell = ws2.cell(row=r_idx, column=c_idx, value=val)

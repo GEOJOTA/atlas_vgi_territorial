@@ -177,80 +177,116 @@ const ModuloManual = (() => {
             <span class="doc-diagrama-titulo">FIGURA 1. FLUJO DE TRABAJO METODOLÓGICO Y ARQUITECTURA DEL ATLAS VGI</span>
           </div>
           <div class="doc-diagrama-svg">
-            <div class="doc-diagrama-titulo">FIGURA 1. FLUJO DE TRABAJO METODOLÓGICO Y ARQUITECTURA DEL ATLAS VGI</div>
-          <div class="doc-diagrama-svg">
-            <svg viewBox="0 0 840 220" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 1020 310" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <pattern id="grid-doc" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--linea)" stroke-width="0.5" opacity="0.4"/>
+                <pattern id="grid-doc-1" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.6"/>
                 </pattern>
-                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--tinta-suave)"/>
+                <marker id="arrow-1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#38bdf8"/>
                 </marker>
               </defs>
-              <rect width="100%" height="100%" fill="var(--papel-alto)" stroke="var(--linea)" stroke-width="1"/>
-              <rect width="100%" height="100%" fill="url(#grid-doc)"/>
+              <rect width="100%" height="100%" fill="#070c18" rx="12"/>
+              <rect width="100%" height="100%" fill="url(#grid-doc-1)" rx="12"/>
 
               <!-- NODO 1: CAPTURA & APIS -->
-              <g transform="translate(15, 35)">
-                <rect width="175" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--musgo-oscuro)">01. CAPTURA & APIS</text>
-                <line x1="12" y1="33" x2="163" y2="33" stroke="var(--linea)" stroke-width="1"/>
-                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Overpass API (OSM)</text>
-                <text x="12" y="73" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Taginfo API v4</text>
-                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• GBIF Species & Occ.</text>
-                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• UMap Colaborativo</text>
-                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• IDE Chile (SNIT)</text>
-                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--tinta-suave)">WGS 84 (EPSG:4326)</text>
+              <g transform="translate(18, 22)">
+                <rect width="220" height="265" rx="12" fill="#0d1829" stroke="#38bdf8" stroke-width="2"/>
+                <rect width="220" height="42" rx="12" fill="#0f2744"/>
+                <rect y="30" width="220" height="12" fill="#0f2744"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#38bdf8">01. CAPTURA &amp; APIS</text>
+                
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Overpass API (OSM QL)</text>
+                <text x="26" y="84" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Balanceo 4 espejos globales</text>
+
+                <text x="16" y="110" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Taginfo API v4 (HeiGIT)</text>
+                <text x="26" y="128" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Telemetría regional Chile</text>
+
+                <text x="16" y="154" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• GBIF Darwin Core API</text>
+                <text x="26" y="172" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Biodiversidad y taxonomía</text>
+
+                <text x="16" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• IDE Chile / SNIT (WFS)</text>
+                <text x="26" y="216" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Capas estatales oficiales</text>
+
+                <rect x="14" y="232" width="192" height="22" rx="6" fill="#1e293b"/>
+                <text x="22" y="247" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#38bdf8">WGS 84 (EPSG:4326)</text>
               </g>
 
-              <line x1="190" y1="110" x2="218" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="242" y1="155" x2="268" y2="155" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-1)"/>
 
-              <!-- NODO 2: PROCESAMIENTO & GEODESIA -->
-              <g transform="translate(220, 35)">
-                <rect width="185" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--agua)">02. MOTOR GEODÉSICO</text>
-                <line x1="12" y1="33" x2="173" y2="33" stroke="var(--linea)" stroke-width="1"/>
-                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Reproyección Conforme</text>
-                <text x="12" y="73" font-family="var(--fuente-datos)" font-size="10" fill="var(--tinta)">  EPSG:32719 UTM 19S</text>
-                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Fórmulas de Snyder (1987)</text>
-                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Superficie en m², ha, km²</text>
-                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Densidad elem / km²</text>
-                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--tinta-suave)">Norma Oficial IGM Chile</text>
+              <!-- NODO 2: MOTOR GEODÉSICO -->
+              <g transform="translate(272, 22)">
+                <rect width="220" height="265" rx="12" fill="#0d1829" stroke="#10b981" stroke-width="2"/>
+                <rect width="220" height="42" rx="12" fill="#0f3428"/>
+                <rect y="30" width="220" height="12" fill="#0f3428"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#34d399">02. MOTOR GEODÉSICO</text>
+
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Proyección Conforme</text>
+                <text x="26" y="84" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#34d399">EPSG:32719 UTM 19S</text>
+
+                <text x="16" y="110" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Fórmulas Snyder (1987)</text>
+                <text x="26" y="128" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Transversa de Mercator</text>
+
+                <text x="16" y="154" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Áreas Euclidianas</text>
+                <text x="26" y="172" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Superficies en m², ha y km²</text>
+
+                <text x="16" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Densidades Territoriales</text>
+                <text x="26" y="216" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Concentración elem / km²</text>
+
+                <rect x="14" y="232" width="192" height="22" rx="6" fill="#1e293b"/>
+                <text x="22" y="247" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#34d399">Norma Oficial IGM Chile</text>
               </g>
 
-              <line x1="405" y1="110" x2="433" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="496" y1="155" x2="522" y2="155" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-1)"/>
 
               <!-- NODO 3: CALIDAD & AUDITORÍA -->
-              <g transform="translate(435, 35)">
-                <rect width="190" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--ocre)">03. CALIDAD & AUDITORÍA</text>
-                <line x1="12" y1="33" x2="178" y2="33" stroke="var(--linea)" stroke-width="1"/>
-                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ISO 19157 (Data Quality)</text>
-                <text x="12" y="73" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ohsome API v1 y v2-rc</text>
-                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ohsome Quality Analyst (OQT)</text>
-                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• OSM Changesets & OSMCha</text>
-                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Darwin Core Quality Issues</text>
-                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--tinta-suave)">HeiGIT / ISO / GBIF</text>
+              <g transform="translate(526, 22)">
+                <rect width="220" height="265" rx="12" fill="#0d1829" stroke="#f59e0b" stroke-width="2"/>
+                <rect width="220" height="42" rx="12" fill="#3b2909"/>
+                <rect y="30" width="220" height="12" fill="#3b2909"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#fbbf24">03. CALIDAD ISO 19157</text>
+
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• ohsome API v1 y v2-rc</text>
+                <text x="26" y="84" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Series históricas OSHDB</text>
+
+                <text x="16" y="110" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• ohsome Quality (OQT)</text>
+                <text x="26" y="128" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Índice madurez y saturación</text>
+
+                <text x="16" y="154" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• OSM Changesets / OSMCha</text>
+                <text x="26" y="172" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Auditoría forense de cambios</text>
+
+                <text x="16" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Darwin Core Quality</text>
+                <text x="26" y="216" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Banderas calidad biológica</text>
+
+                <rect x="14" y="232" width="192" height="22" rx="6" fill="#1e293b"/>
+                <text x="22" y="247" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#fbbf24">HeiGIT / ISO 19157 / GBIF</text>
               </g>
 
-              <line x1="625" y1="110" x2="653" y2="110" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="750" y1="155" x2="776" y2="155" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-1)"/>
 
               <!-- NODO 4: SALIDAS INTEROPERABLES -->
-              <g transform="translate(655, 35)">
-                <rect width="170" height="150" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                <text x="12" y="24" font-family="var(--fuente-datos)" font-size="10" font-weight="bold" fill="var(--tinta)">04. DISTRIBUCIÓN</text>
-                <line x1="12" y1="33" x2="158" y2="33" stroke="var(--linea)" stroke-width="1"/>
-                <text x="12" y="54" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Visor Cartográfico Web</text>
-                <text x="12" y="73" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• GeoJSON / CSV (QGIS)</text>
-                <text x="12" y="92" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• ISO 19139 XML (IDE Chile)</text>
-                <text x="12" y="111" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Libros Excel (.xlsx)</text>
-                <text x="12" y="130" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• 104 Citas APA 7ª ed.</text>
-                <text x="12" y="145" font-family="var(--fuente-datos)" font-size="9" fill="var(--musgo)">Copyleft (CC / ODbL / GPL)</text>
+              <g transform="translate(780, 22)">
+                <rect width="220" height="265" rx="12" fill="#0d1829" stroke="#a855f7" stroke-width="2"/>
+                <rect width="220" height="42" rx="12" fill="#2d1345"/>
+                <rect y="30" width="220" height="12" fill="#2d1345"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#c084fc">04. DISTRIBUCIÓN</text>
+
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Visor Cartográfico Web</text>
+                <text x="26" y="84" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Leaflet 1.9.4 + 208 capas</text>
+
+                <text x="16" y="110" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• GeoJSON / PostGIS</text>
+                <text x="26" y="128" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Esquema 14 atributos QGIS</text>
+
+                <text x="16" y="154" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• ISO 19139 XML (IDE)</text>
+                <text x="26" y="172" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Metadatos para GeoNetwork</text>
+
+                <text x="16" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="700" fill="#f8fafc">• Catálogos Excel (.xlsx)</text>
+                <text x="26" y="216" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Glosario 134 descriptores</text>
+
+                <rect x="14" y="232" width="192" height="22" rx="6" fill="#1e293b"/>
+                <text x="22" y="247" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#c084fc">CC BY-SA / ODbL / AGPLv3</text>
               </g>
             </svg>
-          </div>
-          <div class="doc-diagrama-epigrafe">Esquema general del flujo de datos: desde la extracción colaborativa en WGS 84 hasta la reproyección métrica oficial y la entrega de productos estandarizados según normas ISO.</div>
           </div>
           <div class="doc-diagrama-epigrafe">Esquema general del flujo de datos: desde la extracción colaborativa en WGS 84 hasta la reproyección métrica oficial y la entrega de productos estandarizados según normas ISO.</div>
         </div>
@@ -1374,6 +1410,119 @@ out geom tags qt 400;</code></pre>
             El algoritmo integrado en <code>src/js/app.js</code> y <code>scripts/</code> implementa las series trigonométricas de John P. Snyder (<em>USGS Professional Paper 1395</em>). Calcula el factor de escala meridiano exacto y proyecta cada vértice poligonal al plano conforme UTM 19S antes de evaluar la fórmula de Gauss/Green, entregando superficies métricas exactas en metros cuadrados (m²), hectáreas (ha) y densidades territoriales rigurosas (elementos / km²).
           </p>
         </div>
+
+        <!-- DIAGRAMA SVG 02: TRANSFORMACIÓN GEODÉSICA DE COORDENADAS -->
+        <div class="doc-diagrama-wrapper">
+          <div class="doc-diagrama-header">
+            <div class="doc-diagrama-dots">
+              <span class="doc-dot doc-dot-rojo"></span>
+              <span class="doc-dot doc-dot-amarillo"></span>
+              <span class="doc-dot doc-dot-verde"></span>
+            </div>
+            <span class="doc-diagrama-titulo">FIGURA 2. TRANSFORMACIÓN GEODÉSICA: DE COORDENADAS ANGULARES WGS84 A MÉTRICAS CONFORMES (UTM 19S / SNYDER)</span>
+          </div>
+          <div class="doc-diagrama-svg">
+            <svg viewBox="0 0 1020 280" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arrow-geo" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+                </marker>
+              </defs>
+              <rect width="100%" height="100%" fill="#070d18" stroke="#1e293b" stroke-width="1.5" rx="8"/>
+
+              <!-- PASO 1: WGS84 -->
+              <g transform="translate(20, 20)">
+                <rect width="220" height="240" rx="12" fill="#0d1829" stroke="#0ea5e9" stroke-width="2"/>
+                <rect width="220" height="40" rx="12" fill="#0c4a6e"/>
+                <rect y="28" width="220" height="12" fill="#0c4a6e"/>
+                <text x="16" y="26" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#38bdf8">01. WGS 84 (EPSG:4326)</text>
+
+                <text x="16" y="64" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Grados Decimales (°)</text>
+                <text x="24" y="80" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Coordenadas angulares GPS</text>
+
+                <text x="16" y="104" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Distorsión Latitudinal</text>
+                <text x="24" y="120" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#f87171">1° Lon = 92.8 km (Stgo)</text>
+                <text x="24" y="136" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#f87171">1° Lat = 110.9 km</text>
+
+                <text x="16" y="160" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Inconsistencia Métrica</text>
+                <text x="24" y="176" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Error en área euclidiana ~30%</text>
+
+                <rect x="14" y="198" width="192" height="24" rx="6" fill="#1e293b"/>
+                <text x="22" y="214" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#38bdf8">Entrada Nativa OSM / GPS</text>
+              </g>
+
+              <line x1="246" y1="140" x2="276" y2="140" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-geo)"/>
+
+              <!-- PASO 2: SNYDER -->
+              <g transform="translate(282, 20)">
+                <rect width="220" height="240" rx="12" fill="#0d1829" stroke="#f59e0b" stroke-width="2"/>
+                <rect width="220" height="40" rx="12" fill="#451a03"/>
+                <rect y="28" width="220" height="12" fill="#451a03"/>
+                <text x="16" y="26" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#fbbf24">02. MODELO DE SNYDER</text>
+
+                <text x="16" y="64" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• USGS Paper 1395</text>
+                <text x="24" y="80" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Formulación analítica (1987)</text>
+
+                <text x="16" y="104" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Parámetros Elipsoide</text>
+                <text x="24" y="120" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">a = 6.378.137 m (GRS80)</text>
+                <text x="24" y="136" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">1/f = 298.257223563</text>
+
+                <text x="16" y="160" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Factor Escala Meridiano</text>
+                <text x="24" y="176" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">k₀ = 0.9996 (UTM)</text>
+
+                <rect x="14" y="198" width="192" height="24" rx="6" fill="#1e293b"/>
+                <text x="22" y="214" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#fbbf24">Motor Geodésico JS / Python</text>
+              </g>
+
+              <line x1="508" y1="140" x2="538" y2="140" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-geo)"/>
+
+              <!-- PASO 3: UTM 19S -->
+              <g transform="translate(544, 20)">
+                <rect width="220" height="240" rx="12" fill="#0d1829" stroke="#10b981" stroke-width="2"/>
+                <rect width="220" height="40" rx="12" fill="#064e3b"/>
+                <rect y="28" width="220" height="12" fill="#064e3b"/>
+                <text x="16" y="26" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#34d399">03. UTM 19S (EPSG:32719)</text>
+
+                <text x="16" y="64" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Proyección Conforme</text>
+                <text x="24" y="80" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Transversa de Mercator</text>
+
+                <text x="16" y="104" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Coordenadas Planas</text>
+                <text x="24" y="120" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Este (X) y Norte (Y) en metros</text>
+                <text x="24" y="136" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Meridiano Central 69° O</text>
+
+                <text x="16" y="160" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Marco Legal Chileno</text>
+                <text x="24" y="176" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">D.S. N° 28/2006 MBN / IGM</text>
+
+                <rect x="14" y="198" width="192" height="24" rx="6" fill="#1e293b"/>
+                <text x="22" y="214" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#34d399">Norma Oficial IGM Chile</text>
+              </g>
+
+              <line x1="770" y1="140" x2="800" y2="140" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-geo)"/>
+
+              <!-- PASO 4: MÉTRICAS -->
+              <g transform="translate(806, 20)">
+                <rect width="194" height="240" rx="12" fill="#0d1829" stroke="#a855f7" stroke-width="2"/>
+                <rect width="194" height="40" rx="12" fill="#2e1065"/>
+                <rect y="28" width="194" height="12" fill="#2e1065"/>
+                <text x="14" y="26" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#c084fc">04. ÁREA & DENSIDAD</text>
+
+                <text x="14" y="64" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Integración Gauss</text>
+                <text x="22" y="80" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Teorema de Green en polígonos</text>
+
+                <text x="14" y="104" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Superficies Exactas</text>
+                <text x="22" y="120" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#c084fc">Metros cuadrados (m²)</text>
+                <text x="22" y="136" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#c084fc">Hectáreas reales (ha)</text>
+
+                <text x="14" y="160" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Densidad Espacial</text>
+                <text x="22" y="176" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Elementos por km² barrial</text>
+
+                <rect x="12" y="198" width="170" height="24" rx="6" fill="#1e293b"/>
+                <text x="18" y="214" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#c084fc">Catastro Municipal & Minvu</text>
+              </g>
+            </svg>
+          </div>
+          <div class="doc-diagrama-epigrafe">Secuencia de reproyección analítica: desde el datum angular global WGS 84 hasta la proyección conforme plana UTM Huso 19 Sur, garantizando el cálculo riguroso de superficies y densidades para la gestión territorial.</div>
+        </div>
       </section>
 
       <!-- ======================================================================
@@ -1503,51 +1652,77 @@ out geom tags qt 400;</code></pre>
             <span class="doc-diagrama-titulo">FIGURA 3. MARCO TRIPARTITO DE LICENCIAMIENTO ABIERTO Y RECIPROCIDAD COMUNITARIA</span>
           </div>
           <div class="doc-diagrama-svg">
-            <div class="doc-diagrama-titulo">FIGURA 3. MARCO TRIPARTITO DE LICENCIAMIENTO ABIERTO Y RECIPROCIDAD COMUNITARIA</div>
-            <div class="doc-diagrama-svg">
-              <svg viewBox="0 0 840 210" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100%" height="100%" fill="var(--papel-alto)" stroke="var(--linea)" stroke-width="1"/>
-                
-                <!-- PILAR 1: CONTENIDOS CC BY-SA 4.0 -->
-                <g transform="translate(30, 25)">
-                  <rect width="240" height="160" fill="var(--papel)" stroke="var(--musgo)" stroke-width="1.5"/>
-                  <text x="20" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--musgo-oscuro)">DOCUMENTACIÓN & MAPAS</text>
-                  <line x1="20" y1="35" x2="220" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                  <text x="20" y="58" font-family="var(--fuente-datos)" font-size="12" font-weight="bold" fill="var(--tinta)">CC BY-SA 4.0 Internacional</text>
-                  <text x="20" y="78" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Atribución obligatoria</text>
-                  <text x="20" y="98" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Cláusula CompartirIgual</text>
-                  <text x="20" y="118" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Ley N° 17.336 Prop. Intelectual</text>
-                  <text x="20" y="138" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Ley N° 20.285 Datos Abiertos</text>
-                </g>
+            <svg viewBox="0 0 1020 300" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#070d18" stroke="#1e293b" stroke-width="1.5" rx="8"/>
 
-                <!-- PILAR 2: BASES DE DATOS ODbL 1.0 -->
-                <g transform="translate(300, 25)">
-                  <rect width="240" height="160" fill="var(--papel)" stroke="var(--agua)" stroke-width="1.5"/>
-                  <text x="20" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--agua)">BASES DE DATOS ESPACIALES</text>
-                  <line x1="20" y1="35" x2="220" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                  <text x="20" y="58" font-family="var(--fuente-datos)" font-size="12" font-weight="bold" fill="var(--tinta)">ODbL 1.0 (Open Database License)</text>
-                  <text x="20" y="78" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Estándar OpenStreetMap</text>
-                  <text x="20" y="98" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Atribución: © Colaboradores OSM</text>
-                  <text x="20" y="118" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Share-Alike en bases derivadas</text>
-                  <text x="20" y="138" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Compatibilidad Darwin Core (GBIF)</text>
-                </g>
+              <!-- PILAR 1: CC BY-SA 4.0 -->
+              <g transform="translate(25, 20)">
+                <rect width="305" height="260" rx="12" fill="#0d1829" stroke="#10b981" stroke-width="2"/>
+                <rect width="305" height="42" rx="12" fill="#064e3b"/>
+                <rect y="30" width="305" height="12" fill="#064e3b"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#34d399">PILAR 1 · DOCUMENTACIÓN Y MAPAS</text>
 
-                <!-- PILAR 3: SOFTWARE GNU AGPLv3 -->
-                <g transform="translate(570, 25)">
-                  <rect width="240" height="160" fill="var(--papel)" stroke="var(--ocre)" stroke-width="1.5"/>
-                  <text x="20" y="25" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--ocre)">CÓDIGO & VISOR WEB</text>
-                  <line x1="20" y1="35" x2="220" y2="35" stroke="var(--linea)" stroke-width="1"/>
-                  <text x="20" y="58" font-family="var(--fuente-datos)" font-size="12" font-weight="bold" fill="var(--tinta)">GNU AGPLv3 (Copyleft Fuerte)</text>
-                  <text x="20" y="78" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Libertad total de estudio y uso</text>
-                  <text x="20" y="98" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Si se aloja en web, código público</text>
-                  <text x="20" y="118" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Impide bifurcaciones privativas</text>
-                  <text x="20" y="138" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Transferible a municipios y ONGs</text>
-                </g>
-              </svg>
-            </div>
-            <div class="doc-diagrama-epigrafe">La tríada de licencias garantiza que el esfuerzo voluntario y los datos de la comunidad no puedan ser cerrados comercialmente por ningún actor privado.</div>
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="13.5" font-weight="800" fill="#f8fafc">CC BY-SA 4.0 Internacional</text>
+
+                <text x="16" y="96" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Atribución Obligatoria UAH</text>
+                <text x="26" y="114" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Crédito a UAH / Nodo GeoAbierto</text>
+
+                <text x="16" y="138" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Cláusula CompartirIgual</text>
+                <text x="26" y="156" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Obras derivadas bajo idéntica licencia</text>
+
+                <text x="16" y="180" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Marco Legal Chileno</text>
+                <text x="26" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Ley N° 17.336 (Prop. Intelectual)</text>
+
+                <rect x="14" y="222" width="277" height="24" rx="6" fill="#1e293b"/>
+                <text x="20" y="238" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#34d399">Manual · Metadatos · Excel</text>
+              </g>
+
+              <!-- PILAR 2: ODbL 1.0 -->
+              <g transform="translate(358, 20)">
+                <rect width="305" height="260" rx="12" fill="#0d1829" stroke="#0ea5e9" stroke-width="2"/>
+                <rect width="305" height="42" rx="12" fill="#0c4a6e"/>
+                <rect y="30" width="305" height="12" fill="#0c4a6e"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#38bdf8">PILAR 2 · BASES DE DATOS ESPACIALES</text>
+
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="13.5" font-weight="800" fill="#f8fafc">ODbL 1.0 (Open Database License)</text>
+
+                <text x="16" y="96" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Estándar OSM Foundation</text>
+                <text x="26" y="114" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">© Colaboradores de OpenStreetMap</text>
+
+                <text x="16" y="138" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Share-Alike en Bases Derivadas</text>
+                <text x="26" y="156" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Reciprocidad en tablas espaciales</text>
+
+                <text x="16" y="180" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Interoperabilidad Abierta</text>
+                <text x="26" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">PostGIS + Darwin Core GBIF + IDE Chile</text>
+
+                <rect x="14" y="222" width="277" height="24" rx="6" fill="#1e293b"/>
+                <text x="20" y="238" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#38bdf8">Nodos · Vías · Relaciones</text>
+              </g>
+
+              <!-- PILAR 3: GNU AGPLv3 -->
+              <g transform="translate(690, 20)">
+                <rect width="305" height="260" rx="12" fill="#0d1829" stroke="#a855f7" stroke-width="2"/>
+                <rect width="305" height="42" rx="12" fill="#2e1065"/>
+                <rect y="30" width="305" height="12" fill="#2e1065"/>
+                <text x="16" y="27" font-family="'Segoe UI', Calibri, sans-serif" font-size="13" font-weight="900" fill="#c084fc">PILAR 3 · SOFTWARE Y PLATAFORMA</text>
+
+                <text x="16" y="66" font-family="'Segoe UI', Calibri, sans-serif" font-size="13.5" font-weight="800" fill="#f8fafc">GNU AGPLv3 (Copyleft Fuerte)</text>
+
+                <text x="16" y="96" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Libertad de Uso y Modificación</text>
+                <text x="26" y="114" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Código 100% auditable y transferible</text>
+
+                <text x="16" y="138" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Cláusula de Red Web</text>
+                <text x="26" y="156" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Si se aloja en web, código disponible</text>
+
+                <text x="16" y="180" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">• Blindaje Antiapropiación</text>
+                <text x="26" y="198" font-family="'Segoe UI', Calibri, sans-serif" font-size="11" fill="#94a3b8">Bloquea privatización de software público</text>
+
+                <rect x="14" y="222" width="277" height="24" rx="6" fill="#1e293b"/>
+                <text x="20" y="238" font-family="'Courier New', monospace" font-size="10.5" font-weight="bold" fill="#c084fc">Frontend SPA · Leaflet · Scripts</text>
+              </g>
+            </svg>
           </div>
-          <div class="doc-diagrama-epigrafe">La tríada de licencias garantiza que el esfuerzo voluntario y los datos comunitarios no puedan ser cerrados comercialmente por ningún actor privado.</div>
+          <div class="doc-diagrama-epigrafe">La tríada de licencias abiertas garantiza la reciprocidad comunitaria: ningún actor privativo puede cerrar los datos ni el software generado con fondos públicos y aportes ciudadanos.</div>
         </div>
 
         <div class="doc-seccion-sub">
@@ -1578,53 +1753,90 @@ out geom tags qt 400;</code></pre>
               <span class="doc-diagrama-titulo">FIGURA 4. FLUJO DE TRABAJO DE CONTRIBUCIÓN GIT CON REVISIÓN POR PERMISO</span>
             </div>
             <div class="doc-diagrama-svg">
-              <div class="doc-diagrama-titulo">FIGURA 4. FLUJO DE TRABAJO DE CONTRIBUCIÓN GIT CON REVISIÓN POR PERMISO</div>
-            <div class="doc-diagrama-svg">
-              <svg viewBox="0 0 840 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100%" height="100%" fill="var(--papel-alto)" stroke="var(--linea)" stroke-width="1"/>
+              <svg viewBox="0 0 1020 240" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="arrow-git" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+                  </marker>
+                </defs>
+                <rect width="100%" height="100%" fill="#070d18" stroke="#1e293b" stroke-width="1.5" rx="8"/>
 
-                <g transform="translate(30, 30)">
-                  <rect width="160" height="100" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                  <text x="15" y="22" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--tinta)">1. FORK & CLONE</text>
-                  <text x="15" y="45" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">Copia personal en su</text>
-                  <text x="15" y="60" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">cuenta de GitHub.</text>
-                  <text x="15" y="82" font-family="var(--fuente-datos)" font-size="10" fill="var(--tinta-suave)">git clone &lt;su-fork&gt;</text>
+                <!-- PASO 1: FORK & CLONE -->
+                <g transform="translate(20, 20)">
+                  <rect width="220" height="200" rx="12" fill="#0d1829" stroke="#0ea5e9" stroke-width="2"/>
+                  <rect width="220" height="38" rx="12" fill="#0c4a6e"/>
+                  <rect y="26" width="220" height="12" fill="#0c4a6e"/>
+                  <text x="14" y="25" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="900" fill="#38bdf8">1. FORK & CLONE</text>
+
+                  <text x="14" y="60" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Copia Personal</text>
+                  <text x="22" y="76" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Fork en cuenta GitHub propia</text>
+
+                  <text x="14" y="100" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Clon Local</text>
+                  <text x="22" y="116" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Entorno de desarrollo local</text>
+
+                  <rect x="12" y="152" width="196" height="24" rx="6" fill="#1e293b"/>
+                  <text x="18" y="168" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#38bdf8">git clone &lt;su-fork&gt;</text>
                 </g>
 
-                <line x1="190" y1="80" x2="230" y2="80" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+                <line x1="246" y1="120" x2="276" y2="120" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-git)"/>
 
-                <g transform="translate(235, 30)">
-                  <rect width="170" height="100" fill="var(--papel)" stroke="var(--tinta)" stroke-width="1"/>
-                  <text x="15" y="22" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--tinta)">2. FEATURE BRANCH</text>
-                  <text x="15" y="45" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">Crea rama temática:</text>
-                  <text x="15" y="60" font-family="var(--fuente-datos)" font-size="10" fill="var(--musgo-oscuro)">feature/nueva-etiqueta</text>
-                  <text x="15" y="82" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta-suave)">Sin alterar main directo.</text>
+                <!-- PASO 2: FEATURE BRANCH -->
+                <g transform="translate(282, 20)">
+                  <rect width="220" height="200" rx="12" fill="#0d1829" stroke="#f59e0b" stroke-width="2"/>
+                  <rect width="220" height="38" rx="12" fill="#451a03"/>
+                  <rect y="26" width="220" height="12" fill="#451a03"/>
+                  <text x="14" y="25" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="900" fill="#fbbf24">2. RAMA TEMÁTICA</text>
+
+                  <text x="14" y="60" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Rama de Trabajo</text>
+                  <text x="22" y="76" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Aislamiento por temática</text>
+
+                  <text x="14" y="100" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Blindaje Main</text>
+                  <text x="22" y="116" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Nunca alterar main directo</text>
+
+                  <rect x="12" y="152" width="196" height="24" rx="6" fill="#1e293b"/>
+                  <text x="18" y="168" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#fbbf24">git checkout -b feat/cat</text>
                 </g>
 
-                <line x1="405" y1="80" x2="445" y2="80" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+                <line x1="508" y1="120" x2="538" y2="120" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-git)"/>
 
-                <g transform="translate(450, 30)">
-                  <rect width="170" height="100" fill="var(--papel)" stroke="var(--ocre)" stroke-width="1.5"/>
-                  <text x="15" y="22" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--ocre)">3. PULL REQUEST</text>
-                  <text x="15" y="45" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">Envío formal con:</text>
-                  <text x="15" y="60" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Justificación temática</text>
-                  <text x="15" y="82" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">• Cita APA de respaldo</text>
+                <!-- PASO 3: PULL REQUEST -->
+                <g transform="translate(544, 20)">
+                  <rect width="220" height="200" rx="12" fill="#0d1829" stroke="#a855f7" stroke-width="2"/>
+                  <rect width="220" height="38" rx="12" fill="#2e1065"/>
+                  <rect y="26" width="220" height="12" fill="#2e1065"/>
+                  <text x="14" y="25" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="900" fill="#c084fc">3. PULL REQUEST</text>
+
+                  <text x="14" y="60" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Propuesta Formal</text>
+                  <text x="22" y="76" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Envío vía GitHub con ficha</text>
+
+                  <text x="14" y="100" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Trazabilidad y Citas</text>
+                  <text x="22" y="116" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Justificación y norma APA</text>
+
+                  <rect x="12" y="152" width="196" height="24" rx="6" fill="#1e293b"/>
+                  <text x="18" y="168" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#c084fc">Auditoría Transparente</text>
                 </g>
 
-                <line x1="620" y1="80" x2="655" y2="80" stroke="var(--tinta-suave)" stroke-width="1.5" marker-end="url(#arrow)"/>
+                <line x1="770" y1="120" x2="800" y2="120" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-git)"/>
 
-                <g transform="translate(660, 30)">
-                  <rect width="150" height="100" fill="var(--papel)" stroke="var(--musgo)" stroke-width="1.5"/>
-                  <text x="15" y="22" font-family="var(--fuente-datos)" font-size="11" font-weight="bold" fill="var(--musgo-oscuro)">4. REVISIÓN & MERGE</text>
-                  <text x="15" y="45" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">Revisión técnica del</text>
-                  <text x="15" y="60" font-family="var(--fuente-lectura)" font-size="11" fill="var(--tinta)">mantenedor UAH.</text>
-                  <text x="15" y="82" font-family="var(--fuente-datos)" font-size="10" fill="var(--musgo)">Merge -&gt; Netlify Deploy</text>
+                <!-- PASO 4: REVISIÓN & MERGE -->
+                <g transform="translate(806, 20)">
+                  <rect width="194" height="200" rx="12" fill="#0d1829" stroke="#10b981" stroke-width="2"/>
+                  <rect width="194" height="38" rx="12" fill="#064e3b"/>
+                  <rect y="26" width="194" height="12" fill="#064e3b"/>
+                  <text x="14" y="25" font-family="'Segoe UI', Calibri, sans-serif" font-size="12.5" font-weight="900" fill="#34d399">4. REVISIÓN & CI/CD</text>
+
+                  <text x="14" y="60" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Aprobación UAH</text>
+                  <text x="22" y="76" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Revisión del mantenedor</text>
+
+                  <text x="14" y="100" font-family="'Segoe UI', Calibri, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">• Integración Continua</text>
+                  <text x="22" y="116" font-family="'Segoe UI', Calibri, sans-serif" font-size="10.5" fill="#94a3b8">Merge a main y deploy CDN</text>
+
+                  <rect x="12" y="152" width="170" height="24" rx="6" fill="#1e293b"/>
+                  <text x="18" y="168" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#34d399">Netlify Deploy Activo</text>
                 </g>
               </svg>
             </div>
-            <div class="doc-diagrama-epigrafe">Cualquier colaborador puede proponer mejoras o nuevas etiquetas para su comuna mediante un Pull Request que es auditado antes de pasar a producción.</div>
-            </div>
-            <div class="doc-diagrama-epigrafe">Cualquier colaborador puede proponer mejoras o nuevas etiquetas mediante un Pull Request auditado antes de pasar a producción.</div>
+            <div class="doc-diagrama-epigrafe">Cualquier colaborador o junta vecinal puede proponer mejoras o nuevas etiquetas mediante un Pull Request auditado antes de pasar automáticamente a producción.</div>
           </div>
         </div>
       </section>

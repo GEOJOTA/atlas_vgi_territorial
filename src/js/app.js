@@ -238,21 +238,51 @@ const MAPA_COHERENCIA_CATEGORIAS = {
     isoTopic: 'biota',
     tituloMd: 'Catastro VGI de Biodiversidad Urbana y Arbolado: Barrio Brasil - Universidad Alberto Hurtado',
     resumenMd: 'Registros de arbolado urbano georreferenciado, flora y fauna comunitaria compilados desde OpenStreetMap y la Infraestructura Mundial de Información en Biodiversidad (GBIF).'
+  },
+  edificaciones: {
+    codigo: 'CAT-09',
+    nombre: 'Edificaciones y Huella Urbana',
+    claveOSM: 'building',
+    valorOSM: 'yes',
+    entidadOSM: 'way',
+    color: '#06b6d4',
+    ohPreset: 'building=* and type:way',
+    ohFiltro: 'building=* and type:way',
+    gbifTaxa: 'custom',
+    isoTopic: 'structure',
+    tituloMd: 'Catastro VGI de Edificaciones y Huella Urbana: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Huella poligonal de edificaciones, manzaneo catastral y volumetría construida en Barrio Brasil y entorno del campus UAH.'
+  },
+  cobertura_suelo: {
+    codigo: 'CAT-10',
+    nombre: 'Coberturas y Usos de Suelo',
+    claveOSM: 'landuse',
+    valorOSM: '*',
+    entidadOSM: 'way',
+    color: '#10b981',
+    ohPreset: 'landuse=* and (type:way or type:relation)',
+    ohFiltro: 'landuse=* and (type:way or type:relation)',
+    gbifTaxa: 'custom',
+    isoTopic: 'planningCadastre',
+    tituloMd: 'Catastro VGI de Coberturas y Usos de Suelo: Barrio Brasil - Universidad Alberto Hurtado',
+    resumenMd: 'Zonificación de usos de suelo y coberturas territoriales en Barrio Brasil y Santiago Centro.'
   }
 };
 
 function resolverCategoriaId(identificador) {
   if (!identificador) return 'educacion';
   if (MAPA_COHERENCIA_CATEGORIAS[identificador]) return identificador;
-  const s = String(identificador).toLowerCase();
-  if (s.includes('universidad') || s.includes('educacion') || s.includes('school') || s.includes('college') || s.includes('library')) return 'educacion';
-  if (s.includes('farmacia') || s.includes('salud') || s.includes('comercio') || s.includes('shop') || s.includes('bakery') || s.includes('cafe') || s.includes('restaurant')) return 'servicios';
-  if (s.includes('bus') || s.includes('transporte') || s.includes('metro') || s.includes('railway')) return 'transporte';
-  if (s.includes('ciclo') || s.includes('bici') || s.includes('cycleway')) return 'movilidad_activa';
-  if (s.includes('plaza') || s.includes('parque') || s.includes('leisure') || s.includes('park') || s.includes('playground')) return 'espacio_publico';
-  if (s.includes('patrimonio') || s.includes('historic') || s.includes('casona') || s.includes('museum') || s.includes('theatre')) return 'patrimonio';
-  if (s.includes('cruce') || s.includes('accesibilidad') || s.includes('kerb') || s.includes('wheelchair') || s.includes('crossing')) return 'accesibilidad';
-  if (s.includes('arbol') || s.includes('arbolado') || s.includes('biodiversidad') || s.includes('tree') || s.includes('natural')) return 'biodiversidad';
+  const s = String(identificador).toLowerCase().trim();
+  if (s === 'cat-01' || s.includes('universidad') || s.includes('educacion') || s.includes('school') || s.includes('college') || s.includes('library')) return 'educacion';
+  if (s === 'cat-02' || s.includes('farmacia') || s.includes('salud') || s.includes('comercio') || s.includes('shop') || s.includes('bakery') || s.includes('cafe') || s.includes('restaurant')) return 'servicios';
+  if (s === 'cat-03' || s.includes('bus') || s.includes('transporte') || s.includes('metro') || s.includes('railway')) return 'transporte';
+  if (s === 'cat-04' || s.includes('ciclo') || s.includes('bici') || s.includes('cycleway')) return 'movilidad_activa';
+  if (s === 'cat-05' || s.includes('plaza') || s.includes('parque') || s.includes('leisure') || s.includes('park') || s.includes('playground')) return 'espacio_publico';
+  if (s === 'cat-06' || s.includes('patrimonio') || s.includes('historic') || s.includes('casona') || s.includes('museum') || s.includes('theatre')) return 'patrimonio';
+  if (s === 'cat-07' || s.includes('cruce') || s.includes('accesibilidad') || s.includes('kerb') || s.includes('wheelchair') || s.includes('crossing')) return 'accesibilidad';
+  if (s === 'cat-08' || s.includes('arbol') || s.includes('arbolado') || s.includes('biodiversidad') || s.includes('tree') || s.includes('natural')) return 'biodiversidad';
+  if (s === 'cat-09' || s.includes('edific') || s.includes('building') || s.includes('huella')) return 'edificaciones';
+  if (s === 'cat-10' || s.includes('suelo') || s.includes('landuse') || s.includes('cobertura')) return 'cobertura_suelo';
   return 'educacion';
 }
 
@@ -496,7 +526,8 @@ function inicializarAplicacion() {
       if (selValor) selValor.value = 'custom';
 
       actualizarCodigoQLPreview();
-      sincronizarCoherenciaEntreModulos(clave, { valor, nombre, color, origen: 'sugerencia_ciudadana' });
+      const catDestino = btn.dataset.cat || btn.dataset.categoria || clave;
+      sincronizarCoherenciaEntreModulos(catDestino, { valor, nombre, color, origen: 'sugerencia_ciudadana' });
       manejarConsultaPersonalizada();
     });
   });
@@ -1653,10 +1684,10 @@ function manejarCambioPerfilUsuario(e) {
 
   // Ajustar o destacar botones de sugerencias ciudadanas
   const perfilesSugerencias = {
-    institucion: ['amenity=pharmacy', 'amenity=university', 'highway=bus_stop', 'kerb=lowered', 'amenity=fire_station'],
-    comunidad: ['shop=bakery', 'leisure=park', 'historic=*', 'amenity=cafe', 'amenity=bicycle_parking'],
-    voluntario: ['amenity=university', 'historic=*', 'kerb=lowered', 'amenity=pharmacy', 'highway=bus_stop'],
-    ong: ['amenity=university', 'natural=tree', 'kerb=lowered', 'leisure=park', 'historic=*']
+    institucion: ['amenity=university', 'highway=bus_stop', 'kerb=lowered', 'building=yes', 'CAT-01', 'CAT-03', 'CAT-07', 'CAT-09'],
+    comunidad: ['shop=*', 'leisure=park', 'historic=*', 'highway=cycleway', 'CAT-02', 'CAT-04', 'CAT-05', 'CAT-06'],
+    voluntario: ['amenity=university', 'historic=*', 'kerb=lowered', 'natural=tree', 'CAT-01', 'CAT-06', 'CAT-07', 'CAT-08'],
+    ong: ['natural=tree', 'leisure=park', 'historic=*', 'landuse=*', 'CAT-05', 'CAT-06', 'CAT-08', 'CAT-10']
   };
 
   const listaFiltro = perfilesSugerencias[perfil] || null;
@@ -1664,11 +1695,12 @@ function manejarCambioPerfilUsuario(e) {
   document.querySelectorAll('.btn-sugerencia-ciudadana').forEach(btn => {
     const clave = btn.dataset.clave;
     const valor = btn.dataset.valor;
+    const cat = btn.dataset.cat;
     const claveValor = `${clave}=${valor}`;
 
     if (!listaFiltro) {
       btn.classList.remove('perfil-destacado', 'perfil-atenuado');
-    } else if (listaFiltro.includes(claveValor) || (clave === 'historic' && listaFiltro.includes('historic=*'))) {
+    } else if (listaFiltro.includes(claveValor) || (clave === 'historic' && listaFiltro.includes('historic=*')) || (cat && listaFiltro.includes(cat))) {
       btn.classList.add('perfil-destacado');
       btn.classList.remove('perfil-atenuado');
     } else {
