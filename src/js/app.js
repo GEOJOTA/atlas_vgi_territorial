@@ -316,12 +316,14 @@ function sincronizarCoherenciaEntreModulos(identificador, opciones = {}) {
   if (opciones.origen !== 'constructor_custom') {
     const inpClave = document.getElementById('custom-clave-manual');
     const inpValor = document.getElementById('custom-valor');
+    const selClave = document.getElementById('custom-clave-select');
     const inpNombre = document.getElementById('custom-nombre-capa');
     const inpColor = document.getElementById('custom-color-capa');
     const selEntidad = document.getElementById('custom-entidad');
     const selValor = document.getElementById('custom-valor-select');
-    if (inpClave) inpClave.value = opciones.clave || mapa.claveOSM;
-    if (inpValor) inpValor.value = opciones.valor !== undefined ? (opciones.valor === '*' ? '' : opciones.valor) : (mapa.valorOSM === '*' ? '' : mapa.valorOSM);
+    if (selClave) selClave.value = 'otra';
+    if (inpClave) inpClave.value = '';
+    if (inpValor) inpValor.value = '';
     if (inpNombre) inpNombre.value = opciones.nombre || mapa.nombre;
     if (inpColor) inpColor.value = opciones.color || mapa.color;
     if (selEntidad) selEntidad.value = mapa.entidadOSM;
@@ -516,8 +518,10 @@ function inicializarAplicacion() {
       const color = btn.dataset.color || '#A97722';
       const entidad = btn.dataset.entidad || 'nwr';
 
-      document.getElementById('custom-clave-manual').value = clave;
-      document.getElementById('custom-valor').value = valor === '*' ? '' : valor;
+      const selClave = document.getElementById('custom-clave-select');
+      if (selClave) selClave.value = 'otra';
+      document.getElementById('custom-clave-manual').value = '';
+      document.getElementById('custom-valor').value = '';
       document.getElementById('custom-operador').value = operador;
       document.getElementById('custom-nombre-capa').value = nombre;
       document.getElementById('custom-color-capa').value = color;
@@ -1717,7 +1721,9 @@ async function manejarConsultaOhsome() {
   const bbox = leerBbox('oh');
   if (!bbox) { contenedor.innerHTML = avisoError('Completa las cuatro coordenadas del área.'); return; }
 
-  const filtro = document.getElementById('oh-filtro').value.trim() || 'building=* and type:way';
+  const valFiltroInput = document.getElementById('oh-filtro').value.trim();
+  const valPresetSelect = document.getElementById('oh-preset-selector')?.value;
+  const filtro = valFiltroInput || (valPresetSelect && valPresetSelect !== 'custom' ? valPresetSelect : 'building=* and type:way');
   const intervalo = document.getElementById('oh-intervalo-selector')?.value || 'P1Y';
   const version = document.getElementById('oh-version-selector')?.value || 'v1';
   const apiKey = document.getElementById('oh-api-key')?.value.trim() || localStorage.getItem('nodo-vgi:heigit-api-key') || '';

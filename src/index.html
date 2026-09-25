@@ -490,7 +490,8 @@
           <div class="campo" style="flex:1; min-width:180px;">
             <label for="custom-clave-select">Clave Frecuente</label>
             <select id="custom-clave-select">
-              <option value="amenity" selected>amenity (Equipamiento)</option>
+              <option value="otra" selected>— Otra clave manual —</option>
+              <option value="amenity">amenity (Equipamiento)</option>
               <option value="building">building (Edificaciones y Huella Urbana)</option>
               <option value="landuse">landuse (Uso y Cobertura de Suelo)</option>
               <option value="shop">shop (Comercio)</option>
@@ -501,12 +502,11 @@
               <option value="healthcare">healthcare (Salud)</option>
               <option value="tourism">tourism (Turismo / Cultura)</option>
               <option value="emergency">emergency (Emergencias)</option>
-              <option value="otra">— Otra clave manual —</option>
             </select>
           </div>
           <div class="campo" style="flex:1; min-width:140px;">
             <label for="custom-clave-manual">Clave OSM</label>
-            <input type="text" id="custom-clave-manual" value="amenity" placeholder="ej: amenity">
+            <input type="text" id="custom-clave-manual" value="" placeholder="ej: amenity, building, landuse...">
           </div>
           <div class="campo" style="width:110px;">
             <label for="custom-operador">Operador</label>
@@ -526,7 +526,7 @@
           </div>
           <div class="campo" style="flex:1; min-width:140px;">
             <label for="custom-valor">Valor OSM Manual</label>
-            <input type="text" id="custom-valor" value="pharmacy" placeholder="ej: pharmacy, school, bakery">
+            <input type="text" id="custom-valor" value="" placeholder="ej: pharmacy, school, bakery, park...">
           </div>
         </div>
 
@@ -699,7 +699,7 @@
         <div class="fila-campos">
           <div class="campo" style="flex:1;">
             <label for="oh-filtro">Expresión de Filtro ohsome</label>
-            <input type="text" id="oh-filtro" placeholder="ej: building=* and type:way" value="building=* and type:way">
+            <input type="text" id="oh-filtro" placeholder="Ej: amenity=university and (type:node or type:way), building=*, landuse=*" value="">
           </div>
         </div>
         <div class="fila-campos" style="margin-top:10px;">
