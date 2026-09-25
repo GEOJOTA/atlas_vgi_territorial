@@ -39,8 +39,7 @@ const ModuloMapa = (() => {
     censo2024_zonal: '#279B6C',
     censo2024_manzanas: '#34BF82',
     minvu_patrimonio: '#8F3A2C',
-    minvu_parques: '#236B43',
-    minvu_barrios_historicos: '#7D5A2B',
+    minvu_ipt_areas_verdes: '#059669',
     educacion_parvularia: '#417A63',
     establecimientos_salud: '#B22222',
     bomberos: '#C71585',
@@ -671,6 +670,31 @@ const ModuloMapa = (() => {
     columnas_totales: 14,
     tamano_mb: 1.51,
     licencia: 'Información Pública Oficial — Ley N° 20.285 de Transparencia (Solicitud AN001T0026930)'
+  };
+  META_CAPAS_BIDAT['bbdd_46'] = {
+    fuente: 'SII / IDE Chile — Catastro Predial Oficial',
+    descripcion: 'Catastro de Predios Urbanos y Rurales de las 52 comunas de la RM (1.432.752 predios consolidados). Información vectorial íntegra sin simplificación.',
+    archivo_geojson: 'capa_bbdd_46.geojson',
+    columnas_totales: 18,
+    tamano_mb: 638.39,
+    licencia: 'Información Pública Oficial — Servicio de Impuestos Internos / IDE Chile'
+  };
+  META_CAPAS_BIDAT['capa_bbdd_46'] = META_CAPAS_BIDAT['bbdd_46'];
+  META_CAPAS_BIDAT['minvu_ipt_areas_verdes'] = {
+    fuente: 'MINVU / INE 2023 — Áreas Verdes Normativas',
+    descripcion: 'Catastro Consolidado de Áreas Verdes Urbanas Región Metropolitana (18.173 entidades con tipología, jerarquía y superficie).',
+    archivo_geojson: 'ide_minvu_ipt_areas_verdes.geojson',
+    columnas_totales: 25,
+    tamano_mb: 29.39,
+    licencia: 'Datos Abiertos — MINVU / INE'
+  };
+  META_CAPAS_BIDAT['minvu_patrimonio'] = {
+    fuente: 'MINVU — Instrumentos de Planificación Territorial',
+    descripcion: 'Zonas de Conservación Histórica e Inmuebles de Conservación Histórica RM (1.690 entidades con decretos oficiales).',
+    archivo_geojson: 'ide_minvu_patrimonio.geojson',
+    columnas_totales: 16,
+    tamano_mb: 3.08,
+    licencia: 'Datos Abiertos — DDU MINVU'
   };
 
   // Aliases directos para los 5 niveles del Censo 2024 (con o sin prefijo ide_)

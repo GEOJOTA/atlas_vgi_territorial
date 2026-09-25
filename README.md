@@ -59,9 +59,9 @@ Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y
 
 ---
 
-## 5. Capas oficiales del Estado de Chile integradas (110 capas oficiales + 10 VGI = 120 capas)
+## 5. Capas oficiales del Estado de Chile integradas (112 capas oficiales + 10 VGI = 122 capas)
 
-El visor integra **110 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y 6 macro-grupos temáticos:
+El visor integra **112 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
 
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
    - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT (Art. 2.1.17 OGUC), Fajas de Resguardo y Límites Urbanos Oficiales (Art. 52 LGUC).
@@ -76,8 +76,8 @@ El visor integra **110 capas cartográficas oficiales de la Administración del 
      - **Escala 5 — Manzanas Censales Santiago / Barrio Brasil:** 1.711 manzanas censales con microdatos completos de población, grupos etarios, inmigración y viviendas.
    - Unidades Vecinales Oficiales 2026 (Ley 19.418), Catastro Oficial de Campamentos MINVU, Condominios Sociales (Ley 21.442) y 10 conjuntos de datos sociodemográficos y de inversión pública del Registro Social de Hogares (RSH), IGVUST e iniciativas BIP (BiDat MDSF / Hacienda).
 4. 🏛️ **Equipamiento Público, Educación, Salud, Catastro Predial SII & Patrimonio (SII / CMN / MINEDUC / MINSAL / IND):**
-   - **Catastro Predial Servicio de Impuestos Internos (SII Geocodificado v4 2026):** Catastro predial de bienes raíces (1.380.649 propiedades geocodificadas a nivel nacional en GeoPackage; 264.195 predios desplegados en el visor web para la Región Metropolitana por peso de archivo). Fuente: Servicio de Impuestos Internos (SII). ⚠️ *Nota: Geocodificación automatizada sujeta a margen de error (según nivel) y/o vacíos de origen.*
-   - Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Establecimientos de Educación Escolar y Superior (MINEDUC), Hospitales y CESFAM (DEIS MINSAL), Infraestructura Deportiva IND y Jardines Botánicos.
+   - **Catastro Predial Servicio de Impuestos Internos (SII / IDE Chile - 52 Comunas RM):** Catastro predial consolidado de las 52 comunas de la Región Metropolitana (1.432.752 predios íntegros sin simplificar en WGS 84, 638 MB). Incluye descarga directa GeoJSON y atributos oficiales de rol, avalúo y destino.
+   - **Patrimonio y Áreas Verdes Actualizadas:** Áreas Verdes Normativas MINVU / INE 2023 (18.173 polígonos) y ZCH / ICH RM (1.690 polígonos). Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Establecimientos de Educación Escolar y Superior (MINEDUC), Hospitales y CESFAM (DEIS MINSAL).
 5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
    - Cuarteles del Cuerpo de Bomberos de Santiago, Comisarías de Carabineros de Chile (Plan Cuadrante), Pasos Fronterizos Internacionales Oficiales (DIFROL) y Zonas de Seguridad Fronteriza (DFL N° 4).
 6. 🚲 **Movilidad, Transporte, Red Semafórica UOCT, Red Metro, Inversión Pública & Economía (UOCT / MTT / MOP / BIP / CNE / ODEPA):**

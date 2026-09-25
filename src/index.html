@@ -47,7 +47,7 @@
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
       <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> ⬚ Cartografía UMap</button>
       <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
-      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (101 Capas)</button>
+      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (112 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
       <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
     </nav>
@@ -122,7 +122,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 110 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
+            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 112 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
@@ -224,7 +224,7 @@
 
           <!-- Subpanel 2: Capas Oficiales IDE Chile -->
           <div class="subpanel-profundidad" id="subpanel-ide">
-            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--musgo);">101 Capas Oficiales e Indicadores del Estado:</h4>
+            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--musgo);">112 Capas Oficiales e Indicadores del Estado:</h4>
             <p style="font-size: 0.78rem; color: var(--tinta-suave); margin-bottom: 10px;">Capas de MINVU, IDE Chile, EFE, DGAC e INE para contraste barrial.</p>
             <div id="sidebar-lista-ide-rapida" style="display: flex; flex-direction: column; gap: 6px; max-height: 480px; overflow-y: auto;">
               <!-- Se puebla dinámicamente -->
@@ -299,12 +299,12 @@
             <div class="consola-insignia">CATÁLOGO MAESTRO CARTOGRÁFICO</div>
             <h3 class="consola-titulo">Consola de Control Cartográfico & Capas del Territorio</h3>
             <p class="consola-subtitulo">
-              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 110 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA y CONAF).
+              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 112 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA, CNE y CONAF).
             </p>
           </div>
           <div class="consola-header-metricas">
             <div class="kpi-consola">
-              <span class="kpi-valor" id="kpi-total-capas">120</span>
+              <span class="kpi-valor" id="kpi-total-capas">122</span>
               <span class="kpi-etiqueta">Capas Totales</span>
             </div>
             <div class="kpi-consola">
@@ -333,7 +333,7 @@
 
         <!-- Chips de Filtrado Temático Rápido -->
         <div class="consola-chips-filtro" id="contenedor-chips-filtro">
-          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (120)</button>
+          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (122)</button>
           <button type="button" class="chip-filtro" data-filtro="movilidad">Movilidad & Semáforos</button>
           <button type="button" class="chip-filtro" data-filtro="normativa">Normativa & Urbanismo</button>
           <button type="button" class="chip-filtro" data-filtro="demografia">Censo 2024 & Social</button>
@@ -346,7 +346,7 @@
         <!-- Navegación por Pestañas Segmentadas -->
         <div class="consola-pestanas-nav">
           <button type="button" class="pestana-capas activa" data-seccion="seccion-capas-oficiales">
-            Capas Oficiales del Estado <span class="badge-tab-conteo">110</span>
+            Capas Oficiales del Estado <span class="badge-tab-conteo">112</span>
           </button>
           <button type="button" class="pestana-capas" data-seccion="seccion-capas-vgi">
             Capas Colaborativas VGI (OSM/GBIF) <span class="badge-tab-conteo">10</span>
