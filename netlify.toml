@@ -8,7 +8,7 @@
 
 [build.environment]
   GIT_LFS_ENABLED = "true"
-  GIT_LFS_FETCH_INCLUDE = "*.geojson"
+  GIT_LFS_FETCH_INCLUDE = "*.geojson,data/*.geojson,src/data/*.geojson"
   SECRETS_SCAN_ENABLED = "false"
   SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,SUPABASE_ANON_KEY"
 
