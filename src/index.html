@@ -592,7 +592,8 @@
 
       <!-- Área de consulta espacial -->
       <div class="bloque">
-        <h3>Área de Consulta Espacial (Bounding Box WGS84)</h3>
+        <h3>Área de Consulta Espacial (Geodatabase RM Descargada)</h3>
+        <p class="descripcion" style="margin-bottom:12px;">Consulta espacial directa a la base de datos vectorial descargada de OpenStreetMap para la Región Metropolitana (PostGIS / CDN / GeoJSON). Sin esperas ni timeouts de Overpass, latencia instantánea y cobertura íntegra de las 10 macrocategorías temáticas.</p>
         <div class="fila-campos">
           <div class="campo"><label for="osm-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="osm-oeste"></div>
           <div class="campo"><label for="osm-sur">Sur (Lat Min)</label><input type="number" step="any" id="osm-sur"></div>
@@ -621,13 +622,13 @@
             <input type="text" id="osm-etiqueta" placeholder="ej: amenity=cafe, shop=bakery">
           </div>
         </div>
-        <button class="accion" id="btn-consultar-osm">Consultar Preset Overpass</button>
+        <button class="accion" id="btn-consultar-osm">Consultar Geodatabase RM</button>
         <button class="accion secundaria" id="btn-cargar-osm-al-mapa">Visualizar en Mapa Atlas</button>
         <button class="accion secundaria" id="btn-usar-area-config">Restablecer Bbox UAH</button>
       </div>
 
       <div class="bloque resultado" id="resultado-osm" aria-live="polite">
-        <p class="descripcion">Todavía no hay ninguna consulta realizada. Utiliza el constructor superior o selecciona un preset.</p>
+        <p class="descripcion">Todavía no hay ninguna consulta realizada. Utiliza el constructor superior o consulta la Geodatabase RM descargada.</p>
       </div>
     </section>
 

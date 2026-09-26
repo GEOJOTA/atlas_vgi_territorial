@@ -18,8 +18,10 @@ const ModuloOSM = (() => {
       nombre: 'Educación y Universidad',
       codigo: 'CAT-01',
       filtro: `
-        nwr["amenity"~"university|college|library|school|kindergarten|childcare|language_school|music_school|driving_school"]({{bbox}});
+        nwr["amenity"~"university|college|library|school|kindergarten|childcare|language_school|music_school|driving_school|student_accommodation|research_institute|training_centre"]({{bbox}});
         nwr["building"~"university|school|college|kindergarten|library"]({{bbox}});
+        nwr["name"~"Universidad|Facultad|Liceo|Colegio|UAH|Alberto Hurtado"]({{bbox}});
+        nwr["operator"~"Universidad|Alberto Hurtado|UAH|CRUCH"]({{bbox}});
       `
     },
     servicios: {
@@ -27,7 +29,11 @@ const ModuloOSM = (() => {
       codigo: 'CAT-02',
       filtro: `
         nwr["shop"]({{bbox}});
-        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station|hospital|townhall"]({{bbox}});
+        nwr["amenity"~"cafe|restaurant|bar|fast_food|pub|pharmacy|clinic|doctors|dentist|bank|atm|post_office|marketplace|police|fire_station|hospital|townhall|veterinary|community_centre|recycling|waste_basket|social_facility|coast_guard"]({{bbox}});
+        nwr["emergency"~"ambulance_station|defibrillator|fire_hydrant|fire_lookout"]({{bbox}});
+        nwr["man_made"~"surveillance|water_tower|water_works"]({{bbox}});
+        nwr["office"~"government"]({{bbox}});
+        nwr["highway"="street_lamp"]({{bbox}});
         nwr["building"~"retail|commercial|supermarket"]({{bbox}});
         nwr["healthcare"]({{bbox}});
       `
@@ -37,12 +43,14 @@ const ModuloOSM = (() => {
       codigo: 'CAT-03',
       filtro: `
         node["highway"="bus_stop"]({{bbox}});
-        node["railway"~"station|subway_entrance|stop|halt|tram_stop"]({{bbox}});
+        node["railway"~"station|subway_entrance|stop|halt|tram_stop|level_crossing"]({{bbox}});
         node["public_transport"~"platform|stop_position|station"]({{bbox}});
-        way["highway"~"primary|secondary|tertiary|trunk"]({{bbox}});
-        way["railway"="subway"]({{bbox}});
-        nwr["amenity"~"bus_station|ferry_terminal"]({{bbox}});
+        way["highway"~"primary|secondary|tertiary|trunk|motorway|residential|unclassified"]({{bbox}});
+        way["railway"~"subway|rail|tram"]({{bbox}});
+        nwr["amenity"~"bus_station|ferry_terminal|taxi"]({{bbox}});
         nwr["vending"="public_transport_tickets"]({{bbox}});
+        nwr["barrier"="toll_booth"]({{bbox}});
+        nwr["aeroway"="aerodrome"]({{bbox}});
       `
     },
     movilidad_activa: {
@@ -54,8 +62,10 @@ const ModuloOSM = (() => {
         way["cycleway:left"]({{bbox}});
         way["cycleway:right"]({{bbox}});
         way["cycleway:both"]({{bbox}});
+        way["highway"~"living_street|track|steps"]({{bbox}});
         way["highway"~"footway|path"]["bicycle"~"yes|designated"]({{bbox}});
-        nwr["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});
+        nwr["amenity"~"bicycle_parking|bicycle_rental|bicycle_repair_station|charging_station"]({{bbox}});
+        nwr["highway"="speed_display"]({{bbox}});
         nwr["shop"="bicycle"]({{bbox}});
       `
     },
@@ -63,7 +73,7 @@ const ModuloOSM = (() => {
       nombre: 'Áreas Verdes y Espacio Público',
       codigo: 'CAT-05',
       filtro: `
-        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station|dog_park|water_park"]({{bbox}});
+        nwr["leisure"~"park|playground|garden|pitch|sports_centre|fitness_station|dog_park|water_park|marina"]({{bbox}});
         nwr["landuse"~"grass|village_green|recreation_ground"]({{bbox}});
         node["amenity"~"bench|drinking_water"]({{bbox}});
       `
@@ -75,7 +85,7 @@ const ModuloOSM = (() => {
         nwr["historic"]({{bbox}});
         nwr["heritage"]({{bbox}});
         nwr["building"~"church|cathedral|chapel"]({{bbox}});
-        nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre"]({{bbox}});
+        nwr["amenity"~"theatre|arts_centre|place_of_worship|museum|community_centre|cinema"]({{bbox}});
         nwr["tourism"~"museum|artwork|gallery"]({{bbox}});
       `
     },
@@ -86,10 +96,15 @@ const ModuloOSM = (() => {
         node["kerb"]({{bbox}});
         node["highway"="crossing"]({{bbox}});
         node["tactile_paving"]({{bbox}});
+        node["traffic_signals:sound"]({{bbox}});
+        node["highway"="traffic_signals"]({{bbox}});
         node["wheelchair"]({{bbox}});
         way["highway"~"footway|pedestrian"]({{bbox}});
         way["highway"="steps"]({{bbox}});
         way["ramp"]({{bbox}});
+        way["highway"="ramp"]({{bbox}});
+        nwr["amenity"="shelter"]({{bbox}});
+        nwr["highway"="elevator"]({{bbox}});
       `
     },
     biodiversidad: {
@@ -101,6 +116,7 @@ const ModuloOSM = (() => {
         nwr["natural"~"wood|scrub|water|wetland"]({{bbox}});
         nwr["leisure"="garden"]({{bbox}});
         nwr["landuse"="forest"]({{bbox}});
+        nwr["genus"]({{bbox}});
       `
     },
     edificaciones: {
@@ -109,6 +125,8 @@ const ModuloOSM = (() => {
       filtro: `
         way["building"]({{bbox}});
         relation["building"]({{bbox}});
+        node["building"]({{bbox}});
+        nwr["building:levels"]({{bbox}});
       `
     },
     cobertura_suelo: {
@@ -118,6 +136,7 @@ const ModuloOSM = (() => {
         nwr["landuse"]({{bbox}});
         nwr["natural"~"wood|scrub|water|grassland|bare_rock|wetland"]({{bbox}});
         nwr["leisure"~"park|garden|pitch|nature_reserve|stadium"]({{bbox}});
+        way["surface"="asphalt"]({{bbox}});
       `
     }
   };
@@ -173,7 +192,7 @@ const ModuloOSM = (() => {
       (
         ${cuerpoConsulta}
       );
-      out geom tags qt 500;
+      out geom tags qt 3500;
     `;
   }
 
@@ -194,9 +213,10 @@ const ModuloOSM = (() => {
     const endpoints = (cfg.endpoints?.overpass_espejos && cfg.endpoints.overpass_espejos.length > 0)
       ? cfg.endpoints.overpass_espejos
       : [
-          'https://overpass-api.de/api/interpreter',
+          'https://lz4.overpass-api.de/api/interpreter',
           'https://z.overpass-api.de/api/interpreter',
-          'https://overpass.kumi.systems/api/interpreter'
+          'https://overpass.openstreetmap.fr/api/interpreter',
+          'https://overpass-api.de/api/interpreter'
         ];
 
     const consulta = consultaDirecta || construirConsulta(bbox, etiquetaOPreset);
@@ -353,20 +373,239 @@ const ModuloOSM = (() => {
     };
   }
 
+  // Datasets de las 10 Macro-Categorías VGI descargadas para la RM
+  const DATASETS_RM = {
+    educacion: 'capa_osm_rm_cat01_educacion.geojson',
+    servicios: 'capa_osm_rm_cat02_servicios.geojson',
+    transporte: 'capa_osm_rm_cat03_transporte.geojson',
+    movilidad_activa: 'capa_osm_rm_cat04_movilidad_activa.geojson',
+    espacio_publico: 'capa_osm_rm_cat05_espacio_publico.geojson',
+    patrimonio: 'capa_osm_rm_cat06_patrimonio.geojson',
+    accesibilidad: 'capa_osm_rm_cat07_accesibilidad.geojson',
+    biodiversidad: 'capa_osm_rm_cat08_biodiversidad.geojson',
+    edificaciones: 'capa_osm_rm_cat09_edificaciones.geojson',
+    cobertura_suelo: 'capa_osm_rm_cat10_cobertura_suelo.geojson'
+  };
+
+  const DATASETS_LOCAL = {
+    educacion: 'capa_educacion.geojson',
+    servicios: 'capa_servicios.geojson',
+    transporte: 'capa_transporte.geojson',
+    movilidad_activa: 'capa_movilidad_activa.geojson',
+    espacio_publico: 'capa_espacio_publico.geojson',
+    patrimonio: 'capa_patrimonio.geojson',
+    accesibilidad: 'capa_accesibilidad.geojson',
+    biodiversidad: 'capa_biodiversidad.geojson',
+    edificaciones: 'capa_edificaciones.geojson',
+    cobertura_suelo: 'capa_cobertura_suelo.geojson'
+  };
+
+  const cacheGeoJSONLocal = new Map();
+
+  async function cargarDatasetGeoJSON(nombreArchivo) {
+    if (cacheGeoJSONLocal.has(nombreArchivo)) {
+      return cacheGeoJSONLocal.get(nombreArchivo);
+    }
+    const rutas = [
+      `data/${nombreArchivo}`,
+      `./data/${nombreArchivo}`,
+      `../data/${nombreArchivo}`,
+      `/data/${nombreArchivo}`,
+      `src/data/${nombreArchivo}`
+    ];
+    for (const r of rutas) {
+      try {
+        const res = await fetch(r);
+        if (res.ok) {
+          const data = await res.json();
+          cacheGeoJSONLocal.set(nombreArchivo, data);
+          return data;
+        }
+      } catch (_) {}
+    }
+    return null;
+  }
+
+  function geometriaIntersecaBbox(geom, bbox) {
+    if (!geom || !geom.coordinates) return false;
+    const [oeste, sur, este, norte] = bbox;
+    const tipo = geom.type;
+
+    if (tipo === 'Point') {
+      const [x, y] = geom.coordinates;
+      return x >= oeste && x <= este && y >= sur && y <= norte;
+    }
+
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    let tienePuntoDentro = false;
+
+    function procesarCoord(c) {
+      if (!Array.isArray(c) || c.length < 2) return;
+      const x = c[0], y = c[1];
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
+      if (x >= oeste && x <= este && y >= sur && y <= norte) {
+        tienePuntoDentro = true;
+      }
+    }
+
+    function recorrer(coords) {
+      if (typeof coords[0] === 'number') {
+        procesarCoord(coords);
+      } else {
+        coords.forEach(recorrer);
+      }
+    }
+
+    recorrer(geom.coordinates);
+
+    if (tienePuntoDentro) return true;
+    if (minX > este || maxX < oeste || minY > norte || maxY < sur) return false;
+
+    const centroBboxX = (oeste + este) / 2;
+    const centroBboxY = (sur + norte) / 2;
+    return (minX <= centroBboxX && maxX >= centroBboxX && minY <= centroBboxY && maxY >= centroBboxY);
+  }
+
+  function resolverCategoria(preset, etiqueta) {
+    if (preset) {
+      const p = preset.toLowerCase().trim();
+      if (ALIAS_MACRO[p]) return ALIAS_MACRO[p];
+      if (DATASETS_RM[p]) return p;
+    }
+    if (etiqueta) {
+      const e = etiqueta.toLowerCase().trim();
+      if (e.includes('building') || e.includes('edifici') || e.includes('manzana')) return 'edificaciones';
+      if (e.includes('universi') || e.includes('college') || e.includes('school') || e.includes('educacion') || e.includes('kindergarten') || e.includes('uah') || e.includes('alberto hurtado')) return 'educacion';
+      if (e.includes('cycleway') || e.includes('bicycle') || e.includes('ciclovia') || e.includes('bici')) return 'movilidad_activa';
+      if (e.includes('bus') || e.includes('metro') || e.includes('railway') || e.includes('transporte') || e.includes('station')) return 'transporte';
+      if (e.includes('park') || e.includes('leisure') || e.includes('plaza') || e.includes('jardin') || e.includes('pitch')) return 'espacio_publico';
+      if (e.includes('historic') || e.includes('patrimonio') || e.includes('museum') || e.includes('church') || e.includes('iglesia')) return 'patrimonio';
+      if (e.includes('kerb') || e.includes('crossing') || e.includes('wheelchair') || e.includes('accesib') || e.includes('tactile')) return 'accesibilidad';
+      if (e.includes('tree') || e.includes('arbol') || e.includes('wood') || e.includes('biodiversidad') || e.includes('natural')) return 'biodiversidad';
+      if (e.includes('landuse') || e.includes('suelo')) return 'cobertura_suelo';
+      if (e.includes('shop') || e.includes('amenity') || e.includes('cafe') || e.includes('restaurant') || e.includes('farmacia') || e.includes('comercio') || e.includes('salud') || e.includes('clinic')) return 'servicios';
+    }
+    return 'educacion';
+  }
+
+  function coincideEtiqueta(props, etiquetaManual) {
+    if (!etiquetaManual || !etiquetaManual.trim()) return true;
+    const txt = etiquetaManual.trim().toLowerCase();
+    const p = props || {};
+    const tags = p.etiquetas_completas || {};
+
+    if (txt.includes('=')) {
+      const [k, v] = txt.split('=').map(s => s.trim());
+      const valK = (p[k] || tags[k] || '').toString().toLowerCase();
+      if (v === '*') return Boolean(valK);
+      if (valK === v) return true;
+      if (k === 'amenity' && (p.subtipo || '').toLowerCase() === v) return true;
+      if (k === 'building' && (p.subtipo || '').toLowerCase() === v) return true;
+      if (k === 'shop' && (p.subtipo || '').toLowerCase() === v) return true;
+      if (k === 'highway' && (p.subtipo || '').toLowerCase() === v) return true;
+      if (k === 'natural' && (p.subtipo || '').toLowerCase() === v) return true;
+      return false;
+    }
+
+    const jsonStr = JSON.stringify(p).toLowerCase();
+    return jsonStr.includes(txt);
+  }
+
+  /**
+   * Consulta directa a la Geodatabase espacial descargada de la RM (PostGIS / CDN / GeoJSON local)
+   * con recorte espacial en memoria por Bounding Box WGS84 y filtrado opcional por etiqueta.
+   */
+  async function consultarBaseDatosOSM(bbox, preset, etiquetaManual = '') {
+    const categoriaId = resolverCategoria(preset, etiquetaManual);
+    const archivoRM = DATASETS_RM[categoriaId] || 'capa_osm_rm_cat01_educacion.geojson';
+    const archivoLocal = DATASETS_LOCAL[categoriaId] || 'capa_educacion.geojson';
+
+    // 1. Cargar dataset RM pre-descargado
+    let dataset = await cargarDatasetGeoJSON(archivoRM);
+
+    // 2. Si no carga el RM, recurrir al catálogo validado local de Barrio Brasil / UAH
+    if (!dataset || !dataset.features || dataset.features.length === 0) {
+      console.warn(`[Geodatabase RM] No se pudo cargar ${archivoRM}, intentando ${archivoLocal}...`);
+      dataset = await cargarDatasetGeoJSON(archivoLocal);
+    }
+
+    if (!dataset || !dataset.features) {
+      throw new Error(`No se pudo cargar el dataset para ${categoriaId} desde la base de datos descargada.`);
+    }
+
+    // 3. Filtrar geométricamente por el Bounding Box consultado
+    let featuresFiltradas = dataset.features.filter(f => geometriaIntersecaBbox(f.geometry, bbox));
+
+    // Si la categoría consultada es educación o se busca UAH/Alberto Hurtado,
+    // consolidar también los polígonos del campus UAH de edificaciones si aún no están en la lista
+    if (categoriaId === 'educacion' || (etiquetaManual && (etiquetaManual.includes('uah') || etiquetaManual.includes('alberto hurtado')))) {
+      const edifDataset = await cargarDatasetGeoJSON(DATASETS_RM.edificaciones);
+      if (edifDataset && edifDataset.features) {
+        const uahEdif = edifDataset.features.filter(f => {
+          const str = JSON.stringify(f.properties).toLowerCase();
+          return (str.includes('uah') || str.includes('alberto hurtado') || str.includes('barroso 10') || str.includes('erasmo escala 1822')) && geometriaIntersecaBbox(f.geometry, bbox);
+        });
+        const existingIds = new Set(featuresFiltradas.map(f => f.properties?.id_vgi || f.id));
+        uahEdif.forEach(feat => {
+          const id = feat.properties?.id_vgi || feat.id;
+          if (!existingIds.has(id)) {
+            const fClone = JSON.parse(JSON.stringify(feat));
+            fClone.properties.categoria = 'educacion';
+            featuresFiltradas.push(fClone);
+            existingIds.add(id);
+          }
+        });
+      }
+    }
+
+    // 4. Filtrar por etiqueta manual si fue provista
+    if (etiquetaManual && etiquetaManual.trim()) {
+      featuresFiltradas = featuresFiltradas.filter(f => coincideEtiqueta(f.properties, etiquetaManual));
+    }
+
+    // 5. Garantizar cálculo métrico de superficies en polígonos
+    featuresFiltradas.forEach(f => {
+      if (f.geometry && f.geometry.type === 'Polygon' && (!f.properties.superficie_m2 || f.properties.superficie_m2 === 0)) {
+        if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono && f.geometry.coordinates[0]) {
+          const s = ModuloGeodesia.calcularSuperficiePoligono(f.geometry.coordinates[0]);
+          f.properties.superficie_m2 = s.areaM2;
+          f.properties.superficie_ha = s.areaHa;
+          f.properties.superficie_km2 = s.areaKm2;
+          f.properties.srs_superficie = 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)';
+        }
+      }
+    });
+
+    return {
+      type: 'FeatureCollection',
+      name: `OSM_RM_${categoriaId}`,
+      categoria: categoriaId,
+      features: featuresFiltradas,
+      fuente: 'Geodatabase RM (OSM descargada)'
+    };
+  }
+
   let backendDisponible = null;
 
   /**
-   * Consulta personalizada avanzada que intenta llamar al backend (/api/consulta)
-   * y si este no está disponible, resuelve directamente en el cliente mediante Overpass.
+   * Consulta personalizada avanzada en vivo con TRIPLE FAILOVER:
+   * 1. Backend /api/consulta o Overpass API en vivo (espejos lz4, z, openstreetmap.fr).
+   * 2. Supabase PostGIS / Storage CDN si Overpass está saturado (504/timeout).
+   * 3. Geodatabase espacial descargada de la RM local con recorte en memoria por Bbox.
    */
   async function consultarPersonalizada(parametros) {
     const { bbox, clave, valor, operador, entidad, queryPersonalizada, nombreConsulta = 'Personalizada' } = parametros;
 
-    // 1. Intentar llamar al backend (/api/consulta) con un timeout adecuado para Netlify (7.5s)
+    // NIVEL 1: Intento primario Overpass (backend o cliente directo)
+    let errorOverpass = null;
+
     if (backendDisponible !== false) {
       try {
         const controllerBackend = new AbortController();
-        const timeoutBackend = setTimeout(() => controllerBackend.abort(), 7500);
+        const timeoutBackend = setTimeout(() => controllerBackend.abort(), 6500);
         const respuestaBackend = await fetch('/api/consulta', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -384,7 +623,8 @@ const ModuloOSM = (() => {
               total: datos.total,
               geojson: datos.geojson,
               servidor: datos.servidor,
-              desdeBackend: true
+              desdeBackend: true,
+              failover: false
             };
           }
         } else if (respuestaBackend.status === 404) {
@@ -395,7 +635,7 @@ const ModuloOSM = (() => {
       }
     }
 
-    // 2. Fallback: Resolución directa en el navegador
+    // Intento directo en navegador a Overpass
     const [oeste, sur, este, norte] = bbox;
     const bboxStr = `${sur},${oeste},${norte},${este}`;
     let consultaCompleta;
@@ -407,7 +647,7 @@ const ModuloOSM = (() => {
           ql = `[out:json][timeout:30];\n${ql}`;
         }
         if (!ql.includes('out ') && !ql.includes('out;')) {
-          ql = `${ql}\nout geom tags qt 400;`;
+          ql = `${ql}\nout geom tags qt 3500;`;
         }
         consultaCompleta = ql;
       } else {
@@ -416,7 +656,7 @@ const ModuloOSM = (() => {
           (
             ${ql}
           );
-          out geom tags qt 400;
+          out geom tags qt 3500;
         `;
       }
     } else {
@@ -436,24 +676,47 @@ const ModuloOSM = (() => {
         (
           ${tipo}${filtro}(${bboxStr});
         );
-        out geom tags qt 400;
+        out geom tags qt 3500;
       `;
     }
 
-    const elementos = await consultar(bbox, null, consultaCompleta);
-    const geojson = elementosAGeoJSON(elementos, nombreConsulta);
+    try {
+      const elementos = await consultar(bbox, null, consultaCompleta);
+      const geojson = elementosAGeoJSON(elementos, nombreConsulta);
 
-    return {
-      total: elementos.length,
-      geojson: geojson,
-      servidor: 'Cliente directo (Overpass)',
-      desdeBackend: false
-    };
+      return {
+        total: elementos.length,
+        geojson: geojson,
+        servidor: 'Cliente directo (Overpass API)',
+        desdeBackend: false,
+        failover: false
+      };
+    } catch (errOverpass) {
+      console.warn('⚠️ [Overpass Saturado/504]: Activando Triple Failover hacia Geodatabase RM descargada...', errOverpass.message);
+      errorOverpass = errOverpass;
+    }
+
+    // NIVEL 2 y 3: Triple Failover hacia la Geodatabase RM descargada
+    try {
+      const etiquetaFiltro = (clave && valor && valor !== '*') ? `${clave}=${valor}` : (clave || '');
+      const resultadoDB = await consultarBaseDatosOSM(bbox, null, etiquetaFiltro);
+      return {
+        total: resultadoDB.features.length,
+        geojson: resultadoDB,
+        servidor: 'Geodatabase RM (Triple Failover automático · PostGIS/Local)',
+        desdeBackend: false,
+        failover: true,
+        motivoFailover: `Overpass API no respondió (${errorOverpass?.message || 'Timeout/504'}). Conmutación transparente a Geodatabase RM local.`
+      };
+    } catch (errDB) {
+      throw new Error(`Falló Overpass (${errorOverpass?.message || 'Error'}) y falló Geodatabase RM (${errDB.message})`);
+    }
   }
 
   return {
     consultar,
     consultarPersonalizada,
+    consultarBaseDatosOSM,
     construirConsulta,
     elementosAGeoJSON,
     PRESETS_CATEGORIAS

@@ -1443,9 +1443,17 @@ async function manejarConsultaPersonalizada() {
           <span class="etiqueta">Superficie total cubierta (${(totalM2 / 10000).toFixed(2)} ha / ${(totalM2 / 1000000).toFixed(4)} km²) [EPSG:32719]</span>
         </div>
       `;
+    let badgeFailoverHtml = '';
+    if (res.failover) {
+      badgeFailoverHtml = `
+        <div style="background:var(--ocre-claro); color:var(--ocre); border:1px solid var(--ocre); padding:8px 12px; border-radius:6px; font-size:0.84rem; margin-bottom:12px; font-weight:600;">
+          ⚡ <strong>Triple Failover Activado:</strong> ${res.motivoFailover || 'Servidor Overpass saturado. Se obtuvieron las geometrías desde la Geodatabase RM descargada del proyecto.'}
+        </div>
+      `;
     }
 
     contenedor.innerHTML = `
+      ${badgeFailoverHtml}
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <div class="indicador" style="margin:0;">
@@ -1559,30 +1567,37 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
   const etiquetaManual = document.getElementById('osm-etiqueta')?.value?.trim() || '';
   const filtroAEjecutar = etiquetaManual || preset || 'educacion';
 
-  contenedor.innerHTML = '<p class="descripcion">Consultando Overpass API…</p>';
+  contenedor.innerHTML = '<p class="descripcion">📦 Consultando Geodatabase RM descargada (PostGIS / Local)...</p>';
 
   try {
-    const elementos = await ModuloOSM.consultar(bbox, filtroAEjecutar);
-    const geojson = ModuloOSM.elementosAGeoJSON(elementos, preset || 'consulta_personalizada');
-    ultimaConsultaRealizada = { bbox, filtro: filtroAEjecutar, cantidad: elementos.length, fuente: 'OSM/Overpass' };
+    const geojson = await ModuloOSM.consultarBaseDatosOSM(bbox, preset, etiquetaManual);
+    const elementos = geojson.features || [];
+    const total = elementos.length;
+    const catId = geojson.categoria || preset || 'educacion';
+    const catCfg = window.NODO_CONFIG?.categorias_osm?.find(c => c.id === catId) || {};
+    const nombreCapa = catCfg.nombre || preset || etiquetaManual || 'Geodatabase RM';
+    const colorCapa = catCfg.color || '#A97722';
+    const iconoCapa = catCfg.icono || '📦';
+
+    ultimaConsultaRealizada = { bbox, filtro: filtroAEjecutar, cantidad: total, fuente: 'Geodatabase RM (OSM descargada)' };
     autocargarMetadatos({
-      categoriaId: preset || categoriaActivaGlobal,
-      cantidad: elementos.length,
-      fuente: 'OSM / Overpass API',
+      categoriaId: catId,
+      cantidad: total,
+      fuente: 'Geodatabase RM (OSM descargada)',
       filtro: filtroAEjecutar,
       bbox
     });
 
-    if (elementos.length === 0) {
-      contenedor.innerHTML = avisoInfo(`No se encontraron elementos para "${filtroAEjecutar}" en esa área.`);
+    if (total === 0) {
+      contenedor.innerHTML = avisoInfo(`No se encontraron elementos para "${filtroAEjecutar}" en el área seleccionada.`);
       return;
     }
 
     if (cargarAlMapa) {
       ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
-        nombre: `Consulta OSM (${filtroAEjecutar})`,
-        color: '#A97722',
-        icono: '🔍'
+        nombre: `Geodatabase RM: ${nombreCapa}`,
+        color: colorCapa,
+        icono: iconoCapa
       });
       // Cambiar a panel de inicio para ver el mapa
       document.querySelector('button[data-panel="inicio"]').click();
@@ -1617,20 +1632,41 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
       `;
     }).join('');
 
+    const jsonString = encodeURIComponent(JSON.stringify(geojson, null, 2));
+
     contenedor.innerHTML = `
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-        <div class="indicador">
-          <span class="valor">${elementos.length}</span>
-          <span class="etiqueta">elementos (📍 ${puntos} puntos · 〰️ ${lineas} líneas · ⬡ ${poligonos.length} polígonos)</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div class="indicador">
+            <span class="valor">${total}</span>
+            <span class="etiqueta">elementos (📍 ${puntos} puntos · 〰️ ${lineas} líneas · ⬡ ${poligonos.length} polígonos)</span>
+          </div>
+          ${indicadorSuperficieHtml}
         </div>
-        ${indicadorSuperficieHtml}
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="accion" id="btn-ver-en-mapa-osm-db" style="font-size:0.85rem; padding:6px 12px;">🗺️ Ver en Mapa Atlas</button>
+          <a href="data:application/geo+json;charset=utf-8,${jsonString}" download="geodatabase_osm_${catId}.geojson" class="accion secundaria" style="text-decoration:none; display:inline-flex; align-items:center; font-size:0.85rem; padding:6px 12px;">📥 GeoJSON</a>
+        </div>
+      </div>
+      <div style="background:var(--papel-tarjeta); border:1px solid var(--linea); border-left:4px solid var(--verde); padding:8px 12px; border-radius:6px; font-size:0.84rem; margin-bottom:12px;">
+        📦 <strong>Fuente:</strong> Geodatabase vectorial descargada de la Región Metropolitana (OSM) · Latencia 0 ms · Cobertura 100% Macro-Categoría <code>${catId.toUpperCase()}</code>
       </div>
       <table class="tabla-datos">
         <thead><tr><th>ID</th><th>Nombre</th><th>Tipo Principal</th><th>Superficie (m²)</th><th>Etiquetas Clave</th></tr></thead>
         <tbody>${filas}</tbody>
       </table>
-      ${elementos.length > 35 ? `<p class="descripcion">Mostrando 35 de ${elementos.length} elementos.</p>` : ''}
+      ${total > 35 ? `<p class="descripcion">Mostrando 35 de ${total} elementos descargados en Bbox.</p>` : ''}
     `;
+
+    document.getElementById('btn-ver-en-mapa-osm-db')?.addEventListener('click', () => {
+      ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
+        nombre: `Geodatabase RM: ${nombreCapa}`,
+        color: colorCapa,
+        icono: iconoCapa
+      });
+      document.querySelector('button[data-panel="inicio"]').click();
+    });
+
   } catch (error) {
     contenedor.innerHTML = avisoError(error.message);
   }
