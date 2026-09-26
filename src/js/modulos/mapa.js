@@ -673,10 +673,10 @@ const ModuloMapa = (() => {
   };
   META_CAPAS_BIDAT['bbdd_46'] = {
     fuente: 'SII / IDE Chile — Catastro Predial Oficial',
-    descripcion: 'Catastro de Predios Urbanos y Rurales de las 52 comunas de la RM (1.432.752 predios consolidados). Información vectorial íntegra sin simplificación.',
+    descripcion: 'Catastro Oficial de Predios de la Comuna de Santiago (35.036 roles prediales). Cobertura comunal completa sin recortes ni simplificaciones.',
     archivo_geojson: 'capa_bbdd_46.geojson',
-    columnas_totales: 18,
-    tamano_mb: 638.39,
+    columnas_totales: 5,
+    tamano_mb: 15.79,
     licencia: 'Información Pública Oficial — Servicio de Impuestos Internos / IDE Chile'
   };
   META_CAPAS_BIDAT['capa_bbdd_46'] = META_CAPAS_BIDAT['bbdd_46'];

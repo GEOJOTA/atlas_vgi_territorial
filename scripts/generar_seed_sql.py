@@ -52,8 +52,8 @@ def generar_sql():
             total_entidades = 18173
         elif "1.690" in geometria or "1690" in geometria:
             total_entidades = 1690
-        elif "1.432.752" in geometria or "1432752" in geometria:
-            total_entidades = 1432752
+        elif "35.036" in geometria or "35036" in geometria:
+            total_entidades = 35036
         elif "526" in geometria:
             total_entidades = 526
         elif "3.483" in nombre or "3483" in nombre or "semaforos" in cid:

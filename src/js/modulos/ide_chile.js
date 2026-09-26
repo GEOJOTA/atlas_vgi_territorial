@@ -1423,20 +1423,20 @@ const ModuloIDEChile = (() => {
     'bbdd_46': {
       id: 'bbdd_46',
       num_bbdd: 46,
-      nombre: "Predios Urbanos y Rurales RM (52 Comunas)",
+      nombre: "Predios Urbanos y Rurales (Comuna de Santiago)",
       institucion: "Servicio de Impuestos Internos (SII) / IDE Chile",
       ministerio: 'Ministerio de Hacienda',
-      tipoServicio: 'Vectorial GeoJSON Oficial (Merge 52 Comunas)',
+      tipoServicio: 'Vectorial GeoJSON Oficial (Comuna Completa)',
       urlServicio: "https://geoportal.cl/geoportal/catalog/35406/Predios",
       archivoLocal: 'data/capa_bbdd_46.geojson',
       color: '#B45309',
       icono: '📐',
-      geometria: 'Polígonos (1.432.752 Predios)',
+      geometria: 'Polígonos (35.036 Predios Santiago)',
       grupo: 'normativa_ipt',
       joinInfo: "ORIGINAL",
-      descripcion: "Catastro predial integral consolidado de las 52 comunas de la Región Metropolitana de Santiago (1.432.752 roles prediales). Incluye geometría predial completa y atributos oficiales sin simplificar.",
+      descripcion: "Catastro predial oficial completo de la Comuna de Santiago (35.036 roles prediales). Cobertura comunal íntegra sin simplificar, con roles, avalúos y destinos del Servicio de Impuestos Internos.",
       declaracion: 'Cartografía predial oficial provista por el Servicio de Impuestos Internos y distribuida vía IDE Chile / Geoportal.',
-      citaAPA: "Servicio de Impuestos Internos [SII]. (2024). Catastro Cartográfico de Predios Agrícolas y No Agrícolas RM. IDE Chile. https://geoportal.cl"
+      citaAPA: "Servicio de Impuestos Internos [SII]. (2024). Catastro Cartográfico de Predios Comuna de Santiago. IDE Chile. https://geoportal.cl"
     },
     'bbdd_47': {
       id: 'bbdd_47',
