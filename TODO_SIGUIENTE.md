@@ -66,7 +66,7 @@ Este documento registra la evolución técnica, decisiones metodológicas y entr
      - **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipios / SECPLAN):** Detección de brechas catastrales comunales, contraste de micro-infraestructura VGI vs. capas oficiales del Estado, y exportación en GeoJSON/CSV estándar WGS 84.
      - **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:** Monitoreo barrial, fiscalización de áreas verdes, registro de accesibilidad peatonal y biodiversidad urbana (GBIF) sin barreras tecnológicas.
      - **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:** Validación de etiquetas locales con Taginfo API, verificación de cambios en tiempo real vía OSMCha y carga colaborativa estructurada.
-     - **🎓 Perfil Académico / Geógrafos, Analistas SIG e Investigadores:** Integración con PyQGIS / R Spatial, métricas espaciotemporales de completitud con HeiGIT ohsome y evaluación de calidad con el marco OQT.
+     - **🔬 Perfil ONGs / Territoriales y Gestores:** Integración con PyQGIS / R Spatial, métricas espaciotemporales de completitud con HeiGIT ohsome, evaluación de calidad con el marco OQT y diagnósticos socioespaciales participativos.
    - Se actualizó el diagrama SVG de Arquitectura del Ecosistema (FIGURA 1) integrando las 7 APIs y los 12 módulos clientes.
 
 4. **Sincronización Total de la Arquitectura de Software (`docs/ARQUITECTURA.md` y `src/docs/ARQUITECTURA.md`):**

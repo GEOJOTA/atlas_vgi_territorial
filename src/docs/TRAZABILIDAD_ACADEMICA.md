@@ -96,7 +96,7 @@ Un requerimiento metodológico esencial del proyecto es **garantizar la usabilid
    - **Diccionario Territorial Interactivo (Panel 06):** Traducción directa de la jerga informática de etiquetas a lenguaje natural, con ejemplos concretos en Barrio Brasil y equivalencias IDE Chile.
    - **Cajas Guía de Referencia y Ayuda Contextual:** Explicaciones sencillas sobre qué es un Bbox, cómo se compone una clave/valor y cómo interpretar las métricas de calidad sin fórmulas matemáticas complejas.
 
-2. **Para Usuarios Técnicos (Geógrafos, Analistas SIG, Mapeadores OSM, Investigadores):**
+2. **Para Usuarios Técnicos y Analistas (Geógrafos, Analistas SIG, Mapeadores OSM, ONGs / Territoriales e Investigadores):**
    - **No se eliminaron ni limitaron las consultas complejas:** El sistema mantiene intacto el **Modo Overpass QL interactivo**, permitiendo escribir consultas libres con sintaxis de expresiones regulares, filtros anidados y selector de geometrías (`node`, `way`, `relation`, `nwr`).
    - **Control de Parámetros Avanzados:** Filtros de calidad condicional (`[name]`, `[wheelchair=yes]`, `[addr:street]`, `[operator]`), selección de operadores (`=`, `~`, `!=`, `*`), e intervalo temporal en ohsome (`P1Y`, `P6M`, `P1M`).
    - **Exportación Multi-Formato Estándar:** Descarga de capas en GeoJSON y CSV estructurado, exportación de metadatos en JSON (ISO 19115) y XML (ISO 19139 para IDE Chile / GeoNetwork).
@@ -125,6 +125,19 @@ Toda la taxonomía, junto con su correlación de atributos, linaje de procesamie
 2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula los 134 descriptores territoriales depurados (48 oficiales IDE Chile vs 86 brechas VGI comunitarias) con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa estatal homóloga, organismo rector y ejemplo empírico en Barrio Brasil / UAH.
 3. **Hoja 3: `Diccionario Atributos VGI`**: Detalla los 14 atributos normalizados de las entidades geoespaciales (incluyendo `superficie_m2`, `superficie_ha` y `srs_superficie` bajo proyección EPSG:32719 UTM 19S), indicando tipo de dato, cardinalidad, regla de cálculo y correspondencia con el Perfil Nacional de Metadatos (ISO 19110 / ISO 19115).
 4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 125 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando 51 referencias de investigación seminal, 8 obras epistemológicas e hispanoamericanas y 66 normas y marcos técnicos del Estado de Chile y globales), con hipervínculos oficiales activos y trazabilidad verificable.
+
+### 2.7 Mecanismos de Contribución Comunitaria Simple y Trazabilidad Ciudadana
+
+Para asegurar que el Atlas funcione como una herramienta viva de co-producción socioespacial y no como un repositorio estático o de acceso restringido a especialistas, se formalizó un **protocolo de contribución ciudadana accesible y trazable** que permite a cualquier usuario promedio (vecinos, dirigentas/es de juntas vecinales, colectivos barriales, estudiantes o integrantes de ONGs) aportar y validar datos territoriales:
+
+1. **Mapeo Directo en OpenStreetMap con Trazabilidad Temática:**  
+   A través del editor visual web [iD en openstreetmap.org](https://www.openstreetmap.org/), los ciudadanos pueden incorporar o corregir comercios, árboles de alineación, veredas accesibles o equipamiento barrial en el polígono de estudio. Al guardar con la etiqueta `#AtlasVGI_UAH`, el changeset queda registrado en el historial de OSM, permitiendo que el motor del Atlas (vía Overpass y OSMCha) audite la contribución e identifique al autor, timestamp y linaje de la modificación.
+2. **Carga y Contraste de Archivos Locales en el Visor:**  
+   Cualquier colectivo barrial que levante cartografía propia puede arrastrar sus archivos `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV` al Visor interactivo (Panel 00), contrastándolos de inmediato con las 112 capas oficiales y 10 VGI de forma 100% privada en su navegador.
+3. **Reportes Guiados vía GitHub Issues:**  
+   Se diseñó una plantilla estandarizada en el repositorio oficial de GitHub para que cualquier usuario reporte capas desactualizadas o sugiera nuevas fuentes comunitarias indicando: tipo de aporte, nombre de la capa, categoría VGI o institucional, ubicación y organización responsable.
+4. **Gobierno y Linaje de Datos:**  
+   Cada aporte debe consignar sus metadatos mínimos (autoría, fecha de captura, sistema de referencia EPSG:4326/32719 y licenciamiento abierto compatible ODbL/CC BY-SA), conforme a las directrices detalladas en el documento oficial [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 
 ---
 
@@ -210,7 +223,7 @@ Ante la evaluación técnica y metodológica, cada componente técnico responde 
 | **Arquitectura de Costo Cero (Static + Serverless + Local Python)** | Backend tradicional con servidor dedicado (Django/Express en VPS de pago) | Un servidor dedicado cuesta entre $5 y $20 USD mensuales y requiere mantenimiento de parches de seguridad. Al optar por Netlify Serverless, GitHub Pages y un servidor local en Python estándar, el costo es estrictamente cero y cualquier estudiante o municipio rural puede levantarlo sin presupuesto informático. |
 | **JavaScript Nativo (Vanilla JS) sin frameworks pesados** | React, Angular, Vue | Reduce la barrera de entrada para geógrafos no programadores. Cualquier usuario puede inspeccionar y modificar `mapa.js` o `osm.js` con un simple editor de texto sin instalar Node.js, Webpack ni dependencias NPM efímeras. |
 | **Leaflet 1.9.4 con teselas abiertas** | Mapbox GL, Google Maps JavaScript API | No requiere tarjetas de crédito ni tokens que expiren. Utiliza Carto Positron, OSM Estándar y OpenTopoMap libres. |
-| **Diferenciación por Perfiles de Actor Territorial** | Interfaz única monolítica genérica | Modula la experiencia para tres actores clave (autoridades/instituciones, organizaciones comunitarias/vecinos y voluntarios/mapeadores), reduciendo la brecha digital y destacando herramientas según necesidades de gestión. |
+| **Diferenciación por Perfiles de Actor Territorial** | Interfaz única monolítica genérica | Modula la experiencia para cuatro actores clave (autoridades/instituciones, organizaciones comunitarias/vecinos, voluntarios/mapeadores y ONGs/territoriales), reduciendo la brecha digital y destacando herramientas según necesidades de gestión. |
 | **Diccionario Territorial y Metadatos Normalizados** | Consulta a bases de datos sin glosario explicativo | Desmitifica la jerga informática de etiquetas de OpenStreetMap traduciéndola a 10 atributos estándar compatibles con IDE Chile (SNIT) e ISO 19115. |
 | **Constructor de Consultas Espaciales Dual + Sugerencias 1 Clic** | Búsqueda solo tabular predefinida o solo Overpass QL | Democratiza la consulta territorial permitiendo que vecinos ejecuten consultas en un solo clic, mientras que investigadores avanzados pueden construir expresiones complejas y descargar GeoJSON/CSV. |
 | **Delimitación Territorial Operativa (Barrio Brasil Completo y Manzana UAH)** | Catálogo metropolitano disperso (Providencia, Lo Barnechea, Casco Cívico) | Focaliza los recursos computacionales y de consulta en el área de estudio directa del proyecto territorial de Geografía, garantizando consistencia empírica en las 10 macro-categorías (CAT-01 a CAT-10) y evitando consultas descontextualizadas o sobrecarga innecesaria de APIs en Bboxes metropolitanos ajenos al caso piloto. |

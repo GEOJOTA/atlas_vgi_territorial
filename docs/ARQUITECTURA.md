@@ -31,12 +31,12 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
 │                                                                                                   │
 │   ┌───────────────────────────────────────────────────────────────────────────────────────────┐   │
 │   │                 SELECTOR DE ACTOR TERRITORIAL (PERFILES DE USUARIO)                       │   │
-│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🔬 ONG / Investigador │   │
+│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🔬 ONGs/Territoriales │   │
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
 │   │                  VISOR CARTOGRÁFICO INTERACTIVO (mapa.js / Leaflet 1.9.4)                     │   │
-│   │   Bbox Dinámico │ 10 Categorías VGI (CAT-01..10) │ 110 Capas Oficiales IDE │ Export QGIS  │   │
+│   │   Bbox Dinámico │ 10 Categorías VGI (CAT-01..10) │ 112 Capas Oficiales IDE │ Export QGIS  │   │
 │   └──────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬──────────┬───────┘   │
 │          │             │             │             │             │             │          │           │
 │   ┌──────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼──────┐┌─────▼────┐┌───▼───────┐│
@@ -281,7 +281,7 @@ El sistema adapta su comportamiento según el perfil seleccionado en la cabecera
 1. **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipalidad / SECPLAN):** Prioriza IPT (PRC Santiago), microdatos Censo 2024, exportación XML ISO 19139 y auditoría de metadatos.
 2. **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía:** Diagnósticos en 1 clic de servicios cotidianos (farmacias, áreas verdes, paraderos, ferias), mapas colaborativos en UMap.
 3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:** Constructor Overpass QL avanzado, validación Taginfo API, control de changesets en OSMCha y vacíos de microatributos de accesibilidad.
-4. **🔬 Perfil Investigadores / ONGs y Gestores:** Reproyección métrica EPSG:32719, series anuales ohsome, densidades espaciales por km² y citas APA 7ª ed.
+4. **🔬 Perfil ONGs / Territoriales y Gestores:** Reproyección métrica EPSG:32719, series anuales ohsome, densidades espaciales por km², articulación comunitaria y citas APA 7ª ed.
 
 ---
 

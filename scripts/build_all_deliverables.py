@@ -389,7 +389,7 @@ def build_01():
         ["Comunitario", "Juntas de Vecinos, Clubes de Adulto Mayor", "Diagnóstico barrial, visibilización de veredas dañadas y microbasurales.", "Mapeo participativo de proximidad, reporte de brechas de arbolado y espacios públicos."],
         ["Colaborativo", "Voluntarios OpenStreetMap, Colectivos Ciclistas", "Actualización cartográfica, auditoría de ciclovías y rutas caminables.", "Validación de etiquetas OSM, control de calidad y cálculo del índice OQT."],
         ["Institucional", "SECPLAN Municipalidad de Santiago, MINVU, IDE", "Monitoreo de cumplimiento normativo y contraste con PRC Santiago.", "Inspector normativo por clic, cruce con microdatos Censo 2024 y zonas de conservación."],
-        ["Académico", "Estudiantes UAH, Investigadores Urbanos", "Datos georreferenciados abiertos para docencia e investigación aplicada.", "Descarga de GeoJSON re-proyectado, metadatos ISO 19115 y series históricas ohsome."]
+        ["ONGs / Territoriales", "ONGs, Colectivos Barriales, Investigadores Urbanos", "Datos georreferenciados para incidencia territorial e investigación aplicada.", "Descarga de GeoJSON re-proyectado, densidades territoriales, metadatos ISO 19115 y series históricas ohsome."]
     ]
     add_styled_table(doc, headers_u, rows_u, oe_tag="OE 1")
     

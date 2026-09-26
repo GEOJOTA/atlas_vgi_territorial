@@ -19,8 +19,8 @@ En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Terr
    - Facilita diagnósticos barriales inmediatos con consultas en 1 clic (farmacias, áreas verdes, paraderos, arbolado viario, ferias libres), mapeo colaborativo barrial en UMap y lectura de fichas sin jerga técnica.
 3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:**
    - Enfocado en la formulación de consultas espaciales Overpass QL avanzadas, validación de etiquetas globales con **Taginfo API**, auditoría de cambios territoriales con **OSMCha** y detección de vacíos de microatributos de accesibilidad (`wheelchair`, `tactile_paving`, `kerb`).
-4. **🔬 Perfil Investigadores / Organizaciones No Gubernamentales (ONG) y Gestores:**
-   - Proporciona cálculo de densidades territoriales rigurosas mediante reproyección conforme a **EPSG:32719**, métricas de calidad temporal con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS/ArcGIS y matrices de metadatos con citas normalizadas en formato APA 7ª ed.
+4. **🔬 Perfil ONGs / Territoriales y Gestores:**
+   - Proporciona cálculo de densidades territoriales rigurosas mediante reproyección conforme a **EPSG:32719**, métricas de calidad temporal con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS/ArcGIS, articulación comunitaria y matrices de metadatos con citas normalizadas en formato APA 7ª ed.
 
 ---
 
@@ -257,4 +257,20 @@ Sí. El sistema posee una arquitectura *client-side* con **fallback local transp
 Se guardan de forma privada en el almacenamiento local (`localStorage`) de tu navegador web. Nunca se transmiten a servidores de terceros y pueden borrarse en cualquier momento desde la misma pestaña *"⚡ BD PostGIS"*.
 
 **¿Cómo se garantiza que la base de datos gratuita de Supabase no se desactive?**  
-Gracias al workflow [`.github/workflows/supabase_keepalive.yml`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/.github/workflows/supabase_keepalive.yml), GitHub Actions ejecuta un ping ligero cada 3 días sobre la API de Supabase, manteniendo el proyecto permanentemente activo de por vida a costo $0.
+Gracias al workflow [`.github/workflows/supabase_keepalive.yml`](../.github/workflows/supabase_keepalive.yml), GitHub Actions ejecuta un ping ligero cada 3 días sobre la API de Supabase, manteniendo el proyecto permanentemente activo de por vida a costo $0.
+
+---
+
+## 15. Guía de Contribución y Trazabilidad para la Comunidad
+
+El Atlas es un bien público abierto y transferible. Cualquier usuario promedio (vecinos, dirigentas/es de juntas vecinales, estudiantes, ONGs) puede hacer contribuciones y enriquecer los datos de manera simple:
+
+1. **Mapeo Directo en OpenStreetMap (Sin código):**  
+   Ingresa a [OpenStreetMap.org](https://www.openstreetmap.org/) con el editor web visual iD. Puedes agregar o corregir locales comerciales, rebajes peatonales, veredas, luminarias o plazas en Barrio Brasil. Al guardar el conjunto de cambios, añade `#AtlasVGI_UAH` en el comentario. Las consultas en vivo del Atlas integrarán tu aporte inmediatamente con trazabilidad de autor y fecha.
+2. **Carga y Contraste de Archivos Locales en el Visor:**  
+   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 112 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
+3. **Reporte y Sugerencia de Capas vía GitHub Issues:**  
+   Si encuentras una discrepancia o tu organización posee un set de datos territoriales que desea visibilizar, abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) detallando el nombre de la capa, enlace o archivo, ubicación y organización de contacto.
+4. **Lineamientos de Trazabilidad e Integridad:**  
+   Para preservar la rigurosidad científica, todo dato aportado debe registrar: (a) entidad u organización responsable, (b) fecha o año de levantamiento, (c) sistema de coordenadas (WGS 84 o EPSG:32719) y (d) licencia abierta compatible (ODbL, CC-BY 4.0 o datos públicos Ley 20.285). Para más detalles, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
+

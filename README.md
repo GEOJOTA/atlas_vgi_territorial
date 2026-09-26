@@ -36,7 +36,7 @@ El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico
 | **🏛️ Institucional / Autoridades** | Municipalidad de Santiago, SECPLAN, SEREMI MINVU RM, IDE Chile | Fiscalización de IPT (PRC Santiago), microdatos Censo 2024, exportación XML ISO 19139 |
 | **👥 Organizaciones Comunitarias / JJVV** | JJVV Barrio Brasil, Santa Ana, Capuchinos, Concha y Toro | Diagnóstico barrial en 1 clic (salud, ferias, áreas verdes), cartografía vecinal en UMap |
 | **🧭 Voluntarios / Mapeadores OSM** | Colaboradores OSM activos, colectivos ciclistas | Consultas Overpass QL avanzadas, Taginfo API, control de cambios en OSMCha y vacíos de accesibilidad |
-| **🔬 Investigadores / ONGs** | UAH, TECHO-Chile, SUR, Fundación TERRAM, MapBiomas | Reproyección métrica EPSG:32719, densidades territoriales, series históricas ohsome, citas APA |
+| **🔬 ONGs / Territoriales** | UAH, TECHO-Chile, SUR, Fundación TERRAM, MapBiomas, Colectivos Barriales | Reproyección métrica EPSG:32719, densidades territoriales, series históricas ohsome, citas APA |
 
 ---
 
@@ -216,7 +216,18 @@ python3 scripts/generar_catalogos_excel.py
 
 ---
 
-## 11. Cita académica y marco de investigación
+## 11. Cómo Contribuir al Atlas (Guía Simple y Trazabilidad Ciudadana)
+
+Cualquier persona u organización (vecinos, dirigentas/es, colectivos barriales, estudiantes, ONGs) puede aportar información al Atlas de forma simple:
+
+- **1. Mapeo Directo en OpenStreetMap:** Utiliza el editor web [iD en openstreetmap.org](https://www.openstreetmap.org/) para registrar o actualizar almacenes, cruces accesibles, veredas o árboles en Barrio Brasil. Al guardar, usa el hashtag `#AtlasVGI_UAH` para asegurar su trazabilidad comunitaria.
+- **2. Reporte o Propuesta de Nuevas Capas:** Abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) con el nombre de la capa, fuente, ubicación y organización responsable.
+- **3. Carga Local en el Visor:** Arrastra archivos `.GeoJSON`, `.KML` o `.CSV` al [Visor Web](https://atlasvgiuah.netlify.app/) para cruzar tus datos territoriales en tiempo real de forma privada y sin costo.
+- **4. Desarrollo y Datos (Fork & PR):** Consulta nuestra [Guía de Contribución y Trazabilidad (CONTRIBUTING.md)](CONTRIBUTING.md) para lineamientos de pull requests, esquemas de 14 atributos y políticas de datos abiertos (ODbL, CC BY-SA 4.0, AGPLv3).
+
+---
+
+## 12. Cita académica y marco de investigación
 
 ```bibtex
 @misc{lescano2026atlas,

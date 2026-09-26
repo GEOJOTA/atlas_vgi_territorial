@@ -141,13 +141,13 @@ const ModuloManual = (() => {
             </ol>
           </div>
 
-          <!-- PERFIL 4: INVESTIGACIÓN -->
+          <!-- PERFIL 4: ONGS / TERRITORIALES -->
           <div class="doc-tarjeta-audiencia audiencia-investigacion">
             <div class="doc-aud-header">
-              <span class="doc-audiencia-tag">🔬 Perfil Académico & ONGs</span>
-              <span class="doc-aud-subtag">Investigación Urbana · Universidades · Tesistas</span>
+              <span class="doc-audiencia-tag">🔬 Perfil ONGs / Territoriales</span>
+              <span class="doc-aud-subtag">Organizaciones Territoriales · ONGs · Diagnóstico Urbano Comunitario</span>
             </div>
-            <h4>¿Cómo aprovechar el Atlas para investigación territorial rigurosa?</h4>
+            <h4>¿Cómo aprovechar el Atlas para el trabajo de ONGs y articulación territorial?</h4>
             <p class="doc-aud-intro">Máximo rigor metodológico, trazabilidad bibliográfica y validación territorial UAH 2026:</p>
             <ol class="doc-pasos-lista">
               <li>
@@ -1837,6 +1837,30 @@ out geom tags qt 400;</code></pre>
               </svg>
             </div>
             <div class="doc-diagrama-epigrafe">Cualquier colaborador o junta vecinal puede proponer mejoras o nuevas etiquetas mediante un Pull Request auditado antes de pasar automáticamente a producción.</div>
+          </div>
+
+          <div class="doc-seccion-sub" style="margin-top: 32px; border-top: 1px solid var(--borde, #1e293b); padding-top: 24px;">
+            <h3>Guía Simple de Contribución y Trazabilidad para la Comunidad</h3>
+            <p>
+              Cualquier usuario promedio (vecinos, dirigentes sociales, estudiantes, integrantes de ONGs) puede aportar datos y mejoras al Atlas sin necesidad de conocimientos avanzados de programación:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+              <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
+                <h4 style="color: var(--musgo, #34d399); margin-top: 0; font-size: 1.05rem;">1. Mapeo Directo en OpenStreetMap</h4>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">Edite en <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">openstreetmap.org ↗</a> con el editor web visual iD. Agregue o corrija locales, veredas, arbolado o ciclovías en Barrio Brasil. Al guardar, agregue el hashtag <code>#AtlasVGI_UAH</code>. El visor del Atlas reflejará los cambios automáticamente en vivo con trazabilidad de autor y fecha.</p>
+              </div>
+              <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
+                <h4 style="color: var(--agua, #38bdf8); margin-top: 0; font-size: 1.05rem;">2. Carga Local de Archivos en el Visor</h4>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">En el Panel 00 (Visor), utilice el importador de archivos locales (.GeoJSON, .KML, .KMZ, .GPX, .CSV). Podrá contrastar sus propios levantamientos de terreno con las 112 capas oficiales y 10 VGI de forma privada y sin necesidad de instalar software SIG.</p>
+              </div>
+              <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
+                <h4 style="color: var(--ocre, #fbbf24); margin-top: 0; font-size: 1.05rem;">3. Reporte Simple vía GitHub Issues</h4>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">¿Detectó una capa desactualizada o propone una nueva fuente comunitaria? Abra un <a href="https://github.com/GEOJOTA/atlas_vgi_uah/issues" target="_blank" rel="noopener">Issue en GitHub ↗</a> indicando: Nombre de la capa, enlace/archivo, ubicación y organización responsable. El equipo mantenedor UAH la integrará.</p>
+              </div>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--texto-secundario, #94a3b8); font-style: italic;">
+              Consulte la guía completa y plantillas de metadatos en el archivo <a href="https://github.com/GEOJOTA/atlas_vgi_uah/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a> del repositorio oficial.
+            </p>
           </div>
         </div>
       </section>

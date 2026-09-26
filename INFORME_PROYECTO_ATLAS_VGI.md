@@ -252,7 +252,7 @@ python scripts/extractor_vgi.py
 | Institucional | Municipalidad Santiago, SECPLAN, IDE Chile | IPT/PRC, Censo 2024, XML ISO 19139 |
 | Comunitario | JJVV, vecinos, organizaciones barriales | Diagnostico en 1 clic, UMap |
 | Voluntario | Mapeadores OSM, colectivos | Overpass QL avanzado, Taginfo, OSMCha |
-| Investigador | UAH, ONGs, geografos | EPSG:32719, series ohsome, APA 7a edicion |
+| ONGs / Territoriales | UAH, ONGs, colectivos barriales, gestores territoriales | EPSG:32719, series ohsome, diagnósticos urbanos, APA 7ª ed. |
 
 ## 13. Integración Multiescalar del Censo de Población y Vivienda 2024 (Región Metropolitana)
 
