@@ -857,9 +857,9 @@ function inicializarAplicacion() {
 /* ---------------------- NAVEGACIÓN ---------------------- */
 
 function configurarNavegacion() {
-  const botonesNav = Array.from(new Set(document.querySelectorAll('#lista-navegacion button, .barra-pestanas-profundidad button')));
-
   const activarPanel = (panelId) => {
+    if (!panelId) return;
+    const botonesNav = Array.from(new Set(document.querySelectorAll('#lista-navegacion button, .barra-pestanas-profundidad button, button[data-panel]')));
     botonesNav.forEach(b => {
       const coincide = b.dataset.panel === panelId;
       b.setAttribute('aria-current', coincide ? 'true' : 'false');
@@ -879,8 +879,22 @@ function configurarNavegacion() {
     }
   };
 
+  window.activarPanel = activarPanel;
+
+  const botonesNav = Array.from(new Set(document.querySelectorAll('#lista-navegacion button, .barra-pestanas-profundidad button')));
   botonesNav.forEach(boton => {
-    boton.addEventListener('click', () => activarPanel(boton.dataset.panel));
+    boton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      activarPanel(boton.dataset.panel);
+    });
+  });
+
+  // Delegación global infalible para clicks en spans, badges o botones dinámicos
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('#lista-navegacion button, .barra-pestanas-profundidad button, button[data-panel]');
+    if (btn && btn.dataset.panel) {
+      activarPanel(btn.dataset.panel);
+    }
   });
 }
 
@@ -1443,6 +1457,8 @@ async function manejarConsultaPersonalizada() {
           <span class="etiqueta">Superficie total cubierta (${(totalM2 / 10000).toFixed(2)} ha / ${(totalM2 / 1000000).toFixed(4)} km²) [EPSG:32719]</span>
         </div>
       `;
+    }
+
     let badgeFailoverHtml = '';
     if (res.failover) {
       badgeFailoverHtml = `

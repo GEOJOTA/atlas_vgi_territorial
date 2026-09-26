@@ -281,6 +281,9 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   backdrop-filter: var(--glass-filter);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+  position: relative;
+  z-index: 100;
+  pointer-events: auto !important;
 }
 
 @media (max-width: 992px) {
@@ -317,10 +320,14 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   font-family: var(--fuente-titulos);
   font-size: clamp(0.76rem, 0.85vw, 0.88rem);
   font-weight: 700;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
   white-space: nowrap;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 101;
+  user-select: none;
 }
 
 .pestana-nodo:hover {
@@ -368,7 +375,7 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   z-index: 1;
 }
 
-.cabecera-principal-atlas, .barra-lateral {
+.barra-lateral {
   width: 100%;
   background: rgba(18, 30, 54, 0.98);
   backdrop-filter: var(--glass-filter);
