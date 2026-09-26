@@ -1423,7 +1423,7 @@ const ModuloIDEChile = (() => {
     'bbdd_46': {
       id: 'bbdd_46',
       num_bbdd: 46,
-      nombre: "Predios Urbanos y Rurales (Comuna de Santiago)",
+      nombre: "Predios Urbanos (Comuna de Santiago)",
       institucion: "Servicio de Impuestos Internos (SII) / IDE Chile",
       ministerio: 'Ministerio de Hacienda',
       tipoServicio: 'Vectorial GeoJSON Oficial (Comuna Completa)',
