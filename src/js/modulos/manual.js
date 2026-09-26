@@ -1851,11 +1851,15 @@ out geom tags qt 400;</code></pre>
               </div>
               <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
                 <h4 style="color: var(--agua, #38bdf8); margin-top: 0; font-size: 1.05rem;">2. Carga Local de Archivos en el Visor</h4>
-                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">En el Panel 00 (Visor), utilice el importador de archivos locales (.GeoJSON, .KML, .KMZ, .GPX, .CSV). Podrá contrastar sus propios levantamientos de terreno con las 112 capas oficiales y 10 VGI de forma privada y sin necesidad de instalar software SIG.</p>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">En el Panel 00 (Visor), utilice el importador de archivos locales (.GeoJSON, .KML, .KMZ, .GPX, .CSV). Podrá contrastar sus propios levantamientos de terreno con las 109 capas oficiales y 10 VGI de forma privada y sin necesidad de instalar software SIG.</p>
               </div>
               <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
                 <h4 style="color: var(--ocre, #fbbf24); margin-top: 0; font-size: 1.05rem;">3. Reporte Simple vía GitHub Issues</h4>
                 <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">¿Detectó una capa desactualizada o propone una nueva fuente comunitaria? Abra un <a href="https://github.com/GEOJOTA/atlas_vgi_uah/issues" target="_blank" rel="noopener">Issue en GitHub ↗</a> indicando: Nombre de la capa, enlace/archivo, ubicación y organización responsable. El equipo mantenedor UAH la integrará.</p>
+              </div>
+              <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
+                <h4 style="color: #a855f7; margin-top: 0; font-size: 1.05rem;">4. Código Abierto, Scripts & Capas (PR)</h4>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">Desarrolladores y analistas SIG pueden aportar mediante Fork & Pull Request. Arquitectura <em>zero-build</em> en Vanilla JS (sin bundlers), CSS modular, scripts Python y PostGIS 3.3. Licencias: <strong>AGPLv3 / ODbL / CC BY-SA 4.0</strong>. Guía técnica paso a paso en <a href="https://github.com/GEOJOTA/atlas_vgi_uah/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md ↗</a>.</p>
               </div>
             </div>
             <p style="font-size: 0.88rem; color: var(--texto-secundario, #94a3b8); font-style: italic;">

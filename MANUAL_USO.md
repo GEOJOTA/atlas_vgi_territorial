@@ -9,7 +9,7 @@
 
 ## 0. Introducción y Perfiles de Actor Territorial
 
-El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **112 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 122 capas totales con las 10 categorías maestras VGI).
+El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **109 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 119 capas totales con las 10 categorías maestras VGI).
 
 En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual adapta y resalta las herramientas clave según la necesidad operativa del usuario:
 
@@ -64,31 +64,31 @@ Debajo del mapa encontrarás la botonera con las 10 categorías territoriales ci
 
 ---
 
-## 2. Consola Técnica GIS y Catálogo Oficial de 112 Capas del Estado de Chile (IDE Chile / BBDD / UOCT MTT)
+## 2. Consola Técnica GIS y Catálogo Oficial de 109 Capas del Estado de Chile (IDE Chile / BBDD / UOCT MTT)
 
 Ubicada inmediatamente después del visor, la **Consola de Capas GIS** es un entorno de trabajo cartográfico profesional (*GIS-grade workbench*) rediseñado para permitir auditorías territoriales rigurosas, eliminando distracciones visuales o emojis infantiles y garantizando alta legibilidad según estándares WCAG AAA.
 
 ### 2.1 Componentes de la Consola Técnica GIS
 - **Barra de Telemetría e Indicadores KPI:**
-  - `[122 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
+  - `[119 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
   - `[0 EN MAPA]` (dinámico): Contador en tiempo real de capas activamente renderizadas en el lienzo Leaflet.
   - **`📥 Descargar Capas Activas`:** Exporta en un clic un paquete GeoJSON con todas las capas actualmente encendidas.
 - **Buscador Predictivo en Tiempo Real (`#busqueda-capas-atlas`):**
-  - Permite filtrar instantáneamente cualquiera de las 122 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
+  - Permite filtrar instantáneamente cualquiera de las 119 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
 - **Chips de Filtro Rápido:**
   - Accesos directos temáticos: `Todos`, `Movilidad & Semáforos`, `Normativa`, `Censo & Social`, `Medio Ambiente`, `Equipamiento`, `Seguridad`, `VGI`.
 - **Pestañas Segmentadas:**
-  - **`Capas Oficiales del Estado (112)`**: Despliegue de los 6 macro-grupos institucionales.
+  - **`Capas Oficiales del Estado (109)`**: Despliegue de los 6 macro-grupos institucionales.
   - **`Capas Colaborativas VGI (10)`**: Catálogo de las 10 categorías maestras de OpenStreetMap y GBIF.
   - **`Capas Activas en Mapa (N)`**: Vista concentrada exclusiva de las capas actualmente superpuestas para gestión rápida de visibilidad.
 - **Tarjetas Cartográficas Estilizadas (`.tarjeta-capa-gis`):**
   - Cada tarjeta presenta un interruptor toggle deslizante, el código institucional oficial, un pill de tipo geométrico (`PUNTO`, `LÍNEA`, `POLÍGONO`), un pill de organismo responsable (`UOCT / MTT`, `MINVU`, `INE`, etc.), descripción concisa y el botón directo de descarga sin simplificaciones **`GeoJSON`**.
 
-### 2.2 Los Macro-Grupos Oficiales (112 Capas)
+### 2.2 Los Macro-Grupos Oficiales (109 Capas)
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
    - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT, Límites Urbanos Oficiales y Fajas de Resguardo.
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
-   - Parques Urbanos MINVU, Red Hidrométrica Nacional DGA, Inventario de Humedales Urbanos, SNASPE (CONAF), Cobertura de Canales de Riego (CNR), Cuencas BNA y Carbono Orgánico del Suelo (COS).
+   - Parques Urbanos MINVU, Red Hidrométrica Nacional DGA, Inventario de Humedales Urbanos, SNASPE (CONAF), Cobertura de Canales de Riego (CNR) y Cuencas BNA.
 3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDSF / MINVU / INE Censo 2024):**
    - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y Manzanas con 217 variables censales del INE), Unidades Vecinales Oficiales (Ley 19.418), Campamentos MINVU, Condominios Sociales y 10 conjuntos de datos sociodemográficos y de inversión pública del Registro Social de Hogares (RSH), IGVUST e iniciativas BIP (BiDat MDSF / Hacienda).
 4. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND):**
@@ -220,7 +220,7 @@ Permite consultar la definición toponímica y la homología institucional de ca
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para análisis territorial y respaldo técnico:
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **112 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, Semáforos RM UOCT/MTT, BiDat MDSF, MINVU, MOP, DGA, Energía, CCU, etc.).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **109 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, Semáforos RM UOCT/MTT, BiDat MDSF, MINVU, MOP, DGA, Energía, CCU, etc.).
 - **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
 - **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando 51 obras seminales de investigación, 8 fuentes epistemológicas e hispanoamericanas y 66 normas técnicas y marcos legales del Estado de Chile y globales).
 
@@ -268,7 +268,7 @@ El Atlas es un bien público abierto y transferible. Cualquier usuario promedio 
 1. **Mapeo Directo en OpenStreetMap (Sin código):**  
    Ingresa a [OpenStreetMap.org](https://www.openstreetmap.org/) con el editor web visual iD. Puedes agregar o corregir locales comerciales, rebajes peatonales, veredas, luminarias o plazas en Barrio Brasil. Al guardar el conjunto de cambios, añade `#AtlasVGI_UAH` en el comentario. Las consultas en vivo del Atlas integrarán tu aporte inmediatamente con trazabilidad de autor y fecha.
 2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 112 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
+   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 109 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
 3. **Reporte y Sugerencia de Capas vía GitHub Issues:**  
    Si encuentras una discrepancia o tu organización posee un set de datos territoriales que desea visibilizar, abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) detallando el nombre de la capa, enlace o archivo, ubicación y organización de contacto.
 4. **Lineamientos de Trazabilidad e Integridad:**  

@@ -3,7 +3,7 @@
 
 Plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado en el Departamento de Geografía de la Universidad Alberto Hurtado (2026), en el marco de la investigación sobre VGI, infraestructuras de datos espaciales y gestión territorial.
 
-Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **122 capas cartográficas integradas** (10 categorías maestras VGI y 112 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 multiescalar, UOCT / MTT y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con entidades espaciales vectorizadas e indexadas con GIST, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
+Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **119 capas cartográficas integradas** (10 categorías maestras VGI y 109 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 multiescalar, UOCT / MTT y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con entidades espaciales vectorizadas e indexadas con GIST, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
 
 > **Acceso libre y código abierto.** Toda la funcionalidad opera con CDN públicos, APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile) y base de datos PostGIS gratuita en la nube con fallback local transparente.
 
@@ -59,14 +59,14 @@ Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y
 
 ---
 
-## 5. Capas oficiales del Estado de Chile integradas (112 capas oficiales + 10 VGI = 122 capas)
+## 5. Capas oficiales del Estado de Chile integradas (109 capas oficiales + 10 VGI = 119 capas)
 
-El visor integra **112 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
+El visor integra **109 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
 
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
    - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT (Art. 2.1.17 OGUC), Fajas de Resguardo y Límites Urbanos Oficiales (Art. 52 LGUC).
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
-   - Catastro de Parques Urbanos MINVU, Red Hidrométrica Nacional BNA (DGA), Inventario de Humedales Urbanos (Ley 21.202), Sistema Nacional de Áreas Silvestres Protegidas (SNASPE CONAF), Cobertura de Canales de Riego (CNR), Cuencas Hidrográficas BNA y Carbono Orgánico del Suelo (COS CIREN).
+   - Catastro de Parques Urbanos MINVU, Red Hidrométrica Nacional BNA (DGA), Inventario de Humedales Urbanos (Ley 21.202), Sistema Nacional de Áreas Silvestres Protegidas (SNASPE CONAF), Cobertura de Canales de Riego (CNR) y Cuencas Hidrográficas BNA.
 3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía Multiescalar (MDSF / MINVU / INE Censo 2024):**
    - **Integración Multiescalar Censo 2024 (INE / Región Metropolitana):** 5 niveles territoriales independientes:
      - **Escala 1 — Marco Regional RM:** 1 polígono macroterritorial con delimitación oficial regional.
@@ -91,7 +91,7 @@ El visor integra **112 capas cartográficas oficiales de la Administración del 
 El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extensión PostGIS 3.3**, 100% libre, gratuito y permanente:
 
 - **129.262 Entidades Vectoriales Vectorizadas:** Almacenadas en la tabla relacional `public.capas_entidades`, optimizando más de 630 MB de archivos GeoJSON de texto a 210 MB binarios con geometrías validadas.
-- **Catálogo de Metadatos Relacional:** Tabla `public.capas_metadata` con los 107 registros oficiales, citas APA 7ª ed., instituciones de procedencia y conteos de entidades.
+- **Catálogo de Metadatos Relacional:** Tabla `public.capas_metadata` con los 109 registros oficiales, citas APA 7ª ed., instituciones de procedencia y conteos de entidades.
 - **Índices Espaciales R-Tree GIST:** Consultas espaciales ultrarrápidas mediante la función RPC `fn_obtener_capa_bbox`, permitiendo al visor Leaflet consultar únicamente las geometrías contenidas en el Bbox activo en milisegundos.
 - **Storage CDN (`atlas-geojson`):** Bucket público de alta disponibilidad para descarga directa de coberturas completas.
 - **Arquitectura con Fallback de Triple Contingencia:** Si falla la conexión a internet o no se han configurado credenciales, el visor conmuta de forma transparente al directorio local `data/`.
@@ -113,7 +113,7 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
 | **Taginfo API Explorer** | Telemetría planetaria en tiempo real de claves y valores OSM con recuentos globales |
 | **Biodiversidad Urbana GBIF** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas Darwin Core |
 | **Metadatos ISO 19115 / 19139** | Fichas técnicas exportables a JSON y XML oficial de IDE Chile (SNIT / GeoNetwork) |
-| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales, 112 capas oficiales y 125 citas APA |
+| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales, 109 capas oficiales y 125 citas APA |
 
 ---
 
@@ -130,7 +130,7 @@ atlas_vgi_uah/
 │   │   └── modulos/
 │   │       ├── mapa.js                 # Visor 2D Leaflet y control de capas
 │   │       ├── db_client.js            # Cliente PostGIS RPC y Supabase Storage CDN
-│   │       ├── ide_chile.js            # Catálogo oficial de 110 capas del Estado (UOCT/MTT incluido)
+│   │       ├── ide_chile.js            # Catálogo oficial de 109 capas del Estado (UOCT/MTT incluido)
 │   │       ├── evaluador_normativo.js  # Motor CIN-VGI / PRC Santiago / OGUC
 │   │       ├── ohsome.js               # Métricas calidad VGI (ohsome API dual v1/v2)
 │   │       ├── calidad_analyst.js      # ICV e inspector changesets OSMCha
@@ -139,7 +139,7 @@ atlas_vgi_uah/
 │   │       ├── gbif.js                 # Biodiversidad urbana y Darwin Core
 │   │       ├── geodesia.js             # Reproyección Snyder EPSG:32719 UTM 19S
 │   │       └── metadatos.js            # Generador ISO 19115 (JSON) e ISO 19139 (XML)
-│   ├── data/                           # 110 capas GeoJSON oficiales + 10 VGI
+│   ├── data/                           # 109 capas GeoJSON oficiales + 10 VGI (119 capas totales)
 │   ├── config/config.json              # Configuración JSON sincronizada
 │   └── docs/                           # Catálogos Excel (.xlsx) de acceso público
 ├── backend/servidor_vgi.py             # Servidor proxy Flask opcional para CORS
@@ -148,7 +148,7 @@ atlas_vgi_uah/
 ├── scripts/
 │   ├── db/
 │   │   ├── 01_schema_postgis.sql       # Esquema DDL PostGIS, tablas, índices GIST y RPC
-│   │   └── 02_seed_metadata.sql        # Inserción de metadatos de las 107 capas
+│   │   └── 02_seed_metadata.sql        # Inserción de metadatos de las 109 capas oficiales
 │   ├── subir_base_datos_supabase.py    # Pipeline CLI de sincronización y subida CDN
 │   ├── cargar_entidades_postgis.py     # Ingesta masiva de 129.262 entidades en PostGIS
 │   ├── generar_catalogos_excel.py      # Generador de matrices Excel (.xlsx) con openpyxl
@@ -223,7 +223,7 @@ Cualquier persona u organización (vecinos, dirigentas/es, colectivos barriales,
 - **1. Mapeo Directo en OpenStreetMap:** Utiliza el editor web [iD en openstreetmap.org](https://www.openstreetmap.org/) para registrar o actualizar almacenes, cruces accesibles, veredas o árboles en Barrio Brasil. Al guardar, usa el hashtag `#AtlasVGI_UAH` para asegurar su trazabilidad comunitaria.
 - **2. Reporte o Propuesta de Nuevas Capas:** Abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) con el nombre de la capa, fuente, ubicación y organización responsable.
 - **3. Carga Local en el Visor:** Arrastra archivos `.GeoJSON`, `.KML` o `.CSV` al [Visor Web](https://atlasvgiuah.netlify.app/) para cruzar tus datos territoriales en tiempo real de forma privada y sin costo.
-- **4. Desarrollo y Datos (Fork & PR):** Consulta nuestra [Guía de Contribución y Trazabilidad (CONTRIBUTING.md)](CONTRIBUTING.md) para lineamientos de pull requests, esquemas de 14 atributos y políticas de datos abiertos (ODbL, CC BY-SA 4.0, AGPLv3).
+- **4. Desarrollo y Datos (Fork & PR):** Consulta nuestra [Guía de Contribución Abierta, Trazabilidad y Arquitectura (CONTRIBUTING.md)](CONTRIBUTING.md) para detalles completos de desarrollo *zero-build* en Vanilla JS, CSS puro, scripts Python (openpyxl/ETL), clúster PostGIS 3.3, esquemas normalizados de 14 atributos y la tríada de licencias abiertas (AGPLv3, ODbL 1.0, CC BY-SA 4.0).
 
 ---
 

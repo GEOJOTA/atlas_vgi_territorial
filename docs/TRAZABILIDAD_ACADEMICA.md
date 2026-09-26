@@ -133,7 +133,7 @@ Para asegurar que el Atlas funcione como una herramienta viva de co-producción 
 1. **Mapeo Directo en OpenStreetMap con Trazabilidad Temática:**  
    A través del editor visual web [iD en openstreetmap.org](https://www.openstreetmap.org/), los ciudadanos pueden incorporar o corregir comercios, árboles de alineación, veredas accesibles o equipamiento barrial en el polígono de estudio. Al guardar con la etiqueta `#AtlasVGI_UAH`, el changeset queda registrado en el historial de OSM, permitiendo que el motor del Atlas (vía Overpass y OSMCha) audite la contribución e identifique al autor, timestamp y linaje de la modificación.
 2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   Cualquier colectivo barrial que levante cartografía propia puede arrastrar sus archivos `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV` al Visor interactivo (Panel 00), contrastándolos de inmediato con las 112 capas oficiales y 10 VGI de forma 100% privada en su navegador.
+   Cualquier colectivo barrial que levante cartografía propia puede arrastrar sus archivos `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV` al Visor interactivo (Panel 00), contrastándolos de inmediato con las 109 capas oficiales y 10 VGI de forma 100% privada en su navegador.
 3. **Reportes Guiados vía GitHub Issues:**  
    Se diseñó una plantilla estandarizada en el repositorio oficial de GitHub para que cualquier usuario reporte capas desactualizadas o sugiera nuevas fuentes comunitarias indicando: tipo de aporte, nombre de la capa, categoría VGI o institucional, ubicación y organización responsable.
 4. **Gobierno y Linaje de Datos:**  

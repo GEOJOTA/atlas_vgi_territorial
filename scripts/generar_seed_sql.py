@@ -78,7 +78,7 @@ def generar_sql():
     sql_header = """-- ============================================================================
 -- Nodo GeoAbierto — Catálogo Maestro de Capas Oficiales del Estado de Chile
 -- Seed Data de Metadatos para public.capas_metadata
--- (112 Capas Oficiales del Estado Sincronizadas y Actualizadas)
+-- (109 Capas Oficiales del Estado Sincronizadas y Actualizadas)
 -- ============================================================================
 
 INSERT INTO public.capas_metadata (
