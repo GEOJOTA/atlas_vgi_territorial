@@ -280,11 +280,35 @@ const ModuloMapa = (() => {
       },
       onEachFeature: (feature, layer) => {
         const props = feature.properties || {};
-        const esOficial = !!props._idOficial;
+        const esGbifItem = Boolean(
+          (idCapa && idCapa.toString().toLowerCase().includes('gbif')) ||
+          (props.fuente && props.fuente.toString().toLowerCase().includes('gbif')) ||
+          (props._fuente && props._fuente.toString().toLowerCase().includes('gbif')) ||
+          props.datasetKey || props.taxonKey || props.scientificName || props.gbifID
+        );
+        const esOsmItem = Boolean(
+          !esGbifItem && (
+            (idCapa && (idCapa.toString().toLowerCase().includes('osm') || idCapa.toString().startsWith('cat-') || idCapa.toString().startsWith('capa_osm'))) ||
+            (props.fuente && props.fuente.toString().toLowerCase().includes('osm')) ||
+            (props._fuente && props._fuente.toString().toLowerCase().includes('osm')) ||
+            props.osm_id || props.osm_type || props.id_vgi
+          )
+        );
+        const esOficial = !esGbifItem && !esOsmItem && !!(props._idOficial || (idCapa && (
+          idCapa.toString().startsWith('bbdd_') ||
+          idCapa.toString().startsWith('ide_') ||
+          idCapa.toString().startsWith('oficial_') ||
+          idCapa.toString().toLowerCase().includes('censo') ||
+          idCapa.toString().toLowerCase().includes('rsh') ||
+          idCapa.toString().toLowerCase().includes('bip') ||
+          idCapa.toString().toLowerCase().includes('igvust') ||
+          idCapa.toString().toLowerCase().includes('semaforos') ||
+          idCapa.toString().toLowerCase().includes('mop')
+        )));
         const nombre = props._nombre || props.nombre || props.name || props.especie || 'Sin denominación';
-        const subtipo = props._subtipo || props.subtipo || props.amenity || props.shop || props.highway || props.historic || (esOficial ? 'Entidad Oficial del Estado' : 'Elemento VGI');
-        const fuente = props._fuente || props.fuente || 'OpenStreetMap';
-        const licencia = props._licencia || props.licencia || 'ODbL 1.0';
+        const subtipo = props._subtipo || props.subtipo || props.amenity || props.shop || props.highway || props.historic || (esOficial ? 'Entidad Oficial del Estado' : (esGbifItem ? 'Registro Biológico GBIF' : 'Elemento VGI OSM'));
+        const fuente = props._fuente || props.fuente || (esOficial ? 'Estado de Chile / IDE Chile' : (esGbifItem ? 'GBIF / Ciencia Ciudadana' : 'OpenStreetMap'));
+        const licencia = props._licencia || props.licencia || (esOficial ? 'Ley N° 20.285 de Transparencia' : (esGbifItem ? 'CC-BY 4.0' : 'ODbL 1.0 (© colaboradores de OpenStreetMap)'));
         const fecha = props.fecha || props.fecha_registro || (esOficial ? 'Oficial 2024' : 'No indicada');
 
         let filasExtraInfo = '';
@@ -740,39 +764,112 @@ const ModuloMapa = (() => {
     const nombreCapa = opciones?.nombre || idCapa || 'Capa';
     if (badge) badge.textContent = icono ? `${icono} ${nombreCapa}` : nombreCapa;
 
-    // Obtener metadatos de la capa (soporta idCapa, alias bbdd_XX o nombre de archivo)
-    let meta = META_CAPAS_BIDAT[idCapa] || META_CAPAS_BIDAT[props._idOficial] || META_CAPAS_BIDAT[opciones?.id] || {};
+    // Detección rigurosa del tipo de fuente y procedencia jurídica
+    const idCapaStr = (idCapa || '').toString().toLowerCase();
+    const fuenteProps = (props._fuente || props.fuente || '').toString().toLowerCase();
+    const licProps = (props._licencia || props.licencia || '').toString().toLowerCase();
 
-    // Si es una capa oficial de ModuloIDEChile no listada en META_CAPAS_BIDAT, heredar de CAPAS_OFICIALES
-    const idOficial = idCapa || props._idOficial || opciones?.id;
+    const esGBIF = Boolean(
+      idCapaStr.includes('gbif') ||
+      fuenteProps.includes('gbif') ||
+      licProps.includes('cc-by') || licProps.includes('creativecommons') ||
+      props.datasetKey || props.taxonKey || props.scientificName || props.gbifID
+    );
+
+    const esOSM = Boolean(
+      !esGBIF && (
+        fuenteProps.includes('openstreetmap') ||
+        fuenteProps.includes('osm') ||
+        licProps.includes('odbl') ||
+        idCapaStr.includes('osm') ||
+        idCapaStr.startsWith('cat-') ||
+        idCapaStr.startsWith('capa_osm') ||
+        Boolean(props.osm_id || props.osm_type || props.id_vgi)
+      )
+    );
+
+    const idOficial = props._idOficial || opciones?.id || idCapa;
     const defOficial = window.ModuloIDEChile?.obtenerDefinicion ? window.ModuloIDEChile.obtenerDefinicion(idOficial) : (window.ModuloIDEChile?.CAPAS_OFICIALES?.[idOficial] || null);
 
-    if (defOficial) {
+    const esCapaOficial = Boolean(
+      !esGBIF && !esOSM && (
+        defOficial !== null ||
+        props._idOficial ||
+        idCapaStr.startsWith('bbdd_') ||
+        idCapaStr.startsWith('ide_') ||
+        idCapaStr.startsWith('oficial_') ||
+        idCapaStr.includes('censo') ||
+        idCapaStr.includes('rsh') ||
+        idCapaStr.includes('bip') ||
+        idCapaStr.includes('igvust') ||
+        idCapaStr.includes('semaforos') ||
+        idCapaStr.includes('mop')
+      )
+    );
+
+    let meta = {};
+
+    if (esCapaOficial) {
+      meta = META_CAPAS_BIDAT[idCapa] || META_CAPAS_BIDAT[props._idOficial] || META_CAPAS_BIDAT[opciones?.id] || {};
+      if (defOficial) {
+        meta = {
+          fuente: meta.fuente || defOficial.institucion || 'Estado de Chile',
+          ministerio: meta.ministerio || defOficial.ministerio || 'Organismo del Estado',
+          archivo_origen: meta.archivo_origen || defOficial.archivoLocal || `data/${idOficial}.geojson`,
+          archivo_geojson: meta.archivo_geojson || (defOficial.archivoLocal ? defOficial.archivoLocal.split('/').pop() : `${idOficial}.geojson`),
+          descripcion: meta.descripcion || defOficial.descripcion || defOficial.nombre,
+          licencia: meta.licencia || defOficial.declaracion || 'Ley N° 20.285 de Transparencia de la Función Pública',
+          citaAPA: meta.citaAPA || defOficial.citaAPA || `Estado de Chile. (2026). ${defOficial.nombre}.`,
+          columnas_totales: meta.columnas_totales || null,
+          tamano_mb: meta.tamano_mb || null,
+          join_tipo: meta.join_tipo,
+          clave_join: meta.clave_join,
+          cobertura: meta.cobertura,
+          features_salida: meta.features_salida,
+          features_excluidas: meta.features_excluidas,
+          razon_exclusion: meta.razon_exclusion,
+          nulos_rellenos: meta.nulos_rellenos,
+          crs_entrada: meta.crs_entrada,
+          crs_salida: meta.crs_salida || 'EPSG:4326 (WGS 84)',
+          fecha_proceso: meta.fecha_proceso,
+          nota_critica: meta.nota_critica
+        };
+      }
+    } else if (esGBIF) {
       meta = {
-        fuente: meta.fuente || defOficial.institucion || 'Estado de Chile',
-        ministerio: meta.ministerio || defOficial.ministerio || 'Organismo del Estado',
-        archivo_origen: meta.archivo_origen || defOficial.archivoLocal || `data/${idOficial}.geojson`,
-        archivo_geojson: meta.archivo_geojson || (defOficial.archivoLocal ? defOficial.archivoLocal.split('/').pop() : `${idOficial}.geojson`),
-        descripcion: meta.descripcion || defOficial.descripcion || defOficial.nombre,
-        licencia: meta.licencia || defOficial.declaracion || 'Ley N° 20.285 de Transparencia',
-        citaAPA: meta.citaAPA || defOficial.citaAPA || `Estado de Chile. (2026). ${defOficial.nombre}.`,
-        columnas_totales: meta.columnas_totales || null,
-        tamano_mb: meta.tamano_mb || null,
-        join_tipo: meta.join_tipo,
-        clave_join: meta.clave_join,
-        cobertura: meta.cobertura,
-        features_salida: meta.features_salida,
-        features_excluidas: meta.features_excluidas,
-        razon_exclusion: meta.razon_exclusion,
-        nulos_rellenos: meta.nulos_rellenos,
-        crs_entrada: meta.crs_entrada,
-        crs_salida: meta.crs_salida,
-        fecha_proceso: meta.fecha_proceso,
-        nota_critica: meta.nota_critica
+        tipo_fuente: 'Información Geográfica Voluntaria (VGI) / Ciencia Ciudadana Biológica',
+        fuente: 'Global Biodiversity Information Facility (GBIF.org) / Nodos Participantes',
+        archivo_origen: props._archivoLocal || 'GBIF Occurrence API / Darwin Core Standard',
+        archivo_geojson: 'capa_biodiversidad.geojson',
+        licencia: props.licencia || props._licencia || 'Creative Commons Atribución (CC-BY 4.0 / CC0)',
+        marco_legal: 'Creative Commons CC-BY 4.0 — Libre uso, distribución y adaptación con atribución al observador',
+        declaracion: 'Datos de biodiversidad urbana y ciencia ciudadana provistos por GBIF.org y plataformas asociadas.',
+        citaAPA: 'GBIF.org. (2026). GBIF Occurrence Download: Registros biológicos en Barrio Brasil y Región Metropolitana. https://doi.org/10.15468/dl',
+        crs_salida: 'EPSG:4326 (WGS 84)',
+        descripcion: 'Observaciones de biodiversidad urbana y registros taxonómicos obtenidos de GBIF y ciencia ciudadana.'
+      };
+    } else {
+      // esOSM
+      const archivoVgi = props._archivoLocal ? props._archivoLocal.split('/').pop() :
+        (idCapaStr.endsWith('.geojson') ? idCapaStr :
+        (idCapaStr.startsWith('capa_') ? `${idCapaStr}.geojson` : `capa_${idCapaStr}.geojson`));
+
+      meta = {
+        tipo_fuente: 'Información Geográfica Voluntaria (VGI) / Cartografía Colaborativa Abierta',
+        comunidad: 'Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap)',
+        fuente: 'OpenStreetMap (OSM)',
+        archivo_origen: archivoVgi,
+        archivo_geojson: archivoVgi,
+        licencia: 'Open Database License (ODbL) 1.0 — Atribución y Compartir Igual',
+        marco_legal: 'ODbL 1.0 (Open Data Commons) — Libre reutilización y enriquecimiento cartográfico con reciprocidad copyleft',
+        declaracion: 'Datos cartográficos y huellas espaciales provistos por © colaboradores de OpenStreetMap bajo licencia ODbL 1.0.',
+        citaAPA: 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM, Chile]. Open Database License (ODbL). https://www.openstreetmap.org/copyright',
+        crs_salida: 'EPSG:4326 (WGS 84) / Compatible con EPSG:32719 (SIRGAS-Chile / UTM 19S)',
+        descripcion: 'Información geográfica voluntaria comunitaria extraída y normalizada desde OpenStreetMap (Overpass QL / Geodatabase RM).'
       };
     }
 
-    // ── Alerta: Aviso de columnas no mostradas y descarga integral ─────────
+    // ── Alerta: Aviso según tipo de capa ──────────────────────────────────
     const totalColsProps = Object.keys(props).filter(k => !k.startsWith('_') && k !== 'geometry').length;
     const totalColsOrigen = meta.columnas_totales || totalColsProps;
     const archivoGeoJSON = meta.archivo_geojson ||
@@ -782,33 +879,72 @@ const ModuloMapa = (() => {
     const rutaDescarga = `data/${nombreDescarga}`;
     const tamanoMbStr = meta.tamano_mb ? `${meta.tamano_mb} MB` : 'GeoJSON Completo';
 
-    const mostrarAlerta = totalColsOrigen > 10 || meta.columnas_totales ||
-      (idCapa && (idCapa.includes('rsh') || idCapa.includes('RSH') || idCapa.includes('censo') || idCapa.includes('bbdd') || idCapa.includes('bip') || idCapa.includes('BIP') || idCapa.includes('IGVUST') || idCapa.includes('semaforos')));
-
-    const alertaColumnasHtml = mostrarAlerta ? `
-      <div class="detalle-alerta-columnas" style="background:rgba(234,179,8,0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
-        <div style="display:flex; align-items:flex-start; gap:10px;">
-          <span style="font-size:1.3rem; line-height:1.2;">⚠️</span>
-          <div style="flex:1;">
-            <strong style="display:block; color:#EAB308; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
-              AVISO DE VISUALIZACIÓN: COLUMNAS RESUMIDAS
-            </strong>
-            <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
-              Por motivos de rendimiento y fluidez en el visor interactivo, <strong>no se están mostrando todas las columnas</strong> de esta entidad (${totalColsOrigen} columnas y variables presentes en el dataset oficial).
-            </p>
-            <p style="margin:5px 0 0 0; font-size:0.75rem; color:var(--tinta,#f8fafc); line-height:1.4;">
-              El conjunto cartográfico oficial incluye el 100% de las geometrías e información sociodemográfica íntegra sin simplificar.
-            </p>
-            <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <a href="${rutaDescarga}" download="${nombreDescarga}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:7px 14px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition:all 0.15s;" onmouseover="this.style.opacity='0.85'; this.style.transform='translateY(-1px)';" onmouseout="this.style.opacity='1'; this.style.transform='none';">
-                📥 Descargar Capa Completa (${tamanoMbStr})
-              </a>
-              <span style="font-size:0.7rem; color:var(--tinta-tenue,#94a3b8); font-family:'IBM Plex Mono',monospace;">(Todas las columnas e indicadores íntegros)</span>
+    let alertaColumnasHtml = '';
+    if (esCapaOficial) {
+      alertaColumnasHtml = `
+        <div class="detalle-alerta-columnas" style="background:rgba(234,179,8,0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <span style="font-size:1.3rem; line-height:1.2;">🏛️</span>
+            <div style="flex:1;">
+              <strong style="display:block; color:#EAB308; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
+                CAPA OFICIAL DEL ESTADO DE CHILE (IDE CHILE / SNIT)
+              </strong>
+              <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
+                Información pública oficial del Estado amparada por la <strong>Ley N° 20.285 de Transparencia</strong>. El visor muestra un resumen representativo; el dataset descargable contiene la totalidad de las entidades e indicadores.
+              </p>
+              <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <a href="${rutaDescarga}" download="${nombreDescarga}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:7px 14px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition:all 0.15s;">
+                  📥 Descargar Capa Oficial (${tamanoMbStr})
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ` : '';
+      `;
+    } else if (esOSM) {
+      alertaColumnasHtml = `
+        <div class="detalle-alerta-columnas" style="background:rgba(6,182,212,0.12); border:1px solid #06b6d4; border-left:4px solid #0891b2; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <span style="font-size:1.3rem; line-height:1.2;">🌐</span>
+            <div style="flex:1;">
+              <strong style="display:block; color:#06b6d4; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
+                INFORMACIÓN GEOGRÁFICA VOLUNTARIA — OPENSTREETMAP (ODbL 1.0)
+              </strong>
+              <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
+                Cartografía comunitaria colaborativa abierta de OpenStreetMap bajo licencia <strong>ODbL 1.0</strong> (© Colaboradores de OpenStreetMap).
+              </p>
+              <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <a href="${rutaDescarga}" download="${nombreDescarga}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:7px 14px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition:all 0.15s;">
+                  📥 Descargar Capa GeoJSON (${nombreDescarga})
+                </a>
+                ${props.osm_type && props.osm_id ? `<a href="https://www.openstreetmap.org/${props.osm_type}/${props.osm_id}" target="_blank" rel="noopener" style="font-size:0.75rem; color:#38bdf8; text-decoration:underline; font-family:'IBM Plex Mono',monospace; padding:6px 0;">↗ Ver en openstreetmap.org</a>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    } else if (esGBIF) {
+      alertaColumnasHtml = `
+        <div class="detalle-alerta-columnas" style="background:rgba(16,185,129,0.12); border:1px solid #10b981; border-left:4px solid #059669; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <span style="font-size:1.3rem; line-height:1.2;">☘</span>
+            <div style="flex:1;">
+              <strong style="display:block; color:#10b981; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
+                REGISTRO BIOLÓGICO DE CIENCIA CIUDADANA — GBIF (CC-BY 4.0)
+              </strong>
+              <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
+                Registros de biodiversidad urbana desde GBIF.org y plataformas de ciencia ciudadana bajo licencia abierta <strong>Creative Commons CC-BY 4.0</strong>.
+              </p>
+              <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <a href="${rutaDescarga}" download="${nombreDescarga}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:7px 14px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition:all 0.15s;">
+                  📥 Descargar Capa GeoJSON (${nombreDescarga})
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
     // ── Sección 1: Identificación del elemento ──────────────────────────
     const nombre = props._nombre || props.nombre || props.name || props.NOMBRE || props.EBI_NOMBRE ||
@@ -884,23 +1020,62 @@ const ModuloMapa = (() => {
     }
     if (!s3) s3 = '<p style="font-size:0.78rem; color:var(--tinta-tenue); margin:0;">Sin atributos de texto adicionales.</p>';
 
-    // ── Sección 4: Metadatos de la capa y trazabilidad oficial ──────────
+    // ── Sección 4: Metadatos de la capa y trazabilidad según procedencia ──
     let s4 = '';
-    s4 += fila('Institución Oficial', meta.fuente || props._fuente || 'Estado de Chile');
-    if (meta.ministerio) s4 += fila('Ministerio / Cartera', meta.ministerio);
-    s4 += fila('Archivo de Origen', meta.archivo_origen || meta.archivo_geojson || '—');
-    if (meta.join_tipo) s4 += fila('Tipo de Join Espacial', meta.join_tipo);
-    if (meta.clave_join) s4 += fila('Clave de Join', meta.clave_join);
-    if (meta.cobertura) s4 += fila('Cobertura Territorial', meta.cobertura);
-    if (meta.features_salida) s4 += fila('Total Entidades', meta.features_salida);
-    if (meta.features_excluidas !== undefined && meta.features_excluidas !== '—') s4 += fila('Entidades Excluidas', meta.features_excluidas);
-    if (meta.razon_exclusion) s4 += fila('Causa de Exclusión', meta.razon_exclusion);
-    if (meta.crs_entrada) s4 += fila('CRS de Entrada', meta.crs_entrada);
-    s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
-    if (meta.fecha_proceso) s4 += fila('Fecha de Procesamiento', meta.fecha_proceso);
-    if (meta.tamano_mb) s4 += fila('Tamaño del Dataset', `${meta.tamano_mb} MB`);
-    s4 += fila('Marco Legal / Licencia', meta.licencia || props._licencia || 'Ley N° 20.285 de Transparencia');
-    if (meta.citaAPA || props._citaAPA) s4 += fila('Cita Bibliográfica APA', meta.citaAPA || props._citaAPA);
+    let tituloSeccion4 = '';
+
+    if (esCapaOficial) {
+      tituloSeccion4 = '📂 Metadatos de Origen y Trazabilidad Oficial (IDE Chile)';
+      s4 += fila('Institución Oficial', meta.fuente || props._fuente || 'Estado de Chile');
+      if (meta.ministerio) s4 += fila('Ministerio / Cartera', meta.ministerio);
+      s4 += fila('Archivo de Origen', meta.archivo_origen || meta.archivo_geojson || '—');
+      if (meta.join_tipo) s4 += fila('Tipo de Join Espacial', meta.join_tipo);
+      if (meta.clave_join) s4 += fila('Clave de Join', meta.clave_join);
+      if (meta.cobertura) s4 += fila('Cobertura Territorial', meta.cobertura);
+      if (meta.features_salida) s4 += fila('Total Entidades', meta.features_salida);
+      if (meta.features_excluidas !== undefined && meta.features_excluidas !== '—') s4 += fila('Entidades Excluidas', meta.features_excluidas);
+      if (meta.razon_exclusion) s4 += fila('Causa de Exclusión', meta.razon_exclusion);
+      if (meta.crs_entrada) s4 += fila('CRS de Entrada', meta.crs_entrada);
+      s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+      if (meta.fecha_proceso) s4 += fila('Fecha de Procesamiento', meta.fecha_proceso);
+      if (meta.tamano_mb) s4 += fila('Tamaño del Dataset', `${meta.tamano_mb} MB`);
+      s4 += fila('Marco Legal / Licencia', meta.licencia || props._licencia || 'Ley N° 20.285 de Transparencia de la Función Pública');
+      if (meta.citaAPA || props._citaAPA) s4 += fila('Cita Bibliográfica APA', meta.citaAPA || props._citaAPA);
+    } else if (esGBIF) {
+      tituloSeccion4 = '📂 Metadatos de Origen y Licencia VGI (GBIF)';
+      s4 += fila('Tipo de Fuente', 'Información Geográfica Voluntaria (VGI) / Ciencia Ciudadana');
+      s4 += fila('Repositorio Global', 'Global Biodiversity Information Facility (GBIF.org)');
+      if (props.scientificName) s4 += fila('Nombre Científico', `<em>${props.scientificName}</em>`);
+      if (props.taxonRank) s4 += fila('Rango Taxonómico', props.taxonRank);
+      if (props.gbifID) {
+        s4 += fila('Identificador GBIF', props.gbifID);
+        s4 += fila('Ficha en GBIF.org', `<a href="https://www.gbif.org/occurrence/${props.gbifID}" target="_blank" rel="noopener" style="color:var(--musgo,#06b6d4); text-decoration:underline;">Ver registro en gbif.org ↗</a>`);
+      }
+      s4 += fila('Archivo de Origen', meta.archivo_origen || 'capa_biodiversidad.geojson');
+      s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+      s4 += fila('Marco Legal / Licencia', meta.licencia || 'Creative Commons CC-BY 4.0 / CC0 1.0 Universal');
+      s4 += fila('Declaración de Derechos', meta.declaracion || 'Datos abiertos de biodiversidad provistos por GBIF.org');
+      s4 += fila('Cita Bibliográfica APA', meta.citaAPA);
+    } else {
+      // Por defecto para cualquier elemento VGI / OpenStreetMap
+      tituloSeccion4 = '📂 Metadatos de Origen y Licencia VGI (OpenStreetMap)';
+      s4 += fila('Tipo de Fuente', 'Información Geográfica Voluntaria (VGI)');
+      s4 += fila('Comunidad / Proveedor', 'Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap)');
+      const idVgiVal = props.id_vgi || (props.osm_type && props.osm_id ? `OSM/${props.osm_type}/${props.osm_id}` : (props.osm_id ? `OSM/${props.osm_id}` : (props.id || '—')));
+      s4 += fila('Identificador VGI (OSM ID)', idVgiVal);
+      if (props.osm_type && props.osm_id) {
+        s4 += fila('Ficha en OpenStreetMap', `<a href="https://www.openstreetmap.org/${props.osm_type}/${props.osm_id}" target="_blank" rel="noopener" style="color:var(--musgo,#06b6d4); text-decoration:underline;">Ver elemento en openstreetmap.org ↗</a>`);
+      }
+      s4 += fila('Archivo de Origen', meta.archivo_origen || 'Geodatabase RM / Overpass QL');
+      if (props.categoria) s4 += fila('Macro-Categoría VGI', props.categoria.toUpperCase());
+      if (props.solapamiento_semantico && Array.isArray(props.solapamiento_semantico)) {
+        s4 += fila('Solapamiento Semántico', props.solapamiento_semantico.join(' ↔ '));
+      }
+      s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+      s4 += fila('Marco Legal / Licencia', meta.licencia || 'Open Database License (ODbL) 1.0 (ODC-ODbL)');
+      s4 += fila('Declaración de Derechos', meta.declaracion || '© Colaboradores de OpenStreetMap (ODbL 1.0)');
+      s4 += fila('Cita Bibliográfica APA', meta.citaAPA || 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM, Chile]. Open Database License (ODbL). https://www.openstreetmap.org/copyright');
+    }
 
     // ── Sección 5: Descripción y nota crítica ───────────────────────────
     const descHtml = (meta.descripcion || meta.nota_critica)
@@ -916,7 +1091,7 @@ const ModuloMapa = (() => {
       seccion('🏷 Identificación del Elemento', s1),
       seccion('📊 Indicadores Numéricos y Variables', s2),
       seccion('📋 Atributos del Dato y Tipologías', s3),
-      seccion('📂 Metadatos de Origen y Trazabilidad Oficial', s4),
+      seccion(tituloSeccion4, s4),
       descHtml ? seccion('📖 Descripción de la Capa', descHtml) : ''
     ].join('');
 

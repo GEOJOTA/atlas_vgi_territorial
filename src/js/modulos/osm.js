@@ -566,8 +566,16 @@ const ModuloOSM = (() => {
       featuresFiltradas = featuresFiltradas.filter(f => coincideEtiqueta(f.properties, etiquetaManual));
     }
 
-    // 5. Garantizar cálculo métrico de superficies en polígonos
+    // 5. Garantizar cálculo métrico de superficies en polígonos y trazabilidad VGI estricta
     featuresFiltradas.forEach(f => {
+      if (!f.properties) f.properties = {};
+      if (!f.properties.fuente) f.properties.fuente = 'OpenStreetMap';
+      if (!f.properties.licencia) f.properties.licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
+      if (!f.properties._fuente) f.properties._fuente = 'OpenStreetMap';
+      if (!f.properties._licencia) f.properties._licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
+      if (!f.properties._declaracion) f.properties._declaracion = 'Datos cartográficos provistos por © colaboradores de OpenStreetMap bajo licencia ODbL 1.0.';
+      if (!f.properties._citaAPA) f.properties._citaAPA = 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM]. Open Database License (ODbL).';
+
       if (f.geometry && f.geometry.type === 'Polygon' && (!f.properties.superficie_m2 || f.properties.superficie_m2 === 0)) {
         if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono && f.geometry.coordinates[0]) {
           const s = ModuloGeodesia.calcularSuperficiePoligono(f.geometry.coordinates[0]);
@@ -584,7 +592,8 @@ const ModuloOSM = (() => {
       name: `OSM_RM_${categoriaId}`,
       categoria: categoriaId,
       features: featuresFiltradas,
-      fuente: 'Geodatabase RM (OSM descargada)'
+      fuente: 'OpenStreetMap (Geodatabase RM)',
+      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
     };
   }
 

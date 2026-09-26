@@ -1221,7 +1221,9 @@ async function alternarCapaCategoria(categoria) {
     ModuloMapa.cargarCapaGeoJSON(categoria.id, geojson, {
       nombre: categoria.nombre,
       color: categoria.color,
-      icono: categoria.icono
+      icono: categoria.icono,
+      fuente: 'OpenStreetMap',
+      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
     });
 
     capasCargadasPorCategoria[categoria.id] = geojson;
@@ -1277,7 +1279,9 @@ async function alternarCapaCategoria(categoria) {
         ModuloMapa.cargarCapaGeoJSON(categoria.id, geojsonLocal, {
           nombre: categoria.nombre,
           color: categoria.color,
-          icono: categoria.icono
+          icono: categoria.icono,
+          fuente: 'OpenStreetMap',
+          licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
         });
         capasCargadasPorCategoria[categoria.id] = geojsonLocal;
         btn.classList.remove('cargando');
@@ -1384,7 +1388,9 @@ async function manejarConsultaPersonalizada() {
     ModuloMapa.cargarCapaGeoJSON(capaId, geojson, {
       nombre: nombreCapa,
       color: colorCapa,
-      icono: '🔍'
+      icono: '🔍',
+      fuente: 'OpenStreetMap',
+      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
     });
 
     ultimaConsultaRealizada = {
@@ -1613,7 +1619,9 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
       ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
         nombre: `Geodatabase RM: ${nombreCapa}`,
         color: colorCapa,
-        icono: iconoCapa
+        icono: iconoCapa,
+        fuente: 'OpenStreetMap',
+        licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
       });
       // Cambiar a panel de inicio para ver el mapa
       document.querySelector('button[data-panel="inicio"]').click();
@@ -1678,7 +1686,9 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
       ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
         nombre: `Geodatabase RM: ${nombreCapa}`,
         color: colorCapa,
-        icono: iconoCapa
+        icono: iconoCapa,
+        fuente: 'OpenStreetMap',
+        licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
       });
       document.querySelector('button[data-panel="inicio"]').click();
     });
@@ -2040,7 +2050,9 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       ModuloMapa.cargarCapaGeoJSON('gbif_biodiversidad', resultado.geojson, {
         nombre: 'Biodiversidad (GBIF)',
         color: '#1C523A',
-        icono: '🌿'
+        icono: '🌿',
+        fuente: 'GBIF / Ciencia Ciudadana',
+        licencia: 'CC-BY 4.0'
       });
       document.querySelector('button[data-panel="inicio"]').click();
       return;
