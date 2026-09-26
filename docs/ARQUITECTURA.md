@@ -14,7 +14,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
 
 1. **Desacoplamiento e Inmediatez:** La totalidad de la interfaz de usuario, renderizado cartográfico (Leaflet 1.9.4), cálculo geodésico y evaluación de calidad opera directamente en el navegador del usuario final sin dependencias obligatorias de compilación (*zero-build architecture*).
 2. **Capa de Base de Datos Espacial en la Nube (Supabase PostGIS):**
-   - Aloja las **110 capas oficiales del Estado** (incorporando la desagregación multiescalar del Censo 2024 en 5 niveles territoriales independientes y la red de semáforos conectados UOCT/MTT) y más de **130.000 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
+   - Aloja las **112 capas oficiales del Estado** (incorporando la desagregación multiescalar del Censo 2024 en 5 niveles territoriales independientes, la red de semáforos conectados UOCT/MTT y el catastro predial de Santiago) y más de **130.000 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
    - Incorpora índices espaciales R-Tree `GIST` y la función RPC `fn_obtener_capa_bbox`, permitiendo consultas espaciales filtradas por el Bbox del usuario en milisegundos.
    - Aloja los archivos GeoJSON completos en el bucket público de CDN `atlas-geojson`.
 3. **Resiliencia y Conmutación de Triple Contingencia (Failover):**
