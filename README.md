@@ -64,25 +64,12 @@ Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y
 El visor integra **109 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
 
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
-   - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT (Art. 2.1.17 OGUC), Fajas de Resguardo y Límites Urbanos Oficiales (Art. 52 LGUC).
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
-   - Catastro de Parques Urbanos MINVU, Red Hidrométrica Nacional BNA (DGA), Inventario de Humedales Urbanos (Ley 21.202), Sistema Nacional de Áreas Silvestres Protegidas (SNASPE CONAF), Cobertura de Canales de Riego (CNR) y Cuencas Hidrográficas BNA.
 3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía Multiescalar (MDSF / MINVU / INE Censo 2024):**
-   - **Integración Multiescalar Censo 2024 (INE / Región Metropolitana):** 5 niveles territoriales independientes:
-     - **Escala 1 — Marco Regional RM:** 1 polígono macroterritorial con delimitación oficial regional.
-     - **Escala 2 — Límites Urbanos Censales RM:** 106 áreas urbanas censales consolidadas con población y sexo.
-     - **Escala 3 — Localidades y Asentamientos RM:** 511 entidades pobladas urbanas y rurales con desglose demográfico.
-     - **Escala 4 — Zonas y Distritos Censales RM:** 1.865 polígonos distritales con variables sociodemográficas avanzadas.
-     - **Escala 5 — Manzanas Censales Santiago / Barrio Brasil:** 1.711 manzanas censales con microdatos completos de población, grupos etarios, inmigración y viviendas.
-   - Unidades Vecinales Oficiales 2026 (Ley 19.418), Catastro Oficial de Campamentos MINVU, Condominios Sociales (Ley 21.442) y 10 conjuntos de datos sociodemográficos y de inversión pública del Registro Social de Hogares (RSH), IGVUST e iniciativas BIP (BiDat MDSF / Hacienda).
+   - **Integración Multiescalar Censo 2024 (INE / Región Metropolitana):** 
 4. 🏛️ **Equipamiento Público, Educación, Salud, Catastro Predial SII & Patrimonio (SII / CMN / MINEDUC / MINSAL / IND):**
-   - **Catastro Predial Servicio de Impuestos Internos (SII / IDE Chile - Comuna de Santiago):** 35.036 predios íntegros sin simplificar en WGS 84 (15.79 MB) correspondientes a toda la comuna de Santiago, con descarga directa GeoJSON y atributos oficiales de rol, avalúo y destino.
-   - **Patrimonio y Áreas Verdes Actualizadas:** Áreas Verdes Normativas MINVU / INE 2023 (18.173 polígonos) y ZCH / ICH RM (1.690 polígonos). Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Establecimientos de Educación Escolar y Superior (MINEDUC), Hospitales y CESFAM (DEIS MINSAL).
 5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
-   - Cuarteles del Cuerpo de Bomberos de Santiago, Comisarías de Carabineros de Chile (Plan Cuadrante), Pasos Fronterizos Internacionales Oficiales (DIFROL) y Zonas de Seguridad Fronteriza (DFL N° 4).
 6. 🚲 **Movilidad, Transporte, Red Semafórica UOCT, Red Metro, Inversión Pública & Economía (UOCT / MTT / MOP / BIP / CNE / ODEPA):**
-   - **Red de Semáforos Conectados UOCT RM (Oficio N° 26105 / 2026 - Solicitud AN001T0026930):** 3.483 intersecciones semaforizadas operativas y centralizadas en las 47 comunas de la RM, con datos técnicos completos de tecnología, controlador, enlace de comunicación y coordenadas WGS 84.
-   - Red de Estaciones de Metro de Santiago (Líneas 1, 2 y 5), Red Ferroviaria EFE, Red Vial Nacional (GEOMOP), Contratos Concesionados MOP, Banco Integrado de Proyectos (BIP 2019-2027), Subestaciones Eléctricas SEN (CNE) y Ferias Libres (ODEPA).
 
 ---
 
@@ -105,7 +92,7 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
 |---|---|
 | **Visor Cartográfico 2D** | Leaflet 1.9.4 + OpenStreetMap; activación interactiva por categoría VGI y consola de capas oficial, popups con atributos, cita APA y zoom automático |
 | **Consola GIS de Capas** | Workbench profesional con buscador dinámico (`#busqueda-capas-atlas`), chips de filtro rápido por categoría, switches interactivos, badges de conteo y descarga directa de GeoJSONs oficiales sin simplificar |
-| **⚡ BD PostGIS** | Pestaña de conexión y telemetría en tiempo real con clúster PostgreSQL 17 + PostGIS 3.3 en Supabase con fallback local autónomo |
+| **BD PostGIS** | Pestaña de conexión y telemetría en tiempo real con clúster PostgreSQL 17 + PostGIS 3.3 en Supabase con fallback local autónomo |
 | **Calidad VGI (ohsome)** | ohsome API v1/v2: completitud, evolución temporal P1Y, densidad espacial métrica (EPSG:32719), OQT Score, contribuyentes activos; OSMCha para integridad de changesets |
 | **Índice de Calidad VGI (ICV)** | Score compuesto por categoría: completitud + actualidad + consistencia geométrica + densidad |
 | **CIN-VGI (Inspector Normativo)** | Inspector territorial por clic: PRC Santiago, usos permitidos/prohibidos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio; exporta certificado .txt con disclaimer legal (Art. 116 LGUC) |
@@ -230,8 +217,8 @@ Cualquier persona u organización (vecinos, dirigentas/es, colectivos barriales,
 ## 12. Cita académica y marco de investigación
 
 ```bibtex
-@misc{lescano2026atlas,
-  author       = {Lescano Villegas, Juan Pablo},
+@misc{MF2026atlas,
+  author       = {Fuenzalida, Manuel},
   title        = {Atlas de Información Geográfica Voluntaria para la Gestión Territorial: Caso Piloto Barrio Brasil},
   year         = {2026},
   howpublished = {Departamento de Geografía, Universidad Alberto Hurtado},
