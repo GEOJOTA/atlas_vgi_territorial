@@ -394,6 +394,7 @@ Todas las fuentes citadas a lo largo de este documento, en la interfaz web del A
 ### 7.7 Manuales y Especificaciones Técnicas de Lenguajes y Formatos Estándar
 - Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016). *The GeoJSON Format* (RFC No. 7946). Internet Engineering Task Force (IETF). https://doi.org/10.17487/RFC7946
 - Ecma International. (2024). *ECMAScript® 2024 Language Specification* (Standard ECMA-262, 15th ed.). Ecma International. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/
+- Geofabrik GmbH. (2026). *OpenStreetMap Data Extracts: South America / Chile (chile-260927.osm.pbf)*. Geofabrik GmbH. https://download.geofabrik.de/south-america/chile.html
 - MacFarlane, J., Krewenki, P., Greenspun, J., et al. (2024). *CommonMark Spec: A strongly defined, highly compatible specification of Markdown* (Version 0.31.2). CommonMark. https://spec.commonmark.org/
 - Olbricht, R., & OpenStreetMap Contributors. (2023). *Overpass QL: Overpass API Language Guide and Reference Manual*. OpenStreetMap Foundation. https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL
 - Van Rossum, G., & Drake, F. L. (2024). *The Python Language Reference* (Manual v3.12). Python Software Foundation. https://docs.python.org/3/reference/

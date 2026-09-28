@@ -44,18 +44,30 @@ El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico
 
 Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y el estándar **ISO 19110 / ISO 19115**:
 
-| Cód. | Categoría Maestra | Fuente OSM / GBIF | Enfoque Territorial Barrio Brasil |
-|---|---|---|---|
-| **CAT-01** | Educación y Universidad | `amenity=university|college|school|library` | Campus patrimonial UAH (Almirante Barroso, Erasmo Escala), facultades, colegios, liceos y bibliotecas |
-| **CAT-02** | Servicios, Comercio y Salud Barrial | `shop=*`, `amenity=pharmacy|clinic|doctors|cafe|bank` | Comercio de proximidad Av. Brasil/Huérfanos, farmacias, CESFAM N° 5, clínicas comunitarias y bancos |
-| **CAT-03** | Movilidad y Transporte Público | `railway=station|subway_entrance`, `highway=bus_stop` | Red Movilidad, paraderos de buses, estaciones de Metro Los Héroes (L1/L2), Santa Ana (L2/L5) y Cumming (L5) |
-| **CAT-04** | Movilidad Activa y Ciclovías | `highway=cycleway`, `amenity=bicycle_parking|bicycle_rental` | Ciclovías segregadas Rosas y Brasil, ciclobandas, estacionamientos de bicicletas públicos/UAH y talleres |
-| **CAT-05** | Áreas Verdes, Deporte y Espacio Público | `leisure=park|playground|pitch`, `landuse=grass` | Plaza Brasil, bandejones arbolados Alameda, canchas comunitarias, juegos infantiles y bebederos |
-| **CAT-06** | Patrimonio Histórico y Cultura | `historic=*`, `heritage=*`, `amenity=arts_centre|theatre` | Zona Típica Barrio Brasil, Inmuebles de Conservación Histórica (ICH), Basílica del Salvador, Casonas UAH y teatros |
-| **CAT-07** | Accesibilidad Universal y Caminabilidad | `kerb=*`, `wheelchair=*`, `tactile_paving=*`, `highway=crossing` | Vados peatonales y rebajes de solera D.S. 50 MINVU, baldosas táctiles podotáctiles y cruces semaforizados |
-| **CAT-08** | Biodiversidad Urbana y Arbolado | `natural=tree|tree_row|wood` + GBIF Occurrence API | Arbolado viario de alineación (plátano oriental, jacarandá, quillay) y registros biológicos Darwin Core |
-| **CAT-09** | Edificaciones y Huella Urbana | `way["building"]`, `relation["building"]` | Catastro poligonal de edificaciones, huellas de manzanas, volumetría construida y cálculo de superficie en m² (EPSG:32719) |
-| **CAT-10** | Coberturas y Usos de Suelo | `landuse=*`, `natural=*`, `leisure=*` | Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo) y superficies biofísicas |
+| Cód. | Categoría Maestra | Entidades RM (Geofabrik) | Fuente OSM / GBIF | Enfoque Territorial Barrio Brasil y Región Metropolitana |
+|---|---|:---:|---|---|
+| **CAT-01** | Educación y Universidad | **7.428** | `amenity=university|college|school|library` | Campus patrimonial UAH (Barroso, Erasmo Escala), facultades, colegios, liceos y bibliotecas de la RM |
+| **CAT-02** | Servicios, Comercio y Abastecimiento | **32.013** | `shop=*`, `amenity=pharmacy|clinic|bank` | Comercio de proximidad Av. Brasil, farmacias de barrio, ferias libres, CESFAM y bancos comunales |
+| **CAT-03** | Movilidad y Transporte Público | **23.105** | `railway=station`, `highway=bus_stop`, `route=bus` | Trazados completos de microbús Red Movilidad (multilíneas), Metro de Santiago (L1 a L6) y paraderos |
+| **CAT-04** | Movilidad Activa y Ciclovías | **68.792** | `highway=cycleway`, `cycleway=*`, `amenity=bicycle_parking` | Ciclovías segregadas Rosas y Brasil, sendas peatonales, calzadas compartidas y cicloparqueaderos |
+| **CAT-05** | Áreas Verdes y Espacio Público | **35.854** | `leisure=park|playground|pitch`, `landuse=grass` | Parques metropolitanos, plazas barriales, canchas comunitarias, juegos infantiles y bebederos |
+| **CAT-06** | Patrimonio Histórico y Cultura | **1.713** | `historic=*`, `heritage=*`, `amenity=theatre` | Zonas Típicas, Inmuebles de Conservación Histórica (ICH), monumentos, casonas UAH y museos |
+| **CAT-07** | Accesibilidad Universal y Cruces | **62.984** | `kerb=lowered`, `tactile_paving=*`, `traffic_signals:sound` | Vados peatonales D.S. 50 MINVU, pavimentos táctiles podotáctiles y cruces con semáforos sonoros |
+| **CAT-08** | Biodiversidad Urbana y Arbolado | **94.424** | `natural=tree|wood|water` + GBIF Darwin Core | Catastro de árboles urbanos, Río Mapocho, Zanjón de la Aguada, canales y registros biológicos |
+| **CAT-09** | Edificaciones y Huella Urbana | **56.428** | `building=*` [Polígonos con área m² EPSG:32719] | Huellas institucionales y comerciales nombradas + muestra estratificada de 28.000 residenciales en 52 comunas |
+| **CAT-10** | Coberturas y Usos de Suelo | **31.657** | `landuse=*`, `natural=*`, `surface=*` | Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo) y biofísico |
+| **TOTAL** | **Región Metropolitana Completa** | **414.398** | **Geofabrik (Extracto RM) + Overpass QL** | **Base regional completa con filtrado instantáneo O(1) y geodatabase GPKG R-Tree** |
+
+### 4.1. Doble Flujo de Adquisición y Diferenciación Estricta de Fuentes
+El Atlas distingue formalmente dos metodologías de adquisición desacopladas:
+1. **`Geofabrik (Extracto RM)`**: Descarga y procesamiento del dump regional PBF (414.398 entidades en las 52 comunas de la RM). Latencia 0 ms, Bbox AABB precomputado por entidad y almacenamiento en GeoPackage con índices R-Tree nativos.
+2. **`OpenStreetMap (API Overpass)`**: Consultas bajo demanda en tiempo real a los servidores de Overpass QL (balanceado en 4 espejos) en la ventana territorial activa.
+Ambas fuentes se presentan de forma independiente en fichas, leyendas y popups (dorado para Geofabrik, azul para Overpass API) y **no se mezclan**, salvo en superposiciones analíticas expresas como `GBIF + OSM`.
+
+### 4.2. Modalidades Duales de Consulta Espacial
+El Módulo 01 del Atlas ofrece dos opciones pedagógicas:
+- **`🗺️ Modo 1: Bbox Dinámico del Mapa`**: Al navegar, hacer zoom o arrastrar el visor en cualquier comuna de la RM, el Bbox se sincroniza en tiempo real y permite consultar instantáneamente los elementos en pantalla.
+- **`📌 Modo 2: Coordenadas Numéricas Manuales`**: Permite a investigadores, estudiantes o funcionarios ingresar coordenadas exactas `[Oeste, Sur, Este, Norte]` en WGS 84, o cargar directamente el encuadre macro de toda la Región Metropolitana o el caso piloto Barrio Brasil.
 
 ---
 

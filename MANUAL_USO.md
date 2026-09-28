@@ -160,13 +160,32 @@ Permite a los usuarios y organizaciones auditar su propia información geográfi
 
 ---
 
-## 6. Consultas Personalizadas y Explorador OSM con Taginfo (Panel 01)
+## 6. Consultas Espaciales, Explorador OSM y Base Regional Geofabrik (Panel 01)
 
-Para geógrafos y usuarios avanzados que requieren formular filtros Overpass QL específicos:
-1. Selecciona una clave OSM en el menú desplegable (`amenity`, `building`, `highway`, `shop`, `leisure`, `historic`, `landuse`) o escribe una clave manual.
-2. Ingresa un valor específico o selecciona un operador (`=`, `!=`, `~` para expresiones regulares).
-3. **Validador Taginfo API:** Pulsa el botón `[⚡ Validar en Taginfo]` para auditar el volumen global de nodos, vías y relaciones registradas para esa clave en la base planetaria de OpenStreetMap.
-4. Pulsa **"🚀 Ejecutar Consulta"** para visualizar los resultados en una tabla interactiva y superponerlos en el mapa Leaflet.
+El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el análisis espacial masivo de la **Base Regional Geofabrik RM (414.398 entidades)**:
+
+### 6.1 Constructor Visual y Consultas Rápidas en 1 Clic
+- **Consultas Rápidas Ciudadanas:** 10 botones preconfigurados para mapear instantáneamente universidades, comercio, transporte, ciclovías, parques, patrimonio, rebajes accesibles D.S. 50, arbolado y edificaciones.
+- **Constructor Visual:** Permite seleccionar cualquier clave (`amenity`, `shop`, `highway`, `leisure`, `historic`, `natural`, `building`, etc.), elegir un operador (`=`, `!=`, `~`) y auditar su frecuencia planetaria con el botón **`[⚡ Validar en Taginfo]`**.
+- **Editor Overpass QL:** Para usuarios avanzados que deseen redactar sintaxis directa en lenguaje Overpass QL usando el comodín `{{bbox}}`.
+
+### 6.2 Base Regional Geofabrik RM y Modalidades Duales de Consulta Espacial
+Para consultar el extracto de 414.398 entidades descargado de Geofabrik para toda la Región Metropolitana con latencia 0 ms:
+1. **`🗺️ Modo 1: Bbox Dinámico del Mapa (Interactivo)`**:
+   - Al navegar, arrastrar o cambiar el zoom en el visor Leaflet hacia cualquier comuna de la Región Metropolitana (Maipú, Puente Alto, Providencia, Santiago, La Florida, San Bernardo, Colina, Melipilla, etc.), los campos numéricos de coordenadas se recalculan en tiempo real.
+   - Pulsa el botón **`[🗺️ Consultar por Bbox del Mapa]`**: El motor filtrará en memoria en tiempo récord ($O(1)$) descartando elementos fuera del encuadre y proyectando las geometrías de la zona activa.
+2. **`📌 Modo 2: Coordenadas Numéricas Manuales (WGS 84)`**:
+   - Permite escribir coordenadas numéricas precisas en los campos `Oeste (Lng Min)`, `Sur (Lat Min)`, `Este (Lng Max)` y `Norte (Lat Max)`.
+   - Pulsa el botón **`[📌 Consultar por Coordenadas]`**: El sistema valida la consistencia geográfica del polígono y extrae las entidades correspondientes.
+3. **Botones de Encuadre Territorial Rápido:**
+   - **`[🌐 Toda la Región Metropolitana]`**: Carga automáticamente el bounding box macro de las 52 comunas de la RM `[-71.50, -34.20, -70.00, -33.00]`.
+   - **`[📍 Centrar en Barrio Brasil (UAH)]`**: Restablece el encuadre piloto local de Barrio Brasil y el Campus UAH `[-70.6720, -33.4500, -70.6550, -33.4380]`.
+
+### 6.3 Diferenciación Estricta de Fuentes (Desacople Operativo)
+En el Atlas, cada dato espacial cuenta con trazabilidad formal de procedencia:
+- **`Geofabrik (Extracto RM)`**: Identificado con badge dorado. Proviene de la descarga del dump PBF regional procesado en 10 macrocategorías temáticas (`metodo_adquisicion: 'Descarga Geofabrik (Dump PBF regional)'`).
+- **`OpenStreetMap (API Overpass)`**: Identificado con badge azul. Proviene de consultas dinámicas en vivo a la API Overpass (`metodo_adquisicion: 'Descarga de OSM (con la API)'`).
+- **Política de No Fusión:** Ambos orígenes no se mezclan en una misma capa para evitar duplicaciones o distorsiones temporales, permitiéndose la combinación únicamente en superposiciones analíticas expresas (por ejemplo `GBIF + OSM` en el Módulo de Biodiversidad Urbana).
 
 ---
 

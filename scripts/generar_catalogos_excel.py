@@ -90,16 +90,29 @@ def crear_catalogo_fuentes():
     filas_fuentes = [
         [
             "OpenStreetMap (OSM) / Overpass API",
-            "Vectorial (puntos, líneas, polígonos con atributos semánticos)",
-            "Global / Nacional (Chile) / Barrial y Comunal",
-            "2004 – Presente (en tiempo real)",
+            "Vectorial dinámico en vivo (puntos, líneas, polígonos)",
+            "Global / Chile / Ventana activa de consulta (Bbox)",
+            "2004 – Presente (actualizaciones en tiempo real)",
             "Continua (minuto a minuto por colaboradores)",
             "Detalle catastral / escala 1:500 a 1:5.000",
-            "Open Database License (ODbL) 1.0",
-            "Overpass API (QL) / OSM API 0.6 / Balanceo en 4 servidores espejo",
-            "Catastro exhaustivo de equipamiento comunitario, accesibilidad peatonal, trazado vial, ciclovías y arbolado.",
-            "Heterogeneidad en completitud semántica entre comunas centrales y rurales.",
-            "Pabellones UAH (Almirante Barroso/Erasmo Escala), paraderos Alameda, locales de Barrio Brasil, ciclovías de Rosas."
+            "Open Database License (ODbL) 1.0 (© OSM contributors)",
+            "Overpass API QL (/api/interpreter) balanceada en 4 servidores espejo",
+            "Extracción bajo demanda en tiempo real de equipamiento, comercio barrial, ciclovías y accesibilidad en el Bbox activo.",
+            "Dependencia de latencia de red internacional y cuotas por IP (slots de Overpass).",
+            "Consultas en vivo sobre Barrio Brasil, entorno Campus UAH y cualquier cuadrante de la ciudad."
+        ],
+        [
+            "Geofabrik (Extracto RM / Dump PBF regional)",
+            "Vectorial estructurado regional (414.398 entidades en 10 macrocategorías temáticas)",
+            "Región Metropolitana de Santiago (52 comunas completas)",
+            "Snapshot regional 2026-09-27 / Recorte DPA 2023",
+            "Semanal / Mensual (Dumps masivos de Geofabrik GmbH)",
+            "Catastral a metropolitana / 1:500 a 1:25.000",
+            "Open Database License (ODbL) 1.0 (© OSM contributors / Geofabrik GmbH)",
+            "Descarga dump regional PBF + Recorte espacial + GeoJSON CDN local (/data/) + GPKG R-Tree",
+            "Consultas espaciales de latencia 0 ms sin depender de servidores externos; soporte de doble modalidad (Bbox dinámico y Coordenadas manuales).",
+            "Datos estáticos respecto a la fecha del dump; no deben mezclarse sin superposición analítica con la API en vivo.",
+            "414.398 entidades en Maipú, Puente Alto, Providencia, Santiago, La Florida, Colina, Melipilla, etc."
         ],
         [
             "ohsome API v1 & v2 (HeiGIT)",
@@ -258,6 +271,19 @@ def crear_catalogo_fuentes():
     ws2.freeze_panes = "A5"
     
     filas_apis = [
+        [
+            "Geofabrik Regional Dump & Motor Local",
+            "Geofabrik GmbH / Atlas VGI UAH",
+            "2026-09-27 (RM)",
+            "data/capa_osm_rm_cat*.geojson / data/geodatabase_osm_rm_geofabrik.gpkg",
+            "GET / Fetch Web + Consultas Espaciales en Memoria",
+            "GeoJSON FeatureCollection normalizado con Bbox O(1) / GPKG R-Tree",
+            "Bbox dinámico interactivo del mapa o Coordenadas manuales [Oeste, Sur, Este, Norte]",
+            "Sin límite de cuotas (latencia 0 ms, ejecución local client-side)",
+            "src/js/modulos/osm.js (ModuloOSM) y app.js",
+            "Consultas espaciales dinámicas masivas sobre 414.398 entidades en 52 comunas de la RM clasificadas en CAT-01 a CAT-10",
+            "Geofabrik GmbH. (2026). OpenStreetMap Data Extracts: Chile. https://download.geofabrik.de/south-america/chile.html"
+        ],
         [
             "Overpass API",
             "OpenStreetMap Foundation (OSMF)",
@@ -639,47 +665,47 @@ def crear_perfil_metadatos():
         [
             4, "MD_DataIdentification.citation.title", "Título del Recurso", "Obligatorio (M)",
             "Carácter", "Título del Recurso", "Nombre oficial o descriptivo del conjunto de datos territoriales.",
-            "Catastro VGI de Equipamiento Universitario y Urbano: Barrio Brasil - Universidad Alberto Hurtado"
+            "Atlas de Información Geográfica Voluntaria (VGI): Caso Piloto Barrio Brasil / UAH y Base Regional RM (Geofabrik)"
         ],
         [
             5, "MD_DataIdentification.abstract", "Resumen / Abstract", "Obligatorio (M)",
             "Texto libre", "Resumen", "Descripción clara y detallada del contenido del conjunto de datos.",
-            "Capa de infraestructura educativa, movilidad, espacio público y comercio obtenida vía Overpass API..."
+            "Capa multiescalar de equipamiento educativo, movilidad, espacio público, accesibilidad, biodiversidad y edificaciones. Integra consultas dinámicas en vivo vía Overpass API (Barrio Brasil) y extracto regional descargado de Geofabrik con 414.398 entidades en 10 macrocategorías temáticas (CAT-01 a CAT-10) en las 52 comunas de la Región Metropolitana."
         ],
         [
             6, "EX_GeographicBoundingBox.westBoundLongitude", "Extensión Oeste (Longitud Min)", "Obligatorio (M)",
             "Decimal (EPSG:4326)", "Límite Oeste", "Límite occidental del área geográfica en grados decimales.",
-            "-70.6675"
+            "-71.5000 (Región Metropolitana) / -70.6720 (Barrio Brasil)"
         ],
         [
             7, "EX_GeographicBoundingBox.eastBoundLongitude", "Extensión Este (Longitud Max)", "Obligatorio (M)",
             "Decimal (EPSG:4326)", "Límite Este", "Límite oriental del área geográfica en grados decimales.",
-            "-70.6565"
+            "-70.0000 (Región Metropolitana) / -70.6550 (Barrio Brasil)"
         ],
         [
             8, "EX_GeographicBoundingBox.southBoundLatitude", "Extensión Sur (Latitud Min)", "Obligatorio (M)",
             "Decimal (EPSG:4326)", "Límite Sur", "Límite meridional del área geográfica en grados decimales.",
-            "-33.4505"
+            "-34.2000 (Región Metropolitana) / -33.4500 (Barrio Brasil)"
         ],
         [
             9, "EX_GeographicBoundingBox.northBoundLatitude", "Extensión Norte (Latitud Max)", "Obligatorio (M)",
             "Decimal (EPSG:4326)", "Límite Norte", "Límite septentrional del área geográfica en grados decimales.",
-            "-33.4385"
+            "-33.0000 (Región Metropolitana) / -33.4380 (Barrio Brasil)"
         ],
         [
             10, "MD_ReferenceSystem.referenceSystemIdentifier", "Sistema de Referencia Espacial", "Obligatorio (M)",
             "Código EPSG", "Sistema de Coordenadas", "Código oficial del sistema de referencia de coordenadas.",
-            "EPSG:4326 (WGS84) / Compatible con EPSG:5361 (SIRGAS-Chile)"
+            "EPSG:4326 (WGS 84) con cálculo métrico en EPSG:32719 (UTM Huso 19 Sur) / Compatible SIRGAS Chile (EPSG:5360)"
         ],
         [
             11, "LI_Lineage.statement", "Linaje y Trazabilidad", "Condicional (C)",
             "Texto libre", "Historia / Linaje", "Descripción del proceso de captura, consultas a APIs y filtros empleados.",
-            "Extraído de OpenStreetMap vía Overpass API el 2026-09-03, complementado con ocurrencias de GBIF."
+            "Doble flujo metodológico: 1) Consultas en vivo a la API Overpass (OSMF) en el Bbox activo con balanceo en 4 espejos. 2) Descarga de dump regional Geofabrik Chile (chile-260927.osm.pbf) recortado con máscara DPA 2023 de la Región Metropolitana, procesando 1.309.189 registros y clasificando 414.398 entidades en 10 macrocategorías temáticas con índice Bbox precomputado y GeoPackage R-Tree."
         ],
         [
             12, "MD_Constraints.useLimitation", "Restricciones de Uso y Licencia", "Obligatorio (M)",
             "Texto libre", "Restricciones Legales", "Declaración explícita de derechos de autor y licencias de distribución.",
-            "ODbL 1.0 (OpenStreetMap contributors) para datos vectoriales; CC-BY para observaciones biológicas."
+            "ODbL 1.0 (© OpenStreetMap contributors / Geofabrik GmbH) para datos vectoriales; CC BY 4.0 para capas institucionales y GBIF; AGPL-3.0 para código fuente del Atlas."
         ],
         [
             13, "CI_ResponsibleParty.organisationName", "Organización Responsable", "Obligatorio (M)",
@@ -694,7 +720,7 @@ def crear_perfil_metadatos():
         [
             15, "DQ_Completeness.quantitativeResult", "Indicador de Completitud VGI", "Opcional (O)",
             "Numérico / Razón", "Calidad de Datos", "Evaluación cuantitativa del volumen y actualidad de los datos.",
-            "Densidad calculada vía ohsome: 285 elem/km²; 16 colaboradores en el último año."
+            "Cobertura total RM: 414.398 entidades clasificadas. Densidad Barrio Brasil: >350 elem/km² evaluado con ohsome API y OQT."
         ]
     ]
     
@@ -750,55 +776,55 @@ def crear_categorias_tematicas_osm():
         [
             "CAT-01",
             "Educación, Universidades e Investigación",
-            "Universidades públicas y privadas, institutos profesionales (IP), centros de formación técnica (CFT), liceos emblemáticos, colegios básicos, jardines infantiles (JUNJI, Integra), bibliotecas universitarias y públicas.",
+            "Universidades públicas y privadas, campus UAH, institutos profesionales (IP), centros de formación técnica (CFT), liceos emblemáticos, colegios básicos, jardines infantiles (JUNJI, Integra) y bibliotecas.",
             "amenity=university, amenity=college, amenity=school, amenity=kindergarten, amenity=library, building=university, building=school",
             "Puntos, Polígonos",
             'nwr["amenity"~"university|college|school|kindergarten|library"]({{bbox}});',
-            "Muy Alta (>15.000 entidades educativas en Chile según Taginfo y MINEDUC)",
+            "7.428 entidades en la RM (Extracto Geofabrik) | Muy Alta nacional (>15.000)",
             "Ministerio de Educación (MINEDUC), Superintendencia de Educación Superior, JUNJI, Fundación Integra",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-02",
             "Salud, Comercio y Servicios de Proximidad",
-            "Red asistencial pública (Hospitales, CESFAM, CECOSF, SAPU), farmacias de cadena y populares/comunales, panaderías y amasanderías de barrio, almacenes de abarrotes, ferias libres, bancos, sucursales públicas y restaurantes tradicionales.",
+            "Red asistencial pública (Hospitales, CESFAM, CECOSF, SAPU), farmacias de cadena y comunales, panaderías y amasanderías de barrio, almacenes de abarrotes, ferias libres, bancos y locales de servicios.",
             "amenity=clinic, amenity=hospital, amenity=pharmacy, shop=bakery, shop=convenience, shop=supermarket, amenity=marketplace, amenity=bank, amenity=cafe, amenity=restaurant",
             "Puntos, Polígonos",
             'nwr["amenity"~"clinic|hospital|pharmacy|bank|marketplace|restaurant|cafe"]({{bbox}}); nwr["shop"~"bakery|convenience|supermarket"]({{bbox}});',
-            "Muy Alta (>80.000 comercios y servicios registrados en Taginfo Chile)",
+            "32.013 entidades en la RM (Extracto Geofabrik) | Muy Alta nacional (>80.000)",
             "Ministerio de Salud (MINSAL), FONASA, SERCOTEC, I. Municipalidad de Santiago",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-03",
             "Movilidad y Transporte Público Metropolitano",
-            "Red Metro de Santiago (estaciones, bocas de acceso, andenes), paraderos y corredores de buses Red Movilidad (ex Transantiago), terminales de buses interurbanos, puntos de recarga bip!, líneas férreas de cercanías.",
-            "railway=station, railway=subway_entrance, station=subway, highway=bus_stop, public_transport=platform, amenity=bus_station, vending=public_transport_tickets",
-            "Puntos, Líneas",
-            'node["railway"="station"]({{bbox}}); node["railway"="subway_entrance"]({{bbox}}); node["highway"="bus_stop"]({{bbox}}); way["railway"="subway"]({{bbox}});',
-            "Muy Alta (>25.000 paradas Red y 143 estaciones de Metro activas en RM)",
+            "Red Metro de Santiago (estaciones, accesos, andenes, trazados subterráneos), paraderos y trazados completos de rutas Red Movilidad (multilíneas), terminales de buses interurbanos y puntos de recarga bip!.",
+            "railway=station, railway=subway_entrance, station=subway, highway=bus_stop, public_transport=platform, amenity=bus_station, vending=public_transport_tickets, route=bus, network=Red Movilidad",
+            "Puntos, Líneas, Multilíneas",
+            'node["railway"="station"]({{bbox}}); node["highway"="bus_stop"]({{bbox}}); way["railway"="subway"]({{bbox}}); relation["route"="bus"]({{bbox}});',
+            "23.105 entidades en la RM (Extracto Geofabrik) | Muy Alta nacional (>25.000 paradas Red)",
             "Directorio de Transporte Público Metropolitano (DTPM), Ministerio de Transportes y Telecomunicaciones (MTT), Metro S.A.",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-04",
             "Movilidad Activa y Micromovilidad Urbana",
-            "Ciclovías segregadas en calzada y bandejón, ciclobandas, ciclocalles zonificadas, estacionamientos de bicicletas (biciestacionamientos), estaciones de arriendo público (Bike Santiago), tótems de auto-reparación.",
-            "highway=cycleway, cycleway=lane|track, amenity=bicycle_parking, amenity=bicycle_rental, amenity=bicycle_repair_station",
+            "Ciclovías segregadas en calzada y bandejón, ciclobandas demarcadas, sendas peatonales, veredas urbanas, calzadas compartidas, estacionamientos de bicicletas (biciestacionamientos) y talleres de reparación.",
+            "highway=cycleway, cycleway=lane|track, cycleway:left=*, cycleway:right=*, highway=footway|path, amenity=bicycle_parking, amenity=bicycle_rental, amenity=bicycle_repair_station",
             "Líneas, Puntos",
             'way["highway"="cycleway"]({{bbox}}); way["cycleway"]({{bbox}}); node["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});',
-            "Alta (>800 km de ciclovías en Gran Santiago con acelerada expansión post-pandemia)",
+            "68.792 entidades en la RM (Extracto Geofabrik) | Alta nacional (>800 km ciclovías)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Manual de Vialidad Cicloinclusiva), MTT, GORE Metropolitano",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-05",
             "Áreas Verdes, Espacio Público y Deporte Comunitario",
-            "Parques urbanos metropolitanos y comunales, plazas de barrio, plazoletas, áreas de juegos infantiles modulares, canchas de baby fútbol y multicanchas de juntas de vecinos, plazas activas (máquinas de ejercicios), escaños públicos y bebederos.",
+            "Parques urbanos metropolitanos y comunales, plazas de barrio, plazoletas, áreas de juegos infantiles modulares, multicanchas de juntas de vecinos, plazas activas (máquinas de ejercicios), escaños públicos y bebederos.",
             "leisure=park, leisure=playground, leisure=pitch, leisure=sports_centre, leisure=fitness_station, amenity=bench, landuse=grass",
             "Polígonos, Puntos",
             'way["leisure"~"park|playground|pitch|fitness_station"]({{bbox}}); relation["leisure"="park"]({{bbox}}); node["amenity"="bench"]({{bbox}});',
-            "Muy Alta (>12.000 plazas, parques y canchas georreferenciadas en Taginfo Chile)",
+            "35.854 entidades en la RM (Extracto Geofabrik) | Muy Alta nacional (>12.000 plazas)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Política Nacional de Parques Urbanos), Instituto Nacional de Deportes (IND), Municipios",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -809,7 +835,7 @@ def crear_categorias_tematicas_osm():
             "historic=building, historic=monument, historic=memorial, heritage=*, residential=cite, amenity=arts_centre, amenity=theatre, amenity=place_of_worship, tourism=museum",
             "Polígonos, Puntos",
             'nwr["historic"]({{bbox}}); nwr["heritage"]({{bbox}}); nwr["amenity"~"arts_centre|theatre|place_of_worship"]({{bbox}}); nwr["tourism"="museum"]({{bbox}});',
-            "Alta (Alta concentración protegida por Ley N° 17.288 en Santiago Poniente)",
+            "1.713 entidades en la RM (Extracto Geofabrik) | Alta (Protegidas Ley N° 17.288)",
             "Consejo de Monumentos Nacionales (CMN), Ministerio de las Culturas, las Artes y el Patrimonio (MINCAP), Dirección de Obras Municipales (DOM)",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -819,30 +845,30 @@ def crear_categorias_tematicas_osm():
             "Rebajes de solera y vados peatonales normados (D.S. 50 MINVU), cruces peatonales demarcados (cebras) y semaforizados, pavimentos podotáctiles de avance y advertencia, semáforos peatonales audibles, rampas fijas y calificación wheelchair.",
             "kerb=lowered|flush, highway=crossing, crossing=marked|traffic_signals, tactile_paving=yes|no, traffic_signals:sound=yes, wheelchair=yes|limited|no, highway=ramp",
             "Puntos, Líneas",
-            'node["kerb"~"lowered|flush"]({{bbox}}); node["highway"="crossing"]({{bbox}}); node["traffic_signals:sound"="yes"]({{bbox}}); nwr["wheelchair"~"yes|limited|no"]({{bbox}});',
-            "Creciente y Estratégica (Estándar mandatorio según OGUC Art. 2.2.8 en Chile)",
+            'node["kerb"~"lowered|flush"]({{bbox}}); node["highway"="crossing"]({{bbox}}); node["tactile_paving"]({{bbox}}); node["traffic_signals:sound"="yes"]({{bbox}});',
+            "62.984 entidades en la RM (Extracto Geofabrik) | Estratégica nacional (OGUC Art. 2.2.8)",
             "Servicio Nacional de la Discapacidad (SENADIS), Ministerio de Vivienda y Urbanismo (MINVU), Ministerio de Desarrollo Social y Familia",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-08",
             "Biodiversidad Urbana y Naturaleza en la Ciudad",
-            "Arbolado urbano de alineación y plazas (especies nativas e introducidas frecuentes en la cuenca de Santiago), áreas verdes arboladas, cruces con observaciones biológicas comunitarias de avifauna, flora e insectos polinizadores (GBIF / iNaturalist).",
-            "natural=tree, natural=wood, landuse=forest, species=*, genus=*, species:es=* + Darwin Core (GBIF Occurrence)",
-            "Puntos, Polígonos",
-            'node["natural"="tree"]({{bbox}}); way["natural"="wood"]({{bbox}}); /* + GBIF API Occurrence bbox */',
-            "Muy Alta (>300.000 árboles georreferenciados en OSM Chile y >1.5M registros GBIF en Chile)",
+            "Catastro de arbolado urbano de alineación y plazas (especies nativas e introducidas en Santiago), cursos de agua (Río Mapocho, Zanjón de la Aguada), canales, humedales urbanos y registros biológicos de avifauna y flora (GBIF / iNaturalist).",
+            "natural=tree, natural=tree_row, natural=wood, natural=water, natural=wetland, landuse=forest, species=*, genus=* + Darwin Core (GBIF Occurrence)",
+            "Puntos, Polígonos, Líneas",
+            'node["natural"="tree"]({{bbox}}); way["natural"="tree_row"]({{bbox}}); nwr["natural"~"water|wetland"]({{bbox}});',
+            "94.424 entidades en la RM (Extracto Geofabrik) | Muy Alta (>300.000 árboles en Chile)",
             "Corporación Nacional Forestal (CONAF - Arbolado Urbano), Ministerio del Medio Ambiente (MMA), GBIF Chile / Nodo Nacional",
             "(WikiProject Chile, 2024; GBIF Secretariat, 2024; TDWG, 2023; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-09",
             "Edificaciones, Huella Urbana y Volumetría",
-            "Catastro poligonal exhaustivo de edificaciones: viviendas unifamiliares, edificios residenciales en altura, conjuntos habitacionales, inmuebles comerciales, pabellones universitarios y cívicos, templos religiosos y construcciones auxiliares con cálculo de superficie métrica en m² (EPSG:32719).",
+            "Catastro poligonal exhaustivo de edificaciones: viviendas unifamiliares, edificios residenciales en altura, conjuntos habitacionales, inmuebles comerciales, pabellones universitarios y cívicos, templos religiosos y construcciones con cálculo de área métrica en m² (EPSG:32719).",
             "building=yes, building=residential, building=apartments, building=house, building=commercial, building=civic, building=school, building=university, building=church, building:levels=*",
             "Polígonos, Puntos",
             'nwr["building"]({{bbox}});',
-            "Muy Alta (>4.500.000 huellas de edificios mapeadas en Chile vía OSM y proyectos comunitarios)",
+            "56.428 entidades en la RM (Extracto Geofabrik: estructuradas + muestra estratificada) | Muy Alta (>4.5M huellas)",
             "Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces), Dirección de Obras Municipales (DOM), IDE Chile / MINVU",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -853,7 +879,7 @@ def crear_categorias_tematicas_osm():
             "landuse=residential, landuse=commercial, landuse=education, landuse=recreation_ground, landuse=grass, landuse=construction, natural=wood, natural=scrub, surface=asphalt, surface=paving_stones",
             "Polígonos, Líneas",
             'nwr["landuse"]({{bbox}}); nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});',
-            "Alta (>500.000 polígonos de zonificación y usos de suelo a nivel nacional en OSM)",
+            "31.657 entidades en la RM (Extracto Geofabrik) | Alta (>500.000 polígonos nacionales)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Planes Reguladores Comunales e Intercomunales), IDE Chile, I. Municipalidad de Santiago",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ]
@@ -1083,10 +1109,12 @@ def crear_categorias_tematicas_osm():
         ["superficie_m2", "Numérico (Decimal)", "16,2", "Condicional", "Área calculada en polígonos cerrados", "N/A", "Área Métrica Oficial / gmd:EX_Extent", "Área calculada mediante fórmula de Gauss tras reproyección conforme a EPSG:32719 UTM 19S."],
         ["superficie_ha", "Numérico (Decimal)", "12,4", "Condicional", "superficie_m2 / 10.000", "N/A", "Superficie en Hectáreas", "Equivalencia métrica en hectáreas para análisis de instrumentos de planificación (PRC)."],
         ["srs_superficie", "Texto", "64", "Condicional", "'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)'", "N/A", "gmd:MD_ReferenceSystem / EPSG:5361", "Sistema geodésico proyectado oficial que respalda la validez de las medidas métricas."],
-        ["fuente", "Texto", "48", "Obligatorio", "'OpenStreetMap / Overpass QL'", "'GBIF / iNaturalist'", "gmd:LI_Lineage / Procedencia", "Plataforma proveedora del dato espacial para trazabilidad metodológica."],
+        ["fuente", "Texto", "48", "Obligatorio", "'Geofabrik (Extracto RM)' / 'OpenStreetMap (API Overpass)'", "'GBIF / iNaturalist'", "gmd:LI_Lineage / Procedencia", "Plataforma proveedora del dato espacial; diferenciación estricta entre extracto regional descargado y API en vivo."],
+        ["metodo_adquisicion", "Texto", "64", "Obligatorio", "'Descarga Geofabrik (Dump PBF regional)' / 'Descarga de OSM (con la API)'", "'Consulta API Occurrence'", "gmd:LI_ProcessStep / Método", "Método técnico de obtención del dato territorial (proceso offline masivo vs query transaccional Overpass)."],
+        ["bbox", "Arreglo Numérico [minX,minY,maxX,maxY]", "32", "Obligatorio", "Calculado por entidad en EPSG:4326", "Bounding box del espécimen", "gmd:EX_GeographicBoundingBox", "Envolvente geográfica rectangular precomputada por entidad que permite filtrado espacial O(1) instantáneo en el navegador."],
         ["fecha_registro", "Fecha / ISO 8601", "24", "Condicional", "timestamp de la última edición", "eventDate", "Fecha de Captura / gmd:dateStamp", "Marca temporal de la última actualización para evaluar obsolescencia (ISO 19157)."],
         ["licencia", "Texto", "48", "Obligatorio", "'ODbL 1.0 (OSM) / CC BY-SA 4.0'", "'CC BY 4.0' / 'CC0 1.0'", "gmd:MD_LegalConstraints", "Marco tripartito: CC BY-SA 4.0 (contenido/documentación), ODbL 1.0 (datos espaciales) y AGPL-3.0 (código fuente)."],
-        ["geom_wkt", "Geometría (WKT)", "Variable", "Obligatorio", "Point / LineString / Polygon", "Point (decimalLat, decimalLon)", "Coordenadas Espaciales EPSG:4326", "Geometría vectorial en WGS 84 compatible con estándares del Open Geospatial Consortium."]
+        ["geom_wkt", "Geometría (WKT)", "Variable", "Obligatorio", "Point / LineString / Polygon / MultiLineString", "Point (decimalLat, decimalLon)", "Coordenadas Espaciales EPSG:4326", "Geometría vectorial en WGS 84 compatible con estándares del Open Geospatial Consortium."]
     ]
     
     for r_idx, d in enumerate(diccionario_vgi, 5):

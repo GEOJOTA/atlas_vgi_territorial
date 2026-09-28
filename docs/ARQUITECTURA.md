@@ -90,7 +90,8 @@ El Atlas articula 10 servicios y protocolos de datos geoespaciales y colaborativ
 |---|---|---|---|
 | **Supabase PostGIS RPC** | `https://[TU-PROYECTO].supabase.co/rest/v1/rpc/fn_obtener_capa_bbox` | `src/js/modulos/db_client.js` | Consultas espaciales de alta velocidad con recorte geométrico en servidor mediante índices R-Tree `GIST` sobre 129.262 entidades vectoriales. |
 | **Supabase Storage CDN** | `https://[TU-PROYECTO].supabase.co/storage/v1/object/public/atlas-geojson/` | `src/js/modulos/db_client.js` | Descarga directa de archivos GeoJSON optimizados servidos a través de la red de distribución de contenido (CDN) global. |
-| **Overpass API v0.7** | `https://overpass-api.de/api/interpreter`<br>`https://lz4.overpass-api.de/api/interpreter`<br>`https://z.overpass-api.de/api/interpreter` | `src/js/modulos/osm.js` | Extracción vectorial en vivo de geometrías (nodos, vías, relaciones) para las 10 macro-categorías VGI (CAT-01 a CAT-10) dentro del Bbox territorial con rotación automática entre 3 espejos. |
+| **Geofabrik Regional & Motor Local** | `data/capa_osm_rm_cat*.geojson`<br>`data/geodatabase_osm_rm_geofabrik.gpkg` | `src/js/modulos/osm.js` | Consultas espaciales dinámicas masivas sobre 414.398 entidades de la RM clasificadas en CAT-01 a CAT-10 con filtrado instantáneo O(1) por Bbox AABB y Geodatabase R-Tree. |
+| **Overpass API v0.7** | `https://overpass-api.de/api/interpreter`<br>`https://lz4.overpass-api.de/api/interpreter`<br>`https://z.overpass-api.de/api/interpreter` | `src/js/modulos/osm.js` | Extracción vectorial en vivo de geometrías (nodos, vías, relaciones) para las 10 macro-categorías VGI dentro del Bbox territorial con rotación automática entre 4 espejos. |
 | **Taginfo API v4** | `https://taginfo.openstreetmap.org/api/4/` | `src/js/modulos/taginfo.js` | Validación en tiempo real del recuento global de objetos, representatividad porcentual en el planeta y valores más frecuentes para cualquier clave OSM. |
 | **ohsome API (Dual v1 / v2)** | `https://api.ohsome.org/v1` (OSHDB Java)<br>`https://api.ohsome.org/v2` (Citus Python) | `src/js/modulos/ohsome.js` | Auditoría de evolución histórica espacio-temporal (series anuales P1Y), volumen de elementos vigentes, masa crítica de colaboradores activos e intensidad de contribución. |
 | **ohsome Quality Analyst (OQT)** | Marco conceptual Herfort et al. (2023) / HeiGIT | `src/js/modulos/calidad_analyst.js` | Estimación del **Índice de Saturación de Mapeo**, clasificación de la madurez territorial (*Levantamiento Dinámico* vs. *Consolidación Barrial*) y completitud de atributos críticos. |
@@ -151,9 +152,13 @@ La arquitectura se articula en 16 módulos desacoplados coordinados por el contr
   - **.csv / .tsv**: Detección inteligente de columnas geográficas (`lat`, `lon`, `x`, `y`).
 - Integración inmediata en el mapa Leaflet con auditoría normativa por clic.
 
-### 3.6 `osm.js` (Cliente Overpass API)
-- Serialización de consultas Overpass QL para CAT-01 a CAT-10.
-- Mecanismo de failover con conmutación automática entre 3 servidores espejo (de, lz4, z).
+### 3.6 `osm.js` (Motor de Consultas VGI, Base Regional Geofabrik y Overpass QL)
+- **Doble Flujo de Adquisición:**
+  1. *Extracto Geofabrik RM (414.398 entidades)*: Filtro en memoria acelerado mediante envolventes Bbox AABB precomputadas por entidad en tiempo $O(1)$. Soporta consultas en las 52 comunas de la RM tanto por Bbox interactivo del mapa como por coordenadas numéricas manuales (WGS84).
+  2. *API Overpass en Vivo*: Consultas transaccionales con balanceo automático en 4 servidores espejo (`lz4`, `z`, `fr`, `de`).
+- **Diferenciación Estricta de Fuentes:**
+  - Estandariza la propiedad `fuente` como `'Geofabrik (Extracto RM)'` para la base descargada y `'OpenStreetMap (API Overpass)'` para consultas en vivo.
+  - Prohíbe la mezcla arbitraria de orígenes, preservando su independencia metodológica salvo en superposiciones explícitas (`GBIF + OSM`).
 
 ### 3.7 `taginfo.js` (Cliente Taginfo API v4)
 - Consulta asíncrona de estadísticas globales de uso de etiquetas en OpenStreetMap (`/tag/stats` y `/key/values`).

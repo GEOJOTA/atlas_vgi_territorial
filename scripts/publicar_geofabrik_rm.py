@@ -41,6 +41,19 @@ ARCHIVOS_CODIGO = [
     "src/js/modulos/osm.js",
     "src/js/modulos/mapa.js",
     "src/js/app.js",
+    "README.md",
+    "MANUAL_USO.md",
+    "docs/ARQUITECTURA.md",
+    "src/docs/ARQUITECTURA.md",
+    "docs/TRAZABILIDAD_ACADEMICA.md",
+    "src/docs/TRAZABILIDAD_ACADEMICA.md",
+    "docs/categorias_tematicas_osm.xlsx",
+    "src/docs/categorias_tematicas_osm.xlsx",
+    "docs/catalogo_fuentes_vgi.xlsx",
+    "src/docs/catalogo_fuentes_vgi.xlsx",
+    "docs/perfil_metadatos_vgi.xlsx",
+    "src/docs/perfil_metadatos_vgi.xlsx",
+    "scripts/generar_catalogos_excel.py",
     "scripts/procesar_osm_geofabrik_usuario.py",
     "scripts/generar_gpkg_geofabrik.py",
     "scripts/publicar_geofabrik_rm.py"
@@ -255,13 +268,11 @@ def main():
 
     # 4. Crear Commit
     mensaje = (
-        "feat(geofabrik-rm): integrar datos Geofabrik RM del usuario, expansion taxonomica y querys dinamicas duales\n\n"
-        "- Procesadas 1.309.189 entidades de los 4 archivos del usuario (Puntos, Lineas, Poligonos, Multilineas) clasificando 414.398 entidades en 10 macrocategorias tematicas (CAT-01 a CAT-10).\n"
-        "- Expansion exhaustiva de taxonomia OSM: rutas de microbuses Red Movilidad, sendas y ciclovias, rebajes de veredas y cruces peatonales, arbolado y huellas de edificaciones estratificadas.\n"
-        "- Consultas espaciales dinamicas duales en Atlas VGI: selector interactivo de Modo 1 (Bbox dinamico del mapa sincronizado al arrastrar/zoom) y Modo 2 (Coordenadas numericas manuales W, S, E, N).\n"
-        "- Diferenciacion estricta de fuentes: 'Geofabrik (Extracto RM)' desacoplado de 'OpenStreetMap (API Overpass)', con soporte de superposicion explicita (ej. GBIF + OSM).\n"
-        "- Precomputo de bounding box [minX, minY, maxX, maxY] por entidad para filtrado O(1) instantaneo en el navegador.\n"
-        "- Geodatabase regional 'data/geodatabase_osm_rm_geofabrik.gpkg' con indices espaciales R-Tree nativos SpatiaLite/SQLite para las 10 capas tematicas."
+        "docs(catalogos-xlsx): actualizar matrices OpenXML, documentacion tecnica y trazabilidad academica con datos Geofabrik RM\n\n"
+        "- Actualizar docs/*.xlsx y src/docs/*.xlsx (categorias_tematicas_osm, catalogo_fuentes_vgi, perfil_metadatos_vgi) con las 414.398 entidades en 10 macrocategorias tematicas.\n"
+        "- Diferenciar formalmente en los catalogos la fuente Geofabrik (Extracto RM / Dump PBF regional) de OpenStreetMap (API Overpass en vivo) e incorporar campos metodo_adquisicion y bbox.\n"
+        "- Actualizar README.md, MANUAL_USO.md, docs/ARQUITECTURA.md y TRAZABILIDAD_ACADEMICA.md documentando el motor de consultas dinamicas duales (Bbox interactivo vs Coordenadas manuales) y las fuentes normalizadas.\n"
+        "- Sincronizar generador scripts/generar_catalogos_excel.py y verificar integridad total de archivos OpenXML ZIP (.xlsx)."
     )
 
 
