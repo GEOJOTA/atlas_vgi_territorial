@@ -268,11 +268,11 @@ def main():
 
     # 4. Crear Commit
     mensaje = (
-        "docs(catalogos-xlsx): actualizar matrices OpenXML, documentacion tecnica y trazabilidad academica con datos Geofabrik RM\n\n"
-        "- Actualizar docs/*.xlsx y src/docs/*.xlsx (categorias_tematicas_osm, catalogo_fuentes_vgi, perfil_metadatos_vgi) con las 414.398 entidades en 10 macrocategorias tematicas.\n"
-        "- Diferenciar formalmente en los catalogos la fuente Geofabrik (Extracto RM / Dump PBF regional) de OpenStreetMap (API Overpass en vivo) e incorporar campos metodo_adquisicion y bbox.\n"
-        "- Actualizar README.md, MANUAL_USO.md, docs/ARQUITECTURA.md y TRAZABILIDAD_ACADEMICA.md documentando el motor de consultas dinamicas duales (Bbox interactivo vs Coordenadas manuales) y las fuentes normalizadas.\n"
-        "- Sincronizar generador scripts/generar_catalogos_excel.py y verificar integridad total de archivos OpenXML ZIP (.xlsx)."
+        "fix(visor-osm): corregir subtipo no definido en popup, renderizado de geometrias y conmutacion de boton ver en atlas\n\n"
+        "- Corregir ReferenceError critico por variable 'subtipo' inexistente en onEachFeature dentro de ModuloMapa.cargarCapaGeoJSON.\n"
+        "- Resolver problema por el cual las geometrias no se renderizaban en el visor cartografico Leaflet ni devolvian capas OSM.\n"
+        "- Perfeccionar comportamiento de los botones 'Ver en Mapa Atlas' y 'Visualizar en Mapa Atlas', conmutando al panel de inicio y recalculando dimensiones con invalidarTamano(bounds).\n"
+        "- Proteger evaluacion de propiedades y geometrias nulas en el style de Leaflet para garantizar total estabilidad operativa."
     )
 
 

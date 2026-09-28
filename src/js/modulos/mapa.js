@@ -263,7 +263,7 @@ const ModuloMapa = (() => {
         });
       },
       style: (feature) => {
-        if (feature.geometry.type === 'LineString' || feature.geometry.type === 'MultiLineString') {
+        if (feature.geometry && (feature.geometry.type === 'LineString' || feature.geometry.type === 'MultiLineString')) {
           return {
             color: color,
             weight: 3.5,
@@ -320,6 +320,7 @@ const ModuloMapa = (() => {
           else licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
         }
         const fecha = props.fecha || props.fecha_registro || (esOficial ? 'Oficial 2024' : 'No indicada');
+        const subtipo = props._subtipo || props.subtipo || props.fclass || props.amenity || props.shop || props.highway || props.building || props.leisure || props.historic || props.natural || props.landuse || props.railway || props.rubro || (props._idOficial ? 'Oficial' : (esGbifItem ? 'Observación de Biodiversidad' : 'Entidad Cartográfica'));
 
         let filasExtraInfo = '';
         if (props._extraInfo) {
@@ -398,8 +399,25 @@ const ModuloMapa = (() => {
 
     // Ajuste automático de encuadre para que las geometrías aparezcan inmediatamente en pantalla
     if (opciones.ajustarVista !== false && capa.getBounds && capa.getBounds().isValid()) {
-      mapa.fitBounds(capa.getBounds(), { padding: [40, 40], maxZoom: 16 });
+      try {
+        mapa.fitBounds(capa.getBounds(), { padding: [40, 40], maxZoom: 16 });
+      } catch (_) {}
+
+      // Si el contenedor del mapa estaba oculto en una pestaña inactiva (size 0x0), recalcular al mostrarse
+      const sz = mapa.getSize ? mapa.getSize() : null;
+      if (!sz || sz.x === 0 || sz.y === 0) {
+        setTimeout(() => {
+          try {
+            mapa.invalidateSize();
+            if (capa.getBounds().isValid()) {
+              mapa.fitBounds(capa.getBounds(), { padding: [40, 40], maxZoom: 16 });
+            }
+          } catch (_) {}
+        }, 150);
+      }
     }
+
+    return capa;
   }
 
   function removerCapa(idCapa) {
@@ -461,10 +479,15 @@ const ModuloMapa = (() => {
     }
   }
 
-  function invalidarTamano() {
+  function invalidarTamano(bounds) {
     if (mapa) {
       setTimeout(() => {
-        try { mapa.invalidateSize(); } catch (_) {}
+        try {
+          mapa.invalidateSize();
+          if (bounds && bounds.isValid && bounds.isValid()) {
+            mapa.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+          }
+        } catch (_) {}
       }, 60);
     }
   }

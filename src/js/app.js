@@ -1614,7 +1614,21 @@ async function manejarConsultaPersonalizada() {
     `;
 
     document.getElementById('btn-ver-en-mapa-custom')?.addEventListener('click', () => {
-      document.querySelector('button[data-panel="inicio"]').click();
+      const capa = ModuloMapa.cargarCapaGeoJSON(capaId, geojson, {
+        nombre: nombreCapa,
+        color: colorCapa,
+        icono: '🔍',
+        fuente: fuenteCapa,
+        licencia: licCapa
+      });
+      if (typeof window.activarPanel === 'function') {
+        window.activarPanel('inicio');
+      } else {
+        document.querySelector('button[data-panel="inicio"]')?.click();
+      }
+      setTimeout(() => {
+        ModuloMapa.invalidarTamano(capa && capa.getBounds ? capa.getBounds() : null);
+      }, 100);
     });
     document.getElementById('btn-metadatos-custom')?.addEventListener('click', () => {
       prellenarMetadatosDesdeUltimaConsulta();
@@ -1735,7 +1749,7 @@ async function manejarConsultaOSM(cargarAlMapa = false, modo = 'bbox') {
     }
 
     if (cargarAlMapa) {
-      ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
+      const capa = ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
         nombre: `Geodatabase RM: ${nombreCapa} (Geofabrik)`,
         color: colorCapa,
         icono: iconoCapa,
@@ -1743,7 +1757,14 @@ async function manejarConsultaOSM(cargarAlMapa = false, modo = 'bbox') {
         licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
       });
       // Cambiar a panel de inicio para ver el mapa
-      document.querySelector('button[data-panel="inicio"]').click();
+      if (typeof window.activarPanel === 'function') {
+        window.activarPanel('inicio');
+      } else {
+        document.querySelector('button[data-panel="inicio"]')?.click();
+      }
+      setTimeout(() => {
+        ModuloMapa.invalidarTamano(capa && capa.getBounds ? capa.getBounds() : null);
+      }, 100);
       return;
     }
 
@@ -1803,7 +1824,7 @@ async function manejarConsultaOSM(cargarAlMapa = false, modo = 'bbox') {
     `;
 
     document.getElementById('btn-ver-en-mapa-osm-db')?.addEventListener('click', () => {
-      ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
+      const capa = ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
         nombre: `Geodatabase RM: ${nombreCapa} (Geofabrik)`,
         color: colorCapa,
         icono: iconoCapa,
@@ -1811,7 +1832,14 @@ async function manejarConsultaOSM(cargarAlMapa = false, modo = 'bbox') {
         licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
       });
 
-      document.querySelector('button[data-panel="inicio"]').click();
+      if (typeof window.activarPanel === 'function') {
+        window.activarPanel('inicio');
+      } else {
+        document.querySelector('button[data-panel="inicio"]')?.click();
+      }
+      setTimeout(() => {
+        ModuloMapa.invalidarTamano(capa && capa.getBounds ? capa.getBounds() : null);
+      }, 100);
     });
 
   } catch (error) {
@@ -2169,14 +2197,21 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
     });
 
     if (cargarAlMapa) {
-      ModuloMapa.cargarCapaGeoJSON('gbif_biodiversidad', resultado.geojson, {
+      const capa = ModuloMapa.cargarCapaGeoJSON('gbif_biodiversidad', resultado.geojson, {
         nombre: 'Biodiversidad (GBIF)',
         color: '#1C523A',
         icono: '🌿',
         fuente: 'GBIF / Ciencia Ciudadana',
         licencia: 'CC-BY 4.0'
       });
-      document.querySelector('button[data-panel="inicio"]').click();
+      if (typeof window.activarPanel === 'function') {
+        window.activarPanel('inicio');
+      } else {
+        document.querySelector('button[data-panel="inicio"]')?.click();
+      }
+      setTimeout(() => {
+        ModuloMapa.invalidarTamano(capa && capa.getBounds ? capa.getBounds() : null);
+      }, 100);
       return;
     }
 
