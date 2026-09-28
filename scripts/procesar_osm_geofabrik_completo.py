@@ -55,8 +55,7 @@ def parse_hstore(text):
 
 def compute_bounds_and_round(geom):
     gtype = geom.get('type')
-    coords = geom.get('coordinates', [])
-    if not coords:
+    if not gtype:
         return None, None
     min_x, min_y, max_x, max_y = 1e9, 1e9, -1e9, -1e9
     
@@ -71,24 +70,49 @@ def compute_bounds_and_round(geom):
         return [x, y]
         
     try:
-        if gtype == 'Point':
-            r_coords = process_coord(coords)
-        elif gtype in ('LineString', 'MultiPoint'):
-            r_coords = [process_coord(c) for c in coords]
-        elif gtype in ('Polygon', 'MultiLineString'):
-            r_coords = [[process_coord(c) for c in ring] for ring in coords]
-        elif gtype == 'MultiPolygon':
-            r_coords = [[[process_coord(c) for c in ring] for ring in poly] for poly in coords]
+        if gtype == 'GeometryCollection':
+            geoms = geom.get('geometries', [])
+            if not geoms:
+                return None, None
+            r_geoms = []
+            for subg in geoms:
+                sub_type = subg.get('type')
+                sub_coords = subg.get('coordinates', [])
+                if not sub_coords:
+                    continue
+                if sub_type == 'Point':
+                    subg['coordinates'] = process_coord(sub_coords)
+                elif sub_type in ('LineString', 'MultiPoint'):
+                    subg['coordinates'] = [process_coord(c) for c in sub_coords]
+                elif sub_type in ('Polygon', 'MultiLineString'):
+                    subg['coordinates'] = [[process_coord(c) for c in ring] for ring in sub_coords]
+                elif sub_type == 'MultiPolygon':
+                    subg['coordinates'] = [[[process_coord(c) for c in ring] for ring in poly] for poly in sub_coords]
+                r_geoms.append(subg)
+            if not r_geoms or min_x > max_x:
+                return None, None
+            geom['geometries'] = r_geoms
+            return geom, [min_x, min_y, max_x, max_y]
         else:
-            return None, None
+            coords = geom.get('coordinates', [])
+            if not coords:
+                return None, None
+            if gtype == 'Point':
+                r_coords = process_coord(coords)
+            elif gtype in ('LineString', 'MultiPoint'):
+                r_coords = [process_coord(c) for c in coords]
+            elif gtype in ('Polygon', 'MultiLineString'):
+                r_coords = [[process_coord(c) for c in ring] for ring in coords]
+            elif gtype == 'MultiPolygon':
+                r_coords = [[[process_coord(c) for c in ring] for ring in poly] for poly in coords]
+            else:
+                return None, None
+            geom['coordinates'] = r_coords
+            return geom, [min_x, min_y, max_x, max_y]
     except Exception:
         return None, None
-        
-    geom['coordinates'] = r_coords
-    bbox = [min_x, min_y, max_x, max_y]
-    return geom, bbox
 
-def clasificar_feature(props):
+def clasificar_feature(props, tipo_archivo=""):
     tags = dict(props)
     ot = props.get('other_tags')
     if ot:
@@ -120,6 +144,14 @@ def clasificar_feature(props):
     sport = tags.get('sport') or ''
     aeroway = tags.get('aeroway') or ''
     aerialway = tags.get('aerialway') or ''
+    boundary = tags.get('boundary') or ''
+    place = tags.get('place') or ''
+    
+    # Específicos de relaciones (OtherRelations)
+    rel_type = props.get('type') or tags.get('type') or ''
+    restriction = tags.get('restriction') or ('yes' if rel_type in ('restriction', 'restriction:hgv') else '')
+    destination = tags.get('destination') or ('yes' if rel_type == 'destination_sign' else '')
+    site = tags.get('site') or ('yes' if rel_type == 'site' else '')
     
     name = props.get('name') or tags.get('name') or ''
     
@@ -134,8 +166,9 @@ def clasificar_feature(props):
                    'archive', 'public_bookcase', 'dance_school'} or \
        building in {'school', 'university', 'college', 'kindergarten', 'library', 'faculty', 'dormitory', 'educational'} or \
        office in {'educational_institution', 'school', 'research', 'university'} or \
-       landuse == 'education':
-        subt = amenity or building or office or 'educacion'
+       landuse == 'education' or \
+       site in {'school', 'university', 'college', 'kindergarten', 'library'}:
+        subt = amenity or building or office or (f"sitio_{site}" if site in {'school', 'university', 'college', 'kindergarten'} else 'educacion')
         resultados.append(('CAT-01', 'educacion', subt, name))
         
     # ----------------------------------------------------
@@ -150,8 +183,9 @@ def clasificar_feature(props):
                    'waste_transfer_station', 'recycling', 'telephone', 'vending_machine', 'bureau_de_change',
                    'funeral_directors', 'optician', 'hairdresser', 'laundry', 'dry_cleaning',
                    'payment_terminal', 'parcel_locker'} or \
-       building in {'commercial', 'retail', 'hospital', 'clinic', 'supermarket', 'office', 'hotel', 'bank', 'pharmacy', 'industrial', 'service', 'warehouse', 'kiosk'}:
-        subt = shop or amenity or craft or office or (building if building in {'commercial', 'retail', 'hospital', 'office'} else 'servicio')
+       building in {'commercial', 'retail', 'hospital', 'clinic', 'supermarket', 'office', 'hotel', 'bank', 'pharmacy', 'industrial', 'service', 'warehouse', 'kiosk'} or \
+       site in {'mall', 'hospital', 'clinic', 'winery'}:
+        subt = shop or amenity or craft or office or (building if building in {'commercial', 'retail', 'hospital', 'office'} else (f"sitio_{site}" if site else 'servicio'))
         resultados.append(('CAT-02', 'servicios', subt, name))
         
     # ----------------------------------------------------
@@ -161,8 +195,13 @@ def clasificar_feature(props):
        railway in {'station', 'stop', 'subway_entrance', 'subway', 'tram', 'tram_stop', 'rail', 'light_rail', 'platform', 'halt', 'level_crossing', 'switch', 'buffer_stop'} or \
        amenity in {'bus_station', 'ferry_terminal', 'taxi', 'car_rental', 'car_sharing', 'bicycle_parking', 'bicycle_rental', 'parking', 'parking_space', 'parking_entrance', 'motorcycle_parking', 'toll_booth'} or \
        public_transport or aeroway or aerialway or \
-       route in {'bus', 'subway', 'train', 'trolleybus', 'tram', 'light_rail', 'ferry'}:
-        subt = route or railway or highway or amenity or public_transport or aeroway or 'transporte'
+       route in {'bus', 'subway', 'train', 'trolleybus', 'tram', 'light_rail', 'ferry'} or \
+       restriction or destination or rel_type in {'restriction', 'destination_sign', 'public_transport', 'turnlanes:turns', 'turnlanes:lengths', 'bridge', 'tunnel', 'traffic_mirror', 'restriction:hgv', 'route_master'} or \
+       site == 'parking':
+        subt = (f"restriccion_{restriction}" if restriction and restriction != 'yes' else '') or \
+               (f"destino_{destination}" if destination and destination != 'yes' else '') or \
+               (f"relacion_{rel_type}" if rel_type in {'restriction', 'destination_sign', 'public_transport', 'turnlanes:turns', 'turnlanes:lengths', 'bridge', 'tunnel', 'traffic_mirror', 'restriction:hgv', 'route_master'} else '') or \
+               route or railway or highway or amenity or public_transport or aeroway or 'transporte'
         resultados.append(('CAT-03', 'transporte', subt, name))
         
     # ----------------------------------------------------
@@ -184,8 +223,9 @@ def clasificar_feature(props):
        amenity in {'place_of_worship', 'fountain', 'bench', 'shelter', 'bbq', 'drinking_water', 'toilets', 'public_bath'} or \
        tourism in {'picnic_site', 'viewpoint', 'theme_park', 'zoo', 'camp_site'} or \
        sport or \
-       landuse in {'recreation_ground', 'village_green', 'cemetery'}:
-        subt = leisure or amenity or tourism or sport or (landuse if landuse in {'recreation_ground', 'village_green', 'cemetery'} else 'espacio_publico')
+       landuse in {'recreation_ground', 'village_green', 'cemetery'} or \
+       site in {'park', 'piste'}:
+        subt = leisure or amenity or tourism or sport or (landuse if landuse in {'recreation_ground', 'village_green', 'cemetery'} else (f"sitio_{site}" if site else 'espacio_publico'))
         resultados.append(('CAT-05', 'espacio_publico', subt, name))
         
     # ----------------------------------------------------
@@ -194,7 +234,8 @@ def clasificar_feature(props):
     if historic or heritage or \
        tourism in {'museum', 'artwork', 'gallery', 'attraction', 'monument'} or \
        amenity in {'theatre', 'arts_centre', 'cinema', 'cultural_centre', 'planetarium'} or \
-       building in {'church', 'cathedral', 'chapel', 'monastery', 'historic'}:
+       building in {'church', 'cathedral', 'chapel', 'monastery', 'historic'} or \
+       'parroquial' in name.lower() or 'iglesia' in name.lower() or 'basilica' in name.lower():
         subt = historic or heritage or tourism or amenity or (building if building in {'church', 'cathedral', 'chapel'} else 'patrimonio')
         resultados.append(('CAT-06', 'patrimonio', subt, name))
         
@@ -213,27 +254,81 @@ def clasificar_feature(props):
     if natural in {'tree', 'wood', 'scrub', 'tree_row', 'water', 'wetland', 'grassland', 'bare_rock', 'heath', 'valley', 'ridge', 'spring', 'peak', 'scree', 'shingle', 'fell', 'sand', 'cliff', 'rock'} or \
        landuse in {'forest', 'orchard', 'vineyard', 'plant_nursery', 'flowerbed', 'allotments', 'meadow', 'grass'} or \
        waterway in {'river', 'stream', 'canal', 'drain', 'ditch', 'waterfall', 'dock', 'riverbank', 'weir'} or \
-       leisure in {'nature_reserve', 'garden'}:
-        subt = natural or waterway or (landuse if landuse in {'forest', 'orchard', 'vineyard', 'plant_nursery', 'allotments', 'meadow'} else 'biodiversidad')
+       leisure in {'nature_reserve', 'garden'} or \
+       rel_type in {'waterway', 'water'} or \
+       site in {'lake', 'volcanic_complex', 'mountain_massif'}:
+        subt = natural or waterway or (f"relacion_{rel_type}" if rel_type in {'waterway', 'water'} else (f"sitio_{site}" if site else (landuse if landuse in {'forest', 'orchard', 'vineyard', 'plant_nursery', 'allotments', 'meadow'} else 'biodiversidad')))
         resultados.append(('CAT-08', 'biodiversidad', subt, name))
         
     # ----------------------------------------------------
     # CAT-09: Edificaciones y Huella Urbana (SIN RECORTES)
+    # Regla: Todos los multipolygons corresponden a landuse o a building = yes, más relaciones de edificios
     # ----------------------------------------------------
+    es_edif = False
+    subt_edif = ""
     if building and building != 'no':
-        subt = building
-        resultados.append(('CAT-09', 'edificaciones', subt, name))
+        es_edif = True
+        subt_edif = building
+    elif rel_type == 'building':
+        es_edif = True
+        subt_edif = tags.get('building') or 'edificacion_complejo'
+    elif tipo_archivo == "multipolygons":
+        if shop or office:
+            es_edif = True
+            subt_edif = shop or office or 'comercial'
+        elif amenity in {'school', 'university', 'college', 'kindergarten', 'library', 'hospital', 
+                         'clinic', 'doctors', 'dentist', 'place_of_worship', 'theatre', 'cinema', 
+                         'community_centre', 'townhall', 'courthouse', 'police', 'fire_station', 
+                         'bank', 'post_office', 'pharmacy', 'fuel'}:
+            es_edif = True
+            subt_edif = amenity
+        elif not (landuse or leisure or natural or aeroway or boundary or waterway):
+            es_edif = True
+            subt_edif = 'yes'
+    elif tipo_archivo == "other_relations" and site in {'building', 'mall', 'university', 'school'}:
+        es_edif = True
+        subt_edif = f"edificacion_{site}"
+            
+    if es_edif:
+        resultados.append(('CAT-09', 'edificaciones', subt_edif, name))
         
     # ----------------------------------------------------
     # CAT-10: Coberturas y Usos de Suelo
+    # Regla: Polígonos de zonificación, coberturas naturales, dotacionales, recreativas y relaciones territoriales
     # ----------------------------------------------------
-    if landuse in {'residential', 'commercial', 'industrial', 'retail', 'recreation_ground', 
-                   'cemetery', 'farmland', 'grass', 'allotments', 'construction', 'basin', 
-                   'meadow', 'forest', 'military', 'quarry', 'landfill', 'greenfield', 'brownfield', 
-                   'farmyard', 'orchard', 'vineyard', 'railway', 'education', 'institutional', 'garages'} or \
-       natural in {'grassland', 'wood', 'scrub', 'water', 'sand', 'bare_rock', 'wetland'}:
-        subt = landuse or natural or 'uso_suelo'
-        resultados.append(('CAT-10', 'cobertura_suelo', subt, name))
+    es_lu = False
+    subt_lu = ""
+    if landuse and landuse != 'no':
+        es_lu = True
+        subt_lu = landuse
+    elif natural in {'grassland', 'wood', 'scrub', 'water', 'sand', 'bare_rock', 'wetland', 'tree_row', 'heath', 'scree'}:
+        es_lu = True
+        subt_lu = natural
+    elif leisure in {'park', 'garden', 'playground', 'pitch', 'sports_centre', 'recreation_ground', 
+                     'track', 'stadium', 'dog_park', 'nature_reserve', 'swimming_pool', 'water_park', 'golf_course'}:
+        es_lu = True
+        subt_lu = f"recreativo_{leisure}"
+    elif aeroway in {'aerodrome', 'apron', 'runway', 'taxiway', 'helipad'}:
+        es_lu = True
+        subt_lu = f"aeroportuario_{aeroway}"
+    elif amenity in {'parking', 'parking_space', 'marketplace', 'cemetery', 'grave_yard', 'waste_transfer_station', 'recycling'}:
+        es_lu = True
+        subt_lu = f"dotacional_{amenity}"
+    elif place in {'suburb', 'neighbourhood', 'quarter', 'city_block', 'plot'}:
+        es_lu = True
+        subt_lu = f"zona_urbana_{place}"
+    elif site in {'wind_farm', 'industrial', 'parking', 'lake', 'volcanic_complex', 'mountain_massif'}:
+        es_lu = True
+        subt_lu = f"sitio_{site}"
+    elif tipo_archivo == "multipolygons" and not es_edif:
+        es_lu = True
+        subt_lu = boundary or highway or 'cobertura_urbana'
+    elif tipo_archivo == "other_relations" and rel_type in {'site', 'water'}:
+        es_lu = True
+        subt_lu = f"area_{rel_type}"
+        
+    if es_lu:
+        resultados.append(('CAT-10', 'cobertura_suelo', subt_lu, name))
         
     return resultados
 
@@ -264,24 +359,25 @@ def procesar():
         conteo_por_cat[cat_id] = 0
 
     archivos = [
-        "Geofabrik_Chile_Points.geojson",
-        "Geofabrik_Chile_Lines.geojson",
-        "Geofabrik_Chile_Multipolygons.geojson",
-        "Geofabrik_Chile_Multistring.geojson"
+        ("Geofabrik_Chile_Points.geojson", "points"),
+        ("Geofabrik_Chile_Lines.geojson", "lines"),
+        ("Geofabrik_Chile_Multistring.geojson", "multistring"),
+        ("Geofabrik_Chile_Multipolygons.geojson", "multipolygons"),
+        ("Geofabrik_Chile_OtherRelations.geojson", "other_relations")
     ]
     
     t_global = time.time()
     total_leidas = 0
     total_asignadas = 0
     
-    for nom_archivo in archivos:
+    for nom_archivo, tipo_arch in archivos:
         ruta_arch = os.path.join(RUTA_USUARIO, nom_archivo)
         if not os.path.exists(ruta_arch):
             print(f"[-] Archivo no encontrado: {ruta_arch}")
             continue
             
         sz_mb = os.path.getsize(ruta_arch) / (1024 * 1024)
-        print(f"\n[*] Procesando {nom_archivo} ({sz_mb:.2f} MB)...", flush=True)
+        print(f"\n[*] Procesando {nom_archivo} ({sz_mb:.2f} MB - {tipo_arch})...", flush=True)
         t0 = time.time()
         
         n_lineas = 0
@@ -312,7 +408,7 @@ def procesar():
                 props = feat.get('properties') or {}
                 osm_id = props.get('osm_id') or props.get('osm_way_id') or f"u_{total_leidas}"
                 
-                clasificaciones = clasificar_feature(props)
+                clasificaciones = clasificar_feature(props, tipo_archivo=tipo_arch)
                 if not clasificaciones:
                     continue
                     
@@ -340,18 +436,34 @@ def procesar():
                     }
                     
                     # Conservar etiquetas útiles complementarias si existen
-                    if props.get('building') and cat_id == 'edificaciones':
+                    if cat_id == 'edificaciones':
+                        feat_vgi["properties"]["building"] = props.get('building') or subt or 'yes'
+                    elif props.get('building'):
                         feat_vgi["properties"]["building"] = props.get('building')
+                        
+                    if cat_id == 'cobertura_suelo':
+                        feat_vgi["properties"]["landuse"] = props.get('landuse') or subt or 'cobertura_suelo'
+                    elif props.get('landuse'):
+                        feat_vgi["properties"]["landuse"] = props.get('landuse')
+                        
                     if props.get('amenity'):
                         feat_vgi["properties"]["amenity"] = props.get('amenity')
                     if props.get('highway'):
                         feat_vgi["properties"]["highway"] = props.get('highway')
                     if props.get('shop'):
                         feat_vgi["properties"]["shop"] = props.get('shop')
-                    if props.get('landuse'):
-                        feat_vgi["properties"]["landuse"] = props.get('landuse')
                     if props.get('leisure'):
                         feat_vgi["properties"]["leisure"] = props.get('leisure')
+                    if props.get('type'):
+                        feat_vgi["properties"]["rel_type"] = props.get('type')
+                    if props.get('other_tags'):
+                        ot_map = parse_hstore(props.get('other_tags'))
+                        if ot_map.get('destination'):
+                            feat_vgi["properties"]["destination"] = ot_map.get('destination')
+                        if ot_map.get('restriction'):
+                            feat_vgi["properties"]["restriction"] = ot_map.get('restriction')
+                        if ot_map.get('site'):
+                            feat_vgi["properties"]["site"] = ot_map.get('site')
                         
                     meta_h = handles[cat_id]
                     if not meta_h["first"]:

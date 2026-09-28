@@ -298,13 +298,13 @@ def main():
     new_tree_sha = r_tree.json()["sha"]
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
-    # 4. Crear Commit
     mensaje = (
-        "feat(geofabrik-rm): integracion completa sin recortes de 309.752 edificaciones y 840.353 entidades con superposicion semantica\n\n"
-        "- Integrar de forma integra y sin muestreo las 309.752 edificaciones de la Region Metropolitana en CAT-09 (Edificaciones y Huella Urbana).\n"
-        "- Aplicar superposicion semantica exhaustiva entre las 10 macrocategorias (CAT-01 a CAT-10) totalizando 840.353 entidades clasificadas.\n"
-        "- Actualizar las 10 capas tematicas GeoJSON optimizadas en data/ y src/data/ con indice Bbox precomputado por entidad para aceleracion O(1).\n"
-        "- Actualizar matrices de metadatos OpenXML (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y taxonomia en la app."
+        "feat(geofabrik-rm): integracion completa de 5 archivos con OtherRelations y regla multipoligonos (921.401 entidades)\n\n"
+        "- Integrar los 5 archivos completos de Geofabrik RM (Points, Lines, Multistring, Multipolygons y OtherRelations) totalizando 1.339.088 entidades analizadas.\n"
+        "- Incorporar la regla universal de multipolígonos (landuse y building=yes) elevando CAT-09 a 319.380 edificaciones integras sin recortes y CAT-10 a 76.397 coberturas de suelo.\n"
+        "- Integrar 29.899 relaciones de Geofabrik_Chile_OtherRelations.geojson (restricciones de giro, senaletica vial de destino, paradas y redes fluviales) elevando CAT-03 a 151.066 entidades.\n"
+        "- Superposicion semantica exhaustiva en 10 macrocategorias totalizando 921.401 entidades con Bbox O(1).\n"
+        "- Actualizar libros OpenXML (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y UI del Atlas VGI."
     )
 
 

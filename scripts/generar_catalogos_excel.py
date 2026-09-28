@@ -103,7 +103,7 @@ def crear_catalogo_fuentes():
         ],
         [
             "Geofabrik (Extracto RM / Dump PBF regional)",
-            "Vectorial estructurado regional (840.353 entidades en 10 macrocategorías temáticas con 309.752 edificaciones completas)",
+            "Vectorial estructurado regional (921.401 entidades en 10 macrocategorías temáticas con 319.380 edificaciones completas, 151.066 de transporte y 76.397 coberturas/usos de suelo)",
             "Región Metropolitana de Santiago (52 comunas completas)",
             "Snapshot regional 2026-09-27 / Recorte DPA 2023",
             "Semanal / Mensual (Dumps masivos de Geofabrik GmbH)",
@@ -112,7 +112,7 @@ def crear_catalogo_fuentes():
             "Descarga dump regional PBF + Recorte espacial + GeoJSON CDN local (/data/) + GPKG R-Tree",
             "Consultas espaciales de latencia 0 ms sin depender de servidores externos; soporte de doble modalidad (Bbox dinámico y Coordenadas manuales).",
             "Datos estáticos respecto a la fecha del dump; no deben mezclarse sin superposición analítica con la API en vivo.",
-            "840.353 entidades en Maipú, Puente Alto, Providencia, Santiago, La Florida, Colina, Melipilla, etc."
+            "921.401 entidades en Maipú, Puente Alto, Providencia, Santiago, La Florida, Colina, Melipilla, etc."
         ],
         [
             "ohsome API v1 & v2 (HeiGIT)",
@@ -281,7 +281,7 @@ def crear_catalogo_fuentes():
             "Bbox dinámico interactivo del mapa o Coordenadas manuales [Oeste, Sur, Este, Norte]",
             "Sin límite de cuotas (latencia 0 ms, ejecución local client-side)",
             "src/js/modulos/osm.js (ModuloOSM) y app.js",
-            "Consultas espaciales dinámicas masivas sobre 840.353 entidades en 52 comunas de la RM clasificadas en CAT-01 a CAT-10 (309.752 edificaciones completas sin recortes)",
+            "Consultas espaciales dinámicas masivas sobre 921.401 entidades en 52 comunas de la RM clasificadas en CAT-01 a CAT-10 (319.380 edificaciones y 76.397 coberturas/usos de suelo)",
             "Geofabrik GmbH. (2026). OpenStreetMap Data Extracts: Chile. https://download.geofabrik.de/south-america/chile.html"
         ],
         [
@@ -720,7 +720,7 @@ def crear_perfil_metadatos():
         [
             15, "DQ_Completeness.quantitativeResult", "Indicador de Completitud VGI", "Opcional (O)",
             "Numérico / Razón", "Calidad de Datos", "Evaluación cuantitativa del volumen y actualidad de los datos.",
-            "Cobertura total RM: 840.353 entidades clasificadas (309.752 edificaciones 100% completas). Densidad Barrio Brasil: >350 elem/km² evaluado con ohsome API y OQT."
+            "Cobertura total RM: 921.401 entidades clasificadas (319.380 edificaciones 100% completas, 151.066 redes de transporte y 76.397 coberturas/usos de suelo). Densidad Barrio Brasil: >350 elem/km² evaluado con ohsome API y OQT."
         ]
     ]
     
@@ -780,7 +780,7 @@ def crear_categorias_tematicas_osm():
             "amenity=university, amenity=college, amenity=school, amenity=kindergarten, amenity=library, building=university, building=school",
             "Puntos, Polígonos",
             'nwr["amenity"~"university|college|school|kindergarten|library"]({{bbox}});',
-            "7.499 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta nacional (>15.000)",
+            "7.503 entidades en la RM (Extracto Geofabrik con superposición semántica e integración de relaciones de campus) | Muy Alta nacional (>15.000)",
             "Ministerio de Educación (MINEDUC), Superintendencia de Educación Superior, JUNJI, Fundación Integra",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -791,18 +791,18 @@ def crear_categorias_tematicas_osm():
             "amenity=clinic, amenity=hospital, amenity=pharmacy, shop=bakery, shop=convenience, shop=supermarket, amenity=marketplace, amenity=bank, amenity=cafe, amenity=restaurant",
             "Puntos, Polígonos",
             'nwr["amenity"~"clinic|hospital|pharmacy|bank|marketplace|restaurant|cafe"]({{bbox}}); nwr["shop"~"bakery|convenience|supermarket"]({{bbox}});',
-            "36.468 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta nacional (>80.000)",
+            "36.474 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta nacional (>80.000)",
             "Ministerio de Salud (MINSAL), FONASA, SERCOTEC, I. Municipalidad de Santiago",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
         [
             "CAT-03",
             "Movilidad y Transporte Público Metropolitano",
-            "Red Metro de Santiago (estaciones, accesos, andenes, trazados subterráneos), paraderos y trazados completos de rutas Red Movilidad (multilíneas), terminales de buses interurbanos y puntos de recarga bip!.",
-            "railway=station, railway=subway_entrance, station=subway, highway=bus_stop, public_transport=platform, amenity=bus_station, vending=public_transport_tickets, route=bus, network=Red Movilidad",
-            "Puntos, Líneas, Multilíneas",
+            "Red Metro de Santiago (estaciones, accesos, andenes, trazados subterráneos), paraderos y trazados completos de rutas Red Movilidad (multilíneas), terminales de buses, señalética vial de destinos y restricciones de giro en intersecciones.",
+            "railway=station, railway=subway_entrance, station=subway, highway=bus_stop, public_transport=platform, amenity=bus_station, destination=*, restriction=*, route=bus, network=Red Movilidad",
+            "Puntos, Líneas, Multilíneas, Relaciones",
             'node["railway"="station"]({{bbox}}); node["highway"="bus_stop"]({{bbox}}); way["railway"="subway"]({{bbox}}); relation["route"="bus"]({{bbox}});',
-            "121.763 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta nacional (>25.000 paradas Red)",
+            "151.066 entidades en la RM (Extracto Geofabrik con integración de 29.300+ relaciones de transporte y señalética) | Muy Alta nacional",
             "Directorio de Transporte Público Metropolitano (DTPM), Ministerio de Transportes y Telecomunicaciones (MTT), Metro S.A.",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -813,7 +813,7 @@ def crear_categorias_tematicas_osm():
             "highway=cycleway, cycleway=lane|track, cycleway:left=*, cycleway:right=*, highway=footway|path, amenity=bicycle_parking, amenity=bicycle_rental, amenity=bicycle_repair_station",
             "Líneas, Puntos",
             'way["highway"="cycleway"]({{bbox}}); way["cycleway"]({{bbox}}); node["amenity"~"bicycle_parking|bicycle_rental"]({{bbox}});',
-            "114.068 entidades en la RM (Extracto Geofabrik con superposición semántica) | Alta nacional (>800 km ciclovías)",
+            "114.070 entidades en la RM (Extracto Geofabrik con superposición semántica) | Alta nacional (>800 km ciclovías)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Manual de Vialidad Cicloinclusiva), MTT, GORE Metropolitano",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -824,7 +824,7 @@ def crear_categorias_tematicas_osm():
             "leisure=park, leisure=playground, leisure=pitch, leisure=sports_centre, leisure=fitness_station, amenity=bench, landuse=grass",
             "Polígonos, Puntos",
             'way["leisure"~"park|playground|pitch|fitness_station"]({{bbox}}); relation["leisure"="park"]({{bbox}}); node["amenity"="bench"]({{bbox}});',
-            "38.092 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta nacional (>12.000 plazas)",
+            "38.097 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta nacional (>12.000 plazas)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Política Nacional de Parques Urbanos), Instituto Nacional de Deportes (IND), Municipios",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -835,7 +835,7 @@ def crear_categorias_tematicas_osm():
             "historic=building, historic=monument, historic=memorial, heritage=*, residential=cite, amenity=arts_centre, amenity=theatre, amenity=place_of_worship, tourism=museum",
             "Polígonos, Puntos",
             'nwr["historic"]({{bbox}}); nwr["heritage"]({{bbox}}); nwr["amenity"~"arts_centre|theatre|place_of_worship"]({{bbox}}); nwr["tourism"="museum"]({{bbox}});',
-            "2.025 entidades en la RM (Extracto Geofabrik con superposición semántica) | Alta (Protegidas Ley N° 17.288)",
+            "2.486 entidades en la RM (Extracto Geofabrik con superposición semántica e integración de relaciones) | Alta (Protegidas Ley N° 17.288)",
             "Consejo de Monumentos Nacionales (CMN), Ministerio de las Culturas, las Artes y el Patrimonio (MINCAP), Dirección de Obras Municipales (DOM)",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -853,11 +853,11 @@ def crear_categorias_tematicas_osm():
         [
             "CAT-08",
             "Biodiversidad Urbana y Naturaleza en la Ciudad",
-            "Catastro de arbolado urbano de alineación y plazas (especies nativas e introducidas en Santiago), cursos de agua (Río Mapocho, Zanjón de la Aguada), canales, humedales urbanos y registros biológicos de avifauna y flora (GBIF / iNaturalist).",
-            "natural=tree, natural=tree_row, natural=wood, natural=water, natural=wetland, landuse=forest, species=*, genus=* + Darwin Core (GBIF Occurrence)",
-            "Puntos, Polígonos, Líneas",
-            'node["natural"="tree"]({{bbox}}); way["natural"="tree_row"]({{bbox}}); nwr["natural"~"water|wetland"]({{bbox}});',
-            "111.719 entidades en la RM (Extracto Geofabrik con superposición semántica) | Muy Alta (>300.000 árboles en Chile)",
+            "Catastro de arbolado urbano de alineación y plazas, cursos de agua (Río Mapocho, Zanjón de la Aguada), canales, humedales urbanos, redes hidrográficas complejas y registros biológicos de avifauna y flora (GBIF / iNaturalist).",
+            "natural=tree, natural=tree_row, natural=wood, natural=water, natural=wetland, waterway=*, landuse=forest, species=*, genus=* + Darwin Core (GBIF Occurrence)",
+            "Puntos, Polígonos, Líneas, Relaciones",
+            'node["natural"="tree"]({{bbox}}); way["natural"="tree_row"]({{bbox}}); nwr["natural"~"water|wetland"]({{bbox}}); nwr["waterway"]({{bbox}});',
+            "112.497 entidades en la RM (Extracto Geofabrik con redes hidrográficas complejas) | Muy Alta (>300.000 árboles en Chile)",
             "Corporación Nacional Forestal (CONAF - Arbolado Urbano), Ministerio del Medio Ambiente (MMA), GBIF Chile / Nodo Nacional",
             "(WikiProject Chile, 2024; GBIF Secretariat, 2024; TDWG, 2023; Olbricht & OSMF, 2023)"
         ],
@@ -866,9 +866,9 @@ def crear_categorias_tematicas_osm():
             "Edificaciones, Huella Urbana y Volumetría",
             "Catastro poligonal exhaustivo de edificaciones: viviendas unifamiliares, edificios residenciales en altura, conjuntos habitacionales, inmuebles comerciales, pabellones universitarios y cívicos, templos religiosos y construcciones con cálculo de área métrica en m² (EPSG:32719).",
             "building=yes, building=residential, building=apartments, building=house, building=commercial, building=civic, building=school, building=university, building=church, building:levels=*",
-            "Polígonos, Puntos",
+            "Polígonos, Puntos, Relaciones 3D",
             'nwr["building"]({{bbox}});',
-            "309.752 entidades en la RM (Extracto Geofabrik: Cobertura total 100% íntegra sin recortes ni muestreo) | Muy Alta (>4.5M huellas)",
+            "319.380 entidades en la RM (Extracto Geofabrik: Cobertura total 100% íntegra sin recortes con regla universal de multipolígonos building=yes y relaciones 3D) | Muy Alta (>4.5M huellas)",
             "Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces), Dirección de Obras Municipales (DOM), IDE Chile / MINVU",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ],
@@ -877,9 +877,9 @@ def crear_categorias_tematicas_osm():
             "Coberturas de Suelo, Zonificación y Usos del Territorio",
             "Polígonos de zonificación funcional y cobertura biofísica: áreas residenciales, comerciales, dotacionales/educacionales, polígonos recreativos y deportivos, suelos en faena o construcción, césped y áreas de suelo natural o vacante en la trama urbana.",
             "landuse=residential, landuse=commercial, landuse=education, landuse=recreation_ground, landuse=grass, landuse=construction, natural=wood, natural=scrub, surface=asphalt, surface=paving_stones",
-            "Polígonos, Líneas",
+            "Polígonos, Líneas, Relaciones Territoriales",
             'nwr["landuse"]({{bbox}}); nwr["natural"~"wood|scrub|water|grassland"]({{bbox}});',
-            "35.536 entidades en la RM (Extracto Geofabrik con superposición semántica) | Alta (>500.000 polígonos nacionales)",
+            "76.397 entidades en la RM (Extracto Geofabrik: Integración completa de landuse, coberturas biofísicas, recreativas y relaciones territoriales) | Alta (>500.000 polígonos nacionales)",
             "Ministerio de Vivienda y Urbanismo (MINVU - Planes Reguladores Comunales e Intercomunales), IDE Chile, I. Municipalidad de Santiago",
             "(WikiProject Chile, 2024; OSMF & Geofabrik, 2024; Olbricht & OSMF, 2023)"
         ]

@@ -46,21 +46,21 @@ Estandarizadas bajo las taxonomías de **OpenStreetMap**, **GBIF Darwin Core** y
 
 | Cód. | Categoría Maestra | Entidades RM (Geofabrik) | Fuente OSM / GBIF | Enfoque Territorial Barrio Brasil y Región Metropolitana |
 |---|---|:---:|---|---|
-| **CAT-01** | Educación y Universidad | **7.499** | `amenity=university|college|school|library` | Campus patrimonial UAH (Barroso, Erasmo Escala), facultades, colegios, liceos y bibliotecas de la RM |
-| **CAT-02** | Servicios, Comercio y Abastecimiento | **36.468** | `shop=*`, `amenity=pharmacy|clinic|bank` | Comercio de proximidad Av. Brasil, farmacias de barrio, ferias libres, CESFAM y bancos comunales |
-| **CAT-03** | Movilidad y Transporte Público | **121.763** | `railway=station`, `highway=bus_stop`, `route=bus` | Trazados completos de microbús Red Movilidad (multilíneas), Metro de Santiago (L1 a L6) y paraderos |
-| **CAT-04** | Movilidad Activa y Ciclovías | **114.068** | `highway=cycleway`, `cycleway=*`, `amenity=bicycle_parking` | Ciclovías segregadas Rosas y Brasil, sendas peatonales, calzadas compartidas y cicloparqueaderos |
-| **CAT-05** | Áreas Verdes y Espacio Público | **38.092** | `leisure=park|playground|pitch`, `landuse=grass` | Parques metropolitanos, plazas barriales, canchas comunitarias, juegos infantiles y bebederos |
-| **CAT-06** | Patrimonio Histórico y Cultura | **2.025** | `historic=*`, `heritage=*`, `amenity=theatre` | Zonas Típicas, Inmuebles de Conservación Histórica (ICH), monumentos, casonas UAH y museos |
-| **CAT-07** | Accesibilidad Universal y Cruces | **63.431** | `kerb=lowered`, `tactile_paving=*`, `traffic_signals:sound` | Vados peatonales D.S. 50 MINVU, pavimentos táctiles podotáctiles y cruces con semáforos sonoros |
-| **CAT-08** | Biodiversidad Urbana y Arbolado | **111.719** | `natural=tree|wood|water` + GBIF Darwin Core | Catastro de árboles urbanos, Río Mapocho, Zanjón de la Aguada, canales y registros biológicos |
-| **CAT-09** | Edificaciones y Huella Urbana | **309.752** | `building=*` [Polígonos con área m² EPSG:32719] | Catastro exhaustivo de huellas urbanas sin recortes ni muestreo en las 52 comunas de la Región Metropolitana |
-| **CAT-10** | Coberturas y Usos de Suelo | **35.536** | `landuse=*`, `natural=*`, `surface=*` | Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo) y biofísico |
-| **TOTAL** | **Región Metropolitana Completa** | **840.353** | **Geofabrik (Extracto RM) + Overpass QL** | **Base regional completa sin recortes (309.752 edificaciones) con superposición semántica y filtrado O(1)** |
+| **CAT-01** | Educación y Universidad | **7.503** | `amenity=university|college|school|library`, relaciones campus | Campus patrimonial UAH (Barroso, Erasmo Escala), facultades, colegios, liceos y bibliotecas de la RM |
+| **CAT-02** | Servicios, Comercio y Abastecimiento | **36.474** | `shop=*`, `amenity=pharmacy|clinic|bank`, sitios comerciales | Comercio de proximidad Av. Brasil, farmacias de barrio, ferias libres, CESFAM y bancos comunales |
+| **CAT-03** | Movilidad y Transporte Público | **151.066** | `railway=station`, `highway=bus_stop`, `restriction=*`, `destination=*` | Red Metro, paraderos y rutas Red Movilidad, terminales, señalética vial de destino y restricciones de giro |
+| **CAT-04** | Movilidad Activa y Ciclovías | **114.070** | `highway=cycleway`, `cycleway=*`, `amenity=bicycle_parking` | Ciclovías segregadas Rosas y Brasil, sendas peatonales, calzadas compartidas y cicloparqueaderos |
+| **CAT-05** | Áreas Verdes y Espacio Público | **38.097** | `leisure=park|playground|pitch`, `landuse=grass` | Parques metropolitanos, plazas barriales, canchas comunitarias, juegos infantiles y bebederos |
+| **CAT-06** | Patrimonio Histórico y Cultura | **2.486** | `historic=*`, `heritage=*`, `amenity=theatre|place_of_worship` | Zonas Típicas, Inmuebles de Conservación Histórica (ICH), monumentos, templos patrimoniales y museos |
+| **CAT-07** | Accesibilidad Universal y Cruces | **63.431** | `kerb=lowered`, `tactile_paving=*`, `traffic_signals:sound` | Vados peatonales D.S. 50 MINVU, pavimentos podotáctiles y cruces con semáforos sonoros |
+| **CAT-08** | Biodiversidad Urbana y Arbolado | **112.497** | `natural=tree|wood|water`, redes hidrográficas + GBIF | Arbolado urbano, Río Mapocho, Zanjón de la Aguada, canales, redes fluviales complejas y biodiversidad |
+| **CAT-09** | Edificaciones y Huella Urbana | **319.380** | `building=*` [Polígonos y relaciones 3D EPSG:32719] | Catastro exhaustivo de huellas urbanas sin recortes con regla universal de multipolígonos (`building=yes`) |
+| **CAT-10** | Coberturas y Usos de Suelo | **76.397** | `landuse=*`, `natural=*`, `leisure=*`, complejos de suelo | Zonificación funcional del suelo urbano (residencial, comercial, dotacional, recreativo, biofísico y deportivo) |
+| **TOTAL** | **Región Metropolitana Completa** | **921.401** | **Geofabrik (Extracto RM 5 archivos) + Overpass QL** | **Base regional completa sin recortes (319.380 edificaciones y 151.066 de transporte) con superposición semántica** |
 
 ### 4.1. Doble Flujo de Adquisición y Diferenciación Estricta de Fuentes
 El Atlas distingue formalmente dos metodologías de adquisición desacopladas:
-1. **`Geofabrik (Extracto RM)`**: Descarga y procesamiento del dump regional PBF (840.353 entidades clasificadas con superposición semántica y 309.752 edificaciones completas en las 52 comunas de la RM). Latencia 0 ms, Bbox AABB precomputado por entidad y almacenamiento en GeoPackage con índices R-Tree nativos.
+1. **`Geofabrik (Extracto RM)`**: Descarga y procesamiento de los 5 archivos del dump regional (921.401 entidades clasificadas con superposición semántica, 319.380 edificaciones completas, 151.066 elementos de transporte y 76.397 coberturas de suelo en las 52 comunas de la RM). Latencia 0 ms, Bbox AABB precomputado por entidad y almacenamiento en GeoPackage con índices R-Tree nativos.
 2. **`OpenStreetMap (API Overpass)`**: Consultas bajo demanda en tiempo real a los servidores de Overpass QL (balanceado en 4 espejos) en la ventana territorial activa.
 Ambas fuentes se presentan de forma independiente en fichas, leyendas y popups (dorado para Geofabrik, azul para Overpass API) y **no se mezclan**, salvo en superposiciones analíticas expresas como `GBIF + OSM`.
 
