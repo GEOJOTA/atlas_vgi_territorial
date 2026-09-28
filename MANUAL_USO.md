@@ -162,7 +162,7 @@ Permite a los usuarios y organizaciones auditar su propia información geográfi
 
 ## 6. Consultas Espaciales, Explorador OSM y Base Regional Geofabrik (Panel 01)
 
-El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el análisis espacial masivo de la **Base Regional Geofabrik RM (414.398 entidades)**:
+El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el análisis espacial masivo de la **Base Regional Geofabrik RM (840.353 entidades clasificadas con superposición semántica y 309.752 edificaciones íntegras sin recortes)**:
 
 ### 6.1 Constructor Visual y Consultas Rápidas en 1 Clic
 - **Consultas Rápidas Ciudadanas:** 10 botones preconfigurados para mapear instantáneamente universidades, comercio, transporte, ciclovías, parques, patrimonio, rebajes accesibles D.S. 50, arbolado y edificaciones.
@@ -170,7 +170,7 @@ El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el an
 - **Editor Overpass QL:** Para usuarios avanzados que deseen redactar sintaxis directa en lenguaje Overpass QL usando el comodín `{{bbox}}`.
 
 ### 6.2 Base Regional Geofabrik RM y Modalidades Duales de Consulta Espacial
-Para consultar el extracto de 414.398 entidades descargado de Geofabrik para toda la Región Metropolitana con latencia 0 ms:
+Para consultar el extracto de 840.353 entidades descargado de Geofabrik para toda la Región Metropolitana con latencia 0 ms:
 1. **`🗺️ Modo 1: Bbox Dinámico del Mapa (Interactivo)`**:
    - Al navegar, arrastrar o cambiar el zoom en el visor Leaflet hacia cualquier comuna de la Región Metropolitana (Maipú, Puente Alto, Providencia, Santiago, La Florida, San Bernardo, Colina, Melipilla, etc.), los campos numéricos de coordenadas se recalculan en tiempo real.
    - Pulsa el botón **`[🗺️ Consultar por Bbox del Mapa]`**: El motor filtrará en memoria en tiempo récord ($O(1)$) descartando elementos fuera del encuadre y proyectando las geometrías de la zona activa.

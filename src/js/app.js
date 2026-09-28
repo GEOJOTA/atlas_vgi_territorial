@@ -1813,7 +1813,7 @@ async function manejarConsultaOSM(cargarAlMapa = false, modo = 'bbox') {
         </div>
       </div>
       <div style="background:var(--papel-tarjeta); border:1px solid var(--linea); border-left:4px solid var(--verde); padding:8px 12px; border-radius:6px; font-size:0.84rem; margin-bottom:12px;">
-        📦 <strong>Fuente:</strong> Descarga de Geofabrik (Extracto Región Metropolitana · 414.398 entidades) · <strong>Filtro:</strong> ${modoTexto} <code>[${bbox.map(n => Number(n).toFixed(4)).join(', ')}]</code> · Cobertura 100% Macro-Categoría <code>${catId.toUpperCase()}</code>
+        📦 <strong>Fuente:</strong> Descarga de Geofabrik (Extracto Región Metropolitana · 840.353 entidades con superposición semántica · 309.752 edificaciones completas) · <strong>Filtro:</strong> ${modoTexto} <code>[${bbox.map(n => Number(n).toFixed(4)).join(', ')}]</code> · Cobertura 100% Macro-Categoría <code>${catId.toUpperCase()}</code>
       </div>
 
       <table class="tabla-datos">

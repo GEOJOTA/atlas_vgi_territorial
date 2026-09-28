@@ -55,6 +55,7 @@ ARCHIVOS_CODIGO = [
     "src/docs/perfil_metadatos_vgi.xlsx",
     "scripts/generar_catalogos_excel.py",
     "scripts/procesar_osm_geofabrik_usuario.py",
+    "scripts/procesar_osm_geofabrik_completo.py",
     "scripts/generar_gpkg_geofabrik.py",
     "scripts/publicar_geofabrik_rm.py"
 ]
@@ -165,29 +166,60 @@ def asegurar_y_subir_lfs():
             up_info = actions["upload"]
             put_url = up_info["href"]
             put_headers = up_info.get("header", {})
-            print(f"  [*] Subiendo bytes a S3 ({sz_mb:.2f} MB)...", end=" ", flush=True)
-            with open(meta["local_path"], "rb") as fp:
-                data_bytes = fp.read()
+            print(f"  [*] Subiendo bytes a S3 ({sz_mb:.2f} MB)...", flush=True)
             
+            class ProgressReader:
+                def __init__(self, filename):
+                    self.f = open(filename, 'rb')
+                    self.total = os.path.getsize(filename)
+                    self.read_bytes = 0
+                    self.last_pct = 0
+                    self.t0 = time.time()
+                def read(self, n=-1):
+                    chunk = self.f.read(n)
+                    if chunk:
+                        self.read_bytes += len(chunk)
+                        pct = int(self.read_bytes * 100 / self.total)
+                        if pct >= self.last_pct + 20:
+                            self.last_pct = pct
+                            el = time.time() - self.t0
+                            speed = (self.read_bytes / (1024*1024)) / el if el > 0 else 0
+                            print(f"      -> {pct}% ({self.read_bytes/(1024*1024):.1f}/{self.total/(1024*1024):.1f} MB) @ {speed:.2f} MB/s", flush=True)
+                    return chunk
+                def __len__(self):
+                    return self.total
+                def fileno(self):
+                    return self.f.fileno()
+                def tell(self):
+                    return self.f.tell()
+                def seek(self, offset, whence=0):
+                    self.f.seek(offset, whence)
+                    self.read_bytes = self.f.tell()
+                def close(self):
+                    self.f.close()
+
             subido_ok = False
-            for intento in range(1, 5):
+            for intento in range(1, 6):
+                reader = ProgressReader(meta["local_path"])
                 try:
                     t0 = time.time()
-                    r_put = requests.put(put_url, data=data_bytes, headers=put_headers, timeout=600)
+                    r_put = requests.put(put_url, data=reader, headers=put_headers, timeout=(60, 1800))
                     t_el = time.time() - t0
+                    reader.close()
                     if r_put.status_code in (200, 201):
-                        print(f"OK ({t_el:.1f}s)")
+                        print(f"  [+] Subida OK ({t_el:.1f}s)")
                         subido_ok = True
                         break
                     else:
-                        print(f"[Reintento {intento} HTTP {r_put.status_code}]", end=" ", flush=True)
+                        print(f"  [-] [Reintento {intento} HTTP {r_put.status_code}]: {r_put.text[:150]}", flush=True)
                         time.sleep(3)
                 except Exception as e_s3:
-                    print(f"[Reintento {intento} por {e_s3.__class__.__name__}]", end=" ", flush=True)
+                    reader.close()
+                    print(f"  [-] [Reintento {intento} por {e_s3.__class__.__name__}]: {e_s3}", flush=True)
                     time.sleep(5)
             
             if not subido_ok:
-                print("ERROR: Fallo definitivo tras 4 intentos en S3.")
+                print("ERROR: Fallo definitivo tras reintentos en S3.")
                 sys.exit(1)
         else:
             print(f"  [=] Objeto binario ya existente en LFS S3.")
@@ -268,11 +300,11 @@ def main():
 
     # 4. Crear Commit
     mensaje = (
-        "fix(visor-osm): corregir subtipo no definido en popup, renderizado de geometrias y conmutacion de boton ver en atlas\n\n"
-        "- Corregir ReferenceError critico por variable 'subtipo' inexistente en onEachFeature dentro de ModuloMapa.cargarCapaGeoJSON.\n"
-        "- Resolver problema por el cual las geometrias no se renderizaban en el visor cartografico Leaflet ni devolvian capas OSM.\n"
-        "- Perfeccionar comportamiento de los botones 'Ver en Mapa Atlas' y 'Visualizar en Mapa Atlas', conmutando al panel de inicio y recalculando dimensiones con invalidarTamano(bounds).\n"
-        "- Proteger evaluacion de propiedades y geometrias nulas en el style de Leaflet para garantizar total estabilidad operativa."
+        "feat(geofabrik-rm): integracion completa sin recortes de 309.752 edificaciones y 840.353 entidades con superposicion semantica\n\n"
+        "- Integrar de forma integra y sin muestreo las 309.752 edificaciones de la Region Metropolitana en CAT-09 (Edificaciones y Huella Urbana).\n"
+        "- Aplicar superposicion semantica exhaustiva entre las 10 macrocategorias (CAT-01 a CAT-10) totalizando 840.353 entidades clasificadas.\n"
+        "- Actualizar las 10 capas tematicas GeoJSON optimizadas en data/ y src/data/ con indice Bbox precomputado por entidad para aceleracion O(1).\n"
+        "- Actualizar matrices de metadatos OpenXML (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y taxonomia en la app."
     )
 
 

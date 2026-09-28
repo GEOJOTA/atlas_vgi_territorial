@@ -1,0 +1,410 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+scripts/procesar_osm_geofabrik_completo.py
+-------------------------------------------
+Procesa y clasifica los 4 archivos GeoJSON de OpenStreetMap Geofabrik de la Región Metropolitana:
+- Geofabrik_Chile_Points.geojson
+- Geofabrik_Chile_Lines.geojson
+- Geofabrik_Chile_Multipolygons.geojson
+- Geofabrik_Chile_Multistring.geojson
+
+INTEGRACIÓN TOTAL Y SIN RECORTES:
+1. Incluye TODAS las edificaciones (309.752 entidades en CAT-09), sin ningún tipo de muestreo.
+2. Aplica superposición semántica entre todas las macrocategorías (CAT-01 a CAT-10).
+3. Normaliza Bbox precomputado a nivel de entidad [min_x, min_y, max_x, max_y] para filtrado O(1).
+4. Genera los 10 archivos GeoJSON optimizados en data/ y src/data/.
+"""
+
+import os
+import sys
+import json
+import re
+import time
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+
+RUTA_USUARIO = r"C:\Users\PT1261256\Desktop\16_09_2026\Base de datos VGI\descargadas nuevamente 25_09\Manual 2\nuevas 26-09\OSM Geofabrik"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+SRC_DATA_DIR = os.path.join(BASE_DIR, "src", "data")
+
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(SRC_DATA_DIR, exist_ok=True)
+
+CATEGORIAS = [
+    ("CAT-01", "educacion", "Educación y Universidad", "capa_osm_rm_cat01_educacion.geojson"),
+    ("CAT-02", "servicios", "Servicios, Comercio y Abastecimiento", "capa_osm_rm_cat02_servicios.geojson"),
+    ("CAT-03", "transporte", "Movilidad y Transporte", "capa_osm_rm_cat03_transporte.geojson"),
+    ("CAT-04", "movilidad_activa", "Movilidad Activa y Ciclovías", "capa_osm_rm_cat04_movilidad_activa.geojson"),
+    ("CAT-05", "espacio_publico", "Áreas Verdes y Espacio Público", "capa_osm_rm_cat05_espacio_publico.geojson"),
+    ("CAT-06", "patrimonio", "Patrimonio y Cultura", "capa_osm_rm_cat06_patrimonio.geojson"),
+    ("CAT-07", "accesibilidad", "Accesibilidad Universal y Cruces", "capa_osm_rm_cat07_accesibilidad.geojson"),
+    ("CAT-08", "biodiversidad", "Biodiversidad Urbana", "capa_osm_rm_cat08_biodiversidad.geojson"),
+    ("CAT-09", "edificaciones", "Edificaciones y Huella Urbana", "capa_osm_rm_cat09_edificaciones.geojson"),
+    ("CAT-10", "cobertura_suelo", "Coberturas y Usos de Suelo", "capa_osm_rm_cat10_cobertura_suelo.geojson")
+]
+
+HSTORE_RE = re.compile(r'"([^"]+)"\s*=>\s*"([^"]*)"')
+
+def parse_hstore(text):
+    if not text or not isinstance(text, str):
+        return {}
+    return {m.group(1): m.group(2) for m in HSTORE_RE.finditer(text)}
+
+def compute_bounds_and_round(geom):
+    gtype = geom.get('type')
+    coords = geom.get('coordinates', [])
+    if not coords:
+        return None, None
+    min_x, min_y, max_x, max_y = 1e9, 1e9, -1e9, -1e9
+    
+    def process_coord(c):
+        nonlocal min_x, min_y, max_x, max_y
+        x = round(c[0], 5)
+        y = round(c[1], 5)
+        if x < min_x: min_x = x
+        if x > max_x: max_x = x
+        if y < min_y: min_y = y
+        if y > max_y: max_y = y
+        return [x, y]
+        
+    try:
+        if gtype == 'Point':
+            r_coords = process_coord(coords)
+        elif gtype in ('LineString', 'MultiPoint'):
+            r_coords = [process_coord(c) for c in coords]
+        elif gtype in ('Polygon', 'MultiLineString'):
+            r_coords = [[process_coord(c) for c in ring] for ring in coords]
+        elif gtype == 'MultiPolygon':
+            r_coords = [[[process_coord(c) for c in ring] for ring in poly] for poly in coords]
+        else:
+            return None, None
+    except Exception:
+        return None, None
+        
+    geom['coordinates'] = r_coords
+    bbox = [min_x, min_y, max_x, max_y]
+    return geom, bbox
+
+def clasificar_feature(props):
+    tags = dict(props)
+    ot = props.get('other_tags')
+    if ot:
+        tags.update(parse_hstore(ot))
+    
+    amenity = tags.get('amenity') or ''
+    shop = tags.get('shop') or ''
+    highway = tags.get('highway') or ''
+    railway = tags.get('railway') or ''
+    leisure = tags.get('leisure') or ''
+    historic = tags.get('historic') or ''
+    heritage = tags.get('heritage') or ''
+    natural = tags.get('natural') or ''
+    landuse = tags.get('landuse') or ''
+    building = tags.get('building') or ''
+    craft = tags.get('craft') or ''
+    office = tags.get('office') or ''
+    tourism = tags.get('tourism') or ''
+    crossing = tags.get('crossing') or ''
+    kerb = tags.get('kerb') or ''
+    tactile_paving = tags.get('tactile_paving') or ''
+    wheelchair = tags.get('wheelchair') or ''
+    cycleway = tags.get('cycleway') or ''
+    bicycle = tags.get('bicycle') or ''
+    route = tags.get('route') or ''
+    public_transport = tags.get('public_transport') or ''
+    waterway = tags.get('waterway') or ''
+    barrier = tags.get('barrier') or ''
+    sport = tags.get('sport') or ''
+    aeroway = tags.get('aeroway') or ''
+    aerialway = tags.get('aerialway') or ''
+    
+    name = props.get('name') or tags.get('name') or ''
+    
+    resultados = []
+    
+    # ----------------------------------------------------
+    # CAT-01: Educación y Universidad
+    # ----------------------------------------------------
+    if amenity in {'school', 'kindergarten', 'university', 'college', 'library', 'childcare', 
+                   'music_school', 'language_school', 'prep_school', 'research_institute', 
+                   'educational_institution', 'driving_school', 'toy_library', 'training_library',
+                   'archive', 'public_bookcase', 'dance_school'} or \
+       building in {'school', 'university', 'college', 'kindergarten', 'library', 'faculty', 'dormitory', 'educational'} or \
+       office in {'educational_institution', 'school', 'research', 'university'} or \
+       landuse == 'education':
+        subt = amenity or building or office or 'educacion'
+        resultados.append(('CAT-01', 'educacion', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-02: Servicios, Comercio y Abastecimiento
+    # ----------------------------------------------------
+    if shop or craft or office or \
+       amenity in {'pharmacy', 'bank', 'atm', 'marketplace', 'post_office', 'police', 
+                   'fire_station', 'hospital', 'clinic', 'doctors', 'dentist', 'veterinary', 
+                   'courthouse', 'townhall', 'community_centre', 'social_facility', 
+                   'restaurant', 'cafe', 'fast_food', 'bar', 'pub', 'ice_cream', 'food_court', 
+                   'fuel', 'charging_station', 'car_wash', 'car_repair', 'public_bath', 'public_bookcase', 
+                   'waste_transfer_station', 'recycling', 'telephone', 'vending_machine', 'bureau_de_change',
+                   'funeral_directors', 'optician', 'hairdresser', 'laundry', 'dry_cleaning',
+                   'payment_terminal', 'parcel_locker'} or \
+       building in {'commercial', 'retail', 'hospital', 'clinic', 'supermarket', 'office', 'hotel', 'bank', 'pharmacy', 'industrial', 'service', 'warehouse', 'kiosk'}:
+        subt = shop or amenity or craft or office or (building if building in {'commercial', 'retail', 'hospital', 'office'} else 'servicio')
+        resultados.append(('CAT-02', 'servicios', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-03: Movilidad y Transporte
+    # ----------------------------------------------------
+    if highway in {'bus_stop', 'platform', 'stop', 'motorway', 'trunk', 'primary', 'secondary', 'tertiary', 'service', 'traffic_signals', 'motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link', 'turning_loop', 'mini_roundabout'} or \
+       railway in {'station', 'stop', 'subway_entrance', 'subway', 'tram', 'tram_stop', 'rail', 'light_rail', 'platform', 'halt', 'level_crossing', 'switch', 'buffer_stop'} or \
+       amenity in {'bus_station', 'ferry_terminal', 'taxi', 'car_rental', 'car_sharing', 'bicycle_parking', 'bicycle_rental', 'parking', 'parking_space', 'parking_entrance', 'motorcycle_parking', 'toll_booth'} or \
+       public_transport or aeroway or aerialway or \
+       route in {'bus', 'subway', 'train', 'trolleybus', 'tram', 'light_rail', 'ferry'}:
+        subt = route or railway or highway or amenity or public_transport or aeroway or 'transporte'
+        resultados.append(('CAT-03', 'transporte', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-04: Movilidad Activa y Ciclovías
+    # ----------------------------------------------------
+    if highway in {'cycleway', 'pedestrian', 'living_street', 'steps', 'path', 'footway'} or \
+       cycleway or bicycle in {'yes', 'designated', 'permissive', 'official', 'use_sidepath'} or route == 'bicycle' or \
+       tags.get('cycleway:left') or tags.get('cycleway:right') or tags.get('cycleway:both') or tags.get('cycleway:lanes') or \
+       amenity in {'bicycle_parking', 'bicycle_rental', 'bicycle_repair_station'}:
+        subt = cycleway or (highway if highway in {'cycleway', 'pedestrian', 'living_street', 'steps'} else 'ciclovia_o_peatonal')
+        resultados.append(('CAT-04', 'movilidad_activa', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-05: Áreas Verdes y Espacio Público
+    # ----------------------------------------------------
+    if leisure in {'park', 'garden', 'playground', 'pitch', 'sports_centre', 'recreation_ground', 
+                   'track', 'stadium', 'dog_park', 'nature_reserve', 'fitness_station', 'fitness_centre', 
+                   'swimming_pool', 'water_park', 'ice_rink', 'miniature_golf', 'bowling_alley', 'disc_golf_course', 'plaza'} or \
+       amenity in {'place_of_worship', 'fountain', 'bench', 'shelter', 'bbq', 'drinking_water', 'toilets', 'public_bath'} or \
+       tourism in {'picnic_site', 'viewpoint', 'theme_park', 'zoo', 'camp_site'} or \
+       sport or \
+       landuse in {'recreation_ground', 'village_green', 'cemetery'}:
+        subt = leisure or amenity or tourism or sport or (landuse if landuse in {'recreation_ground', 'village_green', 'cemetery'} else 'espacio_publico')
+        resultados.append(('CAT-05', 'espacio_publico', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-06: Patrimonio y Cultura
+    # ----------------------------------------------------
+    if historic or heritage or \
+       tourism in {'museum', 'artwork', 'gallery', 'attraction', 'monument'} or \
+       amenity in {'theatre', 'arts_centre', 'cinema', 'cultural_centre', 'planetarium'} or \
+       building in {'church', 'cathedral', 'chapel', 'monastery', 'historic'}:
+        subt = historic or heritage or tourism or amenity or (building if building in {'church', 'cathedral', 'chapel'} else 'patrimonio')
+        resultados.append(('CAT-06', 'patrimonio', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-07: Accesibilidad Universal y Cruces
+    # ----------------------------------------------------
+    if highway in {'crossing', 'elevator'} or crossing or kerb or tactile_paving or \
+       wheelchair in {'yes', 'designated', 'limited', 'no'} or tags.get('footway') == 'crossing' or \
+       tags.get('traffic_signals:vibration') == 'yes' or tags.get('traffic_signals:sound') == 'yes':
+        subt = crossing or kerb or ('elevador' if highway == 'elevator' else ('accesible' if wheelchair == 'yes' else 'cruce_accesible'))
+        resultados.append(('CAT-07', 'accesibilidad', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-08: Biodiversidad Urbana
+    # ----------------------------------------------------
+    if natural in {'tree', 'wood', 'scrub', 'tree_row', 'water', 'wetland', 'grassland', 'bare_rock', 'heath', 'valley', 'ridge', 'spring', 'peak', 'scree', 'shingle', 'fell', 'sand', 'cliff', 'rock'} or \
+       landuse in {'forest', 'orchard', 'vineyard', 'plant_nursery', 'flowerbed', 'allotments', 'meadow', 'grass'} or \
+       waterway in {'river', 'stream', 'canal', 'drain', 'ditch', 'waterfall', 'dock', 'riverbank', 'weir'} or \
+       leisure in {'nature_reserve', 'garden'}:
+        subt = natural or waterway or (landuse if landuse in {'forest', 'orchard', 'vineyard', 'plant_nursery', 'allotments', 'meadow'} else 'biodiversidad')
+        resultados.append(('CAT-08', 'biodiversidad', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-09: Edificaciones y Huella Urbana (SIN RECORTES)
+    # ----------------------------------------------------
+    if building and building != 'no':
+        subt = building
+        resultados.append(('CAT-09', 'edificaciones', subt, name))
+        
+    # ----------------------------------------------------
+    # CAT-10: Coberturas y Usos de Suelo
+    # ----------------------------------------------------
+    if landuse in {'residential', 'commercial', 'industrial', 'retail', 'recreation_ground', 
+                   'cemetery', 'farmland', 'grass', 'allotments', 'construction', 'basin', 
+                   'meadow', 'forest', 'military', 'quarry', 'landfill', 'greenfield', 'brownfield', 
+                   'farmyard', 'orchard', 'vineyard', 'railway', 'education', 'institutional', 'garages'} or \
+       natural in {'grassland', 'wood', 'scrub', 'water', 'sand', 'bare_rock', 'wetland'}:
+        subt = landuse or natural or 'uso_suelo'
+        resultados.append(('CAT-10', 'cobertura_suelo', subt, name))
+        
+    return resultados
+
+def procesar():
+    print("=" * 80)
+    print("GENERACIÓN DE CAPAS OSM GEOFABRIK RM (100% COMPLETO SIN RECORTES)")
+    print("=" * 80)
+    
+    # Abrir archivos de salida en modo escritura streaming
+    handles = {}
+    rutas_data = {}
+    rutas_src_data = {}
+    conteo_por_cat = {}
+    
+    for cod_cat, cat_id, nom_cat, filename in CATEGORIAS:
+        p_data = os.path.join(DATA_DIR, filename)
+        rutas_data[cat_id] = p_data
+        rutas_src_data[cat_id] = os.path.join(SRC_DATA_DIR, filename)
+        h = open(p_data, "w", encoding="utf-8")
+        h.write('{"type":"FeatureCollection","name":"' + filename.replace(".geojson", "") + '","features":[\n')
+        handles[cat_id] = {
+            "fp": h,
+            "first": True,
+            "count": 0,
+            "cod_cat": cod_cat,
+            "nom_cat": nom_cat
+        }
+        conteo_por_cat[cat_id] = 0
+
+    archivos = [
+        "Geofabrik_Chile_Points.geojson",
+        "Geofabrik_Chile_Lines.geojson",
+        "Geofabrik_Chile_Multipolygons.geojson",
+        "Geofabrik_Chile_Multistring.geojson"
+    ]
+    
+    t_global = time.time()
+    total_leidas = 0
+    total_asignadas = 0
+    
+    for nom_archivo in archivos:
+        ruta_arch = os.path.join(RUTA_USUARIO, nom_archivo)
+        if not os.path.exists(ruta_arch):
+            print(f"[-] Archivo no encontrado: {ruta_arch}")
+            continue
+            
+        sz_mb = os.path.getsize(ruta_arch) / (1024 * 1024)
+        print(f"\n[*] Procesando {nom_archivo} ({sz_mb:.2f} MB)...", flush=True)
+        t0 = time.time()
+        
+        n_lineas = 0
+        n_features_archivo = 0
+        
+        with open(ruta_arch, 'r', encoding='utf-8', errors='ignore') as fp:
+            for line in fp:
+                n_lineas += 1
+                if '"Feature"' not in line:
+                    continue
+                line_s = line.strip()
+                if line_s.endswith(','):
+                    line_s = line_s[:-1]
+                    
+                try:
+                    feat = json.loads(line_s)
+                except Exception:
+                    continue
+                    
+                geom = feat.get('geometry')
+                if not geom:
+                    continue
+                    
+                geom_rnd, bbox = compute_bounds_and_round(geom)
+                if not geom_rnd or not bbox:
+                    continue
+                    
+                props = feat.get('properties') or {}
+                osm_id = props.get('osm_id') or props.get('osm_way_id') or f"u_{total_leidas}"
+                
+                clasificaciones = clasificar_feature(props)
+                if not clasificaciones:
+                    continue
+                    
+                total_leidas += 1
+                n_features_archivo += 1
+                
+                for cod_cat, cat_id, subt, name in clasificaciones:
+                    nombre_val = name if name else (subt.title() if subt else cod_cat)
+                    
+                    feat_vgi = {
+                        "type": "Feature",
+                        "id": f"osm_{osm_id}",
+                        "bbox": bbox,
+                        "properties": {
+                            "id_vgi": f"osm_{osm_id}",
+                            "osm_id": osm_id,
+                            "categoria": cod_cat,
+                            "categoria_id": cat_id,
+                            "nombre": nombre_val,
+                            "subtipo": subt,
+                            "fuente": "Geofabrik (Extracto RM)",
+                            "_fuente": "Geofabrik (Extracto RM)"
+                        },
+                        "geometry": geom_rnd
+                    }
+                    
+                    # Conservar etiquetas útiles complementarias si existen
+                    if props.get('building') and cat_id == 'edificaciones':
+                        feat_vgi["properties"]["building"] = props.get('building')
+                    if props.get('amenity'):
+                        feat_vgi["properties"]["amenity"] = props.get('amenity')
+                    if props.get('highway'):
+                        feat_vgi["properties"]["highway"] = props.get('highway')
+                    if props.get('shop'):
+                        feat_vgi["properties"]["shop"] = props.get('shop')
+                    if props.get('landuse'):
+                        feat_vgi["properties"]["landuse"] = props.get('landuse')
+                    if props.get('leisure'):
+                        feat_vgi["properties"]["leisure"] = props.get('leisure')
+                        
+                    meta_h = handles[cat_id]
+                    if not meta_h["first"]:
+                        meta_h["fp"].write(",\n")
+                    meta_h["first"] = False
+                    meta_h["count"] += 1
+                    conteo_por_cat[cat_id] += 1
+                    total_asignadas += 1
+                    
+                    meta_h["fp"].write(json.dumps(feat_vgi, separators=(',', ':'), ensure_ascii=False))
+                    
+        print(f"    Leídas {n_lineas:,} líneas, {n_features_archivo:,} entidades clasificadas en {time.time()-t0:.2f}s")
+
+    # Cerrar todos los archivos GeoJSON y replicar en src/data/
+    print("\n" + "=" * 80)
+    print("FASE 2: CIERRE Y REPLICACIÓN EN DATA/ Y SRC/DATA/")
+    print("=" * 80)
+    
+    fecha_proc = time.strftime("%Y-%m-%d %H:%M:%S")
+    
+    for cod_cat, cat_id, nom_cat, filename in CATEGORIAS:
+        meta_h = handles[cat_id]
+        meta_h["fp"].write('\n],\n"metadata":' + json.dumps({
+            "codigo_categoria": cod_cat,
+            "nombre_categoria": nom_cat,
+            "total_entidades": meta_h["count"],
+            "fuente": "Geofabrik (Extracto RM)",
+            "fuente_nombre": "Geofabrik (Extracto RM)",
+            "fuente_detalle": "Geofabrik GmbH (chile-260927.osm.pbf · Extracto RM)",
+            "metodo_adquisicion": "Descarga Geofabrik (Dump PBF regional)",
+            "licencia": "ODbL 1.0 (© OpenStreetMap contributors / Geofabrik GmbH)",
+            "proveedor": "Geofabrik GmbH",
+            "dataset_origen": "Geofabrik Chile (Filtrado RM)",
+            "filtro_espacial": "Región Metropolitana de Santiago (DPA 2023)",
+            "fecha_procesamiento": fecha_proc,
+            "srs": "EPSG:4326 (WGS 84)"
+        }, ensure_ascii=False) + '\n}')
+        meta_h["fp"].close()
+        
+        # Copiar a src/data/
+        p_src = rutas_src_data[cat_id]
+        with open(rutas_data[cat_id], 'rb') as f_in, open(p_src, 'wb') as f_out:
+            while True:
+                buf = f_in.read(1024 * 1024)
+                if not buf:
+                    break
+                f_out.write(buf)
+                
+        sz_mb = os.path.getsize(rutas_data[cat_id]) / (1024 * 1024)
+        print(f"  [✓] {cod_cat} ({nom_cat:35s}): {meta_h['count']:,} entidades | {sz_mb:6.2f} MB")
+
+    print(f"\n[✓] Procesamiento completado en {time.time()-t_global:.1f}s.")
+    print(f"[✓] Total asignaciones semánticas: {total_asignadas:,} entidades en 10 macrocategorías.")
+
+if __name__ == "__main__":
+    procesar()
