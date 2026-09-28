@@ -856,7 +856,7 @@ function inicializarAplicacion() {
               try {
                 const dbRes = await ModuloOSM.consultarBaseDatosOSM(nuevoBbox, 'biodiversidad');
                 featsOSM = dbRes.features || [];
-                fuente = 'GBIF + Geodatabase RM';
+                fuente = 'GBIF + Geofabrik, local-api';
               } catch (_) {}
             }
             if (resGBIF.status === 'fulfilled' && resGBIF.value?.geojson?.features) {
@@ -872,7 +872,7 @@ function inicializarAplicacion() {
               geojson = ModuloOSM.elementosAGeoJSON(elementos, catId);
             } catch (errOverpass) {
               geojson = await ModuloOSM.consultarBaseDatosOSM(nuevoBbox, catId);
-              fuente = 'Geodatabase RM';
+              fuente = 'Geofabrik, local-api';
             }
           }
 
@@ -881,8 +881,8 @@ function inicializarAplicacion() {
               nombre: catObj.nombre,
               color: catObj.color,
               icono: catObj.icono,
-              fuente: 'OpenStreetMap',
-              licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
+              fuente: geojson.fuente || fuente || 'Geofabrik, local-api',
+              licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
             });
             capasCargadasPorCategoria[catId] = geojson;
             if (labelConteo) labelConteo.textContent = `${geojson.features.length} ent.`;
@@ -1294,7 +1294,7 @@ async function alternarCapaCategoria(categoria) {
         try {
           const dbOSM = await ModuloOSM.consultarBaseDatosOSM(bbox, 'biodiversidad');
           featsOSM = dbOSM.features || [];
-          fuenteUtilizada = 'GBIF + Geodatabase RM (OSM)';
+          fuenteUtilizada = 'GBIF + Geofabrik, local-api';
         } catch (_) {}
       }
 
@@ -1313,7 +1313,7 @@ async function alternarCapaCategoria(categoria) {
       } catch (errOverpass) {
         console.warn(`[Overpass en vivo no disponible para ${categoria.id}]:`, errOverpass.message);
         geojson = await ModuloOSM.consultarBaseDatosOSM(bbox, categoria.id);
-        fuenteUtilizada = 'Geodatabase RM (OSM Descargada)';
+        fuenteUtilizada = 'Geofabrik, local-api';
       }
     }
 
@@ -1324,8 +1324,8 @@ async function alternarCapaCategoria(categoria) {
       nombre: categoria.nombre,
       color: categoria.color,
       icono: categoria.icono,
-      fuente: 'OpenStreetMap',
-      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
+      fuente: geojson.fuente || fuenteUtilizada || 'Geofabrik, local-api',
+      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
     });
 
     capasCargadasPorCategoria[categoria.id] = geojson;
@@ -1652,11 +1652,11 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
     const colorCapa = catCfg.color || '#A97722';
     const iconoCapa = catCfg.icono || '📦';
 
-    ultimaConsultaRealizada = { bbox, filtro: filtroAEjecutar, cantidad: total, fuente: 'Geodatabase RM (OSM descargada)' };
+    ultimaConsultaRealizada = { bbox, filtro: filtroAEjecutar, cantidad: total, fuente: 'Geofabrik, local-api' };
     autocargarMetadatos({
       categoriaId: catId,
       cantidad: total,
-      fuente: 'Geodatabase RM (OSM descargada)',
+      fuente: 'Geofabrik, local-api',
       filtro: filtroAEjecutar,
       bbox
     });
@@ -1668,11 +1668,11 @@ async function manejarConsultaOSM(cargarAlMapa = false) {
 
     if (cargarAlMapa) {
       ModuloMapa.cargarCapaGeoJSON('explorador_osm', geojson, {
-        nombre: `Geodatabase RM: ${nombreCapa}`,
+        nombre: `Geodatabase RM: ${nombreCapa} (Geofabrik, local-api)`,
         color: colorCapa,
         icono: iconoCapa,
-        fuente: 'OpenStreetMap',
-        licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
+        fuente: 'Geofabrik, local-api',
+        licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
       });
       // Cambiar a panel de inicio para ver el mapa
       document.querySelector('button[data-panel="inicio"]').click();

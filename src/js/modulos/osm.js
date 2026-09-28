@@ -432,9 +432,19 @@ const ModuloOSM = (() => {
     return null;
   }
 
-  function geometriaIntersecaBbox(geom, bbox) {
+  function geometriaIntersecaBbox(geom, bbox, featBbox = null) {
     if (!geom || !geom.coordinates) return false;
     const [oeste, sur, este, norte] = bbox;
+
+    // Aceleración de índice espacial BBOX a nivel de Feature (O(1))
+    if (featBbox && Array.isArray(featBbox) && featBbox.length === 4) {
+      const [fOeste, fSur, fEste, fNorte] = featBbox;
+      // Si la caja del elemento no se solapa con el Bbox consultado, descartar de inmediato
+      if (fEste < oeste || fOeste > este || fNorte < sur || fSur > norte) return false;
+      // Si la caja del elemento está completamente dentro del Bbox consultado, aceptar de inmediato
+      if (fOeste >= oeste && fEste <= este && fSur >= sur && fNorte <= norte) return true;
+    }
+
     const tipo = geom.type;
 
     if (tipo === 'Point') {
@@ -541,8 +551,8 @@ const ModuloOSM = (() => {
       throw new Error(`No se pudo cargar el dataset para ${categoriaId} desde la base de datos descargada.`);
     }
 
-    // 3. Filtrar geométricamente por el Bounding Box consultado
-    let featuresFiltradas = dataset.features.filter(f => geometriaIntersecaBbox(f.geometry, bbox));
+    // 3. Filtrar geométricamente por el Bounding Box consultado aprovechando f.bbox (índice espacial por entidad)
+    let featuresFiltradas = dataset.features.filter(f => geometriaIntersecaBbox(f.geometry, bbox, f.bbox));
 
     // Si la categoría consultada es educación o se busca UAH/Alberto Hurtado,
     // consolidar también los polígonos del campus UAH de edificaciones si aún no están en la lista
@@ -551,7 +561,7 @@ const ModuloOSM = (() => {
       if (edifDataset && edifDataset.features) {
         const uahEdif = edifDataset.features.filter(f => {
           const str = JSON.stringify(f.properties).toLowerCase();
-          return (str.includes('uah') || str.includes('alberto hurtado') || str.includes('barroso 10') || str.includes('erasmo escala 1822')) && geometriaIntersecaBbox(f.geometry, bbox);
+          return (str.includes('uah') || str.includes('alberto hurtado') || str.includes('barroso 10') || str.includes('erasmo escala 1822')) && geometriaIntersecaBbox(f.geometry, bbox, f.bbox);
         });
         const existingIds = new Set(featuresFiltradas.map(f => f.properties?.id_vgi || f.id));
         uahEdif.forEach(feat => {
@@ -574,12 +584,14 @@ const ModuloOSM = (() => {
     // 5. Garantizar cálculo métrico de superficies en polígonos y trazabilidad VGI estricta
     featuresFiltradas.forEach(f => {
       if (!f.properties) f.properties = {};
-      if (!f.properties.fuente) f.properties.fuente = 'OpenStreetMap';
-      if (!f.properties.licencia) f.properties.licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
-      if (!f.properties._fuente) f.properties._fuente = 'OpenStreetMap';
-      if (!f.properties._licencia) f.properties._licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
-      if (!f.properties._declaracion) f.properties._declaracion = 'Datos cartográficos provistos por © colaboradores de OpenStreetMap bajo licencia ODbL 1.0.';
-      if (!f.properties._citaAPA) f.properties._citaAPA = 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM]. Open Database License (ODbL).';
+      f.properties.fuente = 'Geofabrik, local-api';
+      f.properties.origen_api = 'local-api';
+      f.properties.proveedor = 'Geofabrik GmbH (chile-260927.osm.pbf)';
+      f.properties._fuente = '(Geofabrik, local-api)';
+      f.properties._licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)';
+      f.properties.licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)';
+      f.properties._declaracion = 'Datos cartográficos de OpenStreetMap extraídos de Geofabrik (chile-260927.osm.pbf, local-api) bajo licencia ODbL 1.0.';
+      f.properties._citaAPA = 'Geofabrik GmbH & OpenStreetMap contributors. (2026). OpenStreetMap Chile Extract [Región Metropolitana]. Geofabrik / local-api. Open Database License (ODbL).';
 
       if (f.geometry && f.geometry.type === 'Polygon' && (!f.properties.superficie_m2 || f.properties.superficie_m2 === 0)) {
         if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono && f.geometry.coordinates[0]) {
@@ -597,8 +609,10 @@ const ModuloOSM = (() => {
       name: `OSM_RM_${categoriaId}`,
       categoria: categoriaId,
       features: featuresFiltradas,
-      fuente: 'OpenStreetMap (Geodatabase RM)',
-      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
+      fuente: 'Geofabrik, local-api',
+      fuente_detalle: 'Geofabrik (chile-260927.osm.pbf), local-api',
+      origen_api: 'local-api',
+      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
     };
   }
 
@@ -717,10 +731,10 @@ const ModuloOSM = (() => {
       return {
         total: resultadoDB.features.length,
         geojson: resultadoDB,
-        servidor: 'Geodatabase RM (Triple Failover automático · PostGIS/Local)',
+        servidor: 'Geodatabase RM (Geofabrik, local-api · R-Tree)',
         desdeBackend: false,
         failover: true,
-        motivoFailover: `Overpass API no respondió (${errorOverpass?.message || 'Timeout/504'}). Conmutación transparente a Geodatabase RM local.`
+        motivoFailover: `Overpass API no respondió (${errorOverpass?.message || 'Timeout/504'}). Conmutación transparente a Geodatabase RM (Geofabrik, local-api).`
       };
     } catch (errDB) {
       throw new Error(`Falló Overpass (${errorOverpass?.message || 'Error'}) y falló Geodatabase RM (${errDB.message})`);
