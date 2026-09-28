@@ -361,9 +361,11 @@ const ModuloOSM = (() => {
           superficie_m2: infoSuperficie ? infoSuperficie.areaM2 : null,
           superficie_ha: infoSuperficie ? infoSuperficie.areaHa : null,
           superficie_km2: infoSuperficie ? infoSuperficie.areaKm2 : null,
-          srs_superficie: infoSuperficie ? 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)' : null,
           fecha: el.timestamp || new Date().toISOString().slice(0, 10),
-          fuente: 'OpenStreetMap',
+          fuente: 'OpenStreetMap (API Overpass)',
+          _fuente: 'OpenStreetMap (API Overpass)',
+          proveedor: 'OpenStreetMap (Overpass API)',
+          metodo_adquisicion: 'Descarga de OSM (con la API)',
           licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)',
           etiquetas_completas: tags
         }
@@ -373,8 +375,13 @@ const ModuloOSM = (() => {
     return {
       type: 'FeatureCollection',
       name: `OSM_${categoriaId}`,
-      features: features
+      features: features,
+      fuente: 'OpenStreetMap (API Overpass)',
+      fuente_detalle: 'OpenStreetMap (Overpass API en vivo)',
+      metodo_adquisicion: 'Descarga de OSM (con la API)',
+      licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
     };
+
   }
 
   // Datasets de las 10 Macro-Categorías VGI descargadas para la RM
@@ -584,14 +591,14 @@ const ModuloOSM = (() => {
     // 5. Garantizar cálculo métrico de superficies en polígonos y trazabilidad VGI estricta
     featuresFiltradas.forEach(f => {
       if (!f.properties) f.properties = {};
-      f.properties.fuente = 'Geofabrik, local-api';
-      f.properties.origen_api = 'local-api';
+      f.properties.fuente = 'Geofabrik (Extracto RM)';
       f.properties.proveedor = 'Geofabrik GmbH (chile-260927.osm.pbf)';
-      f.properties._fuente = '(Geofabrik, local-api)';
+      f.properties.metodo_adquisicion = 'Descarga Geofabrik (Dump PBF regional)';
+      f.properties._fuente = 'Geofabrik (Extracto RM)';
       f.properties._licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)';
       f.properties.licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)';
-      f.properties._declaracion = 'Datos cartográficos de OpenStreetMap extraídos de Geofabrik (chile-260927.osm.pbf, local-api) bajo licencia ODbL 1.0.';
-      f.properties._citaAPA = 'Geofabrik GmbH & OpenStreetMap contributors. (2026). OpenStreetMap Chile Extract [Región Metropolitana]. Geofabrik / local-api. Open Database License (ODbL).';
+      f.properties._declaracion = 'Datos cartográficos de OpenStreetMap procedentes de la descarga de Geofabrik (chile-260927.osm.pbf) bajo licencia ODbL 1.0.';
+      f.properties._citaAPA = 'Geofabrik GmbH & OpenStreetMap contributors. (2026). OpenStreetMap Chile Extract [Región Metropolitana]. Geofabrik GmbH. Open Database License (ODbL).';
 
       if (f.geometry && f.geometry.type === 'Polygon' && (!f.properties.superficie_m2 || f.properties.superficie_m2 === 0)) {
         if (typeof ModuloGeodesia !== 'undefined' && ModuloGeodesia.calcularSuperficiePoligono && f.geometry.coordinates[0]) {
@@ -609,11 +616,12 @@ const ModuloOSM = (() => {
       name: `OSM_RM_${categoriaId}`,
       categoria: categoriaId,
       features: featuresFiltradas,
-      fuente: 'Geofabrik, local-api',
-      fuente_detalle: 'Geofabrik (chile-260927.osm.pbf), local-api',
-      origen_api: 'local-api',
+      fuente: 'Geofabrik (Extracto RM)',
+      fuente_detalle: 'Geofabrik GmbH (chile-260927.osm.pbf · Extracto RM)',
+      metodo_adquisicion: 'Descarga Geofabrik (Dump PBF regional)',
       licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)'
     };
+
   }
 
   let backendDisponible = null;
@@ -715,7 +723,8 @@ const ModuloOSM = (() => {
       return {
         total: elementos.length,
         geojson: geojson,
-        servidor: 'Cliente directo (Overpass API)',
+        servidor: 'Cliente directo (OpenStreetMap API Overpass)',
+        fuente: 'OpenStreetMap (API Overpass)',
         desdeBackend: false,
         failover: false
       };
@@ -724,21 +733,23 @@ const ModuloOSM = (() => {
       errorOverpass = errOverpass;
     }
 
-    // NIVEL 2 y 3: Triple Failover hacia la Geodatabase RM descargada
+    // NIVEL 2 y 3: Triple Failover hacia la Geodatabase RM descargada de Geofabrik
     try {
       const etiquetaFiltro = (clave && valor && valor !== '*') ? `${clave}=${valor}` : (clave || '');
       const resultadoDB = await consultarBaseDatosOSM(bbox, null, etiquetaFiltro);
       return {
         total: resultadoDB.features.length,
         geojson: resultadoDB,
-        servidor: 'Geodatabase RM (Geofabrik, local-api · R-Tree)',
+        servidor: 'Geodatabase RM (Descarga Geofabrik · R-Tree)',
+        fuente: 'Geofabrik (Extracto RM)',
         desdeBackend: false,
         failover: true,
-        motivoFailover: `Overpass API no respondió (${errorOverpass?.message || 'Timeout/504'}). Conmutación transparente a Geodatabase RM (Geofabrik, local-api).`
+        motivoFailover: `Overpass API no respondió (${errorOverpass?.message || 'Timeout/504'}). Conmutación a descarga de Geofabrik (Extracto RM).`
       };
     } catch (errDB) {
       throw new Error(`Falló Overpass (${errorOverpass?.message || 'Error'}) y falló Geodatabase RM (${errDB.message})`);
     }
+
   }
 
   return {

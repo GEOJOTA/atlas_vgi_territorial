@@ -37,11 +37,15 @@ LFS_URL = f"https://github.com/{OWNER}/{REPO}.git/info/lfs/objects/batch"
 
 ARCHIVOS_CODIGO = [
     ".gitattributes",
+    "src/index.html",
     "src/js/modulos/osm.js",
+    "src/js/modulos/mapa.js",
     "src/js/app.js",
-    "scripts/procesar_geofabrik_rm.py",
+    "scripts/procesar_osm_geofabrik_usuario.py",
+    "scripts/generar_gpkg_geofabrik.py",
     "scripts/publicar_geofabrik_rm.py"
 ]
+
 
 CATEGORIAS = [
     "cat01_educacion",
@@ -250,7 +254,16 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     # 4. Crear Commit
-    mensaje = "feat(geofabrik-rm): integrar extracto oficial de Geofabrik con filtro regional e indices espaciales (Geofabrik, local-api)\n\n- Filtro espacial oficial con region_rm_base_5360_sirgas.shp sobre chile-260927.osm.pbf.\n- Generacion de geodatabase regional data/geodatabase_osm_rm_geofabrik.gpkg con indices R-Tree.\n- Generacion de las 10 capas tematicas locales en data/ y src/data/ con indice de Bbox por feature.\n- Fuente acreditada explicitamente como (Geofabrik, local-api) en propiedades, metadatos y visor.\n- Aceleracion O(1) de recorte por pantalla en ModuloOSM.geometriaIntersecaBbox."
+    mensaje = (
+        "feat(geofabrik-rm): integrar datos Geofabrik RM del usuario, expansion taxonomica y querys dinamicas duales\n\n"
+        "- Procesadas 1.309.189 entidades de los 4 archivos del usuario (Puntos, Lineas, Poligonos, Multilineas) clasificando 414.398 entidades en 10 macrocategorias tematicas (CAT-01 a CAT-10).\n"
+        "- Expansion exhaustiva de taxonomia OSM: rutas de microbuses Red Movilidad, sendas y ciclovias, rebajes de veredas y cruces peatonales, arbolado y huellas de edificaciones estratificadas.\n"
+        "- Consultas espaciales dinamicas duales en Atlas VGI: selector interactivo de Modo 1 (Bbox dinamico del mapa sincronizado al arrastrar/zoom) y Modo 2 (Coordenadas numericas manuales W, S, E, N).\n"
+        "- Diferenciacion estricta de fuentes: 'Geofabrik (Extracto RM)' desacoplado de 'OpenStreetMap (API Overpass)', con soporte de superposicion explicita (ej. GBIF + OSM).\n"
+        "- Precomputo de bounding box [minX, minY, maxX, maxY] por entidad para filtrado O(1) instantaneo en el navegador.\n"
+        "- Geodatabase regional 'data/geodatabase_osm_rm_geofabrik.gpkg' con indices espaciales R-Tree nativos SpatiaLite/SQLite para las 10 capas tematicas."
+    )
+
 
     r_new_commit = requests.post(
         f"https://api.github.com/repos/{OWNER}/{REPO}/git/commits",

@@ -306,9 +306,19 @@ const ModuloMapa = (() => {
           idCapa.toString().toLowerCase().includes('mop')
         )));
         const nombre = props._nombre || props.nombre || props.name || props.especie || 'Sin denominación';
-        const subtipo = props._subtipo || props.subtipo || props.amenity || props.shop || props.highway || props.historic || (esOficial ? 'Entidad Oficial del Estado' : (esGbifItem ? 'Registro Biológico GBIF' : 'Elemento VGI OSM'));
-        const fuente = props._fuente || props.fuente || (esOficial ? 'Estado de Chile / IDE Chile' : (esGbifItem ? 'GBIF / Ciencia Ciudadana' : 'OpenStreetMap'));
-        const licencia = props._licencia || props.licencia || (esOficial ? 'Ley N° 20.285 de Transparencia' : (esGbifItem ? 'CC-BY 4.0' : 'ODbL 1.0 (© colaboradores de OpenStreetMap)'));
+        let fuente = props._fuente || props.fuente || opciones.fuente;
+        if (!fuente) {
+          if (esOficial) fuente = 'Estado de Chile / IDE Chile';
+          else if (esGbifItem) fuente = 'GBIF / Ciencia Ciudadana';
+          else fuente = 'OpenStreetMap (API Overpass)';
+        }
+        let licencia = props._licencia || props.licencia || opciones.licencia;
+        if (!licencia) {
+          if (esOficial) licencia = 'Ley N° 20.285 de Transparencia';
+          else if (esGbifItem) licencia = 'CC-BY 4.0';
+          else if (fuente && fuente.includes('Geofabrik')) licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)';
+          else licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
+        }
         const fecha = props.fecha || props.fecha_registro || (esOficial ? 'Oficial 2024' : 'No indicada');
 
         let filasExtraInfo = '';
@@ -850,22 +860,34 @@ const ModuloMapa = (() => {
       };
     } else {
       // esOSM
+      const esDeGeofabrik = Boolean(
+        fuenteProps.includes('geofabrik') ||
+        (props.proveedor && props.proveedor.toLowerCase().includes('geofabrik')) ||
+        (props.dataset_origen && props.dataset_origen.toLowerCase().includes('geofabrik')) ||
+        (idCapaStr.includes('geofabrik') || idCapaStr.includes('capa_osm_rm'))
+      );
+
+      const fuenteNombre = esDeGeofabrik ? 'Geofabrik (Extracto RM)' : 'OpenStreetMap (API Overpass)';
+      const metodoDescarga = esDeGeofabrik ? 'Descarga Geofabrik (Dump PBF regional chile-260927.osm.pbf)' : 'Descarga de OpenStreetMap (con la API Overpass en vivo)';
+      const proveedorNombre = esDeGeofabrik ? 'Geofabrik GmbH / © Colaboradores de OpenStreetMap' : 'Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap)';
       const archivoVgi = props._archivoLocal ? props._archivoLocal.split('/').pop() :
         (idCapaStr.endsWith('.geojson') ? idCapaStr :
         (idCapaStr.startsWith('capa_') ? `${idCapaStr}.geojson` : `capa_${idCapaStr}.geojson`));
 
       meta = {
         tipo_fuente: 'Información Geográfica Voluntaria (VGI) / Cartografía Colaborativa Abierta',
-        comunidad: 'Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap)',
-        fuente: 'OpenStreetMap (OSM)',
-        archivo_origen: archivoVgi,
+        comunidad: proveedorNombre,
+        fuente: fuenteNombre,
+        metodo_adquisicion: metodoDescarga,
+        es_geofabrik: esDeGeofabrik,
+        archivo_origen: esDeGeofabrik ? 'chile-260927.osm.pbf (Geofabrik RM)' : (archivoVgi || 'Overpass API en vivo'),
         archivo_geojson: archivoVgi,
-        licencia: 'Open Database License (ODbL) 1.0 — Atribución y Compartir Igual',
+        licencia: esDeGeofabrik ? 'Open Database License (ODbL) 1.0 (© OSM / Geofabrik GmbH)' : 'Open Database License (ODbL) 1.0 (© Colaboradores de OpenStreetMap)',
         marco_legal: 'ODbL 1.0 (Open Data Commons) — Libre reutilización y enriquecimiento cartográfico con reciprocidad copyleft',
-        declaracion: 'Datos cartográficos y huellas espaciales provistos por © colaboradores de OpenStreetMap bajo licencia ODbL 1.0.',
-        citaAPA: 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM, Chile]. Open Database License (ODbL). https://www.openstreetmap.org/copyright',
+        declaracion: esDeGeofabrik ? 'Datos cartográficos procedentes del extracto regional de Geofabrik (chile-260927.osm.pbf) bajo licencia ODbL 1.0.' : 'Datos cartográficos y huellas espaciales provistos por © colaboradores de OpenStreetMap bajo licencia ODbL 1.0.',
+        citaAPA: esDeGeofabrik ? 'Geofabrik GmbH & OpenStreetMap contributors. (2026). OpenStreetMap Chile Extract [Región Metropolitana]. Geofabrik GmbH. Open Database License (ODbL).' : 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM, Chile]. Open Database License (ODbL). https://www.openstreetmap.org/copyright',
         crs_salida: 'EPSG:4326 (WGS 84) / Compatible con EPSG:32719 (SIRGAS-Chile / UTM 19S)',
-        descripcion: 'Información geográfica voluntaria comunitaria extraída y normalizada desde OpenStreetMap (Overpass QL / Geodatabase RM).'
+        descripcion: esDeGeofabrik ? 'Información geográfica voluntaria comunitaria obtenida de la descarga del dump regional de Geofabrik para la RM.' : 'Información geográfica voluntaria comunitaria extraída en vivo desde OpenStreetMap vía Overpass API.'
       };
     }
 
@@ -902,16 +924,22 @@ const ModuloMapa = (() => {
         </div>
       `;
     } else if (esOSM) {
+      const esGeof = meta.es_geofabrik;
+      const rotuloAlerta = esGeof ? 'INFORMACIÓN GEOGRÁFICA VOLUNTARIA — DESCARGA GEOFABRIK (ODbL 1.0)' : 'INFORMACIÓN GEOGRÁFICA VOLUNTARIA — OPENSTREETMAP API OVERPASS (ODbL 1.0)';
+      const textoAlerta = esGeof 
+        ? 'Cartografía comunitaria de OpenStreetMap extraída del dump regional de Geofabrik (chile-260927.osm.pbf recortado para la RM) bajo licencia <strong>ODbL 1.0</strong>.' 
+        : 'Cartografía comunitaria colaborativa abierta descargada en tiempo real desde la API Overpass de OpenStreetMap bajo licencia <strong>ODbL 1.0</strong>.';
+
       alertaColumnasHtml = `
         <div class="detalle-alerta-columnas" style="background:rgba(6,182,212,0.12); border:1px solid #06b6d4; border-left:4px solid #0891b2; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
           <div style="display:flex; align-items:flex-start; gap:10px;">
             <span style="font-size:1.3rem; line-height:1.2;">🌐</span>
             <div style="flex:1;">
               <strong style="display:block; color:#06b6d4; font-size:0.83rem; font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; margin-bottom:4px;">
-                INFORMACIÓN GEOGRÁFICA VOLUNTARIA — OPENSTREETMAP (ODbL 1.0)
+                ${rotuloAlerta}
               </strong>
               <p style="margin:0; font-size:0.78rem; color:var(--tinta-suave,#e2e8f0); line-height:1.45;">
-                Cartografía comunitaria colaborativa abierta de OpenStreetMap bajo licencia <strong>ODbL 1.0</strong> (© Colaboradores de OpenStreetMap).
+                ${textoAlerta}
               </p>
               <div style="margin-top:9px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
                 <a href="${rutaDescarga}" download="${nombreDescarga}" class="accion" style="display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; text-decoration:none; padding:7px 14px; background:linear-gradient(135deg,#06b6d4,#0891b2); color:#000; border-radius:4px; font-family:'IBM Plex Mono',monospace; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition:all 0.15s;">
@@ -923,6 +951,7 @@ const ModuloMapa = (() => {
           </div>
         </div>
       `;
+
     } else if (esGBIF) {
       alertaColumnasHtml = `
         <div class="detalle-alerta-columnas" style="background:rgba(16,185,129,0.12); border:1px solid #10b981; border-left:4px solid #059669; border-radius:6px; padding:12px 14px; margin-bottom:14px; font-family:'IBM Plex Sans',sans-serif;">
@@ -1058,15 +1087,18 @@ const ModuloMapa = (() => {
       s4 += fila('Cita Bibliográfica APA', meta.citaAPA);
     } else {
       // Por defecto para cualquier elemento VGI / OpenStreetMap
-      tituloSeccion4 = '📂 Metadatos de Origen y Licencia VGI (OpenStreetMap)';
+      tituloSeccion4 = meta.es_geofabrik ? '📂 Metadatos de Origen y Licencia VGI (Descarga Geofabrik)' : '📂 Metadatos de Origen y Licencia VGI (OpenStreetMap API)';
       s4 += fila('Tipo de Fuente', 'Información Geográfica Voluntaria (VGI)');
-      s4 += fila('Comunidad / Proveedor', 'Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap)');
+      s4 += fila('Fuente Específica', meta.fuente);
+      s4 += fila('Método de Descarga', meta.metodo_adquisicion);
+      s4 += fila('Comunidad / Proveedor', meta.comunidad);
       const idVgiVal = props.id_vgi || (props.osm_type && props.osm_id ? `OSM/${props.osm_type}/${props.osm_id}` : (props.osm_id ? `OSM/${props.osm_id}` : (props.id || '—')));
       s4 += fila('Identificador VGI (OSM ID)', idVgiVal);
       if (props.osm_type && props.osm_id) {
         s4 += fila('Ficha en OpenStreetMap', `<a href="https://www.openstreetmap.org/${props.osm_type}/${props.osm_id}" target="_blank" rel="noopener" style="color:var(--musgo,#06b6d4); text-decoration:underline;">Ver elemento en openstreetmap.org ↗</a>`);
       }
-      s4 += fila('Archivo de Origen', meta.archivo_origen || 'Geodatabase RM / Overpass QL');
+      s4 += fila('Archivo de Origen', meta.archivo_origen);
+
       if (props.categoria) s4 += fila('Macro-Categoría VGI', props.categoria.toUpperCase());
       if (props.solapamiento_semantico && Array.isArray(props.solapamiento_semantico)) {
         s4 += fila('Solapamiento Semántico', props.solapamiento_semantico.join(' ↔ '));

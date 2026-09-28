@@ -367,7 +367,7 @@
         <!-- SECCIÓN 2: Capas Comunitarias VGI (OSM / GBIF) -->
         <div class="seccion-panel-capas" id="seccion-capas-vgi" style="display:none;">
           <p class="consola-seccion-desc">
-            Capas vectoriales consultadas en tiempo real a la API Overpass de OpenStreetMap y GBIF sobre el polígono territorial activo, validadas contra catálogo maestro.
+            Capas vectoriales comunitarias obtenidas mediante OpenStreetMap (API Overpass) o el extracto regional descargado de Geofabrik, integrando ciencia ciudadana (GBIF) sobre el polígono territorial activo.
           </p>
           <div class="grilla-capas-vgi" id="contenedor-botones-categorias">
             <!-- Renderizado dinámico desde app.js -->
@@ -591,9 +591,28 @@
       </div>
 
       <!-- Área de consulta espacial -->
-      <div class="bloque">
-        <h3>Área de Consulta Espacial (Geodatabase RM Descargada)</h3>
-        <p class="descripcion" style="margin-bottom:12px;">Consulta espacial directa a la base de datos vectorial descargada de OpenStreetMap para la Región Metropolitana (PostGIS / CDN / GeoJSON). Sin esperas ni timeouts de Overpass, latencia instantánea y cobertura íntegra de las 10 macrocategorías temáticas.</p>
+      <div class="bloque" style="background:var(--papel-alto); border:2px solid var(--linea); border-radius:12px; padding:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+          <h3 style="margin:0; font-size:1.2rem; color:var(--ocre);">📦 Consultas Espaciales Locales — Descarga Geofabrik RM</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.75rem; background:rgba(234,179,8,0.18); color:var(--ocre); border:1px solid var(--ocre); padding:3px 10px; border-radius:6px; font-weight:700;">GEOFABRIK DUMP · 414K ENTIDADES · LATENCIA 0 MS</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:14px; font-size:0.88rem;">
+          Consulta espacial directa al extracto vectorial descargado de Geofabrik para la Región Metropolitana (414.398 entidades en las 52 comunas de la RM). Puedes filtrar dinámicamente mediante el <strong>Bbox interactivo del mapa</strong> o de forma manual mediante <strong>coordenadas geográficas exactas</strong>.
+        </p>
+
+        <!-- Modos de Consulta Pedagógicos -->
+        <div style="display:flex; gap:16px; margin-bottom:14px; padding:10px 14px; background:var(--papel-tarjeta); border:1px solid var(--linea); border-radius:8px; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:0.83rem; font-weight:700; color:var(--tinta-suave);">Modalidad de Filtro Territorial:</span>
+          <label style="display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; cursor:pointer;">
+            <input type="radio" name="modo-consulta-local" id="modo-local-bbox" value="bbox" checked>
+            <span>🗺️ Modo 1: Bbox Dinámico del Mapa (Sincronización interactiva al arrastrar/zoom)</span>
+          </label>
+          <label style="display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; cursor:pointer;">
+            <input type="radio" name="modo-consulta-local" id="modo-local-coords" value="coords">
+            <span>📌 Modo 2: Coordenadas Numéricas Manuales (WGS 84)</span>
+          </label>
+        </div>
+
         <div class="fila-campos">
           <div class="campo"><label for="osm-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="osm-oeste"></div>
           <div class="campo"><label for="osm-sur">Sur (Lat Min)</label><input type="number" step="any" id="osm-sur"></div>
@@ -605,14 +624,14 @@
             <label for="osm-categoria-preset">Presets Temáticos Preconfigurados</label>
             <select id="osm-categoria-preset">
               <option value="">— Seleccionar categoría predefinida —</option>
-              <option value="educacion">CAT-01: Educación y Universidad (Campus UAH)</option>
+              <option value="educacion">CAT-01: Educación y Universidad (Campus UAH / Colegios)</option>
               <option value="servicios">CAT-02: Servicios, Comercio y Abastecimiento</option>
-              <option value="transporte">CAT-03: Movilidad y Transporte Público</option>
+              <option value="transporte">CAT-03: Movilidad y Transporte Público (Red / Metro)</option>
               <option value="movilidad_activa">CAT-04: Movilidad Activa y Ciclovías</option>
               <option value="espacio_publico">CAT-05: Áreas Verdes, Plazas y Recreación</option>
               <option value="patrimonio">CAT-06: Patrimonio, Cultura e Identidad Urbana</option>
               <option value="accesibilidad">CAT-07: Accesibilidad Universal y Cruces</option>
-              <option value="biodiversidad">CAT-08: Biodiversidad Urbana (Arbolado)</option>
+              <option value="biodiversidad">CAT-08: Biodiversidad Urbana (Arbolado y Agua)</option>
               <option value="edificaciones">CAT-09: Edificaciones y Huella Urbana (building=*) [Polígonos]</option>
               <option value="cobertura_suelo">CAT-10: Coberturas y Usos de Suelo (landuse=*) [Polígonos]</option>
             </select>
@@ -622,13 +641,18 @@
             <input type="text" id="osm-etiqueta" placeholder="ej: amenity=cafe, shop=bakery">
           </div>
         </div>
-        <button class="accion" id="btn-consultar-osm">Consultar Geodatabase RM</button>
-        <button class="accion secundaria" id="btn-cargar-osm-al-mapa">Visualizar en Mapa Atlas</button>
-        <button class="accion secundaria" id="btn-usar-area-config">Restablecer Bbox UAH</button>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
+          <button class="accion" id="btn-consultar-osm" title="Consulta según el encuadre territorial activo del mapa">🗺️ Consultar por Bbox del Mapa</button>
+          <button class="accion secundaria" id="btn-consultar-osm-coords" title="Consulta según las 4 coordenadas numéricas del formulario">📌 Consultar por Coordenadas</button>
+          <button class="accion secundaria" id="btn-cargar-osm-al-mapa">🗺️ Visualizar en Mapa Atlas</button>
+          <button class="accion secundaria" id="btn-usar-area-config">📍 Centrar en Barrio Brasil (UAH)</button>
+          <button class="accion secundaria" id="btn-encuadre-rm-completa">🌐 Toda la Región Metropolitana</button>
+        </div>
       </div>
 
+
       <div class="bloque resultado" id="resultado-osm" aria-live="polite">
-        <p class="descripcion">Todavía no hay ninguna consulta realizada. Utiliza el constructor superior o consulta la Geodatabase RM descargada.</p>
+        <p class="descripcion">Todavía no hay ninguna consulta realizada. Utiliza el constructor superior para OpenStreetMap (API Overpass) o consulta la descarga regional de Geofabrik RM.</p>
       </div>
     </section>
 
