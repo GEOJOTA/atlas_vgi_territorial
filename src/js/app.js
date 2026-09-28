@@ -823,12 +823,88 @@ function inicializarAplicacion() {
   document.getElementById('btn-exportar-json').addEventListener('click', exportarMetadatosJSON);
   document.getElementById('btn-exportar-xml').addEventListener('click', exportarMetadatosXML);
 
+  let timerRecargaBbox = null;
+  function recargarCapasActivasPorNuevoBbox(nuevoBbox) {
+    if (!nuevoBbox || !Array.isArray(nuevoBbox) || nuevoBbox.length !== 4) return;
+    clearTimeout(timerRecargaBbox);
+    timerRecargaBbox = setTimeout(async () => {
+      const categoriasActivas = Object.keys(capasCargadasPorCategoria);
+      if (categoriasActivas.length === 0) return;
+      const estadoTexto = document.getElementById('estado-carga-capas');
+      if (estadoTexto) estadoTexto.textContent = `Actualizando geometrías en nuevo Bbox (${categoriasActivas.length} capas activas)…`;
+
+      for (const catId of categoriasActivas) {
+        const catObj = (window.NODO_CONFIG?.categorias_osm || []).find(c => c.id === catId);
+        if (!catObj) continue;
+        const btn = document.getElementById(`btn-cat-${catId}`);
+        const labelConteo = document.getElementById(`conteo-cat-${catId}`);
+        if (btn) btn.classList.add('cargando');
+
+        try {
+          let geojson;
+          let fuente = 'Overpass API / OpenStreetMap';
+          if (catId === 'biodiversidad') {
+            const [resGBIF, resOSM] = await Promise.allSettled([
+              ModuloGBIF.buscarOcurrencias({ bbox: nuevoBbox, limite: 300 }),
+              ModuloOSM.consultar(nuevoBbox, 'biodiversidad')
+            ]);
+            let featsOSM = [];
+            let featsGBIF = [];
+            if (resOSM.status === 'fulfilled') {
+              featsOSM = ModuloOSM.elementosAGeoJSON(resOSM.value, 'biodiversidad').features || [];
+            } else {
+              try {
+                const dbRes = await ModuloOSM.consultarBaseDatosOSM(nuevoBbox, 'biodiversidad');
+                featsOSM = dbRes.features || [];
+                fuente = 'GBIF + Geodatabase RM';
+              } catch (_) {}
+            }
+            if (resGBIF.status === 'fulfilled' && resGBIF.value?.geojson?.features) {
+              featsGBIF = resGBIF.value.geojson.features;
+            }
+            geojson = {
+              type: 'FeatureCollection',
+              features: [...featsOSM, ...featsGBIF]
+            };
+          } else {
+            try {
+              const elementos = await ModuloOSM.consultar(nuevoBbox, catId);
+              geojson = ModuloOSM.elementosAGeoJSON(elementos, catId);
+            } catch (errOverpass) {
+              geojson = await ModuloOSM.consultarBaseDatosOSM(nuevoBbox, catId);
+              fuente = 'Geodatabase RM';
+            }
+          }
+
+          if (geojson && geojson.features) {
+            ModuloMapa.cargarCapaGeoJSON(catId, geojson, {
+              nombre: catObj.nombre,
+              color: catObj.color,
+              icono: catObj.icono,
+              fuente: 'OpenStreetMap',
+              licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
+            });
+            capasCargadasPorCategoria[catId] = geojson;
+            if (labelConteo) labelConteo.textContent = `${geojson.features.length} ent.`;
+          }
+        } catch (errRecarga) {
+          console.warn(`Error al recargar capa ${catId} para el nuevo Bbox:`, errRecarga);
+        } finally {
+          if (btn) btn.classList.remove('cargando');
+        }
+      }
+      if (estadoTexto) estadoTexto.textContent = `Capas VGI actualizadas para el recuadro territorial activo.`;
+      actualizarTelemetriaCapasActivas();
+    }, 500);
+  }
+
   // Escuchar cambios de bbox desde el mapa
   document.addEventListener('nodo:bbox-cambiado', (e) => {
     if (e.detail && e.detail.bbox) {
       sincronizarBboxEnInputs(e.detail.bbox);
       actualizarFichaTerritorio('Área de Consulta Personalizada (Bbox interactivo)', e.detail.bbox);
       autocargarMetadatos({ bbox: e.detail.bbox });
+      recargarCapasActivasPorNuevoBbox(e.detail.bbox);
     }
   });
 
@@ -843,6 +919,7 @@ function inicializarAplicacion() {
             ModuloMapa.actualizarRectanguloBbox(bbox);
             sincronizarBboxEnInputs(bbox);
             autocargarMetadatos({ bbox });
+            recargarCapasActivasPorNuevoBbox(bbox);
           }
         });
       }
@@ -1193,29 +1270,54 @@ async function alternarCapaCategoria(categoria) {
   // Activar y cargar datos
   if (btn) btn.classList.add('cargando');
   if (card) card.classList.add('cargando');
-  if (estadoTexto) estadoTexto.textContent = `Consultando ${categoria.nombre} en Overpass API…`;
+  if (estadoTexto) estadoTexto.textContent = `Consultando ${categoria.nombre} en el área territorial seleccionada…`;
 
   const bbox = leerBbox('osm') || window.NODO_CONFIG.area_por_defecto.bbox;
 
   try {
     let geojson;
+    let fuenteUtilizada = 'Overpass API / OpenStreetMap';
+
     if (categoria.id === 'biodiversidad') {
-      // Para biodiversidad, consultamos GBIF + OSM
-      const [resGBIF, resOSM] = await Promise.all([
-        ModuloGBIF.buscarOcurrencias({ bbox, limite: 40 }),
+      // Para biodiversidad, consultamos GBIF + OSM con failover transparente a Geodatabase RM
+      const [resGBIF, resOSM] = await Promise.allSettled([
+        ModuloGBIF.buscarOcurrencias({ bbox, limite: 300 }),
         ModuloOSM.consultar(bbox, 'biodiversidad')
       ]);
-      const gjOSM = ModuloOSM.elementosAGeoJSON(resOSM, categoria.id);
+
+      let featsOSM = [];
+      let featsGBIF = [];
+
+      if (resOSM.status === 'fulfilled') {
+        featsOSM = ModuloOSM.elementosAGeoJSON(resOSM.value, 'biodiversidad').features || [];
+      } else {
+        try {
+          const dbOSM = await ModuloOSM.consultarBaseDatosOSM(bbox, 'biodiversidad');
+          featsOSM = dbOSM.features || [];
+          fuenteUtilizada = 'GBIF + Geodatabase RM (OSM)';
+        } catch (_) {}
+      }
+
+      if (resGBIF.status === 'fulfilled' && resGBIF.value?.geojson?.features) {
+        featsGBIF = resGBIF.value.geojson.features;
+      }
+
       geojson = {
         type: 'FeatureCollection',
-        features: [...gjOSM.features, ...resGBIF.geojson.features]
+        features: [...featsOSM, ...featsGBIF]
       };
     } else {
-      const elementos = await ModuloOSM.consultar(bbox, categoria.id);
-      geojson = ModuloOSM.elementosAGeoJSON(elementos, categoria.id);
+      try {
+        const elementos = await ModuloOSM.consultar(bbox, categoria.id);
+        geojson = ModuloOSM.elementosAGeoJSON(elementos, categoria.id);
+      } catch (errOverpass) {
+        console.warn(`[Overpass en vivo no disponible para ${categoria.id}]:`, errOverpass.message);
+        geojson = await ModuloOSM.consultarBaseDatosOSM(bbox, categoria.id);
+        fuenteUtilizada = 'Geodatabase RM (OSM Descargada)';
+      }
     }
 
-    const cantidad = geojson.features.length;
+    const cantidad = (geojson && geojson.features) ? geojson.features.length : 0;
     if (labelConteo) labelConteo.textContent = `${cantidad} ent.`;
 
     ModuloMapa.cargarCapaGeoJSON(categoria.id, geojson, {
@@ -1236,77 +1338,26 @@ async function alternarCapaCategoria(categoria) {
       card.classList.add('activo');
     }
     if (textoSwitch) textoSwitch.textContent = 'En Mapa';
-    if (estadoTexto) estadoTexto.textContent = `Capa "${categoria.nombre}" cargada en vivo (${cantidad} elementos).`;
+    if (estadoTexto) estadoTexto.textContent = `Capa "${categoria.nombre}" cargada (${cantidad} elementos en el Bbox, fuente: ${fuenteUtilizada}).`;
     actualizarTelemetriaCapasActivas();
 
     ultimaConsultaRealizada = {
       bbox,
       filtro: categoria.nombre,
       cantidad: cantidad,
-      fuente: 'Overpass API / OpenStreetMap'
+      fuente: fuenteUtilizada
     };
     autocargarMetadatos({
       categoriaId: categoria.id,
       cantidad: cantidad,
-      fuente: 'Overpass API / OpenStreetMap',
+      fuente: fuenteUtilizada,
       filtro: categoria.nombre,
       bbox
     });
   } catch (error) {
-    console.warn(`[API en vivo no disponible para ${categoria.id}]: ${error.message}. Intentando cargar dataset local pre-extraído...`);
-    // Intento de fallback a los datos locales validados de Barrio Brasil / UAH
-    try {
-      const rutasPosibles = [
-        `data/capa_${categoria.id}.geojson`,
-        `./data/capa_${categoria.id}.geojson`,
-        `../data/capa_${categoria.id}.geojson`,
-        `/data/capa_${categoria.id}.geojson`
-      ];
-      let geojsonLocal = null;
-      for (const r of rutasPosibles) {
-        try {
-          const res = await fetch(r);
-          if (res.ok) {
-            geojsonLocal = await res.json();
-            break;
-          }
-        } catch (_) {}
-      }
-
-      if (geojsonLocal && geojsonLocal.features && geojsonLocal.features.length > 0) {
-        const cantidad = geojsonLocal.features.length;
-        labelConteo.textContent = `${cantidad}`;
-        ModuloMapa.cargarCapaGeoJSON(categoria.id, geojsonLocal, {
-          nombre: categoria.nombre,
-          color: categoria.color,
-          icono: categoria.icono,
-          fuente: 'OpenStreetMap',
-          licencia: 'ODbL 1.0 (© colaboradores de OpenStreetMap)'
-        });
-        capasCargadasPorCategoria[categoria.id] = geojsonLocal;
-        btn.classList.remove('cargando');
-        btn.classList.add('activo');
-        estadoTexto.innerHTML = `Capa "${categoria.nombre}" cargada desde catálogo local validado (${cantidad} entidades en Barrio Brasil / UAH). <span class="descripcion">(Servidor Overpass saturado)</span>`;
-        ultimaConsultaRealizada = {
-          bbox,
-          filtro: categoria.nombre,
-          cantidad: cantidad,
-          fuente: 'Catálogo Local Validado'
-        };
-        autocargarMetadatos({
-          categoriaId: categoria.id,
-          cantidad: cantidad,
-          fuente: 'Catálogo Local Validado (Barrio Brasil / UAH)',
-          filtro: categoria.nombre,
-          bbox
-        });
-        return;
-      }
-    } catch (fallbackErr) {
-      console.error('Fallo también el fallback local:', fallbackErr);
-    }
-
+    console.error(`[Error general al consultar ${categoria.id}]:`, error);
     btn.classList.remove('cargando');
+    if (card) card.classList.remove('cargando');
     estadoTexto.innerHTML = `<span style="color:var(--alerta);">Error al consultar ${categoria.nombre}: ${error.message}</span>`;
   }
 }
@@ -2024,7 +2075,8 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
     const resultado = await ModuloGBIF.buscarOcurrencias({
       nombre,
       bbox: bbox || undefined,
-      basisOfRecord: basisOfRecord
+      basisOfRecord: basisOfRecord,
+      limite: 300
     });
 
     if (resultado.registros.length === 0) {

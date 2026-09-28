@@ -44,7 +44,7 @@ const ModuloGBIF = (() => {
     }
   }
 
-  async function buscarOcurrencias({ nombre, bbox, limite = 50, basisOfRecord = 'ALL' }) {
+  async function buscarOcurrencias({ nombre, bbox, limite = 300, basisOfRecord = 'ALL' }) {
     const claveCache = `${nombre || ''}_${JSON.stringify(bbox)}_${limite}_${basisOfRecord}`;
     if (cacheOcurrencias.has(claveCache)) {
       console.log('[GBIF] Retornando ocurrencias desde caché en memoria');

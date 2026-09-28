@@ -7,8 +7,10 @@
 */
 
 const OVERPASS_ESPEJOS = [
-  'https://overpass-api.de/api/interpreter',
-  'https://lz4.overpass-api.de/api/interpreter'
+  'https://lz4.overpass-api.de/api/interpreter',
+  'https://z.overpass-api.de/api/interpreter',
+  'https://overpass.openstreetmap.fr/api/interpreter',
+  'https://overpass-api.de/api/interpreter'
 ];
 
 exports.handler = async function (event, context) {
@@ -67,7 +69,7 @@ exports.handler = async function (event, context) {
         qlSanitizado = `[out:json][timeout:${timeout}];\n${qlSanitizado}`;
       }
       if (!qlSanitizado.includes('out ') && !qlSanitizado.includes('out;')) {
-        qlSanitizado = `${qlSanitizado}\nout geom tags qt 400;`;
+        qlSanitizado = `${qlSanitizado}\nout geom tags qt 5000;`;
       }
       consultaQL = qlSanitizado;
     } else {
@@ -76,7 +78,7 @@ exports.handler = async function (event, context) {
         (
           ${qlSanitizado}
         );
-        out geom tags qt 400;
+        out geom tags qt 5000;
       `;
     }
   } else {
@@ -110,7 +112,7 @@ exports.handler = async function (event, context) {
       (
         ${tipoEntidad}${filtro}(${bboxOverpass});
       );
-      out geom tags 400;
+      out geom tags qt 5000;
     `;
   }
 
@@ -119,13 +121,15 @@ exports.handler = async function (event, context) {
   for (const endpoint of OVERPASS_ESPEJOS) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4500); // 4.5s por servidor para conmutar rápido dentro del presupuesto Netlify
+      const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s por servidor para conmutar rápido dentro del presupuesto Netlify
 
       const respuesta = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'User-Agent': 'AtlasVGI/1.0 (contacto@uahurtado.cl)'
+          'Accept': 'application/json, text/javascript, */*; q=0.01',
+          'Accept-Language': 'es-CL,es;q=0.9,en;q=0.8',
+          'User-Agent': 'AtlasVGI-UAH/1.0 (contacto@geovgi.uahurtado.cl)'
         },
         body: 'data=' + encodeURIComponent(consultaQL),
         signal: controller.signal

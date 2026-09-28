@@ -230,7 +230,11 @@ const ModuloOSM = (() => {
 
         const respuesta = await fetch(endpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Language': 'es-CL,es;q=0.9,en;q=0.8'
+          },
           body: 'data=' + encodeURIComponent(consulta),
           signal: controller.signal
         });
@@ -418,8 +422,10 @@ const ModuloOSM = (() => {
         const res = await fetch(r);
         if (res.ok) {
           const data = await res.json();
-          cacheGeoJSONLocal.set(nombreArchivo, data);
-          return data;
+          if (data && data.type === 'FeatureCollection' && Array.isArray(data.features)) {
+            cacheGeoJSONLocal.set(nombreArchivo, data);
+            return data;
+          }
         }
       } catch (_) {}
     }
@@ -464,9 +470,8 @@ const ModuloOSM = (() => {
     if (tienePuntoDentro) return true;
     if (minX > este || maxX < oeste || minY > norte || maxY < sur) return false;
 
-    const centroBboxX = (oeste + este) / 2;
-    const centroBboxY = (sur + norte) / 2;
-    return (minX <= centroBboxX && maxX >= centroBboxX && minY <= centroBboxY && maxY >= centroBboxY);
+    // Intersección de envolventes espaciales (AABB): garantiza que cualquier polígono/línea que cruce o contenga el Bbox sea devuelto
+    return !(maxX < oeste || minX > este || maxY < sur || minY > norte);
   }
 
   function resolverCategoria(preset, etiqueta) {
