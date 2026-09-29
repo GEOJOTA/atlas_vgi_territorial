@@ -40,6 +40,8 @@ ARCHIVOS_CODIGO = [
     "src/index.html",
     "src/js/modulos/osm.js",
     "src/js/modulos/mapa.js",
+    "src/js/modulos/ide_chile.js",
+    "src/js/modulos/evaluador_normativo.js",
     "src/js/app.js",
     "README.md",
     "MANUAL_USO.md",
@@ -53,6 +55,8 @@ ARCHIVOS_CODIGO = [
     "src/docs/catalogo_fuentes_vgi.xlsx",
     "docs/perfil_metadatos_vgi.xlsx",
     "src/docs/perfil_metadatos_vgi.xlsx",
+    "scripts/db/02_seed_metadata.sql",
+    "scripts/descargar_capas_normativas_ide.py",
     "scripts/generar_catalogos_excel.py",
     "scripts/procesar_osm_geofabrik_usuario.py",
     "scripts/procesar_osm_geofabrik_completo.py",
@@ -302,7 +306,21 @@ def main():
         })
         print(f"  [+] Puntero LFS {rel_path} -> {blob_sha[:8]}")
 
-    # 3. Crear Tree
+    # 3. Eliminar archivos redundantes del árbol Git
+    archivos_eliminar = [
+        "data/ide_minvu_unidades_vecinales_rsh.geojson",
+        "src/data/ide_minvu_unidades_vecinales_rsh.geojson"
+    ]
+    for rel_path in archivos_eliminar:
+        tree_entries.append({
+            "path": rel_path.replace("\\", "/"),
+            "mode": "100644",
+            "type": "blob",
+            "sha": None
+        })
+        print(f"  [-] Eliminando de Git: {rel_path}")
+
+    # 4. Crear Tree
     print("\n[*] Creando Tree en GitHub...", flush=True)
     tree_url = f"https://api.github.com/repos/{OWNER}/{REPO}/git/trees"
     payload_tree = {
@@ -316,11 +334,11 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(geofabrik-rm): actualizacion semantica a 1.552.144 entidades y sustitucion interpretacion predial\n\n"
-        "- Sustitucion de 'interpolacion_predial' por 'interpretacion predial' en 93.860 entidades de CAT-09 (Edificaciones y Huella Urbana).\n"
-        "- Integracion y reclasificacion de nodos y geometrias residuales (entrance a accesibilidad/edificaciones, tourism a servicios/edificaciones, semaforos y cruces a transporte/accesibilidad, playground a espacio publico, arbustos a biodiversidad).\n"
-        "- Total consolidado de 1.552.144 asignaciones semanticas en las 10 macrocategorias tematicas (695.412 edificaciones y 326.545 transporte).\n"
-        "- Sincronizacion de los 3 libros de catalogo Excel (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y UI del Atlas VGI."
+        "feat(capas): eliminacion de capa duplicada Unidades Vecinales & RSH (MDS / MINVU)\n\n"
+        "- Eliminacion de la capa redundante 'ide_minvu_unidades_vecinales_rsh' preservando la capa maestra oficial 'bbdd_66: Unidades Vecinales 2026 (MDSF / BIDAT)'.\n"
+        "- Ajuste del catalogo a 108 capas oficiales del Estado y 118 capas totales del sistema.\n"
+        "- Sincronizacion de evaluador_normativo.js, ide_chile.js, app.js, 02_seed_metadata.sql y UI index.html.\n"
+        "- Regeneracion de los 3 libros de catalogo Excel (.xlsx) y actualizacion documental (README.md, MANUAL_USO.md, ARQUITECTURA.md)."
     )
 
 

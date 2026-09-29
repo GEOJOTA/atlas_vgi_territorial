@@ -64,27 +64,27 @@ Debajo del mapa encontrarás la botonera con las 10 categorías territoriales ci
 
 ---
 
-## 2. Consola Técnica GIS y Catálogo Oficial de 109 Capas del Estado de Chile (IDE Chile / BBDD / UOCT MTT)
+## 2. Consola Técnica GIS y Catálogo Oficial de 108 Capas del Estado de Chile (IDE Chile / BBDD / UOCT MTT)
 
 Ubicada inmediatamente después del visor, la **Consola de Capas GIS** es un entorno de trabajo cartográfico profesional (*GIS-grade workbench*) rediseñado para permitir auditorías territoriales rigurosas, eliminando distracciones visuales o emojis infantiles y garantizando alta legibilidad según estándares WCAG AAA.
 
 ### 2.1 Componentes de la Consola Técnica GIS
 - **Barra de Telemetría e Indicadores KPI:**
-  - `[119 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
+  - `[118 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
   - `[0 EN MAPA]` (dinámico): Contador en tiempo real de capas activamente renderizadas en el lienzo Leaflet.
   - **`📥 Descargar Capas Activas`:** Exporta en un clic un paquete GeoJSON con todas las capas actualmente encendidas.
 - **Buscador Predictivo en Tiempo Real (`#busqueda-capas-atlas`):**
-  - Permite filtrar instantáneamente cualquiera de las 119 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
+  - Permite filtrar instantáneamente cualquiera de las 118 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
 - **Chips de Filtro Rápido:**
   - Accesos directos temáticos: `Todos`, `Movilidad & Semáforos`, `Normativa`, `Censo & Social`, `Medio Ambiente`, `Equipamiento`, `Seguridad`, `VGI`.
 - **Pestañas Segmentadas:**
-  - **`Capas Oficiales del Estado (109)`**: Despliegue de los 6 macro-grupos institucionales.
+  - **`Capas Oficiales del Estado (108)`**: Despliegue de los 6 macro-grupos institucionales.
   - **`Capas Colaborativas VGI (10)`**: Catálogo de las 10 categorías maestras de OpenStreetMap y GBIF.
   - **`Capas Activas en Mapa (N)`**: Vista concentrada exclusiva de las capas actualmente superpuestas para gestión rápida de visibilidad.
 - **Tarjetas Cartográficas Estilizadas (`.tarjeta-capa-gis`):**
   - Cada tarjeta presenta un interruptor toggle deslizante, el código institucional oficial, un pill de tipo geométrico (`PUNTO`, `LÍNEA`, `POLÍGONO`), un pill de organismo responsable (`UOCT / MTT`, `MINVU`, `INE`, etc.), descripción concisa y el botón directo de descarga sin simplificaciones **`GeoJSON`**.
 
-### 2.2 Los Macro-Grupos Oficiales (109 Capas)
+### 2.2 Los Macro-Grupos Oficiales (108 Capas)
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
    - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT, Límites Urbanos Oficiales y Fajas de Resguardo.
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**

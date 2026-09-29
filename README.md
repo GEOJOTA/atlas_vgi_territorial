@@ -71,9 +71,9 @@ El Módulo 01 del Atlas ofrece dos opciones pedagógicas:
 
 ---
 
-## 5. Capas oficiales del Estado de Chile integradas (109 capas oficiales + 10 VGI = 119 capas)
+## 5. Capas oficiales del Estado de Chile integradas (108 capas oficiales + 10 VGI = 118 capas)
 
-El visor integra **109 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
+El visor integra **108 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
 
 1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
 2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
@@ -90,7 +90,7 @@ El visor integra **109 capas cartográficas oficiales de la Administración del 
 El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extensión PostGIS 3.3**, 100% libre, gratuito y permanente:
 
 - **129.262 Entidades Vectoriales Vectorizadas:** Almacenadas en la tabla relacional `public.capas_entidades`, optimizando más de 630 MB de archivos GeoJSON de texto a 210 MB binarios con geometrías validadas.
-- **Catálogo de Metadatos Relacional:** Tabla `public.capas_metadata` con los 109 registros oficiales, citas APA 7ª ed., instituciones de procedencia y conteos de entidades.
+- **Catálogo de Metadatos Relacional:** Tabla `public.capas_metadata` con los 108 registros oficiales, citas APA 7ª ed., instituciones de procedencia y conteos de entidades.
 - **Índices Espaciales R-Tree GIST:** Consultas espaciales ultrarrápidas mediante la función RPC `fn_obtener_capa_bbox`, permitiendo al visor Leaflet consultar únicamente las geometrías contenidas en el Bbox activo en milisegundos.
 - **Storage CDN (`atlas-geojson`):** Bucket público de alta disponibilidad para descarga directa de coberturas completas.
 - **Arquitectura con Fallback de Triple Contingencia:** Si falla la conexión a internet o no se han configurado credenciales, el visor conmuta de forma transparente al directorio local `data/`.
@@ -129,7 +129,7 @@ atlas_vgi_uah/
 │   │   └── modulos/
 │   │       ├── mapa.js                 # Visor 2D Leaflet y control de capas
 │   │       ├── db_client.js            # Cliente PostGIS RPC y Supabase Storage CDN
-│   │       ├── ide_chile.js            # Catálogo oficial de 109 capas del Estado (UOCT/MTT incluido)
+│   │       ├── ide_chile.js            # Catálogo oficial de 108 capas del Estado (UOCT/MTT incluido)
 │   │       ├── evaluador_normativo.js  # Motor CIN-VGI / PRC Santiago / OGUC
 │   │       ├── ohsome.js               # Métricas calidad VGI (ohsome API dual v1/v2)
 │   │       ├── calidad_analyst.js      # ICV e inspector changesets OSMCha
@@ -138,7 +138,7 @@ atlas_vgi_uah/
 │   │       ├── gbif.js                 # Biodiversidad urbana y Darwin Core
 │   │       ├── geodesia.js             # Reproyección Snyder EPSG:32719 UTM 19S
 │   │       └── metadatos.js            # Generador ISO 19115 (JSON) e ISO 19139 (XML)
-│   ├── data/                           # 109 capas GeoJSON oficiales + 10 VGI (119 capas totales)
+│   ├── data/                           # 108 capas GeoJSON oficiales + 10 VGI (118 capas totales)
 │   ├── config/config.json              # Configuración JSON sincronizada
 │   └── docs/                           # Catálogos Excel (.xlsx) de acceso público
 ├── backend/servidor_vgi.py             # Servidor proxy Flask opcional para CORS
@@ -147,7 +147,7 @@ atlas_vgi_uah/
 ├── scripts/
 │   ├── db/
 │   │   ├── 01_schema_postgis.sql       # Esquema DDL PostGIS, tablas, índices GIST y RPC
-│   │   └── 02_seed_metadata.sql        # Inserción de metadatos de las 109 capas oficiales
+│   │   └── 02_seed_metadata.sql        # Inserción de metadatos de las 108 capas oficiales
 │   ├── subir_base_datos_supabase.py    # Pipeline CLI de sincronización y subida CDN
 │   ├── cargar_entidades_postgis.py     # Ingesta masiva de 129.262 entidades en PostGIS
 │   ├── generar_catalogos_excel.py      # Generador de matrices Excel (.xlsx) con openpyxl

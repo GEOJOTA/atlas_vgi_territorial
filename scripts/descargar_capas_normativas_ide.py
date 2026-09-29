@@ -63,19 +63,6 @@ SERVICIOS = [
         'bbox_filter': [-71.10, -33.85, -70.30, -33.10]
     },
     {
-        'id': 'ide_minvu_unidades_vecinales_rsh',
-        'archivo': 'ide_minvu_unidades_vecinales_rsh.geojson',
-        'url': 'https://geoide.minvu.cl/server/rest/services/Informacion_Externa/Unidades_Vecinales_con_RSH/MapServer/0/query',
-        'params': {
-            'where': "COMUNA = 'Santiago' OR NOM_COM = 'Santiago' OR 1=1",
-            'outFields': '*',
-            'f': 'geojson',
-            'outSR': '4326',
-            'returnGeometry': 'true'
-        },
-        'bbox_filter': [-70.80, -33.55, -70.55, -33.35]
-    },
-    {
         'id': 'ide_minvu_ipt_prms_riesgo',
         'archivo': 'ide_minvu_ipt_prms_riesgo.geojson',
         'url': 'https://geoide.minvu.cl/server/rest/services/IPT/PRMS/FeatureServer/3/query',

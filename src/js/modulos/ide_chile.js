@@ -348,22 +348,6 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información oficial provista por el Departamento de Asentamientos Precarios del MINVU bajo la Política Nacional de Campamentos.',
       citaAPA: 'Ministerio de Vivienda y Urbanismo [MINVU]. (2024). Catastro Nacional Oficial de Campamentos 2024. Secretaría Ejecutiva SNIT / IDE Chile. https://geoide.minvu.cl/server/rest/services/Catastros/Catastros_campamentos/MapServer/0'
     },
-    ide_minvu_unidades_vecinales_rsh: {
-      id: 'ide_minvu_unidades_vecinales_rsh',
-      nombre: 'Unidades Vecinales & RSH (MDS / MINVU)',
-      institucion: 'Ministerio de Desarrollo Social y Familia (MDS) / MINVU',
-      ministerio: 'Subsecretaría de Evaluación Social',
-      tipoServicio: 'ArcGIS MapServer',
-      urlServicio: 'https://geoide.minvu.cl/server/rest/services/Informacion_Externa/Unidades_Vecinales_con_RSH/MapServer/0',
-      archivoLocal: 'data/ide_minvu_unidades_vecinales_rsh.geojson',
-      color: '#6366F1',
-      icono: '🗫',
-      geometria: 'Polígonos (Unidades Vecinales)',
-      grupo: 'social_comunidades',
-      descripcion: 'Delimitación territorial de unidades vecinales oficiales con indicadores consolidados del Registro Social de Hogares (RSH 2024).',
-      declaracion: 'Información geoespacial oficial provista por el Ministerio de Desarrollo Social y Familia y MINVU bajo la Ley N° 19.418.',
-      citaAPA: 'Ministerio de Desarrollo Social y Familia [MDSF] & MINVU. (2024). Delimitación de Unidades Vecinales con Registro Social de Hogares. IDE Chile. https://geoide.minvu.cl/server/rest/services/Informacion_Externa/Unidades_Vecinales_con_RSH/MapServer/0'
-    },
     ide_minvu_ipt_prms_riesgo: {
       id: 'ide_minvu_ipt_prms_riesgo',
       nombre: 'PRMS: Riesgos Metropolitanos (Inundación / Remoción)',
