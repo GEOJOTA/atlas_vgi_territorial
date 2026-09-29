@@ -152,12 +152,19 @@ def clasificar_feature(props, tipo_archivo=""):
     emergency = tags.get('emergency') or ''
     man_made = tags.get('man_made') or ''
     traffic_calming = tags.get('traffic_calming') or ''
-    traffic_signals = tags.get('traffic_signals') or ''
+    traffic_signals = tags.get('traffic_signals') or ('signal' if any(k.startswith('traffic_signals') for k in tags) else '')
     traffic_sign = tags.get('traffic_sign') or ''
     addr_hn = tags.get('addr:housenumber') or ''
     addr_st = tags.get('addr:street') or ''
     addr_interp = tags.get('addr:interpolation') or ''
     noexit = tags.get('noexit') or ''
+    entrance = tags.get('entrance') or ''
+    information = tags.get('information') or ''
+    golf = tags.get('golf') or ''
+    playground = tags.get('playground') or ''
+    advertising = tags.get('advertising') or ''
+    junction = tags.get('junction') or ''
+    military = tags.get('military') or ''
     
     # Específicos de relaciones (OtherRelations)
     rel_type = props.get('type') or tags.get('type') or ''
@@ -200,8 +207,11 @@ def clasificar_feature(props, tipo_archivo=""):
        power in {'tower', 'pole', 'transformer', 'substation', 'generator', 'cable', 'minor_line', 'line', 'switch'} or \
        emergency in {'fire_hydrant', 'defibrillator', 'water_tank', 'fire_extinguisher', 'siren', 'phone', 'assembly_point'} or \
        route in {'power'} or \
+       tourism in {'hotel', 'motel', 'guest_house', 'hostel', 'chalet', 'information'} or \
+       advertising in {'billboard', 'totem', 'poster'} or \
+       military in {'checkpoint', 'barracks'} or \
        man_made in {'communications_tower', 'mast', 'tower', 'water_tower', 'pipeline', 'storage_tank', 'works', 'gasometer'}:
-        subt = shop or amenity or craft or office or (f"energia_{power}" if power else (f"emergencia_{emergency}" if emergency else (f"infra_{man_made}" if man_made else (f"sitio_{site}" if site else 'servicio'))))
+        subt = shop or amenity or craft or office or (f"alojamiento_{tourism}" if tourism else (f"energia_{power}" if power else (f"emergencia_{emergency}" if emergency else (f"infra_{man_made}" if man_made else (f"sitio_{site}" if site else 'servicio')))))
         resultados.append(('CAT-02', 'servicios', subt, name))
         
     # ----------------------------------------------------
@@ -212,9 +222,9 @@ def clasificar_feature(props, tipo_archivo=""):
                    'traffic_signals', 'motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link', 
                    'motorway_junction', 'turning_loop', 'turning_circle', 'mini_roundabout', 'passing_place', 'speed_camera',
                    'give_way', 'stop', 'milestone', 'toll_booth'} or \
-       railway in {'station', 'stop', 'subway_entrance', 'subway', 'tram', 'tram_stop', 'rail', 'light_rail', 'platform', 'halt', 'level_crossing', 'switch', 'buffer_stop'} or \
+       railway in {'station', 'stop', 'subway_entrance', 'subway', 'tram', 'tram_stop', 'rail', 'light_rail', 'platform', 'halt', 'level_crossing', 'switch', 'buffer_stop', 'crossing'} or \
        amenity in {'bus_station', 'ferry_terminal', 'taxi', 'car_rental', 'car_sharing', 'bicycle_parking', 'bicycle_rental', 'parking', 'parking_space', 'parking_entrance', 'motorcycle_parking', 'toll_booth'} or \
-       public_transport or aeroway or aerialway or \
+       public_transport or aeroway or aerialway or junction or tags.get('subway') == 'yes' or \
        route in {'bus', 'subway', 'train', 'trolleybus', 'tram', 'light_rail', 'ferry', 'road', 'railway'} or \
        restriction or destination or rel_type in {'restriction', 'destination_sign', 'public_transport', 'turnlanes:turns', 'turnlanes:lengths', 'bridge', 'tunnel', 'traffic_mirror', 'restriction:hgv', 'route_master'} or \
        site == 'parking' or traffic_signals or traffic_sign or traffic_calming or noexit == 'yes' or tags.get('maxspeed') or tags.get('ford'):
@@ -224,6 +234,7 @@ def clasificar_feature(props, tipo_archivo=""):
                (f"calma_{traffic_calming}" if traffic_calming else '') or \
                (f"semaforo" if traffic_signals else '') or \
                (f"senal_{traffic_sign}" if traffic_sign else '') or \
+               (f"union_{junction}" if junction else '') or \
                route or railway or highway or amenity or public_transport or aeroway or 'transporte'
         resultados.append(('CAT-03', 'transporte', subt, name))
         
@@ -244,14 +255,14 @@ def clasificar_feature(props, tipo_archivo=""):
     # ----------------------------------------------------
     if leisure in {'park', 'garden', 'playground', 'pitch', 'sports_centre', 'recreation_ground', 
                    'track', 'stadium', 'dog_park', 'nature_reserve', 'fitness_station', 'fitness_centre', 
-                   'swimming_pool', 'water_park', 'ice_rink', 'miniature_golf', 'bowling_alley', 'disc_golf_course', 'plaza'} or \
+                   'swimming_pool', 'water_park', 'ice_rink', 'miniature_golf', 'bowling_alley', 'disc_golf_course', 'plaza', 'outdoor_seating'} or \
        amenity in {'place_of_worship', 'fountain', 'bench', 'shelter', 'bbq', 'drinking_water', 'toilets', 'public_bath', 'waste_basket'} or \
        tourism in {'picnic_site', 'viewpoint', 'theme_park', 'zoo', 'camp_site'} or \
-       sport or \
+       sport or golf or playground or information in {'board', 'map', 'terminal'} or \
        landuse in {'recreation_ground', 'village_green', 'cemetery', 'park'} or \
        site in {'park', 'piste'} or \
        route in {'hiking', 'mtb'}:
-        subt = leisure or amenity or tourism or sport or (landuse if landuse in {'recreation_ground', 'village_green', 'cemetery'} else (f"sitio_{site}" if site else 'espacio_publico'))
+        subt = leisure or (f"deporte_{golf}" if golf else (f"juegos_{playground}" if playground else (f"informacion_{information}" if information else (amenity or tourism or sport or (landuse if landuse in {'recreation_ground', 'village_green', 'cemetery'} else (f"sitio_{site}" if site else 'espacio_publico'))))))
         resultados.append(('CAT-05', 'espacio_publico', subt, name))
         
     # ----------------------------------------------------
@@ -271,14 +282,16 @@ def clasificar_feature(props, tipo_archivo=""):
     if highway in {'crossing', 'elevator'} or crossing or kerb or tactile_paving or \
        wheelchair in {'yes', 'designated', 'limited', 'no'} or tags.get('footway') == 'crossing' or \
        tags.get('traffic_signals:vibration') == 'yes' or tags.get('traffic_signals:sound') == 'yes' or \
-       barrier in {'bollard', 'lift_gate', 'gate', 'turnstile', 'swing_gate', 'block', 'stile', 'kissing_gate', 'cycle_barrier'}:
-        subt = crossing or kerb or ('elevador' if highway == 'elevator' else ('accesible' if wheelchair == 'yes' else (f"barrera_{barrier}" if barrier else 'cruce_accesible')))
+       barrier in {'bollard', 'lift_gate', 'gate', 'turnstile', 'swing_gate', 'block', 'stile', 'kissing_gate', 'cycle_barrier'} or \
+       entrance in {'yes', 'main', 'staircase', 'disabled'} or \
+       railway in {'crossing', 'level_crossing'}:
+        subt = crossing or kerb or ('elevador' if highway == 'elevator' else ('accesible' if wheelchair == 'yes' else (f"acceso_{entrance}" if entrance else (f"barrera_{barrier}" if barrier else (f"cruce_ferroviario" if railway else 'cruce_accesible')))))
         resultados.append(('CAT-07', 'accesibilidad', subt, name))
         
     # ----------------------------------------------------
     # CAT-08: Biodiversidad Urbana
     # ----------------------------------------------------
-    if natural in {'tree', 'wood', 'scrub', 'tree_row', 'water', 'wetland', 'grassland', 'bare_rock', 'heath', 'valley', 'ridge', 'spring', 'peak', 'scree', 'shingle', 'fell', 'sand', 'cliff', 'rock'} or \
+    if natural in {'tree', 'wood', 'scrub', 'tree_row', 'water', 'wetland', 'grassland', 'bare_rock', 'heath', 'valley', 'ridge', 'spring', 'peak', 'scree', 'shingle', 'fell', 'sand', 'cliff', 'rock', 'shrub', 'tree_stump', 'bush'} or \
        landuse in {'forest', 'orchard', 'vineyard', 'plant_nursery', 'flowerbed', 'allotments', 'meadow', 'grass'} or \
        waterway in {'river', 'stream', 'canal', 'drain', 'ditch', 'waterfall', 'dock', 'riverbank', 'weir'} or \
        leisure in {'nature_reserve', 'garden'} or \
@@ -301,10 +314,16 @@ def clasificar_feature(props, tipo_archivo=""):
         subt_edif = tags.get('building') or 'edificacion_complejo'
     elif addr_hn or addr_st or addr_interp:
         es_edif = True
-        subt_edif = 'predio_direccion' if (addr_hn or addr_st) else 'interpolacion_predial'
+        subt_edif = 'predio_direccion' if (addr_hn or addr_st) else 'interpretación predial'
+    elif entrance:
+        es_edif = True
+        subt_edif = f"acceso_{entrance}"
     elif barrier in {'wall', 'fence', 'retaining_wall', 'city_wall'}:
         es_edif = True
         subt_edif = f"deslinde_{barrier}"
+    elif tourism in {'hotel', 'motel', 'guest_house', 'hostel', 'chalet'}:
+        es_edif = True
+        subt_edif = f"alojamiento_{tourism}"
     elif tipo_archivo == "multipolygons":
         if shop or office:
             es_edif = True
@@ -337,9 +356,9 @@ def clasificar_feature(props, tipo_archivo=""):
         es_lu = True
         subt_lu = natural
     elif leisure in {'park', 'garden', 'playground', 'pitch', 'sports_centre', 'recreation_ground', 
-                     'track', 'stadium', 'dog_park', 'nature_reserve', 'swimming_pool', 'water_park', 'golf_course'}:
+                     'track', 'stadium', 'dog_park', 'nature_reserve', 'swimming_pool', 'water_park', 'golf_course'} or golf:
         es_lu = True
-        subt_lu = f"recreativo_{leisure}"
+        subt_lu = f"recreativo_{leisure or 'golf'}"
     elif aeroway in {'aerodrome', 'apron', 'runway', 'taxiway', 'helipad'}:
         es_lu = True
         subt_lu = f"aeroportuario_{aeroway}"
@@ -385,7 +404,7 @@ def clasificar_feature(props, tipo_archivo=""):
             elif tipo_archivo in ('multipolygons', 'other_relations'):
                 resultados.append(('CAT-10', 'cobertura_suelo', 'cobertura_espacial', name))
             else:
-                resultados.append(('CAT-09', 'edificaciones', 'nodo_urbano', name))
+                resultados.append(('CAT-09', 'edificaciones', 'predio_catastral', name))
                 
     return resultados
 

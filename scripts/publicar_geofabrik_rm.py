@@ -316,12 +316,11 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(geofabrik-rm): integracion completa del 100% de geometrias fuente RM (1.547.052 entidades)\n\n"
-        "- Ingestion exhaustiva de los 5 archivos fuente completos de Geofabrik RM (Points, Lines, Multistring, Multipolygons y OtherRelations) clasificando 1.339.088 geometrias al 100.00% sin recortes.\n"
-        "- Elevacion de CAT-09 (Edificaciones y Huella Urbana) a 697.243 entidades integrando multipoligonos, direcciones postales, predios catastrales, muros y deslindes.\n"
-        "- Elevacion de CAT-03 (Transporte) a 325.476 entidades integrando la totalidad de la red vial, 29.300+ relaciones, senaletica y paraderos.\n"
-        "- Total consolidado de 1.547.052 asignaciones semanticas en las 10 macrocategorias tematicas con Bbox O(1) para filtros dinamicos.\n"
-        "- Actualizar catalogos OpenXML (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y UI del Atlas VGI."
+        "feat(geofabrik-rm): actualizacion semantica a 1.552.144 entidades y sustitucion interpretacion predial\n\n"
+        "- Sustitucion de 'interpolacion_predial' por 'interpretacion predial' en 93.860 entidades de CAT-09 (Edificaciones y Huella Urbana).\n"
+        "- Integracion y reclasificacion de nodos y geometrias residuales (entrance a accesibilidad/edificaciones, tourism a servicios/edificaciones, semaforos y cruces a transporte/accesibilidad, playground a espacio publico, arbustos a biodiversidad).\n"
+        "- Total consolidado de 1.552.144 asignaciones semanticas en las 10 macrocategorias tematicas (695.412 edificaciones y 326.545 transporte).\n"
+        "- Sincronizacion de los 3 libros de catalogo Excel (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y UI del Atlas VGI."
     )
 
 
