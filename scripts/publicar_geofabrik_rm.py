@@ -170,17 +170,17 @@ def asegurar_y_subir_lfs():
             
             class ProgressReader:
                 def __init__(self, filename):
-                    self.f = open(filename, 'rb')
+                    self.f = open(filename, 'rb', buffering=1024*1024)
                     self.total = os.path.getsize(filename)
                     self.read_bytes = 0
                     self.last_pct = 0
                     self.t0 = time.time()
                 def read(self, n=-1):
-                    chunk = self.f.read(n)
+                    chunk = self.f.read(n if n > 0 else 256*1024)
                     if chunk:
                         self.read_bytes += len(chunk)
                         pct = int(self.read_bytes * 100 / self.total)
-                        if pct >= self.last_pct + 20:
+                        if pct >= self.last_pct + 10:
                             self.last_pct = pct
                             el = time.time() - self.t0
                             speed = (self.read_bytes / (1024*1024)) / el if el > 0 else 0
@@ -199,11 +199,28 @@ def asegurar_y_subir_lfs():
                     self.f.close()
 
             subido_ok = False
-            for intento in range(1, 6):
+            for intento in range(1, 8):
+                if intento > 1:
+                    print(f"  [*] Solicitando nueva URL pre-firmada S3 para reintento {intento}...", flush=True)
+                    r_batch_retry = requests.post(LFS_URL, json=batch_payload, headers=obtener_headers_lfs(), timeout=30)
+                    if r_batch_retry.status_code == 200:
+                        obj_retry = r_batch_retry.json().get("objects", [{}])[0]
+                        actions_retry = obj_retry.get("actions", {})
+                        if "upload" not in actions_retry:
+                            print("  [+] ¡El objeto ya fue aceptado por LFS S3!")
+                            subido_ok = True
+                            break
+                        put_url = actions_retry["upload"]["href"]
+                        put_headers = actions_retry["upload"].get("header", {})
+                        actions = actions_retry
+
                 reader = ProgressReader(meta["local_path"])
                 try:
                     t0 = time.time()
-                    r_put = requests.put(put_url, data=reader, headers=put_headers, timeout=(60, 1800))
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(max_retries=1)
+                    session.mount('https://', adapter)
+                    r_put = session.put(put_url, data=reader, headers=put_headers, timeout=(60, 2400))
                     t_el = time.time() - t0
                     reader.close()
                     if r_put.status_code in (200, 201):
@@ -212,11 +229,11 @@ def asegurar_y_subir_lfs():
                         break
                     else:
                         print(f"  [-] [Reintento {intento} HTTP {r_put.status_code}]: {r_put.text[:150]}", flush=True)
-                        time.sleep(3)
+                        time.sleep(5)
                 except Exception as e_s3:
                     reader.close()
                     print(f"  [-] [Reintento {intento} por {e_s3.__class__.__name__}]: {e_s3}", flush=True)
-                    time.sleep(5)
+                    time.sleep(7)
             
             if not subido_ok:
                 print("ERROR: Fallo definitivo tras reintentos en S3.")
@@ -299,12 +316,12 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(geofabrik-rm): integracion completa de 5 archivos con OtherRelations y regla multipoligonos (921.401 entidades)\n\n"
-        "- Integrar los 5 archivos completos de Geofabrik RM (Points, Lines, Multistring, Multipolygons y OtherRelations) totalizando 1.339.088 entidades analizadas.\n"
-        "- Incorporar la regla universal de multipolígonos (landuse y building=yes) elevando CAT-09 a 319.380 edificaciones integras sin recortes y CAT-10 a 76.397 coberturas de suelo.\n"
-        "- Integrar 29.899 relaciones de Geofabrik_Chile_OtherRelations.geojson (restricciones de giro, senaletica vial de destino, paradas y redes fluviales) elevando CAT-03 a 151.066 entidades.\n"
-        "- Superposicion semantica exhaustiva en 10 macrocategorias totalizando 921.401 entidades con Bbox O(1).\n"
-        "- Actualizar libros OpenXML (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y UI del Atlas VGI."
+        "feat(geofabrik-rm): integracion completa del 100% de geometrias fuente RM (1.547.052 entidades)\n\n"
+        "- Ingestion exhaustiva de los 5 archivos fuente completos de Geofabrik RM (Points, Lines, Multistring, Multipolygons y OtherRelations) clasificando 1.339.088 geometrias al 100.00% sin recortes.\n"
+        "- Elevacion de CAT-09 (Edificaciones y Huella Urbana) a 697.243 entidades integrando multipoligonos, direcciones postales, predios catastrales, muros y deslindes.\n"
+        "- Elevacion de CAT-03 (Transporte) a 325.476 entidades integrando la totalidad de la red vial, 29.300+ relaciones, senaletica y paraderos.\n"
+        "- Total consolidado de 1.547.052 asignaciones semanticas en las 10 macrocategorias tematicas con Bbox O(1) para filtros dinamicos.\n"
+        "- Actualizar catalogos OpenXML (.xlsx), documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md) y UI del Atlas VGI."
     )
 
 

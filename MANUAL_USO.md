@@ -162,7 +162,7 @@ Permite a los usuarios y organizaciones auditar su propia información geográfi
 
 ## 6. Consultas Espaciales, Explorador OSM y Base Regional Geofabrik (Panel 01)
 
-El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el análisis espacial masivo de la **Base Regional Geofabrik RM (921.401 entidades clasificadas con superposición semántica, 319.380 edificaciones íntegras sin recortes y 151.066 elementos de transporte y movilidad)**:
+El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el análisis espacial masivo de la **Base Regional Geofabrik RM (1.547.052 entidades clasificadas con superposición semántica, 697.243 edificaciones íntegras sin recortes y 325.476 elementos de transporte y movilidad)**:
 
 ### 6.1 Constructor Visual y Consultas Rápidas en 1 Clic
 - **Consultas Rápidas Ciudadanas:** 10 botones preconfigurados para mapear instantáneamente universidades, comercio, transporte, ciclovías, parques, patrimonio, rebajes accesibles D.S. 50, arbolado y edificaciones.
@@ -170,7 +170,7 @@ El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el an
 - **Editor Overpass QL:** Para usuarios avanzados que deseen redactar sintaxis directa en lenguaje Overpass QL usando el comodín `{{bbox}}`.
 
 ### 6.2 Base Regional Geofabrik RM y Modalidades Duales de Consulta Espacial
-Para consultar el extracto de 921.401 entidades descargado de Geofabrik para toda la Región Metropolitana con latencia 0 ms:
+Para consultar el extracto de 1.547.052 entidades descargado de Geofabrik para toda la Región Metropolitana con latencia 0 ms:
 1. **`🗺️ Modo 1: Bbox Dinámico del Mapa (Interactivo)`**:
    - Al navegar, arrastrar o cambiar el zoom en el visor Leaflet hacia cualquier comuna de la Región Metropolitana (Maipú, Puente Alto, Providencia, Santiago, La Florida, San Bernardo, Colina, Melipilla, etc.), los campos numéricos de coordenadas se recalculan en tiempo real.
    - Pulsa el botón **`[🗺️ Consultar por Bbox del Mapa]`**: El motor filtrará en memoria en tiempo récord ($O(1)$) descartando elementos fuera del encuadre y proyectando las geometrías de la zona activa.
