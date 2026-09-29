@@ -2294,13 +2294,13 @@ const ModuloIDEChile = (() => {
           'Estrategia MINVU': props.ESTRATEGIA || 'Radicación / Relocalización',
           'Comuna': props.COMUNA || 'Santiago'
         };
-      } else if (idCapa === 'ide_minvu_unidades_vecinales_rsh') {
-        nombreEntidad = `Unidad Vecinal N° ${props.uv_carto || props.t_uv_nom || props.OBJECTID}`;
-        detalleTipo = 'Unidad Vecinal Oficial (MDS / RSH 2024)';
+      } else if (idCapa === 'bbdd_66' || idCapa === 'ide_minvu_unidades_vecinales_rsh') {
+        nombreEntidad = `Unidad Vecinal N° ${props.uv_carto || props.t_uv_nom || props.OBJECTID || props.nombre || props.uv || 'S/N'}`;
+        detalleTipo = 'Unidad Vecinal Oficial (MDS / RSH 2026)';
         extraInfo = {
-          'Comuna': props.t_com_nom || 'Santiago',
-          'Provincia': props.t_prov_nom || 'Santiago',
-          'ID Cartográfico': props.t_id_uv_ca || '-'
+          'Comuna': props.t_com_nom || props.COMUNA || props.comuna || 'Santiago',
+          'Provincia': props.t_prov_nom || props.provincia || 'Santiago',
+          'ID Cartográfico': props.t_id_uv_ca || props.id || '-'
         };
       } else if (idCapa === 'ide_minvu_ipt_prms_riesgo') {
         nombreEntidad = `Zona de Riesgo PRMS: ${props.ZONA || props.DESCRIP || 'Riesgo Natural'}`;
@@ -2397,8 +2397,8 @@ const ModuloIDEChile = (() => {
         if (CAPAS_OFICIALES[alias]) return CAPAS_OFICIALES[alias];
       }
       // Alias / fallback de compatibilidad para capas consolidadas:
-      if (idCapa === 'unidades_vecinales_bidat' || idCapa === 'capa_unidades_vecinales_bidat') {
-        return CAPAS_OFICIALES['ide_minvu_unidades_vecinales_rsh'];
+      if (idCapa === 'unidades_vecinales_bidat' || idCapa === 'capa_unidades_vecinales_bidat' || idCapa === 'ide_minvu_unidades_vecinales_rsh') {
+        return CAPAS_OFICIALES['bbdd_66'];
       }
     }
     return null;

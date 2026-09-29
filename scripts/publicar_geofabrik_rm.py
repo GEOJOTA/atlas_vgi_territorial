@@ -306,21 +306,7 @@ def main():
         })
         print(f"  [+] Puntero LFS {rel_path} -> {blob_sha[:8]}")
 
-    # 3. Eliminar archivos redundantes del árbol Git
-    archivos_eliminar = [
-        "data/ide_minvu_unidades_vecinales_rsh.geojson",
-        "src/data/ide_minvu_unidades_vecinales_rsh.geojson"
-    ]
-    for rel_path in archivos_eliminar:
-        tree_entries.append({
-            "path": rel_path.replace("\\", "/"),
-            "mode": "100644",
-            "type": "blob",
-            "sha": None
-        })
-        print(f"  [-] Eliminando de Git: {rel_path}")
-
-    # 4. Crear Tree
+    # 3. Crear Tree
     print("\n[*] Creando Tree en GitHub...", flush=True)
     tree_url = f"https://api.github.com/repos/{OWNER}/{REPO}/git/trees"
     payload_tree = {
