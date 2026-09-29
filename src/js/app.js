@@ -2557,16 +2557,19 @@ function inicializarControlesConsolaGIS() {
         } else if (filtro === 'normativa' && ac.dataset.grupoId === 'normativa_ipt') {
           ac.style.display = '';
           ac.open = true;
-        } else if (filtro === 'demografia' && ac.dataset.grupoId === 'comunidades_vivienda') {
+        } else if (filtro === 'demografia' && ac.dataset.grupoId === 'social_demografia') {
           ac.style.display = '';
           ac.open = true;
-        } else if (filtro === 'medio_ambiente' && ac.dataset.grupoId === 'medio_ambiente') {
+        } else if (filtro === 'economia' && ac.dataset.grupoId === 'economia_inversion') {
           ac.style.display = '';
           ac.open = true;
         } else if (filtro === 'equipamiento' && ac.dataset.grupoId === 'equipamiento_patrimonio') {
           ac.style.display = '';
           ac.open = true;
-        } else if (filtro === 'seguridad' && ac.dataset.grupoId === 'seguridad') {
+        } else if (filtro === 'medio_ambiente' && ac.dataset.grupoId === 'medio_ambiente') {
+          ac.style.display = '';
+          ac.open = true;
+        } else if (filtro === 'seguridad' && ac.dataset.grupoId === 'seguridad_justicia') {
           ac.style.display = '';
           ac.open = true;
         } else {
@@ -2623,38 +2626,38 @@ function configurarCapasOficialesIDE() {
   const GRUPOS_OFICIALES = [
     {
       id: 'normativa_ipt',
-      nombre: 'Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU IPT / DPA)',
+      nombre: 'Normativa Urbanística & Catastro Predial (MINVU IPT / DPA / SII)',
       filtroGrupo: (c) => c.grupo === 'normativa_ipt'
     },
     {
       id: 'movilidad_transporte',
-      nombre: 'Movilidad, Vialidad, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro)',
-      filtroGrupo: (c) => ['movilidad_transporte', 'movilidad_activa', 'transporte'].includes(c.grupo) || c.id.includes('semaforos')
+      nombre: 'Movilidad, Red Vial, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro)',
+      filtroGrupo: (c) => c.grupo === 'movilidad_transporte'
     },
     {
-      id: 'comunidades_vivienda',
-      nombre: 'Demografía, Censo 2024, Vulnerabilidad Socioterritorial & RSH (INE / MDS)',
-      filtroGrupo: (c) => ['social_comunidades', 'demografia'].includes(c.grupo) || c.id.includes('censo')
+      id: 'social_demografia',
+      nombre: 'Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDS / MINVU)',
+      filtroGrupo: (c) => c.grupo === 'social_demografia'
     },
     {
-      id: 'medio_ambiente',
-      nombre: 'Medio Ambiente, Recursos Hídricos, Parques & Uso de Suelo (MMA / MINVU / DGA / CONAF)',
-      filtroGrupo: (c) => ['medio_ambiente_riesgos', 'espacio_publico'].includes(c.grupo)
+      id: 'economia_inversion',
+      nombre: 'Economía, Fomento, Empleo & Inversión Pública (BIP / MOP / ODEPA / Energía RM)',
+      filtroGrupo: (c) => c.grupo === 'economia_inversion'
     },
     {
       id: 'equipamiento_patrimonio',
-      nombre: 'Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL)',
-      filtroGrupo: (c) => ['educacion', 'salud', 'patrimonio', 'equipamiento_infraestructura', 'servicios'].includes(c.grupo)
+      nombre: 'Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND)',
+      filtroGrupo: (c) => c.grupo === 'equipamiento_patrimonio'
     },
     {
-      id: 'seguridad',
-      nombre: 'Seguridad, Cuarteles de Bomberos & Emergencias (Carabineros / CBS / SENAPRED)',
-      filtroGrupo: (c) => c.grupo === 'seguridad'
+      id: 'medio_ambiente',
+      nombre: 'Medio Ambiente, Recursos Hídricos, Parques & Espacio Público (MMA / DGA / CONAF / DMC)',
+      filtroGrupo: (c) => c.grupo === 'medio_ambiente'
     },
     {
-      id: 'otras_fuentes',
-      nombre: 'Economía, Fomento, Inversión Pública & Otras Fuentes Públicas (BIP / ODEPA / SERCOTEC)',
-      filtroGrupo: (c) => true
+      id: 'seguridad_justicia',
+      nombre: 'Seguridad, Bomberos & Justicia (Carabineros / CBS / MINJU)',
+      filtroGrupo: (c) => c.grupo === 'seguridad_justicia'
     }
   ];
 

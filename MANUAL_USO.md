@@ -76,28 +76,31 @@ Ubicada inmediatamente después del visor, la **Consola de Capas GIS** es un ent
 - **Buscador Predictivo en Tiempo Real (`#busqueda-capas-atlas`):**
   - Permite filtrar instantáneamente cualquiera de las 118 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
 - **Chips de Filtro Rápido:**
-  - Accesos directos temáticos: `Todos`, `Movilidad & Semáforos`, `Normativa`, `Censo & Social`, `Medio Ambiente`, `Equipamiento`, `Seguridad`, `VGI`.
+  - Accesos directos temáticos: `Todos`, `Normativa & Catastro`, `Movilidad & Vialidad`, `Censo 2024 & Social`, `Economía & Inversión BIP`, `Equipamiento & Patrimonio`, `Medio Ambiente & Agua`, `Seguridad & Justicia`, `VGI Comunitario OSM`.
 - **Pestañas Segmentadas:**
-  - **`Capas Oficiales del Estado (108)`**: Despliegue de los 6 macro-grupos institucionales.
+  - **`Capas Oficiales del Estado (108)`**: Despliegue de los 7 macro-grupos institucionales.
   - **`Capas Colaborativas VGI (10)`**: Catálogo de las 10 categorías maestras de OpenStreetMap y GBIF.
   - **`Capas Activas en Mapa (N)`**: Vista concentrada exclusiva de las capas actualmente superpuestas para gestión rápida de visibilidad.
 - **Tarjetas Cartográficas Estilizadas (`.tarjeta-capa-gis`):**
   - Cada tarjeta presenta un interruptor toggle deslizante, el código institucional oficial, un pill de tipo geométrico (`PUNTO`, `LÍNEA`, `POLÍGONO`), un pill de organismo responsable (`UOCT / MTT`, `MINVU`, `INE`, etc.), descripción concisa y el botón directo de descarga sin simplificaciones **`GeoJSON`**.
 
-### 2.2 Los Macro-Grupos Oficiales (108 Capas)
-1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
-   - Zonificación PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas Verdes Normativas IPT, Zonas de Riesgo IPT, Límites Urbanos Oficiales y Fajas de Resguardo.
-2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
-   - Parques Urbanos MINVU, Red Hidrométrica Nacional DGA, Inventario de Humedales Urbanos, SNASPE (CONAF), Cobertura de Canales de Riego (CNR) y Cuencas BNA.
-3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía (MDSF / MINVU / INE Censo 2024):**
-   - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y Manzanas con 217 variables censales del INE), Unidades Vecinales Oficiales (Ley 19.418), Campamentos MINVU, Condominios Sociales y 10 conjuntos de datos sociodemográficos y de inversión pública del Registro Social de Hogares (RSH), IGVUST e iniciativas BIP (BiDat MDSF / Hacienda).
-4. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND):**
-   - Monumentos Históricos e Inmuebles de Conservación Histórica (ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI / Integra), Establecimientos Escolares y de Educación Superior (MINEDUC), Hospitales y CESFAM (DEIS / MINSAL), Infraestructura Deportiva y Jardines Botánicos.
-5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
-   - Cuarteles de Bomberos, Comisarías de Carabineros de Chile, Pasos Fronterizos Internacionales (DIFROL) y Zonas de Seguridad Fronteriza.
-6. 🚲 **Movilidad, Transporte, Red Semafórica UOCT, Red Metro, Inversión Pública & Economía (UOCT / MTT / MOP / BIP / CNE / ODEPA):**
-   - **Red de Semáforos Conectados UOCT RM (Oficio N° 26105 / 2026 - Solicitud AN001T0026930):** 3.483 intersecciones semaforizadas operativas y centralizadas en las 47 comunas de la RM, con datos técnicos completos de tecnología, controlador, enlace de comunicación y coordenadas WGS 84.
-   - Red de Estaciones de Metro de Santiago (L1, L2, L5), Red Ferroviaria EFE, Red Vial Nacional (GEOMOP), Contratos Concesionados MOP, Banco Integrado de Proyectos (BIP 2019-2027), Subestaciones Eléctricas (SEN / CNE) y Ferias Libres (ODEPA).
+### 2.2 Los 7 Macro-Grupos Oficiales (108 Capas)
+1. 📜 **Normativa Urbanística & Catastro Predial (MINVU / PRC Santiago / PRMS / DPA / SII) [13 capas]:**
+   - Zonificación comunal PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas de Riesgo IPT, Zonas de Riesgo Intercomunal PRMS, Fajas de Resguardo de Infraestructura, Límites Urbanos Oficiales, DPA SUBDERE 2023, Catastro Predial SII RM (1.43M predios) y Fajas Fronterizas DIFROL.
+2. 🚲 **Movilidad, Red Vial, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro) [7 capas]:**
+   - **Cruces Semaforizados Centralizados UOCT RM (Oficio N° 26105 / 2026 - Solicitud AN001T0026930):** 3.242 intersecciones semaforizadas operativas y centralizadas en las comunas de la RM, con datos técnicos completos de tecnología, controlador, enlace de comunicación y coordenadas WGS 84.
+   - Red Vial Nacional (GEOMOP), Red de Estaciones de Metro de Santiago, Red Ferroviaria EFE, Ciclovías Oficiales y Red de Electrolineras RM.
+3. 👥 **Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDSF / MINVU) [19 capas]:**
+   - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y 66.873 Manzanas Censales con 217 variables censales del INE), Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Catastro Nacional de Campamentos 2024 MINVU, Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
+4. 📈 **Economía, Fomento, Empleo & Inversión Pública (BIP / MOP / ODEPA / CNE / SUBTEL) [15 capas]:**
+   - **Iniciativas de Inversión del Banco Integrado de Proyectos (BIP - bbdd_65):** Base oficial de proyectos públicos georreferenciados del Sistema Nacional de Inversiones (SNI / MDSF / Hacienda).
+   - Proyectos Mandatados MOP (bbdd_01), Contratos Concesionados (bbdd_04), Contratos MOP (bbdd_05), Personas en RSH ocupadas y cotizantes (bbdd_74), Mercados Mayoristas ODEPA (bbdd_54), Antenas y Torres de Telecomunicaciones (bbdd_35) e Infraestructura Energética RM (centrales solares, hidroeléctricas, termoeléctricas, bioenergía, sistemas de almacenamiento, gasoductos, oleoductos y líneas de transmisión eléctrica).
+5. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND / CCU) [28 capas]:**
+   - Inmuebles y Zonas de Conservación Histórica (ICH/ZCH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI / Integra), Establecimientos Escolares y de Educación Superior (MINEDUC), Hospitales y CESFAM (DEIS / MINSAL), Infraestructura Deportiva IND, Atractivos Turísticos SERNATUR, Áreas Funcionales, Cités, Oficinas Serviu y SEREMI MINVU, junto a las 12 series históricas CCU (1993 a 2024).
+6. 🌳 **Medio Ambiente, Recursos Hídricos, Parques & Espacio Público (MMA / DGA / CONAF / DMC / ODEPA / INFOR) [21 capas]:**
+   - Áreas Verdes Normativas IPT (18.173 polígonos), Parques Urbanos MINVU, Red Hidrométrica Nacional DGA, Inventario de Humedales Protegidos (Ley 21.202), SNASPE (CONAF), Cuencas BNA, Estaciones Sedimentométricas y Fluviométricas, Cobertura de Canales de Riego (CNR), Inventarios de Biomasa, Huertos Frutales ODEPA, Calidad del Aire SINCA y Vertederos Ilegales.
+7. 🛡️ **Seguridad, Bomberos & Justicia (Carabineros / CBS / SENAPRED / MINJU) [5 capas]:**
+   - Cuarteles de Bomberos de Chile, Compañías de Bomberos RM, Comisarías de Carabineros de Chile, Unidades del Plan Cuadrante y Juzgados de Familia.
 
 ### 2.3 Panel Lateral "Más detalles" con Alerta Informativa de Columnas
 Al hacer clic en cualquier entidad de una capa con alta densidad de variables (>15 columnas, RSH, Censo 2024, BIP, CONAF, UOCT):

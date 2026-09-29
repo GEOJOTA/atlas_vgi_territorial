@@ -320,11 +320,11 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(capas): eliminacion de capa duplicada Unidades Vecinales & RSH (MDS / MINVU)\n\n"
-        "- Eliminacion de la capa redundante 'ide_minvu_unidades_vecinales_rsh' preservando la capa maestra oficial 'bbdd_66: Unidades Vecinales 2026 (MDSF / BIDAT)'.\n"
-        "- Ajuste del catalogo a 108 capas oficiales del Estado y 118 capas totales del sistema.\n"
-        "- Sincronizacion de evaluador_normativo.js, ide_chile.js, app.js, 02_seed_metadata.sql y UI index.html.\n"
-        "- Regeneracion de los 3 libros de catalogo Excel (.xlsx) y actualizacion documental (README.md, MANUAL_USO.md, ARQUITECTURA.md)."
+        "feat(capas): reorganizacion integral de capas oficiales y asignacion de inversion BIP a economia\n\n"
+        "- Reorganizacion exhaustiva y tematica de las 108 capas oficiales del Estado en 7 macro-categorias oficiales.\n"
+        "- Reubicacion formal de las iniciativas de inversion del Banco Integrado de Proyectos (BIP - bbdd_65), proyectos y contratos MOP, y cotizantes RSH en la categoria 'economia_inversion'.\n"
+        "- Incorporacion del chip de filtrado interactivo 'Economia & Inversion BIP' en index.html y app.js.\n"
+        "- Sincronizacion de ide_chile.js, app.js, 02_seed_metadata.sql, los 3 libros de catalogo Excel (.xlsx) y documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md)."
     )
 
 

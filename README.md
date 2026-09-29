@@ -75,13 +75,13 @@ El Módulo 01 del Atlas ofrece dos opciones pedagógicas:
 
 El visor integra **108 capas cartográficas oficiales de la Administración del Estado de Chile**, amparadas por la **Ley N° 20.285 de Transparencia**, organizadas en la nueva **Consola Técnica GIS (Workbench Profesional)** con buscador dinámico, filtros por categoría y macro-grupos temáticos:
 
-1. 📜 **Normativa Urbanística & Instrumentos de Planificación Territorial (MINVU / PRC Santiago / PRMS / DPA):**
-2. 🌳 **Medio Ambiente, Parques, Espacio Público & Recursos Hídricos (MMA / MINVU / DGA / CONAF / CIREN):**
-3. 👥 **Comunidades, RSH, Vulnerabilidad Socioterritorial & Demografía Multiescalar (MDSF / MINVU / INE Censo 2024):**
-   - **Integración Multiescalar Censo 2024 (INE / Región Metropolitana):** 
-4. 🏛️ **Equipamiento Público, Educación, Salud, Catastro Predial SII & Patrimonio (SII / CMN / MINEDUC / MINSAL / IND):**
-5. 🛡️ **Seguridad, Bomberos & Emergencias (Carabineros / CBS / SENAPRED / DIFROL):**
-6. 🚲 **Movilidad, Transporte, Red Semafórica UOCT, Red Metro, Inversión Pública & Economía (UOCT / MTT / MOP / BIP / CNE / ODEPA):**
+1. 📜 **Normativa Urbanística & Catastro Predial (MINVU / PRC Santiago / PRMS / DPA / SII) [13 capas]:** Zonificación comunal PRC Santiago, usos de suelo PRMS, áreas de riesgo comunales e intercomunales, fajas de resguardo, límites urbanos oficiales, DPA SUBDERE 2023, predios Santiago y Catastro Predial SII RM (1.43M predios).
+2. 🚲 **Movilidad, Red Vial, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro) [7 capas]:** Cruces semaforizados centralizados UOCT/MTT (3.242 intersecciones), Red Vial Nacional GEOMOP, líneas y estaciones de Metro, Red Ferroviaria EFE, ciclovías oficiales, red de interconexión y electrolineras RM.
+3. 👥 **Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDSF / MINVU) [19 capas]:** Microdatos multiescalares Censo 2024 (Regional, Límites Urbanos, Localidades, Zonal y 66.873 Manzanas Censales con 217 variables INE), Campamentos 2024 MINVU, Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
+4. 📈 **Economía, Fomento, Empleo & Inversión Pública (BIP / MOP / ODEPA / CNE / SUBTEL) [15 capas]:** **Iniciativas de Inversión del Banco Integrado de Proyectos (BIP - bbdd_65)**, Proyectos Mandatados MOP (bbdd_01), Contratos Concesionados (bbdd_04), Contratos MOP (bbdd_05), Personas en RSH ocupadas y cotizando (bbdd_74), Mercados Mayoristas ODEPA (bbdd_54), Antenas Ley de Torres (bbdd_35) e Infraestructura Energética RM (centrales solares, hidroeléctricas, termoeléctricas, bioenergía, almacenamiento, gasoductos, oleoductos y líneas de transmisión).
+5. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND / CCU) [28 capas]:** Inmuebles y Zonas de Conservación Histórica (ZCH/ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Colegios escolares, Educación Superior, Centros de Salud (CESFAM y Hospitales DEIS), Infraestructura Deportiva, Atractivos Turísticos SERNATUR, Áreas Funcionales, Cités, Oficinas Serviu y SEREMI MINVU, junto a las 12 series históricas CCU (1993 a 2024).
+6. 🌳 **Medio Ambiente, Recursos Hídricos, Parques & Espacio Público (MMA / DGA / CONAF / DMC / ODEPA / INFOR) [21 capas]:** Áreas Verdes Normativas IPT (18.173 polígonos), Parques Urbanos, SNASPE CONAF, Sitios Prioritarios de Biodiversidad, Humedales Protegidos (Ley 21.202), Red Hidrométrica DGA, Cuencas BNA, Estaciones Sedimentométricas, Calidad de Aguas, Fluviometría, Canales de Riego CNR, Viveros, Biomasa Forestal, Huertos Frutales ODEPA, Industria Forestal INFOR, Estaciones Meteorológicas DMC y FIA, Zonas Climáticas Köppen, Calidad del Aire SINCA y Vertederos Ilegales.
+7. 🛡️ **Seguridad, Bomberos & Justicia (Carabineros / CBS / SENAPRED / MINJU) [5 capas]:** Cuarteles de Bomberos de Chile, Compañías de Bomberos RM, Comisarías de Carabineros, Unidades del Plan Cuadrante y Juzgados de Familia.
 
 ---
 

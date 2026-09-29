@@ -119,18 +119,19 @@ La arquitectura se articula en 16 módulos desacoplados coordinados por el contr
 - Motor cartográfico 2D de alto rendimiento.
 - Capas base intercambiables: CartoDB Positron, OpenStreetMap Estándar y OpenTopoMap.
 - Herramienta interactiva "📐 Dibujar Bbox" para redelimitar el polígono de estudio dinámicamente.
-- Coordinación de capas de las 10 categorías VGI y las 110 capas oficiales del Estado (120 capas totales).
+- Coordinación de capas de las 10 categorías VGI y las 108 capas oficiales del Estado (118 capas totales).
 - Panel lateral de «Más detalles» con alerta visual destacada para datasets con alta densidad de columnas (>15 atributos, RSH, Censo 2024, BIP, IGVUST, CONAF, UOCT) y botón de descarga directa de la capa completa (.geojson) sin recortes espaciales ni de columnas.
 - Popups normalizados con atributos clave, citas bibliográficas APA 7ª ed. y enlace al diccionario.
 
-### 3.3 `ide_chile.js` (Catálogo Oficial de 110 Capas del Estado)
-- Renderiza los **6 macro-grupos temáticos oficiales** dentro de la Consola Técnica GIS (Workbench Profesional):
-  - *Normativa Urbanística & IPT* (MINVU / PRC Santiago / PRMS / DPA)
-  - *Medio Ambiente, Parques & Recursos Hídricos* (MMA / DGA / CONAF / CIREN)
-  - *Comunidades, RSH, Vulnerabilidad & Demografía* (MDSF / INE Censo 2024 multiescalar / MINVU / BiDat)
-  - *Equipamiento Público, Educación, Salud & Patrimonio* (CMN / MINEDUC / MINSAL / IND)
-  - *Seguridad, Bomberos & Emergencias* (Carabineros / CBS / DIFROL)
-  - *Movilidad, Transporte, Red Semafórica UOCT, Red Metro, Inversión Pública & Economía* (UOCT / MTT / MOP / BIP / CNE / ODEPA)
+### 3.3 `ide_chile.js` (Catálogo Oficial de 108 Capas del Estado)
+- Renderiza los **7 macro-grupos temáticos oficiales** dentro de la Consola Técnica GIS (Workbench Profesional):
+  - *Normativa Urbanística & Catastro Predial* (MINVU / PRC Santiago / PRMS / DPA / SII) [13 capas]
+  - *Movilidad, Red Vial, Tránsito & Cruces Semaforizados* (MTT / UOCT / MOP / EFE / Metro) [7 capas]
+  - *Demografía, Censo 2024, Comunidades & Vulnerabilidad Social* (INE / MDSF / MINVU / BiDat) [19 capas]
+  - *Economía, Fomento, Empleo & Inversión Pública* (BIP / MOP / ODEPA / CNE / SUBTEL) [15 capas]
+  - *Equipamiento Público, Educación, Salud & Patrimonio* (CMN / MINEDUC / MINSAL / IND / CCU) [28 capas]
+  - *Medio Ambiente, Recursos Hídricos, Parques & Espacio Público* (MMA / DGA / CONAF / DMC / ODEPA / INFOR) [21 capas]
+  - *Seguridad, Bomberos & Justicia* (Carabineros / CBS / SENAPRED / MINJU) [5 capas]
 - Badges dinámicos de conteo de entidades y estado de carga.
 - Botón directo de descarga `📥` en cada tarjeta de capa oficial.
 - Conexión con `db_client.js` para descarga inteligente vía PostGIS RPC o Storage CDN.
