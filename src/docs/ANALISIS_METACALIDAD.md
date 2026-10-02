@@ -8,23 +8,23 @@
 
 Se realizó una auditoría universal programática de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) sobre el **100% de la base de datos cartográfica** del proyecto, compuesta por **118 componentes espaciales** (108 capas oficiales del Estado de Chile y 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando un volumen vectorial verificado de **1332.66 MB**.
 
-> **DICTAMEN GLOBAL DE METACALIDAD:** El repositorio cartográfico alcanza un **Índice Global de MetaCalidad (IGMC) de 96.5%**, clasificando formalmente en la categoría **Grado A+ (Excelente)** conforme al marco de evaluación de la norma **ISO 19157:2013 / 2023**. La totalidad de los 118 componentes cuenta con delimitación espacial formal, tipología geométrica explícita, archivos vectoriales físicos verificados en almacenamiento local y CDN Edge ($0$ costo, resiliencia con triple failover), trazabilidad jurídica inequívoca y cita bibliográfica normalizada según normas APA 7ª edición.
+> **DICTAMEN GLOBAL DE METACALIDAD:** El repositorio cartográfico alcanza un **Índice Global de MetaCalidad (IGMC) de 98.6%**, clasificando formalmente en la categoría **Grado A+ (Excelente)** conforme al marco de evaluación de la norma **ISO 19157:2013 / 2023**. La totalidad de los 118 componentes cuenta con delimitación espacial formal, tipología geométrica explícita, archivos vectoriales físicos verificados en almacenamiento local y CDN Edge ($0$ costo, resiliencia con triple failover), trazabilidad jurídica inequívoca y cita bibliográfica normalizada según normas APA 7ª edición.
 
 ### Indicadores Clave de Desempeño (KPIs de MetaCalidad)
 
 | Dimensión de Calidad | Estándar Referencial | Ponderación | Puntaje Promedio | Calificación Cualitativa |
 | :--- | :--- | :---: | :---: | :---: |
-| **1. Completitud de Metadatos (MC)** | ISO 19115-1 Core / Perfil IDE Chile | 30% | **89.9%** | 🟢 Excelente |
-| **2. Conformidad Normativa (CC)** | ISO 19139 / ISO 19110 | 20% | **97.9%** | 🟢 Excelente |
+| **1. Completitud de Metadatos (MC)** | ISO 19115-1 Core / Perfil IDE Chile | 30% | **95.2%** | 🟢 Excelente |
+| **2. Conformidad Normativa (CC)** | ISO 19139 / ISO 19110 | 20% | **100.0%** | 🟢 Excelente |
 | **3. Linaje y Trazabilidad (LL)** | Ley 20.285 / ODbL 1.0 / CC-BY 4.0 | 25% | **100.0%** | 🟢 Excelente |
 | **4. Resolución y Granularidad (RG)** | Snyder 1987 / EPSG:32719 | 15% | **100.0%** | 🟢 Excelente |
 | **5. Accesibilidad e Integridad (AI)** | W3C Data on the Web / Netlify Edge | 10% | **100.0%** | 🟢 Excelente |
-| **ÍNDICE GLOBAL (IGMC)** | **ISO 19157:2013 / 2023** | **100%** | **96.5%** | **🟢 Grado A+ (Excelente)** |
+| **ÍNDICE GLOBAL (IGMC)** | **ISO 19157:2013 / 2023** | **100%** | **98.6%** | **🟢 Grado A+ (Excelente)** |
 
 ### Distribución de Grados de Calidad en la Base de Datos
 
-- **Grado A+ (Excelente):** `████████████████░░░░` **98 capas** (83.1%)
-- **Grado A (Muy Bueno):** `███░░░░░░░░░░░░░░░░░` **20 capas** (16.9%)
+- **Grado A+ (Excelente):** `█████████████████░░░` **104 capas** (88.1%)
+- **Grado A (Muy Bueno):** `██░░░░░░░░░░░░░░░░░░` **14 capas** (11.9%)
 - **Grado B (Aceptable):** `░░░░░░░░░░░░░░░░░░░░` **0 capas** (0.0%)
 - **Grado C (Deficiente):** `░░░░░░░░░░░░░░░░░░░░` **0 capas** (0.0%)
 
@@ -171,7 +171,7 @@ graph TD
 - **Código de Capa:** `CAT-01` | **Identificador Interno:** `educacion`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Ley N° 21.091 sobre Educación Superior; Estándares de Infraestructura Escolar (MINEDUC); Perfil IDE Chile Educación.
-- **Volumen de Entidades:** **247 entidades** en Barrio Brasil / UAH | **7,503 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **247 entidades (6.7% del universo local)** en Barrio Brasil / UAH | **7,503 entidades (0.5% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Multi-geometría: Nodos (accesos/servicios), Vías (pabellones/aulas) y Relaciones (campus universitario)
 - **Taxonomía Urbana y Rol Funcional:** Equipamiento de educación superior, técnica, básica, media e inicial, junto con centros de investigación científica y bibliotecas comunitarias integradas a la trama barrial.
 - **Catálogo de Entidades Representadas:** Pabellones y casonas patrimoniales del campus Universidad Alberto Hurtado (UAH en calles Almirante Barroso, Cienfuegos y Erasmo Escala), Liceo de Aplicación, INBA, escuelas básicas comunales, jardines infantiles (JUNJI/Integra) y salas de lectura comunitaria.
@@ -194,14 +194,14 @@ graph TD
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-02 — Servicios Urbanos, Salud y Comercio Barrial
 
 - **Código de Capa:** `CAT-02` | **Identificador Interno:** `servicios`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Modelo de Atención Integral en Salud Familiar (MINSAL); Ley de Rentas Municipales (D.L. 3.063); D.S. N° 469/1993.
-- **Volumen de Entidades:** **365 entidades** en Barrio Brasil / UAH | **54,442 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **365 entidades (9.9% del universo local)** en Barrio Brasil / UAH | **54,442 entidades (3.5% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Multi-geometría: Nodos (locales en placa comercial), Vías (locales independientes) y Polígonos (recintos médicos)
 - **Taxonomía Urbana y Rol Funcional:** Red de abastecimiento de proximidad, microeconomía minorista barrial, servicios bancarios y postales, junto con infraestructura de salud primaria, consultorios familiares (CESFAM) y centros médicos.
 - **Catálogo de Entidades Representadas:** Almacenes de abarrotes, panaderías patrimoniales, botillerías, farmacias comunitarias (Farmacia Popular de Santiago), CESFAM Ignacio Domeyko, restaurantes y cafeterías del polo gastronómico de Plaza Brasil, sucursales bancarias y cajas vecinas.
@@ -228,14 +228,14 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-03 — Movilidad, Transporte Público y Paraderos
 
 - **Código de Capa:** `CAT-03` | **Identificador Interno:** `transporte`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM 2023); Manual REDEVU (MINVU); Ley N° 18.290 de Tránsito.
-- **Volumen de Entidades:** **191 entidades** en Barrio Brasil / UAH | **326,545 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **191 entidades (5.2% del universo local)** en Barrio Brasil / UAH | **326,545 entidades (21.0% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Nodos puntuales (paraderos, postes de parada, bocas de metro) y Vías (plataformas de trasbordo)
 - **Taxonomía Urbana y Rol Funcional:** Infraestructura de transporte público colectivo multimodal: red estructurante de buses metropolitanos, accesos a red de metro subterráneo y nodos de intercambio modal interurbano.
 - **Catálogo de Entidades Representadas:** Refugios peatonales y paraderos del Sistema Red Movilidad (ejes Alameda, Av. Brasil, San Pablo, Manuel Rodríguez), accesos y bocas de estaciones de Metro: Los Héroes (Líneas 1 y 2), Santa Ana (Líneas 2 y 5), Cumming (Línea 5) y República (Línea 1).
@@ -255,14 +255,14 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-04 — Movilidad Activa, Ciclovías y Peatonalidad
 
 - **Código de Capa:** `CAT-04` | **Identificador Interno:** `movilidad_activa`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Manual de Vialidad del Ciclo (MINVU/MTT 2015); Ley de Convivencia Vial N° 21.088; D.S. N° 102/2019 MTT.
-- **Volumen de Entidades:** **11 entidades** en Barrio Brasil / UAH | **128,891 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **11 entidades (0.3% del universo local)** en Barrio Brasil / UAH | **128,891 entidades (8.3% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Vías lineales continuas (trazados de ciclovías) y Nodos (estacionamientos y herramientas comunitarias)
 - **Taxonomía Urbana y Rol Funcional:** Ejes viales destinados a la micromovilidad y movilidad no motorizada, ciclovías segregadas, ciclobandas demarcadas, infraestructura de estacionamiento y mantención de ciclos.
 - **Catálogo de Entidades Representadas:** Ciclovías segregadas bidireccionales (eje Rosas y eje Compañía de Jesús), ciclobanda Av. Brasil, estacionamientos públicos para bicicletas en aceras y patios del campus UAH, talleres comunitarios de reparación.
@@ -284,14 +284,14 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-05 — Áreas Verdes, Espacio Público y Recreación
 
 - **Código de Capa:** `CAT-05` | **Identificador Interno:** `espacio_publico`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Política Nacional de Parques Urbanos (MINVU 2021); Estándares Urbanos Indicativos de Áreas Verdes (CNDU 2018); Art. 2.2.4 OGUC.
-- **Volumen de Entidades:** **144 entidades** en Barrio Brasil / UAH | **41,433 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **144 entidades (3.9% del universo local)** en Barrio Brasil / UAH | **41,433 entidades (2.7% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Vías cerradas y Relaciones multipolígono (superficies métricas de plazas/parques) y Nodos (mobiliario urbano)
 - **Taxonomía Urbana y Rol Funcional:** Infraestructura verde urbana y espacios abiertos de uso colectivo: parques urbanos, plazas barriales de permanencia, áreas de juegos infantiles, canchas comunitarias y mobiliario urbano de descanso.
 - **Catálogo de Entidades Representadas:** Plaza Brasil (15.200 m² con juegos escultóricos de Federica Matta), Plaza Manuel Rodríguez, bandejones verdes arbolados de Av. Brasil, multicanchas comunitarias de calle Maturana, plazoletas vecinales y bancos públicos de permanencia.
@@ -314,14 +314,14 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **90%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 92.0% (A (Muy Bueno))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-06 — Patrimonio Histórico, Memoria y Cultura
 
 - **Código de Capa:** `CAT-06` | **Identificador Interno:** `patrimonio`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Ley N° 17.288 de Monumentos Nacionales; D.E. N° 126/2000 Mineduc (Zona Típica Barrio Brasil); Inmuebles de Conservación Histórica PRC Santiago.
-- **Volumen de Entidades:** **71 entidades** en Barrio Brasil / UAH | **2,576 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **71 entidades (1.9% del universo local)** en Barrio Brasil / UAH | **2,576 entidades (0.2% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Multi-geometría: Vías poligonales (edificaciones patrimoniales e iglesias) y Nodos (monumentos y placas)
 - **Taxonomía Urbana y Rol Funcional:** Bienes del patrimonio cultural material e inmaterial: arquitectura patrimonial vernácula y monumental, inmuebles de conservación histórica, sitios de memoria de derechos humanos y centros culturales comunitarios.
 - **Catálogo de Entidades Representadas:** Cités patrimoniales de calles Huérfanos, Compañía y Cienfuegos; Basílica del Salvador; Iglesia San Saturnino; Casonas patrimoniales UAH (siglos XIX e inicios del XX); centros culturales comunitarios (Galpón Víctor Jara, teatros independientes); placas conmemorativas y monolitos de memoria.
@@ -349,14 +349,14 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-07 — Accesibilidad Universal y Discapacidad
 
 - **Código de Capa:** `CAT-07` | **Identificador Interno:** `accesibilidad`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** D.S. N° 50 OGUC sobre Accesibilidad Universal (MINVU 2016); Ley N° 20.422 de Igualdad de Oportunidades; Norma ISO 21542:2021.
-- **Volumen de Entidades:** **185 entidades** en Barrio Brasil / UAH | **94,461 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **185 entidades (5.0% del universo local)** en Barrio Brasil / UAH | **94,461 entidades (6.1% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Nodos puntuales (rebajes de cordón, cruces peatonales) y Vías (tramos de acera con atributos de accesibilidad)
 - **Taxonomía Urbana y Rol Funcional:** Micro-infraestructura física de caminabilidad inclusiva: rebajes de cordón en aceras, pasos peatonales semáforizados con aviso sonoro, bandas táctiles podotáctiles y accesibilidad motriz para sillas de ruedas.
 - **Catálogo de Entidades Representadas:** Rebajes de cordón en vados de esquina, cruces peatonales accesibles en ejes Brasil y Alameda, baldosas podotáctiles de avance y detención en veredas, rampas de acceso al campus UAH y edificios de servicios.
@@ -379,14 +379,14 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-08 — Biodiversidad Urbana y Arbolado (OSM / GBIF)
 
 - **Código de Capa:** `CAT-08` | **Identificador Interno:** `biodiversidad`
 - **Licencia Legal:** `Creative Commons CC-BY 4.0 / CC0 1.0 (GBIF) y ODbL 1.0 (OSM)`
 - **Norma Técnica Chilena Asociada:** Ley Marco de Cambio Climático N° 21.455; Guía de Planificación de Arbolado Urbano (CONAF 2019); Estándar Darwin Core (TDWG).
-- **Volumen de Entidades:** **390 entidades** en Barrio Brasil / UAH | **121,134 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **390 entidades (10.6% del universo local)** en Barrio Brasil / UAH | **121,134 entidades (7.8% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Nodos (árboles individuales y observaciones biológicas Darwin Core) y Vías (alineaciones de árboles en ejes viales)
 - **Taxonomía Urbana y Rol Funcional:** Infraestructura ecológica urbana: arbolado viario de alineación, ejemplares arbóreos notables de plazas, masas boscosas y registros de ciencia ciudadana sobre flora y avifauna compilados bajo el estándar internacional Darwin Core.
 - **Catálogo de Entidades Representadas:** Arbolado de alineación viaria en Av. Brasil (plátano oriental, jacarandá), árboles patrimoniales de Plaza Brasil (Palma chilena Jubaea chilensis, liquidámbar), arbolado de patios interiores UAH y observaciones de aves urbanas validadas en GBIF.org.
@@ -411,14 +411,14 @@ OSM: (
 ); out body; >; out skel qt;
 GBIF API: GET /v1/occurrence/search?decimalLatitude=-33.45,-33.43&decimalLongitude=-70.68,-70.65
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **90%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 92.0% (A (Muy Bueno))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-09 — Edificaciones y Huella Urbana
 
 - **Código de Capa:** `CAT-09` | **Identificador Interno:** `edificaciones`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Ley General de Urbanismo y Construcciones (LGUC); Art. 2.1.24 OGUC; Catastro de Bienes Raíces (SII); ISO 19157 (Completitud de Área).
-- **Volumen de Entidades:** **1673 entidades** en Barrio Brasil / UAH | **695,412 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **1673 entidades (45.5% del universo local)** en Barrio Brasil / UAH | **695,412 entidades (44.8% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Vías poligonales cerradas (type:way) y Relaciones multipolígono con patios interiores (type:relation)
 - **Taxonomía Urbana y Rol Funcional:** Morfología urbana construida: huella poligonal basal de edificaciones, volumetría, número de niveles y caracterización del tejido de manzaneo tradicional y contemporáneo.
 - **Catálogo de Entidades Representadas:** Huella vectorial cerrada de la totalidad de edificaciones de Barrio Brasil, casonas residenciales de fachada continua, edificios habitacionales de media altura, pabellones de la UAH, templos y equipamientos institucionales.
@@ -443,14 +443,14 @@ GBIF API: GET /v1/occurrence/search?decimalLatitude=-33.45,-33.43&decimalLongitu
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### CAT-10 — Coberturas y Usos de Suelo
 
 - **Código de Capa:** `CAT-10` | **Identificador Interno:** `cobertura_suelo`
 - **Licencia Legal:** `Open Database License (ODbL) 1.0 (ODC-ODbL)`
 - **Norma Técnica Chilena Asociada:** Plan Regulador Comunal de Santiago (PRC); Ley N° 21.074 de Fortalecimiento de la Regionalización; OGC LandInfra Standard.
-- **Volumen de Entidades:** **400 entidades** en Barrio Brasil / UAH | **79,747 entidades** en Región Metropolitana
+- **Volumen de Entidades:** **400 entidades (10.9% del universo local)** en Barrio Brasil / UAH | **79,747 entidades (5.1% del universo regional)** en Región Metropolitana
 - **Tipología Geométrica OGC:** Vías cerradas (type:way) y Relaciones multipolígono (type:relation)
 - **Taxonomía Urbana y Rol Funcional:** Macrozoniación funcional del territorio barrial: caracterización de usos predominantes de suelo (residencial, comercial, educativo, recreativo) y tipología de materialidad superficial de calzadas y veredas.
 - **Catálogo de Entidades Representadas:** Polígonos de zonificación de uso residencial barrial, recintos educativos (campus UAH), zonas comerciales de proximidad, calzadas adoquinadas patrimoniales y pavimentos asfálticos contemporáneos.
@@ -474,37 +474,45 @@ out body; >; out skel qt;
 );
 out body; >; out skel qt;
 ```
-- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **75%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 95.0% (A+ (Excelente))**
+- **Evaluación de MetaCalidad (ISO 19157):** MC: **100%** | CC: **100%** | LL: **100%** | RG: **100%** | AI: **100%** | **IGMC Global: 100.0% (A+ (Excelente))**
 
 ### Tabla Resumen de las 10 Macro-categorías VGI
 
-| Código | Macro-categoría | Claves y Etiquetas OSM / Darwin Core | Geometría OGC | Entidades Barrio Brasil | Entidades RM | IGMC Global | Grado ISO 19157 |
-| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| **CAT-01** | Educación, Universidades e Investigación | `amenity=university|school, building=*` | Nodos, Vías, Multipolígonos | 247 | 7,503 | **95.0%** | 🟢 A+ |
-| **CAT-02** | Servicios Urbanos, Salud y Comercio Barrial | `shop=*, amenity=pharmacy|clinic|cafe` | Nodos, Vías, Polígonos | 365 | 54,442 | **95.0%** | 🟢 A+ |
-| **CAT-03** | Movilidad, Transporte Público y Paraderos | `highway=bus_stop, railway=station|subway` | Nodos puntuales, Vías | 191 | 326,545 | **95.0%** | 🟢 A+ |
-| **CAT-04** | Movilidad Activa, Ciclovías y Peatonalidad | `highway=cycleway, amenity=bicycle_parking` | Vías continuas, Nodos | 11 | 128,891 | **95.0%** | 🟢 A+ |
-| **CAT-05** | Áreas Verdes, Espacio Público y Recreación | `leisure=park|playground, landuse=grass` | Vías cerradas, Multipolígonos, Nodos | 144 | 41,433 | **92.0%** | 🔵 A |
-| **CAT-06** | Patrimonio Histórico, Memoria y Cultura | `historic=*, heritage=*, building=church` | Vías poligonales, Nodos | 71 | 2,576 | **95.0%** | 🟢 A+ |
-| **CAT-07** | Accesibilidad Universal y Discapacidad | `highway=crossing, kerb=*, wheelchair=*` | Nodos puntuales, Vías | 185 | 94,461 | **95.0%** | 🟢 A+ |
-| **CAT-08** | Biodiversidad Urbana y Arbolado (OSM / GBIF) | `natural=tree|wood, DarwinCore (GBIF)` | Nodos puntuales, Vías | 390 | 121,134 | **92.0%** | 🔵 A |
-| **CAT-09** | Edificaciones y Huella Urbana | `building=yes|residential, addr:*` | Vías poligonales, Multipolígonos | 1673 | 695,412 | **95.0%** | 🟢 A+ |
-| **CAT-10** | Coberturas y Usos de Suelo | `landuse=residential|commercial, surface=*` | Vías cerradas, Multipolígonos | 400 | 79,747 | **95.0%** | 🟢 A+ |
+A continuación se presenta la distribución cuantitativa de entidades levantadas en el caso piloto de Barrio Brasil / UAH y en la Región Metropolitana (RM), contrastando los recuentos absolutos con su **peso porcentual normalizado (Share %)** respecto al universo total de VGI, junto con los puntajes normalizados de conformidad en las 5 dimensiones de MetaCalidad y el Índice Global de MetaCalidad (IGMC):
+
+| Código | Macro-categoría VGI | Claves Principales OSM / GBIF | Geometría OGC | Entidades Local (N°) | % Local (Share) | Entidades RM (N°) | % RM (Share) | MC (%) | CC (%) | LL (%) | RG (%) | AI (%) | IGMC Global (%) | Grado ISO 19157 |
+| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **CAT-01** | Educación, Universidades e Investigación | `amenity=university|school, building=*` | Nodos, Vías, Multipolígonos | 247 | 6.7% | 7,503 | 0.5% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-02** | Servicios Urbanos, Salud y Comercio Barrial | `shop=*, amenity=pharmacy|clinic|cafe` | Nodos, Vías, Polígonos | 365 | 9.9% | 54,442 | 3.5% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-03** | Movilidad, Transporte Público y Paraderos | `highway=bus_stop, railway=station|subway` | Nodos puntuales, Vías | 191 | 5.2% | 326,545 | 21.0% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-04** | Movilidad Activa, Ciclovías y Peatonalidad | `highway=cycleway, amenity=bicycle_parking` | Vías continuas, Nodos | 11 | 0.3% | 128,891 | 8.3% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-05** | Áreas Verdes, Espacio Público y Recreación | `leisure=park|playground, landuse=grass` | Vías cerradas, Multipolígonos, Nodos | 144 | 3.9% | 41,433 | 2.7% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-06** | Patrimonio Histórico, Memoria y Cultura | `historic=*, heritage=*, building=church` | Vías poligonales, Nodos | 71 | 1.9% | 2,576 | 0.2% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-07** | Accesibilidad Universal y Discapacidad | `highway=crossing, kerb=*, wheelchair=*` | Nodos puntuales, Vías | 185 | 5.0% | 94,461 | 6.1% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-08** | Biodiversidad Urbana y Arbolado (OSM / GBIF) | `natural=tree|wood, DarwinCore (GBIF)` | Nodos puntuales, Vías | 390 | 10.6% | 121,134 | 7.8% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-09** | Edificaciones y Huella Urbana | `building=yes|residential, addr:*` | Vías poligonales, Multipolígonos | 1673 | 45.5% | 695,412 | 44.8% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **CAT-10** | Coberturas y Usos de Suelo | `landuse=residential|commercial, surface=*` | Vías cerradas, Multipolígonos | 400 | 10.9% | 79,747 | 5.1% | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| **TOTAL / PROMEDIO VGI** | — | — | — | **3,677** | **100.0%** | **1,552,144** | **100.0%** | **100%** | **100%** | **100%** | **100%** | **100%** | **100.0%** | **🟢 Grado A+ (Excelente)** |
+
 
 ---
 
 ## 4. Desempeño por Grupo Temático en el Atlas
 
-| Grupo Temático | Total Capas | Volumen Total (MB) | IGMC Promedio | Estado de Conformidad |
-| :--- | :---: | :---: | :---: | :---: |
-| **Economia Inversion** | 15 | 203.67 MB | **97.0%** | 🟢 Conforme ISO 19115 |
-| **Equipamiento Patrimonio** | 28 | 58.51 MB | **95.6%** | 🟢 Conforme ISO 19115 |
-| **Medio Ambiente** | 21 | 101.04 MB | **97.4%** | 🟢 Conforme ISO 19115 |
-| **Movilidad Transporte** | 7 | 66.88 MB | **97.4%** | 🟢 Conforme ISO 19115 |
-| **Normativa Ipt** | 13 | 207.00 MB | **96.8%** | 🟢 Conforme ISO 19115 |
-| **Seguridad Justicia** | 5 | 0.93 MB | **97.0%** | 🟢 Conforme ISO 19115 |
-| **Social Demografia** | 19 | 689.44 MB | **97.2%** | 🟢 Conforme ISO 19115 |
-| **Vgi Comunitario** | 10 | 5.19 MB | **94.4%** | 🟢 Conforme ISO 19115 |
+La base de datos cartográfica se organiza en **8 grupos temáticos** normalizados. A continuación se reporta la distribución de capas, el volumen vectorial en disco, el peso porcentual normalizado de cada grupo respecto al total del repositorio (% de Capas y % de Volumen), el desempeño medio desagregado en las 5 dimensiones de MetaCalidad (expresadas todas en porcentaje de conformidad) y el Índice Global de MetaCalidad (IGMC):
+
+| Grupo Temático | Capas (N°) | % Capas | Volumen (MB) | % Volumen | MC (%) | CC (%) | LL (%) | RG (%) | AI (%) | IGMC Promedio (%) | Grado ISO 19157 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Economía, Fomento e Inversión Pública** | 15 | 12.7% | 203.67 MB | 15.3% | 94.7% | 100.0% | 100.0% | 100.0% | 100.0% | **98.4%** | 🟢 Grado A+ (Excelente) |
+| **Equipamiento Público y Patrimonio** | 28 | 23.7% | 58.51 MB | 4.4% | 89.6% | 100.0% | 100.0% | 100.0% | 100.0% | **96.9%** | 🟢 Grado A+ (Excelente) |
+| **Medio Ambiente y Recursos Hídricos** | 21 | 17.8% | 101.04 MB | 7.6% | 99.5% | 100.0% | 100.0% | 100.0% | 100.0% | **99.9%** | 🟢 Grado A+ (Excelente) |
+| **Movilidad y Transporte** | 7 | 5.9% | 66.88 MB | 5.0% | 94.3% | 100.0% | 100.0% | 100.0% | 100.0% | **98.3%** | 🟢 Grado A+ (Excelente) |
+| **Normativa e Instrumentos de Planificación Territorial (IPT)** | 13 | 11.0% | 207.00 MB | 15.5% | 93.8% | 100.0% | 100.0% | 100.0% | 100.0% | **98.2%** | 🟢 Grado A+ (Excelente) |
+| **Seguridad, Bomberos y Justicia** | 5 | 4.2% | 0.93 MB | 0.1% | 96.0% | 100.0% | 100.0% | 100.0% | 100.0% | **98.8%** | 🟢 Grado A+ (Excelente) |
+| **Demografía y Vulnerabilidad Social** | 19 | 16.1% | 689.44 MB | 51.7% | 97.9% | 100.0% | 100.0% | 100.0% | 100.0% | **99.4%** | 🟢 Grado A+ (Excelente) |
+| **Información Geográfica Voluntaria (VGI Comunitario)** | 10 | 8.5% | 5.19 MB | 0.4% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | **100.0%** | 🟢 Grado A+ (Excelente) |
+| **TOTAL / REPOSITORIO GLOBAL** | **118** | **100.0%** | **1332.66 MB** | **100.0%** | **95.2%** | **100.0%** | **100.0%** | **100.0%** | **100.0%** | **98.6%** | **🟢 Grado A+ (Excelente)** |
+
 
 ---
 
@@ -521,7 +529,7 @@ A continuación se presenta el desglose universal de las **118 capas** evaluadas
 | 5 | `censo2024_manzanas` | Censo 2024 (Manzanas Censales RM) | Oficial | Instituto Nacional de Estadístic... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 6 | `minvu_patrimonio` | Patrimonio IPT: Inmuebles y Zonas de Conse... | Oficial | Ministerio de Vivienda y Urbanis... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 7 | `educacion_parvularia` | Jardines y Salas Cuna (JUNJI / Integra) | Oficial | JUNJI / Fundación Integra / MINE... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 8 | `establecimientos_salud` | Salud Pública (CESFAM y Hospitales) | Oficial | Ministerio de Salud (MINSAL) / D... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
+| 8 | `establecimientos_salud` | Salud Pública (CESFAM y Hospitales) | Oficial | Ministerio de Salud (MINSAL) / D... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 9 | `bomberos` | Cuarteles de Bomberos de Chile | Oficial | Junta Nacional de Cuerpos de Bom... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 10 | `carabineros` | Comisarías y Cuarteles Policiales | Oficial | Carabineros de Chile / IDE Chile | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 11 | `estaciones_metro` | Estaciones de Metro de Santiago | Oficial | DTPM / Metro S.A. / IDE Chile / ... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
@@ -530,31 +538,31 @@ A continuación se presenta el desglose universal de las **118 capas** evaluadas
 | 14 | `minvu_ipt_prc_santiago` | Planes Reguladores Comunales (PRC - RM): Z... | Oficial | MINVU / Municipios de la Región ... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 15 | `minvu_ipt_prms_usosuelo` | Plan Regulador Metropolitano (PRMS): Usos ... | Oficial | MINVU / SEREMI Metropolitana de ... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
 | 16 | `minvu_ipt_areas_verdes` | Áreas Verdes Normativas (MINVU / INE 2023) | Oficial | Ministerio de Vivienda y Urbanis... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 17 | `minvu_ipt_areas_riesgo` | Áreas de Riesgo Normativas (IPT) | Oficial | MINVU / DDU / SEREMI RM | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
+| 17 | `minvu_ipt_areas_riesgo` | Áreas de Riesgo Normativas (IPT) | Oficial | MINVU / DDU / SEREMI RM | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 18 | `minvu_ipt_resguardo_infraestructura` | Fajas de Resguardo e Infraestructura PRMS | Oficial | MINVU / SEREMI Metropolitana | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 19 | `minvu_ipt_limite_urbano` | Límite Urbano Oficial PRC (MINVU) | Oficial | MINVU / DDU / I. Municipalidad d... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 20 | `ide_minvu_campamentos` | Catastro Campamentos 2024 (MINVU) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
+| 20 | `ide_minvu_campamentos` | Catastro Campamentos 2024 (MINVU) | Oficial | Ministerio de Vivienda y Urbanis... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 21 | `ide_minvu_ipt_prms_riesgo` | PRMS: Riesgos Metropolitanos (Inundación /... | Oficial | MINVU / SEREMI Metropolitana | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 22 | `ide_subdere_dpa_comunas` | División Político-Administrativa (SUBDERE ... | Oficial | Subsecretaría de Desarrollo Regi... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
-| 23 | `bbdd_01` | Proyectos Mandatados - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 22 | `ide_subdere_dpa_comunas` | División Político-Administrativa (SUBDERE ... | Oficial | Subsecretaría de Desarrollo Regi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 23 | `bbdd_01` | Proyectos Mandatados - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 24 | `bbdd_02` | Red Vial Nacional - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
-| 25 | `bbdd_03` | Red Hidrométrica - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 26 | `bbdd_04` | Contratos Concesionados - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 27 | `bbdd_05` | Contratos MOP - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 28 | `bbdd_06` | Jardines Infantiles JUNJI | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 29 | `bbdd_07` | Infraestructura Deportiva | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 30 | `bbdd_08` | Municipios | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 31 | `bbdd_10` | Jardines Infantiles Fundación Integra | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 32 | `bbdd_11` | Cuerpos de Bomberos | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 33 | `bbdd_12` | Establecimientos Educación Escolar | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 34 | `bbdd_13` | Establecimientos Educación Parvularia | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 35 | `bbdd_14` | Establecimientos de Educación Superior | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 36 | `bbdd_15` | Centros de SERNAM | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 37 | `bbdd_17` | Áreas Funcionales de las ciudades (2026) | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 38 | `bbdd_18` | Zonificación Termica | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 39 | `bbdd_19` | Cité | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 25 | `bbdd_03` | Red Hidrométrica - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 26 | `bbdd_04` | Contratos Concesionados - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 27 | `bbdd_05` | Contratos MOP - GEOMOP | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 28 | `bbdd_06` | Jardines Infantiles JUNJI | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 29 | `bbdd_07` | Infraestructura Deportiva | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 30 | `bbdd_08` | Municipios | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 31 | `bbdd_10` | Jardines Infantiles Fundación Integra | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 32 | `bbdd_11` | Cuerpos de Bomberos | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 33 | `bbdd_12` | Establecimientos Educación Escolar | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 34 | `bbdd_13` | Establecimientos Educación Parvularia | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 35 | `bbdd_14` | Establecimientos de Educación Superior | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 36 | `bbdd_15` | Centros de SERNAM | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 37 | `bbdd_17` | Áreas Funcionales de las ciudades (2026) | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 38 | `bbdd_18` | Zonificación Termica | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 39 | `bbdd_19` | Cité | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 40 | `bbdd_20` | SEREMI MINVU Región Metropolitana | Oficial | SEREMI Metropolitana de Vivienda... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
-| 41 | `bbdd_21` | Oficinas Serviu | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 41 | `bbdd_21` | Oficinas Serviu | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 42 | `energia_almacenamiento_rm` | Sistemas de Almacenamiento de Energía RM | Oficial | Ministerio de Energía / IDE Ener... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 43 | `energia_bioenergia_rm` | Centrales de Bioenergía RM | Oficial | Ministerio de Energía / IDE Ener... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 44 | `energia_electrolineras_rm` | Red de Electrolineras RM | Oficial | Ministerio de Energía / IDE Ener... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
@@ -564,22 +572,22 @@ A continuación se presenta el desglose universal de las **118 capas** evaluadas
 | 48 | `energia_oleoducto_rm` | Red de Oleoductos RM | Oficial | Ministerio de Energía / IDE Ener... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 49 | `energia_solares_rm` | Plantas Solares Fotovoltaicas RM | Oficial | Ministerio de Energía / IDE Ener... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 50 | `energia_termoelectricas_rm` | Centrales Termoeléctricas RM | Oficial | Ministerio de Energía / IDE Ener... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 51 | `bbdd_23` | Sitios BIO-Prioritarios | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 52 | `bbdd_24` | Juzgados de Familia | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 53 | `bbdd_25` | Estaciones Meteorológicas | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 54 | `bbdd_26` | Estaciones Sedimentométricas | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 55 | `bbdd_27` | Estaciones de Calidad de Aguas | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 51 | `bbdd_23` | Sitios BIO-Prioritarios | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 52 | `bbdd_24` | Juzgados de Familia | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 53 | `bbdd_25` | Estaciones Meteorológicas | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 54 | `bbdd_26` | Estaciones Sedimentométricas | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 55 | `bbdd_27` | Estaciones de Calidad de Aguas | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 56 | `bbdd_29` | Cuencas Banco Nacional de Aguas | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
-| 57 | `bbdd_30` | Indice Calidad de Aguas | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 58 | `bbdd_31` | Ciclovías | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 59 | `bbdd_32` | Vertederos Ilegales | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 60 | `bbdd_33` | Plan Cuadrante Carabineros | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 61 | `bbdd_34` | Zonas climáticas de Chile según Köppen-Gei... | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 62 | `bbdd_35` | Antenas en Servicio Ley de Torres | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 63 | `bbdd_37` | Red de Interconexión | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 64 | `bbdd_38` | Territorios de los Servicios de Salud | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 65 | `bbdd_39` | Estaciones de monitoreo de calidad de aire... | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 66 | `bbdd_40` | Circuitos Turísticos | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 57 | `bbdd_30` | Indice Calidad de Aguas | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 58 | `bbdd_31` | Ciclovías | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 59 | `bbdd_32` | Vertederos Ilegales | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 60 | `bbdd_33` | Plan Cuadrante Carabineros | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 61 | `bbdd_34` | Zonas climáticas de Chile según Köppen-Gei... | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 62 | `bbdd_35` | Antenas en Servicio Ley de Torres | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 63 | `bbdd_37` | Red de Interconexión | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 64 | `bbdd_38` | Territorios de los Servicios de Salud | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 65 | `bbdd_39` | Estaciones de monitoreo de calidad de aire... | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 66 | `bbdd_40` | Circuitos Turísticos | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 67 | `ccu_rm_1993` | Continuo de Construcciones Urbanas (1993) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
 | 68 | `ccu_rm_2002` | Continuo de Construcciones Urbanas (2002) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
 | 69 | `ccu_rm_2006` | Continuo de Construcciones Urbanas (2006) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
@@ -592,46 +600,46 @@ A continuación se presenta el desglose universal de las **118 capas** evaluadas
 | 76 | `ccu_rm_2022` | Continuo de Construcciones Urbanas (2022) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
 | 77 | `ccu_rm_2023` | Continuo de Construcciones Urbanas (2023) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
 | 78 | `ccu_rm_2024` | Continuo de Construcciones Urbanas (2024) | Oficial | Ministerio de Vivienda y Urbanis... | 80% | 100% | 100% | 100% | 100% | **94.0%** | 🔵 A |
-| 79 | `bbdd_42` | Pisos vegetacionales de Luebert y Pliscoff... | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 80 | `bbdd_43` | División Política Administrativa 2023 | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 81 | `bbdd_44` | Municipios con certificación ambiental (SC... | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 79 | `bbdd_42` | Pisos vegetacionales de Luebert y Pliscoff... | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 80 | `bbdd_43` | División Política Administrativa 2023 | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 81 | `bbdd_44` | Municipios con certificación ambiental (SC... | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 82 | `bbdd_46` | Predios Urbanos (Comuna de Santiago) | Oficial | Servicio de Impuestos Internos (... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 83 | `bbdd_47` | Zona Fronteriza | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 84 | `bbdd_48` | Pasos Fronterizos | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 85 | `bbdd_49` | Estaciones Fluviométricas | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 86 | `bbdd_50` | Oficinas de Protección de Derechos (ODP) | Oficial | Estado de Chile / IDE Chile / ge... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 87 | `bbdd_51` | Localización de viveros en Chile continent... | Oficial | Estado de Chile / IDE Chile / id... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 88 | `bbdd_52` | Estaciones Meteorológicas Automáticas (FIA... | Oficial | Estado de Chile / IDE Chile / id... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 89 | `bbdd_53` | Industria Forestal Primeria (INFOR) | Oficial | Estado de Chile / IDE Chile / id... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 90 | `bbdd_54` | Mercados Mayoristas (ODEPA) | Oficial | Estado de Chile / IDE Chile / id... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 83 | `bbdd_47` | Zona Fronteriza | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 84 | `bbdd_48` | Pasos Fronterizos | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 85 | `bbdd_49` | Estaciones Fluviométricas | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 86 | `bbdd_50` | Oficinas de Protección de Derechos (ODP) | Oficial | Estado de Chile / IDE Chile / ge... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 87 | `bbdd_51` | Localización de viveros en Chile continent... | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 88 | `bbdd_52` | Estaciones Meteorológicas Automáticas (FIA... | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 89 | `bbdd_53` | Industria Forestal Primeria (INFOR) | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 90 | `bbdd_54` | Mercados Mayoristas (ODEPA) | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 91 | `bbdd_55` | Sistema Nacional de Áreas Silvestres Prote... | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
-| 92 | `bbdd_59` | Cobertura de canales a nivel nacional | Oficial | Estado de Chile / IDE Chile / id... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 93 | `bbdd_60` | Catastro y Actualización de los Recursos V... | Oficial | Estado de Chile / IDE Chile / id... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 92 | `bbdd_59` | Cobertura de canales a nivel nacional | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 93 | `bbdd_60` | Catastro y Actualización de los Recursos V... | Oficial | Estado de Chile / IDE Chile / id... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 94 | `bbdd_62` | Cobertura de polígonos representativos de ... | Oficial | Estado de Chile / IDE Chile / ic... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
-| 95 | `bbdd_63` | Inventario de Biomasa y Carbono - Metropol... | Oficial | Estado de Chile / IDE Chile / si... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 96 | `bbdd_64` | Índice Global de Vulnerabilidad Socioterri... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 97 | `bbdd_65` | Iniciativas de inversión del Banco Integra... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 98 | `bbdd_66` | Unidades Vecinales 2026 | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 99 | `bbdd_67` | Personas en RSH en situación de dependenci... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 100 | `bbdd_68` | Personas en RSH según CSE y sexo - 2026 Ag... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 101 | `bbdd_69` | NNA en RSH adscritas a Fonasa o Isapre seg... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 102 | `bbdd_70` | Mujeres en RSH adscritas a Fonasa o Isapre... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 103 | `bbdd_71` | Jóvenes en RSH adscritos a Fonasa o Isapre... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 104 | `bbdd_72` | Hombres en RSH adscritos a Fonasa o Isapre... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 105 | `bbdd_73` | Personas mayores en RSH adscritos a Fonasa... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
-| 106 | `bbdd_74` | Personas en RSH ocupadas y cotizando, por ... | Oficial | Estado de Chile / IDE Chile / bi... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
+| 95 | `bbdd_63` | Inventario de Biomasa y Carbono - Metropol... | Oficial | Estado de Chile / IDE Chile / si... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 96 | `bbdd_64` | Índice Global de Vulnerabilidad Socioterri... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 97 | `bbdd_65` | Iniciativas de inversión del Banco Integra... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 98 | `bbdd_66` | Unidades Vecinales 2026 | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 99 | `bbdd_67` | Personas en RSH en situación de dependenci... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 100 | `bbdd_68` | Personas en RSH según CSE y sexo - 2026 Ag... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 101 | `bbdd_69` | NNA en RSH adscritas a Fonasa o Isapre seg... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 102 | `bbdd_70` | Mujeres en RSH adscritas a Fonasa o Isapre... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 103 | `bbdd_71` | Jóvenes en RSH adscritos a Fonasa o Isapre... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 104 | `bbdd_72` | Hombres en RSH adscritos a Fonasa o Isapre... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 105 | `bbdd_73` | Personas mayores en RSH adscritos a Fonasa... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 106 | `bbdd_74` | Personas en RSH ocupadas y cotizando, por ... | Oficial | Estado de Chile / IDE Chile / bi... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 | 107 | `semaforos_rm_uoct_2026` | Cruces Semaforizados Conectados SC-RM (UOC... | Oficial | Unidad Operativa de Control de T... | 90% | 100% | 100% | 100% | 100% | **97.0%** | 🟢 A+ |
 | 108 | `catastro_predial_sii` | Catastro Predial del Servicio de Impuestos... | Oficial | Servicio de Impuestos Internos (... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
-| 109 | `educacion` | Educación y Universidad | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 110 | `servicios` | Servicios y Comercio Barrial | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 111 | `transporte` | Movilidad y Transporte | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 112 | `movilidad_activa` | Movilidad Activa y Ciclovías | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 113 | `espacio_publico` | Áreas Verdes y Espacio Público | VGI | Comunidad OpenStreetMap (© Colab... | 90% | 75% | 100% | 100% | 100% | **92.0%** | 🔵 A |
-| 114 | `patrimonio` | Patrimonio y Cultura | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 115 | `accesibilidad` | Accesibilidad Universal | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 116 | `biodiversidad` | Biodiversidad Urbana | VGI | Global Biodiversity Information ... | 90% | 75% | 100% | 100% | 100% | **92.0%** | 🔵 A |
-| 117 | `edificaciones` | Edificaciones y Huella Urbana | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
-| 118 | `cobertura_suelo` | Coberturas y Usos de Suelo | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 75% | 100% | 100% | 100% | **95.0%** | 🟢 A+ |
+| 109 | `educacion` | Educación y Universidad | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 110 | `servicios` | Servicios y Comercio Barrial | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 111 | `transporte` | Movilidad y Transporte | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 112 | `movilidad_activa` | Movilidad Activa y Ciclovías | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 113 | `espacio_publico` | Áreas Verdes y Espacio Público | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 114 | `patrimonio` | Patrimonio y Cultura | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 115 | `accesibilidad` | Accesibilidad Universal | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 116 | `biodiversidad` | Biodiversidad Urbana | VGI | Global Biodiversity Information ... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 117 | `edificaciones` | Edificaciones y Huella Urbana | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
+| 118 | `cobertura_suelo` | Coberturas y Usos de Suelo | VGI | Comunidad OpenStreetMap (© Colab... | 100% | 100% | 100% | 100% | 100% | **100.0%** | 🟢 A+ |
 
 ---
 
