@@ -414,7 +414,7 @@ def build_02():
     
     headers_f = ["N°", "Plataforma / API", "Endpoint Base", "Módulo Atlas", "Licencia", "Función en el Geoportal"]
     rows_f = [
-        ["1", "Overpass API v0.7", "https://overpass-api.de/api/interpreter", "src/js/modulos/osm.js", "ODbL 1.0", "Extracción vectorial de geometrías (nodos, vías, relaciones) de las 8 macro-categorías."],
+        ["1", "Overpass API v0.7", "https://overpass-api.de/api/interpreter", "src/js/modulos/osm.js", "ODbL 1.0", "Extracción vectorial de geometrías (nodos, vías, relaciones) de las 10 macro-categorías VGI."],
         ["2", "ohsome API v1/v2", "https://api.ohsome.org/v1", "src/js/modulos/ohsome.js", "ODbL / CC-BY", "Auditoría histórica espacio-temporal, conteo de elementos y usuarios activos (2018-2026)."],
         ["3", "ohsome Quality Analyst", "Framework HeiGIT (Herfort et al., 2023)", "src/js/modulos/calidad_analyst.js", "CC-BY 4.0", "Cálculo de saturación de mapeo, madurez y completitud de atributos obligatorios."],
         ["4", "OSM Changesets API", "https://api.openstreetmap.org/api/0.6/", "src/js/modulos/calidad_analyst.js", "ODbL 1.0", "Trazabilidad de últimas ediciones territoriales y metadatos de edición comunitaria."],
@@ -423,7 +423,7 @@ def build_02():
         ["7", "GBIF Occurrence API", "https://api.gbif.org/v1/occurrence/search", "src/js/modulos/gbif.js", "CC0 / CC-BY", "Biodiversidad urbana, avifauna en Plaza Brasil y calidad Darwin Core de observaciones."],
         ["8", "uMap France", "https://umap.openstreetmap.fr/es/map/", "src/js/modulos/umap.js", "AGPLv3", "Integración de proyectos cartográficos colaborativos locales y exportación directa."],
         ["9", "iNaturalist API", "https://api.inaturalist.org/v1/observations", "src/js/modulos/gbif.js", "CC-BY 4.0", "Ciencia ciudadana biológica federada a través de nodos GBIF."],
-        ["10", "IDE Chile / MINVU / MDSF / INE", "https://geoide.minvu.cl / https://bidat.gob.cl", "src/js/modulos/ide_chile.js", "Ley 20.285 / 19.418", "Microdatos Censo 2024, 101 capas oficiales de zonificación PRC, BIDAT/RSH, DEIS, MOP y BIP Inversiones."]
+        ["10", "IDE Chile / MINVU / MDSF / INE", "https://geoide.minvu.cl / https://bidat.gob.cl", "src/js/modulos/ide_chile.js", "Ley 20.285 / 19.418", "Microdatos Censo 2024, 108 capas oficiales de zonificación PRC, BIDAT/RSH, DEIS, MOP y BIP Inversiones."]
     ]
     add_styled_table(doc, headers_f, rows_f, oe_tag="OE 1")
     
@@ -709,7 +709,7 @@ def build_10():
         ["osm.js", "src/js/modulos/osm.js", "430 líneas", "Consultas Overpass QL, failover entre espejos y caché en memoria.", "Ninguna (Fetch API)"],
         ["ohsome.js", "src/js/modulos/ohsome.js", "500 líneas", "Consumo de API ohsome v1/v2, cálculo de métricas históricas y series anuales.", "Ninguna (Fetch API)"],
         ["gbif.js", "src/js/modulos/gbif.js", "150 líneas", "Autocompletado taxonómico y consultas de biodiversidad urbana.", "Ninguna (Fetch API)"],
-        ["ide_chile.js", "src/js/modulos/ide_chile.js", "2.280 líneas", "Integración de 101 capas e indicadores oficiales del Estado, Leaflet Canvas y metadatos SNIT.", "Ninguna (Fetch API)"],
+        ["ide_chile.js", "src/js/modulos/ide_chile.js", "2.280 líneas", "Integración de 108 capas e indicadores oficiales del Estado, Leaflet Canvas y metadatos SNIT.", "Ninguna (Fetch API)"],
         ["evaluador_normativo.js", "src/js/modulos/evaluador_normativo.js", "790 líneas", "Motor point-in-polygon contra PRC Santiago, fajas de riesgo y Certificado CIN.", "Ninguna (Turf / Nativo)"],
         ["geodesia.js", "src/js/modulos/geodesia.js", "180 líneas", "Reproyección de coordenadas a UTM 19S (EPSG:32719) y Shoelace en m².", "Ninguna (Matemática Pura)"],
         ["metadatos.js", "src/js/modulos/metadatos.js", "340 líneas", "Generador dual de metadatos espaciales en JSON (ISO 19115) y XML (ISO 19139).", "Ninguna (DOMParser)"]

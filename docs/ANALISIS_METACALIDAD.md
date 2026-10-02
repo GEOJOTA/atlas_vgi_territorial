@@ -40,8 +40,8 @@ El análisis de MetaCalidad evalúa el grado en que los metadatos cartográficos
 4. **ISO 19110:2016 (Metodología de Catalogación de Objetos Geográficos):** Rige el Diccionario Territorial de 134 descriptores y atributos del sistema.
 5. **Marco Legal y Licenciamiento Abierto:**
    - **Estado de Chile (108 capas):** Publicadas bajo la **Ley N° 20.285 sobre Acceso a la Información Pública** (Transparencia Activa / Solicitudes formales como el Oficio N° 26105/2026 de UOCT y convenios con MINVU, DGA, INE, MDSF).
-   - **OpenStreetMap (9 macrocategorías):** Gobernadas por la **Open Database License (ODbL) 1.0** (Open Data Commons) con reciprocidad copyleft y atribución obligatoria.
-   - **GBIF (1 macrocategoría de biodiversidad):** Distribuida bajo **Creative Commons Atribución (CC-BY 4.0 / CC0 1.0 Universal)** según el estándar Darwin Core.
+   - **OpenStreetMap (10 macro-categorías VGI):** Gobernadas por la **Open Database License (ODbL) 1.0** (Open Data Commons) con reciprocidad copyleft y atribución obligatoria, cubriendo las 10 macro-categorías territoriales del Atlas (CAT-01 a CAT-10).
+   - **GBIF (Biodiversidad y Ciencia Ciudadana):** Integrado complementariamente en CAT-08 y distribuido bajo **Creative Commons Atribución (CC-BY 4.0 / CC0 1.0 Universal)** según el estándar internacional Darwin Core.
 
 ### Fórmula Matemática del Índice Global de MetaCalidad (IGMC)
 

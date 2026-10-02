@@ -3,7 +3,7 @@
 
 Plataforma web de código abierto para consultar, evaluar, visualizar y documentar **Información Geográfica Voluntaria (VGI)** en el territorio de Barrio Brasil. Desarrollado en el Departamento de Geografía de la Universidad Alberto Hurtado (2026), en el marco de la investigación sobre VGI, infraestructuras de datos espaciales y gestión territorial.
 
-Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **119 capas cartográficas integradas** (10 categorías maestras VGI y 109 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 multiescalar, UOCT / MTT y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con entidades espaciales vectorizadas e indexadas con GIST, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
+Integra un **visor cartográfico interactivo 2D de alta resolución (Leaflet 1.9.4)**, métricas de calidad de datos (ohsome API / Índice de Calidad VGI), evaluación normativa territorial (PRC Santiago / OGUC), **118 capas cartográficas integradas** (10 macro-categorías maestras VGI y 108 capas oficiales del Estado de Chile desde GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat, INE Censo 2024 multiescalar, UOCT / MTT y CNE), base de datos espacial en la nube **PostgreSQL 17.6 + PostGIS 3.3 (Supabase)** con entidades espaciales vectorizadas e indexadas con GIST, bucket público de almacenamiento CDN (`atlas-geojson`), consultas espaciales en milisegundos por RPC y exportación a GeoJSON, CSV, metadatos ISO 19115/19139 y catálogos Excel sincronizados.
 
 > **Acceso libre y código abierto.** Toda la funcionalidad opera con CDN públicos, APIs abiertas (OpenStreetMap, GBIF, ohsome, IDE Chile) y base de datos PostGIS gratuita en la nube con fallback local transparente.
 
@@ -112,7 +112,7 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
 | **Taginfo API Explorer** | Telemetría planetaria en tiempo real de claves y valores OSM con recuentos globales |
 | **Biodiversidad Urbana GBIF** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas Darwin Core |
 | **Metadatos ISO 19115 / 19139** | Fichas técnicas exportables a JSON y XML oficial de IDE Chile (SNIT / GeoNetwork) |
-| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales, 109 capas oficiales y 125 citas APA |
+| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales, 108 capas oficiales y 125 citas APA |
 
 ---
 

@@ -14,7 +14,7 @@ Este documento registra la evolución técnica, decisiones metodológicas y entr
 
 2. **Expansión del Catálogo Territorial (110 Descriptores):**
    - **Diagnóstico:** El catálogo previo de 90 etiquetas estaba altamente concentrado en dinámicas metropolitanas centrales (Santiago Centro / Barrio Brasil). Para garantizar **escalabilidad a otros territorios del país** (comunas rurales, borde costero, valles agrícolas, ciudades de ladera/cerro y zonas insulares/australes), se incorporaron 20 descriptores geográficos estratégicos de alta frecuencia en Chile.
-   - **Nuevos descriptores integrados en las 8 categorías maestras:**
+   - **Nuevos descriptores integrados en las 10 macro-categorías maestras:**
      - *CAT-01:* Centros de capacitación laboral y sedes OTEC (`amenity=training_centre`).
      - *CAT-02:* Postas de Salud Rural (`healthcare=centre`), Establecimientos de Adultos Mayores ELEAM (`amenity=social_facility`), Copas y estanques de agua (`man_made=water_tower`), Plantas de Agua Potable Rural APR / SSR Ley 20.998 (`man_made=water_works`), Torres de vigilancia de incendios forestales CONAF (`emergency=fire_lookout`) y Capitanías de Puerto / Alcaldías de Mar (`amenity=coast_guard`).
      - *CAT-03:* Terminales y rampas de transbordadores australes (`amenity=ferry_terminal`), Cruces ferroviarios a nivel con barrera (`railway=level_crossing`), Plazas de peaje y pórticos Free Flow TAG (`barrier=toll_booth`) y Aeródromos comunales DGAC (`aeroway=aerodrome`).
@@ -155,7 +155,7 @@ En cumplimiento con las instrucciones del usuario ("*Robustece el catalogo de et
    - **Solución implementada:** Se exportaron formalmente todos los submódulos al objeto global `window` (`window.ModuloManual = ModuloManual`, `window.ModuloDiccionario = ModuloDiccionario`, `window.ModuloOSM = ModuloOSM`, `window.ModuloGBIF = ModuloGBIF`, etc.). Además, se dotó a `src/js/modulos/manual.js` de una función de inyección autónoma reactiva (`autoCargarManual()`), la cual detecta si el contenedor está en estado placeholder y renderiza la documentación inmediatamente tras la carga del DOM, previniendo condiciones de carrera con eventos asíncronos del catálogo.
 
 2. **Robustecimiento del Catálogo de Etiquetas Chile (Hoja 2) y Categorías Maestras (Hoja 1):**
-   - **Hoja 1 (`Categorías Maestras`):** Se enriquecieron las 8 macro-categorías territoriales vinculándolas formalmente con estándares de calidad ISO 19157, endpoints de consulta espacial (Overpass, ohsome, GBIF, OQT), marcos regulatorios nacionales (IDE Chile, SNIT, OGUC, Ley REP 20.920) y marcos globales (UN-GGIM/IGIF).
+   - **Hoja 1 (`Categorías Maestras`):** Se enriquecieron las 10 macro-categorías territoriales vinculándolas formalmente con estándares de calidad ISO 19157, endpoints de consulta espacial (Overpass, ohsome, GBIF, OQT), marcos regulatorios nacionales (IDE Chile, SNIT, OGUC, Ley REP 20.920) y marcos globales (UN-GGIM/IGIF).
    - **Hoja 2 (`Catálogo de Etiquetas Chile`):** Se amplió el inventario de 63 a **90 etiquetas territoriales clave**, incorporando elementos esenciales de la infraestructura urbana y rural chilena: grifos de incendio bomberiles (`emergency=fire_hydrant`), cámaras de televigilancia municipal (`surveillance:type=camera`), luminarias públicas (`highway=street_lamp`), campanas y puntos de reciclaje Ley REP (`amenity=recycling`), kioscos tradicionales de suplementeros (`shop=newsagent`), zonas de coexistencia vial / Zona 30 (`highway=living_street`), zonas caninas municipales (`leisure=dog_park`), paseos peatonales céntricos (`highway=pedestrian`), semáforos de tránsito (`highway=traffic_signals`), y especies arbóreas nativas y urbanas (`genus=Quillaja/Cryptocarya/Schinus`).
    - **Diccionario Interactivo Web (`src/js/modulos/diccionario.js`):** Se actualizó el catálogo interactivo para renderizar las 90 etiquetas en tarjetas sobrias "estilo backrooms", con homología IDE Chile, descripción situacional y citas en norma APA 7ª ed.
 
@@ -171,7 +171,7 @@ En cumplimiento con las instrucciones del usuario ("*Robustece el catalogo de et
 
 ### Componentes y Archivos Sincronizados
 
-- **`scripts/generar_catalogos_excel.py`:** Motor generador con 8 categorías maestras, 90 etiquetas territoriales para Chile, 14 atributos VGI estandarizados (con EPSG:32719) y 104 fuentes bibliográficas en norma APA 7ª ed.
+- **`scripts/generar_catalogos_excel.py`:** Motor generador con 10 macro-categorías maestras, 90 etiquetas territoriales para Chile, 14 atributos VGI estandarizados (con EPSG:32719) y 104 fuentes bibliográficas en norma APA 7ª ed.
 - **`docs/categorias_tematicas_osm.xlsx` & `src/docs/categorias_tematicas_osm.xlsx`:** Libros de trabajo OpenXML binarios regenerados y sincronizados idénticamente.
 - **`src/js/modulos/diccionario.js`:** 90 etiquetas territoriales con atributos de tipología, geometría, homología oficial IDE y fuente APA.
 - **`src/js/modulos/manual.js`:** Documentación enriquecida con secciones dedicadas para IDE/SNIT, APIs geoespaciales y autocarga reactiva inmediata (`autoCargarManual()`).
@@ -240,7 +240,7 @@ En cumplimiento con el requerimiento de accesibilidad conceptual, gobernanza de 
 1. **Incomprensión del Diccionario Territorial por Usuarios No Técnicos:**
    - La versión previa presentaba únicamente dos tablas densas con 14 atributos normalizados y 63 etiquetas de OpenStreetMap en inglés, resultando abrumadora para vecinos, dirigentes sociales y estudiantes que ingresaban por primera vez al ecosistema VGI. Carecía de un puente visual intuitivo entre los descriptores barriales y su explicación metodológica.
 2. **Carencia de un Manual de Uso Integrado en la Aplicación Web:**
-   - El Panel 08 contenía únicamente un resumen esquemático de hitos sin documentación técnica navegable, sin diagramas explicativos del flujo de datos y sin ejemplos reproducibles para las 8 categorías territoriales.
+   - El Panel 08 contenía únicamente un resumen esquemático de hitos sin documentación técnica navegable, sin diagramas explicativos del flujo de datos y sin ejemplos reproducibles para las 10 macro-categorías territoriales.
 3. **Inadecuación Ética y Jurídica de la Licencia MIT para la VGI en Chile:**
    - La licencia permisiva MIT permitía que cualquier actor privado o consultora comercial empaquetara el código y los datos comunitarios en software cerrado privativo sin transferir mejoras a la comunidad (*enclosure* de datos abiertos), vulnerando la soberanía de los datos públicos y el espíritu solidario de OpenStreetMap.
 4. **Falta de un Protocolo Explícito de Contribuciones en Git:**
@@ -256,7 +256,7 @@ En cumplimiento con el requerimiento de accesibilidad conceptual, gobernanza de 
    - Diseñado bajo la metáfora de una **librería o paquete de software técnico (estilo *documentation docsite* sobrio 'backrooms')**, articulado en 7 secciones exhaustivas con navegación fija superior y accesos directos:
      - **01. Quickstart:** Guías diferenciadas de 3 pasos para ciudadanos no técnicos vs geógrafos y analistas SIG.
      - **02. Guía de Módulos (00 al 07):** Descripción pormenorizada de entradas, salidas y casos de uso para cada panel del sistema.
-     - **03. Catálogo Exhaustivo de Macro-Categorías (CAT-01 a CAT-08):** Fichas técnicas individuales con anclas directas (`#manual-cat-01` a `#manual-cat-08`), detallando su función territorial en Barrio Brasil, contrapartes públicas (MTT, MINEDUC, MINSAL, INE, SENAPRED, IND, CMN, SENADIS), estándar legal vinculado, código de consulta Overpass QL con botón interactivo de copia (`✓ ¡Copiado!`) y ejemplos de aplicación en la manzana universitaria UAH.
+     - **03. Catálogo Exhaustivo de Macro-Categorías (CAT-01 a CAT-10):** Fichas técnicas individuales con anclas directas (`#manual-cat-01` a `#manual-cat-08`), detallando su función territorial en Barrio Brasil, contrapartes públicas (MTT, MINEDUC, MINSAL, INE, SENAPRED, IND, CMN, SENADIS), estándar legal vinculado, código de consulta Overpass QL con botón interactivo de copia (`✓ ¡Copiado!`) y ejemplos de aplicación en la manzana universitaria UAH.
      - **04. Geodesia Conforme EPSG:32719 (WGS 84 / UTM Huso 19 Sur):** Demostración analítica de por qué no medir en grados (distorsión de ~19.3% a latitud -33.45°), ecuaciones conformes de Transverse Mercator (Snyder, 1987) y algoritmo de Gauss / Shoelace para áreas en $m^2$ y hectáreas.
      - **05. Evaluación de Calidad ISO 19157 & ohsome:** Métricas de completitud, exactitud temporal, densidad espacial por $km^2$ y linaje de colaboradores únicos con soporte dual v1 (OSHDB) y v2 (ohsomeDB).
      - **06. Marco Legal Abierto y Gobernanza Git:** Fundamentación del reemplazo de MIT y directrices para contribuir al repositorio mediante *Fork & Pull Request* bajo auditoría del mantenedor.
@@ -313,7 +313,7 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
 1. **Desconexión Ontológica entre el Estándar Internacional OSM y la Realidad Chilena:**
    - Las taxonomías genéricas de OpenStreetMap no contemplan singularidades institucionales críticas para la gestión del territorio en Chile, tales como la estructuración de la Atención Primaria de Salud (CESFAM, CECOSF, SAPU) bajo `amenity=clinic`, el sistema metropolitano de transporte Red Movilidad con codificación de paradas (`ref=PA...`), la normativa de accesibilidad universal establecida por el Decreto Supremo N° 50 del MINVU (OGUC Art. 2.2.8: rebajes de acera `kerb=lowered`/`flush`), o las tipologías patrimoniales vernáculas como los cités residenciales (`heritage=cite`).
 2. **Ausencia de Trazabilidad Inmediata y Aparato Bibliográfico en el Archivo Excel:**
-   - El archivo Excel previo solo contenía un listado plano de 8 categorías sin justificación empírica de frecuencias, sin correlación con capas del Sistema Nacional de Información Territorial (IDE Chile / SNIT), sin diccionario de datos atributivos y sin referencias bibliográficas formales que respaldaran la selección de etiquetas ante un comité académico.
+   - El archivo Excel previo solo contenía un listado plano de 10 macro-categorías sin justificación empírica de frecuencias, sin correlación con capas del Sistema Nacional de Información Territorial (IDE Chile / SNIT), sin diccionario de datos atributivos y sin referencias bibliográficas formales que respaldaran la selección de etiquetas ante un comité académico.
 3. **Falta de Sincronización entre Repositorio Git y Despliegue Web:**
    - Los archivos Excel generados en `docs/` no siempre se propagaban de forma transparente a `src/docs/`, provocando enlaces rotos o descargas de versiones desactualizadas en la plataforma web desplegada en Netlify.
 
@@ -323,7 +323,7 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
 
 1. **Reestructuración y Generación Automatizada del Catálogo Excel (`scripts/generar_catalogos_excel.py`):**
    - Se rediseñó por completo la función `crear_categorias_tematicas_osm()` para generar un libro de trabajo en formato OpenXML (`.xlsx`) estructurado en **4 hojas complementarias con diseño visual editorial**:
-     - **Hoja 1: `Categorías Maestras (Chile)`**: Define las 8 macro-categorías (CAT-01 Movilidad, CAT-02 Educación y Social, CAT-03 Salud, CAT-04 Comercio, CAT-05 Seguridad y Emergencias, CAT-06 Espacio Público y Deporte, CAT-07 Patrimonio Urbano, CAT-08 Medio Ambiente y Accesibilidad), su código temático ISO 19115 (`topicCategory`), contraparte ministerial del Estado, consulta base Overpass QL, frecuencia regional en Taginfo Chile y cita APA de respaldo.
+     - **Hoja 1: `Categorías Maestras (Chile)`**: Define las 10 macro-categorías (CAT-01 Movilidad, CAT-02 Educación y Social, CAT-03 Salud, CAT-04 Comercio, CAT-05 Seguridad y Emergencias, CAT-06 Espacio Público y Deporte, CAT-07 Patrimonio Urbano, CAT-08 Medio Ambiente y Accesibilidad), su código temático ISO 19115 (`topicCategory`), contraparte ministerial del Estado, consulta base Overpass QL, frecuencia regional en Taginfo Chile y cita APA de respaldo.
      - **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula **63 etiquetas territoriales específicas de alta frecuencia en Chile**, detallando clave OSM, valor, denominación chilena en lenguaje natural, geometría admitida (punto, línea, polígono), capa homóloga en IDE Chile, institución estatal responsable, frecuencia regional observada, caso de aplicación real en el polígono piloto Barrio Brasil / Campus UAH y referencia APA vinculada.
      - **Hoja 3: `Diccionario Atributos VGI`**: Define los **14 atributos normalizados** del modelo de datos (`id_vgi`, `osm_id`, `categoria_codigo`, `nombre`, `tipo_geometria`, `operador_institucional`, `direccion_normalizada`, `accesibilidad_universal`, `superficie_m2`, `superficie_ha`, `srs_superficie`, `fecha_captura_vgi`, `linaje_procesamiento`, `licencia_datos`), incorporando explícitamente el cálculo geodésico proyectado a **EPSG:32719 (WGS 84 / UTM Huso 19 Sur)** según estándares del IGM e IDE Chile, con correspondencia a la norma ISO 19110:2016.
      - **Hoja 4: `Bibliografía y Fuentes APA`**: Consolida **33 fuentes oficiales, jurídicas, técnicas y científicas** redactadas rigurosamente bajo la norma **APA 7ª edición**, clasificadas por tipología documental (normas ISO/OGC, leyes y decretos de Chile, manuales y catálogos ministeriales, plataformas VGI colaborativas y literatura científica internacional de geografía).
@@ -335,7 +335,7 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
    - La tabla de etiquetas incorpora columnas dinámicas para la institución estatal, homólogo IDE Chile y botón modal de citación bibliográfica APA inmediata.
 
 3. **Consolidación en la Documentación Académica (`docs/TRAZABILIDAD_ACADEMICA.md`):**
-   - **Sección 2.6 ("Taxonomía de Categorías OSM Adaptada a Chile y Trazabilidad Bibliográfica APA")**: Desarrolla la fundamentación epistemológica de la traducción ontológica anglosajona-chilena, la matriz de las 8 macro-categorías, la justificación de las 63 etiquetas y la arquitectura de 4 hojas del catálogo Excel.
+   - **Sección 2.6 ("Taxonomía de Categorías OSM Adaptada a Chile y Trazabilidad Bibliográfica APA")**: Desarrolla la fundamentación epistemológica de la traducción ontológica anglosajona-chilena, la matriz de las 10 macro-categorías, la justificación de las 63 etiquetas y la arquitectura de 4 hojas del catálogo Excel.
    - **Sección 7 ("Referencias Bibliográficas y Fuentes Oficiales - Norma APA 7ª Edición")**: Registra de forma exhaustiva las 33 fuentes documentales estructuradas en 5 sub-apartados temáticos, permitiendo al evaluador académico contrastar cualquier afirmación del proyecto con fuentes primarias del Estado de Chile o de la comunidad académica internacional.
 
 ---
@@ -387,7 +387,7 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
 
 4. **Coherencia Intermodular entre Paneles de Consulta:**
    - Se diseñó e integró la matriz ontológica `MAPA_COHERENCIA_CATEGORIAS` en `src/js/app.js`, que conecta de forma semántica y funcional:
-     - Las 8 categorías temáticas (Educación, Servicios, Transporte, Movilidad Activa, Espacio Público, Patrimonio, Accesibilidad, Biodiversidad).
+     - Las 10 categorías temáticas (Educación, Servicios, Transporte, Movilidad Activa, Espacio Público, Patrimonio, Accesibilidad, Biodiversidad).
      - Presets y sintaxis de Overpass QL (`amenity=university`, `highway=bus_stop`, `historic=*`, etc.).
      - Constructor de consultas personalizadas (claves, valores, operadores y entidad `nwr`).
      - Presets y filtros sintácticos de ohsome API (`building=* and type:way`, etc.).
@@ -550,9 +550,9 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
    - **Sincronización Integral Full-Stack:**
      - Actualización de `config/config.json`, `src/config/config.json`, el selector en `src/index.html`, la función reactiva `poblarSelectorTerritorios()` en `src/js/app.js` y la configuración de contingencia en `src/js/config.js`.
 
-7. **Abordaje Multi-Entidad Coherente y Geometrías Mixtas en las 8 Categorías Temáticas VGI:**
+7. **Abordaje Multi-Entidad Coherente y Geometrías Mixtas en las 10 Macro-Categorías Temáticas VGI:**
    - **Enriquecimiento Taxonómico y Temático Coherente:**
-     - Cada una de las 8 categorías temáticas oficiales del Atlas se amplió para capturar múltiples entidades territoriales interconectadas metodológicamente:
+     - Cada una de las 10 macro-categorías temáticas oficiales del Atlas se amplió para capturar múltiples entidades territoriales interconectadas metodológicamente:
        - *CAT-01 Educación:* Universidades, institutos, colegios, jardines infantiles, bibliotecas públicas y huellas de edificios/campus.
        - *CAT-02 Servicios y Comercio Barrial:* Locales de proximidad (almacenes, panaderías, ferias), gastronomía comunitaria, farmacias, consultorios, bancos, cajeros y centros cívicos.
        - *CAT-03 Movilidad y Transporte:* Paraderos Red, estaciones de Metro (Los Héroes, Santa Ana, Cumming), bocas de acceso, andenes, terminales y ejes viales primarios.
@@ -683,7 +683,7 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
    - Territorio principal predeterminado fijado en `[-70.6675, -33.4505, -70.6565, -33.4385]` (Santiago Centro, Chile), cubriendo el campus patrimonial de la UAH (calles Almirante Barroso, Erasmo Escala, Cienfuegos, Metro Los Héroes) y el sector tradicional de Plaza Brasil.
    - Selector rápido con territorios preconfigurados (Manzana UAH, Barrio Brasil ampliado, Santiago Centro cívico, Providencia, Lo Barnechea).
 
-3. **8 Categorías Temáticas VGI Operativas (basadas en OSM):**
+3. **10 Macro-Categorías Temáticas VGI Operativas (basadas en OSM):**
    - Implementadas en `src/js/modulos/osm.js` y en la botonera interactiva del mapa:
      - 🎓 CAT-01: Educación y Universidad (UAH, facultades, bibliotecas)
      - 🏪 CAT-02: Servicios, Comercio y Abastecimiento
@@ -704,7 +704,7 @@ En cumplimiento con el requerimiento de robustecimiento conceptual y documental 
    - Generados mediante script Python `scripts/generar_catalogos_excel.py` (usando `openpyxl`) y guardados en `docs/`:
      - `docs/catalogo_fuentes_vgi.xlsx`: matriz de fuentes (OSM, ohsome, GBIF, UMap, iNaturalist, IDE Chile).
      - `docs/perfil_metadatos_vgi.xlsx`: campos núcleo ISO 19115 y perfil IDE Chile / SNIT.
-     - `docs/categorias_tematicas_osm.xlsx`: taxonomía de 8 categorías, filtros Overpass y diccionario de datos normalizado.
+     - `docs/categorias_tematicas_osm.xlsx`: taxonomía de 10 macro-categorías, filtros Overpass y diccionario de datos normalizado.
 
 6. **Metadatos Duales ISO 19115 (JSON) e ISO 19139 (XML para IDE Chile):**
    - El módulo `metadatos.js` ahora genera tanto el JSON núcleo como el documento XML conforme al esquema oficial de IDE Chile / GeoNetwork (`<gmd:MD_Metadata>`), descargables directamente con un clic.

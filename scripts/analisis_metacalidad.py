@@ -426,8 +426,8 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append("4. **ISO 19110:2016 (Metodología de Catalogación de Objetos Geográficos):** Rige el Diccionario Territorial de 134 descriptores y atributos del sistema.")
     md.append("5. **Marco Legal y Licenciamiento Abierto:**")
     md.append("   - **Estado de Chile (108 capas):** Publicadas bajo la **Ley N° 20.285 sobre Acceso a la Información Pública** (Transparencia Activa / Solicitudes formales como el Oficio N° 26105/2026 de UOCT y convenios con MINVU, DGA, INE, MDSF).")
-    md.append("   - **OpenStreetMap (9 macrocategorías):** Gobernadas por la **Open Database License (ODbL) 1.0** (Open Data Commons) con reciprocidad copyleft y atribución obligatoria.")
-    md.append("   - **GBIF (1 macrocategoría de biodiversidad):** Distribuida bajo **Creative Commons Atribución (CC-BY 4.0 / CC0 1.0 Universal)** según el estándar Darwin Core.\n")
+    md.append("   - **OpenStreetMap (10 macro-categorías VGI):** Gobernadas por la **Open Database License (ODbL) 1.0** (Open Data Commons) con reciprocidad copyleft y atribución obligatoria, cubriendo las 10 macro-categorías territoriales del Atlas (CAT-01 a CAT-10).")
+    md.append("   - **GBIF (Biodiversidad y Ciencia Ciudadana):** Integrado complementariamente en CAT-08 y distribuido bajo **Creative Commons Atribución (CC-BY 4.0 / CC0 1.0 Universal)** según el estándar internacional Darwin Core.\n")
 
     md.append("### Fórmula Matemática del Índice Global de MetaCalidad (IGMC)\n")
     md.append("$$\\text{IGMC}_i = 0.30 \\cdot \\text{MC}_i + 0.20 \\cdot \\text{CC}_i + 0.25 \\cdot \\text{LL}_i + 0.15 \\cdot \\text{RG}_i + 0.10 \\cdot \\text{AI}_i$$\n")
