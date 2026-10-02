@@ -9,7 +9,7 @@
 
 ## 0. Introducción y Perfiles de Actor Territorial
 
-El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **109 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 119 capas totales con las 10 categorías maestras VGI).
+El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **108 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 118 capas totales con las 10 categorías maestras VGI).
 
 En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual adapta y resalta las herramientas clave según la necesidad operativa del usuario:
 
@@ -242,8 +242,9 @@ Permite consultar la definición toponímica y la homología institucional de ca
 
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para análisis territorial y respaldo técnico:
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **109 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, Semáforos RM UOCT/MTT, BiDat MDSF, MINVU, MOP, DGA, Energía, CCU, etc.).
-- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile).
+- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **108 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, Semáforos RM UOCT/MTT, BiDat MDSF, MINVU, MOP, DGA, Energía, CCU, etc.).
+- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile), complementado con la matriz integral de *Auditoría MetaCalidad 118 Capas*.
+- **`docs/ANALISIS_METACALIDAD.md`:** Informe técnico de auditoría de MetaCalidad (ISO 19115 / ISO 19157) sobre el 100% de la base de datos (118 capas).
 - **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando 51 obras seminales de investigación, 8 fuentes epistemológicas e hispanoamericanas y 66 normas técnicas y marcos legales del Estado de Chile y globales).
 
 ---
@@ -253,18 +254,21 @@ En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles lo
 Para analistas SIG o geógrafos que requieran procesar datos por lotes en consola:
 
 ```bash
-# 1. Auditoría universal pre-despliegue de los 208 GeoJSONs y catálogos Excel:
+# 1. Auditoría universal pre-despliegue de los 214 GeoJSONs y catálogos Excel:
 python3 scripts/verificar_integridad_despliegue.py
 
-# 2. Ingesta masiva y sincronización con Supabase PostGIS:
+# 2. Auditoría programática de MetaCalidad (ISO 19115 / ISO 19157):
+python3 scripts/analisis_metacalidad.py
+
+# 3. Ingesta masiva y sincronización con Supabase PostGIS:
 export SUPABASE_URL="https://[TU-PROYECTO].supabase.co"
 export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
 python3 scripts/subir_base_datos_supabase.py --upload-storage
 
-# 3. Regeneración de libros de catálogo en Excel:
+# 4. Regeneración de libros de catálogo en Excel:
 python3 scripts/generar_catalogos_excel.py
 
-# 4. Extracción automatizada de categorías VGI desde Overpass:
+# 5. Extracción automatizada de categorías VGI desde Overpass:
 python3 scripts/extractor_vgi.py --categoria todas
 ```
 
@@ -290,9 +294,44 @@ El Atlas es un bien público abierto y transferible. Cualquier usuario promedio 
 1. **Mapeo Directo en OpenStreetMap (Sin código):**  
    Ingresa a [OpenStreetMap.org](https://www.openstreetmap.org/) con el editor web visual iD. Puedes agregar o corregir locales comerciales, rebajes peatonales, veredas, luminarias o plazas en Barrio Brasil. Al guardar el conjunto de cambios, añade `#AtlasVGI_UAH` en el comentario. Las consultas en vivo del Atlas integrarán tu aporte inmediatamente con trazabilidad de autor y fecha.
 2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 109 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
+   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 108 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
 3. **Reporte y Sugerencia de Capas vía GitHub Issues:**  
    Si encuentras una discrepancia o tu organización posee un set de datos territoriales que desea visibilizar, abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) detallando el nombre de la capa, enlace o archivo, ubicación y organización de contacto.
 4. **Lineamientos de Trazabilidad e Integridad:**  
    Para preservar la rigurosidad científica, todo dato aportado debe registrar: (a) entidad u organización responsable, (b) fecha o año de levantamiento, (c) sistema de coordenadas (WGS 84 o EPSG:32719) y (d) licencia abierta compatible (ODbL, CC-BY 4.0 o datos públicos Ley 20.285). Para más detalles, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## 16. Auditoría y Evaluación de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
+
+El Atlas VGI incorpora un marco de auditoría de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Esta auditoría examina de manera exhaustiva el **100% de la base de datos cartográfica** (118 capas: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
+
+### 16.1 Marcos Normativos y Dimensiones Evaluadas
+Conforme a las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, la evaluación mide cinco dimensiones ponderadas:
+
+1. **Completitud de Metadatos Núcleo (MC - 30%):** Presencia de los 10 elementos obligatorios del Perfil Nacional (Identificador, Título, Resumen, Custodio, Temporalidad, Tópico ISO, Extensión Bbox, CRS, Licencia y Linaje/Cita APA).
+2. **Conformidad Normativa y Semántica (CC - 20%):** Validación de esquema GeoJSON/XML, tipología geométrica explícita y asignación a grupos temáticos normalizados.
+3. **Linaje, Trazabilidad y Derechos Jurídicos (LL - 25%):** Atribución estricta según marco legal: Ley N° 20.285 de Transparencia para capas del Estado, ODbL 1.0 para OpenStreetMap y CC-BY 4.0 para GBIF, con cita bibliográfica en formato APA 7ª edición.
+4. **Resolución Espacial y Granularidad Territorial (RG - 15%):** Escala de agregación formalmente documentada (Regional, Comunal, Zonal, Manzana, Predio o Puntual) y doble sistema de referencia geodésico (WGS 84 / EPSG:4326 y SIRGAS-Chile / EPSG:32719 para cálculo métrico conforme de Snyder).
+5. **Accesibilidad e Integridad Operativa (AI - 10%):** Verificación de integridad física binaria en `src/data/` (cero punteros LFS rotos) y disponibilidad de descarga inmediata.
+
+### 16.2 Resultados y Dictamen Global de la Base de Datos (118 Capas)
+$$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
+
+| Métrica Global | Puntaje Promedio | Calificación ISO 19157 |
+| :--- | :---: | :---: |
+| **Completitud Núcleo (MC)** | **89.92%** | 🟢 Excelente |
+| **Conformidad Normativa (CC)** | **97.88%** | 🟢 Excelente |
+| **Linaje y Trazabilidad (LL)** | **100.00%** | 🟢 Excelente |
+| **Resolución y Granularidad (RG)** | **100.00%** | 🟢 Excelente |
+| **Accesibilidad e Integridad (AI)** | **100.00%** | 🟢 Excelente |
+| **Índice Global de MetaCalidad (IGMC)** | **96.55%** | **🟢 Grado A+ (Excelente)** |
+
+**Distribución de Calidad de la Base de Datos:**
+- **Grado A+ (Excelente, $\ge 95\%$):** 98 capas (**83.1%**).
+- **Grado A (Muy Bueno, $85\% - 94.9\%$):** 20 capas (**16.9%**).
+- **Grado B / C (< 85%):** 0 capas (**0.0%**).
+
+El informe pormenorizado con la matriz completa de las 118 capas se encuentra documentado en [`docs/ANALISIS_METACALIDAD.md`](docs/ANALISIS_METACALIDAD.md), en formato estructurado [`docs/matriz_metacalidad.json`](docs/matriz_metacalidad.json) y en la hoja *Auditoría MetaCalidad 118 Capas* del libro Excel [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
+
 

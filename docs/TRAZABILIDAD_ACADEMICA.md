@@ -233,6 +233,31 @@ Ante la evaluación técnica y metodológica, cada componente técnico responde 
 
 ---
 
+## 4. Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
+
+Para garantizar la interoperabilidad y el rigor epistemológico del Atlas, se desarrolló e implementó un protocolo programático de evaluación de **MetaCalidad** (calidad integral de metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Este análisis auditó el **100% de la base de datos cartográfica** (**118 capas**: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
+
+### 4.1 Modelo Matemático del Índice Global de MetaCalidad (IGMC)
+Conforme a las directrices de las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, se evaluaron cinco dimensiones ponderadas:
+
+$$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
+
+1. **Completitud de Metadatos Núcleo (MC - 30%):** Presencia de los 10 elementos obligatorios del Perfil Nacional (Identificador, Título, Resumen, Custodio, Temporalidad, Tópico ISO, Extensión Bbox, CRS, Licencia y Linaje/Cita APA). Promedio obtenido: **89.92%**.
+2. **Conformidad Normativa y Semántica (CC - 20%):** Validación de esquema GeoJSON/XML, tipología geométrica explícita y coherencia de grupo temático. Promedio obtenido: **97.88%**.
+3. **Linaje, Trazabilidad y Derechos Jurídicos (LL - 25%):** Atribución estricta según marco legal: Ley N° 20.285 de Transparencia para capas del Estado, ODbL 1.0 para OpenStreetMap y CC-BY 4.0 para GBIF, con cita bibliográfica en formato APA 7ª edición. Promedio obtenido: **100.00%**.
+4. **Resolución Espacial y Granularidad Territorial (RG - 15%):** Escala de agregación formalmente documentada (Regional, Comunal, Zonal, Manzana, Predio o Puntual) y doble sistema de referencia geodésico (WGS 84 / EPSG:4326 y SIRGAS-Chile / EPSG:32719 para cálculo métrico conforme de Snyder). Promedio obtenido: **100.00%**.
+5. **Accesibilidad e Integridad Operativa (AI - 10%):** Verificación de integridad física binaria en `src/data/` (cero punteros LFS rotos) y disponibilidad de descarga inmediata. Promedio obtenido: **100.00%**.
+
+### 4.2 Dictamen Global y Certificación de Calidad
+- **Índice Global de MetaCalidad (IGMC):** **96.55% (Grado A+ Excelente)**.
+- **Distribución de Calidad:** 98 capas en **Grado A+ (Excelente)** (83.1%) y 20 capas en **Grado A (Muy Bueno)** (16.9%), con **0 capas deficientes (0.0%)**.
+- **Artefactos Técnicos Generados:**
+  - [`docs/ANALISIS_METACALIDAD.md`](ANALISIS_METACALIDAD.md): Informe pormenorizado y matriz de las 118 capas.
+  - [`docs/matriz_metacalidad.json`](matriz_metacalidad.json): Dataset estructurado JSON para consumo programático.
+  - [`docs/perfil_metadatos_vgi.xlsx`](perfil_metadatos_vgi.xlsx): Hoja *Auditoría MetaCalidad 118 Capas* del libro de cálculo institucional.
+
+---
+
 ## 5. Validación Empírica en el Caso Piloto: Barrio Brasil y Campus UAH
 
 Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -33.4505, -70.6565, -33.4385]`, se extrajo y validó un universo real de **1.316 entidades geográficas**, categorizadas bajo la taxonomía del Atlas:

@@ -215,7 +215,25 @@ python3 scripts/generar_catalogos_excel.py
 
 ---
 
-## 11. Cómo Contribuir al Atlas (Guía Simple y Trazabilidad Ciudadana)
+## 11. Auditoría de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
+
+La base de datos espacial completa del Atlas (**118 capas**: 108 oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF) cuenta con una auditoría programática de **MetaCalidad** (calidad integral de metadatos espaciales) evaluada mediante `scripts/analisis_metacalidad.py`:
+
+| Dimensión de MetaCalidad | Estándar Aplicado | Ponderación | Puntaje Promedio | Calificación Cualitativa |
+| :--- | :--- | :---: | :---: | :---: |
+| **Completitud de Metadatos (MC)** | ISO 19115-1 Core / Perfil IDE Chile SNIT | 30% | **89.92%** | 🟢 Excelente |
+| **Conformidad Normativa (CC)** | ISO 19139 / ISO 19110 | 20% | **97.88%** | 🟢 Excelente |
+| **Linaje y Trazabilidad (LL)** | Ley 20.285 / ODbL 1.0 / CC-BY 4.0 | 25% | **100.00%** | 🟢 Excelente |
+| **Resolución y Granularidad (RG)** | Snyder 1987 / EPSG:32719 | 15% | **100.00%** | 🟢 Excelente |
+| **Accesibilidad e Integridad (AI)** | Almacenamiento Local / CDN Edge | 10% | **100.00%** | 🟢 Excelente |
+| **ÍNDICE GLOBAL DE METACALIDAD (IGMC)** | **ISO 19157:2013 / 2023** | **100%** | **96.55%** | **🟢 Grado A+ (Excelente)** |
+
+- **Distribución de Calidad:** 98 capas en **Grado A+ (Excelente)** (83.1%) y 20 capas en **Grado A (Muy Bueno)** (16.9%), con 0% de capas deficientes.
+- **Documentación Completa:** Consulta la [Matriz Exhaustiva de MetaCalidad (docs/ANALISIS_METACALIDAD.md)](docs/ANALISIS_METACALIDAD.md), el dataset estructurado [docs/matriz_metacalidad.json](docs/matriz_metacalidad.json) y el libro Excel [docs/perfil_metadatos_vgi.xlsx](docs/perfil_metadatos_vgi.xlsx).
+
+---
+
+## 12. Cómo Contribuir al Atlas (Guía Simple y Trazabilidad Ciudadana)
 
 Cualquier persona u organización (vecinos, dirigentas/es, colectivos barriales, estudiantes, ONGs) puede aportar información al Atlas de forma simple:
 
@@ -226,7 +244,7 @@ Cualquier persona u organización (vecinos, dirigentas/es, colectivos barriales,
 
 ---
 
-## 12. Cita académica y marco de investigación
+## 13. Cita académica y marco de investigación
 
 ```bibtex
 @misc{MF2026atlas,

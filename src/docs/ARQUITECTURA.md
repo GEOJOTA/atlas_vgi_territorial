@@ -338,5 +338,18 @@ Ubicados en `docs/` y `src/docs/`, generados automáticamente mediante `scripts/
 
 ---
 
+## 9. Marco de Aseguramiento de MetaCalidad (ISO 19115 / ISO 19157)
+
+Para garantizar la interoperabilidad, trazabilidad y confiabilidad de la información geoespacial, el proyecto implementa un protocolo automatizado y continuo de auditoría de metadatos mediante `scripts/analisis_metacalidad.py`:
+- **Cobertura:** 100% de la base de datos cartográfica (**118 capas**: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF).
+- **Métricas:** Modelo matemático multidimensional ponderado según **ISO 19157:2013 / 2023** e **IDE Chile SNIT v2.0** (Completitud MC 30%, Conformidad CC 20%, Linaje LL 25%, Resolución RG 15%, Accesibilidad AI 10%).
+- **Resultado Global:** **96.55% IGMC (Grado A+ Excelente)**, con 98 capas en Grado A+ (83.1%) y 20 capas en Grado A (16.9%).
+- **Artefactos del Sistema:**
+  - `docs/ANALISIS_METACALIDAD.md`: Informe técnico pormenorizado con la evaluación integral de las 118 capas.
+  - `docs/matriz_metacalidad.json`: Matriz de datos en formato JSON para integración continua.
+  - `docs/perfil_metadatos_vgi.xlsx`: Hoja *Auditoría MetaCalidad 118 Capas* con indicadores cuantitativos.
+
+---
+
 *Atlas VGI Barrio Brasil — Departamento de Geografía, Universidad Alberto Hurtado.*  
 *Investigación sobre VGI, Infraestructuras de Datos Espaciales y Gestión Territorial 2026.*

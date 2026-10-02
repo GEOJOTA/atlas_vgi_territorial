@@ -243,6 +243,7 @@ const ModuloIDEChile = (() => {
       institucion: 'MINVU / Municipios de la Región Metropolitana',
       ministerio: 'División de Desarrollo Urbano (DDU) / DOM Municipales',
       tipoServicio: 'ArcGIS MapServer / FeatureServer',
+      urlServicio: 'https://geoide.minvu.cl/server/rest/services/IPT/PRC/FeatureServer/0',
       archivoLocal: 'data/ide_minvu_ipt_prc_santiago.geojson',
       color: '#D97706',
       icono: '🏛️',
