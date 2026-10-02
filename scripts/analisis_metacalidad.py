@@ -25,8 +25,16 @@ Fecha: Octubre 2026
 import os
 import re
 import json
-import openpyxl
 from datetime import datetime
+
+try:
+    import openpyxl
+    import openpyxl.styles
+    import openpyxl.utils
+    HAS_OPENPYXL = True
+except ImportError:
+    HAS_OPENPYXL = False
+    openpyxl = None
 
 # Rutas del repositorio
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -781,9 +789,12 @@ def ejecutar_analisis():
     print(f"[✓] Informe Markdown de MetaCalidad exportado en {OUT_MD_DOCS} y {OUT_MD_SRC}")
 
     # 3. Exportar Hoja en perfil_metadatos_vgi.xlsx
-    actualizar_excel_metacalidad(datos_export_json, XLSX_DOCS)
-    actualizar_excel_metacalidad(datos_export_json, XLSX_SRC)
-    print(f"[✓] Libro Excel actualizado con matriz de MetaCalidad en {XLSX_DOCS} y {XLSX_SRC}")
+    if HAS_OPENPYXL:
+        actualizar_excel_metacalidad(datos_export_json, XLSX_DOCS)
+        actualizar_excel_metacalidad(datos_export_json, XLSX_SRC)
+        print(f"[✓] Libro Excel actualizado con matriz de MetaCalidad en {XLSX_DOCS} y {XLSX_SRC}")
+    else:
+        print("[!] openpyxl no está instalado en este entorno. Se conservan intactos los libros Excel pre-compilados.")
 
     print("\n✅ Auditoría de MetaCalidad concluida con éxito total.")
 
@@ -1158,6 +1169,10 @@ def generar_informe_markdown(datos, ruta_salida):
 
 def actualizar_excel_metacalidad(datos, ruta_excel):
     """Agrega o reemplaza las hojas de auditoría en perfil_metadatos_vgi.xlsx."""
+    if not HAS_OPENPYXL:
+        print(f"[!] openpyxl no está disponible en este entorno. Se conserva el archivo Excel preexistente en {ruta_excel}.")
+        return
+
     if not os.path.exists(ruta_excel):
         print(f"[!] Archivo Excel no encontrado en {ruta_excel}, omitiendo.")
         return
