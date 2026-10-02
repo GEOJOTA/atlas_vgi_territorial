@@ -473,6 +473,11 @@ function inicializarAplicacion() {
   }
   cargarResumenMetodologia();
 
+  // Inicializar Módulo 09: Indicadores de Análisis Multidimensional y Storyboards
+  if (window.ModuloIndicadoresAnalisis) {
+    window.ModuloIndicadoresAnalisis.inicializar();
+  }
+
   // Inicializar diccionario territorial con soporte para pestañas de grupo y búsqueda
   const cntDiccionario = document.getElementById('contenido-diccionario');
   const md = window.ModuloDiccionario || (typeof ModuloDiccionario !== 'undefined' ? ModuloDiccionario : null);
@@ -996,6 +1001,15 @@ function configurarNavegacion() {
       }
       if (panelId === 'manual') {
         cargarResumenMetodologia();
+      }
+      if (panelId === 'indicadores') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.ModuloIndicadoresAnalisis) {
+          const cont = document.getElementById('contenedor-indicadores-analisis');
+          if (cont && (!cont.children || cont.children.length === 0)) {
+            window.ModuloIndicadoresAnalisis.inicializar();
+          }
+        }
       }
     }
   };

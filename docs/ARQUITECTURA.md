@@ -104,7 +104,7 @@ El Atlas articula 10 servicios y protocolos de datos geoespaciales y colaborativ
 
 ## 3. Módulos del Sistema Frontend (`src/js/modulos/`)
 
-La arquitectura se articula en 16 módulos desacoplados coordinados por el controlador central:
+La arquitectura se articula en 17 módulos desacoplados coordinados por el controlador central:
 
 ### 3.1 `db_client.js` (Conector Cloud PostGIS / Supabase Storage)
 - Administrador central de la conexión con el clúster **PostgreSQL 17.6 + PostGIS 3.3 en Supabase**.
@@ -194,7 +194,20 @@ La arquitectura se articula en 16 módulos desacoplados coordinados por el contr
 - Gestión del marco tripartito: ODbL 1.0 (datos OSM), CC BY-SA 4.0 (fichas y contenidos), GNU GPL v3 (código fuente).
 
 ### 3.16 `app.js` (Orquestador Central de Interfaz)
-- Gestión de ciclo de vida de la aplicación, cambio de perfiles territoriales, sincronización de Bbox y control de paneles.
+- Gestión de ciclo de vida de la aplicación, cambio de perfiles territoriales, sincronización de Bbox y control de paneles (incluyendo Panel 09 de Indicadores & Storyboards).
+
+### 3.17 `indicadores_analisis.js` (Módulo de Indicadores Multidimensionales y Storyboards de Barrio Brasil)
+- Estructuración multidimensional de las 118 capas del Atlas (108 capas oficiales y 10 categorías VGI) en **5 dimensiones analíticas estratégicas**:
+  1. *Dimensión Sociodemográfica* (Censo 2024 multiescalar, vulnerabilidad RSH, BiDat).
+  2. *Dimensión Socioeconómica* (Inversión pública BIP, subsidios DS49/DS19, patentes SII, redes SUBTEL, CNE).
+  3. *Dimensión Socioambiental* (Cobertura vegetal CONAF, IGVUST MINVU, red hídrica DGA, SINCA MMA, GBIF).
+  4. *Dimensión Sociosanitaria* (Red de salud DEIS/MINSAL, farmacias de turno/populares, cuidados y dependencia RSH).
+  5. *Dimensión Sociourbana o Habitabilidad* (Catastro SII, 192 zonas PRC Santiago, cruces semaforizados UOCT, ciclovías, Metro, patrimonio CMN).
+- Renderizado de componentes visuales de alto impacto: tarjetas centradas con íconos vectoriales de 76px, halo luminoso temático y acordeones dinámicos con activación cartográfica directa (`activarCapaEnMapa`).
+- Motor de **Storyboards territoriales de Barrio Brasil** concebido bajo formato blog inmersivo:
+  - Tarjetas cuadradas 1:1 con imágenes y gráficos vectoriales temáticos.
+  - Lámina modal interactiva con indicadores cuantitativos barriales, análisis situado y conmutación masiva de capas en Leaflet (`activarCapasDeHistoria`).
+  - *Aclaración Metodológica:* El módulo y las narrativas territoriales se integran como un desarrollo **tentativo y exploratorio** en formulación para el Proyecto Fondecyt Regular F1261256 (Geografía UAH), resguardando la estabilidad y rigurosidad de los catálogos normativos consolidados.
 
 ---
 

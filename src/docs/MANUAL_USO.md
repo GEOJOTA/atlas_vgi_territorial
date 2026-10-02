@@ -334,4 +334,52 @@ $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \
 
 El informe pormenorizado con la matriz completa de las 118 capas se encuentra documentado en [`docs/ANALISIS_METACALIDAD.md`](docs/ANALISIS_METACALIDAD.md), en formato estructurado [`docs/matriz_metacalidad.json`](docs/matriz_metacalidad.json) y en la hoja *Auditoría MetaCalidad 118 Capas* del libro Excel [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
 
+---
+
+## 17. Módulo 09: Indicadores de Análisis Multidimensional y Storyboards de Barrio Brasil (Marco Tentativo y Exploratorio)
+
+> [!NOTE]
+> **Carácter Tentativo y Exploratorio Fondecyt:**  
+> El módulo de **Indicadores de Análisis Multidimensional** y las **Storyboards territoriales** de Barrio Brasil constituyen un desarrollo metodológico preliminar en fase de formulación e iteración para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Tanto la agregación de las 118 capas en cinco dimensiones estratégicas como las narrativas situadas de datos se ofrecen a modo de prototipo exploratorio de divulgación científica y discusión comunitaria. Su formulación es tentativa y no compromete los estándares ni entregables canónicos de metadatos (ISO 19115 / ISO 19157 / IDE Chile) de la base de datos geoespacial.
+
+### 17.1 Acceso e Interfaz de las 5 Dimensiones Analíticas
+El módulo se encuentra disponible en la barra superior de módulos bajo la pestaña **`09 📈 Indicadores & Storyboards`** (o mediante el botón de acceso rápido en la barra de herramientas del visor).  
+La interfaz está centrada para maximizar el impacto visual y presenta 5 grandes tarjetas interactivas con íconos distintivos de 76px y halo luminoso temático:
+
+1. 👥 **Dimensión Sociodemográfica:**
+   - **Enfoque:** Dinámicas poblacionales, estructura por grupos etarios, hogares monoparentales, inmigración, vulnerabilidad social y estratificación socioespacial.
+   - **Capas Integradas:** Censo 2024 multiescalar (Manzanas, Zonas, Comunas), Registro Social de Hogares (RSH), Hogares Monoparentales BiDat, Inmigración BiDat y Barrios Prioritarios.
+2. 💼 **Dimensión Socioeconómica:**
+   - **Enfoque:** Inversión pública, empleo, equipamiento de telecomunicaciones, matriz energética y actividades productivas.
+   - **Capas Integradas:** Inversión Pública del Banco Integrado de Proyectos (BIP - MDSF), Ocupación RSH, Subsidios Habitacionales DS49 y DS19, Redes de Telecomunicaciones (SUBTEL), Infraestructura Eléctrica (CNE) y Abastecimiento Silvoagropecuario (ODEPA).
+3. 🌿 **Dimensión Socioambiental:**
+   - **Enfoque:** Espacio público verde, resiliencia ecológica, biodiversidad urbana, cobertura arbórea y calidad del aire.
+   - **Capas Integradas:** Cobertura Vegetal CONAF/Ciren, Índice de Vegetación Urbana IGVUST (MINVU), Red Hidrográfica DGA, Estaciones de Calidad del Aire (SINCA / MMA), Catastro de Biodiversidad GBIF/iNaturalist y Puntos Limpios (MMA).
+4. 🏥 **Dimensión Sociosanitaria:**
+   - **Enfoque:** Red de atención primaria, servicios de urgencia, farmacias comunitarias y personas en situación de dependencia o cuidados.
+   - **Capas Integradas:** Red Asistencial DEIS/MINSAL (CESFAM, Hospitales, SAPU), Farmacias de Turno y Populares, y Cuidados/Dependencia Funcional RSH.
+5. 🏛️ **Dimensión Sociourbana o Habitabilidad:**
+   - **Enfoque:** Morfología urbana, catastro predial, instrumentos de planificación territorial (PRC Santiago), movilidad sostenible, cruces seguros y patrimonio histórico.
+   - **Capas Integradas:** Catastro de Predios e Inmuebles SII, 192 Zonas Normativas del Plan Regulador Comunal de Santiago (PRC), Cruces Semaforizados UOCT (3.242 intersecciones), Red de Ciclovías, Estaciones de Metro, Inmuebles y Zonas Típicas CMN/MINVU, Bomberos y Seguridad.
+
+### 17.2 Despliegue de Acordeones e Interacción Cartográfica
+Al presionar cualquiera de las 5 dimensiones:
+- Se despliega un **acordeón interactivo fluido** con el listado completo de las capas asignadas a dicha dimensión.
+- Cada elemento muestra una píldora con el código de la fuente (`INE`, `MDSF`, `MINVU`, `UOCT`, `OSM`, `CONAF`, etc.) y el nombre oficial del dataset.
+- Incluye el botón **"🗺️ Activar en Mapa"**: al pulsarlo, la capa se añade automáticamente al visor Leaflet y se centra en su extensión sin que el usuario pierda su contexto de exploración.
+
+### 17.3 Storyboards Territoriales: Barrio Brasil a través de sus Datos
+Bajo las dimensiones analíticas, la sección **Storyboards** presenta análisis territoriales concisos y rigurosos donde los datos cuentan historias sobre dinámicas reales en Barrio Brasil:
+- **Cuadrícula Visual 1:1:** Cada storyboard cuenta con una tarjeta cuadrada con ilustración o fotografía representativa del barrio, título y síntesis temática.
+- **Lámina Modal Inmersiva (Tipo Blog):** Al hacer clic sobre cualquier tarjeta, se despliega una lámina modal a pantalla completa con:
+  - Ficha técnica y fecha de análisis.
+  - Indicadores clave destacados (p. ej., proporción de arriendo, densidad de semáforos, cobertura vegetal).
+  - Ensayo territorial fundamentado en las capas geoespaciales del Atlas.
+  - Botón interactivo **"🗺️ Cargar Capas en el Mapa"** que superpone automáticamente el conjunto de capas analizadas sobre el visor Leaflet.
+- **Historias Prototipo de Barrio Brasil:**
+  1. *Patrimonio Vivo vs. Presión Inmobiliaria:* La conservación de casonas y fachadas continuas frente a la densificación vertical del centro poniente.
+  2. *Movilidad Calma y Cruces Peatonales:* Auditoría técnica de los cruces semaforizados UOCT, pacificación de tránsito y seguridad vial para peatones y ciclistas.
+  3. *Plaza Brasil: El Pulmón Social del Poniente:* Densidad de arbolado CONAF/MINVU, esculturas Federici y el rol del espacio público como articulador barrial.
+  4. *El Barrio Universitario y la Transformación Urbana:* El impacto de la comunidad universitaria UAH y centros de educación superior en los servicios, cafés y vida de barrio.
+  5. *Cuidados y Adultos Mayores en el Barrio Poniente:* Redes vecinales, CESFAM Brasil, farmacias populares y accesibilidad para personas mayores en un barrio de transición demográfica.
 

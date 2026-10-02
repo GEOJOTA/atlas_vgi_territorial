@@ -113,6 +113,20 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
 | **Biodiversidad Urbana GBIF** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas Darwin Core |
 | **Metadatos ISO 19115 / 19139** | Fichas técnicas exportables a JSON y XML oficial de IDE Chile (SNIT / GeoNetwork) |
 | **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales, 108 capas oficiales y 125 citas APA |
+| **Indicadores & Storyboards** | Módulo 09: 5 dimensiones analíticas (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria, Sociourbana) y narrativas de datos sobre Barrio Brasil (entregable tentativo/exploratorio). |
+
+### 7.1. Módulo 09: Indicadores de Análisis Multidimensional y Storyboards de Barrio Brasil (Marco Tentativo)
+
+El Módulo 09 articula las 118 capas del Atlas en **5 dimensiones analíticas estratégicas**:
+1. **Sociodemográfica (19 capas):** Censo 2024 multiescalar (5 niveles INE), vulnerabilidad social, RSH (NNA, mujeres, adultos mayores, jóvenes, hombres), campamentos y unidades vecinales.
+2. **Socioeconómica (16 capas):** Inversión pública del Banco Integrado de Proyectos (BIP - `bbdd_65`), contratos y proyectos MOP, ocupación RSH, comercio barrial OSM y matriz energética RM.
+3. **Socioambiental (24 capas):** Áreas verdes normadas IPT (18.173 polígonos), biodiversidad urbana GBIF/iNaturalist, red hidrométrica DGA, humedales protegidos, calidad del aire y parques.
+4. **Sociosanitaria (3 capas):** Red de salud pública DEIS/MINSAL (CESFAM y hospitales), servicios asistenciales y personas en RSH con dependencia funcional según CSE.
+5. **Sociourbana o Habitabilidad (47 capas):** Zonificación PRC Santiago, catastro predial SII (1.43M predios), 695k edificaciones OSM, cruces semaforizados UOCT (3.242 intersecciones), Metro, ciclovías, accesibilidad universal y patrimonio histórico.
+
+> [!NOTE]
+> **Carácter Tentativo y Exploratorio:**
+> Los *Storyboards* (historias territoriales tipo blog fundamentadas en los datos del Atlas) y la parametrización de las dimensiones representan herramientas pedagógicas y de divulgación en desarrollo preliminar para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Están concebidas para ser refinadas colaborativamente con actores territoriales, preservando intacta la rigurosidad de las especificaciones ISO 19115 y el marco normativo del proyecto.
 
 ---
 
@@ -136,6 +150,7 @@ atlas_vgi_uah/
 │   │       ├── importador_capas.js     # Importador multi-formato (KMZ/KML/GeoJSON/GPX/CSV)
 │   │       ├── taginfo.js              # Validador planetario Taginfo API
 │   │       ├── gbif.js                 # Biodiversidad urbana y Darwin Core
+│   │       ├── indicadores_analisis.js # Módulo 09: 5 dimensiones y storyboards exploratorios
 │   │       ├── geodesia.js             # Reproyección Snyder EPSG:32719 UTM 19S
 │   │       └── metadatos.js            # Generador ISO 19115 (JSON) e ISO 19139 (XML)
 │   ├── data/                           # 108 capas GeoJSON oficiales + 10 VGI (118 capas totales)

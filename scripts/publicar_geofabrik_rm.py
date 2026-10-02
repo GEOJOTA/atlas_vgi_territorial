@@ -38,13 +38,26 @@ LFS_URL = f"https://github.com/{OWNER}/{REPO}.git/info/lfs/objects/batch"
 ARCHIVOS_CODIGO = [
     ".gitattributes",
     "src/index.html",
+    "src/css/estilos.css",
     "src/js/modulos/osm.js",
     "src/js/modulos/mapa.js",
     "src/js/modulos/ide_chile.js",
     "src/js/modulos/evaluador_normativo.js",
+    "src/js/modulos/indicadores_analisis.js",
     "src/js/app.js",
+    "src/img/storyboards/brasil_patrimonio.jpg",
+    "src/img/storyboards/brasil_movilidad.jpg",
+    "src/img/storyboards/brasil_plaza.jpg",
+    "src/img/storyboards/brasil_universidad.svg",
+    "src/img/storyboards/brasil_cuidados.svg",
+    "img/storyboards/brasil_patrimonio.jpg",
+    "img/storyboards/brasil_movilidad.jpg",
+    "img/storyboards/brasil_plaza.jpg",
+    "img/storyboards/brasil_universidad.svg",
+    "img/storyboards/brasil_cuidados.svg",
     "README.md",
     "MANUAL_USO.md",
+    "src/docs/MANUAL_USO.md",
     "docs/ARQUITECTURA.md",
     "src/docs/ARQUITECTURA.md",
     "docs/TRAZABILIDAD_ACADEMICA.md",
@@ -320,11 +333,11 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(capas): reorganizacion integral de capas oficiales y asignacion de inversion BIP a economia\n\n"
-        "- Reorganizacion exhaustiva y tematica de las 108 capas oficiales del Estado en 7 macro-categorias oficiales.\n"
-        "- Reubicacion formal de las iniciativas de inversion del Banco Integrado de Proyectos (BIP - bbdd_65), proyectos y contratos MOP, y cotizantes RSH en la categoria 'economia_inversion'.\n"
-        "- Incorporacion del chip de filtrado interactivo 'Economia & Inversion BIP' en index.html y app.js.\n"
-        "- Sincronizacion de ide_chile.js, app.js, 02_seed_metadata.sql, los 3 libros de catalogo Excel (.xlsx) y documentacion tecnica (README.md, MANUAL_USO.md, ARQUITECTURA.md)."
+        "feat(indicadores): modulo 09 de indicadores multidimensionales (5 dimensiones) y storyboards de Barrio Brasil\n\n"
+        "- Incorporacion del Modulo 09 'Indicadores de analisis' articulando las 118 capas del Atlas en 5 dimensiones estrategicas: Sociodemografica, Socioeconomica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad.\n"
+        "- Diseno e implementacion de tarjetas centradas de gran impacto visual con iconos de 76px, halo tematico y acordeones interactivos para conmutar capas en el mapa Leaflet.\n"
+        "- Seccion de Storyboards territoriales con tarjetas 1:1, imagenes de Barrio Brasil y laminas modales tipo blog inmersivo con metricas y activacion masiva de capas.\n"
+        "- Actualizacion de documentacion en README.md, MANUAL_USO.md, src/docs/MANUAL_USO.md, docs/ARQUITECTURA.md y src/docs/ARQUITECTURA.md, enfatizando explicitamente el caracter tentativo y exploratorio Fondecyt de las narrativas e indicadores para resguardar la rigurosidad de los entregables del proyecto."
     )
 
 

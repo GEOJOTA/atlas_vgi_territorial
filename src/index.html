@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <!-- Fila 2: Pestañas de Navegación Única de Módulos (00 al 08) -->
+    <!-- Fila 2: Pestañas de Navegación Única de Módulos (00 al 09) -->
     <nav class="barra-pestanas-profundidad" id="lista-navegacion" aria-label="Navegación directa entre capas y módulos">
       <button type="button" class="pestana-nodo activa" data-panel="inicio" aria-current="true"><span class="insignia-nodo">00</span> ◈ Visor y Atlas VGI</button>
       <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">01</span> ⌕ Consultas Overpass</button>
@@ -50,6 +50,7 @@
       <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (109 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
       <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
+      <button type="button" class="pestana-nodo" data-panel="indicadores"><span class="insignia-nodo">09</span> 📈 Indicadores &amp; Storyboards</button>
     </nav>
 
     <!-- Fila 3: Telemetría de APIs (remate y corte táctico de la caja, centrado) -->
@@ -145,6 +146,7 @@
         <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">☉ Encuadrar</button>
         <button type="button" class="accion secundaria" id="btn-inspector-normativo" title="Activa el inspector para hacer clic en el mapa y auditar zonificación PRC, normas OGUC y riesgos">⚖ Inspector Normativo</button>
         <button type="button" class="accion secundaria" id="btn-abrir-importador" title="Importar capas espaciales locales (.kmz, .kml, .geojson, .gpx, .csv)">📂 Importar Capas</button>
+        <button type="button" class="accion secundaria" id="btn-abrir-indicadores-directo" data-panel="indicadores" title="Abrir el Módulo 09 de Indicadores de Análisis y Storyboards de Barrio Brasil">📊 Indicadores &amp; Storyboards</button>
 
         <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">⎘ Exportar GeoJSON</button>
       </div>
@@ -1228,6 +1230,13 @@
       <div id="contenido-manual"></div>
     </section>
 
+    <!-- ---------- 09. INDICADORES DE ANÁLISIS & STORYBOARDS ---------- -->
+    <section class="panel" id="panel-indicadores">
+      <div id="contenedor-indicadores-analisis">
+        <!-- Renderizado dinámicamente desde ModuloIndicadoresAnalisis -->
+      </div>
+    </section>
+
     <footer class="pie-datos">
       Atlas de Información Geográfica Voluntaria — Caso Barrio Brasil / Universidad Alberto Hurtado (Santiago Centro, Chile).
       Datos de OpenStreetMap (© colaboradores de OpenStreetMap, ODbL 1.0), ohsome (HeiGIT), GBIF.org y proyectos UMap.
@@ -1255,6 +1264,7 @@
 <script src="js/modulos/metadatos.js?v=20260914_db_v1"></script>
 <script src="js/modulos/licencias.js?v=20260914_db_v1"></script>
 <script src="js/modulos/manual.js?v=20260923_manual_redesign"></script>
+<script src="js/modulos/indicadores_analisis.js?v=20261002_v1"></script>
 <script src="js/modulos/taginfo.js?v=20260914_db_v1"></script>
 <script src="js/modulos/calidad_analyst.js?v=20260914_db_v1"></script>
 <script src="js/modulos/diccionario.js?v=20260914_db_v1"></script>
