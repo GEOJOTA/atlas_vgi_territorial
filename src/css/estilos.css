@@ -4873,6 +4873,188 @@ table.tabla-datos tr:hover td {
   white-space: nowrap;
 }
 
+
+/* ------------------------------------------------------------------------- */
+/* 4 USUARIOS-TIPO: RELEVANCIA Y UTILIDAD TERRITORIAL DEL STORYBOARD         */
+/* ------------------------------------------------------------------------- */
+.seccion-actores-territoriales-storyboard {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.cabecera-seccion-actores {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+}
+
+.cabecera-seccion-actores h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grilla-actores-storyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.tarjeta-actor-storyboard {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.tarjeta-actor-storyboard:hover {
+  transform: translateY(-2px);
+  background: rgba(30, 41, 59, 0.75);
+}
+
+.tarjeta-actor-storyboard.actor-institucion {
+  border-left: 4px solid #38bdf8;
+}
+.tarjeta-actor-storyboard.actor-comunidad {
+  border-left: 4px solid #f59e0b;
+}
+.tarjeta-actor-storyboard.actor-voluntario {
+  border-left: 4px solid #10b981;
+}
+.tarjeta-actor-storyboard.actor-ong {
+  border-left: 4px solid #8b5cf6;
+}
+
+.header-actor-tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icono-actor {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.header-actor-tarjeta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nombre-actor {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #f1f5f9;
+}
+
+.subtitulo-actor {
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.texto-utilidad-actor {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------------- */
+/* APARTADO BIBLIOGRÁFICO Y FUENTES FORMALES VGI                             */
+/* ------------------------------------------------------------------------- */
+.seccion-bibliografia-storyboard {
+  background: rgba(10, 16, 30, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.cabecera-bibliografia {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.cabecera-bibliografia h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtitulo-bloque-biblio {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #93c5fd;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lista-referencias-apa {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item-referencia-apa {
+  padding-left: 24px;
+  text-indent: -24px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+}
+
+.item-referencia-apa strong {
+  color: #f8fafc;
+}
+
+.nota-marco-conceptual {
+  display: block;
+  text-indent: 0;
+  padding-left: 0;
+  margin-top: 4px;
+  font-size: 0.77rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
 /* Responsividad */
 @media (max-width: 768px) {
   .titulo-modulo-indicadores {

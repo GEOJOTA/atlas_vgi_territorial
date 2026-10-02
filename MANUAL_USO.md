@@ -387,5 +387,11 @@ Bajo las dimensiones analíticas, la sección **Storyboards** presenta análisis
     5. *Red Integrada de Cuidados Sociosanitarios:* Circuito multinivel entre hogar dependiente, juntas vecinales (Ley 19.418), CESFAM y nivel hospitalario.
   - **Tabla de Indicadores y Atributos Específicos:** Medición barrial vs. valor referencial comunal y capa de origen.
   - **Cuerpo Narrativo y Conclusión Territorial:** Ensayo crítico estructurado.
-  - **Botón Interactivo "🗺️ Explorar Capas en el Visor":** Activa en lote el paquete de capas espaciales vinculadas al análisis.
+  - **Relevancia y Utilidad según los 4 Usuarios-Tipo del Proyecto:** Sección analítica estructurada para orientar la toma de decisiones territoriales según el perfil del usuario:
+    * 🏛️ **Institución / Autoridad Pública:** Formulación de políticas públicas, actualización de PRC, planes reguladores comunales y priorización de inversión pública BIP/MINVU.
+    * 🏘️ **Comunidad / Vecinal:** Defensa del patrimonio barrial, organización de juntas vecinales, comités de cités y demandas de microaccesibilidad peatonal.
+    * 🗺️ **Mapeador / Voluntario OSM:** Identificación de brechas de datos en OpenStreetMap y orientación de relevamientos en terreno con etiquetas estandarizadas.
+    * 🔬 **ONGs / Investigadores / Academia:** Formulación de hipótesis espaciales, análisis con microdatos censales/RSH y contrastación empírica en el marco del Proyecto Fondecyt F1261256.
+  - **Apartado Bibliográfico y Trazabilidad Formal:** Cada lámina incluye un catálogo de capas formales de la base VGI (código BBDD/CAT, institución custodia y sistema de referencia) y referencias teórico-metodológicas académicas bajo norma APA 7ª edición (Harvey, Hidalgo, Lefebvre, Gehl, Goodchild, De Certeau, Romero, Heynen, Haklay, Jacobs, Oldenburg, Sassen, Tronto, Federici, Kwan).
+  - **Botón Interactivo "🗺️ Explorar Capas en el Visor":** Activa en lote el paquete de capas espaciales vinculadas al análisis en el visor cartográfico.
 

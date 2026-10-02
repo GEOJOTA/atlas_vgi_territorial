@@ -23,9 +23,16 @@ Fecha: Octubre 2026
 """
 
 import os
+import sys
 import re
 import json
 from datetime import datetime
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 try:
     import openpyxl

@@ -117,12 +117,12 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
 
 ### 7.1. Módulo 09: Indicadores de Análisis Multidimensional y Storyboards de Barrio Brasil (Marco Tentativo)
 
-El Módulo 09 articula las 118 capas del Atlas en **5 dimensiones analíticas estratégicas**:
-1. **Sociodemográfica (19 capas):** Censo 2024 multiescalar (5 niveles INE), vulnerabilidad social, RSH (NNA, mujeres, adultos mayores, jóvenes, hombres), campamentos y unidades vecinales.
-2. **Socioeconómica (16 capas):** Inversión pública del Banco Integrado de Proyectos (BIP - `bbdd_65`), contratos y proyectos MOP, ocupación RSH, comercio barrial OSM y matriz energética RM.
-3. **Socioambiental (24 capas):** Áreas verdes normadas IPT (18.173 polígonos), biodiversidad urbana GBIF/iNaturalist, red hidrométrica DGA, humedales protegidos, calidad del aire y parques.
-4. **Sociosanitaria (3 capas):** Red de salud pública DEIS/MINSAL (CESFAM y hospitales), servicios asistenciales y personas en RSH con dependencia funcional según CSE.
-5. **Sociourbana o Habitabilidad (47 capas):** Zonificación PRC Santiago, catastro predial SII (1.43M predios), 695k edificaciones OSM, cruces semaforizados UOCT (3.242 intersecciones), Metro, ciclovías, accesibilidad universal y patrimonio histórico.
+El Módulo 09 articula las 118 capas del Atlas en **5 dimensiones analíticas estratégicas** con **paridad estricta y literal de nombres respecto al Módulo 00 (Visor y Atlas VGI)**:
+1. **Sociodemográfica (19 capas):** Censo 2024 multiescalar (5 niveles INE: Regional, Límites Urbanos, Localidades, Zonas/Distritos y Manzanas), vulnerabilidad social (IGVUST), RSH completo (NNA, mujeres, adultos mayores, jóvenes, hombres según CSE), campamentos MINVU y Unidades Vecinales Ley 19.418.
+2. **Socioeconómica (18 capas):** Iniciativas de inversión BIP MDSF (`bbdd_65`), contratos y proyectos MOP (`bbdd_01`, `bbdd_04`, `bbdd_05`), ocupación formal RSH (`bbdd_74`), Servicios y Comercio Barrial OSM (`CAT-02`), Antenas Ley de Torres (`bbdd_35`), INFOR, ODEPA y matriz energética regional CNE (9 capas).
+3. **Socioambiental (23 capas):** Áreas Verdes Normativas IPT (18.173 polígonos MINVU), Áreas Verdes y Espacio Público (`CAT-05`), Biodiversidad Urbana GBIF/iNaturalist (`CAT-08`), Coberturas de Suelo (`CAT-10`), Red Hidrométrica DGA (`bbdd_03`), Monitoreo de Calidad del Aire SINCA MMA (`bbdd_39`), Pisos Vegetacionales e Inventario de Biomasa RM.
+4. **Sociosanitaria (3 capas):** Salud Pública DEIS/MINSAL (`establecimientos_salud`: CESFAM y Hospitales), personas en RSH en situación de dependencia funcional (`bbdd_67`) y Territorios de Servicios de Salud (`bbdd_38`).
+5. **Sociourbana o Habitabilidad (55 capas):** Zonificación PRC Santiago, PRMS regional, Catastro Predial del SII (1.43M predios fiscales), Edificaciones e interpretación predial OSM (`CAT-09`), Cruces Semaforizados Conectados UOCT RM (3.242 intersecciones), Metro L1-L2-L5, Red Ferroviaria EFE, Ciclovías MTT (`bbdd_31`), Movilidad Activa (`CAT-04`), Accesibilidad Universal (`CAT-07`), Patrimonio IPT e Inmuebles ZCH (`minvu_patrimonio`), Sitios de Memoria CMN, equipamiento educativo y series CCU 1993-2024.
 
 **Funcionalidades Técnicas del Módulo:**
 - **Acordeones Dinámicos con Buscador Predictivo:** Despliegue fluido de capas por dimensión con buscador en vivo (`🔍`) y segmentación rápida (`Todas`, `Oficiales Estado`, `VGI Comunitario`), conmutando capas directamente en el mapa Leaflet.

@@ -1,5 +1,12 @@
+import sys
 import re
 import json
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 def contar_capas():
     with open('src/js/modulos/ide_chile.js', 'r', encoding='utf-8') as f:

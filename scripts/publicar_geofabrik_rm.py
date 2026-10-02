@@ -73,7 +73,12 @@ ARCHIVOS_CODIGO = [
     "scripts/generar_catalogos_excel.py",
     "scripts/procesar_osm_geofabrik_usuario.py",
     "scripts/procesar_osm_geofabrik_completo.py",
-    "scripts/generar_gpkg_geofabrik.py",
+    "scripts/verificar_conteo_capas.py",
+    "scripts/analisis_metacalidad.py",
+    "docs/matriz_metacalidad.json",
+    "src/docs/matriz_metacalidad.json",
+    "docs/ANALISIS_METACALIDAD.md",
+    "src/docs/ANALISIS_METACALIDAD.md",
     "scripts/publicar_geofabrik_rm.py"
 ]
 
@@ -333,11 +338,12 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "fix(indicadores): despliegue fluido de acordeones y analisis profundo en storyboards con graficos y diagramas SVG\n\n"
-        "- Correccion y robustecimiento del despliegue del acordeon de capas al cliquear en las 5 dimensiones (incorporacion de obtenerCatalogoCapas en ide_chile.js y fallback seguro).\n"
-        "- Incorporacion de barra de busqueda en tiempo real y filtros por tipo (Todas / Oficiales Estado / VGI Comunitario) en el acordeon de capas.\n"
-        "- Profundizacion analitica exhaustiva de los 5 storyboards de Barrio Brasil: incorporacion de barras porcentuales, graficos comparativos/benchmarks territoriales, diagramas vectoriales interactivos SVG y tablas analiticas con indicadores del Censo 2024, IDE Chile y OSM.\n"
-        "- Trazabilidad y consistencia con los estandares del Proyecto Fondecyt F1261256."
+        "feat(indicadores): paridad exacta de nombres con Modulo 00, datos formales VGI, 4 usuarios-tipo y bibliografia academica\n\n"
+        "- Paridad 100% de nombres de capas en los acordeones del Modulo 09 respecto a la consola cartografica del Modulo 00 (108 capas oficiales del Estado + 10 macrocategorias VGI comunitarias).\n"
+        "- Datos espaciales, KPIs, porcentajes, graficos y diagramas SVG derivados estricta y exclusivamente de la base formal del Atlas VGI (sin fuentes ficticias ni externas).\n"
+        "- Incorporacion de seccion analitica estructurada para los 4 usuarios-tipo del proyecto (Institucion, Comunidad, Mapeador OSM, ONGs/Investigadores).\n"
+        "- Inclusion de apartado bibliografico en cada storyboard con catalogo de fuentes primarias espaciales y referencias teorico-metodologicas en norma APA 7ma edicion.\n"
+        "- Trazabilidad y rigor academico bajo el Proyecto Fondecyt Regular F1261256 (Geografia UAH)."
     )
 
 
