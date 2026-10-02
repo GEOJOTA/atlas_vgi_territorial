@@ -308,7 +308,6 @@ El sistema adapta su comportamiento según el perfil seleccionado en la cabecera
 | `fecha` | Fecha (ISO 8601) | `FechaDeRegistro` | Timestamp de captura o última edición registrada. |
 | `licencia` | Texto | `RestriccionesLegales` (`gmd:MD_LegalConstraints`) | Marco jurídico aplicable (ODbL 1.0, CC-BY 4.0, Ley 20.285). |
 | `coordenadas` | Array [Lon, Lat] | `SIRGAS_Chile` (EPSG:4326 / EPSG:5361) | Geometría espacial absoluta en grados decimales WGS84. |
-| `ide_chile` | Texto | `CapaHomologaEstatal` | Homología oficial demostrable o declaración de Brecha VGI. |
 
 ---
 
@@ -318,7 +317,7 @@ Ubicados en `docs/` y `src/docs/`, generados automáticamente mediante `scripts/
 1. `categorias_tematicas_osm.xlsx`:
    - Hoja 1: *Categorías Maestras* (10 macro-categorías territoriales, calidad ISO 19157 y normativas chilenas).
    - Hoja 2: *Catálogo de Etiquetas Chile* (134 descriptores depurados: 48 oficiales vs. 86 brechas VGI).
-   - Hoja 3: *Perfil de Atributos VGI* (14 campos normalizados con reproyección EPSG:32719).
+   - Hoja 3: *Perfil de Atributos VGI* (13 campos normalizados con reproyección EPSG:32719).
    - Hoja 4: *Bibliografía APA 7ª ed.* (125 referencias formales científicas, institucionales y normativas, detalladas en `docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`).
 2. `catalogo_fuentes_vgi.xlsx`: Matriz de fuentes colaborativas e inventario técnico de endpoints.
 3. `perfil_metadatos_vgi.xlsx`: Especificación de jerarquía y tipos de datos ISO 19115 nacional.

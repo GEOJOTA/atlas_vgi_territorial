@@ -2403,7 +2403,7 @@ table.tabla-datos tr:hover td {
   margin: 0;
 }
 
-/* Bloque 2: Ficha Técnica 2x2 */
+/* Bloque 2: Ficha Técnica Institucional y Normativa */
 .doc-cat-specs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

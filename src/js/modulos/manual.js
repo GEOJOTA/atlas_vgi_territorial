@@ -605,7 +605,7 @@ const ModuloManual = (() => {
                 <p class="doc-bloque-texto">Barrio Brasil y su entorno albergan un polo de convergencia académica y estudiantil de alcance metropolitano articulado en torno al Campus Patrimonial de la Universidad Alberto Hurtado (UAH), conviviendo armónicamente con establecimientos educacionales emblemáticos (Liceo de Aplicación), colegios de formación general, salas cuna de la red JUNJI/Integra y centros de documentación. Esta categoría modela los flujos cotidianos de la población flotante estudiantil, la accesibilidad al equipamiento docente y el dinamismo cívico generado por la vida universitaria.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -614,14 +614,6 @@ const ModuloManual = (() => {
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Directorio Oficial de Establecimientos (MINEDUC); Estándares de Infraestructura Parvularia (JUNJI); Ley N° 21.091 sobre Educación Superior.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Directorio Oficial de Establecimientos Educacionales (MINEDUC / IDE Chile).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Casa Central UAH (Almirante Barroso 10), Facultad de Ciencias Sociales (Cienfuegos 46), Aulas Erasmo Escala, Liceo de Aplicación (Ricardo Cumming), Jardines JUNJI.</div>
                 </div>
               </div>
 
@@ -678,7 +670,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Estructura la vitalidad socioeconómica y los servicios de cuidado indispensables para la vida de barrio bajo el paradigma de la ciudad de 15 minutos. Consolida la oferta de abastecimiento cotidiano (almacenes tradicionales, panaderías, ferias libres, locales gastronómicos en torno a Plaza Brasil), la red de salud primaria y urgencia (CESFAM, postas, farmacias comunitarias) y los servicios institucionales (sucursales bancarias, notarías, correos y comisarías), asegurando cobertura y autonomía funcional para residentes y transeúntes.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -687,14 +679,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Modelo de Atención Integral de Salud Familiar y Comunitaria (MINSAL); Ley de Rentas Municipales (D.L. 3.063); D.S. N° 469/1993 de Establecimientos de Salud.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Establecimientos de Salud DEIS (MINSAL / IDE Chile) / Catastro de Comercio Barrial (IDE Chile).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">CESFAM Ignacio Domeyko, Farmacia Municipal Santiago, locales comerciales y gastronómicos en Av. Brasil, feria libre de Cumming, 3ª Comisaría de Santiago.</div>
                 </div>
               </div>
 
@@ -752,7 +736,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Barrio Brasil constituye una zona de alta fricción espacial y convergencia metropolitana delimitada por ejes estructurantes de primer orden (Alameda Bernardo O'Higgins, Av. Brasil, Manuel Rodríguez y Matucana). Esta categoría evalúa la distribución territorial y densidad de la infraestructura del sistema integrado de transporte, tiempos de caminata a puntos de embarque, confort en paraderos y la transferencia intermodal entre servicios troncales de buses y la red subterránea.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -761,14 +745,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM, 2023); Manual de Vialidad Urbana (REDEVU / MINVU).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Capa Nacional de Transporte e Infraestructura Vial (MTT / SNIT).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Estación intermodal Los Héroes (Líneas 1 y 2), Estación Santa Ana (Líneas 2 y 5), paradas troncales Red en Alameda y Av. Brasil.</div>
                 </div>
               </div>
 
@@ -829,7 +805,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Promueve la movilidad sostenible no motorizada y la pacificación del tráfico rodado en el damero barrial. Cataloga el estado físico, perfil geométrico, tipo de segregación vial y continuidad de las vías para ciclos en calles históricas, cuantificando la dotación de estacionamientos seguros para bicicletas (bicicleteros públicos y universitarios) y la conectividad con la red central de ciclovías de la comuna de Santiago.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -838,14 +814,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Manual de Vialidad del Ciclo (MINVU / MTT, 2015); Ley de Convivencia Vial (Ley N° 21.088); D.S. N° 102/2019 MTT.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Red Nacional de Ciclovías (IDE Chile / SECTRA).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Ciclovías de calles Rosas y Compañía de Jesús, bicicleteros interiores Campus UAH, estaciones de arriendo Bike Santiago.</div>
                 </div>
               </div>
 
@@ -908,7 +876,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Cuantifica y diagnostica la dotación superficial y calidad del espacio público recreativo abierto a la ciudadanía. Permite verificar los estándares de superficie verde por habitante (m²/hab) recomendados por el CNDU y la OMS, registrar el equipamiento lúdico y deportivo (canchas multiuso, máquinas de ejercicios) y monitorear el mobiliario de descanso y permanencia (bancas, bebederos públicos e iluminación) que fomentan la vida comunitaria barrial.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -917,14 +885,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Política Nacional de Parques Urbanos (MINVU, 2021); Estándares Urbanos Indicativos de Áreas Verdes (CNDU, 2018); OGUC Art. 2.2.4.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Catastro Nacional de Áreas Verdes Urbanas (MINVU / IDE Chile).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Plaza Brasil (juegos de Federica Matta), Plaza Manuel Rodríguez, multicanchas barriales de Maturana, plazoletas de bolsillo.</div>
                 </div>
               </div>
 
@@ -982,7 +942,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Barrio Brasil posee una trascendental jerarquía histórica declarada formalmente como Zona Típica por el Consejo de Monumentos Nacionales (CMN). Esta categoría documenta la riqueza de la arquitectura neoclásica y modernista de fines del siglo XIX y principios del XX, las tipologías residenciales colectivas de inmenso valor sociocomunitario como los pasajes y cités, templos religiosos de protección patrimonial y los centros de difusión artística y teatral barriales.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -991,14 +951,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Ley N° 17.288 de Monumentos Nacionales; Decreto Exento N° 126/2000 del Mineduc (Declaratoria Zona Típica Barrio Brasil); Convenio UNESCO 1972.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Capa Nacional de Patrimonio y Monumentos Históricos (CMN / IDE Chile).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Cités de calles Huérfanos, Compañía y Cienfuegos; Basílica del Salvador; Palacio Rivas; Galería Concreta; Galpón Víctor Jara.</div>
                 </div>
               </div>
 
@@ -1058,7 +1010,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Eje fundamental de justicia espacial y diseño urbano inclusivo. Permite auditar en terreno el cumplimiento riguroso de la 'ruta accesible' continua estipulada por el Decreto Supremo N° 50 de MINVU (OGUC Art. 2.2.8) para personas con discapacidad visual, motriz, coches infantiles y personas mayores, registrando rebajes de acera normativos en esquinas, franjas podotáctiles de advertencia, señalética sonora en semáforos y pendientes en rampas peatonales.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -1067,14 +1019,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">D.S. N° 50 OGUC Accesibilidad Universal (MINVU, 2016); Ley N° 20.422 sobre Igualdad de Oportunidades; ISO 21542:2021.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Catastro de Cruces y Accesibilidad Urbana (IDE Chile / SENADIS).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Rebajes de solera en esquinas de Av. Brasil con Huérfanos, veredas accesibles en campus UAH, cruces accesibles en Alameda.</div>
                 </div>
               </div>
 
@@ -1136,7 +1080,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Caracteriza la infraestructura ecológica y la masa vegetal urbana que provee servicios ecosistémicos críticos en el centro histórico, tales como la mitigación de las islas de calor urbano (ICU), la captura de material particulado y la provisión de sombra estival para la caminabilidad. Permite inventariar especies de árboles en calzadas y patios interiores (Plátanos Orientales, Jacarandás, Peumos), evaluar su estado fitosanitario y promover corredores biológicos barriales.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -1145,14 +1089,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Ley Marco de Cambio Climático (Ley N° 21.455); Guía de Arbolado Urbano (CONAF, 2019); Estándares de Santiago Verde.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Infraestructura Verde y Catastro de Arbolado Urbano (MMA / CONAF / IDE Chile).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Alineaciones arboladas en bandejón central de Av. Brasil, árboles en calles Almirante Barroso y Huérfanos, patios arbolados del Campus UAH.</div>
                 </div>
               </div>
 
@@ -1212,7 +1148,7 @@ out skel qt;</code></pre>
                 <p class="doc-bloque-texto">Provee el catastro exhaustivo de la huella física y volumetría construida de Barrio Brasil y el Campus UAH. A diferencia de las capas puntuales de equipamiento, este módulo extrae las geometrías poligonales cerradas de cada edificación (manzanas, pabellones universitarios, casonas y torres residenciales), computando en tiempo real su superficie métrica en metros cuadrados (m²) y hectáreas (ha) mediante reproyección conforme a EPSG:32719 (WGS 84 / UTM Huso 19 Sur) y la fórmula de Gauss (Shoelace), permitiendo evaluar densidades y coeficientes de ocupación del suelo.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal / Fuente</div>
@@ -1221,14 +1157,6 @@ out skel qt;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Ley General de Urbanismo y Construcciones (LGUC); OGUC Art. 2.1.24; D.S. N° 50 MINVU; ISO 19157 (Data Quality).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente & Cobertura</div>
-                  <div class="doc-spec-valor">Catastro Predial SII Geocodificado v4 (1.380.649 predios nacional en GeoPackage; 264.195 predios RM desplegados por peso). ⚠️ Geocodificación automatizada sujeta a error (según nivel) y/o vacíos de origen.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & RM</div>
-                  <div class="doc-spec-valor">Predios catastrados con ROL SII, domicilio, avalúo fiscal, superficie de terreno y superficie construida.</div>
                 </div>
               </div>
 
@@ -1283,7 +1211,7 @@ out geom tags qt 400;</code></pre>
                 <p class="doc-bloque-texto">Caracteriza la distribución espacial de los usos del territorio (residencial, comercial, institucional y recreativo) y la materialidad superficial de la trama urbana (asfalto, adoquines patrimoniales y cubiertas vegetales). Facilita el contraste empírico entre la zonificación normativa del Plan Regulador Comunal (PRC) de Santiago y las funciones territoriales reales mapeadas colaborativamente por la comunidad.</p>
               </div>
 
-              <!-- Bloque 2: Ficha Técnica 2x2 -->
+              <!-- Bloque 2: Ficha Técnica Institucional y Normativa -->
               <div class="doc-cat-specs-grid">
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">🏛️ Contraparte Estatal</div>
@@ -1292,14 +1220,6 @@ out geom tags qt 400;</code></pre>
                 <div class="doc-spec-caja">
                   <div class="doc-spec-rotulo">📜 Norma / Estándar Legal</div>
                   <div class="doc-spec-valor">Plan Regulador Comunal de Santiago (PRC); Ley N° 21.074 de Fortalecimiento de la Regionalización; OGC Land and Infrastructure Standards.</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">🌐 Capa Equivalente IDE Chile</div>
-                  <div class="doc-spec-valor">Zonificación Planes Reguladores Comunales (MINVU / IDE Chile) / Red Vial Pavimentada (MOP).</div>
-                </div>
-                <div class="doc-spec-caja">
-                  <div class="doc-spec-rotulo">📍 Casos en Barrio Brasil & UAH</div>
-                  <div class="doc-spec-valor">Recintos de uso educacional en Campus UAH, zonas de amortiguación residencial en pasajes interiores y calzadas adoquinadas tradicionales.</div>
                 </div>
               </div>
 
