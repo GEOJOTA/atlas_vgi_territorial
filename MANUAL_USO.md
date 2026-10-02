@@ -362,24 +362,30 @@ La interfaz está centrada para maximizar el impacto visual y presenta 5 grandes
    - **Enfoque:** Morfología urbana, catastro predial, instrumentos de planificación territorial (PRC Santiago), movilidad sostenible, cruces seguros y patrimonio histórico.
    - **Capas Integradas:** Catastro de Predios e Inmuebles SII, 192 Zonas Normativas del Plan Regulador Comunal de Santiago (PRC), Cruces Semaforizados UOCT (3.242 intersecciones), Red de Ciclovías, Estaciones de Metro, Inmuebles y Zonas Típicas CMN/MINVU, Bomberos y Seguridad.
 
-### 17.2 Despliegue de Acordeones e Interacción Cartográfica
+### 17.2 Despliegue de Acordeones, Buscador en Tiempo Real e Interacción Cartográfica
 Al presionar cualquiera de las 5 dimensiones:
-- Se despliega un **acordeón interactivo fluido** con el listado completo de las capas asignadas a dicha dimensión.
-- Cada elemento muestra una píldora con el código de la fuente (`INE`, `MDSF`, `MINVU`, `UOCT`, `OSM`, `CONAF`, etc.) y el nombre oficial del dataset.
-- Incluye el botón **"🗺️ Activar en Mapa"**: al pulsarlo, la capa se añade automáticamente al visor Leaflet y se centra en su extensión sin que el usuario pierda su contexto de exploración.
+- Se despliega un **acordeón interactivo fluido y centrado** con el listado completo de las capas asignadas a dicha dimensión.
+- **Buscador en Tiempo Real:** Incorpora un campo de búsqueda predictiva (`🔍`) que permite filtrar instantáneamente las capas por texto (nombre, custodio, código o geometría).
+- **Filtros por Origen:** Botones de segmentación inmediata (`Todas`, `Oficiales Estado`, `VGI Comunitario`) con conteos dinámicos.
+- Cada tarjeta de capa muestra una píldora con el código de la fuente (`INE`, `MDSF`, `MINVU`, `UOCT`, `OSM`, `CONAF`, etc.), geometría (`Polígonos`, `Puntos`, `Líneas`), descripción sintetizada y dos botones de acción:
+  - **"🗺️ Ver en Mapa"**: Conmuta automáticamente al visor cartográfico Leaflet 2D, abre el grupo temático correspondiente y activa la capa centrando su visualización.
+  - **"GeoJSON 📥"**: Descarga inmediata del archivo vectorial oficial o comunitario.
 
-### 17.3 Storyboards Territoriales: Barrio Brasil a través de sus Datos
-Bajo las dimensiones analíticas, la sección **Storyboards** presenta análisis territoriales concisos y rigurosos donde los datos cuentan historias sobre dinámicas reales en Barrio Brasil:
-- **Cuadrícula Visual 1:1:** Cada storyboard cuenta con una tarjeta cuadrada con ilustración o fotografía representativa del barrio, título y síntesis temática.
+### 17.3 Storyboards Territoriales: Análisis Profundo con Porcentajes, Gráficos y Diagramas SVG
+Bajo las dimensiones analíticas, la sección **Storyboards** presenta análisis territoriales exhaustivos y rigurosos donde la base de datos abierta cuenta historias situadas sobre la realidad socioespacial de Barrio Brasil:
+- **Cuadrícula Visual 1:1:** Cada storyboard cuenta con una portada cuadrada con imagen en alta resolución o gráfico vectorial temático.
 - **Lámina Modal Inmersiva (Tipo Blog):** Al hacer clic sobre cualquier tarjeta, se despliega una lámina modal a pantalla completa con:
-  - Ficha técnica y fecha de análisis.
-  - Indicadores clave destacados (p. ej., proporción de arriendo, densidad de semáforos, cobertura vegetal).
-  - Ensayo territorial fundamentado en las capas geoespaciales del Atlas.
-  - Botón interactivo **"🗺️ Cargar Capas en el Mapa"** que superpone automáticamente el conjunto de capas analizadas sobre el visor Leaflet.
-- **Historias Prototipo de Barrio Brasil:**
-  1. *Patrimonio Vivo vs. Presión Inmobiliaria:* La conservación de casonas y fachadas continuas frente a la densificación vertical del centro poniente.
-  2. *Movilidad Calma y Cruces Peatonales:* Auditoría técnica de los cruces semaforizados UOCT, pacificación de tránsito y seguridad vial para peatones y ciclistas.
-  3. *Plaza Brasil: El Pulmón Social del Poniente:* Densidad de arbolado CONAF/MINVU, esculturas Federici y el rol del espacio público como articulador barrial.
-  4. *El Barrio Universitario y la Transformación Urbana:* El impacto de la comunidad universitaria UAH y centros de educación superior en los servicios, cafés y vida de barrio.
-  5. *Cuidados y Adultos Mayores en el Barrio Poniente:* Redes vecinales, CESFAM Brasil, farmacias populares y accesibilidad para personas mayores en un barrio de transición demográfica.
+  - Ficha técnica, territorio y tiempo estimado de lectura.
+  - **Matriz de Indicadores Clave:** 4 tarjetas cuantitativas destacadas.
+  - **Evidencia Espacial y Distribución Porcentual:** Cuadrícula de barras de progreso porcentual comparando Barrio Brasil frente a promedios comunales y regionales (p. ej., 68.4% de tipología residencial tradicional, 62.7% de arriendo censal, 46.8% de caminata, 84.6% de cuidadoras mujeres en RSH).
+  - **Gráficos Comparativos y Benchmarks:** Histogramas y gráficos de barras comparativas (reparto modal, alturas edilicias, dotación de áreas verdes m²/hab frente a estándares OMS).
+  - **Diagramas Técnicos Vectoriales SVG:** Modelaciones visuales interactivas nítidas:
+    1. *Rasante OGUC y Contraste Morfológico:* Corte transversal casona de 2 pisos vs. torre de 18 pisos en el borde de Alameda.
+    2. *Ciclo Semafórico UOCT:* Tiempos de verde vehicular (52s) vs. verde peatonal (18s) en cruce de 24 metros en Av. Brasil.
+    3. *Gradiente Microclimático e Isla de Calor:* Atenuación térmica de 39.2°C en asfalto a 28.8°C bajo el dosel arbóreo de Plaza Brasil.
+    4. *Isócronas de Caminabilidad Universitaria:* Radios de 5 y 10 minutos conectando Campus UAH, Metro Los Héroes y comercios.
+    5. *Red Integrada de Cuidados Sociosanitarios:* Circuito multinivel entre hogar dependiente, juntas vecinales (Ley 19.418), CESFAM y nivel hospitalario.
+  - **Tabla de Indicadores y Atributos Específicos:** Medición barrial vs. valor referencial comunal y capa de origen.
+  - **Cuerpo Narrativo y Conclusión Territorial:** Ensayo crítico estructurado.
+  - **Botón Interactivo "🗺️ Explorar Capas en el Visor":** Activa en lote el paquete de capas espaciales vinculadas al análisis.
 

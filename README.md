@@ -124,9 +124,13 @@ El Módulo 09 articula las 118 capas del Atlas en **5 dimensiones analíticas es
 4. **Sociosanitaria (3 capas):** Red de salud pública DEIS/MINSAL (CESFAM y hospitales), servicios asistenciales y personas en RSH con dependencia funcional según CSE.
 5. **Sociourbana o Habitabilidad (47 capas):** Zonificación PRC Santiago, catastro predial SII (1.43M predios), 695k edificaciones OSM, cruces semaforizados UOCT (3.242 intersecciones), Metro, ciclovías, accesibilidad universal y patrimonio histórico.
 
+**Funcionalidades Técnicas del Módulo:**
+- **Acordeones Dinámicos con Buscador Predictivo:** Despliegue fluido de capas por dimensión con buscador en vivo (`🔍`) y segmentación rápida (`Todas`, `Oficiales Estado`, `VGI Comunitario`), conmutando capas directamente en el mapa Leaflet.
+- **Storyboards con Profundización Analítica Cuantitativa:** Cada relato barrial cuenta con lámina inmersiva tipo blog que integra matrices de KPIs, barras de progreso porcentual comparativo, gráficos de distribución y diagramas conceptuales vectoriales interactivos SVG (Rasante OGUC, Ciclo Semafórico UOCT, Gradiente Térmico de Isla de Calor, Isócronas de Flujo Estudiantil UAH y Red Integrada de Cuidados Sociosanitarios).
+
 > [!NOTE]
 > **Carácter Tentativo y Exploratorio:**
-> Los *Storyboards* (historias territoriales tipo blog fundamentadas en los datos del Atlas) y la parametrización de las dimensiones representan herramientas pedagógicas y de divulgación en desarrollo preliminar para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Están concebidas para ser refinadas colaborativamente con actores territoriales, preservando intacta la rigurosidad de las especificaciones ISO 19115 y el marco normativo del proyecto.
+> Los *Storyboards* (historias territoriales fundamentadas en los datos del Atlas) y la parametrización de las dimensiones representan herramientas pedagógicas y de divulgación en desarrollo preliminar para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Están concebidas para ser refinadas colaborativamente con actores territoriales, preservando intacta la rigurosidad de las especificaciones ISO 19115 y el marco normativo del proyecto.
 
 ---
 

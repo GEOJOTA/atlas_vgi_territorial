@@ -333,11 +333,11 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(indicadores): modulo 09 de indicadores multidimensionales (5 dimensiones) y storyboards de Barrio Brasil\n\n"
-        "- Incorporacion del Modulo 09 'Indicadores de analisis' articulando las 118 capas del Atlas en 5 dimensiones estrategicas: Sociodemografica, Socioeconomica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad.\n"
-        "- Diseno e implementacion de tarjetas centradas de gran impacto visual con iconos de 76px, halo tematico y acordeones interactivos para conmutar capas en el mapa Leaflet.\n"
-        "- Seccion de Storyboards territoriales con tarjetas 1:1, imagenes de Barrio Brasil y laminas modales tipo blog inmersivo con metricas y activacion masiva de capas.\n"
-        "- Actualizacion de documentacion en README.md, MANUAL_USO.md, src/docs/MANUAL_USO.md, docs/ARQUITECTURA.md y src/docs/ARQUITECTURA.md, enfatizando explicitamente el caracter tentativo y exploratorio Fondecyt de las narrativas e indicadores para resguardar la rigurosidad de los entregables del proyecto."
+        "fix(indicadores): despliegue fluido de acordeones y analisis profundo en storyboards con graficos y diagramas SVG\n\n"
+        "- Correccion y robustecimiento del despliegue del acordeon de capas al cliquear en las 5 dimensiones (incorporacion de obtenerCatalogoCapas en ide_chile.js y fallback seguro).\n"
+        "- Incorporacion de barra de busqueda en tiempo real y filtros por tipo (Todas / Oficiales Estado / VGI Comunitario) en el acordeon de capas.\n"
+        "- Profundizacion analitica exhaustiva de los 5 storyboards de Barrio Brasil: incorporacion de barras porcentuales, graficos comparativos/benchmarks territoriales, diagramas vectoriales interactivos SVG y tablas analiticas con indicadores del Censo 2024, IDE Chile y OSM.\n"
+        "- Trazabilidad y consistencia con los estandares del Proyecto Fondecyt F1261256."
     )
 
 

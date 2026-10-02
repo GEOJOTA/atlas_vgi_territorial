@@ -4547,6 +4547,332 @@ table.tabla-datos tr:hover td {
   line-height: 1.45;
 }
 
+/* ------------------------------------------------------------------------- */
+/* HERRAMIENTAS Y BÚSQUEDA DEL ACORDEÓN DE DIMENSIONES                       */
+/* ------------------------------------------------------------------------- */
+.barra-herramientas-acordeon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+.buscador-capas-acordeon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 260px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.buscador-capas-acordeon .icono-lupa {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.input-filtro-capas-dim {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.86rem;
+  width: 100%;
+  outline: none;
+}
+
+.input-filtro-capas-dim::placeholder {
+  color: #94a3b8;
+}
+
+.filtros-tipo-acordeon {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-filtro-tipo {
+  font-family: var(--fuente-datos);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-filtro-tipo:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.btn-filtro-tipo.activo {
+  background: #0284c7;
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+}
+
+/* ------------------------------------------------------------------------- */
+/* ANÁLISIS PROFUNDO DE DATOS: PORCENTAJES, GRÁFICOS Y DIAGRAMAS             */
+/* ------------------------------------------------------------------------- */
+.seccion-analisis-profundo-datos {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.cabecera-subseccion-datos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.cabecera-subseccion-datos h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-fuente-datos {
+  font-family: var(--fuente-datos);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Grilla de Barras Porcentuales */
+.grilla-barras-porcentajes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta-barra-porcentaje {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-barra-porcentaje {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.label-barra-porcentaje {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  line-height: 1.35;
+}
+
+.valor-barra-porcentaje {
+  font-family: var(--fuente-datos);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #38bdf8;
+  white-space: nowrap;
+}
+
+.barra-progreso-fondo {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.barra-progreso-relleno {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contexto-barra-porcentaje {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Contenedor Gráfico Comparativo */
+.contenedor-grafico-comparativo {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.titulo-grafico-comparativo {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0 0 6px 0;
+}
+
+.fila-grafico-barra {
+  display: grid;
+  grid-template-columns: 180px 1fr 65px;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.82rem;
+}
+
+.etiqueta-fila-barra {
+  color: #cbd5e1;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-fila-barra {
+  height: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.fill-fila-barra {
+  height: 100%;
+  border-radius: 4px;
+  background: #38bdf8;
+}
+
+.valor-fila-barra {
+  font-family: var(--fuente-datos);
+  font-weight: 800;
+  color: #38bdf8;
+  text-align: right;
+  font-size: 0.84rem;
+}
+
+/* Contenedor Diagrama SVG Vectorial */
+.contenedor-diagrama-svg {
+  background: rgba(10, 16, 30, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header-diagrama-svg {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.titulo-diagrama-svg {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.svg-diagrama-canvas {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  display: block;
+}
+
+.pie-diagrama-svg {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 8px;
+}
+
+/* Tabla de Indicadores y Atributos */
+.tabla-datos-storyboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-top: 6px;
+}
+
+.tabla-datos-storyboard th {
+  background: rgba(0, 0, 0, 0.3);
+  color: #94a3b8;
+  font-family: var(--fuente-datos);
+  font-weight: 800;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.74rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tabla-datos-storyboard td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+}
+
+.tabla-datos-storyboard tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tabla-datos-storyboard td.valor-dato {
+  font-family: var(--fuente-datos);
+  font-weight: 800;
+  color: #38bdf8;
+  white-space: nowrap;
+}
+
+.tabla-datos-storyboard td.valor-referencial {
+  font-family: var(--fuente-datos);
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
 /* Responsividad */
 @media (max-width: 768px) {
   .titulo-modulo-indicadores {
@@ -4567,6 +4893,16 @@ table.tabla-datos tr:hover td {
   }
   .btn-explorar-historia-mapa {
     text-align: center;
+  }
+  .fila-grafico-barra {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .etiqueta-fila-barra {
+    white-space: normal;
+  }
+  .valor-fila-barra {
+    text-align: left;
   }
 }
 

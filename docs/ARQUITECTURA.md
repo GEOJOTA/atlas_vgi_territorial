@@ -203,10 +203,11 @@ La arquitectura se articula en 17 módulos desacoplados coordinados por el contr
   3. *Dimensión Socioambiental* (Cobertura vegetal CONAF, IGVUST MINVU, red hídrica DGA, SINCA MMA, GBIF).
   4. *Dimensión Sociosanitaria* (Red de salud DEIS/MINSAL, farmacias de turno/populares, cuidados y dependencia RSH).
   5. *Dimensión Sociourbana o Habitabilidad* (Catastro SII, 192 zonas PRC Santiago, cruces semaforizados UOCT, ciclovías, Metro, patrimonio CMN).
-- Renderizado de componentes visuales de alto impacto: tarjetas centradas con íconos vectoriales de 76px, halo luminoso temático y acordeones dinámicos con activación cartográfica directa (`activarCapaEnMapa`).
-- Motor de **Storyboards territoriales de Barrio Brasil** concebido bajo formato blog inmersivo:
-  - Tarjetas cuadradas 1:1 con imágenes y gráficos vectoriales temáticos.
-  - Lámina modal interactiva con indicadores cuantitativos barriales, análisis situado y conmutación masiva de capas en Leaflet (`activarCapasDeHistoria`).
+- Renderizado de componentes visuales de alto impacto: tarjetas centradas con íconos vectoriales de 76px, halo luminoso temático y **acordeones dinámicos interactivos** equipados con buscador predictivo en tiempo real (`filtrarCapasAcordeon`), filtros por tipo de capa (`filtrarPorTipo`) y activación cartográfica directa (`activarCapaEnMapa`).
+- Motor de **Storyboards territoriales de Barrio Brasil** con profundización analítica cuantitativa:
+  - Tarjetas cuadradas 1:1 con imágenes y vectores representativos.
+  - Lámina modal inmersiva tipo blog con distribución porcentual (barras animadas CSS), gráficos comparativos de benchmark territorial (Censo 2024, EOD MTT, IGVUST MINVU), diagramas conceptuales vectoriales interactivos SVG (Rasante OGUC, Ciclo Semafórico UOCT, Gradiente Térmico, Isócronas Universitarias, Red de Cuidados) y tablas de datos estructurados.
+  - Conmutación masiva y coordinada de capas en el mapa Leaflet (`activarCapasDeHistoria`).
   - *Aclaración Metodológica:* El módulo y las narrativas territoriales se integran como un desarrollo **tentativo y exploratorio** en formulación para el Proyecto Fondecyt Regular F1261256 (Geografía UAH), resguardando la estabilidad y rigurosidad de los catálogos normativos consolidados.
 
 ---

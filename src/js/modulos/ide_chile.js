@@ -2411,7 +2411,8 @@ const ModuloIDEChile = (() => {
     consultarCapaOficial,
     crearCapaWMSLeaflet,
     obtenerCapasDisponibles,
-    obtenerDefinicion
+    obtenerDefinicion,
+    obtenerCatalogoCapas: () => CAPAS_OFICIALES
   };
 })();
 
