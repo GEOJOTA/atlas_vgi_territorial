@@ -338,12 +338,12 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "feat(indicadores): paridad exacta de nombres con Modulo 00, datos formales VGI, 4 usuarios-tipo y bibliografia academica\n\n"
-        "- Paridad 100% de nombres de capas en los acordeones del Modulo 09 respecto a la consola cartografica del Modulo 00 (108 capas oficiales del Estado + 10 macrocategorias VGI comunitarias).\n"
-        "- Datos espaciales, KPIs, porcentajes, graficos y diagramas SVG derivados estricta y exclusivamente de la base formal del Atlas VGI (sin fuentes ficticias ni externas).\n"
-        "- Incorporacion de seccion analitica estructurada para los 4 usuarios-tipo del proyecto (Institucion, Comunidad, Mapeador OSM, ONGs/Investigadores).\n"
-        "- Inclusion de apartado bibliografico en cada storyboard con catalogo de fuentes primarias espaciales y referencias teorico-metodologicas en norma APA 7ma edicion.\n"
-        "- Trazabilidad y rigor academico bajo el Proyecto Fondecyt Regular F1261256 (Geografia UAH)."
+        "style(indicadores): refinamiento estetico del acordeon de capas y coherencia visual con Atlas VGI\n\n"
+        "- Refinamiento integral del acordeon de capas en el Modulo 09 (Indicadores de Analisis) alineado a la estetica tactica del Atlas (Outfit/JetBrains Mono, elevacion, glassmorphism oscuro y halos de dimension).\n"
+        "- Correccion de selectores CSS y sincronizacion con el DOM generado en indicadores_analisis.js.\n"
+        "- Indicadores visuales de geometria (Poligono, Punto, Linea, Vectorial) y procedencia (Oficiales Estado / VGI Comunitario) con conteo dinamico en filtros.\n"
+        "- Estado vacio interactivo con accion de restablecimiento de busqueda.\n"
+        "- Mantenimiento estricto de las 118 capas (108 oficiales + 10 VGI), 4 usuarios-tipo y rigor academico Fondecyt 1261256."
     )
 
 

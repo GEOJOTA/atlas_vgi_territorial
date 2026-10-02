@@ -1290,9 +1290,15 @@ const ModuloIndicadoresAnalisis = (() => {
       t.setAttribute('aria-expanded', coincide ? 'true' : 'false');
     });
 
-    // Generar tarjetas de capas con nombres EXACTOS de Módulo 00
+    // Conteos por origen para los botones de filtro
+    const conteoOficiales = dim.capasIds.filter(id => !id.startsWith('cat0') && !id.startsWith('cat1')).length;
+    const conteoVGI = dim.capasIds.filter(id => id.startsWith('cat0') || id.startsWith('cat1')).length;
+
+    // Generar tarjetas de capas con nombres EXACTOS de Módulo 00 y estética Atlas VGI
     const htmlCapas = dim.capasIds.map(capaId => {
       const info = resolverDefinicionCapa(capaId);
+      const geomIcon = info.geometria.includes('POL') ? '⬡' : (info.geometria.includes('PUN') ? '●' : (info.geometria.includes('LÍN') ? '〰' : '◆'));
+      const origenIcon = info.tipo === 'oficial' ? '🏛️' : '👥';
 
       return `
         <div class="tarjeta-capa-dimension ${info.tipo}" 
@@ -1302,8 +1308,8 @@ const ModuloIndicadoresAnalisis = (() => {
              data-codigo="${info.codigo.toLowerCase()}">
           <div class="tarjeta-capa-dim-header">
             <span class="pill-dim-codigo">${info.codigo}</span>
-            <span class="pill-dim-origen ${info.tipo}">${info.sigla}</span>
-            <span class="pill-dim-geom">${info.geometria}</span>
+            <span class="pill-dim-origen ${info.tipo}">${origenIcon} ${info.sigla}</span>
+            <span class="pill-dim-geom"><span style="opacity:0.75; margin-right:3px;">${geomIcon}</span>${info.geometria}</span>
           </div>
           <h5 class="nombre-capa-dim">${info.nombre}</h5>
           <p class="desc-capa-dim">${info.descripcion}</p>
@@ -1320,10 +1326,10 @@ const ModuloIndicadoresAnalisis = (() => {
     }).join('');
 
     contenedorAcordeon.innerHTML = `
-      <div class="caja-acordeon-activa" style="border-top: 3px solid ${dim.color};">
+      <div class="caja-acordeon-activa" style="border-top: 3px solid ${dim.color}; border-radius: 14px;">
         <div class="cabecera-acordeon-activa">
           <div class="titulo-con-icono-acordeon">
-            <span class="icono-acordeon-mini">${dim.icono}</span>
+            <span class="icono-acordeon-mini" style="background:${dim.colorFondo}; border-color:${dim.colorBorde}; box-shadow:0 0 18px ${dim.colorFondo};">${dim.icono}</span>
             <div>
               <h4 class="titulo-acordeon-activa">Dimensión 0${dim.numero}: ${dim.nombre}</h4>
               <p class="subtitulo-acordeon-activa">${dim.enfoque}</p>
@@ -1333,7 +1339,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <span class="badge-contador-capas-filtro" id="badge-contador-capas-dim">
               Mostrando ${dim.capasIds.length} de ${dim.capasIds.length} capas
             </span>
-            <button type="button" class="btn-cerrar-acordeon" onclick="ModuloIndicadoresAnalisis.colapsarAcordeon()" aria-label="Cerrar acordeón">✕</button>
+            <button type="button" class="btn-cerrar-acordeon" onclick="ModuloIndicadoresAnalisis.colapsarAcordeon()" aria-label="Cerrar acordeón">✕ Cerrar</button>
           </div>
         </div>
 
@@ -1349,14 +1355,20 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
           <div class="filtros-tipo-acordeon">
             <button type="button" class="btn-filtro-tipo activo" data-filtro="todos" onclick="ModuloIndicadoresAnalisis.filtrarPorTipo('todos')">Todas (${dim.capasIds.length})</button>
-            <button type="button" class="btn-filtro-tipo" data-filtro="oficial" onclick="ModuloIndicadoresAnalisis.filtrarPorTipo('oficial')">Oficiales Estado</button>
-            <button type="button" class="btn-filtro-tipo" data-filtro="vgi" onclick="ModuloIndicadoresAnalisis.filtrarPorTipo('vgi')">VGI Comunitario</button>
+            <button type="button" class="btn-filtro-tipo" data-filtro="oficial" onclick="ModuloIndicadoresAnalisis.filtrarPorTipo('oficial')">🏛️ Oficiales Estado (${conteoOficiales})</button>
+            <button type="button" class="btn-filtro-tipo" data-filtro="vgi" onclick="ModuloIndicadoresAnalisis.filtrarPorTipo('vgi')">👥 VGI Comunitario (${conteoVGI})</button>
           </div>
         </div>
 
         <!-- Grilla de Tarjetas de Capas -->
         <div class="grilla-capas-dimension" id="grilla-capas-dimension-items">
           ${htmlCapas}
+          <div class="estado-vacio-capas-dim" id="estado-vacio-capas-dim" style="display:none;">
+            <div class="icono-vacio-animado">🔍</div>
+            <h5 class="titulo-vacio-capas">No se encontraron capas coincidentes</h5>
+            <p class="desc-vacio-capas">No hay capas en esta dimensión que coincidan con los filtros aplicados.</p>
+            <button type="button" class="btn-restablecer-filtros" onclick="ModuloIndicadoresAnalisis.restablecerFiltros()">Restablecer Búsqueda</button>
+          </div>
         </div>
       </div>
     `;
@@ -1432,6 +1444,21 @@ const ModuloIndicadoresAnalisis = (() => {
     if (badgeContador) {
       badgeContador.textContent = `Mostrando ${visibles} de ${items.length} capas`;
     }
+
+    const estadoVacio = document.getElementById('estado-vacio-capas-dim');
+    if (estadoVacio) {
+      estadoVacio.style.display = (visibles === 0) ? 'flex' : 'none';
+    }
+  }
+
+  /**
+   * Restablece el buscador y los filtros a 'todos'
+   */
+  function restablecerFiltros() {
+    const input = document.getElementById('input-buscador-capas-dim');
+    if (input) input.value = '';
+    queryFiltroActual = '';
+    filtrarPorTipo('todos');
   }
 
   /**
@@ -1763,6 +1790,7 @@ const ModuloIndicadoresAnalisis = (() => {
     filtrarCapasAcordeon,
     filtrarPorTipo,
     colapsarAcordeon,
+    restablecerFiltros,
     abrirLaminaStoryboard,
     cerrarLaminaStoryboard,
     activarCapaEnMapa,
@@ -1778,15 +1806,3 @@ const ModuloIndicadoresAnalisis = (() => {
 if (typeof window !== 'undefined') {
   window.ModuloIndicadoresAnalisis = ModuloIndicadoresAnalisis;
 }
-
-// Auto-inicialización inmediata al cargar el DOM
-if (typeof document !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      ModuloIndicadoresAnalisis.inicializar();
-    });
-  } else {
-    ModuloIndicadoresAnalisis.inicializar();
-  }
-}
-
