@@ -1,6 +1,18 @@
 {
-  "fecha_auditoria": "2026-10-01T22:35:45.871864",
+  "fecha_auditoria": "2026-10-02T05:30:53.616360",
   "estandar": "ISO 19115-1:2014 / ISO 19157:2013 / IDE Chile SNIT v2.0",
+  "modelo_lineal": {
+    "tipo": "Modelo Lineal Aditivo Ponderado (SAW / MAUT)",
+    "formula": "IGMC = 0.30*MC + 0.20*CC + 0.25*LL + 0.15*RG + 0.10*AI",
+    "ponderadores": {
+      "MC_completitud_nucleo": 0.3,
+      "CC_conformidad_normativa": 0.2,
+      "LL_linaje_trazabilidad": 0.25,
+      "RG_resolucion_espacial": 0.15,
+      "AI_accesibilidad_integridad": 0.1
+    },
+    "estado_modelo": "Tentativo calibrado en línea base; sujeto a validación y reponderación AHP en OE4"
+  },
   "metricas_globales": {
     "total_capas": 118,
     "capas_oficiales": 108,
@@ -17,6 +29,261 @@
       "A (Muy Bueno)": 20,
       "B (Aceptable)": 0,
       "C (Deficiente)": 0
+    }
+  },
+  "especificacion_macrocategorias_vgi": {
+    "educacion": {
+      "codigo": "CAT-01",
+      "nombre": "Educación, Universidades e Investigación",
+      "claves_osm": [
+        "amenity=university",
+        "amenity=college",
+        "amenity=school",
+        "amenity=kindergarten",
+        "amenity=library",
+        "building=university",
+        "building=school",
+        "operator=*",
+        "name=*"
+      ],
+      "filtro_overpass_ql": "(\n  node[\"amenity\"~\"^(university|college|school|kindergarten|library)$\"]({{bbox}});\n  way[\"amenity\"~\"^(university|college|school|kindergarten|library)$\"]({{bbox}});\n  relation[\"amenity\"~\"^(university|college|school|kindergarten|library)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Equipamiento de educación superior, técnica, básica, media e inicial, junto con centros de investigación científica y bibliotecas comunitarias integradas a la trama barrial.",
+      "catalogo_entidades": "Pabellones y casonas patrimoniales del campus Universidad Alberto Hurtado (UAH en calles Almirante Barroso, Cienfuegos y Erasmo Escala), Liceo de Aplicación, INBA, escuelas básicas comunales, jardines infantiles (JUNJI/Integra) y salas de lectura comunitaria.",
+      "geometria_ogc": "Multi-geometría: Nodos (accesos/servicios), Vías (pabellones/aulas) y Relaciones (campus universitario)",
+      "geometria_resumen": "Nodos, Vías, Multipolígonos",
+      "claves_resumen": "amenity=university|school, building=*",
+      "entidades_barrio_brasil": 247,
+      "entidades_rm": 7503,
+      "norma_chilena_vinculada": "Ley N° 21.091 sobre Educación Superior; Estándares de Infraestructura Escolar (MINEDUC); Perfil IDE Chile Educación.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "servicios": {
+      "codigo": "CAT-02",
+      "nombre": "Servicios Urbanos, Salud y Comercio Barrial",
+      "claves_osm": [
+        "shop=*",
+        "amenity=pharmacy",
+        "amenity=clinic",
+        "amenity=doctors",
+        "amenity=hospital",
+        "amenity=bank",
+        "amenity=restaurant",
+        "amenity=cafe",
+        "amenity=fast_food",
+        "amenity=bar",
+        "amenity=post_office",
+        "healthcare=*"
+      ],
+      "filtro_overpass_ql": "(\n  node[\"shop\"]({{bbox}});\n  way[\"shop\"]({{bbox}});\n  node[\"amenity\"~\"^(pharmacy|clinic|doctors|hospital|bank|restaurant|cafe|post_office)$\"]({{bbox}});\n  way[\"amenity\"~\"^(pharmacy|clinic|doctors|hospital|bank|restaurant|cafe|post_office)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Red de abastecimiento de proximidad, microeconomía minorista barrial, servicios bancarios y postales, junto con infraestructura de salud primaria, consultorios familiares (CESFAM) y centros médicos.",
+      "catalogo_entidades": "Almacenes de abarrotes, panaderías patrimoniales, botillerías, farmacias comunitarias (Farmacia Popular de Santiago), CESFAM Ignacio Domeyko, restaurantes y cafeterías del polo gastronómico de Plaza Brasil, sucursales bancarias y cajas vecinas.",
+      "geometria_ogc": "Multi-geometría: Nodos (locales en placa comercial), Vías (locales independientes) y Polígonos (recintos médicos)",
+      "geometria_resumen": "Nodos, Vías, Polígonos",
+      "claves_resumen": "shop=*, amenity=pharmacy|clinic|cafe",
+      "entidades_barrio_brasil": 365,
+      "entidades_rm": 54442,
+      "norma_chilena_vinculada": "Modelo de Atención Integral en Salud Familiar (MINSAL); Ley de Rentas Municipales (D.L. 3.063); D.S. N° 469/1993.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "transporte": {
+      "codigo": "CAT-03",
+      "nombre": "Movilidad, Transporte Público y Paraderos",
+      "claves_osm": [
+        "highway=bus_stop",
+        "public_transport=platform",
+        "public_transport=stop_position",
+        "railway=station",
+        "railway=subway_entrance",
+        "network=\"Red Metropolitana de Movilidad\""
+      ],
+      "filtro_overpass_ql": "(\n  node[\"highway\"=\"bus_stop\"]({{bbox}});\n  node[\"public_transport\"=\"platform\"]({{bbox}});\n  node[\"railway\"~\"^(station|subway_entrance)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Infraestructura de transporte público colectivo multimodal: red estructurante de buses metropolitanos, accesos a red de metro subterráneo y nodos de intercambio modal interurbano.",
+      "catalogo_entidades": "Refugios peatonales y paraderos del Sistema Red Movilidad (ejes Alameda, Av. Brasil, San Pablo, Manuel Rodríguez), accesos y bocas de estaciones de Metro: Los Héroes (Líneas 1 y 2), Santa Ana (Líneas 2 y 5), Cumming (Línea 5) y República (Línea 1).",
+      "geometria_ogc": "Nodos puntuales (paraderos, postes de parada, bocas de metro) y Vías (plataformas de trasbordo)",
+      "geometria_resumen": "Nodos puntuales, Vías",
+      "claves_resumen": "highway=bus_stop, railway=station|subway",
+      "entidades_barrio_brasil": 191,
+      "entidades_rm": 326545,
+      "norma_chilena_vinculada": "Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM 2023); Manual REDEVU (MINVU); Ley N° 18.290 de Tránsito.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "movilidad_activa": {
+      "codigo": "CAT-04",
+      "nombre": "Movilidad Activa, Ciclovías y Peatonalidad",
+      "claves_osm": [
+        "highway=cycleway",
+        "cycleway=lane",
+        "cycleway=track",
+        "cycleway=opposite",
+        "amenity=bicycle_parking",
+        "amenity=bicycle_repair_station",
+        "bicycle=yes|designated"
+      ],
+      "filtro_overpass_ql": "(\n  way[\"highway\"=\"cycleway\"]({{bbox}});\n  way[\"cycleway\"]({{bbox}});\n  node[\"amenity\"=\"bicycle_parking\"]({{bbox}});\n  way[\"amenity\"=\"bicycle_parking\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Ejes viales destinados a la micromovilidad y movilidad no motorizada, ciclovías segregadas, ciclobandas demarcadas, infraestructura de estacionamiento y mantención de ciclos.",
+      "catalogo_entidades": "Ciclovías segregadas bidireccionales (eje Rosas y eje Compañía de Jesús), ciclobanda Av. Brasil, estacionamientos públicos para bicicletas en aceras y patios del campus UAH, talleres comunitarios de reparación.",
+      "geometria_ogc": "Vías lineales continuas (trazados de ciclovías) y Nodos (estacionamientos y herramientas comunitarias)",
+      "geometria_resumen": "Vías continuas, Nodos",
+      "claves_resumen": "highway=cycleway, amenity=bicycle_parking",
+      "entidades_barrio_brasil": 11,
+      "entidades_rm": 128891,
+      "norma_chilena_vinculada": "Manual de Vialidad del Ciclo (MINVU/MTT 2015); Ley de Convivencia Vial N° 21.088; D.S. N° 102/2019 MTT.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "espacio_publico": {
+      "codigo": "CAT-05",
+      "nombre": "Áreas Verdes, Espacio Público y Recreación",
+      "claves_osm": [
+        "leisure=park",
+        "leisure=playground",
+        "leisure=pitch",
+        "leisure=garden",
+        "landuse=grass",
+        "landuse=village_green",
+        "amenity=bench",
+        "surface=grass|paved"
+      ],
+      "filtro_overpass_ql": "(\n  way[\"leisure\"~\"^(park|playground|pitch|garden)$\"]({{bbox}});\n  relation[\"leisure\"~\"^(park|playground|pitch|garden)$\"]({{bbox}});\n  way[\"landuse\"=\"grass\"]({{bbox}});\n  node[\"amenity\"=\"bench\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Infraestructura verde urbana y espacios abiertos de uso colectivo: parques urbanos, plazas barriales de permanencia, áreas de juegos infantiles, canchas comunitarias y mobiliario urbano de descanso.",
+      "catalogo_entidades": "Plaza Brasil (15.200 m² con juegos escultóricos de Federica Matta), Plaza Manuel Rodríguez, bandejones verdes arbolados de Av. Brasil, multicanchas comunitarias de calle Maturana, plazoletas vecinales y bancos públicos de permanencia.",
+      "geometria_ogc": "Vías cerradas y Relaciones multipolígono (superficies métricas de plazas/parques) y Nodos (mobiliario urbano)",
+      "geometria_resumen": "Vías cerradas, Multipolígonos, Nodos",
+      "claves_resumen": "leisure=park|playground, landuse=grass",
+      "entidades_barrio_brasil": 144,
+      "entidades_rm": 41433,
+      "norma_chilena_vinculada": "Política Nacional de Parques Urbanos (MINVU 2021); Estándares Urbanos Indicativos de Áreas Verdes (CNDU 2018); Art. 2.2.4 OGUC.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "patrimonio": {
+      "codigo": "CAT-06",
+      "nombre": "Patrimonio Histórico, Memoria y Cultura",
+      "claves_osm": [
+        "historic=memorial",
+        "historic=monument",
+        "historic=heritage",
+        "historic=building",
+        "heritage=*",
+        "building=church",
+        "amenity=theatre",
+        "amenity=arts_centre",
+        "amenity=place_of_worship",
+        "tourism=museum",
+        "tourism=gallery"
+      ],
+      "filtro_overpass_ql": "(\n  node[\"historic\"]({{bbox}});\n  way[\"historic\"]({{bbox}});\n  node[\"heritage\"]({{bbox}});\n  way[\"heritage\"]({{bbox}});\n  node[\"amenity\"~\"^(theatre|arts_centre|place_of_worship)$\"]({{bbox}});\n  way[\"amenity\"~\"^(theatre|arts_centre|place_of_worship)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Bienes del patrimonio cultural material e inmaterial: arquitectura patrimonial vernácula y monumental, inmuebles de conservación histórica, sitios de memoria de derechos humanos y centros culturales comunitarios.",
+      "catalogo_entidades": "Cités patrimoniales de calles Huérfanos, Compañía y Cienfuegos; Basílica del Salvador; Iglesia San Saturnino; Casonas patrimoniales UAH (siglos XIX e inicios del XX); centros culturales comunitarios (Galpón Víctor Jara, teatros independientes); placas conmemorativas y monolitos de memoria.",
+      "geometria_ogc": "Multi-geometría: Vías poligonales (edificaciones patrimoniales e iglesias) y Nodos (monumentos y placas)",
+      "geometria_resumen": "Vías poligonales, Nodos",
+      "claves_resumen": "historic=*, heritage=*, building=church",
+      "entidades_barrio_brasil": 71,
+      "entidades_rm": 2576,
+      "norma_chilena_vinculada": "Ley N° 17.288 de Monumentos Nacionales; D.E. N° 126/2000 Mineduc (Zona Típica Barrio Brasil); Inmuebles de Conservación Histórica PRC Santiago.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "accesibilidad": {
+      "codigo": "CAT-07",
+      "nombre": "Accesibilidad Universal y Discapacidad",
+      "claves_osm": [
+        "highway=crossing",
+        "crossing=traffic_signals|uncontrolled|zebra",
+        "kerb=lowered|flush|raised",
+        "tactile_paving=yes|no|primitive",
+        "wheelchair=yes|no|limited",
+        "incline=*"
+      ],
+      "filtro_overpass_ql": "(\n  node[\"kerb\"]({{bbox}});\n  node[\"highway\"=\"crossing\"]({{bbox}});\n  node[\"tactile_paving\"]({{bbox}});\n  way[\"tactile_paving\"]({{bbox}});\n  node[\"wheelchair\"]({{bbox}});\n  way[\"wheelchair\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Micro-infraestructura física de caminabilidad inclusiva: rebajes de cordón en aceras, pasos peatonales semáforizados con aviso sonoro, bandas táctiles podotáctiles y accesibilidad motriz para sillas de ruedas.",
+      "catalogo_entidades": "Rebajes de cordón en vados de esquina, cruces peatonales accesibles en ejes Brasil y Alameda, baldosas podotáctiles de avance y detención en veredas, rampas de acceso al campus UAH y edificios de servicios.",
+      "geometria_ogc": "Nodos puntuales (rebajes de cordón, cruces peatonales) y Vías (tramos de acera con atributos de accesibilidad)",
+      "geometria_resumen": "Nodos puntuales, Vías",
+      "claves_resumen": "highway=crossing, kerb=*, wheelchair=*",
+      "entidades_barrio_brasil": 185,
+      "entidades_rm": 94461,
+      "norma_chilena_vinculada": "D.S. N° 50 OGUC sobre Accesibilidad Universal (MINVU 2016); Ley N° 20.422 de Igualdad de Oportunidades; Norma ISO 21542:2021.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "biodiversidad": {
+      "codigo": "CAT-08",
+      "nombre": "Biodiversidad Urbana y Arbolado (OSM / GBIF)",
+      "claves_osm": [
+        "natural=tree",
+        "natural=tree_row",
+        "natural=wood",
+        "species=*",
+        "genus=*",
+        "leaf_type=*",
+        "circumference=*",
+        "height=*",
+        "DarwinCore:scientificName",
+        "DarwinCore:eventDate",
+        "DarwinCore:decimalLatitude",
+        "DarwinCore:decimalLongitude"
+      ],
+      "filtro_overpass_ql": "OSM: (\n  node[\"natural\"=\"tree\"]({{bbox}});\n  way[\"natural\"=\"tree_row\"]({{bbox}});\n); out body; >; out skel qt;\nGBIF API: GET /v1/occurrence/search?decimalLatitude=-33.45,-33.43&decimalLongitude=-70.68,-70.65",
+      "taxonomia_urbana": "Infraestructura ecológica urbana: arbolado viario de alineación, ejemplares arbóreos notables de plazas, masas boscosas y registros de ciencia ciudadana sobre flora y avifauna compilados bajo el estándar internacional Darwin Core.",
+      "catalogo_entidades": "Arbolado de alineación viaria en Av. Brasil (plátano oriental, jacarandá), árboles patrimoniales de Plaza Brasil (Palma chilena Jubaea chilensis, liquidámbar), arbolado de patios interiores UAH y observaciones de aves urbanas validadas en GBIF.org.",
+      "geometria_ogc": "Nodos (árboles individuales y observaciones biológicas Darwin Core) y Vías (alineaciones de árboles en ejes viales)",
+      "geometria_resumen": "Nodos puntuales, Vías",
+      "claves_resumen": "natural=tree|wood, DarwinCore (GBIF)",
+      "entidades_barrio_brasil": 390,
+      "entidades_rm": 121134,
+      "norma_chilena_vinculada": "Ley Marco de Cambio Climático N° 21.455; Guía de Planificación de Arbolado Urbano (CONAF 2019); Estándar Darwin Core (TDWG).",
+      "licencia": "Creative Commons CC-BY 4.0 / CC0 1.0 (GBIF) y ODbL 1.0 (OSM)"
+    },
+    "edificaciones": {
+      "codigo": "CAT-09",
+      "nombre": "Edificaciones y Huella Urbana",
+      "claves_osm": [
+        "building=yes",
+        "building=residential",
+        "building=apartments",
+        "building=commercial",
+        "building=civic",
+        "building=university",
+        "building=school",
+        "building=church",
+        "addr:street=*",
+        "addr:housenumber=*",
+        "building:levels=*",
+        "height=*"
+      ],
+      "filtro_overpass_ql": "(\n  way[\"building\"]({{bbox}});\n  relation[\"building\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Morfología urbana construida: huella poligonal basal de edificaciones, volumetría, número de niveles y caracterización del tejido de manzaneo tradicional y contemporáneo.",
+      "catalogo_entidades": "Huella vectorial cerrada de la totalidad de edificaciones de Barrio Brasil, casonas residenciales de fachada continua, edificios habitacionales de media altura, pabellones de la UAH, templos y equipamientos institucionales.",
+      "geometria_ogc": "Vías poligonales cerradas (type:way) y Relaciones multipolígono con patios interiores (type:relation)",
+      "geometria_resumen": "Vías poligonales, Multipolígonos",
+      "claves_resumen": "building=yes|residential, addr:*",
+      "entidades_barrio_brasil": 1673,
+      "entidades_rm": 695412,
+      "norma_chilena_vinculada": "Ley General de Urbanismo y Construcciones (LGUC); Art. 2.1.24 OGUC; Catastro de Bienes Raíces (SII); ISO 19157 (Completitud de Área).",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+    },
+    "cobertura_suelo": {
+      "codigo": "CAT-10",
+      "nombre": "Coberturas y Usos de Suelo",
+      "claves_osm": [
+        "landuse=residential",
+        "landuse=commercial",
+        "landuse=education",
+        "landuse=recreation_ground",
+        "landuse=grass",
+        "landuse=construction",
+        "surface=asphalt",
+        "surface=paving_stones",
+        "surface=concrete",
+        "surface=sett"
+      ],
+      "filtro_overpass_ql": "(\n  way[\"landuse\"]({{bbox}});\n  relation[\"landuse\"]({{bbox}});\n  way[\"surface\"]({{bbox}});\n);\nout body; >; out skel qt;",
+      "taxonomia_urbana": "Macrozoniación funcional del territorio barrial: caracterización de usos predominantes de suelo (residencial, comercial, educativo, recreativo) y tipología de materialidad superficial de calzadas y veredas.",
+      "catalogo_entidades": "Polígonos de zonificación de uso residencial barrial, recintos educativos (campus UAH), zonas comerciales de proximidad, calzadas adoquinadas patrimoniales y pavimentos asfálticos contemporáneos.",
+      "geometria_ogc": "Vías cerradas (type:way) y Relaciones multipolígono (type:relation)",
+      "geometria_resumen": "Vías cerradas, Multipolígonos",
+      "claves_resumen": "landuse=residential|commercial, surface=*",
+      "entidades_barrio_brasil": 400,
+      "entidades_rm": 79747,
+      "norma_chilena_vinculada": "Plan Regulador Comunal de Santiago (PRC); Ley N° 21.074 de Fortalecimiento de la Regionalización; OGC LandInfra Standard.",
+      "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
     }
   },
   "grupos_tematicos": {
@@ -2349,7 +2616,32 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-01",
+        "nombre": "Educación, Universidades e Investigación",
+        "claves_osm": [
+          "amenity=university",
+          "amenity=college",
+          "amenity=school",
+          "amenity=kindergarten",
+          "amenity=library",
+          "building=university",
+          "building=school",
+          "operator=*",
+          "name=*"
+        ],
+        "filtro_overpass_ql": "(\n  node[\"amenity\"~\"^(university|college|school|kindergarten|library)$\"]({{bbox}});\n  way[\"amenity\"~\"^(university|college|school|kindergarten|library)$\"]({{bbox}});\n  relation[\"amenity\"~\"^(university|college|school|kindergarten|library)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Equipamiento de educación superior, técnica, básica, media e inicial, junto con centros de investigación científica y bibliotecas comunitarias integradas a la trama barrial.",
+        "catalogo_entidades": "Pabellones y casonas patrimoniales del campus Universidad Alberto Hurtado (UAH en calles Almirante Barroso, Cienfuegos y Erasmo Escala), Liceo de Aplicación, INBA, escuelas básicas comunales, jardines infantiles (JUNJI/Integra) y salas de lectura comunitaria.",
+        "geometria_ogc": "Multi-geometría: Nodos (accesos/servicios), Vías (pabellones/aulas) y Relaciones (campus universitario)",
+        "geometria_resumen": "Nodos, Vías, Multipolígonos",
+        "claves_resumen": "amenity=university|school, building=*",
+        "entidades_barrio_brasil": 247,
+        "entidades_rm": 7503,
+        "norma_chilena_vinculada": "Ley N° 21.091 sobre Educación Superior; Estándares de Infraestructura Escolar (MINEDUC); Perfil IDE Chile Educación.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "servicios",
@@ -2370,7 +2662,35 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-02",
+        "nombre": "Servicios Urbanos, Salud y Comercio Barrial",
+        "claves_osm": [
+          "shop=*",
+          "amenity=pharmacy",
+          "amenity=clinic",
+          "amenity=doctors",
+          "amenity=hospital",
+          "amenity=bank",
+          "amenity=restaurant",
+          "amenity=cafe",
+          "amenity=fast_food",
+          "amenity=bar",
+          "amenity=post_office",
+          "healthcare=*"
+        ],
+        "filtro_overpass_ql": "(\n  node[\"shop\"]({{bbox}});\n  way[\"shop\"]({{bbox}});\n  node[\"amenity\"~\"^(pharmacy|clinic|doctors|hospital|bank|restaurant|cafe|post_office)$\"]({{bbox}});\n  way[\"amenity\"~\"^(pharmacy|clinic|doctors|hospital|bank|restaurant|cafe|post_office)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Red de abastecimiento de proximidad, microeconomía minorista barrial, servicios bancarios y postales, junto con infraestructura de salud primaria, consultorios familiares (CESFAM) y centros médicos.",
+        "catalogo_entidades": "Almacenes de abarrotes, panaderías patrimoniales, botillerías, farmacias comunitarias (Farmacia Popular de Santiago), CESFAM Ignacio Domeyko, restaurantes y cafeterías del polo gastronómico de Plaza Brasil, sucursales bancarias y cajas vecinas.",
+        "geometria_ogc": "Multi-geometría: Nodos (locales en placa comercial), Vías (locales independientes) y Polígonos (recintos médicos)",
+        "geometria_resumen": "Nodos, Vías, Polígonos",
+        "claves_resumen": "shop=*, amenity=pharmacy|clinic|cafe",
+        "entidades_barrio_brasil": 365,
+        "entidades_rm": 54442,
+        "norma_chilena_vinculada": "Modelo de Atención Integral en Salud Familiar (MINSAL); Ley de Rentas Municipales (D.L. 3.063); D.S. N° 469/1993.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "transporte",
@@ -2391,7 +2711,29 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-03",
+        "nombre": "Movilidad, Transporte Público y Paraderos",
+        "claves_osm": [
+          "highway=bus_stop",
+          "public_transport=platform",
+          "public_transport=stop_position",
+          "railway=station",
+          "railway=subway_entrance",
+          "network=\"Red Metropolitana de Movilidad\""
+        ],
+        "filtro_overpass_ql": "(\n  node[\"highway\"=\"bus_stop\"]({{bbox}});\n  node[\"public_transport\"=\"platform\"]({{bbox}});\n  node[\"railway\"~\"^(station|subway_entrance)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Infraestructura de transporte público colectivo multimodal: red estructurante de buses metropolitanos, accesos a red de metro subterráneo y nodos de intercambio modal interurbano.",
+        "catalogo_entidades": "Refugios peatonales y paraderos del Sistema Red Movilidad (ejes Alameda, Av. Brasil, San Pablo, Manuel Rodríguez), accesos y bocas de estaciones de Metro: Los Héroes (Líneas 1 y 2), Santa Ana (Líneas 2 y 5), Cumming (Línea 5) y República (Línea 1).",
+        "geometria_ogc": "Nodos puntuales (paraderos, postes de parada, bocas de metro) y Vías (plataformas de trasbordo)",
+        "geometria_resumen": "Nodos puntuales, Vías",
+        "claves_resumen": "highway=bus_stop, railway=station|subway",
+        "entidades_barrio_brasil": 191,
+        "entidades_rm": 326545,
+        "norma_chilena_vinculada": "Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM 2023); Manual REDEVU (MINVU); Ley N° 18.290 de Tránsito.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "movilidad_activa",
@@ -2412,7 +2754,30 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-04",
+        "nombre": "Movilidad Activa, Ciclovías y Peatonalidad",
+        "claves_osm": [
+          "highway=cycleway",
+          "cycleway=lane",
+          "cycleway=track",
+          "cycleway=opposite",
+          "amenity=bicycle_parking",
+          "amenity=bicycle_repair_station",
+          "bicycle=yes|designated"
+        ],
+        "filtro_overpass_ql": "(\n  way[\"highway\"=\"cycleway\"]({{bbox}});\n  way[\"cycleway\"]({{bbox}});\n  node[\"amenity\"=\"bicycle_parking\"]({{bbox}});\n  way[\"amenity\"=\"bicycle_parking\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Ejes viales destinados a la micromovilidad y movilidad no motorizada, ciclovías segregadas, ciclobandas demarcadas, infraestructura de estacionamiento y mantención de ciclos.",
+        "catalogo_entidades": "Ciclovías segregadas bidireccionales (eje Rosas y eje Compañía de Jesús), ciclobanda Av. Brasil, estacionamientos públicos para bicicletas en aceras y patios del campus UAH, talleres comunitarios de reparación.",
+        "geometria_ogc": "Vías lineales continuas (trazados de ciclovías) y Nodos (estacionamientos y herramientas comunitarias)",
+        "geometria_resumen": "Vías continuas, Nodos",
+        "claves_resumen": "highway=cycleway, amenity=bicycle_parking",
+        "entidades_barrio_brasil": 11,
+        "entidades_rm": 128891,
+        "norma_chilena_vinculada": "Manual de Vialidad del Ciclo (MINVU/MTT 2015); Ley de Convivencia Vial N° 21.088; D.S. N° 102/2019 MTT.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "espacio_publico",
@@ -2433,7 +2798,31 @@
       "score_ai": 100.0,
       "igmc": 92.0,
       "grado": "A (Muy Bueno)",
-      "badge": "🔵"
+      "badge": "🔵",
+      "vgi_especificacion": {
+        "codigo": "CAT-05",
+        "nombre": "Áreas Verdes, Espacio Público y Recreación",
+        "claves_osm": [
+          "leisure=park",
+          "leisure=playground",
+          "leisure=pitch",
+          "leisure=garden",
+          "landuse=grass",
+          "landuse=village_green",
+          "amenity=bench",
+          "surface=grass|paved"
+        ],
+        "filtro_overpass_ql": "(\n  way[\"leisure\"~\"^(park|playground|pitch|garden)$\"]({{bbox}});\n  relation[\"leisure\"~\"^(park|playground|pitch|garden)$\"]({{bbox}});\n  way[\"landuse\"=\"grass\"]({{bbox}});\n  node[\"amenity\"=\"bench\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Infraestructura verde urbana y espacios abiertos de uso colectivo: parques urbanos, plazas barriales de permanencia, áreas de juegos infantiles, canchas comunitarias y mobiliario urbano de descanso.",
+        "catalogo_entidades": "Plaza Brasil (15.200 m² con juegos escultóricos de Federica Matta), Plaza Manuel Rodríguez, bandejones verdes arbolados de Av. Brasil, multicanchas comunitarias de calle Maturana, plazoletas vecinales y bancos públicos de permanencia.",
+        "geometria_ogc": "Vías cerradas y Relaciones multipolígono (superficies métricas de plazas/parques) y Nodos (mobiliario urbano)",
+        "geometria_resumen": "Vías cerradas, Multipolígonos, Nodos",
+        "claves_resumen": "leisure=park|playground, landuse=grass",
+        "entidades_barrio_brasil": 144,
+        "entidades_rm": 41433,
+        "norma_chilena_vinculada": "Política Nacional de Parques Urbanos (MINVU 2021); Estándares Urbanos Indicativos de Áreas Verdes (CNDU 2018); Art. 2.2.4 OGUC.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "patrimonio",
@@ -2454,7 +2843,34 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-06",
+        "nombre": "Patrimonio Histórico, Memoria y Cultura",
+        "claves_osm": [
+          "historic=memorial",
+          "historic=monument",
+          "historic=heritage",
+          "historic=building",
+          "heritage=*",
+          "building=church",
+          "amenity=theatre",
+          "amenity=arts_centre",
+          "amenity=place_of_worship",
+          "tourism=museum",
+          "tourism=gallery"
+        ],
+        "filtro_overpass_ql": "(\n  node[\"historic\"]({{bbox}});\n  way[\"historic\"]({{bbox}});\n  node[\"heritage\"]({{bbox}});\n  way[\"heritage\"]({{bbox}});\n  node[\"amenity\"~\"^(theatre|arts_centre|place_of_worship)$\"]({{bbox}});\n  way[\"amenity\"~\"^(theatre|arts_centre|place_of_worship)$\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Bienes del patrimonio cultural material e inmaterial: arquitectura patrimonial vernácula y monumental, inmuebles de conservación histórica, sitios de memoria de derechos humanos y centros culturales comunitarios.",
+        "catalogo_entidades": "Cités patrimoniales de calles Huérfanos, Compañía y Cienfuegos; Basílica del Salvador; Iglesia San Saturnino; Casonas patrimoniales UAH (siglos XIX e inicios del XX); centros culturales comunitarios (Galpón Víctor Jara, teatros independientes); placas conmemorativas y monolitos de memoria.",
+        "geometria_ogc": "Multi-geometría: Vías poligonales (edificaciones patrimoniales e iglesias) y Nodos (monumentos y placas)",
+        "geometria_resumen": "Vías poligonales, Nodos",
+        "claves_resumen": "historic=*, heritage=*, building=church",
+        "entidades_barrio_brasil": 71,
+        "entidades_rm": 2576,
+        "norma_chilena_vinculada": "Ley N° 17.288 de Monumentos Nacionales; D.E. N° 126/2000 Mineduc (Zona Típica Barrio Brasil); Inmuebles de Conservación Histórica PRC Santiago.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "accesibilidad",
@@ -2475,7 +2891,29 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-07",
+        "nombre": "Accesibilidad Universal y Discapacidad",
+        "claves_osm": [
+          "highway=crossing",
+          "crossing=traffic_signals|uncontrolled|zebra",
+          "kerb=lowered|flush|raised",
+          "tactile_paving=yes|no|primitive",
+          "wheelchair=yes|no|limited",
+          "incline=*"
+        ],
+        "filtro_overpass_ql": "(\n  node[\"kerb\"]({{bbox}});\n  node[\"highway\"=\"crossing\"]({{bbox}});\n  node[\"tactile_paving\"]({{bbox}});\n  way[\"tactile_paving\"]({{bbox}});\n  node[\"wheelchair\"]({{bbox}});\n  way[\"wheelchair\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Micro-infraestructura física de caminabilidad inclusiva: rebajes de cordón en aceras, pasos peatonales semáforizados con aviso sonoro, bandas táctiles podotáctiles y accesibilidad motriz para sillas de ruedas.",
+        "catalogo_entidades": "Rebajes de cordón en vados de esquina, cruces peatonales accesibles en ejes Brasil y Alameda, baldosas podotáctiles de avance y detención en veredas, rampas de acceso al campus UAH y edificios de servicios.",
+        "geometria_ogc": "Nodos puntuales (rebajes de cordón, cruces peatonales) y Vías (tramos de acera con atributos de accesibilidad)",
+        "geometria_resumen": "Nodos puntuales, Vías",
+        "claves_resumen": "highway=crossing, kerb=*, wheelchair=*",
+        "entidades_barrio_brasil": 185,
+        "entidades_rm": 94461,
+        "norma_chilena_vinculada": "D.S. N° 50 OGUC sobre Accesibilidad Universal (MINVU 2016); Ley N° 20.422 de Igualdad de Oportunidades; Norma ISO 21542:2021.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "biodiversidad",
@@ -2496,7 +2934,35 @@
       "score_ai": 100.0,
       "igmc": 92.0,
       "grado": "A (Muy Bueno)",
-      "badge": "🔵"
+      "badge": "🔵",
+      "vgi_especificacion": {
+        "codigo": "CAT-08",
+        "nombre": "Biodiversidad Urbana y Arbolado (OSM / GBIF)",
+        "claves_osm": [
+          "natural=tree",
+          "natural=tree_row",
+          "natural=wood",
+          "species=*",
+          "genus=*",
+          "leaf_type=*",
+          "circumference=*",
+          "height=*",
+          "DarwinCore:scientificName",
+          "DarwinCore:eventDate",
+          "DarwinCore:decimalLatitude",
+          "DarwinCore:decimalLongitude"
+        ],
+        "filtro_overpass_ql": "OSM: (\n  node[\"natural\"=\"tree\"]({{bbox}});\n  way[\"natural\"=\"tree_row\"]({{bbox}});\n); out body; >; out skel qt;\nGBIF API: GET /v1/occurrence/search?decimalLatitude=-33.45,-33.43&decimalLongitude=-70.68,-70.65",
+        "taxonomia_urbana": "Infraestructura ecológica urbana: arbolado viario de alineación, ejemplares arbóreos notables de plazas, masas boscosas y registros de ciencia ciudadana sobre flora y avifauna compilados bajo el estándar internacional Darwin Core.",
+        "catalogo_entidades": "Arbolado de alineación viaria en Av. Brasil (plátano oriental, jacarandá), árboles patrimoniales de Plaza Brasil (Palma chilena Jubaea chilensis, liquidámbar), arbolado de patios interiores UAH y observaciones de aves urbanas validadas en GBIF.org.",
+        "geometria_ogc": "Nodos (árboles individuales y observaciones biológicas Darwin Core) y Vías (alineaciones de árboles en ejes viales)",
+        "geometria_resumen": "Nodos puntuales, Vías",
+        "claves_resumen": "natural=tree|wood, DarwinCore (GBIF)",
+        "entidades_barrio_brasil": 390,
+        "entidades_rm": 121134,
+        "norma_chilena_vinculada": "Ley Marco de Cambio Climático N° 21.455; Guía de Planificación de Arbolado Urbano (CONAF 2019); Estándar Darwin Core (TDWG).",
+        "licencia": "Creative Commons CC-BY 4.0 / CC0 1.0 (GBIF) y ODbL 1.0 (OSM)"
+      }
     },
     {
       "id": "edificaciones",
@@ -2517,7 +2983,35 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-09",
+        "nombre": "Edificaciones y Huella Urbana",
+        "claves_osm": [
+          "building=yes",
+          "building=residential",
+          "building=apartments",
+          "building=commercial",
+          "building=civic",
+          "building=university",
+          "building=school",
+          "building=church",
+          "addr:street=*",
+          "addr:housenumber=*",
+          "building:levels=*",
+          "height=*"
+        ],
+        "filtro_overpass_ql": "(\n  way[\"building\"]({{bbox}});\n  relation[\"building\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Morfología urbana construida: huella poligonal basal de edificaciones, volumetría, número de niveles y caracterización del tejido de manzaneo tradicional y contemporáneo.",
+        "catalogo_entidades": "Huella vectorial cerrada de la totalidad de edificaciones de Barrio Brasil, casonas residenciales de fachada continua, edificios habitacionales de media altura, pabellones de la UAH, templos y equipamientos institucionales.",
+        "geometria_ogc": "Vías poligonales cerradas (type:way) y Relaciones multipolígono con patios interiores (type:relation)",
+        "geometria_resumen": "Vías poligonales, Multipolígonos",
+        "claves_resumen": "building=yes|residential, addr:*",
+        "entidades_barrio_brasil": 1673,
+        "entidades_rm": 695412,
+        "norma_chilena_vinculada": "Ley General de Urbanismo y Construcciones (LGUC); Art. 2.1.24 OGUC; Catastro de Bienes Raíces (SII); ISO 19157 (Completitud de Área).",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     },
     {
       "id": "cobertura_suelo",
@@ -2538,7 +3032,33 @@
       "score_ai": 100.0,
       "igmc": 95.0,
       "grado": "A+ (Excelente)",
-      "badge": "🟢"
+      "badge": "🟢",
+      "vgi_especificacion": {
+        "codigo": "CAT-10",
+        "nombre": "Coberturas y Usos de Suelo",
+        "claves_osm": [
+          "landuse=residential",
+          "landuse=commercial",
+          "landuse=education",
+          "landuse=recreation_ground",
+          "landuse=grass",
+          "landuse=construction",
+          "surface=asphalt",
+          "surface=paving_stones",
+          "surface=concrete",
+          "surface=sett"
+        ],
+        "filtro_overpass_ql": "(\n  way[\"landuse\"]({{bbox}});\n  relation[\"landuse\"]({{bbox}});\n  way[\"surface\"]({{bbox}});\n);\nout body; >; out skel qt;",
+        "taxonomia_urbana": "Macrozoniación funcional del territorio barrial: caracterización de usos predominantes de suelo (residencial, comercial, educativo, recreativo) y tipología de materialidad superficial de calzadas y veredas.",
+        "catalogo_entidades": "Polígonos de zonificación de uso residencial barrial, recintos educativos (campus UAH), zonas comerciales de proximidad, calzadas adoquinadas patrimoniales y pavimentos asfálticos contemporáneos.",
+        "geometria_ogc": "Vías cerradas (type:way) y Relaciones multipolígono (type:relation)",
+        "geometria_resumen": "Vías cerradas, Multipolígonos",
+        "claves_resumen": "landuse=residential|commercial, surface=*",
+        "entidades_barrio_brasil": 400,
+        "entidades_rm": 79747,
+        "norma_chilena_vinculada": "Plan Regulador Comunal de Santiago (PRC); Ley N° 21.074 de Fortalecimiento de la Regionalización; OGC LandInfra Standard.",
+        "licencia": "Open Database License (ODbL) 1.0 (ODC-ODbL)"
+      }
     }
   ]
 }

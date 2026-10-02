@@ -239,8 +239,8 @@ Ante la evaluación técnica y metodológica, cada componente técnico responde 
 
 Para garantizar la interoperabilidad y el rigor epistemológico del Atlas, se desarrolló e implementó un protocolo programático de evaluación de **MetaCalidad** (calidad integral de metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Este análisis auditó el **100% de la base de datos cartográfica** (**118 capas**: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
 
-### 4.1 Modelo Matemático del Índice Global de MetaCalidad (IGMC)
-Conforme a las directrices de las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, se evaluaron cinco dimensiones ponderadas:
+### 4.1 Modelo Matemático y Justificación Teórica del Índice Global de MetaCalidad (IGMC)
+Conforme a las directrices de las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007**, **ISO 19110:2016** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, se implementó un modelo lineal aditivo ponderado (**Simple Additive Weighting - SAW / Multi-Attribute Utility Theory - MAUT**; Fishburn, 1967; Keeney & Raiffa, 1976; Malczewski, 1999) fundado en literatura canónica de VGI y calidad espacial (Goodchild, 2007; Haklay, 2010; Ballatore & Zipf, 2015; Senaratne et al., 2017; Herfort et al., 2023):
 
 $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
 
@@ -250,13 +250,15 @@ $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \
 4. **Resolución Espacial y Granularidad Territorial (RG - 15%):** Escala de agregación formalmente documentada (Regional, Comunal, Zonal, Manzana, Predio o Puntual) y doble sistema de referencia geodésico (WGS 84 / EPSG:4326 y SIRGAS-Chile / EPSG:32719 para cálculo métrico conforme de Snyder). Promedio obtenido: **100.00%**.
 5. **Accesibilidad e Integridad Operativa (AI - 10%):** Verificación de integridad física binaria en `src/data/` (cero punteros LFS rotos) y disponibilidad de descarga inmediata. Promedio obtenido: **100.00%**.
 
+> **Carácter Tentativo del Índice:** El modelo lineal constituye una línea base operativa y transparente, sujeta a re-calibración empírica mediante Proceso Analítico Jerárquico (**AHP**; Saaty, 1980) y paneles Delphi en la fase de validación con actores territoriales e institucionales (OE4).
+
 ### 4.2 Dictamen Global y Certificación de Calidad
 - **Índice Global de MetaCalidad (IGMC):** **96.55% (Grado A+ Excelente)**.
 - **Distribución de Calidad:** 98 capas en **Grado A+ (Excelente)** (83.1%) y 20 capas en **Grado A (Muy Bueno)** (16.9%), con **0 capas deficientes (0.0%)**.
 - **Artefactos Técnicos Generados:**
-  - [`docs/ANALISIS_METACALIDAD.md`](ANALISIS_METACALIDAD.md): Informe pormenorizado y matriz de las 118 capas.
+  - [`docs/ANALISIS_METACALIDAD.md`](ANALISIS_METACALIDAD.md): Informe pormenorizado, diagramas Mermaid, especificidad técnica de las 10 macro-categorías VGI y matriz de las 118 capas.
   - [`docs/matriz_metacalidad.json`](matriz_metacalidad.json): Dataset estructurado JSON para consumo programático.
-  - [`docs/perfil_metadatos_vgi.xlsx`](perfil_metadatos_vgi.xlsx): Hoja *Auditoría MetaCalidad 118 Capas* del libro de cálculo institucional.
+  - [`docs/perfil_metadatos_vgi.xlsx`](perfil_metadatos_vgi.xlsx): Libro Excel multi-hoja con *Perfil Metadatos ISO 19115*, *Auditoría MetaCalidad 118 Capas* y *10 Macrocategorías VGI (Tags)*.
 
 ---
 
