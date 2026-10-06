@@ -422,7 +422,7 @@ def crear_presentacion():
         ("OE 1: Diseño Conceptual", "Sem 1–3 · 72 hrs", "Caracterizar el escenario territorial y la disponibilidad VGI en Barrio Brasil, revisando fuentes abiertas y definiendo la arquitectura conceptual del Atlas según taxonomías OSM y GBIF.", "COMPLETADO (100%)", COLOR_AZUL_UAH),
         ("OE 2: Geodatabase & Datos", "Sem 4–7 · 120 hrs", "Construir una geodatabase VGI estandarizada integrando descarga, transformación, normalización y análisis espacial, con énfasis en la calidad de datos (MetaCalidad) y el diagnóstico territorial.", "CONSOLIDADO / EN CURSO", COLOR_AZUL_SEC),
         ("OE 3: Prototipo & Visor", "Sem 8–10 · 72 hrs", "Diseñar el prototipo cartográfico estableciendo un estándar visual unificado y construyendo un visor web interactivo en producción para consulta territorial de capas e indicadores.", "AVANZADO ANTICIPADAMENTE", COLOR_AZUL_SEC),
-        ("OE 4: Validación & Traspaso", "Sem 11 · 36 hrs", "Validar el prototipo del Atlas con 3–5 usuarios potenciales del territorio y asegurar su transferibilidad mediante manuales y documentación técnica reproducible.", "PROGRAMADO FASE FINAL", COLOR_GRIS_TEXTO)
+        ("OE 4: Validación & Traspaso", "Sem 11 · 36 hrs", "Validar el prototipo del Atlas con 3–5 usuarios potenciales de distinto nivel de conocimiento en SIG/VGI y asegurar su transferibilidad técnica reproducible.", "PROGRAMADO FASE FINAL", COLOR_GRIS_TEXTO)
     ]
 
     for idx, (oe_tit, oe_time, oe_desc, oe_est, color_head) in enumerate(oes):
@@ -476,9 +476,9 @@ def crear_presentacion():
     agregar_notas_orador(s3,
         "Los objetivos del plan de trabajo estructuran una secuencia metodológica continua en cuatro etapas: "
         "El OE 1 sienta las bases conceptuales y taxonomías; el OE 2 materializa la base de datos y la auditoría de calidad; "
-        "el OE 3 levanta el visor web cartográfico; y el OE 4 cierra el ciclo mediante la validación con usuarios del territorio "
-        "y la transferencia técnica. A las 150 horas, el OE 1 está totalmente cerrado, el OE 2 está consolidado con 118 capas evaluadas, "
-        "y el OE 3 se adelantó en producción web."
+        "el OE 3 levanta el visor web cartográfico; y el OE 4 cierra el ciclo mediante la validación con usuarios potenciales "
+        "de distinto nivel de conocimiento en SIG y VGI, junto con la transferencia técnica. A las 150 horas, el OE 1 está totalmente cerrado, "
+        "el OE 2 está consolidado con 118 capas evaluadas y el OE 3 se adelantó en producción web."
     )
 
     # =========================================================================
@@ -494,9 +494,9 @@ def crear_presentacion():
     filas_metodo = [
         ["OE", "Técnica de Recopilación / Fuentes", "Herramientas de Trabajo", "Procedimientos de Análisis Espacial", "Entregables del Plan"],
         ["OE 1", "Revisión bibliográfica VGI (Haklay, Goodchild)\nAPIs Overpass, ohsome v1/v2, GBIF\nCatálogo de capas oficiales IDE Chile", "Python 3 · Markdown\nGit / GitHub · QGIS 3.x\nLibros OpenXML Excel", "Diseño conceptual de 10 macrocategorías\nIdentificación de 4 perfiles de usuarios (DCU)\nDiagnóstico de 86 brechas de información", "Ficha del Proyecto\nCategorías Temáticas (.xlsx)\nDocumento de Arquitectura"],
-        ["OE 2", "Extracción masiva Overpass QL (nwr)\nGBIF Occurrence API (Darwin Core)\n108 capas oficiales IDE Chile (MINVU, INE)", "GeoPandas · Shapely · PyShp\nPostgreSQL 17 + PostGIS 3.3\nOpenPyXL · Scripts Python", "Normalización vectorial de 118 capas\nReproyección a UTM 19S (EPSG:32719)\nAuditoría de MetaCalidad ISO 19157 (98.6%)", "Geodatabase 118 capas (1,33 GB)\nMatriz MetaCalidad (JSON/XLSX)\nPerfil de Metadatos ISO 19115"],
+        ["OE 2", "Extracción masiva Overpass QL (nwr)\nGBIF Occurrence API (Darwin Core)\n108 capas oficiales IDE Chile (MINVU, INE)", "GeoPandas · Shapely · PyShp\nPostgreSQL 17 + PostGIS 3.3\nOpenPyXL · Scripts Python", "Normalización vectorial de 118 capas\nReproyección a UTM 19S (EPSG:32719)\nAuditoría de MetaCalidad ISO 19157 (98.6%)", "Geodatabase 118 capas (2,18 GB)\nMatriz MetaCalidad (JSON/XLSX)\nPerfil de Metadatos ISO 19115"],
         ["OE 3", "Estándares cartográficos OGC / ICA\nServicios WMS/WFS y GeoJSON RFC 7946\nFeedback continuo de navegación", "Vanilla JavaScript (SPA)\nLeaflet 1.9.4 · HTML5 / CSS3\nNetlify CI/CD · Supabase CDN", "Diseño cartográfico web interactivo\nInspector normativo PRC Santiago (192 zonas)\nTriple failover de acceso a datos ($0/mes)", "Geoportal en producción Netlify\n10 módulos funcionales operativos\nManual de uso y documentación"],
-        ["OE 4", "Pruebas de usabilidad presenciales\nCuestionario semi-estructurado (3–5 usuarios)\nNormas de transferibilidad UAH", "Formularios de validación\nProtocolos de replicabilidad\nMemoria técnica en Word", "Sistematización cualitativa de observaciones\nAjuste y calibración del geoportal\nProtocolo de gobernanza independiente", "Versión validada del Atlas\nManual para actualización continua\nInforme Final de Práctica"]
+        ["OE 4", "Pruebas de usabilidad guiadas\nPauta semi-estructurada (3–5 usuarios de distinto nivel SIG/VGI)\nNormas de transferibilidad UAH", "Formularios de validación\nProtocolos de replicabilidad\nMemoria técnica en Word", "Sistematización cualitativa de observaciones\nAjuste y calibración del geoportal\nProtocolo de gobernanza independiente", "Versión validada del Atlas\nManual para actualización continua\nInforme Final de Práctica"]
     ]
 
     tabla_shape = s4.shapes.add_table(5, 5, Inches(0.8), Inches(1.65), Inches(11.733), Inches(5.0))
@@ -589,7 +589,7 @@ def crear_presentacion():
         ["H6: Análisis territorial y modelo ranking", "OE 2", "", "", "", "", "", "", "■", "■", "", "", "", "Programado"],
         ["H7: Estándar cartográfico del Atlas", "OE 3", "", "", "", "", "", "", "", "■", "", "", "", "Iniciado"],
         ["H8: Geoportal web interactivo en producción", "OE 3", "", "", "", "", "", "■", "■", "■", "■", "", "", "80% Anticipado"],
-        ["H9: Validación con 3–5 usuarios reales", "OE 4", "", "", "", "", "", "", "", "", "", "■", "", "Programado"],
+        ["H9: Validación usuarios (distinto nivel SIG)", "OE 4", "", "", "", "", "", "", "", "", "", "■", "", "Programado"],
         ["H10: Manuales, transferibilidad y entrega final", "OE 4", "", "", "", "", "", "", "", "", "", "", "■", "Programado"]
     ]
 
@@ -735,7 +735,7 @@ def crear_presentacion():
     p_u.space_after = Pt(4)
 
     usuarios = [
-        ("1. Institucional / Autoridad Pública", "MINVU, Municipio de Santiago, DTPM, UOCT, IDE Chile. Requiere contraste normativo con PRC Santiago, métricas de vialidad y auditoría oficial."),
+        ("1. Institucional / Gestión Pública", "MINVU, Municipio de Santiago, DTPM, UOCT, IDE Chile. Requiere contraste normativo con PRC Santiago, métricas de vialidad y auditoría oficial."),
         ("2. Comunitario / Vecinal", "Juntas de Vecinos de Barrio Brasil, asambleas barriales, comerciantes locales. Requiere mapas sencillos de servicios, arbolado, equipamiento y cruces accesibles."),
         ("3. Mapeador / Voluntario OSM", "Comunidad de mapeadores y estudiantes. Requiere herramientas de validación de etiquetas, visualización de geometrías nwr y extracción Overpass QL."),
         ("4. ONGs / Investigadores / Academia", "Geografía UAH, Fondecyt F1261256, centros de estudios urbanos. Demanda trazabilidad académica APA 7ª, metadatos ISO 19115 y descarga en GeoJSON/CSV.")
@@ -770,7 +770,7 @@ def crear_presentacion():
     agregar_notas_orador(s6,
         "En el Objetivo 1 estructuramos la taxonomía del Atlas en 10 macrocategorías temáticas que van desde educación y comercio hasta "
         "biodiversidad y coberturas de suelo. Paralelamente, implementamos un enfoque de Diseño Centrado en el Usuario (DCU), formulando "
-        "cuatro perfiles que orientan la plataforma: autoridades públicas, vecinos, voluntarios de OSM e investigadores académicos. "
+        "cuatro perfiles que orientan la plataforma: gestión pública sectorial, comunidad vecinal, mapeadores voluntarios e investigación académica. "
         "Al contrastar la oferta de IDE Chile con las necesidades del barrio, descubrimos 86 brechas de información territorial que sólo "
         "la VGI es capaz de llenar."
     )
@@ -781,14 +781,14 @@ def crear_presentacion():
     s7 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s7, "Resultados OE 2: Geodatabase y Componentes Cartográficos", 
                        categoria="6. Resultados — Objetivo Específico 2",
-                       subtitulo="Consolidación de 118 capas espaciales (108 oficiales + 10 VGI), 1.332,66 MB y doble geodesia conforme")
+                       subtitulo="Consolidación de 118 capas (108 oficiales + 10 VGI), 2.181,82 MB activos con Geofabrik RM y 3.362,55 MB en disco")
     agregar_pie_pagina(s7, 7)
 
     # 3 Tarjetas Superiores de Métricas
     met_db = [
-        ("118 Capas Totales", "108 Oficiales Estado + 10 VGI", "100% integradas en WGS84 y PostGIS"),
-        ("1.332,66 MB Vectoriales", "214 GeoJSONs físicos en disco", "Verificación SHA256 libre de punteros LFS"),
-        ("Doble Geodesia Conforme", "WGS84 (4326) / UTM 19S (32719)", "Cálculo métrico riguroso (Snyder, 1987)")
+        ("118 Capas Activas", "108 Oficiales Estado + 10 VGI", "Integradas en WGS84, UTM 19S y PostGIS 17"),
+        ("2.181,82 MB Activos", "1.327,47 MB Ofic. + 854,35 MB VGI", "Incorpora extractos masivos Geofabrik RM"),
+        ("3.362,55 MB en Disco", "214 GeoJSONs físicos en src/data/", "Verificación SHA256 libre de punteros LFS")
     ]
     for mi, (mt, mv, md) in enumerate(met_db):
         mx = 0.8 + mi * (3.75 + 0.24)
@@ -818,7 +818,7 @@ def crear_presentacion():
     # Tabla de Distribución por Grupos Temáticos en el Atlas
     tb_tit_g = s7.shapes.add_textbox(Inches(0.8), Inches(2.85), Inches(11.733), Inches(0.3))
     p = tb_tit_g.text_frame.paragraphs[0]
-    p.text = "Estructura Temática y Participación de la Geodatabase Consolidada:"
+    p.text = "Estructura Temática y Participación de la Geodatabase Consolidada (ISO 19157):"
     p.font.name = FONT_NAME
     p.font.size = Pt(11.5)
     p.font.bold = True
@@ -826,15 +826,15 @@ def crear_presentacion():
 
     filas_gdb = [
         ["Grupo Temático Consolidado", "Instituciones Custodias Principales", "Capas (N°)", "% Capas", "Volumen (MB)", "% Volumen"],
-        ["Demografía y Vulnerabilidad Social", "INE (Censo 2024 en 5 niveles), MDSF (Registro Social de Hogares), MINVU", "19", "16,1%", "689,44 MB", "51,7%"],
-        ["Normativa e Instrumentos IPT", "MINVU, Seremi Metropolitana, Municipios (PRC Santiago 192 zonas, PRMS)", "13", "11,0%", "207,00 MB", "15,5%"],
-        ["Economía, Fomento e Inversión", "MDSF (Banco Integrado de Proyectos BIP), MOP, ODEPA, CNE Energía RM", "15", "12,7%", "203,67 MB", "15,3%"],
-        ["Medio Ambiente y Recursos Hídricos", "Ministerio del Medio Ambiente, DGA, CONAF, Dirección Meteorológica", "21", "17,8%", "101,04 MB", "7,6%"],
-        ["Movilidad, Red Vial y Tránsito", "MTT, UOCT (1.500+ cruces semaforizados RM), Metro S.A., EFE Ferrocarriles", "7", "5,9%", "66,88 MB", "5,0%"],
-        ["Equipamiento Público y Patrimonio", "Consejo de Monumentos Nacionales (CMN), MINEDUC, MINSAL, IND", "28", "23,7%", "58,51 MB", "4,4%"],
-        ["Seguridad, Bomberos y Justicia", "Carabineros de Chile, Cuerpos de Bomberos CBS, Ministerio de Justicia", "5", "4,2%", "0,93 MB", "0,1%"],
-        ["VGI Comunitario (OSM + GBIF)", "Comunidad OpenStreetMap (10 macrocategorías) y GBIF Darwin Core", "10", "8,5%", "5,19 MB", "0,4%"],
-        ["TOTAL / REPOSITORIO GLOBAL", "Base de datos universal del Atlas VGI UAH (100% interoperable)", "118", "100,0%", "1.332,66 MB", "100,0%"]
+        ["Demografía y Vulnerabilidad Social", "INE (Censo 2024 en 5 niveles), MDSF (Registro Social de Hogares), MINVU", "19", "16,1%", "689,44 MB", "31,6%"],
+        ["Normativa e Instrumentos IPT", "MINVU, Seremi Metropolitana, Municipios (PRC Santiago 192 zonas, PRMS)", "13", "11,0%", "207,00 MB", "9,5%"],
+        ["Economía, Fomento e Inversión", "MDSF (Banco Integrado de Proyectos BIP), MOP, ODEPA, CNE Energía RM", "15", "12,7%", "203,67 MB", "9,3%"],
+        ["Medio Ambiente y Recursos Hídricos", "Ministerio del Medio Ambiente, DGA, CONAF, Dirección Meteorológica", "21", "17,8%", "101,04 MB", "4,6%"],
+        ["Movilidad, Red Vial y Tránsito", "MTT, UOCT (1.500+ cruces semaforizados RM), Metro S.A., EFE Ferrocarriles", "7", "5,9%", "66,88 MB", "3,1%"],
+        ["Equipamiento Público y Patrimonio", "Consejo de Monumentos Nacionales (CMN), MINEDUC, MINSAL, IND", "28", "23,7%", "58,51 MB", "2,7%"],
+        ["Seguridad, Bomberos y Justicia", "Carabineros de Chile, Cuerpos de Bomberos CBS, Ministerio de Justicia", "5", "4,2%", "0,93 MB", "0,0%"],
+        ["VGI Comunitario (OSM + GBIF)", "Comunidad OSM (Geofabrik RM + Barrio Brasil) y GBIF Darwin Core", "10", "8,5%", "854,35 MB", "39,2%"],
+        ["TOTAL CAPAS ACTIVAS (118)", "Geodatabase operativa en producción (PostGIS 17 + Supabase + CDN)", "118", "100,0%", "2.181,82 MB", "100,0%"]
     ]
 
     tgdb = s7.shapes.add_table(10, 6, Inches(0.8), Inches(3.2), Inches(11.733), Inches(3.45))
@@ -878,10 +878,12 @@ def crear_presentacion():
             set_cell_border(c, "CBD5E1", "8000")
 
     agregar_notas_orador(s7,
-        "En el Objetivo 2 consolidamos la geodatabase completa del Atlas, compuesta por 118 capas espaciales que totalizan 1,33 gigabytes. "
-        "Es importante destacar que el 91,5% de las capas son fuentes oficiales del Estado chileno (como el Censo 2024 del INE o los semáforos de la UOCT), "
-        "mientras que el 8,5% restante corresponde a las 10 macrocategorías comunitarias de OSM y GBIF. Todas las capas han sido normalizadas "
-        "con doble geodesia: WGS84 para la web y UTM Huso 19 Sur para el cálculo conforme de áreas y distancias según las fórmulas de Snyder."
+        "En el Objetivo 2 consolidamos la geodatabase completa del Atlas, compuesta por 118 capas espaciales activas. "
+        "Al incorporar los extractos regionales masivos de Geofabrik para la Región Metropolitana (849,16 MB en las 10 macrocategorías VGI "
+        "más 5,19 MB del piloto barrial), el volumen activo de la base de datos asciende a 2.181,82 megabytes (2,18 gigabytes). "
+        "Las 108 capas oficiales del Estado representan 1.327,47 MB (60,8%), mientras que la cartografía colaborativa VGI representa el 39,2% restante. "
+        "En disco, el repositorio completo almacena 214 archivos GeoJSON que totalizan 3.362,55 MB. Todas las capas han sido normalizadas "
+        "con doble geodesia: WGS84 para el renderizado web y UTM Huso 19 Sur para el cálculo conforme de áreas y distancias según Snyder."
     )
 
     # =========================================================================
@@ -1025,16 +1027,15 @@ def crear_presentacion():
     p.space_after = Pt(4)
 
     b_d1 = [
-        ("Alcance Territorial:", "Dinámica poblacional, estructura etaria, hogares, migración y estratificación socioterritorial en Barrio Brasil."),
-        ("Componentes Oficiales Clave:", "Microdatos Censo 2024 en 5 escalas del INE (Marco regional, límites urbanos, distritos, zonas y manzanas censales)."),
-        ("Vulnerabilidad Social:", "7 capas del Registro Social de Hogares (RSH) por unidad vecinal (género, niños/as, jóvenes, adultos mayores y tramos de vulnerabilidad socioeconómica CSE)."),
-        ("Organizaciones Base:", "Catastro Campamentos MINVU 2024, Unidades Vecinales Ley N° 19.418 y equipamiento comunitario barrial."),
-        ("Utilidad para Usuarios:", "Permite a juntas vecinales y a la SECPLA identificar manzanas con alta concentración de población mayor o infancias para focalizar programas públicos.")
+        ("Alcance Territorial:", "Dinámica poblacional, estructura etaria, hogares, migración y estratificación socioterritorial en Barrio Brasil y campus UAH."),
+        ("Componentes Oficiales Clave:", "Microdatos Censo 2024 en 5 escalas del INE (Marco regional a manzana) + 7 capas del Registro Social de Hogares RSH (agosto 2026 por unidad vecinal)."),
+        ("Vulnerabilidad y Base:", "Catastro Campamentos MINVU 2024, Unidades Vecinales Ley N° 19.418 y equipamiento comunitario barrial."),
+        ("Utilidad para Usuarios:", "Sustentada en justicia espacial y segregación residencial (Harvey, 1973; Sabatini et al., 2001; Fuenzalida & Cobs, 2013). Permite a juntas vecinales y analistas cruzar manzanas con sobreenvejecimiento o alta concentración infantil para focalizar subsidios y equipamiento social.")
     ]
     for tit, desc in b_d1:
         p_item = tf_d1.add_paragraph()
         p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.5)
+        p_item.font.size = Pt(9)
         p_item.space_after = Pt(3)
         r1 = p_item.add_run()
         r1.text = f"• {tit} "
@@ -1062,9 +1063,8 @@ def crear_presentacion():
     b_d2 = [
         ("Alcance Territorial:", "Inversión pública del Estado, empleo formal, red de comercio de proximidad, telecomunicaciones y matriz energética."),
         ("Inversión Pública (BIP):", "Iniciativas de inversión del Banco Integrado de Proyectos (MDSF / SUBDERE), contratos concesionados y obras mandatadas GEOMOP."),
-        ("Comercio y Servicios VGI:", "365 entidades levantadas en Barrio Brasil (CAT-02 OSM): almacenes de abarrotes, panaderías patrimoniales, farmacias comunitarias y cafeterías."),
-        ("Empleo y Actividad:", "Personas en RSH ocupadas y cotizantes formales, mercados mayoristas (ODEPA) y centros de telecomunicaciones (Ley de Torres)."),
-        ("Utilidad para Usuarios:", "Comerciantes y estudiantes UAH pueden correlacionar la inversión pública del Estado con la vitalidad económica de los almacenes barriales.")
+        ("Microeconomía Barrial VGI:", "365 entidades levantadas en Barrio Brasil (CAT-02 OSM): almacenes de abarrotes, panaderías patrimoniales, farmacias comunitarias y ferias en ejes Huérfanos, Brasil y Maturana."),
+        ("Utilidad para Usuarios:", "Basada en vitalidad económica cotidiana y proximidad urbana (Jacobs, 1961; Montgomery, 1998; See et al., 2015). Permite contrastar la inversión estatal centralizada con la microeconomía barrial, evaluando si el gasto público dinamiza o desatiende el comercio de proximidad.")
     ]
     for tit, desc in b_d2:
         p_item = tf_d2.add_paragraph()
@@ -1114,16 +1114,15 @@ def crear_presentacion():
     p.space_after = Pt(4)
 
     b_d3 = [
-        ("Espacio Público Verde:", "Áreas Verdes Normativas MINVU / INE 2023, estándares CNDU y plazas públicas (CAT-05 OSM)."),
-        ("Biodiversidad Urbana:", "390 registros en Barrio Brasil (CAT-08): arbolado de calles en OSM y observaciones Darwin Core de aves y flora en GBIF."),
-        ("Coberturas de Suelo:", "CAT-10 OSM: áreas impermeables (asfalto, hormigón) vs superficies permeables y vegetación."),
-        ("Monitoreo Estatal:", "Calidad de aire SINCA (MMA), estaciones meteorológicas, red hidrométrica DGA y vertederos ilegales."),
-        ("Diagnóstico Barrial:", "Permite evaluar islas de calor y déficit de áreas verdes por habitante en torno al campus central UAH.")
+        ("Espacio Público Verde:", "Áreas Verdes Normativas MINVU / INE 2023, estándares CNDU y plazas públicas (Plaza Brasil y Manuel Rodríguez en CAT-05)."),
+        ("Biodiversidad Urbana:", "390 registros en Barrio Brasil (CAT-08): arbolado viario en OSM y observaciones Darwin Core de avifauna y flora en GBIF."),
+        ("Coberturas de Suelo:", "CAT-10 OSM: superficies impermeables (asfalto, hormigón) vs permeables, estaciones SINCA y red hidrométrica DGA."),
+        ("Utilidad para Usuarios:", "Sustentada en justicia ambiental distributiva y confort térmico (Wolch et al., 2014; Reyes-Paecke et al., 2019; Oke, 1982). Permite medir el déficit de m² verde/hab frente al estándar CNDU y modelar islas de calor para priorizar corredores de arbolado viario.")
     ]
     for tit, desc in b_d3:
         p_item = tf_d3.add_paragraph()
         p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9)
+        p_item.font.size = Pt(8.5)
         p_item.space_after = Pt(3)
         r1 = p_item.add_run()
         r1.text = f"• {tit} "
@@ -1151,14 +1150,13 @@ def crear_presentacion():
     b_d4 = [
         ("Red Asistencial DEIS:", "Infraestructura formal de salud pública del MINSAL: CESFAM Ignacio Domeyko, SAPU, vacunatorios y hospitales metropolitanos."),
         ("Dependencia Funcional:", "Capa oficial RSH Agosto 2026: personas en situación de dependencia funcional moderada y severa por unidad vecinal."),
-        ("Servicios de Salud:", "Zonificación y jurisdicción de los Servicios de Salud Metropolitano Central y Occidente."),
-        ("Enfoque de Cuidados:", "Articula la oferta médica con la distribución de personas que requieren asistencia permanente."),
-        ("Diagnóstico Barrial:", "Evidencia brechas de cobertura peatonal para personas con movilidad reducida hacia el CESFAM barrial.")
+        ("Jurisdicción Sanitaria:", "Zonificación y áreas de cobertura del Servicio de Salud Metropolitano Central y Occidente."),
+        ("Utilidad para Usuarios:", "Enmarcada en la Geografía de la Salud y Geografía del Cuidado (Kearns & Moon, 2002; Bowlby, 2012; Fuenzalida, 2010). Facilita evaluar la fricción de la distancia y barreras de accesibilidad peatonal hacia la atención primaria para personas dependientes y cuidadores.")
     ]
     for tit, desc in b_d4:
         p_item = tf_d4.add_paragraph()
         p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9)
+        p_item.font.size = Pt(8.5)
         p_item.space_after = Pt(3)
         r1 = p_item.add_run()
         r1.text = f"• {tit} "
@@ -1184,11 +1182,10 @@ def crear_presentacion():
     p.space_after = Pt(4)
 
     b_d5 = [
-        ("Planificación y Normativa:", "PRC Santiago con 192 zonas, Plan Regulador Metropolitano (PRMS), fajas de resguardo y áreas de riesgo."),
-        ("Catastro y Huella Física:", "Catastro predial del SII y 1.673 edificaciones poligonales OSM (CAT-09) con tipologías residenciales y cités patrimoniales."),
-        ("Movilidad y Semáforos:", "Red de semáforos conectados SC-RM (UOCT / MTT), estaciones de Metro L1/L2/L5, ciclovías oficiales (CAT-04) y red ferroviaria EFE."),
+        ("Planificación y Catastro:", "PRC Santiago con 192 zonas de zonificación, catastro predial SII y 1.673 edificaciones poligonales OSM (CAT-09)."),
+        ("Movilidad y Semáforos:", "Red de semáforos conectados SC-RM (UOCT / MTT), estaciones de Metro L1/L2/L5, ciclovías (CAT-04) y 185 rebajes peatonales (CAT-07)."),
         ("Patrimonio Histórico:", "Zonas y Monumentos Nacionales (CMN), sitios de memoria e Inmuebles de Conservación Histórica (CAT-06)."),
-        ("Accesibilidad Universal:", "185 rebajes de esquina y cruces peatonales accesibles mapeados en terreno (CAT-07).")
+        ("Utilidad para Usuarios:", "Basada en caminabilidad, integración espacial y diseño universal (Gehl, 2010; Speck, 2012; D.S. N° 50 MINVU, 2016). Permite auditar en tiempo real la norma urbana con el espacio vivido, facilitando a ciclistas y personas con discapacidad planificar rutas seguras.")
     ]
     for tit, desc in b_d5:
         p_item = tf_d5.add_paragraph()
@@ -1513,16 +1510,16 @@ def crear_presentacion():
     agregar_pie_pagina(s16, 16)
 
     filas_prod = [
-        ["OE", "Producto Comprometido en Plan de Trabajo", "Medio de Verificación / Archivo", "Estado de Avance (150 hrs)"],
-        ["OE 1", "Ficha técnica y caracterización del proyecto", "Entregables/01_Ficha_Proyecto.docx", "100% Entregado y aprobado"],
-        ["OE 1", "Catálogo de categorías temáticas OSM y GBIF", "categorias_tematicas_osm.xlsx (4 hojas, 134 tags)", "100% Entregado y normalizado"],
-        ["OE 1", "Definición conceptual y 4 perfiles de usuarios", "TRAZABILIDAD_ACADEMICA.md (Sección 3 y 4)", "100% Documentado y aplicado"],
-        ["OE 2", "Geodatabase VGI y oficial de Barrio Brasil", "src/data/ (214 archivos GeoJSON, 1,33 GB)", "100% Consolidado y auditado"],
-        ["OE 2", "Catálogo de fuentes VGI y metadatos", "catalogo_fuentes_vgi.xlsx y perfil_metadatos_vgi.xlsx", "100% Generado en Excel y JSON"],
-        ["OE 2", "Auditoría de calidad de datos (MetaCalidad)", "ANALISIS_METACALIDAD.md (118 capas auditadas)", "100% Evaluado (98,6% IGMC)"],
-        ["OE 3", "Estándar cartográfico e identidad gráfica", "Manual de uso y estilos CSS unificados en web", "85% Implementado en producción"],
-        ["OE 3", "Visor web interactivo y geoportal en vivo", "https://atlasvgiuah.netlify.app/ (10 módulos)", "80% Operativo anticipadamente"],
-        ["OE 4", "Protocolo de validación y transferibilidad", "Guías de replicabilidad técnica en scripts/ y docs/", "25% Iniciado para fase final"]
+        ["OE", "Producto Comprometido en Plan de Trabajo", "Medio de Verificación / Archivo en Repositorio", "Estado de Avance (150 hrs)"],
+        ["OE 1", "Ficha técnica y caracterización del proyecto", "docs/FICHA_TECNICA_PROYECTO.docx / Plan Trabajo UAH", "100% Entregado y aprobado"],
+        ["OE 1", "Catálogo de categorías temáticas OSM y GBIF", "docs/categorias_tematicas_osm.xlsx (4 hojas, 134 tags)", "100% Entregado y normalizado"],
+        ["OE 1", "Definición conceptual y 4 perfiles de usuarios", "docs/TRAZABILIDAD_ACADEMICA.md (Secciones 2 y 3)", "100% Documentado y aplicado"],
+        ["OE 2", "Geodatabase VGI y oficial (118 capas)", "src/data/ (214 archivos GeoJSON, 3,36 GB; PostGIS 17)", "100% Consolidado y auditado"],
+        ["OE 2", "Catálogo de fuentes VGI y metadatos", "docs/catalogo_fuentes_vgi.xlsx y perfil_metadatos_vgi.xlsx", "100% Generado en Excel y JSON"],
+        ["OE 2", "Auditoría de calidad de datos (MetaCalidad)", "docs/ANALISIS_METACALIDAD.md (118 capas auditadas)", "100% Evaluado (98,6% IGMC)"],
+        ["OE 3", "Estándar cartográfico e identidad gráfica", "src/css/estilos.css, src/index.html y MANUAL_USO.md", "85% Implementado en producción"],
+        ["OE 3", "Visor web interactivo y geoportal en vivo", "https://atlasvgiuah.netlify.app/ (10 módulos funcionales)", "80% Operativo anticipadamente"],
+        ["OE 4", "Protocolo de validación y transferibilidad", "scripts/ (15 scripts) y PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md", "25% Iniciado para fase final"]
     ]
 
     t_pr = s16.shapes.add_table(10, 4, Inches(0.8), Inches(1.65), Inches(11.733), Inches(5.0))
@@ -1564,9 +1561,9 @@ def crear_presentacion():
 
     agregar_notas_orador(s16,
         "Esta tabla sintetiza el estado de cumplimiento de los productos comprometidos ante la coordinación de prácticas. "
-        "Todos los productos comprometidos para la primera mitad (OE 1 y base del OE 2) han sido concluidos y respaldados documentalmente. "
-        "Adicionalmente, hemos avanzado de forma anticipada en los productos del OE 3, entregando un visor web completamente funcional "
-        "en lugar de un boceto estático."
+        "Todos los productos comprometidos para la primera mitad (OE 1 y base del OE 2) han sido concluidos y respaldados documentalmente "
+        "en el repositorio institucional. Adicionalmente, hemos avanzado de forma anticipada en los productos del OE 3, entregando un visor web "
+        "completamente funcional en producción en lugar de un boceto estático."
     )
 
     # =========================================================================
@@ -1584,8 +1581,8 @@ def crear_presentacion():
          "• Finalizar la formulación matemática del modelo lineal aditivo / ranking territorial multicriterio.\n• Ejecutar cruces espaciales centro–borde en Barrio Brasil utilizando las 5 dimensiones estructuradas.\n• Generar mapas coropléticos de diagnóstico socioterritorial a escala de unidad vecinal y manzana."),
         ("Semanas 8–9 (19 al 30 Oct)", "Hitos 7 y 8: Refinamiento Cartográfico y Consolidación del Atlas Funcional",
          "• Formalizar el estándar cartográfico unificado (simbología, paleta de colores de alto contraste y leyendas).\n• Integrar las consultas espaciales del modelo lineal dentro de la interfaz interactiva del Módulo 09.\n• Realizar pruebas de rendimiento cross-browser (compatibilidad móvil, tablets y escritorio)."),
-        ("Semana 10 (02 al 06 Nov)", "Hito 9: Validación Empírica con Usuarios Reales de Barrio Brasil (OE 4)",
-         "• Aplicar pruebas de usabilidad guiadas con 3 a 5 usuarios reales (vecinos, dirigentes barriales, funcionarios SECPLA).\n• Levantar observaciones cualitativas mediante cuestionario semi-estructurado sobre utilidad y facilidad de uso.\n• Aplicar mejoras y rediseño iterativo basado directamente en la retroalimentación comunitaria."),
+        ("Semana 10 (02 al 06 Nov)", "Hito 9: Validación Empírica con Usuarios de Distinto Nivel en SIG/VGI (OE 4)",
+         "• Aplicar pruebas de usabilidad guiadas con 3 a 5 usuarios potenciales de distinto nivel de conocimiento en SIG/VGI.\n• Evaluar usabilidad en 3 niveles de alfabetización geoespacial: no técnico (vecinal), intermedio (estudiantes/mapeadores) y avanzado (investigadores/profesionales SIG).\n• Levantar observaciones cualitativas mediante pauta estructurada de usabilidad (ISO 9241-11) y aplicar rediseño iterativo."),
         ("Semana 11 (09 al 12 Nov)", "Hito 10: Manuales de Transferibilidad, Informe Final y Entrega de Práctica",
          "• Redacción del Manual de Uso del Atlas (para vecinos) y Manual de Mantenimiento Técnico (para UAH).\n• Consolidación del informe final de práctica profesional y memoria metodológica transferible al Fondecyt.\n• Cierre de la geodatabase definitiva y archivo del repositorio de código abierto en GitHub.")
     ]
@@ -1633,9 +1630,9 @@ def crear_presentacion():
 
     agregar_notas_orador(s17,
         "Para las 150 horas restantes, el plan de trabajo se concentra en tres prioridades: primero, consolidar el modelo lineal "
-        "de ranking territorial y los cruces espaciales definitivos; segundo, llevar a cabo la validación participativa con tres a cinco "
-        "usuarios reales del territorio en la semana 10; y tercero, redactar los manuales de transferencia que aseguren que el Departamento "
-        "de Geografía y los investigadores del Fondecyt puedan continuar actualizando la plataforma de manera autónoma."
+        "de ranking territorial y los cruces espaciales definitivos; segundo, llevar a cabo la validación con tres a cinco usuarios potenciales "
+        "de distinto nivel de conocimiento respecto a los SIG y la VGI en la semana 10; y tercero, redactar los manuales de transferencia que aseguren "
+        "que el Departamento de Geografía y los investigadores del Fondecyt puedan continuar actualizando la plataforma de manera autónoma."
     )
 
     # =========================================================================
@@ -1654,7 +1651,7 @@ def crear_presentacion():
     conclusiones = [
         ("Logros del Período (150 hrs)", [
             "OE 1 cumplido al 100%: 10 categorías VGI, 4 usuarios-tipo y 134 descriptores formalizados.",
-            "Geodatabase territorial consolidada: 118 capas (108 oficiales + 10 VGI) y 1,33 GB analizados.",
+            "Geodatabase consolidada: 118 capas activas (2.181,82 MB con Geofabrik RM) y 3.362,55 MB en 214 archivos GeoJSON en disco.",
             "Calidad garantizada: Auditoría universal bajo ISO 19157 alcanzando un 98,6% IGMC (Grado A+ Excelente).",
             "Geoportal en producción anticipada con 10 módulos funcionales operativos y costo $0/mes."
         ]),
@@ -1666,7 +1663,7 @@ def crear_presentacion():
         ]),
         ("Desafíos de la Segunda Mitad", [
             "Consolidación del ranking territorial: Calibrar empíricamente las 5 dimensiones mediante el modelo lineal aditivo.",
-            "Validación comunitaria en terreno: Testear el geoportal con vecinos y autoridades de Barrio Brasil (OE 4).",
+            "Validación empírica con usuarios: Evaluar usabilidad del geoportal con personas de distinto nivel de conocimiento en SIG/VGI (OE 4).",
             "Transferibilidad efectiva: Dejar manuales claros que permitan al centro de práctica sostener el proyecto a largo plazo.",
             "Aporte al Fondecyt F1261256: Contribuir con un prototipo metodológico transferible para la investigación en Geografía."
         ])
@@ -1715,8 +1712,9 @@ def crear_presentacion():
 
     agregar_notas_orador(s18,
         "A modo de conclusión, las primeras 150 horas de práctica han permitido demostrar la viabilidad técnica y metodológica "
-        "de construir una Infraestructura de Datos Espaciales comunitaria y abierta. La geodatabase de 118 capas cuenta con certificación "
-        "de metadatos del 98,6% y el visor web se encuentra operativo para toda la comunidad académica y vecinal. "
+        "de construir una Infraestructura de Datos Espaciales comunitaria y abierta. La geodatabase activa suma 2,18 gigabytes incorporando "
+        "los datos masivos de Geofabrik, con certificación de metadatos del 98,6% bajo la norma ISO 19157. En la segunda mitad "
+        "nos enfocaremos en consolidar el ranking territorial y realizar las pruebas empíricas con usuarios de distinto nivel de conocimiento geoespacial. "
         "Quedo a su completa disposición para responder a las preguntas y observaciones de la comisión evaluadora. Muchas gracias."
     )
 

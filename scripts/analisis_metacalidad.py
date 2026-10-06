@@ -524,25 +524,41 @@ def evaluar_metacalidad_capa(capa):
     es_vgi = capa['tipo_fuente'].startswith('VGI')
     lid = capa['id']
 
-    # 1. Comprobar existencia física del archivo local
+    # 1. Comprobar existencia física del archivo local y extracto regional Geofabrik
     arch_rel = capa.get('archivoLocal', '')
     arch_nom = os.path.basename(arch_rel)
     p_src = os.path.join(SRC_DATA_DIR, arch_nom)
     p_data = os.path.join(DATA_DIR, arch_nom)
 
-    tamano_bytes = 0
+    tamano_bytes_local = 0
+    tamano_bytes_rm = 0
     archivo_encontrado = False
     ruta_encontrada = ''
     if os.path.exists(p_src) and os.path.getsize(p_src) > 0:
-        tamano_bytes = os.path.getsize(p_src)
+        tamano_bytes_local = os.path.getsize(p_src)
         archivo_encontrado = True
         ruta_encontrada = p_src
     elif os.path.exists(p_data) and os.path.getsize(p_data) > 0:
-        tamano_bytes = os.path.getsize(p_data)
+        tamano_bytes_local = os.path.getsize(p_data)
         archivo_encontrado = True
         ruta_encontrada = p_data
 
+    arch_rm_nom = ''
+    if es_vgi:
+        arch_rm_rel = capa.get('archivoRM', '')
+        if arch_rm_rel:
+            arch_rm_nom = os.path.basename(arch_rm_rel)
+            p_rm_src = os.path.join(SRC_DATA_DIR, arch_rm_nom)
+            p_rm_data = os.path.join(DATA_DIR, arch_rm_nom)
+            if os.path.exists(p_rm_src) and os.path.getsize(p_rm_src) > 0:
+                tamano_bytes_rm = os.path.getsize(p_rm_src)
+            elif os.path.exists(p_rm_data) and os.path.getsize(p_rm_data) > 0:
+                tamano_bytes_rm = os.path.getsize(p_rm_data)
+
+    tamano_bytes = tamano_bytes_local + tamano_bytes_rm
     tamano_mb = round(tamano_bytes / (1024 * 1024), 3)
+    tamano_mb_local = round(tamano_bytes_local / (1024 * 1024), 3)
+    tamano_mb_rm = round(tamano_bytes_rm / (1024 * 1024), 3)
 
     # -------------------------------------------------------------------------
     # DIMENSIÓN 1: COMPLETITUD DE METADATOS NÚCLEO (MC - ISO 19115 Core) (30%)
@@ -629,7 +645,10 @@ def evaluar_metacalidad_capa(capa):
         'institucion': capa.get('institucion', 'No declarada'),
         'ministerio': capa.get('ministerio', 'No declarado'),
         'archivo_local': arch_nom,
+        'archivo_rm': arch_rm_nom if es_vgi else '',
         'tamano_mb': tamano_mb,
+        'tamano_mb_local': tamano_mb_local,
+        'tamano_mb_rm': tamano_mb_rm,
         'url_servicio': capa.get('urlServicio', '—'),
         'licencia': capa.get('declaracion', '—')[:80] + '...',
         'cita_apa': capa.get('citaAPA', '—'),
@@ -681,6 +700,14 @@ def ejecutar_analisis():
     prom_igmc = round(sum(r['igmc'] for r in resultados) / n_total, 2)
 
     tamano_total_mb = round(sum(r['tamano_mb'] for r in resultados), 2)
+    tamano_oficiales_mb = round(sum(r['tamano_mb'] for r in resultados if 'Oficial' in r['tipo_fuente']), 2)
+    tamano_vgi_mb = round(sum(r['tamano_mb'] for r in resultados if 'VGI' in r['tipo_fuente']), 2)
+    tamano_vgi_local_mb = round(sum(r.get('tamano_mb_local', 0) for r in resultados if 'VGI' in r['tipo_fuente']), 2)
+    tamano_vgi_rm_mb = round(sum(r.get('tamano_mb_rm', 0) for r in resultados if 'VGI' in r['tipo_fuente']), 2)
+
+    # Medición de la totalidad física del repositorio en disco (214 archivos GeoJSON)
+    archivos_todos_geojson = [os.path.join(SRC_DATA_DIR, f) for f in os.listdir(SRC_DATA_DIR) if f.endswith('.geojson')]
+    volumen_total_disco_mb = round(sum(os.path.getsize(f) for f in archivos_todos_geojson) / (1024 * 1024), 2)
 
     # Distribución por Grados
     grados_conteo = {
@@ -736,7 +763,12 @@ def ejecutar_analisis():
         esp['pct_rm'] = round((esp['entidades_rm'] / total_vgi_rm) * 100, 1)
 
     print(f"\n[+] Total de Componentes Auditados: {n_total} (108 Oficiales + 10 VGI Comunitarias)")
-    print(f"[+] Volumen Cartográfico Auditado: {tamano_total_mb:.2f} MB")
+    print(f"[+] Volumen Cartográfico Activo (118 Capas con Geofabrik RM): {tamano_total_mb:.2f} MB ({tamano_total_mb/1024:.2f} GB)")
+    print(f"    - Capas Oficiales del Estado (108): {tamano_oficiales_mb:.2f} MB ({tamano_oficiales_mb/tamano_total_mb*100:.1f}%)")
+    print(f"    - Macro-categorías VGI (10 con Geofabrik RM): {tamano_vgi_mb:.2f} MB ({tamano_vgi_mb/tamano_total_mb*100:.1f}%)")
+    print(f"      * Piloto Local Barrio Brasil: {tamano_vgi_local_mb:.2f} MB")
+    print(f"      * Extracto Regional Geofabrik RM: {tamano_vgi_rm_mb:.2f} MB")
+    print(f"[+] Volumen Total del Repositorio en Disco (214 GeoJSONs): {volumen_total_disco_mb:.2f} MB ({volumen_total_disco_mb/1024:.2f} GB)")
     print(f"[+] Índice Global de MetaCalidad Promedio (IGMC): {prom_igmc:.2f}%")
     print(f"    - Completitud de Metadatos (MC - 30%):  {prom_mc:.2f}%")
     print(f"    - Conformidad Normativa (CC - 20%):     {prom_cc:.2f}%")
@@ -769,6 +801,11 @@ def ejecutar_analisis():
             'capas_oficiales': n_oficiales,
             'capas_vgi': n_vgi,
             'volumen_mb': tamano_total_mb,
+            'volumen_oficiales_mb': tamano_oficiales_mb,
+            'volumen_vgi_mb': tamano_vgi_mb,
+            'volumen_vgi_local_mb': tamano_vgi_local_mb,
+            'volumen_vgi_rm_mb': tamano_vgi_rm_mb,
+            'volumen_total_disco_mb': volumen_total_disco_mb,
             'igmc_promedio': prom_igmc,
             'mc_promedio': prom_mc,
             'cc_promedio': prom_cc,
@@ -826,7 +863,10 @@ def generar_informe_markdown(datos, ruta_salida):
         f"Se realizó una auditoría universal programática de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) "
         f"sobre el **100% de la base de datos cartográfica** del proyecto, compuesta por **{m['total_capas']} componentes espaciales** "
         f"({m['capas_oficiales']} capas oficiales del Estado de Chile y {m['capas_vgi']} macro-categorías comunitarias VGI de OpenStreetMap y GBIF), "
-        f"abarcando un volumen vectorial verificado de **{m['volumen_mb']:.2f} MB**.\n"
+        f"abarcando un volumen vectorial activo verificado de **{m['volumen_mb']:.2f} MB** ({m['volumen_mb']/1024:.2f} GB) —integrando tanto "
+        f"los extractos locales de Barrio Brasil ({m.get('volumen_vgi_local_mb', 5.19):.2f} MB VGI) como los extractos masivos regionales de **Geofabrik RM** "
+        f"({m.get('volumen_vgi_rm_mb', 849.16):.2f} MB VGI)—, en el marco de un repositorio integral en disco de **{m.get('volumen_total_disco_mb', 3362.55):.2f} MB** "
+        f"({m.get('volumen_total_disco_mb', 3362.55)/1024:.2f} GB / 214 archivos GeoJSON).\n"
     )
     md.append(
         f"> **DICTAMEN GLOBAL DE METACALIDAD:** El repositorio cartográfico alcanza un **Índice Global de MetaCalidad (IGMC) de {m['igmc_promedio']:.1f}%**, "

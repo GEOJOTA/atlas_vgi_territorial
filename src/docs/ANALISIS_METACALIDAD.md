@@ -6,7 +6,7 @@
 
 ## 1. Resumen Ejecutivo y Dictamen de Calidad
 
-Se realizó una auditoría universal programática de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) sobre el **100% de la base de datos cartográfica** del proyecto, compuesta por **118 componentes espaciales** (108 capas oficiales del Estado de Chile y 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando un volumen vectorial verificado de **1332.66 MB**.
+Se realizó una auditoría universal programática de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) sobre el **100% de la base de datos cartográfica** del proyecto, compuesta por **118 componentes espaciales** (108 capas oficiales del Estado de Chile y 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando un volumen vectorial activo verificado de **2181.82 MB** (2.13 GB) —integrando tanto los extractos locales de Barrio Brasil (5.19 MB VGI) como los extractos masivos regionales de **Geofabrik RM** (849.16 MB VGI)—, en el marco de un repositorio integral en disco de **3362.55 MB** (3.28 GB / 214 archivos GeoJSON).
 
 > **DICTAMEN GLOBAL DE METACALIDAD:** El repositorio cartográfico alcanza un **Índice Global de MetaCalidad (IGMC) de 98.6%**, clasificando formalmente en la categoría **Grado A+ (Excelente)** conforme al marco de evaluación de la norma **ISO 19157:2013 / 2023**. La totalidad de los 118 componentes cuenta con delimitación espacial formal, tipología geométrica explícita, archivos vectoriales físicos verificados en almacenamiento local y CDN Edge ($0$ costo, resiliencia con triple failover), trazabilidad jurídica inequívoca y cita bibliográfica normalizada según normas APA 7ª edición.
 
@@ -503,15 +503,15 @@ La base de datos cartográfica se organiza en **8 grupos temáticos** normalizad
 
 | Grupo Temático | Capas (N°) | % Capas | Volumen (MB) | % Volumen | MC (%) | CC (%) | LL (%) | RG (%) | AI (%) | IGMC Promedio (%) | Grado ISO 19157 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Economía, Fomento e Inversión Pública** | 15 | 12.7% | 203.67 MB | 15.3% | 94.7% | 100.0% | 100.0% | 100.0% | 100.0% | **98.4%** | 🟢 Grado A+ (Excelente) |
-| **Equipamiento Público y Patrimonio** | 28 | 23.7% | 58.51 MB | 4.4% | 89.6% | 100.0% | 100.0% | 100.0% | 100.0% | **96.9%** | 🟢 Grado A+ (Excelente) |
-| **Medio Ambiente y Recursos Hídricos** | 21 | 17.8% | 101.04 MB | 7.6% | 99.5% | 100.0% | 100.0% | 100.0% | 100.0% | **99.9%** | 🟢 Grado A+ (Excelente) |
-| **Movilidad y Transporte** | 7 | 5.9% | 66.88 MB | 5.0% | 94.3% | 100.0% | 100.0% | 100.0% | 100.0% | **98.3%** | 🟢 Grado A+ (Excelente) |
-| **Normativa e Instrumentos de Planificación Territorial (IPT)** | 13 | 11.0% | 207.00 MB | 15.5% | 93.8% | 100.0% | 100.0% | 100.0% | 100.0% | **98.2%** | 🟢 Grado A+ (Excelente) |
-| **Seguridad, Bomberos y Justicia** | 5 | 4.2% | 0.93 MB | 0.1% | 96.0% | 100.0% | 100.0% | 100.0% | 100.0% | **98.8%** | 🟢 Grado A+ (Excelente) |
-| **Demografía y Vulnerabilidad Social** | 19 | 16.1% | 689.44 MB | 51.7% | 97.9% | 100.0% | 100.0% | 100.0% | 100.0% | **99.4%** | 🟢 Grado A+ (Excelente) |
-| **Información Geográfica Voluntaria (VGI Comunitario)** | 10 | 8.5% | 5.19 MB | 0.4% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | **100.0%** | 🟢 Grado A+ (Excelente) |
-| **TOTAL / REPOSITORIO GLOBAL** | **118** | **100.0%** | **1332.66 MB** | **100.0%** | **95.2%** | **100.0%** | **100.0%** | **100.0%** | **100.0%** | **98.6%** | **🟢 Grado A+ (Excelente)** |
+| **Economía, Fomento e Inversión Pública** | 15 | 12.7% | 203.67 MB | 9.3% | 94.7% | 100.0% | 100.0% | 100.0% | 100.0% | **98.4%** | 🟢 Grado A+ (Excelente) |
+| **Equipamiento Público y Patrimonio** | 28 | 23.7% | 58.51 MB | 2.7% | 89.6% | 100.0% | 100.0% | 100.0% | 100.0% | **96.9%** | 🟢 Grado A+ (Excelente) |
+| **Medio Ambiente y Recursos Hídricos** | 21 | 17.8% | 101.04 MB | 4.6% | 99.5% | 100.0% | 100.0% | 100.0% | 100.0% | **99.9%** | 🟢 Grado A+ (Excelente) |
+| **Movilidad y Transporte** | 7 | 5.9% | 66.88 MB | 3.1% | 94.3% | 100.0% | 100.0% | 100.0% | 100.0% | **98.3%** | 🟢 Grado A+ (Excelente) |
+| **Normativa e Instrumentos de Planificación Territorial (IPT)** | 13 | 11.0% | 207.00 MB | 9.5% | 93.8% | 100.0% | 100.0% | 100.0% | 100.0% | **98.2%** | 🟢 Grado A+ (Excelente) |
+| **Seguridad, Bomberos y Justicia** | 5 | 4.2% | 0.93 MB | 0.0% | 96.0% | 100.0% | 100.0% | 100.0% | 100.0% | **98.8%** | 🟢 Grado A+ (Excelente) |
+| **Demografía y Vulnerabilidad Social** | 19 | 16.1% | 689.44 MB | 31.6% | 97.9% | 100.0% | 100.0% | 100.0% | 100.0% | **99.4%** | 🟢 Grado A+ (Excelente) |
+| **Información Geográfica Voluntaria (VGI Comunitario)** | 10 | 8.5% | 854.35 MB | 39.2% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | **100.0%** | 🟢 Grado A+ (Excelente) |
+| **TOTAL / REPOSITORIO GLOBAL** | **118** | **100.0%** | **2181.82 MB** | **100.0%** | **95.2%** | **100.0%** | **100.0%** | **100.0%** | **100.0%** | **98.6%** | **🟢 Grado A+ (Excelente)** |
 
 
 ---
