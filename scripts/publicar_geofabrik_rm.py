@@ -79,6 +79,34 @@ ARCHIVOS_CODIGO = [
     "src/docs/matriz_metacalidad.json",
     "docs/ANALISIS_METACALIDAD.md",
     "src/docs/ANALISIS_METACALIDAD.md",
+    "scripts/verificar_integridad_despliegue.py",
+    "scripts/generar_ppt_estado_avance_blanco.py",
+    "data/capa_bbdd_66.geojson",
+    "src/data/capa_bbdd_66.geojson",
+    "data/capa_unidades_vecinales_bidat.geojson",
+    "src/data/capa_unidades_vecinales_bidat.geojson",
+    "data/Areas_Verdes_MINVU_INE_2023.geojson",
+    "src/data/Areas_Verdes_MINVU_INE_2023.geojson",
+    "data/ide_minvu_ipt_areas_verdes.geojson",
+    "src/data/ide_minvu_ipt_areas_verdes.geojson",
+    "data/capa_ccu_1993.geojson",
+    "src/data/capa_ccu_1993.geojson",
+    "data/capa_ccu_2011.geojson",
+    "src/data/capa_ccu_2011.geojson",
+    "data/capa_ccu_2018.geojson",
+    "src/data/capa_ccu_2018.geojson",
+    "data/capa_ccu_2019.geojson",
+    "src/data/capa_ccu_2019.geojson",
+    "data/capa_ccu_2020.geojson",
+    "src/data/capa_ccu_2020.geojson",
+    "data/capa_ccu_2021.geojson",
+    "src/data/capa_ccu_2021.geojson",
+    "data/capa_ccu_2022.geojson",
+    "src/data/capa_ccu_2022.geojson",
+    "data/capa_ccu_2023.geojson",
+    "src/data/capa_ccu_2023.geojson",
+    "data/capa_ccu_2024.geojson",
+    "src/data/capa_ccu_2024.geojson",
     "scripts/publicar_geofabrik_rm.py"
 ]
 
@@ -338,12 +366,11 @@ def main():
     print(f"[*] Nuevo Tree SHA: {new_tree_sha}")
 
     mensaje = (
-        "style(indicadores): refinamiento estetico del acordeon de capas y coherencia visual con Atlas VGI\n\n"
-        "- Refinamiento integral del acordeon de capas en el Modulo 09 (Indicadores de Analisis) alineado a la estetica tactica del Atlas (Outfit/JetBrains Mono, elevacion, glassmorphism oscuro y halos de dimension).\n"
-        "- Correccion de selectores CSS y sincronizacion con el DOM generado en indicadores_analisis.js.\n"
-        "- Indicadores visuales de geometria (Poligono, Punto, Linea, Vectorial) y procedencia (Oficiales Estado / VGI Comunitario) con conteo dinamico en filtros.\n"
-        "- Estado vacio interactivo con accion de restablecimiento de busqueda.\n"
-        "- Mantenimiento estricto de las 118 capas (108 oficiales + 10 VGI), 4 usuarios-tipo y rigor academico Fondecyt 1261256."
+        "fix(geometria): eliminacion total de simplificacion en unidades vecinales y reparacion topologica universal\n\n"
+        "- Sustitucion de la capa de Unidades Vecinales (bbdd_66 y unidades_vecinales_bidat) por la cobertura oficial integra de la RM (1.364 poligonos, 159.495 vertices conservados al 100%, sin simplificacion).\n"
+        "- Resolucion integral de errores topologicos (auto-intersecciones y bowties) en capas de origen mediante make_valid() en Areas Verdes, CCU (1993-2024) y coberturas comunitarias VGI (OSM).\n"
+        "- Sincronizacion de ultimas actualizaciones del repositorio (metadatos, presentacion blanco estandarizado, metacalidad IGMC 98.58%).\n"
+        "- Preservacion estricta de la integridad de la base de datos bajo estandares ISO 19115 / ISO 19157 (Fondecyt 1261256)."
     )
 
 

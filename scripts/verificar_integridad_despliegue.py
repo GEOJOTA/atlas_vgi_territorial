@@ -41,7 +41,9 @@ ARCHIVOS_OBJETIVO = [
     'IGVUST_UV_2026_Agosto.geojson',
     'Hombres_RSH_Fonasa_Isapre_UV_2026_Junio.geojson',
     'BIP_Iniciativas_Inversion_RM_Comunas.geojson',
-    'semaforos_rm_uoct_2026.geojson'
+    'semaforos_rm_uoct_2026.geojson',
+    'capa_bbdd_66.geojson',
+    'capa_unidades_vecinales_bidat.geojson'
 ]
 
 CATALOGOS_EXCEL = [
