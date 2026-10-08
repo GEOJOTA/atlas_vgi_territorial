@@ -478,6 +478,11 @@ function inicializarAplicacion() {
     window.ModuloIndicadoresAnalisis.inicializar();
   }
 
+  // Inicializar Módulo 02: Evaluador Universal de Calidad Cuantitativa e Índice IGV (ISO 19157)
+  if (window.EvaluadorCalidadCuantitativa) {
+    window.EvaluadorCalidadCuantitativa.inicializarUI();
+  }
+
   // Inicializar diccionario territorial con soporte para pestañas de grupo y búsqueda
   const cntDiccionario = document.getElementById('contenido-diccionario');
   const md = window.ModuloDiccionario || (typeof ModuloDiccionario !== 'undefined' ? ModuloDiccionario : null);
@@ -1001,6 +1006,9 @@ function configurarNavegacion() {
       }
       if (panelId === 'manual') {
         cargarResumenMetodologia();
+      }
+      if (panelId === 'calidad-ohsome' && window.EvaluadorCalidadCuantitativa) {
+        window.EvaluadorCalidadCuantitativa.invalidarTamanoMapa();
       }
       if (panelId === 'indicadores') {
         window.scrollTo({ top: 0, behavior: 'smooth' });

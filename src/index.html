@@ -659,36 +659,103 @@
       </div>
     </section>
 
-    <!-- ---------- 02. CALIDAD (OHSOME & OSMCHA) ---------- -->
+    <!-- ---------- 02. CALIDAD ESPACIAL, TOPOLOGÍA E ÍNDICE IGV ---------- -->
     <section class="panel" id="panel-calidad-ohsome">
       <header>
-        <span class="rotulo">02 / ohsome API (HeiGIT) & OSMCha (OpenStreetMap Changeset Analyzer)</span>
-        <h2>Calidad de Datos, Saturación Espaciotemporal y Control de Cambios</h2>
-        <p class="descripcion">Evalúa el volumen histórico y la saturación de mapeo con ohsome API, e inspecciona la integridad de las últimas ediciones territoriales con la plataforma OSMCha.</p>
+        <span class="rotulo">02 / Calidad Espacial, Topología e Índice IGV (ISO 19157 / HeiGIT / OSMCha)</span>
+        <h2>Auditoría de Calidad Espacial, Consistencia Topológica e Índice de MetaCalidad IGV</h2>
+        <p class="descripcion">
+          Motor algorítmico universal de control de calidad: evalúa cualquier conjunto de datos espaciales externo (GeoJSON arrastrado o cargado) o interno del Atlas según métricas cuantitativas (errores topológicos, auto-intersecciones, completitud de atributos, consistencia de coordenadas) y variables cualitativas de metadatos estandarizadas.
+        </p>
       </header>
 
       <!-- Guía Rápida de Uso y Relación con el Atlas -->
       <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--violeta); background: var(--papel-tarjeta); padding: 20px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--violeta); font-size: 1.15rem;">📐 Módulo 02: Evaluador de Calidad ISO 19157 y Control de Cambios OSMCha</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--violeta-claro); color: var(--violeta); border: 1px solid var(--violeta); padding: 3px 10px; border-radius: 6px; font-weight: 800;">HEIGIT // ISO 19157</span>
+          <h4 style="margin: 0; color: var(--violeta); font-size: 1.15rem;">📐 Módulo 02: Evaluador Integral de Calidad Espacial (ISO 19157 / ISO 19115)</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--violeta-claro); color: var(--violeta); border: 1px solid var(--violeta); padding: 3px 10px; border-radius: 6px; font-weight: 800;">HEIGIT // ISO 19157 // OGC SFA</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite medir la madurez y la historia del mapa barrial. El Submódulo A analiza con ohsome API la evolución temporal de huellas de edificios, redes viales y áreas verdes (2021-2026). El Submódulo B audita mediante OSMCha las últimas ediciones realizadas por mapeadores para verificar qué cambió en el barrio.
+            Permite medir y certificar la calidad geométrica, topológica y semántica de datos espaciales. El Submódulo A audita cualquier archivo vectorial externo o interno calculando el Índice Global de Calidad (IGV). El Submódulo B analiza con ohsome API la evolución temporal histórica (2021-2026). El Submódulo C audita mediante OSMCha las últimas ediciones realizadas por mapeadores.
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Garantiza el rigor metodológico del Atlas, demostrando qué zonas de Barrio Brasil tienen cobertura consolidada y cuáles requieren jornadas de mapeo participativo.
+            Garantiza el rigor metodológico y científico del Atlas, certificando que los datos de Barrio Brasil y capas oficiales cumplen estándares internacionales de interoperabilidad sin geometrías corruptas.
           </div>
         </div>
       </div>
 
-      <!-- SUBMÓDULO A: OHSOME API & OQT -->
+      <!-- SUBMÓDULO A: EVALUADOR UNIVERSAL DE CALIDAD ESPACIAL, TOPOLOGÍA E ÍNDICE IGV -->
+      <div class="bloque" style="border-top: 5px solid var(--esmeralda);">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo A: Evaluador Universal de Calidad Espacial, Topología e Índice IGV</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--esmeralda); text-transform:uppercase; font-weight:800;">[ISO 19157:2023 // OGC SFA // IDE CHILE]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:14px;">
+          Ingresa cualquier archivo espacial vectorial (externo en formato <code>.geojson</code> / <code>.json</code> o capa de la geodatabase) para auditar en tiempo real: auto-intersecciones (kinks/bowties), polígonos colapsados, anillos abiertos, atributos nulos, rango geodésico y obtener el <strong>Índice Global de Calidad (IGV)</strong> certificado.
+        </p>
+
+        <!-- Zona de Carga de Datos (Drag & Drop y Selectores) -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-bottom:14px;">
+          
+          <!-- Opción 1: Drag & Drop para Archivo Externo -->
+          <div id="calidad-dropzone" style="border:2px dashed var(--linea); border-radius:10px; background:var(--papel-alto); padding:20px 16px; text-align:center; cursor:pointer; transition:all 0.2s ease;">
+            <div style="font-size:1.8rem; margin-bottom:6px;">📁</div>
+            <strong style="display:block; font-size:0.88rem; color:var(--tinta); margin-bottom:4px;">Arrastra aquí un archivo .geojson o .json</strong>
+            <span style="font-size:0.78rem; color:var(--tinta-suave); display:block;">o haz clic para examinar desde tu equipo</span>
+            <input type="file" id="calidad-input-archivo" accept=".geojson,.json" style="display:none;">
+            <div id="calidad-archivo-seleccionado-nombre" style="display:none; margin-top:8px; font-family:var(--fuente-datos); font-size:0.76rem; background:rgba(16, 185, 129, 0.15); color:var(--esmeralda); padding:3px 8px; border-radius:4px; border:1px solid var(--esmeralda);"></div>
+          </div>
+
+          <!-- Opción 2: Selector de Capas del Atlas -->
+          <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:10px; padding:16px;">
+            <label for="calidad-selector-capa-interna" style="font-size:0.82rem; font-weight:700; color:var(--tinta); display:block; margin-bottom:6px;">
+              O auditar una capa de la Geodatabase (118 componentes):
+            </label>
+            <select id="calidad-selector-capa-interna" style="width:100%; font-size:0.82rem; padding:8px; background:var(--papel); border:1px solid var(--linea); border-radius:6px; color:var(--tinta);">
+              <option value="">-- Selecciona una capa de la base de datos --</option>
+            </select>
+            <span style="font-size:0.74rem; color:var(--tinta-tenue); display:block; margin-top:6px;">
+              Permite contrastar métricas cuantitativas sobre las capas oficiales y VGI existentes.
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Opción 3 Colapsable: Pegar GeoJSON en Texto Plano -->
+        <details style="margin-bottom:14px; background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px 14px;">
+          <summary style="font-size:0.82rem; font-weight:600; cursor:pointer; color:var(--musgo);">
+            ✍️ O pegar contenido GeoJSON directo en texto plano / Información del Índice IGV
+          </summary>
+          <div style="margin-top:10px;">
+            <textarea id="calidad-textarea-geojson" rows="3" placeholder="Pega aquí el objeto FeatureCollection o Feature en formato JSON/GeoJSON..." style="width:100%; font-family:var(--fuente-datos); font-size:0.75rem; padding:8px; background:var(--papel); border:1px solid var(--linea); border-radius:6px; color:var(--tinta);"></textarea>
+            <div style="font-size:0.74rem; color:var(--tinta-tenue); margin-top:6px;">
+              Ponderadores oficiales estándar: <strong>50% Cuantitativo Espacial</strong> (Topología 30%, Completitud 25%, Posicional 20%, Estructura 15%, Granularidad 10%) + <strong>50% Cualitativo</strong> (Metadatos ISO 19115).
+            </div>
+          </div>
+        </details>
+
+        <!-- Botones de Ejecución -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="accion" id="btn-ejecutar-auditoria-igv" style="font-weight:700; background:var(--esmeralda); color:#000; padding:10px 20px;">
+            🚀 Auditar Calidad Espacial e Índice IGV
+          </button>
+          <button class="accion secundaria" id="btn-cargar-ejemplo-calidad" style="font-size:0.84rem;">
+            Cargar Ejemplo Piloto (CAT-01 Educación)
+          </button>
+        </div>
+
+        <!-- Contenedor Dinámico de Resultados de la Auditoría -->
+        <div id="resultado-auditoria-igv" aria-live="polite"></div>
+
+      </div>
+
+      <!-- SUBMÓDULO B: OHSOME API & OQT -->
       <div class="bloque">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo A: Métricas Históricas y Saturación OQT (ohsome API v1/v2)</h3>
+          <h3 style="margin:0;">Submódulo B: Métricas Históricas y Saturación OQT (ohsome API v1/v2)</h3>
           <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[HeiGIT // ISO 19157]</span>
         </div>
 
@@ -1266,6 +1333,7 @@
 <script src="js/modulos/manual.js?v=20260923_manual_redesign"></script>
 <script src="js/modulos/indicadores_analisis.js?v=20261002_v1"></script>
 <script src="js/modulos/taginfo.js?v=20260914_db_v1"></script>
+<script src="js/modulos/evaluador_calidad_cuantitativa.js?v=20261007_igv_v1"></script>
 <script src="js/modulos/calidad_analyst.js?v=20260914_db_v1"></script>
 <script src="js/modulos/diccionario.js?v=20260914_db_v1"></script>
 <script src="js/modulos/manifold_canvas.js?v=20260914_db_v1"></script>
