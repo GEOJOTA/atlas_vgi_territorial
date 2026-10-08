@@ -1046,6 +1046,7 @@ function configurarNavegacion() {
     const panelDestino = document.getElementById('panel-' + panelId);
     if (panelDestino) {
       panelDestino.classList.add('activo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       if (panelId === 'inicio' && window.ModuloMapa) {
         window.ModuloMapa.invalidarTamano();
       }
@@ -1056,7 +1057,6 @@ function configurarNavegacion() {
         window.EvaluadorCalidadCuantitativa.invalidarTamanoMapa();
       }
       if (panelId === 'indicadores') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
         if (window.ModuloIndicadoresAnalisis) {
           const cont = document.getElementById('contenedor-indicadores-analisis');
           if (cont && (!cont.children || cont.children.length === 0)) {
@@ -1068,6 +1068,32 @@ function configurarNavegacion() {
   };
 
   window.activarPanel = activarPanel;
+  window.autocargarMetadatos = autocargarMetadatos;
+
+  window.navegarAModulo = function(moduloId) {
+    if (!moduloId) return;
+    const mapaModulos = {
+      '00': 'inicio',
+      'inicio': 'inicio',
+      '01': 'explorador-osm',
+      'explorador': 'explorador-osm',
+      '02': 'calidad-ohsome',
+      'calidad': 'calidad-ohsome',
+      '03': 'biodiversidad-gbif',
+      'biodiversidad': 'biodiversidad-gbif',
+      '04': 'proyectos-umap',
+      'umap': 'proyectos-umap',
+      '05': 'metadatos-iso',
+      'metadatos': 'metadatos-iso',
+      '06': 'diccionario',
+      '07': 'licencias',
+      '08': 'manual',
+      '09': 'indicadores'
+    };
+    const panelId = mapaModulos[moduloId] || moduloId;
+    activarPanel(panelId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const botonesNav = Array.from(new Set(document.querySelectorAll('#lista-navegacion button, .barra-pestanas-profundidad button')));
   botonesNav.forEach(boton => {

@@ -1951,20 +1951,19 @@ print("Dataset subsanado y listo para producción!")
                   📋 Copiar SQL
                 </button>
               </div>
-              <pre id="codigo-sql-subsanacion" style="background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; font-size:0.75rem; font-family:monospace; overflow-x:auto; margin:0; border:1px solid var(--linea);">
--- 1. Reparar geometrías no válidas (auto-intersecciones, anillos abiertos y kinks)
+              <pre id="codigo-sql-subsanacion" style="background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; font-size:0.75rem; font-family:monospace; overflow-x:auto; margin:0; border:1px solid var(--linea);">-- 1. Reparar geometrías no conformes (auto-intersecciones, kinks y anillos abiertos)
 UPDATE mi_capa
-SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))
+SET geom = ST_MakeValid(geom)
 WHERE NOT ST_IsValid(geom);
 
--- 2. Eliminar vértices redundantes y duplicados consecutivos
+-- 2. Eliminar vértices colapsados y puntos repetidos consecutivos
 UPDATE mi_capa
 SET geom = ST_RemoveRepeatedPoints(geom, 0.000001);
 
--- 3. Asignar identificador primario unívoco si no existe
+-- 3. Asignar clave primaria unívoca secuencial si no existe
 ALTER TABLE mi_capa ADD COLUMN IF NOT EXISTS fid SERIAL PRIMARY KEY;
 
--- 4. Verificar que no queden errores topológicos
+-- 4. Certificación de validez topológica OGC: debe retornar 0
 SELECT COUNT(*) AS errores_restantes FROM mi_capa WHERE NOT ST_IsValid(geom);</pre>
             </div>
           </details>
@@ -1980,8 +1979,7 @@ SELECT COUNT(*) AS errores_restantes FROM mi_capa WHERE NOT ST_IsValid(geom);</p
                   📋 Copiar Python
                 </button>
               </div>
-              <pre id="codigo-python-subsanacion" style="background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; font-size:0.75rem; font-family:monospace; overflow-x:auto; margin:0; border:1px solid var(--linea);">
-import geopandas as gpd
+              <pre id="codigo-python-subsanacion" style="background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; font-size:0.75rem; font-family:monospace; overflow-x:auto; margin:0; border:1px solid var(--linea);">import geopandas as gpd
 from shapely.validation import make_valid
 
 # 1. Cargar archivo GeoJSON original
@@ -2029,9 +2027,9 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
               </div>
 
               <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-                <a href="#modulo-05-metadatos" class="accion" onclick="if(window.navegarAModulo) window.navegarAModulo('05');" style="background:#38bdf8; color:#0f172a; font-weight:700; font-size:0.78rem; padding:8px 14px; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                <button type="button" class="accion" id="btn-ir-a-modulo-05-metadatos" data-panel="metadatos-iso" style="background:#38bdf8; color:#0f172a; font-weight:700; font-size:0.78rem; padding:8px 14px; border-radius:6px; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
                   <span>🏛️</span> Abrir Generador de Metadatos ISO 19115 (Módulo 05)
-                </a>
+                </button>
                 <button type="button" class="accion secundaria" id="btn-copiar-plantilla-metadatos" style="font-size:0.78rem; padding:8px 14px; background:rgba(56, 189, 248, 0.12); color:#38bdf8; border:1px solid #38bdf8; font-weight:700; border-radius:6px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
                   <span>📋</span> Copiar Plantilla de Metadatos GeoJSON
                 </button>
@@ -2177,6 +2175,62 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
         if (pre && navigator.clipboard) {
           navigator.clipboard.writeText(pre.textContent.trim()).then(() => alert('¡Plantilla de metadatos GeoJSON (ISO 19115 / RFC 7946) copiada al portapapeles con éxito!'));
         }
+      });
+    }
+
+    const btnIrModulo05 = document.getElementById('btn-ir-a-modulo-05-metadatos');
+    if (btnIrModulo05) {
+      btnIrModulo05.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // 1. Redireccionar al panel del Módulo 05
+        if (typeof window.navegarAModulo === 'function') {
+          window.navegarAModulo('05');
+        } else if (typeof window.activarPanel === 'function') {
+          window.activarPanel('metadatos-iso');
+        } else {
+          const btnNav = document.querySelector('button[data-panel="metadatos-iso"]');
+          if (btnNav) btnNav.click();
+        }
+
+        // 2. Prellenar datos en Módulo 05 a partir del dataset evaluado
+        try {
+          const inpTitulo = document.getElementById('md-titulo');
+          if (inpTitulo && resultado.nombreCapa) {
+            inpTitulo.value = resultado.nombreCapa;
+          }
+          const inpResumen = document.getElementById('md-resumen');
+          if (inpResumen && resultado.resumenDataset) {
+            const rd = resultado.resumenDataset;
+            inpResumen.value = `Conjunto de datos espaciales: ${resultado.nombreCapa || 'Capa territorial'}. Comprende ${rd.totalFeatures} entidades vectoriales (${rd.tasaValidezTopologica} conformes con OGC SFA) y ${rd.totalVertices ? rd.totalVertices.toLocaleString('es-CL') : 0} vértices evaluados bajo norma ISO 19157 e ISO 19115 (Atlas VGI - Fondecyt 1261256).`;
+          }
+          if (resultado.resumenDataset && resultado.resumenDataset.bbox) {
+            const bbox = resultado.resumenDataset.bbox;
+            const inpO = document.getElementById('md-oeste');
+            const inpS = document.getElementById('md-sur');
+            const inpE = document.getElementById('md-este');
+            const inpN = document.getElementById('md-norte');
+            if (inpO) inpO.value = bbox[0].toFixed(5);
+            if (inpS) inpS.value = bbox[1].toFixed(5);
+            if (inpE) inpE.value = bbox[2].toFixed(5);
+            if (inpN) inpN.value = bbox[3].toFixed(5);
+          }
+          const inpLinaje = document.getElementById('md-linaje');
+          if (inpLinaje && resultado.nombreCapa) {
+            inpLinaje.value = `Capa vectorial "${resultado.nombreCapa}" auditada con el Evaluador de Calidad Espacial ISO 19157 del Atlas VGI (UAH Fondecyt 1261256). Índice Global IGV: ${resultado.indiceGlobal ? resultado.indiceGlobal.igv : 100}%.`;
+          }
+
+          // Disparar generación automática de la ficha ISO para reflejar de inmediato los datos
+          const formMeta = document.getElementById('form-metadatos');
+          if (formMeta) {
+            formMeta.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+          }
+        } catch (err) {
+          console.warn('Error al precargar metadatos en Módulo 05:', err);
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
 
