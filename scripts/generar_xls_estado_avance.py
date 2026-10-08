@@ -225,16 +225,16 @@ def crear_libro():
         cell.border = border_cell
 
     filas_gantt = [
-        ["H1: Diagnóstico inicial y plataformas VGI", "OE 1", "X", "", "", "", "", "", "", "", "", "", "", "100% Cerrado"],
-        ["H2: Arquitectura conceptual y 10 categorías VGI", "OE 1", "", "X", "", "", "", "", "", "", "", "", "", "100% Cerrado"],
-        ["H3: Revisión de fuentes VGI y catálogo descriptores", "OE 1", "", "", "X", "", "", "", "", "", "", "", "", "100% Cerrado"],
-        ["H4: Geodatabase consolidada (118 capas)", "OE 2", "", "", "", "X", "X", "", "", "", "", "", "", "100% Cerrado"],
-        ["H5: MetaCalidad WLC v2.0 (97,88%) e inyección ISO", "OE 2", "", "", "", "", "X", "X", "", "", "", "", "", "100% Cerrado"],
-        ["H6: Cruces espaciales y modelos de cobertura barrial", "OE 2", "", "", "", "", "", "X", "X", "", "", "", "", "En inicio"],
-        ["H7: Refinamiento cartográfico y estándares SIG", "OE 3", "", "", "", "", "", "", "", "X", "", "", "", "Programado"],
-        ["H8: Consolidación final del Geoportal en producción", "OE 3", "", "", "", "", "", "X", "X", "X", "X", "", "", "80% Anticipado"],
-        ["H9: Validación empírica con usuarios (4 perfiles DCU)", "OE 4", "", "", "", "", "", "", "", "", "", "X", "", "Programado"],
-        ["H10: Manuales de transferibilidad y entrega final", "OE 4", "", "", "", "", "", "", "", "", "", "", "X", "Programado"]
+        ["H1: Inducción, territorio y usuarios", "OE 1", "X", "", "", "", "", "", "", "", "", "", "", "100% Cerrado"],
+        ["H2: Diseño conceptual y 10 categorías VGI", "OE 1", "", "X", "", "", "", "", "", "", "", "", "", "100% Cerrado"],
+        ["H3: Revisión de fuentes VGI y brechas IDE", "OE 1", "", "", "X", "", "", "", "", "", "", "", "", "100% Cerrado"],
+        ["H4: Obtención y geodatabase (118 capas)", "OE 2", "", "", "", "X", "X", "", "", "", "", "", "", "100% Cerrado"],
+        ["H5: Calidad de datos (MetaCalidad ISO 19157)", "OE 2", "", "", "", "", "X", "X", "", "", "", "", "", "100% Terminado"],
+        ["H6: Análisis territorial y modelo ranking", "OE 2", "", "", "", "", "", "X", "X", "", "", "", "", "En inicio"],
+        ["H7: Estándar cartográfico del Atlas", "OE 3", "", "", "", "", "", "", "", "X", "", "", "", "Programado"],
+        ["H8: Geoportal web interactivo en producción", "OE 3", "", "", "", "", "", "X", "X", "X", "X", "", "", "80% Anticipado"],
+        ["H9: Validación con 3–5 usuarios reales", "OE 4", "", "", "", "", "", "", "", "", "", "X", "", "Programado"],
+        ["H10: Manuales, transferibilidad y entrega final", "OE 4", "", "", "", "", "", "", "", "", "", "", "X", "Programado"]
     ]
 
     for ri, fila in enumerate(filas_gantt, 5):

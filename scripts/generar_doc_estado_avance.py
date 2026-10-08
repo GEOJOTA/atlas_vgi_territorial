@@ -106,7 +106,7 @@ def crear_documento():
     r_sub.font.color.rgb = COLOR_NEGRO
 
     # Ficha de antecedentes en tabla elegante
-    t_f = doc.add_table(rows=4, cols=2)
+    t_f = doc.add_table(rows=5, cols=2)
     t_f.alignment = WD_TABLE_ALIGNMENT.CENTER
     set_table_borders(t_f, "CBD5E1", "6")
     
@@ -117,6 +117,7 @@ def crear_documento():
 
     ficha_datos = [
         ("Estudiante Practicante:", "Juan Pablo Lescano Villegas (GEOJOTA) — Licenciatura en Geografía"),
+        ("Coordinador de Prácticas:", "Alejandro Cortés (UAH)"),
         ("Docentes Supervisores:", "Prof. Manuel Fuenzalida (UAH) & Investigador Colaborador Fondecyt"),
         ("Período de Práctica:", "01 de septiembre al 12 de noviembre de 2026 (300 horas programadas / 11 semanas)"),
         ("Corte de Avance Reportado:", "150 horas cronológicas concluidas (Semanas 1 a 5 — 50% de avance acumulado)")
@@ -195,16 +196,16 @@ def crear_documento():
         p.runs[0].font.color.rgb = COLOR_BLANCO
 
     filas_h = [
-        ("H1", "Diagnóstico programático y estado del arte de plataformas VGI", "OE 1", "Semana 1", "100% Cerrado"),
-        ("H2", "Arquitectura conceptual, 10 macrocategorías y 4 perfiles DCU", "OE 1", "Semana 2", "100% Cerrado"),
-        ("H3", "Auditoría de fuentes VGI y catálogo de 134 descriptores", "OE 1", "Semana 3", "100% Cerrado"),
-        ("H4", "Geodatabase consolidada: 118 capas (108 Estado + 10 VGI)", "OE 2", "Semana 4–5", "100% Cerrado"),
-        ("H5", "Auditoría de MetaCalidad WLC v2.0 (97,88%) e inyección ISO", "OE 2", "Semana 5–6", "100% Cerrado"),
-        ("H6", "Cruces espaciales y modelos de cobertura/accesibilidad", "OE 2", "Semana 6–7", "En inicio"),
-        ("H7", "Refinamiento cartográfico y estándares de visualización", "OE 3", "Semana 8", "Programado"),
-        ("H8", "Consolidación final del Geoportal y catálogo en vivo", "OE 3", "Semana 8–9", "80% Anticipado"),
-        ("H9", "Validación empírica con usuarios (4 perfiles tipo) (OE 4)", "OE 4", "Semana 10", "Programado"),
-        ("H10", "Manuales de transferibilidad institucional y entrega final", "OE 4", "Semana 11", "Programado")
+        ("H1", "Inducción, territorio y usuarios", "OE 1", "Semana 1", "100% Cerrado"),
+        ("H2", "Diseño conceptual y 10 categorías VGI", "OE 1", "Semana 2", "100% Cerrado"),
+        ("H3", "Revisión de fuentes VGI y brechas IDE", "OE 1", "Semana 3", "100% Cerrado"),
+        ("H4", "Obtención y geodatabase (118 capas)", "OE 2", "Semana 4–5", "100% Cerrado"),
+        ("H5", "Calidad de datos (MetaCalidad ISO 19157)", "OE 2", "Semana 5–6", "100% Terminado"),
+        ("H6", "Análisis territorial y modelo ranking", "OE 2", "Semana 6–7", "En inicio"),
+        ("H7", "Estándar cartográfico del Atlas", "OE 3", "Semana 8", "Programado"),
+        ("H8", "Geoportal web interactivo en producción", "OE 3", "Semana 8–9", "80% Anticipado"),
+        ("H9", "Validación con 3–5 usuarios reales", "OE 4", "Semana 10", "Programado"),
+        ("H10", "Manuales, transferibilidad y entrega final", "OE 4", "Semana 11", "Programado")
     ]
     for ri, fila in enumerate(filas_h, 1):
         bg = "FFFFFF" if ri % 2 == 1 else "F8FAFC"
