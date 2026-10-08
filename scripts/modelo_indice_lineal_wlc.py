@@ -237,7 +237,10 @@ def generar_matriz_correlacion(df_capas: pd.DataFrame, ruta_csv: str = None, rut
     cols = [c["id"] for c in CRITERIOS_IGV if c["id"] in df_capas.columns]
     df_metricas = df_capas[cols].apply(pd.to_numeric, errors="coerce").fillna(0.0)
 
-    matriz_corr = df_metricas.corr().round(3)
+    matriz_corr = df_metricas.corr(method="pearson").round(3)
+    matriz_corr = matriz_corr.fillna(0.0)
+    for col in matriz_corr.columns:
+        matriz_corr.loc[col, col] = 1.0
 
     if ruta_csv:
         os.makedirs(os.path.dirname(ruta_csv), exist_ok=True)
@@ -245,35 +248,36 @@ def generar_matriz_correlacion(df_capas: pd.DataFrame, ruta_csv: str = None, rut
 
     if ruta_png and HAS_PLOT:
         os.makedirs(os.path.dirname(ruta_png), exist_ok=True)
-        fig, ax = plt.subplots(figsize=(11, 9), dpi=180)
+        fig, ax = plt.subplots(figsize=(11.5, 9.5), dpi=200)
         labels = [c["nombre"].split("(")[0].strip() for c in CRITERIOS_IGV if c["id"] in cols]
 
         corr_vals = matriz_corr.values
-        cax = ax.imshow(corr_vals, cmap="coolwarm", vmin=-0.5, vmax=1.0)
-        cbar = fig.colorbar(cax, ax=ax, shrink=0.8, pad=0.04)
-        cbar.set_label("Coeficiente de Pearson (r)", fontsize=10, fontweight="bold")
+        cax = ax.imshow(corr_vals, cmap="coolwarm", vmin=-0.6, vmax=1.0)
+        cbar = fig.colorbar(cax, ax=ax, shrink=0.82, pad=0.04)
+        cbar.set_label("Coeficiente de Correlación de Pearson (r)", fontsize=10, fontweight="bold")
 
         ax.set_xticks(range(len(labels)))
         ax.set_yticks(range(len(labels)))
-        ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=9)
-        ax.set_yticklabels(labels, fontsize=9)
+        ax.set_xticklabels(labels, rotation=40, ha="right", fontsize=9.5)
+        ax.set_yticklabels(labels, fontsize=9.5)
 
         # Anotaciones numéricas en cada celda
         for i in range(len(labels)):
             for j in range(len(labels)):
                 val = corr_vals[i, j]
-                color = "white" if abs(val) > 0.5 else "black"
-                ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=color, fontsize=8, fontweight="bold")
+                val_txt = f"{val:+.2f}" if val != 1.0 else "1.00"
+                color = "white" if abs(val) > 0.45 else "black"
+                ax.text(j, i, val_txt, ha="center", va="center", color=color, fontsize=8.5, fontweight="bold")
 
         ax.set_title(
-            "Matriz de Correlación entre Dimensiones de MetaCalidad Espacial (WLC v2.0)\n"
-            "Auditoría Multicriterio ISO 19157 / ISO 19115 — Base de Datos Atlas VGI UAH",
-            fontsize=11,
+            "Matriz de Correlación entre Dimensiones de Calidad y MetaCalidad (WLC v2.0)\n"
+            "Auditoría Multicriterio ISO 19157:2023 / ISO 19115-1:2014 — Atlas VGI Territorial UAH (118 Componentes)",
+            fontsize=11.5,
             pad=16,
             fontweight="bold"
         )
         plt.tight_layout()
-        plt.savefig(ruta_png, dpi=180, bbox_inches="tight")
+        plt.savefig(ruta_png, dpi=200, bbox_inches="tight")
         plt.close(fig)
 
     return matriz_corr
