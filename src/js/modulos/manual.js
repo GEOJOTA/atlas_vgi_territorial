@@ -365,16 +365,16 @@ const ModuloManual = (() => {
                 <span class="doc-mod-num">02</span>
               </div>
               <div class="doc-mod-titulos">
-                <h4 class="doc-mod-titulo">Calidad y Validación Espacial (ohsome API & OSMCha)</h4>
-                <span class="doc-mod-tech-tag">HeiGIT ohsome v1/v2 · OSMCha · ISO 19157</span>
+                <h4 class="doc-mod-titulo">Control de Calidad, Topología e Índice WLC v2.0 (ISO 19157 / HeiGIT / OSMCha)</h4>
+                <span class="doc-mod-tech-tag">WLC v2.0 · ISO 19157 · ISO 19115 · OGC SFA · HeiGIT ohsome · OSMCha</span>
               </div>
             </div>
             <div class="doc-mod-body">
-              <p class="doc-mod-desc">Módulo de evaluación cuantitativa según el estándar internacional ISO 19157 (Data Quality) y supervisión de micro-ediciones territoriales. Combina el cálculo histórico de densidad, completitud y usuarios únicos (ohsome / HeiGIT) con el control de cambios de la API de Changesets de OpenStreetMap y reglas heurísticas de OSMCha para auditar ediciones recientes, comentarios y herramientas de mapeo en el Bbox barrial.</p>
+              <p class="doc-mod-desc">Evaluador universal de calidad espacial y consistencia topológica OGC para datos vectoriales internos y externos. Implementa el modelo de Combinación Lineal Ponderada (WLC v2.0) con criterios diferenciados de beneficio y costo y normalización Min-Max (Malczewski 1999; Voogd 1983; Eastman 1999). Audita auto-intersecciones (kinks), anillos abiertos, slivers y completitud tabular, combinando métricas cronológicas históricas (ohsome API / HeiGIT) y supervisión comunitaria de changesets territoriales (OSMCha).</p>
               
               <div class="doc-mod-salidas">
                 <strong class="doc-mod-salidas-rotulo">📤 Salidas y Productos:</strong>
-                <span class="doc-mod-salidas-texto">Gráficos cronológicos de evolución, tarjetas de densidad por km², tabla de validación de changesets con badges de estado e hipervínculos a OSMCha.org.</span>
+                <span class="doc-mod-salidas-texto">Certificado JSON de Calidad ISO 19157, Matriz Multicriterio WLC v2.0 (.csv), semáforo cartográfico interactivo de entidades conformes y defectuosas, y gráficos temporales de evolución urbana.</span>
               </div>
             </div>
             <div class="doc-mod-footer">

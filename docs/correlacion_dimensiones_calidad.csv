@@ -1,0 +1,8 @@
+,score_topo,score_comp,score_pos,score_mc,score_ll,score_cc,anillos_abiertos
+score_topo,1.0,-0.004,,-0.11,,,
+score_comp,-0.004,1.0,,-0.012,,,
+score_pos,,,,,,,
+score_mc,-0.11,-0.012,,1.0,,,
+score_ll,,,,,,,
+score_cc,,,,,,,
+anillos_abiertos,,,,,,,

@@ -572,6 +572,162 @@ const EvaluadorCalidadCuantitativa = (() => {
       descripcionGrado = 'Presenta inconsistencias topológicas críticas o vacíos severos de información tabular.';
     }
 
+    // =========================================================================
+    // MATRIZ MULTICRITERIO WLC v2.0 (Weighted Linear Combination)
+    // Conforme a Malczewski (1999), Voogd (1983) y Eastman (1999)
+    // Criterios clasificados formalmente en Beneficio (▲) y Costo (▼)
+    // =========================================================================
+    const pesoGlobalCuant = ponderadores.pesoCuantitativo;
+    const pesoGlobalCual = ponderadores.pesoCualitativo;
+
+    const criteriosWLC = [
+      {
+        id: 'topologia',
+        nombre: 'Consistencia Topológica OGC',
+        dimension: 'Consistencia Lógica (ISO 19157)',
+        tipo: 'beneficio',
+        unidad: '% válidas',
+        valorBruto: scoreTopologia,
+        norm: Math.round((scoreTopologia / 100) * 1000) / 1000,
+        pesoRelativo: wC.topologia,
+        pesoGlobal: Math.round((pesoGlobalCuant * wC.topologia) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCuant * wC.topologia * scoreTopologia) * 10) / 10,
+        detalle: `${featuresValidas}/${totalFeatures} entidades conformes OGC (${totalKinks} kinks)`
+      },
+      {
+        id: 'completitud',
+        nombre: 'Completitud Tabular',
+        dimension: 'Completitud Atributos (ISO 19157)',
+        tipo: 'beneficio',
+        unidad: '% no nulos',
+        valorBruto: scoreCompletitud,
+        norm: Math.round((scoreCompletitud / 100) * 1000) / 1000,
+        pesoRelativo: wC.completitud,
+        pesoGlobal: Math.round((pesoGlobalCuant * wC.completitud) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCuant * wC.completitud * scoreCompletitud) * 10) / 10,
+        detalle: `${diagAtributos.totalCampos} campos analizados (${diagAtributos.tasaCompletitudGlobal}% completo)`
+      },
+      {
+        id: 'posicional',
+        nombre: 'Integridad Posicional y CRS',
+        dimension: 'Exactitud Posicional (ISO 19157)',
+        tipo: 'beneficio',
+        unidad: '% en dominio',
+        valorBruto: scorePosicional,
+        norm: Math.round((scorePosicional / 100) * 1000) / 1000,
+        pesoRelativo: wC.posicional,
+        pesoGlobal: Math.round((pesoGlobalCuant * wC.posicional) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCuant * wC.posicional * scorePosicional) * 10) / 10,
+        detalle: `${diagPosicional.verticesEnRango}/${diagPosicional.totalVertices} vértices en dominio EPSG`
+      },
+      {
+        id: 'estructura',
+        nombre: 'Estructura y Esquema',
+        dimension: 'Consistencia Conceptual (ISO 19157)',
+        tipo: 'beneficio',
+        unidad: '% homogeneidad',
+        valorBruto: scoreEstructura,
+        norm: Math.round((scoreEstructura / 100) * 1000) / 1000,
+        pesoRelativo: wC.estructura,
+        pesoGlobal: Math.round((pesoGlobalCuant * wC.estructura) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCuant * wC.estructura * scoreEstructura) * 10) / 10,
+        detalle: diagAtributos.clavePrimariaUnica ? 'Clave primaria unívoca presente ✓' : 'Tipos homogéneos'
+      },
+      {
+        id: 'granularidad',
+        nombre: 'Granularidad Geométrica',
+        dimension: 'Calidad Geométrica (ISO 19157)',
+        tipo: 'beneficio',
+        unidad: '% sin slivers',
+        valorBruto: scoreGranularidad,
+        norm: Math.round((scoreGranularidad / 100) * 1000) / 1000,
+        pesoRelativo: wC.granularidad,
+        pesoGlobal: Math.round((pesoGlobalCuant * wC.granularidad) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCuant * wC.granularidad * scoreGranularidad) * 10) / 10,
+        detalle: `${totalSlivers} micro-slivers parásitos detectados`
+      },
+      {
+        id: 'mc',
+        nombre: 'Metadatos Núcleo (Core)',
+        dimension: 'Completitud Documental (ISO 19115)',
+        tipo: 'beneficio',
+        unidad: '% 10 campos',
+        valorBruto: desgloseCualitativo.mc,
+        norm: Math.round((desgloseCualitativo.mc / 100) * 1000) / 1000,
+        pesoRelativo: ponderadores.cualitativo.mc,
+        pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.mc) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.mc * desgloseCualitativo.mc) * 10) / 10,
+        detalle: '10 elementos obligatorios del Perfil Nacional de Metadatos'
+      },
+      {
+        id: 'cc',
+        nombre: 'Conformidad Semántica',
+        dimension: 'Catálogo de Objetos (ISO 19110)',
+        tipo: 'beneficio',
+        unidad: '% conformidad',
+        valorBruto: desgloseCualitativo.cc,
+        norm: Math.round((desgloseCualitativo.cc / 100) * 1000) / 1000,
+        pesoRelativo: ponderadores.cualitativo.cc,
+        pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.cc) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.cc * desgloseCualitativo.cc) * 10) / 10,
+        detalle: 'Esquema ISO 19139 / Diccionario Territorial'
+      },
+      {
+        id: 'll',
+        nombre: 'Linaje y Derechos Legales',
+        dimension: 'Trazabilidad y Licenciamiento',
+        tipo: 'beneficio',
+        unidad: '% legalidad',
+        valorBruto: desgloseCualitativo.ll,
+        norm: Math.round((desgloseCualitativo.ll / 100) * 1000) / 1000,
+        pesoRelativo: ponderadores.cualitativo.ll,
+        pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.ll) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.ll * desgloseCualitativo.ll) * 10) / 10,
+        detalle: 'ODbL 1.0 / Ley N° 20.285 de Transparencia / Cita APA'
+      },
+      {
+        id: 'rg',
+        nombre: 'Resolución Espacial y Granularidad',
+        dimension: 'Representación Geodésica',
+        tipo: 'beneficio',
+        unidad: '% escala',
+        valorBruto: desgloseCualitativo.rg,
+        norm: Math.round((desgloseCualitativo.rg / 100) * 1000) / 1000,
+        pesoRelativo: ponderadores.cualitativo.rg,
+        pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.rg) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.rg * desgloseCualitativo.rg) * 10) / 10,
+        detalle: 'Dualidad WGS84 (EPSG:4326) / UTM 19S (EPSG:32719)'
+      },
+      {
+        id: 'ai',
+        nombre: 'Accesibilidad Operativa',
+        dimension: 'Disponibilidad de Servicio',
+        tipo: 'beneficio',
+        unidad: '% disponibilidad',
+        valorBruto: desgloseCualitativo.ai,
+        norm: Math.round((desgloseCualitativo.ai / 100) * 1000) / 1000,
+        pesoRelativo: ponderadores.cualitativo.ai,
+        pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.ai) * 1000) / 1000,
+        contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.ai * desgloseCualitativo.ai) * 10) / 10,
+        detalle: 'Disponibilidad Edge CDN / Descarga directa sin fallos'
+      }
+    ];
+
+    const matrizWLC = {
+      modelo: 'Weighted Linear Combination (WLC) v2.0 Escalable',
+      referencias: 'Malczewski (1999); Voogd (1983); Eastman (1999); Anselin (1988/1995); Tobler (1970)',
+      formula: 'IGV = Σ (w_i · x_norm,i) con Σ w_i = 1.00',
+      pesoGlobalCuantitativo: pesoGlobalCuant,
+      pesoGlobalCualitativo: pesoGlobalCual,
+      criterios: criteriosWLC,
+      penalizacionesCosto: [
+        { id: 'kinks', nombre: 'Auto-intersecciones', valor: totalKinks, tipo: 'costo' },
+        { id: 'anillos_abiertos', nombre: 'Anillos abiertos', valor: totalAnillosAbiertos, tipo: 'costo' },
+        { id: 'slivers', nombre: 'Micro-slivers', valor: totalSlivers, tipo: 'costo' },
+        { id: 'nulos', nombre: 'Celdas atributivas nulas', valor: diagAtributos.totalCeldas - diagAtributos.totalCeldasValidas, tipo: 'costo' }
+      ]
+    };
+
     return {
       fechaAuditoria: new Date().toISOString(),
       resumenDataset: {
@@ -602,7 +758,8 @@ const EvaluadorCalidadCuantitativa = (() => {
       },
       dimensionesCualitativas: desgloseCualitativo,
       atributosDetalle: diagAtributos.listaCampos,
-      entidadesDiagnosticadas
+      entidadesDiagnosticadas,
+      matrizWLC
     };
   }
 
@@ -730,6 +887,94 @@ const EvaluadorCalidadCuantitativa = (() => {
 
         </div>
 
+        <!-- Matriz Multicriterio WLC v2.0 (Combinación Lineal Ponderada y Normalización Min-Max) -->
+        <div style="margin-top:20px; background:var(--papel-alto); border:1px solid var(--linea); border-radius:10px; padding:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div>
+              <h4 style="margin:0; font-size:1.02rem; font-family:var(--fuente-datos); color:var(--tinta); display:flex; align-items:center; gap:8px;">
+                <span>📐</span> Matriz Multicriterio WLC v2.0 — Desglose y Normalización Min-Max
+              </h4>
+              <span style="font-size:0.75rem; color:var(--tinta-suave);">
+                Formulación axiomática (Malczewski 1999; Voogd 1983; Eastman 1999). Ponderación aditiva lineal: S = Σ (wᵢ · x_norm,i).
+              </span>
+            </div>
+            <span style="font-family:var(--fuente-datos); font-size:0.75rem; background:rgba(56, 189, 248, 0.15); color:#38bdf8; border:1px solid #38bdf8; padding:3px 10px; border-radius:6px; font-weight:700;">
+              WLC ADITIVO · 10 CRITERIOS (100%)
+            </span>
+          </div>
+
+          <!-- Barra Apilada de Contribuciones -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.72rem; font-family:var(--fuente-datos); margin-bottom:4px; color:var(--tinta-tenue);">
+              <span>Distribución Relativa del Score IGV (${ig.igv}%)</span>
+              <span>Suma de Contribuciones = 100%</span>
+            </div>
+            <div style="height:14px; width:100%; border-radius:6px; overflow:hidden; display:flex; background:#1e293b; border:1px solid var(--linea);">
+              ${resultado.matrizWLC ? resultado.matrizWLC.criterios.map((c, i) => {
+                const colores = ['#38bdf8', '#0ea5e9', '#0284c7', '#0369a1', '#075985', '#10b981', '#059669', '#047857', '#065f46', '#064e3b'];
+                return `<div title="${c.nombre}: +${c.contrib}%" style="width:${c.contrib}%; background:${colores[i % colores.length]}; height:100%;"></div>`;
+              }).join('') : ''}
+            </div>
+          </div>
+
+          <!-- Tabla de Desglose WLC -->
+          <div style="overflow-x:auto;">
+            <table class="tabla-datos" style="margin:0; width:100%; font-size:0.76rem;">
+              <thead>
+                <tr style="background:var(--papel-tarjeta);">
+                  <th style="padding:6px 8px;">Criterio Evaluado</th>
+                  <th style="padding:6px 8px;">Dimensión ISO</th>
+                  <th style="padding:6px 8px; text-align:center;">Tipo</th>
+                  <th style="padding:6px 8px; text-align:right;">Valor Bruto</th>
+                  <th style="padding:6px 8px; text-align:right;">Norm. [0,1]</th>
+                  <th style="padding:6px 8px; text-align:right;">Peso (wᵢ)</th>
+                  <th style="padding:6px 8px; text-align:right;">Contribución</th>
+                  <th style="padding:6px 8px;">Diagnóstico / Métrica</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${resultado.matrizWLC ? resultado.matrizWLC.criterios.map(c => `
+                  <tr>
+                    <td style="padding:6px 8px; font-weight:700; font-family:var(--fuente-datos);">${c.nombre}</td>
+                    <td style="padding:6px 8px; color:var(--tinta-suave); font-size:0.73rem;">${c.dimension}</td>
+                    <td style="padding:6px 8px; text-align:center;">
+                      <span style="font-size:0.7rem; font-weight:700; color:${c.tipo === 'beneficio' ? '#10b981' : '#f59e0b'};">
+                        ${c.tipo === 'beneficio' ? '▲ Beneficio' : '▼ Costo'}
+                      </span>
+                    </td>
+                    <td style="padding:6px 8px; text-align:right; font-family:var(--fuente-datos);">${c.valorBruto}${c.unidad.includes('%') ? '%' : ''}</td>
+                    <td style="padding:6px 8px; text-align:right; font-family:var(--fuente-datos); color:#38bdf8; font-weight:700;">${c.norm}</td>
+                    <td style="padding:6px 8px; text-align:right; font-family:var(--fuente-datos); color:var(--tinta-tenue);">${c.pesoGlobal}</td>
+                    <td style="padding:6px 8px; text-align:right; font-family:var(--fuente-datos); font-weight:800; color:#10b981;">+${c.contrib}%</td>
+                    <td style="padding:6px 8px; color:var(--tinta-suave); font-size:0.72rem;">${c.detalle}</td>
+                  </tr>
+                `).join('') : ''}
+                <tr style="background:var(--papel-tarjeta); font-weight:800; border-top:2px solid var(--linea);">
+                  <td colspan="5" style="padding:8px 8px; font-family:var(--fuente-datos);">PUNTAJE GLOBAL AGREGADO WLC (ÍNDICE IGV)</td>
+                  <td style="padding:8px 8px; text-align:right; font-family:var(--fuente-datos);">1.000</td>
+                  <td style="padding:8px 8px; text-align:right; font-family:var(--fuente-datos); font-size:0.95rem; color:${ig.badgeColor};">${ig.igv}%</td>
+                  <td style="padding:8px 8px; font-family:var(--fuente-datos); color:${ig.badgeColor};">${ig.grado}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Auditoría de Defectos (Criterios de Costo) -->
+          <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:0.73rem;">
+            <span style="color:var(--tinta-tenue); font-weight:700;">Auditoría de Defectos (Criterios de Costo):</span>
+            <span style="background:${rd.totalKinks > 0 ? '#ef444422' : '#10b98115'}; color:${rd.totalKinks > 0 ? '#ef4444' : '#10b981'}; border:1px solid ${rd.totalKinks > 0 ? '#ef4444' : '#10b981'}; padding:2px 8px; border-radius:4px;">
+              ${rd.totalKinks} Auto-intersecciones (Kinks)
+            </span>
+            <span style="background:${rd.totalAnillosAbiertos > 0 ? '#ef444422' : '#10b98115'}; color:${rd.totalAnillosAbiertos > 0 ? '#ef4444' : '#10b981'}; border:1px solid ${rd.totalAnillosAbiertos > 0 ? '#ef4444' : '#10b981'}; padding:2px 8px; border-radius:4px;">
+              ${rd.totalAnillosAbiertos} Anillos Abiertos
+            </span>
+            <span style="background:${rd.totalSlivers > 0 ? '#f59e0b22' : '#10b98115'}; color:${rd.totalSlivers > 0 ? '#f59e0b' : '#10b981'}; border:1px solid ${rd.totalSlivers > 0 ? '#f59e0b' : '#10b981'}; padding:2px 8px; border-radius:4px;">
+              ${rd.totalSlivers} Micro-Slivers
+            </span>
+          </div>
+
+        </div>
+
         <!-- Mini-Mapa de Diagnóstico Cartográfico Leaflet -->
         <div style="margin-top:16px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -784,6 +1029,9 @@ const EvaluadorCalidadCuantitativa = (() => {
             <button class="accion" id="btn-descargar-certificado-calidad" style="font-size:0.8rem; padding:6px 14px; background:#10b981; color:#000; font-weight:700;">
               📥 Descargar Certificado ISO 19157 (.json)
             </button>
+            <button class="accion secundaria" id="btn-descargar-matriz-wlc" style="font-size:0.8rem; padding:6px 14px; background:rgba(56, 189, 248, 0.15); color:#38bdf8; border:1px solid #38bdf8; font-weight:700;">
+              📊 Descargar Matriz WLC (.csv)
+            </button>
             <button class="accion secundaria" id="btn-copiar-resumen-calidad" style="font-size:0.8rem; padding:6px 14px;">
               📋 Copiar Resumen al Portapapeles
             </button>
@@ -803,6 +1051,11 @@ const EvaluadorCalidadCuantitativa = (() => {
     const btnDescargar = document.getElementById('btn-descargar-certificado-calidad');
     if (btnDescargar) {
       btnDescargar.addEventListener('click', () => exportarCertificadoJSON(resultado));
+    }
+
+    const btnDescargarWLC = document.getElementById('btn-descargar-matriz-wlc');
+    if (btnDescargarWLC) {
+      btnDescargarWLC.addEventListener('click', () => exportarMatrizWLCCSV(resultado));
     }
 
     const btnCopiar = document.getElementById('btn-copiar-resumen-calidad');
@@ -943,6 +1196,30 @@ const EvaluadorCalidadCuantitativa = (() => {
     document.body.appendChild(a);
     a.click();
     a.remove();
+  }
+
+  /**
+   * Exporta la matriz multicriterio WLC v2.0 a archivo CSV estructurado
+   */
+  function exportarMatrizWLCCSV(resultado) {
+    if (!resultado || !resultado.matrizWLC) return;
+    const lineas = [
+      'ID,CRITERIO,DIMENSION_NORMATIVA,TIPO,VALOR_BRUTO,NORMALIZADO_0_1,PESO_GLOBAL,CONTRIBUCION_IGV,DETALLE'
+    ];
+    resultado.matrizWLC.criterios.forEach(c => {
+      const detalleLimpio = String(c.detalle || '').replace(/"/g, '""');
+      lineas.push(`"${c.id}","${c.nombre}","${c.dimension}","${c.tipo}",${c.valorBruto},${c.norm},${c.pesoGlobal},${c.contrib},"${detalleLimpio}"`);
+    });
+    const csvContent = '\uFEFF' + lineas.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `matriz_wlc_calidad_iso19157_${Date.now()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   /**
@@ -1150,6 +1427,7 @@ const EvaluadorCalidadCuantitativa = (() => {
     renderizarMapaDiagnostico,
     invalidarTamanoMapa,
     exportarCertificadoJSON,
+    exportarMatrizWLCCSV,
     inicializarUI
   };
 

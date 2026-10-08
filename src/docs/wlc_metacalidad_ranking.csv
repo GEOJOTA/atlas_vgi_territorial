@@ -1,0 +1,119 @@
+﻿id,nombre,tipo_fuente,institucion,indice_score,calidad_rank,norm_score_topo,norm_score_comp,norm_score_pos,norm_score_mc,norm_score_ll,norm_score_cc,norm_anillos_abiertos,contrib_score_topo,contrib_score_comp,contrib_score_pos,contrib_score_mc,contrib_score_ll,contrib_score_cc,contrib_anillos_abiertos
+bbdd_32,Vertederos Ilegales,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_42,Pisos vegetacionales de Luebert y Pliscoff 2017,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_44,Municipios con certificación ambiental (SCAM),Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_47,Zona Fronteriza,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_52,Estaciones Meteorológicas Automáticas (FIA),Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_54,Mercados Mayoristas (ODEPA),Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_55,Sistema Nacional de Áreas Silvestres Protegidas del Estado,Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+educacion,Educación y Universidad,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.997332,53,1.0,0.982211,1.0,1.0,1.0,1.0,1.0,0.2,0.147332,0.15,0.2,0.15,0.1,0.05
+edificaciones,Edificaciones y Huella Urbana,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.997141,54,1.0,0.98094,1.0,1.0,1.0,1.0,1.0,0.2,0.147141,0.15,0.2,0.15,0.1,0.05
+bbdd_51,Localización de viveros en Chile continental,Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,0.998666,52,1.0,0.991105,1.0,1.0,1.0,1.0,1.0,0.2,0.148666,0.15,0.2,0.15,0.1,0.05
+censo2024_regional,Censo 2024 (Marco Regional RM),Oficial (Estado de Chile),Instituto Nacional de Estadísticas (INE) / IDE Chile,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+cmn_sitios_memoria,Sitios de Memoria y Monumentos CMN,Oficial (Estado de Chile),Consejo de Monumentos Nacionales (CMN) / datos.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_04,Contratos Concesionados - GEOMOP,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geomop.mop.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_06,Jardines Infantiles JUNJI,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_08,Municipios,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_10,Jardines Infantiles Fundación Integra,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_17,Áreas Funcionales de las ciudades (2026),Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoide.minvu.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_19,Cité,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoide.minvu.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_21,Oficinas Serviu,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoide.minvu.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_23,Sitios BIO-Prioritarios,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_24,Juzgados de Familia,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_25,Estaciones Meteorológicas,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_26,Estaciones Sedimentométricas,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_27,Estaciones de Calidad de Aguas,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_29,Cuencas Banco Nacional de Aguas,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_31,Ciclovías,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_34,Zonas climáticas de Chile según Köppen-Geiger escala 1:1.500.000,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_35,Antenas en Servicio Ley de Torres,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_38,Territorios de los Servicios de Salud,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_40,Circuitos Turísticos,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_43,División Política Administrativa 2023,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_48,Pasos Fronterizos,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_49,Estaciones Fluviométricas,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_50,Oficinas de Protección de Derechos (ODP),Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_62,Cobertura de polígonos representativos de los huertos frutales de la Región Metropolitana 2025,Oficial (Estado de Chile),Estado de Chile / IDE Chile / icet.odepa.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_63,Inventario de Biomasa y Carbono - Metropolitana tipo Forestal,Oficial (Estado de Chile),Estado de Chile / IDE Chile / sit.conaf.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_64,Índice Global de Vulnerabilidad Socioterritorial (IGVUST) por UV 2026 Agosto,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_65,"Iniciativas de inversión del Banco Integrado de Proyectos (BIP), por años, al 31-08-2026.",Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_66,Unidades Vecinales 2026,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_67,Personas en RSH en situación de dependencia funcional según CSE - 2026 Agosto,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_68,Personas en RSH según CSE y sexo - 2026 Agosto,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_69,NNA en RSH adscritas a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_70,Mujeres en RSH adscritas a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_71,Jóvenes en RSH adscritos a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_72,Hombres en RSH adscritos a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_73,Personas mayores en RSH adscritos a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio,Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_74,"Personas en RSH ocupadas y cotizando, por modalidad contractual según tramo CSE - 2026 Junio",Oficial (Estado de Chile),Estado de Chile / IDE Chile / bidat.gob.cl,1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+cobertura_suelo,Coberturas y Usos de Suelo,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),1.0,1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.2,0.15,0.15,0.2,0.15,0.1,0.05
+bbdd_01,Proyectos Mandatados - GEOMOP,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geomop.mop.gob.cl,0.999238,47,1.0,0.994917,1.0,1.0,1.0,1.0,1.0,0.2,0.149238,0.15,0.2,0.15,0.1,0.05
+bbdd_13,Establecimientos Educación Parvularia,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.999619,46,1.0,0.997459,1.0,1.0,1.0,1.0,1.0,0.2,0.149619,0.15,0.2,0.15,0.1,0.05
+censo2024_manzanas,Censo 2024 (Manzanas Censales RM),Oficial (Estado de Chile),Instituto Nacional de Estadísticas (INE) / IDE Chile,0.998856,50,1.0,0.992376,1.0,1.0,1.0,1.0,1.0,0.2,0.148856,0.15,0.2,0.15,0.1,0.05
+bbdd_12,Establecimientos Educación Escolar,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.999047,48,1.0,0.993647,1.0,1.0,1.0,1.0,1.0,0.2,0.149047,0.15,0.2,0.15,0.1,0.05
+bbdd_39,Estaciones de monitoreo de calidad de aire (Red Pública),Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.98094,63,1.0,0.872935,1.0,1.0,1.0,1.0,1.0,0.2,0.13094,0.15,0.2,0.15,0.1,0.05
+bbdd_05,Contratos MOP - GEOMOP,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geomop.mop.gob.cl,0.998856,50,1.0,0.992376,1.0,1.0,1.0,1.0,1.0,0.2,0.148856,0.15,0.2,0.15,0.1,0.05
+bbdd_53,Industria Forestal Primeria (INFOR),Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,0.986086,62,1.0,0.907243,1.0,1.0,1.0,1.0,1.0,0.2,0.136086,0.15,0.2,0.15,0.1,0.05
+bbdd_11,Cuerpos de Bomberos,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.996188,55,1.0,0.974587,1.0,1.0,1.0,1.0,1.0,0.2,0.146188,0.15,0.2,0.15,0.1,0.05
+bbdd_33,Plan Cuadrante Carabineros,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.991423,58,1.0,0.942821,1.0,1.0,1.0,1.0,1.0,0.2,0.141423,0.15,0.2,0.15,0.1,0.05
+bbdd_03,Red Hidrométrica - GEOMOP,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geomop.mop.gob.cl,0.994282,56,1.0,0.961881,1.0,1.0,1.0,1.0,1.0,0.2,0.144282,0.15,0.2,0.15,0.1,0.05
+bbdd_15,Centros de SERNAM,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.999047,48,1.0,0.993647,1.0,1.0,1.0,1.0,1.0,0.2,0.149047,0.15,0.2,0.15,0.1,0.05
+bbdd_07,Infraestructura Deportiva,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.986468,61,1.0,0.909784,1.0,1.0,1.0,1.0,1.0,0.2,0.136468,0.15,0.2,0.15,0.1,0.05
+bbdd_02,Red Vial Nacional - GEOMOP,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geomop.mop.gob.cl,0.987992,59,1.0,0.919949,1.0,1.0,1.0,1.0,1.0,0.2,0.137992,0.15,0.2,0.15,0.1,0.05
+bbdd_14,Establecimientos de Educación Superior,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.992757,57,1.0,0.951715,1.0,1.0,1.0,1.0,1.0,0.2,0.142757,0.15,0.2,0.15,0.1,0.05
+patrimonio,Patrimonio y Cultura,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.979797,64,1.0,0.865311,1.0,1.0,1.0,1.0,1.0,0.2,0.129797,0.15,0.2,0.15,0.1,0.05
+estaciones_metro,Estaciones de Metro de Santiago,Oficial (Estado de Chile),DTPM / Metro S.A. / IDE Chile / datos.gob.cl,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+minvu_ipt_resguardo_infraestructura,Fajas de Resguardo e Infraestructura PRMS,Oficial (Estado de Chile),MINVU / SEREMI Metropolitana,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+ide_minvu_campamentos,Catastro Campamentos 2024 (MINVU),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+ide_subdere_dpa_comunas,División Político-Administrativa (SUBDERE / IGM),Oficial (Estado de Chile),Subsecretaría de Desarrollo Regional (SUBDERE) / IGM / IDE Chile,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+energia_almacenamiento_rm,Sistemas de Almacenamiento de Energía RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+energia_electrolineras_rm,Red de Electrolineras RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+bbdd_46,Predios Urbanos (Comuna de Santiago),Oficial (Estado de Chile),Servicio de Impuestos Internos (SII) / IDE Chile,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+bbdd_37,Red de Interconexión,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.79047,114,0.0,0.936468,1.0,1.0,1.0,1.0,1.0,0.0,0.14047,0.15,0.2,0.15,0.1,0.05
+bbdd_60,Catastro y Actualización de los Recursos Vegetacionales y Uso de la Tierra de la Región de Metropolitana (XIII),Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,0.79047,114,0.0,0.936468,1.0,1.0,1.0,1.0,1.0,0.0,0.14047,0.15,0.2,0.15,0.1,0.05
+catastro_predial_sii,Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026),Oficial (Estado de Chile),Servicio de Impuestos Internos (SII),0.79047,114,0.0,0.936468,1.0,1.0,1.0,1.0,1.0,0.0,0.14047,0.15,0.2,0.15,0.1,0.05
+censo2024_limite_urbano,Censo 2024 (Límites Urbanos Censales RM),Oficial (Estado de Chile),Instituto Nacional de Estadísticas (INE) / IDE Chile,0.899428,84,1.0,0.996188,1.0,0.5,1.0,1.0,1.0,0.2,0.149428,0.15,0.1,0.15,0.1,0.05
+censo2024_zonal,Censo 2024 (Zonas y Distritos Censales RM),Oficial (Estado de Chile),Instituto Nacional de Estadísticas (INE) / IDE Chile,0.9,73,1.0,1.0,1.0,0.5,1.0,1.0,1.0,0.2,0.15,0.15,0.1,0.15,0.1,0.05
+educacion_parvularia,Jardines y Salas Cuna (JUNJI / Integra),Oficial (Estado de Chile),JUNJI / Fundación Integra / MINEDUC / IDE Chile,0.899619,83,1.0,0.997459,1.0,0.5,1.0,1.0,1.0,0.2,0.149619,0.15,0.1,0.15,0.1,0.05
+energia_solares_rm,Plantas Solares Fotovoltaicas RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.899809,81,1.0,0.998729,1.0,0.5,1.0,1.0,1.0,0.2,0.149809,0.15,0.1,0.15,0.1,0.05
+energia_lineas_transmision_rm,Líneas de Transmisión Eléctrica RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.899809,81,1.0,0.998729,1.0,0.5,1.0,1.0,1.0,0.2,0.149809,0.15,0.1,0.15,0.1,0.05
+bbdd_18,Zonificación Termica,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoide.minvu.cl,0.98723,60,1.0,0.914867,1.0,1.0,1.0,1.0,1.0,0.2,0.13723,0.15,0.2,0.15,0.1,0.05
+energia_bioenergia_rm,Centrales de Bioenergía RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.89676,87,1.0,0.978399,1.0,0.5,1.0,1.0,1.0,0.2,0.14676,0.15,0.1,0.15,0.1,0.05
+ide_minvu_ipt_prms_riesgo,PRMS: Riesgos Metropolitanos (Inundación / Remoción),Oficial (Estado de Chile),MINVU / SEREMI Metropolitana,0.899428,84,1.0,0.996188,1.0,0.5,1.0,1.0,1.0,0.2,0.149428,0.15,0.1,0.15,0.1,0.05
+servicios,Servicios y Comercio Barrial,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.964168,65,1.0,0.761118,1.0,1.0,1.0,1.0,1.0,0.2,0.114168,0.15,0.2,0.15,0.1,0.05
+transporte,Movilidad y Transporte,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.962643,66,1.0,0.750953,1.0,1.0,1.0,1.0,1.0,0.2,0.112643,0.15,0.2,0.15,0.1,0.05
+movilidad_activa,Movilidad Activa y Ciclovías,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.962643,66,1.0,0.750953,1.0,1.0,1.0,1.0,1.0,0.2,0.112643,0.15,0.2,0.15,0.1,0.05
+energia_hidroelectricas_rm,Centrales Hidroeléctricas RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.890089,89,1.0,0.933926,1.0,0.5,1.0,1.0,1.0,0.2,0.140089,0.15,0.1,0.15,0.1,0.05
+carabineros,Comisarías y Cuarteles Policiales,Oficial (Estado de Chile),Carabineros de Chile / IDE Chile,0.884562,91,1.0,0.897078,1.0,0.5,1.0,1.0,1.0,0.2,0.134562,0.15,0.1,0.15,0.1,0.05
+accesibilidad,Accesibilidad Universal,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.958259,68,1.0,0.721728,1.0,1.0,1.0,1.0,1.0,0.2,0.108259,0.15,0.2,0.15,0.1,0.05
+minvu_ipt_areas_verdes,Áreas Verdes Normativas (MINVU / INE 2023),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU) / INE,0.879606,93,1.0,0.864041,1.0,0.5,1.0,1.0,1.0,0.2,0.129606,0.15,0.1,0.15,0.1,0.05
+energia_termoelectricas_rm,Centrales Termoeléctricas RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.887992,90,1.0,0.919949,1.0,0.5,1.0,1.0,1.0,0.2,0.137992,0.15,0.1,0.15,0.1,0.05
+espacio_publico,Áreas Verdes y Espacio Público,VGI (Comunitaria / Abierta),Comunidad OpenStreetMap (© Colaboradores de OpenStreetMap),0.956544,69,1.0,0.710292,1.0,1.0,1.0,1.0,1.0,0.2,0.106544,0.15,0.2,0.15,0.1,0.05
+bbdd_20,SEREMI MINVU Región Metropolitana,Oficial (Estado de Chile),SEREMI Metropolitana de Vivienda y Urbanismo / MINVU,0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_1993,Continuo de Construcciones Urbanas (1993),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2002,Continuo de Construcciones Urbanas (2002),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2006,Continuo de Construcciones Urbanas (2006),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2011,Continuo de Construcciones Urbanas (2011),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2017,Continuo de Construcciones Urbanas (2017),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2018,Continuo de Construcciones Urbanas (2018),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2019,Continuo de Construcciones Urbanas (2019),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2020,Continuo de Construcciones Urbanas (2020),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2021,Continuo de Construcciones Urbanas (2021),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2022,Continuo de Construcciones Urbanas (2022),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2023,Continuo de Construcciones Urbanas (2023),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+ccu_rm_2024,Continuo de Construcciones Urbanas (2024),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.8,101,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.2,0.15,0.15,0.0,0.15,0.1,0.05
+biodiversidad,Biodiversidad Urbana,VGI (Comunitaria / Abierta),Global Biodiversity Information Facility (GBIF.org),0.955972,70,1.0,0.70648,1.0,1.0,1.0,1.0,1.0,0.2,0.105972,0.15,0.2,0.15,0.1,0.05
+semaforos_rm_uoct_2026,Cruces Semaforizados Conectados SC-RM (UOCT / MTT),Oficial (Estado de Chile),Unidad Operativa de Control de Tránsito (UOCT) / MTT,0.891423,88,1.0,0.942821,1.0,0.5,1.0,1.0,1.0,0.2,0.141423,0.15,0.1,0.15,0.1,0.05
+bbdd_30,Indice Calidad de Aguas,Oficial (Estado de Chile),Estado de Chile / IDE Chile / geoportal.cl,0.95521,71,1.0,0.701398,1.0,1.0,1.0,1.0,1.0,0.2,0.10521,0.15,0.2,0.15,0.1,0.05
+censo2024_localidades,Censo 2024 (Localidades y Asentamientos RM),Oficial (Estado de Chile),Instituto Nacional de Estadísticas (INE) / IDE Chile,0.898094,86,1.0,0.987294,1.0,0.5,1.0,1.0,1.0,0.2,0.148094,0.15,0.1,0.15,0.1,0.05
+bomberos,Cuarteles de Bomberos de Chile,Oficial (Estado de Chile),Junta Nacional de Cuerpos de Bomberos / IDE Chile,0.883037,92,1.0,0.886912,1.0,0.5,1.0,1.0,1.0,0.2,0.133037,0.15,0.1,0.15,0.1,0.05
+energia_gasoducto_rm,Red de Gasoductos RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.866836,94,1.0,0.778907,1.0,0.5,1.0,1.0,1.0,0.2,0.116836,0.15,0.1,0.15,0.1,0.05
+energia_oleoducto_rm,Red de Oleoductos RM,Oficial (Estado de Chile),Ministerio de Energía / IDE Energía,0.866836,94,1.0,0.778907,1.0,0.5,1.0,1.0,1.0,0.2,0.116836,0.15,0.1,0.15,0.1,0.05
+minvu_ipt_prms_usosuelo,Plan Regulador Metropolitano (PRMS): Usos de Suelo Regional,Oficial (Estado de Chile),MINVU / SEREMI Metropolitana de Vivienda y Urbanismo,0.788755,117,1.0,0.925032,1.0,0.0,1.0,1.0,1.0,0.2,0.138755,0.15,0.0,0.15,0.1,0.05
+minvu_ipt_areas_riesgo,Áreas de Riesgo Normativas (IPT),Oficial (Estado de Chile),MINVU / DDU / SEREMI RM,0.862834,96,1.0,0.752224,1.0,0.5,1.0,1.0,1.0,0.2,0.112834,0.15,0.1,0.15,0.1,0.05
+bbdd_59,Cobertura de canales a nivel nacional,Oficial (Estado de Chile),Estado de Chile / IDE Chile / ide.minagri.gob.cl,0.936341,72,1.0,0.575604,1.0,1.0,1.0,1.0,1.0,0.2,0.086341,0.15,0.2,0.15,0.1,0.05
+red_ferroviaria,Red Ferroviaria EFE (MTT),Oficial (Estado de Chile),Empresa de los Ferrocarriles del Estado (EFE) / MTT / IDE Chile,0.848729,99,1.0,0.658196,1.0,0.5,1.0,1.0,1.0,0.2,0.098729,0.15,0.1,0.15,0.1,0.05
+minvu_ipt_limite_urbano,Límite Urbano Oficial PRC (MINVU),Oficial (Estado de Chile),MINVU / DDU / I. Municipalidad de Santiago,0.849111,98,1.0,0.660737,1.0,0.5,1.0,1.0,1.0,0.2,0.099111,0.15,0.1,0.15,0.1,0.05
+minvu_patrimonio,Patrimonio IPT: Inmuebles y Zonas de Conservación Histórica (ZCH / ICH RM),Oficial (Estado de Chile),Ministerio de Vivienda y Urbanismo (MINVU),0.805654,100,1.0,0.371029,1.0,0.5,1.0,1.0,1.0,0.2,0.055654,0.15,0.1,0.15,0.1,0.05
+establecimientos_salud,Salud Pública (CESFAM y Hospitales),Oficial (Estado de Chile),Ministerio de Salud (MINSAL) / DEIS / IDE Chile,0.772872,118,1.0,0.152478,1.0,0.5,1.0,1.0,1.0,0.2,0.022872,0.15,0.1,0.15,0.1,0.05
+minvu_ipt_prc_santiago,Planes Reguladores Comunales (PRC - RM): Zonificación Comunal,Oficial (Estado de Chile),MINVU / Municipios de la Región Metropolitana,0.85,97,1.0,0.0,1.0,1.0,1.0,1.0,1.0,0.2,0.0,0.15,0.2,0.15,0.1,0.05

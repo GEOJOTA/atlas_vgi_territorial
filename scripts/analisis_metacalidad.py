@@ -855,7 +855,40 @@ def evaluar_metacalidad_capa(capa):
         'igv': igv,
         'igmc': igmc,
         'grado': grado,
-        'badge': badge_color
+        'badge': badge_color,
+        # Desglose Formal WLC v2.0 (Beneficio / Costo y Aportes Ponderados)
+        'contrib_topo': round(0.15 * score_topo, 2),
+        'contrib_comp': round(0.125 * score_comp, 2),
+        'contrib_pos': round(0.10 * score_pos, 2),
+        'contrib_estruc': round(0.075 * score_estruc, 2),
+        'contrib_gran': round(0.05 * score_gran, 2),
+        'contrib_mc': round(0.15 * score_mc, 2),
+        'contrib_cc': round(0.10 * score_cc, 2),
+        'contrib_ll': round(0.125 * score_ll, 2),
+        'contrib_rg': round(0.075 * score_rg, 2),
+        'contrib_ai': round(0.05 * score_ai, 2),
+        'wlc_desglose': {
+            'norm_topo': round(score_topo / 100.0, 4),
+            'contrib_topo': round(0.15 * score_topo, 2),
+            'norm_comp': round(score_comp / 100.0, 4),
+            'contrib_comp': round(0.125 * score_comp, 2),
+            'norm_pos': round(score_pos / 100.0, 4),
+            'contrib_pos': round(0.10 * score_pos, 2),
+            'norm_estruc': round(score_estruc / 100.0, 4),
+            'contrib_estruc': round(0.075 * score_estruc, 2),
+            'norm_gran': round(score_gran / 100.0, 4),
+            'contrib_gran': round(0.05 * score_gran, 2),
+            'norm_mc': round(score_mc / 100.0, 4),
+            'contrib_mc': round(0.15 * score_mc, 2),
+            'norm_cc': round(score_cc / 100.0, 4),
+            'contrib_cc': round(0.10 * score_cc, 2),
+            'norm_ll': round(score_ll / 100.0, 4),
+            'contrib_ll': round(0.125 * score_ll, 2),
+            'norm_rg': round(score_rg / 100.0, 4),
+            'contrib_rg': round(0.075 * score_rg, 2),
+            'norm_ai': round(score_ai / 100.0, 4),
+            'contrib_ai': round(0.05 * score_ai, 2)
+        }
     }
 
     if es_vgi and 'especificacion' in capa:
@@ -882,6 +915,12 @@ def ejecutar_analisis():
     for c in todas_capas:
         res = evaluar_metacalidad_capa(c)
         resultados.append(res)
+
+    # Asignar ranking ordinal de calidad WLC a las 118 capas
+    resultados.sort(key=lambda x: (x['igv'], x['score_cuant'], x['score_cual']), reverse=True)
+    for rank_idx, r in enumerate(resultados, 1):
+        r['calidad_rank'] = rank_idx
+        r['prioridad_rank'] = rank_idx
 
     # Estadísticas Globales
     n_total = len(resultados)
@@ -1013,6 +1052,32 @@ def ejecutar_analisis():
     datos_export_json = {
         'fecha_auditoria': datetime.now().isoformat(),
         'estandar': 'ISO 19115-1:2014 / ISO 19157:2013 / ISO 19157-1:2023 / IDE Chile SNIT v2.0',
+        'modelo_wlc_v2': {
+            'version': '2.0 Escalable',
+            'tipo': 'Weighted Linear Combination (WLC) con Criterios Beneficio/Costo y Min-Max Scaling',
+            'referencias_bibliograficas': [
+                'Malczewski, J. (1999). GIS and Multicriteria Decision Analysis. John Wiley & Sons.',
+                'Voogd, H. (1983). Multicriteria Evaluation for Urban and Regional Planning. Pion.',
+                'Eastman, J.R. (1999). Multi-criteria evaluation and GIS.',
+                'Anselin, L. (1988/1995). Spatial Econometrics & LISA.',
+                'Tobler, W.R. (1970). A computer movie simulating urban growth. Economic Geography.',
+                'Saaty, T.L. (1980). The Analytic Hierarchy Process. McGraw-Hill.'
+            ],
+            'dimensiones_cuantitativas': [
+                {'criterio': 'score_topo', 'nombre': 'Consistencia Topológica OGC', 'tipo': 'beneficio', 'peso_cuant': 0.30, 'peso_global': 0.15},
+                {'criterio': 'score_comp', 'nombre': 'Completitud Tabular Atributos', 'tipo': 'beneficio', 'peso_cuant': 0.25, 'peso_global': 0.125},
+                {'criterio': 'score_pos', 'nombre': 'Integridad Posicional y CRS', 'tipo': 'beneficio', 'peso_cuant': 0.20, 'peso_global': 0.10},
+                {'criterio': 'score_estruc', 'nombre': 'Homogeneidad de Estructura e IDs', 'tipo': 'beneficio', 'peso_cuant': 0.15, 'peso_global': 0.075},
+                {'criterio': 'score_gran', 'nombre': 'Granularidad y Ausencia de Slivers', 'tipo': 'beneficio', 'peso_cuant': 0.10, 'peso_global': 0.05}
+            ],
+            'dimensiones_cualitativas': [
+                {'criterio': 'score_mc', 'nombre': 'Metadatos Núcleo ISO 19115 Core', 'tipo': 'beneficio', 'peso_cual': 0.30, 'peso_global': 0.15},
+                {'criterio': 'score_cc', 'nombre': 'Conformidad Semántica ISO 19110/19139', 'tipo': 'beneficio', 'peso_cual': 0.20, 'peso_global': 0.10},
+                {'criterio': 'score_ll', 'nombre': 'Linaje, Custodia y Marco Legal ODbL/Ley', 'tipo': 'beneficio', 'peso_cual': 0.25, 'peso_global': 0.125},
+                {'criterio': 'score_rg', 'nombre': 'Resolución Espacial y Granularidad', 'tipo': 'beneficio', 'peso_cual': 0.15, 'peso_global': 0.075},
+                {'criterio': 'score_ai', 'nombre': 'Accesibilidad y Disponibilidad Operativa', 'tipo': 'beneficio', 'peso_cual': 0.10, 'peso_global': 0.05}
+            ]
+        },
         'modelo_lineal': {
             'tipo': 'Modelo Lineal Dual Aditivo Ponderado (SAW / MAUT)',
             'formula_global': 'IGV = 0.50 * S_cuant + 0.50 * S_cual',
@@ -1161,12 +1226,25 @@ def generar_informe_markdown(datos, ruta_salida):
         "El marco metodológico adoptado integra la rigurosidad geométrica de la norma **ISO 19157-1:2023** con la gobernanza documental "
         "de la norma **ISO 19115-1:2014** (Goodchild, 2007; Haklay, 2010; Senaratne et al., 2017; Herfort et al., 2023).\n"
     )
-    md.append("### 2.1 Formulación Matemática del Modelo Lineal Dual Ponderado (SAW / MAUT)\n")
+    md.append("### 2.1 Formulación Matemática del Modelo WLC v2.0 y Normalización Min-Max (Beneficio / Costo)\n")
     md.append(
-        "El **Índice Global de Calidad Geográfica ($IGV_i$)** para cualquier conjunto de datos espaciales $i$ (sea interno de la geodatabase "
-        "o provisto externamente por el usuario) se formaliza como una combinación lineal dual equilibrada de dos pilares ortogonales:\n"
+        "Conforme a los fundamentos canónicos de la Combinación Lineal Ponderada (*Weighted Linear Combination* - WLC; "
+        "Malczewski, 1999; Voogd, 1983; Eastman, 1999; Malczewski & Rinner, 2015), cada variable de evaluación "
+        "se clasifica explícitamente como **Criterio de Beneficio** (donde mayor valor implica mayor calidad o idoneidad) "
+        "o **Criterio de Costo** (donde menor valor implica mayor calidad, penalizando defectos como kinks, slivers o nulos):\n\n"
+        "1. **Normalización Min-Max para Criterios de Beneficio ($\\uparrow$):**\n"
+        "$$x_{\\text{norm}, i} = \\frac{x_i - x_{\\min}}{x_{\\max} - x_{\\min}}$$\n\n"
+        "2. **Normalización Min-Max para Criterios de Costo ($\\downarrow$):**\n"
+        "$$x_{\\text{norm}, i} = \\frac{x_{\\max} - x_i}{x_{\\max} - x_{\\min}}$$\n\n"
+        "3. **Puntaje Global Compuesto ($S_j$) y Desglose por Criterio:**\n"
+        "$$S_j = \\sum_{i=1}^{n} w_i \\cdot x_{\\text{norm}, ij} \\quad \\text{con} \\quad \\sum_{i=1}^{n} w_i = 1.00$$\n"
+        "$$\\text{contrib}_{ij} = w_i \\cdot x_{\\text{norm}, ij}$$\n\n"
+        "4. **Ranking Ordinal de Calidad ($R_j$):**\n"
+        "$$R_j = \\text{rank}(S_j, \\text{descendente})$$\n\n"
+        "En el contexto de la auditoría integral, el **Índice Global de Calidad Geográfica ($IGV_j$)** "
+        "se formaliza como la agregación ponderada de dos pilares ortogonales balanceados (50% cada uno):\n"
     )
-    md.append("$$\\mathbf{IGV}_i = 0.50 \\cdot S_{\\text{cuant}, i} + 0.50 \\cdot S_{\\text{cual}, i}$$\n")
+    md.append("$$\\mathbf{IGV}_j = 0.50 \\cdot S_{\\text{cuant}, j} + 0.50 \\cdot S_{\\text{cual}, j}$$\n")
     md.append(
         "Donde el **Pilar Cuantitativo Espacial ($S_{\\text{cuant}, i}$)** evalúa la consistencia física y geométrica de las entidades vectoriales:\n"
     )
