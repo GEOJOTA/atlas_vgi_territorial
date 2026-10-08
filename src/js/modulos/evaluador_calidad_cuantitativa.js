@@ -44,6 +44,7 @@ const EvaluadorCalidadCuantitativa = (() => {
   let mapaDiagnosticoInstancia = null;
   let capaGeojsonDiagnostico = null;
   let ultimoResultadoAuditoria = null;
+  let capasLeafletPorIndice = {};
 
   /**
    * Determina si dos segmentos 2D se intersecan estrictamente (orientación 2D)
@@ -886,11 +887,390 @@ const EvaluadorCalidadCuantitativa = (() => {
       entidadesDiagnosticadas,
       matrizWLC,
       geojsonOriginal: geojsonData,
+      metadatosDeclarados: metadatosDeclarados,
       capaId: (metadatosDeclarados && (metadatosDeclarados.id || metadatosDeclarados.capaId)) || (geojsonData.name || 'dataset_evaluado'),
       nombreCapa: (metadatosDeclarados && (metadatosDeclarados.titulo || metadatosDeclarados.nombre)) || (geojsonData.name || 'Dataset Espacial'),
       institucion: (metadatosDeclarados && metadatosDeclarados.institucion) || 'Evaluador Universal de Calidad',
       tipoFuente: (metadatosDeclarados && metadatosDeclarados.tipoFuente) || 'Dato Espacial Evaluado'
     };
+  }
+
+  /**
+   * Algoritmo de Auto-Reparación y Saneamiento Topológico en el Navegador (OGC SFA / RFC 7946):
+   * 1. Cierra automáticamente anillos poligonales abiertos (primer vértice != último vértice).
+   * 2. Elimina vértices consecutivos redundantes/duplicados.
+   * 3. Descarta geometrías colapsadas, nulas o degeneradas (sin alterar entidades sanas).
+   * 4. Asigna identificador primario secuencial ('id_auto' / 'fid') si la capa carece de clave primaria.
+   */
+  function repararDatasetGeoJSON(geojsonData) {
+    if (!geojsonData || !geojsonData.features) {
+      return {
+        geojsonReparado: geojsonData,
+        estadisticas: { totalModificaciones: 0, anillosCerrados: 0, verticesDuplicadosRemovidos: 0, geometriasNulasRemovidas: 0, idsAsignados: 0 }
+      };
+    }
+
+    const copia = JSON.parse(JSON.stringify(geojsonData));
+    let anillosCerrados = 0;
+    let verticesDuplicadosRemovidos = 0;
+    let geometriasNulasRemovidas = 0;
+    let idsAsignados = 0;
+
+    function limpiarAnillo(ring) {
+      if (!Array.isArray(ring) || ring.length === 0) return ring;
+      const nuevo = [];
+      for (let i = 0; i < ring.length; i++) {
+        const pt = ring[i];
+        if (!Array.isArray(pt) || pt.length < 2 || isNaN(pt[0]) || isNaN(pt[1])) continue;
+        if (nuevo.length > 0) {
+          const prev = nuevo[nuevo.length - 1];
+          if (prev[0] === pt[0] && prev[1] === pt[1]) {
+            verticesDuplicadosRemovidos++;
+            continue;
+          }
+        }
+        nuevo.push(pt);
+      }
+
+      // Cerrar anillo si está abierto y tiene al menos 3 vértices
+      if (nuevo.length >= 3) {
+        const primero = nuevo[0];
+        const ultimo = nuevo[nuevo.length - 1];
+        if (primero[0] !== ultimo[0] || primero[1] !== ultimo[1]) {
+          nuevo.push([primero[0], primero[1]]);
+          anillosCerrados++;
+        }
+      }
+      return nuevo;
+    }
+
+    function limpiarCoordenadasLinea(coords) {
+      if (!Array.isArray(coords)) return coords;
+      const nuevo = [];
+      for (let i = 0; i < coords.length; i++) {
+        const pt = coords[i];
+        if (!Array.isArray(pt) || pt.length < 2 || isNaN(pt[0]) || isNaN(pt[1])) continue;
+        if (nuevo.length > 0) {
+          const prev = nuevo[nuevo.length - 1];
+          if (prev[0] === pt[0] && prev[1] === pt[1]) {
+            verticesDuplicadosRemovidos++;
+            continue;
+          }
+        }
+        nuevo.push(pt);
+      }
+      return nuevo;
+    }
+
+    function repararGeometria(geom) {
+      if (!geom || !geom.type) return null;
+      const t = geom.type;
+
+      if (t === 'Point') {
+        if (!Array.isArray(geom.coordinates) || geom.coordinates.length < 2 || isNaN(geom.coordinates[0]) || isNaN(geom.coordinates[1])) return null;
+        return geom;
+      }
+
+      if (t === 'MultiPoint') {
+        const ptsValidos = (geom.coordinates || []).filter(pt => Array.isArray(pt) && pt.length >= 2 && !isNaN(pt[0]) && !isNaN(pt[1]));
+        if (ptsValidos.length === 0) return null;
+        geom.coordinates = ptsValidos;
+        return geom;
+      }
+
+      if (t === 'LineString') {
+        geom.coordinates = limpiarCoordenadasLinea(geom.coordinates);
+        if (geom.coordinates.length < 2) return null;
+        return geom;
+      }
+
+      if (t === 'MultiLineString') {
+        geom.coordinates = (geom.coordinates || [])
+          .map(limpiarCoordenadasLinea)
+          .filter(l => l.length >= 2);
+        if (geom.coordinates.length === 0) return null;
+        return geom;
+      }
+
+      if (t === 'Polygon') {
+        geom.coordinates = (geom.coordinates || [])
+          .map(limpiarAnillo)
+          .filter(r => r.length >= 4);
+        if (geom.coordinates.length === 0) return null;
+        return geom;
+      }
+
+      if (t === 'MultiPolygon') {
+        geom.coordinates = (geom.coordinates || [])
+          .map(poly => {
+            return (poly || []).map(limpiarAnillo).filter(r => r.length >= 4);
+          })
+          .filter(poly => poly.length > 0);
+        if (geom.coordinates.length === 0) return null;
+        return geom;
+      }
+
+      return geom;
+    }
+
+    const featuresReparadas = [];
+    copia.features.forEach((f, idx) => {
+      if (!f) return;
+      if (!f.properties) f.properties = {};
+
+      // Si carece de clave primaria única, asignar fid secuencial
+      const posiblesIds = ['id', 'fid', 'objectid', 'gid', 'codigo', 'osm_id', 'cod_com', 'cod_uv'];
+      const tieneId = (f.id !== undefined && f.id !== null && f.id !== '') || posiblesIds.some(k => f.properties[k] !== undefined && f.properties[k] !== null && f.properties[k] !== '');
+      if (!tieneId) {
+        f.id = idx + 1;
+        f.properties.fid = idx + 1;
+        idsAsignados++;
+      }
+
+      if (!f.geometry) {
+        geometriasNulasRemovidas++;
+        return;
+      }
+
+      const geomLimpia = repararGeometria(f.geometry);
+      if (!geomLimpia) {
+        geometriasNulasRemovidas++;
+        return;
+      }
+
+      f.geometry = geomLimpia;
+      f.properties._autofix_reparado = true;
+      featuresReparadas.push(f);
+    });
+
+    copia.features = featuresReparadas;
+
+    const totalModificaciones = anillosCerrados + verticesDuplicadosRemovidos + geometriasNulasRemovidas + idsAsignados;
+
+    return {
+      geojsonReparado: copia,
+      estadisticas: {
+        anillosCerrados,
+        verticesDuplicadosRemovidos,
+        geometriasNulasRemovidas,
+        idsAsignados,
+        totalModificaciones
+      }
+    };
+  }
+
+  /**
+   * Focaliza e ilumina una entidad específica en el mini-mapa Leaflet
+   */
+  function enfocarEntidadEnMapa(featureIndex) {
+    if (!mapaDiagnosticoInstancia) {
+      alert('El mapa de diagnóstico no está cargado aún.');
+      return;
+    }
+
+    const layer = capasLeafletPorIndice[featureIndex];
+    const elMapa = document.getElementById('mapa-diagnostico-calidad');
+    if (elMapa) {
+      elMapa.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    if (layer) {
+      setTimeout(() => {
+        try {
+          if (layer.getBounds) {
+            mapaDiagnosticoInstancia.fitBounds(layer.getBounds(), { padding: [60, 60], maxZoom: 18 });
+          } else if (layer.getLatLng) {
+            mapaDiagnosticoInstancia.setView(layer.getLatLng(), 18);
+          }
+          layer.openPopup();
+        } catch (e) {
+          console.warn('Error al enfocar entidad en mapa:', e);
+        }
+      }, 350);
+    } else {
+      console.warn(`Capa para índice ${featureIndex} no encontrada en Leaflet.`);
+    }
+  }
+
+  /**
+   * Ejecuta la subsanación automática de geometrías en memoria,
+   * re-evalúa el dataset con el motor ISO 19157 y actualiza la interfaz
+   */
+  function ejecutarAutoFixEnNavegador() {
+    if (!ultimoResultadoAuditoria || !ultimoResultadoAuditoria.geojsonOriginal) {
+      alert('No hay un conjunto de datos cargado para reparar.');
+      return;
+    }
+
+    const resReparacion = repararDatasetGeoJSON(ultimoResultadoAuditoria.geojsonOriginal);
+    const stats = resReparacion.estadisticas;
+
+    if (stats.totalModificaciones === 0) {
+      alert('¡Excelente! El dataset no presenta anillos abiertos, vértices consecutivos duplicados ni IDs faltantes. Sus geometrías ya cumplen con estas reglas OGC. Si aún presenta auto-intersecciones complejas, consulta la guía paso a paso de QGIS o PostGIS.');
+      return;
+    }
+
+    // Re-auditar el GeoJSON reparado con las mismas reglas
+    const nuevoResultado = auditarDatasetEspacial(
+      resReparacion.geojsonReparado,
+      ultimoResultadoAuditoria.metadatosDeclarados
+    );
+
+    // Inyectar datos del Auto-Fix para el banner de celebración
+    nuevoResultado.autoFixAplicado = {
+      anterior: ultimoResultadoAuditoria.indicadorGlobal.igv,
+      nuevo: nuevoResultado.indicadorGlobal.igv,
+      mejora: Math.round((nuevoResultado.indicadorGlobal.igv - ultimoResultadoAuditoria.indicadorGlobal.igv) * 10) / 10,
+      estadisticas: stats,
+      geojsonReparado: resReparacion.geojsonReparado
+    };
+
+    // Actualizar cache global en memoria para exportaciones posteriores
+    window._datosGeojsonCargadosParaCalidad = resReparacion.geojsonReparado;
+
+    // Re-renderizar la UI completa
+    renderizarResultadosUI(nuevoResultado, 'resultado-auditoria-igv');
+
+    // Desplazar suavemente hacia la vista de resultados
+    const cont = document.getElementById('resultado-auditoria-igv');
+    if (cont) {
+      cont.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  /**
+   * Descarga el archivo GeoJSON reparado por Auto-Fix
+   */
+  function descargarGeoJSONReparado(geojsonReparado) {
+    if (!geojsonReparado) return;
+    const blob = new Blob([JSON.stringify(geojsonReparado, null, 2)], {
+      type: 'application/geo+json; charset=utf-8'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `dataset_subsanado_autofix_${Date.now()}.geojson`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  /**
+   * Copia al portapapeles el plan de subsanación técnica
+   */
+  function copiarPlanSubsanacion(resultado) {
+    if (!resultado) resultado = ultimoResultadoAuditoria;
+    if (!resultado) return;
+
+    const rd = resultado.resumenDataset;
+    const ig = resultado.indicadorGlobal;
+    const dc = resultado.dimensionesCuantitativas;
+
+    const texto = `# PLAN DE SUBSANACIÓN Y REPARACIÓN DE CALIDAD ESPACIAL (ISO 19157 / ISO 19115)
+Atlas VGI Territorial — Nodo GeoAbierto (Proyecto F1261256 ANID)
+Fecha: ${resultado.fechaAuditoria}
+Dataset: ${resultado.nombreCapa} (${rd.totalFeatures.toLocaleString('es-CL')} entidades, ${rd.totalVertices.toLocaleString('es-CL')} vértices)
+Índice Global IGV: ${ig.igv}% [${ig.grado}]
+Pilar Cuantitativo: ${ig.scoreCuantitativo}% | Pilar Cualitativo: ${ig.scoreCualitativo}%
+
+================================================================================
+1. DIAGNÓSTICO DE FALENCIAS DETECTADAS
+================================================================================
+- Consistencia Topológica: ${dc.topologia.score}% (${rd.featuresConError} entidades observadas)
+  * Anillos Abiertos: ${rd.totalAnillosAbiertos}
+  * Auto-intersecciones (Kinks): ${rd.totalKinks}
+  * Micro-Slivers: ${rd.totalSlivers}
+- Completitud Tabular: ${dc.completitud.score}% (${resultado.atributosDetalle.length} atributos evaluados)
+- Clave Primaria Única: ${dc.estructura.claveUnica ? 'Sí' : 'No (Se recomienda asignar fid)'}
+
+================================================================================
+2. GUÍA DE RESOLUCIÓN EN QGIS 3.x
+================================================================================
+Paso 1: Abrir QGIS y cargar la capa '${resultado.nombreCapa}'.
+Paso 2: Ir a Menú 'Vectorial' > 'Herramientas de geometría' > 'Corregir geometrías (Fix Geometries)'.
+  - Capa de entrada: Capa auditada.
+  - Método de reparación: Estructura válida (Make Valid).
+  - Clic en Ejecutar. Se creará una capa temporal corregida.
+Paso 3: Validar con la herramienta 'Comprobador de topología' (Vectorial > Comprobador de topología).
+  - Reglas recomendadas: 'No debe tener geometrías no válidas' y 'No debe superponerse'.
+Paso 4: Exportar capa subsanada:
+  - Clic derecho sobre la capa > 'Exportar' > 'Guardar objetos como...'.
+  - Formato: GeoJSON.
+  - SRC: EPSG:4326 - WGS 84.
+  - Codificación: UTF-8.
+
+================================================================================
+3. GUÍA DE RESOLUCIÓN EN POSTGIS / SQL
+================================================================================
+-- 1. Reparar geometrías no conformes y auto-intersecciones (ISO 19125 / SFA)
+UPDATE mi_capa
+SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))
+WHERE NOT ST_IsValid(geom);
+
+-- 2. Purgar vértices redundantes y duplicados consecutivos
+UPDATE mi_capa
+SET geom = ST_RemoveRepeatedPoints(geom, 0.000001);
+
+-- 3. Asignar identificador primario secuencial si no existe
+ALTER TABLE mi_capa ADD COLUMN IF NOT EXISTS fid SERIAL PRIMARY KEY;
+
+-- 4. Verificar integridad restante
+SELECT COUNT(*) AS errores_restantes FROM mi_capa WHERE NOT ST_IsValid(geom);
+
+================================================================================
+4. GUÍA DE RESOLUCIÓN EN PYTHON / GEOPANDAS
+================================================================================
+import geopandas as gpd
+from shapely.validation import make_valid
+
+# Cargar dataset
+gdf = gpd.read_file("${resultado.nombreCapa}.geojson")
+
+# Reparar geometrías inválidas con Shapely make_valid
+gdf['geometry'] = gdf['geometry'].apply(lambda g: make_valid(g) if (g and not g.is_valid) else g)
+
+# Descartar geometrías nulas o colapsadas
+gdf = gdf[gdf.geometry.notnull() & (~gdf.geometry.is_empty)]
+
+# Asegurar identificador único
+if 'fid' not in gdf.columns and 'id' not in gdf.columns:
+    gdf.insert(0, 'fid', range(1, len(gdf) + 1))
+
+# Exportar capa limpia
+gdf.to_file("${resultado.nombreCapa}_subsanado.geojson", driver="GeoJSON")
+print("Dataset subsanado y listo para producción!")
+`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(() => {
+        alert('¡Plan técnico de subsanación copiado al portapapeles con éxito!');
+      }).catch(() => {
+        mostrarModalTexto('Plan Técnico de Subsanación', texto);
+      });
+    } else {
+      mostrarModalTexto('Plan Técnico de Subsanación', texto);
+    }
+  }
+
+  function mostrarModalTexto(titulo, texto) {
+    const area = document.createElement('textarea');
+    area.value = texto;
+    area.style.position = 'fixed';
+    area.style.top = '10%';
+    area.style.left = '10%';
+    area.style.width = '80%';
+    area.style.height = '80%';
+    area.style.zIndex = '99999';
+    area.style.background = '#0f172a';
+    area.style.color = '#fff';
+    area.style.padding = '20px';
+    area.style.borderRadius = '10px';
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    alert('Plan de subsanación copiado al portapapeles.');
+    document.body.removeChild(area);
   }
 
   /**
@@ -905,6 +1285,11 @@ const EvaluadorCalidadCuantitativa = (() => {
     const ig = resultado.indicadorGlobal;
     const rd = resultado.resumenDataset;
     const dc = resultado.dimensionesCuantitativas;
+
+    const entidadesConObservacion = (resultado.entidadesDiagnosticadas || []).filter(ed => !ed.valida || ed.esSliver || (ed.hallazgos && ed.hallazgos.length > 0));
+    const erroresCriticos = (rd.totalKinks || 0) + (rd.totalAnillosAbiertos || 0) + ((rd.totalFeatures || 0) - (rd.featuresValidas || 0));
+    const observacionesModeradas = (rd.totalSlivers || 0) + (dc.estructura.claveUnica ? 0 : 1);
+    const celdasVacias = (resultado.atributosDetalle || []).reduce((acc, c) => acc + (c.nulos || 0), 0);
 
     cont.innerHTML = `
       <div style="background:var(--papel-tarjeta); border:2px solid var(--linea-tarjeta); border-radius:12px; padding:20px; margin-top:16px;">
@@ -1216,6 +1601,233 @@ const EvaluadorCalidadCuantitativa = (() => {
           <div id="mapa-diagnostico-calidad" style="height:340px; border:1px solid var(--linea); border-radius:8px; background:#0f172a;"></div>
         </div>
 
+        <!-- 🛠️ CENTRO DINÁMICO DE SUBSANACIÓN Y RECOMENDACIONES TÉCNICAS (PASO A PASO) -->
+        <div style="margin-top:20px; background:var(--papel-alto); border:2px solid var(--linea); border-radius:12px; padding:20px;">
+          
+          <!-- Banner Celebratorio si se aplicó Auto-Fix -->
+          ${resultado.autoFixAplicado ? `
+            <div style="background:linear-gradient(135deg, rgba(16,185,129,0.18), rgba(6,78,59,0.35)); border:2px solid #10b981; border-radius:10px; padding:16px; margin-bottom:18px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                <div>
+                  <div style="font-weight:900; color:#10b981; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
+                    <span>✨</span> ¡Auto-Reparación de Geometrías Aplicada Exitosamente en el Navegador!
+                  </div>
+                  <div style="font-size:0.84rem; color:var(--tinta); margin-top:4px;">
+                    Se sanearon anomalías topológicas y de esquema en memoria. El Índice IGV aumentó de 
+                    <strong style="color:var(--alerta);">${resultado.autoFixAplicado.anterior}%</strong> a 
+                    <strong style="color:#10b981; font-size:0.95rem;">${resultado.autoFixAplicado.nuevo}%</strong> 
+                    <span style="background:#10b98133; color:#10b981; padding:2px 8px; border-radius:4px; font-weight:800; font-size:0.8rem;">
+                      +${resultado.autoFixAplicado.mejora} puntos
+                    </span>.
+                  </div>
+                  <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; font-size:0.76rem; font-family:var(--fuente-datos);">
+                    <span style="background:rgba(16,185,129,0.2); padding:3px 8px; border-radius:4px; color:#10b981; font-weight:700;">
+                      🔒 ${resultado.autoFixAplicado.estadisticas.anillosCerrados} Anillos Cerrados
+                    </span>
+                    <span style="background:rgba(16,185,129,0.2); padding:3px 8px; border-radius:4px; color:#10b981; font-weight:700;">
+                      🧹 ${resultado.autoFixAplicado.estadisticas.verticesDuplicadosRemovidos} Vértices Duplicados Eliminados
+                    </span>
+                    ${resultado.autoFixAplicado.estadisticas.geometriasNulasRemovidas > 0 ? `
+                      <span style="background:rgba(239,68,68,0.2); padding:3px 8px; border-radius:4px; color:#ef4444; font-weight:700;">
+                        🗑️ ${resultado.autoFixAplicado.estadisticas.geometriasNulasRemovidas} Geometrías Corruptas Purgadas
+                      </span>
+                    ` : ''}
+                    ${resultado.autoFixAplicado.estadisticas.idsAsignados > 0 ? `
+                      <span style="background:rgba(56,189,248,0.2); padding:3px 8px; border-radius:4px; color:#38bdf8; font-weight:700;">
+                        🔑 ${resultado.autoFixAplicado.estadisticas.idsAsignados} Claves Únicas (fid) Asignadas
+                      </span>
+                    ` : ''}
+                  </div>
+                </div>
+                <button type="button" class="accion" id="btn-descargar-autofix-geojson" style="background:#10b981; color:#000; font-weight:800; padding:9px 18px; border-radius:8px; font-size:0.86rem; border:none; cursor:pointer;">
+                  📥 Descargar Capa Reparada (.geojson)
+                </button>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Cabecera del Centro de Subsanación -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; border-bottom:1px solid var(--linea); padding-bottom:12px;">
+            <div>
+              <h4 style="margin:0; font-size:1.1rem; font-family:var(--fuente-datos); color:var(--tinta); display:flex; align-items:center; gap:8px;">
+                <span>🛠️</span> Centro Dinámico de Subsanación y Recomendaciones Técnicas (Paso a Paso)
+              </h4>
+              <div style="font-size:0.8rem; color:var(--tinta-suave); margin-top:3px;">
+                Diagnóstico operativo para subsanar falencias topológicas, atributivas y de metadatos en QGIS, PostGIS o con un clic.
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button type="button" class="accion" id="btn-ejecutar-autofix-directo" style="background:#10b981; color:#000; font-weight:800; font-size:0.82rem; padding:8px 16px; border-radius:6px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <span>⚡</span> Subsanar Geometrías Automáticamente (Auto-Fix)
+              </button>
+              <button type="button" class="accion secundaria" id="btn-copiar-plan-subsanacion" style="font-size:0.82rem; padding:8px 14px; background:rgba(56, 189, 248, 0.12); color:#38bdf8; border:1px solid #38bdf8; font-weight:700; border-radius:6px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <span>📋</span> Copiar Plan Técnico
+              </button>
+            </div>
+          </div>
+
+          <!-- Diagnóstico Semafórico Clasificado por Severidad -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; margin-bottom:18px;">
+            
+            <div style="background:var(--papel-tarjeta); border:1px solid ${erroresCriticos > 0 ? '#ef444455' : '#10b98144'}; border-left:5px solid ${erroresCriticos > 0 ? '#ef4444' : '#10b981'}; border-radius:8px; padding:12px;">
+              <div style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700; display:flex; justify-content:space-between;">
+                <span>1. Severidad Crítica (Topología)</span>
+                <span style="color:${erroresCriticos > 0 ? '#ef4444' : '#10b981'};">${erroresCriticos > 0 ? '🔴 Acción Requerida' : '🟢 Conforme'}</span>
+              </div>
+              <div style="font-size:1.3rem; font-weight:800; color:${erroresCriticos > 0 ? '#ef4444' : '#10b981'}; font-family:var(--fuente-titulos); margin:2px 0;">
+                ${erroresCriticos} Falencias
+              </div>
+              <div style="font-size:0.76rem; color:var(--tinta-suave);">
+                ${rd.totalAnillosAbiertos} anillos no cerrados · ${rd.totalKinks} auto-intersecciones · ${rd.featuresConError} entidades con error OGC.
+              </div>
+            </div>
+
+            <div style="background:var(--papel-tarjeta); border:1px solid ${observacionesModeradas > 0 ? '#f59e0b55' : '#10b98144'}; border-left:5px solid ${observacionesModeradas > 0 ? '#f59e0b' : '#10b981'}; border-radius:8px; padding:12px;">
+              <div style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700; display:flex; justify-content:space-between;">
+                <span>2. Severidad Moderada (Esquema)</span>
+                <span style="color:${observacionesModeradas > 0 ? '#f59e0b' : '#10b981'};">${observacionesModeradas > 0 ? '🟡 Advertencia' : '🟢 Óptimo'}</span>
+              </div>
+              <div style="font-size:1.3rem; font-weight:800; color:${observacionesModeradas > 0 ? '#f59e0b' : '#10b981'}; font-family:var(--fuente-titulos); margin:2px 0;">
+                ${observacionesModeradas} Observaciones
+              </div>
+              <div style="font-size:0.76rem; color:var(--tinta-suave);">
+                ${rd.totalSlivers} micro-slivers · ${celdasVacias} celdas atributivas vacías · ${dc.estructura.claveUnica ? 'Clave única ✓' : 'Falta clave primaria (fid)'}.
+              </div>
+            </div>
+
+            <div style="background:var(--papel-tarjeta); border:1px solid #38bdf844; border-left:5px solid #38bdf8; border-radius:8px; padding:12px;">
+              <div style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700; display:flex; justify-content:space-between;">
+                <span>3. Conformidad Normativa (Metadatos)</span>
+                <span style="color:#38bdf8;">🔵 ISO 19115</span>
+              </div>
+              <div style="font-size:1.3rem; font-weight:800; color:#38bdf8; font-family:var(--fuente-titulos); margin:2px 0;">
+                ${ig.scoreCualitativo}%
+              </div>
+              <div style="font-size:0.76rem; color:var(--tinta-suave);">
+                Metadatos Core: ${resultado.dimensionesCualitativas.mc}% · Conformidad: ${resultado.dimensionesCualitativas.cc}% · Linaje: ${resultado.dimensionesCualitativas.ll}%.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Listado Interactivo de Entidades con Observaciones y Botón "Ver en Mapa" -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <h5 style="margin:0; font-size:0.88rem; font-family:var(--fuente-datos); color:var(--tinta); display:flex; align-items:center; gap:6px;">
+                <span>🔍</span> Entidades con Observaciones (${entidadesConObservacion.length} de ${rd.totalFeatures})
+              </h5>
+              <span style="font-size:0.73rem; color:var(--tinta-suave);">
+                Haz clic en <strong>"Ver en Mapa"</strong> para focalizar la entidad con zoom en el visor Leaflet.
+              </span>
+            </div>
+
+            ${entidadesConObservacion.length === 0 ? `
+              <div style="background:rgba(16,185,129,0.1); border:1px solid #10b981; border-radius:6px; padding:12px; font-size:0.82rem; color:#10b981; display:flex; align-items:center; gap:8px;">
+                <span>✅</span> <strong>¡Dataset 100% Conforme Topológicamente!</strong> No se detectaron anillos abiertos, auto-intersecciones ni micro-slivers en las ${rd.totalFeatures} entidades.
+              </div>
+            ` : `
+              <div style="max-height:220px; overflow-y:auto; border:1px solid var(--linea); border-radius:6px; padding:8px; background:var(--papel-tarjeta);">
+                ${entidadesConObservacion.map(ed => `
+                  <div style="background:var(--papel-alto); border:1px solid ${ed.valida ? '#f59e0b44' : '#ef444455'}; border-left:4px solid ${ed.valida ? '#f59e0b' : '#ef4444'}; border-radius:6px; padding:8px 12px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <div>
+                      <div style="font-weight:700; font-size:0.8rem; color:var(--tinta); display:flex; align-items:center; gap:6px;">
+                        <span>${ed.valida ? '⚠️' : '❌'}</span> Entidad <strong>${ed.id}</strong> (${ed.tipo})
+                        <span style="font-size:0.72rem; color:var(--tinta-tenue); font-weight:normal;">[${ed.vertices} vértices]</span>
+                      </div>
+                      <div style="font-size:0.74rem; color:var(--tinta-suave); margin-top:2px;">
+                        ${ed.hallazgos.map(h => `<span style="display:inline-block; margin-right:8px; color:${h.gravedad === 'Critica' ? '#ef4444' : '#f59e0b'};">• ${h.detalle}</span>`).join('')}
+                      </div>
+                    </div>
+                    <button type="button" class="accion secundaria btn-localizar-en-mapa" data-index="${ed.index}" style="font-size:0.74rem; padding:4px 10px; background:rgba(56, 189, 248, 0.15); color:#38bdf8; border:1px solid #38bdf8; font-weight:700; border-radius:20px; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">
+                      🔍 Ver en Mapa
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+            `}
+          </div>
+
+          <!-- Acordeón / Pestañas de Guías Técnicas Paso a Paso -->
+          <details style="background:var(--papel-tarjeta); border:1px solid var(--linea); border-radius:8px; padding:12px 16px; margin-bottom:10px;" open>
+            <summary style="font-size:0.86rem; font-weight:700; cursor:pointer; color:var(--tinta); display:flex; align-items:center; gap:8px;">
+              <span>🗺️</span> Guía de Reparación Paso a Paso en QGIS 3.x
+            </summary>
+            <div style="margin-top:10px; font-size:0.8rem; color:var(--tinta-suave); line-height:1.5;">
+              <ol style="margin:0 0 10px 18px; padding:0;">
+                <li><strong>Cargar la capa:</strong> Abre QGIS y arrastra el archivo GeoJSON actual al panel de capas.</li>
+                <li><strong>Ejecutar 'Corregir geometrías':</strong> Ve al menú superior <code>Vectorial ➔ Herramientas de geometría ➔ Corregir geometrías (Fix Geometries)</code>.</li>
+                <li><strong>Parámetros:</strong> Selecciona tu capa y en <em>Método de reparación</em> elige <strong>Estructura válida (Make Valid)</strong>. Clic en <em>Ejecutar</em>.</li>
+                <li><strong>Validación estricta:</strong> Abre <code>Vectorial ➔ Comprobador de topología</code> y agrega la regla <em>'No debe tener geometrías no válidas'</em>. Valida que el conteo de errores sea 0.</li>
+                <li><strong>Exportar conforme a norma:</strong> Clic derecho sobre la capa corregida ➔ <code>Exportar ➔ Guardar objetos como...</code>. Formato: <strong>GeoJSON</strong>, SRC: <strong>EPSG:4326 (WGS 84)</strong>, Codificación: <strong>UTF-8</strong>.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details style="background:var(--papel-tarjeta); border:1px solid var(--linea); border-radius:8px; padding:12px 16px; margin-bottom:10px;">
+            <summary style="font-size:0.86rem; font-weight:700; cursor:pointer; color:var(--tinta); display:flex; align-items:center; gap:8px;">
+              <span>🐘</span> Guía de Reparación en PostGIS / SQL (Script Listo para Copiar)
+            </summary>
+            <div style="margin-top:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">SQL Estandarizado PostGIS 3.x:</span>
+                <button type="button" class="accion secundaria" id="btn-copiar-sql-subsanacion" style="font-size:0.72rem; padding:3px 8px; cursor:pointer;">
+                  📋 Copiar SQL
+                </button>
+              </div>
+              <pre id="codigo-sql-subsanacion" style="background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; font-size:0.75rem; font-family:monospace; overflow-x:auto; margin:0; border:1px solid var(--linea);">
+-- 1. Reparar geometrías no válidas (auto-intersecciones, anillos abiertos y kinks)
+UPDATE mi_capa
+SET geom = ST_Multi(ST_CollectionExtract(ST_MakeValid(geom), 3))
+WHERE NOT ST_IsValid(geom);
+
+-- 2. Eliminar vértices redundantes y duplicados consecutivos
+UPDATE mi_capa
+SET geom = ST_RemoveRepeatedPoints(geom, 0.000001);
+
+-- 3. Asignar identificador primario unívoco si no existe
+ALTER TABLE mi_capa ADD COLUMN IF NOT EXISTS fid SERIAL PRIMARY KEY;
+
+-- 4. Verificar que no queden errores topológicos
+SELECT COUNT(*) AS errores_restantes FROM mi_capa WHERE NOT ST_IsValid(geom);</pre>
+            </div>
+          </details>
+
+          <details style="background:var(--papel-tarjeta); border:1px solid var(--linea); border-radius:8px; padding:12px 16px; margin-bottom:10px;">
+            <summary style="font-size:0.86rem; font-weight:700; cursor:pointer; color:var(--tinta); display:flex; align-items:center; gap:8px;">
+              <span>🐍</span> Guía de Reparación en Python / GeoPandas (Script Listo para Copiar)
+            </summary>
+            <div style="margin-top:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">Python Script (GeoPandas & Shapely):</span>
+                <button type="button" class="accion secundaria" id="btn-copiar-python-subsanacion" style="font-size:0.72rem; padding:3px 8px; cursor:pointer;">
+                  📋 Copiar Python
+                </button>
+              </div>
+              <pre id="codigo-python-subsanacion" style="background:#0f172a; color:#f8fafc; padding:12px; border-radius:6px; font-size:0.75rem; font-family:monospace; overflow-x:auto; margin:0; border:1px solid var(--linea);">
+import geopandas as gpd
+from shapely.validation import make_valid
+
+# 1. Cargar archivo GeoJSON original
+gdf = gpd.read_file("datos_entrada.geojson")
+
+# 2. Corregir geometrías no conformes y auto-intersecciones (OGC SFA)
+gdf['geometry'] = gdf['geometry'].apply(lambda g: make_valid(g) if (g and not g.is_valid) else g)
+
+# 3. Descartar geometrías colapsadas o nulas
+gdf = gdf[gdf.geometry.notnull() & (~gdf.geometry.is_empty)]
+
+# 4. Asegurar identificador primario secuencial
+if 'fid' not in gdf.columns and 'id' not in gdf.columns:
+    gdf.insert(0, 'fid', range(1, len(gdf) + 1))
+
+# 5. Exportar GeoJSON corregido conforme a RFC 7946 (EPSG:4326)
+gdf.to_file("datos_subsanados_calidad.geojson", driver="GeoJSON")
+print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
+            </div>
+          </details>
+
+        </div>
+
         <!-- Tabla de Atributos Tabulares -->
         <div style="margin-top:20px;">
           <h4 style="margin:0 0 8px 0; font-size:0.95rem; font-family:var(--fuente-datos); color:var(--tinta);">
@@ -1275,6 +1887,56 @@ const EvaluadorCalidadCuantitativa = (() => {
 
     // Inicializar mapa de diagnóstico Leaflet
     renderizarMapaDiagnostico('mapa-diagnostico-calidad', resultado);
+
+    // Conectar botón Auto-Fix en el Navegador
+    const btnAutoFix = document.getElementById('btn-ejecutar-autofix-directo');
+    if (btnAutoFix) {
+      btnAutoFix.addEventListener('click', () => ejecutarAutoFixEnNavegador());
+    }
+
+    // Conectar botón descargar Auto-Fix (si banner de auto-reparación está activo)
+    const btnDescargarAutoFix = document.getElementById('btn-descargar-autofix-geojson');
+    if (btnDescargarAutoFix && resultado.autoFixAplicado) {
+      btnDescargarAutoFix.addEventListener('click', () => descargarGeoJSONReparado(resultado.autoFixAplicado.geojsonReparado));
+    }
+
+    // Conectar botón Copiar Plan de Subsanación
+    const btnCopiarPlan = document.getElementById('btn-copiar-plan-subsanacion');
+    if (btnCopiarPlan) {
+      btnCopiarPlan.addEventListener('click', () => copiarPlanSubsanacion(resultado));
+    }
+
+    // Conectar botones "Ver en Mapa" para focalizar entidades observadas
+    const btnsLocalizar = document.querySelectorAll('.btn-localizar-en-mapa');
+    btnsLocalizar.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) {
+          enfocarEntidadEnMapa(idx);
+        }
+      });
+    });
+
+    // Conectar botones de copiar snippets de código
+    const btnCopiarSQL = document.getElementById('btn-copiar-sql-subsanacion');
+    if (btnCopiarSQL) {
+      btnCopiarSQL.addEventListener('click', () => {
+        const pre = document.getElementById('codigo-sql-subsanacion');
+        if (pre && navigator.clipboard) {
+          navigator.clipboard.writeText(pre.textContent.trim()).then(() => alert('¡Script SQL de PostGIS copiado al portapapeles con éxito!'));
+        }
+      });
+    }
+
+    const btnCopiarPython = document.getElementById('btn-copiar-python-subsanacion');
+    if (btnCopiarPython) {
+      btnCopiarPython.addEventListener('click', () => {
+        const pre = document.getElementById('codigo-python-subsanacion');
+        if (pre && navigator.clipboard) {
+          navigator.clipboard.writeText(pre.textContent.trim()).then(() => alert('¡Script Python de GeoPandas copiado al portapapeles con éxito!'));
+        }
+      });
+    }
 
     // Conectar botones de descarga
     const btnDescargarGeoJSON = document.getElementById('btn-descargar-geojson-certificado');
@@ -1339,10 +2001,16 @@ const EvaluadorCalidadCuantitativa = (() => {
       maxZoom: 19
     }).addTo(mapaDiagnosticoInstancia);
 
+    capasLeafletPorIndice = {};
+
     // Dibujar features estilizadas según semáforo
     const fc = {
       type: 'FeatureCollection',
-      features: resultado.entidadesDiagnosticadas.map(ed => ed.featureRef)
+      features: resultado.entidadesDiagnosticadas.map(ed => {
+        const f = ed.featureRef;
+        f.__evalIdx = ed.index;
+        return f;
+      })
     };
 
     const mapaDiagnosticosPorIdx = {};
@@ -1352,7 +2020,7 @@ const EvaluadorCalidadCuantitativa = (() => {
 
     capaGeojsonDiagnostico = L.geoJSON(fc, {
       style: (feature) => {
-        const idx = fc.features.indexOf(feature);
+        const idx = (feature.__evalIdx !== undefined) ? feature.__evalIdx : fc.features.indexOf(feature);
         const ed = mapaDiagnosticosPorIdx[idx] || { valida: true };
 
         if (!ed.valida) {
@@ -1364,7 +2032,7 @@ const EvaluadorCalidadCuantitativa = (() => {
         }
       },
       pointToLayer: (feature, latlng) => {
-        const idx = fc.features.indexOf(feature);
+        const idx = (feature.__evalIdx !== undefined) ? feature.__evalIdx : fc.features.indexOf(feature);
         const ed = mapaDiagnosticosPorIdx[idx] || { valida: true };
         const color = !ed.valida ? '#EF4444' : '#10B981';
         return L.circleMarker(latlng, {
@@ -1377,7 +2045,8 @@ const EvaluadorCalidadCuantitativa = (() => {
         });
       },
       onEachFeature: (feature, layer) => {
-        const idx = fc.features.indexOf(feature);
+        const idx = (feature.__evalIdx !== undefined) ? feature.__evalIdx : fc.features.indexOf(feature);
+        capasLeafletPorIndice[idx] = layer;
         const ed = mapaDiagnosticosPorIdx[idx];
         if (!ed) return;
 
@@ -1745,7 +2414,13 @@ const EvaluadorCalidadCuantitativa = (() => {
     auditarGeometria,
     auditarAtributos,
     auditarPosicional,
+    auditarCualitativoDataset,
     auditarDatasetEspacial,
+    repararDatasetGeoJSON,
+    ejecutarAutoFixEnNavegador,
+    descargarGeoJSONReparado,
+    enfocarEntidadEnMapa,
+    copiarPlanSubsanacion,
     renderizarResultadosUI,
     renderizarMapaDiagnostico,
     invalidarTamanoMapa,
