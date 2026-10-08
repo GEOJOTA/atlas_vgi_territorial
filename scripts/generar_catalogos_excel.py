@@ -648,78 +648,83 @@ def crear_perfil_metadatos():
     
     elementos = [
         [
-            1, "MD_Metadata.fileIdentifier", "Identificador del Metadato", "Obligatorio (M)",
-            "UUID / Carácter", "Identificador Único", "Identificador único global de la ficha de metadato.",
+            1, "MD_Metadata.fileIdentifier", "Identificador del Metadato", "Obligatorio (M) - Núcleo 1",
+            "UUID / Carácter", "Identificador Único (IDE Chile)", "Identificador único global persistente de la ficha de metadato y del recurso cartográfico.",
             "urn:uuid:vgi-cl-stgo-uah-2026-001"
         ],
         [
-            2, "MD_Metadata.language", "Idioma del Metadato", "Obligatorio (M)",
-            "Codest / spa", "Idioma de Metadatos", "Idioma en el que están redactados los metadatos.",
-            "spa (Español)"
-        ],
-        [
-            3, "MD_Metadata.characterSet", "Juego de Caracteres", "Obligatorio (M)",
-            "Codest / utf8", "Codificación de Caracteres", "Juego de caracteres utilizado en el archivo.",
-            "utf8"
-        ],
-        [
-            4, "MD_DataIdentification.citation.title", "Título del Recurso", "Obligatorio (M)",
-            "Carácter", "Título del Recurso", "Nombre oficial o descriptivo del conjunto de datos territoriales.",
+            2, "MD_DataIdentification.citation.title", "Título Formal del Recurso", "Obligatorio (M) - Núcleo 2",
+            "Carácter", "Título del Recurso (IDE Chile)", "Nombre oficial, inequívoco y descriptivo del conjunto de datos espaciales.",
             "Atlas de Información Geográfica Voluntaria (VGI): Caso Piloto Barrio Brasil / UAH y Base Regional RM (Geofabrik)"
         ],
         [
-            5, "MD_DataIdentification.abstract", "Resumen / Abstract", "Obligatorio (M)",
-            "Texto libre", "Resumen", "Descripción clara y detallada del contenido del conjunto de datos.",
+            3, "MD_DataIdentification.abstract", "Resumen y Propósito", "Obligatorio (M) - Núcleo 3",
+            "Texto libre", "Resumen / Propósito (IDE Chile)", "Descripción sintética del alcance temático, metodológico y territorial del conjunto de datos.",
             "Capa multiescalar de equipamiento educativo, movilidad, espacio público, accesibilidad, biodiversidad y edificaciones. Integra consultas dinámicas en vivo vía Overpass API (Barrio Brasil) y extracto regional descargado de Geofabrik con 840.353 entidades clasificadas con superposición semántica en 10 macrocategorías temáticas (CAT-01 a CAT-10) y 309.752 edificaciones completas en las 52 comunas de la Región Metropolitana."
         ],
         [
-            6, "EX_GeographicBoundingBox.westBoundLongitude", "Extensión Oeste (Longitud Min)", "Obligatorio (M)",
-            "Decimal (EPSG:4326)", "Límite Oeste", "Límite occidental del área geográfica en grados decimales.",
-            "-71.5000 (Región Metropolitana) / -70.6720 (Barrio Brasil)"
+            4, "CI_ResponsibleParty.organisationName", "Custodio o Responsable Institucional", "Obligatorio (M) - Núcleo 4",
+            "Carácter", "Punto de Contacto / Custodio (IDE Chile)", "Institución, organismo u organización comunitaria a cargo de la custodia y administración del dataset.",
+            "Departamento de Geografía Universidad Alberto Hurtado 2026 — Nodo GeoAbierto (Proyecto Fondecyt 1261256)"
         ],
         [
-            7, "EX_GeographicBoundingBox.eastBoundLongitude", "Extensión Este (Longitud Max)", "Obligatorio (M)",
-            "Decimal (EPSG:4326)", "Límite Este", "Límite oriental del área geográfica en grados decimales.",
-            "-70.0000 (Región Metropolitana) / -70.6550 (Barrio Brasil)"
+            5, "CI_Date.date", "Fecha de Referencia y Vigencia", "Obligatorio (M) - Núcleo 5",
+            "Fecha ISO 8601 (AAAA-MM-DD)", "Fecha de Referencia (IDE Chile)", "Fecha de creación, publicación, corte temporal o última actualización del conjunto de datos.",
+            "2026-10-08"
         ],
         [
-            8, "EX_GeographicBoundingBox.southBoundLatitude", "Extensión Sur (Latitud Min)", "Obligatorio (M)",
-            "Decimal (EPSG:4326)", "Límite Sur", "Límite meridional del área geográfica en grados decimales.",
-            "-34.2000 (Región Metropolitana) / -33.4500 (Barrio Brasil)"
+            6, "MD_TopicCategoryCode", "Categoría Temática ISO 19115", "Obligatorio (M) - Núcleo 6",
+            "Lista controlada (Codest)", "Categoría Temática (IDE Chile)", "Clasificación temático-sectorial estandarizada según las 19 categorías de ISO 19115-1:2014.",
+            "planningCadastre, structure, transportation, location, society"
         ],
         [
-            9, "EX_GeographicBoundingBox.northBoundLatitude", "Extensión Norte (Latitud Max)", "Obligatorio (M)",
-            "Decimal (EPSG:4326)", "Límite Norte", "Límite septentrional del área geográfica en grados decimales.",
-            "-33.0000 (Región Metropolitana) / -33.4380 (Barrio Brasil)"
+            7, "EX_GeographicBoundingBox", "Extensión Espacial Delimitada (BBox)", "Obligatorio (M) - Núcleo 7",
+            "4 Coordenadas Decimales (EPSG:4326)", "Extensión Geográfica (IDE Chile)", "Rectángulo envolvente delimitador en grados decimales (Oeste: -71.5000, Este: -70.0000, Sur: -34.2000, Norte: -33.0000).",
+            "Oeste: -71.5000 / Este: -70.0000 / Sur: -34.2000 / Norte: -33.0000"
         ],
         [
-            10, "MD_ReferenceSystem.referenceSystemIdentifier", "Sistema de Referencia Espacial", "Obligatorio (M)",
-            "Código EPSG", "Sistema de Coordenadas", "Código oficial del sistema de referencia de coordenadas.",
-            "EPSG:4326 (WGS 84) con cálculo métrico en EPSG:32719 (UTM Huso 19 Sur) / Compatible SIRGAS Chile (EPSG:5360)"
+            8, "MD_ReferenceSystem.referenceSystemIdentifier", "Sistema de Referencia Espacial (CRS)", "Obligatorio (M) - Núcleo 8",
+            "Código EPSG oficial", "Sistema de Coordenadas (IDE Chile)", "Sistema de referencia de coordenadas geodésico formal (horizontal y vertical).",
+            "EPSG:4326 (WGS 84) con cálculo métrico euclidiano en EPSG:32719 (UTM Huso 19 Sur) / Compatible SIRGAS-Chile (EPSG:5360)"
         ],
         [
-            11, "LI_Lineage.statement", "Linaje y Trazabilidad", "Condicional (C)",
-            "Texto libre", "Historia / Linaje", "Descripción del proceso de captura, consultas a APIs y filtros empleados.",
+            9, "MD_Constraints.useLimitation", "Licencia y Certeza Jurídica", "Obligatorio (M) - Núcleo 9",
+            "Texto libre / URI", "Condiciones de Acceso y Uso (IDE Chile)", "Declaración explícita de licencia de datos abiertos, restricciones de uso y cumplimiento de Ley 20.285.",
+            "ODbL 1.0 (© OpenStreetMap contributors / Geofabrik GmbH) para datos vectoriales; CC BY 4.0 para capas oficiales y GBIF; AGPL-3.0 para software."
+        ],
+        [
+            10, "LI_Lineage.statement", "Linaje y Trazabilidad Metodológica", "Obligatorio (M) - Núcleo 10",
+            "Texto libre", "Historia / Linaje (IDE Chile)", "Descripción pormenorizada del método de captura, fuentes primarias, transformaciones y control de calidad.",
             "Doble flujo metodológico: 1) Consultas en vivo a la API Overpass (OSMF) en el Bbox activo con balanceo en 4 espejos. 2) Descarga de dump regional Geofabrik Chile (chile-260927.osm.pbf) recortado con máscara DPA 2023 de la Región Metropolitana, procesando 1.309.189 registros y clasificando 840.353 entidades con superposición semántica en 10 macrocategorías temáticas (incluyendo 309.752 edificaciones íntegras sin muestreo) con índice Bbox precomputado y GeoPackage R-Tree."
         ],
         [
-            12, "MD_Constraints.useLimitation", "Restricciones de Uso y Licencia", "Obligatorio (M)",
-            "Texto libre", "Restricciones Legales", "Declaración explícita de derechos de autor y licencias de distribución.",
-            "ODbL 1.0 (© OpenStreetMap contributors / Geofabrik GmbH) para datos vectoriales; CC BY 4.0 para capas institucionales y GBIF; AGPL-3.0 para código fuente del Atlas."
+            11, "MD_Metadata.language", "Idioma de los Metadatos", "Obligatorio ISO (M)",
+            "Codest / spa", "Idioma de Metadatos", "Idioma oficial en el que están redactados los metadatos.",
+            "spa (Español)"
         ],
         [
-            13, "CI_ResponsibleParty.organisationName", "Organización Responsable", "Obligatorio (M)",
-            "Carácter", "Punto de Contacto", "Nombre de la institución o colectivo a cargo del recurso.",
-            "Departamento de Geografía Universidad Alberto Hurtado 2026 — Nodo GeoAbierto"
+            12, "MD_Metadata.characterSet", "Juego de Caracteres", "Obligatorio ISO (M)",
+            "Codest / utf8", "Codificación de Caracteres", "Juego de caracteres universal empleado en el almacenamiento digital.",
+            "utf8 (Unicode)"
         ],
         [
-            14, "CI_ResponsibleParty.electronicMailAddress", "Correo Electrónico de Contacto", "Obligatorio (M)",
+            13, "CI_ResponsibleParty.electronicMailAddress", "Correo Electrónico de Contacto", "Obligatorio ISO (M)",
             "Correo válido", "Correo de Contacto", "Canal formal para consultas sobre el recurso.",
             "juanpablolescanovillegas@gmail.com"
         ],
         [
-            15, "DQ_Completeness.quantitativeResult", "Indicador de Completitud VGI", "Opcional (O)",
-            "Numérico / Razón", "Calidad de Datos", "Evaluación cuantitativa del volumen y actualidad de los datos.",
+            14, "MD_DigitalTransferOptions.onLine.linkage", "Servicios Web y Descarga en Red", "Recomendado (R)",
+            "URL / Endpoint", "Distribución y Acceso en Línea", "Puntos de acceso para descarga directa y consumo interoperable en red (WFS/WMS/API).",
+            "https://atlasvgiuah.netlify.app/ / API Overpass QL / Supabase CDN Storage"
+        ],
+        [
+            15, "MD_Format.name", "Formato de Distribución", "Obligatorio ISO (M)",
+            "Carácter", "Formato de Distribución", "Especificación técnica del formato abierto de entrega de datos geoespaciales.",
+            "GeoJSON (RFC 7946), GeoPackage (OGC GPKG 1.2), Shapefile (ESRI), SQL Dump (PostGIS 3.3)"
+        ],
+        [
+            16, "DQ_Completeness.quantitativeResult", "Indicador de Calidad ISO 19157", "Opcional (O)",
+            "Numérico / Razón", "Calidad de Datos Espaciales", "Evaluación cuantitativa del volumen, consistencia topológica y actualidad de los datos.",
             "Cobertura total RM: 1.552.144 entidades clasificadas (695.412 edificaciones 100% completas, 326.545 redes de transporte y 79.747 coberturas/usos de suelo). Densidad Barrio Brasil: >350 elem/km² evaluado con ohsome API y OQT."
         ]
     ]
@@ -1114,6 +1119,7 @@ def crear_categorias_tematicas_osm():
         ["bbox", "Arreglo Numérico [minX,minY,maxX,maxY]", "32", "Obligatorio", "Calculado por entidad en EPSG:4326", "Bounding box del espécimen", "gmd:EX_GeographicBoundingBox", "Envolvente geográfica rectangular precomputada por entidad que permite filtrado espacial O(1) instantáneo en el navegador."],
         ["fecha_registro", "Fecha / ISO 8601", "24", "Condicional", "timestamp de la última edición", "eventDate", "Fecha de Captura / gmd:dateStamp", "Marca temporal de la última actualización para evaluar obsolescencia (ISO 19157)."],
         ["licencia", "Texto", "48", "Obligatorio", "'ODbL 1.0 (OSM) / CC BY-SA 4.0'", "'CC BY 4.0' / 'CC0 1.0'", "gmd:MD_LegalConstraints", "Marco tripartito: CC BY-SA 4.0 (contenido/documentación), ODbL 1.0 (datos espaciales) y AGPL-3.0 (código fuente)."],
+        ["coordenadas", "Arreglo [Long, Lat]", "32", "Obligatorio", "[lon, lat] en EPSG:4326 (WGS84)", "decimalLongitude, decimalLatitude", "Sistema de Coordenadas EPSG:4326", "Par ordenado de coordenadas geodésicas en grados decimales para posicionamiento directo en visores WebGIS (Leaflet)."],
         ["geom_wkt", "Geometría (WKT)", "Variable", "Obligatorio", "Point / LineString / Polygon / MultiLineString", "Point (decimalLat, decimalLon)", "Coordenadas Espaciales EPSG:4326", "Geometría vectorial en WGS 84 compatible con estándares del Open Geospatial Consortium."]
     ]
     

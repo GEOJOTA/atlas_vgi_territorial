@@ -1675,11 +1675,11 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
         del wb[sheet_vgi]
     ws2 = wb.create_sheet(title=sheet_vgi)
 
-    ws2.merge_cells("A1:Q1")
+    ws2.merge_cells("A1:P1")
     ws2["A1"] = "CATÁLOGO TÉCNICO Y TAXONOMÍA DE LAS 10 MACRO-CATEGORÍAS VGI — ATLAS VGI UAH"
     ws2["A1"].font = title_font
 
-    ws2.merge_cells("A2:Q2")
+    ws2.merge_cells("A2:P2")
     ws2["A2"] = "Distribución Cuantitativa, Participación Relativa (Share %), Dimensiones de Calidad ISO 19157 y Claves OSM / Darwin Core"
     ws2["A2"].font = subtitle_font
 
@@ -1687,7 +1687,7 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
         "Código", "Macro-categoría VGI", "Claves Principales OSM / Darwin Core", "Geometría OGC",
         "Entidades Local (N°)", "% Local (Share)", "Entidades RM (N°)", "% RM (Share)",
         "MC (30%)", "CC (20%)", "LL (25%)", "RG (15%)", "AI (10%)", "IGMC Global (%)",
-        "Grado ISO 19157", "Norma Chilena Vinculada", "Marco Legal / Licencia"
+        "Grado ISO 19157", "Marco Legal / Licencia"
     ]
 
     row_h2 = 4
@@ -1727,7 +1727,6 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
             f"{c_res.get('score_ai', 100.0):.1f}%",
             f"{c_res.get('igmc', 100.0):.1f}%",
             c_res.get('grado', 'A+ (Excelente)'),
-            esp['norma_chilena_vinculada'],
             esp['licencia']
         ]
         for col_idx, val in enumerate(valores2, 1):
@@ -1744,7 +1743,7 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
         "TOTAL", "UNIVERSO VGI COMPLETO", "—", "—",
         tot_local, "100.0%", tot_rm, "100.0%",
         "100.0%", "100.0%", "100.0%", "100.0%", "100.0%", "100.0%",
-        "A+ (Excelente)", "—", "—"
+        "A+ (Excelente)", "—"
     ]
     for col_idx, val in enumerate(tot_vals_vgi, 1):
         cell = ws2.cell(row=row_tot_vgi, column=col_idx, value=val)

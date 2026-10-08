@@ -77,10 +77,19 @@ const ModuloDiccionario = (() => {
       campo: 'fuente',
       nombre: 'Fuente de Adquisición',
       tipo: 'Texto',
-      definicion: 'Plataforma colaborativa o repositorio de donde provienen los datos brutos (OpenStreetMap, GBIF, iNaturalist, UMap).',
-      ejemplo: 'OpenStreetMap, GBIF Occurrence API',
+      definicion: 'Plataforma proveedora del dato espacial (OpenStreetMap, Geofabrik RM, GBIF Occurrence API, iNaturalist, IDE Chile).',
+      ejemplo: 'OpenStreetMap (API Overpass) / Geofabrik (Extracto RM) / GBIF',
       equivalenciaIDE: 'Linaje y Procedencia (gmd:LI_Lineage)',
       importancia: 'Garantiza la trazabilidad del dato y la transparencia metodológica.'
+    },
+    {
+      campo: 'metodo_adquisicion',
+      nombre: 'Método de Adquisición y Extracción',
+      tipo: 'Texto',
+      definicion: 'Método técnico empleado para la obtención del dato territorial (proceso masivo dump regional vs query transaccional Overpass en vivo).',
+      ejemplo: 'Descarga Geofabrik (Dump PBF regional) / Consulta API Overpass en vivo',
+      equivalenciaIDE: 'Paso de Proceso / Método (gmd:LI_ProcessStep)',
+      importancia: 'Permite diferenciar capas precargadas de alta densidad de consultas dinámicas en tiempo real.'
     },
     {
       campo: 'licencia',
@@ -99,6 +108,33 @@ const ModuloDiccionario = (() => {
       ejemplo: '[-70.66214, -33.44991]',
       equivalenciaIDE: 'Sistema de Referencia Espacial SIRGAS-Chile (EPSG:5360 / EPSG:4326)',
       importancia: 'Permite abrir directamente las capas en QGIS, ArcGIS, Google Earth o Leaflet.'
+    },
+    {
+      campo: 'geom_wkt',
+      nombre: 'Geometría Vectorial Well-Known Text (WKT)',
+      tipo: 'Texto (WKT OGC)',
+      definicion: 'Representación textual estándar OGC de la geometría vectorial (Point, LineString, Polygon, MultiPolygon).',
+      ejemplo: 'POINT(-70.66214 -33.44991) / POLYGON((...))',
+      equivalenciaIDE: 'Geometría del Objeto Espacial (OGC SFA / ISO 19107)',
+      importancia: 'Interoperabilidad directa con motores espaciales SQL (PostGIS ST_GeomFromText) y QGIS.'
+    },
+    {
+      campo: 'bbox',
+      nombre: 'Envolvente Geográfica (Bounding Box)',
+      tipo: 'Arreglo [minX, minY, maxX, maxY]',
+      definicion: 'Caja delimitadora rectangular precomputada por entidad en EPSG:4326.',
+      ejemplo: '[-70.665, -33.448, -70.661, -33.445]',
+      equivalenciaIDE: 'Extensión Geográfica Delimitada (gmd:EX_GeographicBoundingBox)',
+      importancia: 'Permite filtrado espacial O(1) ultrarrápido por tesela en el visor Leaflet sin sobrecargar memoria.'
+    },
+    {
+      campo: 'fecha_registro',
+      nombre: 'Fecha de Registro / Actualización',
+      tipo: 'Fecha ISO 8601 (AAAA-MM-DD)',
+      definicion: 'Marca temporal de la última edición o captura del objeto espacial en la fuente original.',
+      ejemplo: '2026-09-24',
+      equivalenciaIDE: 'Fecha de Captura / Temporalidad (gmd:dateStamp)',
+      importancia: 'Vital para auditoría temporal bajo ISO 19157 y detección de obsolescencia barrial.'
     },
     {
       campo: 'superficie_m2',
@@ -1728,8 +1764,13 @@ const ModuloDiccionario = (() => {
     if (mostrarAtributos) {
       bloqueAtributosHTML = `
         <div class="bloque">
-          <h3>1. Esquema de Datos VGI Normalizado (Atributos IDE Chile / ISO 19110 / ISO 19115)</h3>
-          <p class="descripcion">Cada entidad descargada o proyectada en el Atlas adopta esta estructura tabular interoperable con SIG institucionales (QGIS / ArcGIS), el Perfil Nacional de Metadatos de Chile y métricas de área en m² (EPSG:32719):</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+            <div>
+              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[CATÁLOGO DE OBJETOS // 17 ATRIBUTOS NORMALIZADOS]</span>
+              <h3 style="margin:2px 0 0 0;">1. Esquema de Datos VGI Normalizado (Atributos IDE Chile / ISO 19110 / ISO 19115)</h3>
+            </div>
+          </div>
+          <p class="descripcion">Cada entidad descargada, auditada o proyectada en el Atlas adopta esta estructura tabular estandarizada de 17 atributos conformes a <strong>ISO 19110 (Metodología para la catalogación de fenómenos geográficos)</strong>, el <strong>Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)</strong>, geometrías vectoriales OGC y métricas de área en m² (EPSG:32719):</p>
           <div style="overflow-x:auto;">
             <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
               <thead>
