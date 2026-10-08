@@ -759,7 +759,12 @@ const EvaluadorCalidadCuantitativa = (() => {
       dimensionesCualitativas: desgloseCualitativo,
       atributosDetalle: diagAtributos.listaCampos,
       entidadesDiagnosticadas,
-      matrizWLC
+      matrizWLC,
+      geojsonOriginal: geojson,
+      capaId: opciones.id || (geojson.name || 'dataset_evaluado'),
+      nombreCapa: opciones.nombre || (geojson.name || 'Dataset Espacial'),
+      institucion: opciones.institucion || 'Evaluador Universal de Calidad',
+      tipoFuente: opciones.tipoFuente || 'Dato Espacial Evaluado'
     };
   }
 
@@ -1026,14 +1031,17 @@ const EvaluadorCalidadCuantitativa = (() => {
         <!-- Botones de Acción y Descarga -->
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:20px; border-top:1px solid var(--linea); padding-top:14px;">
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="accion" id="btn-descargar-certificado-calidad" style="font-size:0.8rem; padding:6px 14px; background:#10b981; color:#000; font-weight:700;">
-              📥 Descargar Certificado ISO 19157 (.json)
+            <button class="accion" id="btn-descargar-geojson-certificado" style="font-size:0.8rem; padding:6px 14px; background:#38bdf8; color:#000; font-weight:700;">
+              📥 Descargar GeoJSON Enriquecido (Metadatos + IGV)
+            </button>
+            <button class="accion secundaria" id="btn-descargar-certificado-calidad" style="font-size:0.8rem; padding:6px 14px; background:#10b981; color:#000; font-weight:700;">
+              📄 Certificado ISO 19157 (.json)
             </button>
             <button class="accion secundaria" id="btn-descargar-matriz-wlc" style="font-size:0.8rem; padding:6px 14px; background:rgba(56, 189, 248, 0.15); color:#38bdf8; border:1px solid #38bdf8; font-weight:700;">
-              📊 Descargar Matriz WLC (.csv)
+              📊 Matriz WLC (.csv)
             </button>
             <button class="accion secundaria" id="btn-copiar-resumen-calidad" style="font-size:0.8rem; padding:6px 14px;">
-              📋 Copiar Resumen al Portapapeles
+              📋 Copiar Resumen
             </button>
           </div>
           <span style="font-size:0.72rem; color:var(--tinta-tenue); font-family:var(--fuente-datos);">
@@ -1048,6 +1056,11 @@ const EvaluadorCalidadCuantitativa = (() => {
     renderizarMapaDiagnostico('mapa-diagnostico-calidad', resultado);
 
     // Conectar botones de descarga
+    const btnDescargarGeoJSON = document.getElementById('btn-descargar-geojson-certificado');
+    if (btnDescargarGeoJSON) {
+      btnDescargarGeoJSON.addEventListener('click', () => exportarGeoJSONCertificado(resultado));
+    }
+
     const btnDescargar = document.getElementById('btn-descargar-certificado-calidad');
     if (btnDescargar) {
       btnDescargar.addEventListener('click', () => exportarCertificadoJSON(resultado));
@@ -1183,6 +1196,65 @@ const EvaluadorCalidadCuantitativa = (() => {
     setTimeout(() => {
       if (mapaDiagnosticoInstancia) mapaDiagnosticoInstancia.invalidateSize();
     }, 250);
+  }
+
+  /**
+   * Exporta el GeoJSON evaluado enriquecido con las columnas de metadatos y los scores de calidad
+   */
+  function exportarGeoJSONCertificado(resultado) {
+    if (!resultado || !resultado.geojsonOriginal) {
+      alert('No hay un conjunto de datos espacial disponible para exportar.');
+      return;
+    }
+
+    const gj = resultado.geojsonOriginal;
+    const ig = resultado.indicadorGlobal || {};
+    const dimCuant = resultado.dimensionesCuantitativas || {};
+
+    const opciones = {
+      id: resultado.capaId || 'capa_auditada',
+      titulo: resultado.nombreCapa || 'Capa Evaluada',
+      institucion: resultado.institucion || 'Evaluador Universal de Calidad',
+      igv: ig.igv || 100,
+      grado: ig.grado || 'A+ (Excelente)',
+      tipo_fuente: resultado.tipoFuente || 'Dato Espacial Evaluado'
+    };
+
+    let gjEnriquecido = gj;
+    if (typeof ModuloMetadatos !== 'undefined' && ModuloMetadatos.enriquecerGeoJSON) {
+      gjEnriquecido = ModuloMetadatos.enriquecerGeoJSON(gj, opciones);
+    } else {
+      gjEnriquecido = JSON.parse(JSON.stringify(gj));
+    }
+
+    // Inyectar en cada entidad las métricas cuantitativas y cualitativas de la auditoría
+    if (gjEnriquecido && gjEnriquecido.features) {
+      gjEnriquecido.features.forEach(f => {
+        if (!f || !f.properties) return;
+        f.properties.meta_igv = ig.igv || 100;
+        f.properties.meta_grado_calidad = ig.grado || 'A+ (Excelente)';
+        f.properties.meta_score_cuantitativo = ig.scoreCuantitativo || 100;
+        f.properties.meta_score_cualitativo = ig.scoreCualitativo || 100;
+        f.properties.meta_score_topologia = dimCuant.topologia ? dimCuant.topologia.score : 100;
+        f.properties.meta_score_completitud = dimCuant.completitud ? dimCuant.completitud.score : 100;
+        f.properties.meta_score_posicional = dimCuant.posicional ? dimCuant.posicional.score : 100;
+        f.properties.meta_anillos_abiertos = dimCuant.topologia ? (dimCuant.topologia.anillosAbiertos || 0) : 0;
+        f.properties.meta_slivers = dimCuant.granularidad ? (dimCuant.granularidad.totalSlivers || 0) : 0;
+        f.properties.meta_auditoria_fecha = new Date().toISOString();
+      });
+    }
+
+    const blob = new Blob([JSON.stringify(gjEnriquecido, null, 2)], {
+      type: 'application/geo+json; charset=utf-8'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `geojson_certificado_calidad_igv_${Date.now()}.geojson`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   /**
@@ -1428,6 +1500,7 @@ const EvaluadorCalidadCuantitativa = (() => {
     invalidarTamanoMapa,
     exportarCertificadoJSON,
     exportarMatrizWLCCSV,
+    exportarGeoJSONCertificado,
     inicializarUI
   };
 

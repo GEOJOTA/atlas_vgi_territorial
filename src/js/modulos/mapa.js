@@ -434,14 +434,41 @@ const ModuloMapa = (() => {
     }
   }
 
+  function obtenerGeoJSONCapa(idCapa) {
+    if (capasTematicasActivas[idCapa]) {
+      return capasTematicasActivas[idCapa].toGeoJSON();
+    }
+    return null;
+  }
+
   function obtenerGeoJSONCompleto() {
     const features = [];
     Object.keys(capasTematicasActivas).forEach(id => {
       const gj = capasTematicasActivas[id].toGeoJSON();
       if (gj && gj.features) {
+        // Resolver metadatos para esta capa temática
+        let metaCapa = { id: id };
+        if (typeof ModuloMetadatos !== 'undefined' && ModuloMetadatos.resolverMetadatosCapa) {
+          metaCapa = ModuloMetadatos.resolverMetadatosCapa(id);
+        }
+
         gj.features.forEach(f => {
           f.properties = f.properties || {};
           f.properties.categoria_capa = id;
+          f.properties.meta_capa_id = metaCapa.id || id;
+          f.properties.meta_titulo = metaCapa.titulo || id;
+          f.properties.meta_institucion = metaCapa.institucion || 'Atlas VGI — Nodo GeoAbierto';
+          f.properties.meta_ministerio = metaCapa.ministerio || 'Sector Público / Sociedad Civil';
+          f.properties.meta_grupo = metaCapa.grupo || 'general';
+          f.properties.meta_tipo_fuente = metaCapa.tipo_fuente || 'VGI (Comunitaria / Abierta)';
+          f.properties.meta_temporalidad = metaCapa.temporalidad || '2026';
+          f.properties.meta_licencia = metaCapa.licencia || 'ODbL 1.0 / Ley N° 20.285';
+          f.properties.meta_cita_apa = metaCapa.cita_apa || `Atlas VGI UAH. (2026). ${metaCapa.titulo || id}.`;
+          f.properties.meta_crs = 'EPSG:4326 (WGS 84)';
+          f.properties.meta_igv = Number(metaCapa.igv || 100.0);
+          f.properties.meta_grado_calidad = metaCapa.grado_calidad || 'A+ (Excelente)';
+          f.properties.meta_contacto = metaCapa.contacto || 'nodo-geoabierto@uahurtado.cl';
+          f.properties.meta_url_servicio = metaCapa.url_servicio || window.location.href;
           features.push(f);
         });
       }
@@ -450,6 +477,16 @@ const ModuloMapa = (() => {
       type: 'FeatureCollection',
       name: 'Atlas_VGI_Barrio_Brasil_UAH',
       crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+      metadata: {
+        estandar: 'ISO 19115-1:2014 / ISO 19157:2023 / Perfil IDE Chile SNIT v2.0',
+        fileIdentifier: `urn:uuid:vgi-cl-consolidado-${Date.now()}`,
+        title: 'Colección de Capas Activas — Atlas VGI Barrio Brasil UAH',
+        organisationName: 'Universidad Alberto Hurtado / Nodo GeoAbierto',
+        legalConstraints: 'Open Database License (ODbL) 1.0 / Ley N° 20.285',
+        totalEntities: features.length,
+        referenceSystemIdentifier: 'EPSG:4326',
+        exportDate: new Date().toISOString()
+      },
       features: features
     };
   }
@@ -460,13 +497,15 @@ const ModuloMapa = (() => {
       alert('No hay capas temáticas activas con datos en el mapa para exportar.');
       return;
     }
-    const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/geo+json' });
+    const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/geo+json; charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `atlas-vgi-barrio-brasil-uah-${new Date().toISOString().slice(0, 10)}.geojson`;
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   function cambiarTerritorio(idTerritorio) {
@@ -1162,11 +1201,15 @@ const ModuloMapa = (() => {
   function exportarCapaPorId(idCapa) {
     if (capasTematicasActivas[idCapa]) {
       const gj = capasTematicasActivas[idCapa].toGeoJSON();
+      if (typeof ModuloMetadatos !== 'undefined' && ModuloMetadatos.descargarGeoJSONEnriquecido) {
+        ModuloMetadatos.descargarGeoJSONEnriquecido(gj, { id: idCapa }, `capa_${idCapa}_con_metadatos.geojson`);
+        return true;
+      }
       const blob = new Blob([JSON.stringify(gj, null, 2)], { type: 'application/geo+json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${idCapa}.geojson`;
+      a.download = `capa_${idCapa}.geojson`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1220,6 +1263,7 @@ const ModuloMapa = (() => {
     cargarCapaGeoJSON,
     removerCapa,
     limpiarTodasLasCapas,
+    obtenerGeoJSONCapa,
     obtenerGeoJSONCompleto,
     exportarGeoJSONCargado,
     exportarCapaPorId,

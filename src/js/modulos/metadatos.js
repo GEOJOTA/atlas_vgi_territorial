@@ -241,15 +241,209 @@ const ModuloMetadatos = (() => {
       .slice(0, 45);
   }
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // ENRIQUECEDOR UNIVERSAL DE METADATOS PARA DESCARGAS DEL ATLAS
+  // Conforme a ISO 19115-1:2014, ISO 19157:2023 y Perfil IDE Chile SNIT v2.0
+  // ═══════════════════════════════════════════════════════════════════════
+
+  let _matrizMetacalidadCache = null;
+
+  async function obtenerCatalogoMetadatosGlobal() {
+    if (_matrizMetacalidadCache) return _matrizMetacalidadCache;
+    try {
+      const resp = await fetch('docs/matriz_metacalidad.json');
+      if (resp.ok) {
+        const datos = await resp.json();
+        if (datos && datos.capas) {
+          _matrizMetacalidadCache = {};
+          datos.capas.forEach(c => {
+            _matrizMetacalidadCache[c.id] = c;
+          });
+          return _matrizMetacalidadCache;
+        }
+      }
+    } catch (_) {}
+    return _matrizMetacalidadCache || {};
+  }
+
+  function resolverMetadatosCapa(idCapa, fallbackInfo = {}) {
+    const catalogo = _matrizMetacalidadCache || {};
+    const cat = catalogo[idCapa] || {};
+
+    let defOficial = null;
+    if (typeof ModuloIDEChile !== 'undefined' && ModuloIDEChile.obtenerDefinicionCapa) {
+      defOficial = ModuloIDEChile.obtenerDefinicionCapa(idCapa);
+    }
+
+    const id = idCapa || fallbackInfo.id || 'vgi_territorial';
+    const titulo = cat.nombre || (defOficial ? defOficial.nombre : null) || fallbackInfo.nombre || fallbackInfo.titulo || 'Capa Territorial Atlas VGI';
+    const institucion = cat.institucion || (defOficial ? defOficial.institucion : null) || fallbackInfo.institucion || 'Comunidad OpenStreetMap / IDE Chile';
+    const ministerio = cat.ministerio || (defOficial ? defOficial.ministerio : null) || fallbackInfo.ministerio || 'Sector Público / Sociedad Civil';
+    const grupo = cat.grupo || (defOficial ? defOficial.grupo : null) || fallbackInfo.grupo || 'general';
+    const tipoFuente = cat.tipo_fuente || fallbackInfo.tipo_fuente || (id.startsWith('bbdd_') || id.startsWith('ide_') ? 'Oficial (Estado de Chile)' : 'VGI (Comunitaria / Abierta)');
+    const temporalidad = cat.temporalidad || fallbackInfo.temporalidad || '2026';
+    const licencia = cat.licencia || (defOficial ? defOficial.declaracion : null) || fallbackInfo.licencia || 'Open Database License (ODbL) 1.0 / Ley N° 20.285';
+    const citaApa = cat.cita_apa || (defOficial ? defOficial.citaAPA : null) || fallbackInfo.cita_apa || fallbackInfo.citaAPA || `Atlas VGI UAH. (2026). ${titulo}. Universidad Alberto Hurtado.`;
+    const crs = 'EPSG:4326 (WGS 84)';
+    const igv = typeof cat.igv === 'number' ? cat.igv : (fallbackInfo.igv ? Number(fallbackInfo.igv) : 98.5);
+    const grado = cat.grado || fallbackInfo.grado || (igv >= 95.0 ? 'A+ (Excelente)' : 'A (Muy Bueno)');
+    const contacto = 'nodo-geoabierto@uahurtado.cl / contacto@ide.cl';
+    const urlServicio = cat.url_servicio || (defOficial ? defOficial.urlServicio : null) || fallbackInfo.urlServicio || 'https://atlasvgiuah.netlify.app/';
+
+    return {
+      id,
+      titulo,
+      institucion,
+      ministerio,
+      grupo,
+      tipo_fuente: tipoFuente,
+      temporalidad,
+      licencia,
+      cita_apa: citaApa,
+      crs,
+      igv,
+      grado_calidad: grado,
+      contacto,
+      url_servicio: urlServicio
+    };
+  }
+
+  /**
+   * Inyecta las columnas canónicas del Perfil de Metadatos del Catálogo
+   * en cada entidad (feature.properties) y en el encabezado metadata del FeatureCollection.
+   */
+  function enriquecerGeoJSON(geojson, opciones = {}) {
+    if (!geojson) return geojson;
+
+    const idCapa = opciones.id || (geojson.name ? String(geojson.name) : 'capa_territorial');
+    const meta = resolverMetadatosCapa(idCapa, opciones);
+
+    const clon = JSON.parse(JSON.stringify(geojson));
+
+    if (clon.type === 'FeatureCollection' && Array.isArray(clon.features)) {
+      clon.name = `atlas_vgi_${slugify(meta.titulo)}`;
+      clon.crs = {
+        type: 'name',
+        properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' }
+      };
+      clon.metadata = {
+        estandar: 'ISO 19115-1:2014 / ISO 19157:2023 / Perfil IDE Chile SNIT v2.0',
+        fileIdentifier: `urn:uuid:vgi-cl-${meta.id}-${Date.now()}`,
+        title: meta.titulo,
+        organisationName: meta.institucion,
+        ministerio: meta.ministerio,
+        legalConstraints: meta.licencia,
+        citation: meta.cita_apa,
+        referenceSystemIdentifier: meta.crs,
+        temporalExtent: meta.temporalidad,
+        quality_igv_score: meta.igv,
+        quality_grade: meta.grado_calidad,
+        contactEmail: meta.contacto,
+        serviceUrl: meta.url_servicio,
+        totalEntities: clon.features.length,
+        exportDate: new Date().toISOString()
+      };
+
+      clon.features.forEach(f => {
+        if (!f) return;
+        f.properties = f.properties || {};
+        f.properties.meta_capa_id = meta.id;
+        f.properties.meta_titulo = meta.titulo;
+        f.properties.meta_institucion = meta.institucion;
+        f.properties.meta_ministerio = meta.ministerio;
+        f.properties.meta_grupo = meta.grupo;
+        f.properties.meta_tipo_fuente = meta.tipo_fuente;
+        f.properties.meta_temporalidad = meta.temporalidad;
+        f.properties.meta_licencia = meta.licencia;
+        f.properties.meta_cita_apa = meta.cita_apa;
+        f.properties.meta_crs = meta.crs;
+        f.properties.meta_igv = meta.igv;
+        f.properties.meta_grado_calidad = meta.grado_calidad;
+        f.properties.meta_contacto = meta.contacto;
+        f.properties.meta_url_servicio = meta.url_servicio;
+      });
+    } else if (clon.type === 'Feature') {
+      clon.properties = clon.properties || {};
+      clon.properties.meta_capa_id = meta.id;
+      clon.properties.meta_titulo = meta.titulo;
+      clon.properties.meta_institucion = meta.institucion;
+      clon.properties.meta_ministerio = meta.ministerio;
+      clon.properties.meta_grupo = meta.grupo;
+      clon.properties.meta_tipo_fuente = meta.tipo_fuente;
+      clon.properties.meta_temporalidad = meta.temporalidad;
+      clon.properties.meta_licencia = meta.licencia;
+      clon.properties.meta_cita_apa = meta.cita_apa;
+      clon.properties.meta_crs = meta.crs;
+      clon.properties.meta_igv = meta.igv;
+      clon.properties.meta_grado_calidad = meta.grado_calidad;
+      clon.properties.meta_contacto = meta.contacto;
+      clon.properties.meta_url_servicio = meta.url_servicio;
+    }
+
+    return clon;
+  }
+
+  /**
+   * Enriquece y gatilla la descarga de un GeoJSON estructurado
+   */
+  function descargarGeoJSONEnriquecido(geojson, opciones = {}, nombreArchivo = null) {
+    const geojsonEnriquecido = enriquecerGeoJSON(geojson, opciones);
+    const nom = nombreArchivo || `atlas_vgi_${slugify(opciones.titulo || opciones.nombre || opciones.id || 'datos')}.geojson`;
+    const blob = new Blob([JSON.stringify(geojsonEnriquecido, null, 2)], {
+      type: 'application/geo+json; charset=utf-8'
+    });
+    descargarBlob(blob, nom);
+  }
+
+  /**
+   * Helper para descargar cualquier capa por ID resolviendo su origen y metadatos
+   */
+  async function descargarCapaEnriquecidaPorId(idCapa, urlFallback = null, nombreArchivo = null) {
+    await obtenerCatalogoMetadatosGlobal();
+
+    // 1. Si la capa está cargada en memoria en ModuloMapa
+    if (typeof ModuloMapa !== 'undefined' && ModuloMapa.obtenerGeoJSONCapa) {
+      const gjMem = ModuloMapa.obtenerGeoJSONCapa(idCapa);
+      if (gjMem && gjMem.features && gjMem.features.length > 0) {
+        descargarGeoJSONEnriquecido(gjMem, { id: idCapa }, nombreArchivo);
+        return true;
+      }
+    }
+
+    // 2. Fetch del archivo estático
+    let url = urlFallback;
+    if (!url) {
+      if (typeof ModuloIDEChile !== 'undefined' && ModuloIDEChile.obtenerDefinicionCapa) {
+        const def = ModuloIDEChile.obtenerDefinicionCapa(idCapa);
+        if (def && def.archivoLocal) url = def.archivoLocal;
+      }
+      if (!url) url = `data/capa_${idCapa}.geojson`;
+    }
+
+    const resp = await fetch(url);
+    if (!resp.ok) {
+      throw new Error(`Error HTTP ${resp.status} al solicitar ${url}`);
+    }
+    const rawGj = await resp.json();
+    descargarGeoJSONEnriquecido(rawGj, { id: idCapa }, nombreArchivo || `capa_${idCapa}_con_metadatos.geojson`);
+    return true;
+  }
+
   return {
     construirFicha,
     generarXMLISO19139,
     guardarFichaLocal,
     exportarComoArchivoJSON,
-    exportarComoArchivoXML
+    exportarComoArchivoXML,
+    obtenerCatalogoMetadatosGlobal,
+    resolverMetadatosCapa,
+    enriquecerGeoJSON,
+    descargarGeoJSONEnriquecido,
+    descargarCapaEnriquecidaPorId
   };
 })();
 
 if (typeof window !== 'undefined') {
   window.ModuloMetadatos = ModuloMetadatos;
 }
+

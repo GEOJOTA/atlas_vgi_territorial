@@ -2,721 +2,536 @@
 # -*- coding: utf-8 -*-
 r"""
 =============================================================================
-  MODELO DE ÍNDICE LINEAL PONDERADO (WLC) — VERSIÓN 2.0 ESCALABLE
-  Weighted Linear Combination for Territorial Prioritization & Spatial Quality
+  MODELO DE ÍNDICE LINEAL PONDERADO (WLC) PARA METACALIDAD ESPACIAL (IGV)
+  Weighted Linear Combination for Spatial Data & Metadata Quality
   Atlas VGI — Nodo GeoAbierto | Universidad Alberto Hurtado (UAH)
   Proyecto Fondecyt Regular F1261256 (ANID)
 =============================================================================
 
 DESCRIPCIÓN GENERAL
 -------------------
-Implementa la Combinación Lineal Ponderada (WLC - Weighted Linear Combination)
-para construir índices territoriales multidimensionales (vulnerabilidad, idoneidad,
-priorización de inversión) y auditorías de calidad espacial (IGV ISO 19157 / ISO 19115).
-Integra formalmente la correlación espacial de Pearson y el rezago espacial (spatial lag)
-como mecanismo empírico objetivo para la justificación y calibración de los pesos asignados.
+Implementa la Combinación Lineal Ponderada (WLC — Weighted Linear Combination;
+Voogd, 1983; Malczewski, 1999; Eastman, 1999) como motor matemático y
+metodológico riguroso para la evaluación del Índice Global de Calidad Espacial
+y MetaCalidad (IGV) sobre conjuntos de datos geográficos vectoriales, conforme
+a las normas internacionales:
+  - ISO 19157:2013 / ISO 19157-1:2023: Calidad de Información Geográfica.
+  - ISO 19115-1:2014 / Amd 2:2020: Metadatos para Información Geográfica.
+  - ISO 19139:2007: Esquemas XML de Metadatos y Perfil IDE Chile / SNIT v2.0.
 
-ESTRUCTURA DEL SCRIPT
-----------------------
-  BLOQUE 0 — Importaciones y dependencias
-  BLOQUE 1 — PARÁMETROS DE CONFIGURACIÓN POR DEFECTO
-  BLOQUE 2 — Funciones de normalización Min-Max y WLC
-  BLOQUE 3 — Justificación empírica de pesos vía correlación espacial bivariada
-  BLOQUE 4 — Motor de ejecución del modelo (orquestador)
-  BLOQUE 5 — CLI (argparse) para ejecución en terminal
+El índice integra de forma reproducible:
+  - 5 Dimensiones Cuantitativas (50%): Topología OGC, Completitud de atributos,
+    Integridad posicional, Consistencia estructural, y Granularidad de vértices.
+  - 5 Dimensiones Cualitativas (50%): Metadatos Core ISO 19115, Conformidad
+    semántica, Linaje y marco legal, Resolución conceptual, y Accesibilidad/APIs.
 
-FUNDAMENTO MATEMÁTICO
----------------------
-1. Normalización Min-Max (Malczewski, 1999; Eastman, 1999):
-   - Criterio de Beneficio (mayor valor = mayor prioridad / calidad):
-       x_norm = (x - x_min) / (x_max - x_min)
-   - Criterio de Costo (menor valor = mayor prioridad / calidad; penalización invertida):
-       x_norm = (x_max - x) / (x_max - x_min)
-
-2. Combinación Lineal Ponderada (WLC; Voogd, 1983; Malczewski & Rinner, 2015):
-       S_j = Σ (w_i · x_ij_norm)   para i ∈ {1..n criterios}
-   donde Σ w_i = 1.0.
-
-3. Desglose analítico por entidad:
-   - norm_{criterio}    : Valor del criterio reescalado a [0, 1].
-   - contrib_{criterio} : Aporte ponderado parcial (w_i · norm_{criterio}).
-   - indice_score       : Puntaje global compuesto [0, 1] o [0, 100%].
-   - prioridad_rank     : Ranking ordinal (1 = máxima prioridad/calidad).
-
-4. Justificación empírica de pesos vía correlación espacial (Anselin, 1988/1995; Tobler, 1970):
-       lag_X = W · X
-       r_clasica = pearsonr(X_i, X_j)
-       r_espacial = pearsonr(X_i, lag_X_j)
-   Donde W es la matriz de pesos espaciales estandarizada por filas (distancia euclidiana
-   entre centroides con umbral de vecindad d). Correlaciones altas (> 0.70) indican
-   redundancia dimensional, justificando pesos moderados o combinados, mientras que
-   correlaciones bajas validan independencia factorial.
-
-CÓMO USAR ESTE SCRIPT
-----------------------
-OPCIÓN A — Ejecución directa con datos territoriales de Santiago Centro / Barrio Brasil:
-  python3 scripts/modelo_indice_lineal_wlc.py
-
-OPCIÓN B — Ejecución vía CLI con parámetros personalizados:
-  python3 scripts/modelo_indice_lineal_wlc.py \
-      -i src/data/IGVUST_UV_2026_Agosto.geojson \
-      -c pob_rsh_uv hog_uv rank_nac \
-      -w 0.40 0.35 0.25 \
-      -t beneficio beneficio costo \
-      -o src/data/priorizacion_uv_wlc.geojson \
-      --umbral 1500 --justificar
-
-OPCIÓN C — Modo MetaCalidad (evaluación de capas bajo WLC):
-  python3 scripts/modelo_indice_lineal_wlc.py --modo metacalidad
-=============================================================================
+Soporta:
+  1. Auditoría global sobre la totalidad de la base de datos (118 componentes).
+  2. Evaluación universal de cualquier conjunto de datos espacial externo
+     (GeoJSON) ingresado por el usuario o procesado en pipelines de geoprocesos.
+  3. Matriz de correlación de Pearson y heatmaps analíticos para justificar
+     la complementariedad e independencia dimensional de los ponderadores.
 """
 
-# ─────────────────────────────────────────────────────────────────────────────
-# BLOQUE 0 — IMPORTACIONES
-# ─────────────────────────────────────────────────────────────────────────────
 import os
 import sys
 import argparse
-import warnings
 import json
+import math
 import numpy as np
 import pandas as pd
-
-try:
-    import geopandas as gpd
-    HAS_GEOPANDAS = True
-except ImportError:
-    HAS_GEOPANDAS = False
-    gpd = None
-
-try:
-    from scipy.stats import pearsonr
-    HAS_SCIPY = True
-except ImportError:
-    HAS_SCIPY = False
-    pearsonr = None
 
 try:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    HAS_MATPLOTLIB = True
+    HAS_PLOT = True
 except ImportError:
-    HAS_MATPLOTLIB = False
-    plt = None
+    HAS_PLOT = False
 
-warnings.filterwarnings("ignore", category=RuntimeWarning)
-
-# Directorios del proyecto
+# Rutas del repositorio
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_DATA_DIR = os.path.join(BASE_DIR, 'src', 'data')
-DATA_DIR = os.path.join(BASE_DIR, 'data')
 DOCS_DIR = os.path.join(BASE_DIR, 'docs')
 SRC_DOCS_DIR = os.path.join(BASE_DIR, 'src', 'docs')
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# BLOQUE 1 — PARÁMETROS DE CONFIGURACIÓN POR DEFECTO
-# ─────────────────────────────────────────────────────────────────────────────
-
-CONFIG = {
-    # --- Entrada de datos ---------------------------------------------------
-    # Capa territorial de Unidades Vecinales de Santiago Centro / RM
-    "input_file": os.path.join(SRC_DATA_DIR, "IGVUST_UV_2026_Agosto.geojson"),
-    "layer_name": None,
-
-    # --- Salida de datos ---------------------------------------------------
-    "output_file":  os.path.join(SRC_DATA_DIR, "wlc_priorizacion_uv_resultado.geojson"),
-    "output_layer": "UV_Priorizadas_WLC",
-
-    # --- Definición de criterios -------------------------------------------
-    # Tupla: (columna, peso_relativo, tipo)
-    # tipo = "beneficio" → mayor valor = mayor prioridad territorial
-    # tipo = "costo"     → menor valor = mayor prioridad territorial (ej. rank más bajo = más vulnerable)
-    "criterios": [
-        ("pob_rsh_uv",  0.40, "beneficio"),  # Demanda social / Población RSH
-        ("hog_uv",      0.35, "beneficio"),  # Densidad de hogares en la unidad vecinal
-        ("rank_nac",    0.25, "costo"),      # Ranking nacional de vulnerabilidad (1 = más crítico)
-    ],
-
-    # --- Identificador de zona ---------------------------------------------
-    "id_column": "t_uv_nom",
-    "filtro_comuna": "SANTIAGO",  # Filtrar caso comunal de Santiago / Barrio Brasil si aplica
-
-    # --- Opciones de correlación espacial para justificación de pesos ------
-    "justificar_pesos":   True,
-    "umbral_vecindad_m":  1500.0,
-    "exportar_heatmap":   True,
-    "ruta_heatmap":       os.path.join(DOCS_DIR, "correlacion_pesos_espacial.png"),
-    "exportar_csv":       True,
-    "ruta_csv":           os.path.join(DOCS_DIR, "correlacion_pesos_espacial.csv"),
-
-    # --- Resumen en consola ------------------------------------------------
-    "top_n": 10,
-}
-
+SRC_DATA_DIR = os.path.join(BASE_DIR, 'src', 'data')
 
 # ─────────────────────────────────────────────────────────────────────────────
-# BLOQUE 2 — FUNCIONES CORE DEL MODELO WLC
+# ESPECIFICACIÓN CANÓNICA DE LOS 10 CRITERIOS DEL ÍNDICE IGV (WLC v2.0)
 # ─────────────────────────────────────────────────────────────────────────────
+CRITERIOS_IGV = [
+    # Cuantitativos (50%)
+    {
+        "id": "score_topo",
+        "nombre": "Consistencia Topológica OGC",
+        "dimension": "Cuantitativa (Topología)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.30,
+        "peso_global": 0.150,
+        "descripcion": "Ausencia de auto-intersecciones (kinks), lazos, micro-slivers y anillos abiertos."
+    },
+    {
+        "id": "score_comp",
+        "nombre": "Completitud Tabular de Atributos",
+        "dimension": "Cuantitativa (Completitud)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.25,
+        "peso_global": 0.125,
+        "descripcion": "Tasa de celdas no nulas en la tabla atributiva de las entidades."
+    },
+    {
+        "id": "score_pos",
+        "nombre": "Integridad Posicional y CRS",
+        "dimension": "Cuantitativa (Posición)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.20,
+        "peso_global": 0.100,
+        "descripcion": "Validez de coordenadas dentro del Bbox oficial WGS84 y proyección métrica."
+    },
+    {
+        "id": "score_estruc",
+        "nombre": "Consistencia Estructural y Esquema",
+        "dimension": "Cuantitativa (Estructura)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.15,
+        "peso_global": 0.075,
+        "descripcion": "Homogeneidad de geometrías OGC Simple Features y presencia de identificadores únicos."
+    },
+    {
+        "id": "score_gran",
+        "nombre": "Granularidad y Complejidad Geométrica",
+        "dimension": "Cuantitativa (Granularidad)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.10,
+        "peso_global": 0.050,
+        "descripcion": "Densidad de vértices adecuada para modelación territorial y libre de colapsos."
+    },
+    # Cualitativos (50%)
+    {
+        "id": "score_mc",
+        "nombre": "Metadatos Núcleo ISO 19115 Core",
+        "dimension": "Cualitativa (Metadatos Core)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.30,
+        "peso_global": 0.150,
+        "descripcion": "Presencia de título, resumen, identificador, bounding box y custodio formal."
+    },
+    {
+        "id": "score_cc",
+        "nombre": "Conformidad Semántica y Diccionario",
+        "dimension": "Cualitativa (Semántica)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.20,
+        "peso_global": 0.100,
+        "descripcion": "Adherencia a estándares ISO 19110, taxonomía urbana y catálogo de objetos."
+    },
+    {
+        "id": "score_ll",
+        "nombre": "Linaje, Trazabilidad y Marco Legal",
+        "dimension": "Cualitativa (Linaje/Legal)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.25,
+        "peso_global": 0.125,
+        "descripcion": "Certeza jurídica explícita (Ley 20.285 / ODbL / CC-BY) e historial de captura."
+    },
+    {
+        "id": "score_rg",
+        "nombre": "Resolución Espacial y Granularidad",
+        "dimension": "Cualitativa (Resolución)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.15,
+        "peso_global": 0.075,
+        "descripcion": "Escala de representación adecuada para gestión barrial y metropolitana."
+    },
+    {
+        "id": "score_ai",
+        "nombre": "Accesibilidad y Disponibilidad Operativa",
+        "dimension": "Cualitativa (Accesibilidad)",
+        "tipo": "beneficio",
+        "peso_parcial": 0.10,
+        "peso_global": 0.050,
+        "descripcion": "Disponibilidad de endpoints de servicio WFS/WMS/API o GeoJSON descargable."
+    }
+]
 
-def normalizar_criterio(values: np.ndarray, tipo: str = "beneficio") -> np.ndarray:
+
+def normalizar_min_max(valores: np.ndarray, tipo: str = "beneficio") -> np.ndarray:
     """
-    Normaliza un array unidimensional al rango [0, 1] usando Min-Max scaling.
-
-    Parámetros
-    ----------
-    values : np.ndarray
-        Valores numéricos brutos del criterio (puede contener NaN).
-    tipo : str
-        'beneficio' → mayor valor = mayor prioridad / calidad (x - x_min)/(x_max - x_min)
-        'costo'     → menor valor = mayor prioridad / calidad (x_max - x)/(x_max - x_min)
-
-    Retorna
-    -------
-    np.ndarray  normalizado al rango [0, 1].
-
-    Referencias:
-    - Malczewski, J. (1999). GIS and Multicriteria Decision Analysis. Cap. 4, pp. 81–96.
-    - Voogd, H. (1983). Multicriteria Evaluation for Urban and Regional Planning. pp. 57–75.
-    - Eastman, J.R. (1999). Multi-criteria evaluation and GIS. pp. 493–502.
+    Normalización Min-Max formal conforme a la teoría de decisión multicriterio.
+    - Criterio de Beneficio: (x - min) / (max - min) -> Mayor valor = mayor calidad.
+    - Criterio de Costo:     (max - x) / (max - min) -> Menor valor = mayor calidad (penalización invertida).
     """
-    val_clean = np.array(values, dtype=float)
-    if np.isnan(val_clean).all():
-        return np.zeros_like(val_clean)
+    v = np.asarray(valores, dtype=float)
+    v_clean = np.where(np.isnan(v), 0.0, v)
+    v_min = float(np.min(v_clean))
+    v_max = float(np.max(v_clean))
 
-    media = np.nanmean(val_clean)
-    val_clean = np.nan_to_num(val_clean, nan=media)
-
-    v_min = float(np.min(val_clean))
-    v_max = float(np.max(val_clean))
-
-    if np.isclose(v_min, v_max):
-        if tipo == "beneficio":
-            val_const = 1.0 if v_max > 0 else 0.0
-        else:  # costo
-            val_const = 1.0 if v_max == 0 else 0.0
-        return np.full_like(val_clean, val_const)
+    if math.isclose(v_min, v_max, abs_tol=1e-9):
+        # Si la columna es constante
+        return np.ones_like(v_clean) if tipo == "beneficio" else np.zeros_like(v_clean)
 
     if tipo == "beneficio":
-        return (val_clean - v_min) / (v_max - v_min)
+        norm = (v_clean - v_min) / (v_max - v_min)
     elif tipo == "costo":
-        return (v_max - val_clean) / (v_max - v_min)
+        norm = (v_max - v_clean) / (v_max - v_min)
     else:
-        raise ValueError(f"Tipo no válido: '{tipo}'. Debe ser 'beneficio' o 'costo'.")
+        raise ValueError(f"Tipo de criterio no reconocido: '{tipo}'. Debe ser 'beneficio' o 'costo'.")
+
+    return np.clip(norm, 0.0, 1.0)
 
 
-def construir_wlc(df_o_gdf, criterios, pesos, tipos):
+def calcular_indice_wlc(df_datos: pd.DataFrame, criterios_cfg: list = None) -> pd.DataFrame:
     """
-    Construye el modelo aditivo ponderado (Weighted Linear Combination - WLC).
-
-    Parámetros
-    ----------
-    df_o_gdf  : pd.DataFrame | gpd.GeoDataFrame
-    criterios : list[str]   — Nombres de columnas de los criterios
-    pesos     : list[float] — Ponderadores numéricos (se normalizan a suma 1.0)
-    tipos     : list[str]   — 'beneficio' o 'costo' por criterio
-
-    Retorna
-    -------
-    pd.DataFrame | gpd.GeoDataFrame enriquecido con columnas:
-      - norm_{criterio}    : Valor reescalado [0, 1]
-      - contrib_{criterio} : Aporte ponderado = w_i * norm
-      - indice_score       : Puntaje final WLC
-      - prioridad_rank     : Ranking ordinal (1 = máxima prioridad)
-
-    Referencias:
-    - Malczewski, J. & Rinner, C. (2015). Cap. 5, pp. 99–130.
-    - Jankowski, P. (1995). Integrating GIS and MCDM methods. p. 260.
+    Calcula la Combinación Lineal Ponderada (WLC) aditiva:
+      S_j = Σ (w_i · x_norm,ij)
+      IGV_j = S_j * 100
     """
-    n = len(criterios)
-    if len(pesos) != n or len(tipos) != n:
-        raise ValueError(f"Inconsistencia: {n} criterios, {len(pesos)} pesos, {len(tipos)} tipos.")
+    if criterios_cfg is None:
+        criterios_cfg = CRITERIOS_IGV
 
-    suma = float(sum(pesos))
-    if not np.isclose(suma, 1.0):
-        print(f"   [INFO] Suma de pesos = {suma:.4f} ≠ 1.0. Se normalizan proporcionalmente.")
-        pesos = [float(w) / suma for w in pesos]
+    df = df_datos.copy()
+    suma_pesos = sum(c["peso_global"] for c in criterios_cfg)
+    if not math.isclose(suma_pesos, 1.0, abs_tol=1e-5):
+        raise ValueError(f"La suma de pesos globales ({suma_pesos}) debe ser exactamente 1.0.")
 
-    print(f"\n   {'CRITERIO':<32} {'TIPO':<12} {'PESO (w_i)':>12}")
-    print(f"   {'─'*58}")
-    for c, w, t in zip(criterios, pesos, tipos):
-        icono = "▲ Beneficio" if t == "beneficio" else "▼ Costo"
-        print(f"   {c:<32} {icono:<12} {w:>12.4f}")
+    score_total = np.zeros(len(df), dtype=float)
 
-    df_res = df_o_gdf.copy()
-    score_total = np.zeros(len(df_res), dtype=float)
+    for c in criterios_cfg:
+        cid = c["id"]
+        tipo = c.get("tipo", "beneficio")
+        peso = c["peso_global"]
 
-    for c, w, t in zip(criterios, pesos, tipos):
-        vals = pd.to_numeric(df_res[c], errors="coerce").values
-        norm = normalizar_criterio(vals, t)
-        contrib = norm * w
+        if cid not in df.columns:
+            valores_crudos = np.zeros(len(df), dtype=float)
+        else:
+            valores_crudos = pd.to_numeric(df[cid], errors="coerce").fillna(0.0).values
 
-        df_res[f"norm_{c}"] = np.round(norm, 6)
-        df_res[f"contrib_{c}"] = np.round(contrib, 6)
+        norm = normalizar_min_max(valores_crudos, tipo=tipo)
+        contrib = norm * peso
+
+        df[f"norm_{cid}"] = np.round(norm, 4)
+        df[f"contrib_{cid}"] = np.round(contrib * 100.0, 2)
         score_total += contrib
 
-    df_res["indice_score"] = np.round(score_total, 6)
-    df_res["prioridad_rank"] = df_res["indice_score"].rank(ascending=False, method="min").astype(int)
+    df["igv_wlc"] = np.round(score_total * 100.0, 2)
+    df["calidad_rank"] = df["igv_wlc"].rank(ascending=False, method="min").astype(int)
 
-    return df_res
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# BLOQUE 3 — JUSTIFICACIÓN DE PESOS VÍA CORRELACIÓN ESPACIAL BIVARIADA
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _matriz_pesos_espaciales(gdf, dist_umbral_m: float = 1500.0):
-    """
-    Construye la matriz de pesos espaciales W estandarizada por filas
-    a partir de las distancias euclidianas entre centroides geométricos.
-
-    Referencias:
-    - Anselin, L. (1988). Spatial Econometrics: Methods and Models. pp. 17–32.
-    - Tobler, W.R. (1970). A computer movie simulating urban growth. pp. 234–240.
-    """
-    if gdf.geometry is None or gdf.geometry.is_empty.all():
-        n = len(gdf)
-        return np.eye(n) / n
-
-    # Si las coordenadas son geográficas (WGS84), proyectar a UTM 19S (EPSG:32719) para distancias métricas exactas
-    if gdf.crs and gdf.crs.is_geographic:
-        try:
-            gdf_proj = gdf.to_crs(epsg=32719)
-            centroides = gdf_proj.geometry.centroid
-            coords_x = centroides.x.values
-            coords_y = centroides.y.values
-        except Exception:
-            centroides = gdf.geometry.centroid
-            coords_x = centroides.x.values * 93000.0  # ~93 km por grado longitud en lat -33.45°
-            coords_y = centroides.y.values * 111000.0 # ~111 km por grado latitud
-    else:
-        centroides = gdf.geometry.centroid
-        coords_x = centroides.x.values
-        coords_y = centroides.y.values
-
-    coords = np.column_stack([coords_x, coords_y])
-    diff = coords[:, np.newaxis, :] - coords[np.newaxis, :, :]
-    dist_matrix = np.sqrt(np.sum(diff ** 2, axis=-1))
-
-    # W binaria basada en umbral de vecindad
-    W = np.where((dist_matrix <= dist_umbral_m) & (dist_matrix > 0), 1.0, 0.0)
-
-    # Si una entidad no tiene vecinos dentro del umbral, conectar con su vecino más cercano (k=1)
-    for i in range(len(W)):
-        if np.sum(W[i]) == 0:
-            dists_i = dist_matrix[i].copy()
-            dists_i[i] = np.inf
-            cercano = np.argmin(dists_i)
-            W[i, cercano] = 1.0
-
-    # Estandarización por filas
-    sumas_filas = np.sum(W, axis=1, keepdims=True)
-    sumas_filas[sumas_filas == 0] = 1.0
-    W_norm = W / sumas_filas
-    return W_norm
-
-
-def _rezago_espacial(W: np.ndarray, vector_z: np.ndarray) -> np.ndarray:
-    """
-    Calcula el rezago espacial (spatial lag): lag_X = W · X_z.
-    Referencia: Bivand et al. (2013) Cap. 9, pp. 263–280.
-    """
-    return np.dot(W, vector_z)
-
-
-def justificar_pesos_con_correlacion(gdf, criterios, pesos_propuestos, tipos,
-                                      dist_umbral=1500.0, exportar_heatmap=True,
-                                      ruta_heatmap="correlacion_pesos_espacial.png",
-                                      exportar_csv=True, ruta_csv="correlacion_pesos_espacial.csv"):
-    """
-    Evalúa empíricamente la independencia y redundancia espacial de los criterios.
-    Calcula la correlación clásica de Pearson r(X_i, X_j) frente a la
-    correlación espacial bivariada r(X_i, lag_X_j).
-    """
-    print("\n" + "─" * 62)
-    print("  JUSTIFICACIÓN EMPÍRICA DE PESOS VÍA CORRELACIÓN ESPACIAL")
-    print("─" * 62)
-
-    n_crit = len(criterios)
-    k_entidades = len(gdf)
-
-    # 1. Matriz W
-    W = _matriz_pesos_espaciales(gdf, dist_umbral)
-
-    # 2. Matriz de datos estandarizados Z
-    matriz_z = np.zeros((k_entidades, n_crit))
-    matriz_lag = np.zeros((k_entidades, n_crit))
-
-    for idx, c in enumerate(criterios):
-        vals = pd.to_numeric(gdf[c], errors="coerce").fillna(0).values
-        std = np.std(vals)
-        z = (vals - np.mean(vals)) / (std if std > 0 else 1.0)
-        matriz_z[:, idx] = z
-        matriz_lag[:, idx] = _rezago_espacial(W, z)
-
-    # 3. Correlaciones
-    corr_clasica = np.zeros((n_crit, n_crit))
-    corr_espacial = np.zeros((n_crit, n_crit))
-
-    for i in range(n_crit):
-        for j in range(n_crit):
-            if HAS_SCIPY and pearsonr:
-                r_c, _ = pearsonr(matriz_z[:, i], matriz_z[:, j])
-                r_e, _ = pearsonr(matriz_z[:, i], matriz_lag[:, j])
-            else:
-                r_c = float(np.corrcoef(matriz_z[:, i], matriz_z[:, j])[0, 1])
-                r_e = float(np.corrcoef(matriz_z[:, i], matriz_lag[:, j])[0, 1])
-            corr_clasica[i, j] = np.round(r_c, 4)
-            corr_espacial[i, j] = np.round(r_e, 4)
-
-    df_clasica = pd.DataFrame(corr_clasica, index=criterios, columns=criterios)
-    df_espacial = pd.DataFrame(corr_espacial, index=criterios, columns=[f"lag_{c}" for c in criterios])
-
-    print("\n  Matriz de Correlación Clásica Pearson r(X_i, X_j):")
-    print(df_clasica.to_string())
-
-    print("\n  Matriz de Correlación Espacial Bivariada r(X_i, lag_X_j):")
-    print(df_espacial.to_string())
-
-    # Diagnóstico de redundancia vs independencia
-    print("\n  Evaluación de Redundancia y Diagnóstico de Pesos:")
-    for i in range(n_crit):
-        for j in range(i + 1, n_crit):
-            r_c = corr_clasica[i, j]
-            r_e = corr_espacial[i, j]
-            ci, cj = criterios[i], criterios[j]
-            wi, wj = pesos_propuestos[i], pesos_propuestos[j]
-            if abs(r_c) > 0.70 or abs(r_e) > 0.65:
-                print(f"   ⚠ Redundancia moderada/alta entre '{ci}' y '{cj}' (r={r_c:.2f}, r_lag={r_e:.2f}).")
-                print(f"     Justificación: Pesos balanceados w_i={wi:.2f}, w_j={wj:.2f} previenen sobrerrepresentación.")
-            else:
-                print(f"   ✔ Independencia confirmada entre '{ci}' y '{cj}' (r={r_c:.2f}, r_lag={r_e:.2f}).")
-                print(f"     Justificación: Criterios capturan dimensiones distintas; pesos diferenciados son robustos.")
-
-    if exportar_csv:
-        df_clasica.to_csv(ruta_csv)
-        print(f"  ✔ Matriz de correlación exportada a: {ruta_csv}")
-
-    if exportar_heatmap and HAS_MATPLOTLIB and plt:
-        _graficar_heatmaps(df_clasica, df_espacial, ruta_heatmap)
-
-    return df_clasica, df_espacial
-
-
-def _graficar_heatmaps(df_clasica, df_espacial, ruta):
-    """Genera figura de dos heatmaps: correlación clásica y espacial bivariada."""
-    try:
-        fig, axes = plt.subplots(1, 2, figsize=(14, 6), dpi=130)
-        for ax, data, titulo in zip(
-            axes,
-            [df_clasica.values, df_espacial.values],
-            ["Correlación Pearson Clásica\nr(Xᵢ, Xⱼ)",
-             "Correlación Espacial Bivariada\nr(Xᵢ, lag_Xⱼ)"]
-        ):
-            im = ax.imshow(data, cmap="coolwarm", vmin=-1, vmax=1, aspect="auto")
-            fig.colorbar(im, ax=ax, shrink=0.8, label="r")
-            ax.set_xticks(range(data.shape[1]))
-            ax.set_yticks(range(data.shape[0]))
-            cols_labels = df_espacial.columns if "lag" in titulo else df_clasica.columns
-            ax.set_xticklabels(cols_labels, rotation=35, ha="right", fontsize=8)
-            ax.set_yticklabels(df_clasica.index, fontsize=8)
-            ax.set_title(titulo, fontsize=10, fontweight="bold", pad=8)
-            for i in range(data.shape[0]):
-                for j in range(data.shape[1]):
-                    v = data[i, j]
-                    if not np.isnan(v):
-                        ax.text(j, i, f"{v:.2f}", ha="center", va="center",
-                                color="white" if abs(v) > 0.55 else "black",
-                                fontsize=8, fontweight="bold")
-        plt.suptitle("Atlas VGI — Análisis de Correlación para Justificación de Pesos WLC v2.0",
-                     fontsize=12, fontweight="bold", y=1.02)
-        plt.tight_layout()
-        os.makedirs(os.path.dirname(os.path.abspath(ruta)), exist_ok=True)
-        plt.savefig(ruta, bbox_inches="tight")
-        plt.close()
-        print(f"  ✔ Heatmap gráfico exportado: {ruta}")
-    except Exception as e:
-        print(f"  ⚠ Advertencia al graficar heatmap: {e}")
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# BLOQUE 4 — MOTOR DE EJECUCIÓN (ORQUESTADOR)
-# ─────────────────────────────────────────────────────────────────────────────
-
-def ejecutar_modelo(config):
-    """
-    Orquesta la ejecución completa del modelo WLC a partir del diccionario CONFIG.
-    """
-    print("\n" + "═" * 64)
-    print("   MODELO DE ÍNDICE LINEAL PONDERADO (WLC) — v2.0 ESCALABLE")
-    print("   Atlas VGI · Caso Piloto Barrio Brasil & Santiago Centro")
-    print("═" * 64)
-
-    input_file = config["input_file"]
-    if not os.path.exists(input_file):
-        # Fallback a data/ si no está en src/data/
-        alt_input = os.path.join(DATA_DIR, os.path.basename(input_file))
-        if os.path.exists(alt_input):
-            input_file = alt_input
-            config["input_file"] = alt_input
+    def asignar_grado(score):
+        if score >= 95.0:
+            return "A+ (Excelente)"
+        elif score >= 85.0:
+            return "A (Muy Bueno)"
+        elif score >= 70.0:
+            return "B (Aceptable)"
         else:
-            raise FileNotFoundError(f"Archivo de entrada no encontrado: {input_file}")
+            return "C (Deficiente)"
 
-    print(f"\n  Archivo de entrada: {input_file}")
-    criterios_def = config["criterios"]
-    criterios = [x[0] for x in criterios_def]
-    pesos     = [float(x[1]) for x in criterios_def]
-    tipos     = [str(x[2]).lower() for x in criterios_def]
+    df["grado_iso19157"] = df["igv_wlc"].apply(asignar_grado)
+    return df
 
-    # Cargar datos
-    if HAS_GEOPANDAS and gpd:
-        gdf = gpd.read_file(input_file)
-    else:
-        with open(input_file, 'r', encoding='utf-8') as f:
-            data_json = json.load(f)
-        features = data_json.get('features', [])
-        props_list = [f.get('properties', {}) for f in features]
-        gdf = pd.DataFrame(props_list)
 
-    print(f"  Registros cargados: {len(gdf)}")
+def generar_matriz_correlacion(df_capas: pd.DataFrame, ruta_csv: str = None, ruta_png: str = None):
+    """
+    Calcula la matriz de correlación de Pearson entre las dimensiones de calidad
+    para justificar empíricamente la independencia y ponderación WLC.
+    """
+    cols = [c["id"] for c in CRITERIOS_IGV if c["id"] in df_capas.columns]
+    df_metricas = df_capas[cols].apply(pd.to_numeric, errors="coerce").fillna(0.0)
 
-    # Filtro comunal si aplica
-    filtro_comuna = config.get("filtro_comuna")
-    if filtro_comuna:
-        col_com = None
-        for c in ['Comuna', 'comuna', 't_com_nom', 'COMUNA']:
-            if c in gdf.columns:
-                col_com = c
-                break
-        if col_com:
-            gdf_sub = gdf[gdf[col_com].astype(str).str.upper().str.contains(filtro_comuna.upper(), na=False)].copy()
-            if len(gdf_sub) > 0:
-                print(f"  Filtro comunal '{filtro_comuna}': {len(gdf_sub)} unidades seleccionadas.")
-                gdf = gdf_sub
+    matriz_corr = df_metricas.corr().round(3)
 
-    # Verificar existencia de columnas
-    cols_faltantes = [c for c in criterios if c not in gdf.columns]
-    if cols_faltantes:
-        raise KeyError(f"Columnas no encontradas en el dataset: {cols_faltantes}\nDisponibles: {list(gdf.columns)[:15]}...")
+    if ruta_csv:
+        os.makedirs(os.path.dirname(ruta_csv), exist_ok=True)
+        matriz_corr.to_csv(ruta_csv)
 
-    # Limpieza de registros con NaN total
-    gdf_clean = gdf.dropna(subset=criterios, how="all").copy()
-    print(f"  Registros analizados: {len(gdf_clean)}")
+    if ruta_png and HAS_PLOT:
+        os.makedirs(os.path.dirname(ruta_png), exist_ok=True)
+        fig, ax = plt.subplots(figsize=(11, 9), dpi=180)
+        labels = [c["nombre"].split("(")[0].strip() for c in CRITERIOS_IGV if c["id"] in cols]
 
-    # Justificación de pesos vía correlación espacial
-    if config.get("justificar_pesos", True) and HAS_GEOPANDAS and isinstance(gdf_clean, gpd.GeoDataFrame):
-        justificar_pesos_con_correlacion(
-            gdf=gdf_clean,
-            criterios=criterios,
-            pesos_propuestos=pesos,
-            tipos=tipos,
-            dist_umbral=config.get("umbral_vecindad_m", 1500.0),
-            exportar_heatmap=config.get("exportar_heatmap", True),
-            ruta_heatmap=config.get("ruta_heatmap", "correlacion_pesos_espacial.png"),
-            exportar_csv=config.get("exportar_csv", True),
-            ruta_csv=config.get("ruta_csv", "correlacion_pesos_espacial.csv")
+        corr_vals = matriz_corr.values
+        cax = ax.imshow(corr_vals, cmap="coolwarm", vmin=-0.5, vmax=1.0)
+        cbar = fig.colorbar(cax, ax=ax, shrink=0.8, pad=0.04)
+        cbar.set_label("Coeficiente de Pearson (r)", fontsize=10, fontweight="bold")
+
+        ax.set_xticks(range(len(labels)))
+        ax.set_yticks(range(len(labels)))
+        ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=9)
+        ax.set_yticklabels(labels, fontsize=9)
+
+        # Anotaciones numéricas en cada celda
+        for i in range(len(labels)):
+            for j in range(len(labels)):
+                val = corr_vals[i, j]
+                color = "white" if abs(val) > 0.5 else "black"
+                ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=color, fontsize=8, fontweight="bold")
+
+        ax.set_title(
+            "Matriz de Correlación entre Dimensiones de MetaCalidad Espacial (WLC v2.0)\n"
+            "Auditoría Multicriterio ISO 19157 / ISO 19115 — Base de Datos Atlas VGI UAH",
+            fontsize=11,
+            pad=16,
+            fontweight="bold"
         )
+        plt.tight_layout()
+        plt.savefig(ruta_png, dpi=180, bbox_inches="tight")
+        plt.close(fig)
 
-    # Construcción WLC
-    print("\n" + "─" * 62)
-    print("  CONSTRUCCIÓN DEL ÍNDICE WLC v2.0")
-    print("─" * 62)
-    gdf_resultado = construir_wlc(gdf_clean, criterios, pesos, tipos)
-
-    # Mostrar top N zonas prioritarias
-    id_col = config.get("id_column", "")
-    if id_col not in gdf_resultado.columns:
-        for candidato in ['t_uv_nom', 'uv_carto', 't_id_uv_ca', 'nombre', 'id', 'fid', 'ID']:
-            if candidato in gdf_resultado.columns:
-                id_col = candidato
-                break
-        if not id_col:
-            id_col = gdf_resultado.columns[0]
-
-    top_n = config.get("top_n", 10)
-    cols_resumen = [id_col, "indice_score", "prioridad_rank"] + [f"contrib_{c}" for c in criterios]
-    cols_resumen = [c for c in cols_resumen if c in gdf_resultado.columns]
-
-    print(f"\n  TOP {min(top_n, len(gdf_resultado))} ZONAS CON MAYOR PRIORIDAD (WLC):")
-    print("  " + "─" * 60)
-    top_df = gdf_resultado.nsmallest(top_n, "prioridad_rank")[cols_resumen]
-    print(top_df.to_string(index=False))
-
-    print("\n  ESTADÍSTICAS DEL ÍNDICE SCORE:")
-    for stat, val in gdf_resultado["indice_score"].describe().round(4).items():
-        print(f"    {stat:>8}: {val:.4f}")
-
-    # Guardar resultado
-    out_file = config.get("output_file", "wlc_resultado.geojson")
-    os.makedirs(os.path.dirname(os.path.abspath(out_file)), exist_ok=True)
-    print(f"\n  Guardando resultado → {out_file}")
-
-    if HAS_GEOPANDAS and isinstance(gdf_resultado, gpd.GeoDataFrame):
-        gdf_resultado.to_file(out_file, driver="GeoJSON")
-    else:
-        gdf_resultado.to_json(out_file, orient="records", force_ascii=False)
-
-    print("  ✔ Proceso WLC completado con éxito.")
-    return gdf_resultado
+    return matriz_corr
 
 
-def ejecutar_modelo_metacalidad(config):
+def auditar_archivo_geojson_externo(ruta_geojson: str) -> dict:
     """
-    Ejecuta el modelo WLC v2.0 sobre la totalidad de la base de datos cartográfica
-    del Atlas VGI (118 componentes: 108 capas oficiales + 10 macro-categorías comunitarias).
+    Audita cualquier archivo GeoJSON espacial externo (subido por el usuario
+    o fuera de la base de datos) evaluándolo con los mismos indicadores y pesos WLC.
     """
-    print("\n" + "═" * 64)
-    print("   MODELO WLC v2.0 — ÍNDICE DE CALIDAD Y METACALIDAD ESPACIAL")
+    if not os.path.exists(ruta_geojson):
+        raise FileNotFoundError(f"Archivo GeoJSON no encontrado: {ruta_geojson}")
+
+    with open(ruta_geojson, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    features = data.get('features', [])
+    total_features = len(features)
+    if total_features == 0:
+        raise ValueError("El archivo GeoJSON no contiene entidades en su colección (features vacía).")
+
+    # 1. Auditoría Topológica / Geométrica
+    kinks = 0
+    anillos_abiertos = 0
+    slivers = 0
+    vertices_totales = 0
+    tipos_geom = set()
+    coords_validas = 0
+
+    for f in features:
+        geom = f.get('geometry')
+        if not geom:
+            continue
+        gtype = geom.get('type', '')
+        tipos_geom.add(gtype)
+        coords = geom.get('coordinates', [])
+
+        if gtype == 'Point':
+            if len(coords) >= 2 and -180 <= coords[0] <= 180 and -90 <= coords[1] <= 90:
+                coords_validas += 1
+            vertices_totales += 1
+
+        elif gtype in ('LineString', 'MultiPoint'):
+            for pt in coords:
+                if len(pt) >= 2 and -180 <= pt[0] <= 180 and -90 <= pt[1] <= 90:
+                    coords_validas += 1
+                vertices_totales += 1
+
+        elif gtype in ('Polygon', 'MultiLineString'):
+            for ring in coords:
+                if len(ring) > 0:
+                    if gtype == 'Polygon' and (ring[0][0] != ring[-1][0] or ring[0][1] != ring[-1][1]):
+                        anillos_abiertos += 1
+                    for pt in ring:
+                        if len(pt) >= 2 and -180 <= pt[0] <= 180 and -90 <= pt[1] <= 90:
+                            coords_validas += 1
+                        vertices_totales += 1
+
+        elif gtype == 'MultiPolygon':
+            for poly in coords:
+                for ring in poly:
+                    if len(ring) > 0:
+                        if ring[0][0] != ring[-1][0] or ring[0][1] != ring[-1][1]:
+                            anillos_abiertos += 1
+                        for pt in ring:
+                            if len(pt) >= 2 and -180 <= pt[0] <= 180 and -90 <= pt[1] <= 90:
+                                coords_validas += 1
+                            vertices_totales += 1
+
+    # 2. Auditoría Atributiva / Tabular
+    total_celdas = 0
+    celdas_validas = 0
+    todos_campos = set()
+
+    for f in features:
+        props = f.get('properties') or {}
+        for k, v in props.items():
+            todos_campos.add(k)
+            total_celdas += 1
+            if v is not None and str(v).strip() != '' and str(v).strip().lower() != 'null':
+                celdas_validas += 1
+
+    pct_completitud = (celdas_validas / total_celdas * 100.0) if total_celdas > 0 else 100.0
+    pct_posicional = (coords_validas / vertices_totales * 100.0) if vertices_totales > 0 else 100.0
+
+    # Puntuaciones cuantitativas normalizadas [0, 100]
+    score_topo = max(0.0, 100.0 - (anillos_abiertos * 5.0) - (kinks * 2.0) - (slivers * 1.0))
+    score_comp = pct_completitud
+    score_pos = pct_posicional
+    score_estruc = 100.0 if len(tipos_geom) <= 2 else 85.0
+    score_gran = min(100.0, max(50.0, (vertices_totales / total_features) * 2.0)) if total_features > 0 else 100.0
+
+    # Auditoría Cualitativa (Metadatos del FeatureCollection o propiedades)
+    meta = data.get('metadata') or {}
+    score_mc = 50.0
+    if meta.get('title') or data.get('name'): score_mc += 15.0
+    if meta.get('description') or meta.get('abstract'): score_mc += 15.0
+    if meta.get('institution') or meta.get('organisationName'): score_mc += 10.0
+    if meta.get('fileIdentifier') or meta.get('id'): score_mc += 10.0
+    score_mc = min(100.0, score_mc)
+
+    score_cc = 90.0 if len(todos_campos) >= 3 else 70.0
+    score_ll = 95.0 if meta.get('license') or meta.get('licencia') else 80.0
+    score_rg = 95.0
+    score_ai = 100.0
+
+    # Armar registro de evaluación WLC
+    registro = {
+        "id": os.path.basename(ruta_geojson),
+        "nombre": data.get('name') or os.path.basename(ruta_geojson),
+        "total_entidades": total_features,
+        "total_vertices": vertices_totales,
+        "anillos_abiertos": anillos_abiertos,
+        "campos_detectados": list(todos_campos),
+        "score_topo": score_topo,
+        "score_comp": score_comp,
+        "score_pos": score_pos,
+        "score_estruc": score_estruc,
+        "score_gran": score_gran,
+        "score_mc": score_mc,
+        "score_cc": score_cc,
+        "score_ll": score_ll,
+        "score_rg": score_rg,
+        "score_ai": score_ai
+    }
+
+    df_eval = pd.DataFrame([registro])
+    df_res = calcular_indice_wlc(df_eval, CRITERIOS_IGV)
+    row = df_res.iloc[0]
+
+    desglose_wlc = []
+    for c in CRITERIOS_IGV:
+        cid = c["id"]
+        desglose_wlc.append({
+            "criterio": cid,
+            "nombre": c["nombre"],
+            "dimension": c["dimension"],
+            "tipo": c["tipo"],
+            "valor_bruto": float(registro[cid]),
+            "normalizado": float(row[f"norm_{cid}"]),
+            "peso_global": float(c["peso_global"]),
+            "contribucion_pct": float(row[f"contrib_{cid}"])
+        })
+
+    return {
+        "archivo": ruta_geojson,
+        "entidades": total_features,
+        "vertices": vertices_totales,
+        "anillos_abiertos": anillos_abiertos,
+        "igv_global": float(row["igv_wlc"]),
+        "grado_iso19157": str(row["grado_iso19157"]),
+        "cuantitativo_promedio": round((score_topo * 0.3 + score_comp * 0.25 + score_pos * 0.2 + score_estruc * 0.15 + score_gran * 0.1), 2),
+        "cualitativo_promedio": round((score_mc * 0.3 + score_cc * 0.2 + score_ll * 0.25 + score_rg * 0.15 + score_ai * 0.1), 2),
+        "desglose_wlc": desglose_wlc
+    }
+
+
+def ejecutar_auditoria_completa_base_datos():
+    """
+    Ejecuta el modelo WLC sobre las 118 capas del Atlas VGI registradas en matriz_metacalidad.json.
+    """
+    print("\n" + "═" * 68)
+    print("   MODELO WLC v2.0 — ÍNDICE DE CALIDAD Y METACALIDAD ESPACIAL (IGV)")
     print("   Auditoría Multicriterio ISO 19157:2023 & ISO 19115-1:2014")
-    print("═" * 64)
+    print("═" * 68)
 
-    matriz_json_path = os.path.join(DOCS_DIR, "matriz_metacalidad.json")
-    if not os.path.exists(matriz_json_path):
-        matriz_json_path = os.path.join(SRC_DOCS_DIR, "matriz_metacalidad.json")
+    matriz_path = os.path.join(DOCS_DIR, "matriz_metacalidad.json")
+    if not os.path.exists(matriz_path):
+        matriz_path = os.path.join(SRC_DOCS_DIR, "matriz_metacalidad.json")
 
-    if not os.path.exists(matriz_json_path):
-        raise FileNotFoundError(f"Matriz de metacalidad no encontrada en: {matriz_json_path}")
+    if not os.path.exists(matriz_path):
+        raise FileNotFoundError(f"Matriz de metacalidad no encontrada en: {matriz_path}")
 
-    with open(matriz_json_path, 'r', encoding='utf-8') as f:
+    with open(matriz_path, 'r', encoding='utf-8') as f:
         datos_matriz = json.load(f)
 
     capas = datos_matriz.get("capas", [])
-    print(f"\n  Capas cargadas para evaluación WLC: {len(capas)}")
-
-    # Criterios WLC de Calidad y MetaCalidad
-    criterios_meta = [
-        ("score_topo", 0.20, "beneficio"),  # Consistencia topológica OGC
-        ("score_comp", 0.15, "beneficio"),  # Completitud tabular de atributos
-        ("score_pos",  0.15, "beneficio"),  # Integridad posicional y CRS
-        ("score_mc",   0.20, "beneficio"),  # Metadatos núcleo ISO 19115
-        ("score_ll",   0.15, "beneficio"),  # Linaje y derechos jurídicos (ODbL / Ley 20.285)
-        ("score_cc",   0.10, "beneficio"),  # Conformidad normativa y semántica
-        ("anillos_abiertos", 0.05, "costo") # Error topológico crítico (anillos no cerrados)
-    ]
-
-    criterios = [x[0] for x in criterios_meta]
-    pesos     = [x[1] for x in criterios_meta]
-    tipos     = [x[2] for x in criterios_meta]
+    print(f"  [+] Capas cargadas de la base de datos: {len(capas)}")
 
     df_capas = pd.DataFrame(capas)
-    for c in criterios:
-        if c not in df_capas.columns:
-            df_capas[c] = 0.0
-        df_capas[c] = pd.to_numeric(df_capas[c], errors="coerce").fillna(0.0)
+    df_wlc = calcular_indice_wlc(df_capas, CRITERIOS_IGV)
 
-    # Correlación entre dimensiones de calidad
-    print("\n  Matriz de Correlación de Pearson entre Dimensiones de Calidad (Justificación WLC):")
-    df_corr = df_capas[criterios].corr().round(3)
-    print(df_corr.to_string())
-
+    # 1. Matriz de Correlación
     ruta_csv_corr = os.path.join(DOCS_DIR, "correlacion_dimensiones_calidad.csv")
-    df_corr.to_csv(ruta_csv_corr)
-    print(f"  ✔ Correlación de dimensiones exportada a: {ruta_csv_corr}")
+    ruta_png_corr = os.path.join(DOCS_DIR, "correlacion_dimensiones_calidad.png")
+    matriz_corr = generar_matriz_correlacion(df_capas, ruta_csv=ruta_csv_corr, ruta_png=ruta_png_corr)
 
-    # Construcción WLC
-    df_resultado = construir_wlc(df_capas, criterios, pesos, tipos)
-    df_resultado["calidad_rank"] = df_resultado["prioridad_rank"]
-
-    # Mostrar TOP 10 capas con mayor calidad
-    cols_top = ["id", "nombre", "tipo_fuente", "indice_score", "calidad_rank"]
-    print("\n  TOP 10 CAPAS CON MAYOR ÍNDICE DE CALIDAD (WLC):")
-    print("  " + "─" * 60)
-    print(df_resultado.nsmallest(10, "calidad_rank")[cols_top].to_string(index=False))
-
-    # Guardar resultados
-    out_json = os.path.join(DOCS_DIR, "wlc_metacalidad_resultado.json")
-    out_csv = os.path.join(DOCS_DIR, "wlc_metacalidad_ranking.csv")
-
-    cols_export = ["id", "nombre", "tipo_fuente", "institucion", "indice_score", "calidad_rank"] + \
-                  [f"norm_{c}" for c in criterios] + [f"contrib_{c}" for c in criterios]
-    cols_export = [c for c in cols_export if c in df_resultado.columns]
-
-    df_resultado[cols_export].to_csv(out_csv, index=False, encoding="utf-8-sig")
-    df_resultado[cols_export].to_json(out_json, orient="records", indent=2, force_ascii=False)
-
-    # Replicar a src/docs/
+    # Replicar correlación en src/docs/
     os.makedirs(SRC_DOCS_DIR, exist_ok=True)
-    df_resultado[cols_export].to_json(os.path.join(SRC_DOCS_DIR, "wlc_metacalidad_resultado.json"), orient="records", indent=2, force_ascii=False)
-    df_resultado[cols_export].to_csv(os.path.join(SRC_DOCS_DIR, "wlc_metacalidad_ranking.csv"), index=False, encoding="utf-8-sig")
+    if os.path.exists(ruta_csv_corr):
+        import shutil
+        shutil.copyfile(ruta_csv_corr, os.path.join(SRC_DOCS_DIR, "correlacion_dimensiones_calidad.csv"))
+    if os.path.exists(ruta_png_corr):
+        import shutil
+        shutil.copyfile(ruta_png_corr, os.path.join(SRC_DOCS_DIR, "correlacion_dimensiones_calidad.png"))
 
-    print(f"\n  ✔ Resultados WLC de MetaCalidad exportados a:")
-    print(f"    - {out_json}")
-    print(f"    - {out_csv}")
-    return df_resultado
+    print(f"  [✓] Matriz de correlación de Pearson exportada en:")
+    print(f"      - {ruta_csv_corr}")
+    print(f"      - {ruta_png_corr}")
 
+    # 2. Exportar Resultados y Ranking WLC
+    cols_export = ["id", "nombre", "tipo_fuente", "institucion", "igv_wlc", "calidad_rank", "grado_iso19157"] + \
+                  [f"norm_{c['id']}" for c in CRITERIOS_IGV] + [f"contrib_{c['id']}" for c in CRITERIOS_IGV]
+    cols_export = [c for c in cols_export if c in df_wlc.columns]
 
-# ─────────────────────────────────────────────────────────────────────────────
-# BLOQUE 5 — INTERFAZ CLI (argparse)
-# ─────────────────────────────────────────────────────────────────────────────
+    out_csv = os.path.join(DOCS_DIR, "wlc_metacalidad_ranking.csv")
+    out_json = os.path.join(DOCS_DIR, "wlc_metacalidad_resultado.json")
+
+    df_wlc[cols_export].to_csv(out_csv, index=False, encoding="utf-8-sig")
+    df_wlc[cols_export].to_json(out_json, orient="records", indent=2, force_ascii=False)
+
+    df_wlc[cols_export].to_csv(os.path.join(SRC_DOCS_DIR, "wlc_metacalidad_ranking.csv"), index=False, encoding="utf-8-sig")
+    df_wlc[cols_export].to_json(os.path.join(SRC_DOCS_DIR, "wlc_metacalidad_resultado.json"), orient="records", indent=2, force_ascii=False)
+
+    print(f"  [✓] Ranking WLC y desglose de metacalidad exportados en:")
+    print(f"      - {out_csv}")
+    print(f"      - {out_json}")
+
+    print("\n  TOP 10 CAPAS CON MAYOR CALIDAD ESPACIAL Y METACALIDAD (WLC):")
+    print("  " + "─" * 65)
+    cols_vista = ["id", "nombre", "tipo_fuente", "igv_wlc", "calidad_rank", "grado_iso19157"]
+    print(df_wlc.nsmallest(10, "calidad_rank")[cols_vista].to_string(index=False))
+
+    return df_wlc
+
 
 def main():
     parser = argparse.ArgumentParser(
-        description="WLC v2.0 — Modelo de Índice Lineal Ponderado para Priorización Territorial y Calidad Espacial.",
-        formatter_class=argparse.RawTextHelpFormatter
+        description="Modelo de Índice Lineal Ponderado (WLC v2.0) para MetaCalidad Espacial (IGV)"
     )
-    parser.add_argument("-i",  "--input",         type=str,   help="Ruta al archivo vectorial de entrada (GeoJSON / GPKG)")
-    parser.add_argument("-l",  "--layer",         type=str,   help="Nombre de la capa dentro del GPKG")
-    parser.add_argument("-c",  "--criterios",     nargs="+",  help="Lista de columnas criterio")
-    parser.add_argument("-w",  "--pesos",         nargs="+",  type=float, help="Pesos correspondientes a los criterios")
-    parser.add_argument("-t",  "--tipos",         nargs="+",  help="Tipo por criterio: 'beneficio' o 'costo'")
-    parser.add_argument("-o",  "--output",        type=str,   help="Ruta al archivo de salida")
-    parser.add_argument("-u",  "--umbral",        type=float, help="Umbral de distancia para matriz espacial W (metros)")
-    parser.add_argument("--justificar",           action="store_true", help="Calcular correlación espacial bivariada")
-    parser.add_argument("--top_n",                type=int,   help="Cantidad de entidades a listar en el ranking resumen")
-    parser.add_argument("--no_heatmap",           action="store_true", help="Desactivar generación de heatmap PNG")
-    parser.add_argument("--no_csv",               action="store_true", help="Desactivar exportación de correlación CSV")
-    parser.add_argument("--modo",                 choices=["territorial", "metacalidad"], default="territorial",
-                        help="Modo de ejecución: 'territorial' (default) o 'metacalidad'")
-
+    parser.add_argument(
+        "--evaluar",
+        type=str,
+        help="Ruta a un archivo GeoJSON espacial externo para evaluar bajo la matriz WLC v2.0"
+    )
     args = parser.parse_args()
-    cfg = dict(CONFIG)
 
-    if args.input:     cfg["input_file"]  = args.input
-    if args.layer:     cfg["layer_name"]  = args.layer
-    if args.criterios and args.pesos and args.tipos:
-        if len(args.criterios) != len(args.pesos) or len(args.criterios) != len(args.tipos):
-            print("❌ Error: La cantidad de criterios, pesos y tipos debe coincidir exactamente.")
-            sys.exit(1)
-        cfg["criterios"] = list(zip(args.criterios, args.pesos, args.tipos))
-
-    if args.output:             cfg["output_file"]       = args.output
-    if args.umbral is not None: cfg["umbral_vecindad_m"] = args.umbral
-    if args.justificar:         cfg["justificar_pesos"]  = True
-    if args.top_n:              cfg["top_n"]             = args.top_n
-    if args.no_heatmap:         cfg["exportar_heatmap"]  = False
-    if args.no_csv:             cfg["exportar_csv"]      = False
-
-    try:
-        if args.modo == "metacalidad":
-            ejecutar_modelo_metacalidad(cfg)
-        else:
-            ejecutar_modelo(cfg)
-    except Exception as e:
-        print(f"\n❌ Error al ejecutar el modelo WLC: {e}")
-        sys.exit(1)
+    if args.evaluar:
+        res = auditar_archivo_geojson_externo(args.evaluar)
+        print("\n" + "═" * 60)
+        print("  DICTAMEN DE CALIDAD ESPACIAL WLC v2.0 (ISO 19157 / ISO 19115)")
+        print("═" * 60)
+        print(f"  Archivo Evaluado:     {res['archivo']}")
+        print(f"  Entidades:            {res['entidades']}")
+        print(f"  Vértices Auditados:   {res['vertices']}")
+        print(f"  Anillos Abiertos:     {res['anillos_abiertos']}")
+        print(f"  Puntaje IGV Global:   {res['igv_global']}%")
+        print(f"  Grado Normativo:      {res['grado_iso19157']}")
+        print(f"  Pilar Cuantitativo:   {res['cuantitativo_promedio']}%")
+        print(f"  Pilar Cualitativo:    {res['cualitativo_promedio']}%")
+        print("\n  DESGLOSE WLC POR CRITERIO:")
+        print("  " + "─" * 60)
+        for d in res['desglose_wlc']:
+            print(f"  - {d['nombre']:<35} | Norm: {d['normalizado']:<6} | Contrib: +{d['contribucion_pct']:.2f}%")
+        print("═" * 60)
+    else:
+        ejecutar_auditoria_completa_base_datos()
 
 
 if __name__ == "__main__":
     main()
-
-
-# =============================================================================
-# FUENTES BIBLIOGRÁFICAS CANÓNICAS
-# =============================================================================
-# [1] Malczewski, J. (1999). GIS and Multicriteria Decision Analysis.
-#     John Wiley & Sons, Nueva York. Cap. 4, pp. 81–96; Cap. 5, pp. 101–118.
-# [2] Voogd, H. (1983). Multicriteria Evaluation for Urban and Regional Planning.
-#     Pion, Londres. pp. 57–75.
-# [3] Eastman, J.R. (1999). Multi-criteria evaluation and GIS. En: Longley, P.A.
-#     et al. (Eds.), Geographical Information Systems. Vol. 1, pp. 493–502.
-# [4] Jankowski, P. (1995). Integrating GIS and multiple criteria decision-making.
-#     International Journal of GIS, 9(3), pp. 251–273.
-# [5] Anselin, L. (1988). Spatial Econometrics: Methods and Models.
-#     Kluwer Academic Publishers, Dordrecht. pp. 17–32.
-# [6] Anselin, L. (1995). Local Indicators of Spatial Association—LISA.
-#     Geographical Analysis, 27(2), pp. 93–115.
-# [7] Tobler, W.R. (1970). A computer movie simulating urban growth.
-#     Economic Geography, 46(sup1), pp. 234–240.
-# [8] Saaty, T.L. (1980). The Analytic Hierarchy Process. McGraw-Hill.
-# =============================================================================

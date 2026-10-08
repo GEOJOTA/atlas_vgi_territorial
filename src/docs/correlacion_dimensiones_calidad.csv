@@ -1,0 +1,11 @@
+,score_topo,score_comp,score_pos,score_estruc,score_gran,score_mc,score_cc,score_ll,score_rg,score_ai
+score_topo,1.0,0.036,,-0.107,,-0.11,,,,
+score_comp,0.036,1.0,,0.344,,-0.043,,,,
+score_pos,,,,,,,,,,
+score_estruc,-0.107,0.344,,1.0,,0.209,,,,
+score_gran,,,,,,,,,,
+score_mc,-0.11,-0.043,,0.209,,1.0,,,,
+score_cc,,,,,,,,,,
+score_ll,,,,,,,,,,
+score_rg,,,,,,,,,,
+score_ai,,,,,,,,,,
