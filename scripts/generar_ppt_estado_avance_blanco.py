@@ -896,7 +896,7 @@ def crear_presentacion():
     s9 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s9, "Resultados OE 2: Índice de Calidad — 5 Componentes Cuantitativos", 
                        categoria="8. Calidad de Datos (OE 2) — Pilar Cuantitativo (ISO 19157)",
-                       subtitulo="Auditoría algorítmica sobre 118 capas: geometría vectorial, topología, geodésica, atributos y temporalidad (50% IGV)")
+                       subtitulo="Auditoría algorítmica sobre 118 capas: geometría vectorial, topología, geodésica, atributos y estructura (50% IGV)")
     agregar_pie_pagina(s9, 9)
 
     # Tarjeta de Síntesis del Pilar Cuantitativo
@@ -915,9 +915,9 @@ def crear_presentacion():
 
     p_qt_txt = tf_qtop.add_paragraph()
     p_qt_txt.text = (
-        "Evaluación algorítmica automatizada sobre las 118 capas del repositorio (1.552.000+ geometrías vectoriales). "
-        "Ponderación combinada de los 5 componentes cuantitativos (10% global cada uno): Promedio Cuantitativo 98,2% (Grado A+ Excelente) "
-        "bajo estándar ISO 19157 / EPSG. El 100% de geometrías fue reparado y certificado en PostGIS 17."
+        "Auditoría algorítmica sobre las 118 capas del repositorio (1.552.000+ geometrías vectoriales). "
+        "Ponderación interna del pilar: Promedio Cuantitativo 97,1% (Grado A+ Excelente) bajo estándar ISO 19157-1:2023. "
+        "El 100% de geometrías fue reparado y certificado en PostGIS 17 (documentado en docs/ANALISIS_METACALIDAD.md)."
     )
     p_qt_txt.font.name = FONT_NAME
     p_qt_txt.font.size = Pt(10.5)
@@ -925,36 +925,33 @@ def crear_presentacion():
 
     # Columna Izquierda: 3 Componentes Cuantitativos
     cards_cuant_left = [
-        ("1. Completitud de Atributos (10% Global · 98,2% A+)", [
-            "• Evaluación celda a celda de campos con datos válidos frente a cardinalidad esperada.",
-            "• Detección y exclusión sistemática de nulos, cadenas vacías (null, NA) y campos omitidos."
+        ("1. Consistencia Topológica (30% Pilar · 15,0% Global | 99,9% A+)", [
+            "• Reglas OGC Simple Features: polígonos cerrados (P0 = Pn), sin auto-intersecciones, kinks ni slivers.",
+            "• Reparación universal ejecutada al 100% con Shapely y ST_MakeValid en PostGIS 17 (0 errores fatales)."
         ]),
-        ("2. Consistencia Lógica / Topología (10% Global · 100,0% A+)", [
-            "• Reglas OGC Simple Features: polígonos cerrados (P0 = Pn), sin auto-intersecciones ni kinks.",
-            "• Reparación universal ejecutada al 100% con Shapely y ST_MakeValid en PostGIS 17."
+        ("2. Completitud Tabular (25% Pilar · 12,5% Global | 96,9% A+)", [
+            "• Evaluación celda a celda de campos con datos válidos frente a cardinalidad esperada del esquema.",
+            "• Detección y exclusión sistemática de valores nulos, cadenas vacías (null, NA) y campos omitidos."
         ]),
-        ("3. Exactitud Posicional Geodésica (10% Global · 98,5% A+)", [
-            "• Coordenadas estrictamente confinadas a WGS84 (EPSG:4326) y UTM 19S (EPSG:32719).",
-            "• Detección y eliminación de coordenadas espurias en (0,0), valores NaN o desbordamientos."
+        ("3. Integridad Posicional Geodésica (20% Pilar · 10,0% Global | 100,0% A+)", [
+            "• Coordenadas estrictamente confinadas al elipsoide WGS84 (EPSG:4326) y proyección UTM 19S (EPSG:32719).",
+            "• Detección y eliminación de coordenadas espurias en el origen (0,0), valores NaN o desbordamientos."
         ])
     ]
 
     # Columna Derecha: 2 Componentes Cuantitativos
     cards_cuant_right = [
-        ("4. Exactitud Temática y Tipología (10% Global · 97,8% A+)", [
-            "• Homogeneidad de tipos de datos por columna (sin mezclas de texto y enteros).",
-            "• Correspondencia semántica estricta entre etiquetas OSM y taxonomía temática CAT-01..10.",
-            "• Garantía de clave primaria o identificador único por entidad (osm_id, fid, cut_com)."
+        ("4. Estructura y Esquema (15% Pilar · 7,5% Global | 86,5% A)", [
+            "• Homogeneidad de tipos de datos por columna (sin mezclas de texto y enteros) y consistencia de atributos.",
+            "• Garantía de clave primaria o identificador único por entidad vectorial (osm_id, fid, cut_com, cod_uv)."
         ]),
-        ("5. Calidad y Vigencia Temporal (10% Global · 96,5% A+)", [
-            "• Control de obsolescencia: capas oficiales alineadas a cortes recientes (Censo 2024, PRC Santiago).",
-            "• Monitoreo histórico de edición colaborativa en OpenStreetMap mediante ohsome API.",
-            "• Registro de marcas temporales de captura y fecha de publicación por cada capa en la geodatabase."
+        ("5. Granularidad Geométrica (10% Pilar · 5,0% Global | 100,0% A+)", [
+            "• Densidad de vértices adecuada para análisis microterritorial intraurbano (manzanas e hileras prediales).",
+            "• Ausencia de sobregeneralización que distorsione la precisión métrica en entornos de escala barrial."
         ])
     ]
 
     col_w_q = 5.75
-    # Posiciones verticales Columna Izquierda (3 tarjetas)
     top_pos_l = [2.68, 4.03, 5.38]
     card_h_l = 1.25
 
@@ -968,7 +965,7 @@ def crear_presentacion():
         p = tf.paragraphs[0]
         p.text = tit_c
         p.font.name = FONT_NAME
-        p.font.size = Pt(12)
+        p.font.size = Pt(11.5)
         p.font.bold = True
         p.font.color.rgb = COLOR_AZUL_UAH
         p.space_after = Pt(4)
@@ -980,7 +977,6 @@ def crear_presentacion():
             p_b.font.color.rgb = COLOR_NEGRO
             p_b.space_after = Pt(2)
 
-    # Posiciones verticales Columna Derecha (2 tarjetas)
     top_pos_r = [2.68, 4.71]
     card_h_r = 1.92
 
@@ -994,7 +990,7 @@ def crear_presentacion():
         p = tf.paragraphs[0]
         p.text = tit_c
         p.font.name = FONT_NAME
-        p.font.size = Pt(12.5)
+        p.font.size = Pt(12)
         p.font.bold = True
         p.font.color.rgb = COLOR_AZUL_UAH
         p.space_after = Pt(5)
@@ -1007,10 +1003,10 @@ def crear_presentacion():
             p_b.space_after = Pt(3)
 
     agregar_notas_orador(s9,
-        "Esta lámina expone los cinco componentes cuantitativos del índice de calidad espacial según la norma ISO 19157. "
-        "Se auditan algorítmicamente: 1) Completitud de atributos (98,2%), 2) Consistencia lógica y topología (100,0%), "
-        "3) Exactitud posicional geodésica (98,5%), 4) Exactitud temática (97,8%) y 5) Vigencia temporal (96,5%). "
-        "Cada componente aporta un 10% al índice global, totalizando un 50% cuantitativo con promedio 98,2% (Grado A+)."
+        "Esta lámina expone los cinco componentes cuantitativos del índice de calidad espacial según la norma ISO 19157-1:2023, "
+        "tal como está formalmente documentado en docs/ANALISIS_METACALIDAD.md. Las ponderaciones del pilar son: "
+        "Topología 30% (99,9%), Completitud tabular 25% (96,9%), Integridad posicional 20% (100,0%), Estructura 15% (86,5%) "
+        "y Granularidad geométrica 10% (100,0%). El subtotal cuantitativo alcanza 97,1% (Grado A+ Excelente)."
     )
 
     # =========================================================================
@@ -1019,7 +1015,7 @@ def crear_presentacion():
     s10 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s10, "Resultados OE 2: Índice de Calidad — 5 Componentes Cualitativos e Integración", 
                        categoria="9. Calidad de Datos (OE 2) — Pilar Cualitativo e Integración",
-                       subtitulo="Normas ISO 19115 / SNIT, modelo WLC de 10 dimensiones (97,88%) e inyección en descargas")
+                       subtitulo="Normas ISO 19115-1:2014, Perfil IDE Chile SNIT v2.0, síntesis global IGV (97,9%) e inyección en descargas")
     agregar_pie_pagina(s10, 10)
 
     # Columna Izquierda: Los 5 Componentes Cualitativos (ISO 19115 / SNIT / Open Data)
@@ -1046,16 +1042,16 @@ def crear_presentacion():
     p_sub.space_after = Pt(6)
 
     qual_items = [
-        ("1. Linaje y Trazabilidad de Origen (10% | 100,0% A+):", "Declaración formal de fuente primaria (INE, MINVU, OSM, GBIF), historial de procesamiento y pipeline ETL."),
-        ("2. Accesibilidad y Formatos Abiertos (10% | 100,0% A+):", "Disponibilidad operativa inmediata en formatos interoperables (GeoJSON, GPKG, XLSX, XML) y CDN abierta."),
-        ("3. Usabilidad y Facilidad Operativa (10% | 95,0% A+):", "Simbología cartográfica legible, estructura de atributos documentada e integración fluida en clientes web y SIG."),
-        ("4. Autoría y Custodia Institucional (10% | 100,0% A+):", "Identificación inequívoca del custodio oficial, contacto institucional y marco legal de Transparencia Activa."),
-        ("5. Licenciamiento y Rigor Semántico (10% | 92,8% A):", "Licencias abiertas declaradas (ODbL 1.0 para OSM, CC-BY 4.0 / Open Data para Estado) y catálogo de 134 descriptores.")
+        ("1. Metadatos Núcleo / Core (30% Pilar · 15,0% Global | 95,2% A+):", "Título formal, resumen analítico, propósito, palabras clave, fecha de corte y contacto del custodio (10 campos obligatorios)."),
+        ("2. Linaje y Trazabilidad Jurídica (25% Pilar · 12,5% Global | 100,0% A+):", "Declaración formal de fuente primaria (INE, MINVU, OSM, GBIF), histórico de captura y pipeline ETL verificado."),
+        ("3. Conformidad Normativa (20% Pilar · 10,0% Global | 100,0% A+):", "Homologación al Perfil Nacional de Metadatos (IDE Chile SNIT), esquemas ISO 19139 / 19110 y marco de Transparencia Activa."),
+        ("4. Resolución Geodésica y Escala (15% Pilar · 7,5% Global | 100,0% A+):", "Declaración formal de CRS EPSG:4326, delimitación de Bbox oficial y especificación de escala cartográfica (Snyder, 1987)."),
+        ("5. Accesibilidad Operativa (10% Pilar · 5,0% Global | 100,0% A+):", "Endpoints de descarga directa (GeoJSON, GPKG, XML), CDN edge sin enlaces rotos y licencias declaradas (ODbL 1.0, CC-BY 4.0).")
     ]
     for subt, txt in qual_items:
         p_item = tf_qual.add_paragraph()
         p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(10)
+        p_item.font.size = Pt(9.5)
         p_item.space_after = Pt(4)
         r_b = p_item.add_run()
         r_b.text = f"• {subt} "
@@ -1066,7 +1062,7 @@ def crear_presentacion():
         r_t.font.color.rgb = COLOR_NEGRO
 
     p_qual_end = tf_qual.add_paragraph()
-    p_qual_end.text = "Desempeño Cualitativo Promedio: 97,2% (Grado A+ Excelente en metadatos)."
+    p_qual_end.text = "Desempeño Cualitativo Promedio: 98,6% (Grado A+ Excelente en metadatos)."
     p_qual_end.font.name = FONT_NAME
     p_qual_end.font.size = Pt(10.5)
     p_qual_end.font.bold = True
@@ -1081,32 +1077,32 @@ def crear_presentacion():
     tf_wlc.margin_left = tf_wlc.margin_top = tf_wlc.margin_right = tf_wlc.margin_bottom = 0
 
     p = tf_wlc.paragraphs[0]
-    p.text = "Integración Global WLC v2.0 (10 Dimensiones)"
+    p.text = "Integración Global Dual WLC (50% Cuant + 50% Cual)"
     p.font.name = FONT_NAME
-    p.font.size = Pt(13)
+    p.font.size = Pt(12.5)
     p.font.bold = True
     p.font.color.rgb = COLOR_AZUL_UAH
     p.space_after = Pt(2)
 
     p_form = tf_wlc.add_paragraph()
-    p_form.text = "Fórmula: IGV = ∑ (w_k · C_k) = 0.50 · Cuant + 0.50 · Cual = 97,88%"
+    p_form.text = "Fórmula: IGV = 0.50 · S_cuant (97,1%) + 0.50 · S_cual (98,6%) = 97,9% (97,88%)"
     p_form.font.name = FONT_NAME
-    p_form.font.size = Pt(11)
+    p_form.font.size = Pt(10.5)
     p_form.font.bold = True
     p_form.font.color.rgb = COLOR_AZUL_SEC
     p_form.space_after = Pt(3)
 
     wlc_points = [
-        "• Cumplimiento Global Repositorio: 97,88% de conformidad ponderada en las 118 capas.",
+        "• Cumplimiento Global Repositorio: 97,9% (97,88% exacto) de conformidad ponderada en las 118 capas.",
         "• Clasificación ISO 19157: Grado A+ (Excelente) para la totalidad de componentes (108 Estado + 10 VGI).",
-        "• Distribución: 104 capas en Grado A+ (≥95%), 14 capas en Grado A (85–94%), 0 capas deficientes.",
+        "• Distribución en 118 Capas: 116 capas en Grado A+ (98,3%), 2 capas en Grado A (1,7%), 0 capas deficientes.",
         "• Estado del Componente: 100% Terminado y Certificado formalmente (Hito 5 cerrado)."
     ]
     for pt in wlc_points:
         p_pt = tf_wlc.add_paragraph()
         p_pt.text = pt
         p_pt.font.name = FONT_NAME
-        p_pt.font.size = Pt(10)
+        p_pt.font.size = Pt(9.5)
         p_pt.font.color.rgb = COLOR_NEGRO
         p_pt.space_after = Pt(1)
 
