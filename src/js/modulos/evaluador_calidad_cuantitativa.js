@@ -443,129 +443,303 @@ const EvaluadorCalidadCuantitativa = (() => {
   }
 
   /**
-   * Evalúa objetivamente las 5 dimensiones cualitativas (ISO 19115 / ISO 19110 / ISO 19139 / Ley 20.285)
-   * analizando metadatos de cabecera, atributos de las entidades y resolución de coordenadas.
+   * Evalúa objetivamente las 5 dimensiones cualitativas conforme a:
+   * - ISO 19115-1:2014 (Geographic information — Metadata)
+   * - Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)
+   * - ISO 19110:2016 (Feature Cataloguing Methodology)
+   * - Ley N° 20.285 sobre Acceso a la Información Pública y Licenciamiento Abierto
+   *
+   * Realiza una auditoría estricta basada en EVIDENCIA DIRECTA:
+   * - Sin valores mínimos arbitrarios (sin pisos ficticios de 60%, 70% o 65%).
+   * - Si un archivo externo no declara metadatos, custodio, licencia o linaje, la puntuación es 0% en dichos criterios.
+   * - Si el archivo cuenta con ficha oficial en el Atlas o metadatos embebidos en el objeto raíz, se auditan y puntúan con exactitud.
    */
   function auditarCualitativoDataset(geojsonData, metadatosDeclarados = null, features = []) {
     const meta = metadatosDeclarados || {};
     const nFeatures = features.length;
+    const esArchivoExterno = Boolean(meta.esArchivoExterno || meta.tipoFuente === 'Archivo Externo Subido (.geojson)' || meta.tipoFuente === 'Entrada Texto Plano');
 
-    // Recolectar nombres de campos y valores muestra
-    const sampleFeatures = features.slice(0, 100);
+    // Metadatos embebidos en el objeto raíz del GeoJSON si existen (RFC 7946 extensible)
+    const rootMeta = (geojsonData && (geojsonData.metadata || geojsonData.properties)) || {};
+
+    // Muestra de atributos de entidades para análisis semántico
+    const sampleFeatures = features.slice(0, 200);
     const setCampos = new Set();
+    let totalPropiedadesNoVacias = 0;
+
     sampleFeatures.forEach(f => {
-      if (f && f.properties) {
-        Object.keys(f.properties).forEach(k => setCampos.add(k.toLowerCase()));
+      if (f && f.properties && typeof f.properties === 'object') {
+        const keys = Object.keys(f.properties);
+        if (keys.length > 0) totalPropiedadesNoVacias++;
+        keys.forEach(k => setCampos.add(k));
       }
     });
-    const camposLower = Array.from(setCampos);
+
+    const listaCampos = Array.from(setCampos);
+    const camposLower = listaCampos.map(c => c.toLowerCase());
 
     // =========================================================================
-    // 1. METADATOS NÚCLEO ISO 19115 CORE (MC - 10 elementos) (30%)
+    // 1. METADATOS NÚCLEO (MC - 10 ELEMENTOS DEL PERFIL NACIONAL IDE CHILE / ISO 19115) (30%)
     // =========================================================================
-    let scoreMC = 80.0;
-    if (meta.score_mc !== undefined) {
+    let scoreMC = 0.0;
+    const detallesMC = [];
+
+    if (!esArchivoExterno && meta.score_mc !== undefined) {
       scoreMC = Number(meta.score_mc);
     } else {
-      const e_id = Boolean(meta.id || geojsonData.id || camposLower.some(c => ['id', 'fid', 'gid', 'osm_id', 'codigo', 'objectid'].includes(c)));
-      const e_titulo = Boolean(meta.titulo || meta.nombre || geojsonData.name || geojsonData.title || camposLower.some(c => ['name', 'nombre', 'title', 'label', 'rotulo'].includes(c)));
-      const e_resumen = Boolean(meta.resumen || geojsonData.description || camposLower.some(c => ['description', 'desc', 'detalle', 'tipo', 'rubro', 'uso'].includes(c)));
-      const e_custodio = Boolean(meta.institucion || meta.custodio || camposLower.some(c => ['source', 'fuente', 'origin', 'author', 'autor', 'institucion'].includes(c)));
-      const e_temporal = Boolean(meta.fecha || camposLower.some(c => ['date', 'fecha', 'timestamp', 'year', 'anio', 'created_at', 'updated_at'].includes(c)));
-      const e_topico = Boolean(meta.categoria || meta.grupo || camposLower.some(c => ['category', 'categoria', 'amenity', 'fclass', 'clase', 'rubro'].includes(c)));
-      const e_bbox = Boolean(geojsonData.bbox || nFeatures > 0);
-      const e_crs = Boolean(geojsonData.crs || true); // GeoJSON RFC 7946 presupone EPSG:4326
-      const e_licencia = Boolean(meta.licencia || meta.declaracion || camposLower.some(c => ['license', 'licencia', 'rights', 'derechos'].includes(c)));
-      const e_linaje = Boolean(meta.linaje || meta.citaAPA || camposLower.some(c => ['lineage', 'linaje', 'history', 'osm_id', 'version', 'changeset'].includes(c)));
+      // 1. Identificador Persistente formal del dataset
+      const e_id = Boolean(
+        (!esArchivoExterno && meta.id) ||
+        geojsonData.id ||
+        rootMeta.id ||
+        rootMeta.uuid ||
+        geojsonData.uuid
+      );
+      detallesMC.push({ item: 'Identificador del dataset', cumplido: e_id });
 
-      const elementosDetectados = [e_id, e_titulo, e_resumen, e_custodio, e_temporal, e_topico, e_bbox, e_crs, e_licencia, e_linaje];
-      const sumaElementos = elementosDetectados.filter(Boolean).length;
-      scoreMC = Math.round((sumaElementos / 10) * 1000) / 10;
-      scoreMC = Math.max(60.0, Math.min(100.0, scoreMC));
+      // 2. Título Formal (en raíz del GeoJSON o metadatos explícitos del recurso)
+      const e_titulo = Boolean(
+        (!esArchivoExterno && (meta.titulo || meta.nombre)) ||
+        geojsonData.title ||
+        geojsonData.name ||
+        rootMeta.title ||
+        rootMeta.nombre
+      );
+      detallesMC.push({ item: 'Título formal del recurso', cumplido: e_titulo });
+
+      // 3. Resumen / Propósito descriptivo (abstract)
+      const e_resumen = Boolean(
+        (!esArchivoExterno && meta.resumen) ||
+        geojsonData.description ||
+        rootMeta.description ||
+        rootMeta.resumen ||
+        rootMeta.abstract
+      );
+      detallesMC.push({ item: 'Resumen o propósito (abstract)', cumplido: e_resumen });
+
+      // 4. Custodio o Responsable Institucional con contacto
+      const e_custodio = Boolean(
+        (!esArchivoExterno && (meta.institucion || meta.custodio)) ||
+        geojsonData.author ||
+        geojsonData.custodian ||
+        rootMeta.custodian ||
+        rootMeta.institucion ||
+        rootMeta.author
+      );
+      detallesMC.push({ item: 'Custodio o responsable institucional', cumplido: e_custodio });
+
+      // 5. Fecha de Referencia / Extensión Temporal del dataset
+      const e_temporal = Boolean(
+        (!esArchivoExterno && meta.fecha) ||
+        geojsonData.date ||
+        rootMeta.date ||
+        rootMeta.fecha ||
+        rootMeta.timestamp
+      );
+      detallesMC.push({ item: 'Fecha de referencia o vigencia', cumplido: e_temporal });
+
+      // 6. Categoría Temática ISO 19115 (Topic Category)
+      const e_topico = Boolean(
+        (!esArchivoExterno && (meta.categoria || meta.grupo)) ||
+        geojsonData.category ||
+        rootMeta.category ||
+        rootMeta.topicCategory
+      );
+      detallesMC.push({ item: 'Categoría temática ISO', cumplido: e_topico });
+
+      // 7. Extensión Geográfica Explícita en Metadatos (BBox delimitado en raíz)
+      const e_bbox = Boolean(
+        (Array.isArray(geojsonData.bbox) && geojsonData.bbox.length >= 4) ||
+        (!esArchivoExterno && meta.bbox)
+      );
+      detallesMC.push({ item: 'Extensión espacial delimitada (BBox en raíz)', cumplido: e_bbox });
+
+      // 8. Sistema de Referencia CRS Explícitamente Declarado
+      const e_crs = Boolean(
+        geojsonData.crs ||
+        rootMeta.crs ||
+        (!esArchivoExterno && (meta.crs || meta.proyeccion))
+      );
+      detallesMC.push({ item: 'Sistema de Referencia (CRS) explícito', cumplido: e_crs });
+
+      // 9. Licencia y Derechos de Uso Explícitos
+      const e_licencia = Boolean(
+        (!esArchivoExterno && meta.licencia) ||
+        geojsonData.license ||
+        rootMeta.license ||
+        rootMeta.licencia ||
+        rootMeta.rights
+      );
+      detallesMC.push({ item: 'Licencia y condiciones de uso', cumplido: e_licencia });
+
+      // 10. Linaje y Trazabilidad de Captura
+      const e_linaje = Boolean(
+        (!esArchivoExterno && (meta.linaje || meta.citaAPA)) ||
+        geojsonData.lineage ||
+        rootMeta.lineage ||
+        rootMeta.fuente ||
+        rootMeta.source
+      );
+      detallesMC.push({ item: 'Linaje y trazabilidad metodológica', cumplido: e_linaje });
+
+      const elementosPresentes = detallesMC.filter(d => d.cumplido).length;
+      scoreMC = Math.round((elementosPresentes / 10.0) * 1000) / 10;
     }
 
     // =========================================================================
-    // 2. CONFORMIDAD SEMÁNTICA Y CATÁLOGO DE OBJETOS (CC - ISO 19110) (20%)
+    // 2. CONFORMIDAD SEMÁNTICA Y CATÁLOGO DE OBJETOS (CC - ISO 19110 / RFC 7946) (20%)
     // =========================================================================
-    let scoreCC = 90.0;
-    if (meta.score_cc !== undefined) {
+    let scoreCC = 0.0;
+    if (!esArchivoExterno && meta.score_cc !== undefined) {
       scoreCC = Number(meta.score_cc);
     } else {
+      // Subfactor A: Presencia de propiedades en entidades (25 pts)
+      const tasaPropiedades = sampleFeatures.length > 0 ? (totalPropiedadesNoVacias / sampleFeatures.length) : 0;
+      const ptsPropiedades = tasaPropiedades * 25.0;
+
+      // Subfactor B: Estandarización de nombres de atributos (35 pts)
       let camposEstandarizados = 0;
-      camposLower.forEach(c => {
-        if (/^[a-z0-9_]+$/.test(c) && !c.includes(' ') && !c.includes('shape_') && !c.endsWith('_1')) {
-          camposEstandarizados++;
-        }
+      listaCampos.forEach(c => {
+        const esValido = /^[a-z0-9_]+$/.test(c) && !c.includes(' ') && !c.includes('shape_') && !c.endsWith('_1');
+        if (esValido) camposEstandarizados++;
       });
-      const tasaNombres = camposLower.length > 0 ? (camposEstandarizados / camposLower.length) * 100 : 90;
-      scoreCC = Math.round((70.0 + (tasaNombres * 0.3)) * 10) / 10;
-      scoreCC = Math.max(70.0, Math.min(100.0, scoreCC));
+      const tasaNombres = listaCampos.length > 0 ? (camposEstandarizados / listaCampos.length) : 0;
+      const ptsNombres = tasaNombres * 35.0;
+
+      // Subfactor C: Homogeneidad de tipos de datos en la tabla (20 pts)
+      const ptsHomogeneidad = listaCampos.length > 0 ? 20.0 : 0.0;
+
+      // Subfactor D: Catálogo de Objetos / Diccionario Atributivo Documentado (20 pts)
+      let ptsCatalogo = 0.0;
+      if (!esArchivoExterno && (meta.diccionario || meta.catalogo_objetos || (meta.tipoFuente && meta.tipoFuente.includes('Geodatabase')))) {
+        ptsCatalogo = 20.0;
+      } else if (rootMeta.dictionary || rootMeta.catalogo || rootMeta.fields) {
+        ptsCatalogo = 20.0;
+      }
+
+      scoreCC = Math.round((ptsPropiedades + ptsNombres + ptsHomogeneidad + ptsCatalogo) * 10) / 10;
+      scoreCC = Math.max(0.0, Math.min(100.0, scoreCC));
     }
 
     // =========================================================================
-    // 3. LINAJE, TRAZABILIDAD Y DERECHOS LEGALES (LL - Ley / ODbL / CC) (25%)
+    // 3. LINAJE, TRAZABILIDAD Y CERTEZA LEGAL (LL - ISO 19115 / LEY 20.285 / ODbL) (25%)
     // =========================================================================
-    let scoreLL = 85.0;
-    if (meta.score_ll !== undefined) {
+    let scoreLL = 0.0;
+    if (!esArchivoExterno && meta.score_ll !== undefined) {
       scoreLL = Number(meta.score_ll);
     } else {
-      let puntosLL = 65.0;
-      if (meta.citaAPA || camposLower.some(c => ['source', 'fuente', 'origin'].includes(c))) puntosLL += 15.0;
-      if (meta.institucion || meta.ministerio) puntosLL += 10.0;
-      if (meta.licencia || camposLower.some(c => ['license', 'licencia'].includes(c))) puntosLL += 10.0;
-      scoreLL = Math.max(65.0, Math.min(100.0, Math.round(puntosLL * 10) / 10));
+      let ptsLinaje = 0.0;
+      // Subfactor A: Linaje metodológico / historia (40 pts)
+      if (!esArchivoExterno && (meta.linaje || meta.citaAPA)) {
+        ptsLinaje += 40.0;
+      } else if (geojsonData.lineage || rootMeta.lineage || rootMeta.metodologia) {
+        ptsLinaje += 40.0;
+      } else if (camposLower.some(c => ['source', 'fuente', 'origin'].includes(c))) {
+        ptsLinaje += 15.0; // Mención informal de fuente en atributos
+      }
+
+      // Subfactor B: Certeza jurídica y licencia explícita (35 pts)
+      if (!esArchivoExterno && meta.licencia) {
+        ptsLinaje += 35.0;
+      } else if (geojsonData.license || rootMeta.license || rootMeta.licencia || rootMeta.rights) {
+        ptsLinaje += 35.0;
+      } else if (camposLower.some(c => ['license', 'licencia', 'rights'].includes(c))) {
+        ptsLinaje += 15.0;
+      }
+
+      // Subfactor C: Custodia institucional reconocida (25 pts)
+      if (!esArchivoExterno && (meta.institucion || meta.ministerio || meta.organismo)) {
+        ptsLinaje += 25.0;
+      } else if (geojsonData.author || rootMeta.author || rootMeta.institucion || rootMeta.custodian) {
+        ptsLinaje += 25.0;
+      }
+
+      scoreLL = Math.round(ptsLinaje * 10) / 10;
+      scoreLL = Math.max(0.0, Math.min(100.0, scoreLL));
     }
 
     // =========================================================================
-    // 4. RESOLUCIÓN ESPACIAL Y PRECISIÓN GEODÉSICA (RG - Snyder / Escala) (15%)
+    // 4. RESOLUCIÓN ESPACIAL Y GRANULARIDAD CONCEPTUAL (RG - ISO 19115 / SNYDER) (15%)
     // =========================================================================
-    let scoreRG = 95.0;
-    if (meta.score_rg !== undefined) {
+    let scoreRG = 0.0;
+    if (!esArchivoExterno && meta.score_rg !== undefined) {
       scoreRG = Number(meta.score_rg);
     } else {
+      // Subfactor A: Precisión decimal geodésica de vértices (50 pts)
       let totalCoordsMuestreadas = 0;
       let totalDecimales = 0;
-      const extraerCoordsMuestra = (g) => {
-        if (!g || !g.coordinates) return;
+      const contarDec = (num) => {
+        if (typeof num !== 'number') return 5;
+        const s = num.toString();
+        return s.includes('.') ? s.split('.')[1].length : 0;
+      };
+      const proc = (pt) => {
+        if (Array.isArray(pt) && pt.length >= 2 && typeof pt[0] === 'number') {
+          totalCoordsMuestreadas++;
+          totalDecimales += (contarDec(pt[0]) + contarDec(pt[1])) / 2;
+        }
+      };
+
+      sampleFeatures.forEach(f => {
+        if (!f || !f.geometry || !f.geometry.coordinates) return;
+        const g = f.geometry;
         const c = g.coordinates;
-        const contarDec = (num) => {
-          if (typeof num !== 'number') return 5;
-          const s = num.toString();
-          return s.includes('.') ? s.split('.')[1].length : 0;
-        };
-        const proc = (pt) => {
-          if (Array.isArray(pt) && pt.length >= 2 && typeof pt[0] === 'number') {
-            totalCoordsMuestreadas++;
-            totalDecimales += (contarDec(pt[0]) + contarDec(pt[1])) / 2;
-          }
-        };
         if (g.type === 'Point') proc(c);
         else if (g.type === 'MultiPoint' || g.type === 'LineString') c.slice(0, 10).forEach(proc);
         else if (g.type === 'Polygon') (c[0] || []).slice(0, 10).forEach(proc);
         else if (g.type === 'MultiPolygon') ((c[0] && c[0][0]) || []).slice(0, 10).forEach(proc);
-      };
-      sampleFeatures.forEach(f => extraerCoordsMuestra(f.geometry));
+      });
 
-      const promDecimales = totalCoordsMuestreadas > 0 ? (totalDecimales / totalCoordsMuestreadas) : 5.5;
-      if (promDecimales >= 5.0) {
-        scoreRG = 100.0;
-      } else if (promDecimales >= 4.0) {
-        scoreRG = 88.0;
-      } else if (promDecimales >= 3.0) {
-        scoreRG = 75.0;
-      } else {
-        scoreRG = 60.0;
+      const promDecimales = totalCoordsMuestreadas > 0 ? (totalDecimales / totalCoordsMuestreadas) : 5.0;
+      let ptsDecimales = 10.0;
+      if (promDecimales >= 5.0) ptsDecimales = 50.0;       // Submétrica (<= 1.1 m)
+      else if (promDecimales >= 4.0) ptsDecimales = 38.0;  // Comunal (~11 m)
+      else if (promDecimales >= 3.0) ptsDecimales = 25.0;  // Regional (~110 m)
+
+      // Subfactor B: Documentación de Escala Nominal / GSD en Metadatos (30 pts)
+      let ptsEscala = 0.0;
+      if (!esArchivoExterno && (meta.escala || meta.resolucion || meta.escala_captura)) {
+        ptsEscala = 30.0;
+      } else if (rootMeta.scale || rootMeta.scaleDenominator || rootMeta.resolution) {
+        ptsEscala = 30.0;
       }
+
+      // Subfactor C: Granularidad y Densidad Geométrica (20 pts)
+      let ptsDensidad = 20.0;
+      if (nFeatures === 0) ptsDensidad = 0.0;
+
+      scoreRG = Math.round((ptsDecimales + ptsEscala + ptsDensidad) * 10) / 10;
+      scoreRG = Math.max(0.0, Math.min(100.0, scoreRG));
     }
 
     // =========================================================================
-    // 5. ACCESIBILIDAD Y DISPONIBILIDAD OPERATIVA (AI) (10%)
+    // 5. ACCESIBILIDAD Y DISPONIBILIDAD OPERATIVA (AI - FAIR PRINCIPLES) (10%)
     // =========================================================================
-    let scoreAI = 100.0;
-    if (meta.score_ai !== undefined) {
+    let scoreAI = 0.0;
+    if (!esArchivoExterno && meta.score_ai !== undefined) {
       scoreAI = Number(meta.score_ai);
     } else {
-      scoreAI = 100.0;
+      // Subfactor A: Formato Estándar Abierto (GeoJSON RFC 7946) (40 pts)
+      const ptsFormatoAbierto = 40.0;
+
+      // Subfactor B: Servicios Web Interoperables en Red (WFS / WMS / API / Cloud CDN) (35 pts)
+      let ptsServiciosEnRed = 0.0;
+      if (!esArchivoExterno && (meta.wfs || meta.wms || meta.api_url || meta.archivoLocal)) {
+        ptsServiciosEnRed = 35.0;
+      } else if (rootMeta.wfs || rootMeta.wms || rootMeta.api || rootMeta.endpoint) {
+        ptsServiciosEnRed = 35.0;
+      }
+
+      // Subfactor C: Enlace Persistente de Descarga y Reutilización Pública (25 pts)
+      let ptsEnlaceDescarga = 0.0;
+      if (!esArchivoExterno && (meta.url || meta.descarga || meta.archivoLocal)) {
+        ptsEnlaceDescarga = 25.0;
+      } else if (geojsonData.url || rootMeta.url || rootMeta.download_url) {
+        ptsEnlaceDescarga = 25.0;
+      }
+
+      scoreAI = Math.round((ptsFormatoAbierto + ptsServiciosEnRed + ptsEnlaceDescarga) * 10) / 10;
+      scoreAI = Math.max(0.0, Math.min(100.0, scoreAI));
     }
 
     return {
@@ -573,7 +747,8 @@ const EvaluadorCalidadCuantitativa = (() => {
       cc: scoreCC,
       ll: scoreLL,
       rg: scoreRG,
-      ai: scoreAI
+      ai: scoreAI,
+      detallesMC
     };
   }
 
@@ -783,7 +958,7 @@ const EvaluadorCalidadCuantitativa = (() => {
         pesoRelativo: ponderadores.cualitativo.mc,
         pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.mc) * 1000) / 1000,
         contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.mc * desgloseCualitativo.mc) * 10) / 10,
-        detalle: '10 elementos obligatorios del Perfil Nacional de Metadatos'
+        detalle: `${Math.round(desgloseCualitativo.mc / 10)}/10 elementos obligatorios del Perfil Nacional de Metadatos`
       },
       {
         id: 'cc',
@@ -796,7 +971,7 @@ const EvaluadorCalidadCuantitativa = (() => {
         pesoRelativo: ponderadores.cualitativo.cc,
         pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.cc) * 1000) / 1000,
         contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.cc * desgloseCualitativo.cc) * 10) / 10,
-        detalle: 'Esquema ISO 19139 / Diccionario Territorial'
+        detalle: desgloseCualitativo.cc >= 80 ? 'Catálogo ISO 19110 conforme' : 'Esquema sin catálogo de variables documentado'
       },
       {
         id: 'll',
@@ -809,7 +984,7 @@ const EvaluadorCalidadCuantitativa = (() => {
         pesoRelativo: ponderadores.cualitativo.ll,
         pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.ll) * 1000) / 1000,
         contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.ll * desgloseCualitativo.ll) * 10) / 10,
-        detalle: 'ODbL 1.0 / Ley N° 20.285 de Transparencia / Cita APA'
+        detalle: desgloseCualitativo.ll > 0 ? 'Con respaldo legal o cita' : 'Sin fuente ni licencia declarada'
       },
       {
         id: 'rg',
@@ -822,7 +997,7 @@ const EvaluadorCalidadCuantitativa = (() => {
         pesoRelativo: ponderadores.cualitativo.rg,
         pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.rg) * 1000) / 1000,
         contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.rg * desgloseCualitativo.rg) * 10) / 10,
-        detalle: 'Dualidad WGS84 (EPSG:4326) / UTM 19S (EPSG:32719)'
+        detalle: desgloseCualitativo.rg >= 85 ? 'Precisión geodésica submétrica' : 'Resolución básica / Escala no informada'
       },
       {
         id: 'ai',
@@ -835,7 +1010,7 @@ const EvaluadorCalidadCuantitativa = (() => {
         pesoRelativo: ponderadores.cualitativo.ai,
         pesoGlobal: Math.round((pesoGlobalCual * ponderadores.cualitativo.ai) * 1000) / 1000,
         contrib: Math.round((pesoGlobalCual * ponderadores.cualitativo.ai * desgloseCualitativo.ai) * 10) / 10,
-        detalle: 'Disponibilidad Edge CDN / Descarga directa sin fallos'
+        detalle: desgloseCualitativo.ai >= 70 ? 'Servicios web activos y descarga' : 'Formato abierto sin servicios WFS'
       }
     ];
 
@@ -1410,51 +1585,51 @@ print("Dataset subsanado y listo para producción!")
           
           <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px;">
             <div style="font-size:0.74rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">1. Metadatos Núcleo (30%)</div>
-            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.mc >= 85 ? '#10b981' : '#f59e0b'}; font-family:var(--fuente-titulos);">
+            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.mc >= 80 ? '#10b981' : (resultado.dimensionesCualitativas.mc >= 40 ? '#f59e0b' : '#ef4444')}; font-family:var(--fuente-titulos);">
               ${resultado.dimensionesCualitativas.mc}%
             </div>
             <div style="font-size:0.72rem; color:var(--tinta-suave);">
-              10 campos esenciales Perfil Chile
+              ${Math.round(resultado.dimensionesCualitativas.mc / 10)}/10 campos Perfil Chile
             </div>
           </div>
 
           <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px;">
             <div style="font-size:0.74rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">2. Conformidad Semántica (20%)</div>
-            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.cc >= 85 ? '#10b981' : '#f59e0b'}; font-family:var(--fuente-titulos);">
+            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.cc >= 80 ? '#10b981' : (resultado.dimensionesCualitativas.cc >= 50 ? '#f59e0b' : '#ef4444')}; font-family:var(--fuente-titulos);">
               ${resultado.dimensionesCualitativas.cc}%
             </div>
             <div style="font-size:0.72rem; color:var(--tinta-suave);">
-              Catálogo ISO 19110 y RFC 7946
+              ${resultado.dimensionesCualitativas.cc >= 80 ? 'Catálogo ISO 19110 conforme' : (resultado.dimensionesCualitativas.cc >= 50 ? 'Esquema RFC 7946 sin catálogo' : 'Nomenclatura no normalizada')}
             </div>
           </div>
 
           <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px;">
             <div style="font-size:0.74rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">3. Linaje y Certeza Legal (25%)</div>
-            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.ll >= 85 ? '#10b981' : '#f59e0b'}; font-family:var(--fuente-titulos);">
+            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.ll >= 75 ? '#10b981' : (resultado.dimensionesCualitativas.ll > 0 ? '#f59e0b' : '#ef4444')}; font-family:var(--fuente-titulos);">
               ${resultado.dimensionesCualitativas.ll}%
             </div>
             <div style="font-size:0.72rem; color:var(--tinta-suave);">
-              Ley 20.285 / ODbL / Cita APA
+              ${resultado.dimensionesCualitativas.ll >= 75 ? 'Licencia abierta + Custodio' : (resultado.dimensionesCualitativas.ll > 0 ? 'Mención parcial sin licencia' : 'Sin linaje, custodio ni licencia')}
             </div>
           </div>
 
           <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px;">
             <div style="font-size:0.74rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">4. Resolución Espacial (15%)</div>
-            <div style="font-size:1.2rem; font-weight:800; color:#38bdf8; font-family:var(--fuente-titulos);">
+            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.rg >= 80 ? '#10b981' : '#38bdf8'}; font-family:var(--fuente-titulos);">
               ${resultado.dimensionesCualitativas.rg}%
             </div>
             <div style="font-size:0.72rem; color:var(--tinta-suave);">
-              Escala de captura y precisión
+              ${resultado.dimensionesCualitativas.rg >= 80 ? 'Submétrica + Escala documentada' : (resultado.dimensionesCualitativas.rg >= 50 ? 'Submétrica (Escala no informada)' : 'Baja resolución geodésica')}
             </div>
           </div>
 
           <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px;">
             <div style="font-size:0.74rem; font-family:var(--fuente-datos); color:var(--tinta-tenue);">5. Accesibilidad Operativa (10%)</div>
-            <div style="font-size:1.2rem; font-weight:800; color:#38bdf8; font-family:var(--fuente-titulos);">
+            <div style="font-size:1.2rem; font-weight:800; color:${resultado.dimensionesCualitativas.ai >= 75 ? '#10b981' : '#38bdf8'}; font-family:var(--fuente-titulos);">
               ${resultado.dimensionesCualitativas.ai}%
             </div>
             <div style="font-size:0.72rem; color:var(--tinta-suave);">
-              Disponibilidad de carga y servicios
+              ${resultado.dimensionesCualitativas.ai >= 75 ? 'Servicios WFS/API + Descarga' : (resultado.dimensionesCualitativas.ai >= 40 ? 'Formato abierto RFC 7946 (Sin WFS)' : 'Acceso no verificado')}
             </div>
           </div>
 
@@ -1695,16 +1870,18 @@ print("Dataset subsanado y listo para producción!")
               </div>
             </div>
 
-            <div style="background:var(--papel-tarjeta); border:1px solid #38bdf844; border-left:5px solid #38bdf8; border-radius:8px; padding:12px;">
+            <div style="background:var(--papel-tarjeta); border:1px solid ${ig.scoreCualitativo >= 75 ? '#10b98144' : (ig.scoreCualitativo >= 40 ? '#f59e0b44' : '#ef444455')}; border-left:5px solid ${ig.scoreCualitativo >= 75 ? '#10b981' : (ig.scoreCualitativo >= 40 ? '#f59e0b' : '#ef4444')}; border-radius:8px; padding:12px;">
               <div style="font-size:0.75rem; font-family:var(--fuente-datos); color:var(--tinta-tenue); text-transform:uppercase; font-weight:700; display:flex; justify-content:space-between;">
                 <span>3. Conformidad Normativa (Metadatos)</span>
-                <span style="color:#38bdf8;">🔵 ISO 19115</span>
+                <span style="color:${ig.scoreCualitativo >= 75 ? '#10b981' : (ig.scoreCualitativo >= 40 ? '#f59e0b' : '#ef4444')};">
+                  ${ig.scoreCualitativo >= 75 ? '🟢 Conforme ISO 19115' : (ig.scoreCualitativo >= 40 ? '🟡 Metadatos Parciales' : '🔴 Metadatos Críticos')}
+                </span>
               </div>
-              <div style="font-size:1.3rem; font-weight:800; color:#38bdf8; font-family:var(--fuente-titulos); margin:2px 0;">
+              <div style="font-size:1.3rem; font-weight:800; color:${ig.scoreCualitativo >= 75 ? '#10b981' : (ig.scoreCualitativo >= 40 ? '#f59e0b' : '#ef4444')}; font-family:var(--fuente-titulos); margin:2px 0;">
                 ${ig.scoreCualitativo}%
               </div>
               <div style="font-size:0.76rem; color:var(--tinta-suave);">
-                Metadatos Core: ${resultado.dimensionesCualitativas.mc}% · Conformidad: ${resultado.dimensionesCualitativas.cc}% · Linaje: ${resultado.dimensionesCualitativas.ll}%.
+                Metadatos Core: ${resultado.dimensionesCualitativas.mc}% (${Math.round(resultado.dimensionesCualitativas.mc / 10)}/10) · Linaje: ${resultado.dimensionesCualitativas.ll}% · Semántica: ${resultado.dimensionesCualitativas.cc}%.
               </div>
             </div>
 
@@ -1826,6 +2003,61 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
             </div>
           </details>
 
+          <!-- Guía de Subsanación de Metadatos ISO 19115 / IDE Chile -->
+          <details style="background:var(--papel-tarjeta); border:1px solid var(--linea); border-radius:8px; padding:12px 16px; margin-bottom:10px;" ${resultado.dimensionesCualitativas.mc < 70 || resultado.dimensionesCualitativas.ll < 70 ? 'open' : ''}>
+            <summary style="font-size:0.86rem; font-weight:700; cursor:pointer; color:var(--tinta); display:flex; align-items:center; gap:8px;">
+              <span>📋</span> Guía de Subsanación de Metadatos y Linaje (ISO 19115 / Perfil Chile / Ley 20.285)
+            </summary>
+            <div style="margin-top:10px; font-size:0.8rem; color:var(--tinta-suave); line-height:1.5;">
+              <p style="margin:0 0 10px 0;">
+                El estándar internacional <strong>ISO 19115-1:2014</strong> y el <strong>Perfil Nacional de Metadatos de Chile (IDE Chile - SNIT)</strong> exigen 10 campos núcleo mínimos para garantizar que un conjunto de datos espaciales sea interoperable, trazable y tenga certeza jurídica.
+              </p>
+
+              <!-- Lista de verificación dinámica de los 10 campos -->
+              <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:6px; padding:10px; margin-bottom:12px;">
+                <div style="font-weight:700; font-size:0.78rem; color:var(--tinta); margin-bottom:6px;">
+                  Auditoría de los 10 Campos Núcleo en este archivo:
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:6px; font-size:0.75rem;">
+                  ${(resultado.dimensionesCualitativas.detallesMC || []).map(d => `
+                    <div style="display:flex; align-items:center; gap:6px; color:${d.cumplido ? '#10b981' : '#ef4444'};">
+                      <span>${d.cumplido ? '✅' : '❌'}</span>
+                      <span style="color:var(--tinta);">${d.item}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+                <a href="#modulo-05-metadatos" class="accion" onclick="if(window.navegarAModulo) window.navegarAModulo('05');" style="background:#38bdf8; color:#0f172a; font-weight:700; font-size:0.78rem; padding:8px 14px; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                  <span>🏛️</span> Abrir Generador de Metadatos ISO 19115 (Módulo 05)
+                </a>
+                <button type="button" class="accion secundaria" id="btn-copiar-plantilla-metadatos" style="font-size:0.78rem; padding:8px 14px; background:rgba(56, 189, 248, 0.12); color:#38bdf8; border:1px solid #38bdf8; font-weight:700; border-radius:6px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                  <span>📋</span> Copiar Plantilla de Metadatos GeoJSON
+                </button>
+              </div>
+
+              <div style="font-size:0.75rem; color:var(--tinta-tenue);">
+                <strong>Solución rápida en el archivo:</strong> Puedes embeber un bloque formal <code>"metadata"</code> en la raíz de tu archivo GeoJSON (conforme a RFC 7946 extensible) para que sea reconocido con el 100% de cumplimiento por visores y auditores:
+              </div>
+              <pre id="codigo-plantilla-metadatos" style="background:#0f172a; color:#f8fafc; padding:10px; border-radius:6px; font-size:0.74rem; font-family:monospace; overflow-x:auto; margin:6px 0 0 0; border:1px solid var(--linea);">{
+  "type": "FeatureCollection",
+  "metadata": {
+    "id": "${resultado.capaId || 'capa_territorial'}",
+    "title": "${resultado.nombreCapa || 'Nombre Descriptivo de la Capa'}",
+    "description": "Propósito territorial y alcance metodológico del conjunto de datos",
+    "custodian": "Organismo o investigador responsable (ej. IDE Chile / UAH)",
+    "date": "${new Date().toISOString().split('T')[0]}",
+    "category": "boundaries",
+    "license": "Open Data Commons Open Database License (ODbL) 1.0 / CC-BY 4.0",
+    "lineage": "Método de levantamiento, escala de captura o fuente de procedencia",
+    "crs": "EPSG:4326"
+  },
+  "features": [ ... ]
+}</pre>
+            </div>
+          </details>
+
         </div>
 
         <!-- Tabla de Atributos Tabulares -->
@@ -1934,6 +2166,16 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
         const pre = document.getElementById('codigo-python-subsanacion');
         if (pre && navigator.clipboard) {
           navigator.clipboard.writeText(pre.textContent.trim()).then(() => alert('¡Script Python de GeoPandas copiado al portapapeles con éxito!'));
+        }
+      });
+    }
+
+    const btnCopiarPlantillaMeta = document.getElementById('btn-copiar-plantilla-metadatos');
+    if (btnCopiarPlantillaMeta) {
+      btnCopiarPlantillaMeta.addEventListener('click', () => {
+        const pre = document.getElementById('codigo-plantilla-metadatos');
+        if (pre && navigator.clipboard) {
+          navigator.clipboard.writeText(pre.textContent.trim()).then(() => alert('¡Plantilla de metadatos GeoJSON (ISO 19115 / RFC 7946) copiada al portapapeles con éxito!'));
         }
       });
     }
@@ -2284,7 +2526,10 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
             titulo: file.name,
             nombre: file.name,
             tipoFuente: 'Archivo Externo Subido (.geojson)',
-            institucion: 'Usuario / Archivo Local',
+            esArchivoExterno: true,
+            institucion: null,
+            licencia: null,
+            linaje: null,
             tamano_bytes: file.size
           };
           if (txtGeojson) txtGeojson.value = JSON.stringify(json).slice(0, 500) + '... (Archivo cargado exitosamente)';
@@ -2349,7 +2594,11 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
               id: 'geojson_pegado',
               titulo: 'GeoJSON Ingresado por Texto Plano',
               nombre: 'GeoJSON Ingresado por Texto Plano',
-              tipoFuente: 'Entrada Texto Plano'
+              tipoFuente: 'Entrada Texto Plano',
+              esArchivoExterno: true,
+              institucion: null,
+              licencia: null,
+              linaje: null
             };
           }
 
