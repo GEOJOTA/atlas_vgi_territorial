@@ -756,8 +756,8 @@ def crear_presentacion():
             ("• Actores Participantes:", "Comunidad OpenStreetMap Chile, colectivos de ciencia ciudadana y cátedras de Geografía UAH."),
             ("• Microatributos de Brecha:", "Levantamiento de rebajes peatonales (kerb=lowered), rampas, bicicleteros, luminarias y arbolado viario."),
             ("• Herramientas en Atlas:", "Constructor Overpass QL interactivo, validación Taginfo API y métricas de calidad ohsome v1/v2."),
-            ("🔬 ONGs / Territoriales y Academia:", "Enfoque analítico para modelación espacial, series temporales y citación formal."),
-            ("• Actores e Investigación:", "Proyecto ANID Fondecyt Regular F1261256, Depto. de Geografía UAH y fundaciones patrimoniales.")
+            ("🔬 ONGs / Territoriales y Academia:", "Enfoque analítico para modelación espacial, series temporales y diagnósticos urbanos."),
+            ("• Actores e Investigación:", "Depto. de Geografía UAH, TECHO-Chile, JuntoAlBarrio y Fundación SUR.")
         ])
     ]
     card_w7 = 3.75
@@ -799,7 +799,8 @@ def crear_presentacion():
         "Para el perfil institucional se definieron dependencias clave a escala comunal como SECPLA, DIMAO y DOM Santiago, y a escala regional "
         "como SEREMI MINVU y el Consejo de Monumentos Nacionales. Para el perfil comunitario se incorporaron organizaciones territoriales "
         "reales de Barrio Brasil como la JJVV Brasil y Yungay, además de agrupaciones funcionales como Comité Los Castillitos y Comunidad Plaza Brasil. "
-        "Los perfiles de voluntarios OSM e investigación canalizan la ciencia ciudadana y el soporte científico del Proyecto Fondecyt UAH."
+        "Los perfiles de voluntarios OSM canalizan la ciencia ciudadana, mientras que las ONGs y la academia integran actores territoriales de investigación "
+        "y acción comunitaria como el Departamento de Geografía UAH, TECHO-Chile, JuntoAlBarrio y Fundación SUR."
     )
 
     # =========================================================================
