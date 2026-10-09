@@ -73,7 +73,7 @@ def crear_presentacion():
     prs.slide_height = Inches(7.500)
     blank_layout = prs.slide_layouts[6]
 
-    total_slides = 26
+    total_slides = 22
 
     def aplicar_fondo_blanco(slide):
         bg = slide.background
@@ -364,22 +364,22 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 3: OBJETIVOS ESTRATÉGICOS Y CADENA DE VALOR METODOLÓGICA
+    # SLIDE 3: OBJETIVOS DEL PROYECTO (PLAN DE TRABAJO FORMAL)
     # =========================================================================
     s3 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s3, "Objetivos y Alcance del Plan de Trabajo", 
-                       categoria="2. Formulación Estratégica — Visión Sinóptica",
+                       categoria="2. Formulación Estratégica",
                        subtitulo="Estructura formal de objetivos, asignación horaria y estado de avance al 50%")
     agregar_pie_pagina(s3, 3)
 
-    # Tarjeta Superior: Objetivo General de la Práctica
-    agregar_tarjeta(s3, 0.8, 1.65, 11.733, 1.15, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
-    tb_og = s3.shapes.add_textbox(Inches(1.0), Inches(1.72), Inches(11.333), Inches(1.00))
+    # Objetivo General en caja destacada
+    agregar_tarjeta(s3, 0.8, 1.70, 11.733, 1.25, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
+    tb_og = s3.shapes.add_textbox(Inches(1.05), Inches(1.80), Inches(11.233), Inches(1.05))
     tf_og = tb_og.text_frame
     tf_og.word_wrap = True
     tf_og.margin_left = tf_og.margin_top = tf_og.margin_right = tf_og.margin_bottom = 0
     p = tf_og.paragraphs[0]
-    p.text = "OBJETIVO GENERAL DE LA PRÁCTICA PROFESIONAL:"
+    p.text = "OBJETIVO GENERAL DE LA PRÁCTICA PROFESIONAL"
     p.font.name = FONT_NAME
     p.font.size = Pt(11)
     p.font.bold = True
@@ -388,515 +388,90 @@ def crear_presentacion():
 
     p_og_txt = tf_og.add_paragraph()
     p_og_txt.text = (
-        "Desarrollar un prototipo de Atlas de Información Geográfica Voluntaria (VGI) reproducible, interoperable y centrado en usuarios "
-        "que subsane vacíos de información territorial en Barrio Brasil y entorno UAH, articulando geodatos abiertos y oficiales, "
-        "cartografía participativa, certificación de calidad espacial (ISO 19157/19115) y herramientas analíticas interactivas "
-        "para la gestión local y la investigación académica."
+        "Desarrollar un prototipo de Atlas de Información Geográfica Voluntaria (VGI) centrado en los usuarios "
+        "para Barrio Brasil y el entorno del campus de la Universidad Alberto Hurtado, articulando datos colaborativos "
+        "y fuentes oficiales, con el propósito de subsanar vacíos de información territorial a escala barrial y proveer "
+        "herramientas interactivas de diagnóstico, análisis espacial y gestión urbana local."
     )
     p_og_txt.font.name = FONT_NAME
-    p_og_txt.font.size = Pt(10.5)
+    p_og_txt.font.size = Pt(11)
     p_og_txt.font.color.rgb = COLOR_NEGRO
 
-    # Flujo de 4 Tarjetas de la Cadena de Valor Metodológica (Detalle Riguroso)
-    cadena_oes = [
-        ("1. CARACTERIZACIÓN & DISEÑO CONCEPTUAL", "OE 1 · Semanas 1 a 3 · 72 Horas", "100% CERRADO", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
-         "Diagnostica el territorio (223,75 ha), estructura 10 macrocategorías VGI, cataloga 134 descriptores identificando 86 brechas estatales y modela 4 perfiles multiactor bajo diseño centrado en el usuario (DCU / ISO 9241-210)."),
-        ("2. GEODATABASE, CALIDAD & ANÁLISIS ESPACIAL", "OE 2 · Semanas 4 a 7 · 120 Horas", "H4 y H5 CERRADOS · H6 ACTIVO", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
-         "Construye la geodatabase de 118 capas (2,56 GB en PostGIS 17), certifica su calidad bajo norma ISO 19157 (97,88% IGV), y desarrolla el análisis territorial cruzando equipamientos con las 31 manzanas censales (Censo 2024 / RSH) y formulando el modelo de ranking WLC."),
-        ("3. MATERIALIZACIÓN DEL GEOPORTAL WEB", "OE 3 · Semanas 8 a 10 · 72 Horas", "80% EN PRODUCCIÓN", COLOR_AZUL_CLARO, COLOR_AZUL_SEC,
-         "Despliega en producción el visor interactivo (atlasvgiuah.netlify.app) con costo $0 en Netlify, 10 módulos operativos, APIs espaciales en vivo, Inspector Normativo PRC de 192 zonas y generador reactivo de metadatos ISO 19115."),
-        ("4. VALIDACIÓN & TRANSFERIBILIDAD TÉCNICA", "OE 4 · Semana 11 · 36 Horas", "PROGRAMADO", COLOR_GRIS_FONDO, COLOR_NEGRO,
-         "Evalúa la usabilidad con 3 a 5 usuarios reales de Barrio Brasil bajo estándar ISO 9241-11, redactando manuales comunitarios y guías de administración técnica a costo $0 para asegurar autonomía plena y el informe final de titulación.")
+    # 4 Tarjetas de Objetivos Específicos Formulación Académica
+    oes = [
+        ("OE 1: Caracterización Territorial y Arquitectura Conceptual", "Semanas 1–3 · 72 Horas Planificadas", "100% CERRADO", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
+         "Caracterizar la disponibilidad de información geográfica voluntaria y oficial en Barrio Brasil, mediante la revisión "
+         "sistemática de fuentes abiertas e institucionales, para estructurar la arquitectura conceptual del Atlas a partir de una "
+         "taxonomía temática normalizada y perfiles territoriales centrados en el usuario."),
+        ("OE 2: Geodatabase Espacial, Calidad y Análisis Territorial", "Semanas 4–7 · 120 Horas Planificadas", "75% EN PROGRESO", COLOR_AZUL_CLARO, COLOR_AZUL_SEC,
+         "Estructurar una geodatabase espacial multicapa y desarrollar el análisis territorial de Barrio Brasil, aplicando depuración "
+         "topológica, auditoría de calidad de datos bajo estándares internacionales y análisis espacial multicriterio para evaluar "
+         "la relación entre los equipamientos urbanos y la población del área de estudio."),
+        ("OE 3: Prototipo Cartográfico y Geoportal Web Interactivo", "Semanas 8–10 · 72 Horas Planificadas", "80% ANTICIPADO", COLOR_AZUL_CLARO, COLOR_AZUL_SEC,
+         "Diseñar e implementar el prototipo cartográfico y la plataforma web interactiva del Atlas mediante una arquitectura abierta "
+         "e interoperable, con el propósito de facilitar la visualización dinámica, la consulta de condiciones normativas, la conexión "
+         "a servicios espaciales y la transferencia de datos a la comunidad."),
+        ("OE 4: Validación Participativa y Transferibilidad Técnica", "Semana 11 · 36 Horas Planificadas", "PROGRAMADO", COLOR_GRIS_FONDO, COLOR_NEGRO,
+         "Validar la usabilidad y pertinencia territorial del Atlas mediante evaluaciones empíricas con actores locales, generando "
+         "guías metodológicas y protocolos técnicos de actualización que garanticen la transferibilidad del proyecto y la autonomía "
+         "operativa del centro de práctica.")
     ]
-    card_c_h = 0.74
-    gap_c_y = 0.09
-    top_base_c = 2.92
-    for idx, (c_tit, c_meta, c_estado, bg_b, col_b, c_desc) in enumerate(cadena_oes):
-        cy = top_base_c + idx * (card_c_h + gap_c_y)
-        agregar_tarjeta(s3, 0.8, cy, 11.733, card_c_h)
+    card_oe_h = 0.85
+    gap_oe_y = 0.10
+    top_base_oe = 3.10
+    for idx, (oe_tit, oe_meta, oe_estado, bg_badge, col_badge, oe_desc) in enumerate(oes):
+        cy = top_base_oe + idx * (card_oe_h + gap_oe_y)
+        agregar_tarjeta(s3, 0.8, cy, 11.733, card_oe_h)
 
-        tb = s3.shapes.add_textbox(Inches(1.0), Inches(cy + 0.05), Inches(11.333), Inches(card_c_h - 0.10))
+        tb = s3.shapes.add_textbox(Inches(1.0), Inches(cy + 0.08), Inches(11.333), Inches(card_oe_h - 0.16))
         tf = tb.text_frame
         tf.word_wrap = True
         tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
 
         p = tf.paragraphs[0]
         r1 = p.add_run()
-        r1.text = f"{c_tit}   "
+        r1.text = f"{oe_tit}   "
         r1.font.name = FONT_NAME
-        r1.font.size = Pt(11)
+        r1.font.size = Pt(11.5)
         r1.font.bold = True
         r1.font.color.rgb = COLOR_AZUL_UAH
 
         r2 = p.add_run()
-        r2.text = f"[{c_meta}]   "
+        r2.text = f"[{oe_meta}]   "
         r2.font.name = FONT_NAME
-        r2.font.size = Pt(9.5)
+        r2.font.size = Pt(10)
         r2.font.color.rgb = COLOR_GRIS_TEXTO
 
         r3 = p.add_run()
-        r3.text = f"• {c_estado}"
+        r3.text = f"• {oe_estado}"
         r3.font.name = FONT_NAME
         r3.font.size = Pt(10)
         r3.font.bold = True
-        r3.font.color.rgb = col_b
+        r3.font.color.rgb = col_badge
 
         p_desc = tf.add_paragraph()
-        p_desc.text = c_desc
+        p_desc.text = oe_desc
         p_desc.font.name = FONT_NAME
-        p_desc.font.size = Pt(9.5)
+        p_desc.font.size = Pt(10)
         p_desc.font.color.rgb = COLOR_NEGRO
-        p_desc.space_before = Pt(1)
-
-    # Tarjeta Inferior de Balance de Horas y Estado Global
-    agregar_tarjeta(s3, 0.8, 6.25, 11.733, 0.45, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
-    tb_bal = s3.shapes.add_textbox(Inches(1.0), Inches(6.30), Inches(11.333), Inches(0.35))
-    tf_bal = tb_bal.text_frame
-    tf_bal.word_wrap = True
-    tf_bal.margin_left = tf_bal.margin_top = tf_bal.margin_right = tf_bal.margin_bottom = 0
-    p_b = tf_bal.paragraphs[0]
-    p_b.text = "BALANCE AL CORTE DE 150 HORAS: 50% de horas concluidas (25/50 días hábiles) · Hitos 1 a 5 cerrados (100%) · Hito 8 adelantado al 80% en producción · Hito 6 en desarrollo activo."
-    p_b.font.name = FONT_NAME
-    p_b.font.size = Pt(9.5)
-    p_b.font.bold = True
-    p_b.font.color.rgb = COLOR_AZUL_UAH
-    p_b.alignment = PP_ALIGN.CENTER
+        p_desc.space_before = Pt(2)
 
     agregar_notas_orador(s3,
-        "La formulación de objetivos articula el plan formal con el desarrollo efectivo de la práctica: "
-        "el Objetivo General busca subsanar vacíos territoriales mediante VGI y geodatos abiertos; el OE 1 estructura la arquitectura conceptual y taxonomía (100%); "
-        "el OE 2 construye la geodatabase, certifica la calidad ISO 19157 y aborda el análisis territorial censal con el modelo de ranking WLC; "
-        "el OE 3 materializa el geoportal en producción anticipada con 10 módulos; y el OE 4 garantiza la validación empírica y la transferibilidad plena a la comunidad y a la UAH."
+        "La formulación estratégica articula el objetivo general con cuatro objetivos específicos progresivos: "
+        "el OE 1 caracteriza el territorio y sienta las bases taxonómicas y de perfiles de usuario; "
+        "el OE 2 construye la geodatabase, audita su calidad y desarrolla el análisis territorial vinculando equipamiento y población; "
+        "el OE 3 materializa la plataforma web interactiva en producción anticipada; y el OE 4 asegura la validación empírica y la transferibilidad. "
+        "Los detalles técnicos, indicadores y metodologías de cada objetivo se desglosan en las láminas siguientes."
     )
 
     # =========================================================================
-    # SLIDE 4: OBJETIVO ESPECÍFICO 1 — FORMULACIÓN DETALLADA Y LOGROS
+    # SLIDE 4: MARCO METODOLÓGICO (PARTE 1: DIAGNÓSTICO Y GEODATABASE)
     # =========================================================================
     s4 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s4, "Objetivo Específico 1: Caracterización Territorial y Arquitectura Conceptual", 
-                       categoria="3. Formulación de Objetivos — Objetivo Específico 1 (Conceptual)",
-                       subtitulo="Hitos 1 a 3 (100% Concluidos · 72 Horas Planificadas) · Diagnóstico de fuentes, perfiles DCU y taxonomía VGI")
-    agregar_pie_pagina(s4, 4)
-
-    # Columna Izquierda: Formulación Detallada y Desafío Territorial
-    agregar_tarjeta(s4, 0.8, 1.70, 5.75, 4.95)
-    tb_oe1_l = s4.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe1_l = tb_oe1_l.text_frame
-    tf_oe1_l.word_wrap = True
-    tf_oe1_l.margin_left = tf_oe1_l.margin_top = tf_oe1_l.margin_right = tf_oe1_l.margin_bottom = 0
-
-    p = tf_oe1_l.paragraphs[0]
-    p.text = "Formulación del Objetivo Específico 1"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_box = tf_oe1_l.add_paragraph()
-    p_box.text = (
-        "Caracterizar el escenario territorial de Barrio Brasil y campus UAH (223,75 ha) mediante la revisión sistemática "
-        "de plataformas colaborativas y fuentes oficiales (OSM, GBIF, IDE Chile), estructurando la arquitectura conceptual "
-        "del Atlas a través de una taxonomía de 10 macrocategorías urbanas, un catálogo de 134 descriptores que identifica "
-        "86 brechas de información estatal, y el modelamiento de 4 perfiles multiactor bajo Diseño Centrado en el Usuario (DCU / ISO 9241-210)."
-    )
-    p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(10)
-    p_box.font.color.rgb = COLOR_NEGRO
-    p_box.space_after = Pt(8)
-
-    oe1_preguntas = [
-        ("Diagnóstico Territorial Barrial:", "Delimitación de 223,75 ha con fuerte heterogeneidad urbana, patrimonio y densificación residencial en Santiago Poniente."),
-        ("Identificación Rigurosa de Brechas:", "Catálogo analítico de 134 descriptores documentando 86 vacíos críticos no cubiertos por cartografía oficial."),
-        ("Normalización Semántica OSM/GBIF:", "Traducción técnica de esquemas abiertos heterogéneos a 10 macrocategorías estandarizadas para la gestión urbana."),
-        ("Diseño Centrado en el Usuario (DCU):", "Modelamiento empírico de requerimientos específicos para planificadores, vecinos, mapeadores e investigadores.")
-    ]
-    for tit_p, txt_p in oe1_preguntas:
-        p_item = tf_oe1_l.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_p} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_p
-        r2.font.color.rgb = COLOR_NEGRO
-
-    # Columna Derecha: Técnicas y Logros Concretos (100% Cerrado)
-    agregar_tarjeta(s4, 6.783, 1.70, 5.75, 4.95)
-    tb_oe1_r = s4.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe1_r = tb_oe1_r.text_frame
-    tf_oe1_r.word_wrap = True
-    tf_oe1_r.margin_left = tf_oe1_r.margin_top = tf_oe1_r.margin_right = tf_oe1_r.margin_bottom = 0
-
-    p = tf_oe1_r.paragraphs[0]
-    p.text = "Técnicas Metodológicas y Logros Concluidos"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_badge = tf_oe1_r.add_paragraph()
-    p_badge.text = "ESTADO: 100% CONCLUIDO · 72 HORAS EJECUTADAS (HITOS 1, 2 Y 3)"
-    p_badge.font.name = FONT_NAME
-    p_badge.font.size = Pt(10)
-    p_badge.font.bold = True
-    p_badge.font.color.rgb = COLOR_AZUL_UAH
-    p_badge.space_after = Pt(8)
-
-    oe1_logros = [
-        ("Delimitación Barrial Oficial:", "Fijación del polígono de 223,75 ha en Barrio Brasil y campus central UAH, estandarizado en WGS84 (EPSG:4326) y proyectado en UTM 19S (EPSG:32719)."),
-        ("10 Macrocategorías VGI Normalizadas:", "Clasificación de elementos urbanos desde CAT-01 (Movilidad) hasta CAT-10 (Medio Ambiente), traduciendo 200+ tags de OSM a categorías analíticas."),
-        ("4 Perfiles Multiactor (DCU):", "Definición operativa de usuarios: 1) Institucional / Planificador; 2) Comunitario / Vecinal; 3) Voluntario OSM; y 4) Investigador Fondecyt / UAH."),
-        ("Diccionario Territorial (134 Descriptores):", "Catálogo exhaustivo que documentó 48 capas oficiales análogas y 86 brechas barriales cubiertas exclusivamente por la cartografía colaborativa."),
-        ("Entregable Metodológico Aprobado:", "Documento formal de 61 páginas que sustenta la arquitectura conceptual del Atlas y la gobernanza de datos abiertos.")
-    ]
-    for tit_l, txt_l in oe1_logros:
-        p_item = tf_oe1_r.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(5)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_l} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_l
-        r2.font.color.rgb = COLOR_NEGRO
-
-    agregar_notas_orador(s4,
-        "El Objetivo Específico 1 está 100% concluido. Estableció el marco conceptual del Atlas: delimitó Barrio Brasil en 223,75 hectáreas, "
-        "catalogó 134 descriptores identificando 86 brechas críticas donde el Estado no dispone de datos, organizó más de 200 etiquetas OSM en 10 macrocategorías temáticas "
-        "y modeló los cuatro perfiles de usuario territorial bajo el estándar DCU ISO 9241-210."
-    )
-
-    # =========================================================================
-    # SLIDE 5: OBJETIVO ESPECÍFICO 2 — GEODATABASE, CALIDAD Y ANÁLISIS
-    # =========================================================================
-    s5 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s5, "Objetivo Específico 2: Geodatabase VGI, Calidad ISO 19157 y Análisis Territorial", 
-                       categoria="4. Formulación de Objetivos — Objetivo Específico 2 (Datos & Análisis)",
-                       subtitulo="Hitos 4 a 6 (H4 y H5 100% Concluidos, H6 en Desarrollo · 120 Horas) · Geodatos, MetaCalidad WLC y Análisis Censal")
-    agregar_pie_pagina(s5, 5)
-
-    # Columna Izquierda: Formulación Detallada, Calidad y Análisis Territorial
-    agregar_tarjeta(s5, 0.8, 1.70, 5.75, 4.95)
-    tb_oe2_l = s5.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe2_l = tb_oe2_l.text_frame
-    tf_oe2_l.word_wrap = True
-    tf_oe2_l.margin_left = tf_oe2_l.margin_top = tf_oe2_l.margin_right = tf_oe2_l.margin_bottom = 0
-
-    p = tf_oe2_l.paragraphs[0]
-    p.text = "Formulación del Objetivo Específico 2"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_box = tf_oe2_l.add_paragraph()
-    p_box.text = (
-        "Construir, procesar y depurar la geodatabase espacial multicapa de Barrio Brasil integrando 118 coberturas "
-        "oficiales y comunitarias (2,56 GB en PostGIS 17 y Supabase Cloud), auditar y certificar su consistencia topológica "
-        "y documental bajo norma ISO 19157 mediante el Modelo de MetaCalidad WLC v2.0 (97,88% IGV), y desarrollar el "
-        "análisis territorial espacial cruzando la infraestructura de equipamientos barriales con la población de las "
-        "31 manzanas censales del Censo 2024 y vulnerabilidad RSH, formulando un modelo lineal de ranking multicriterio "
-        "para la priorización territorial y toma de decisiones locales."
-    )
-    p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(9.8)
-    p_box.font.color.rgb = COLOR_NEGRO
-    p_box.space_after = Pt(8)
-
-    oe2_desafios = [
-        ("Construcción y Poblamiento de Geodatabase:", "Integración masiva de 108 coberturas IDE Chile y 10 VGI (2,56 GB activos en producción y 3,73 GB en disco)."),
-        ("Auditoría y Certificación ISO 19157:", "Formulación del modelo ponderado WLC v2.0 (10 dimensiones / 100%) con corrección topológica OGC universal."),
-        ("Análisis Espacial y Sociodemográfico:", "Cruce de proximidad de equipamientos comunitarios con población censal 2024 y vulnerabilidad RSH."),
-        ("Modelo Lineal de Priorización (WLC):", "Algoritmo de ranking territorial multivariable (S_i = Σ w_j · X_ij) para orientar intervenciones e inversión local.")
-    ]
-    for tit_d, txt_d in oe2_desafios:
-        p_item = tf_oe2_l.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_d} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_d
-        r2.font.color.rgb = COLOR_NEGRO
-
-    # Columna Derecha: Evidencias Concretas de Avance (H4 y H5 Cerrados · H6 Activo)
-    agregar_tarjeta(s5, 6.783, 1.70, 5.75, 4.95)
-    tb_oe2_r = s5.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe2_r = tb_oe2_r.text_frame
-    tf_oe2_r.word_wrap = True
-    tf_oe2_r.margin_left = tf_oe2_r.margin_top = tf_oe2_r.margin_right = tf_oe2_r.margin_bottom = 0
-
-    p = tf_oe2_r.paragraphs[0]
-    p.text = "Evidencias Concretas de Avance (H4 y H5 al 100% · H6 Activo)"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_badge = tf_oe2_r.add_paragraph()
-    p_badge.text = "ESTADO: H4 (100% CERRADO) · H5 (100% TERMINADO) · H6 (EN DESARROLLO)"
-    p_badge.font.name = FONT_NAME
-    p_badge.font.size = Pt(10)
-    p_badge.font.bold = True
-    p_badge.font.color.rgb = COLOR_AZUL_UAH
-    p_badge.space_after = Pt(8)
-
-    oe2_logros = [
-        ("Geodatabase de 118 Capas Vectoriales:", "108 capas oficiales del Estado (Censo 2024, PRC, UOCT, RSH, MINVU) + 10 VGI (2,56 GB activos en catálogo y 3,73 GB en disco)."),
-        ("PostgreSQL 17 + PostGIS 3.3 en la Nube:", "Alojamiento en Supabase Cloud con 129.262+ geometrías indexadas con árboles espaciales GIST y latencias de respuesta < 200 ms."),
-        ("MetaCalidad Espacial Certificada (97,88% IGV):", "Auditoría integral ISO 19157 mediante modelo WLC v2.0: 116 capas en Grado A+ Excelente (≥95%) y 2 en Grado A Muy Bueno."),
-        ("100% de Geometrías Validadas OGC:", "Reparación rigurosa de auto-intersecciones, kinks y anillos abiertos con Shapely y ST_MakeValid (0 errores fatales)."),
-        ("Inyección Universal de 14 Atributos ISO:", "Cada capa descargable incorpora metadatos de autoría, escala, SRID, licencia, linaje y contacto."),
-        ("Hito 6: Análisis Territorial en Desarrollo:", "Cruces de proximidad espacial equipamiento-población Censo 2024 y calibración del modelo de ranking multicriterio WLC.")
-    ]
-    for tit_l, txt_l in oe2_logros:
-        p_item = tf_oe2_r.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_l} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_l
-        r2.font.color.rgb = COLOR_NEGRO
-
-    agregar_notas_orador(s5,
-        "El Objetivo Específico 2 integra datos, calidad y análisis territorial. Concluimos al 100% la construcción de la geodatabase de 118 capas "
-        "(2,56 GB en producción) y la auditoría de calidad ISO 19157 (97,88% IGV). Actualmente avanzamos en el Hito 6 de análisis espacial, "
-        "vinculando los equipamientos comunitarios con la población de las 31 manzanas del Censo 2024 y vulnerabilidad RSH, formulando el modelo de ranking multicriterio WLC."
-    )
-
-    # =========================================================================
-    # SLIDE 6: OBJETIVO ESPECÍFICO 3 — GEOPORTAL WEB EN PRODUCCIÓN
-    # =========================================================================
-    s6 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s6, "Objetivo Específico 3: Prototipo Cartográfico y Geoportal Web Interactivo", 
-                       categoria="5. Formulación de Objetivos — Objetivo Específico 3 (Geoportal en Producción)",
-                       subtitulo="Hitos 7 y 8 (80% Anticipado en Producción · 72 Horas Planificadas) · Despliegue en vivo en atlasvgiuah.netlify.app")
-    agregar_pie_pagina(s6, 6)
-
-    # Columna Izquierda: Formulación Detallada y Salto Estratégico
-    agregar_tarjeta(s6, 0.8, 1.70, 5.75, 4.95)
-    tb_oe3_l = s6.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe3_l = tb_oe3_l.text_frame
-    tf_oe3_l.word_wrap = True
-    tf_oe3_l.margin_left = tf_oe3_l.margin_top = tf_oe3_l.margin_right = tf_oe3_l.margin_bottom = 0
-
-    p = tf_oe3_l.paragraphs[0]
-    p.text = "Formulación del Objetivo Específico 3"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_box = tf_oe3_l.add_paragraph()
-    p_box.text = (
-        "Diseñar el prototipo cartográfico interactivo y desplegar en producción anticipada el Geoportal Web "
-        "del Atlas VGI (atlasvgiuah.netlify.app) bajo arquitectura serverless a costo cero ($0) en Netlify, "
-        "integrando un visor cartográfico Leaflet 1.9.4 con Inspector Normativo del PRC Santiago (192 zonas prediales), "
-        "conectividad en tiempo real a APIs espaciales (Overpass QL, ohsome y GBIF), un Centro Dinámico de Subsanación "
-        "ISO 19157 con herramientas de auto-reparación, y un generador reactivo de metadatos ISO 19115/19139 para IDE Chile."
-    )
-    p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(9.8)
-    p_box.font.color.rgb = COLOR_NEGRO
-    p_box.space_after = Pt(8)
-
-    oe3_estrategia = [
-        ("Despliegue Anticipado Disruptivo:", "Adelanto a la Fase 2 para disponer tempranamente de un entorno funcional en producción para pruebas territoriales continuas."),
-        ("Arquitectura Serverless a Costo $0:", "Frontend desacoplado en JavaScript Vanilla SPA y Leaflet 1.9.4 desplegado en Netlify CI/CD, sin costos de hosting para la UAH."),
-        ("Resiliencia de Triple Failover:", "Esquema escalonado: 1° PostGIS RPC en nube → 2° CDN Storage distribuido → 3° Fallback local empaquetado (disponibilidad 24/7)."),
-        ("Interfaz Adaptativa por Perfil (DCU):", "Portada interactiva que filtra herramientas, capas y consultas según las necesidades de los 4 perfiles modelados.")
-    ]
-    for tit_e, txt_e in oe3_estrategia:
-        p_item = tf_oe3_l.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_e} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_e
-        r2.font.color.rgb = COLOR_NEGRO
-
-    # Columna Derecha: Funcionalidades Operativas en Producción
-    agregar_tarjeta(s6, 6.783, 1.70, 5.75, 4.95)
-    tb_oe3_r = s6.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe3_r = tb_oe3_r.text_frame
-    tf_oe3_r.word_wrap = True
-    tf_oe3_r.margin_left = tf_oe3_r.margin_top = tf_oe3_r.margin_right = tf_oe3_r.margin_bottom = 0
-
-    p = tf_oe3_r.paragraphs[0]
-    p.text = "10 Módulos en Producción (atlasvgiuah.netlify.app)"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_badge = tf_oe3_r.add_paragraph()
-    p_badge.text = "ESTADO: 80% ANTICIPADO · DESPLEGADO Y OPERATIVO EN VIVO"
-    p_badge.font.name = FONT_NAME
-    p_badge.font.size = Pt(10)
-    p_badge.font.bold = True
-    p_badge.font.color.rgb = COLOR_AZUL_SEC
-    p_badge.space_after = Pt(8)
-
-    oe3_modulos = [
-        ("M00 (Visor Cartográfico):", "118 capas con opacidad y simbología unificada + Inspector Normativo PRC Santiago (192 zonas prediales con constructibilidad y uso)."),
-        ("M01 a M03 (APIs en Vivo):", "Consultas sintácticas Overpass QL (OSM), análisis histórico de calidad ohsome v1/v2 (Heidelberg) y biodiversidad GBIF Darwin Core."),
-        ("M02 (Centro Dinámico de Subsanación):", "Semáforo ISO 19157 con auto-reparación en memoria y guías técnicas listas para copiar en QGIS 3.x, PostGIS 3.x y GeoPandas Python."),
-        ("M05 (Generador ISO 19115/19139):", "Exportación de metadatos XML oficial para IDE Chile / SNIT con puente directo de 1 clic y precarga reactiva desde la auditoría."),
-        ("M06 a M09 (Catálogos y Gobernanza):", "Diccionario de 134 descriptores, uMap comunitario, catálogos Excel descargables, manual de uso interactivo e indicadores territoriales.")
-    ]
-    for tit_m, txt_m in oe3_modulos:
-        p_item = tf_oe3_r.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_m} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_m
-        r2.font.color.rgb = COLOR_NEGRO
-
-    agregar_notas_orador(s6,
-        "El Objetivo Específico 3 logró un adelanto estratégico clave al desplegar el Geoportal Web en producción en atlasvgiuah.netlify.app. "
-        "La plataforma opera con arquitectura serverless a costo cero ($0), integrando 10 módulos funcionales, entre ellos el visor cartográfico "
-        "con Inspector Normativo del PRC Santiago (192 zonas), consultas dinámicas a Overpass, ohsome y GBIF, el Centro de Subsanación ISO 19157 y el generador de metadatos ISO 19115."
-    )
-
-    # =========================================================================
-    # SLIDE 7: OBJETIVO ESPECÍFICO 4 — VALIDACIÓN Y TRANSFERIBILIDAD
-    # =========================================================================
-    s7 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s7, "Objetivo Específico 4: Validación Participativa, Transferibilidad y Memoria Final", 
-                       categoria="6. Formulación de Objetivos — Objetivo Específico 4 (Transferibilidad & Validación)",
-                       subtitulo="Hitos 9 y 10 (Programados para Semanas 10 y 11 · 36 Horas) · Validación empírica, manuales y cierre formal")
-    agregar_pie_pagina(s7, 7)
-
-    # Columna Izquierda: Formulación Detallada y Sostenibilidad
-    agregar_tarjeta(s7, 0.8, 1.70, 5.75, 4.95)
-    tb_oe4_l = s7.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe4_l = tb_oe4_l.text_frame
-    tf_oe4_l.word_wrap = True
-    tf_oe4_l.margin_left = tf_oe4_l.margin_top = tf_oe4_l.margin_right = tf_oe4_l.margin_bottom = 0
-
-    p = tf_oe4_l.paragraphs[0]
-    p.text = "Formulación del Objetivo Específico 4"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_box = tf_oe4_l.add_paragraph()
-    p_box.text = (
-        "Evaluar empíricamente la utilidad, efectividad y usabilidad del Geoportal mediante pruebas guiadas "
-        "con una muestra representativa de 3 a 5 actores reales de Barrio Brasil bajo el estándar internacional "
-        "ISO 9241-11, asegurando la transferibilidad metodológica y tecnológica del proyecto mediante manuales "
-        "de uso comunitario, guías de administración técnica a costo $0 y la elaboración de la memoria final "
-        "para la titulación en el Departamento de Geografía UAH."
-    )
-    p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(9.8)
-    p_box.font.color.rgb = COLOR_NEGRO
-    p_box.space_after = Pt(8)
-
-    oe4_principios = [
-        ("Independencia del Desarrollador:", "Garantía de transferencia metodológica para que docentes, estudiantes y vecinos operen y actualicen el Atlas sin depender del practicante."),
-        ("Ciencia Abierta y Gobernanza de Datos:", "Publicación de scripts, modelos y geodatos bajo licencias abiertas (ODbL 1.0, CC-BY 4.0, MIT) en repositorio público de GitHub."),
-        ("Validación Empírica Participativa:", "Medición estandarizada de efectividad (resolución de tareas), eficiencia (tiempo) y satisfacción percibida (escala SUS)."),
-        ("Memoria de Título en Geografía:", "Sistematización integral de la experiencia teórico-práctica para el examen de título profesional en la Universidad Alberto Hurtado.")
-    ]
-    for tit_p, txt_p in oe4_principios:
-        p_item = tf_oe4_l.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_p} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_p
-        r2.font.color.rgb = COLOR_NEGRO
-
-    # Columna Derecha: Metodología Programada y Entregables Finales
-    agregar_tarjeta(s7, 6.783, 1.70, 5.75, 4.95)
-    tb_oe4_r = s7.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
-    tf_oe4_r = tb_oe4_r.text_frame
-    tf_oe4_r.word_wrap = True
-    tf_oe4_r.margin_left = tf_oe4_r.margin_top = tf_oe4_r.margin_right = tf_oe4_r.margin_bottom = 0
-
-    p = tf_oe4_r.paragraphs[0]
-    p.text = "Metodología Programada y Entregables Finales"
-    p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
-    p.font.bold = True
-    p.font.color.rgb = COLOR_AZUL_UAH
-    p.space_after = Pt(5)
-
-    p_badge = tf_oe4_r.add_paragraph()
-    p_badge.text = "ESTADO: PROGRAMADO PARA SEMANAS 10 Y 11 (36 HORAS COMPROMETIDAS)"
-    p_badge.font.name = FONT_NAME
-    p_badge.font.size = Pt(10)
-    p_badge.font.bold = True
-    p_badge.font.color.rgb = COLOR_GRIS_TEXTO
-    p_badge.space_after = Pt(8)
-
-    oe4_entregables = [
-        ("Muestra de 3 a 5 Usuarios Reales (Hito 9):", "Convocatoria a representantes de los 4 perfiles: dirigentes vecinales de Barrio Brasil, funcionarios municipales y académicos UAH."),
-        ("Protocolo de Usabilidad (ISO 9241-11):", "Pruebas guiadas para evaluar Efectividad (tasa de resolución espacial), Eficiencia (tiempo) y Satisfacción percibida (escala SUS)."),
-        ("Manual de Uso del Atlas (Comunitario):", "Documento ilustrado orientado a vecinos y organizaciones territoriales sin formación previa en Sistemas de Información Geográfica."),
-        ("Manual de Actualización Técnica (Hito 10):", "Guía paso a paso para descargar nuevos extractos OSM, ejecutar los scripts de limpieza y actualizar la base en Supabase a costo $0."),
-        ("Informe Final de Práctica Profesional:", "Documento consolidado de memoria que articula los 4 objetivos para el examen de título en el Departamento de Geografía UAH.")
-    ]
-    for tit_e, txt_e in oe4_entregables:
-        p_item = tf_oe4_r.add_paragraph()
-        p_item.font.name = FONT_NAME
-        p_item.font.size = Pt(9.8)
-        p_item.space_after = Pt(4)
-        r1 = p_item.add_run()
-        r1.text = f"• {tit_e} "
-        r1.font.bold = True
-        r1.font.color.rgb = COLOR_AZUL_SEC
-        r2 = p_item.add_run()
-        r2.text = txt_e
-        r2.font.color.rgb = COLOR_NEGRO
-
-    agregar_notas_orador(s7,
-        "El Objetivo Específico 4 se desarrollará en las semanas 10 y 11 con 36 horas planificadas. Se enfoca en la transferibilidad y sostenibilidad: "
-        "evaluaremos la usabilidad empírica con 3 a 5 usuarios reales bajo norma ISO 9241-11, entregaremos manuales comunitarios y guías técnicas de mantención a costo cero "
-        "para asegurar la autonomía de la UAH y la comunidad sin dependencia del practicante, y consolidaremos la memoria final de título."
-    )
-    # =========================================================================
-    # SLIDE 8: MARCO METODOLÓGICO (PARTE 1: DIAGNÓSTICO Y GEODATABASE)
-    # =========================================================================
-    s8 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s8, "Plan Metodológico y Procedimientos (Fase 1: OE 1 y OE 2)", 
-                       categoria="7. Marco Metodológico — Diagnóstico y Datos",
+    agregar_encabezado(s4, "Plan Metodológico y Procedimientos (Fase 1: OE 1 y OE 2)", 
+                       categoria="3. Marco Metodológico — Diagnóstico y Datos",
                        subtitulo="Enfoque metodológico, herramientas de geoprocesamiento y estándares internacionales")
-    agregar_pie_pagina(s8, 8)
+    agregar_pie_pagina(s4, 4)
 
     fases_1 = [
         ("Fase 1: Diagnóstico y Arquitectura Conceptual (OE 1 · Sem 1–3)", [
@@ -914,9 +489,9 @@ def crear_presentacion():
     ]
     for fi, (ftit, fitems) in enumerate(fases_1):
         fx = 0.8 + fi * (5.75 + 0.233)
-        agregar_tarjeta(s8, fx, 1.70, 5.75, 4.95)
+        agregar_tarjeta(s4, fx, 1.70, 5.75, 4.95)
 
-        tb_f = s8.shapes.add_textbox(Inches(fx + 0.20), Inches(1.85), Inches(5.35), Inches(4.65))
+        tb_f = s4.shapes.add_textbox(Inches(fx + 0.20), Inches(1.85), Inches(5.35), Inches(4.65))
         tf_f = tb_f.text_frame
         tf_f.word_wrap = True
         tf_f.margin_left = tf_f.margin_top = tf_f.margin_right = tf_f.margin_bottom = 0
@@ -944,7 +519,7 @@ def crear_presentacion():
             r_t.text = txt
             r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s8,
+    agregar_notas_orador(s4,
         "La metodología combina métodos cuantitativos espaciales y cualitativos documentales. "
         "En la Fase 1 establecimos el marco conceptual y los perfiles de usuario. En la Fase 2 estructuramos "
         "un pipeline ETL robusto en Python que depura los datos crudos de OSM y fuentes estatales, garantizando "
@@ -952,13 +527,13 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 9: MARCO METODOLÓGICO (PARTE 2: GEOPORTAL Y VALIDACIÓN)
+    # SLIDE 5: MARCO METODOLÓGICO (PARTE 2: GEOPORTAL Y VALIDACIÓN)
     # =========================================================================
-    s9 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s9, "Plan Metodológico y Procedimientos (Fase 2: OE 3 y OE 4)", 
-                       categoria="8. Marco Metodológico — Desarrollo y Validación",
+    s5 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s5, "Plan Metodológico y Procedimientos (Fase 2: OE 3 y OE 4)", 
+                       categoria="4. Marco Metodológico — Desarrollo y Validación",
                        subtitulo="Despliegue Client-Side First, interoperabilidad de estándares y protocolo de usabilidad")
-    agregar_pie_pagina(s9, 9)
+    agregar_pie_pagina(s5, 5)
 
     fases_2 = [
         ("Fase 3: Geoportal Web y Producción (OE 3 · Sem 8–10)", [
@@ -976,9 +551,9 @@ def crear_presentacion():
     ]
     for fi, (ftit, fitems) in enumerate(fases_2):
         fx = 0.8 + fi * (5.75 + 0.233)
-        agregar_tarjeta(s9, fx, 1.70, 5.75, 4.95)
+        agregar_tarjeta(s5, fx, 1.70, 5.75, 4.95)
 
-        tb_f = s9.shapes.add_textbox(Inches(fx + 0.20), Inches(1.85), Inches(5.35), Inches(4.65))
+        tb_f = s5.shapes.add_textbox(Inches(fx + 0.20), Inches(1.85), Inches(5.35), Inches(4.65))
         tf_f = tb_f.text_frame
         tf_f.word_wrap = True
         tf_f.margin_left = tf_f.margin_top = tf_f.margin_right = tf_f.margin_bottom = 0
@@ -1006,20 +581,20 @@ def crear_presentacion():
             r_t.text = txt
             r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s9,
+    agregar_notas_orador(s5,
         "La Fase 3 consolida el geoportal web bajo una arquitectura de costo cero en la nube, garantizando que el Departamento "
         "de Geografía UAH y la comunidad puedan mantenerlo activo sin costos operativos recurrentes. La Fase 4 contempla "
         "la validación empírica con usuarios reales y la entrega formal de manuales transferibles."
     )
 
     # =========================================================================
-    # SLIDE 10: CRONOGRAMA Y CUMPLIMIENTO (GANTT, HORAS E HITOS)
+    # SLIDE 6: CRONOGRAMA Y CUMPLIMIENTO (GANTT, HORAS E HITOS)
     # =========================================================================
-    s10 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s10, "Estado de Avance y Carta Gantt (Corte 150 Horas)", 
-                       categoria="9. Planificación Temporal y Cumplimiento",
+    s6 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s6, "Estado de Avance y Carta Gantt (Corte 150 Horas)", 
+                       categoria="5. Planificación Temporal y Cumplimiento",
                        subtitulo="Cronograma de 11 semanas (300 horas) · Corte al 50% con los Hitos 1 a 5 concluidos")
-    agregar_pie_pagina(s10, 10)
+    agregar_pie_pagina(s6, 6)
 
     # Métricas de avance superior
     metricas_gantt = [
@@ -1032,8 +607,8 @@ def crear_presentacion():
     gap_m = 0.244
     for mi, (mt, mv, md) in enumerate(metricas_gantt):
         mx = 0.8 + mi * (card_m_w + gap_m)
-        agregar_tarjeta(s10, mx, 1.70, card_m_w, 0.95, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
-        tb_m = s10.shapes.add_textbox(Inches(mx + 0.15), Inches(1.75), Inches(card_m_w - 0.30), Inches(0.85))
+        agregar_tarjeta(s6, mx, 1.70, card_m_w, 0.95, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
+        tb_m = s6.shapes.add_textbox(Inches(mx + 0.15), Inches(1.75), Inches(card_m_w - 0.30), Inches(0.85))
         tf_m = tb_m.text_frame
         tf_m.word_wrap = True
         tf_m.margin_left = tf_m.margin_top = tf_m.margin_right = tf_m.margin_bottom = 0
@@ -1070,7 +645,7 @@ def crear_presentacion():
         ["H10: Manuales, transferibilidad y entrega final", "OE 4", "", "", "", "", "", "", "", "", "", "", "■", "Programado"]
     ]
 
-    tg = s10.shapes.add_table(11, 14, Inches(0.8), Inches(2.80), Inches(11.733), Inches(3.90))
+    tg = s6.shapes.add_table(11, 14, Inches(0.8), Inches(2.80), Inches(11.733), Inches(3.90))
     tbl_g = tg.table
     w_cols = [Inches(3.3), Inches(0.6)] + [Inches(0.61)] * 11 + [Inches(1.123)]
     for ci, w in enumerate(w_cols):
@@ -1145,20 +720,20 @@ def crear_presentacion():
 
             set_cell_border(c, "CBD5E1", "8000")
 
-    agregar_notas_orador(s10,
+    agregar_notas_orador(s6,
         "La Carta Gantt refleja un avance exacto del 50% cronológico, con 150 horas concluidas y los cinco primeros hitos formalmente cerrados. "
         "Destaca que el Hito 5 de calidad de datos se encuentra completamente terminado con la auditoría ISO 19157 y la inyección universal "
         "de metadatos, mientras que el geoportal (Hito 8) se encuentra anticipado al 80%."
     )
 
     # =========================================================================
-    # SLIDE 11: RESULTADOS OE 1 — ARQUITECTURA CONCEPTUAL Y TAXONOMÍA VGI
+    # SLIDE 7: RESULTADOS OE 1 — ARQUITECTURA CONCEPTUAL Y TAXONOMÍA VGI
     # =========================================================================
-    s11 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s11, "Resultados OE 1: Arquitectura Conceptual y Taxonomía VGI", 
-                       categoria="10. Resultados — Diseño Conceptual (OE 1)",
+    s7 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s7, "Resultados OE 1: Arquitectura Conceptual y Taxonomía VGI", 
+                       categoria="6. Resultados — Diseño Conceptual (OE 1)",
                        subtitulo="Estructuración de las 10 macrocategorías comunitarias y definición de perfiles multiactor")
-    agregar_pie_pagina(s11, 11)
+    agregar_pie_pagina(s7, 7)
 
     cards_oe1 = [
         ("10 Macro-Categorías VGI (CAT-01 a CAT-10)", [
@@ -1186,9 +761,9 @@ def crear_presentacion():
     gap_x7 = 0.24
     for i, (titulo_card, items) in enumerate(cards_oe1):
         cx = 0.8 + i * (card_w7 + gap_x7)
-        agregar_tarjeta(s11, cx, 1.70, card_w7, 4.95)
+        agregar_tarjeta(s7, cx, 1.70, card_w7, 4.95)
 
-        tb_c = s11.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w7 - 0.40), Inches(4.65))
+        tb_c = s7.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w7 - 0.40), Inches(4.65))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -1216,20 +791,20 @@ def crear_presentacion():
             r_t.text = txt
             r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s11,
+    agregar_notas_orador(s7,
         "El OE 1 entregó dos productos clave: la taxonomía de 10 macrocategorías VGI que homologa las etiquetas de OpenStreetMap, "
         "y la matriz de 4 perfiles territoriales bajo el estándar de Diseño Centrado en el Usuario (ISO 9241-210), garantizando que "
         "la plataforma responda tanto a un vecino como a un investigador Fondecyt."
     )
 
     # =========================================================================
-    # SLIDE 12: RESULTADOS OE 2 — GEODATABASE DE 118 COMPONENTES
+    # SLIDE 8: RESULTADOS OE 2 — GEODATABASE DE 118 COMPONENTES
     # =========================================================================
-    s12 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s12, "Resultados OE 2: Geodatabase y Componentes Cartográficos", 
-                       categoria="11. Resultados — Geodatabase Espacial (OE 2)",
+    s8 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s8, "Resultados OE 2: Geodatabase y Componentes Cartográficos", 
+                       categoria="7. Resultados — Geodatabase Espacial (OE 2)",
                        subtitulo="Consolidación de 118 capas espaciales (2,56 GB) en PostGIS 17 y Supabase Cloud")
-    agregar_pie_pagina(s12, 12)
+    agregar_pie_pagina(s8, 8)
 
     # 4 Métricas de la Geodatabase
     met_db = [
@@ -1242,8 +817,8 @@ def crear_presentacion():
     gap_db = 0.244
     for mi, (mt, mv, md) in enumerate(met_db):
         mx = 0.8 + mi * (card_db_w + gap_db)
-        agregar_tarjeta(s12, mx, 1.70, card_db_w, 0.95, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
-        tb_m = s12.shapes.add_textbox(Inches(mx + 0.15), Inches(1.75), Inches(card_db_w - 0.30), Inches(0.85))
+        agregar_tarjeta(s8, mx, 1.70, card_db_w, 0.95, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
+        tb_m = s8.shapes.add_textbox(Inches(mx + 0.15), Inches(1.75), Inches(card_db_w - 0.30), Inches(0.85))
         tf_m = tb_m.text_frame
         tf_m.word_wrap = True
         tf_m.margin_left = tf_m.margin_top = tf_m.margin_right = tf_m.margin_bottom = 0
@@ -1279,7 +854,7 @@ def crear_presentacion():
         ["TOTAL CAPAS ACTIVAS (118)", "Geodatabase operativa (PostGIS 17 + Supabase Cloud)", "118", "100,0%", "2.560,00 MB", "100,0%"]
     ]
 
-    tgdb = s12.shapes.add_table(10, 6, Inches(0.8), Inches(2.80), Inches(11.733), Inches(3.90))
+    tgdb = s8.shapes.add_table(10, 6, Inches(0.8), Inches(2.80), Inches(11.733), Inches(3.90))
     tbl_gdb = tgdb.table
     w_gdb = [Inches(3.3), Inches(4.333), Inches(0.9), Inches(1.0), Inches(1.1), Inches(1.1)]
     for ci, w in enumerate(w_gdb):
@@ -1316,24 +891,24 @@ def crear_presentacion():
                 if ci == 0: p.font.bold = True
             set_cell_border(c, "CBD5E1", "8000")
 
-    agregar_notas_orador(s12,
+    agregar_notas_orador(s8,
         "La geodatabase consolida 118 capas cartográficas divididas en 8 grupos oficiales y el bloque VGI colaborativo. "
         "En volumen, la información activa alcanza 2,56 gigabytes integrando los datos masivos de Geofabrik RM y capas oficiales "
         "en WGS84 y UTM 19S en PostgreSQL 17."
     )
 
     # =========================================================================
-    # SLIDE 13: RESULTADOS OE 2 — ÍNDICE DE CALIDAD: 5 COMPONENTES CUANTITATIVOS (ISO 19157)
+    # SLIDE 9: RESULTADOS OE 2 — ÍNDICE DE CALIDAD: 5 COMPONENTES CUANTITATIVOS (ISO 19157)
     # =========================================================================
-    s13 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s13, "Resultados OE 2: Índice de Calidad — 5 Componentes Cuantitativos", 
-                       categoria="12. Calidad de Datos (OE 2) — Pilar Cuantitativo (ISO 19157)",
+    s9 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s9, "Resultados OE 2: Índice de Calidad — 5 Componentes Cuantitativos", 
+                       categoria="8. Calidad de Datos (OE 2) — Pilar Cuantitativo (ISO 19157)",
                        subtitulo="Auditoría algorítmica sobre 118 capas: geometría vectorial, topología, geodésica, atributos y estructura (50% IGV)")
-    agregar_pie_pagina(s13, 13)
+    agregar_pie_pagina(s9, 9)
 
     # Tarjeta de Síntesis del Pilar Cuantitativo
-    agregar_tarjeta(s13, 0.8, 1.70, 11.733, 0.85, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
-    tb_qtop = s13.shapes.add_textbox(Inches(1.0), Inches(1.75), Inches(11.333), Inches(0.75))
+    agregar_tarjeta(s9, 0.8, 1.70, 11.733, 0.85, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
+    tb_qtop = s9.shapes.add_textbox(Inches(1.0), Inches(1.75), Inches(11.333), Inches(0.75))
     tf_qtop = tb_qtop.text_frame
     tf_qtop.word_wrap = True
     tf_qtop.margin_left = tf_qtop.margin_top = tf_qtop.margin_right = tf_qtop.margin_bottom = 0
@@ -1389,8 +964,8 @@ def crear_presentacion():
 
     for idx, (tit_c, bullets) in enumerate(cards_cuant_left):
         top_y = top_pos_l[idx]
-        agregar_tarjeta(s13, 0.8, top_y, col_w_q, card_h_l)
-        tb = s13.shapes.add_textbox(Inches(1.0), Inches(top_y + 0.10), Inches(col_w_q - 0.40), Inches(card_h_l - 0.20))
+        agregar_tarjeta(s9, 0.8, top_y, col_w_q, card_h_l)
+        tb = s9.shapes.add_textbox(Inches(1.0), Inches(top_y + 0.10), Inches(col_w_q - 0.40), Inches(card_h_l - 0.20))
         tf = tb.text_frame
         tf.word_wrap = True
         tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
@@ -1414,8 +989,8 @@ def crear_presentacion():
 
     for idx, (tit_c, bullets) in enumerate(cards_cuant_right):
         top_y = top_pos_r[idx]
-        agregar_tarjeta(s13, 6.78, top_y, col_w_q, card_h_r)
-        tb = s13.shapes.add_textbox(Inches(6.98), Inches(top_y + 0.12), Inches(col_w_q - 0.40), Inches(card_h_r - 0.24))
+        agregar_tarjeta(s9, 6.78, top_y, col_w_q, card_h_r)
+        tb = s9.shapes.add_textbox(Inches(6.98), Inches(top_y + 0.12), Inches(col_w_q - 0.40), Inches(card_h_r - 0.24))
         tf = tb.text_frame
         tf.word_wrap = True
         tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
@@ -1434,7 +1009,7 @@ def crear_presentacion():
             p_b.font.color.rgb = COLOR_NEGRO
             p_b.space_after = Pt(3)
 
-    agregar_notas_orador(s13,
+    agregar_notas_orador(s9,
         "Esta lámina expone los cinco componentes cuantitativos del índice de calidad espacial según la norma ISO 19157-1:2023, "
         "tal como está formalmente documentado en docs/ANALISIS_METACALIDAD.md. Las ponderaciones del pilar son: "
         "Topología 30% (99,9%), Completitud tabular 25% (96,9%), Integridad posicional 20% (100,0%), Estructura 15% (86,5%) "
@@ -1442,17 +1017,17 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 14: RESULTADOS OE 2 — ÍNDICE DE CALIDAD: 5 COMPONENTES CUALITATIVOS E INTEGRACIÓN
+    # SLIDE 10: RESULTADOS OE 2 — ÍNDICE DE CALIDAD: 5 COMPONENTES CUALITATIVOS E INTEGRACIÓN
     # =========================================================================
-    s14 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s14, "Resultados OE 2: Índice de Calidad — 5 Componentes Cualitativos e Integración", 
-                       categoria="13. Calidad de Datos (OE 2) — Pilar Cualitativo e Integración",
+    s10 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s10, "Resultados OE 2: Índice de Calidad — 5 Componentes Cualitativos e Integración", 
+                       categoria="9. Calidad de Datos (OE 2) — Pilar Cualitativo e Integración",
                        subtitulo="Normas ISO 19115-1:2014, Perfil IDE Chile SNIT v2.0, síntesis global IGV (97,9%) e inyección en descargas")
-    agregar_pie_pagina(s14, 14)
+    agregar_pie_pagina(s10, 10)
 
     # Columna Izquierda: Los 5 Componentes Cualitativos (ISO 19115 / SNIT / Open Data)
-    agregar_tarjeta(s14, 0.8, 1.70, 5.85, 4.95)
-    tb_qual = s14.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.45), Inches(4.65))
+    agregar_tarjeta(s10, 0.8, 1.70, 5.85, 4.95)
+    tb_qual = s10.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.45), Inches(4.65))
     tf_qual = tb_qual.text_frame
     tf_qual.word_wrap = True
     tf_qual.margin_left = tf_qual.margin_top = tf_qual.margin_right = tf_qual.margin_bottom = 0
@@ -1502,8 +1077,8 @@ def crear_presentacion():
     p_qual_end.space_before = Pt(4)
 
     # Columna Derecha Superior: Modelo de Integración Global WLC v2.0
-    agregar_tarjeta(s14, 6.90, 1.70, 5.633, 2.40, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
-    tb_wlc = s14.shapes.add_textbox(Inches(7.10), Inches(1.82), Inches(5.233), Inches(2.15))
+    agregar_tarjeta(s10, 6.90, 1.70, 5.633, 2.40, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
+    tb_wlc = s10.shapes.add_textbox(Inches(7.10), Inches(1.82), Inches(5.233), Inches(2.15))
     tf_wlc = tb_wlc.text_frame
     tf_wlc.word_wrap = True
     tf_wlc.margin_left = tf_wlc.margin_top = tf_wlc.margin_right = tf_wlc.margin_bottom = 0
@@ -1539,8 +1114,8 @@ def crear_presentacion():
         p_pt.space_after = Pt(1)
 
     # Columna Derecha Inferior: Inyección Universal en Descargas
-    agregar_tarjeta(s14, 6.90, 4.25, 5.633, 2.40, bg_color=COLOR_BLANCO, border_color=COLOR_GRIS_BORDE)
-    tb_inj = s14.shapes.add_textbox(Inches(7.10), Inches(4.37), Inches(5.233), Inches(2.15))
+    agregar_tarjeta(s10, 6.90, 4.25, 5.633, 2.40, bg_color=COLOR_BLANCO, border_color=COLOR_GRIS_BORDE)
+    tb_inj = s10.shapes.add_textbox(Inches(7.10), Inches(4.37), Inches(5.233), Inches(2.15))
     tf_inj = tb_inj.text_frame
     tf_inj.word_wrap = True
     tf_inj.margin_left = tf_inj.margin_top = tf_inj.margin_right = tf_inj.margin_bottom = 0
@@ -1566,7 +1141,7 @@ def crear_presentacion():
         p_pt.font.color.rgb = COLOR_NEGRO
         p_pt.space_after = Pt(3)
 
-    agregar_notas_orador(s14,
+    agregar_notas_orador(s10,
         "En esta lámina cerramos el índice de calidad con su pilar cualitativo según ISO 19115 y el Perfil Nacional de Metadatos SNIT. "
         "La integración dual al 50% cuantitativo y 50% cualitativo arroja un promedio de 97,88% (Grado A+ Excelente). "
         "Además, implementamos la inyección universal de 14 atributos de metadatos en todas las descargas del Atlas, "
@@ -1574,13 +1149,13 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 15: LAS 5 DIMENSIONES ESTRATÉGICAS DE ANÁLISIS (PARTE 1)
+    # SLIDE 11: LAS 5 DIMENSIONES ESTRATÉGICAS DE ANÁLISIS (PARTE 1)
     # =========================================================================
-    s15 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s15, "Dimensiones de Análisis Territorial (Parte 1: Concepto, D1 y D2)", 
-                       categoria="14. Marco Analítico — Dimensiones Territoriales (1 y 2)",
+    s11 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s11, "Dimensiones de Análisis Territorial (Parte 1: Concepto, D1 y D2)", 
+                       categoria="10. Marco Analítico — Dimensiones Territoriales",
                        subtitulo="Estructura conceptual multidimensional para el diagnóstico barrial en Barrio Brasil")
-    agregar_pie_pagina(s15, 15)
+    agregar_pie_pagina(s11, 11)
 
     cards_dim1 = [
         ("Marco Analítico de las 5 Dimensiones", [
@@ -1606,9 +1181,9 @@ def crear_presentacion():
     gap_x11 = 0.24
     for i, (titulo_card, items) in enumerate(cards_dim1):
         cx = 0.8 + i * (card_w11 + gap_x11)
-        agregar_tarjeta(s15, cx, 1.70, card_w11, 4.95)
+        agregar_tarjeta(s11, cx, 1.70, card_w11, 4.95)
 
-        tb_c = s15.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w11 - 0.40), Inches(4.65))
+        tb_c = s11.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w11 - 0.40), Inches(4.65))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -1636,7 +1211,7 @@ def crear_presentacion():
             r_t.text = txt
             r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s15,
+    agregar_notas_orador(s11,
         "Las cinco dimensiones de análisis estructuran temáticamente los datos del Atlas. "
         "En esta primera lámina presentamos el concepto general, junto con la Dimensión 1 (Vulnerabilidad y Bienestar Social), "
         "que integra el Censo 2024 y el Registro Social de Hogares, y la Dimensión 2 (Movilidad y Accesibilidad), "
@@ -1644,13 +1219,13 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 16: LAS 5 DIMENSIONES ESTRATÉGICAS DE ANÁLISIS (PARTE 2)
+    # SLIDE 12: LAS 5 DIMENSIONES ESTRATÉGICAS DE ANÁLISIS (PARTE 2)
     # =========================================================================
-    s16 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s16, "Dimensiones de Análisis Territorial (Parte 2: D3, D4 y D5)", 
-                       categoria="15. Marco Analítico — Dimensiones Territoriales (3, 4 y 5)",
+    s12 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s12, "Dimensiones de Análisis Territorial (Parte 2: D3, D4 y D5)", 
+                       categoria="11. Marco Analítico — Dimensiones Territoriales (Continuación)",
                        subtitulo="Equipamiento público, infraestructura verde-ambiental y dinámica económica barrial")
-    agregar_pie_pagina(s16, 16)
+    agregar_pie_pagina(s12, 12)
 
     cards_dim2 = [
         ("D3: Equipamiento y Servicios", [
@@ -1674,9 +1249,9 @@ def crear_presentacion():
     ]
     for i, (titulo_card, items) in enumerate(cards_dim2):
         cx = 0.8 + i * (card_w11 + gap_x11)
-        agregar_tarjeta(s16, cx, 1.70, card_w11, 4.95)
+        agregar_tarjeta(s12, cx, 1.70, card_w11, 4.95)
 
-        tb_c = s16.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w11 - 0.40), Inches(4.65))
+        tb_c = s12.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w11 - 0.40), Inches(4.65))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -1704,24 +1279,24 @@ def crear_presentacion():
             r_t.text = txt
             r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s16,
+    agregar_notas_orador(s12,
         "Completamos las cinco dimensiones con la Dimensión 3 (Equipamiento Comunitario), que cubre salud DEIS, educación MINEDUC "
         "y recintos deportivos; la Dimensión 4 (Medio Ambiente y Confort), que integra biodiversidad GBIF y arbolado urbano; "
         "y la Dimensión 5 (Comercio, Seguridad y Patrimonio), que mapea la actividad económica local, seguridad y zonas protegidas por el CMN."
     )
 
     # =========================================================================
-    # SLIDE 17: MARCO METODOLÓGICO: MODELO LINEAL DE RANKING TERRITORIAL
+    # SLIDE 13: MARCO METODOLÓGICO: MODELO LINEAL DE RANKING TERRITORIAL
     # =========================================================================
-    s17 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s17, "Marco Metodológico: Enfoque hacia un Modelo Lineal de Ranking", 
-                       categoria="16. Metodología Analítica — Priorización Territorial (OE 2 / Hito 6)",
+    s13 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s13, "Marco Metodológico: Enfoque hacia un Modelo Lineal de Ranking", 
+                       categoria="12. Metodología Analítica — Priorización Territorial (OE 2 / Hito 6)",
                        subtitulo="Formulación matemática de Combinación Lineal Ponderada (WLC) multicriterio para Barrio Brasil")
-    agregar_pie_pagina(s17, 17)
+    agregar_pie_pagina(s13, 13)
 
     # Columna Izquierda: Formulación Matemática
-    agregar_tarjeta(s17, 0.8, 1.70, 5.75, 4.95)
-    tb_mf_l = s17.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
+    agregar_tarjeta(s13, 0.8, 1.70, 5.75, 4.95)
+    tb_mf_l = s13.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_mf_l = tb_mf_l.text_frame
     tf_mf_l.word_wrap = True
     tf_mf_l.margin_left = tf_mf_l.margin_top = tf_mf_l.margin_right = tf_mf_l.margin_bottom = 0
@@ -1755,8 +1330,8 @@ def crear_presentacion():
         r_t.font.color.rgb = COLOR_NEGRO
 
     # Columna Derecha: Criterios Territoriales
-    agregar_tarjeta(s17, 6.783, 1.70, 5.75, 4.95)
-    tb_mf_r = s17.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
+    agregar_tarjeta(s13, 6.783, 1.70, 5.75, 4.95)
+    tb_mf_r = s13.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_mf_r = tb_mf_r.text_frame
     tf_mf_r.word_wrap = True
     tf_mf_r.margin_left = tf_mf_r.margin_top = tf_mf_r.margin_right = tf_mf_r.margin_bottom = 0
@@ -1789,24 +1364,24 @@ def crear_presentacion():
         r_t.text = txt
         r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s17,
+    agregar_notas_orador(s13,
         "Esta lámina expone el marco metodológico hacia el modelo lineal de priorización territorial (WLC) contemplado en el Hito 6. "
         "A diferencia del índice de metacalidad, este modelo evaluará la calidad de vida y el déficit de servicios en el territorio, "
         "normalizando indicadores de beneficio y costo para obtener mapas coropléticos de prioridad a escala de manzana censal."
     )
 
     # =========================================================================
-    # SLIDE 18: RESULTADOS OE 3 — GEOPORTAL ATLAS VGI Y PORTADA MULTIACTOR
+    # SLIDE 14: RESULTADOS OE 3 — GEOPORTAL ATLAS VGI Y PORTADA MULTIACTOR
     # =========================================================================
-    s18 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s18, "Resultados OE 3: Geoportal Atlas VGI y Portada Multiactor", 
-                       categoria="17. Resultados — Plataforma Web en Producción (OE 3)",
+    s14 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s14, "Resultados OE 3: Geoportal Atlas VGI y Portada Multiactor", 
+                       categoria="13. Resultados — Plataforma Web en Producción (OE 3)",
                        subtitulo="Despliegue operativo en Netlify, arquitectura SPA desacoplada y experiencia centrada en usuarios")
-    agregar_pie_pagina(s18, 18)
+    agregar_pie_pagina(s14, 14)
 
     # Panel Izquierdo: Descripción Técnica
-    agregar_tarjeta(s18, 0.8, 1.70, 5.0, 4.95)
-    tb_p_l = s18.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(4.6), Inches(4.65))
+    agregar_tarjeta(s14, 0.8, 1.70, 5.0, 4.95)
+    tb_p_l = s14.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(4.6), Inches(4.65))
     tf_p_l = tb_p_l.text_frame
     tf_p_l.word_wrap = True
     tf_p_l.margin_left = tf_p_l.margin_top = tf_p_l.margin_right = tf_p_l.margin_bottom = 0
@@ -1841,27 +1416,27 @@ def crear_presentacion():
 
     # Panel Derecho: Captura Hero en Vivo (09_atlas_portada_hero.png)
     captura_hero = os.path.join(IMG_DIR, "09_atlas_portada_hero.png")
-    agregar_imagen_con_marco(s18, captura_hero, 6.05, 1.70, 6.483, 4.60,
+    agregar_imagen_con_marco(s14, captura_hero, 6.05, 1.70, 6.483, 4.60,
                              pie_fuente="Geoportal Atlas VGI UAH desplegado en Netlify: Portada y accesos por perfiles de usuario (2026).")
 
-    agregar_notas_orador(s18,
+    agregar_notas_orador(s14,
         "Presentamos el geoportal web en producción, accesible públicamente en Netlify. "
         "A pesar de que el plan de trabajo contemplaba el visor para las semanas 8 a 10, logramos un adelanto estratégico "
         "del 80% en el OE 3. La portada multiactor permite a cada perfil acceder directamente a las herramientas de su interés."
     )
 
     # =========================================================================
-    # SLIDE 19: RESULTADOS OE 3 — VISOR CARTOGRÁFICO INTERACTIVO (MÓDULO 00)
+    # SLIDE 15: RESULTADOS OE 3 — VISOR CARTOGRÁFICO INTERACTIVO (MÓDULO 00)
     # =========================================================================
-    s19 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s19, "Resultados OE 3: Visor Cartográfico Interactivo (Módulo 00)", 
-                       categoria="18. Visor Cartográfico — Funcionalidades SIG (OE 3)",
+    s15 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s15, "Resultados OE 3: Visor Cartográfico Interactivo (Módulo 00)", 
+                       categoria="14. Visor Cartográfico — Funcionalidades SIG (OE 3)",
                        subtitulo="Motor Leaflet 1.9.4, árbol de 118 capas, filtrado espacial e inspector normativo PRC")
-    agregar_pie_pagina(s19, 19)
+    agregar_pie_pagina(s15, 15)
 
     # Panel Izquierdo: Funcionalidades del Visor
-    agregar_tarjeta(s19, 0.8, 1.70, 5.0, 4.95)
-    tb_v_l = s19.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(4.6), Inches(4.65))
+    agregar_tarjeta(s15, 0.8, 1.70, 5.0, 4.95)
+    tb_v_l = s15.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(4.6), Inches(4.65))
     tf_v_l = tb_v_l.text_frame
     tf_v_l.word_wrap = True
     tf_v_l.margin_left = tf_v_l.margin_top = tf_v_l.margin_right = tf_v_l.margin_bottom = 0
@@ -1896,23 +1471,23 @@ def crear_presentacion():
 
     # Panel Derecho: Captura del Visor (01_visor_cartografico.png)
     captura_vis = os.path.join(IMG_DIR, "01_visor_cartografico.png")
-    agregar_imagen_con_marco(s19, captura_vis, 6.05, 1.70, 6.483, 4.60,
+    agregar_imagen_con_marco(s15, captura_vis, 6.05, 1.70, 6.483, 4.60,
                              pie_fuente="Módulo 00 en producción: Visor Leaflet con capas activas e Inspector Normativo PRC Santiago (2026).")
 
-    agregar_notas_orador(s19,
+    agregar_notas_orador(s15,
         "El Módulo 00 es el corazón cartográfico del Atlas. Soporta la superposición de las 118 capas con controles independientes "
         "de opacidad y simbología. Una funcionalidad destacada es el Inspector Normativo, que permite hacer clic en cualquier predio "
         "y consultar la zona del Plan Regulador Comunal de Santiago con sus normas urbanísticas vigentes."
     )
 
     # =========================================================================
-    # SLIDE 20: RESULTADOS OE 3 — MÓDULOS EN VIVO (1/3): APIS Y DATOS ABIERTOS
+    # SLIDE 16: RESULTADOS OE 3 — MÓDULOS EN VIVO (1/3): APIS Y DATOS ABIERTOS
     # =========================================================================
-    s20 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s20, "Módulos Especializados en Vivo (1/3): APIs y Datos Abiertos", 
-                       categoria="19. Módulos del Geoportal en Producción (1/3)",
+    s16 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s16, "Módulos Especializados en Vivo (1/3): APIs y Datos Abiertos", 
+                       categoria="15. Módulos del Geoportal en Producción (1/3)",
                        subtitulo="Interacción en tiempo real con Overpass QL, calidad ohsome y biodiversidad GBIF Darwin Core")
-    agregar_pie_pagina(s20, 20)
+    agregar_pie_pagina(s16, 16)
 
     mods_1 = [
         ("Módulo 01: Overpass QL", "Constructor de consultas sintácticas en vivo hacia la API de OpenStreetMap para extraer nodos, vías y relaciones.", "04_explorador_overpass.png"),
@@ -1923,9 +1498,9 @@ def crear_presentacion():
     gap_m16 = 0.24
     for mi, (mt, md, mimg) in enumerate(mods_1):
         mx = 0.8 + mi * (card_m_w16 + gap_m16)
-        agregar_tarjeta(s20, mx, 1.70, card_m_w16, 4.95)
+        agregar_tarjeta(s16, mx, 1.70, card_m_w16, 4.95)
         
-        tb_m = s20.shapes.add_textbox(Inches(mx + 0.15), Inches(1.80), Inches(card_m_w16 - 0.30), Inches(0.95))
+        tb_m = s16.shapes.add_textbox(Inches(mx + 0.15), Inches(1.80), Inches(card_m_w16 - 0.30), Inches(0.95))
         tf_m = tb_m.text_frame
         tf_m.word_wrap = True
         tf_m.margin_left = tf_m.margin_top = tf_m.margin_right = tf_m.margin_bottom = 0
@@ -1944,10 +1519,10 @@ def crear_presentacion():
 
         # Imagen con marco
         img_p = os.path.join(IMG_DIR, mimg)
-        agregar_imagen_con_marco(s20, img_p, mx + 0.15, 2.80, 3.45, 3.30,
+        agregar_imagen_con_marco(s16, img_p, mx + 0.15, 2.80, 3.45, 3.30,
                                  pie_fuente=f"Captura en vivo: {mt.split(':')[0]}.")
 
-    agregar_notas_orador(s20,
+    agregar_notas_orador(s16,
         "El geoportal cuenta con 10 módulos funcionales. En esta lámina vemos los módulos 01, 02 y 03, que conectan con APIs externas en vivo. "
         "El Módulo 01 permite construir y ejecutar consultas sintácticas en Overpass QL hacia OpenStreetMap; el Módulo 02 evalúa la calidad "
         "intrínseca mediante ohsome de la Universidad de Heidelberg; y el Módulo 03 extrae en vivo las observaciones de biodiversidad biológica "
@@ -1955,13 +1530,13 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 21: RESULTADOS OE 3 — MÓDULOS EN VIVO (2/3): METADATOS, DICCIONARIO E INDICADORES
+    # SLIDE 17: RESULTADOS OE 3 — MÓDULOS EN VIVO (2/3): METADATOS, DICCIONARIO E INDICADORES
     # =========================================================================
-    s21 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s21, "Módulos Especializados en Vivo (2/3): Metadatos, Diccionario e Indicadores", 
-                       categoria="20. Módulos del Geoportal en Producción (2/3)",
+    s17 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s17, "Módulos Especializados en Vivo (2/3): Metadatos, Diccionario e Indicadores", 
+                       categoria="16. Módulos del Geoportal en Producción (2/3)",
                        subtitulo="Interoperabilidad ISO 19115, catálogo territorial y panel de análisis dimensional")
-    agregar_pie_pagina(s21, 21)
+    agregar_pie_pagina(s17, 17)
 
     mods_2 = [
         ("Módulo 05: Metadatos ISO 19115", "Generador y exportador de fichas XML ISO 19139 conforme al perfil nacional IDE Chile / SNIT v2.0.", "03_metadatos_iso.png"),
@@ -1970,9 +1545,9 @@ def crear_presentacion():
     ]
     for mi, (mt, md, mimg) in enumerate(mods_2):
         mx = 0.8 + mi * (card_m_w16 + gap_m16)
-        agregar_tarjeta(s21, mx, 1.70, card_m_w16, 4.95)
+        agregar_tarjeta(s17, mx, 1.70, card_m_w16, 4.95)
         
-        tb_m = s21.shapes.add_textbox(Inches(mx + 0.15), Inches(1.80), Inches(card_m_w16 - 0.30), Inches(0.95))
+        tb_m = s17.shapes.add_textbox(Inches(mx + 0.15), Inches(1.80), Inches(card_m_w16 - 0.30), Inches(0.95))
         tf_m = tb_m.text_frame
         tf_m.word_wrap = True
         tf_m.margin_left = tf_m.margin_top = tf_m.margin_right = tf_m.margin_bottom = 0
@@ -1991,27 +1566,27 @@ def crear_presentacion():
 
         # Imagen con marco
         img_p = os.path.join(IMG_DIR, mimg)
-        agregar_imagen_con_marco(s21, img_p, mx + 0.15, 2.80, 3.45, 3.30,
+        agregar_imagen_con_marco(s17, img_p, mx + 0.15, 2.80, 3.45, 3.30,
                                  pie_fuente=f"Captura en vivo: {mt.split(':')[0]}.")
 
-    agregar_notas_orador(s21,
+    agregar_notas_orador(s17,
         "En esta lámina presentamos los módulos 05, 06 y 09. El Módulo 05 es clave para la interoperabilidad institucional, ya que genera "
         "archivos XML de metadatos bajo las normas ISO 19115 e ISO 19139 compatibles con GeoNetwork y el SNIT de Chile. El Módulo 06 despliega "
         "el diccionario de 134 descriptores; y el Módulo 09 aloja la estructura de las cinco dimensiones de análisis territorial que vimos anteriormente."
     )
 
     # =========================================================================
-    # SLIDE 22: RESULTADOS OE 3 — MÓDULOS EN VIVO (3/3): CARTOGRAFÍA, CATÁLOGOS Y MANUAL
+    # SLIDE 18: RESULTADOS OE 3 — MÓDULOS EN VIVO (3/3): CARTOGRAFÍA, CATÁLOGOS Y MANUAL
     # =========================================================================
-    s22 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s22, "Módulos Especializados en Vivo (3/3): Cartografía, Catálogos y Manual", 
-                       categoria="21. Módulos del Geoportal en Producción (3/3)",
+    s18 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s18, "Módulos Especializados en Vivo (3/3): Cartografía, Catálogos y Manual", 
+                       categoria="17. Módulos del Geoportal en Producción (3/3)",
                        subtitulo="Cartografía colaborativa uMap, descarga de catálogos Excel y manual de uso interactivo")
-    agregar_pie_pagina(s22, 22)
+    agregar_pie_pagina(s18, 18)
 
     # Columna Izquierda: Tarjetas de los módulos 04, 07 y 08
-    agregar_tarjeta(s22, 0.8, 1.70, 5.75, 4.95)
-    tb_m3 = s22.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
+    agregar_tarjeta(s18, 0.8, 1.70, 5.75, 4.95)
+    tb_m3 = s18.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_m3 = tb_m3.text_frame
     tf_m3.word_wrap = True
     tf_m3.margin_left = tf_m3.margin_top = tf_m3.margin_right = tf_m3.margin_bottom = 0
@@ -2045,27 +1620,27 @@ def crear_presentacion():
 
     # Columna Derecha: Captura de Documentación y Manual (08_manual_documentacion.png)
     captura_man = os.path.join(IMG_DIR, "08_manual_documentacion.png")
-    agregar_imagen_con_marco(s22, captura_man, 6.783, 1.70, 5.75, 4.60,
+    agregar_imagen_con_marco(s18, captura_man, 6.783, 1.70, 5.75, 4.60,
                              pie_fuente="Módulo 08 en producción: Manual metodológico interactivo y guías de uso del Atlas VGI (2026).")
 
-    agregar_notas_orador(s22,
+    agregar_notas_orador(s18,
         "Completamos la revisión de los 10 módulos con uMap (04), los catálogos y licencias descargables (07) y el manual interactivo (08). "
         "Estos módulos aseguran la apropiación social del conocimiento cartográfico, facilitando que vecinos e investigadores "
         "puedan descargar los datos con sus metadatos y utilizar la plataforma con guías claras paso a paso."
     )
 
     # =========================================================================
-    # SLIDE 23: ARQUITECTURA TÉCNICA Y GOBERNANZA ($0 COSTO)
+    # SLIDE 19: ARQUITECTURA TÉCNICA Y GOBERNANZA ($0 COSTO)
     # =========================================================================
-    s23 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s23, "Arquitectura Técnica, Repositorio y Gobernanza a Costo $0", 
-                       categoria="22. Infraestructura y Repositorio Tecnológico",
+    s19 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s19, "Arquitectura Técnica, Repositorio y Gobernanza a Costo $0", 
+                       categoria="18. Infraestructura y Repositorio Tecnológico",
                        subtitulo="Estrategia Client-Side First, triple failover resiliente y control de versiones en GitHub")
-    agregar_pie_pagina(s23, 23)
+    agregar_pie_pagina(s19, 19)
 
     # Panel Izquierdo: Componentes del Stack
-    agregar_tarjeta(s23, 0.8, 1.70, 5.75, 4.95)
-    tb_arq = s23.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
+    agregar_tarjeta(s19, 0.8, 1.70, 5.75, 4.95)
+    tb_arq = s19.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_arq = tb_arq.text_frame
     tf_arq.word_wrap = True
     tf_arq.margin_left = tf_arq.margin_top = tf_arq.margin_right = tf_arq.margin_bottom = 0
@@ -2102,13 +1677,13 @@ def crear_presentacion():
     captura_gh = os.path.join(IMG_DIR, "10_github_repositorio.png")
     captura_commits = os.path.join(IMG_DIR, "11_github_commits.png")
 
-    agregar_imagen_con_marco(s23, captura_gh, 6.783, 1.70, 5.75, 2.05,
+    agregar_imagen_con_marco(s19, captura_gh, 6.783, 1.70, 5.75, 2.05,
                              pie_fuente="Repositorio abierto en GitHub: atlas_vgi_uah (GEOJOTA).")
 
-    agregar_imagen_con_marco(s23, captura_commits, 6.783, 4.30, 5.75, 2.05,
+    agregar_imagen_con_marco(s19, captura_commits, 6.783, 4.30, 5.75, 2.05,
                              pie_fuente="Historial de commits y despliegue continuo en producción (Netlify CI/CD).")
 
-    agregar_notas_orador(s23,
+    agregar_notas_orador(s19,
         "La arquitectura técnica fue diseñada bajo la premisa de costo cero recurrente y máxima resiliencia. "
         "El visor implementa un mecanismo de triple contingencia: si la base PostGIS en la nube no responde, consulta "
         "la CDN de almacenamiento, y si esta falla, recurre a archivos GeoJSON locales empaquetados. "
@@ -2116,13 +1691,13 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 24: SÍNTESIS DE PRODUCTOS ENTREGADOS A LAS 150 HORAS
+    # SLIDE 20: SÍNTESIS DE PRODUCTOS ENTREGADOS A LAS 150 HORAS
     # =========================================================================
-    s24 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s24, "Síntesis de Productos Entregados (Corte 150 Horas)", 
-                       categoria="23. Entregables Concluidos y Balance",
+    s20 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s20, "Síntesis de Productos Entregados (Corte 150 Horas)", 
+                       categoria="19. Entregables Concluidos y Balance",
                        subtitulo="Consolidación de entregables formales de Hitos 1 a 5 y adelanto del geoportal web")
-    agregar_pie_pagina(s24, 24)
+    agregar_pie_pagina(s20, 20)
 
     entregables = [
         ("Entregable OE 1: Arquitectura Conceptual y Taxonomía VGI", "Documento metodológico formal de 61 páginas", [
@@ -2156,9 +1731,9 @@ def crear_presentacion():
         ex = 0.8 + col_i * (card_ent_w + gap_ent_x)
         ey = 1.70 + row_i * (card_ent_h + gap_ent_y)
 
-        agregar_tarjeta(s24, ex, ey, card_ent_w, card_ent_h)
+        agregar_tarjeta(s20, ex, ey, card_ent_w, card_ent_h)
 
-        tb_e = s24.shapes.add_textbox(Inches(ex + 0.15), Inches(ey + 0.10), Inches(card_ent_w - 0.30), Inches(card_ent_h - 0.20))
+        tb_e = s20.shapes.add_textbox(Inches(ex + 0.15), Inches(ey + 0.10), Inches(card_ent_w - 0.30), Inches(card_ent_h - 0.20))
         tf_e = tb_e.text_frame
         tf_e.word_wrap = True
         tf_e.margin_left = tf_e.margin_top = tf_e.margin_right = tf_e.margin_bottom = 0
@@ -2186,20 +1761,20 @@ def crear_presentacion():
             p_b.font.color.rgb = COLOR_NEGRO
             p_b.space_after = Pt(1)
 
-    agregar_notas_orador(s24,
+    agregar_notas_orador(s20,
         "En resumen, al llegar al corte de 150 horas se han cerrado satisfactoriamente cuatro entregables clave: "
         "el informe conceptual del OE 1, la geodatabase de 118 capas con 2,56 GB, el certificado universal de metacalidad ISO 19157 (97,88%) "
         "con inyección universal de metadatos, y el geoportal web completamente desplegado y operativo en la nube."
     )
 
     # =========================================================================
-    # SLIDE 25: PLAN DE TRABAJO SEGUNDA MITAD (SEMANAS 6 A 11 / 150 HRS RESTANTES)
+    # SLIDE 21: PLAN DE TRABAJO SEGUNDA MITAD (SEMANAS 6 A 11 / 150 HRS RESTANTES)
     # =========================================================================
-    s25 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s25, "Plan de Trabajo para la Segunda Mitad (150 Horas Restantes)", 
-                       categoria="24. Proyección y Próximos Pasos",
+    s21 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s21, "Plan de Trabajo para la Segunda Mitad (150 Horas Restantes)", 
+                       categoria="20. Proyección y Próximos Pasos",
                        subtitulo="Hitos 6 a 10 · Semanas 6 a 11 (08 de octubre al 12 de noviembre de 2026)")
-    agregar_pie_pagina(s25, 25)
+    agregar_pie_pagina(s21, 21)
 
     # 4 Tarjetas horizontales de fases restantes
     fases_rest = [
@@ -2229,9 +1804,9 @@ def crear_presentacion():
     top_base_fut = 1.75
     for idx, (f_tiempo, f_titulo, f_bullets) in enumerate(fases_rest):
         fy = top_base_fut + idx * (card_fut_h + gap_fut_y)
-        agregar_tarjeta(s25, 0.8, fy, 11.733, card_fut_h)
+        agregar_tarjeta(s21, 0.8, fy, 11.733, card_fut_h)
 
-        tb_f = s25.shapes.add_textbox(Inches(1.0), Inches(fy + 0.10), Inches(11.333), Inches(card_fut_h - 0.20))
+        tb_f = s21.shapes.add_textbox(Inches(1.0), Inches(fy + 0.10), Inches(11.333), Inches(card_fut_h - 0.20))
         tf_f = tb_f.text_frame
         tf_f.word_wrap = True
         tf_f.margin_left = tf_f.margin_top = tf_f.margin_right = tf_f.margin_bottom = 0
@@ -2259,7 +1834,7 @@ def crear_presentacion():
             p_b.font.color.rgb = COLOR_NEGRO
             p_b.space_before = Pt(1)
 
-    agregar_notas_orador(s25,
+    agregar_notas_orador(s21,
         "Para las segundas 150 horas, la planificación aborda los hitos 6 al 10. En las semanas 6 y 7 calcularemos los cruces "
         "espaciales y el modelo lineal en Barrio Brasil. En las semanas 8 y 9 refinaremos la cartografía del Atlas; "
         "en la semana 10 realizaremos la validación empírica con usuarios reales; y en la semana 11 consolidaremos los manuales "
@@ -2267,13 +1842,13 @@ def crear_presentacion():
     )
 
     # =========================================================================
-    # SLIDE 26: CONCLUSIONES Y CIERRE FORMAL
+    # SLIDE 22: CONCLUSIONES Y CIERRE FORMAL
     # =========================================================================
-    s26 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s26, "Conclusiones Principales y Discusión Crítica", 
-                       categoria="25. Conclusiones y Discusión",
+    s22 = prs.slides.add_slide(blank_layout)
+    agregar_encabezado(s22, "Conclusiones Principales y Discusión Crítica", 
+                       categoria="21. Conclusiones y Discusión",
                        subtitulo="Balance del estado de avance al 50%, lecciones aprendidas y aporte a la Geografía urbana")
-    agregar_pie_pagina(s26, 26)
+    agregar_pie_pagina(s22, 22)
 
     cards_conc = [
         ("1. Cumplimiento Metodológico Riguroso", [
@@ -2296,9 +1871,9 @@ def crear_presentacion():
     gap_x22 = 0.24
     for i, (titulo_card, items) in enumerate(cards_conc):
         cx = 0.8 + i * (card_w22 + gap_x22)
-        agregar_tarjeta(s26, cx, 1.70, card_w22, 4.95)
+        agregar_tarjeta(s22, cx, 1.70, card_w22, 4.95)
 
-        tb_c = s26.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w22 - 0.40), Inches(4.65))
+        tb_c = s22.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w22 - 0.40), Inches(4.65))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -2326,7 +1901,7 @@ def crear_presentacion():
             r_t.text = txt
             r_t.font.color.rgb = COLOR_NEGRO
 
-    agregar_notas_orador(s26,
+    agregar_notas_orador(s22,
         "En conclusión, el estado de avance a las 150 horas evidencia un proyecto consolidado, con sus objetivos metodológicos cumplidos "
         "y un geoportal en producción que anticipa con creces los requerimientos del plan. "
         "Agradezco al profesor Manuel Fuenzalida, al coordinador Alejandro Cortés y a la comisión por su atención, y quedo disponible para sus preguntas."
