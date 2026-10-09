@@ -367,19 +367,19 @@ def crear_presentacion():
     # SLIDE 3: OBJETIVOS ESTRATÉGICOS Y CADENA DE VALOR METODOLÓGICA
     # =========================================================================
     s3 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s3, "Formulación Estratégica y Cadena de Valor de Objetivos", 
+    agregar_encabezado(s3, "Objetivos y Alcance del Plan de Trabajo", 
                        categoria="2. Formulación Estratégica — Visión Sinóptica",
-                       subtitulo="Articulación secuencial del Objetivo General y los 4 Objetivos Específicos hacia la gestión territorial")
+                       subtitulo="Estructura formal de objetivos, asignación horaria y estado de avance al 50%")
     agregar_pie_pagina(s3, 3)
 
-    # Tarjeta Superior: Objetivo General Adaptado al Desarrollo Real
+    # Tarjeta Superior: Objetivo General de la Práctica
     agregar_tarjeta(s3, 0.8, 1.65, 11.733, 1.15, bg_color=COLOR_AZUL_CLARO, border_color=COLOR_AZUL_UAH)
     tb_og = s3.shapes.add_textbox(Inches(1.0), Inches(1.72), Inches(11.333), Inches(1.00))
     tf_og = tb_og.text_frame
     tf_og.word_wrap = True
     tf_og.margin_left = tf_og.margin_top = tf_og.margin_right = tf_og.margin_bottom = 0
     p = tf_og.paragraphs[0]
-    p.text = "OBJETIVO GENERAL ESTRATÉGICO DEL PROYECTO:"
+    p.text = "OBJETIVO GENERAL DE LA PRÁCTICA PROFESIONAL:"
     p.font.name = FONT_NAME
     p.font.size = Pt(11)
     p.font.bold = True
@@ -388,25 +388,25 @@ def crear_presentacion():
 
     p_og_txt = tf_og.add_paragraph()
     p_og_txt.text = (
-        "Diseñar e implementar una Infraestructura Geoespacial Abierta y Comunitaria —Atlas VGI de Barrio Brasil "
-        "y entorno UAH— fundamentada en arquitectura client-side a costo cero, que subsane las brechas de información "
-        "pública mediante la integración estandarizada de datos colaborativos y oficiales, certificando su calidad espacial "
-        "bajo normas ISO 19157/19115 y proveyendo herramientas interactivas de diagnóstico territorial y gobernanza multiactor."
+        "Desarrollar un prototipo de Atlas de Información Geográfica Voluntaria (VGI) reproducible, interoperable y centrado en usuarios "
+        "que subsane vacíos de información territorial en Barrio Brasil y entorno UAH, articulando geodatos abiertos y oficiales, "
+        "cartografía participativa, certificación de calidad espacial (ISO 19157/19115) y herramientas analíticas interactivas "
+        "para la gestión local y la investigación académica."
     )
     p_og_txt.font.name = FONT_NAME
     p_og_txt.font.size = Pt(10.5)
     p_og_txt.font.color.rgb = COLOR_NEGRO
 
-    # Flujo de 4 Tarjetas de la Cadena de Valor Metodológica
+    # Flujo de 4 Tarjetas de la Cadena de Valor Metodológica (Detalle Riguroso)
     cadena_oes = [
-        ("1. DIAGNÓSTICO & DISEÑO CONCEPTUAL", "OE 1 · Semanas 1 a 3 · 72 Horas", "100% CERRADO", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
-         "Estructura las bases conceptuales y taxonómicas, modelando 4 perfiles multiactor (DCU / ISO 9241-210) y normalizando 10 macrocategorías VGI para identificar 86 brechas críticas de información estatal en Barrio Brasil."),
-        ("2. CONSTRUCCIÓN DE DATOS & CALIDAD", "OE 2 · Semanas 4 a 7 · 120 Horas", "H4 y H5 CERRADOS", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
-         "Construye una geodatabase espacial multicapa (118 coberturas, 2,56 GB) y formula el Modelo de MetaCalidad WLC v2.0 bajo norma ISO 19157 (97,88% IGV), vinculando datos con el Censo 2024."),
-        ("3. MATERIALIZACIÓN DEL GEOPORTAL", "OE 3 · Semanas 8 a 10 · 72 Horas", "80% EN PRODUCCIÓN", COLOR_AZUL_CLARO, COLOR_AZUL_SEC,
-         "Despliega anticipadamente el Geoportal Web interactivo (atlasvgiuah.netlify.app) con arquitectura serverless a costo cero, 10 módulos operativos, APIs espaciales en vivo e Inspector Normativo PRC."),
-        ("4. VALIDACIÓN & TRANSFERIBILIDAD", "OE 4 · Semana 11 · 36 Horas", "PROGRAMADO", COLOR_GRIS_FONDO, COLOR_NEGRO,
-         "Garantiza la sostenibilidad y adopción comunitaria mediante validación empírica con usuarios reales (ISO 9241-11) y manuales técnicos que aseguran plena autonomía operativa sin dependencia del desarrollador.")
+        ("1. CARACTERIZACIÓN & DISEÑO CONCEPTUAL", "OE 1 · Semanas 1 a 3 · 72 Horas", "100% CERRADO", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
+         "Diagnostica el territorio (223,75 ha), estructura 10 macrocategorías VGI, cataloga 134 descriptores identificando 86 brechas estatales y modela 4 perfiles multiactor bajo diseño centrado en el usuario (DCU / ISO 9241-210)."),
+        ("2. GEODATABASE, CALIDAD & ANÁLISIS ESPACIAL", "OE 2 · Semanas 4 a 7 · 120 Horas", "H4 y H5 CERRADOS · H6 ACTIVO", COLOR_AZUL_DESTACADO, COLOR_AZUL_UAH,
+         "Construye la geodatabase de 118 capas (2,56 GB en PostGIS 17), certifica su calidad bajo norma ISO 19157 (97,88% IGV), y desarrolla el análisis territorial cruzando equipamientos con las 31 manzanas censales (Censo 2024 / RSH) y formulando el modelo de ranking WLC."),
+        ("3. MATERIALIZACIÓN DEL GEOPORTAL WEB", "OE 3 · Semanas 8 a 10 · 72 Horas", "80% EN PRODUCCIÓN", COLOR_AZUL_CLARO, COLOR_AZUL_SEC,
+         "Despliega en producción el visor interactivo (atlasvgiuah.netlify.app) con costo $0 en Netlify, 10 módulos operativos, APIs espaciales en vivo, Inspector Normativo PRC de 192 zonas y generador reactivo de metadatos ISO 19115."),
+        ("4. VALIDACIÓN & TRANSFERIBILIDAD TÉCNICA", "OE 4 · Semana 11 · 36 Horas", "PROGRAMADO", COLOR_GRIS_FONDO, COLOR_NEGRO,
+         "Evalúa la usabilidad con 3 a 5 usuarios reales de Barrio Brasil bajo estándar ISO 9241-11, redactando manuales comunitarios y guías de administración técnica a costo $0 para asegurar autonomía plena y el informe final de titulación.")
     ]
     card_c_h = 0.74
     gap_c_y = 0.09
@@ -455,7 +455,7 @@ def crear_presentacion():
     tf_bal.word_wrap = True
     tf_bal.margin_left = tf_bal.margin_top = tf_bal.margin_right = tf_bal.margin_bottom = 0
     p_b = tf_bal.paragraphs[0]
-    p_b.text = "BALANCE AL CORTE DE 150 HORAS: 50% de horas concluidas (25/50 días hábiles) · Hitos 1 a 5 cerrados (100%) · Hito 8 adelantado al 80% en vivo · Hito 6 en inicio."
+    p_b.text = "BALANCE AL CORTE DE 150 HORAS: 50% de horas concluidas (25/50 días hábiles) · Hitos 1 a 5 cerrados (100%) · Hito 8 adelantado al 80% en producción · Hito 6 en desarrollo activo."
     p_b.font.name = FONT_NAME
     p_b.font.size = Pt(9.5)
     p_b.font.bold = True
@@ -463,22 +463,22 @@ def crear_presentacion():
     p_b.alignment = PP_ALIGN.CENTER
 
     agregar_notas_orador(s3,
-        "La formulación de objetivos se concibió como una cadena de valor metodológica articulada con los resultados reales obtenidos: "
-        "el OE 1 diagnostica la brecha y define la taxonomía de 10 macrocategorías; el OE 2 consolida la geodatabase de 118 capas y certifica "
-        "su calidad bajo la norma ISO 19157 (97,88%); el OE 3 materializa la plataforma web interactiva en producción con 10 módulos activos; "
-        "y el OE 4 asegura la validación empírica y la transferibilidad plena a la comunidad y a la UAH. A continuación analizamos en detalle cada uno."
+        "La formulación de objetivos articula el plan formal con el desarrollo efectivo de la práctica: "
+        "el Objetivo General busca subsanar vacíos territoriales mediante VGI y geodatos abiertos; el OE 1 estructura la arquitectura conceptual y taxonomía (100%); "
+        "el OE 2 construye la geodatabase, certifica la calidad ISO 19157 y aborda el análisis territorial censal con el modelo de ranking WLC; "
+        "el OE 3 materializa el geoportal en producción anticipada con 10 módulos; y el OE 4 garantiza la validación empírica y la transferibilidad plena a la comunidad y a la UAH."
     )
 
     # =========================================================================
-    # SLIDE 4: OBJETIVO ESPECÍFICO 1 — FORMULACIÓN AGUDA Y LOGROS
+    # SLIDE 4: OBJETIVO ESPECÍFICO 1 — FORMULACIÓN DETALLADA Y LOGROS
     # =========================================================================
     s4 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s4, "Objetivo Específico 1: Caracterización Territorial y Arquitectura Conceptual", 
-                       categoria="3. Formulación Aguda — Objetivo Específico 1 (Conceptual)",
+                       categoria="3. Formulación de Objetivos — Objetivo Específico 1 (Conceptual)",
                        subtitulo="Hitos 1 a 3 (100% Concluidos · 72 Horas Planificadas) · Diagnóstico de fuentes, perfiles DCU y taxonomía VGI")
     agregar_pie_pagina(s4, 4)
 
-    # Columna Izquierda: Formulación Estratégica y Desafío Geográfico
+    # Columna Izquierda: Formulación Detallada y Desafío Territorial
     agregar_tarjeta(s4, 0.8, 1.70, 5.75, 4.95)
     tb_oe1_l = s4.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_oe1_l = tb_oe1_l.text_frame
@@ -486,7 +486,7 @@ def crear_presentacion():
     tf_oe1_l.margin_left = tf_oe1_l.margin_top = tf_oe1_l.margin_right = tf_oe1_l.margin_bottom = 0
 
     p = tf_oe1_l.paragraphs[0]
-    p.text = "Formulación Estratégica y Desafío Territorial"
+    p.text = "Formulación del Objetivo Específico 1"
     p.font.name = FONT_NAME
     p.font.size = Pt(13.5)
     p.font.bold = True
@@ -495,10 +495,10 @@ def crear_presentacion():
 
     p_box = tf_oe1_l.add_paragraph()
     p_box.text = (
-        "Estructurar la arquitectura conceptual y taxonómica del Atlas mediante la normalización "
-        "de etiquetas de OpenStreetMap y GBIF en 10 macrocategorías urbanas operativas, modelando "
-        "cuatro perfiles territoriales bajo la metodología de Diseño Centrado en el Usuario (DCU / ISO 9241-210) "
-        "y confeccionando un catálogo de 134 descriptores que identifica y documenta 86 brechas críticas de información estatal en Barrio Brasil."
+        "Caracterizar el escenario territorial de Barrio Brasil y campus UAH (223,75 ha) mediante la revisión sistemática "
+        "de plataformas colaborativas y fuentes oficiales (OSM, GBIF, IDE Chile), estructurando la arquitectura conceptual "
+        "del Atlas a través de una taxonomía de 10 macrocategorías urbanas, un catálogo de 134 descriptores que identifica "
+        "86 brechas de información estatal, y el modelamiento de 4 perfiles multiactor bajo Diseño Centrado en el Usuario (DCU / ISO 9241-210)."
     )
     p_box.font.name = FONT_NAME
     p_box.font.size = Pt(10)
@@ -506,10 +506,10 @@ def crear_presentacion():
     p_box.space_after = Pt(8)
 
     oe1_preguntas = [
-        ("Vacíos Críticos Subsanados:", "El Estado dispone de datos agregados comunales, pero carece de granularidad barrial en arbolado, mobiliario, ciclocalles y microcomercio."),
-        ("Normalización Semántica VGI:", "Traducción de esquemas libres de OpenStreetMap a un catálogo técnico estructurado para habilitar variables de gestión urbana."),
-        ("Diseño Centrado en el Usuario:", "Modelamiento formal de 4 perfiles multiactor con requerimientos territoriales diferenciados según la norma ISO 9241-210."),
-        ("Fundamentación Disciplinar:", "Integración del paradigma de ciudadanos como sensores (Goodchild, 2007) y calidad en VGI (Haklay, 2010) con la IDE Chile.")
+        ("Diagnóstico Territorial Barrial:", "Delimitación de 223,75 ha con fuerte heterogeneidad urbana, patrimonio y densificación residencial en Santiago Poniente."),
+        ("Identificación Rigurosa de Brechas:", "Catálogo analítico de 134 descriptores documentando 86 vacíos críticos no cubiertos por cartografía oficial."),
+        ("Normalización Semántica OSM/GBIF:", "Traducción técnica de esquemas abiertos heterogéneos a 10 macrocategorías estandarizadas para la gestión urbana."),
+        ("Diseño Centrado en el Usuario (DCU):", "Modelamiento empírico de requerimientos específicos para planificadores, vecinos, mapeadores e investigadores.")
     ]
     for tit_p, txt_p in oe1_preguntas:
         p_item = tf_oe1_l.add_paragraph()
@@ -532,7 +532,7 @@ def crear_presentacion():
     tf_oe1_r.margin_left = tf_oe1_r.margin_top = tf_oe1_r.margin_right = tf_oe1_r.margin_bottom = 0
 
     p = tf_oe1_r.paragraphs[0]
-    p.text = "Técnicas Metodológicas y Logros (100% Cerrado)"
+    p.text = "Técnicas Metodológicas y Logros Concluidos"
     p.font.name = FONT_NAME
     p.font.size = Pt(13.5)
     p.font.bold = True
@@ -551,7 +551,7 @@ def crear_presentacion():
         ("Delimitación Barrial Oficial:", "Fijación del polígono de 223,75 ha en Barrio Brasil y campus central UAH, estandarizado en WGS84 (EPSG:4326) y proyectado en UTM 19S (EPSG:32719)."),
         ("10 Macrocategorías VGI Normalizadas:", "Clasificación de elementos urbanos desde CAT-01 (Movilidad) hasta CAT-10 (Medio Ambiente), traduciendo 200+ tags de OSM a categorías analíticas."),
         ("4 Perfiles Multiactor (DCU):", "Definición operativa de usuarios: 1) Institucional / Planificador; 2) Comunitario / Vecinal; 3) Voluntario OSM; y 4) Investigador Fondecyt / UAH."),
-        ("Diccionario Territorial (134 Descriptores):", "Catálogo exhaustivo que documentó 48 capas oficiales análogas y 86 brechas barriales cubiertas exclusivamente por la cartografía voluntaria."),
+        ("Diccionario Territorial (134 Descriptores):", "Catálogo exhaustivo que documentó 48 capas oficiales análogas y 86 brechas barriales cubiertas exclusivamente por la cartografía colaborativa."),
         ("Entregable Metodológico Aprobado:", "Documento formal de 61 páginas que sustenta la arquitectura conceptual del Atlas y la gobernanza de datos abiertos.")
     ]
     for tit_l, txt_l in oe1_logros:
@@ -568,21 +568,21 @@ def crear_presentacion():
         r2.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s4,
-        "El Objetivo Específico 1 se encuentra 100% cerrado con las 72 horas planificadas. Su formulación evolucionó al resolver la dispersión "
-        "de datos colaborativos mediante una arquitectura taxonómica sólida: delimitó Barrio Brasil en 223 hectáreas, estructuró 10 macrocategorías temáticas "
-        "a partir de más de 200 etiquetas OSM, modeló cuatro perfiles de usuario bajo metodología DCU y catalogó 86 brechas barriales que el Estado no provee."
+        "El Objetivo Específico 1 está 100% concluido. Estableció el marco conceptual del Atlas: delimitó Barrio Brasil en 223,75 hectáreas, "
+        "catalogó 134 descriptores identificando 86 brechas críticas donde el Estado no dispone de datos, organizó más de 200 etiquetas OSM en 10 macrocategorías temáticas "
+        "y modeló los cuatro perfiles de usuario territorial bajo el estándar DCU ISO 9241-210."
     )
 
     # =========================================================================
-    # SLIDE 5: OBJETIVO ESPECÍFICO 2 — FORMULACIÓN AGUDA Y LOGROS
+    # SLIDE 5: OBJETIVO ESPECÍFICO 2 — GEODATABASE, CALIDAD Y ANÁLISIS
     # =========================================================================
     s5 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s5, "Objetivo Específico 2: Geodatabase VGI, MetaCalidad y Diagnóstico Territorial", 
-                       categoria="4. Formulación Aguda — Objetivo Específico 2 (Geodatabase & Calidad)",
-                       subtitulo="Hitos 4 a 6 (H4 y H5 100% Concluidos, H6 en Inicio · 120 Horas) · Robustez de geodatos e Índice WLC v2.0")
+    agregar_encabezado(s5, "Objetivo Específico 2: Geodatabase VGI, Calidad ISO 19157 y Análisis Territorial", 
+                       categoria="4. Formulación de Objetivos — Objetivo Específico 2 (Datos & Análisis)",
+                       subtitulo="Hitos 4 a 6 (H4 y H5 100% Concluidos, H6 en Desarrollo · 120 Horas) · Geodatos, MetaCalidad WLC y Análisis Censal")
     agregar_pie_pagina(s5, 5)
 
-    # Columna Izquierda: Formulación Operativa y Rigor de Datos
+    # Columna Izquierda: Formulación Detallada, Calidad y Análisis Territorial
     agregar_tarjeta(s5, 0.8, 1.70, 5.75, 4.95)
     tb_oe2_l = s5.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_oe2_l = tb_oe2_l.text_frame
@@ -590,7 +590,7 @@ def crear_presentacion():
     tf_oe2_l.margin_left = tf_oe2_l.margin_top = tf_oe2_l.margin_right = tf_oe2_l.margin_bottom = 0
 
     p = tf_oe2_l.paragraphs[0]
-    p.text = "Formulación Operativa y Rigor Metodológico"
+    p.text = "Formulación del Objetivo Específico 2"
     p.font.name = FONT_NAME
     p.font.size = Pt(13.5)
     p.font.bold = True
@@ -599,22 +599,23 @@ def crear_presentacion():
 
     p_box = tf_oe2_l.add_paragraph()
     p_box.text = (
-        "Construir una geodatabase espacial multicapa de alta resolución que integre 118 coberturas "
-        "oficiales y comunitarias (2,56 GB activos en producción y 3,73 GB en disco), aplicando un pipeline "
-        "automatizado de depuración topológica OGC y formulando el Modelo de MetaCalidad WLC v2.0 ponderado "
-        "(10 dimensiones / 100%) bajo norma ISO 19157, que certifica un 97,88% de consistencia global y "
-        "vincula la infraestructura con la población censal 2024."
+        "Construir, procesar y depurar la geodatabase espacial multicapa de Barrio Brasil integrando 118 coberturas "
+        "oficiales y comunitarias (2,56 GB en PostGIS 17 y Supabase Cloud), auditar y certificar su consistencia topológica "
+        "y documental bajo norma ISO 19157 mediante el Modelo de MetaCalidad WLC v2.0 (97,88% IGV), y desarrollar el "
+        "análisis territorial espacial cruzando la infraestructura de equipamientos barriales con la población de las "
+        "31 manzanas censales del Censo 2024 y vulnerabilidad RSH, formulando un modelo lineal de ranking multicriterio "
+        "para la priorización territorial y toma de decisiones locales."
     )
     p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(10)
+    p_box.font.size = Pt(9.8)
     p_box.font.color.rgb = COLOR_NEGRO
     p_box.space_after = Pt(8)
 
     oe2_desafios = [
-        ("Superación de la Incertidumbre VGI:", "Depuración geométrica automatizada bajo reglas OGC (ST_MakeValid), eliminando auto-intersecciones, kinks y duplicados."),
-        ("Arquitectura de Datos Espaciales:", "Pipeline ETL en Python (GeoPandas, Shapely) conectado a PostgreSQL 17 + PostGIS 3.3 en Supabase Cloud con índices GIST."),
-        ("Certificación de Calidad ISO 19157:", "Formulación inédita del modelo lineal ponderado WLC v2.0 (10 dimensiones al 10%) que evalúa completitud, consistencia y linaje."),
-        ("Articulación Sociodemográfica Censo 2024:", "Intersección espacial de equipamiento comunitario con las 31 manzanas censales del INE y vulnerabilidad RSH.")
+        ("Construcción y Poblamiento de Geodatabase:", "Integración masiva de 108 coberturas IDE Chile y 10 VGI (2,56 GB activos en producción y 3,73 GB en disco)."),
+        ("Auditoría y Certificación ISO 19157:", "Formulación del modelo ponderado WLC v2.0 (10 dimensiones / 100%) con corrección topológica OGC universal."),
+        ("Análisis Espacial y Sociodemográfico:", "Cruce de proximidad de equipamientos comunitarios con población censal 2024 y vulnerabilidad RSH."),
+        ("Modelo Lineal de Priorización (WLC):", "Algoritmo de ranking territorial multivariable (S_i = Σ w_j · X_ij) para orientar intervenciones e inversión local.")
     ]
     for tit_d, txt_d in oe2_desafios:
         p_item = tf_oe2_l.add_paragraph()
@@ -629,7 +630,7 @@ def crear_presentacion():
         r2.text = txt_d
         r2.font.color.rgb = COLOR_NEGRO
 
-    # Columna Derecha: Evidencias Concretas de Avance (H4 y H5 Cerrados)
+    # Columna Derecha: Evidencias Concretas de Avance (H4 y H5 Cerrados · H6 Activo)
     agregar_tarjeta(s5, 6.783, 1.70, 5.75, 4.95)
     tb_oe2_r = s5.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_oe2_r = tb_oe2_r.text_frame
@@ -637,7 +638,7 @@ def crear_presentacion():
     tf_oe2_r.margin_left = tf_oe2_r.margin_top = tf_oe2_r.margin_right = tf_oe2_r.margin_bottom = 0
 
     p = tf_oe2_r.paragraphs[0]
-    p.text = "Evidencias Concretas de Avance (H4 y H5 al 100%)"
+    p.text = "Evidencias Concretas de Avance (H4 y H5 al 100% · H6 Activo)"
     p.font.name = FONT_NAME
     p.font.size = Pt(13.5)
     p.font.bold = True
@@ -645,7 +646,7 @@ def crear_presentacion():
     p.space_after = Pt(5)
 
     p_badge = tf_oe2_r.add_paragraph()
-    p_badge.text = "ESTADO: H4 (100% CERRADO) · H5 (100% TERMINADO) · H6 (EN INICIO)"
+    p_badge.text = "ESTADO: H4 (100% CERRADO) · H5 (100% TERMINADO) · H6 (EN DESARROLLO)"
     p_badge.font.name = FONT_NAME
     p_badge.font.size = Pt(10)
     p_badge.font.bold = True
@@ -653,12 +654,12 @@ def crear_presentacion():
     p_badge.space_after = Pt(8)
 
     oe2_logros = [
-        ("Geodatabase de 118 Capas Vectoriales:", "108 capas oficiales del Estado (Censo 2024, PRC, UOCT, RSH, MINVU) + 10 VGI (2,56 GB activos en catálogo y 3,73 GB en 214 GeoJSONs en disco)."),
+        ("Geodatabase de 118 Capas Vectoriales:", "108 capas oficiales del Estado (Censo 2024, PRC, UOCT, RSH, MINVU) + 10 VGI (2,56 GB activos en catálogo y 3,73 GB en disco)."),
         ("PostgreSQL 17 + PostGIS 3.3 en la Nube:", "Alojamiento en Supabase Cloud con 129.262+ geometrías indexadas con árboles espaciales GIST y latencias de respuesta < 200 ms."),
-        ("MetaCalidad Espacial Certificada (97,88% IGV):", "Auditoría integral ISO 19157 mediante modelo WLC v2.0: 116 capas en Grado A+ Excelente (≥95%) y 2 en Grado A Muy Bueno, sin ninguna capa deficiente."),
-        ("100% de Geometrías Validadas OGC:", "Reparación rigurosa de auto-intersecciones, kinks y anillos abiertos (cero errores fatales en repositorio)."),
+        ("MetaCalidad Espacial Certificada (97,88% IGV):", "Auditoría integral ISO 19157 mediante modelo WLC v2.0: 116 capas en Grado A+ Excelente (≥95%) y 2 en Grado A Muy Bueno."),
+        ("100% de Geometrías Validadas OGC:", "Reparación rigurosa de auto-intersecciones, kinks y anillos abiertos con Shapely y ST_MakeValid (0 errores fatales)."),
         ("Inyección Universal de 14 Atributos ISO:", "Cada capa descargable incorpora metadatos de autoría, escala, SRID, licencia, linaje y contacto."),
-        ("Hito 6 en Desarrollo Activo:", "Programación de cruces espaciales de proximidad y formulación del modelo de ranking multidimensional.")
+        ("Hito 6: Análisis Territorial en Desarrollo:", "Cruces de proximidad espacial equipamiento-población Censo 2024 y calibración del modelo de ranking multicriterio WLC.")
     ]
     for tit_l, txt_l in oe2_logros:
         p_item = tf_oe2_r.add_paragraph()
@@ -674,21 +675,21 @@ def crear_presentacion():
         r2.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s5,
-        "El Objetivo Específico 2 presenta un avance sustancial con los Hitos 4 y 5 concluidos al 100%. Se construyó una geodatabase de 118 capas "
-        "(2,56 GB en producción) alojada en PostGIS 17, se corrigió el 100% de geometrías según estándares OGC, y se formuló el Modelo WLC v2.0 "
-        "que certifica un 97,88% de metacalidad bajo ISO 19157, vinculando la infraestructura comunitaria a la población censal 2024. El Hito 6 se encuentra en inicio."
+        "El Objetivo Específico 2 integra datos, calidad y análisis territorial. Concluimos al 100% la construcción de la geodatabase de 118 capas "
+        "(2,56 GB en producción) y la auditoría de calidad ISO 19157 (97,88% IGV). Actualmente avanzamos en el Hito 6 de análisis espacial, "
+        "vinculando los equipamientos comunitarios con la población de las 31 manzanas del Censo 2024 y vulnerabilidad RSH, formulando el modelo de ranking multicriterio WLC."
     )
 
     # =========================================================================
-    # SLIDE 6: OBJETIVO ESPECÍFICO 3 — FORMULACIÓN AGUDA Y LOGROS
+    # SLIDE 6: OBJETIVO ESPECÍFICO 3 — GEOPORTAL WEB EN PRODUCCIÓN
     # =========================================================================
     s6 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s6, "Objetivo Específico 3: Prototipo Cartográfico y Geoportal Web Interactivo", 
-                       categoria="5. Formulación Aguda — Objetivo Específico 3 (Geoportal en Producción)",
+                       categoria="5. Formulación de Objetivos — Objetivo Específico 3 (Geoportal en Producción)",
                        subtitulo="Hitos 7 y 8 (80% Anticipado en Producción · 72 Horas Planificadas) · Despliegue en vivo en atlasvgiuah.netlify.app")
     agregar_pie_pagina(s6, 6)
 
-    # Columna Izquierda: Formulación Tecnológica y Salto Estratégico
+    # Columna Izquierda: Formulación Detallada y Salto Estratégico
     agregar_tarjeta(s6, 0.8, 1.70, 5.75, 4.95)
     tb_oe3_l = s6.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_oe3_l = tb_oe3_l.text_frame
@@ -696,7 +697,7 @@ def crear_presentacion():
     tf_oe3_l.margin_left = tf_oe3_l.margin_top = tf_oe3_l.margin_right = tf_oe3_l.margin_bottom = 0
 
     p = tf_oe3_l.paragraphs[0]
-    p.text = "Formulación Tecnológica y Salto Estratégico"
+    p.text = "Formulación del Objetivo Específico 3"
     p.font.name = FONT_NAME
     p.font.size = Pt(13.5)
     p.font.bold = True
@@ -705,22 +706,22 @@ def crear_presentacion():
 
     p_box = tf_oe3_l.add_paragraph()
     p_box.text = (
-        "Desarrollar y poner en producción anticipada el Geoportal Web interactivo del Atlas VGI "
-        "(atlasvgiuah.netlify.app) bajo una arquitectura serverless a costo cero ($0), dotado de 10 módulos "
-        "operativos que integran un visor cartográfico con Inspector Normativo del PRC Santiago, "
-        "conectividad en tiempo real a APIs espaciales (Overpass QL, ohsome y GBIF), un Centro Dinámico "
-        "de Subsanación y un generador reactivo de metadatos ISO 19115/19139."
+        "Diseñar el prototipo cartográfico interactivo y desplegar en producción anticipada el Geoportal Web "
+        "del Atlas VGI (atlasvgiuah.netlify.app) bajo arquitectura serverless a costo cero ($0) en Netlify, "
+        "integrando un visor cartográfico Leaflet 1.9.4 con Inspector Normativo del PRC Santiago (192 zonas prediales), "
+        "conectividad en tiempo real a APIs espaciales (Overpass QL, ohsome y GBIF), un Centro Dinámico de Subsanación "
+        "ISO 19157 con herramientas de auto-reparación, y un generador reactivo de metadatos ISO 19115/19139 para IDE Chile."
     )
     p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(10)
+    p_box.font.size = Pt(9.8)
     p_box.font.color.rgb = COLOR_NEGRO
     p_box.space_after = Pt(8)
 
     oe3_estrategia = [
-        ("Adelanto Estratégico en Producción:", "Anticipación del desarrollo web a la Fase 2, disponiendo tempranamente de un entorno funcional para validación territorial continua."),
-        ("Arquitectura Client-Side a Costo $0:", "Frontend desacoplado en JavaScript Vanilla SPA y Leaflet 1.9.4 desplegado en Netlify CI/CD, sin costos de hosting recurrentes."),
-        ("Resiliencia de Triple Failover:", "Estrategia escalonada: 1° PostGIS RPC en nube → 2° CDN Storage distribuido → 3° Fallback local empaquetado (disponibilidad 24/7)."),
-        ("Interfaz Adaptativa por Perfil (DCU):", "Panel de control territorial que ajusta herramientas, filtros y capas según las necesidades de los 4 perfiles modelados.")
+        ("Despliegue Anticipado Disruptivo:", "Adelanto a la Fase 2 para disponer tempranamente de un entorno funcional en producción para pruebas territoriales continuas."),
+        ("Arquitectura Serverless a Costo $0:", "Frontend desacoplado en JavaScript Vanilla SPA y Leaflet 1.9.4 desplegado en Netlify CI/CD, sin costos de hosting para la UAH."),
+        ("Resiliencia de Triple Failover:", "Esquema escalonado: 1° PostGIS RPC en nube → 2° CDN Storage distribuido → 3° Fallback local empaquetado (disponibilidad 24/7)."),
+        ("Interfaz Adaptativa por Perfil (DCU):", "Portada interactiva que filtra herramientas, capas y consultas según las necesidades de los 4 perfiles modelados.")
     ]
     for tit_e, txt_e in oe3_estrategia:
         p_item = tf_oe3_l.add_paragraph()
@@ -779,21 +780,21 @@ def crear_presentacion():
         r2.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s6,
-        "El Objetivo Específico 3 logró un adelanto estratégico decisivo al poner en producción anticipada el Geoportal Web en atlasvgiuah.netlify.app. "
-        "La arquitectura client-side serverless asegura costo cero recurrente para la UAH. La plataforma integra 10 módulos funcionales, destacando "
-        "el Inspector Normativo del PRC Santiago, consultas en tiempo real a Overpass y GBIF, el Centro de Subsanación ISO 19157 y el generador de metadatos ISO 19115."
+        "El Objetivo Específico 3 logró un adelanto estratégico clave al desplegar el Geoportal Web en producción en atlasvgiuah.netlify.app. "
+        "La plataforma opera con arquitectura serverless a costo cero ($0), integrando 10 módulos funcionales, entre ellos el visor cartográfico "
+        "con Inspector Normativo del PRC Santiago (192 zonas), consultas dinámicas a Overpass, ohsome y GBIF, el Centro de Subsanación ISO 19157 y el generador de metadatos ISO 19115."
     )
 
     # =========================================================================
-    # SLIDE 7: OBJETIVO ESPECÍFICO 4 — FORMULACIÓN AGUDA Y LOGROS
+    # SLIDE 7: OBJETIVO ESPECÍFICO 4 — VALIDACIÓN Y TRANSFERIBILIDAD
     # =========================================================================
     s7 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s7, "Objetivo Específico 4: Validación Participativa, Transferibilidad y Memoria Final", 
-                       categoria="6. Formulación Aguda — Objetivo Específico 4 (Transferibilidad & Validación)",
+                       categoria="6. Formulación de Objetivos — Objetivo Específico 4 (Transferibilidad & Validación)",
                        subtitulo="Hitos 9 y 10 (Programados para Semanas 10 y 11 · 36 Horas) · Validación empírica, manuales y cierre formal")
     agregar_pie_pagina(s7, 7)
 
-    # Columna Izquierda: Formulación de Transferibilidad y Sostenibilidad
+    # Columna Izquierda: Formulación Detallada y Sostenibilidad
     agregar_tarjeta(s7, 0.8, 1.70, 5.75, 4.95)
     tb_oe4_l = s7.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
     tf_oe4_l = tb_oe4_l.text_frame
@@ -801,7 +802,7 @@ def crear_presentacion():
     tf_oe4_l.margin_left = tf_oe4_l.margin_top = tf_oe4_l.margin_right = tf_oe4_l.margin_bottom = 0
 
     p = tf_oe4_l.paragraphs[0]
-    p.text = "Formulación de Transferibilidad y Sostenibilidad"
+    p.text = "Formulación del Objetivo Específico 4"
     p.font.name = FONT_NAME
     p.font.size = Pt(13.5)
     p.font.bold = True
@@ -810,21 +811,22 @@ def crear_presentacion():
 
     p_box = tf_oe4_l.add_paragraph()
     p_box.text = (
-        "Validar empíricamente la utilidad, efectividad y usabilidad del Geoportal con actores territoriales "
-        "clave de Barrio Brasil bajo el estándar internacional ISO 9241-11, asegurando la transferibilidad "
-        "metodológica y tecnológica del proyecto mediante manuales reproducibles y protocolos abiertos "
-        "que garanticen la autonomía operativa del centro de práctica y la comunidad."
+        "Evaluar empíricamente la utilidad, efectividad y usabilidad del Geoportal mediante pruebas guiadas "
+        "con una muestra representativa de 3 a 5 actores reales de Barrio Brasil bajo el estándar internacional "
+        "ISO 9241-11, asegurando la transferibilidad metodológica y tecnológica del proyecto mediante manuales "
+        "de uso comunitario, guías de administración técnica a costo $0 y la elaboración de la memoria final "
+        "para la titulación en el Departamento de Geografía UAH."
     )
     p_box.font.name = FONT_NAME
-    p_box.font.size = Pt(10)
+    p_box.font.size = Pt(9.8)
     p_box.font.color.rgb = COLOR_NEGRO
     p_box.space_after = Pt(8)
 
     oe4_principios = [
-        ("Independencia y Sostenibilidad:", "Garantía de transferencia metodológica para que docentes, estudiantes y vecinos operen y actualicen el Atlas sin depender del practicante."),
-        ("Ciencia Abierta y Gobernanza de Datos:", "Publicación de scripts, modelos y geodatos bajo licencias abiertas (ODbL 1.0, CC-BY 4.0, MIT) en repositorio institucional abierto."),
-        ("Validación Empírica Participativa:", "Evaluación cuantitativa y cualitativa de usabilidad mediante tareas geoespaciales con 3 a 5 representantes de los perfiles DCU."),
-        ("Memoria de Título en Geografía:", "Sistematización integral de la experiencia teórico-práctica para la obtención del título profesional en la Universidad Alberto Hurtado.")
+        ("Independencia del Desarrollador:", "Garantía de transferencia metodológica para que docentes, estudiantes y vecinos operen y actualicen el Atlas sin depender del practicante."),
+        ("Ciencia Abierta y Gobernanza de Datos:", "Publicación de scripts, modelos y geodatos bajo licencias abiertas (ODbL 1.0, CC-BY 4.0, MIT) en repositorio público de GitHub."),
+        ("Validación Empírica Participativa:", "Medición estandarizada de efectividad (resolución de tareas), eficiencia (tiempo) y satisfacción percibida (escala SUS)."),
+        ("Memoria de Título en Geografía:", "Sistematización integral de la experiencia teórico-práctica para el examen de título profesional en la Universidad Alberto Hurtado.")
     ]
     for tit_p, txt_p in oe4_principios:
         p_item = tf_oe4_l.add_paragraph()
@@ -883,9 +885,9 @@ def crear_presentacion():
         r2.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s7,
-        "El Objetivo Específico 4 se ejecutará en las semanas 10 y 11 (36 horas programadas). Su formulación se orienta a la sostenibilidad y soberanía "
-        "comunitaria: validar empíricamente la plataforma con 3 a 5 actores reales de Barrio Brasil bajo la norma ISO 9241-11, redactar manuales de uso "
-        "y mantenimiento técnico para asegurar autonomía operativa sin dependencia del desarrollador, y consolidar el informe final para la titulación en Geografía."
+        "El Objetivo Específico 4 se desarrollará en las semanas 10 y 11 con 36 horas planificadas. Se enfoca en la transferibilidad y sostenibilidad: "
+        "evaluaremos la usabilidad empírica con 3 a 5 usuarios reales bajo norma ISO 9241-11, entregaremos manuales comunitarios y guías técnicas de mantención a costo cero "
+        "para asegurar la autonomía de la UAH y la comunidad sin dependencia del practicante, y consolidaremos la memoria final de título."
     )
     # =========================================================================
     # SLIDE 8: MARCO METODOLÓGICO (PARTE 1: DIAGNÓSTICO Y GEODATABASE)
