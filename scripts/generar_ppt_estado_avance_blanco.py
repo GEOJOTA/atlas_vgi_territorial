@@ -732,29 +732,32 @@ def crear_presentacion():
     s7 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s7, "Resultados OE 1: Arquitectura Conceptual y Taxonomía VGI", 
                        categoria="6. Resultados — Diseño Conceptual (OE 1)",
-                       subtitulo="Estructuración de las 10 macrocategorías comunitarias y definición de perfiles multiactor")
+                       subtitulo="Estructuración de 10 macrocategorías comunitarias y definición de perfiles multiactor")
     agregar_pie_pagina(s7, 7)
 
     cards_oe1 = [
-        ("10 Macro-Categorías VGI (CAT-01 a CAT-10)", [
-            ("Movilidad y Transporte (CAT-01):", "Red vial, ciclovías, 1.500+ cruces semaforizados UOCT y accesibilidad."),
-            ("Equipamiento Comunitario (CAT-02):", "Centros de salud DEIS, educación, sedes vecinales y cultura."),
-            ("Espacios Públicos y Verdes (CAT-03):", "Parques, plazas y arbolado urbano referenciado."),
-            ("Patrimonio y Turismo (CAT-04):", "Monumentos nacionales, inmuebles de conservación y placas."),
-            ("Comercio y Servicios (CAT-05):", "Comercio de barrio, almacenes, ferias libres y servicios."),
-            ("Medio Ambiente y Biodiversidad (CAT-10):", "Registros biológicos de GBIF e infraestructura verde.")
+        ("10 Macrocategorías VGI y Delimitación", [
+            ("Delimitación Piloto (223,75 ha):", "Polígono barrial que articula Barrio Brasil y campus patrimonial UAH en Santiago Centro (WGS84 / EPSG:4326)."),
+            ("Taxonomía Normalizada (10 CAT):", "Homologa tags de OpenStreetMap (amenity, leisure, highway) y taxonomías Darwin Core de GBIF."),
+            ("CAT-01 a CAT-05:", "Educación/Universidad, Servicios/Comercio Barrial, Movilidad/Transporte, Movilidad Activa/Ciclovías, y Áreas Verdes/Espacio Público."),
+            ("CAT-06 a CAT-10:", "Patrimonio/Cultura, Accesibilidad Universal, Biodiversidad Urbana, Edificaciones/Huella, y Coberturas/Usos de Suelo."),
+            ("Esquema Relacional Normalizado:", "14 atributos armonizados con estándares de interoperabilidad IDE Chile e ISO 19115.")
         ]),
-        ("4 Perfiles Territoriales (Enfoque DCU)", [
-            ("1. Gestor Institucional / Municipal:", "Orientado a SECPLA y DIMAO para evaluar déficit de servicios y normativa."),
-            ("2. Dirigente Vecinal / Comunitario:", "Herramientas intuitivas de reporte y consulta sin requerir manejo técnico."),
-            ("3. Voluntario OSM / Mapeador:", "Consultas Overpass QL, extracción de etiquetas y monitoreo de calidad."),
-            ("4. Investigador / Académico UAH:", "Descarga masiva de datos en formatos interoperables (GeoJSON, GPKG, XML).")
+        ("Perfiles Institucional y Comunitario", [
+            ("🏛️ Institucional / Autoridades (IDE / Muni):", "Enfoque para planificación, déficit normativo y auditoría de datos."),
+            ("• Escala Municipal:", "SECPLA (inversión y proyectos), DIMAO (medio ambiente y arbolado) y DOM Santiago (inspección y PRC)."),
+            ("• Escala Regional / Sectorial:", "SEREMI MINVU RM (política urbana), Consejo de Monumentos Nacionales (CMN, ZCH e ICH) e IDE Chile."),
+            ("🗫 Comunitario / Organizaciones Vecinales:", "Enfoque ágil en 1 clic para acceso a servicios cotidianos, farmacias y uMap."),
+            ("• Organizaciones Territoriales:", "Junta de Vecinos Brasil (UV 6, Maturana 17) y Junta de Vecinos Barrio Yungay (UV 7, Herrera 650)."),
+            ("• Organizaciones Funcionales:", "Comunidad Plaza Brasil (UV 2), Comité Los Castillitos (UV 4), C.C. Radio Brasil (UV 5) y Comunidad Brasil-Alameda (UV 6).")
         ]),
-        ("Delimitación y Caso Piloto", [
-            ("Extensión Oficial:", "Polígono de 223,75 hectáreas en el sector poniente de la comuna de Santiago."),
-            ("Articulación Urbana:", "Integra las Unidades Vecinales de Barrio Brasil y el campus patrimonial UAH."),
-            ("Referencia Geodésica:", "Proyección cartográfica homogénea en WGS84 (EPSG:4326) y UTM 19S (EPSG:32719)."),
-            ("Entregable OE 1:", "Documento metodológico formal de 61 páginas aprobado y catalogado.")
+        ("Perfiles Voluntarios OSM y ONGs / Academia", [
+            ("⌖ Mapeadores / Voluntarios OSM:", "Enfoque técnico para captura comunitaria de microatributos urbanos."),
+            ("• Actores Participantes:", "Comunidad OpenStreetMap Chile, colectivos de ciencia ciudadana y cátedras de Geografía UAH."),
+            ("• Microatributos de Brecha:", "Levantamiento de rebajes peatonales (kerb=lowered), rampas, bicicleteros, luminarias y arbolado viario."),
+            ("• Herramientas en Atlas:", "Constructor Overpass QL interactivo, validación Taginfo API y métricas de calidad ohsome v1/v2."),
+            ("🔬 ONGs / Territoriales y Academia:", "Enfoque analítico para modelación espacial, series temporales y citación formal."),
+            ("• Actores e Investigación:", "Proyecto ANID Fondecyt Regular F1261256, Depto. de Geografía UAH y fundaciones patrimoniales.")
         ])
     ]
     card_w7 = 3.75
@@ -763,7 +766,7 @@ def crear_presentacion():
         cx = 0.8 + i * (card_w7 + gap_x7)
         agregar_tarjeta(s7, cx, 1.70, card_w7, 4.95)
 
-        tb_c = s7.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w7 - 0.40), Inches(4.65))
+        tb_c = s7.shapes.add_textbox(Inches(cx + 0.15), Inches(1.80), Inches(card_w7 - 0.30), Inches(4.75))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -771,19 +774,19 @@ def crear_presentacion():
         p = tf_c.paragraphs[0]
         p.text = titulo_card
         p.font.name = FONT_NAME
-        p.font.size = Pt(13.5)
+        p.font.size = Pt(13)
         p.font.bold = True
         p.font.color.rgb = COLOR_AZUL_UAH
-        p.space_after = Pt(10)
+        p.space_after = Pt(8)
 
         for subt, txt in items:
             p_sub = tf_c.add_paragraph()
             p_sub.font.name = FONT_NAME
-            p_sub.font.size = Pt(11)
-            p_sub.space_after = Pt(6)
+            p_sub.font.size = Pt(9.5)
+            p_sub.space_after = Pt(4)
             
             r_b = p_sub.add_run()
-            r_b.text = f"• {subt} "
+            r_b.text = f"{subt} "
             r_b.font.bold = True
             r_b.font.color.rgb = COLOR_AZUL_SEC
             
@@ -792,9 +795,11 @@ def crear_presentacion():
             r_t.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s7,
-        "El OE 1 entregó dos productos clave: la taxonomía de 10 macrocategorías VGI que homologa las etiquetas de OpenStreetMap, "
-        "y la matriz de 4 perfiles territoriales bajo el estándar de Diseño Centrado en el Usuario (ISO 9241-210), garantizando que "
-        "la plataforma responda tanto a un vecino como a un investigador Fondecyt."
+        "El OE 1 entregó la taxonomía de 10 macrocategorías VGI y la especificación de los 4 perfiles multiactor del Atlas. "
+        "Para el perfil institucional se definieron dependencias clave a escala comunal como SECPLA, DIMAO y DOM Santiago, y a escala regional "
+        "como SEREMI MINVU y el Consejo de Monumentos Nacionales. Para el perfil comunitario se incorporaron organizaciones territoriales "
+        "reales de Barrio Brasil como la JJVV Brasil y Yungay, además de agrupaciones funcionales como Comité Los Castillitos y Comunidad Plaza Brasil. "
+        "Los perfiles de voluntarios OSM e investigación canalizan la ciencia ciudadana y el soporte científico del Proyecto Fondecyt UAH."
     )
 
     # =========================================================================
@@ -1152,29 +1157,31 @@ def crear_presentacion():
     # SLIDE 11: LAS 5 DIMENSIONES ESTRATÉGICAS DE ANÁLISIS (PARTE 1)
     # =========================================================================
     s11 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s11, "Dimensiones de Análisis Territorial (Parte 1: Concepto, D1 y D2)", 
+    agregar_encabezado(s11, "Dimensiones de Análisis Territorial (Parte 1: Marco y D1-D2)", 
                        categoria="10. Marco Analítico — Dimensiones Territoriales",
-                       subtitulo="Estructura conceptual multidimensional para el diagnóstico barrial en Barrio Brasil")
+                       subtitulo="Estructura multidimensional homologada al Módulo 09 del Geoportal Atlas VGI")
     agregar_pie_pagina(s11, 11)
 
     cards_dim1 = [
         ("Marco Analítico de las 5 Dimensiones", [
-            ("Propósito Metodológico:", "Superar la dispersión de datos organizando las 118 capas en 5 ejes estratégicos de diagnóstico territorial."),
-            ("Escala Microespacial:", "Operatividad a nivel de Unidad Vecinal, Manzana Censal 2024 e hilera predial en Barrio Brasil."),
-            ("Articulación Multifuente:", "Cruce sistemático entre datos oficiales del Estado de Chile y capas colaborativas de OpenStreetMap y GBIF."),
-            ("Soporte a Decisiones:", "Base analítica para alimentar matrices multicriterio de priorización barrial.")
+            ("Propósito Metodológico:", "Superar la dispersión temática agrupando las 118 capas del Atlas en 5 dimensiones estratégicas de diagnóstico territorial."),
+            ("Homología con el Atlas:", "Nombres y definiciones rigurosamente idénticos a los del Módulo 09 ('Indicadores de Análisis & Storyboards')."),
+            ("Escala Microespacial:", "Operatividad analítica a nivel de Manzana Censal 2024, Unidad Vecinal e hilera predial en Barrio Brasil."),
+            ("Trazabilidad y Rigor APA:", "Datos derivados exclusivamente de la geodatabase PostGIS, documentados bajo normas bibliográficas APA 7ª edición.")
         ]),
-        ("D1: Vulnerabilidad y Bienestar Social", [
-            ("Población y Demografía:", "Censo 2024 desagregado en 5 escalas territoriales (desde nivel regional hasta manzana censal)."),
-            ("Vulnerabilidad Social:", "Registro Social de Hogares (RSH / MDSF) con porcentaje de hogares en el tramo del 40% más vulnerable."),
-            ("Jefatura de Hogar y Género:", "Índice de jefatura femenina e indicadores de hacinamiento por unidad vecinal."),
-            ("Enfoque Focalizado:", "Permite identificar microzonas prioritarias para inversión social y programas comunitarios.")
+        ("Dimensión Sociodemográfica (19 capas)", [
+            ("Foco Temático:", "Dinámica poblacional, estructura etaria y distribución censal."),
+            ("Capas Oficiales INE:", "Censo 2024 a nivel de marco regional, límites urbanos, distritos, zonas y manzanas censales RM."),
+            ("Variables Clave:", "Población residente total, densidad habitacional por hectárea y proporción de población infanto-juvenil y personas mayores."),
+            ("Integración VGI:", "Cruce con equipamientos de educación escolar y superior universitaria Campus UAH (CAT-01)."),
+            ("Función Territorial:", "Identificar la concentración de habitantes y orientar la provisión de infraestructura según requerimientos etarios.")
         ]),
-        ("D2: Movilidad, Accesibilidad y Tránsito", [
-            ("Cruces Semaforizados:", "1.500+ intersecciones semaforizadas UOCT con información de sincronización y tipo de controlador."),
-            ("Transporte Público:", "Trazados y estaciones de Metro de Santiago (Líneas 1, 2 y 5) y paraderos de buses Red."),
-            ("Red Peatonal y Ciclovías:", "Veredas peatonales, ciclovías existentes, zonas de calmado de tráfico y pasos peatonales."),
-            ("Accesibilidad Universal:", "Evaluación de continuidad y barreras físicas para personas con movilidad reducida.")
+        ("Dimensión Socioeconómica (18 capas)", [
+            ("Foco Temático:", "Caracterización socioeconómica y estratificación por vulnerabilidad."),
+            ("Capas Oficiales MDSF:", "Registro Social de Hogares (RSH) con métricas territorializadas por Unidad Vecinal en Santiago."),
+            ("Variables Clave:", "Porcentaje de hogares en el tramo del 40% más vulnerable, índices de jefatura de hogar femenina y dependencia económica."),
+            ("Integración VGI:", "Mapeo colaborativo de comercio de escala barrial, farmacias comunitarias y ferias libres (CAT-02)."),
+            ("Función Territorial:", "Diagnosticar brechas de bienestar y focalizar intervenciones comunitarias en las microzonas de mayor vulnerabilidad.")
         ])
     ]
     card_w11 = 3.75
@@ -1183,7 +1190,7 @@ def crear_presentacion():
         cx = 0.8 + i * (card_w11 + gap_x11)
         agregar_tarjeta(s11, cx, 1.70, card_w11, 4.95)
 
-        tb_c = s11.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w11 - 0.40), Inches(4.65))
+        tb_c = s11.shapes.add_textbox(Inches(cx + 0.18), Inches(1.80), Inches(card_w11 - 0.36), Inches(4.75))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -1191,16 +1198,16 @@ def crear_presentacion():
         p = tf_c.paragraphs[0]
         p.text = titulo_card
         p.font.name = FONT_NAME
-        p.font.size = Pt(13.5)
+        p.font.size = Pt(13)
         p.font.bold = True
         p.font.color.rgb = COLOR_AZUL_UAH
-        p.space_after = Pt(12)
+        p.space_after = Pt(10)
 
         for subt, txt in items:
             p_sub = tf_c.add_paragraph()
             p_sub.font.name = FONT_NAME
-            p_sub.font.size = Pt(11)
-            p_sub.space_after = Pt(8)
+            p_sub.font.size = Pt(10)
+            p_sub.space_after = Pt(6)
             
             r_b = p_sub.add_run()
             r_b.text = f"• {subt} "
@@ -1212,10 +1219,10 @@ def crear_presentacion():
             r_t.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s11,
-        "Las cinco dimensiones de análisis estructuran temáticamente los datos del Atlas. "
-        "En esta primera lámina presentamos el concepto general, junto con la Dimensión 1 (Vulnerabilidad y Bienestar Social), "
-        "que integra el Censo 2024 y el Registro Social de Hogares, y la Dimensión 2 (Movilidad y Accesibilidad), "
-        "que mapea la infraestructura vial, semafórica y de transporte masivo en Barrio Brasil."
+        "Las dimensiones territoriales organizan temáticamente las 118 capas del Atlas para facilitar su interpretación. "
+        "Sus nombres corresponden exactamente a los definidos en el Módulo 09 del Geoportal: Sociodemográfica, Socioeconómica, "
+        "Socioambiental, Sociosanitaria y Sociourbana o Habitabilidad. En esta lámina se detalla el marco general junto a las "
+        "dimensiones Sociodemográfica (Censo 2024) y Socioeconómica (Registro Social de Hogares)."
     )
 
     # =========================================================================
@@ -1224,34 +1231,37 @@ def crear_presentacion():
     s12 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s12, "Dimensiones de Análisis Territorial (Parte 2: D3, D4 y D5)", 
                        categoria="11. Marco Analítico — Dimensiones Territoriales (Continuación)",
-                       subtitulo="Equipamiento público, infraestructura verde-ambiental y dinámica económica barrial")
+                       subtitulo="Biodiversidad ambiental, equipamiento de salud y habitabilidad urbana en Barrio Brasil")
     agregar_pie_pagina(s12, 12)
 
     cards_dim2 = [
-        ("D3: Equipamiento y Servicios", [
-            ("Salud Primaria (DEIS / MINSAL):", "Georreferenciación de CESFAM, SAPU, postas y farmacias comunitarias con áreas de cobertura."),
-            ("Educación (MINEDUC):", "Colegios públicos, particulares subvencionados, liceos emblemáticos y jardines infantiles."),
-            ("Cultura y Deporte:", "Sedes vecinales, centros culturales, bibliotecas, multicanchas y recintos IND."),
-            ("Equidad Territorial:", "Permite diagnosticar la cobertura y distancia caminable a servicios básicos esenciales.")
+        ("Dimensión Socioambiental (23 capas)", [
+            ("Foco Temático:", "Biodiversidad urbana, espacios públicos verdes y áreas de riesgo."),
+            ("Biodiversidad y Arbolado:", "Catastro biológico de flora y fauna urbana en GBIF (Darwin Core) y arbolado viario en OSM (CAT-08)."),
+            ("Espacios Públicos Verdes:", "Plazas comunitarias (Plaza Brasil), parques urbanos y superficie de áreas verdes normativas MINVU."),
+            ("Riesgos y Factores Físicos:", "Áreas de riesgo por inundación y remoción en masa (PRMS / IPT) y red hidrométrica DGA."),
+            ("Función Territorial:", "Diagnosticar déficit de áreas verdes por habitante, confort térmico e islas de calor barriales.")
         ]),
-        ("D4: Medio Ambiente y Confort", [
-            ("Áreas Verdes y Arbolado:", "Plazas, parques públicos y arbolado viario mapeado colaborativamente por la comunidad."),
-            ("Biodiversidad Biológica (GBIF):", "Registros de flora y fauna urbana validados científicamente bajo estándar Darwin Core."),
-            ("Recursos Hídricos y Clima:", "Estaciones meteorológicas DMC, monitoreo DGA y análisis preliminar de islas de calor urbano."),
-            ("Calidad de Vida:", "Métricas para evaluar confort térmico, sombra vegetal y sostenibilidad ecológica.")
+        ("Dimensión Sociosanitaria (3 capas)", [
+            ("Foco Temático:", "Red asistencial pública y acceso a servicios farmacéuticos."),
+            ("Salud Primaria (DEIS / MINSAL):", "Georreferenciación de CESFAM, SAPU, postas de atención y hospitales de la red metropolitana."),
+            ("Servicios Farmacéuticos:", "Catastro de farmacias comunitarias, municipales y comerciales con horarios de atención (CAT-02)."),
+            ("Accesibilidad Peatonal:", "Análisis de tiempos de desplazamiento a pie e isócronas caminables hacia centros asistenciales."),
+            ("Función Territorial:", "Evaluar la equidad en el acceso primario a salud y la resiliencia comunitaria frente a emergencias.")
         ]),
-        ("D5: Comercio, Seguridad y Patrimonio", [
-            ("Comercio de Barrio:", "Almacenes, ferias libres, locales gastronómicos, talleres y servicios de escala barrial."),
-            ("Seguridad Ciudadana:", "Comisarías de Carabineros, cuarteles CBS y equipamiento judicial de proximidad."),
-            ("Inversión Pública (BIP):", "Proyectos de inversión pública geocodificados del Banco Integrado de Proyectos (MDSF)."),
-            ("Patrimonio Protegido:", "Monumentos históricos (CMN) e inmuebles de conservación histórica del PRC Santiago.")
+        ("Dimensión Sociourbana o Habitabilidad (55 capas)", [
+            ("Foco Temático:", "Movilidad cotidiana, patrimonio protegido y normativa urbana PRC."),
+            ("Movilidad y Conectividad:", "Estaciones de Metro (Líneas 1, 2 y 5), paraderos del sistema Red Movilidad y red de ciclovías (CAT-03 y CAT-04)."),
+            ("Patrimonio Histórico:", "Monumentos Históricos CMN, Inmuebles de Conservación (ICH) y Zonas Típicas (ZCH) de Barrio Brasil (CAT-06)."),
+            ("Normativa Urbanística:", "Zonificación comunal del Plan Regulador Comunal (PRC Santiago) y límite urbano oficial (Art. 52 LGUC)."),
+            ("Vulnerabilidad Habitacional:", "Catastro de campamentos MINVU 2024 e identificación de cités patrimoniales tradicionales.")
         ])
     ]
     for i, (titulo_card, items) in enumerate(cards_dim2):
         cx = 0.8 + i * (card_w11 + gap_x11)
         agregar_tarjeta(s12, cx, 1.70, card_w11, 4.95)
 
-        tb_c = s12.shapes.add_textbox(Inches(cx + 0.20), Inches(1.85), Inches(card_w11 - 0.40), Inches(4.65))
+        tb_c = s12.shapes.add_textbox(Inches(cx + 0.18), Inches(1.80), Inches(card_w11 - 0.36), Inches(4.75))
         tf_c = tb_c.text_frame
         tf_c.word_wrap = True
         tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -1259,16 +1269,16 @@ def crear_presentacion():
         p = tf_c.paragraphs[0]
         p.text = titulo_card
         p.font.name = FONT_NAME
-        p.font.size = Pt(13.5)
+        p.font.size = Pt(13)
         p.font.bold = True
         p.font.color.rgb = COLOR_AZUL_UAH
-        p.space_after = Pt(12)
+        p.space_after = Pt(10)
 
         for subt, txt in items:
             p_sub = tf_c.add_paragraph()
             p_sub.font.name = FONT_NAME
-            p_sub.font.size = Pt(11)
-            p_sub.space_after = Pt(8)
+            p_sub.font.size = Pt(10)
+            p_sub.space_after = Pt(6)
             
             r_b = p_sub.add_run()
             r_b.text = f"• {subt} "
@@ -1280,47 +1290,47 @@ def crear_presentacion():
             r_t.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s12,
-        "Completamos las cinco dimensiones con la Dimensión 3 (Equipamiento Comunitario), que cubre salud DEIS, educación MINEDUC "
-        "y recintos deportivos; la Dimensión 4 (Medio Ambiente y Confort), que integra biodiversidad GBIF y arbolado urbano; "
-        "y la Dimensión 5 (Comercio, Seguridad y Patrimonio), que mapea la actividad económica local, seguridad y zonas protegidas por el CMN."
+        "Completamos las cinco dimensiones del Atlas con la Dimensión Socioambiental (biodiversidad GBIF, arbolado y riesgos), "
+        "la Dimensión Sociosanitaria (red de salud pública y farmacias) y la Dimensión Sociourbana o Habitabilidad (movilidad, "
+        "patrimonio histórico y normativa urbanística del PRC Santiago). Esta taxonomía garantiza coherencia total con el Módulo 09 del Geoportal."
     )
 
     # =========================================================================
-    # SLIDE 13: MARCO METODOLÓGICO: MODELO LINEAL DE RANKING TERRITORIAL
+    # SLIDE 13: CRITERIOS E INDICADORES PRELIMINARES POR DIMENSIÓN (HITO 6)
     # =========================================================================
     s13 = prs.slides.add_slide(blank_layout)
-    agregar_encabezado(s13, "Marco Metodológico: Enfoque hacia un Modelo Lineal de Ranking", 
-                       categoria="12. Metodología Analítica — Priorización Territorial (OE 2 / Hito 6)",
-                       subtitulo="Formulación matemática de Combinación Lineal Ponderada (WLC) multicriterio para Barrio Brasil")
+    agregar_encabezado(s13, "Criterios e Indicadores Preliminares por Dimensión", 
+                       categoria="12. Metodología Analítica — Indicadores Preliminares (Hito 6)",
+                       subtitulo="Formulación conceptual y explicativa de variables preliminares en desarrollo para priorización barrial")
     agregar_pie_pagina(s13, 13)
 
-    # Columna Izquierda: Formulación Matemática
+    # Columna Izquierda: Indicadores Preliminares por Dimensión
     agregar_tarjeta(s13, 0.8, 1.70, 5.75, 4.95)
-    tb_mf_l = s13.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(5.35), Inches(4.65))
+    tb_mf_l = s13.shapes.add_textbox(Inches(1.0), Inches(1.80), Inches(5.35), Inches(4.75))
     tf_mf_l = tb_mf_l.text_frame
     tf_mf_l.word_wrap = True
     tf_mf_l.margin_left = tf_mf_l.margin_top = tf_mf_l.margin_right = tf_mf_l.margin_bottom = 0
 
     p = tf_mf_l.paragraphs[0]
-    p.text = "Formulación Matemática del Modelo WLC"
+    p.text = "Criterios e Indicadores Preliminares (D1 a D5)"
     p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
+    p.font.size = Pt(13)
     p.font.bold = True
     p.font.color.rgb = COLOR_AZUL_UAH
     p.space_after = Pt(8)
 
-    formula_items = [
-        ("Combinación Lineal Ponderada (WLC):", "Índice S_i = Σ (w_j · X_ij), donde w_j representa el peso del criterio j y X_ij el valor normalizado en la unidad territorial i."),
-        ("Normalización de Beneficio (↑):", "Para variables donde a mayor valor mayor prioridad: X_norm = (X - X_min) / (X_max - X_min)."),
-        ("Normalización de Costo (↓):", "Para variables donde menor valor implica mayor déficit: X_norm = (X_max - X) / (X_max - X_min)."),
-        ("Condición de Cierre de Pesos:", "Σ w_j = 1,0 (100%), garantizando comparabilidad y homogeneidad matemática entre dimensiones."),
-        ("Aplicación en Barrio Brasil:", "Permite calcular rankings ordinales de vulnerabilidad y cobertura por manzana censal y unidad vecinal.")
+    dim_criteria = [
+        ("1. Sociodemográfica (D1):", "Densidad bruta de población por manzana censal (hab/ha, Censo 2024) y porcentaje de personas mayores (65+ años)."),
+        ("2. Socioeconómica (D2):", "Proporción de hogares inscritos en el tramo del 40% más vulnerable según el Registro Social de Hogares por Unidad Vecinal."),
+        ("3. Socioambiental (D3):", "Superficie de área verde por habitante y distancia caminable (< 300 m) a plazas o parques públicos."),
+        ("4. Sociosanitaria (D4):", "Distancia y tiempo de desplazamiento peatonal hacia el CESFAM o centro de atención primaria más cercano."),
+        ("5. Sociourbana o Habitabilidad (D5):", "Proximidad a estaciones de Metro / paradas Red Movilidad y concordancia normativa de usos de suelo del PRC Santiago.")
     ]
-    for subt, txt in formula_items:
+    for subt, txt in dim_criteria:
         p_sub = tf_mf_l.add_paragraph()
         p_sub.font.name = FONT_NAME
-        p_sub.font.size = Pt(11)
-        p_sub.space_after = Pt(7)
+        p_sub.font.size = Pt(10)
+        p_sub.space_after = Pt(6)
         r_b = p_sub.add_run()
         r_b.text = f"• {subt} "
         r_b.font.bold = True
@@ -1329,33 +1339,33 @@ def crear_presentacion():
         r_t.text = txt
         r_t.font.color.rgb = COLOR_NEGRO
 
-    # Columna Derecha: Criterios Territoriales
+    # Columna Derecha: Marco Metodológico y Fase de Desarrollo
     agregar_tarjeta(s13, 6.783, 1.70, 5.75, 4.95)
-    tb_mf_r = s13.shapes.add_textbox(Inches(6.983), Inches(1.85), Inches(5.35), Inches(4.65))
+    tb_mf_r = s13.shapes.add_textbox(Inches(6.983), Inches(1.80), Inches(5.35), Inches(4.75))
     tf_mf_r = tb_mf_r.text_frame
     tf_mf_r.word_wrap = True
     tf_mf_r.margin_left = tf_mf_r.margin_top = tf_mf_r.margin_right = tf_mf_r.margin_bottom = 0
 
     p = tf_mf_r.paragraphs[0]
-    p.text = "Criterios e Indicadores por Dimensión"
+    p.text = "Propósito Metodológico y Fase de Desarrollo"
     p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
+    p.font.size = Pt(13)
     p.font.bold = True
     p.font.color.rgb = COLOR_AZUL_UAH
     p.space_after = Pt(8)
 
-    dim_criteria = [
-        ("Criterios de Bienestar Social (D1):", "Porcentaje de hogares vulnerables RSH (Beneficio ↑) y tasa de dependencia senil Censo 2024 (Beneficio ↑)."),
-        ("Criterios de Movilidad (D2):", "Distancia a estaciones de Metro (Costo ↓) y densidad de cruces semaforizados UOCT por km lineal de red vial."),
-        ("Criterios de Equipamiento (D3):", "Distancia a CESFAM/salud primaria (Costo ↓) y cobertura de áreas verdes accesibles (Beneficio ↑)."),
-        ("Criterios Ambientales (D4):", "Índice de cobertura de copa arbórea (Beneficio ↑) y densidad de avistamientos de biodiversidad GBIF."),
-        ("Estado de Implementación:", "Metodología formalizada en el informe; geoprocesos de cálculo programados para las semanas 6 y 7 (Hito 6).")
+    metodologia_items = [
+        ("Carácter Preliminar y Explicativo:", "Los criterios e indicadores se presentan como una base conceptual explicativa de diagnóstico barrial; no representan métricas definitivas cerradas."),
+        ("Metodología en Desarrollo (Hito 6):", "La formulación matemática detallada y los algoritmos espaciales se programan para su ejecución formal en las Semanas 6 y 7."),
+        ("Ponderación Multicriterio Simple:", "Se contempla un esquema de normalización lineal simple (escala 0 a 1) que permita una lectura comprensible y sin opacidad técnica para la comunidad."),
+        ("Validación Comunitaria y con Expertos:", "Los indicadores y sus ponderaciones serán contrastados con dirigentes vecinales de Barrio Brasil (Hito 7) y el comité del Proyecto Fondecyt UAH."),
+        ("Integración al Geoportal:", "Al concluir el Hito 6, estos indicadores alimentarán de forma automatizada los storyboards territoriales interactivos del Módulo 09.")
     ]
-    for subt, txt in dim_criteria:
+    for subt, txt in metodologia_items:
         p_sub = tf_mf_r.add_paragraph()
         p_sub.font.name = FONT_NAME
-        p_sub.font.size = Pt(11)
-        p_sub.space_after = Pt(7)
+        p_sub.font.size = Pt(10)
+        p_sub.space_after = Pt(6)
         r_b = p_sub.add_run()
         r_b.text = f"• {subt} "
         r_b.font.bold = True
@@ -1365,9 +1375,10 @@ def crear_presentacion():
         r_t.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s13,
-        "Esta lámina expone el marco metodológico hacia el modelo lineal de priorización territorial (WLC) contemplado en el Hito 6. "
-        "A diferencia del índice de metacalidad, este modelo evaluará la calidad de vida y el déficit de servicios en el territorio, "
-        "normalizando indicadores de beneficio y costo para obtener mapas coropléticos de prioridad a escala de manzana censal."
+        "Esta lámina expone los criterios e indicadores preliminares para cada una de las cinco dimensiones territoriales. "
+        "Es fundamental destacar que son indicadores preliminares y explicativos, concebidos para ilustrar cómo se estructurará "
+        "la priorización barrial en el Hito 6. Su modelación matemática definitiva se desarrollará en las próximas semanas mediante "
+        "un esquema multicriterio sencillo y accesible, garantizando posterior validación comunitaria con vecinos de Barrio Brasil."
     )
 
     # =========================================================================
@@ -1436,31 +1447,32 @@ def crear_presentacion():
 
     # Panel Izquierdo: Funcionalidades del Visor
     agregar_tarjeta(s15, 0.8, 1.70, 5.0, 4.95)
-    tb_v_l = s15.shapes.add_textbox(Inches(1.0), Inches(1.85), Inches(4.6), Inches(4.65))
+    tb_v_l = s15.shapes.add_textbox(Inches(1.0), Inches(1.80), Inches(4.6), Inches(4.75))
     tf_v_l = tb_v_l.text_frame
     tf_v_l.word_wrap = True
     tf_v_l.margin_left = tf_v_l.margin_top = tf_v_l.margin_right = tf_v_l.margin_bottom = 0
 
     p = tf_v_l.paragraphs[0]
-    p.text = "Módulo 00: Visor e Inspector PRC"
+    p.text = "Módulo 00: Visor e Inspector Normativo PRC"
     p.font.name = FONT_NAME
-    p.font.size = Pt(13.5)
+    p.font.size = Pt(13)
     p.font.bold = True
     p.font.color.rgb = COLOR_AZUL_UAH
     p.space_after = Pt(8)
 
     func_visor = [
-        ("Árbol de 118 Capas:", "Organizado en acordeones jerárquicos: 8 grupos temáticos oficiales más las 10 macrocategorías VGI."),
-        ("Inspector Normativo PRC:", "Al hacer clic en cualquier punto de Barrio Brasil, cruza coordenadas con las 192 zonas del Plan Regulador Comunal de Santiago."),
-        ("Parámetros Urbanísticos:", "Despliega constructibilidad máxima, altura permitida, usos de suelo y coeficientes de ocupación."),
-        ("Filtros Espaciales Dinámicos:", "Filtrado por Unidad Vecinal, búsqueda semántica de capas y selector de mapas base OSM/Carto/Satélite."),
-        ("Medición e Interacción:", "Herramientas de regla métrica, cálculo de áreas poligonales e información geográfica emergente (popups).")
+        ("Árbol Jerárquico de 118 Capas:", "Organizado en acordeones temáticos: 8 grupos oficiales (108 capas) y 10 macrocategorías VGI comunitarias."),
+        ("Inspector Normativo Comunal:", "Al hacer clic en cualquier punto de Barrio Brasil, cruza coordenadas con las 192 zonas prediales del PRC Santiago."),
+        ("Zonificación y Ordenanza:", "Identifica zona predial (código y nombre), instrumento regulador, decreto de publicación y artículo de ordenanza aplicable."),
+        ("Usos de Suelo (UPERM y UPROH):", "Despliega usos de suelo permitidos y prohibidos expresamente por exclusión negativa (Art. 2.1.24 OGUC)."),
+        ("Restricciones y Riesgo:", "Evalúa áreas de riesgo natural (Art. 2.1.17 OGUC), límite urbano oficial (Art. 52 LGUC) y protección patrimonial (ICH/ZCH)."),
+        ("Certificado Informativo CIN-VGI:", "Genera y permite descargar en archivo de texto plano (.txt) una minuta con el informe normativo del predio consultado.")
     ]
     for subt, txt in func_visor:
         p_sub = tf_v_l.add_paragraph()
         p_sub.font.name = FONT_NAME
-        p_sub.font.size = Pt(11)
-        p_sub.space_after = Pt(7)
+        p_sub.font.size = Pt(9.8)
+        p_sub.space_after = Pt(5)
         r_b = p_sub.add_run()
         r_b.text = f"• {subt} "
         r_b.font.bold = True
@@ -1477,7 +1489,8 @@ def crear_presentacion():
     agregar_notas_orador(s15,
         "El Módulo 00 es el corazón cartográfico del Atlas. Soporta la superposición de las 118 capas con controles independientes "
         "de opacidad y simbología. Una funcionalidad destacada es el Inspector Normativo, que permite hacer clic en cualquier predio "
-        "y consultar la zona del Plan Regulador Comunal de Santiago con sus normas urbanísticas vigentes."
+        "y consultar la zonificación del Plan Regulador Comunal de Santiago, usos de suelo permitidos y prohibidos, restricciones "
+        "de riesgo natural y afectación patrimonial, con opción de descargar un certificado normativo CIN-VGI en texto plano."
     )
 
     # =========================================================================
@@ -1673,15 +1686,15 @@ def crear_presentacion():
         r_t.text = txt
         r_t.font.color.rgb = COLOR_NEGRO
 
-    # Panel Derecho: 2 Capturas de GitHub (Repositorio y Commits)
+    # Panel Derecho: 2 Capturas de GitHub y Netlify
     captura_gh = os.path.join(IMG_DIR, "10_github_repositorio.png")
     captura_commits = os.path.join(IMG_DIR, "11_github_commits.png")
 
     agregar_imagen_con_marco(s19, captura_gh, 6.783, 1.70, 5.75, 2.05,
-                             pie_fuente="Repositorio abierto en GitHub: atlas_vgi_uah (GEOJOTA).")
+                             pie_fuente="Repositorio abierto en GitHub: atlas_vgi_uah (Control de versiones del código fuente).")
 
     agregar_imagen_con_marco(s19, captura_commits, 6.783, 4.30, 5.75, 2.05,
-                             pie_fuente="Historial de commits y despliegue continuo en producción (Netlify CI/CD).")
+                             pie_fuente="Plataforma de despliegue continuo en Netlify CI/CD (Producción activa en la nube).")
 
     agregar_notas_orador(s19,
         "La arquitectura técnica fue diseñada bajo la premisa de costo cero recurrente y máxima resiliencia. "
