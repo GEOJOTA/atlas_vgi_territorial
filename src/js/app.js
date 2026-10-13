@@ -1271,11 +1271,6 @@ function sincronizarBboxEnInputs(bbox) {
   escribirBbox('oh', bbox);
   escribirBbox('gbif', bbox);
   escribirBbox('md', bbox);
-
-  const elCalidadBbox = document.getElementById('calidad-label-bbox-coordenadas');
-  if (elCalidadBbox && Array.isArray(bbox)) {
-    elCalidadBbox.textContent = `[${bbox.map(n => Number(n).toFixed(4)).join(', ')}]`;
-  }
 }
 
 function aplicarAreaConfigAlExplorador() {

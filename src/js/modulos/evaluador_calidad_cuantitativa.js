@@ -132,25 +132,11 @@ const EvaluadorCalidadCuantitativa = (() => {
   }
 
   /**
-   * Obtiene el BBox territorial activo de Barrio Brasil, sincronizado con la configuración
-   * del visor y los selectores territoriales de la aplicación.
+   * Obtiene el BBox territorial exclusivo para la auditoría de calidad de Barrio Brasil.
+   * Este BBox opera de forma independiente y aislada respecto a la configuración general
+   * del visor y la geodatabase oficial.
    */
   function obtenerBboxActivoParaAuditoria() {
-    if (typeof window !== 'undefined') {
-      if (typeof leerBbox === 'function') {
-        const b = leerBbox('osm') || leerBbox('oh') || leerBbox('md');
-        if (b && Array.isArray(b) && b.length === 4 && !b.some(isNaN)) {
-          const ancho = Math.abs(b[2] - b[0]);
-          const alto = Math.abs(b[3] - b[1]);
-          if (ancho > 0.005 && ancho < 0.1 && alto > 0.005 && alto < 0.1) {
-            return b;
-          }
-        }
-      }
-      if (window.NODO_CONFIG?.area_por_defecto?.bbox) {
-        return window.NODO_CONFIG.area_por_defecto.bbox;
-      }
-    }
     return BBOX_BARRIO_BRASIL_PILOTO;
   }
 

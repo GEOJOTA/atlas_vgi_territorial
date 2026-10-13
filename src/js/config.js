@@ -16,18 +16,18 @@ const CONFIG_PREDETERMINADA = {
     area_de_interes_nombre: 'Barrio Brasil — Universidad Alberto Hurtado (Santiago Centro, Chile)'
   },
   area_por_defecto: {
-    bbox: [-70.6740, -33.4530, -70.6550, -33.4330],
+    bbox: [-70.6720, -33.4505, -70.6580, -33.4350],
     centro: [-33.4425, -70.6650],
     zoom: 15
   },
   territorios_predefinidos: [
     {
       id: 'barrio-brasil-ampliado',
-      nombre: 'Barrio Brasil Completo (hasta Plaza Brasil y Matucana)',
-      bbox: [-70.6740, -33.4530, -70.6550, -33.4330],
+      nombre: 'Barrio Brasil Completo (hasta Plaza Brasil)',
+      bbox: [-70.6720, -33.4505, -70.6580, -33.4350],
       centro: [-33.4425, -70.6650],
       zoom: 15,
-      descripcion: 'Zona Típica Barrio Brasil, Plaza Brasil, Huérfanos, Compañía, Av. Brasil, Alameda y Matucana'
+      descripcion: 'Zona Típica Barrio Brasil, Plaza Brasil, Huérfanos, Compañía, Av. Brasil y Alameda'
     },
     {
       id: 'uah-manzana',
