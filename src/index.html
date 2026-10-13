@@ -737,6 +737,15 @@
           </div>
         </details>
 
+        <!-- Control de Focalización Territorial BBox Barrio Brasil -->
+        <div style="background:rgba(6, 182, 212, 0.08); border:1px solid rgba(6, 182, 212, 0.35); border-radius:8px; padding:10px 14px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+          <label for="calidad-chk-filtrar-bbox" style="display:flex; align-items:center; gap:8px; font-size:0.83rem; color:var(--tinta); cursor:pointer;">
+            <input type="checkbox" id="calidad-chk-filtrar-bbox" checked style="accent-color:var(--esmeralda); width:16px; height:16px;">
+            <span><strong>Focalizar auditoría en BBox Barrio Brasil</strong> <code id="calidad-label-bbox-coordenadas" style="color:var(--musgo); font-size:0.75rem;">[-70.6740, -33.4530, -70.6550, -33.4330]</code></span>
+          </label>
+          <span style="font-size:0.74rem; color:var(--tinta-tenue);">Recorta capas multiescalares/masivas (ej. Censo 2024 Manzanas) al cuadrante del piloto</span>
+        </div>
+
         <!-- Botones de Ejecución -->
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <button class="accion" id="btn-ejecutar-auditoria-igv" style="font-weight:700; background:var(--esmeralda); color:#000; padding:10px 20px;">

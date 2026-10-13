@@ -42,8 +42,13 @@ const EvaluadorCalidadCuantitativa = (() => {
   };
 
   // Umbrales de Seguridad para Procesamiento en Cliente (Prevención de Out-of-Memory y reinicio de página)
-  const LIMITE_BYTES_ARCHIVO = 25 * 1024 * 1024;        // 25 MB máximo por archivo/capa en navegador
+  const LIMITE_BYTES_ARCHIVO = 25 * 1024 * 1024;        // 25 MB máximo por archivo externo no filtrado
+  const LIMITE_BYTES_CAPA_INTERNA = 80 * 1024 * 1024;   // 80 MB máximo para capas oficiales internas (recortadas por Bbox)
   const LIMITE_ENTIDADES_PROCESAMIENTO = 15000;         // 15.000 entidades vectoriales concurrentes
+
+  // BBox Territorial Oficial del Caso Piloto: Barrio Brasil y Campus Patrimonial UAH
+  // Envolvente: Oeste (Matucana) -70.6740, Sur (Alameda) -33.4530, Este (Manuel Rodríguez) -70.6550, Norte (San Pablo) -33.4330
+  const BBOX_BARRIO_BRASIL_PILOTO = [-70.6740, -33.4530, -70.6550, -33.4330];
 
   let mapaDiagnosticoInstancia = null;
   let capaGeojsonDiagnostico = null;
@@ -124,6 +129,99 @@ const EvaluadorCalidadCuantitativa = (() => {
       }
     }
     return kinks;
+  }
+
+  /**
+   * Obtiene el BBox territorial activo de Barrio Brasil, sincronizado con la configuración
+   * del visor y los selectores territoriales de la aplicación.
+   */
+  function obtenerBboxActivoParaAuditoria() {
+    if (typeof window !== 'undefined') {
+      if (typeof leerBbox === 'function') {
+        const b = leerBbox('osm') || leerBbox('oh') || leerBbox('md');
+        if (b && Array.isArray(b) && b.length === 4 && !b.some(isNaN)) {
+          const ancho = Math.abs(b[2] - b[0]);
+          const alto = Math.abs(b[3] - b[1]);
+          if (ancho > 0.005 && ancho < 0.1 && alto > 0.005 && alto < 0.1) {
+            return b;
+          }
+        }
+      }
+      if (window.NODO_CONFIG?.area_por_defecto?.bbox) {
+        return window.NODO_CONFIG.area_por_defecto.bbox;
+      }
+    }
+    return BBOX_BARRIO_BRASIL_PILOTO;
+  }
+
+  /**
+   * Determina si la envolvente convexa (AABB) de una geometría GeoJSON
+   * interseca el BBox rectangular [minX, minY, maxX, maxY].
+   */
+  function geometriaIntersecaBbox(geom, bbox) {
+    if (!geom || !geom.coordinates || !bbox || bbox.length < 4) return false;
+    const minX = bbox[0], minY = bbox[1], maxX = bbox[2], maxY = bbox[3];
+
+    let fMinX = Infinity, fMinY = Infinity, fMaxX = -Infinity, fMaxY = -Infinity;
+
+    function procesarCoord(c) {
+      if (!Array.isArray(c) || c.length < 2) return;
+      const x = c[0], y = c[1];
+      if (typeof x !== 'number' || typeof y !== 'number' || isNaN(x) || isNaN(y)) return;
+      if (x < fMinX) fMinX = x;
+      if (y < fMinY) fMinY = y;
+      if (x > fMaxX) fMaxX = x;
+      if (y > fMaxY) fMaxY = y;
+    }
+
+    function extraer(g) {
+      if (!g || !g.coordinates) return;
+      const t = g.type, c = g.coordinates;
+      if (t === 'Point') procesarCoord(c);
+      else if (t === 'MultiPoint' || t === 'LineString') c.forEach(procesarCoord);
+      else if (t === 'MultiLineString' || t === 'Polygon') c.forEach(an => an.forEach(procesarCoord));
+      else if (t === 'MultiPolygon') c.forEach(p => p.forEach(an => an.forEach(procesarCoord)));
+      else if (t === 'GeometryCollection' && Array.isArray(g.geometries)) g.geometries.forEach(extraer);
+    }
+
+    extraer(geom);
+
+    if (fMinX === Infinity) return false;
+
+    // Condición de no solapamiento AABB en 2D
+    if (fMaxX < minX || fMinX > maxX || fMaxY < minY || fMinY > maxY) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Filtra un objeto GeoJSON reteniendo únicamente las entidades vectoriales
+   * que intersecan espacialmente el BBox de Barrio Brasil.
+   */
+  function filtrarDatasetPorBbox(geojsonData, bbox = BBOX_BARRIO_BRASIL_PILOTO) {
+    if (!geojsonData || !Array.isArray(geojsonData.features)) {
+      return { geojson: geojsonData, filtrado: false, totalOriginal: 0, totalFiltrado: 0, bbox };
+    }
+
+    const totalOriginal = geojsonData.features.length;
+    const featuresFiltradas = geojsonData.features.filter(f => f && f.geometry && geometriaIntersecaBbox(f.geometry, bbox));
+
+    const nuevoGeojson = {
+      type: geojsonData.type || 'FeatureCollection',
+      name: geojsonData.name,
+      crs: geojsonData.crs,
+      bbox: bbox,
+      features: featuresFiltradas
+    };
+
+    return {
+      geojson: nuevoGeojson,
+      filtrado: featuresFiltradas.length > 0 && featuresFiltradas.length < totalOriginal,
+      totalOriginal,
+      totalFiltrado: featuresFiltradas.length,
+      bbox
+    };
   }
 
   function auditarGeometria(geom, featureIndex) {
@@ -442,7 +540,7 @@ const EvaluadorCalidadCuantitativa = (() => {
       verticesEnRango,
       verticesNullIsland,
       tasaIntegridad,
-      bboxGlobal: bboxGlobal[0] !== Infinity ? bboxGlobal : [-70.67, -33.45, -70.65, -33.43]
+      bboxGlobal: bboxGlobal[0] !== Infinity ? bboxGlobal : obtenerBboxActivoParaAuditoria()
     };
   }
 
@@ -1050,7 +1148,10 @@ const EvaluadorCalidadCuantitativa = (() => {
         totalKinks,
         totalAnillosAbiertos,
         totalSlivers,
-        bbox: diagPosicional.bboxGlobal
+        bbox: diagPosicional.bboxGlobal,
+        recorteBboxAplicado: Boolean(metadatosDeclarados && metadatosDeclarados.recorteBboxAplicado),
+        totalOriginalDataset: (metadatosDeclarados && metadatosDeclarados.totalOriginalDataset) || totalFeatures,
+        bboxFiltro: (metadatosDeclarados && metadatosDeclarados.bboxFiltro) || null
       },
       indicadorGlobal: {
         igv,
@@ -1550,6 +1651,18 @@ print("Dataset subsanado y listo para producción!")
             </span>
           </div>
         </div>
+
+        ${rd.recorteBboxAplicado ? `
+        <!-- Aviso de Focalización Territorial BBox Barrio Brasil -->
+        <div style="background:rgba(6, 182, 212, 0.12); border:1px solid var(--musgo); border-left:5px solid var(--musgo); border-radius:8px; padding:12px 16px; margin-bottom:18px; font-family:var(--fuente-datos); font-size:0.83rem; color:var(--musgo); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <div>
+            <strong style="color:#ffffff;">📍 Focalización Territorial Activa (BBox Barrio Brasil):</strong>
+            <span style="color:var(--tinta-suave); display:block; margin-top:2px;">Se auditaron <strong>${rd.totalFeatures.toLocaleString('es-CL')}</strong> entidades correspondientes al territorio piloto (recortadas espacialmente de ${rd.totalOriginalDataset.toLocaleString('es-CL')} entidades totales en la base de datos).</span>
+          </div>
+          <span style="background:var(--papel); padding:4px 10px; border-radius:6px; font-size:0.76rem; border:1px solid var(--linea); color:var(--tinta); white-space:nowrap;">
+            BBox: [${rd.bbox.map(n => Number(n).toFixed(4)).join(', ')}]
+          </span>
+        </div>` : ''}
 
         <!-- Comparativa de Pilares Cuantitativo vs Cualitativo -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px; margin-bottom:18px;">
@@ -2345,7 +2458,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
       mapaDiagnosticoInstancia = null;
     }
 
-    const bbox = resultado.resumenDataset.bbox || [-70.67, -33.45, -70.65, -33.43];
+    const bbox = (resultado.resumenDataset && resultado.resumenDataset.bbox) || obtenerBboxActivoParaAuditoria();
     const centroLat = (bbox[1] + bbox[3]) / 2;
     const centroLng = (bbox[0] + bbox[2]) / 2;
 
@@ -2447,9 +2560,13 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
     }).addTo(mapaDiagnosticoInstancia);
 
     try {
-      mapaDiagnosticoInstancia.fitBounds(capaGeojsonDiagnostico.getBounds(), { padding: [20, 20], maxZoom: 17 });
+      if (capaGeojsonDiagnostico && capaGeojsonDiagnostico.getBounds && capaGeojsonDiagnostico.getBounds().isValid()) {
+        mapaDiagnosticoInstancia.fitBounds(capaGeojsonDiagnostico.getBounds(), { padding: [20, 20], maxZoom: 17 });
+      } else {
+        mapaDiagnosticoInstancia.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]], { padding: [20, 20], maxZoom: 17 });
+      }
     } catch (e) {
-      // Bounds fallback
+      mapaDiagnosticoInstancia.setView([centroLat, centroLng], 15);
     }
 
     setTimeout(() => {
@@ -2790,22 +2907,22 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
             const resFetch = await fetch(urlCapa);
             if (!resFetch.ok) throw new Error(`No se pudo cargar la capa seleccionada (${resFetch.status} ${resFetch.statusText})`);
 
-            // Verificación preventiva por encabezado Content-Length
+            // Verificación preventiva por encabezado Content-Length (80 MB para capas oficiales)
             const clHeader = resFetch.headers.get('content-length');
-            if (clHeader && parseInt(clHeader, 10) > LIMITE_BYTES_ARCHIVO) {
+            if (clHeader && parseInt(clHeader, 10) > LIMITE_BYTES_CAPA_INTERNA) {
               const szMB = (parseInt(clHeader, 10) / (1024 * 1024)).toFixed(1);
               const err = new Error('No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño');
               err.esArchivoPesado = true;
-              err.detalle = `La capa seleccionada tiene un tamaño de ${szMB} MB, superando el límite seguro de 25 MB para procesamiento en navegador.`;
+              err.detalle = `La capa seleccionada tiene un tamaño de ${szMB} MB, superando el límite seguro de 80 MB para procesamiento en navegador.`;
               throw err;
             }
 
             const blob = await resFetch.blob();
-            if (blob.size > LIMITE_BYTES_ARCHIVO) {
+            if (blob.size > LIMITE_BYTES_CAPA_INTERNA) {
               const szMB = (blob.size / (1024 * 1024)).toFixed(1);
               const err = new Error('No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño');
               err.esArchivoPesado = true;
-              err.detalle = `La capa descargada (${szMB} MB) supera el límite de 25 MB para procesamiento en navegador.`;
+              err.detalle = `La capa descargada (${szMB} MB) supera el límite de 80 MB para procesamiento en navegador.`;
               throw err;
             }
 
@@ -2857,6 +2974,25 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
 
           if (!dataGeojson) {
             throw new Error('Por favor arrastra un archivo GeoJSON, selecciona una capa o pega contenido válido.');
+          }
+
+          // Aplicar filtrado espacial por BBox territorial de Barrio Brasil si el control está activo
+          // o si el conjunto de datos es masivo (> 600 entidades) para prevenir reinicios y enfocar el piloto
+          const chkFiltroBbox = document.getElementById('calidad-chk-filtrar-bbox');
+          const focalizarEnBbox = chkFiltroBbox ? chkFiltroBbox.checked : true;
+          const bboxBarrioBrasil = obtenerBboxActivoParaAuditoria();
+          const totalEntidadesCargadas = (dataGeojson.features && Array.isArray(dataGeojson.features)) ? dataGeojson.features.length : 0;
+
+          if ((focalizarEnBbox || totalEntidadesCargadas > 600) && totalEntidadesCargadas > 0) {
+            const resFiltro = filtrarDatasetPorBbox(dataGeojson, bboxBarrioBrasil);
+            if (resFiltro.totalFiltrado > 0) {
+              dataGeojson = resFiltro.geojson;
+              if (!metadatosDeclarados) metadatosDeclarados = {};
+              metadatosDeclarados.recorteBboxAplicado = true;
+              metadatosDeclarados.totalOriginalDataset = totalEntidadesCargadas;
+              metadatosDeclarados.totalAuditadoBbox = resFiltro.totalFiltrado;
+              metadatosDeclarados.bboxFiltro = bboxBarrioBrasil;
+            }
           }
 
           if (cont) {
@@ -2941,6 +3077,10 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
   }
 
   return {
+    BBOX_BARRIO_BRASIL_PILOTO,
+    obtenerBboxActivoParaAuditoria,
+    geometriaIntersecaBbox,
+    filtrarDatasetPorBbox,
     PONDERADORES_DEFECTO,
     auditarGeometria,
     auditarAtributos,
