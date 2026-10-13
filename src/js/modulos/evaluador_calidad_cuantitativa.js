@@ -1903,8 +1903,8 @@ print("Dataset subsanado y listo para producción!")
                 <span>✅</span> <strong>¡Dataset 100% Conforme Topológicamente!</strong> No se detectaron anillos abiertos, auto-intersecciones ni micro-slivers en las ${rd.totalFeatures} entidades.
               </div>
             ` : `
-              <div style="max-height:220px; overflow-y:auto; border:1px solid var(--linea); border-radius:6px; padding:8px; background:var(--papel-tarjeta);">
-                ${entidadesConObservacion.map(ed => `
+              <div style="max-height:240px; overflow-y:auto; border:1px solid var(--linea); border-radius:6px; padding:8px; background:var(--papel-tarjeta);">
+                ${entidadesConObservacion.slice(0, 50).map(ed => `
                   <div style="background:var(--papel-alto); border:1px solid ${ed.valida ? '#f59e0b44' : '#ef444455'}; border-left:4px solid ${ed.valida ? '#f59e0b' : '#ef4444'}; border-radius:6px; padding:8px 12px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                     <div>
                       <div style="font-weight:700; font-size:0.8rem; color:var(--tinta); display:flex; align-items:center; gap:6px;">
@@ -1920,6 +1920,11 @@ print("Dataset subsanado y listo para producción!")
                     </button>
                   </div>
                 `).join('')}
+                ${entidadesConObservacion.length > 50 ? `
+                  <div style="text-align:center; padding:10px; font-size:0.75rem; color:var(--tinta-tenue); border-top:1px dashed var(--linea); margin-top:6px; background:var(--papel-alto); border-radius:4px;">
+                    <em>Mostrando las primeras 50 observaciones de un total de ${entidadesConObservacion.length} entidades observadas. El detalle íntegro está registrado en el Certificado JSON descargable y en el Plan de Subsanación.</em>
+                  </div>
+                ` : ''}
               </div>
             `}
           </div>
@@ -2299,10 +2304,20 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
 
     capasLeafletPorIndice = {};
 
+    // Limitar la cantidad de entidades vectoriales dibujadas en Leaflet a un máximo de 300 para óptimo rendimiento gráfico
+    const maxFeaturesRender = 300;
+    let entidadesParaMapa = resultado.entidadesDiagnosticadas || [];
+    if (entidadesParaMapa.length > maxFeaturesRender) {
+      const conObs = entidadesParaMapa.filter(ed => !ed.valida || ed.esSliver || (ed.hallazgos && ed.hallazgos.length > 0));
+      const conformes = entidadesParaMapa.filter(ed => ed.valida && !ed.esSliver && (!ed.hallazgos || ed.hallazgos.length === 0));
+      const cupoRestante = Math.max(0, maxFeaturesRender - conObs.length);
+      entidadesParaMapa = [...conObs, ...conformes.slice(0, cupoRestante)];
+    }
+
     // Dibujar features estilizadas según semáforo
     const fc = {
       type: 'FeatureCollection',
-      features: resultado.entidadesDiagnosticadas.map(ed => {
+      features: entidadesParaMapa.map(ed => {
         const f = ed.featureRef;
         f.__evalIdx = ed.index;
         return f;
@@ -2310,7 +2325,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
     };
 
     const mapaDiagnosticosPorIdx = {};
-    resultado.entidadesDiagnosticadas.forEach(ed => {
+    entidadesParaMapa.forEach(ed => {
       mapaDiagnosticosPorIdx[ed.index] = ed;
     });
 
@@ -2498,18 +2513,18 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
       const capasOficiales = window.ModuloIDEChile.obtenerCapasDisponibles ? window.ModuloIDEChile.obtenerCapasDisponibles() : [];
       let htmlOpts = `<option value="">-- Selecciona una capa de la base de datos (118 componentes) --</option>`;
 
-      htmlOpts += `<optgroup label="Macro-categorías VGI Comunitarias (10 Capas)">`;
+      htmlOpts += `<optgroup label="Macro-categorías VGI Comunitarias (10 Capas Barrio Brasil)">`;
       const catsVGI = [
-        { id: 'vgi_educacion', nom: 'CAT-01: Educación y Universidad (OSM RM)', file: 'data/capa_osm_rm_cat01_educacion.geojson' },
-        { id: 'vgi_servicios', nom: 'CAT-02: Servicios y Comercio Barrial (OSM RM)', file: 'data/capa_osm_rm_cat02_servicios.geojson' },
-        { id: 'vgi_transporte', nom: 'CAT-03: Movilidad y Transporte (OSM RM)', file: 'data/capa_osm_rm_cat03_transporte.geojson' },
-        { id: 'vgi_mov_activa', nom: 'CAT-04: Movilidad Activa y Ciclovías (OSM RM)', file: 'data/capa_osm_rm_cat04_movilidad_activa.geojson' },
-        { id: 'vgi_espacio_pub', nom: 'CAT-05: Áreas Verdes y Espacio Público (OSM RM)', file: 'data/capa_osm_rm_cat05_espacio_publico.geojson' },
-        { id: 'vgi_patrimonio', nom: 'CAT-06: Patrimonio y Memoria (OSM RM)', file: 'data/capa_osm_rm_cat06_patrimonio.geojson' },
-        { id: 'vgi_accesibilidad', nom: 'CAT-07: Accesibilidad Universal (OSM RM)', file: 'data/capa_osm_rm_cat07_accesibilidad.geojson' },
-        { id: 'vgi_biodiversidad', nom: 'CAT-08: Biodiversidad Urbana (OSM RM)', file: 'data/capa_osm_rm_cat08_biodiversidad.geojson' },
-        { id: 'vgi_edificaciones', nom: 'CAT-09: Edificaciones y Huella Urbana (OSM RM)', file: 'data/capa_osm_rm_cat09_edificaciones.geojson' },
-        { id: 'vgi_cobertura', nom: 'CAT-10: Coberturas y Usos de Suelo (OSM RM)', file: 'data/capa_osm_rm_cat10_cobertura_suelo.geojson' }
+        { id: 'vgi_educacion', nom: 'CAT-01: Educación y Universidad (Barrio Brasil)', file: 'data/capa_educacion.geojson' },
+        { id: 'vgi_servicios', nom: 'CAT-02: Servicios y Comercio Barrial (Barrio Brasil)', file: 'data/capa_servicios.geojson' },
+        { id: 'vgi_transporte', nom: 'CAT-03: Movilidad y Transporte (Barrio Brasil)', file: 'data/capa_transporte.geojson' },
+        { id: 'vgi_mov_activa', nom: 'CAT-04: Movilidad Activa y Ciclovías (Barrio Brasil)', file: 'data/capa_movilidad_activa.geojson' },
+        { id: 'vgi_espacio_pub', nom: 'CAT-05: Áreas Verdes y Espacio Público (Barrio Brasil)', file: 'data/capa_espacio_publico.geojson' },
+        { id: 'vgi_patrimonio', nom: 'CAT-06: Patrimonio y Memoria (Barrio Brasil)', file: 'data/capa_patrimonio.geojson' },
+        { id: 'vgi_accesibilidad', nom: 'CAT-07: Accesibilidad Universal (Barrio Brasil)', file: 'data/capa_accesibilidad.geojson' },
+        { id: 'vgi_biodiversidad', nom: 'CAT-08: Biodiversidad Urbana (Barrio Brasil)', file: 'data/capa_biodiversidad.geojson' },
+        { id: 'vgi_edificaciones', nom: 'CAT-09: Edificaciones y Huella Urbana (Barrio Brasil)', file: 'data/capa_edificaciones.geojson' },
+        { id: 'vgi_cobertura', nom: 'CAT-10: Coberturas y Usos de Suelo (Barrio Brasil)', file: 'data/capa_cobertura_suelo.geojson' }
       ];
       catsVGI.forEach(c => {
         htmlOpts += `<option value="${c.file}">${c.nom}</option>`;
@@ -2609,12 +2624,16 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
 
     // Botón Ejecutar Auditoría
     if (btnAuditar) {
-      btnAuditar.addEventListener('click', async () => {
+      btnAuditar.addEventListener('click', async (e) => {
+        if (e && typeof e.preventDefault === 'function') {
+          e.preventDefault();
+        }
+
         const cont = document.getElementById('resultado-auditoria-igv');
         if (cont) {
           cont.innerHTML = `
             <div style="padding:20px; text-align:center; font-family:var(--fuente-datos); color:var(--musgo);">
-              <span class="marcador-parpadeo">[AUDITORÍA EN EJECUCIÓN]</span> Analizando topología OGC, consistencia métrica y atributos bajo ISO 19157...
+              <span class="marcador-parpadeo">[INICIANDO AUDITORÍA]</span> Preparando análisis de calidad espacial bajo ISO 19157 / ISO 19115...
             </div>
           `;
         }
@@ -2626,8 +2645,25 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
           // Si seleccionó capa interna y no hay archivo externo subido
           if (selectCapa && selectCapa.value && !dataGeojson) {
             const urlCapa = selectCapa.value;
+            if (cont) {
+              cont.innerHTML = `
+                <div style="padding:20px; text-align:center; font-family:var(--fuente-datos); color:var(--musgo);">
+                  <span class="marcador-parpadeo">[DESCARGANDO CAPA]</span> Obteniendo datos desde <code style="color:var(--esmeralda);">${urlCapa}</code>...
+                </div>
+              `;
+            }
+
             const resFetch = await fetch(urlCapa);
-            if (!resFetch.ok) throw new Error(`No se pudo cargar la capa seleccionada (${resFetch.status})`);
+            if (!resFetch.ok) throw new Error(`No se pudo cargar la capa seleccionada (${resFetch.status} ${resFetch.statusText})`);
+
+            if (cont) {
+              cont.innerHTML = `
+                <div style="padding:20px; text-align:center; font-family:var(--fuente-datos); color:var(--musgo);">
+                  <span class="marcador-parpadeo">[PARSANDO ESTRUCTURA]</span> Decodificando geometrías vectoriales y tabla de atributos...
+                </div>
+              `;
+            }
+
             dataGeojson = await resFetch.json();
             const optSeleccionada = selectCapa.options[selectCapa.selectedIndex];
             const idCapa = optSeleccionada ? optSeleccionada.dataset.id : null;
@@ -2660,14 +2696,26 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
             throw new Error('Por favor arrastra un archivo GeoJSON, selecciona una capa o pega contenido válido.');
           }
 
+          if (cont) {
+            cont.innerHTML = `
+              <div style="padding:20px; text-align:center; font-family:var(--fuente-datos); color:var(--musgo);">
+                <span class="marcador-parpadeo">[AUDITORÍA EN EJECUCIÓN]</span> Analizando topología OGC SFA, consistencia métrica y atributos bajo ISO 19157...
+              </div>
+            `;
+          }
+
+          // Breve pausa para permitir al navegador refrescar el DOM antes de procesar
+          await new Promise(r => setTimeout(r, 60));
+
           const resultado = auditarDatasetEspacial(dataGeojson, metadatosDeclarados);
           renderizarResultadosUI(resultado, 'resultado-auditoria-igv');
 
         } catch (err) {
+          console.error('[Error en Auditoría IGV]:', err);
           if (cont) {
             cont.innerHTML = `
               <div style="background:var(--papel-alto); border:1px solid var(--alerta); padding:16px; color:var(--alerta); font-family:var(--fuente-datos); font-size:0.85rem; border-radius:8px;">
-                [ERROR DE AUDITORÍA] ${err.message}
+                <strong>[ERROR DE AUDITORÍA]:</strong> ${err.message}
               </div>
             `;
           }
@@ -2677,19 +2725,20 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
 
     // Botón Ejemplo Piloto Barrio Brasil
     if (btnEjemplo) {
-      btnEjemplo.addEventListener('click', async () => {
+      btnEjemplo.addEventListener('click', async (e) => {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
         try {
-          const res = await fetch('data/capa_osm_rm_cat01_educacion.geojson');
+          const res = await fetch('data/capa_educacion.geojson');
           if (!res.ok) throw new Error('No se pudo cargar el ejemplo piloto.');
           const data = await res.json();
           window._datosGeojsonCargadosParaCalidad = data;
           window._metadatosAsociadosCargados = {
-            titulo: 'CAT-01: Educación y Universidad (Barrio Brasil / RM)',
+            titulo: 'CAT-01: Educación y Universidad (Barrio Brasil)',
             score_mc: 98.0, score_cc: 100.0, score_ll: 100.0, score_rg: 100.0, score_ai: 100.0
           };
           const spanNombre = document.getElementById('calidad-archivo-seleccionado-nombre');
           if (spanNombre) {
-            spanNombre.textContent = 'Cargado: CAT-01 Educación y Universidad (Piloto)';
+            spanNombre.textContent = 'Cargado: CAT-01 Educación y Universidad (Piloto Barrio Brasil)';
             spanNombre.style.display = 'inline-block';
           }
           if (btnAuditar) btnAuditar.click();
