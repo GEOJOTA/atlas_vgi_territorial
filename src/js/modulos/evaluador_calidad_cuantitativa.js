@@ -41,6 +41,10 @@ const EvaluadorCalidadCuantitativa = (() => {
     }
   };
 
+  // Umbrales de Seguridad para Procesamiento en Cliente (Prevención de Out-of-Memory y reinicio de página)
+  const LIMITE_BYTES_ARCHIVO = 25 * 1024 * 1024;        // 25 MB máximo por archivo/capa en navegador
+  const LIMITE_ENTIDADES_PROCESAMIENTO = 15000;         // 15.000 entidades vectoriales concurrentes
+
   let mapaDiagnosticoInstancia = null;
   let capaGeojsonDiagnostico = null;
   let ultimoResultadoAuditoria = null;
@@ -772,6 +776,12 @@ const EvaluadorCalidadCuantitativa = (() => {
     if (totalFeatures === 0) {
       throw new Error('El conjunto de datos no contiene entidades vectoriales (0 Features).');
     }
+    if (totalFeatures > LIMITE_ENTIDADES_PROCESAMIENTO) {
+      const err = new Error('No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño');
+      err.esArchivoPesado = true;
+      err.detalle = `El conjunto de datos contiene ${totalFeatures.toLocaleString('es-CL')} entidades vectoriales, superando el límite seguro de ${LIMITE_ENTIDADES_PROCESAMIENTO.toLocaleString('es-CL')} entidades concurrentes en navegador.`;
+      throw err;
+    }
 
     let featuresValidas = 0;
     let featuresConError = 0;
@@ -1085,7 +1095,7 @@ const EvaluadorCalidadCuantitativa = (() => {
       };
     }
 
-    const copia = JSON.parse(JSON.stringify(geojsonData));
+    const copia = typeof structuredClone === 'function' ? structuredClone(geojsonData) : JSON.parse(JSON.stringify(geojsonData));
     let anillosCerrados = 0;
     let verticesDuplicadosRemovidos = 0;
     let geometriasNulasRemovidas = 0;
@@ -1446,6 +1456,54 @@ print("Dataset subsanado y listo para producción!")
     document.execCommand('copy');
     alert('Plan de subsanación copiado al portapapeles.');
     document.body.removeChild(area);
+  }
+
+  /**
+   * Renderiza el mensaje de advertencia institucional cuando se ingresa un archivo
+   * o capa que excede la capacidad de memoria segura del navegador web.
+   */
+  function renderizarAvisoArchivoPesado(contenedor, detalleExtra = '') {
+    if (!contenedor) return;
+    if (typeof contenedor === 'string') {
+      contenedor = document.getElementById(contenedor);
+      if (!contenedor) return;
+    }
+
+    contenedor.innerHTML = `
+      <div class="caja-aviso-pesado" style="background:var(--papel-alto, #1a2b4b); border:2px solid var(--ocre, #f59e0b); border-left:6px solid var(--ocre, #f59e0b); border-radius:12px; padding:22px; margin-top:16px; box-shadow:var(--sombra-md, 0 10px 25px rgba(0,0,0,0.4));">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap;">
+          <span style="font-size:2rem; line-height:1;">⚠️</span>
+          <div>
+            <span style="font-family:var(--fuente-datos); font-size:0.75rem; color:var(--ocre, #f59e0b); text-transform:uppercase; letter-spacing:0.06em; font-weight:800; display:block;">
+              [CONTROL DE CAPACIDAD Y MEMORIA DEL NAVEGADOR]
+            </span>
+            <h4 style="margin:2px 0 0 0; font-size:1.15rem; font-family:var(--fuente-titulos); color:#ffffff; font-weight:700;">
+              Límite de Procesamiento de Auditoría Superado
+            </h4>
+          </div>
+        </div>
+
+        <div style="background:rgba(245, 158, 11, 0.12); border:1px solid rgba(245, 158, 11, 0.35); border-radius:8px; padding:14px 18px; margin-bottom:14px;">
+          <p style="margin:0; font-size:0.98rem; line-height:1.55; color:#ffffff; font-weight:600;">
+            No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño.
+          </p>
+        </div>
+
+        <div style="background:rgba(0, 0, 0, 0.25); border-radius:8px; padding:12px 16px; font-family:var(--fuente-datos); font-size:0.8rem; color:var(--tinta-tenue, #e2e8f0); line-height:1.5;">
+          <div style="margin-bottom:6px;">
+            <strong style="color:var(--tinta, #ffffff);">¿Por qué ocurre este aviso?</strong> Para garantizar la estabilidad del Atlas y evitar que la pestaña del navegador colapse por consumo excesivo de memoria RAM (OutOfMemory) o se reinicie inesperadamente, la auditoría topológica en cliente (OGC SFA / ISO 19157) admite archivos vectoriales de hasta <strong>25 MB</strong> o un máximo de <strong>15.000 entidades</strong>.
+          </div>
+          ${detalleExtra ? `<div style="color:var(--ocre, #f59e0b); margin-top:6px; border-top:1px dashed rgba(255,255,255,0.15); padding-top:6px;"><strong>Detalle detectado:</strong> ${detalleExtra}</div>` : ''}
+          <div style="margin-top:8px; color:var(--tinta-suave, #f8fafc);">
+            💡 <em>Recomendación:</em> Puedes filtrar el archivo espacial por una comuna o polígono específico (como Barrio Brasil o Santiago Centro), simplificar vértices en QGIS/GDAL, o comprimir propiedades innecesarias antes de volver a auditarlo.
+          </div>
+        </div>
+      </div>
+    `;
+
+    try {
+      contenedor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (_) {}
   }
 
   /**
@@ -2425,7 +2483,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
     if (typeof ModuloMetadatos !== 'undefined' && ModuloMetadatos.enriquecerGeoJSON) {
       gjEnriquecido = ModuloMetadatos.enriquecerGeoJSON(gj, opciones);
     } else {
-      gjEnriquecido = JSON.parse(JSON.stringify(gj));
+      gjEnriquecido = typeof structuredClone === 'function' ? structuredClone(gj) : JSON.parse(JSON.stringify(gj));
     }
 
     // Inyectar en cada entidad las métricas cuantitativas y cualitativas de la auditoría
@@ -2575,9 +2633,47 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
 
     function procesarArchivoSeleccionado(file) {
       const spanNombre = document.getElementById('calidad-archivo-seleccionado-nombre');
+      const cont = document.getElementById('resultado-auditoria-igv');
+
+      // Comprobación de peso preventivo antes de leer en memoria del navegador
+      if (file && file.size > LIMITE_BYTES_ARCHIVO) {
+        window._datosGeojsonCargadosParaCalidad = null;
+        window._metadatosAsociadosCargados = null;
+        window._archivoDemasiadoPesadoInfo = {
+          nombre: file.name,
+          tamanoMB: (file.size / (1024 * 1024)).toFixed(1)
+        };
+
+        if (spanNombre) {
+          spanNombre.textContent = `Archivo descartado por peso: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB > 25 MB)`;
+          spanNombre.style.display = 'inline-block';
+          spanNombre.style.background = 'rgba(244, 63, 94, 0.15)';
+          spanNombre.style.color = 'var(--alerta, #f43f5e)';
+          spanNombre.style.borderColor = 'var(--alerta, #f43f5e)';
+        }
+
+        if (inputFile) {
+          inputFile.value = '';
+        }
+        if (txtGeojson) {
+          txtGeojson.value = '';
+        }
+
+        renderizarAvisoArchivoPesado(
+          cont,
+          `El archivo "${file.name}" tiene un tamaño de ${(file.size / (1024 * 1024)).toFixed(1)} MB (el umbral máximo permitido es 25 MB).`
+        );
+        return;
+      }
+
+      window._archivoDemasiadoPesadoInfo = null;
+
       if (spanNombre) {
         spanNombre.textContent = `Archivo: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
         spanNombre.style.display = 'inline-block';
+        spanNombre.style.background = 'rgba(16, 185, 129, 0.15)';
+        spanNombre.style.color = 'var(--esmeralda, #10b981)';
+        spanNombre.style.borderColor = 'var(--esmeralda, #10b981)';
       }
 
       // Limpiar selector de capa interna para dar prioridad al archivo subido
@@ -2602,10 +2698,37 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
             tamano_bytes: file.size
           };
           if (txtGeojson) txtGeojson.value = JSON.stringify(json).slice(0, 500) + '... (Archivo cargado exitosamente)';
+          if (cont) {
+            cont.innerHTML = `
+              <div style="background:rgba(16, 185, 129, 0.1); border:1px solid var(--esmeralda); border-radius:8px; padding:12px 16px; color:var(--esmeralda); font-family:var(--fuente-datos); font-size:0.82rem; margin-top:10px;">
+                ✓ Archivo <strong>${file.name}</strong> (${(file.size / 1024).toFixed(1)} KB) preparado correctamente. Haz clic en <strong>Auditar Calidad Espacial e Índice IGV</strong> para procesarlo.
+              </div>
+            `;
+          }
         } catch (err) {
-          alert('Error al leer el archivo GeoJSON: ' + err.message);
+          console.error('[Error al leer archivo GeoJSON]:', err);
+          window._datosGeojsonCargadosParaCalidad = null;
+          const esPesado = (err.name === 'RangeError') ||
+            (err.message && (err.message.includes('string length') || err.message.includes('memory') || err.message.includes('allocation')));
+          if (cont) {
+            if (esPesado) {
+              renderizarAvisoArchivoPesado(cont, `El archivo "${file.name}" agotó la memoria del navegador durante la lectura.`);
+            } else {
+              cont.innerHTML = `
+                <div style="background:var(--papel-alto); border:1px solid var(--alerta); padding:16px; color:var(--alerta); font-family:var(--fuente-datos); font-size:0.85rem; border-radius:8px;">
+                  <strong>[ERROR DE LECTURA]:</strong> No se pudo procesar el archivo GeoJSON: ${err.message}
+                </div>
+              `;
+            }
+          }
         }
       };
+
+      reader.onerror = () => {
+        window._datosGeojsonCargadosParaCalidad = null;
+        renderizarAvisoArchivoPesado(cont, `Error al acceder al archivo "${file.name}" en el dispositivo local.`);
+      };
+
       reader.readAsText(file);
     }
 
@@ -2614,6 +2737,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
         if (selectCapa.value) {
           window._datosGeojsonCargadosParaCalidad = null;
           window._metadatosAsociadosCargados = null;
+          window._archivoDemasiadoPesadoInfo = null;
           const spanNombre = document.getElementById('calidad-archivo-seleccionado-nombre');
           if (spanNombre) spanNombre.style.display = 'none';
           if (inputFile) inputFile.value = '';
@@ -2630,6 +2754,16 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
         }
 
         const cont = document.getElementById('resultado-auditoria-igv');
+
+        // Si previamente se intentó ingresar un archivo descartado por exceso de peso
+        if (window._archivoDemasiadoPesadoInfo) {
+          renderizarAvisoArchivoPesado(
+            cont,
+            `El archivo "${window._archivoDemasiadoPesadoInfo.nombre}" (${window._archivoDemasiadoPesadoInfo.tamanoMB} MB) excede el tamaño máximo procesable en el cliente.`
+          );
+          return;
+        }
+
         if (cont) {
           cont.innerHTML = `
             <div style="padding:20px; text-align:center; font-family:var(--fuente-datos); color:var(--musgo);">
@@ -2656,6 +2790,25 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
             const resFetch = await fetch(urlCapa);
             if (!resFetch.ok) throw new Error(`No se pudo cargar la capa seleccionada (${resFetch.status} ${resFetch.statusText})`);
 
+            // Verificación preventiva por encabezado Content-Length
+            const clHeader = resFetch.headers.get('content-length');
+            if (clHeader && parseInt(clHeader, 10) > LIMITE_BYTES_ARCHIVO) {
+              const szMB = (parseInt(clHeader, 10) / (1024 * 1024)).toFixed(1);
+              const err = new Error('No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño');
+              err.esArchivoPesado = true;
+              err.detalle = `La capa seleccionada tiene un tamaño de ${szMB} MB, superando el límite seguro de 25 MB para procesamiento en navegador.`;
+              throw err;
+            }
+
+            const blob = await resFetch.blob();
+            if (blob.size > LIMITE_BYTES_ARCHIVO) {
+              const szMB = (blob.size / (1024 * 1024)).toFixed(1);
+              const err = new Error('No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño');
+              err.esArchivoPesado = true;
+              err.detalle = `La capa descargada (${szMB} MB) supera el límite de 25 MB para procesamiento en navegador.`;
+              throw err;
+            }
+
             if (cont) {
               cont.innerHTML = `
                 <div style="padding:20px; text-align:center; font-family:var(--fuente-datos); color:var(--musgo);">
@@ -2664,7 +2817,9 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
               `;
             }
 
-            dataGeojson = await resFetch.json();
+            const text = await blob.text();
+            dataGeojson = JSON.parse(text);
+
             const optSeleccionada = selectCapa.options[selectCapa.selectedIndex];
             const idCapa = optSeleccionada ? optSeleccionada.dataset.id : null;
             let metaDef = null;
@@ -2679,7 +2834,15 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
               tipoFuente: 'Geodatabase Oficial / VGI (Atlas UAH)'
             };
           } else if (!dataGeojson && txtGeojson && txtGeojson.value.trim().startsWith('{')) {
-            dataGeojson = JSON.parse(txtGeojson.value.trim());
+            const valorTexto = txtGeojson.value.trim();
+            if (valorTexto.length > LIMITE_BYTES_ARCHIVO) {
+              const szMB = (valorTexto.length / (1024 * 1024)).toFixed(1);
+              const err = new Error('No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño');
+              err.esArchivoPesado = true;
+              err.detalle = `El texto GeoJSON ingresado (${szMB} MB) excede el límite de 25 MB para análisis directo.`;
+              throw err;
+            }
+            dataGeojson = JSON.parse(valorTexto);
             metadatosDeclarados = {
               id: 'geojson_pegado',
               titulo: 'GeoJSON Ingresado por Texto Plano',
@@ -2713,11 +2876,27 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
         } catch (err) {
           console.error('[Error en Auditoría IGV]:', err);
           if (cont) {
-            cont.innerHTML = `
-              <div style="background:var(--papel-alto); border:1px solid var(--alerta); padding:16px; color:var(--alerta); font-family:var(--fuente-datos); font-size:0.85rem; border-radius:8px;">
-                <strong>[ERROR DE AUDITORÍA]:</strong> ${err.message}
-              </div>
-            `;
+            const esPesado = Boolean(
+              err.esArchivoPesado ||
+              (err.message && (
+                err.message.includes('demasiado pesado') ||
+                err.message.includes('allocation') ||
+                err.message.includes('out of memory') ||
+                err.message.includes('heap') ||
+                err.message.includes('Invalid string length')
+              )) ||
+              err.name === 'RangeError'
+            );
+
+            if (esPesado) {
+              renderizarAvisoArchivoPesado(cont, err.detalle || '');
+            } else {
+              cont.innerHTML = `
+                <div style="background:var(--papel-alto); border:1px solid var(--alerta); padding:16px; color:var(--alerta); font-family:var(--fuente-datos); font-size:0.85rem; border-radius:8px;">
+                  <strong>[ERROR DE AUDITORÍA]:</strong> ${err.message}
+                </div>
+              `;
+            }
           }
         }
       });
@@ -2774,6 +2953,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
     enfocarEntidadEnMapa,
     copiarPlanSubsanacion,
     renderizarResultadosUI,
+    renderizarAvisoArchivoPesado,
     renderizarMapaDiagnostico,
     invalidarTamanoMapa,
     exportarCertificadoJSON,

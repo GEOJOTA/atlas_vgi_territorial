@@ -214,9 +214,12 @@ Permite auditar tanto las **118 capas internas de la geodatabase del Atlas** com
 4. **Botón 'Cargar Ejemplo Piloto':**
    - Permite cargar en 1 clic el conjunto de datos de *CAT-01: Educación y Universidad (Barrio Brasil)* para explorar el flujo de evaluación de forma guiada.
 
-#### B. Ejecución de la Auditoría
+#### B. Ejecución de la Auditoría y Control Preventivo de Capacidad
 - Haz clic en el botón principal **`🚀 Auditar Calidad Espacial e Índice IGV`**.
 - La plataforma desplegará indicadores de estado en vivo (*"Descargando capa..."*, *"Decodificando geometrías..."*, *"Analizando topología OGC SFA..."*), manteniendo la interfaz fluida y evitando bloqueos o reinicios de pestaña.
+- **Control Preventivo de Archivos Pesados:** Para resguardar la memoria del navegador contra colapsos y reinicios inesperados (*OutOfMemory*), el evaluador restringe el análisis directo en cliente a archivos de hasta **25 MB** o un máximo de **15.000 entidades**. Si se ingresa un recurso que excede estos límites, el sistema no se satura ni se reinicia, sino que muestra de inmediato el aviso:
+  > *⚠️ "No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño"*
+  acompañado de recomendaciones prácticas para recortar o simplificar el conjunto de datos.
 
 #### C. Interpretación del Índice Global de Calidad Geográfica (IGV)
 El motor aplica una evaluación multicriterio basada en **Combinación Lineal Ponderada (WLC — Malczewski, 1999)**:
