@@ -13,14 +13,16 @@ El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma soci
 
 En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual adapta y resalta las herramientas clave según la necesidad operativa del usuario:
 
-1. **🏛️ Perfil Institucional / Autoridades (IDE Chile / Municipio de Santiago / SECPLAN / MINVU):**
-   - Prioriza la auditoría de instrumentos de planificación territorial (PRC Santiago, PRMS), zonas de riesgo normativo, microdatos censales a nivel de manzana (Censo 2024) y generación de metadatos estandarizados en formato XML (ISO 19139) para interoperabilidad con el Geoportal de Chile.
-2. **👥 Perfil Comunitario / Organizaciones Vecinales y Ciudadanía (JJVV Barrio Brasil, Santa Ana, Capuchinos):**
-   - Facilita diagnósticos barriales inmediatos con consultas en 1 clic (farmacias, áreas verdes, paraderos, arbolado viario, ferias libres), mapeo colaborativo barrial en UMap y lectura de fichas sin jerga técnica.
-3. **🧭 Perfil Voluntario / Mapeadores OSM y Ciencia Ciudadana:**
-   - Enfocado en la formulación de consultas espaciales Overpass QL avanzadas, validación de etiquetas globales con **Taginfo API**, auditoría de cambios territoriales con **OSMCha** y detección de vacíos de microatributos de accesibilidad (`wheelchair`, `tactile_paving`, `kerb`).
-4. **🔬 Perfil ONGs / Territoriales y Gestores:**
-   - Proporciona cálculo de densidades territoriales rigurosas mediante reproyección conforme a **EPSG:32719**, métricas de calidad temporal con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS/ArcGIS, articulación comunitaria y matrices de metadatos con citas normalizadas en formato APA 7ª ed.
+1. **🏛️ Perfil Institucional / Sector Público (Municipalidad de Santiago / SECPLA / DIMAO / DOM / SEREMI MINVU / INE / IDE Chile):**
+   - Prioriza la fiscalización de instrumentos de planificación territorial (PRC Santiago, PRMS), zonas de riesgo normativo, microdatos censales a escala de manzana (Censo 2024 Santiago) y generación de metadatos estandarizados en formato XML (ISO 19139) para interoperabilidad con el Geoportal Nacional de Chile.
+2. **👥 Perfil Organizaciones Comunitarias Territoriales (Juntas de Vecinos — Ley N° 19.418: JJVV Barrio Brasil N° 1, Santa Ana, Concha y Toro, República):**
+   - Agrupaciones vecinales con base territorial delimitada por Unidad Vecinal. Facilita diagnósticos barriales inmediatos con consultas en 1 clic (farmacias, áreas verdes, paraderos, arbolado viario, ferias libres), verificación del estado del espacio público y lectura de fichas socioespaciales sin tecnicismos innecesarios.
+3. **🤝 Perfil Organizaciones Comunitarias Funcionales (Ley N° 19.418: Comités de Adelanto y Seguridad, Clubes Deportivos, Agrupaciones Culturales, Huertos Barriales):**
+   - Entidades constituidas en torno a fines específicos de interés común. Permite mapear equipamiento de proximidad, visibilizar iniciativas colectivas y articular proyectos vecinales mediante cartografía colaborativa en UMap.
+4. **🧭 Perfil Voluntariado / Mapeadores OSM y Movilidad Activa:**
+   - Enfocado en la formulación de consultas espaciales Overpass QL avanzadas, validación de etiquetas globales con **Taginfo API v4**, auditoría de cambios territoriales con **OSMCha** y detección de vacíos de microatributos de accesibilidad universal (`kerb=lowered`, `tactile_paving`, `wheelchair`).
+5. **🔬 Perfil Académico / ONGs e Investigación Territorial (Departamento de Geografía UAH, TECHO-Chile, JuntoAlBarrio, Fundación SUR):**
+   - Proporciona cálculo de densidades territoriales rigurosas mediante reproyección métrica a **EPSG:32719**, auditoría universal de calidad geométrica bajo **ISO 19157**, análisis de series históricas de cobertura con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS/PostGIS y matrices de metadatos con citas normalizadas en formato APA 7ª ed.
 
 ---
 
@@ -91,7 +93,7 @@ Ubicada inmediatamente después del visor, la **Consola de Capas GIS** es un ent
    - **Cruces Semaforizados Centralizados UOCT RM (Oficio N° 26105 / 2026 - Solicitud AN001T0026930):** 3.242 intersecciones semaforizadas operativas y centralizadas en las comunas de la RM, con datos técnicos completos de tecnología, controlador, enlace de comunicación y coordenadas WGS 84.
    - Red Vial Nacional (GEOMOP), Red de Estaciones de Metro de Santiago, Red Ferroviaria EFE, Ciclovías Oficiales y Red de Electrolineras RM.
 3. 👥 **Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDSF / MINVU) [19 capas]:**
-   - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y 66.873 Manzanas Censales con 217 variables censales del INE), Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Catastro Nacional de Campamentos 2024 MINVU, Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
+   - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y 1.711 Manzanas Censales de la Comuna de Santiago / Barrio Brasil con 216 variables oficiales del INE), Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Catastro Nacional de Campamentos 2024 MINVU, Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
 4. 📈 **Economía, Fomento, Empleo & Inversión Pública (BIP / MOP / ODEPA / CNE / SUBTEL) [15 capas]:**
    - **Iniciativas de Inversión del Banco Integrado de Proyectos (BIP - bbdd_65):** Base oficial de proyectos públicos georreferenciados del Sistema Nacional de Inversiones (SNI / MDSF / Hacienda).
    - Proyectos Mandatados MOP (bbdd_01), Contratos Concesionados (bbdd_04), Contratos MOP (bbdd_05), Personas en RSH ocupadas y cotizantes (bbdd_74), Mercados Mayoristas ODEPA (bbdd_54), Antenas y Torres de Telecomunicaciones (bbdd_35) e Infraestructura Energética RM (centrales solares, hidroeléctricas, termoeléctricas, bioenergía, sistemas de almacenamiento, gasoductos, oleoductos y líneas de transmisión eléctrica).
@@ -136,16 +138,18 @@ Para que el proyecto gratuito de Supabase **nunca se suspenda por inactividad de
 
 ## 4. Módulo de Evaluación Normativa Territorial (CIN-VGI)
 
-Diseñado para contrastar propuestas urbanas o denuncias ciudadanas contra la normativa urbanística vigente:
+Diseñado para que la ciudadanía, investigadores y profesionales contrasten espacialmente cualquier coordenada del territorio contra las normas urbanísticas vigentes:
 1. En la barra de herramientas del visor o en la pestaña **"⚖ Normativa"** del panel lateral, activa el **"⚖ Inspector Normativo"**.
-2. Haz clic sobre cualquier coordenada del mapa dentro de la comuna de Santiago.
-3. El sistema cruzará automáticamente las coordenadas con las capas del **Plan Regulador Comunal de Santiago (PRC)**, la **Ordenanza General de Urbanismo y Construcciones (OGUC)** y la zona patrimonial:
-   - **Zona Normativa PRC:** Código de zona (ej: *Zona A - Centro Histórico*, *Zona B - Mixta*).
-   - **Usos de Suelo Permitidos y Prohibidos:** Según el Art. 2.1.24 de la OGUC.
-   - **Restricciones de Altura y Rasantes:** Art. 2.6.3 OGUC.
-   - **Afectaciones Patrimoniales:** Inmuebles o Zonas de Conservación Histórica (Art. 60 LGUC / Ley 17.288 de Monumentos Nacionales).
-   - **Áreas de Riesgo:** Fallas geológicas, inundación o resguardo de infraestructura (Art. 2.1.17 OGUC).
-4. **Exportación de Certificado:** Haz clic en **"Descargar Certificado Normativo (.txt)"** para obtener un documento técnico estructurado con fecha, coordenadas UTM 19S y advertencia legal conforme al Art. 116 de la Ley General de Urbanismo y Construcciones.
+2. Haz clic sobre cualquier coordenada del mapa dentro de la Comuna de Santiago (o el entorno de Barrio Brasil).
+3. Mediante un algoritmo geométrico *Point-in-Polygon* (Ray casting), el sistema cruza la coordenada con las capas del **Plan Regulador Comunal de Santiago (PRC)**, la **Ordenanza General de Urbanismo y Construcciones (OGUC)** y el catastro patrimonial oficial:
+   - **Zona Normativa PRC:** Código oficial de zonificación (ej. *Zona A - Centro Histórico*, *Zona B - Pericentro*, *Zona E - Mixta Barrial*), identificando decretos de publicación en el Diario Oficial.
+   - **Principio de Exclusión Negativa (Art. 2.1.24 OGUC):** Despliega el catálogo de usos de suelo permitidos y expresamente prohibidos en la zona. Recuerda que en el marco urbanístico chileno, todo uso o actividad que no se encuentre taxativamente enunciado como permitido en la Ordenanza Local se encuentra legalmente prohibido.
+   - **Áreas de Riesgo y Resguardo (Art. 2.1.17 OGUC):** Detecta afectaciones por riesgos de inundación, fallas geológicas o fajas de resguardo de infraestructura.
+   - **Protección Patrimonial Oficial:** Identifica si el punto se encuentra inserto en Zonas de Conservación Histórica (ZCH), Inmuebles de Conservación Histórica (ICH) amparados por el Art. 60 de la Ley General de Urbanismo y Construcciones (LGUC), o Zonas Típicas protegidas por la Ley N° 17.288 del Consejo de Monumentos Nacionales (CMN).
+4. **Descargo Metodológico y Legal Riguroso:**
+   - El Inspector Normativo **no inventa parámetros volumétricos ficticios** (como coeficientes de constructibilidad o coeficientes de ocupación de suelo que requerirían un modelo predial a nivel de lote individual no contenido en la cartografía de zonas del PRC).
+   - Todo certificado generado consigna el descargo legal expreso indicando que el reporte es estrictamente referencial y que **en ningún caso sustituye al Certificado de Informaciones Previas (CIP)**, instrumento exclusivo y privativo del Director de Obras Municipales (DOM) de acuerdo al Artículo 116 del D.F.L. N° 458/1975 (LGUC).
+5. **Exportación de Certificado:** Haz clic en **"Descargar Certificado Normativo (.txt)"** para obtener un documento técnico estructurado con fecha, coordenadas WGS 84 / UTM 19S y advertencia legal.
 
 ---
 
@@ -192,11 +196,73 @@ En el Atlas, cada dato espacial cuenta con trazabilidad formal de procedencia:
 
 ---
 
-## 7. Métricas de Calidad de Datos, OQT y Control de Cambios (Panel 02)
+## 7. Módulo de Calidad Espacial, Índice IGV y Saturación OQT (Panel 02)
 
-Permite auditar cuantitativamente la madurez de la información en el territorio:
-- **Submódulo A (ohsome API Dual v1 / v2 & OQT):** Calcula el conteo de elementos vigentes, densidad métrica por km² (reproyección a EPSG:32719) y serie cronológica anual de colaboradores y ediciones. Proporciona el *Índice de Saturación de Mapeo* y la clasificación de madurez territorial.
-- **Submódulo B (Control de Cambios y Validación con OSMCha):** Permite inspeccionar las últimas ediciones en el Bbox barrial o auditar un Changeset numérico específico con enlace directo a `osmcha.org`.
+El Módulo 02 articula la evaluación estandarizada de la calidad geográfica combinando auditoría algorítmica espacial en tiempo real (**Submódulo A**) con análisis histórico y telemetría comunitaria (**Submódulo B**):
+
+### 7.1 Submódulo A: Evaluador Universal de Calidad IGV (ISO 19157 / ISO 19115 / WLC)
+
+Permite auditar tanto las **118 capas internas de la geodatabase del Atlas** como **cualquier archivo vectorial externo** aportado por municipios, universidades o vecinos:
+
+#### A. Modalidades de Entrada de Datos
+1. **Auditar Capa de la Geodatabase del Atlas (118 Componentes):**
+   - En el menú desplegable *'O auditar una capa de la Geodatabase'*, selecciona cualquier capa oficial del Estado (ej. *Censo 2024 Manzanas Santiago*, *Semáforos UOCT RM*, *PRC Santiago*, *Áreas Verdes MINVU*) o cualquiera de las 10 macro-categorías VGI del caso piloto Barrio Brasil.
+2. **Arrastrar o Cargar Archivo Externo (Drag & Drop):**
+   - Arrastra directamente un archivo `.geojson` o `.json` al recuadro punteado (o haz clic para examinar desde tu equipo). El archivo se procesa 100% de forma local y privada en la memoria de tu navegador, sin transferir datos confidenciales a la red.
+3. **Pegar Contenido GeoJSON en Texto Plano:**
+   - Abre el acordeón colapsable *'✍️ O pegar contenido GeoJSON directo'* y pega una estructura `FeatureCollection` o `Feature`.
+4. **Botón 'Cargar Ejemplo Piloto':**
+   - Permite cargar en 1 clic el conjunto de datos de *CAT-01: Educación y Universidad (Barrio Brasil)* para explorar el flujo de evaluación de forma guiada.
+
+#### B. Ejecución de la Auditoría
+- Haz clic en el botón principal **`🚀 Auditar Calidad Espacial e Índice IGV`**.
+- La plataforma desplegará indicadores de estado en vivo (*"Descargando capa..."*, *"Decodificando geometrías..."*, *"Analizando topología OGC SFA..."*), manteniendo la interfaz fluida y evitando bloqueos o reinicios de pestaña.
+
+#### C. Interpretación del Índice Global de Calidad Geográfica (IGV)
+El motor aplica una evaluación multicriterio basada en **Combinación Lineal Ponderada (WLC — Malczewski, 1999)**:
+$$\text{IGV} = 50\% \text{ Pilar Cuantitativo Espacial (ISO 19157)} + 50\% \text{ Pilar Cualitativo de Metadatos (ISO 19115)}$$
+
+El resultado se sintetiza en una tarjeta principal con semáforo y escala de calificaciones:
+* **Grado A+ (Excelente: $\ge 95.0\%$):** Conforme con las más altas exigencias de rigor topológico y metadatos estándar. Apto para producción cartográfica crítica, catastro oficial y publicaciones científicas.
+* **Grado A (Muy Bueno: $85.0 - 94.9\%$):** Consistencia espacial sólida con observaciones menores en completitud tabular o atributos secundarios.
+* **Grado B (Aceptable: $70.0 - 84.9\%$):** Apto para diagnóstico comunitario referencial; requiere saneamiento de geometrías o poblamiento de metadatos.
+* **Grado C (Deficiente / Observado: $< 70.0\%$):** Presenta inconsistencias topológicas críticas (auto-intersecciones, anillos abiertos) o vacíos severos de información tabular.
+
+#### D. Desglose de las Dimensiones Evaluadas
+1. **Pilar Cuantitativo Espacial (50%):**
+   - **Consistencia Topológica (30%):** Evalúa adherencia a OGC Simple Feature Access (ISO 19125-1). Detecta polígonos con auto-intersección (*kinks*), anillos no cerrados, vértices colapsados y geometrías nulas.
+   - **Completitud de Atributos (25%):** Evalúa la tasa de campos completados vs valores nulos, vacíos o indefinidos en la tabla atributiva.
+   - **Integridad Posicional (20%):** Verifica que las coordenadas se ubiquen en el dominio geográfico admisible (latitudes entre -90 y 90, longitudes entre -180 y 180) y posean formato numérico finito.
+   - **Estructura y Esquema (15%):** Verifica homogeneidad en los tipos de geometría y presencia de clave primaria única (`id`, `fid`, `OBJECTID`).
+   - **Granularidad Geométrica (10%):** Detecta micro-slivers (polígonos parásito con área residual menor a $1 \cdot 10^{-7}$ grados²).
+2. **Pilar Cualitativo de Metadatos (50%):**
+   - **Metadatos Núcleo (30%):** Verifica presencia de los 10 campos indispensables de ISO 19115 (título formal, resumen/abstract, custodio, fecha de referencia, tópico temático, Bbox, CRS, licencia, linaje).
+   - **Conformidad Semántica (20%):** Nombres de campos estandarizados en minúsculas sin espacios ni caracteres especiales, y catálogo de objetos tipificado (ISO 19110).
+   - **Linaje y Certeza Jurídica (25%):** Documentación del proceso de captura y régimen de licencia transparente (Ley 20.285, ODbL 1.0, CC-BY 4.0).
+   - **Resolución Espacial (15%):** Granularidad y coherencia de escala cartográfica.
+   - **Accesibilidad Operativa (10%):** Disponibilidad pública en formato abierto de intercambio.
+
+#### E. Herramientas de Inspección y Subsanación Técnica
+- **Semáforo en Mini-Mapa Leaflet:** Visualiza las entidades auditadas con código de color (verde = válida; amarillo = sliver o advertencia; rojo = no conforme). Para preservar el rendimiento gráfico, el mapa renderiza hasta 300 entidades representativas, priorizando el 100% de las geometrías con observación.
+- **Botón 'Ver en Mapa':** En la tabla de observaciones (paginada a las primeras 50 para evitar sobrecarga del DOM), haz clic en **`🔍 Ver en Mapa`** junto a cualquier entidad para centrar el visor con zoom exacto sobre la anomalía.
+- **Herramienta Auto-Fix con Descarga Directa:** Si el dataset contiene anillos abiertos o vértices redundantes, pulsa **`🛠️ Reparar Automáticamente (Auto-Fix)`** para descargar de inmediato un GeoJSON con las geometrías saneadas en memoria.
+- **Guías Paso a Paso de Reparación Externa:** El sistema genera guías listas para copiar con scripts técnicos para:
+  * **QGIS 3.x:** Procedimiento guiado usando `Vectorial ➔ Herramientas de geometría ➔ Corregir geometrías (Fix Geometries)` con método *Make Valid* y validación en *Comprobador de Topología*.
+  * **PostGIS / SQL:** Sentencias DDL/DML listas para ejecutar (`ST_MakeValid`, `ST_RemoveRepeatedPoints`, `ST_Multi`).
+  * **Python / GeoPandas:** Script de una línea con `shapely.validation.make_valid`.
+- **Exportación de Certificado Formal:** Botones para descargar el **Certificado de Calidad JSON** (conforme a ISO 19157), la **Matriz Multicriterio WLC en CSV** y el **GeoJSON Enriquecido** con las columnas de auditoría incorporadas.
+
+---
+
+### 7.2 Submódulo B: Métricas Históricas, Saturación OQT y Control de Cambios (ohsome & OSMCha)
+
+Permite contextualizar el dato colaborativo analizando su evolución temporal y madurez comunitaria en el territorio:
+- **ohsome API (HeiGIT — Universidad de Heidelberg):** Consulta series temporales retrospectivas de 5 años (P1Y) para cualquier etiqueta territorial, calculando:
+  * Conteo de entidades vigentes en el Bbox barrial.
+  * Tasa de crecimiento anual y densidad métrica por km² (reproyección a EPSG:32719).
+  * Masa crítica de mapeadores únicos que han contribuido en el área.
+  * **Índice de Saturación OQT:** Determina si la capa se encuentra en fase incipiente, en consolidación o en saturación cartográfica.
+- **Auditoría de Changesets con OSMCha:** Permite inspeccionar los últimos conjuntos de cambios realizados por la comunidad en Barrio Brasil o ingresar un número de Changeset para auditar la autoría, fecha, software utilizado y comentarios de edición con enlace directo a `osmcha.org`.
 
 ---
 

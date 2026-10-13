@@ -31,12 +31,15 @@ El **Atlas VGI** resuelve esto integrando consulta espacial, visor cartográfico
 
 ## 3. Usuarios de la plataforma (Perfiles de Actor Territorial)
 
-| Tipo | Ejemplos | Foco Operativo |
+El Atlas articula a los diversos agentes que inciden en la coproducción y gestión del territorio, adaptando su interfaz según las necesidades operativas de cada perfil:
+
+| Perfil de Actor Territorial | Ejemplos Reales (Barrio Brasil / RM) | Foco Operativo y Utilidad Territorial |
 |---|---|---|
-| **🏛️ Institucional / Autoridades** | Municipalidad de Santiago, SECPLAN, SEREMI MINVU RM, IDE Chile | Fiscalización de IPT (PRC Santiago), microdatos Censo 2024, exportación XML ISO 19139 |
-| **👥 Organizaciones Comunitarias / JJVV** | JJVV Barrio Brasil, Santa Ana, Capuchinos, Concha y Toro | Diagnóstico barrial en 1 clic (salud, ferias, áreas verdes), cartografía vecinal en UMap |
-| **🧭 Voluntarios / Mapeadores OSM** | Colaboradores OSM activos, colectivos ciclistas | Consultas Overpass QL avanzadas, Taginfo API, control de cambios en OSMCha y vacíos de accesibilidad |
-| **🔬 ONGs / Territoriales** | UAH, TECHO-Chile, SUR, Fundación TERRAM, MapBiomas, Colectivos Barriales | Reproyección métrica EPSG:32719, densidades territoriales, series históricas ohsome, citas APA |
+| **🏛️ Institucional / Sector Público** | Municipalidad de Santiago (SECPLA, DIMAO, Asesoría Urbana, DOM), SEREMI MINVU RM, IDE Chile / SNIT, INE | Fiscalización de Instrumentos de Planificación Territorial (PRC Santiago), cruce de microdatos Censo 2024 a nivel de manzana y exportación interoperable en XML ISO 19139 para el Geoportal Nacional. |
+| **👥 Organizaciones Comunitarias Territoriales (Ley N° 19.418)** | Juntas de Vecinos con base en el territorio: JJVV Barrio Brasil N° 1, JJVV Santa Ana, JJVV Concha y Toro, JJVV República | Diagnóstico vecinal inmediato en 1 clic (salud, ferias libres, áreas verdes, paraderos), fiscalización del espacio público y lectura territorial sin barreras técnicas. |
+| **🤝 Organizaciones Comunitarias Funcionales (Ley N° 19.418)** | Comités de Adelanto y Seguridad Barrial, Clubes Deportivos, Agrupaciones Culturales y Patrimoniales, Huertos Comunitarios | Visibilización de equipamiento de proximidad, mapeo de memoria barrial y articulación de proyectos vecinales mediante cartografía colaborativa en UMap. |
+| **🧭 Voluntarios / Mapeadores OSM y Movilidad** | Comunidad OpenStreetMap Chile, colectivos ciclistas y agrupaciones de caminabilidad urbana | Consultas Overpass QL avanzadas, telemetría planetaria en Taginfo API v4, auditoría de cambios territoriales en OSMCha y detección de vacíos en microatributos de accesibilidad (`kerb`, `tactile_paving`). |
+| **🔬 Académico / ONGs / Investigación Territorial** | Departamento de Geografía UAH, TECHO-Chile, JuntoAlBarrio, Fundación SUR | Análisis espacial riguroso, reproyección métrica conforme a EPSG:32719, cálculo de densidades, análisis de series temporales ohsome (HeiGIT) y citas bibliográficas normalizadas en APA 7ª ed. |
 
 ---
 
@@ -77,7 +80,7 @@ El visor integra **108 capas cartográficas oficiales de la Administración del 
 
 1. 📜 **Normativa Urbanística & Catastro Predial (MINVU / PRC Santiago / PRMS / DPA / SII) [13 capas]:** Zonificación comunal PRC Santiago, usos de suelo PRMS, áreas de riesgo comunales e intercomunales, fajas de resguardo, límites urbanos oficiales, DPA SUBDERE 2023, predios Santiago y Catastro Predial SII RM (1.43M predios).
 2. 🚲 **Movilidad, Red Vial, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro) [7 capas]:** Cruces semaforizados centralizados UOCT/MTT (3.242 intersecciones), Red Vial Nacional GEOMOP, líneas y estaciones de Metro, Red Ferroviaria EFE, ciclovías oficiales, red de interconexión y electrolineras RM.
-3. 👥 **Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDSF / MINVU) [19 capas]:** Microdatos multiescalares Censo 2024 (Regional, Límites Urbanos, Localidades, Zonal y 66.873 Manzanas Censales con 217 variables INE), Campamentos 2024 MINVU, Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
+3. 👥 **Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDSF / MINVU) [19 capas]:** Microdatos multiescalares Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y 1.711 Manzanas Censales de la Comuna de Santiago / Barrio Brasil con 216 variables oficiales del INE), Campamentos 2024 MINVU, Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
 4. 📈 **Economía, Fomento, Empleo & Inversión Pública (BIP / MOP / ODEPA / CNE / SUBTEL) [15 capas]:** **Iniciativas de Inversión del Banco Integrado de Proyectos (BIP - bbdd_65)**, Proyectos Mandatados MOP (bbdd_01), Contratos Concesionados (bbdd_04), Contratos MOP (bbdd_05), Personas en RSH ocupadas y cotizando (bbdd_74), Mercados Mayoristas ODEPA (bbdd_54), Antenas Ley de Torres (bbdd_35) e Infraestructura Energética RM (centrales solares, hidroeléctricas, termoeléctricas, bioenergía, almacenamiento, gasoductos, oleoductos y líneas de transmisión).
 5. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND / CCU) [28 capas]:** Inmuebles y Zonas de Conservación Histórica (ZCH/ICH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI e Integra), Colegios escolares, Educación Superior, Centros de Salud (CESFAM y Hospitales DEIS), Infraestructura Deportiva, Atractivos Turísticos SERNATUR, Áreas Funcionales, Cités, Oficinas Serviu y SEREMI MINVU, junto a las 12 series históricas CCU (1993 a 2024).
 6. 🌳 **Medio Ambiente, Recursos Hídricos, Parques & Espacio Público (MMA / DGA / CONAF / DMC / ODEPA / INFOR) [21 capas]:** Áreas Verdes Normativas IPT (18.173 polígonos), Parques Urbanos, SNASPE CONAF, Sitios Prioritarios de Biodiversidad, Humedales Protegidos (Ley 21.202), Red Hidrométrica DGA, Cuencas BNA, Estaciones Sedimentométricas, Calidad de Aguas, Fluviometría, Canales de Riego CNR, Viveros, Biomasa Forestal, Huertos Frutales ODEPA, Industria Forestal INFOR, Estaciones Meteorológicas DMC y FIA, Zonas Climáticas Köppen, Calidad del Aire SINCA y Vertederos Ilegales.
@@ -102,18 +105,19 @@ El Atlas cuenta con un clúster espacial en la nube **PostgreSQL 17.6 con extens
  
 | Módulo | Descripción |
 |---|---|
-| **Visor Cartográfico 2D** | Leaflet 1.9.4 + OpenStreetMap; activación interactiva por categoría VGI y consola de capas oficial, popups con atributos, cita APA y zoom automático |
-| **Consola GIS de Capas** | Workbench profesional con buscador dinámico (`#busqueda-capas-atlas`), chips de filtro rápido por categoría, switches interactivos, badges de conteo y descarga directa de GeoJSONs oficiales sin simplificar |
-| **BD PostGIS** | Pestaña de conexión y telemetría en tiempo real con clúster PostgreSQL 17 + PostGIS 3.3 en Supabase con fallback local autónomo |
-| **Calidad VGI (ohsome)** | ohsome API v1/v2: completitud, evolución temporal P1Y, densidad espacial métrica (EPSG:32719), OQT Score, contribuyentes activos; OSMCha para integridad de changesets |
-| **Índice de Calidad VGI (ICV)** | Score compuesto por categoría: completitud + actualidad + consistencia geométrica + densidad |
-| **CIN-VGI (Inspector Normativo)** | Inspector territorial por clic: PRC Santiago, usos permitidos/prohibidos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio; exporta certificado .txt con disclaimer legal (Art. 116 LGUC) |
-| **Importador de capas locales** | KMZ (JSZip en memoria), KML, GeoJSON, GPX, CSV con detección automática de coordenadas y auditoría normativa directa |
-| **Taginfo API Explorer** | Telemetría planetaria en tiempo real de claves y valores OSM con recuentos globales |
-| **Biodiversidad Urbana GBIF** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas Darwin Core |
-| **Metadatos ISO 19115 / 19139** | Fichas técnicas exportables a JSON y XML oficial de IDE Chile (SNIT / GeoNetwork) |
-| **Catálogos Excel (.xlsx)** | Libros OpenXML de 4 hojas con 10 categorías VGI, 134 descriptores territoriales, 108 capas oficiales y 125 citas APA |
-| **Indicadores & Storyboards** | Módulo 09: 5 dimensiones analíticas (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria, Sociourbana) y narrativas de datos sobre Barrio Brasil (entregable tentativo/exploratorio). |
+| **00: Visor Cartográfico 2D** | Leaflet 1.9.4 + OpenStreetMap; activación interactiva de 118 capas (10 VGI + 108 oficiales), popups con atributos, cita APA y zoom automático. |
+| **00: Consola Técnica GIS** | Workbench profesional con buscador predictivo (`#busqueda-capas-atlas`), chips de filtro temático, switches interactivos, badges de telemetría y descarga directa de GeoJSONs oficiales sin simplificar. |
+| **00: CIN-VGI (Inspector Normativo)** | Inspector territorial por clic: cruce Point-in-Polygon con zonificación PRC Santiago, exclusión negativa de usos (Art. 2.1.24 OGUC), riesgos (Art. 2.1.17 OGUC), patrimonio ICH/ZCH (Art. 60 LGUC / Ley 17.288) y descarga de certificado técnico referencial (Art. 116 LGUC). |
+| **01: Consultas Espaciales & Overpass** | Consultas interactivas en vivo con Overpass QL (3 espejos balanceados), telemetría global en Taginfo API v4 e inspección por Bbox de la base regional Geofabrik RM (1.55M entidades). |
+| **02: Evaluador Universal de Calidad IGV** | Motor algorítmico universal de control de calidad espacial basado en ISO 19157 / ISO 19115 / WLC (Malczewski 1999): audita capas internas, archivos subidos o texto GeoJSON, genera semáforo en mapa Leaflet, certificado JSON, descarga de archivo reparado (Auto-Fix) y plan de subsanación técnica para QGIS, PostGIS y GeoPandas. |
+| **02: Métricas Históricas & OQT (ohsome)** | ohsome API v1/v2 (HeiGIT): series temporales P1Y, evolución de contribuyentes, densidad espacial métrica (EPSG:32719) y auditoría de integridad de changesets con OSMCha. |
+| **03: Biodiversidad Urbana (GBIF)** | Ocurrencias biológicas de ciencia ciudadana con autocompletado taxonómico (Species API) y banderas de consistencia Darwin Core. |
+| **04: Cartografía Temática (UMap)** | Embebido de proyectos cartográficos colaborativos de organizaciones vecinales y descarga directa de capas comunitarias. |
+| **05: Metadatos ISO 19115 / ISO 19139** | Fichas técnicas normalizadas exportables a JSON (ISO 19115) y XML interoperable (ISO 19139 / Perfil Nacional IDE Chile SNIT). |
+| **06: Diccionario Territorial de Brechas** | Catálogo sistemático de 134 descriptores territoriales contrastando 48 capas oficiales del Estado vs 86 brechas microespaciales VGI. |
+| **07: Catálogos Excel y Licencias** | Libros OpenXML (.xlsx) de 4 hojas con las 118 capas, matriz de metacalidad, catálogo de fuentes y marco jurídico copyleft (ODbL 1.0, CC-BY 4.0, GPL v3). |
+| **08: Manual de Uso Operativo** | Guía de operación metodológica paso a paso integrada en la interfaz. |
+| **09: Indicadores & Storyboards** | 5 dimensiones analíticas (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria, Sociourbana) y narrativas de datos sobre Barrio Brasil (entregable exploratorio). |
 
 ### 7.1. Módulo 09: Indicadores de Análisis Multidimensional y Storyboards de Barrio Brasil (Marco Tentativo)
 
@@ -149,6 +153,7 @@ atlas_vgi_uah/
 │   │       ├── db_client.js            # Cliente PostGIS RPC y Supabase Storage CDN
 │   │       ├── ide_chile.js            # Catálogo oficial de 108 capas del Estado (UOCT/MTT incluido)
 │   │       ├── evaluador_normativo.js  # Motor CIN-VGI / PRC Santiago / OGUC
+│   │       ├── evaluador_calidad_cuantitativa.js # Motor Algorítmico Universal IGV (ISO 19157 / ISO 19115)
 │   │       ├── ohsome.js               # Métricas calidad VGI (ohsome API dual v1/v2)
 │   │       ├── calidad_analyst.js      # ICV e inspector changesets OSMCha
 │   │       ├── importador_capas.js     # Importador multi-formato (KMZ/KML/GeoJSON/GPX/CSV)

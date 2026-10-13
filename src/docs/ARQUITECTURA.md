@@ -31,7 +31,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
 │                                                                                                   │
 │   ┌───────────────────────────────────────────────────────────────────────────────────────────┐   │
 │   │                 SELECTOR DE ACTOR TERRITORIAL (PERFILES DE USUARIO)                       │   │
-│   │   🏛️ Institucional (IDE/Muni) │ 👥 Comunitario │ 🧭 Voluntario OSM │ 🔬 ONGs/Territoriales │   │
+│   │  🏛️ Institucional │ 👥 Territorial (JJVV) │ 🤝 Funcional │ 🧭 Voluntario OSM │ 🔬 ONGs/UAH  │   │
 │   └─────────────────────────────────────────────┬─────────────────────────────────────────────┘   │
 │                                                 │                                                 │
 │   ┌─────────────────────────────────────────────▼─────────────────────────────────────────────┐   │
@@ -164,11 +164,16 @@ La arquitectura se articula en 17 módulos desacoplados coordinados por el contr
 ### 3.7 `taginfo.js` (Cliente Taginfo API v4)
 - Consulta asíncrona de estadísticas globales de uso de etiquetas en OpenStreetMap (`/tag/stats` y `/key/values`).
 
-### 3.8 `calidad_analyst.js` (Control de Calidad OQT y OSMCha)
+### 3.8 `evaluador_calidad_cuantitativa.js` (Motor Algorítmico Universal de Calidad IGV / ISO 19157 / ISO 19115)
+- Implementa la evaluación multicriterio basada en Combinación Lineal Ponderada (WLC — Malczewski, 1999) integrando el Pilar Cuantitativo Espacial (50% — OGC SFA: topología, completitud tabular, exactitud posicional, estructura y micro-slivers) con el Pilar Cualitativo de Metadatos (50% — ISO 19115 / ISO 19110: metadatos núcleo, conformidad semántica, linaje legal, resolución y accesibilidad).
+- Soporta auditoría universal de las 118 capas de la geodatabase del Atlas, archivos GeoJSON externos arrastrados en el cliente (Drag & Drop) y texto GeoJSON plano.
+- Incluye motor de saneamiento automático (Auto-Fix) con descarga inmediata, planes de subsanación técnica estructurados para QGIS 3.x, PostGIS 3.x y GeoPandas, semáforo diagnóstico en Leaflet con límite preventivo de renderizado (300 entidades) y paginación DOM para garantizar total estabilidad frente a riesgos de Out-of-Memory.
+
+### 3.9 `calidad_analyst.js` (Control de Calidad OQT y OSMCha)
 - Parser XML de changesets en el Bbox barrial y evaluación heurística de calidad.
 - Cálculo del Índice de Saturación de Mapeo y evaluación de madurez barrial.
 
-### 3.9 `ohsome.js` (Motor Histórico HeiGIT)
+### 3.10 `ohsome.js` (Motor Histórico HeiGIT)
 - Series cronológicas anuales P1Y sobre OSHDB.
 - Soporte dual: v1 libre sin autenticación y v2 con clave opcional.
 
