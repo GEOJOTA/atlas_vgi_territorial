@@ -3068,7 +3068,7 @@ async function descargarColeccionOficialCompleta() {
   }
 
   try {
-    const rutaZip = 'docs/geodatabase_completa_atlas_vgi.zip';
+    const rutaZip = 'docs/geodatabase_completa_atlas_vgi.zip?v=' + Date.now();
     const a = document.createElement('a');
     a.href = rutaZip;
     a.download = 'geodatabase_completa_atlas_vgi.zip';
@@ -3084,14 +3084,14 @@ async function descargarColeccionOficialCompleta() {
     if (estadoTexto) {
       estadoTexto.innerHTML = `
         <span style="color:var(--esmeralda,#10b981); font-weight:700;">✅ [DESCARGA INICIADA]:</span> 
-        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (532.6 MB comprimido / 3.33 GB descomprimido) descargándose en tu equipo. 
+        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (558.5 MB en red / 3.33 GB descomprimido) descargándose en tu equipo. 
         Contiene 7 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong> (108 capas oficiales), <strong>04_repositorio_cartografico_completo</strong> (84 capas complementarias masivas), <strong>05_catalogos_matrices_excel</strong>, <strong>06_datos_consolidados_csv</strong> y <strong>07_metadatos_y_gobernanza</strong>.
       `;
     }
   } catch (err) {
     console.error('[-] Error al iniciar descarga de base de datos:', err);
     if (estadoTexto) {
-      estadoTexto.innerHTML = `<span style="color:#ef4444; font-weight:700;">❌ [ERROR]:</span> No se pudo iniciar la descarga automática. <a href="docs/geodatabase_completa_atlas_vgi.zip" download style="color:var(--musgo); text-decoration:underline;">Haz clic aquí para descarga manual</a>.`;
+      estadoTexto.innerHTML = `<span style="color:#ef4444; font-weight:700;">❌ [ERROR]:</span> No se pudo iniciar la descarga automática. <a href="docs/geodatabase_completa_atlas_vgi.zip?v=20261014_full3gb" download="geodatabase_completa_atlas_vgi.zip" style="color:var(--musgo); text-decoration:underline;">Haz clic aquí para descarga manual</a>.`;
     }
   } finally {
     setTimeout(() => {

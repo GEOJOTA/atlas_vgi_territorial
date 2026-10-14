@@ -127,12 +127,12 @@ const ModuloLicencias = (() => {
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
             <div style="flex:1; min-width:280px;">
               <span class="marcador" style="color:var(--esmeralda); font-weight:800; font-size:0.72rem;">PAQUETE CONSOLIDADO OFICIAL</span>
-              <h4 style="margin:4px 0 6px 0; font-size:1.05rem; color:#ffffff;">📦 Geodatabase Completa del Atlas VGI (Carpeta Comprimida .zip — 27.9 MB)</h4>
+              <h4 style="margin:4px 0 6px 0; font-size:1.05rem; color:#ffffff;">📦 Geodatabase Completa del Atlas VGI (Carpeta Comprimida .zip — 558.5 MB en red / 3.33 GB descomprimido)</h4>
               <p style="font-size:0.84rem; color:var(--tinta-suave); margin:0 0 8px 0; line-height:1.45;">
-                Acceso total e integrado a los datos del proyecto: 10 macrocategorías VGI comunitarias, dataset unificado de Barrio Brasil / UAH, extracto Geofabrik RM (con enlaces a dumps PBF y Shapefiles), 108 capas oficiales del Estado (Censo 2024, MINVU, UOCT, Subtel, BIP, RSH), las 3 matrices en Excel y metadatos ISO 19115.
+                Acceso total e integrado a los datos del proyecto: 118 capas del visor (10 macrocategorías VGI + 108 capas oficiales del Estado), extractos de Geofabrik RM, 84 capas cartográficas complementarias de <code>src/data/</code>, 4 matrices Excel (.xlsx), 4 datasets consolidados (.csv) y metadatos ISO 19115/19139 (241 archivos totales).
               </p>
             </div>
-            <a href="docs/geodatabase_completa_atlas_vgi.zip" download="geodatabase_completa_atlas_vgi.zip" class="accion btn-descarga-coleccion" style="text-decoration:none; padding:10px 18px; font-size:0.86rem;">
+            <a href="docs/geodatabase_completa_atlas_vgi.zip?v=20261014_full3gb" download="geodatabase_completa_atlas_vgi.zip" class="accion btn-descarga-coleccion" style="text-decoration:none; padding:10px 18px; font-size:0.86rem;">
               ⬇️ Descargar Base de Datos Completa (.zip)
             </a>
           </div>
