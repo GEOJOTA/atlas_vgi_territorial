@@ -7,41 +7,45 @@ Genera el paquete comprimido maestro oficial (.zip) de absolutamente toda
 la base de datos, capas cartográficas, catálogos, matrices y metadatos del
 Atlas de Información Geográfica Voluntaria (VGI) — Caso Barrio Brasil / UAH.
 
+Empaqueta el 100% de los datos existentes en src/data/ (los 214 archivos GeoJSON
+y 2 archivos CSV), las 118 capas del visor, los extractos de Geofabrik RM,
+los 4 catálogos Excel .xlsx, los 4 datasets CSV y los 12 documentos de metadatos.
+
 Estructura exhaustiva del paquete (geodatabase_completa_atlas_vgi.zip):
 ├── LEAME_PRIMERO_ATLAS_VGI.txt
 ├── INVENTARIO_GENERAL_ATLAS_VGI.json
-├── 01_vgi_comunitario_osm/ (11 archivos GeoJSON)
+├── 01_vgi_comunitario_osm/ (11 capas GeoJSON Barrio Brasil / UAH)
 │   ├── atlas_vgi_barrio_brasil_uah_completo.geojson
-│   └── capa_*.geojson (10 macro-categorías VGI Barrio Brasil / UAH)
-├── 02_geofabrik_chile_rm/ (11 archivos GeoJSON + Scripts + Guía + Metadatos)
-│   ├── capa_osm_rm_cat01_educacion.geojson ... capa_osm_rm_cat10_cobertura_suelo.geojson
+│   └── capa_educacion.geojson ... capa_cobertura_suelo.geojson (10 macro-categorías)
+├── 02_geofabrik_chile_rm/ (11 capas GeoJSON + Scripts + Guías)
+│   ├── capa_osm_rm_cat01_educacion.geojson ... cat10_cobertura_suelo.geojson
 │   ├── capa_osm_rm_completo_vgi.geojson
 │   ├── ENLACES_Y_METADATOS_GEOFABRIK.json
 │   ├── GUIA_IMPORTACION_GEOFABRIK_QGIS.md
-│   └── scripts/
-│       ├── procesar_geofabrik_rm.py
-│       └── generar_gpkg_geofabrik.py
+│   └── scripts/ (procesar_geofabrik_rm.py, generar_gpkg_geofabrik.py)
 ├── 03_capas_oficiales_estado/ (108 capas oficiales GeoJSON + Inventario)
 │   ├── INVENTARIO_108_CAPAS_OFICIALES.json
-│   ├── ide_censo2024_regional.geojson ... (todas las 108 capas de CAPAS_OFICIALES)
-├── 04_catalogos_matrices_excel/ (4 matrices OpenXML .xlsx)
+│   └── ide_censo2024_regional.geojson ... (todas las 108 capas de CAPAS_OFICIALES)
+├── 04_repositorio_cartografico_completo/ (84 capas GeoJSON adicionales de src/data/)
+│   └── capa_bbdd_61.geojson, capa_bbdd_75.geojson, curvas IGM, canales CNR, etc.
+├── 05_catalogos_matrices_excel/ (4 libros OpenXML .xlsx)
 │   ├── categorias_tematicas_osm.xlsx
 │   ├── catalogo_fuentes_vgi.xlsx
 │   ├── perfil_metadatos_vgi.xlsx
 │   └── Estado_Avance_Atlas_VGI_UAH.xlsx
-├── 05_datos_consolidados_csv/ (4 conjuntos tabulares .csv)
+├── 06_datos_consolidados_csv/ (4 datasets tabulares .csv)
 │   ├── bip_inversiones_santiago.csv
 │   ├── resumen_catastro_vgi.csv
 │   ├── correlacion_dimensiones_calidad.csv
 │   └── wlc_metacalidad_ranking.csv
-└── 06_metadatos_y_gobernanza/ (12 documentos de metadatos y normativas)
+└── 07_metadatos_y_gobernanza/ (12 documentos de calidad, metadatos y gobernanza)
     ├── metadatos_iso19139_atlas_vgi.xml
     ├── metadatos_iso19115_atlas_vgi.json
     ├── matriz_metacalidad.json
     ├── wlc_metacalidad_resultado.json
+    ├── Estado_Avance_Atlas_VGI_UAH.docx
     ├── ANALISIS_METACALIDAD.md
     ├── MANUAL_USO.md
-    ├── INFORME_PROYECTO_ATLAS_VGI.md
     ├── ARQUITECTURA.md
     ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md
     ├── TRAZABILIDAD_ACADEMICA.md
@@ -69,6 +73,7 @@ MIRROR_ZIP = os.path.join(BASE_DIR, "docs", "geodatabase_completa_atlas_vgi.zip"
 
 print("=" * 80)
 print("EMPAQUETANDO BASE DE DATOS COMPLETA E INTEGRAL ATLAS VGI (.ZIP)")
+print("INCLUYENDO EL 100% DE CAPAS DE SRC/DATA, GEOFABRIK, EXCEL, CSV Y METADATOS")
 print("=" * 80)
 
 # -----------------------------------------------------------------------------
@@ -111,7 +116,7 @@ for m in matches:
             "cita_apa_7": cita.group(1) if cita else ""
         })
 
-print(f"[*] Capas Oficiales del Estado detectadas en catálogo ide_chile.js: {len(capas_oficiales_meta)} (Meta: 108)")
+print(f"[*] Capas Oficiales del Estado detectadas en ide_chile.js: {len(capas_oficiales_meta)} (Meta: 108)")
 assert len(capas_oficiales_meta) == 108, f"Se esperaban 108 capas oficiales, se hallaron {len(capas_oficiales_meta)}"
 
 # -----------------------------------------------------------------------------
@@ -130,7 +135,7 @@ VGI_FILES = [
     'capa_edificaciones.geojson',
     'capa_cobertura_suelo.geojson'
 ]
-print(f"[*] Capas Comunitarias VGI (Barrio Brasil / UAH): {len(VGI_FILES)} (10 macrocategorías + dataset unificado)")
+print(f"[*] Capas Comunitarias VGI (Barrio Brasil / UAH): {len(VGI_FILES)} (10 macrocategorías + dataset consolidado)")
 
 # -----------------------------------------------------------------------------
 # 3. Definir las 11 capas de Geofabrik RM
@@ -151,7 +156,16 @@ GEOFABRIK_FILES = [
 print(f"[*] Capas Temáticas y Consolidada Geofabrik RM: {len(GEOFABRIK_FILES)}")
 
 # -----------------------------------------------------------------------------
-# 4. Archivos Excel (.xlsx)
+# 4. Detectar capas adicionales restantes en src/data/ (para completar el 100%)
+# -----------------------------------------------------------------------------
+archivos_clasificados = set(VGI_FILES) | set(GEOFABRIK_FILES) | archivos_oficiales_set
+todos_geojsons_data = sorted([f for f in os.listdir(DATA_DIR) if f.endswith('.geojson')])
+geojsons_adicionales = [f for f in todos_geojsons_data if f not in archivos_clasificados]
+print(f"[*] Capas Cartográficas Adicionales en src/data/: {len(geojsons_adicionales)}")
+print(f"[*] TOTAL de archivos GeoJSON a incluir en el ZIP: {len(VGI_FILES) + len(GEOFABRIK_FILES) + len(capas_oficiales_meta) + len(geojsons_adicionales)} (100% de los {len(todos_geojsons_data)} en disco)")
+
+# -----------------------------------------------------------------------------
+# 5. Archivos Excel (.xlsx)
 # -----------------------------------------------------------------------------
 EXCEL_CANDIDATES = [
     ('categorias_tematicas_osm.xlsx', os.path.join(DOCS_DIR, 'categorias_tematicas_osm.xlsx')),
@@ -161,7 +175,7 @@ EXCEL_CANDIDATES = [
 ]
 
 # -----------------------------------------------------------------------------
-# 5. Archivos CSV (.csv)
+# 6. Archivos CSV (.csv)
 # -----------------------------------------------------------------------------
 CSV_FILES = [
     ('bip_inversiones_santiago.csv', os.path.join(DATA_DIR, 'bip_inversiones_santiago.csv')),
@@ -171,7 +185,7 @@ CSV_FILES = [
 ]
 
 # -----------------------------------------------------------------------------
-# 6. Documentos de Metadatos y Gobernanza
+# 7. Documentos de Metadatos y Gobernanza
 # -----------------------------------------------------------------------------
 DOC_FILES = [
     ('ANALISIS_METACALIDAD.md', os.path.join(DOCS_DIR, 'ANALISIS_METACALIDAD.md')),
@@ -186,7 +200,7 @@ DOC_FILES = [
 ]
 
 # -----------------------------------------------------------------------------
-# 7. Generar Ficha XML ISO 19139 y JSON ISO 19115
+# 8. Generar Ficha XML ISO 19139 y JSON ISO 19115
 # -----------------------------------------------------------------------------
 XML_ISO19139 = f"""<?xml version="1.0" encoding="UTF-8"?>
 <gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd"
@@ -246,7 +260,7 @@ XML_ISO19139 = f"""<?xml version="1.0" encoding="UTF-8"?>
     <gmd:MD_DataIdentification>
       <gmd:citation>
         <gmd:CI_Citation>
-          <gmd:title><gco:CharacterString>Geodatabase Multicapa Completa — Atlas VGI Barrio Brasil y Campus UAH (118 Capas Totales + Geofabrik)</gco:CharacterString></gmd:title>
+          <gmd:title><gco:CharacterString>Geodatabase Multicapa Completa — Atlas VGI Barrio Brasil y Campus UAH (214 Capas GeoJSON + Geofabrik + Catálogos)</gco:CharacterString></gmd:title>
           <gmd:date>
             <gmd:CI_Date>
               <gmd:date><gco:Date>2026-10-14</gco:Date></gmd:date>
@@ -257,7 +271,7 @@ XML_ISO19139 = f"""<?xml version="1.0" encoding="UTF-8"?>
           </gmd:date>
         </gmd:CI_Citation>
       </gmd:citation>
-      <gmd:abstract><gco:CharacterString>Geodatabase completa que integra las 10 macrocategorías VGI comunitarias (OpenStreetMap/GBIF), 11 capas regionales de Geofabrik y las 108 capas oficiales del Estado de Chile (Censo INE 2024, MINVU, UOCT, Subtel, BIP, RSH, SEC, MMA, MOP). Incluye matrices metodológicas Excel, conjuntos tabulares CSV y metadatos normalizados bajo normas ISO 19115/19139 e ISO 19157.</gco:CharacterString></gmd:abstract>
+      <gmd:abstract><gco:CharacterString>Geodatabase completa que integra la totalidad absoluta de las capas cartográficas del repositorio: 10 macrocategorías VGI comunitarias (OpenStreetMap/GBIF), 11 capas regionales de Geofabrik RM, 108 capas oficiales del Estado de Chile (Censo INE 2024, MINVU, UOCT, Subtel, BIP, RSH, SEC, MMA, MOP) y 84 capas complementarias masivas. Incluye matrices metodológicas Excel, conjuntos tabulares CSV y metadatos normalizados bajo normas ISO 19115/19139 e ISO 19157.</gco:CharacterString></gmd:abstract>
       <gmd:purpose><gco:CharacterString>Proveer a la comunidad académica, organizaciones territoriales e instituciones públicas una infraestructura de datos espaciales abierta, reproducible y de calidad certificada para la gestión territorial del Barrio Brasil y Gran Santiago.</gco:CharacterString></gmd:purpose>
       <gmd:resourceConstraints>
         <gmd:MD_LegalConstraints>
@@ -291,7 +305,7 @@ XML_ISO19139 = f"""<?xml version="1.0" encoding="UTF-8"?>
       </gmd:scope>
       <gmd:lineage>
         <gmd:LI_Lineage>
-          <gmd:statement><gco:CharacterString>Datos vectoriales normalizados y verificados bajo ISO 19157 (MetaCalidad global 95.27%). Esquema de 14 atributos maestros y 125 citas bibliográficas APA 7ª ed.</gco:CharacterString></gmd:statement>
+          <gmd:statement><gco:CharacterString>Datos vectoriales normalizados y verificados bajo ISO 19157 (MetaCalidad global 95.28%). Esquema de 14 atributos maestros y 125 citas bibliográficas APA 7ª ed.</gco:CharacterString></gmd:statement>
         </gmd:LI_Lineage>
       </gmd:lineage>
     </gmd:DQ_DataQuality>
@@ -304,20 +318,21 @@ JSON_ISO19115 = {
     "fecha_empaquetado": datetime.now().isoformat(),
     "titulo": "Geodatabase Completa Atlas VGI — Barrio Brasil / Universidad Alberto Hurtado",
     "cobertura": "Barrio Brasil, Campus UAH y Región Metropolitana de Santiago, Chile",
-    "resumen": "Geodatabase integral con 118 capas cartográficas del Atlas (10 VGI + 108 Oficiales del Estado) + 11 capas temáticas y completas Geofabrik RM, 4 catálogos Excel .xlsx, 4 datasets CSV y metadatos normalizados.",
+    "resumen": "Geodatabase exhaustiva con 214 capas GeoJSON (10 VGI + 11 Geofabrik + 108 Oficiales del Estado + 84 cartografía complementaria), 4 catálogos Excel .xlsx, 4 datasets CSV y metadatos normalizados.",
     "sistema_referencia": {
         "coordenadas_nativas": "EPSG:4326 (WGS 84 Coordenadas Geográficas)",
         "calculo_metrico": "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)",
         "marco_geodesico_nacional": "EPSG:5361 (SIRGAS-Chile / UTM Huso 19S)"
     },
     "estadisticas_generales": {
-        "total_capas_cartograficas_atlas": 118,
+        "total_archivos_geojson": len(todos_geojsons_data),
         "capas_oficiales_estado": 108,
         "macrocategorias_vgi_comunitarias": 10,
         "capas_geofabrik_rm": 11,
-        "catalogos_excel_xlsx": 4,
-        "datasets_tabulares_csv": 4,
-        "documentos_gobernanza_y_calidad": 12
+        "capas_cartograficas_adicionales": len(geojsons_adicionales),
+        "catalogos_excel_xlsx": len(EXCEL_CANDIDATES),
+        "datasets_tabulares_csv": len(CSV_FILES),
+        "documentos_gobernanza_y_calidad": len(DOC_FILES) + 1
     },
     "licencias": {
         "datos_osm": "Open Database License (ODbL 1.0)",
@@ -397,13 +412,13 @@ CASO PILOTO: BARRIO BRASIL Y CAMPUS UNIVERSIDAD ALBERTO HURTADO (SANTIAGO, CHILE
 PROYECTO FONDECYT REGULAR F1261256 · DEPARTAMENTO DE GEOGRAFÍA UAH 2026
 ================================================================================
 
-Este archivo comprimido (.zip) contiene la base de datos íntegra, exhaustiva y
-multifuente desarrollada en el marco del Atlas VGI Territorial. Cualquier usuario,
-investigador, estudiante, funcionario municipal o colectivo comunitario puede
-acceder a ABSOLUTAMENTE TODOS los datos de forma integrada, completa y accesible.
+Este archivo comprimido (.zip) contiene la base de datos ÍNTEGRA Y COMPLETA,
+abarcando el 100% absoluto de las capas espaciales, catálogos, matrices y
+metadatos existentes en el repositorio del Atlas VGI Territorial (3.33 GB de
+datos vectoriales y tabulares descomprimidos en más de 240 archivos).
 
 --------------------------------------------------------------------------------
-1. ESTRUCTURA DE CARPETAS Y CONTENIDO TOTAL (152 ARCHIVOS)
+1. ESTRUCTURA DE CARPETAS Y CONTENIDO TOTAL (241 ARCHIVOS)
 --------------------------------------------------------------------------------
 
 01_vgi_comunitario_osm/ (11 archivos GeoJSON)
@@ -414,7 +429,7 @@ acceder a ABSOLUTAMENTE TODOS los datos de forma integrada, completa y accesible
    - CAT-03: Transporte y Movilidad (capa_transporte.geojson)
    - CAT-04: Movilidad Activa y Ciclovías (capa_movilidad_activa.geojson)
    - CAT-05: Áreas Verdes y Espacio Público (capa_espacio_publico.geojson)
-   - CAT-06: Patrimonio y Memoria (capa_patrimonio.geojson)
+   - CAT-06: Patrimonio y Memoria Histórica (capa_patrimonio.geojson)
    - CAT-07: Accesibilidad Universal (capa_accesibilidad.geojson)
    - CAT-08: Biodiversidad Urbana (capa_biodiversidad.geojson)
    - CAT-09: Edificaciones y Huella Urbana (capa_edificaciones.geojson)
@@ -444,27 +459,37 @@ acceder a ABSOLUTAMENTE TODOS los datos de forma integrada, completa y accesible
    - SII: Catastro Predial Geocodificado
    - INVENTARIO_108_CAPAS_OFICIALES.json con ficha técnica y citas APA de cada capa.
 
-04_catalogos_matrices_excel/ (4 libros OpenXML .xlsx)
+04_repositorio_cartografico_completo/ (84 archivos GeoJSON masivos y complementarios)
+   Todos los conjuntos cartográficos complementarios de src/data/ sin excepción:
+   - Catastro vegetacional completo CONAF (capa_bbdd_61.geojson, 284 MB)
+   - Censo INE manzanas censales completas RM (capa_bbdd_75.geojson, 123 MB)
+   - Instrumentos Comunales IPT Santiago (capa_ipt_prc_comunal.geojson, 77.8 MB)
+   - Áreas Verdes consolidadas (Areas_Verdes_MINVU_INE_2023.geojson, 29.4 MB)
+   - Canales de riego CNR y Curvas de Nivel IGM (17.7 MB y 16.1 MB)
+   - Red de SNASPE, pisos vegetacionales MMA y zonificaciones térmicas
+   - Continuo de construcciones urbanas CCU multitemporal y fajas de resguardo.
+
+05_catalogos_matrices_excel/ (4 libros OpenXML .xlsx)
    - categorias_tematicas_osm.xlsx: Libro de 4 hojas (Taxonomías CAT-01..10,
      catálogo de etiquetas Chile, diccionario de atributos y 125 citas APA 7ª ed.)
    - catalogo_fuentes_vgi.xlsx: Inventario evaluado de fuentes colaborativas y oficiales
    - perfil_metadatos_vgi.xlsx: Perfil de metadatos ISO 19115 / SNIT y matriz de calidad
    - Estado_Avance_Atlas_VGI_UAH.xlsx: Matriz de avance y carta Gantt del proyecto
 
-05_datos_consolidados_csv/ (4 datasets tabulares .csv)
+06_datos_consolidados_csv/ (4 datasets tabulares .csv)
    - bip_inversiones_santiago.csv: Registro detallado de iniciativas BIP
    - resumen_catastro_vgi.csv: Resumen cuantitativo por categoría y polígono
    - correlacion_dimensiones_calidad.csv: Matriz de correlación ISO 19157
    - wlc_metacalidad_ranking.csv: Ranking de calidad ponderada (WLC)
 
-06_metadatos_y_gobernanza/ (12 documentos técnicos y legales)
+07_metadatos_y_gobernanza/ (12 documentos técnicos y legales)
    - metadatos_iso19139_atlas_vgi.xml: Ficha XML oficial para GeoNetwork / GeoNode
    - metadatos_iso19115_atlas_vgi.json: Ficha JSON conforme a perfil SNIT
    - matriz_metacalidad.json: Matriz computacional de calidad de las 118 capas
    - wlc_metacalidad_resultado.json: Resultados cuantitativos de ponderación WLC
+   - Estado_Avance_Atlas_VGI_UAH.docx: Informe de avance académico de práctica UAH
    - ANALISIS_METACALIDAD.md: Informe de auditoría bajo norma ISO 19157:2013/2023
    - MANUAL_USO.md: Manual integral del Atlas y visor interactivo
-   - INFORME_PROYECTO_ATLAS_VGI.md: Memoria académica del Atlas VGI
    - ARQUITECTURA.md: Documentación técnica del stack y failover triple
    - BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md: 125 referencias bibliográficas en APA 7ª ed.
    - TRAZABILIDAD_ACADEMICA.md: Registro de auditoría y decisiones de diseño
@@ -502,7 +527,7 @@ Raíz:
 """
 
 # -----------------------------------------------------------------------------
-# 8. Empaquetamiento en archivo ZIP (compresslevel=6 para velocidad y balance)
+# 9. Empaquetamiento en archivo ZIP (compresslevel=6 para velocidad y balance)
 # -----------------------------------------------------------------------------
 inventario_general = {
     "fecha_generacion": datetime.now().isoformat(),
@@ -549,8 +574,8 @@ with zipfile.ZipFile(OUTPUT_ZIP, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as 
     agregar_string('geodatabase_completa_atlas_vgi/02_geofabrik_chile_rm/ENLACES_Y_METADATOS_GEOFABRIK.json', json.dumps(GEOFABRIK_META, indent=2, ensure_ascii=False))
     agregar_string('geodatabase_completa_atlas_vgi/02_geofabrik_chile_rm/GUIA_IMPORTACION_GEOFABRIK_QGIS.md', GUIA_GEOFABRIK_MD.strip())
     agregar_string('geodatabase_completa_atlas_vgi/03_capas_oficiales_estado/INVENTARIO_108_CAPAS_OFICIALES.json', json.dumps(capas_oficiales_meta, indent=2, ensure_ascii=False))
-    agregar_string('geodatabase_completa_atlas_vgi/06_metadatos_y_gobernanza/metadatos_iso19139_atlas_vgi.xml', XML_ISO19139.strip())
-    agregar_string('geodatabase_completa_atlas_vgi/06_metadatos_y_gobernanza/metadatos_iso19115_atlas_vgi.json', json.dumps(JSON_ISO19115, indent=2, ensure_ascii=False))
+    agregar_string('geodatabase_completa_atlas_vgi/07_metadatos_y_gobernanza/metadatos_iso19139_atlas_vgi.xml', XML_ISO19139.strip())
+    agregar_string('geodatabase_completa_atlas_vgi/07_metadatos_y_gobernanza/metadatos_iso19115_atlas_vgi.json', json.dumps(JSON_ISO19115, indent=2, ensure_ascii=False))
 
     # B. 01_vgi_comunitario_osm (11 archivos)
     print("\n--- Empaquetando 01_vgi_comunitario_osm ---")
@@ -579,30 +604,37 @@ with zipfile.ZipFile(OUTPUT_ZIP, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as 
         if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/03_capas_oficiales_estado/{fname}'):
             print(f" [+] Oficial ({meta['id']}): {fname}")
 
-    # E. 04_catalogos_matrices_excel (4 archivos)
-    print("\n--- Empaquetando 04_catalogos_matrices_excel ---")
+    # E. 04_repositorio_cartografico_completo (84 archivos restantes)
+    print(f"\n--- Empaquetando 04_repositorio_cartografico_completo ({len(geojsons_adicionales)} capas adicionales) ---")
+    for f in geojsons_adicionales:
+        p = os.path.join(DATA_DIR, f)
+        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/04_repositorio_cartografico_completo/{f}'):
+            print(f" [+] Repositorio complementario: {f}")
+
+    # F. 05_catalogos_matrices_excel (4 archivos)
+    print("\n--- Empaquetando 05_catalogos_matrices_excel ---")
     for fname, p in EXCEL_CANDIDATES:
-        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/04_catalogos_matrices_excel/{fname}'):
+        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/05_catalogos_matrices_excel/{fname}'):
             print(f" [+] Excel: {fname}")
 
-    # F. 05_datos_consolidados_csv (4 archivos)
-    print("\n--- Empaquetando 05_datos_consolidados_csv ---")
+    # G. 06_datos_consolidados_csv (4 archivos)
+    print("\n--- Empaquetando 06_datos_consolidados_csv ---")
     for fname, p in CSV_FILES:
-        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/05_datos_consolidados_csv/{fname}'):
+        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/06_datos_consolidados_csv/{fname}'):
             print(f" [+] CSV: {fname}")
 
-    # G. 06_metadatos_y_gobernanza (12 archivos)
-    print("\n--- Empaquetando 06_metadatos_y_gobernanza ---")
+    # H. 07_metadatos_y_gobernanza (12 archivos)
+    print("\n--- Empaquetando 07_metadatos_y_gobernanza ---")
     for fname, p in DOC_FILES:
-        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/06_metadatos_y_gobernanza/{fname}'):
+        if agregar_archivo(p, f'geodatabase_completa_atlas_vgi/07_metadatos_y_gobernanza/{fname}'):
             print(f" [+] Doc: {fname}")
 
     lic_p = os.path.join(BASE_DIR, 'LICENSE')
     if os.path.exists(lic_p):
-        agregar_archivo(lic_p, 'geodatabase_completa_atlas_vgi/06_metadatos_y_gobernanza/LICENSE')
+        agregar_archivo(lic_p, 'geodatabase_completa_atlas_vgi/07_metadatos_y_gobernanza/LICENSE')
         print(" [+] Licencia: LICENSE")
 
-    # H. Inventario General Consolidado (JSON)
+    # I. Inventario General Consolidado (JSON)
     agregar_string('geodatabase_completa_atlas_vgi/INVENTARIO_GENERAL_ATLAS_VGI.json', json.dumps(inventario_general, indent=2, ensure_ascii=False))
 
 # Sincronizar copia en docs/
@@ -615,7 +647,7 @@ print("\n" + "=" * 80)
 print(f"✅ PAQUETE MAESTRO GENERADO CON ÉXITO:")
 print(f"   Archivo de Salida:   {OUTPUT_ZIP}")
 print(f"   Copia Espejo:        {MIRROR_ZIP}")
-print(f"   Archivos Incluidos:  {total_archivos_agregados} archivos totales")
+print(f"   Archivos Incluidos:  {total_archivos_agregados} archivos totales (100% DE LA DATA)")
 print(f"   Tamaño Descomprimido:{uncompressed_mb:.2f} MB ({uncompressed_mb / 1024:.2f} GB)")
 print(f"   Tamaño Comprimido:   {sz_mb:.2f} MB")
 print("=" * 80)

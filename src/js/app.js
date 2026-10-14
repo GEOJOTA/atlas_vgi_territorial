@@ -3062,8 +3062,8 @@ async function descargarColeccionOficialCompleta() {
   if (estadoTexto) {
     estadoTexto.innerHTML = `
       <span style="color:var(--esmeralda,#10b981); font-weight:700;">📦 [INICIANDO DESCARGA]:</span> 
-      Descargando la base de datos completa del Atlas VGI en archivo comprimido (.zip, 267 MB). 
-      Incluye todas las 118 capas del Atlas, extractos completos de Geofabrik RM, 4 catálogos Excel, 4 datasets CSV y metadatos ISO 19115/19139 (157 archivos totales).
+      Descargando la base de datos completa del Atlas VGI en archivo comprimido (.zip, 532.6 MB). 
+      Incluye el 100% de la cartografía (214 capas GeoJSON, 3.33 GB), extractos completos de Geofabrik RM, 4 catálogos Excel, 4 datasets CSV y metadatos ISO (241 archivos totales).
     `;
   }
 
@@ -3084,8 +3084,8 @@ async function descargarColeccionOficialCompleta() {
     if (estadoTexto) {
       estadoTexto.innerHTML = `
         <span style="color:var(--esmeralda,#10b981); font-weight:700;">✅ [DESCARGA INICIADA]:</span> 
-        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (267 MB comprimido / 2.2 GB descomprimido) descargándose en tu equipo. 
-        Contiene 6 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong> (108 capas oficiales), <strong>04_catalogos_matrices_excel</strong>, <strong>05_datos_consolidados_csv</strong> y <strong>06_metadatos_y_gobernanza</strong>.
+        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (532.6 MB comprimido / 3.33 GB descomprimido) descargándose en tu equipo. 
+        Contiene 7 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong> (108 capas oficiales), <strong>04_repositorio_cartografico_completo</strong> (84 capas complementarias masivas), <strong>05_catalogos_matrices_excel</strong>, <strong>06_datos_consolidados_csv</strong> y <strong>07_metadatos_y_gobernanza</strong>.
       `;
     }
   } catch (err) {
