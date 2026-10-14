@@ -3096,7 +3096,7 @@ async function descargarColeccionOficialCompleta() {
   } finally {
     setTimeout(() => {
       if (btn) {
-        btn.innerHTML = textoOriginal || '📦 Descargar Base de Datos Completa (.zip)';
+        btn.innerHTML = textoOriginal || '📦 Descargar Colección Completa (.zip)';
         btn.disabled = false;
       }
     }, 2000);
