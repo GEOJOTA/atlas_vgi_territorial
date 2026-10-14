@@ -3062,8 +3062,8 @@ async function descargarColeccionOficialCompleta() {
   if (estadoTexto) {
     estadoTexto.innerHTML = `
       <span style="color:var(--esmeralda,#10b981); font-weight:700;">📦 [INICIANDO DESCARGA]:</span> 
-      Descargando la base de datos completa del Atlas VGI en archivo comprimido (.zip, 27.9 MB). 
-      Incluye 10 macrocategorías VGI, extracto Geofabrik RM, capas oficiales del Estado, catálogos Excel y metadatos ISO 19115.
+      Descargando la base de datos completa del Atlas VGI en archivo comprimido (.zip, 267 MB). 
+      Incluye todas las 118 capas del Atlas, extractos completos de Geofabrik RM, 4 catálogos Excel, 4 datasets CSV y metadatos ISO 19115/19139 (157 archivos totales).
     `;
   }
 
@@ -3084,8 +3084,8 @@ async function descargarColeccionOficialCompleta() {
     if (estadoTexto) {
       estadoTexto.innerHTML = `
         <span style="color:var(--esmeralda,#10b981); font-weight:700;">✅ [DESCARGA INICIADA]:</span> 
-        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (27.9 MB) descargándose en tu equipo. 
-        Contiene 5 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong>, <strong>04_catalogos_matrices_excel</strong> y <strong>05_metadatos_y_gobernanza</strong>.
+        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (267 MB comprimido / 2.2 GB descomprimido) descargándose en tu equipo. 
+        Contiene 6 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong> (108 capas oficiales), <strong>04_catalogos_matrices_excel</strong>, <strong>05_datos_consolidados_csv</strong> y <strong>06_metadatos_y_gobernanza</strong>.
       `;
     }
   } catch (err) {

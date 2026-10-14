@@ -8,7 +8,7 @@
 
 [build.environment]
   GIT_LFS_ENABLED = "true"
-  GIT_LFS_FETCH_INCLUDE = "*.geojson,data/*.geojson,src/data/*.geojson"
+  GIT_LFS_FETCH_INCLUDE = "*.geojson,data/*.geojson,src/data/*.geojson,*.zip,src/docs/*.zip,docs/*.zip"
   SECRETS_SCAN_ENABLED = "false"
   SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,SUPABASE_ANON_KEY"
 
@@ -53,3 +53,11 @@
   [headers.values]
     Content-Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "*.zip"
+  [headers.values]
+    Content-Type = "application/zip"
+    Content-Disposition = "attachment; filename=\"geodatabase_completa_atlas_vgi.zip\""
+    Access-Control-Allow-Origin = "*"
+

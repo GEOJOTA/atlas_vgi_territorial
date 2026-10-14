@@ -1338,9 +1338,9 @@
         <div class="modal-bd-aviso-exito">
           <div style="font-size:1.4rem;">✅</div>
           <div style="flex:1;">
-            <strong>¡La descarga de la carpeta comprimida se ha iniciado en tu navegador!</strong>
+            <strong>¡La descarga de la base de datos completa se ha iniciado en tu navegador!</strong>
             <p style="margin:2px 0 0 0; font-size:0.82rem; color:var(--tinta-suave);">
-              Archivo: <code>geodatabase_completa_atlas_vgi.zip</code> · Peso: <strong>27.9 MB comprimido</strong> (más de 2.1 GB de datos vectoriales descomprimidos).
+              Archivo: <code>geodatabase_completa_atlas_vgi.zip</code> · Peso: <strong>267 MB comprimido</strong> (más de 2.2 GB de datos vectoriales y tabulares descomprimidos en <strong>157 archivos totales</strong>).
             </p>
           </div>
           <a href="docs/geodatabase_completa_atlas_vgi.zip" download="geodatabase_completa_atlas_vgi.zip" class="accion btn-reintentar-descarga-zip" style="text-decoration:none; white-space:nowrap;">
@@ -1349,27 +1349,31 @@
         </div>
 
         <!-- Desglose de Contenidos Incluidos -->
-        <h4 style="margin:8px 0 4px 0; color:var(--musgo); font-size:0.95rem;">Contenido Íntegro del Paquete Comprimido:</h4>
+        <h4 style="margin:8px 0 4px 0; color:var(--musgo); font-size:0.95rem;">Contenido Íntegro del Paquete Comprimido (157 Archivos):</h4>
         <div class="modal-bd-grid-carpetas">
           <div class="tarjeta-carpeta-bd">
-            <div class="carpeta-icono">📁 01_vgi_comunitario_osm</div>
-            <p><strong>10 Macro-categorías VGI + Dataset Unificado:</strong> Educación, Salud/Servicios, Transporte, Ciclovías, Espacio Público, Patrimonio, Accesibilidad, Biodiversidad, Edificaciones y Usos de Suelo en formato GeoJSON WGS84 (EPSG:4326).</p>
+            <div class="carpeta-icono">📁 01_vgi_comunitario_osm (11 capas)</div>
+            <p><strong>10 Macro-categorías VGI + Dataset Unificado:</strong> Educación, Salud/Servicios, Transporte, Ciclovías, Espacio Público, Patrimonio, Accesibilidad, Biodiversidad, Edificaciones y Usos de Suelo en formato GeoJSON WGS84 (EPSG:4326) con esquema de 14 atributos maestros.</p>
           </div>
           <div class="tarjeta-carpeta-bd">
-            <div class="carpeta-icono">📁 02_geofabrik_chile_rm</div>
-            <p><strong>Extracto Regional Geofabrik &amp; Scripts:</strong> Capas derivadas de Geofabrik para la RM, guía de importación en QGIS y archivo de metadatos con URLs directas a los dumps diarios completos de Geofabrik Chile (OSM PBF y Shapefiles).</p>
+            <div class="carpeta-icono">📁 02_geofabrik_chile_rm (11 capas + scripts)</div>
+            <p><strong>Extractos Geofabrik RM &amp; Scripts:</strong> Las 10 macrocategorías regionales extraídas de Geofabrik + capa unificada regional (<code>capa_osm_rm_completo_vgi.geojson</code>), scripts Python de procesamiento espacial y catálogo con enlaces a los dumps diarios masivos PBF y Shapefiles.</p>
           </div>
           <div class="tarjeta-carpeta-bd">
-            <div class="carpeta-icono">📁 03_capas_oficiales_estado</div>
-            <p><strong>108 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades), MINVU Áreas Verdes, IPT ZCH/ICH, UOCT Cruces Semaforizados, Subtel Antenas, BIP Inversiones y Unidades Vecinales RSH.</p>
+            <div class="carpeta-icono">📁 03_capas_oficiales_estado (108 capas)</div>
+            <p><strong>Todas las 108 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades, Límites), MINVU Áreas Verdes y Zonificación Térmica, Instrumentos de Planificación Territorial (IPT PRC/PRMS), UOCT Cruces Semaforizados, Subtel Antenas, Inversión BIP RM, MIDESO RSH, SEC energía, MOP cuencas, CONAF, CIREN y catastro SII + inventario JSON de las 108 capas.</p>
           </div>
           <div class="tarjeta-carpeta-bd">
-            <div class="carpeta-icono">📁 04_catalogos_matrices_excel</div>
-            <p><strong>3 Matrices Maestras en Excel (.xlsx):</strong> Categorías temáticas OSM de 4 hojas (taxonomías, etiquetas Chile y 125 citas APA 7ª ed.), Catálogo de fuentes VGI y Perfil de Metadatos ISO 19115 / SNIT.</p>
+            <div class="carpeta-icono">📁 04_catalogos_matrices_excel (4 matrices)</div>
+            <p><strong>4 Libros Maestros en Excel (.xlsx):</strong> Categorías temáticas OSM de 4 hojas (taxonomías, etiquetas Chile y 125 citas APA 7ª ed.), Catálogo de fuentes VGI, Perfil de Metadatos ISO 19115 / SNIT y Matriz consolidada de Estado de Avance UAH.</p>
           </div>
-          <div class="tarjeta-carpeta-bd" style="grid-column: 1 / -1;">
-            <div class="carpeta-icono">📁 05_metadatos_y_gobernanza &amp; LEAME_PRIMERO</div>
-            <p><strong>Metadatos, Guías y Licencias:</strong> Ficha XML ISO 19139 para GeoNetwork, Informe de MetaCalidad ISO 19157 (95.3% IGV), Manual de Uso en Markdown, archivo LEAME_PRIMERO con instrucciones para QGIS/ArcGIS/Python y licencias ODbL 1.0, CC BY-SA 4.0 y GNU AGPLv3.</p>
+          <div class="tarjeta-carpeta-bd">
+            <div class="carpeta-icono">📁 05_datos_consolidados_csv (4 datasets)</div>
+            <p><strong>4 Archivos Tabulares en CSV (.csv):</strong> Iniciativas BIP Inversiones Santiago, Resumen cuantitativo de catastro VGI, Matriz de correlación dimensional ISO 19157 y Ranking cuantitativo ponderado WLC de metacalidad.</p>
+          </div>
+          <div class="tarjeta-carpeta-bd">
+            <div class="carpeta-icono">📁 06_metadatos_y_gobernanza &amp; LEAME</div>
+            <p><strong>Metadatos, Calidad y Documentación:</strong> Ficha XML ISO 19139 para GeoNetwork, Ficha JSON ISO 19115, Matriz de Calidad ISO 19157 (95.3% IGV), Informe de Estado de Avance UAH (.docx), Manual de Uso, Arquitectura técnica, Bibliografía APA y licencias ODbL 1.0, CC BY-SA 4.0 y GNU AGPLv3.</p>
           </div>
         </div>
 
