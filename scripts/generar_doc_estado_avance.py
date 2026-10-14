@@ -3,453 +3,930 @@
 """
 generar_doc_estado_avance.py
 ============================
-Generador formal del Informe de Estado de Avance (150 Horas / Hitos 1 a 5)
-para la Práctica Profesional de Geografía - Universidad Alberto Hurtado (UAH).
+Informe de Estado de Avance (corte 150 horas) de la Práctica Profesional
+"Atlas de Información Geográfica Voluntaria para la Gestión Territorial".
 
-Archivo de salida:
+Estructura: cada Objetivo Específico se desarrolla como una cadena
+    OBJETIVO  →  PROCEDIMIENTOS (plan metodológico)  →  PRODUCTOS
+usando exclusivamente los objetivos declarados en la presentación de avance
+y las actividades / productos declarados en el Plan de Trabajo formal
+(Planificación geopráctica profesional 2026.xlsx).
+
+Salida:
 /Users/geojplescano/Programas/Práctica profesional 2026 S2/Estado_Avance_Atlas_VGI_UAH.docx
 """
 
 import os
-import docx
+import textwrap
+
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle
+
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn, nsdecls
+from docx.oxml.ns import nsdecls
 from docx.oxml import parse_xml
 
-OUTPUT_DOCX = "/Users/geojplescano/Programas/Práctica profesional 2026 S2/Estado_Avance_Atlas_VGI_UAH.docx"
+BASE_DIR = "/Users/geojplescano/Programas/Práctica profesional 2026 S2"
+OUTPUT_DOCX = os.path.join(BASE_DIR, "Estado_Avance_Atlas_VGI_UAH.docx")
+DIR_DIAGRAMAS = os.path.join(BASE_DIR, "scratch", "diagramas_informe")
+os.makedirs(DIR_DIAGRAMAS, exist_ok=True)
 
-# Colores UAH
-COLOR_AZUL_UAH = RGBColor(0, 51, 102)     # #003366
-COLOR_AZUL_SEC = RGBColor(15, 76, 129)    # #0F4C81
-COLOR_NEGRO = RGBColor(17, 24, 39)        # #111827
-COLOR_GRIS = RGBColor(100, 116, 139)      # #64748B
+# ---------------------------------------------------------------------------
+# Paleta institucional
+# ---------------------------------------------------------------------------
+HEX_AZUL_UAH = "#003366"
+HEX_AZUL_SEC = "#0F4C81"
+HEX_AZUL_CLARO = "#E8F0F8"
+HEX_GRIS_LINEA = "#94A3B8"
+HEX_NEGRO = "#111827"
+
+ESTADOS = {
+    "completado": ("Completado", "#10B981"),
+    "en_curso": ("En ejecución", "#F59E0B"),
+    "anticipado": ("Avance anticipado", "#38BDF8"),
+    "programado": ("Programado", "#94A3B8"),
+}
+
+COLOR_AZUL_UAH = RGBColor(0, 51, 102)
+COLOR_AZUL_SEC = RGBColor(15, 76, 129)
+COLOR_NEGRO = RGBColor(17, 24, 39)
+COLOR_GRIS = RGBColor(100, 116, 139)
 COLOR_BLANCO = RGBColor(255, 255, 255)
 
+# ---------------------------------------------------------------------------
+# CONTENIDO — Objetivo general y objetivos específicos (texto declarado en PPT)
+# ---------------------------------------------------------------------------
+OBJETIVO_GENERAL = (
+    "Desarrollar un prototipo de Atlas de Información Geográfica Voluntaria (VGI) centrado en los usuarios "
+    "para Barrio Brasil y el entorno del campus de la Universidad Alberto Hurtado, articulando datos colaborativos "
+    "y fuentes oficiales, con el propósito de subsanar vacíos de información territorial a escala barrial y proveer "
+    "herramientas interactivas de diagnóstico, análisis espacial y gestión urbana local."
+)
+
+OBJETIVOS = [
+    {
+        "id": "OE 1",
+        "titulo": "Caracterización territorial y arquitectura conceptual",
+        "corto": "Caracterización y\narquitectura conceptual",
+        "texto": (
+            "Caracterizar la disponibilidad de información geográfica voluntaria y oficial en Barrio Brasil, mediante "
+            "la revisión sistemática de fuentes abiertas e institucionales, para estructurar la arquitectura conceptual "
+            "del Atlas a partir de una taxonomía temática normalizada y perfiles territoriales centrados en el usuario."
+        ),
+        "hitos": "Hitos 1, 2 y 3",
+        "hitos_corto": "H1–H3",
+        "periodo": "Días 1–12 · 01/09 – 16/09/2026",
+        "semanas": "Sem 1–3",
+        "horas": 72,
+        "estado": "completado",
+        "procedimientos": [
+            {
+                "id": "P1.1", "hito": "H1",
+                "nombre": "Diagnóstico institucional y delimitación del caso",
+                "corto": "Diagnóstico institucional y delimitación",
+                "detalle": (
+                    "Se sostuvo la reunión de inducción con el referente del centro de práctica para conocer qué "
+                    "información territorial utiliza y cuál le hace falta para trabajar el barrio. A partir de esa "
+                    "conversación se delimitó el área de estudio (Barrio Brasil y entorno del campus UAH), se "
+                    "identificaron los usuarios potenciales y se formularon la pregunta central, los objetivos y el alcance."
+                ),
+                "tecnica": "Entrevista / consulta institucional · revisión documental",
+                "productos": ["1.1"],
+            },
+            {
+                "id": "P1.2", "hito": "H1",
+                "nombre": "Revisión bibliográfica sobre VGI",
+                "corto": "Revisión bibliográfica VGI",
+                "detalle": (
+                    "Se leyeron y sistematizaron los textos de referencia sobre información geográfica voluntaria "
+                    "(Goodchild, 2007; Haklay, 2010; Neis & Zipf, 2012) para entender cómo se produce el dato "
+                    "colaborativo, cuáles son sus sesgos de cobertura y con qué criterios se evalúa su calidad."
+                ),
+                "tecnica": "Análisis documental y fichaje bibliográfico",
+                "productos": ["1.1", "1.3"],
+            },
+            {
+                "id": "P1.3", "hito": "H2",
+                "nombre": "Definición de la taxonomía temática y de los perfiles de usuario",
+                "corto": "Taxonomía y perfiles de usuario",
+                "detalle": (
+                    "Se revisaron las etiquetas de OpenStreetMap (OSM Wiki) y el estándar Darwin Core de GBIF para "
+                    "agrupar los elementos urbanos en categorías temáticas útiles para la gestión del barrio. Con ello "
+                    "se fijaron las 10 macrocategorías del Atlas (CAT-01 a CAT-10) y se describieron los perfiles de "
+                    "usuario que orientan qué información debe mostrar el prototipo."
+                ),
+                "tecnica": "Análisis de taxonomías OSM / GBIF · diseño centrado en el usuario",
+                "productos": ["1.3"],
+            },
+            {
+                "id": "P1.4", "hito": "H2",
+                "nombre": "Diseño de fichas de capa y plantillas de metadatos",
+                "corto": "Fichas de capa y metadatos",
+                "detalle": (
+                    "Para cada categoría se elaboró una ficha con atributos mínimos, escala de representación, "
+                    "indicadores temáticos y criterios de calidad, junto con una plantilla de metadatos ISO 19115. "
+                    "Sobre esa base se bosquejó la estructura del visor y los criterios de interoperabilidad (GeoJSON, OGC/WMS)."
+                ),
+                "tecnica": "Modelamiento conceptual de datos · ISO 19115",
+                "productos": ["1.3"],
+            },
+            {
+                "id": "P1.5", "hito": "H3",
+                "nombre": "Inventario y evaluación de fuentes VGI y oficiales",
+                "corto": "Inventario de fuentes VGI",
+                "detalle": (
+                    "Se inventariaron las fuentes disponibles para el barrio (OSM, GBIF, ohsome, IDE Chile, MINVU "
+                    "GeoIDE) y se evaluó cada una según tipo, cobertura, actualización, escala, licencia y utilidad. "
+                    "El contraste entre lo que ofrece el dato oficial y lo que aporta el dato voluntario permitió "
+                    "identificar las brechas de información que el Atlas debe cubrir."
+                ),
+                "tecnica": "Matriz multicriterio de fuentes · análisis de brechas",
+                "productos": ["1.2"],
+            },
+        ],
+        "productos": [
+            {"id": "1.1", "nombre": "Ficha del proyecto", "corto": "Ficha del proyecto",
+             "contenido": "Territorio, usuarios, objetivos, alcance y productos comprometidos.",
+             "estado": "completado"},
+            {"id": "1.2", "nombre": "Catálogo de fuentes VGI", "corto": "Catálogo de fuentes VGI",
+             "contenido": "Inventario evaluado por tipo, cobertura, actualización, escala, licencia y utilidad.",
+             "estado": "completado"},
+            {"id": "1.3", "nombre": "Diseño conceptual del Atlas", "corto": "Diseño conceptual Atlas",
+             "contenido": "Arquitectura de capas, 10 categorías OSM/GBIF, perfiles de usuario, atributos mínimos, "
+                          "indicadores y plantillas de metadatos ISO 19115.",
+             "estado": "completado"},
+        ],
+    },
+    {
+        "id": "OE 2",
+        "titulo": "Geodatabase espacial, calidad y análisis territorial",
+        "corto": "Geodatabase, calidad\ny análisis territorial",
+        "texto": (
+            "Estructurar una geodatabase espacial multicapa y desarrollar el análisis territorial de Barrio Brasil, "
+            "aplicando depuración topológica, auditoría de calidad de datos bajo estándares internacionales y análisis "
+            "espacial multicriterio para evaluar la relación entre los equipamientos urbanos y la población del área de estudio."
+        ),
+        "hitos": "Hitos 4, 5 y 6",
+        "hitos_corto": "H4–H6",
+        "periodo": "Días 13–32 · 21/09 – 19/10/2026",
+        "semanas": "Sem 4–7",
+        "horas": 120,
+        "estado": "en_curso",
+        "procedimientos": [
+            {
+                "id": "P2.1", "hito": "H4",
+                "nombre": "Descarga automatizada de las fuentes seleccionadas",
+                "corto": "Descarga automatizada de datos",
+                "detalle": (
+                    "Se programaron scripts en Python que consultan directamente Overpass API (OSM), ohsome API "
+                    "(HeiGIT), GBIF API y los servicios de IDE Chile (MINVU GeoIDE, SUBDERE, ArcGIS Online), además de "
+                    "los datos del Censo INE 2024. Así la descarga queda documentada y puede repetirse en cualquier momento."
+                ),
+                "tecnica": "Python (requests) · Overpass QL · APIs REST",
+                "productos": ["2.1"],
+            },
+            {
+                "id": "P2.2", "hito": "H4",
+                "nombre": "Limpieza, depuración topológica y clasificación temática",
+                "corto": "Limpieza y corrección topológica",
+                "detalle": (
+                    "Los datos descargados se reproyectaron a UTM 19S (EPSG:32719) para los cálculos métricos, se "
+                    "eliminaron duplicados, se normalizaron los nombres de atributos y se repararon geometrías inválidas "
+                    "(auto-intersecciones, anillos abiertos). Luego cada objeto se asignó a su categoría temática."
+                ),
+                "tecnica": "GeoPandas · Shapely · QGIS · PostGIS (ST_MakeValid)",
+                "productos": ["2.1"],
+            },
+            {
+                "id": "P2.3", "hito": "H4",
+                "nombre": "Integración en la geodatabase y documentación",
+                "corto": "Geodatabase e integración",
+                "detalle": (
+                    "Las capas depuradas se integraron en una geodatabase única (GeoJSON en EPSG:4326 y PostgreSQL/PostGIS), "
+                    "organizada por categoría temática. Cada capa se documentó con su ficha de metadatos ISO 19115 y se "
+                    "consolidaron los catálogos en Excel."
+                ),
+                "tecnica": "PostgreSQL / PostGIS · ISO 19115 · openpyxl",
+                "productos": ["2.1", "2.4"],
+            },
+            {
+                "id": "P2.4", "hito": "H5",
+                "nombre": "Evaluación de calidad y cobertura del dato VGI",
+                "corto": "Evaluación de calidad y cobertura",
+                "detalle": (
+                    "Se midió la completitud de atributos por categoría, la evolución temporal de los objetos (intervalos "
+                    "anuales), la densidad por km², la intensidad de contribución (usuarios y ediciones), la saturación del "
+                    "mapeo y la consistencia geométrica, revisando además los changesets con OSMCha para detectar errores o vandalismo."
+                ),
+                "tecnica": "ohsome API (/elements, /contributions, /users) · OSMCha · ISO 19157",
+                "productos": ["2.3"],
+            },
+            {
+                "id": "P2.5", "hito": "H5",
+                "nombre": "Construcción del Índice de Calidad VGI (ICV)",
+                "corto": "Índice de Calidad VGI (ICV)",
+                "detalle": (
+                    "Los indicadores anteriores se normalizaron y combinaron mediante una suma lineal ponderada "
+                    "(completitud, actualidad, consistencia geométrica y densidad), obteniendo un puntaje comparable por "
+                    "categoría temática y por capa, que indica qué tan confiable es cada conjunto de datos."
+                ),
+                "tecnica": "Combinación lineal ponderada (WLC) · normalización min–max",
+                "productos": ["2.3"],
+            },
+            {
+                "id": "P2.6", "hito": "H6",
+                "nombre": "Análisis territorial equipamiento–población",
+                "corto": "Análisis espacial y cruce INE",
+                "detalle": (
+                    "Se elaboran mapas de densidad kernel y de cobertura por categoría, un análisis centro–borde del barrio "
+                    "y la relación entre objetos VGI y población (objetos por habitante, INE 2024), para identificar vacíos "
+                    "territoriales y ordenar los sectores mediante estadísticas espaciales y rankings."
+                ),
+                "tecnica": "Densidad kernel · estadística espacial · cruce con Censo INE 2024",
+                "productos": ["2.2"],
+            },
+        ],
+        "productos": [
+            {"id": "2.1", "nombre": "Geodatabase VGI de Barrio Brasil", "corto": "Geodatabase Barrio Brasil",
+             "contenido": "Capas en GeoJSON (EPSG:4326) y PostGIS, organizadas por categoría temática.",
+             "estado": "completado"},
+            {"id": "2.2", "nombre": "Mapas analíticos", "corto": "Mapas analíticos",
+             "contenido": "Densidad, cobertura por categoría, distribución centro–borde y relación VGI–población.",
+             "estado": "en_curso"},
+            {"id": "2.3", "nombre": "Índice de Calidad VGI (ICV)", "corto": "Índice de Calidad (ICV)",
+             "contenido": "Puntaje compuesto por categoría temática y por capa.",
+             "estado": "completado"},
+            {"id": "2.4", "nombre": "Catálogos Excel", "corto": "Catálogos en Excel",
+             "contenido": "Fuentes VGI, categorías OSM/GBIF y perfil de metadatos ISO 19115.",
+             "estado": "completado"},
+        ],
+    },
+    {
+        "id": "OE 3",
+        "titulo": "Prototipo cartográfico y geoportal web interactivo",
+        "corto": "Prototipo cartográfico\ny geoportal web",
+        "texto": (
+            "Diseñar e implementar el prototipo cartográfico y la plataforma web interactiva del Atlas mediante una "
+            "arquitectura abierta e interoperable, con el propósito de facilitar la visualización dinámica, la consulta "
+            "de condiciones normativas, la conexión a servicios espaciales y la transferencia de datos a la comunidad."
+        ),
+        "hitos": "Hitos 7 y 8",
+        "hitos_corto": "H7–H8",
+        "periodo": "Días 33–44 · 20/10 – 04/11/2026",
+        "semanas": "Sem 8–10",
+        "horas": 72,
+        "estado": "anticipado",
+        "procedimientos": [
+            {
+                "id": "P3.1", "hito": "H7",
+                "nombre": "Revisión de referentes cartográficos y de usabilidad",
+                "corto": "Revisión referentes y usabilidad",
+                "detalle": (
+                    "Se revisan las recomendaciones de diseño cartográfico de la Asociación Cartográfica Internacional (ICA), "
+                    "geoportales de referencia (IDE Chile, OSM, GBIF) y criterios de usabilidad web (Nielsen Norman Group), "
+                    "para decidir cómo deben verse y leerse los mapas del Atlas."
+                ),
+                "tecnica": "Análisis comparativo de geoportales · heurísticas de usabilidad",
+                "productos": ["3.1"],
+            },
+            {
+                "id": "P3.2", "hito": "H7",
+                "nombre": "Definición de la identidad gráfica del Atlas",
+                "corto": "Identidad gráfica y simbología",
+                "detalle": (
+                    "Se fija una paleta de colores por categoría temática, la simbología de puntos, líneas y polígonos, "
+                    "las tipografías y la composición de cada mapa, de modo que todas las capas compartan un mismo lenguaje visual."
+                ),
+                "tecnica": "Diseño cartográfico · semiología gráfica",
+                "productos": ["3.1", "3.2"],
+            },
+            {
+                "id": "P3.3", "hito": "H7",
+                "nombre": "Diseño de mapas temáticos",
+                "corto": "Diseño de mapas temáticos",
+                "detalle": (
+                    "Con el estándar definido se componen los mapas temáticos de cada categoría, incorporando leyendas, "
+                    "escalas y textos explicativos que permitan a un vecino o a un funcionario entender el mapa sin apoyo técnico."
+                ),
+                "tecnica": "QGIS · plantillas de composición cartográfica",
+                "productos": ["3.2"],
+            },
+            {
+                "id": "P3.4", "hito": "H8",
+                "nombre": "Implementación del visor web interactivo",
+                "corto": "Implementación del visor web",
+                "detalle": (
+                    "Se construye el visor web del Atlas con selección de categorías, activación y desactivación de capas, "
+                    "consulta de atributos, visualización del ICV, acceso a metadatos ISO 19115, consulta normativa e "
+                    "identificación de vacíos territoriales, conectado a servicios espaciales abiertos."
+                ),
+                "tecnica": "JavaScript · Leaflet · GitHub + Netlify",
+                "productos": ["3.3"],
+            },
+            {
+                "id": "P3.5", "hito": "H8",
+                "nombre": "Integración de resultados del OE 2 y revisión de la interfaz",
+                "corto": "Integración de capas y revisión",
+                "detalle": (
+                    "Se cargan en el visor la geodatabase y los mapas analíticos del OE 2 y se revisa la interfaz en "
+                    "términos de accesibilidad y facilidad de uso antes de abrirla a usuarios externos."
+                ),
+                "tecnica": "Pruebas internas de navegación · revisión de accesibilidad",
+                "productos": ["3.3"],
+            },
+        ],
+        "productos": [
+            {"id": "3.1", "nombre": "Estándar cartográfico del Atlas", "corto": "Estándar cartográfico",
+             "contenido": "Paleta, simbología, tipografías y plantillas de mapas temáticos.",
+             "estado": "programado"},
+            {"id": "3.2", "nombre": "Prototipo visual del Atlas", "corto": "Prototipo visual Atlas",
+             "contenido": "Identidad gráfica unificada y mapas temáticos finales.",
+             "estado": "programado"},
+            {"id": "3.3", "nombre": "Versión funcional del visor web", "corto": "Visor web interactivo",
+             "contenido": "Atlas interactivo en línea (atlasvgiuah.netlify.app).",
+             "estado": "anticipado"},
+        ],
+    },
+    {
+        "id": "OE 4",
+        "titulo": "Validación participativa y transferibilidad técnica",
+        "corto": "Validación participativa\ny transferibilidad",
+        "texto": (
+            "Validar la usabilidad y pertinencia territorial del Atlas mediante evaluaciones empíricas con actores locales, "
+            "generando guías metodológicas y protocolos técnicos de actualización que garanticen la transferibilidad del "
+            "proyecto y la autonomía operativa del centro de práctica."
+        ),
+        "hitos": "Hitos 9 y 10",
+        "hitos_corto": "H9–H10",
+        "periodo": "Días 45–50 · 05/11 – 12/11/2026",
+        "semanas": "Sem 10–11",
+        "horas": 36,
+        "estado": "programado",
+        "procedimientos": [
+            {
+                "id": "P4.1", "hito": "H9",
+                "nombre": "Preparación de la prueba con usuarios",
+                "corto": "Preparación prueba usabilidad",
+                "detalle": (
+                    "Se seleccionan entre 3 y 5 usuarios reales del barrio (vecinos, organizaciones comunitarias y referentes "
+                    "institucionales del centro de práctica) y se diseñan tareas tipo y un cuestionario semiestructurado sobre "
+                    "legibilidad de los mapas, utilidad de los indicadores, facilidad de navegación e información faltante."
+                ),
+                "tecnica": "Muestreo intencionado · cuestionario semiestructurado",
+                "productos": ["4.1"],
+            },
+            {
+                "id": "P4.2", "hito": "H9",
+                "nombre": "Aplicación de las pruebas de usabilidad",
+                "corto": "Pruebas de usabilidad en campo",
+                "detalle": (
+                    "En sesiones guiadas cada participante resuelve las tareas en el Atlas mientras se observa su recorrido y "
+                    "se registran dificultades, comentarios y sugerencias."
+                ),
+                "tecnica": "Prueba de usabilidad observada · registro de campo",
+                "productos": ["4.1"],
+            },
+            {
+                "id": "P4.3", "hito": "H9",
+                "nombre": "Análisis de observaciones y ajustes iterativos",
+                "corto": "Análisis cualitativo y ajustes",
+                "detalle": (
+                    "Las observaciones se sistematizan y priorizan según su efecto en el uso del Atlas; los cambios se "
+                    "implementan de forma iterativa y quedan anotados en un registro de ajustes."
+                ),
+                "tecnica": "Análisis cualitativo · rediseño iterativo",
+                "productos": ["4.1"],
+            },
+            {
+                "id": "P4.4", "hito": "H10",
+                "nombre": "Documentación técnica para la reproducibilidad",
+                "corto": "Documentación técnica de datos",
+                "detalle": (
+                    "Se redactan el diccionario de datos, el catálogo de fuentes, la metodología de procesamiento y los "
+                    "indicadores, junto con el protocolo para descargar, transformar e integrar nuevas fuentes VGI, de modo "
+                    "que el centro de práctica pueda actualizar el Atlas sin depender del practicante."
+                ),
+                "tecnica": "Redacción técnica · protocolo paso a paso",
+                "productos": ["4.3", "4.4"],
+            },
+            {
+                "id": "P4.5", "hito": "H10",
+                "nombre": "Manual de uso e informe final",
+                "corto": "Manual de uso e informe final",
+                "detalle": (
+                    "Se elabora el manual de uso dirigido a los usuarios finales del territorio y se redacta el informe de "
+                    "práctica profesional que reúne el proceso, los resultados y las recomendaciones."
+                ),
+                "tecnica": "Redacción técnica y académica",
+                "productos": ["4.2", "4.5"],
+            },
+        ],
+        "productos": [
+            {"id": "4.1", "nombre": "Versión validada del Atlas", "corto": "Atlas validado con usuarios",
+             "contenido": "Atlas ajustado + registro de cambios surgidos de la prueba con usuarios.",
+             "estado": "programado"},
+            {"id": "4.2", "nombre": "Manual de uso del Atlas", "corto": "Manual de uso del Atlas",
+             "contenido": "Guía para usuarios finales del territorio.",
+             "estado": "programado"},
+            {"id": "4.3", "nombre": "Manual de actualización", "corto": "Manual de actualización",
+             "contenido": "Protocolo reproducible de descarga, transformación e integración de fuentes VGI.",
+             "estado": "programado"},
+            {"id": "4.4", "nombre": "Paquete de datos final", "corto": "Paquete de datos final",
+             "contenido": "Geodatabase final, diccionario de datos, catálogo de fuentes, metadatos y metodología.",
+             "estado": "programado"},
+            {"id": "4.5", "nombre": "Informe de práctica profesional", "corto": "Informe final de práctica",
+             "contenido": "Documento final de la práctica.",
+             "estado": "programado"},
+        ],
+    },
+]
+
+
+# ---------------------------------------------------------------------------
+# DIAGRAMAS LINEALES (matplotlib)
+# ---------------------------------------------------------------------------
+plt.rcParams["font.family"] = "DejaVu Sans"
+
+
+def _caja(ax, x, y, w, h, fc, ec, lw=1.2, radio=0.06):
+    ax.add_patch(FancyBboxPatch((x, y), w, h,
+                                boxstyle=f"round,pad=0,rounding_size={radio}",
+                                fc=fc, ec=ec, lw=lw))
+
+
+def _flecha(ax, x1, y1, x2, y2, color=HEX_AZUL_SEC, lw=1.6, ms=14):
+    ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle="-|>",
+                                 mutation_scale=ms, color=color, lw=lw))
+
+
+def _leyenda_estados(ax, x, y, claves):
+    for k in claves:
+        etiqueta, color = ESTADOS[k]
+        ax.add_patch(Circle((x, y), 0.065, fc=color, ec="none"))
+        ax.text(x + 0.12, y, etiqueta, fontsize=8.2, va="center", color=HEX_NEGRO)
+        x += 0.28 + len(etiqueta) * 0.095
+
+
+def diagrama_global(ruta):
+    """OG → OE1 → OE2 → OE3 → OE4 (cadena lineal del plan)."""
+    W, H = 10.6, 2.55
+    fig, ax = plt.subplots(figsize=(W, H), dpi=220)
+    ax.set_xlim(0, W)
+    ax.set_ylim(0, H)
+    ax.axis("off")
+
+    n = 5
+    gap = 0.24
+    bw = (W - 0.2 - gap * (n - 1)) / n
+    by, bh = 0.62, 1.55
+
+    x = 0.1
+    # Objetivo general
+    _caja(ax, x, by, bw, bh, HEX_AZUL_UAH, HEX_AZUL_UAH)
+    ax.text(x + bw / 2, by + bh - 0.28, "OBJETIVO GENERAL", ha="center", va="center",
+            fontsize=8.5, color="white", weight="bold")
+    ax.text(x + bw / 2, by + bh / 2 - 0.12, "Prototipo de Atlas VGI\ncentrado en usuarios\npara Barrio Brasil",
+            ha="center", va="center", fontsize=8.1, color="white", linespacing=1.25)
+    x_prev_end = x + bw
+
+    for oe in OBJETIVOS:
+        x = x_prev_end + gap
+        _flecha(ax, x_prev_end + 0.02, by + bh / 2, x - 0.02, by + bh / 2)
+        _caja(ax, x, by, bw, bh, HEX_AZUL_CLARO, HEX_AZUL_SEC)
+        ax.text(x + bw / 2, by + bh - 0.26, oe["id"], ha="center", va="center",
+                fontsize=11.0, color=HEX_AZUL_UAH, weight="bold")
+        ax.text(x + bw / 2, by + bh / 2 - 0.02, oe["corto"], ha="center", va="center",
+                fontsize=7.9, color=HEX_NEGRO, linespacing=1.25)
+        ax.text(x + bw / 2, by + 0.2, f'{oe["hitos_corto"]} · {oe["semanas"]} · {oe["horas"]} h',
+                ha="center", va="center", fontsize=7.4, color="#475569")
+        etiqueta, color = ESTADOS[oe["estado"]]
+        ax.add_patch(Circle((x + 0.2, by + bh - 0.26), 0.075, fc=color, ec="none"))
+        x_prev_end = x + bw
+
+    ax.text(0.1, 0.36, "Secuencia del plan de trabajo: caracterización → construcción analítica → prototipo → validación y traspaso",
+            fontsize=8.3, color="#475569", va="center", style="italic")
+    _leyenda_estados(ax, 0.17, 0.08, ["completado", "en_curso", "anticipado", "programado"])
+    fig.savefig(ruta, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
+def diagrama_oe(oe, ruta):
+    """Cadena lineal OBJETIVO → PROCEDIMIENTOS (secuencia) → PRODUCTOS."""
+    procs = oe["procedimientos"]
+    prods = oe["productos"]
+    filas = max(len(procs), len(prods))
+    paso = 0.56
+    W = 10.6
+    H = 0.95 + filas * paso + 0.35
+
+    fig, ax = plt.subplots(figsize=(W, H), dpi=220)
+    ax.set_xlim(0, W)
+    ax.set_ylim(0, H)
+    ax.axis("off")
+
+    top = H - 0.45
+    base = 0.45
+    alto_util = top - base
+
+    # Encabezados de columna
+    cols = [(0.10, 1.95, "OBJETIVO"), (2.35, 4.85, "PROCEDIMIENTOS"), (7.55, 2.95, "PRODUCTOS")]
+    for cx, cw, ct in cols:
+        ax.text(cx + cw / 2, H - 0.2, ct, ha="center", va="center", fontsize=9.5,
+                weight="bold", color=HEX_AZUL_UAH)
+
+    # Objetivo
+    ox, ow = 0.10, 1.95
+    _caja(ax, ox, base, ow, alto_util, HEX_AZUL_UAH, HEX_AZUL_UAH)
+    ax.text(ox + ow / 2, base + alto_util / 2 + 0.3, oe["id"], ha="center", va="center",
+            fontsize=15, color="white", weight="bold")
+    ax.text(ox + ow / 2, base + alto_util / 2 - 0.25, oe["corto"], ha="center", va="center",
+            fontsize=8.2, color="white", linespacing=1.25)
+    ax.text(ox + ow / 2, base + 0.22, f'{oe["hitos"]} · {oe["horas"]} h', ha="center",
+            va="center", fontsize=7.5, color="#CBD5E1")
+
+    # Procedimientos (cadena vertical secuencial)
+    px, pw = 2.35, 4.85
+    ph = 0.40
+    esp_p = alto_util / len(procs)
+    centros_p = []
+    for i, p in enumerate(procs):
+        cy = top - esp_p * (i + 0.5)
+        centros_p.append(cy)
+        _caja(ax, px, cy - ph / 2, pw, ph, HEX_AZUL_CLARO, HEX_AZUL_SEC, lw=1.0, radio=0.05)
+        ax.text(px + 0.15, cy, p["id"], ha="left", va="center", fontsize=8.6,
+                weight="bold", color=HEX_AZUL_UAH)
+        ax.text(px + 0.65, cy, p["corto"], ha="left", va="center", fontsize=8.3, color=HEX_NEGRO)
+        ax.text(px + pw - 0.12, cy, "→ " + ", ".join(p["productos"]), ha="right", va="center",
+                fontsize=7.8, color=HEX_AZUL_SEC, weight="bold")
+        if i > 0:
+            _flecha(ax, px + 0.3, centros_p[i - 1] - ph / 2 - 0.01, px + 0.3, cy + ph / 2 + 0.01,
+                    color=HEX_GRIS_LINEA, lw=1.0, ms=8)
+
+    # Productos
+    rx, rw = 7.55, 2.95
+    rh = 0.40
+    esp_r = alto_util / len(prods)
+    for i, r in enumerate(prods):
+        cy = top - esp_r * (i + 0.5)
+        _caja(ax, rx, cy - rh / 2, rw, rh, "white", HEX_AZUL_UAH, lw=1.2, radio=0.05)
+        _, color = ESTADOS[r["estado"]]
+        ax.add_patch(Circle((rx + 0.17, cy), 0.075, fc=color, ec="none"))
+        ax.text(rx + 0.35, cy, r["id"], ha="left", va="center", fontsize=8.6,
+                weight="bold", color=HEX_AZUL_UAH)
+        nombre = textwrap.shorten(r.get("corto", r["nombre"]), width=28, placeholder="…")
+        ax.text(rx + 0.72, cy, nombre, ha="left", va="center", fontsize=8.2, color=HEX_NEGRO)
+
+    # Flechas entre etapas
+    ymid = base + alto_util / 2
+    _flecha(ax, ox + ow + 0.03, ymid, px - 0.04, ymid, lw=2.0, ms=18)
+    _flecha(ax, px + pw + 0.04, ymid, rx - 0.04, ymid, lw=2.0, ms=18)
+
+    # Leyenda de estados
+    claves = []
+    for r in prods:
+        if r["estado"] not in claves:
+            claves.append(r["estado"])
+    ax.text(0.1, 0.17, "Estado de productos:", fontsize=8.0, va="center", color="#475569", style="italic")
+    _leyenda_estados(ax, 1.8, 0.17, claves)
+
+    fig.savefig(ruta, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------------------
+# UTILIDADES WORD
+# ---------------------------------------------------------------------------
 def set_cell_background(cell, hex_color):
     tcPr = cell._tc.get_or_add_tcPr()
-    shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{hex_color}"/>')
-    tcPr.append(shd)
+    tcPr.append(parse_xml(f'<w:shd {nsdecls("w")} w:fill="{hex_color}"/>'))
 
-def set_cell_margins(cell, top=100, bottom=100, left=150, right=150):
+
+def set_cell_margins(cell, top=70, bottom=70, left=100, right=100):
     tcPr = cell._tc.get_or_add_tcPr()
-    tcMar = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="{top}" w:type="dxa"/><w:bottom w:w="{bottom}" w:type="dxa"/><w:left w:w="{left}" w:type="dxa"/><w:right w:w="{right}" w:type="dxa"/></w:tcMar>')
-    tcPr.append(tcMar)
+    tcPr.append(parse_xml(
+        f'<w:tcMar {nsdecls("w")}><w:top w:w="{top}" w:type="dxa"/><w:bottom w:w="{bottom}" w:type="dxa"/>'
+        f'<w:left w:w="{left}" w:type="dxa"/><w:right w:w="{right}" w:type="dxa"/></w:tcMar>'))
+
 
 def set_table_borders(table, color="CBD5E1", sz="4"):
-    tblPr = table._tbl.tblPr
-    borders = parse_xml(f'<w:tblBorders {nsdecls("w")}><w:top w:val="single" w:sz="{sz}" w:space="0" w:color="{color}"/><w:bottom w:val="single" w:sz="{sz}" w:space="0" w:color="{color}"/><w:insideH w:val="single" w:sz="{sz}" w:space="0" w:color="{color}"/><w:insideV w:val="none"/><w:left w:val="none"/><w:right w:val="none"/></w:tblBorders>')
-    tblPr.append(borders)
+    table._tbl.tblPr.append(parse_xml(
+        f'<w:tblBorders {nsdecls("w")}><w:top w:val="single" w:sz="{sz}" w:space="0" w:color="{color}"/>'
+        f'<w:bottom w:val="single" w:sz="{sz}" w:space="0" w:color="{color}"/>'
+        f'<w:insideH w:val="single" w:sz="{sz}" w:space="0" w:color="{color}"/>'
+        f'<w:insideV w:val="none"/><w:left w:val="none"/><w:right w:val="none"/></w:tblBorders>'))
 
-def crear_documento():
-    doc = Document()
 
-    # Configuración de página: Carta con márgenes 2.5 cm
-    for section in doc.sections:
-        section.top_margin = Inches(1.0)
-        section.bottom_margin = Inches(1.0)
-        section.left_margin = Inches(1.0)
-        section.right_margin = Inches(1.0)
+def set_repeat_header(row):
+    trPr = row._tr.get_or_add_trPr()
+    trPr.append(parse_xml(f'<w:tblHeader {nsdecls("w")} w:val="true"/>'))
 
-    # Estilo base
-    normal_style = doc.styles['Normal']
-    normal_style.font.name = 'Calibri'
-    normal_style.font.size = Pt(10.5)
-    normal_style.font.color.rgb = COLOR_NEGRO
 
-    # -------------------------------------------------------------
-    # ENCABEZADO INSTITUCIONAL
-    # -------------------------------------------------------------
-    p_inst = doc.add_paragraph()
-    p_inst.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    p_inst.paragraph_format.space_after = Pt(2)
-    p_inst.paragraph_format.space_before = Pt(0)
-    r1 = p_inst.add_run("UNIVERSIDAD ALBERTO HURTADO · FACULTAD DE CIENCIAS SOCIALES\n")
+def keep_row_together(row):
+    trPr = row._tr.get_or_add_trPr()
+    trPr.append(parse_xml(f'<w:cantSplit {nsdecls("w")} w:val="true"/>'))
+
+
+def escribir_celda(cell, texto, size=9, bold=False, color=COLOR_NEGRO, align=None):
+    cell.text = ""
+    p = cell.paragraphs[0]
+    p.paragraph_format.space_after = Pt(0)
+    r = p.add_run(texto)
+    r.font.size = Pt(size)
+    r.font.bold = bold
+    r.font.color.rgb = color
+    if align is not None:
+        p.alignment = align
+    cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+
+
+def encabezado_tabla(table, headers, widths):
+    for ci, h in enumerate(headers):
+        c = table.cell(0, ci)
+        c.width = widths[ci]
+        escribir_celda(c, h, size=9, bold=True, color=COLOR_BLANCO, align=WD_ALIGN_PARAGRAPH.CENTER)
+        set_cell_background(c, "003366")
+        set_cell_margins(c)
+    set_repeat_header(table.rows[0])
+
+
+def titulo_seccion(doc, texto, nivel=1):
+    h = doc.add_heading(level=nivel)
+    r = h.add_run(texto)
+    r.font.bold = True
+    r.font.size = Pt(14 if nivel == 1 else 11.5)
+    r.font.color.rgb = COLOR_AZUL_UAH if nivel == 1 else COLOR_AZUL_SEC
+    h.paragraph_format.space_before = Pt(14 if nivel == 1 else 10)
+    h.paragraph_format.space_after = Pt(6)
+    h.paragraph_format.keep_with_next = True
+    return h
+
+
+def parrafo(doc, texto, size=10.5, italic=False, after=6, color=COLOR_NEGRO):
+    p = doc.add_paragraph()
+    p.paragraph_format.line_spacing = 1.15
+    p.paragraph_format.space_after = Pt(after)
+    r = p.add_run(texto)
+    r.font.size = Pt(size)
+    r.font.italic = italic
+    r.font.color.rgb = color
+    return p
+
+
+def leyenda(doc, texto):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.keep_with_next = True
+    r = p.add_run(texto)
+    r.font.bold = True
+    r.font.size = Pt(9.5)
+    r.font.color.rgb = COLOR_AZUL_UAH
+
+
+def caja_destacada(doc, titulo, texto, fondo="E8F0F8"):
+    t = doc.add_table(rows=1, cols=1)
+    t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t._tbl.tblPr.append(parse_xml(
+        f'<w:tblBorders {nsdecls("w")}><w:left w:val="single" w:sz="24" w:space="0" w:color="003366"/>'
+        f'<w:top w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/>'
+        f'<w:insideH w:val="none"/><w:insideV w:val="none"/></w:tblBorders>'))
+    c = t.cell(0, 0)
+    c.width = Inches(6.5)
+    set_cell_background(c, fondo)
+    set_cell_margins(c, top=110, bottom=110, left=180, right=160)
+    c.text = ""
+    p1 = c.paragraphs[0]
+    p1.paragraph_format.space_after = Pt(3)
+    r1 = p1.add_run(titulo)
     r1.font.bold = True
-    r1.font.size = Pt(10)
+    r1.font.size = Pt(9.5)
     r1.font.color.rgb = COLOR_AZUL_UAH
-    r2 = p_inst.add_run("DEPARTAMENTO DE GEOGRAFÍA · PROGRAMA DE PRÁCTICA PROFESIONAL 2026 S2\n")
-    r2.font.bold = True
-    r2.font.size = Pt(9.5)
-    r2.font.color.rgb = COLOR_AZUL_SEC
-    r3 = p_inst.add_run("Proyecto Fondecyt Regular F1261256 (ANID) — 'Información Geográfica Voluntaria y Gestión Territorial'")
-    r3.font.italic = True
-    r3.font.size = Pt(9)
-    r3.font.color.rgb = COLOR_GRIS
+    p2 = c.add_paragraph()
+    p2.paragraph_format.space_after = Pt(0)
+    p2.paragraph_format.line_spacing = 1.15
+    r2 = p2.add_run(texto)
+    r2.font.size = Pt(10.5)
+    r2.font.color.rgb = COLOR_NEGRO
+    return t
 
-    # Línea divisoria
-    p_line = doc.add_paragraph()
-    p_line.paragraph_format.space_after = Pt(12)
-    p_line.paragraph_format.space_before = Pt(2)
-    r_l = p_line.add_run("―" * 58)
-    r_l.font.color.rgb = COLOR_AZUL_UAH
-    r_l.font.size = Pt(12)
 
-    # -------------------------------------------------------------
-    # TÍTULO DEL INFORME
-    # -------------------------------------------------------------
-    p_tit = doc.add_paragraph()
-    p_tit.paragraph_format.space_after = Pt(4)
-    r_t = p_tit.add_run("INFORME DE ESTADO DE AVANCE — 150 HORAS CUMPLIDAS")
-    r_t.font.bold = True
-    r_t.font.size = Pt(16)
-    r_t.font.color.rgb = COLOR_AZUL_UAH
+def color_estado(clave):
+    hexc = ESTADOS[clave][1].lstrip("#")
+    return RGBColor(int(hexc[0:2], 16), int(hexc[2:4], 16), int(hexc[4:6], 16))
 
-    p_sub = doc.add_paragraph()
-    p_sub.paragraph_format.space_after = Pt(12)
-    r_sub = p_sub.add_run("Atlas de Información Geográfica Voluntaria para la Gestión Territorial\nCaso Piloto: Barrio Brasil y Campus Universidad Alberto Hurtado (Santiago Centro, Chile)")
-    r_sub.font.bold = True
-    r_sub.font.size = Pt(12)
-    r_sub.font.color.rgb = COLOR_NEGRO
 
-    # Ficha de antecedentes en tabla elegante
-    t_f = doc.add_table(rows=5, cols=2)
-    t_f.alignment = WD_TABLE_ALIGNMENT.CENTER
-    set_table_borders(t_f, "CBD5E1", "6")
-    
-    col_w = [Inches(2.2), Inches(4.3)]
-    for row in t_f.rows:
-        for i, w in enumerate(col_w):
-            row.cells[i].width = w
+# ---------------------------------------------------------------------------
+# DOCUMENTO
+# ---------------------------------------------------------------------------
+def crear_documento():
+    # Diagramas
+    ruta_global = os.path.join(DIR_DIAGRAMAS, "fig_00_cadena_objetivos.png")
+    diagrama_global(ruta_global)
+    rutas_oe = []
+    for i, oe in enumerate(OBJETIVOS, 1):
+        ruta = os.path.join(DIR_DIAGRAMAS, f"fig_0{i}_pipeline_oe{i}.png")
+        diagrama_oe(oe, ruta)
+        rutas_oe.append(ruta)
 
-    ficha_datos = [
-        ("Estudiante Practicante:", "Juan Pablo Lescano Villegas (GEOJOTA) — Licenciatura en Geografía"),
-        ("Coordinador de Prácticas:", "Alejandro Cortés (UAH)"),
-        ("Docentes Supervisores:", "Prof. Manuel Fuenzalida (UAH) & Investigador Colaborador Fondecyt"),
-        ("Período de Práctica:", "01 de septiembre al 12 de noviembre de 2026 (300 horas programadas / 11 semanas)"),
-        ("Corte de Avance Reportado:", "150 horas cronológicas concluidas (Semanas 1 a 5 — 50% de avance acumulado)")
+    doc = Document()
+    for s in doc.sections:
+        s.top_margin = s.bottom_margin = Inches(1.0)
+        s.left_margin = s.right_margin = Inches(1.0)
+        # Pie de página
+        pf = s.footer.paragraphs[0]
+        pf.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        rf = pf.add_run("Atlas VGI · Barrio Brasil – UAH · Informe de Estado de Avance (150 horas)")
+        rf.font.size = Pt(8)
+        rf.font.color.rgb = COLOR_GRIS
+
+    st = doc.styles["Normal"]
+    st.font.name = "Calibri"
+    st.font.size = Pt(10.5)
+    st.font.color.rgb = COLOR_NEGRO
+
+    # ---------------- Encabezado institucional ----------------
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(2)
+    r = p.add_run("UNIVERSIDAD ALBERTO HURTADO · FACULTAD DE CIENCIAS SOCIALES\n")
+    r.font.bold = True; r.font.size = Pt(10); r.font.color.rgb = COLOR_AZUL_UAH
+    r = p.add_run("DEPARTAMENTO DE GEOGRAFÍA · PRÁCTICA PROFESIONAL 2026 S2\n")
+    r.font.bold = True; r.font.size = Pt(9.5); r.font.color.rgb = COLOR_AZUL_SEC
+    r = p.add_run("Proyecto Fondecyt Regular F1261256 (ANID)")
+    r.font.italic = True; r.font.size = Pt(9); r.font.color.rgb = COLOR_GRIS
+
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(10)
+    r = p.add_run("―" * 58)
+    r.font.color.rgb = COLOR_AZUL_UAH
+
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(2)
+    r = p.add_run("INFORME DE ESTADO DE AVANCE — 150 HORAS")
+    r.font.bold = True; r.font.size = Pt(16); r.font.color.rgb = COLOR_AZUL_UAH
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(10)
+    r = p.add_run("Atlas de Información Geográfica Voluntaria para la Gestión Territorial\n"
+                  "Caso piloto: Barrio Brasil y entorno del campus UAH (Santiago Centro)")
+    r.font.bold = True; r.font.size = Pt(11.5)
+
+    ficha = [
+        ("Estudiante practicante", "Juan Pablo Lescano Villegas — Licenciatura en Geografía"),
+        ("Coordinador de prácticas", "Alejandro Cortés (UAH)"),
+        ("Supervisión", "Prof. Manuel Fuenzalida (UAH) e investigador colaborador Fondecyt"),
+        ("Período de práctica", "01/09/2026 – 12/11/2026 · 300 horas · 50 días hábiles"),
+        ("Corte reportado", "150 horas (50 %) · Hitos 1 a 5 concluidos"),
     ]
-    for ri, (campo, val) in enumerate(ficha_datos):
-        c0 = t_f.cell(ri, 0)
-        c1 = t_f.cell(ri, 1)
-        c0.text = campo
-        c1.text = val
+    t = doc.add_table(rows=len(ficha), cols=2)
+    t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    set_table_borders(t, "CBD5E1", "6")
+    for i, (k, v) in enumerate(ficha):
+        c0, c1 = t.cell(i, 0), t.cell(i, 1)
+        c0.width, c1.width = Inches(1.9), Inches(4.6)
+        escribir_celda(c0, k, size=9.5, bold=True, color=COLOR_AZUL_UAH)
+        escribir_celda(c1, v, size=9.5)
         set_cell_background(c0, "F1F5F9")
-        set_cell_background(c1, "FFFFFF")
-        set_cell_margins(c0, top=60, bottom=60, left=100, right=100)
-        set_cell_margins(c1, top=60, bottom=60, left=100, right=100)
-        p0 = c0.paragraphs[0]
-        p0.runs[0].font.bold = True
-        p0.runs[0].font.size = Pt(9.5)
-        p0.runs[0].font.color.rgb = COLOR_AZUL_UAH
-        p1 = c1.paragraphs[0]
-        p1.runs[0].font.size = Pt(9.5)
-        p1.runs[0].font.color.rgb = COLOR_NEGRO
+        set_cell_margins(c0); set_cell_margins(c1)
 
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
+    # ---------------- 1. Objetivos y lógica del plan ----------------
+    titulo_seccion(doc, "1. Objetivos y lógica del plan de trabajo")
+    caja_destacada(doc, "OBJETIVO GENERAL", OBJETIVO_GENERAL)
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+    parrafo(doc,
+            "El plan se organiza en cuatro objetivos específicos que se encadenan: primero se caracteriza el territorio "
+            "y se diseña el Atlas (OE 1), luego se construye y evalúa la base de datos (OE 2), después se diseña y publica "
+            "el prototipo (OE 3) y, finalmente, se valida con usuarios y se deja documentado para su continuidad (OE 4). "
+            "Cada objetivo se desarrolla en este informe como una cadena Objetivo → Procedimientos → Productos: los "
+            "procedimientos describen qué se hizo o se hará y con qué técnica, y cada uno indica el producto que alimenta.")
 
-    # -------------------------------------------------------------
-    # SECCIÓN 1: RESUMEN EJECUTIVO Y ESTADO DE HITOS
-    # -------------------------------------------------------------
-    h1 = doc.add_heading(level=1)
-    r_h1 = h1.add_run("1. Resumen Ejecutivo y Cumplimiento de Hitos")
-    r_h1.font.bold = True
-    r_h1.font.size = Pt(13)
-    r_h1.font.color.rgb = COLOR_AZUL_UAH
-    h1.paragraph_format.space_before = Pt(12)
-    h1.paragraph_format.space_after = Pt(6)
+    doc.add_picture(ruta_global, width=Inches(6.5))
+    doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    leyenda(doc, "Figura 1. Cadena de objetivos del plan de trabajo (hitos, semanas, horas y estado al corte).")
 
-    p_re = doc.add_paragraph()
-    p_re.paragraph_format.line_spacing = 1.15
-    p_re.paragraph_format.space_after = Pt(8)
-    p_re.add_run(
-        "Al completarse el hito de las 150 horas cronológicas de práctica profesional (correspondiente a 25 días hábiles y el 50% "
-        "de la carga horaria comprometida), el proyecto presenta un estado de avance técnico y metodológico superior a la programación original. "
-        "Se ha dado cumplimiento íntegro y formal a los Objetivos Específicos 1 y 2, mientras que el Objetivo Específico 3 "
-        "(prototipo de plataforma web e infraestructura cartográfica) se encuentra operativo en producción anticipada mediante "
-        "un geoportal interactivo abierto y sin costo de mantenimiento en la dirección web "
-    )
-    r_url = p_re.add_run("https://atlasvgiuah.netlify.app/.")
-    r_url.font.bold = True
-    r_url.font.color.rgb = COLOR_AZUL_UAH
-
-    # Tabla 1: Hitos del Plan de Trabajo
-    p_t1_t = doc.add_paragraph()
-    p_t1_t.paragraph_format.space_after = Pt(4)
-    r_t1 = p_t1_t.add_run("Tabla 1. Estado de Cumplimiento de Hitos del Plan de Trabajo Formal (150 Horas)")
-    r_t1.font.bold = True
-    r_t1.font.size = Pt(10)
-    r_t1.font.color.rgb = COLOR_AZUL_UAH
-
-    t_hitos = doc.add_table(rows=11, cols=5)
-    t_hitos.alignment = WD_TABLE_ALIGNMENT.CENTER
-    set_table_borders(t_hitos, "CBD5E1", "4")
-
-    w_cols_h = [Inches(0.8), Inches(2.6), Inches(1.1), Inches(1.1), Inches(0.9)]
-    for r in t_hitos.rows:
-        for i, w in enumerate(w_cols_h):
-            r.cells[i].width = w
-
-    headers_h = ["Hito", "Descripción de la Actividad", "Objetivo", "Período", "Estado"]
-    for ci, h in enumerate(headers_h):
-        c = t_hitos.cell(0, ci)
-        c.text = h
-        set_cell_background(c, "003366")
-        set_cell_margins(c, top=80, bottom=80, left=100, right=100)
-        p = c.paragraphs[0]
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p.runs[0].font.bold = True
-        p.runs[0].font.size = Pt(9)
-        p.runs[0].font.color.rgb = COLOR_BLANCO
-
-    filas_h = [
-        ("H1", "Inducción, territorio y usuarios", "OE 1", "Semana 1", "100% Cerrado"),
-        ("H2", "Diseño conceptual y 10 categorías VGI", "OE 1", "Semana 2", "100% Cerrado"),
-        ("H3", "Revisión de fuentes VGI y brechas IDE", "OE 1", "Semana 3", "100% Cerrado"),
-        ("H4", "Obtención y geodatabase (118 capas)", "OE 2", "Semana 4–5", "100% Cerrado"),
-        ("H5", "Calidad de datos (MetaCalidad ISO 19157)", "OE 2", "Semana 5–6", "100% Terminado"),
-        ("H6", "Análisis territorial y modelo ranking", "OE 2", "Semana 6–7", "En inicio"),
-        ("H7", "Estándar cartográfico del Atlas", "OE 3", "Semana 8", "Programado"),
-        ("H8", "Geoportal web interactivo en producción", "OE 3", "Semana 8–9", "80% Anticipado"),
-        ("H9", "Validación con 3–5 usuarios reales", "OE 4", "Semana 10", "Programado"),
-        ("H10", "Manuales, transferibilidad y entrega final", "OE 4", "Semana 11", "Programado")
-    ]
-    for ri, fila in enumerate(filas_h, 1):
-        bg = "FFFFFF" if ri % 2 == 1 else "F8FAFC"
-        for ci, val in enumerate(fila):
-            c = t_hitos.cell(ri, ci)
-            c.text = val
+    leyenda(doc, "Tabla 1. Distribución de objetivos, hitos, horas y estado de avance")
+    t = doc.add_table(rows=len(OBJETIVOS) + 2, cols=5)
+    t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    set_table_borders(t)
+    widths = [Inches(0.6), Inches(2.6), Inches(1.6), Inches(0.6), Inches(1.1)]
+    encabezado_tabla(t, ["OE", "Objetivo específico", "Hitos y período", "Horas", "Estado"], widths)
+    for i, oe in enumerate(OBJETIVOS, 1):
+        fila = t.rows[i]
+        bg = "FFFFFF" if i % 2 else "F8FAFC"
+        vals = [oe["id"], oe["titulo"], f'{oe["hitos"]}\n{oe["periodo"]}', str(oe["horas"]), ESTADOS[oe["estado"]][0]]
+        for ci, v in enumerate(vals):
+            c = fila.cells[ci]
+            c.width = widths[ci]
+            escribir_celda(c, v, size=8.8,
+                           bold=(ci in (0, 4)),
+                           color=(COLOR_AZUL_UAH if ci == 0 else (color_estado(oe["estado"]) if ci == 4 else COLOR_NEGRO)),
+                           align=(WD_ALIGN_PARAGRAPH.CENTER if ci in (0, 3, 4) else None))
             set_cell_background(c, bg)
-            set_cell_margins(c, top=60, bottom=60, left=80, right=80)
-            p = c.paragraphs[0]
-            p.runs[0].font.size = Pt(8.5)
-            if ci in [0, 2, 3]:
-                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            elif ci == 4:
-                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                p.runs[0].font.bold = True
-                p.runs[0].font.color.rgb = COLOR_AZUL_UAH if "100%" in val else COLOR_AZUL_SEC
+            set_cell_margins(c)
+    tot = t.rows[-1]
+    for ci, v in enumerate(["", "Total planificado", "10 hitos · 50 días hábiles", "300", "150 h ejecutadas"]):
+        c = tot.cells[ci]
+        c.width = widths[ci]
+        escribir_celda(c, v, size=8.8, bold=True, color=COLOR_AZUL_UAH,
+                       align=(WD_ALIGN_PARAGRAPH.CENTER if ci in (0, 3, 4) else None))
+        set_cell_background(c, "E8F0F8")
+        set_cell_margins(c)
 
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
+    # ---------------- 2–5. Un apartado por objetivo ----------------
+    for n, (oe, ruta) in enumerate(zip(OBJETIVOS, rutas_oe), start=2):
+        doc.add_page_break()
+        titulo_seccion(doc, f'{n}. {oe["id"]} — {oe["titulo"]}')
+        caja_destacada(doc, f'OBJETIVO ESPECÍFICO {oe["id"][-1]}  ·  {oe["hitos"]}  ·  {oe["periodo"]}  ·  '
+                            f'{oe["horas"]} h  ·  {ESTADOS[oe["estado"]][0].upper()}', oe["texto"])
+        doc.add_paragraph().paragraph_format.space_after = Pt(0)
 
-    # -------------------------------------------------------------
-    # SECCIÓN 2: RESULTADOS OBJETIVO ESPECÍFICO 1
-    # -------------------------------------------------------------
-    h2 = doc.add_heading(level=1)
-    r_h2 = h2.add_run("2. Resultados OE 1: Caracterización y Arquitectura Conceptual")
-    r_h2.font.bold = True
-    r_h2.font.size = Pt(13)
-    r_h2.font.color.rgb = COLOR_AZUL_UAH
-    h2.paragraph_format.space_before = Pt(12)
-    h2.paragraph_format.space_after = Pt(6)
+        doc.add_picture(ruta, width=Inches(6.5))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        leyenda(doc, f'Figura {n}. Cadena Objetivo → Procedimientos → Productos del {oe["id"]}.')
 
-    p_oe1 = doc.add_paragraph()
-    p_oe1.paragraph_format.line_spacing = 1.15
-    p_oe1.paragraph_format.space_after = Pt(6)
-    p_oe1.add_run(
-        "El Objetivo Específico 1 tuvo como propósito caracterizar el escenario territorial de Barrio Brasil y campus UAH "
-        "(polígono de 223,75 hectáreas en Santiago Centro) y diseñar la estructura conceptual del Atlas. Se alcanzaron los siguientes logros clave:"
-    )
+        # Plan metodológico
+        titulo_seccion(doc, f'{n}.1 Plan metodológico (procedimientos)', nivel=2)
+        for pr in oe["procedimientos"]:
+            p = doc.add_paragraph()
+            p.paragraph_format.space_after = Pt(1)
+            p.paragraph_format.keep_with_next = True
+            r = p.add_run(f'{pr["id"]}  {pr["nombre"]}')
+            r.font.bold = True; r.font.size = Pt(10.5); r.font.color.rgb = COLOR_AZUL_SEC
+            r = p.add_run(f'   ({pr["hito"]})')
+            r.font.size = Pt(9); r.font.color.rgb = COLOR_GRIS
 
-    oe1_bullets = [
-        ("10 Macrocategorías Territoriales VGI:", "Diseño de un esquema taxonómico que traduce las etiquetas libres de OpenStreetMap en categorías útiles para la gestión pública: [CAT-01] Educación e Investigación, [CAT-02] Servicios y Comercio Barrial, [CAT-03] Movilidad y Transporte, [CAT-04] Movilidad Activa, [CAT-05] Áreas Verdes y Espacio Público, [CAT-06] Patrimonio y Memoria, [CAT-07] Accesibilidad Universal, [CAT-08] Biodiversidad Urbana, [CAT-09] Edificaciones y Huella Predial, y [CAT-10] Coberturas y Suelo."),
-        ("4 Perfiles de Actor Territorial (DCU):", "Definición de cuatro usuarios-tipo conforme a la metodología de Diseño Centrado en el Usuario: 1) Institucional / Planificador (foco en zonificación PRC, semáforos y equipamientos); 2) Comunitario / Vecinal (foco en áreas verdes, comercio barrial y servicios); 3) Mapeador Voluntario OSM (foco en tags técnicos, geometrías y consultas Overpass); 4) Investigador / Academia (foco en metadatos ISO 19115, biodiversidad Darwin Core y series históricas ohsome)."),
-        ("Diccionario Territorial de 134 Descriptores:", "Confección de un catálogo exhaustivo que identificó 48 capas oficiales análogas del Estado de Chile y 86 brechas de información territorial barrial que son cubiertas exclusivamente por la cartografía voluntaria ciudadana (rebajes de vereda, locales patrimoniales, ciclocalles y casonas históricas).")
+            p = doc.add_paragraph()
+            p.paragraph_format.left_indent = Inches(0.25)
+            p.paragraph_format.line_spacing = 1.15
+            p.paragraph_format.space_after = Pt(1)
+            r = p.add_run(pr["detalle"])
+            r.font.size = Pt(10)
+
+            p = doc.add_paragraph()
+            p.paragraph_format.left_indent = Inches(0.25)
+            p.paragraph_format.space_after = Pt(7)
+            r = p.add_run("Técnica: "); r.font.bold = True; r.font.size = Pt(9); r.font.color.rgb = COLOR_GRIS
+            r = p.add_run(pr["tecnica"]); r.font.size = Pt(9); r.font.color.rgb = COLOR_GRIS
+            r = p.add_run("     Producto que alimenta: "); r.font.bold = True; r.font.size = Pt(9); r.font.color.rgb = COLOR_AZUL_UAH
+            r = p.add_run(", ".join(pr["productos"])); r.font.bold = True; r.font.size = Pt(9); r.font.color.rgb = COLOR_AZUL_UAH
+
+        # Productos
+        titulo_seccion(doc, f'{n}.2 Productos específicos', nivel=2)
+        leyenda(doc, f'Tabla {n}. Productos del {oe["id"]} y procedimientos que los generan')
+        t = doc.add_table(rows=len(oe["productos"]) + 1, cols=5)
+        t.alignment = WD_TABLE_ALIGNMENT.CENTER
+        set_table_borders(t)
+        widths = [Inches(0.45), Inches(1.65), Inches(2.5), Inches(0.85), Inches(1.05)]
+        encabezado_tabla(t, ["N°", "Producto", "Contenido", "Generado por", "Estado"], widths)
+        for i, prod in enumerate(oe["productos"], 1):
+            fila = t.rows[i]
+            keep_row_together(fila)
+            bg = "FFFFFF" if i % 2 else "F8FAFC"
+            origen = ", ".join(pr["id"] for pr in oe["procedimientos"] if prod["id"] in pr["productos"])
+            vals = [prod["id"], prod["nombre"], prod["contenido"], origen, ESTADOS[prod["estado"]][0]]
+            for ci, v in enumerate(vals):
+                c = fila.cells[ci]
+                c.width = widths[ci]
+                escribir_celda(c, v, size=8.8,
+                               bold=(ci in (0, 1, 4)),
+                               color=(COLOR_AZUL_UAH if ci == 0 else (color_estado(prod["estado"]) if ci == 4 else COLOR_NEGRO)),
+                               align=(WD_ALIGN_PARAGRAPH.CENTER if ci in (0, 3, 4) else None))
+                set_cell_background(c, bg)
+                set_cell_margins(c)
+
+    # ---------------- 6. Próximos pasos ----------------
+    doc.add_page_break()
+    titulo_seccion(doc, "6. Próximos pasos (150 horas restantes)")
+    parrafo(doc, "Las actividades pendientes corresponden exclusivamente a los hitos ya comprometidos en el plan de trabajo:")
+    pasos = [
+        ("Hito 6 · OE 2 (Sem 6–7):", "cerrar el análisis territorial (P2.6) y entregar los mapas analíticos (producto 2.2)."),
+        ("Hito 7 · OE 3 (Sem 8):", "formalizar el estándar cartográfico y los mapas temáticos (P3.1–P3.3; productos 3.1 y 3.2)."),
+        ("Hito 8 · OE 3 (Sem 8–10):", "integrar los mapas analíticos en el visor y revisar su usabilidad (P3.4–P3.5; producto 3.3)."),
+        ("Hito 9 · OE 4 (Sem 10–11):", "aplicar la prueba con 3–5 usuarios del barrio y realizar los ajustes (P4.1–P4.3; producto 4.1)."),
+        ("Hito 10 · OE 4 (Sem 11):", "entregar manuales, paquete de datos final e informe de práctica (P4.4–P4.5; productos 4.2–4.5)."),
     ]
-    for tit, desc in oe1_bullets:
-        p_b = doc.add_paragraph(style='List Bullet')
-        p_b.paragraph_format.line_spacing = 1.15
-        p_b.paragraph_format.space_after = Pt(4)
-        r_bt = p_b.add_run(tit + " ")
-        r_bt.font.bold = True
-        r_bt.font.color.rgb = COLOR_AZUL_SEC
-        p_b.add_run(desc)
+    for k, v in pasos:
+        p = doc.add_paragraph(style="List Bullet")
+        p.paragraph_format.space_after = Pt(3)
+        r = p.add_run(k + " "); r.font.bold = True; r.font.color.rgb = COLOR_AZUL_SEC
+        p.add_run(v)
 
-    # -------------------------------------------------------------
-    # SECCIÓN 3: RESULTADOS OBJETIVO ESPECÍFICO 2
-    # -------------------------------------------------------------
-    h3 = doc.add_heading(level=1)
-    r_h3 = h3.add_run("3. Resultados OE 2: Geodatabase y Auditoría de MetaCalidad WLC v2.0")
-    r_h3.font.bold = True
-    r_h3.font.size = Pt(13)
-    r_h3.font.color.rgb = COLOR_AZUL_UAH
-    h3.paragraph_format.space_before = Pt(12)
-    h3.paragraph_format.space_after = Pt(6)
-
-    p_oe2 = doc.add_paragraph()
-    p_oe2.paragraph_format.line_spacing = 1.15
-    p_oe2.paragraph_format.space_after = Pt(6)
-    p_oe2.add_run(
-        "El Objetivo Específico 2 consolidó la infraestructura geodatabase del proyecto, articulando datos de organismos públicos con extractos masivos VGI:"
-    )
-
-    oe2_bullets = [
-        ("Geodatabase de 118 Capas Vectoriales:", "Se integraron 108 capas cartográficas oficiales del Estado de Chile (provenientes de IDE Chile, MINVU, DGA, DEIS, INE Censo 2024 en 5 niveles territoriales, Subdere, UOCT/MTT con 1.500+ cruces semaforizados y MIDESO) articuladas con 10 macrocategorías temáticas comunitarias de OpenStreetMap y registros Darwin Core de GBIF. Todos los datos fueron estandarizados en WGS84 (EPSG:4326) y proyectados en UTM Huso 19S (EPSG:32719)."),
-        ("Volumen Físico y Eficiencia de Almacenamiento:", "La base de datos comprende 214 archivos GeoJSON físicos en disco con un peso total de 3.730 MB (3,73 GB) y 2.560 MB activos en el catálogo de producción, verificados mediante hashes criptográficos SHA-256 libres de punteros externos."),
-        ("Base Espacial en PostgreSQL 17 + PostGIS 3.3:", "Alojamiento en la nube (Supabase Cloud) con 129.262+ geometrías vectoriales indexadas con árboles espaciales GIST, permitiendo consultas espaciales recortadas por Bounding Box con tiempos de respuesta inferiores a 200 ms."),
-        ("Modelo Lineal Ponderado WLC v2.0 de MetaCalidad Espacial:", "Se formuló e implementó un modelo multi-atributo basado en la norma ISO 19157 y Weighted Linear Combination (WLC), evaluando 10 dimensiones ortogonales ponderadas equitativamente al 10% (100% global): 5 cuantitativas (Completitud, Consistencia Lógica/Topología, Exactitud Posicional Geodésica, Exactitud Temática y Calidad Temporal) y 5 cualitativas (Linaje/Trazabilidad, Accesibilidad/Formatos, Usabilidad Operativa, Autoría Institucional y Licenciamiento/Rigor Semántico)."),
-        ("Cumplimiento Global Sobresaliente (97,88% IGV):", "La evaluación arrojó un índice de calidad espacial ponderado de 97,88%, con 116 capas clasificadas en Grado A+ Excelente (≥95%, representando el 98,3% del repositorio) y 2 capas en Grado A Muy Bueno (1,7%), sin registrarse ninguna capa en niveles deficientes."),
-        ("Inyección Universal de Metadatos en Descargas:", "El 100% de los archivos descargables desde el Atlas fueron enriquecidos tanto en disco como en caliente (client-side) con las 14 columnas del catálogo institucional asociadas al perfil ISO 19115/19157 (id_catalogo, nombre, categoria, dimension, entidad_fuente, anio, escala, srid, licencia, url_origen, resumen, atributos_clave, fecha_actualizacion, metacalidad_igv), garantizando trazabilidad geográfica total.")
-    ]
-    for tit, desc in oe2_bullets:
-        p_b = doc.add_paragraph(style='List Bullet')
-        p_b.paragraph_format.line_spacing = 1.15
-        p_b.paragraph_format.space_after = Pt(4)
-        r_bt = p_b.add_run(tit + " ")
-        r_bt.font.bold = True
-        r_bt.font.color.rgb = COLOR_AZUL_SEC
-        p_b.add_run(desc)
-
-    # -------------------------------------------------------------
-    # SECCIÓN 4: RESULTADOS OBJETIVO ESPECÍFICO 3
-    # -------------------------------------------------------------
-    h4 = doc.add_heading(level=1)
-    r_h4 = h4.add_run("4. Resultados OE 3: Geoportal Web y Módulos Especializados en Producción")
-    r_h4.font.bold = True
-    r_h4.font.size = Pt(13)
-    r_h4.font.color.rgb = COLOR_AZUL_UAH
-    h4.paragraph_format.space_before = Pt(12)
-    h4.paragraph_format.space_after = Pt(6)
-
-    p_oe3 = doc.add_paragraph()
-    p_oe3.paragraph_format.line_spacing = 1.15
-    p_oe3.paragraph_format.space_after = Pt(8)
-    p_oe3.add_run(
-        "Como hito de aceleración del proyecto, el prototipo del Objetivo Específico 3 fue implementado y desplegado de forma anticipada. "
-        "La plataforma consiste en una Single Page Application (SPA) construida en JavaScript Vanilla y Leaflet 1.9.4, "
-        "operativa en Netlify con integración continua (CI/CD) desde GitHub y gobernanza a costo $0/mes. Cuenta con 10 módulos funcionales:"
-    )
-
-    # Tabla 2: Módulos del Geoportal
-    p_t2_t = doc.add_paragraph()
-    p_t2_t.paragraph_format.space_after = Pt(4)
-    r_t2 = p_t2_t.add_run("Tabla 2. Módulos Operativos del Geoportal Atlas VGI UAH en Producción")
-    r_t2.font.bold = True
-    r_t2.font.size = Pt(10)
-    r_t2.font.color.rgb = COLOR_AZUL_UAH
-
-    t_mods = doc.add_table(rows=11, cols=4)
-    t_mods.alignment = WD_TABLE_ALIGNMENT.CENTER
-    set_table_borders(t_mods, "CBD5E1", "4")
-
-    w_cols_m = [Inches(0.6), Inches(2.2), Inches(2.5), Inches(1.2)]
-    for r in t_mods.rows:
-        for i, w in enumerate(w_cols_m):
-            r.cells[i].width = w
-
-    headers_m = ["ID", "Módulo Funcional", "Descripción y Herramientas", "Tecnología / API"]
-    for ci, h in enumerate(headers_m):
-        c = t_mods.cell(0, ci)
-        c.text = h
-        set_cell_background(c, "003366")
-        set_cell_margins(c, top=80, bottom=80, left=100, right=100)
-        p = c.paragraphs[0]
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p.runs[0].font.bold = True
-        p.runs[0].font.size = Pt(9)
-        p.runs[0].font.color.rgb = COLOR_BLANCO
-
-    filas_m = [
-        ("00", "Visor Cartográfico Interactivo", "Navegación espacial de 118 capas, Inspector Normativo PRC de Santiago (192 zonas), dibujo, medición e importación de terreno.", "Leaflet 1.9.4 / SPA"),
-        ("01", "Explorador Overpass QL", "Editor y ejecutor de consultas sintácticas en tiempo real hacia servidores OSM para las 10 macrocategorías.", "Overpass API / OSM"),
-        ("02", "Evaluador de Calidad ohsome", "Análisis histórico de densidad de nodos, usuarios mapeadores y evolución cronológica de datos barriales.", "HeiGIT ohsome v1/v2"),
-        ("03", "Biodiversidad Urbana GBIF", "Extracción en vivo de registros de flora y fauna en Barrio Brasil validados bajo estándar Darwin Core.", "GBIF REST API"),
-        ("04", "Cartografía Colaborativa UMap", "Visualización de capas complementarias y proyectos barriales generados en la plataforma comunitaria UMap.", "UMap / GeoJSON"),
-        ("05", "Metadatos ISO 19115/19139", "Generador y exportador de fichas XML interoperables conforme al perfil nacional IDE Chile / SNIT v2.0.", "ISO 19139 XML Parser"),
-        ("06", "Diccionario Territorial", "Catálogo navegable de 134 descriptores espaciales documentando equivalencias oficiales y brechas VGI.", "Catálogo JSON Local"),
-        ("07", "Licencias y Catálogos", "Descargas masivas en Excel (.xlsx) y especificación jurídica estricta (Ley 20.285, ODbL 1.0, CC-BY 4.0).", "OpenPyXL / GeoJSON"),
-        ("08", "Manual de Uso y Documentación", "Guías operativas paso a paso, trazabilidad académica y matriz de auditoría de MetaCalidad.", "Markdown Docs Viewer"),
-        ("09", "Indicadores & Dimensiones", "Panel analítico interactivo que agrupa las capas en las 5 dimensiones de análisis territorial barrial.", "Chart.js / DOM Vanilla")
-    ]
-    for ri, fila in enumerate(filas_m, 1):
-        bg = "FFFFFF" if ri % 2 == 1 else "F8FAFC"
-        for ci, val in enumerate(fila):
-            c = t_mods.cell(ri, ci)
-            c.text = val
-            set_cell_background(c, bg)
-            set_cell_margins(c, top=60, bottom=60, left=80, right=80)
-            p = c.paragraphs[0]
-            p.runs[0].font.size = Pt(8.5)
-            if ci == 0:
-                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                p.runs[0].font.bold = True
-                p.runs[0].font.color.rgb = COLOR_AZUL_UAH
-            elif ci == 1:
-                p.runs[0].font.bold = True
-
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
-
-    # -------------------------------------------------------------
-    # SECCIÓN 5: SÍNTESIS DE PRODUCTOS Y PLANIFICACIÓN SEGUNDA MITAD
-    # -------------------------------------------------------------
-    h5 = doc.add_heading(level=1)
-    r_h5 = h5.add_run("5. Balance de Productos Entregados y Proyección Segunda Mitad")
-    r_h5.font.bold = True
-    r_h5.font.size = Pt(13)
-    r_h5.font.color.rgb = COLOR_AZUL_UAH
-    h5.paragraph_format.space_before = Pt(12)
-    h5.paragraph_format.space_after = Pt(6)
-
-    p_prod = doc.add_paragraph()
-    p_prod.paragraph_format.line_spacing = 1.15
-    p_prod.paragraph_format.space_after = Pt(8)
-    p_prod.add_run(
-        "A las 150 horas se cuenta con los siguientes productos consolidados en el repositorio institucional de GitHub "
-        "(github.com/GEOJOTA/atlas_vgi_uah):"
-    )
-
-    productos = [
-        ("Ficha Técnica del Proyecto de Práctica y Plan de Trabajo Formal", "docs/FICHA_TECNICA_PROYECTO.docx (Aprobado)."),
-        ("Catálogo de Categorías Temáticas OSM y Taxonomía VGI", "docs/categorias_tematicas_osm.xlsx (4 hojas, 134 tags normalizados)."),
-        ("Documento de Trazabilidad Académica y Perfiles de Usuario DCU", "docs/TRAZABILIDAD_ACADEMICA.md (Secciones 1 a 6)."),
-        ("Geodatabase Consolidada de 118 Capas Vectoriales y 214 GeoJSONs", "src/data/ (3,73 GB, con PostGIS 17 en la nube)."),
-        ("Auditoría de MetaCalidad WLC v2.0 y Gráficos de Correlación", "docs/ANALISIS_METACALIDAD.md y correlacion_dimensiones_calidad.png."),
-        ("Catálogo de Metadatos Enriquecidos ISO 19115 e Inyección en Descargas", "docs/perfil_metadatos_vgi.xlsx y modulo metadatos.js."),
-        ("Plataforma Web Geoportal Atlas VGI en Producción", "https://atlasvgiuah.netlify.app/ (10 módulos operativos, costo $0).")
-    ]
-    for nom, med in productos:
-        p_p = doc.add_paragraph(style='List Bullet')
-        p_p.paragraph_format.line_spacing = 1.15
-        p_p.paragraph_format.space_after = Pt(3)
-        r_pn = p_p.add_run(nom + ": ")
-        r_pn.font.bold = True
-        r_pn.font.color.rgb = COLOR_AZUL_SEC
-        p_p.add_run(med)
-
-    # Próximos pasos
-    p_prox_tit = doc.add_paragraph()
-    p_prox_tit.paragraph_format.space_before = Pt(8)
-    p_prox_tit.paragraph_format.space_after = Pt(4)
-    r_pt = p_prox_tit.add_run("Planificación para las 150 Horas Restantes (Semanas 6 a 11):")
-    r_pt.font.bold = True
-    r_pt.font.size = Pt(11)
-    r_pt.font.color.rgb = COLOR_AZUL_UAH
-
-    fases_2da = [
-        ("Semanas 6–7 (08 al 16 Octubre) · Hito 6:", "Ejecución de geoprocesos de proximidad a equipamientos críticos (salud DEIS, estaciones de Metro L1/L2/L5, plazas y áreas verdes); cálculo de densidades a escala de Manzana Censal 2024 y Unidad Vecinal; y calibración preliminar de indicadores en las 5 dimensiones socio-espaciales."),
-        ("Semanas 8–9 (19 al 30 Octubre) · Hitos 7 y 8:", "Refinamiento de la simbología cartográfica en el visor Leaflet con filtros avanzados; incorporación de generador de reportes sintéticos descargables en PDF por Unidad Vecinal; y consolidación definitiva de la base PostGIS."),
-        ("Semana 10 (02 al 06 Noviembre) · Hito 9:", "Validación empírica con usuarios mediante pruebas de usabilidad guiadas a representantes de los 4 perfiles (funcionarios municipales, vecinos de Barrio Brasil, voluntarios OSM e investigadores UAH) para medir tiempos y resolver fricciones de navegación."),
-        ("Semana 11 (09 al 12 Noviembre) · Hito 10:", "Redacción del Manual de Transferibilidad Institucional para el Departamento de Geografía UAH y Proyecto Fondecyt F1261256; entrega del Informe Final formal de práctica y preparación del examen de título.")
-    ]
-    for sem, act in fases_2da:
-        p_f = doc.add_paragraph(style='List Bullet')
-        p_f.paragraph_format.line_spacing = 1.15
-        p_f.paragraph_format.space_after = Pt(3)
-        r_ft = p_f.add_run(sem + " ")
-        r_ft.font.bold = True
-        r_ft.font.color.rgb = COLOR_AZUL_SEC
-        p_f.add_run(act)
-
-    # -------------------------------------------------------------
-    # FIRMA Y CIERRE
-    # -------------------------------------------------------------
-    doc.add_paragraph().paragraph_format.space_after = Pt(16)
-    p_firm = doc.add_paragraph()
-    p_firm.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_firm.paragraph_format.space_after = Pt(2)
-    r_firm = p_firm.add_run("Juan Pablo Lescano Villegas (GEOJOTA)\n")
-    r_firm.font.bold = True
-    r_firm.font.size = Pt(11)
-    r_firm.font.color.rgb = COLOR_AZUL_UAH
-    r_car = p_firm.add_run("Estudiante de Geografía · Practicante Asistente de Investigación Fondecyt F1261256\nUniversidad Alberto Hurtado")
-    r_car.font.size = Pt(9.5)
-    r_car.font.color.rgb = COLOR_GRIS
+    # Firma
+    doc.add_paragraph().paragraph_format.space_after = Pt(18)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("Juan Pablo Lescano Villegas\n")
+    r.font.bold = True; r.font.size = Pt(11); r.font.color.rgb = COLOR_AZUL_UAH
+    r = p.add_run("Estudiante de Geografía · Practicante Proyecto Fondecyt F1261256\nUniversidad Alberto Hurtado")
+    r.font.size = Pt(9.5); r.font.color.rgb = COLOR_GRIS
 
     doc.save(OUTPUT_DOCX)
-    print(f"✅ Documento Word generado exitosamente en: {OUTPUT_DOCX}")
+    print(f"✅ Documento Word generado: {OUTPUT_DOCX}")
+    print(f"   Diagramas en: {DIR_DIAGRAMAS}")
+
 
 if __name__ == "__main__":
     crear_documento()

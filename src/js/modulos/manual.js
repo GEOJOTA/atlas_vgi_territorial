@@ -33,6 +33,9 @@ const ModuloManual = (() => {
             </div>
           </div>
           <div class="doc-descarga-accesos">
+            <a href="docs/geodatabase_completa_atlas_vgi.zip" download="geodatabase_completa_atlas_vgi.zip" class="doc-btn-descarga" style="background:var(--esmeralda,#10b981); color:#0b1924; font-weight:800; border-color:var(--esmeralda);" title="Descargar Geodatabase Completa del Atlas VGI en archivo comprimido ZIP">
+              📦 Base de Datos Completa (.zip)
+            </a>
             <a href="docs/categorias_tematicas_osm.xlsx" download class="doc-btn-descarga" title="Descargar Catálogo Excel Oficial">
               📊 Excel Catálogos (.xlsx)
             </a>

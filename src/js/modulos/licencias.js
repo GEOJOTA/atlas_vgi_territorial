@@ -117,10 +117,27 @@ const ModuloLicencias = (() => {
     const bloqueDescargas = `
       <div class="bloque" style="background:var(--papel-alto); border:1px solid var(--linea); padding:16px; margin-top:20px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
-          <h3 style="margin:0;">📁 Catálogos Maestros y Matrices Metodológicas en Excel (.xlsx)</h3>
+          <h3 style="margin:0;">📦 Base de Datos Integral y Catálogos Metodológicos</h3>
           <span class="doc-pequeno" style="font-family:'IBM Plex Mono', monospace;">Sincronizados en docs/ y src/docs/</span>
         </div>
-        <p class="descripcion">Hojas de cálculo oficiales generadas para la plataforma y catalogación territorial (Departamento de Geografía UAH, 2026):</p>
+        <p class="descripcion">Descarga directa de la base de datos geográfica unificada y de las hojas de cálculo oficiales elaboradas para el Atlas VGI (Departamento de Geografía UAH, 2026):</p>
+        
+        <!-- Tarjeta Maestra: Base de Datos Completa ZIP -->
+        <div style="padding:16px; background:rgba(16, 185, 129, 0.08); border:1px solid rgba(16, 185, 129, 0.4); border-radius:4px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+            <div style="flex:1; min-width:280px;">
+              <span class="marcador" style="color:var(--esmeralda); font-weight:800; font-size:0.72rem;">PAQUETE CONSOLIDADO OFICIAL</span>
+              <h4 style="margin:4px 0 6px 0; font-size:1.05rem; color:#ffffff;">📦 Geodatabase Completa del Atlas VGI (Carpeta Comprimida .zip — 27.9 MB)</h4>
+              <p style="font-size:0.84rem; color:var(--tinta-suave); margin:0 0 8px 0; line-height:1.45;">
+                Acceso total e integrado a los datos del proyecto: 10 macrocategorías VGI comunitarias, dataset unificado de Barrio Brasil / UAH, extracto Geofabrik RM (con enlaces a dumps PBF y Shapefiles), 108 capas oficiales del Estado (Censo 2024, MINVU, UOCT, Subtel, BIP, RSH), las 3 matrices en Excel y metadatos ISO 19115.
+              </p>
+            </div>
+            <a href="docs/geodatabase_completa_atlas_vgi.zip" download="geodatabase_completa_atlas_vgi.zip" class="accion btn-descarga-coleccion" style="text-decoration:none; padding:10px 18px; font-size:0.86rem;">
+              ⬇️ Descargar Base de Datos Completa (.zip)
+            </a>
+          </div>
+        </div>
+
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
           <div style="padding:12px; background:var(--papel); border:1px solid var(--linea); border-radius:2px;">
             <strong>1. Catálogo Sistemático de Fuentes VGI:</strong><br>

@@ -174,9 +174,39 @@ for ex_nom in CATALOGOS_EXCEL:
     sz_kb = f'{os.path.getsize(ex_valido) / 1024:.1f}'
     print(f'✓ [VÁLIDO] {ex_nom:<35} | {sz_kb:>6} KB | Formato ZIP/XLSX OK')
 
+# 4. Auditoría de la Geodatabase Completa Comprimida (.zip)
+print('\n--- [4/4] Auditoría del Paquete Maestro Comprimido (.zip) ---')
+zip_nom = 'geodatabase_completa_atlas_vgi.zip'
+zip_src = os.path.join(SRC_DOCS, zip_nom)
+zip_doc = os.path.join(DOCS_DIR, zip_nom)
+
+if not os.path.exists(zip_src) and os.path.exists(zip_doc):
+    shutil.copyfile(zip_doc, zip_src)
+elif not os.path.exists(zip_doc) and os.path.exists(zip_src):
+    shutil.copyfile(zip_src, zip_doc)
+
+if not os.path.exists(zip_src) or os.path.getsize(zip_src) < 1024 * 1024:
+    print(f'⚠️ [EMPAQUETANDO]: Generando {zip_nom}...')
+    script_emp = os.path.join(ROOT_DIR, 'scripts', 'empaquetar_base_datos_completa.py')
+    if os.path.exists(script_emp):
+        os.system(f'python3 "{script_emp}"')
+
+if os.path.exists(zip_src):
+    with open(zip_src, 'rb') as fp:
+        cab = fp.read(10)
+    if not cab.startswith(b'PK'):
+        print(f'❌ [ERROR ZIP]: {zip_nom} no es un archivo ZIP válido.')
+        fallos += 1
+    else:
+        sz_mb = f'{os.path.getsize(zip_src) / (1024 * 1024):.2f}'
+        print(f'✓ [VÁLIDO] {zip_nom:<35} | {sz_mb:>6} MB | Archivo ZIP íntegro OK')
+else:
+    print(f'❌ [ERROR ZIP]: {zip_nom} no encontrado.')
+    fallos += 1
+
 print('───────────────────────────────────────────────────────────────────')
 if fallos == 0:
-    print('✅ TODOS los conjuntos de datos y catálogos están 100% ÍNTEGROS para el despliegue.')
+    print('✅ TODOS los conjuntos de datos, catálogos y paquetes comprimidos están 100% ÍNTEGROS para el despliegue.')
     sys.exit(0)
 else:
     print(f'⚠️ Se detectaron {fallos} incidencias.')

@@ -148,7 +148,10 @@
         <button type="button" class="accion secundaria" id="btn-abrir-importador" title="Importar capas espaciales locales (.kmz, .kml, .geojson, .gpx, .csv)">📂 Importar Capas</button>
         <button type="button" class="accion secundaria" id="btn-abrir-indicadores-directo" data-panel="indicadores" title="Abrir el Módulo 09 de Indicadores de Análisis y Storyboards de Barrio Brasil">📊 Indicadores &amp; Storyboards</button>
 
-        <button class="accion" id="btn-exportar-geojson-mapa" style="margin-left:auto;" title="Descargar las capas visibles en formato GeoJSON">⎘ Exportar GeoJSON</button>
+        <div style="margin-left:auto; display:flex; gap:8px;">
+          <button type="button" class="accion" id="btn-descargar-bd-mapa" style="background:var(--esmeralda,#10b981); color:#0b1924; font-weight:800; border:none; box-shadow:0 2px 8px rgba(16,185,129,0.3);" title="Descargar toda la base de datos en una carpeta comprimida (.zip): VGI, Geofabrik, Capas Oficiales y Catálogos">📦 Base de Datos (.zip)</button>
+          <button class="accion" id="btn-exportar-geojson-mapa" title="Descargar las capas visibles en formato GeoJSON">⎘ Exportar GeoJSON</button>
+        </div>
       </div>
 
       <!-- Contenedor del mapa Leaflet -->
@@ -313,8 +316,8 @@
               <span class="kpi-valor" id="kpi-activas-capas">0</span>
               <span class="kpi-etiqueta">En Mapa</span>
             </div>
-            <button type="button" class="accion secundaria btn-descarga-coleccion" id="btn-descargar-todo-ide" title="Descargar paquete consolidado GeoJSON de capas oficiales">
-              Descargar Colección (.geojson)
+            <button type="button" class="accion btn-descarga-coleccion" id="btn-descargar-todo-ide" title="Descargar toda la base de datos del Atlas en una carpeta comprimida (.zip): VGI, Geofabrik, Capas Oficiales, Catálogos Excel y Metadatos">
+              📦 Descargar Base de Datos Completa (.zip)
             </button>
           </div>
         </header>
@@ -1318,8 +1321,81 @@
       Datos de OpenStreetMap (© colaboradores de OpenStreetMap, ODbL 1.0), ohsome (HeiGIT), GBIF.org y proyectos UMap.
     </footer>
 
-  </main>
-</div>
+  <!-- Modal Informativo de Descarga de Base de Datos Completa -->
+  <div class="modal-bd-overlay" id="modal-descarga-bd-overlay" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-bd-contenedor" id="modal-descarga-bd-contenedor">
+      <div class="modal-bd-header">
+        <div class="modal-bd-titulo-grupo">
+          <span class="modal-bd-insignia">ACCESO ABIERTO // DESCARGA INTEGRAL</span>
+          <h3 class="modal-bd-titulo">📦 Base de Datos Completa del Atlas VGI (.zip)</h3>
+          <p class="modal-bd-subtitulo">Geodatabase multicapa y multifuente de Barrio Brasil, Campus UAH y Región Metropolitana.</p>
+        </div>
+        <button type="button" class="modal-bd-cerrar" id="btn-cerrar-modal-bd" aria-label="Cerrar modal de descarga">✕</button>
+      </div>
+
+      <div class="modal-bd-cuerpo">
+        <!-- Banner de Descarga Automática Iniciada -->
+        <div class="modal-bd-aviso-exito">
+          <div style="font-size:1.4rem;">✅</div>
+          <div style="flex:1;">
+            <strong>¡La descarga de la carpeta comprimida se ha iniciado en tu navegador!</strong>
+            <p style="margin:2px 0 0 0; font-size:0.82rem; color:var(--tinta-suave);">
+              Archivo: <code>geodatabase_completa_atlas_vgi.zip</code> · Peso: <strong>27.9 MB comprimido</strong> (más de 2.1 GB de datos vectoriales descomprimidos).
+            </p>
+          </div>
+          <a href="docs/geodatabase_completa_atlas_vgi.zip" download="geodatabase_completa_atlas_vgi.zip" class="accion btn-reintentar-descarga-zip" style="text-decoration:none; white-space:nowrap;">
+            ⬇️ Reintentar Descarga (.zip)
+          </a>
+        </div>
+
+        <!-- Desglose de Contenidos Incluidos -->
+        <h4 style="margin:8px 0 4px 0; color:var(--musgo); font-size:0.95rem;">Contenido Íntegro del Paquete Comprimido:</h4>
+        <div class="modal-bd-grid-carpetas">
+          <div class="tarjeta-carpeta-bd">
+            <div class="carpeta-icono">📁 01_vgi_comunitario_osm</div>
+            <p><strong>10 Macro-categorías VGI + Dataset Unificado:</strong> Educación, Salud/Servicios, Transporte, Ciclovías, Espacio Público, Patrimonio, Accesibilidad, Biodiversidad, Edificaciones y Usos de Suelo en formato GeoJSON WGS84 (EPSG:4326).</p>
+          </div>
+          <div class="tarjeta-carpeta-bd">
+            <div class="carpeta-icono">📁 02_geofabrik_chile_rm</div>
+            <p><strong>Extracto Regional Geofabrik &amp; Scripts:</strong> Capas derivadas de Geofabrik para la RM, guía de importación en QGIS y archivo de metadatos con URLs directas a los dumps diarios completos de Geofabrik Chile (OSM PBF y Shapefiles).</p>
+          </div>
+          <div class="tarjeta-carpeta-bd">
+            <div class="carpeta-icono">📁 03_capas_oficiales_estado</div>
+            <p><strong>108 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades), MINVU Áreas Verdes, IPT ZCH/ICH, UOCT Cruces Semaforizados, Subtel Antenas, BIP Inversiones y Unidades Vecinales RSH.</p>
+          </div>
+          <div class="tarjeta-carpeta-bd">
+            <div class="carpeta-icono">📁 04_catalogos_matrices_excel</div>
+            <p><strong>3 Matrices Maestras en Excel (.xlsx):</strong> Categorías temáticas OSM de 4 hojas (taxonomías, etiquetas Chile y 125 citas APA 7ª ed.), Catálogo de fuentes VGI y Perfil de Metadatos ISO 19115 / SNIT.</p>
+          </div>
+          <div class="tarjeta-carpeta-bd" style="grid-column: 1 / -1;">
+            <div class="carpeta-icono">📁 05_metadatos_y_gobernanza &amp; LEAME_PRIMERO</div>
+            <p><strong>Metadatos, Guías y Licencias:</strong> Ficha XML ISO 19139 para GeoNetwork, Informe de MetaCalidad ISO 19157 (95.3% IGV), Manual de Uso en Markdown, archivo LEAME_PRIMERO con instrucciones para QGIS/ArcGIS/Python y licencias ODbL 1.0, CC BY-SA 4.0 y GNU AGPLv3.</p>
+          </div>
+        </div>
+
+        <!-- Enlaces a Dumps Masivos Externos de Geofabrik -->
+        <div class="modal-bd-externos">
+          <h5 style="margin:0 0 6px 0; color:var(--ocre); font-size:0.86rem;">🌐 Descargas Directas de Dumps Masivos Raw (Servidores Oficiales Geofabrik GmbH):</h5>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="https://download.geofabrik.de/south-america/chile-latest.osm.pbf" target="_blank" rel="noopener" class="btn-externo-geofabrik">
+              ⬇️ Geofabrik Chile OSM PBF (~500 MB, diario) ↗
+            </a>
+            <a href="https://download.geofabrik.de/south-america/chile-latest-free.shp.zip" target="_blank" rel="noopener" class="btn-externo-geofabrik">
+              ⬇️ Geofabrik Chile Shapefiles ZIP (~600 MB, diario) ↗
+            </a>
+            <a href="https://www.geoportal.cl" target="_blank" rel="noopener" class="btn-externo-geofabrik">
+              🏛️ IDE Chile / Geoportal del Estado ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-bd-footer">
+        <span style="font-size:0.78rem; color:var(--tinta-tenue);">Departamento de Geografía UAH · Fondecyt Regular F1261256 · Licencias ODbL 1.0 / CC BY-SA 4.0</span>
+        <button type="button" class="accion" id="btn-cerrar-modal-bd-pie" style="padding:6px 18px;">Cerrar</button>
+      </div>
+    </div>
+  </div>
 
 <!-- Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

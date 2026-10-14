@@ -2932,6 +2932,15 @@ function configurarCapasOficialesIDE() {
   }
 
   document.getElementById('btn-descargar-todo-ide')?.addEventListener('click', descargarColeccionOficialCompleta);
+  document.getElementById('btn-descargar-bd-mapa')?.addEventListener('click', descargarColeccionOficialCompleta);
+  document.getElementById('btn-cerrar-modal-bd')?.addEventListener('click', cerrarModalDescargaBaseDatos);
+  document.getElementById('btn-cerrar-modal-bd-pie')?.addEventListener('click', cerrarModalDescargaBaseDatos);
+  document.getElementById('modal-descarga-bd-overlay')?.addEventListener('click', (e) => {
+    if (e.target.id === 'modal-descarga-bd-overlay') cerrarModalDescargaBaseDatos();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') cerrarModalDescargaBaseDatos();
+  });
   inicializarInspectorNormativo();
 }
 
@@ -3025,91 +3034,72 @@ async function ejecutarConsultaInspector(lat, lng) {
   });
 }
 
+function abrirModalDescargaBaseDatos() {
+  const overlay = document.getElementById('modal-descarga-bd-overlay');
+  if (overlay) {
+    overlay.style.display = 'flex';
+    overlay.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function cerrarModalDescargaBaseDatos() {
+  const overlay = document.getElementById('modal-descarga-bd-overlay');
+  if (overlay) {
+    overlay.style.display = 'none';
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+}
+
 async function descargarColeccionOficialCompleta() {
   const btn = document.getElementById('btn-descargar-todo-ide');
-  const textoOriginal = btn ? btn.textContent : '';
-  if (btn) btn.textContent = '⏳ Compilando 14 capas...';
+  const textoOriginal = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.innerHTML = '⏳ Descargando Base de Datos...';
+    btn.disabled = true;
+  }
 
   const estadoTexto = document.getElementById('estado-carga-capas-oficiales');
-  if (estadoTexto) estadoTexto.textContent = 'Compilando colección oficial consolidada de IDE Chile y Geoportal...';
-
-  const capas = ModuloIDEChile.obtenerCapasDisponibles();
-  const allFeatures = [];
-
-  const resultados = await Promise.all(capas.map(async (c) => {
-    try {
-      return await ModuloIDEChile.consultarCapaOficial(c.id);
-    } catch (_) {
-      return null;
-    }
-  }));
-
-  resultados.forEach((res, idx) => {
-    const c = capas[idx];
-    if (res && res.geojson && res.geojson.features) {
-      const meta = (typeof ModuloMetadatos !== 'undefined' && ModuloMetadatos.resolverMetadatosCapa)
-        ? ModuloMetadatos.resolverMetadatosCapa(c.id)
-        : {};
-
-      res.geojson.features.forEach(f => {
-        const props = { ...(f.properties || {}) };
-        props._coleccion_oficial = c.id;
-        props._institucion_oficial = c.institucion;
-        props.meta_capa_id = meta.id || c.id;
-        props.meta_titulo = meta.titulo || c.nombre;
-        props.meta_institucion = meta.institucion || c.institucion;
-        props.meta_ministerio = meta.ministerio || 'Organismo Público del Estado de Chile';
-        props.meta_grupo = meta.grupo || c.grupo || 'general';
-        props.meta_tipo_fuente = 'Oficial (Estado de Chile)';
-        props.meta_temporalidad = meta.temporalidad || '2026';
-        props.meta_licencia = meta.licencia || c.declaracion || 'Ley N° 20.285 de Transparencia de la Función Pública';
-        props.meta_cita_apa = meta.cita_apa || c.citaAPA || `Estado de Chile. (2026). ${c.nombre}. IDE Chile / Geoportal.`;
-        props.meta_crs = 'EPSG:4326 (WGS 84)';
-        props.meta_igv = Number(meta.igv || 100.0);
-        props.meta_grado_calidad = meta.grado_calidad || 'A+ (Excelente)';
-        props.meta_contacto = 'contacto@ide.cl';
-        props.meta_url_servicio = meta.url_servicio || c.urlServicio || window.location.href;
-
-        allFeatures.push({
-          type: 'Feature',
-          geometry: f.geometry,
-          properties: props
-        });
-      });
-    }
-  });
-
-  const fc = {
-    type: 'FeatureCollection',
-    name: 'Coleccion_Oficial_IDE_Chile_Geoportal_Santiago',
-    crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-    metadata: {
-      estandar: 'ISO 19115-1:2014 / ISO 19157:2023 / Perfil Nacional de Metadatos IDE Chile SNIT v2.0',
-      fuente: 'Infraestructura de Datos Geoespaciales de Chile (IDE Chile / SNIT), Geoportal de Chile, MINVU e INE',
-      licencia: 'Ley N° 20.285 de Transparencia de la Función Pública',
-      citation: 'IDE Chile. (2026). Catálogo Cartográfico Integrado Región Metropolitana. Ministerio de Bienes Nacionales.',
-      fecha_extraccion: new Date().toISOString(),
-      total_entidades: allFeatures.length,
-      quality_igv_score: 100.0,
-      quality_grade: 'A+ (Excelente)'
-    },
-    features: allFeatures
-  };
-
-  const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/geo+json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `coleccion-oficial-ide-chile-santiago-${new Date().toISOString().slice(0, 10)}.geojson`;
-  a.click();
-  URL.revokeObjectURL(url);
-
-  if (btn) btn.textContent = textoOriginal;
   if (estadoTexto) {
     estadoTexto.innerHTML = `
-      <span style="color:#1B4D3E; font-weight:600;">[DESCARGA COMPLETADA]:</span> 
-      Colección oficial consolidada exportada con éxito (${allFeatures.length} entidades oficiales en formato GeoJSON).
+      <span style="color:var(--esmeralda,#10b981); font-weight:700;">📦 [INICIANDO DESCARGA]:</span> 
+      Descargando la base de datos completa del Atlas VGI en archivo comprimido (.zip, 27.9 MB). 
+      Incluye 10 macrocategorías VGI, extracto Geofabrik RM, capas oficiales del Estado, catálogos Excel y metadatos ISO 19115.
     `;
+  }
+
+  try {
+    const rutaZip = 'docs/geodatabase_completa_atlas_vgi.zip';
+    const a = document.createElement('a');
+    a.href = rutaZip;
+    a.download = 'geodatabase_completa_atlas_vgi.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    console.log('[+] Descarga de Base de Datos Completa (.zip) iniciada exitosamente desde:', rutaZip);
+
+    // Abrir modal con desglose completo y opciones
+    abrirModalDescargaBaseDatos();
+
+    if (estadoTexto) {
+      estadoTexto.innerHTML = `
+        <span style="color:var(--esmeralda,#10b981); font-weight:700;">✅ [DESCARGA INICIADA]:</span> 
+        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (27.9 MB) descargándose en tu equipo. 
+        Contiene 5 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong>, <strong>04_catalogos_matrices_excel</strong> y <strong>05_metadatos_y_gobernanza</strong>.
+      `;
+    }
+  } catch (err) {
+    console.error('[-] Error al iniciar descarga de base de datos:', err);
+    if (estadoTexto) {
+      estadoTexto.innerHTML = `<span style="color:#ef4444; font-weight:700;">❌ [ERROR]:</span> No se pudo iniciar la descarga automática. <a href="docs/geodatabase_completa_atlas_vgi.zip" download style="color:var(--musgo); text-decoration:underline;">Haz clic aquí para descarga manual</a>.`;
+    }
+  } finally {
+    setTimeout(() => {
+      if (btn) {
+        btn.innerHTML = textoOriginal || '📦 Descargar Base de Datos Completa (.zip)';
+        btn.disabled = false;
+      }
+    }, 2000);
   }
 }
 
