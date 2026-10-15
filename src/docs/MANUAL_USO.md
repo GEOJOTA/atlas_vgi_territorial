@@ -9,7 +9,7 @@
 
 ## 0. Introducción y Perfiles de Actor Territorial
 
-El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **108 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 118 capas totales con las 10 categorías maestras VGI).
+El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **121 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 131 capas totales con las 10 categorías maestras VGI).
 
 En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual adapta y resalta las herramientas clave según la necesidad operativa del usuario:
 
@@ -72,11 +72,11 @@ Ubicada inmediatamente después del visor, la **Consola de Capas GIS** es un ent
 
 ### 2.1 Componentes de la Consola Técnica GIS
 - **Barra de Telemetría e Indicadores KPI:**
-  - `[118 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
+  - `[131 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
   - `[0 EN MAPA]` (dinámico): Contador en tiempo real de capas activamente renderizadas en el lienzo Leaflet.
   - **`📥 Descargar Capas Activas`:** Exporta en un clic un paquete GeoJSON con todas las capas actualmente encendidas.
 - **Buscador Predictivo en Tiempo Real (`#busqueda-capas-atlas`):**
-  - Permite filtrar instantáneamente cualquiera de las 118 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
+  - Permite filtrar instantáneamente cualquiera de las 131 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
 - **Chips de Filtro Rápido:**
   - Accesos directos temáticos: `Todos`, `Normativa & Catastro`, `Movilidad & Vialidad`, `Censo 2024 & Social`, `Economía & Inversión BIP`, `Equipamiento & Patrimonio`, `Medio Ambiente & Agua`, `Seguridad & Justicia`, `VGI Comunitario OSM`.
 - **Pestañas Segmentadas:**
@@ -202,10 +202,10 @@ El Módulo 02 articula la evaluación estandarizada de la calidad geográfica co
 
 ### 7.1 Submódulo A: Evaluador Universal de Calidad IGV (ISO 19157 / ISO 19115 / WLC)
 
-Permite auditar tanto las **118 capas internas de la geodatabase del Atlas** como **cualquier archivo vectorial externo** aportado por municipios, universidades o vecinos:
+Permite auditar tanto las **131 capas internas de la geodatabase del Atlas** como **cualquier archivo vectorial externo** aportado por municipios, universidades o vecinos:
 
 #### A. Modalidades de Entrada de Datos
-1. **Auditar Capa de la Geodatabase del Atlas (118 Componentes):**
+1. **Auditar Capa de la Geodatabase del Atlas (131 Componentes):**
    - En el menú desplegable *'O auditar una capa de la Geodatabase'*, selecciona cualquier capa oficial del Estado (ej. *Censo 2024 Manzanas Santiago*, *Semáforos UOCT RM*, *PRC Santiago*, *Áreas Verdes MINVU*) o cualquiera de las 10 macro-categorías VGI del caso piloto Barrio Brasil.
 2. **Arrastrar o Cargar Archivo Externo (Drag & Drop):**
    - Arrastra directamente un archivo `.geojson` o `.json` al recuadro punteado (o haz clic para examinar desde tu equipo). El archivo se procesa 100% de forma local y privada en la memoria de tu navegador, sin transferir datos confidenciales a la red.
@@ -319,8 +319,8 @@ Permite consultar la definición toponímica y la homología institucional de ca
 En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para análisis territorial y respaldo técnico:
 - **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
 - **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **108 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, Semáforos RM UOCT/MTT, BiDat MDSF, MINVU, MOP, DGA, Energía, CCU, etc.).
-- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile), complementado con la matriz integral de *Auditoría MetaCalidad 118 Capas*.
-- **`docs/ANALISIS_METACALIDAD.md`:** Informe técnico de auditoría de MetaCalidad (ISO 19115 / ISO 19157) sobre el 100% de la base de datos (118 capas).
+- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile), complementado con la matriz integral de *Auditoría MetaCalidad 131 Capas*.
+- **`docs/ANALISIS_METACALIDAD.md`:** Informe técnico de auditoría de MetaCalidad (ISO 19115 / ISO 19157) sobre el 100% de la base de datos (131 capas).
 - **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando 51 obras seminales de investigación, 8 fuentes epistemológicas e hispanoamericanas y 66 normas técnicas y marcos legales del Estado de Chile y globales).
 
 ---
@@ -370,7 +370,7 @@ El Atlas es un bien público abierto y transferible. Cualquier usuario promedio 
 1. **Mapeo Directo en OpenStreetMap (Sin código):**  
    Ingresa a [OpenStreetMap.org](https://www.openstreetmap.org/) con el editor web visual iD. Puedes agregar o corregir locales comerciales, rebajes peatonales, veredas, luminarias o plazas en Barrio Brasil. Al guardar el conjunto de cambios, añade `#AtlasVGI_UAH` en el comentario. Las consultas en vivo del Atlas integrarán tu aporte inmediatamente con trazabilidad de autor y fecha.
 2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 108 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
+   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 121 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
 3. **Reporte y Sugerencia de Capas vía GitHub Issues:**  
    Si encuentras una discrepancia o tu organización posee un set de datos territoriales que desea visibilizar, abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) detallando el nombre de la capa, enlace o archivo, ubicación y organización de contacto.
 4. **Lineamientos de Trazabilidad e Integridad:**  
@@ -380,7 +380,7 @@ El Atlas es un bien público abierto y transferible. Cualquier usuario promedio 
 
 ## 16. Auditoría y Evaluación de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
 
-El Atlas VGI incorpora un marco de auditoría de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Esta auditoría examina de manera exhaustiva el **100% de la base de datos cartográfica** (118 capas: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
+El Atlas VGI incorpora un marco de auditoría de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Esta auditoría examina de manera exhaustiva el **100% de la base de datos cartográfica** (131 capas: 121 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
 
 ### 16.1 Marcos Normativos y Dimensiones Evaluadas
 Conforme a las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, la evaluación mide cinco dimensiones ponderadas:
@@ -391,7 +391,7 @@ Conforme a las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 191
 4. **Resolución Espacial y Granularidad Territorial (RG - 15%):** Escala de agregación formalmente documentada (Regional, Comunal, Zonal, Manzana, Predio o Puntual) y doble sistema de referencia geodésico (WGS 84 / EPSG:4326 y SIRGAS-Chile / EPSG:32719 para cálculo métrico conforme de Snyder).
 5. **Accesibilidad e Integridad Operativa (AI - 10%):** Verificación de integridad física binaria en `src/data/` (cero punteros LFS rotos) y disponibilidad de descarga inmediata.
 
-### 16.2 Resultados y Dictamen Global de la Base de Datos (118 Capas)
+### 16.2 Resultados y Dictamen Global de la Base de Datos (131 Capas)
 $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
 
 | Métrica Global | Puntaje Promedio | Calificación ISO 19157 |
@@ -408,7 +408,7 @@ $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \
 - **Grado A (Muy Bueno, $85\% - 94.9\%$):** 20 capas (**16.9%**).
 - **Grado B / C (< 85%):** 0 capas (**0.0%**).
 
-El informe pormenorizado con la matriz completa de las 118 capas se encuentra documentado en [`docs/ANALISIS_METACALIDAD.md`](docs/ANALISIS_METACALIDAD.md), en formato estructurado [`docs/matriz_metacalidad.json`](docs/matriz_metacalidad.json) y en la hoja *Auditoría MetaCalidad 118 Capas* del libro Excel [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
+El informe pormenorizado con la matriz completa de las 131 capas se encuentra documentado en [`docs/ANALISIS_METACALIDAD.md`](docs/ANALISIS_METACALIDAD.md), en formato estructurado [`docs/matriz_metacalidad.json`](docs/matriz_metacalidad.json) y en la hoja *Auditoría MetaCalidad 131 Capas* del libro Excel [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
 
 ---
 
@@ -416,7 +416,7 @@ El informe pormenorizado con la matriz completa de las 118 capas se encuentra do
 
 > [!NOTE]
 > **Carácter Tentativo y Exploratorio Fondecyt:**  
-> El módulo de **Indicadores de Análisis Multidimensional** y las **Storyboards territoriales** de Barrio Brasil constituyen un desarrollo metodológico preliminar en fase de formulación e iteración para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Tanto la agregación de las 118 capas en cinco dimensiones estratégicas como las narrativas situadas de datos se ofrecen a modo de prototipo exploratorio de divulgación científica y discusión comunitaria. Su formulación es tentativa y no compromete los estándares ni entregables canónicos de metadatos (ISO 19115 / ISO 19157 / IDE Chile) de la base de datos geoespacial.
+> El módulo de **Indicadores de Análisis Multidimensional** y las **Storyboards territoriales** de Barrio Brasil constituyen un desarrollo metodológico preliminar en fase de formulación e iteración para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Tanto la agregación de las 131 capas en cinco dimensiones estratégicas como las narrativas situadas de datos se ofrecen a modo de prototipo exploratorio de divulgación científica y discusión comunitaria. Su formulación es tentativa y no compromete los estándares ni entregables canónicos de metadatos (ISO 19115 / ISO 19157 / IDE Chile) de la base de datos geoespacial.
 
 ### 17.1 Acceso e Interfaz de las 5 Dimensiones Analíticas
 El módulo se encuentra disponible en la barra superior de módulos bajo la pestaña **`09 📈 Indicadores & Storyboards`** (o mediante el botón de acceso rápido en la barra de herramientas del visor).  

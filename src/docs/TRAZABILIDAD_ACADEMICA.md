@@ -135,7 +135,7 @@ Para asegurar que el Atlas funcione como una herramienta viva de co-producción 
 1. **Mapeo Directo en OpenStreetMap con Trazabilidad Temática:**  
    A través del editor visual web [iD en openstreetmap.org](https://www.openstreetmap.org/), los ciudadanos pueden incorporar o corregir comercios, árboles de alineación, veredas accesibles o equipamiento barrial en el polígono de estudio. Al guardar con la etiqueta `#AtlasVGI_UAH`, el changeset queda registrado en el historial de OSM, permitiendo que el motor del Atlas (vía Overpass y OSMCha) audite la contribución e identifique al autor, timestamp y linaje de la modificación.
 2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   Cualquier colectivo barrial que levante cartografía propia puede arrastrar sus archivos `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV` al Visor interactivo (Panel 00), contrastándolos de inmediato con las 108 capas oficiales y 10 VGI de forma 100% privada en su navegador.
+   Cualquier colectivo barrial que levante cartografía propia puede arrastrar sus archivos `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV` al Visor interactivo (Panel 00), contrastándolos de inmediato con las 121 capas oficiales y 10 VGI de forma 100% privada en su navegador.
 3. **Reportes Guiados vía GitHub Issues:**  
    Se diseñó una plantilla estandarizada en el repositorio oficial de GitHub para que cualquier usuario reporte capas desactualizadas o sugiera nuevas fuentes comunitarias indicando: tipo de aporte, nombre de la capa, categoría VGI o institucional, ubicación y organización responsable.
 4. **Gobierno y Linaje de Datos:**  
@@ -237,7 +237,7 @@ Ante la evaluación técnica y metodológica, cada componente técnico responde 
 
 ## 4. Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
 
-Para garantizar la interoperabilidad y el rigor epistemológico del Atlas, se desarrolló e implementó un protocolo programático de evaluación de **MetaCalidad** (calidad integral de metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Este análisis auditó el **100% de la base de datos cartográfica** (**118 capas**: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
+Para garantizar la interoperabilidad y el rigor epistemológico del Atlas, se desarrolló e implementó un protocolo programático de evaluación de **MetaCalidad** (calidad integral de metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Este análisis auditó el **100% de la base de datos cartográfica** (**131 capas**: 121 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
 
 ### 4.1 Modelo Matemático y Justificación Teórica del Índice Global de MetaCalidad (IGMC)
 Conforme a las directrices de las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007**, **ISO 19110:2016** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, se implementó un modelo lineal aditivo ponderado (**Simple Additive Weighting - SAW / Multi-Attribute Utility Theory - MAUT**; Fishburn, 1967; Keeney & Raiffa, 1976; Malczewski, 1999) fundado en literatura canónica de VGI y calidad espacial (Goodchild, 2007; Haklay, 2010; Ballatore & Zipf, 2015; Senaratne et al., 2017; Herfort et al., 2023):
@@ -256,9 +256,9 @@ $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \
 - **Índice Global de MetaCalidad (IGMC):** **96.55% (Grado A+ Excelente)**.
 - **Distribución de Calidad:** 98 capas en **Grado A+ (Excelente)** (83.1%) y 20 capas en **Grado A (Muy Bueno)** (16.9%), con **0 capas deficientes (0.0%)**.
 - **Artefactos Técnicos Generados:**
-  - [`docs/ANALISIS_METACALIDAD.md`](ANALISIS_METACALIDAD.md): Informe pormenorizado, diagramas Mermaid, especificidad técnica de las 10 macro-categorías VGI y matriz de las 118 capas.
+  - [`docs/ANALISIS_METACALIDAD.md`](ANALISIS_METACALIDAD.md): Informe pormenorizado, diagramas Mermaid, especificidad técnica de las 10 macro-categorías VGI y matriz de las 131 capas.
   - [`docs/matriz_metacalidad.json`](matriz_metacalidad.json): Dataset estructurado JSON para consumo programático.
-  - [`docs/perfil_metadatos_vgi.xlsx`](perfil_metadatos_vgi.xlsx): Libro Excel multi-hoja con *Perfil Metadatos ISO 19115*, *Auditoría MetaCalidad 118 Capas* y *10 Macrocategorías VGI (Tags)*.
+  - [`docs/perfil_metadatos_vgi.xlsx`](perfil_metadatos_vgi.xlsx): Libro Excel multi-hoja con *Perfil Metadatos ISO 19115*, *Auditoría MetaCalidad 131 Capas* y *10 Macrocategorías VGI (Tags)*.
 
 ---
 

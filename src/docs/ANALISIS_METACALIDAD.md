@@ -125,7 +125,7 @@ flowchart TD
 ```mermaid
 graph LR
     EXT["Usuario arrastra .geojson externo<br/>o pega texto plano"] --> MOD02["Módulo 02: Evaluador Universal"]
-    INT["O selecciona una de las 118 capas<br/>de la Geodatabase"] --> MOD02
+    INT["O selecciona una de las 131 capas<br/>de la Geodatabase"] --> MOD02
     MOD02 --> ALG["Motor Algorítmico Vanilla JS<br/>(evaluador_calidad_cuantitativa.js)"]
     ALG --> RES1["Cálculo de IGV, S_cuant y S_cual"]
     ALG --> RES2["Semáforo Cartográfico Leaflet<br/>(Verde: OK / Amarillo: Advertencia / Rojo: Error)"]
@@ -529,9 +529,9 @@ La base de datos cartográfica se organiza en **8 grupos temáticos** normalizad
 
 ---
 
-## 5. Matriz Exhaustiva de Calidad e Índice IGV — Auditoría Universal de los 118 Componentes
+## 5. Matriz Exhaustiva de Calidad e Índice IGV — Auditoría Universal de los 131 Componentes
 
-A continuación se presenta el desglose universal de las **118 capas** evaluadas bajo los pilares cuantitativo y cualitativo:
+A continuación se presenta el desglose universal de las **131 capas** evaluadas bajo los pilares cuantitativo y cualitativo:
 
 | N° | ID Capa | Nombre Oficial / Temático | Tipo Fuente | Cuantitativo (50%) | Topología (30%) | Atributos (25%) | Cualitativo (50%) | IGV Global (%) | Grado ISO 19157 |
 | :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -671,7 +671,7 @@ A continuación se presenta el desglose universal de las **118 capas** evaluadas
 
 ## 6. Hallazgos Clave y Plan de Calibración Futura
 
-1. **Disponibilidad Binaria Ininterrumpida (100% de Integridad):** Las 118 capas auditadas cuentan con archivos GeoJSON físicamente presentes en el repositorio y en la red CDN Netlify Edge, sin registrarse punteros rotos ni enlaces huérfanos. Esto asegura que el Atlas sea completamente operativo sin costos recurrentes de servidor.
+1. **Disponibilidad Binaria Ininterrumpida (100% de Integridad):** Las 131 capas auditadas cuentan con archivos GeoJSON físicamente presentes en el repositorio y en la red CDN Netlify Edge, sin registrarse punteros rotos ni enlaces huérfanos. Esto asegura que el Atlas sea completamente operativo sin costos recurrentes de servidor.
 
 2. **Trazabilidad Jurídica Inequívoca:** Se subsanó cualquier ambigüedad de licenciamiento: los datos comunitarios VGI de OpenStreetMap (CAT-01 a CAT-10) están rigurosamente declarados bajo la licencia copyleft ODbL 1.0; los registros de biodiversidad ciudadana se amparan en CC-BY 4.0 / CC0 (GBIF); y las 108 capas estatales se distribuyen bajo la Ley N° 20.285 de Transparencia del Estado de Chile.
 

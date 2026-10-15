@@ -5,7 +5,7 @@
   Proyecto Fondecyt Regular F1261256 — Geografía Universidad Alberto Hurtado (2026).
 
   Estructura y Principios:
-  1. Agrupación analítica de las 118 capas del Atlas (108 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
+  1. Agrupación analítica de las 131 capas del Atlas (121 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
      - 1) Sociodemográfica (19 capas)
      - 2) Socioeconómica (18 capas)
      - 3) Socioambiental (23 capas)
@@ -169,7 +169,7 @@ const ModuloIndicadoresAnalisis = (() => {
   };
 
   // =========================================================================
-  // 2. DEFINICIÓN DE LAS 5 DIMENSIONES ESTRATÉGICAS (118 CAPAS TOTALES)
+  // 2. DEFINICIÓN DE LAS 5 DIMENSIONES ESTRATÉGICAS (131 CAPAS TOTALES)
   // =========================================================================
   const DIMENSIONES = [
     {

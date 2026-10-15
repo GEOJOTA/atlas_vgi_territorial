@@ -14,7 +14,7 @@ El sistema implementa una **arquitectura híbrida desacoplada y resiliente (*cli
 
 1. **Desacoplamiento e Inmediatez:** La totalidad de la interfaz de usuario, renderizado cartográfico (Leaflet 1.9.4), cálculo geodésico y evaluación de calidad opera directamente en el navegador del usuario final sin dependencias obligatorias de compilación (*zero-build architecture*).
 2. **Capa de Base de Datos Espacial en la Nube (Supabase PostGIS):**
-   - Aloja las **108 capas oficiales del Estado** (incorporando la desagregación multiescalar del Censo 2024 en 5 niveles territoriales independientes, la red de semáforos conectados UOCT/MTT y el catastro predial de Santiago) y más de **130.000 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
+   - Aloja las **121 capas oficiales del Estado** (incorporando la desagregación multiescalar del Censo 2024 en 5 niveles territoriales independientes, la red de semáforos conectados UOCT/MTT y el catastro predial de Santiago) y más de **130.000 entidades vectoriales** en un clúster relacional **PostgreSQL 17.6 con extensión PostGIS 3.3**.
    - Incorpora índices espaciales R-Tree `GIST` y la función RPC `fn_obtener_capa_bbox`, permitiendo consultas espaciales filtradas por el Bbox del usuario en milisegundos.
    - Aloja los archivos GeoJSON completos en el bucket público de CDN `atlas-geojson`.
 3. **Resiliencia y Conmutación de Triple Contingencia (Failover):**
@@ -119,7 +119,7 @@ La arquitectura se articula en 17 módulos desacoplados coordinados por el contr
 - Motor cartográfico 2D de alto rendimiento.
 - Capas base intercambiables: CartoDB Positron, OpenStreetMap Estándar y OpenTopoMap.
 - Herramienta interactiva "📐 Dibujar Bbox" para redelimitar el polígono de estudio dinámicamente.
-- Coordinación de capas de las 10 categorías VGI y las 108 capas oficiales del Estado (118 capas totales).
+- Coordinación de capas de las 10 categorías VGI y las 121 capas oficiales del Estado (131 capas totales).
 - Panel lateral de «Más detalles» con alerta visual destacada para datasets con alta densidad de columnas (>15 atributos, RSH, Censo 2024, BIP, IGVUST, CONAF, UOCT) y botón de descarga directa de la capa completa (.geojson) sin recortes espaciales ni de columnas.
 - Popups normalizados con atributos clave, citas bibliográficas APA 7ª ed. y enlace al diccionario.
 
@@ -166,7 +166,7 @@ La arquitectura se articula en 17 módulos desacoplados coordinados por el contr
 
 ### 3.8 `evaluador_calidad_cuantitativa.js` (Motor Algorítmico Universal de Calidad IGV / ISO 19157 / ISO 19115)
 - Implementa la evaluación multicriterio basada en Combinación Lineal Ponderada (WLC — Malczewski, 1999) integrando el Pilar Cuantitativo Espacial (50% — OGC SFA: topología, completitud tabular, exactitud posicional, estructura y micro-slivers) con el Pilar Cualitativo de Metadatos (50% — ISO 19115 / ISO 19110: metadatos núcleo, conformidad semántica, linaje legal, resolución y accesibilidad).
-- Soporta auditoría universal de las 118 capas de la geodatabase del Atlas, archivos GeoJSON externos arrastrados en el cliente (Drag & Drop) y texto GeoJSON plano.
+- Soporta auditoría universal de las 131 capas de la geodatabase del Atlas, archivos GeoJSON externos arrastrados en el cliente (Drag & Drop) y texto GeoJSON plano.
 - Incluye motor de saneamiento automático (Auto-Fix) con descarga inmediata, planes de subsanación técnica estructurados para QGIS 3.x, PostGIS 3.x y GeoPandas, semáforo diagnóstico en Leaflet con límite preventivo de renderizado (300 entidades) y paginación DOM para garantizar total estabilidad frente a riesgos de Out-of-Memory.
 
 ### 3.9 `calidad_analyst.js` (Control de Calidad OQT y OSMCha)
@@ -202,7 +202,7 @@ La arquitectura se articula en 17 módulos desacoplados coordinados por el contr
 - Gestión de ciclo de vida de la aplicación, cambio de perfiles territoriales, sincronización de Bbox y control de paneles (incluyendo Panel 09 de Indicadores & Storyboards).
 
 ### 3.17 `indicadores_analisis.js` (Módulo de Indicadores Multidimensionales y Storyboards de Barrio Brasil)
-- Estructuración multidimensional de las 118 capas del Atlas (108 capas oficiales y 10 categorías VGI) en **5 dimensiones analíticas estratégicas**:
+- Estructuración multidimensional de las 131 capas del Atlas (121 capas oficiales y 10 categorías VGI) en **5 dimensiones analíticas estratégicas**:
   1. *Dimensión Sociodemográfica* (Censo 2024 multiescalar, vulnerabilidad RSH, BiDat).
   2. *Dimensión Socioeconómica* (Inversión pública BIP, subsidios DS49/DS19, patentes SII, redes SUBTEL, CNE).
   3. *Dimensión Socioambiental* (Cobertura vegetal CONAF, IGVUST MINVU, red hídrica DGA, SINCA MMA, GBIF).
@@ -359,13 +359,13 @@ Ubicados en `docs/` y `src/docs/`, generados automáticamente mediante `scripts/
 ## 9. Marco de Aseguramiento de MetaCalidad (ISO 19115 / ISO 19157)
 
 Para garantizar la interoperabilidad, trazabilidad y confiabilidad de la información geoespacial, el proyecto implementa un protocolo automatizado y continuo de auditoría de metadatos mediante `scripts/analisis_metacalidad.py`:
-- **Cobertura:** 100% de la base de datos cartográfica (**118 capas**: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF).
+- **Cobertura:** 100% de la base de datos cartográfica (**131 capas**: 121 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF).
 - **Métricas:** Modelo matemático multidimensional ponderado según **ISO 19157:2013 / 2023** e **IDE Chile SNIT v2.0** (Completitud MC 30%, Conformidad CC 20%, Linaje LL 25%, Resolución RG 15%, Accesibilidad AI 10%).
 - **Resultado Global:** **96.55% IGMC (Grado A+ Excelente)**, con 98 capas en Grado A+ (83.1%) y 20 capas en Grado A (16.9%).
 - **Artefactos del Sistema:**
-  - `docs/ANALISIS_METACALIDAD.md`: Informe técnico pormenorizado con la evaluación integral de las 118 capas.
+  - `docs/ANALISIS_METACALIDAD.md`: Informe técnico pormenorizado con la evaluación integral de las 131 capas.
   - `docs/matriz_metacalidad.json`: Matriz de datos en formato JSON para integración continua.
-  - `docs/perfil_metadatos_vgi.xlsx`: Hoja *Auditoría MetaCalidad 118 Capas* con indicadores cuantitativos.
+  - `docs/perfil_metadatos_vgi.xlsx`: Hoja *Auditoría MetaCalidad 131 Capas* con indicadores cuantitativos.
 
 ---
 
