@@ -268,7 +268,7 @@ const ModuloIndicadoresAnalisis = (() => {
         'bbdd_59', // Cobertura de canales a nivel nacional
         'bbdd_60', // Catastro y Actualización de Recursos Vegetacionales RM
         'bbdd_62', // Cobertura de polígonos representativos de huertos frutales RM
-        'bbdd_63'  // Inventario de Biomasa y Carbono RM,
+        'bbdd_63', // Inventario de Biomasa y Carbono RM
         'subdere_rsd_analisis_costos_comuna_rm',
         'subdere_rsd_poblacion_atendida_pta_puntos_rm',
         'subdere_rsd_poblacion_comunal_pta_poligonos_rm',

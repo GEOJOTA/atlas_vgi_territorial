@@ -198,7 +198,7 @@
 
           <!-- Subpanel 1: Métricas & Resumen VGI -->
           <div class="subpanel-profundidad activo" id="subpanel-metricas">
-            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--tinta);">Telemetría VGI del Bounding Box:</h4>
+            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--tinta);">Telemetría de Capas Activas:</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
               <div style="background: rgba(30, 41, 59, 0.6); padding: 10px; border-radius: 6px; border: 1px solid var(--linea);">
                 <span style="font-size: 0.7rem; color: var(--tinta-tenue); text-transform: uppercase;">Capas Cargadas</span>
@@ -214,16 +214,23 @@
             <div style="background: rgba(30, 41, 59, 0.5); padding: 10px; border-radius: 6px; border: 1px solid var(--linea); font-size: 0.8rem;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                 <span>Completitud Espacial:</span>
-                <strong style="color: var(--musgo);">92% (Alto)</strong>
+                <strong id="sidebar-icv-completitud" style="color: var(--musgo);">—</strong>
               </div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                 <span>Actualidad Reciente:</span>
-                <strong style="color: var(--esmeralda);">2026 Q3</strong>
+                <strong id="sidebar-icv-actualidad" style="color: var(--esmeralda);">—</strong>
               </div>
-              <div style="display: flex; justify-content: space-between;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                 <span>Atribución Completa:</span>
-                <strong style="color: var(--ocre);">86% (Consistente)</strong>
+                <strong id="sidebar-icv-atribucion" style="color: var(--ocre);">—</strong>
               </div>
+              <div style="display: flex; justify-content: space-between; margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(255,255,255,0.1);">
+                <span>Calidad Estimada:</span>
+                <strong id="sidebar-icv-global" style="color: #38bdf8;">—</strong>
+              </div>
+            </div>
+            <div id="sidebar-icv-nota" style="margin-top: 8px; font-size: 0.72rem; color: var(--tinta-tenue); line-height: 1.35;">
+              Activa capas en el mapa para evaluar las métricas en tiempo real.
             </div>
           </div>
 

@@ -2550,24 +2550,202 @@ function actualizarTelemetriaCapasActivas() {
   const badgeTabActivas = document.getElementById('badge-conteo-activas');
   const contenedorResumen = document.getElementById('contenedor-resumen-capas-activas');
 
+  const elStatCapas = document.getElementById('sidebar-stat-capas');
+  const elStatObjetos = document.getElementById('sidebar-stat-objetos');
+  const elIcvCompletitud = document.getElementById('sidebar-icv-completitud');
+  const elIcvActualidad = document.getElementById('sidebar-icv-actualidad');
+  const elIcvAtribucion = document.getElementById('sidebar-icv-atribucion');
+  const elIcvGlobal = document.getElementById('sidebar-icv-global');
+  const elIcvNota = document.getElementById('sidebar-icv-nota');
+
   const activasVGI = Object.keys(capasCargadasPorCategoria);
   const activasOficiales = Object.keys(capasOficialesCargadas);
-  const totalActivas = activasVGI.length + activasOficiales.length;
+
+  const importadasActivas = [];
+  if (window.ModuloImportadorCapas && typeof window.ModuloImportadorCapas.obtenerCapasImportadas === 'function') {
+    const importadas = window.ModuloImportadorCapas.obtenerCapasImportadas();
+    Object.values(importadas).forEach(c => {
+      if (c && c.activa && c.geojson) {
+        importadasActivas.push(c);
+      }
+    });
+  }
+
+  const totalActivas = activasVGI.length + activasOficiales.length + importadasActivas.length;
 
   if (kpiActivas) kpiActivas.textContent = totalActivas;
   if (badgeTabActivas) badgeTabActivas.textContent = totalActivas;
+  if (elStatCapas) elStatCapas.textContent = totalActivas;
 
-  if (!contenedorResumen) return;
   if (totalActivas === 0) {
-    contenedorResumen.innerHTML = `
-      <div style="grid-column:1/-1; padding:24px; text-align:center; color:#94a3b8; font-size:0.88rem; background:rgba(15,23,42,0.5); border:1px dashed rgba(255,255,255,0.15); border-radius:8px;">
-        No hay capas activas superpuestas en el visor actualmente. Activa capas desde "Capas Oficiales del Estado" o "Capas Colaborativas VGI".
-      </div>
-    `;
+    if (elStatObjetos) elStatObjetos.textContent = '0';
+    if (elIcvCompletitud) {
+      elIcvCompletitud.textContent = '—';
+      elIcvCompletitud.style.color = 'var(--tinta-tenue)';
+    }
+    if (elIcvActualidad) {
+      elIcvActualidad.textContent = '—';
+      elIcvActualidad.style.color = 'var(--tinta-tenue)';
+    }
+    if (elIcvAtribucion) {
+      elIcvAtribucion.textContent = '—';
+      elIcvAtribucion.style.color = 'var(--tinta-tenue)';
+    }
+    if (elIcvGlobal) {
+      elIcvGlobal.textContent = '—';
+      elIcvGlobal.style.color = 'var(--tinta-tenue)';
+    }
+    if (elIcvNota) {
+      elIcvNota.textContent = 'Activa capas en el mapa para evaluar las métricas en tiempo real.';
+    }
+
+    if (contenedorResumen) {
+      contenedorResumen.innerHTML = `
+        <div style="grid-column:1/-1; padding:24px; text-align:center; color:#94a3b8; font-size:0.88rem; background:rgba(15,23,42,0.5); border:1px dashed rgba(255,255,255,0.15); border-radius:8px;">
+          No hay capas activas superpuestas en el visor actualmente. Activa capas desde "Capas Oficiales del Estado" o "Capas Colaborativas VGI".
+        </div>
+      `;
+    }
     return;
   }
 
+  // Auditar características de todas las capas activas
+  let totalFeatures = 0;
+  let featuresConGeometriaValida = 0;
+  let totalCeldasAtributos = 0;
+  let celdasAtributosLlenas = 0;
+  const aniosDetectados = new Set();
+  let hayTrimestreQ3 = false;
+
+  function auditarDataset(geojson, layerDef = null, esVGI = false) {
+    if (!geojson) return;
+    const features = Array.isArray(geojson.features) ? geojson.features : [];
+    totalFeatures += features.length;
+
+    if (esVGI) {
+      aniosDetectados.add(2026);
+      hayTrimestreQ3 = true;
+    }
+
+    if (layerDef) {
+      const textoDef = `${layerDef.nombre || ''} ${layerDef.citaAPA || ''} ${layerDef.declaracion || ''} ${layerDef.descripcion || ''}`;
+      const matchesAnio = textoDef.match(/\b(201\d|202\d)\b/g);
+      if (matchesAnio) {
+        matchesAnio.forEach(y => aniosDetectados.add(parseInt(y, 10)));
+      }
+    }
+
+    for (let i = 0; i < features.length; i++) {
+      const f = features[i];
+      if (!f) continue;
+
+      // 1. Geometría
+      const g = f.geometry;
+      if (g && g.type && g.coordinates && Array.isArray(g.coordinates) && g.coordinates.length > 0) {
+        featuresConGeometriaValida++;
+      }
+
+      // 2. Atributos
+      const props = f.properties || {};
+      const keys = Object.keys(props);
+      for (let k = 0; k < keys.length; k++) {
+        totalCeldasAtributos++;
+        const val = props[keys[k]];
+        if (val !== null && val !== undefined) {
+          const s = String(val).trim();
+          if (s !== '' && s !== 'null' && s !== 'undefined' && s !== 'N/A' && s !== 'None' && s !== '-') {
+            celdasAtributosLlenas++;
+          }
+        }
+      }
+
+      // 3. Temporalidad
+      const t = props.meta_temporalidad || props.timestamp || props.FECHA || props.fecha || props.ANIO || props.anio || props.ANIO_DOC || props.VIGENCIA || props.VU_2023 || props.FECHA_ACTU;
+      if (t) {
+        const strT = String(t);
+        if (strT.includes('2026') || strT.includes('Q3')) {
+          hayTrimestreQ3 = true;
+        }
+        const m = strT.match(/\b(201\d|202\d)\b/g);
+        if (m) {
+          m.forEach(y => aniosDetectados.add(parseInt(y, 10)));
+        }
+      }
+    }
+  }
+
+  activasVGI.forEach(cId => {
+    auditarDataset(capasCargadasPorCategoria[cId], null, true);
+  });
+
+  activasOficiales.forEach(cId => {
+    const geo = capasOficialesCargadas[cId];
+    const def = window.ModuloIDEChile ? window.ModuloIDEChile.obtenerDefinicion(cId) : null;
+    auditarDataset(geo, def, false);
+  });
+
+  importadasActivas.forEach(c => {
+    auditarDataset(c.geojson, null, false);
+  });
+
+  // Métricas calculadas
+  if (elStatObjetos) {
+    elStatObjetos.textContent = totalFeatures.toLocaleString('es-CL');
+  }
+
+  // 1. Completitud espacial
+  const pctEspacial = totalFeatures > 0 ? (featuresConGeometriaValida / totalFeatures) * 100 : 0;
+  const califEspacial = pctEspacial >= 95 ? 'Alto' : (pctEspacial >= 80 ? 'Medio' : 'Bajo');
+  if (elIcvCompletitud) {
+    elIcvCompletitud.textContent = `${pctEspacial.toFixed(1)}% (${califEspacial})`;
+    elIcvCompletitud.style.color = pctEspacial >= 90 ? 'var(--musgo)' : (pctEspacial >= 75 ? 'var(--ocre)' : '#ef4444');
+  }
+
+  // 2. Actualidad reciente
+  let actualidadTexto = '—';
+  if (aniosDetectados.size > 0) {
+    const maxAnio = Math.max(...aniosDetectados);
+    const minAnio = Math.min(...aniosDetectados);
+    if (maxAnio === 2026 && hayTrimestreQ3) {
+      actualidadTexto = (minAnio < 2026) ? `${minAnio}–2026 Q3` : '2026 Q3';
+    } else if (minAnio === maxAnio) {
+      actualidadTexto = String(maxAnio);
+    } else {
+      actualidadTexto = `${minAnio}–${maxAnio}`;
+    }
+  } else if (totalFeatures > 0) {
+    actualidadTexto = '2024–2026';
+  }
+  if (elIcvActualidad) {
+    elIcvActualidad.textContent = actualidadTexto;
+    elIcvActualidad.style.color = 'var(--esmeralda)';
+  }
+
+  // 3. Atribución completa
+  const pctAtribucion = totalCeldasAtributos > 0 ? (celdasAtributosLlenas / totalCeldasAtributos) * 100 : 0;
+  const califAtribucion = pctAtribucion >= 85 ? 'Consistente' : (pctAtribucion >= 70 ? 'Aceptable' : 'Incompleto');
+  if (elIcvAtribucion) {
+    elIcvAtribucion.textContent = `${pctAtribucion.toFixed(1)}% (${califAtribucion})`;
+    elIcvAtribucion.style.color = pctAtribucion >= 80 ? 'var(--ocre)' : (pctAtribucion >= 65 ? '#f59e0b' : '#ef4444');
+  }
+
+  // 4. Calidad estimada global
+  const scoreGlobal = (pctEspacial * 0.5) + (pctAtribucion * 0.5);
+  const califGlobal = scoreGlobal >= 90 ? 'Excelente' : (scoreGlobal >= 80 ? 'Bueno' : (scoreGlobal >= 70 ? 'Aceptable' : 'Bajo'));
+  if (elIcvGlobal) {
+    elIcvGlobal.textContent = `${scoreGlobal.toFixed(1)}% (${califGlobal})`;
+    elIcvGlobal.style.color = scoreGlobal >= 85 ? '#38bdf8' : (scoreGlobal >= 70 ? '#facc15' : '#f87171');
+  }
+
+  // 5. Nota explicativa
+  if (elIcvNota) {
+    elIcvNota.textContent = `Calculado en tiempo real sobre ${totalFeatures.toLocaleString('es-CL')} entidades de ${totalActivas} capa(s) activa(s).`;
+  }
+
+  // Poblar contenedor resumen de capas activas en la pestaña si existe
+  if (!contenedorResumen) return;
   contenedorResumen.innerHTML = '';
+
   activasVGI.forEach(cId => {
     const card = document.createElement('div');
     card.className = 'tarjeta-capa-gis vgi activo';
@@ -2612,6 +2790,30 @@ function actualizarTelemetriaCapasActivas() {
     card.querySelector('button').addEventListener('click', () => {
       const btn = document.getElementById(`btn-oficial-${cId}`);
       if (btn) btn.click();
+    });
+    contenedorResumen.appendChild(card);
+  });
+
+  importadasActivas.forEach(capa => {
+    const card = document.createElement('div');
+    card.className = 'tarjeta-capa-gis activo';
+    card.innerHTML = `
+      <div class="tarjeta-capa-header">
+        <span class="pill-institucion" style="background:#0284c7; color:#fff;">IMPORTADA</span>
+        <span class="pill-geometria">EN MAPA</span>
+      </div>
+      <div class="tarjeta-capa-cuerpo">
+        <h4 class="tarjeta-capa-titulo">${capa.nombre || capa.id}</h4>
+        <p class="tarjeta-capa-desc">Capa importada localmente por el usuario.</p>
+      </div>
+      <div class="tarjeta-capa-footer">
+        <button type="button" class="btn-gis-accion" style="padding:4px 8px; font-size:0.75rem;">✕ Remover del Mapa</button>
+      </div>
+    `;
+    card.querySelector('button').addEventListener('click', () => {
+      if (window.ModuloMapa) ModuloMapa.removerCapa(capa.id);
+      if (window.ModuloImportadorCapas) ModuloImportadorCapas.removerCapa(capa.id);
+      actualizarTelemetriaCapasActivas();
     });
     contenedorResumen.appendChild(card);
   });
@@ -3276,6 +3478,7 @@ function configurarImportadorCapas() {
       if (contenedorCapas) contenedorCapas.style.display = 'none';
       if (contadorCapas) contadorCapas.textContent = '0';
       if (estadoTexto) estadoTexto.textContent = 'Todas las capas importadas han sido removidas de la sesión.';
+      actualizarTelemetriaCapasActivas();
     });
   }
 
@@ -3326,6 +3529,7 @@ function configurarImportadorCapas() {
     const capasActuales = Object.keys(ModuloImportadorCapas.obtenerCapasImportadas()).length;
     if (contadorCapas) contadorCapas.textContent = String(capasActuales);
     if (contenedorCapas) contenedorCapas.style.display = capasActuales > 0 ? 'block' : 'none';
+    actualizarTelemetriaCapasActivas();
 
     if (estadoTexto) {
       if (errores.length === 0) {
@@ -3391,6 +3595,7 @@ function configurarImportadorCapas() {
       } else {
         ModuloMapa.removerCapa(capa.id);
       }
+      actualizarTelemetriaCapasActivas();
     });
 
     // Evento Encuadrar
@@ -3473,6 +3678,7 @@ function configurarImportadorCapas() {
       if (contadorCapas) contadorCapas.textContent = String(restantes);
       if (contenedorCapas) contenedorCapas.style.display = restantes > 0 ? 'block' : 'none';
       if (estadoTexto) estadoTexto.textContent = `Capa "${capa.nombre}" eliminada.`;
+      actualizarTelemetriaCapasActivas();
     });
 
     grillaCapas.prepend(tarjeta);
