@@ -1057,10 +1057,11 @@ function configurarNavegacion() {
         window.EvaluadorCalidadCuantitativa.invalidarTamanoMapa();
       }
       if (panelId === 'indicadores') {
-        if (window.ModuloIndicadoresAnalisis) {
-          const cont = document.getElementById('contenedor-indicadores-analisis');
-          if (cont && (!cont.children || cont.children.length === 0)) {
-            window.ModuloIndicadoresAnalisis.inicializar();
+        const cont = document.getElementById('contenedor-indicadores-analisis');
+        const modulo = window.ModuloIndicadoresAnalisis || (typeof ModuloIndicadoresAnalisis !== 'undefined' ? ModuloIndicadoresAnalisis : null);
+        if (modulo) {
+          if (!cont || !cont.querySelector('.modulo-indicadores-analisis-wrapper')) {
+            modulo.inicializar();
           }
         }
       }
