@@ -1900,6 +1900,244 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información pública del Catastro de Bienes Raíces del Servicio de Impuestos Internos (SII) amparada por la Ley N° 20.285 de Transparencia de la Función Pública. Los datos de visualización web corresponden a la Región Metropolitana por peso de archivo, encontrándose disponible el catálogo íntegro para todo Chile en el repositorio. Los datos provienen de un proceso automatizado de geocodificación y pueden presentar inconsistencias o vacíos.',
       citaAPA: "Servicio de Impuestos Internos [SII]. (2026). Catastro Predial de Bienes Raíces. Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl"
     }
+  ,
+// =========================================================================
+    // SUBDERE - CATASTRO NACIONAL DE RESIDUOS SÓLIDOS DOMICILIARIOS (RSD 2024)
+    // =========================================================================
+    subdere_rsd_analisis_costos_comuna_rm: {
+      id: 'subdere_rsd_analisis_costos_comuna_rm',
+      num_bbdd: 'RSD-01',
+      nombre: 'SUBDERE RSD 2024 - Costos Comunales de Aseo (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Analisis_Costos_Comuna_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Analisis_Costos_Comuna_RM.gpkg',
+      color: '#10B981',
+      icono: '💰',
+      geometria: 'Polígonos Comunales',
+      grupo: 'medio_ambiente',
+      descripcion: 'Costos anuales devengados por municipio en los servicios de recolección, transporte y disposición final de residuos sólidos domiciliarios en la Región Metropolitana, incluyendo costo por habitante ($/hab) y por tonelada gestionada ($/Ton).',
+      declaracion: 'Información pública oficial del Catastro Nacional de Residuos Sólidos Domiciliarios provista por SUBDERE bajo la Ley N° 20.285 de Transparencia de la Función Pública.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_poblacion_atendida_pta_puntos_rm: {
+      id: 'subdere_rsd_poblacion_atendida_pta_puntos_rm',
+      num_bbdd: 'RSD-02',
+      nombre: 'SUBDERE RSD 2024 - Población Total Atendida PTA (Centroides RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Poblacion_Comunal_Atendida_PTA_p_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Poblacion_Comunal_Atendida_PTA_p_RM.gpkg',
+      color: '#059669',
+      icono: '👥',
+      geometria: 'Puntos (Centroides Comunales)',
+      grupo: 'medio_ambiente',
+      descripcion: 'Centroides comunales con estadísticas de cobertura de aseo urbana y rural, Población Comunal Atendida (PCA), Población Flotante Turística (PFP) y Población Total Atendida (PTA = PCA + PFP).',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_poblacion_comunal_pta_poligonos_rm: {
+      id: 'subdere_rsd_poblacion_comunal_pta_poligonos_rm',
+      num_bbdd: 'RSD-03',
+      nombre: 'SUBDERE RSD 2024 - Población Total Atendida PTA (Polígonos RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Poblacion_Comunal_PTA_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Poblacion_Comunal_PTA_RM.gpkg',
+      color: '#047857',
+      icono: '🏙️',
+      geometria: 'Polígonos Comunales',
+      grupo: 'medio_ambiente',
+      descripcion: 'Límites comunales con indicadores de cobertura del servicio de aseo (urbano/rural), volumen de población atendida residente y ponderación de población flotante en la Región Metropolitana.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_ciudades_poblacion_rm: {
+      id: 'subdere_rsd_ciudades_poblacion_rm',
+      num_bbdd: 'RSD-04',
+      nombre: 'SUBDERE RSD 2024 - Ciudades y Entidades Urbanas (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Ciudades_Pb_Pol_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Ciudades_Pb_Pol_RM.gpkg',
+      color: '#14B8A6',
+      icono: '🏘️',
+      geometria: 'Polígonos Urbanos',
+      grupo: 'medio_ambiente',
+      descripcion: 'Polígonos de ciudades y centros poblados de la Región Metropolitana con categoría censal, jerarquía urbana y concentración demográfica.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_criticidad_sitios_disposicion_rm: {
+      id: 'subdere_rsd_criticidad_sitios_disposicion_rm',
+      num_bbdd: 'RSD-05',
+      nombre: 'SUBDERE RSD 2024 - Criticidad de Rellenos Sanitarios (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Criticidad_Sitios_Disposicion_RSD_Ene24_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Criticidad_Sitios_Disposicion_RSD_Ene24_RM.gpkg',
+      color: '#EF4444',
+      icono: '⚠️',
+      geometria: 'Puntos (Rellenos Sanitarios)',
+      grupo: 'medio_ambiente',
+      descripcion: 'Evaluación de criticidad operativa de los rellenos sanitarios en la RM (Loma Los Colorados, Santa Marta, Santiago Poniente), según vida útil remanente, población atendida y estado sanitario.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_distancia_municipio_sdf_rm: {
+      id: 'subdere_rsd_distancia_municipio_sdf_rm',
+      num_bbdd: 'RSD-06',
+      nombre: 'SUBDERE RSD 2024 - Distancias Municipio a Relleno Sanitario (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Distancia_Municipio_SDF_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Distancia_Municipio_SDF_RM.gpkg',
+      color: '#F59E0B',
+      icono: '🛣️',
+      geometria: 'Líneas de Transporte',
+      grupo: 'medio_ambiente',
+      descripcion: 'Vectores y distancias efectivas de transporte en kilómetros desde los municipios de la Región Metropolitana hasta sus respectivos sitios de disposición final autorizados.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_gastos_ingresos_sinim_rm: {
+      id: 'subdere_rsd_gastos_ingresos_sinim_rm',
+      num_bbdd: 'RSD-07',
+      nombre: 'SUBDERE RSD 2024 - Finanzas Municipales y Gasto en Aseo SINIM (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Gastos_Ingresos_SINIM_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Gastos_Ingresos_SINIM_RM.gpkg',
+      color: '#0284C7',
+      icono: '📊',
+      geometria: 'Polígonos Comunales',
+      grupo: 'medio_ambiente',
+      descripcion: 'Información financiera municipal (SINIM) que vincula el gasto en extracción de basura con ingresos propios permanentes (IPP), dependencia del Fondo Común Municipal (FCM) y cobro de derechos de aseo.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_recoleccion_transporte_operativo_rm: {
+      id: 'subdere_rsd_recoleccion_transporte_operativo_rm',
+      num_bbdd: 'RSD-08',
+      nombre: 'SUBDERE RSD 2024 - Recolección y Transporte de Residuos (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Recoleccion_Transporte_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Recoleccion_Transporte_RM.gpkg',
+      color: '#10B981',
+      icono: '🚛',
+      geometria: 'Polígonos Comunales',
+      grupo: 'medio_ambiente',
+      descripcion: 'Condiciones operativas comunales: modalidad del servicio (concesionado/municipal), tipo de recolección (puerta a puerta/contenedores), tipo de camiones, frecuencia semanal y recolección diferenciada.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_ppc_generacion_pta_rm: {
+      id: 'subdere_rsd_ppc_generacion_pta_rm',
+      num_bbdd: 'RSD-09',
+      nombre: 'SUBDERE RSD 2024 - Generación de Residuos y Producción Per Cápita (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/RSD_PPC_PTA_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/RSD_PPC_PTA_RM.gpkg',
+      color: '#059669',
+      icono: '⚖️',
+      geometria: 'Polígonos Comunales',
+      grupo: 'medio_ambiente',
+      descripcion: 'Volumen anual de residuos sólidos domiciliarios (toneladas/año) y producción per cápita (PPC en kg/hab*día), tanto por población residente como corregida por población flotante (PTA).',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_sdf_comunas_destino_rm: {
+      id: 'subdere_rsd_sdf_comunas_destino_rm',
+      num_bbdd: 'RSD-10',
+      nombre: 'SUBDERE RSD 2024 - Destino de Disposición Final por Comuna (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/SDF_Comunas_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/SDF_Comunas_RM.gpkg',
+      color: '#16A34A',
+      icono: '🗺️',
+      geometria: 'Polígonos Comunales',
+      grupo: 'medio_ambiente',
+      descripcion: 'Asignación territorial de cada comuna a su relleno sanitario receptor, con distancia de traslado, costo anual de disposición y tarifa por tonelada.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_sdf_municipios_puntos_rm: {
+      id: 'subdere_rsd_sdf_municipios_puntos_rm',
+      num_bbdd: 'RSD-11',
+      nombre: 'SUBDERE RSD 2024 - Sedes Municipales y Relleno Receptor (Puntos RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/SDF_Municipios_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/SDF_Municipios_RM.gpkg',
+      color: '#0D9488',
+      icono: '🏛️',
+      geometria: 'Puntos (Municipios)',
+      grupo: 'medio_ambiente',
+      descripcion: 'Ubicación puntual de las sedes municipales de la Región Metropolitana con sus parámetros de vinculación a los rellenos sanitarios de destino.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_sitios_disposicion_instalaciones_rm: {
+      id: 'subdere_rsd_sitios_disposicion_instalaciones_rm',
+      num_bbdd: 'RSD-12',
+      nombre: 'SUBDERE RSD 2024 - Rellenos Sanitarios e Instalaciones (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Sitios_Disposicion_RSD_Ene24_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Sitios_Disposicion_RSD_Ene24_RM.gpkg',
+      color: '#2563EB',
+      icono: '🏭',
+      geometria: 'Puntos (Instalaciones)',
+      grupo: 'medio_ambiente',
+      descripcion: 'Instalaciones de disposición final activas en la Región Metropolitana: Relleno Sanitario Loma Los Colorados (Til Til / KDM), Santa Marta (Talagante), Santiago Poniente (Maipú / Proactiva), con coordenadas, empresa operadora, resolución ambiental y vida útil estimada.',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    },
+    subdere_rsd_sitios_intermedios_transferencia_rm: {
+      id: 'subdere_rsd_sitios_intermedios_transferencia_rm',
+      num_bbdd: 'RSD-13',
+      nombre: 'SUBDERE RSD 2024 - Estaciones de Transferencia Intermedia (RM)',
+      institucion: 'Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)',
+      ministerio: 'Ministerio del Interior y Seguridad Pública',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana',
+      urlServicio: 'https://proactiva.subdere.gov.cl/handle/123456789/635',
+      archivoLocal: 'data/subdere_rsd_2024_rm/Sitios_Intermedios_Disposicion_RSD_Ene24_RM.geojson',
+      archivoGpkg: 'data/subdere_rsd_2024_rm/Sitios_Intermedios_Disposicion_RSD_Ene24_RM.gpkg',
+      color: '#7C3AED',
+      icono: '🔄',
+      geometria: 'Puntos (Estaciones de Transferencia)',
+      grupo: 'medio_ambiente',
+      descripcion: 'Estaciones intermedias de transbordo, compactación y transferencia de residuos en la Región Metropolitana (Estación de Transferencia Quilicura KDM).',
+      declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
+      citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
+    }
   };
 
   // Diccionario multirregional escalable de endpoints IPT en MINVU GeoIDE
@@ -2318,7 +2556,97 @@ const ModuloIDEChile = (() => {
           'Código CUT': props.CUT || '-',
           'Provincia': props.NOM_PROVINCIA || props.PROVINCIA || '-',
           'Región': props.NOM_REGION || props.REGION || 'Metropolitana de Santiago'
-        };
+        }
+      } else if (idCapa.startsWith('subdere_rsd_')) {
+        const nomComuna = props.COMUNA || props.Comuna || props.NOM_COM || props.Nombre_Sit || props.NOMBRE_SDF || props.NOMBRE || props.ENTIDAD || props.CIUDAD || props.Municipio || 'Región Metropolitana';
+        nombreEntidad = `${def.nombre}: ${nomComuna}`;
+        detalleTipo = `${def.geometria} | SUBDERE Residuos Sólidos 2024`;
+
+        if (idCapa === 'subdere_rsd_analisis_costos_comuna_rm') {
+          const aseoAnual = props.Aseo_año ?? props['Aseo_a\u00f1o'] ?? props['Aseo_ao'] ?? props.Aseo_ano;
+          const rtAnual = props.RT_año ?? props['RT_a\u00f1o'] ?? props['RT_ao'] ?? props.RT_ano;
+          const dfAnual = props.DF_año ?? props['DF_a\u00f1o'] ?? props['DF_ao'] ?? props.DF_ano;
+          extraInfo = {
+            'Comuna': nomComuna,
+            'Población Comunal': props.Pobl_INE ? Number(props.Pobl_INE).toLocaleString('es-CL') + ' hab.' : '-',
+            'Residuos Anuales (RSDyA)': props.RSDyA ? Number(props.RSDyA).toLocaleString('es-CL') + ' Ton/año' : '-',
+            'Costo Total Aseo Anual': aseoAnual ? '$' + Number(aseoAnual).toLocaleString('es-CL') : '-',
+            'Costo Anual por Habitante': props.Aseo_Hab ? '$' + Number(props.Aseo_Hab).toLocaleString('es-CL') + '/hab' : '-',
+            'Costo por Tonelada Dispuesto': props.Aseo_Ton ? '$' + Number(props.Aseo_Ton).toLocaleString('es-CL') + '/Ton' : '-',
+            'Costo Recolección y Transporte': rtAnual ? '$' + Number(rtAnual).toLocaleString('es-CL') : '-',
+            'Costo Disposición Final': dfAnual ? '$' + Number(dfAnual).toLocaleString('es-CL') : '-'
+          };
+        } else if (idCapa.includes('poblacion') || idCapa.includes('pta')) {
+          extraInfo = {
+            'Comuna': nomComuna,
+            'Población Total Atendida (PTA)': props.PTA !== undefined ? Number(props.PTA).toLocaleString('es-CL') + ' hab.' : (props.PTA_ATENDI !== undefined ? Number(props.PTA_ATENDI).toLocaleString('es-CL') + ' hab.' : '-'),
+            'Población Comunal Atendida (PCA)': props.PCA !== undefined ? Number(props.PCA).toLocaleString('es-CL') + ' hab.' : '-',
+            'Población Flotante Turística (PFP)': props.PFP !== undefined ? Number(props.PFP).toLocaleString('es-CL') + ' hab.' : '-',
+            'Cobertura Urbana': props.Cob_Urb !== undefined ? props.Cob_Urb + '%' : '-',
+            'Cobertura Rural': props.Cob_Rur !== undefined ? props.Cob_Rur + '%' : '-'
+          };
+        } else if (idCapa === 'subdere_rsd_ppc_generacion_pta_rm') {
+          extraInfo = {
+            'Comuna': nomComuna,
+            'Generación Anual (RSDyA 2022)': props.RSDyA_22 !== undefined ? Number(props.RSDyA_22).toLocaleString('es-CL') + ' Ton/año' : '-',
+            'Población Atendida (PTA)': props.PTA_22 !== undefined ? Number(props.PTA_22).toLocaleString('es-CL') + ' hab.' : '-',
+            'PPC Residente (Ppc)': props.Ppc !== undefined ? props.Ppc + ' kg/hab·día' : '-',
+            'PPC Corregida Flotante (Ppc_corr)': props.Ppc_corr !== undefined ? props.Ppc_corr + ' kg/hab·día' : '-',
+            'Fuente de Información': props.Fuente || 'SUBDERE RSD 2024'
+          };
+        } else if (idCapa.includes('criticidad') || idCapa.includes('sitios_disposicion')) {
+          extraInfo = {
+            'Relleno Sanitario / Sitio': props.NOMBRE || props.Nombre_Sit || nomComuna,
+            'Comuna Emplazamiento': props.COMUNA || props.Comuna || '-',
+            'Clase de Sitio': props.Clase || 'Relleno Sanitario',
+            'Estado Operativo': props.Estado || 'Operativo',
+            'Vida Útil Remanente': props.VidaUtil !== undefined ? props.VidaUtil + ' años' : '-',
+            'Índice de Criticidad': props.Criticidad || 'Evaluado',
+            'Empresa Operadora': props.Operador || props.Propieta || '-',
+            'RCA': props.RCA || 'Autorizada'
+          };
+        } else if (idCapa.includes('recoleccion_transporte')) {
+          extraInfo = {
+            'Comuna': nomComuna,
+            'Modalidad del Servicio': props.TipoServicio || 'Concesionado',
+            'Sistema de Recolección': props.SistRecoleccion || 'Puerta a puerta',
+            'Modo de Recolección': props.ModRecoleccion || '-',
+            'Frecuencia Urbana': props.FrecUrbana || '-',
+            'Frecuencia Rural': props.FrecRural || '-',
+            'Recolección Diferenciada': props.RecDiferenciada || 'No',
+            'Distancia al SDF': props.DistSDF !== undefined ? props.DistSDF + ' km' : '-'
+          };
+        } else if (idCapa.includes('distancia')) {
+          extraInfo = {
+            'Municipio / Comuna Origen': props.Comuna || nomComuna,
+            'Distancia al Relleno Sanitario': props.Km !== undefined ? props.Km + ' km' : '-'
+          };
+        } else if (idCapa.includes('sinim')) {
+          extraInfo = {
+            'Comuna': nomComuna,
+            'Gasto en Aseo SINIM': props.Aseo_SINIM ? '$' + Number(props.Aseo_SINIM).toLocaleString('es-CL') : '-',
+            'Porcentaje de Aseo sobre Gasto': props.Por_Aseo ? props.Por_Aseo + '%' : '-',
+            'Ingresos Propios Permanentes (IPP)': props.IPP ? '$' + Number(props.IPP).toLocaleString('es-CL') : '-',
+            'Aporte Fondo Común Municipal (FCM)': props.Ing_FCM ? '$' + Number(props.Ing_FCM).toLocaleString('es-CL') : '-',
+            'Recaudación Derechos de Aseo': props.DerAseo ? '$' + Number(props.DerAseo).toLocaleString('es-CL') : '-'
+          };
+        } else if (idCapa.includes('sdf_comunas') || idCapa.includes('sdf_municipios')) {
+          extraInfo = {
+            'Comuna Evaluada': nomComuna,
+            'Relleno Sanitario Receptor': props.SITIO || '-',
+            'Comuna Emplazamiento': props.COMUNA_QUE_DISPONE || '-',
+            'Distancia de Transporte': props.Dist_SDF !== undefined ? props.Dist_SDF + ' km' : '-',
+            'Costo Anual Disposición': props.Costo_a ? '$' + Number(props.Costo_a).toLocaleString('es-CL') : '-',
+            'Costo por Tonelada': props.Costo_Ton ? '$' + Number(props.Costo_Ton).toLocaleString('es-CL') + '/Ton' : '-'
+          };
+        } else {
+          extraInfo = {
+            'Comuna / Entidad': nomComuna,
+            'Categoría': props.CATEGORIA || props.TIPO || def.geometria,
+            'Fuente Oficial': 'SUBDERE - Catastro RSD 2024'
+          };
+        }
+;
       }
 
       props._idOficial = idCapa;

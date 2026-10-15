@@ -47,7 +47,7 @@
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
       <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> ⬚ Cartografía UMap</button>
       <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
-      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (109 Capas)</button>
+      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (122 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
       <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
       <button type="button" class="pestana-nodo" data-panel="indicadores"><span class="insignia-nodo">09</span> 📈 Indicadores &amp; Storyboards</button>
@@ -123,7 +123,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 108 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
+            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 121 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
@@ -229,7 +229,7 @@
 
           <!-- Subpanel 2: Capas Oficiales IDE Chile -->
           <div class="subpanel-profundidad" id="subpanel-ide">
-            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--musgo);">108 Capas Oficiales e Indicadores del Estado:</h4>
+            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--musgo);">121 Capas Oficiales e Indicadores del Estado:</h4>
             <p style="font-size: 0.78rem; color: var(--tinta-suave); margin-bottom: 10px;">Capas de MINVU, IDE Chile, EFE, DGAC e INE para contraste barrial.</p>
             <div id="sidebar-lista-ide-rapida" style="display: flex; flex-direction: column; gap: 6px; max-height: 480px; overflow-y: auto;">
               <!-- Se puebla dinámicamente -->
@@ -304,7 +304,7 @@
             <div class="consola-insignia">CATÁLOGO MAESTRO CARTOGRÁFICO</div>
             <h3 class="consola-titulo">Consola de Control Cartográfico & Capas del Territorio</h3>
             <p class="consola-subtitulo">
-              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 108 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA, CNE y CONAF).
+              Infraestructura de Datos Espaciales (IDE) abierta. Integración de 10 capas comunitarias colaborativas (OpenStreetMap / GBIF) y 121 capas del Estado de Chile (IDE Chile, MINVU, MTT/UOCT, INE Censo 2024, MOP, DGA, CNE y CONAF).
             </p>
           </div>
           <div class="consola-header-metricas">
@@ -338,7 +338,7 @@
 
         <!-- Chips de Filtrado Temático Rápido -->
         <div class="consola-chips-filtro" id="contenedor-chips-filtro">
-          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (118)</button>
+          <button type="button" class="chip-filtro activo" data-filtro="todos">Todas las Capas (131)</button>
           <button type="button" class="chip-filtro" data-filtro="normativa">Normativa & Catastro</button>
           <button type="button" class="chip-filtro" data-filtro="movilidad">Movilidad & Vialidad</button>
           <button type="button" class="chip-filtro" data-filtro="demografia">Censo 2024 & Social</button>
@@ -352,7 +352,7 @@
         <!-- Navegación por Pestañas Segmentadas -->
         <div class="consola-pestanas-nav">
           <button type="button" class="pestana-capas activa" data-seccion="seccion-capas-oficiales">
-            Capas Oficiales del Estado <span class="badge-tab-conteo">108</span>
+            Capas Oficiales del Estado <span class="badge-tab-conteo">121</span>
           </button>
           <button type="button" class="pestana-capas" data-seccion="seccion-capas-vgi">
             Capas Colaborativas VGI (OSM/GBIF) <span class="badge-tab-conteo">10</span>
@@ -1077,7 +1077,7 @@
           </span>
         </div>
         <p style="margin: 0 0 12px 0; font-size: 0.88rem; color: var(--tinta-suave); line-height: 1.5;">
-          Conforme a las normas <strong>ISO 19115-1:2014</strong> e <strong>ISO 19157:2013/2023</strong>, el 100% de la base de datos (108 capas oficiales del Estado y 10 macrocategorías VGI) cuenta con metadatos auditados: <strong>89.9% Completitud Núcleo</strong>, <strong>97.9% Conformidad de Esquema</strong>, <strong>100% Linaje y Trazabilidad</strong>, <strong>100% Granularidad Territorial</strong> y <strong>100% Accesibilidad</strong>.
+          Conforme a las normas <strong>ISO 19115-1:2014</strong> e <strong>ISO 19157:2013/2023</strong>, el 100% de la base de datos (121 capas oficiales del Estado y 10 macrocategorías VGI) cuenta con metadatos auditados: <strong>89.9% Completitud Núcleo</strong>, <strong>97.9% Conformidad de Esquema</strong>, <strong>100% Linaje y Trazabilidad</strong>, <strong>100% Granularidad Territorial</strong> y <strong>100% Accesibilidad</strong>.
         </p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <a href="docs/ANALISIS_METACALIDAD.md" target="_blank" class="accion secundaria" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
@@ -1219,12 +1219,12 @@
       <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--teal); background: var(--papel-tarjeta); padding: 20px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
           <h4 style="margin: 0; color: var(--teal); font-size: 1.15rem;">📖 Módulo 06: Diccionario de Objetos Territoriales y Homologación IDE Chile</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: rgba(13,148,136,0.22); color: var(--teal); border: 1px solid var(--teal); padding: 3px 10px; border-radius: 6px; font-weight: 800;">134 DESCRIPTORES NORMATIVOS</span>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: rgba(13,148,136,0.22); color: var(--teal); border: 1px solid var(--teal); padding: 3px 10px; border-radius: 6px; font-weight: 800;">140 DESCRIPTORES NORMATIVOS</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Entrega un glosario interactivo con 134 descriptores. Explica qué significa cada etiqueta OpenStreetMap (`amenity`, `highway`, `kerb`, `building`), cuáles tienen equivalente estatal en IDE Chile / MINVU y cuáles representan "Brechas VGI" comunitarias.
+            Entrega un glosario interactivo con 140 descriptores. Explica qué significa cada etiqueta OpenStreetMap (`amenity`, `highway`, `kerb`, `building`), las variables de residuos sólidos de SUBDERE, cuáles tienen equivalente estatal en IDE Chile / MINVU y cuáles representan "Brechas VGI" comunitarias.
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
@@ -1235,10 +1235,10 @@
 
       <div class="bloque" style="margin-bottom:14px;">
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
-          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (134)</button>
+          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (140)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (86 Descriptores sin Homólogo Estatal)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales del Estado (74 Capas BBDD)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema VGI (13 Atributos)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema Normalizado (23 Atributos)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="patrimonio_verde">🌳 Plazas y Patrimonio (CAT 5-6)</button>
@@ -1360,8 +1360,8 @@
             <p><strong>Extractos Geofabrik RM &amp; Scripts:</strong> Las 10 macrocategorías regionales extraídas de Geofabrik + capa unificada regional (<code>capa_osm_rm_completo_vgi.geojson</code>), scripts Python de procesamiento espacial y catálogo con enlaces a los dumps diarios masivos PBF y Shapefiles.</p>
           </div>
           <div class="tarjeta-carpeta-bd">
-            <div class="carpeta-icono">📁 03_capas_oficiales_estado (108 capas)</div>
-            <p><strong>Todas las 108 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades, Límites), MINVU Áreas Verdes y Zonificación Térmica, Instrumentos de Planificación Territorial (IPT PRC/PRMS), UOCT Cruces Semaforizados, Subtel Antenas, Inversión BIP RM, MIDESO RSH, SEC energía, MOP cuencas, CONAF, CIREN y catastro SII + inventario JSON de las 108 capas.</p>
+            <div class="carpeta-icono">📁 03_capas_oficiales_estado (121 capas)</div>
+            <p><strong>Todas las 121 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades, Límites), MINVU Áreas Verdes y Zonificación Térmica, Instrumentos de Planificación Territorial (IPT PRC/PRMS), UOCT Cruces Semaforizados, Subtel Antenas, Inversión BIP RM, MIDESO RSH, SEC energía, MOP cuencas, CONAF, CIREN y catastro SII + inventario JSON de las 108 capas.</p>
           </div>
           <div class="tarjeta-carpeta-bd">
             <div class="carpeta-icono">📁 04_repositorio_cartografico_completo (84 capas)</div>

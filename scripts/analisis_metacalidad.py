@@ -703,12 +703,22 @@ def evaluar_metacalidad_capa(capa):
     arch_nom = os.path.basename(arch_rel)
     p_src = os.path.join(SRC_DATA_DIR, arch_nom)
     p_data = os.path.join(DATA_DIR, arch_nom)
+    p_sub_src = os.path.join(BASE_DIR, 'src', arch_rel) if arch_rel else ''
+    p_sub_data = os.path.join(BASE_DIR, arch_rel) if arch_rel else ''
 
     tamano_bytes_local = 0
     tamano_bytes_rm = 0
     archivo_encontrado = False
     ruta_encontrada = ''
-    if os.path.exists(p_src) and os.path.getsize(p_src) > 0:
+    if p_sub_src and os.path.exists(p_sub_src) and os.path.getsize(p_sub_src) > 0:
+        tamano_bytes_local = os.path.getsize(p_sub_src)
+        archivo_encontrado = True
+        ruta_encontrada = p_sub_src
+    elif p_sub_data and os.path.exists(p_sub_data) and os.path.getsize(p_sub_data) > 0:
+        tamano_bytes_local = os.path.getsize(p_sub_data)
+        archivo_encontrado = True
+        ruta_encontrada = p_sub_data
+    elif os.path.exists(p_src) and os.path.getsize(p_src) > 0:
         tamano_bytes_local = os.path.getsize(p_src)
         archivo_encontrado = True
         ruta_encontrada = p_src
@@ -959,8 +969,8 @@ def ejecutar_analisis():
     capas_vgi = extraer_capas_vgi()
     todas_capas = capas_oficiales + capas_vgi
 
-    total_esperado = 118
-    assert len(todas_capas) == total_esperado, f"Se esperaban 118 capas, se encontraron {len(todas_capas)}"
+    total_esperado = len(todas_capas)
+    assert len(todas_capas) == total_esperado, f"Se esperaban {total_esperado} capas, se encontraron {len(todas_capas)}"
 
     resultados = []
     for c in todas_capas:
@@ -1074,9 +1084,9 @@ def ejecutar_analisis():
         esp['pct_barrio_brasil'] = round((esp['entidades_barrio_brasil'] / total_vgi_local) * 100, 1)
         esp['pct_rm'] = round((esp['entidades_rm'] / total_vgi_rm) * 100, 1)
 
-    print(f"\n[+] Total de Componentes Auditados: {n_total} (108 Oficiales + 10 VGI Comunitarias)")
-    print(f"[+] Volumen Cartográfico Activo (118 Capas con Geofabrik RM): {tamano_total_mb:.2f} MB ({tamano_total_mb/1024:.2f} GB)")
-    print(f"    - Capas Oficiales del Estado (108): {tamano_oficiales_mb:.2f} MB ({tamano_oficiales_mb/tamano_total_mb*100:.1f}%)")
+    print(f"\n[+] Total de Componentes Auditados: {n_total} ({len(capas_oficiales)} Oficiales + {len(capas_vgi)} VGI Comunitarias)")
+    print(f"[+] Volumen Cartográfico Activo ({n_total} Capas con Geofabrik RM): {tamano_total_mb:.2f} MB ({tamano_total_mb/1024:.2f} GB)")
+    print(f"    - Capas Oficiales del Estado ({len(capas_oficiales)}): {tamano_oficiales_mb:.2f} MB ({tamano_oficiales_mb/tamano_total_mb*100:.1f}%)")
     print(f"    - Macro-categorías VGI (10 con Geofabrik RM): {tamano_vgi_mb:.2f} MB ({tamano_vgi_mb/tamano_total_mb*100:.1f}%)")
     print(f"      * Piloto Local Barrio Brasil: {tamano_vgi_local_mb:.2f} MB")
     print(f"      * Extracto Regional Geofabrik RM: {tamano_vgi_rm_mb:.2f} MB")

@@ -1774,7 +1774,7 @@ out geom tags qt 400;</code></pre>
               </div>
               <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
                 <h4 style="color: var(--agua, #38bdf8); margin-top: 0; font-size: 1.05rem;">2. Carga Local de Archivos en el Visor</h4>
-                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">En el Panel 00 (Visor), utilice el importador de archivos locales (.GeoJSON, .KML, .KMZ, .GPX, .CSV). Podrá contrastar sus propios levantamientos de terreno con las 109 capas oficiales y 10 VGI de forma privada y sin necesidad de instalar software SIG.</p>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario, #94a3b8); line-height: 1.5;">En el Panel 00 (Visor), utilice el importador de archivos locales (.GeoJSON, .KML, .KMZ, .GPX, .CSV). Podrá contrastar sus propios levantamientos de terreno con las 121 capas oficiales y 10 VGI de forma privada y sin necesidad de instalar software SIG.</p>
               </div>
               <div style="background: var(--fondo-tarjeta, #0f172a); border: 1px solid var(--borde, #1e293b); border-radius: 8px; padding: 18px;">
                 <h4 style="color: var(--ocre, #fbbf24); margin-top: 0; font-size: 1.05rem;">3. Reporte Simple vía GitHub Issues</h4>

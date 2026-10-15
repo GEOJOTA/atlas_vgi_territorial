@@ -2780,7 +2780,7 @@ function configurarCapasOficialesIDE() {
     },
     {
       id: 'medio_ambiente',
-      nombre: 'Medio Ambiente, Recursos Hídricos, Parques & Espacio Público (MMA / DGA / CONAF / DMC)',
+      nombre: 'Medio Ambiente, Residuos Sólidos (SUBDERE 2024), Recursos Hídricos & Parques (MMA / DGA / CONAF / DMC)',
       filtroGrupo: (c) => c.grupo === 'medio_ambiente'
     },
     {

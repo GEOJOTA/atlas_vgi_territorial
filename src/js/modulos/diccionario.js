@@ -162,6 +162,61 @@ const ModuloDiccionario = (() => {
       ejemplo: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)',
       equivalenciaIDE: 'Sistema de Coordenadas de Referencia (gmd:MD_ReferenceSystem / EPSG:5361)',
       importancia: 'Garantiza la trazabilidad geodésica requerida por los estándares del SNIT e IDE Chile.'
+    },
+// --- Variables de Residuos Sólidos Domiciliarios (SUBDERE RSD 2024) ---
+    {
+      campo: 'rsdya_ton',
+      nombre: 'Generación Anual de Residuos Sólidos Domiciliarios y Asimilables (Ton/año)',
+      tipo: 'Numérico (Toneladas métricas anuales)',
+      definicion: 'Masa anual de residuos sólidos domiciliarios y asimilables recolectada y transportada para su disposición final autorizada.',
+      ejemplo: '45,210.5 Ton/año',
+      equivalenciaIDE: 'Generación Comunal de Residuos (SUBDERE RSD / SINIM)',
+      importancia: 'Permite dimensionar la huella metabólica de residuos del territorio barrial y comunal.'
+    },
+    {
+      campo: 'ppc_kg_hab_dia',
+      nombre: 'Producción Per Cápita de Residuos (kg/hab·día)',
+      tipo: 'Numérico (Decimal en kilogramos)',
+      definicion: 'Tasa promedio de generación diaria de residuos por habitante, calculada tanto sobre población residente (PCA) como corregida por población flotante (PTA).',
+      ejemplo: '1.14 kg/hab·día',
+      equivalenciaIDE: 'Índice de Generación Per Cápita (SUBDERE)',
+      importancia: 'Indicador fundamental para evaluar la sustentabilidad del consumo y eficiencia del reciclaje barrial.'
+    },
+    {
+      campo: 'pta_poblacion_atendida',
+      nombre: 'Población Total Atendida (PTA = PCA + PFP)',
+      tipo: 'Numérico (Personas)',
+      definicion: 'Población total cubierta por el servicio de aseo, sumando la población residente censalmente atendida (PCA) y la población flotante turística (PFP).',
+      ejemplo: '532,400 hab.',
+      equivalenciaIDE: 'Cobertura Demográfica del Servicio Sanitario (SUBDERE)',
+      importancia: 'Esencial en Santiago Centro y Barrio Brasil debido al alto volumen de estudiantes y trabajadores flotantes.'
+    },
+    {
+      campo: 'costo_aseo_anual',
+      nombre: 'Costo Total Anual del Servicio de Aseo Municipal ($/año)',
+      tipo: 'Moneda ($ CLP devengado)',
+      definicion: 'Presupuesto total devengado anualmente por el municipio para los contratos de recolección, transporte y disposición final en rellenos sanitarios.',
+      ejemplo: '$14,250,800,000',
+      equivalenciaIDE: 'Presupuesto de Aseo y Ornato (SINIM / SUBDERE)',
+      importancia: 'Permite comparar el costo fiscal de la gestión de residuos y la recaudación por derechos de aseo.'
+    },
+    {
+      campo: 'criticidad_sdf',
+      nombre: 'Índice de Criticidad del Sitio de Disposición Final (Relleno Sanitario)',
+      tipo: 'Texto (Nivel de Criticidad)',
+      definicion: 'Evaluación técnica de riesgo sanitario y capacidad operativa considerando los años de vida útil remanente y la presión poblacional atendida.',
+      ejemplo: 'Media / Alta',
+      equivalenciaIDE: 'Estado Sanitario y Vulnerabilidad de Infraestructura (SUBDERE)',
+      importancia: 'Alerta sobre la inminente saturación de rellenos metropolitanos (Santa Marta, Loma Los Colorados, Santiago Poniente).'
+    },
+    {
+      campo: 'distancia_transporte_sdf',
+      nombre: 'Distancia de Transporte a Relleno Sanitario (km)',
+      tipo: 'Numérico (Kilómetros de ruta)',
+      definicion: 'Distancia kilométrica efectiva de viaje desde el centro comunal hasta el sitio de disposición final autorizado.',
+      ejemplo: '64.8 km',
+      equivalenciaIDE: 'Logística de Residuos Urbanos (SUBDERE)',
+      importancia: 'Determina las emisiones de gases de efecto invernadero y el gasto en combustible de la flota de camiones recolectores.'
     }
   ];
 
@@ -1766,11 +1821,11 @@ const ModuloDiccionario = (() => {
         <div class="bloque">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
             <div>
-              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[CATÁLOGO DE OBJETOS // 17 ATRIBUTOS NORMALIZADOS]</span>
-              <h3 style="margin:2px 0 0 0;">1. Esquema de Datos VGI Normalizado (Atributos IDE Chile / ISO 19110 / ISO 19115)</h3>
+              <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[CATÁLOGO DE OBJETOS // 23 ATRIBUTOS NORMALIZADOS]</span>
+              <h3 style="margin:2px 0 0 0;">1. Esquema de Datos VGI y Ambiental Normalizado (Atributos IDE Chile / ISO 19110 / SUBDERE)</h3>
             </div>
           </div>
-          <p class="descripcion">Cada entidad descargada, auditada o proyectada en el Atlas adopta esta estructura tabular estandarizada de 17 atributos conformes a <strong>ISO 19110 (Metodología para la catalogación de fenómenos geográficos)</strong>, el <strong>Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)</strong>, geometrías vectoriales OGC y métricas de área en m² (EPSG:32719):</p>
+          <p class="descripcion">Cada entidad descargada, auditada o proyectada en el Atlas adopta esta estructura tabular estandarizada de 23 atributos conformes a <strong>ISO 19110 (Metodología para la catalogación de fenómenos geográficos)</strong>, el <strong>Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT)</strong>, variables de gestión de residuos de <strong>SUBDERE</strong>, geometrías vectoriales OGC y métricas de área en m² (EPSG:32719):</p>
           <div style="overflow-x:auto;">
             <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
               <thead>

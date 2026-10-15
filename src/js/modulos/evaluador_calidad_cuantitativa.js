@@ -2692,7 +2692,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
       });
       htmlOpts += `</optgroup>`;
 
-      htmlOpts += `<optgroup label="Capas Oficiales del Estado (108 Capas IDE Chile / BBDD)">`;
+      htmlOpts += `<optgroup label="Capas Oficiales del Estado (121 Capas IDE Chile / BBDD)">`;
       capasOficiales.forEach(co => {
         if (co.archivoLocal) {
           htmlOpts += `<option value="${co.archivoLocal}" data-id="${co.id}">${co.nombre} (${co.institucion})</option>`;

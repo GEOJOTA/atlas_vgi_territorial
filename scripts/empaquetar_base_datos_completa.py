@@ -62,6 +62,12 @@ import shutil
 import hashlib
 from datetime import datetime
 
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_DIR = os.path.join(BASE_DIR, "src")
 DATA_DIR = os.path.join(SRC_DIR, "data")
@@ -116,8 +122,8 @@ for m in matches:
             "cita_apa_7": cita.group(1) if cita else ""
         })
 
-print(f"[*] Capas Oficiales del Estado detectadas en ide_chile.js: {len(capas_oficiales_meta)} (Meta: 108)")
-assert len(capas_oficiales_meta) == 108, f"Se esperaban 108 capas oficiales, se hallaron {len(capas_oficiales_meta)}"
+print(f"[*] Capas Oficiales del Estado detectadas en ide_chile.js: {len(capas_oficiales_meta)} (Meta: 121)")
+assert len(capas_oficiales_meta) == 121, f"Se esperaban 121 capas oficiales, se hallaron {len(capas_oficiales_meta)}"
 
 # -----------------------------------------------------------------------------
 # 2. Definir las 10 macrocategorías VGI + dataset consolidado (11 capas)

@@ -139,7 +139,20 @@ const ModuloIndicadoresAnalisis = (() => {
   "bbdd_73": "Personas mayores en RSH adscritos a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio",
   "bbdd_74": "Personas en RSH ocupadas y cotizando, por modalidad contractual según tramo CSE - 2026 Junio",
   "semaforos_rm_uoct_2026": "Cruces Semaforizados Conectados SC-RM (UOCT / MTT)",
-  "catastro_predial_sii": "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)"
+  "catastro_predial_sii": "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)",
+"subdere_rsd_analisis_costos_comuna_rm": "SUBDERE RSD 2024 - Costos Comunales de Aseo (RM)",
+  "subdere_rsd_poblacion_atendida_pta_puntos_rm": "SUBDERE RSD 2024 - Población Total Atendida PTA (Centroides RM)",
+  "subdere_rsd_poblacion_comunal_pta_poligonos_rm": "SUBDERE RSD 2024 - Población Total Atendida PTA (Polígonos RM)",
+  "subdere_rsd_ciudades_poblacion_rm": "SUBDERE RSD 2024 - Ciudades y Entidades Urbanas (RM)",
+  "subdere_rsd_criticidad_sitios_disposicion_rm": "SUBDERE RSD 2024 - Criticidad de Rellenos Sanitarios (RM)",
+  "subdere_rsd_distancia_municipio_sdf_rm": "SUBDERE RSD 2024 - Distancias Municipio a Relleno Sanitario (RM)",
+  "subdere_rsd_gastos_ingresos_sinim_rm": "SUBDERE RSD 2024 - Finanzas Municipales y Gasto en Aseo SINIM (RM)",
+  "subdere_rsd_recoleccion_transporte_operativo_rm": "SUBDERE RSD 2024 - Recolección y Transporte de Residuos (RM)",
+  "subdere_rsd_ppc_generacion_pta_rm": "SUBDERE RSD 2024 - Generación de Residuos y Producción Per Cápita (RM)",
+  "subdere_rsd_sdf_comunas_destino_rm": "SUBDERE RSD 2024 - Destino de Disposición Final por Comuna (RM)",
+  "subdere_rsd_sdf_municipios_puntos_rm": "SUBDERE RSD 2024 - Sedes Municipales y Relleno Receptor (Puntos RM)",
+  "subdere_rsd_sitios_disposicion_instalaciones_rm": "SUBDERE RSD 2024 - Rellenos Sanitarios e Instalaciones (RM)",
+  "subdere_rsd_sitios_intermedios_transferencia_rm": "SUBDERE RSD 2024 - Estaciones de Transferencia Intermedia (RM)"
 };
 
   const NOMBRES_VGI_FALLBACK = {
@@ -255,7 +268,20 @@ const ModuloIndicadoresAnalisis = (() => {
         'bbdd_59', // Cobertura de canales a nivel nacional
         'bbdd_60', // Catastro y Actualización de Recursos Vegetacionales RM
         'bbdd_62', // Cobertura de polígonos representativos de huertos frutales RM
-        'bbdd_63'  // Inventario de Biomasa y Carbono RM
+        'bbdd_63'  // Inventario de Biomasa y Carbono RM,
+        'subdere_rsd_analisis_costos_comuna_rm',
+        'subdere_rsd_poblacion_atendida_pta_puntos_rm',
+        'subdere_rsd_poblacion_comunal_pta_poligonos_rm',
+        'subdere_rsd_ciudades_poblacion_rm',
+        'subdere_rsd_criticidad_sitios_disposicion_rm',
+        'subdere_rsd_distancia_municipio_sdf_rm',
+        'subdere_rsd_gastos_ingresos_sinim_rm',
+        'subdere_rsd_recoleccion_transporte_operativo_rm',
+        'subdere_rsd_ppc_generacion_pta_rm',
+        'subdere_rsd_sdf_comunas_destino_rm',
+        'subdere_rsd_sdf_municipios_puntos_rm',
+        'subdere_rsd_sitios_disposicion_instalaciones_rm',
+        'subdere_rsd_sitios_intermedios_transferencia_rm'
       ]
     },
     {
@@ -1114,7 +1140,7 @@ const ModuloIndicadoresAnalisis = (() => {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
-    const totalCapasAtlas = 118; // 108 oficiales + 10 VGI
+    const totalCapasAtlas = 131; // 121 oficiales + 10 VGI
     
     contenedor.innerHTML = `
       <div class="modulo-indicadores-analisis-wrapper">
@@ -1127,7 +1153,7 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial</h2>
           <p class="bajada-modulo-indicadores">
-            Estructura analítica integrada para la gestión territorial y comunitaria. Las <strong>${totalCapasAtlas} capas del Atlas VGI</strong> (108 oficiales del Estado de Chile y 10 colaborativas OSM/GBIF) organizadas en <strong>5 dimensiones estratégicas</strong> con acceso directo al mapa interactivo y descarga de datos abiertos.
+            Estructura analítica integrada para la gestión territorial y comunitaria. Las <strong>${totalCapasAtlas} capas del Atlas VGI</strong> (121 oficiales del Estado de Chile y 10 colaborativas OSM/GBIF) organizadas en <strong>5 dimensiones estratégicas</strong> con acceso directo al mapa interactivo y descarga de datos abiertos.
           </p>
           <div class="aviso-tentativo-banner">
             <span class="icono-aviso">ℹ️</span>
