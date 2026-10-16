@@ -8,7 +8,7 @@
   1. Agrupación analítica de las 131 capas del Atlas (121 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
      - 1) Sociodemográfica (19 capas)
      - 2) Socioeconómica (18 capas)
-     - 3) Socioambiental (23 capas)
+     - 3) Socioambiental (36 capas)
      - 4) Sociosanitaria (3 capas)
      - 5) Sociourbana o Habitabilidad (55 capas)
   2. Nombres de capas rigurosamente idénticos a los del Módulo "00. Visor y Atlas VGI".
@@ -1003,6 +1003,307 @@ const ModuloIndicadoresAnalisis = (() => {
             {
               cita: 'Kwan, M.-P. (2012). The uncertain geographic context problem. Annals of the Association of American Geographers, 102(5), 958–968.',
               concepto: 'Aporte teórico: Sensibilidad de las conclusiones analíticas a la delimitación espacial del vecindario (Unidad Vecinal BBDD-66 frente a límites comunales o censales).'
+            }
+          ]
+        }
+      }
+    },
+    {
+      id: 'storyboard-residuos-metabolismo-rsd',
+      titulo: '6. Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)',
+      bajada: '¿Hacia dónde viajan las 189.510 toneladas anuales de residuos de Santiago Centro y cómo impacta el polo gastronómico del Barrio Brasil en la huella metabólica barrial?',
+      dimensionId: 'dim-socioambiental',
+      dimensionNombre: 'Socioambiental & Metabolismo Urbano',
+      fecha: 'Octubre 2026',
+      autor: 'Equipo Fondecyt F1261256 · Geografía UAH',
+      tiempoLectura: '5 min lectura',
+      imagen: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80',
+      tags: ['Residuos Sólidos (SUBDERE)', 'Metabolismo Urbano', 'Estación Quilicura', 'Loma Los Colorados'],
+      capasRelevantes: ['bbdd_86', 'bbdd_87', 'bbdd_89', 'bbdd_91', 'bbdd_94', 'cat03_comercio'],
+      contenido: {
+        resumenEjecutivo: 'Al cruzar las 13 nuevas capas del Catastro Nacional de Residuos Sólidos Domiciliarios (SUBDERE 2024, BBDD-86 a BBDD-98) con la carga comercial y residencial del Barrio Brasil, queda a la vista el metabolismo oculto del centro histórico: la comuna de Santiago genera 500,78 kg/hab/año (1,37 kg/hab/día), sumando 189.510 toneladas anuales que recorren 12,1 km hasta la Estación de Transferencia Quilicura y luego otros 49 km por ferrocarril hasta el Relleno Sanitario Loma Los Colorados en Tiltil (61,1 km totales), con un costo municipal SINIM de $14.845 millones de pesos al año.',
+        kpis: [
+          { valor: '500,8 kg', etiqueta: 'Generación per cápita anual en Santiago (1,37 kg/hab/día)' },
+          { valor: '189.510 t', etiqueta: 'Toneladas anuales de RSD recolectadas en la comuna' },
+          { valor: '61,1 km', etiqueta: 'Ruta metabólica total (Barrio Brasil → Quilicura → Tiltil)' },
+          { valor: '$14.845 M', etiqueta: 'Gasto anual municipal en aseo y disposición (SINIM 2024)' }
+        ],
+        parrafos: [
+          {
+            subtitulo: '1. La presión comercial y gastronómica sobre la recolección barrial',
+            texto: 'A diferencia de un barrio exclusivamente residencial, el Barrio Brasil combina una población flotante universitaria (Campus UAH y ejes de Alameda) con una altísima concentración de patentes comerciales (381 locales formales) y patentes de alcoholes y gastronomía nocturna (196 locales en el entorno de Av. Brasil, Huérfanos y Compañía). Mientras una manzana residencial interior genera residuos de forma estable, los corredores gastronómicos multiplican la carga orgánica, vidrios y embalajes durante las noches de jueves a sábado, saturando los puntos de acopio en veredas estrechas y esquinas patrimoniales.'
+          },
+          {
+            subtitulo: '2. La cadena logística metropolitana: de las calles del barrio a Quilicura y Tiltil',
+            texto: 'Los datos oficiales de SUBDERE 2024 (BBDD-86 a BBDD-98) muestran que la comuna de Santiago no dispone de sitios de tratamiento dentro de su propio territorio. Todo camión recolector que sale del Barrio Brasil debe trasladarse 12,1 km hacia el norte hasta la Estación de Transferencia Quilicura (BBDD-87 y BBDD-91, operada por KDM). Allí los residuos se compactan en contenedores cerrados y se embarcan en trenes de carga que recorren otros 49 km hasta el Relleno Sanitario Loma Los Colorados en la comuna de Tiltil (BBDD-86). Esta exportación cotidiana de desechos refleja una marcada asimetría socioambiental a escala metropolitana.'
+          },
+          {
+            subtitulo: '3. Oportunidades para el reciclaje barrial y la Ley REP en cités y condominios',
+            texto: 'Con un gasto municipal que supera los $14.845 millones anuales (SINIM 2024), reducir el volumen enviado a Tiltil pasa por intervenir directamente en la fuente. En un barrio con 50 cités históricos y decenas de edificios de departamentos, la separación en origen de residuos orgánicos de restaurantes y el fortalecimiento de puntos limpios de proximidad (integrados en las capas VGI de equipamiento comunitario) permiten bajar los microbasurales en esquinas críticas y aliviar el presupuesto comunal.'
+          }
+        ],
+        graficoComparativo: {
+          titulo: 'Comparativa de Generación de Residuos Sólidos Domiciliarios (kg/hab/año — SUBDERE 2024)',
+          notaMetodo: 'Fuente: Catastro Nacional de Instalaciones de Recepción y Disposición de RSD (SUBDERE 2024, capas BBDD-86 a BBDD-98) y reportes SINIM.',
+          barras: [
+            { etiqueta: 'Santiago Centro (Comuna con alta carga comercial/flotante)', valor: 500.8, max: 600, unidad: 'kg/hab/año', color: '#f59e0b' },
+            { etiqueta: 'Promedio Región Metropolitana (RM)', valor: 452.4, max: 600, unidad: 'kg/hab/año', color: '#38bdf8' },
+            { etiqueta: 'Promedio Nacional Chile (SUBDERE 2024)', valor: 418.0, max: 600, unidad: 'kg/hab/año', color: '#10b981' },
+            { etiqueta: 'Meta OCDE de Reducción con Valorización Orgánica', valor: 310.0, max: 600, unidad: 'kg/hab/año', color: '#a855f7' }
+          ]
+        },
+        diagramaVisual: {
+          titulo: 'Flujo Metabólico de Residuos Sólidos Domiciliarios desde Barrio Brasil (SUBDERE 2024)',
+          descripcion: 'Esquema de la cadena logística de recolección barrial, transferencia intermedia en Quilicura y disposición final ferroviaria en Tiltil.',
+          svgHtml: `
+            <svg viewBox="0 0 760 200" style="width:100%; height:auto; background:rgba(15,23,42,0.7); border-radius:10px; border:1px solid rgba(56,189,248,0.2); padding:10px;">
+              <defs>
+                <marker id="arrowRSD" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8" />
+                </marker>
+              </defs>
+              <!-- Nodo 1: Barrio Brasil -->
+              <rect x="20" y="35" width="195" height="130" rx="10" fill="rgba(245,158,11,0.14)" stroke="#f59e0b" stroke-width="2"/>
+              <text x="117" y="62" fill="#fbbf24" font-size="13" font-weight="bold" text-anchor="middle">1. ORIGEN: BARRIO BRASIL</text>
+              <text x="117" y="84" fill="#e2e8f0" font-size="11" text-anchor="middle">• 500,78 kg/hab/año (Santiago)</text>
+              <text x="117" y="102" fill="#e2e8f0" font-size="11" text-anchor="middle">• 189.510 ton/año comunales</text>
+              <text x="117" y="120" fill="#cbd5e1" font-size="10.5" text-anchor="middle">• 381 patentes comerciales</text>
+              <text x="117" y="138" fill="#cbd5e1" font-size="10.5" text-anchor="middle">• 196 patentes alcohol/gastro</text>
+
+              <!-- Flecha 1 -->
+              <line x1="215" y1="100" x2="275" y2="100" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowRSD)"/>
+              <text x="245" y="88" fill="#38bdf8" font-size="10.5" font-weight="bold" text-anchor="middle">12,1 km</text>
+              <text x="245" y="118" fill="#94a3b8" font-size="9.5" text-anchor="middle">Camión</text>
+
+              <!-- Nodo 2: Quilicura -->
+              <rect x="280" y="35" width="195" height="130" rx="10" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="2"/>
+              <text x="377" y="62" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">2. E.T. QUILICURA (BBDD-87)</text>
+              <text x="377" y="84" fill="#e2e8f0" font-size="11" text-anchor="middle">• Estación de Transferencia</text>
+              <text x="377" y="102" fill="#e2e8f0" font-size="11" text-anchor="middle">• Compactación intermedia</text>
+              <text x="377" y="120" fill="#cbd5e1" font-size="10.5" text-anchor="middle">• Trasvase a vagones de tren</text>
+              <text x="377" y="138" fill="#cbd5e1" font-size="10.5" text-anchor="middle">• Reducción huella vial</text>
+
+              <!-- Flecha 2 -->
+              <line x1="475" y1="100" x2="535" y2="100" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowRSD)"/>
+              <text x="505" y="88" fill="#38bdf8" font-size="10.5" font-weight="bold" text-anchor="middle">49,0 km</text>
+              <text x="505" y="118" fill="#94a3b8" font-size="9.5" text-anchor="middle">Ferrocarril</text>
+
+              <!-- Nodo 3: Tiltil -->
+              <rect x="540" y="35" width="200" height="130" rx="10" fill="rgba(239,68,68,0.14)" stroke="#ef4444" stroke-width="2"/>
+              <text x="640" y="62" fill="#f87171" font-size="13" font-weight="bold" text-anchor="middle">3. TILTIL (BBDD-86)</text>
+              <text x="640" y="84" fill="#e2e8f0" font-size="11" text-anchor="middle">• Relleno Loma Los Colorados</text>
+              <text x="640" y="102" fill="#e2e8f0" font-size="11" text-anchor="middle">• Distancia total: 61,1 km</text>
+              <text x="640" y="120" fill="#cbd5e1" font-size="10.5" text-anchor="middle">• Costo: $14.845 M CLP/año</text>
+              <text x="640" y="138" fill="#cbd5e1" font-size="10.5" text-anchor="middle">• Pasivo socioambiental norte</text>
+            </svg>
+          `
+        },
+        tablaResumen: {
+          titulo: 'Indicadores Clave del Sistema de Residuos Sólidos Domiciliarios (SUBDERE 2024 — Comuna de Santiago)',
+          columnas: ['Indicador / Infraestructura', 'Valor Registrado', 'Capa en el Atlas', 'Implicancia Territorial en Barrio Brasil'],
+          filas: [
+            ['Generación per cápita anual (RSD)', '500,78 kg/hab/año (1,37 kg/día)', 'BBDD-86 / BBDD-91', 'Supera el promedio nacional por alta densidad de servicios, universidades y gastronomía'],
+            ['Tonelaje total anual comunal', '189.510 toneladas/año', 'BBDD-86 / BBDD-87', 'Volumen equivalente a más de 519 toneladas diarias retiradas de las calles de Santiago'],
+            ['Estación de Transferencia intermedia', 'E.T. Quilicura (a 12,1 km)', 'BBDD-87 / BBDD-91', 'Punto neurálgico donde descargan los camiones recolectores del pericentro'],
+            ['Sitio de Disposición Final', 'Loma Los Colorados, Tiltil (61,1 km)', 'BBDD-86 / BBDD-94', 'Externalización metropolitana de los desechos hacia el sector norte de la RM'],
+            ['Costo anual municipal de aseo (SINIM)', '$14.845.120.000 CLP/año', 'BBDD-86 (Diccionario GPKG)', 'Alto gasto operativo que incentiva programas de compostaje y reciclaje en origen']
+          ]
+        },
+        analisisPorActor: [
+          {
+            id: 'institucion',
+            icono: '🏛️',
+            nombre: '1. Institución / Autoridad Pública',
+            subtitulo: 'Dirección de Aseo Municipal, SUBDERE, Ministerio del Medio Ambiente',
+            utilidad: 'Permite optimizar las frecuencias y horarios de recolección nocturna en los ejes gastronómicos (Av. Brasil, Compañía, Huérfanos) y planificar contenedores soterrados o puntos limpios bajo la Ley REP.'
+          },
+          {
+            id: 'comunidad',
+            icono: '🏘️',
+            nombre: '2. Comunidad / Vecinal',
+            subtitulo: 'Juntas de Vecinos Barrio Brasil, Comités de Administración y Cités',
+            utilidad: 'Entrega datos concretos para exigir fiscalización sobre el manejo de basura de locales nocturnos y organizar redes de reciclaje y vermicompostaje al interior de cités y edificios.'
+          },
+          {
+            id: 'mapeador',
+            icono: '🗺️',
+            nombre: '3. Mapeador / Voluntario OSM',
+            subtitulo: 'Comunidad OpenStreetMap Chile, Estudiantes Geografía UAH',
+            utilidad: 'Guía el mapeo colaborativo (`amenity=recycling`, `amenity=waste_basket`, microbasurales recurrentes) para cruzar la oferta real de contenedores barriales con las capas macro de SUBDERE.'
+          },
+          {
+            id: 'academia',
+            icono: '🎓',
+            nombre: '4. ONGs / Investigadores / Academia',
+            subtitulo: 'Ecología Política Urbana, Geografía UAH, Fondecyt F1261256',
+            utilidad: 'Conecta la escala micro del consumo barrial y la gentrificación gastronómica con la escala macro de la justicia ambiental metropolitana entre el centro histórico y Tiltil.'
+          }
+        ],
+        apartadoBibliografico: {
+          fuentesDatos: [
+            { codigo: 'bbdd_86', nombre: 'Disposición Final de Residuos Sólidos Domiciliarios (SUBDERE 2024)', institucion: 'SUBDERE — Programa Nacional de Residuos Sólidos', crs: 'EPSG:4326', tipo: 'Punto' },
+            { codigo: 'bbdd_87', nombre: 'Estaciones de Transferencia de RSD (SUBDERE 2024)', institucion: 'SUBDERE', crs: 'EPSG:4326', tipo: 'Punto' },
+            { codigo: 'bbdd_91', nombre: 'Flujos y Rutas de Transferencia de RSD (SUBDERE 2024)', institucion: 'SUBDERE', crs: 'EPSG:4326', tipo: 'Línea/Punto' },
+            { codigo: 'bbdd_94', nombre: 'Rellenos Sanitarios Operativos (SUBDERE 2024)', institucion: 'SUBDERE / MMA', crs: 'EPSG:4326', tipo: 'Polígono/Punto' },
+            { codigo: 'cat03_comercio', nombre: 'Comercio y Servicios Cotidianos (OSM)', institucion: 'OpenStreetMap Contributors', crs: 'EPSG:4326', tipo: 'Punto' }
+          ],
+          referenciasAcademicas: [
+            {
+              cita: 'Heynen, N., Kaika, M., & Swyngedouw, E. (2006). In the nature of cities: Urban political ecology and the politics of urban metabolism. Routledge.',
+              concepto: 'Aporte teórico: El metabolismo urbano como flujo socioecológico desigual donde el centro consume recursos y externaliza sus desechos hacia periferias de sacrificio.'
+            },
+            {
+              cita: 'SUBDERE. (2024). Catastro Nacional de Instalaciones de Recepción y Disposición Final de Residuos Sólidos Domiciliarios (RSD) y Diccionario Técnico Geodatabase.',
+              concepto: 'Aporte empírico: Fuente oficial de las 13 capas de infraestructura de residuos integradas en el Atlas y sus descriptores técnicos por columna.'
+            }
+          ]
+        }
+      }
+    },
+    {
+      id: 'storyboard-evolucion-normativa-prc',
+      titulo: '7. Treinta Años de Disputa Normativa: Las Modificaciones al PRC en Barrio Brasil (1990–2024)',
+      bajada: 'Cómo 10 modificaciones históricas al Plan Regulador Comunal de Santiago frenaron la demolición masiva, protegieron los 50 cités del barrio y moldearon la frontera entre torres y casonas.',
+      dimensionId: 'dim-sociourbana',
+      dimensionNombre: 'Sociourbana, Normativa & Patrimonio',
+      fecha: 'Octubre 2026',
+      autor: 'Equipo Fondecyt F1261256 · Geografía UAH',
+      tiempoLectura: '6 min lectura',
+      imagen: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+      tags: ['Modificaciones PRC', 'Conservación Histórica', 'Cités (Enmienda N° 2)', 'Rent Gap Inmobiliario'],
+      capasRelevantes: ['minvu_prc', 'minvu_patrimonio', 'cmn_monumentos', 'cat02_vivienda'],
+      contenido: {
+        resumenEjecutivo: 'El paisaje actual del Barrio Brasil —donde conviven 135 predios históricos de 1 a 2 pisos y 50 cités junto a torres puntuales de hasta 21 pisos— no es casualidad: es el resultado directo de más de tres décadas de reformas al Plan Regulador Comunal (PRC) de Santiago (documentadas en el repositorio histórico oficial de Asesoría Urbana). Mientras el PRC de 1990 dejó ventanas abiertas a la densificación en altura por rasantes, la movilización vecinal y técnica impulsó el Seccional Barrio Brasil, las Modificaciones N° 16, N° 21 y N° 26, la Enmienda N° 2 de Cités (2014) y las Enmiendas de Altura N° 1, 3 y 6, consolidando la Zona de Conservación Histórica B1.',
+        kpis: [
+          { valor: '10 Hitos', etiqueta: 'Modificaciones, seccionales y enmiendas al PRC en el sector (1990–2024)' },
+          { valor: '80,4%', etiqueta: 'Superficie barrial protegida hoy bajo Zona B y ZCH B1' },
+          { valor: '50 Cités', etiqueta: 'Conjuntos de cités y pasajes resguardados (Enmienda N° 2)' },
+          { valor: '135 vs 4', etiqueta: 'Predios bajos (≤2 pisos) frente a torres en altura (≥9 pisos)' }
+        ],
+        parrafos: [
+          {
+            subtitulo: '1. Del PRC de 1990 a la defensa del tejido patrimonial (Modificaciones N° 16 y N° 21)',
+            texto: 'Cuando se promulgó el Plan Regulador Comunal de Santiago en 1990 (Res. N° 26 SEREMI MINVU), buena parte del poniente histórico quedó expuesta a la fusión predial y a la construcción en altura regulada solo por rasantes. Tras el terremoto de 1985 y durante la década de 1990, la demolición de casonas de fachada continua encendió las alarmas vecinales y académicas. Esto dio origen al Seccional Barrio Brasil, a la Modificación N° 16 (Borde Poniente) y luego a la decisiva Modificación N° 21 (Sector 6 Poniente, 2008–2010), que consolidaron las Zonas de Conservación Histórica (ZCH B1) y frenaron la sustitución masiva en torno a Plaza Brasil y los ejes Huérfanos y Compañía.'
+          },
+          {
+            subtitulo: '2. La Enmienda N° 2 de Cités (2014) y las Enmiendas de Altura (N° 1, 3 y 6)',
+            texto: 'Un hito clave dentro del expediente histórico municipal (disponible íntegramente en el repositorio oficial de la Municipalidad de Santiago) fue la Enmienda N° 2 de 2014, que otorgó reconocimiento urbanístico expreso a los Cités y pasajes interiores —50 de los cuales se ubican dentro de nuestro polígono de estudio—, impidiendo su demolición para engome predial. Posteriormente, entre 2016 y 2019, las Enmiendas N° 1, N° 3 y N° 6 rebajaron las alturas máximas en los bordes de manzanas patrimoniales (Sector Especial B3) y la Modificación N° 31 ordenó la transición desde el eje de alta densidad de la Alameda hacia el interior barrial.'
+          },
+          {
+            subtitulo: '3. Lectura espacial de la brecha de renta (Rent Gap) y postergaciones recientes (2021–2024)',
+            texto: 'Al cruzar en el Atlas la capa oficial del PRC (`minvu_prc`) con las alturas reales de edificación (`cat02_vivienda`), se observa con precisión quirúrgica cómo las 4 torres de 9 a 21 pisos se levantaron en los intersticios o ventanas previas a las enmiendas restrictivas, generando una fuerte brecha de renta potencial (Rent Gap) sobre los 135 predios colindantes de 1 y 2 pisos. Las postergaciones selectivas de permisos (Art. 117 LGUC) aplicadas entre 2021 y 2024 han sido fundamentales para contener esa presión mientras se actualiza el instrumento comunal.'
+          }
+        ],
+        graficoComparativo: {
+          titulo: 'Distribución Territorial de Zonificaciones del PRC de Santiago en el Polígono Barrio Brasil',
+          notaMetodo: 'Fuente: Elaboración propia sobre capa oficial MINVU PRC (`minvu_prc`) y Expediente Histórico de Modificaciones PRC Municipalidad de Santiago (1990–2024).',
+          barras: [
+            { etiqueta: 'Zona B y Zona de Conservación Histórica ZCH B1 (Núcleo Patrimonial)', valor: 80.4, max: 100, unidad: '% del barrio', color: '#a855f7' },
+            { etiqueta: 'Zona A (Borde Sur / Eje Libertador Bernardo O\'Higgins - Alameda)', valor: 12.1, max: 100, unidad: '% del barrio', color: '#38bdf8' },
+            { etiqueta: 'Zona D y Sectores Especiales de Transición Poniente', valor: 7.5, max: 100, unidad: '% del barrio', color: '#f59e0b' }
+          ]
+        },
+        diagramaVisual: {
+          titulo: 'Línea de Tiempo de Modificaciones Históricas al PRC de Santiago en Barrio Brasil (1990–2024)',
+          descripcion: 'Secuencia de los principales decretos, seccionales y enmiendas consultables en el expediente histórico municipal.',
+          svgHtml: `
+            <svg viewBox="0 0 760 210" style="width:100%; height:auto; background:rgba(15,23,42,0.7); border-radius:10px; border:1px solid rgba(168,85,247,0.25); padding:10px;">
+              <line x1="40" y1="105" x2="720" y2="105" stroke="#a855f7" stroke-width="3"/>
+              
+              <!-- Hito 1: 1990 -->
+              <circle cx="75" cy="105" r="8" fill="#f59e0b"/>
+              <text x="75" y="45" fill="#fbbf24" font-size="11.5" font-weight="bold" text-anchor="middle">1990</text>
+              <text x="75" y="62" fill="#e2e8f0" font-size="10" text-anchor="middle">PRC Res. N° 26</text>
+              <text x="75" y="76" fill="#94a3b8" font-size="9.5" text-anchor="middle">Zona B base</text>
+
+              <!-- Hito 2: 2004-2007 -->
+              <circle cx="210" cy="105" r="8" fill="#38bdf8"/>
+              <text x="210" y="138" fill="#38bdf8" font-size="11.5" font-weight="bold" text-anchor="middle">2004–2007</text>
+              <text x="210" y="155" fill="#e2e8f0" font-size="10" text-anchor="middle">Seccional Brasil</text>
+              <text x="210" y="169" fill="#94a3b8" font-size="9.5" text-anchor="middle">&amp; Mod. N° 16 (ZCH)</text>
+
+              <!-- Hito 3: 2008-2012 -->
+              <circle cx="355" cy="105" r="8" fill="#10b981"/>
+              <text x="355" y="45" fill="#34d399" font-size="11.5" font-weight="bold" text-anchor="middle">2008–2012</text>
+              <text x="355" y="62" fill="#e2e8f0" font-size="10" text-anchor="middle">Mod. N° 21 y N° 26</text>
+              <text x="355" y="76" fill="#94a3b8" font-size="9.5" text-anchor="middle">Sector 6 Poniente</text>
+
+              <!-- Hito 4: 2014-2015 -->
+              <circle cx="505" cy="105" r="8" fill="#c084fc"/>
+              <text x="505" y="138" fill="#c084fc" font-size="11.5" font-weight="bold" text-anchor="middle">2014–2015</text>
+              <text x="505" y="155" fill="#e2e8f0" font-size="10" text-anchor="middle">Enmienda N° 2 Cités</text>
+              <text x="505" y="169" fill="#94a3b8" font-size="9.5" text-anchor="middle">&amp; Mod. N° 31 Alameda</text>
+
+              <!-- Hito 5: 2016-2024 -->
+              <circle cx="660" cy="105" r="8" fill="#f43f5e"/>
+              <text x="660" y="45" fill="#fb7185" font-size="11.5" font-weight="bold" text-anchor="middle">2016–2024</text>
+              <text x="660" y="62" fill="#e2e8f0" font-size="10" text-anchor="middle">Enmiendas N° 1, 3, 6</text>
+              <text x="660" y="76" fill="#94a3b8" font-size="9.5" text-anchor="middle">Rebaja Alturas &amp; Art. 117</text>
+            </svg>
+          `
+        },
+        tablaResumen: {
+          titulo: 'Síntesis de Modificaciones Históricas al PRC de Santiago con Impacto en Barrio Brasil',
+          columnas: ['Período / Instrumento', 'Ámbito Espacial en el Barrio', 'Efecto Normativo Principal', 'Fuente Documental'],
+          filas: [
+            ['1990 · PRC Res. N° 26 SEREMI', 'Comuna de Santiago (Zona B)', 'Establece zonificación base; permite densificación por rasantes que gatilla primeras torres', 'Expediente PRC 1990 (Drive Munistgo)'],
+            ['2004–2007 · Seccional Brasil & Mod. N° 16', 'Plaza Brasil, Av. Brasil, Borde Poniente', 'Crea la Zona de Conservación Histórica (ZCH B1) y protege fachadas e inmuebles patrimoniales', 'Carpeta Mod. 16 / Seccional Brasil'],
+            ['2008–2010 · Modificación N° 21', 'Sector 6 Poniente (Brasil – Yungay)', 'Restringe alturas máximas y exige continuidad morfológica con la edificación histórica', 'Carpeta Modificación N° 21 PRC'],
+            ['2012 · Modificación N° 26', 'Pericentro Poniente y ejes mixtos', 'Depura usos de suelo: prohíbe talleres molestos y bodegaje mayorista (Art. 2.1.24 OGUC)', 'Carpeta Modificación N° 26 PRC'],
+            ['2014 · Enmienda N° 2 (Cités)', '50 Cités y pasajes del Barrio Brasil', 'Protege la tipología de Cité frente a demolición y subdivisión predial especulativa', 'Carpeta Enmienda N° 2 Cités'],
+            ['2015–2019 · Mod. N° 31 y Enmiendas 1, 3 y 6', 'Borde Alameda y Sector Especial B3', 'Regula transición del eje Alameda y rebaja alturas en bordes de manzanas patrimoniales', 'Carpetas Mod. 31 y Enmiendas 1-3-6'],
+            ['2021–2024 · Postergaciones Art. 117 LGUC', 'Polígonos en actualización PRC', 'Congelamiento preventivo de permisos de gran altura para contener el Rent Gap inmobiliario', 'Decretos Alcaldicios / D.O.']
+          ]
+        },
+        analisisPorActor: [
+          {
+            id: 'institucion',
+            icono: '🏛️',
+            nombre: '1. Institución / Autoridad Pública',
+            subtitulo: 'Asesoría Urbana Municipalidad de Santiago, DOM, SEREMI MINVU, CMN',
+            utilidad: 'Permite cruzar el expediente histórico de modificaciones del PRC con el estado actual de los predios para fundamentar informes previos, permisos Art. 60 LGUC y futuras enmiendas.'
+          },
+          {
+            id: 'comunidad',
+            icono: '🏘️',
+            nombre: '2. Comunidad / Vecinal',
+            subtitulo: 'Vecinos de Cités, Organizaciones Patrimoniales, Comité de Defensa Barrio Brasil',
+            utilidad: 'Democratiza el acceso a los decretos, planos seccionales y enmiendas históricas para defender con argumentos jurídicos la escala barrial y los 50 cités frente a proyectos invasivos.'
+          },
+          {
+            id: 'mapeador',
+            icono: '🗺️',
+            nombre: '3. Mapeador / Voluntario OSM',
+            subtitulo: 'Mapeadores de Patrimonio, Estudiantes de Geografía y Arquitectura UAH',
+            utilidad: 'Orienta el levantamiento de alturas (`building:levels`), estado de conservación y tipologías de cités en terreno para detectar dónde existe mayor presión inmobiliaria.'
+          },
+          {
+            id: 'academia',
+            icono: '🎓',
+            nombre: '4. ONGs / Investigadores / Academia',
+            subtitulo: 'Geografía Urbana UAH, Fondecyt F1261256, Estudios Patrimoniales',
+            utilidad: 'Entrega la trazabilidad histórica completa entre regulación urbanística, morfología edificada y brecha de renta (Rent Gap) en centros históricos latinoamericanos.'
+          }
+        ],
+        apartadoBibliografico: {
+          fuentesDatos: [
+            { codigo: 'minvu_prc', nombre: 'Zonificación PRC (Planes Reguladores)', institucion: 'MINVU / Ilustre Municipalidad de Santiago', crs: 'EPSG:4326', tipo: 'Polígono' },
+            { codigo: 'minvu_patrimonio', nombre: 'Zonas e Inmuebles de Conservación Histórica (ZCH / ICH)', institucion: 'MINVU / DOM Santiago', crs: 'EPSG:4326', tipo: 'Polígono' },
+            { codigo: 'cmn_monumentos', nombre: 'Monumentos Nacionales (Ley N° 17.288)', institucion: 'Consejo de Monumentos Nacionales (CMN)', crs: 'EPSG:4326', tipo: 'Punto/Polígono' },
+            { codigo: 'cat02_vivienda', nombre: 'Vivienda, Morfología y Alturas de Edificación (OSM/Cités)', institucion: 'OpenStreetMap / Catastro Barrial UAH', crs: 'EPSG:4326', tipo: 'Polígono/Punto' }
+          ],
+          referenciasAcademicas: [
+            {
+              cita: 'Ilustre Municipalidad de Santiago — Asesoría Urbana. (1990–2024). Repositorio Oficial de Modificaciones Históricas al Plan Regulador Comunal de Santiago [Expedientes digitales: Mod. N° 16, N° 21, N° 26, N° 31, Enmiendas N° 1, 2, 3 y 6]. https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz',
+              concepto: 'Fuente documental primaria: Compendio oficial de ordenanzas, memorias explicativas y planos de todas las modificaciones normativas que rigen el Barrio Brasil.'
+            },
+            {
+              cita: 'Smith, N. (1987). Gentrification and the rent gap. Annals of the Association of American Geographers, 77(3), 462–465.',
+              concepto: 'Aporte teórico: Explica cómo la diferencia entre la renta actual de predios bajos (1–2 pisos) y la renta potencial bajo normas más permisivas genera presión especulativa.'
+            },
+            {
+              cita: 'López-Morales, E. (2015). Gentrification by ground rent dispossession: The shadows cast by large-scale urban renewal in Santiago de Chile. International Journal of Urban and Regional Research, 39(4), 756–772.',
+              concepto: 'Aporte empírico: Analiza el papel de las modificaciones a los Planes Reguladores Comunales en la captura de renta de suelo en el pericentro de Santiago.'
             }
           ]
         }

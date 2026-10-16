@@ -22,6 +22,12 @@ const ModuloEvaluadorNormativo = (() => {
    */
   const FUENTES_ORDENANZAS_IPT = [
     {
+      institucion: 'Ilustre Municipalidad de Santiago — Asesoría Urbana',
+      instrumento: 'Repositorio Histórico de Modificaciones al PRC de Santiago (1990–2024)',
+      url: 'https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz',
+      descripcion: 'Expedientes oficiales completos de todas las modificaciones, seccionales, enmiendas de altura, protección de cités (Enmienda N° 2) y postergaciones de permisos que han modelado históricamente al Barrio Brasil y la comuna de Santiago.'
+    },
+    {
       institucion: 'Ministerio de Vivienda y Urbanismo (MINVU)',
       instrumento: 'Planes Reguladores Comunales (PRC) — Catálogo de la Región Metropolitana',
       url: 'https://portalipt.minvu.cl/',
@@ -42,9 +48,23 @@ const ModuloEvaluadorNormativo = (() => {
   ];
 
   /**
+   * Hitos históricos de modificaciones al PRC de Santiago que influyen en Barrio Brasil (1990-2024)
+   */
+  const HITOS_HISTORICOS_PRC_BRASIL = [
+    { anio: '1990', hito: 'Res. N° 26 SEREMI MINVU (PRC de Santiago 1990)', detalle: 'Aprueba el Plan Regulador Comunal base de Santiago y define la Zona B para el poniente histórico, permitiendo inicialmente alturas continuas/aisladas sujetas a rasantes.' },
+    { anio: '2004–2007', hito: 'Seccional Barrio Brasil & Modificación N° 16 (Borde Poniente / Balmaceda)', detalle: 'Incorpora las primeras Zonas de Conservación Histórica (ZCH B1) e Inmuebles de Conservación Histórica (ICH) en torno a Plaza Brasil, Av. Brasil y el eje Huérfanos–Compañía.' },
+    { anio: '2008–2010', hito: 'Modificación N° 21 (Sector 6 Poniente – Barrio Brasil / Yungay)', detalle: 'Reestructura el régimen de alturas y agrupamiento continuo en el Sector 6 Poniente, congelando demoliciones masivas en manzanas patrimoniales y regulando el recambio morfológico.' },
+    { anio: '2012', hito: 'Modificación N° 26 (Actualización de Usos de Suelo y Equipamiento)', detalle: 'Restringe talleres molestos, bodegaje mayorista e industrias en el pericentro poniente, favoreciendo vivienda, educación superior (entorno Campus UAH) y servicios culturales/gastronómicos.' },
+    { anio: '2014', hito: 'Enmienda N° 2 (Protección de Cités y Pasajes Históricos)', detalle: 'Reconoce y protege expresamente la tipología de Cités y pasajes interiores del Barrio Brasil (50 cités catastrados en el área de estudio), limitando la subdivisión predial y fusión destructiva.' },
+    { anio: '2015', hito: 'Modificación N° 31 (Eje Alameda – Borde Sur Barrio Brasil)', detalle: 'Regula el frente de alta densidad del eje Libertador Bernardo O\'Higgins (Alameda) y su transición morfológica hacia el interior de las manzanas históricas del barrio y el Campus UAH.' },
+    { anio: '2016–2019', hito: 'Enmiendas N° 1, N° 3 y N° 6 de Alturas (Sector Especial B3 / Poniente)', detalle: 'Rebajan alturas máximas de edificación en bordes de manzanas patrimoniales para evitar el efecto "cañón urbano" y el sombreamiento sobre viviendas bajas y cités de 1 a 2 pisos.' },
+    { anio: '2021–2024', hito: 'Postergaciones Selectivas de Permisos de Edificación (Art. 117 LGUC)', detalle: 'Congelamiento preventivo de permisos de obra nueva de gran altura durante la actualización del PRC de Santiago, resguardando la escala barrial frente a la presión inmobiliaria (Rent Gap).' }
+  ];
+
+  /**
    * Aviso legal estándar y descargo de responsabilidad sintetizado
    */
-  const TEXTO_DISCLAIMER_LEGAL = `La información provista por este Certificado de Informaciones Normativas VGI (CIN-VGI) es de carácter estrictamente referencial. BAJO NINGUNA CIRCUNSTANCIA este reporte constituye, sustituye o tiene la validez jurídica de un Certificado de Informaciones Previas (CIP), instrumento oficial que de acuerdo al Artículo 116 del D.F.L. N° 458 de 1975 (Ley General de Urbanismo y Construcciones - LGUC) debe ser otorgado y suscrito de manera privativa por el Director de Obras Municipales (DOM) de la comuna respectiva.`;
+  const TEXTO_DISCLAIMER_LEGAL = `La información de este Certificado de Informaciones Normativas VGI (CIN-VGI) es una guía técnica de carácter referencial. No reemplaza ni tiene la validez legal de un Certificado de Informaciones Previas (CIP), el cual según el Artículo 116 de la Ley General de Urbanismo y Construcciones (LGUC) solo puede ser emitido por la Dirección de Obras Municipales (DOM) respectiva.`;
 
   /**
    * Diccionario Normativo Estándar de Apoyo para Zonas Frecuentes
@@ -463,7 +483,12 @@ ${txtCapas}
    - Protección Patrimonial (ZCH / ICH / Ley N° 17.288 CMN):
      ${informe.patrimonio.length > 0 ? informe.patrimonio.map(p => `* 🏛️ ${p.nombre} [${p.categoria}] (${p.distanciaMetros === 0 ? 'En zona protegida' : `${p.distanciaMetros} m`})`).join('\n     ') : 'Fuera del perímetro inmediato de conservación histórica.'}
 
-6. AVISO LEGAL:
+6. EXPEDIENTE HISTÓRICO DE MODIFICACIONES AL PRC DE SANTIAGO (BARRIO BRASIL 1990–2024):
+   - Repositorio Oficial I. Municipalidad de Santiago: https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz
+   - Hitos Normativos Clave:
+     ${HITOS_HISTORICOS_PRC_BRASIL.map(h => `* [${h.anio}] ${h.hito}: ${h.detalle}`).join('\n     ')}
+
+7. AVISO LEGAL:
 ${TEXTO_DISCLAIMER_LEGAL}
 
 ================================================================================
@@ -493,7 +518,7 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
         <!-- Encabezado de Geolocalización -->
         <div class="ficha-normativa-header">
           <span class="badge-alerta-normativa ${tieneRiesgo ? 'peligro' : 'seguro'}">
-            ${tieneRiesgo ? '⚠️ ATENCIÓN: ÁREA AFECTA A RESTRICCIÓN DE RIESGO NATURAL (Art. 2.1.17 OGUC)' : '✅ CONSULTA EVALUADA (SIN GRAVAMEN DE RIESGO)'}
+            ${tieneRiesgo ? '⚠️ ATENCIÓN: ÁREA AFECTA A RESTRICCIÓN DE RIESGO NATURAL (Art. 2.1.17 OGUC)' : '✅ PUNTO EVALUADO (SIN GRAVAMEN DE RIESGO NATURAL)'}
           </span>
           <span class="ficha-normativa-id">
             📍 LAT ${c.lat.toFixed(5)}° S | LON ${c.lng.toFixed(5)}° O // COMUNA: <strong>${comuna.toUpperCase()}</strong>
@@ -504,7 +529,7 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
 
           <!-- Tarjeta 1: Capas e Instrumentos Consultados -->
           <div class="caja-tarjeta-normativa" style="border-left:4px solid var(--agua);">
-            <span class="etiqueta-normativa-card" style="color:var(--agua);">📖 Capas e Instrumentos Integrados Evaluados en este Punto:</span>
+            <span class="etiqueta-normativa-card" style="color:var(--agua);">📖 Capas e Instrumentos Revisados en este Punto:</span>
             <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:6px; margin-top:8px;">
               ${htmlCapas || '<span style="font-size:0.85rem; color:var(--tinta-suave);">Capas oficiales cargadas en memoria.</span>'}
             </div>
@@ -512,7 +537,7 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
 
           <!-- Tarjeta 2: Instrumento Regulador y Zonificación PRC -->
           <div class="caja-tarjeta-normativa">
-            <span class="etiqueta-normativa-card">🏛️ Instrumento Regulador & Zonificación Comunal (${comuna}):</span>
+            <span class="etiqueta-normativa-card">🏛️ Plan Regulador Comunal y Zonificación (${comuna}):</span>
             ${prc ? `
               <div class="valor-normativo-destacado">${prc.zona} — ${prc.nombreZona}</div>
               <div class="meta-ordenanza-prc" style="margin-top:6px; font-size:0.92rem; color:var(--tinta-suave); line-height:1.6;">
@@ -522,8 +547,8 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
               </div>
             ` : `
               <div style="padding:10px; background:rgba(245, 158, 11, 0.1); border-radius:6px; font-size:0.9rem; color:var(--ocre); margin-top:6px;">
-                ⚠️ <strong>Sin zonificación comunal PRC activa registrada en la ubicación exacta.</strong>
-                <br><span style="font-size:0.82rem; color:var(--tinta-suave);">El punto se ubica fuera del área urbana zonificada del PRC o en sector rural/intercomunal regulado por el PRMS.</span>
+                ⚠️ <strong>Sin zonificación comunal PRC activa registrada en este punto exacto.</strong>
+                <br><span style="font-size:0.82rem; color:var(--tinta-suave);">El punto está fuera del polígono PRC cargado o se rige por las normas intercomunales del PRMS.</span>
               </div>
             `}
             <div class="grilla-2col-normativa" style="margin-top:12px; padding-top:12px; border-top:1px dashed var(--linea);">
@@ -542,27 +567,27 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
 
           <!-- Tarjeta 3: Usos de Suelo Permitidos (UPERM) -->
           <div class="caja-tarjeta-normativa caja-permitidos">
-            <span class="etiqueta-normativa-card" style="color:#34d399;">✅ Usos de Suelo Permitidos (UPERM - Atributos de Capa):</span>
+            <span class="etiqueta-normativa-card" style="color:#34d399;">✅ Usos de Suelo Permitidos (UPERM):</span>
             <p class="texto-normativo permitido" style="margin:6px 0 0 0; font-size:0.94rem; color:var(--tinta-suave); line-height:1.65;">
-              ${prc ? prc.usosPermitidos : 'No hay datos de UPERM registados para esta ubicación.'}
+              ${prc ? prc.usosPermitidos : 'No hay datos de usos permitidos registrados para este punto.'}
             </p>
           </div>
 
           <!-- Tarjeta 4: Usos Prohibidos (UPROH - OGUC Art. 2.1.24) -->
           <div class="caja-tarjeta-normativa caja-prohibidos">
-            <span class="etiqueta-normativa-card" style="color:#fbbf24;">🚫 Usos Expresamente Prohibidos (UPROH) & Exclusión Negativa (Art. 2.1.24 OGUC):</span>
+            <span class="etiqueta-normativa-card" style="color:#fbbf24;">🚫 Usos Prohibidos (UPROH) y Principio de Exclusión (Art. 2.1.24 OGUC):</span>
             <div style="background:rgba(245, 158, 11, 0.12); border:1.5px solid var(--ocre); border-radius:8px; padding:10px; margin:8px 0 8px 0; font-size:0.86rem; color:var(--tinta-suave);">
-              ⚖️ <em>"Todo uso, destino o actividad que no se encuentre expresamente individualizado como permitido en la Ordenanza Local se entiende legalmente prohibido" (Art. 2.1.24 OGUC).</em>
+              ⚖️ <em>Según el Art. 2.1.24 de la OGUC, todo uso o destino no indicado expresamente como permitido en la Ordenanza Local se entiende legalmente prohibido.</em>
             </div>
             <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave); line-height:1.6;">
-              ${prc ? prc.usosProhibidos : 'No hay datos de UPROH registrados en esta ubicación.'}
+              ${prc ? prc.usosProhibidos : 'No se registran datos de usos prohibidos en esta ubicación.'}
             </p>
           </div>
 
           <!-- Tarjeta 5: Gravámenes por Riesgo Natural (Art. 2.1.17 OGUC) -->
           <div class="caja-tarjeta-normativa ${tieneRiesgo ? 'caja-riesgo' : ''}">
             <span class="etiqueta-normativa-card" style="color:${tieneRiesgo ? '#f87171' : '#34d399'};">
-              ${tieneRiesgo ? '⚠️ Gravamen por Riesgo Natural & Falla Geológica (Art. 2.1.17 OGUC):' : '🛡️ Evaluación de Riesgo Natural (Art. 2.1.17 OGUC):'}
+              ${tieneRiesgo ? '⚠️ Restricción por Riesgo Natural o Falla Geológica (Art. 2.1.17 OGUC):' : '🛡️ Riesgo Natural (Art. 2.1.17 OGUC):'}
             </span>
             ${tieneRiesgo ? `
               <ul class="lista-riesgos" style="margin:6px 0 0 0; padding-left:20px; color:#fecdd3; font-size:0.92rem;">
@@ -570,7 +595,7 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
               </ul>
             ` : `
               <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave);">
-                ✅ El punto consultado no registra interferencia por áreas de riesgo natural en las capas oficiales evaluadas.
+                ✅ Este punto no presenta polígonos de riesgo natural en las capas oficiales consultadas.
               </p>
             `}
           </div>
@@ -584,14 +609,33 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
               </ul>
             ` : `
               <p style="margin:4px 0 0 0; font-size:0.92rem; color:var(--tinta-suave);">
-                Sin declaración patrimonial registrada en el punto consultado.
+                Sin declaratoria patrimonial directa en este punto exacto.
               </p>
             `}
           </div>
 
-          <!-- Tarjeta 7: Disclaimer Normativo Legal -->
+          <!-- Tarjeta 7: Historial de Modificaciones al PRC de Santiago (Barrio Brasil 1990-2024) -->
+          <div class="caja-tarjeta-normativa" style="border-left:4px solid #f59e0b; background:rgba(245, 158, 11, 0.05);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <span class="etiqueta-normativa-card" style="color:#fbbf24;">📚 Modificaciones Históricas al PRC de Santiago en Barrio Brasil (1990–2024):</span>
+              <a href="https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz" target="_blank" rel="noopener noreferrer" style="font-size:0.8rem; font-weight:700; color:#0f172a; background:#fbbf24; padding:4px 10px; border-radius:6px; text-decoration:none;">📂 Ver Expedientes Oficiales (Google Drive Munistgo) ↗</a>
+            </div>
+            <p style="margin:6px 0 8px 0; font-size:0.86rem; color:var(--tinta-suave); line-height:1.5;">
+              La regulación del Barrio Brasil no se explica por un solo decreto, sino por una secuencia de modificaciones y enmiendas comunales que frenaron la demolición de manzanas históricas, protegieron los cités y rebajaron las alturas máximas:
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:6px; font-size:0.8rem;">
+              ${HITOS_HISTORICOS_PRC_BRASIL.map(h => `
+                <div style="background:rgba(15,23,42,0.65); border:1px solid rgba(251,191,36,0.25); border-radius:6px; padding:7px 9px;">
+                  <strong style="color:#fbbf24;">[${h.anio}] ${h.hito}</strong>
+                  <div style="color:var(--tinta-suave); margin-top:3px; line-height:1.4;">${h.detalle}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Tarjeta 8: Disclaimer Normativo Legal -->
           <div class="caja-tarjeta-normativa caja-disclaimer">
-            <span class="etiqueta-normativa-card" style="color:#cbd5e1;">⚠️ Aviso Legal & Descargo de Responsabilidad Jurídica:</span>
+            <span class="etiqueta-normativa-card" style="color:#cbd5e1;">⚠️ Nota Importante sobre Validez Legal:</span>
             <p style="margin:4px 0 0 0; font-size:0.84rem; color:var(--tinta-tenue); line-height:1.6;">
               ${TEXTO_DISCLAIMER_LEGAL}
             </p>
@@ -613,7 +657,9 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
     evaluarCompatibilidadVGI,
     generarCertificadoTexto,
     renderizarFichaNormativaHTML,
-    puntoEnGeometria
+    puntoEnGeometria,
+    FUENTES_ORDENANZAS_IPT,
+    HITOS_HISTORICOS_PRC_BRASIL
   };
 })();
 

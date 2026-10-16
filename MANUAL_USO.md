@@ -1,473 +1,89 @@
-# Manual de Uso Operativo — Atlas de Información Geográfica Voluntaria para la Gestión Territorial en el Barrio Brasil
+# Manual de Uso — Atlas de Información Geográfica Voluntaria (Atlas VGI · UAH)
 
-### Departamento de Geografía — Universidad Alberto Hurtado (2026)
-**Caso Piloto:** Barrio Brasil y Entorno Patrimonial UAH (Santiago Centro, Chile)  
-**Sistema Geodésico Oficial:** WGS 84 / UTM Huso 19 Sur (EPSG:32719)  
-**Estándares Aplicados:** ISO 19115-1:2014, ISO 19139:2007, ISO 19157:2013, OGC WMS/WFS, PostGIS 3.3, IDE Chile (SNIT)
+**Proyecto Fondecyt Regular N° 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
+**Área de estudio:** Barrio Brasil, Comuna de Santiago y Región Metropolitana de Chile.
 
 ---
 
-## 0. Introducción y Perfiles de Actor Territorial
+## 1. Propósito y Alcance del Sistema
 
-El **Atlas de Información Geográfica Voluntaria (VGI)** es una plataforma socioespacial desarrollada para diagnosticar, auditar, contrastar y documentar el territorio del Barrio Brasil mediante la integración de **datos ciudadanos abiertos (OpenStreetMap, GBIF, UMap)** con **108 capas cartográficas oficiales del Estado de Chile** (IDE Chile, MINVU, INE Censo 2024 multiescalar, UOCT / MTT Semáforos RM, MOP, CMN, MMA, MDSF BiDat, CNE y CONAF) respaldadas por una base de datos espacial **PostgreSQL 17 + PostGIS 3.3** en la nube (conformando 118 capas totales con las 10 categorías maestras VGI).
+El **Atlas de Información Geográfica Voluntaria (Atlas VGI)** es una plataforma web abierta que integra cartografía oficial del Estado de Chile con información geográfica voluntaria (VGI) para el diagnóstico, análisis normativo y gestión territorial del Barrio Brasil y su contexto metropolitano.
 
-En la cabecera de la plataforma encontrarás el selector **"Perfil de Actor Territorial"**, el cual adapta y resalta las herramientas clave según la necesidad operativa del usuario:
+La estructura actual del sistema constituye la arquitectura consolidada del proyecto (quedando únicamente ajustes menores asociados a las fases finales de análisis y validación con usuarios):
 
-1. **🏛️ Perfil Institucional / Sector Público (Municipalidad de Santiago / SECPLA / DIMAO / DOM / SEREMI MINVU / INE / IDE Chile):**
-   - Prioriza la fiscalización de instrumentos de planificación territorial (PRC Santiago, PRMS), zonas de riesgo normativo, microdatos censales a escala de manzana (Censo 2024 Santiago) y generación de metadatos estandarizados en formato XML (ISO 19139) para interoperabilidad con el Geoportal Nacional de Chile.
-2. **👥 Perfil Organizaciones Comunitarias Territoriales (Juntas de Vecinos — Ley N° 19.418: JJVV Barrio Brasil N° 1, Santa Ana, Concha y Toro, República):**
-   - Agrupaciones vecinales con base territorial delimitada por Unidad Vecinal. Facilita diagnósticos barriales inmediatos con consultas en 1 clic (farmacias, áreas verdes, paraderos, arbolado viario, ferias libres), verificación del estado del espacio público y lectura de fichas socioespaciales sin tecnicismos innecesarios.
-3. **🤝 Perfil Organizaciones Comunitarias Funcionales (Ley N° 19.418: Comités de Adelanto y Seguridad, Clubes Deportivos, Agrupaciones Culturales, Huertos Barriales):**
-   - Entidades constituidas en torno a fines específicos de interés común. Permite mapear equipamiento de proximidad, visibilizar iniciativas colectivas y articular proyectos vecinales mediante cartografía colaborativa en UMap.
-4. **🧭 Perfil Voluntariado / Mapeadores OSM y Movilidad Activa:**
-   - Enfocado en la formulación de consultas espaciales Overpass QL avanzadas, validación de etiquetas globales con **Taginfo API v4**, auditoría de cambios territoriales con **OSMCha** y detección de vacíos de microatributos de accesibilidad universal (`kerb=lowered`, `tactile_paving`, `wheelchair`).
-5. **🔬 Perfil Académico / ONGs e Investigación Territorial (Departamento de Geografía UAH, TECHO-Chile, JuntoAlBarrio, Fundación SUR):**
-   - Proporciona cálculo de densidades territoriales rigurosas mediante reproyección métrica a **EPSG:32719**, auditoría universal de calidad geométrica bajo **ISO 19157**, análisis de series históricas de cobertura con **ohsome (v1/v2)**, exportación a GeoJSON para QGIS/PostGIS y matrices de metadatos con citas normalizadas en formato APA 7ª ed.
+- **131 capas geográficas operativas (`EPSG:4326`, WGS84 / SIRGAS-Chile)**:
+  - **121 capas oficiales del Estado**: IDE Chile, MINVU (PRC, PRMS, ZCH/ICH, Cités), INE (Censo 2024), MTT/DTPM/UOCT, MDSF (RSH / BiDat), SUBDERE (13 capas del Catastro Nacional de Residuos Sólidos Domiciliarios 2024), MMA, SERNAGEOMIN, CMN, MINSAL y SII.
+  - **10 categorías colaborativas VGI**: Levantamientos comunitarios en OpenStreetMap (OSM) y registros biológicos en GBIF / iNaturalist.
+- **140 descriptores documentados** en el Diccionario de Datos (incluyendo los comentarios técnicos nativos de las geodatabases `.gpkg` de SUBDERE).
+- **10 módulos integrados (`00` al `09`)** y **7 Storyboards territoriales** basados en evidencia empírica.
 
 ---
 
-## 1. Visor Cartográfico Interactivo 2D (Panel 00)
+## 2. Estructura de la Interfaz Principal
 
-El visor cartográfico principal permite consultar, superponer e inspeccionar espacialmente el territorio de estudio en tiempo real.
+La plataforma se organiza en tres componentes:
 
-### 1.1 Selección de territorio y encuadre
-- **Selector de Territorio:** En la barra superior puedes alternar entre:
-  - *Barrio Brasil — Manzana Campus UAH (Santiago Centro)* (predeterminado).
-  - *Barrio Brasil Completo (hasta Plaza Brasil)*.
-  - *Santiago Centro (Casco Histórico y Cívico)*.
-- **Botón "Encuadrar":** Restablece la vista del mapa centrando el área seleccionada y reajustando el zoom óptimo.
-
-### 1.2 Herramienta "📐 Dibujar Bbox" (Área personalizada)
-1. Haz clic en el botón **"📐 Dibujar Bbox"** en la barra superior del mapa.
-2. Haz clic sobre el mapa en una esquina del área deseada y arrastra el cursor manteniendo presionado hasta la esquina opuesta.
-3. Al soltar el ratón, se dibujará el rectángulo delimitador y se actualizarán automáticamente las coordenadas numéricas en todos los módulos de consulta, calidad y metadatos.
-
-### 1.3 Activación de las 10 Categorías Maestras VGI
-Debajo del mapa encontrarás la botonera con las 10 categorías territoriales ciudadanas (CAT-01 a CAT-10):
-- 🎓 **CAT-01: Educación y Universidad** (Campus patrimonial UAH, facultades, institutos, colegios, liceos y bibliotecas).
-- 🏪 **CAT-02: Servicios, Comercio y Salud Barrial** (comercio de proximidad Av. Brasil/Huérfanos, farmacias, CESFAM N° 5, clínicas comunitarias y bancos).
-- 🚌 **CAT-03: Movilidad y Transporte Público** (paraderos Red Movilidad, accesos a Metro Los Héroes L1/L2, Santa Ana L2/L5 y Cumming L5).
-- 🚲 **CAT-04: Movilidad Activa y Ciclovías** (ciclovías segregadas Rosas y Brasil, ciclobandas, bicicleteros públicos y de la UAH).
-- 🌳 **CAT-05: Áreas Verdes, Deporte y Espacio Público** (Plaza Brasil, bandejones arbolados de Alameda, canchas y juegos infantiles).
-- 🏛️ **CAT-06: Patrimonio Histórico y Cultura** (Zona Típica Barrio Brasil, Inmuebles de Conservación Histórica ICH, casonas UAH, teatros e iglesias).
-- ♿ **CAT-07: Accesibilidad Universal y Caminabilidad** (vados peatonales, rebajes de solera D.S. 50 MINVU, baldosas podotáctiles y cruces semaforizados).
-- 🌿 **CAT-08: Biodiversidad Urbana y Arbolado** (arbolado viario de alineación plátano oriental/jacarandá + observaciones científicas y ciudadanas de GBIF).
-- 🏢 **CAT-09: Edificaciones y Huella Urbana** (huellas poligonales de manzanas, volumetría construida y cálculo de superficie métrica en m² reprojectada a EPSG:32719).
-- 🗺️ **CAT-10: Coberturas y Usos de Suelo** (zonificación funcional del suelo urbano y superficies biofísicas).
-
-**Interacción y Popups:**
-- Haz clic en cualquier botón de categoría para consultar en vivo y cargar las geometrías en el mapa con conteo dinámico.
-- Haz clic sobre cualquier punto, línea o polígono para abrir la **ficha popup**: muestra nombre, tipología, dirección, accesibilidad, institución, fecha de captura, fuente y cita bibliográfica APA.
-- Para ocultar la capa, basta con hacer clic nuevamente en su botón.
-
-### 1.4 Exportación a GeoJSON y Descargas Directas
-- Haz clic en **"📥 Exportar GeoJSON"** en la barra superior para descargar todas las capas actualmente activas en el visor, listas para arrastrar y soltar en **QGIS** o **ArcGIS Pro**.
-- En el catálogo de capas oficiales, cada tarjeta dispone del botón directo **`📥`** para descargar el GeoJSON oficial completo sin intermediarios.
+1. **Barra superior de navegación (Módulos `00` a `09`)**: Permite alternar entre el visor cartográfico y los módulos analíticos, normativos y documentales sin perder el estado de las capas activas.
+2. **Lienzo cartográfico interactivo (Módulo `00`)**: Mapa 2D/3D con selector de escala territorial (*Barrio Brasil Completo* o *Manzana UAH*), dibujo de área de interés (*Bbox*), importador de capas locales (`.kmz`, `.kml`, `.geojson`, `.gpx`, `.csv`) y exportación directa de datos (`.geojson` y paquete completo `.zip`).
+3. **Panel lateral de gestión territorial (derecha)**:
+   - **📊 Métricas**: Conteo en vivo de capas/objetos cargados y cálculo dinámico del **Índice de Calidad VGI (ICV)** (*Completitud Espacial*, *Actualidad Reciente*, *Atribución Completa* y *Calidad Estimada*), calculado estrictamente sobre las entidades activas en el mapa.
+   - **🏛 Capas IDE**: Buscador instantáneo y acordeones temáticos para activar cualquiera de las 121 capas oficiales y las 10 categorías VGI.
+   - **⚖ Normativa**: Inspector Normativo para consultar el Plan Regulador Comunal (PRC), PRMS, OGUC, riesgos y patrimonio en cualquier punto del mapa.
+   - **⬚ Cargar / ⚡ BD PostGIS**: Carga de archivos locales del usuario y conexión opcional a base de datos espacial.
 
 ---
 
-## 2. Consola Técnica GIS y Catálogo Oficial de 108 Capas del Estado de Chile (IDE Chile / BBDD / UOCT MTT)
-
-Ubicada inmediatamente después del visor, la **Consola de Capas GIS** es un entorno de trabajo cartográfico profesional (*GIS-grade workbench*) rediseñado para permitir auditorías territoriales rigurosas, eliminando distracciones visuales o emojis infantiles y garantizando alta legibilidad según estándares WCAG AAA.
-
-### 2.1 Componentes de la Consola Técnica GIS
-- **Barra de Telemetría e Indicadores KPI:**
-  - `[118 CAPAS TOTALES]`: Universo completo disponible entre cartografía oficial y colaborativa.
-  - `[0 EN MAPA]` (dinámico): Contador en tiempo real de capas activamente renderizadas en el lienzo Leaflet.
-  - **`📥 Descargar Capas Activas`:** Exporta en un clic un paquete GeoJSON con todas las capas actualmente encendidas.
-- **Buscador Predictivo en Tiempo Real (`#busqueda-capas-atlas`):**
-  - Permite filtrar instantáneamente cualquiera de las 118 capas escribiendo el nombre, código oficial, institución de procedencia o temática (ej: "semáforos", "censo", "bomberos", "minvu", "uoct").
-- **Chips de Filtro Rápido:**
-  - Accesos directos temáticos: `Todos`, `Normativa & Catastro`, `Movilidad & Vialidad`, `Censo 2024 & Social`, `Economía & Inversión BIP`, `Equipamiento & Patrimonio`, `Medio Ambiente & Agua`, `Seguridad & Justicia`, `VGI Comunitario OSM`.
-- **Pestañas Segmentadas:**
-  - **`Capas Oficiales del Estado (108)`**: Despliegue de los 7 macro-grupos institucionales.
-  - **`Capas Colaborativas VGI (10)`**: Catálogo de las 10 categorías maestras de OpenStreetMap y GBIF.
-  - **`Capas Activas en Mapa (N)`**: Vista concentrada exclusiva de las capas actualmente superpuestas para gestión rápida de visibilidad.
-- **Tarjetas Cartográficas Estilizadas (`.tarjeta-capa-gis`):**
-  - Cada tarjeta presenta un interruptor toggle deslizante, el código institucional oficial, un pill de tipo geométrico (`PUNTO`, `LÍNEA`, `POLÍGONO`), un pill de organismo responsable (`UOCT / MTT`, `MINVU`, `INE`, etc.), descripción concisa y el botón directo de descarga sin simplificaciones **`GeoJSON`**.
-
-### 2.2 Los 7 Macro-Grupos Oficiales (108 Capas)
-1. 📜 **Normativa Urbanística & Catastro Predial (MINVU / PRC Santiago / PRMS / DPA / SII) [13 capas]:**
-   - Zonificación comunal PRC Santiago (192 polígonos zonales), Usos de Suelo PRMS, Áreas de Riesgo IPT, Zonas de Riesgo Intercomunal PRMS, Fajas de Resguardo de Infraestructura, Límites Urbanos Oficiales, DPA SUBDERE 2023, Catastro Predial SII RM (1.43M predios) y Fajas Fronterizas DIFROL.
-2. 🚲 **Movilidad, Red Vial, Tránsito & Cruces Semaforizados (MTT / UOCT / MOP / EFE / Metro) [7 capas]:**
-   - **Cruces Semaforizados Centralizados UOCT RM (Oficio N° 26105 / 2026 - Solicitud AN001T0026930):** 3.242 intersecciones semaforizadas operativas y centralizadas en las comunas de la RM, con datos técnicos completos de tecnología, controlador, enlace de comunicación y coordenadas WGS 84.
-   - Red Vial Nacional (GEOMOP), Red de Estaciones de Metro de Santiago, Red Ferroviaria EFE, Ciclovías Oficiales y Red de Electrolineras RM.
-3. 👥 **Demografía, Censo 2024, Comunidades & Vulnerabilidad Social (INE / MDSF / MINVU) [19 capas]:**
-   - Despliegue multiescalar del Censo 2024 en 5 niveles territoriales independientes (Regional, Límites Urbanos, Localidades, Zonal y 1.711 Manzanas Censales de la Comuna de Santiago / Barrio Brasil con 216 variables oficiales del INE), Unidades Vecinales Oficiales 2026 (Ley N° 19.418), Catastro Nacional de Campamentos 2024 MINVU, Municipios, Centros SERNAM, SCAM, OPD, IGVUST 2026 y 7 indicadores sociodemográficos del Registro Social de Hogares (RSH / CSE).
-4. 📈 **Economía, Fomento, Empleo & Inversión Pública (BIP / MOP / ODEPA / CNE / SUBTEL) [15 capas]:**
-   - **Iniciativas de Inversión del Banco Integrado de Proyectos (BIP - bbdd_65):** Base oficial de proyectos públicos georreferenciados del Sistema Nacional de Inversiones (SNI / MDSF / Hacienda).
-   - Proyectos Mandatados MOP (bbdd_01), Contratos Concesionados (bbdd_04), Contratos MOP (bbdd_05), Personas en RSH ocupadas y cotizantes (bbdd_74), Mercados Mayoristas ODEPA (bbdd_54), Antenas y Torres de Telecomunicaciones (bbdd_35) e Infraestructura Energética RM (centrales solares, hidroeléctricas, termoeléctricas, bioenergía, sistemas de almacenamiento, gasoductos, oleoductos y líneas de transmisión eléctrica).
-5. 🏛️ **Equipamiento Público, Educación, Salud & Patrimonio (CMN / MINEDUC / MINSAL / IND / CCU) [28 capas]:**
-   - Inmuebles y Zonas de Conservación Histórica (ICH/ZCH), Sitios de Memoria CMN, Jardines Infantiles (JUNJI / Integra), Establecimientos Escolares y de Educación Superior (MINEDUC), Hospitales y CESFAM (DEIS / MINSAL), Infraestructura Deportiva IND, Atractivos Turísticos SERNATUR, Áreas Funcionales, Cités, Oficinas Serviu y SEREMI MINVU, junto a las 12 series históricas CCU (1993 a 2024).
-6. 🌳 **Medio Ambiente, Recursos Hídricos, Parques & Espacio Público (MMA / DGA / CONAF / DMC / ODEPA / INFOR) [21 capas]:**
-   - Áreas Verdes Normativas IPT (18.173 polígonos), Parques Urbanos MINVU, Red Hidrométrica Nacional DGA, Inventario de Humedales Protegidos (Ley 21.202), SNASPE (CONAF), Cuencas BNA, Estaciones Sedimentométricas y Fluviométricas, Cobertura de Canales de Riego (CNR), Inventarios de Biomasa, Huertos Frutales ODEPA, Calidad del Aire SINCA y Vertederos Ilegales.
-7. 🛡️ **Seguridad, Bomberos & Justicia (Carabineros / CBS / SENAPRED / MINJU) [5 capas]:**
-   - Cuarteles de Bomberos de Chile, Compañías de Bomberos RM, Comisarías de Carabineros de Chile, Unidades del Plan Cuadrante y Juzgados de Familia.
-
-### 2.3 Panel Lateral "Más detalles" con Alerta Informativa de Columnas
-Al hacer clic en cualquier entidad de una capa con alta densidad de variables (>15 columnas, RSH, Censo 2024, BIP, CONAF, UOCT):
-- Se abre el panel lateral de detalles con un **aviso informativo destacado en color dorado**: indica que por motivos de rendimiento en el navegador se resumen los indicadores prioritarios.
-- Incluye el botón directo **`[📥 Descargar Capa Completa (.geojson)]`**, el cual descarga el archivo original sin recortes espaciales ni omisiones de atributos.
-
-### 2.3 Capa OGC WMS de Patrimonio MINVU en Vivo
-- El botón **"🗺️ MINVU WMS Patrimonio en Vivo"** permite superponer directamente teselas georreferenciadas bajo el estándar **OGC WMS 1.3.0** servidas en tiempo real por la División de Desarrollo Urbano del MINVU (`geoide.minvu.cl`).
-
----
-
-## 3. Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 (Supabase)
-
-El Atlas cuenta con una base de datos espacial en la nube **PostgreSQL 17.6 con extensión PostGIS 3.3**, 100% de código abierto, gratuita y permanente.
-
-### 3.1 Pestaña "⚡ BD PostGIS" en el Panel Lateral
-En el panel lateral derecho (*"Manifold & Telemetría"*), selecciona la pestaña **"⚡ BD PostGIS"**:
-- **Estado del Motor:**
-  - **`🟢 PostGIS Activo`**: Conexión establecida con la nube de Supabase; las consultas se resuelven mediante funciones espaciales PostGIS en el servidor.
-  - **`📁 Modo Local (Fallback)`**: Modo autónomo; el Atlas carga los GeoJSON validados desde la carpeta `data/` sin requerir conexión remota.
-- **Configuración rápida:** Puedes ingresar o actualizar tu `Supabase URL` y `Anon Key` directamente desde la interfaz y pulsar **"Conectar BD"** o **"Probar Ping"**.
-
-### 3.2 Arquitectura Híbrida de Consulta
-Cuando solicitas una capa, el módulo [`src/js/modulos/db_client.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/db_client.js) ejecuta la siguiente lógica resiliente:
-1. **Intento 1 (PostGIS RPC en la nube):** Invoca `fn_obtener_capa_bbox` en PostgreSQL, recortando las geometrías con el índice espacial `GIST` y retornando únicamente las entidades dentro del Bbox del usuario.
-2. **Intento 2 (Supabase Storage CDN):** Si la capa no está vectorizada en tablas relacionales, la descarga desde el bucket público `atlas-geojson` a través de la red CDN global de Supabase.
-3. **Intento 3 (Fallback Local):** Si no hay conexión o no se han ingresado credenciales, descarga el archivo GeoJSON desde `data/capa_bbdd_XX.geojson`.
-
-### 3.3 Mantenimiento Anti-Pausa Permanente
-Para que el proyecto gratuito de Supabase **nunca se suspenda por inactividad de 7 días**, se encuentra configurado el workflow automático [`.github/workflows/supabase_keepalive.yml`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/.github/workflows/supabase_keepalive.yml), el cual se ejecuta en GitHub Actions cada 3 días realizando un ping de telemetría a la base de datos a costo $0.
-
----
-
-## 4. Módulo de Evaluación Normativa Territorial (CIN-VGI)
-
-Diseñado para que la ciudadanía, investigadores y profesionales contrasten espacialmente cualquier coordenada del territorio contra las normas urbanísticas vigentes:
-1. En la barra de herramientas del visor o en la pestaña **"⚖ Normativa"** del panel lateral, activa el **"⚖ Inspector Normativo"**.
-2. Haz clic sobre cualquier coordenada del mapa dentro de la Comuna de Santiago (o el entorno de Barrio Brasil).
-3. Mediante un algoritmo geométrico *Point-in-Polygon* (Ray casting), el sistema cruza la coordenada con las capas del **Plan Regulador Comunal de Santiago (PRC)**, la **Ordenanza General de Urbanismo y Construcciones (OGUC)** y el catastro patrimonial oficial:
-   - **Zona Normativa PRC:** Código oficial de zonificación (ej. *Zona A - Centro Histórico*, *Zona B - Pericentro*, *Zona E - Mixta Barrial*), identificando decretos de publicación en el Diario Oficial.
-   - **Principio de Exclusión Negativa (Art. 2.1.24 OGUC):** Despliega el catálogo de usos de suelo permitidos y expresamente prohibidos en la zona. Recuerda que en el marco urbanístico chileno, todo uso o actividad que no se encuentre taxativamente enunciado como permitido en la Ordenanza Local se encuentra legalmente prohibido.
-   - **Áreas de Riesgo y Resguardo (Art. 2.1.17 OGUC):** Detecta afectaciones por riesgos de inundación, fallas geológicas o fajas de resguardo de infraestructura.
-   - **Protección Patrimonial Oficial:** Identifica si el punto se encuentra inserto en Zonas de Conservación Histórica (ZCH), Inmuebles de Conservación Histórica (ICH) amparados por el Art. 60 de la Ley General de Urbanismo y Construcciones (LGUC), o Zonas Típicas protegidas por la Ley N° 17.288 del Consejo de Monumentos Nacionales (CMN).
-4. **Descargo Metodológico y Legal Riguroso:**
-   - El Inspector Normativo **no inventa parámetros volumétricos ficticios** (como coeficientes de constructibilidad o coeficientes de ocupación de suelo que requerirían un modelo predial a nivel de lote individual no contenido en la cartografía de zonas del PRC).
-   - Todo certificado generado consigna el descargo legal expreso indicando que el reporte es estrictamente referencial y que **en ningún caso sustituye al Certificado de Informaciones Previas (CIP)**, instrumento exclusivo y privativo del Director de Obras Municipales (DOM) de acuerdo al Artículo 116 del D.F.L. N° 458/1975 (LGUC).
-5. **Exportación de Certificado:** Haz clic en **"Descargar Certificado Normativo (.txt)"** para obtener un documento técnico estructurado con fecha, coordenadas WGS 84 / UTM 19S y advertencia legal.
-
----
-
-## 5. Módulo Importador de Capas Espaciales Locales
-
-Permite a los usuarios y organizaciones auditar su propia información geográfica sin subirla a servidores externos:
-1. Dirígete a la sección **"📂 Importador de Capas Locales"** o a la pestaña **"⬚ Cargar"** en la barra lateral.
-2. Arrastra y suelta (o selecciona) archivos en los siguientes formatos admitidos:
-   - **`.kmz`**: Descomprimido 100% en memoria en el navegador mediante JSZip y convertido a GeoJSON con toGeoJSON.
-   - **`.kml`**: Capas de Google Earth o levantamientos de campo.
-   - **`.geojson` / `.json`**: Archivos vectoriales estándar en EPSG:4326.
-   - **`.gpx`**: Trazas de GPS y puntos de control de terreno.
-   - **`.csv`**: Tablas con columnas de coordenadas (`lat`, `lon`, `latitud`, `longitud`, `x`, `y`).
-3. La capa se proyectará de inmediato en el mapa interactivo con simbología distintiva y quedará habilitada para ser auditada por el Inspector Normativo.
-
----
-
-## 6. Consultas Espaciales, Explorador OSM y Base Regional Geofabrik (Panel 01)
-
-El Módulo 01 articula tanto la extracción en vivo vía Overpass API como el análisis espacial masivo de la **Base Regional Geofabrik RM (1.552.144 entidades clasificadas con superposición semántica, 695.412 edificaciones íntegras sin recortes con interpretación predial y 326.545 elementos de transporte y movilidad)**:
-
-### 6.1 Constructor Visual y Consultas Rápidas en 1 Clic
-- **Consultas Rápidas Ciudadanas:** 10 botones preconfigurados para mapear instantáneamente universidades, comercio, transporte, ciclovías, parques, patrimonio, rebajes accesibles D.S. 50, arbolado y edificaciones.
-- **Constructor Visual:** Permite seleccionar cualquier clave (`amenity`, `shop`, `highway`, `leisure`, `historic`, `natural`, `building`, etc.), elegir un operador (`=`, `!=`, `~`) y auditar su frecuencia planetaria con el botón **`[⚡ Validar en Taginfo]`**.
-- **Editor Overpass QL:** Para usuarios avanzados que deseen redactar sintaxis directa en lenguaje Overpass QL usando el comodín `{{bbox}}`.
-
-### 6.2 Base Regional Geofabrik RM y Modalidades Duales de Consulta Espacial
-Para consultar el extracto de 1.552.144 entidades descargado de Geofabrik para toda la Región Metropolitana con latencia 0 ms:
-1. **`🗺️ Modo 1: Bbox Dinámico del Mapa (Interactivo)`**:
-   - Al navegar, arrastrar o cambiar el zoom en el visor Leaflet hacia cualquier comuna de la Región Metropolitana (Maipú, Puente Alto, Providencia, Santiago, La Florida, San Bernardo, Colina, Melipilla, etc.), los campos numéricos de coordenadas se recalculan en tiempo real.
-   - Pulsa el botón **`[🗺️ Consultar por Bbox del Mapa]`**: El motor filtrará en memoria en tiempo récord ($O(1)$) descartando elementos fuera del encuadre y proyectando las geometrías de la zona activa.
-2. **`📌 Modo 2: Coordenadas Numéricas Manuales (WGS 84)`**:
-   - Permite escribir coordenadas numéricas precisas en los campos `Oeste (Lng Min)`, `Sur (Lat Min)`, `Este (Lng Max)` y `Norte (Lat Max)`.
-   - Pulsa el botón **`[📌 Consultar por Coordenadas]`**: El sistema valida la consistencia geográfica del polígono y extrae las entidades correspondientes.
-3. **Botones de Encuadre Territorial Rápido:**
-   - **`[🌐 Toda la Región Metropolitana]`**: Carga automáticamente el bounding box macro de las 52 comunas de la RM `[-71.50, -34.20, -70.00, -33.00]`.
-   - **`[📍 Centrar en Barrio Brasil (UAH)]`**: Restablece el encuadre piloto local de Barrio Brasil y el Campus UAH `[-70.6720, -33.4500, -70.6550, -33.4380]`.
-
-### 6.3 Diferenciación Estricta de Fuentes (Desacople Operativo)
-En el Atlas, cada dato espacial cuenta con trazabilidad formal de procedencia:
-- **`Geofabrik (Extracto RM)`**: Identificado con badge dorado. Proviene de la descarga del dump PBF regional procesado en 10 macrocategorías temáticas (`metodo_adquisicion: 'Descarga Geofabrik (Dump PBF regional)'`).
-- **`OpenStreetMap (API Overpass)`**: Identificado con badge azul. Proviene de consultas dinámicas en vivo a la API Overpass (`metodo_adquisicion: 'Descarga de OSM (con la API)'`).
-- **Política de No Fusión:** Ambos orígenes no se mezclan en una misma capa para evitar duplicaciones o distorsiones temporales, permitiéndose la combinación únicamente en superposiciones analíticas expresas (por ejemplo `GBIF + OSM` en el Módulo de Biodiversidad Urbana).
-
----
-
-## 7. Módulo de Calidad Espacial, Índice IGV y Saturación OQT (Panel 02)
-
-El Módulo 02 articula la evaluación estandarizada de la calidad geográfica combinando auditoría algorítmica espacial en tiempo real (**Submódulo A**) con análisis histórico y telemetría comunitaria (**Submódulo B**):
-
-### 7.1 Submódulo A: Evaluador Universal de Calidad IGV (ISO 19157 / ISO 19115 / WLC)
-
-Permite auditar tanto las **118 capas internas de la geodatabase del Atlas** como **cualquier archivo vectorial externo** aportado por municipios, universidades o vecinos:
-
-#### A. Modalidades de Entrada de Datos
-1. **Auditar Capa de la Geodatabase del Atlas (118 Componentes):**
-   - En el menú desplegable *'O auditar una capa de la Geodatabase'*, selecciona cualquier capa oficial del Estado (ej. *Censo 2024 Manzanas Santiago*, *Semáforos UOCT RM*, *PRC Santiago*, *Áreas Verdes MINVU*) o cualquiera de las 10 macro-categorías VGI del caso piloto Barrio Brasil.
-2. **Arrastrar o Cargar Archivo Externo (Drag & Drop):**
-   - Arrastra directamente un archivo `.geojson` o `.json` al recuadro punteado (o haz clic para examinar desde tu equipo). El archivo se procesa 100% de forma local y privada en la memoria de tu navegador, sin transferir datos confidenciales a la red.
-3. **Pegar Contenido GeoJSON en Texto Plano:**
-   - Abre el acordeón colapsable *'✍️ O pegar contenido GeoJSON directo'* y pega una estructura `FeatureCollection` o `Feature`.
-4. **Botón 'Cargar Ejemplo Piloto':**
-   - Permite cargar en 1 clic el conjunto de datos de *CAT-01: Educación y Universidad (Barrio Brasil)* para explorar el flujo de evaluación de forma guiada.
-
-#### B. Ejecución de la Auditoría y Control Preventivo de Capacidad
-- Haz clic en el botón principal **`🚀 Auditar Calidad Espacial e Índice IGV`**.
-- La plataforma desplegará indicadores de estado en vivo (*"Descargando capa..."*, *"Decodificando geometrías..."*, *"Analizando topología OGC SFA..."*), manteniendo la interfaz fluida y evitando bloqueos o reinicios de pestaña.
-- **Control Preventivo de Archivos Pesados:** Para resguardar la memoria del navegador contra colapsos y reinicios inesperados (*OutOfMemory*), el evaluador restringe el análisis directo en cliente a archivos de hasta **25 MB** (o **80 MB** para capas internas oficiales que se recortan territorialmente) o un máximo de **15.000 entidades**. Si se ingresa un recurso externo que excede estos límites, el sistema no se satura ni se reinicia, sino que muestra de inmediato el aviso:
-  > *⚠️ "No se pudo procesar la auditoria de calidad dado que el archivo que ha ingresado es demasiado pesado, intente con un archivo más pequeño"*
-  acompañado de recomendaciones prácticas para recortar o simplificar el conjunto de datos.
-- **Focalización Territorial Exclusiva para la Auditoría (BBox Barrio Brasil):**
-  Este mecanismo opera de forma estrictamente aislada y exclusiva dentro del motor de auditoría de calidad (Submódulo A), sin alterar la base de datos oficial del Atlas ni la configuración territorial del visor general. Al auditar capas multiescalares o de cobertura comunal/regional (como el *Censo 2024 Manzanas RM*, compuesto por 1.711 manzanas comunales), la auditoría incorpora un filtro territorial en memoria (`Focalizar auditoría en BBox Barrio Brasil [-70.6740, -33.4530, -70.6550, -33.4330]`):
-  * **Independencia de la Base de Datos:** Los archivos y metadatos de la geodatabase oficial permanecen 100% íntegros y fieles a su origen institucional. El recorte por BBox ocurre única y exclusivamente en tiempo de ejecución durante el cálculo de la auditoría diagnóstica en cliente.
-  * **Intersección AABB en Tiempo Real ($O(1)$):** Mediante un algoritmo de envolventes ortogonales (*Axis-Aligned Bounding Box*), la plataforma filtra instantáneamente las geometrías en milisegundos, aislando con precisión las **366 manzanas** que intersecan Barrio Brasil y el campus patrimonial de la UAH.
-  * **Estabilidad y Mitigación de Sobrecarga:** Al podar más del 78% del volumen poligonal innecesario fuera del polígono de estudio, se elimina cualquier riesgo de saturación de memoria RAM o reinicio de pestaña (*crash* del navegador). Para capas oficiales internas de la geodatabase, el umbral de descarga admisible opera hasta **80 MB**, garantizando que capas complejas como zonificaciones o manzaneo censal se auditen de manera rápida y fluida.
-  * **Insignia Informativa y Encuadre Cartográfico:** La interfaz de resultados despliega una insignia destacada (*"📍 Focalización Territorial Activa"*) detallando el total de entidades auditadas (366) versus el universo original de la capa (1.711), mientras el mini-mapa diagnóstico Leaflet encuadra directamente sobre la cuadrícula del Barrio Brasil.
-  * **Compatibilidad Universal con Datos Externos:** Si el usuario sube un archivo correspondiente a otra comuna o región (sin intersección espacial con Barrio Brasil), el sistema preserva la extensión original del dataset externo para su auditoría, siempre que se encuentre bajo el umbral seguro de 25 MB.
-
-#### C. Interpretación del Índice Global de Calidad Geográfica (IGV)
-El motor aplica una evaluación multicriterio basada en **Combinación Lineal Ponderada (WLC — Malczewski, 1999)**:
-$$\text{IGV} = 50\% \text{ Pilar Cuantitativo Espacial (ISO 19157)} + 50\% \text{ Pilar Cualitativo de Metadatos (ISO 19115)}$$
-
-El resultado se sintetiza en una tarjeta principal con semáforo y escala de calificaciones:
-* **Grado A+ (Excelente: $\ge 95.0\%$):** Conforme con las más altas exigencias de rigor topológico y metadatos estándar. Apto para producción cartográfica crítica, catastro oficial y publicaciones científicas.
-* **Grado A (Muy Bueno: $85.0 - 94.9\%$):** Consistencia espacial sólida con observaciones menores en completitud tabular o atributos secundarios.
-* **Grado B (Aceptable: $70.0 - 84.9\%$):** Apto para diagnóstico comunitario referencial; requiere saneamiento de geometrías o poblamiento de metadatos.
-* **Grado C (Deficiente / Observado: $< 70.0\%$):** Presenta inconsistencias topológicas críticas (auto-intersecciones, anillos abiertos) o vacíos severos de información tabular.
-
-#### D. Desglose de las Dimensiones Evaluadas
-1. **Pilar Cuantitativo Espacial (50%):**
-   - **Consistencia Topológica (30%):** Evalúa adherencia a OGC Simple Feature Access (ISO 19125-1). Detecta polígonos con auto-intersección (*kinks*), anillos no cerrados, vértices colapsados y geometrías nulas.
-   - **Completitud de Atributos (25%):** Evalúa la tasa de campos completados vs valores nulos, vacíos o indefinidos en la tabla atributiva.
-   - **Integridad Posicional (20%):** Verifica que las coordenadas se ubiquen en el dominio geográfico admisible (latitudes entre -90 y 90, longitudes entre -180 y 180) y posean formato numérico finito.
-   - **Estructura y Esquema (15%):** Verifica homogeneidad en los tipos de geometría y presencia de clave primaria única (`id`, `fid`, `OBJECTID`).
-   - **Granularidad Geométrica (10%):** Detecta micro-slivers (polígonos parásito con área residual menor a $1 \cdot 10^{-7}$ grados²).
-2. **Pilar Cualitativo de Metadatos (50%):**
-   - **Metadatos Núcleo (30%):** Verifica presencia de los 10 campos indispensables de ISO 19115 (título formal, resumen/abstract, custodio, fecha de referencia, tópico temático, Bbox, CRS, licencia, linaje).
-   - **Conformidad Semántica (20%):** Nombres de campos estandarizados en minúsculas sin espacios ni caracteres especiales, y catálogo de objetos tipificado (ISO 19110).
-   - **Linaje y Certeza Jurídica (25%):** Documentación del proceso de captura y régimen de licencia transparente (Ley 20.285, ODbL 1.0, CC-BY 4.0).
-   - **Resolución Espacial (15%):** Granularidad y coherencia de escala cartográfica.
-   - **Accesibilidad Operativa (10%):** Disponibilidad pública en formato abierto de intercambio.
-
-#### E. Herramientas de Inspección y Subsanación Técnica
-- **Semáforo en Mini-Mapa Leaflet:** Visualiza las entidades auditadas con código de color (verde = válida; amarillo = sliver o advertencia; rojo = no conforme). Para preservar el rendimiento gráfico, el mapa renderiza hasta 300 entidades representativas, priorizando el 100% de las geometrías con observación.
-- **Botón 'Ver en Mapa':** En la tabla de observaciones (paginada a las primeras 50 para evitar sobrecarga del DOM), haz clic en **`🔍 Ver en Mapa`** junto a cualquier entidad para centrar el visor con zoom exacto sobre la anomalía.
-- **Herramienta Auto-Fix con Descarga Directa:** Si el dataset contiene anillos abiertos o vértices redundantes, pulsa **`🛠️ Reparar Automáticamente (Auto-Fix)`** para descargar de inmediato un GeoJSON con las geometrías saneadas en memoria.
-- **Guías Paso a Paso de Reparación Externa:** El sistema genera guías listas para copiar con scripts técnicos para:
-  * **QGIS 3.x:** Procedimiento guiado usando `Vectorial ➔ Herramientas de geometría ➔ Corregir geometrías (Fix Geometries)` con método *Make Valid* y validación en *Comprobador de Topología*.
-  * **PostGIS / SQL:** Sentencias DDL/DML listas para ejecutar (`ST_MakeValid`, `ST_RemoveRepeatedPoints`, `ST_Multi`).
-  * **Python / GeoPandas:** Script de una línea con `shapely.validation.make_valid`.
-- **Exportación de Certificado Formal:** Botones para descargar el **Certificado de Calidad JSON** (conforme a ISO 19157), la **Matriz Multicriterio WLC en CSV** y el **GeoJSON Enriquecido** con las columnas de auditoría incorporadas.
-
----
-
-### 7.2 Submódulo B: Métricas Históricas, Saturación OQT y Control de Cambios (ohsome & OSMCha)
-
-Permite contextualizar el dato colaborativo analizando su evolución temporal y madurez comunitaria en el territorio:
-- **ohsome API (HeiGIT — Universidad de Heidelberg):** Consulta series temporales retrospectivas de 5 años (P1Y) para cualquier etiqueta territorial, calculando:
-  * Conteo de entidades vigentes en el Bbox barrial.
-  * Tasa de crecimiento anual y densidad métrica por km² (reproyección a EPSG:32719).
-  * Masa crítica de mapeadores únicos que han contribuido en el área.
-  * **Índice de Saturación OQT:** Determina si la capa se encuentra en fase incipiente, en consolidación o en saturación cartográfica.
-- **Auditoría de Changesets con OSMCha:** Permite inspeccionar los últimos conjuntos de cambios realizados por la comunidad en Barrio Brasil o ingresar un número de Changeset para auditar la autoría, fecha, software utilizado y comentarios de edición con enlace directo a `osmcha.org`.
-
----
-
-## 8. Biodiversidad Urbana con GBIF y Ciencia Ciudadana (Panel 03)
-
-Integra observaciones biológicas científicas y ciudadanas (iNaturalist / GBIF.org):
-- **Autocompletado Taxonómico (Species API):** Al escribir el nombre común o científico de una especie (ej: *Passer domesticus*, *Jacaranda mimosifolia*, *Quillaja saponaria*), el sistema sugiere el taxón oficial en tiempo real.
-- **Banderas de Calidad Darwin Core:** La tabla de ocurrencias verifica la consistencia geodésica de las coordenadas y el nivel de precisión espacial.
-- Haz clic en **"Cargar al Mapa Atlas"** para proyectar los avistamientos biológicos sobre el tejido urbano.
-
----
-
-## 9. Cartografía Temática Comunitaria con UMap (Panel 04)
-
-Visualiza iniciativas cartográficas vecinales desarrolladas en la plataforma comunitaria UMap:
-- Proyectos barriales integrados: casonas patrimoniales de Barrio Brasil, trazados de ciclovías comunitarias y huertos urbanos.
-- Soporte para visualizar proyectos externos mediante URL pública de UMap.
-- Exportación directa de capas vectoriales GeoJSON comunitarias.
-
----
-
-## 10. Fichas de Metadatos Estandarizadas (Panel 05)
-
-Genera la documentación técnica oficial del catastro territorial:
-1. Pulsa **"Prellenar con datos de la última consulta"** para autocompletar título, Bbox y linaje a partir del área de trabajo activa.
-2. Ajusta el resumen, sistema de referencia (EPSG:4326 / EPSG:32719) y datos de contacto institucional.
-3. Exportación en dos estándares oficiales:
-   - **"📄 Exportar JSON (ISO 19115)":** Ficha estructurada en JSON con el estándar internacional ISO 19115-1:2014.
-   - **"🏛️ Exportar XML (ISO 19139 / IDE Chile)":** Archivo XML válido listo para ser cosechado por catálogos oficiales como GeoNetwork, GeoNode o la Infraestructura de Datos Geoespaciales de Chile (IDE Chile / SNIT).
-
----
-
-## 11. Diccionario Territorial de 134 Descriptores (Panel 06)
-
-Permite consultar la definición toponímica y la homología institucional de cada etiqueta:
-- **Sinceramiento conceptual:** Distingue rigurosamente entre **capas oficiales del Estado** (con respaldo legal en IDE Chile) y **brechas VGI ciudadanas** (datos colaborativos no catastrados formalmente por el Estado).
-- **Filtros rápidos:** Alterna entre `[⚡ Solo Brechas VGI]` y `[🏛️ Capas Oficiales IDE]`.
-- **Telemetría Taginfo y Darwin Core:** Cada tarjeta incluye enlace de inspección en tiempo real con Taginfo API o el estándar Darwin Core de GBIF.
-
----
-
-## 12. Catálogos Oficiales en Excel (.xlsx) y Licencias (Panel 07)
-
-En la carpeta `docs/` y `src/docs/` del repositorio se encuentran disponibles los libros de cálculo actualizados para análisis territorial y respaldo técnico:
-- **`docs/categorias_tematicas_osm.xlsx`:** Matriz integral de 4 hojas (10 Categorías Maestras VGI, Catálogo Chile de 134 descriptores territoriales, Perfil de 14 Atributos VGI y 125 Citas Bibliográficas APA 7ª ed.).
-- **`docs/catalogo_fuentes_vgi.xlsx`:** Matriz analítica de fuentes colaborativas, inventario técnico de APIs/endpoints y catálogo exhaustivo de **108 Capas Oficiales del Estado de Chile** (Censo 2024 multiescalar, Semáforos RM UOCT/MTT, BiDat MDSF, MINVU, MOP, DGA, Energía, CCU, etc.).
-- **`docs/perfil_metadatos_vgi.xlsx`:** Estructura de campos y equivalencias con el estándar nacional chileno (IDE Chile), complementado con la matriz integral de *Auditoría MetaCalidad 118 Capas*.
-- **`docs/ANALISIS_METACALIDAD.md`:** Informe técnico de auditoría de MetaCalidad (ISO 19115 / ISO 19157) sobre el 100% de la base de datos (118 capas).
-- **`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`:** Registro exhaustivo de 125 fuentes APA 7ª ed. (integrando 51 obras seminales de investigación, 8 fuentes epistemológicas e hispanoamericanas y 66 normas técnicas y marcos legales del Estado de Chile y globales).
-
----
-
-## 13. Pipeline de Procesamiento por Terminal (Python CLI)
-
-Para analistas SIG o geógrafos que requieran procesar datos por lotes en consola:
-
-```bash
-# 1. Auditoría universal pre-despliegue de los 214 GeoJSONs y catálogos Excel:
-python3 scripts/verificar_integridad_despliegue.py
-
-# 2. Auditoría programática de MetaCalidad (ISO 19115 / ISO 19157):
-python3 scripts/analisis_metacalidad.py
-
-# 3. Ingesta masiva y sincronización con Supabase PostGIS:
-export SUPABASE_URL="https://[TU-PROYECTO].supabase.co"
-export SUPABASE_KEY="TU_SERVICE_ROLE_KEY"
-python3 scripts/subir_base_datos_supabase.py --upload-storage
-
-# 4. Regeneración de libros de catálogo en Excel:
-python3 scripts/generar_catalogos_excel.py
-
-# 5. Extracción automatizada de categorías VGI desde Overpass:
-python3 scripts/extractor_vgi.py --categoria todas
-```
-
----
-
-## 14. Preguntas Frecuentes
-
-**¿La plataforma funciona si no tengo conexión a internet o si no configuro Supabase?**  
-Sí. El sistema posee una arquitectura *client-side* con **fallback local transparente**: si no hay internet o no hay credenciales de base de datos, el visor consume de forma autónoma los archivos GeoJSON almacenados localmente en `data/`.
-
-**¿Dónde se guardan las credenciales de Supabase que ingreso en el visor?**  
-Se guardan de forma privada en el almacenamiento local (`localStorage`) de tu navegador web. Nunca se transmiten a servidores de terceros y pueden borrarse en cualquier momento desde la misma pestaña *"⚡ BD PostGIS"*.
-
-**¿Cómo se garantiza que la base de datos gratuita de Supabase no se desactive?**  
-Gracias al workflow [`.github/workflows/supabase_keepalive.yml`](../.github/workflows/supabase_keepalive.yml), GitHub Actions ejecuta un ping ligero cada 3 días sobre la API de Supabase, manteniendo el proyecto permanentemente activo de por vida a costo $0.
-
----
-
-## 15. Guía de Contribución y Trazabilidad para la Comunidad
-
-El Atlas es un bien público abierto y transferible. Cualquier usuario promedio (vecinos, dirigentas/es de juntas vecinales, estudiantes, ONGs) puede hacer contribuciones y enriquecer los datos de manera simple:
-
-1. **Mapeo Directo en OpenStreetMap (Sin código):**  
-   Ingresa a [OpenStreetMap.org](https://www.openstreetmap.org/) con el editor web visual iD. Puedes agregar o corregir locales comerciales, rebajes peatonales, veredas, luminarias o plazas en Barrio Brasil. Al guardar el conjunto de cambios, añade `#AtlasVGI_UAH` en el comentario. Las consultas en vivo del Atlas integrarán tu aporte inmediatamente con trazabilidad de autor y fecha.
-2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   En el Panel 00 (Visor), utiliza el botón **"📂 Cargar Archivo Local"** para importar capas `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV`. Podrás superponer tus propios catastros de terreno sobre las 108 capas oficiales del Estado y las 10 categorías VGI en tiempo real, sin intermediarios y manteniendo tus datos privados en el navegador.
-3. **Reporte y Sugerencia de Capas vía GitHub Issues:**  
-   Si encuentras una discrepancia o tu organización posee un set de datos territoriales que desea visibilizar, abre un [Issue en GitHub](https://github.com/GEOJOTA/atlas_vgi_uah/issues) detallando el nombre de la capa, enlace o archivo, ubicación y organización de contacto.
-4. **Lineamientos de Trazabilidad e Integridad:**  
-   Para preservar la rigurosidad científica, todo dato aportado debe registrar: (a) entidad u organización responsable, (b) fecha o año de levantamiento, (c) sistema de coordenadas (WGS 84 o EPSG:32719) y (d) licencia abierta compatible (ODbL, CC-BY 4.0 o datos públicos Ley 20.285). Para más detalles, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-## 16. Auditoría y Evaluación de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
-
-El Atlas VGI incorpora un marco de auditoría de **MetaCalidad** (calidad intrínseca y extrínseca de los metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Esta auditoría examina de manera exhaustiva el **100% de la base de datos cartográfica** (118 capas: 108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
-
-### 16.1 Marcos Normativos y Dimensiones Evaluadas
-Conforme a las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, la evaluación mide cinco dimensiones ponderadas:
-
-1. **Completitud de Metadatos Núcleo (MC - 30%):** Presencia de los 10 elementos obligatorios del Perfil Nacional (Identificador, Título, Resumen, Custodio, Temporalidad, Tópico ISO, Extensión Bbox, CRS, Licencia y Linaje/Cita APA).
-2. **Conformidad Normativa y Semántica (CC - 20%):** Validación de esquema GeoJSON/XML, tipología geométrica explícita y asignación a grupos temáticos normalizados.
-3. **Linaje, Trazabilidad y Derechos Jurídicos (LL - 25%):** Atribución estricta según marco legal: Ley N° 20.285 de Transparencia para capas del Estado, ODbL 1.0 para OpenStreetMap y CC-BY 4.0 para GBIF, con cita bibliográfica en formato APA 7ª edición.
-4. **Resolución Espacial y Granularidad Territorial (RG - 15%):** Escala de agregación formalmente documentada (Regional, Comunal, Zonal, Manzana, Predio o Puntual) y doble sistema de referencia geodésico (WGS 84 / EPSG:4326 y SIRGAS-Chile / EPSG:32719 para cálculo métrico conforme de Snyder).
-5. **Accesibilidad e Integridad Operativa (AI - 10%):** Verificación de integridad física binaria en `src/data/` (cero punteros LFS rotos) y disponibilidad de descarga inmediata.
-
-### 16.2 Resultados y Dictamen Global de la Base de Datos (118 Capas)
-$$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
-
-| Métrica Global | Puntaje Promedio | Calificación ISO 19157 |
-| :--- | :---: | :---: |
-| **Completitud Núcleo (MC)** | **89.92%** | 🟢 Excelente |
-| **Conformidad Normativa (CC)** | **97.88%** | 🟢 Excelente |
-| **Linaje y Trazabilidad (LL)** | **100.00%** | 🟢 Excelente |
-| **Resolución y Granularidad (RG)** | **100.00%** | 🟢 Excelente |
-| **Accesibilidad e Integridad (AI)** | **100.00%** | 🟢 Excelente |
-| **Índice Global de MetaCalidad (IGMC)** | **96.55%** | **🟢 Grado A+ (Excelente)** |
-
-**Distribución de Calidad de la Base de Datos:**
-- **Grado A+ (Excelente, $\ge 95\%$):** 98 capas (**83.1%**).
-- **Grado A (Muy Bueno, $85\% - 94.9\%$):** 20 capas (**16.9%**).
-- **Grado B / C (< 85%):** 0 capas (**0.0%**).
-
-El informe pormenorizado con la matriz completa de las 118 capas se encuentra documentado en [`docs/ANALISIS_METACALIDAD.md`](docs/ANALISIS_METACALIDAD.md), en formato estructurado [`docs/matriz_metacalidad.json`](docs/matriz_metacalidad.json) y en la hoja *Auditoría MetaCalidad 118 Capas* del libro Excel [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
-
----
-
-## 17. Módulo 09: Indicadores de Análisis Multidimensional y Storyboards de Barrio Brasil (Marco Tentativo y Exploratorio)
-
-> [!NOTE]
-> **Carácter Tentativo y Exploratorio Fondecyt:**  
-> El módulo de **Indicadores de Análisis Multidimensional** y las **Storyboards territoriales** de Barrio Brasil constituyen un desarrollo metodológico preliminar en fase de formulación e iteración para el Proyecto Fondecyt Regular F1261256 (Geografía UAH). Tanto la agregación de las 118 capas en cinco dimensiones estratégicas como las narrativas situadas de datos se ofrecen a modo de prototipo exploratorio de divulgación científica y discusión comunitaria. Su formulación es tentativa y no compromete los estándares ni entregables canónicos de metadatos (ISO 19115 / ISO 19157 / IDE Chile) de la base de datos geoespacial.
-
-### 17.1 Acceso e Interfaz de las 5 Dimensiones Analíticas
-El módulo se encuentra disponible en la barra superior de módulos bajo la pestaña **`09 📈 Indicadores & Storyboards`** (o mediante el botón de acceso rápido en la barra de herramientas del visor).  
-La interfaz está centrada para maximizar el impacto visual y presenta 5 grandes tarjetas interactivas con íconos distintivos de 76px y halo luminoso temático:
-
-1. 👥 **Dimensión Sociodemográfica:**
-   - **Enfoque:** Dinámicas poblacionales, estructura por grupos etarios, hogares monoparentales, inmigración, vulnerabilidad social y estratificación socioespacial.
-   - **Capas Integradas:** Censo 2024 multiescalar (Manzanas, Zonas, Comunas), Registro Social de Hogares (RSH), Hogares Monoparentales BiDat, Inmigración BiDat y Barrios Prioritarios.
-2. 💼 **Dimensión Socioeconómica:**
-   - **Enfoque:** Inversión pública, empleo, equipamiento de telecomunicaciones, matriz energética y actividades productivas.
-   - **Capas Integradas:** Inversión Pública del Banco Integrado de Proyectos (BIP - MDSF), Ocupación RSH, Subsidios Habitacionales DS49 y DS19, Redes de Telecomunicaciones (SUBTEL), Infraestructura Eléctrica (CNE) y Abastecimiento Silvoagropecuario (ODEPA).
-3. 🌿 **Dimensión Socioambiental:**
-   - **Enfoque:** Espacio público verde, resiliencia ecológica, biodiversidad urbana, cobertura arbórea y calidad del aire.
-   - **Capas Integradas:** Cobertura Vegetal CONAF/Ciren, Índice de Vegetación Urbana IGVUST (MINVU), Red Hidrográfica DGA, Estaciones de Calidad del Aire (SINCA / MMA), Catastro de Biodiversidad GBIF/iNaturalist y Puntos Limpios (MMA).
-4. 🏥 **Dimensión Sociosanitaria:**
-   - **Enfoque:** Red de atención primaria, servicios de urgencia, farmacias comunitarias y personas en situación de dependencia o cuidados.
-   - **Capas Integradas:** Red Asistencial DEIS/MINSAL (CESFAM, Hospitales, SAPU), Farmacias de Turno y Populares, y Cuidados/Dependencia Funcional RSH.
-5. 🏛️ **Dimensión Sociourbana o Habitabilidad:**
-   - **Enfoque:** Morfología urbana, catastro predial, instrumentos de planificación territorial (PRC Santiago), movilidad sostenible, cruces seguros y patrimonio histórico.
-   - **Capas Integradas:** Catastro de Predios e Inmuebles SII, 192 Zonas Normativas del Plan Regulador Comunal de Santiago (PRC), Cruces Semaforizados UOCT (3.242 intersecciones), Red de Ciclovías, Estaciones de Metro, Inmuebles y Zonas Típicas CMN/MINVU, Bomberos y Seguridad.
-
-### 17.2 Despliegue de Acordeones, Buscador en Tiempo Real e Interacción Cartográfica
-Al presionar cualquiera de las 5 dimensiones:
-- Se despliega un **acordeón interactivo fluido y centrado** con el listado completo de las capas asignadas a dicha dimensión.
-- **Buscador en Tiempo Real:** Incorpora un campo de búsqueda predictiva (`🔍`) que permite filtrar instantáneamente las capas por texto (nombre, custodio, código o geometría).
-- **Filtros por Origen:** Botones de segmentación inmediata (`Todas`, `Oficiales Estado`, `VGI Comunitario`) con conteos dinámicos.
-- Cada tarjeta de capa muestra una píldora con el código de la fuente (`INE`, `MDSF`, `MINVU`, `UOCT`, `OSM`, `CONAF`, etc.), geometría (`Polígonos`, `Puntos`, `Líneas`), descripción sintetizada y dos botones de acción:
-  - **"🗺️ Ver en Mapa"**: Conmuta automáticamente al visor cartográfico Leaflet 2D, abre el grupo temático correspondiente y activa la capa centrando su visualización.
-  - **"GeoJSON 📥"**: Descarga inmediata del archivo vectorial oficial o comunitario.
-
-### 17.3 Storyboards Territoriales: Análisis Profundo con Porcentajes, Gráficos y Diagramas SVG
-Bajo las dimensiones analíticas, la sección **Storyboards** presenta análisis territoriales exhaustivos y rigurosos donde la base de datos abierta cuenta historias situadas sobre la realidad socioespacial de Barrio Brasil:
-- **Cuadrícula Visual 1:1:** Cada storyboard cuenta con una portada cuadrada con imagen en alta resolución o gráfico vectorial temático.
-- **Lámina Modal Inmersiva (Tipo Blog):** Al hacer clic sobre cualquier tarjeta, se despliega una lámina modal a pantalla completa con:
-  - Ficha técnica, territorio y tiempo estimado de lectura.
-  - **Matriz de Indicadores Clave:** 4 tarjetas cuantitativas destacadas.
-  - **Evidencia Espacial y Distribución Porcentual:** Cuadrícula de barras de progreso porcentual comparando Barrio Brasil frente a promedios comunales y regionales (p. ej., 68.4% de tipología residencial tradicional, 62.7% de arriendo censal, 46.8% de caminata, 84.6% de cuidadoras mujeres en RSH).
-  - **Gráficos Comparativos y Benchmarks:** Histogramas y gráficos de barras comparativas (reparto modal, alturas edilicias, dotación de áreas verdes m²/hab frente a estándares OMS).
-  - **Diagramas Técnicos Vectoriales SVG:** Modelaciones visuales interactivas nítidas:
-    1. *Rasante OGUC y Contraste Morfológico:* Corte transversal casona de 2 pisos vs. torre de 18 pisos en el borde de Alameda.
-    2. *Ciclo Semafórico UOCT:* Tiempos de verde vehicular (52s) vs. verde peatonal (18s) en cruce de 24 metros en Av. Brasil.
-    3. *Gradiente Microclimático e Isla de Calor:* Atenuación térmica de 39.2°C en asfalto a 28.8°C bajo el dosel arbóreo de Plaza Brasil.
-    4. *Isócronas de Caminabilidad Universitaria:* Radios de 5 y 10 minutos conectando Campus UAH, Metro Los Héroes y comercios.
-    5. *Red Integrada de Cuidados Sociosanitarios:* Circuito multinivel entre hogar dependiente, juntas vecinales (Ley 19.418), CESFAM y nivel hospitalario.
-  - **Tabla de Indicadores y Atributos Específicos:** Medición barrial vs. valor referencial comunal y capa de origen.
-  - **Cuerpo Narrativo y Conclusión Territorial:** Ensayo crítico estructurado.
-  - **Relevancia y Utilidad según los 4 Usuarios-Tipo del Proyecto:** Sección analítica estructurada para orientar la toma de decisiones territoriales según el perfil del usuario:
-    * 🏛️ **Institución / Autoridad Pública:** Formulación de políticas públicas, actualización de PRC, planes reguladores comunales y priorización de inversión pública BIP/MINVU.
-    * 🏘️ **Comunidad / Vecinal:** Defensa del patrimonio barrial, organización de juntas vecinales, comités de cités y demandas de microaccesibilidad peatonal.
-    * 🗺️ **Mapeador / Voluntario OSM:** Identificación de brechas de datos en OpenStreetMap y orientación de relevamientos en terreno con etiquetas estandarizadas.
-    * 🔬 **ONGs / Investigadores / Academia:** Formulación de hipótesis espaciales, análisis con microdatos censales/RSH y contrastación empírica en el marco del Proyecto Fondecyt F1261256.
-  - **Apartado Bibliográfico y Trazabilidad Formal:** Cada lámina incluye un catálogo de capas formales de la base VGI (código BBDD/CAT, institución custodia y sistema de referencia) y referencias teórico-metodológicas académicas bajo norma APA 7ª edición (Harvey, Hidalgo, Lefebvre, Gehl, Goodchild, De Certeau, Romero, Heynen, Haklay, Jacobs, Oldenburg, Sassen, Tronto, Federici, Kwan).
-  - **Botón Interactivo "🗺️ Explorar Capas en el Visor":** Activa en lote el paquete de capas espaciales vinculadas al análisis en el visor cartográfico.
-
+## 3. Operación por Módulo (`00` al `09`)
+
+### Módulo `00` · Visor para la gestión territorial
+- **Activación y cruce de capas**: Seleccione en el panel lateral las capas oficiales y colaborativas que desee contrastar (se recomienda activar entre 2 y 4 capas simultáneamente para mantener legibilidad cartográfica). Al hacer clic sobre cualquier geometría en el mapa, se despliega su ficha de atributos, fuente institucional y botón de descarga individual en `GeoJSON`.
+- **Inspector Normativo y Certificado CIN-VGI**: Active el botón **⚖ Inspector Normativo** y haga clic sobre cualquier predio o manzana. El sistema evalúa espacialmente:
+  1. Zonificación comunal (`PRC`) e intercomunal (`PRMS`).
+  2. Usos permitidos (`UPERM`) y prohibidos (`UPROH`) bajo el principio de exclusión negativa del **Art. 2.1.24 de la OGUC**.
+  3. Restricciones por riesgo natural (**Art. 2.1.17 OGUC**) y protección patrimonial (**Zonas e Inmuebles de Conservación Histórica y Ley N° 17.288 CMN**).
+  4. **Expediente Histórico de Modificaciones al PRC de Santiago en Barrio Brasil (1990–2024)**: Síntesis de los 10 hitos regulatorios del sector (Res. N° 26/1990, Seccional Brasil, Modificaciones N° 16, 21, 26 y 31, Enmienda N° 2 de Cités, Enmiendas de Altura N° 1, 3 y 6 y postergaciones Art. 117 LGUC), enlace directo al repositorio documental oficial de la Municipalidad de Santiago (`https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz`) y descarga del certificado referencial en formato `.txt`.
+
+### Módulo `01` · Consultas Overpass (Explorador OSM)
+Ejecuta consultas en tiempo real sobre la base de datos de OpenStreetMap dentro del recuadro activo del mapa, ya sea mediante plantillas temáticas preconfiguradas (educación, salud, transporte, ciclovías, patrimonio, accesibilidad, arbolado) o editando directamente código **Overpass QL**, con exportación inmediata a `GeoJSON`.
+
+### Módulo `02` · Calidad & ICV (ISO 19157 / ohsome / OSMCha)
+Evalúa la calidad de los datos voluntarios mediante tres herramientas complementarias:
+- **Submódulo A (Evaluador WLC / ISO 19157)**: Matriz cuantitativa de completitud, exactitud posicional, consistencia lógica y vigencia.
+- **Submódulo B (ohsome API - HeiGIT)**: Series históricas de evolución de mapeo en OpenStreetMap (conteo, longitud en metros y superficie en $\text{m}^2$ bajo proyección `EPSG:32719`).
+- **Submódulo C (OSMCha / Changesets)**: Auditoría de ediciones recientes en el polígono de estudio para verificar autoría y consistencia de los cambios.
+
+### Módulo `03` · Biodiversidad GBIF
+Consulta registros biológicos georreferenciados de flora, fauna y funga urbana provenientes de **GBIF** e **iNaturalist Chile** bajo estándar *Darwin Core (DwC)*, permitiendo filtrar por grupo taxonómico y visualizar los avistamientos en el mapa.
+
+### Módulo `04` · Cartografía uMap
+Integra lienzos de mapeo participativo basados en **uMap** orientados al trabajo en talleres vecinales, levantamiento de percepciones comunitarias y validación en terreno, permitiendo importar sus capas directamente al visor principal.
+
+### Módulo `05` · Metadatos ISO 19115
+Genera y exporta fichas formales de metadatos geográficos conforme al estándar **ISO 19115 / ISO 19139** (Perfil Nacional de Metadatos de IDE Chile / SNIT), documentando linaje, sistema de referencia (`EPSG:4326` / `EPSG:5361` / `EPSG:32719`), custodia institucional y licenciamiento en formatos `JSON` y `XML`.
+
+### Módulo `06` · Diccionario de Datos (131 Capas / 140 Descriptores)
+Documenta el significado técnico, tipo de dato, fuente y homologación con IDE Chile de cada atributo en las **131 capas geográficas** y **9 tablas de referencia** (140 descriptores en total). Incluye el diccionario técnico íntegro de las 13 capas de **Residuos Sólidos Domiciliarios (SUBDERE 2024, BBDD-86 a BBDD-98)** extraído de los comentarios nativos de sus geodatabases `.gpkg`.
+
+### Módulo `07` · Licencias & Catálogos
+Especifica las condiciones jurídicas de uso y atribución (**ODbL 1.0** para OpenStreetMap, **CC-BY 4.0** para GBIF, **Ley N° 20.285** de Datos Abiertos del Estado y **Ley N° 19.628** de resguardo de datos personales mediante agregación estadística) y provee descarga directa de las matrices maestras en formato Excel (`.xlsx`).
+
+### Módulo `08` · Manual de Uso y Manual de Actualización
+Integra en pantalla tanto este **Manual de Uso** como el **Manual de Actualización y Mantención del Atlas (`MANUAL_ACTUALIZACION_ATLAS.md`)**, permitiendo alternar entre ambos, buscar por palabra clave o descargarlos en formato Markdown (`.md`).
+
+### Módulo `09` · Indicadores & Storyboards
+Estructura el análisis territorial del Barrio Brasil en dos niveles:
+1. **5 Dimensiones Analíticas (131 capas)**:
+   - **01 · Sociodemográfica** (`19 capas`): Censo 2024, densidad, estructura etaria, migración y pueblos originarios.
+   - **02 · Socioeconómica** (`18 capas`): Inversión pública BIP, comercio, ferias libres, patentes y avalúo fiscal SII.
+   - **03 · Socioambiental** (`36 capas`): Áreas verdes, arbolado, islas de calor, biodiversidad GBIF, riesgos y las **13 capas de Residuos Sólidos Domiciliarios SUBDERE 2024**.
+   - **04 · Sociosanitaria** (`3 capas`): Red asistencial MINSAL/DEIS, servicios de salud y dependencia funcional RSH.
+   - **05 · Sociourbana o Habitabilidad** (`55 capas`): Normativa PRC/PRMS, patrimonio ZCH/ICH, cités, movilidad (Metro, DTPM, UOCT, ciclovías) y seguridad.
+2. **7 Storyboards Territoriales**:
+   Reportajes analíticos con indicadores clave (KPIs), gráficos comparativos, diagramas vectoriales SVG, tablas de datos, utilidad diferenciada para los **4 perfiles de actores territoriales** (*Institución Pública*, *Comunidad Vecinal*, *Mapeador Voluntario* y *Academia/ONGs*) y bibliografía en norma APA 7ª edición:
+   - *1. Metamorfosis del Habitar: Entre Casonas, Cités y Presión Inmobiliaria.*
+   - *2. Caminar y Pedalear el Barrio: Rebajes Peatonales, Ciclovías y la Malla UOCT.*
+   - *3. Oasis Bioclimático: Plaza Brasil y la Red de Biodiversidad Vegetal Oculta.*
+   - *4. Universidad, Estudiantes y Almacenes: El Ecosistema de Proximidad UAH.*
+   - *5. Cuidados Invisibles y Envejecimiento: Radiografía de la Salud en el RSH.*
+   - *6. Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024).*
+   - *7. Treinta Años de Disputa Normativa: Las Modificaciones al PRC en Barrio Brasil (1990–2024).*

@@ -1,76 +1,46 @@
-# 🛡️ PROTOCOLO DE INTEGRIDAD DE DATOS Y DESPLIEGUE — ATLAS VGI UAH
+# ✅ Protocolo de Integridad de Datos y Despliegue (Atlas VGI — UAH)
 
-Este documento establece las directrices obligatorias de desarrollo, gestión de datos espaciales y despliegue en servidor para el proyecto **Atlas de Información Geográfica Voluntaria para la Gestión Territorial en el Barrio Brasil (Universidad Alberto Hurtado, 2026)**.
-
----
-
-## 1. 📜 POLÍTICA DE INTEGRIDAD TOTAL DE DATOS (0 PÉRDIDAS)
-
-1. **Sin Recortes Espaciales**:
-   - NUNCA aplicar recortes espaciales (`spatial clip`) ni filtros por comuna que eliminen entidades geográficas fuera del Barrio Brasil o Santiago Centro si la capa original posee alcance regional o nacional.
-   - Las capas estatales (MINVU, MINEDUC, MINSAL, CONAF, MOP, Subtel, IND, Sercotec, DGA, DIFROL, etc.) deben conservar el 100% de sus geometrías fidedignas a escala metropolitana o nacional.
-
-2. **Integridad de Atributos y Diccionario de Variables**:
-   - En las descargas GeoJSON, CSV y consultas PostGIS se debe conservar el **100% de las columnas y campos de datos originales** sin truncar atributos estatales.
-   - En los visores emergentes (popups de Leaflet) y panel lateral de "Más detalles", se presentan los atributos prioritarios para lectura rápida ciudadana (Nombre, Dirección, Institución, Comuna, Tipología, Cita APA), alertando explícitamente cuando las columnas se resumen y proveyendo botón de descarga directa de la capa completa con el 100% de sus variables originales.
-
-3. **Catálogo Maestro de 109 Capas Oficiales (+ 10 Capas VGI = 119 Capas Totales)**:
-   - El catálogo maestro oficial se encuentra implementado en `src/js/modulos/ide_chile.js`, estructurado en 6 macro-grupos temáticos en la Consola Cartográfica GIS con búsqueda en vivo, filtros y acordeones interactivos. Incluye el catastro oficial de cruces semaforizados SC-RM (UOCT / MTT, Oficio N° 26105 / 2026).
-   - La base de datos relacional almacena la totalidad de metadatos en la tabla `public.capas_metadata` (109 registros con citas APA e inventario de atributos) y vectoriza **132.745+ entidades espaciales** en `public.capas_entidades`.
-
-4. **Garantía Binaria Git LFS y Auditoría Pre-Despliegue**:
-   - Ningún conjunto de datos en `data/`, `src/data/` o `src/docs/` puede desplegarse como puntero de texto Git LFS sin resolver (130 bytes).
-   - Todo build en Netlify ejecuta de manera obligatoria el script `python3 scripts/verificar_integridad_despliegue.py`, el cual audita los 208 archivos GeoJSON y los 3 libros OpenXML (.xlsx), verificando validez de sintaxis y consistencia binaria al 100%.
+Este documento resume los chequeos rápidos que realizamos antes de publicar cambios en producción para asegurar que ninguna capa, módulo o enlace falle. Si buscas la explicación completa desde cero de cómo modificar el Atlas, revisa **`MANUAL_ACTUALIZACION_ATLAS.md`**.
 
 ---
 
-## 2. ⚡ ARQUITECTURA HÍBRIDA DE DESPLIEGUE: NETLIFY + SUPABASE POSTGIS
+## 1. Reglas de Integridad del Repositorio
 
-1. **Restricción de Tamaño en Netlify Serverless Functions**:
-   - Netlify Functions (AWS Lambda) imponen un límite estricto de **50 MB por paquete de función**.
-   - Queda **estrictamente prohibido** incluir `"src/data/**"` o `"data/**"` dentro de `included_files` en `netlify.toml`.
-   - Las funciones serverless (`netlify/functions/`) deben mantenerse ultraligeras (< 1 MB), operando como proxies CORS o pasarelas de consulta.
-
-2. **Capa de Almacenamiento y Base de Datos Espacial en Supabase**:
-   - **PostgreSQL 17.6 + PostGIS 3.3**: Aloja las 129.262 entidades en tablas espaciales optimizadas con índices R-Tree `GIST`, permitiendo consultas espaciales en milisegundos mediante la función RPC `fn_obtener_capa_bbox`.
-   - **Storage CDN (`atlas-geojson`)**: Bucket público de alta velocidad donde se alojan los archivos GeoJSON completos para descarga directa sin penalizar el ancho de banda ni el almacenamiento de Netlify.
-   - **Fallback Local Autónomo**: En caso de ausencia de red o credenciales, la plataforma conmuta de forma transparente al directorio local `data/`.
-
-3. **Gestión Segura de Variables de Entorno y Secretos**:
-   - **En Netlify**: Configurar las variables en *Site configuration -> Environment variables*:
-     - `SUPABASE_URL`: `https://[TU-PROYECTO].supabase.co`
-     - `SUPABASE_ANON_KEY`: Llave pública anónima de lectura (`sb_publishable_...`).
-   - **En GitHub Actions**: Configurar en *Settings -> Secrets and variables -> Actions*:
-     - `SUPABASE_URL` y `SUPABASE_ANON_KEY` para la ejecución del workflow de mantenimiento.
-
-4. **Mantenimiento Anti-Suspensión Permanente (Keep-Alive)**:
-   - Para evitar que la instancia gratuita de Supabase se pause tras 7 días de inactividad, el repositorio cuenta con el workflow [`.github/workflows/supabase_keepalive.yml`](.github/workflows/supabase_keepalive.yml).
-   - Este cron se ejecuta automáticamente cada 3 días, realizando un ping de telemetría a costo $0 para asegurar disponibilidad ininterrumpida.
+1. **Paridad de Capas (`131 Capas Operativas` y `140 Descriptores`)**:
+   - **121 capas oficiales del Estado** en `src/js/modulos/ide_chile.js` (`CAPAS_OFICIALES`), en el acordeón de `src/index.html` y en las 5 dimensiones de `src/js/modulos/indicadores_analisis.js`.
+   - **10 categorías colaborativas VGI** en `src/js/config.js` (`NODO_CONFIG.categorias_osm`).
+   - **140 descriptores documentados** en `src/js/modulos/diccionario.js` (`131 capas` + `9 tablas de referencia`).
+2. **Espejo Exacto entre Raíz y `src/`**:
+   - Todo archivo `.geojson` o `.gpkg` presente en `data/` debe existir con el mismo nombre y contenido en `src/data/`.
+   - Todo manual o documento en `docs/` (`MANUAL_USO.md`, `MANUAL_ACTUALIZACION_ATLAS.md`, `ARQUITECTURA.md`) debe estar sincronizado en `src/docs/`.
+3. **Coordenadas Estándar Web (`EPSG:4326`)**:
+   - Todos los archivos `.geojson` servidos al visor deben estar en coordenadas geográficas grados decimales (`WGS84 / SIRGAS-Chile EPSG:4326`).
 
 ---
 
-## 3. 🛠️ GUÍA DE INTEGRACIÓN Y VERIFICACIÓN PRE-PUSH
+## 2. Comandos de Verificación Automática
 
-Antes de confirmar y subir cambios a la rama `main` en GitHub (`origin/main`), ejecutar la siguiente secuencia de validación:
+Desde la raíz del proyecto (`atlas_vgi_uah`), ejecuta:
 
 ```bash
-# 1. Verificar consistencia y sintaxis JavaScript:
-jsc -s src/js/app.js src/js/modulos/mapa.js src/js/modulos/db_client.js src/js/modulos/ide_chile.js
+# 1. Verificar que los conteos (121 + 10 = 131 capas y 140 descriptores) cuadren en todos los archivos:
+python scripts/verificar_conteo_capas.py
 
-# 2. Regenerar los libros de catálogo Excel (.xlsx) sincronizados:
-python3 scripts/generar_catalogos_excel.py
+# 2. Verificar que todos los archivos existan en data/ y src/data/ y sean JSON válidos:
+python scripts/verificar_integridad_despliegue.py
 
-# 3. Auditar la integridad de las capas y metadatos de base de datos:
-python3 scripts/subir_base_datos_supabase.py --dry-run
-
-# 4. Verificar estado de Git y confirmación de cambios:
-git status
-git add MANUAL_USO.md README.md docs/ src/docs/ PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md config/ src/config/
-git commit -m "docs: actualizar integralmente documentacion, catalogos y arquitectura"
-git push origin main
+# 3. Recalcular el reporte de metacalidad sobre las capas locales:
+python scripts/analisis_metacalidad.py
 ```
 
 ---
 
-*Nodo GeoAbierto — Departamento de Geografía, Universidad Alberto Hurtado (UAH)*  
-*Investigación sobre VGI, Infraestructuras de Datos Espaciales y Gestión Territorial 2026*
+## 3. Publicación a Producción
+
+Una vez que los 3 scripts indiquen **`[OK] EXITO`**:
+
+```bash
+git add -A
+git commit -m "Actualización del Atlas VGI"
+git push origin main
+```

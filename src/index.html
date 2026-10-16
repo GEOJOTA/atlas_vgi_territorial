@@ -47,13 +47,13 @@
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
       <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> ⬚ Cartografía UMap</button>
       <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
-      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (122 Capas)</button>
+      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (131 Capas)</button>
       <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
-      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Documentación</button>
+      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Actualización</button>
       <button type="button" class="pestana-nodo" data-panel="indicadores"><span class="insignia-nodo">09</span> 📈 Indicadores &amp; Storyboards</button>
     </nav>
 
-    <!-- Fila 3: Telemetría de APIs (remate y corte táctico de la caja, centrado) -->
+    <!-- Fila 3: Estado de conexión de servicios -->
     <div class="franja-telemetria-coherencia">
       <div class="franja-telemetria-interior">
         <div class="telemetria-api-estado">
@@ -81,7 +81,7 @@
           <div class="caja-tarjeta-hero">
             <span class="icono-hero">◈</span>
             <h3>¿Qué es el Atlas VGI?</h3>
-            <p>Una plataforma de Infraestructura de Datos Espaciales (IDE) abierta que integra cartografía colaborativa (OpenStreetMap, GBIF, UMap) con capas oficiales del Estado de Chile (IDE Chile / SNIT), permitiendo auditar brechas de información barrial sin costo de licencias ni servidores dedicados.</p>
+            <p>Plataforma de Infraestructura de Datos Espaciales (IDE) abierta que integra las 10 categorías colaborativas VGI (OpenStreetMap, GBIF, uMap) con 121 capas oficiales del Estado de Chile (131 capas en total), permitiendo auditar brechas de información barrial y normativa urbana.</p>
           </div>
 
           <div class="caja-tarjeta-hero">
@@ -92,8 +92,8 @@
 
           <div class="caja-tarjeta-hero">
             <span class="icono-hero">⇄</span>
-            <h3>Datos en Tiempo Real</h3>
-            <p>No utiliza bases precargadas estáticas. Conecta directamente a las APIs oficiales (Overpass QL, ohsome v1/v2, GBIF, Taginfo y OGC WMS) para extraer geometrías, métricas de calidad ISO 19157 y metadatos ISO 19115 al segundo de ejecución.</p>
+            <h3>Integración y Consulta en Tiempo Real</h3>
+            <p>Combina la geodatabase local normalizada (131 capas en EPSG:4326) con conexión directa a APIs abiertas (Overpass QL, ohsome v1/v2, GBIF, Taginfo y OGC WMS) para evaluar métricas de calidad ISO 19157 y metadatos ISO 19115.</p>
           </div>
 
           <div class="caja-tarjeta-hero caja-tarjeta-perfil-actor">
@@ -117,17 +117,17 @@
       <!-- Guía Rápida de Uso y Relación con el Atlas -->
       <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--musgo); background: var(--papel-tarjeta); padding: 20px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">🧭 Módulo 00: Visor Interactivo y Diagnóstico Territorial en Vivo</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">VISOR MULTIDIMENSIONAL</span>
+          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">🧭 Módulo 00: Visor para la Gestión Territorial</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">131 CAPAS INTEGRADAS</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite explorar interactivamente el polígono del Barrio Brasil y campus UAH, activando en vivo las 10 categorías maestras VGI comunitarias y las 121 capas oficiales del Estado de Chile (GEOMOP, MINVU, Geoportal, DGA, DIFROL, MINAGRI, BiDat y CNE). Además, incluye un Inspector Normativo para auditar el Plan Regulador Comunal (PRC Santiago) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Alcance del módulo:</strong>
+            Permite explorar el Barrio Brasil y el campus UAH activando las 10 categorías colaborativas VGI y las 121 capas oficiales del Estado de Chile (MINVU, INE Censo 2024, MTT/UOCT, MDSF, SUBDERE Residuos Sólidos 2024, MMA, CMN y SII). Incluye el Inspector Normativo (PRC Santiago e historial de modificaciones 1990–2024) e importador de archivos locales (.KMZ, .GeoJSON, .GPX).
           </div>
           <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Constituye la central de comando del Atlas, permitiendo contrastar la cartografía oficial con la información ciudadana autoproducida en el eje Alameda, campus central UAH (Cienfuegos, Erasmo Escala), estaciones de Metro y Plaza Brasil.
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Aplicación territorial:</strong>
+            Permite contrastar la cartografía pública oficial con los datos levantados por la comunidad en el eje Alameda, campus central UAH, estaciones de Metro y Plaza Brasil, calculando métricas de calidad en tiempo real según las capas activas.
           </div>
         </div>
       </div>
@@ -198,7 +198,7 @@
 
           <!-- Subpanel 1: Métricas & Resumen VGI -->
           <div class="subpanel-profundidad activo" id="subpanel-metricas">
-            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--tinta);">Telemetría de Capas Activas:</h4>
+            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--tinta);">Resumen de Capas Activas:</h4>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
               <div style="background: rgba(30, 41, 59, 0.6); padding: 10px; border-radius: 6px; border: 1px solid var(--linea);">
                 <span style="font-size: 0.7rem; color: var(--tinta-tenue); text-transform: uppercase;">Capas Cargadas</span>
@@ -851,10 +851,10 @@
         <p class="descripcion">Todavía no hay ningún cálculo realizado.</p>
       </div>
 
-      <!-- SUBMÓDULO B: CONTROL DE CAMBIOS Y VALIDACIÓN CON OSMCHA -->
+      <!-- SUBMÓDULO C: CONTROL DE CAMBIOS Y VALIDACIÓN CON OSMCHA -->
       <div class="bloque" style="margin-top:16px;">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo B: Control de Cambios y Validación de Ediciones (OSMCha / Changesets v0.6)</h3>
+          <h3 style="margin:0;">Submódulo C: Control de Cambios y Validación de Ediciones (OSMCha / Changesets v0.6)</h3>
           <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[OSMCHA // MAPBOX COMMUNITY]</span>
         </div>
         <p class="descripcion" style="margin-bottom:10px;">
@@ -1244,7 +1244,7 @@
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
           <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (140)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (86 Descriptores sin Homólogo Estatal)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales del Estado (74 Capas BBDD)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales del Estado (121 Capas)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema Normalizado (23 Atributos)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
           <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
@@ -1288,28 +1288,28 @@
       <div class="bloque resultado" id="contenido-licencias"></div>
     </section>
 
-    <!-- ---------- 08. MANUAL DE USO Y DOCUMENTACIÓN ---------- -->
+    <!-- ---------- 08. MANUAL DE USO Y ACTUALIZACIÓN ---------- -->
     <section class="panel" id="panel-manual">
       <header>
-        <span class="rotulo">08 / Documentación Oficial & Manual de Uso</span>
-        <h2>Manual de Uso del Atlas VGI, Guía Metodológica y Gobernanza Abierta</h2>
-        <p class="descripcion">Documentación técnica integral estilo librería/paquete: flujo de trabajo territorial, guía exhaustiva de las 10 macro-categorías (CAT-01 a CAT-10), cálculo geodésico EPSG:32719, control de calidad ISO 19157, marco de licenciamiento chileno y gobernanza colaborativa en Git.</p>
+        <span class="rotulo">08 / Documentación Técnica Oficial</span>
+        <h2>Manual de Uso y Manual de Actualización Técnica del Atlas VGI</h2>
+        <p class="descripcion">Documentación operativa y protocolo de mantención técnica: uso de los 10 módulos (00 al 09), catálogo de las 131 capas, arquitectura del repositorio, procedimiento de integración de nuevas bases de datos (.geojson y .gpkg) y despliegue a producción.</p>
       </header>
 
       <!-- Guía Rápida de Uso y Relación con el Atlas -->
       <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--musgo); background: var(--papel-tarjeta); padding: 20px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">📚 Módulo 08: Documentación Oficial y Manual de Uso</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">MEMORIA Y MANUAL METODOLÓGICO</span>
+          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">📚 Módulo 08: Manual de Uso y Protocolo de Actualización Técnica</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">USO + MANTENCIÓN TÉCNICA</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
           <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Es la guía metodológica de la plataforma. Detalla el funcionamiento de cada módulo, la metodología geodésica EPSG:32719, las dimensiones de calidad ISO 19157, la gobernanza en GitHub y la sustentabilidad del Atlas.
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Parte I — Manual de Uso:</strong>
+            Síntesis funcional de los 10 módulos de la plataforma, uso del Inspector Normativo (PRC/OGUC e historial de modificaciones en Barrio Brasil 1990–2024), Índice de Calidad VGI dinámico y buscador de las 131 capas integradas.
           </div>
           <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Constituye la memoria técnica explicativa del Atlas VGI aplicado al Barrio Brasil y campus UAH.
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Parte II — Manual de Actualización Técnica:</strong>
+            Protocolo paso a paso para modificar la estructura, integrar nuevas capas en 6 pasos, mantener la paridad entre <code>data/</code> y <code>src/data/</code>, incorporar ajustes de validación de usuarios y publicar en producción.
           </div>
         </div>
       </div>
@@ -1334,7 +1334,7 @@
           <div class="aviso-tentativo-banner">
             <span class="icono-aviso">ℹ️</span>
             <div class="texto-aviso">
-              <strong>Módulo Analítico y Catálogo Tentativo en Desarrollo:</strong> Esta estructuración multidimensional y los storyboards barriales constituyen propuestas exploratorias en desarrollo colaborativo para el Proyecto Fondecyt F1261256 (Geografía UAH), orientadas a contrastar narrativas territoriales con la base de datos abierta formal.
+              <strong>Módulo Analítico y Catálogo en Validación:</strong> Esta estructuración multidimensional y los 7 storyboards barriales sistematizan los cruces espaciales y normativos desarrollados en el Proyecto Fondecyt F1261256 (Geografía UAH).
             </div>
           </div>
         </header>
@@ -1410,7 +1410,7 @@
                     <span>🌿</span>
                   </div>
                   <h4 class="nombre-dimension" style="color:#ffffff;">Socioambiental</h4>
-                  <p class="desc-dimension">Espacio público verde, resiliencia climática, cobertura arbórea, islas de calor, biodiversidad urbana y recursos hídricos.</p>
+                  <p class="desc-dimension">Espacio público verde, resiliencia climática, cobertura arbórea, islas de calor, biodiversidad urbana y residuos sólidos SUBDERE.</p>
                   <div class="footer-dimension">
                     <span class="badge-conteo-dimension" style="background:rgba(16, 185, 129, 0.12); color:#10B981; border:1px solid rgba(16, 185, 129, 0.45);">
                       36 CAPAS ASOCIADAS
@@ -1483,7 +1483,7 @@
             <div class="insignia-storyboards">NARRATIVAS ESPACIALES BASADAS EN DATOS</div>
             <h3 class="titulo-storyboards">Storyboards</h3>
             <p class="bajada-storyboards">
-              Análisis concisos y rigurosos donde la base de datos cuenta historias reales sobre la memoria, caminabilidad, biodiversidad, educación y cuidados en el <strong>Barrio Brasil</strong>. Diseñados para los <strong>4 usuarios-tipo del proyecto</strong> con respaldo empírico formal y apartado bibliográfico académico accesible.
+              Análisis empíricos sobre patrimonio, movilidad, biodiversidad, ecosistema universitario, cuidados, metabolismo de residuos sólidos y evolución histórica del PRC en el <strong>Barrio Brasil</strong>, estructurados para los <strong>4 perfiles de actores territoriales</strong> con trazabilidad bibliográfica APA 7ª edición.
             </p>
           </header>
 
@@ -1608,6 +1608,54 @@
                     </div>
                   </div>
                 </article>
+
+                <article class="tarjeta-storyboard-cuadrada" 
+                         data-storyboard-id="storyboard-residuos-metabolismo-rsd"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Abrir historia: 6. Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)"
+                         onclick="ModuloIndicadoresAnalisis.abrirLaminaStoryboard('storyboard-residuos-metabolismo-rsd')">
+                  <div class="imagen-cuadrada-wrapper">
+                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80" alt="6. Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)" loading="lazy" class="img-storyboard-cuadro">
+                    <div class="overlay-gradiente-storyboard"></div>
+                    <span class="badge-dimension-tag">Socioambiental </span>
+                    <span class="badge-tiempo-lectura">⏱ 5 min lectura</span>
+                  </div>
+                  <div class="cuerpo-tarjeta-storyboard">
+                    <h4 class="titulo-tarjeta-storyboard">6. Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)</h4>
+                    <p class="bajada-tarjeta-storyboard">¿Hacia dónde viajan las 189.510 toneladas anuales de residuos de Santiago Centro y cómo impacta el polo gastronómico del Barrio Brasil en la huella metabólica barrial?</p>
+                    <div class="footer-tarjeta-storyboard">
+                      <div class="tags-storyboard">
+                        <span class="tag-chip">Residuos Sólidos (SUBDERE)</span><span class="tag-chip">Metabolismo Urbano</span>
+                      </div>
+                      <span class="btn-abrir-historia">Leer Lámina ↗</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="tarjeta-storyboard-cuadrada" 
+                         data-storyboard-id="storyboard-evolucion-normativa-prc"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Abrir historia: 7. Treinta Años de Disputa Normativa: Las Modificaciones al PRC en Barrio Brasil (1990–2024)"
+                         onclick="ModuloIndicadoresAnalisis.abrirLaminaStoryboard('storyboard-evolucion-normativa-prc')">
+                  <div class="imagen-cuadrada-wrapper">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="7. Treinta Años de Disputa Normativa: Las Modificaciones al PRC en Barrio Brasil (1990–2024)" loading="lazy" class="img-storyboard-cuadro">
+                    <div class="overlay-gradiente-storyboard"></div>
+                    <span class="badge-dimension-tag">Sociourbana, Normativa </span>
+                    <span class="badge-tiempo-lectura">⏱ 6 min lectura</span>
+                  </div>
+                  <div class="cuerpo-tarjeta-storyboard">
+                    <h4 class="titulo-tarjeta-storyboard">7. Treinta Años de Disputa Normativa: Las Modificaciones al PRC en Barrio Brasil (1990–2024)</h4>
+                    <p class="bajada-tarjeta-storyboard">Cómo 10 modificaciones históricas al Plan Regulador Comunal de Santiago frenaron la demolición masiva, protegieron los 50 cités del barrio y moldearon la frontera entre torres y casonas.</p>
+                    <div class="footer-tarjeta-storyboard">
+                      <div class="tags-storyboard">
+                        <span class="tag-chip">Modificaciones PRC</span><span class="tag-chip">Conservación Histórica</span>
+                      </div>
+                      <span class="btn-abrir-historia">Leer Lámina ↗</span>
+                    </div>
+                  </div>
+                </article>
               
           </div>
         </section>
@@ -1673,7 +1721,7 @@
           </div>
           <div class="tarjeta-carpeta-bd">
             <div class="carpeta-icono">📁 03_capas_oficiales_estado (121 capas)</div>
-            <p><strong>Todas las 121 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades, Límites), MINVU Áreas Verdes y Zonificación Térmica, Instrumentos de Planificación Territorial (IPT PRC/PRMS), UOCT Cruces Semaforizados, Subtel Antenas, Inversión BIP RM, MIDESO RSH, SEC energía, MOP cuencas, CONAF, CIREN y catastro SII + inventario JSON de las 121 capas.</p>
+            <p><strong>Todas las 121 Capas del Estado de Chile:</strong> Censo INE 2024 (Manzanas, Zonas, Localidades, Límites), MINVU Áreas Verdes y Zonificación Térmica, Instrumentos de Planificación Territorial (IPT PRC/PRMS), UOCT Cruces Semaforizados, Subtel Antenas, Inversión BIP RM, MIDESO RSH, SUBDERE Residuos Sólidos 2024, SEC energía, MOP cuencas, CONAF, CIREN y catastro SII + inventario JSON de las 121 capas.</p>
           </div>
           <div class="tarjeta-carpeta-bd">
             <div class="carpeta-icono">📁 04_repositorio_cartografico_completo (84 capas)</div>
@@ -1689,7 +1737,7 @@
           </div>
           <div class="tarjeta-carpeta-bd" style="grid-column: 1 / -1;">
             <div class="carpeta-icono">📁 07_metadatos_y_gobernanza &amp; LEAME</div>
-            <p><strong>Metadatos, Calidad y Documentación:</strong> Ficha XML ISO 19139 para GeoNetwork, Ficha JSON ISO 19115, Matriz de Calidad ISO 19157 (95.3% IGV), Informe de Estado de Avance UAH (.docx), Manual de Uso, Arquitectura técnica, Bibliografía APA y licencias ODbL 1.0, CC BY-SA 4.0 y GNU AGPLv3.</p>
+            <p><strong>Metadatos, Calidad y Documentación:</strong> Ficha XML ISO 19139 para GeoNetwork, Ficha JSON ISO 19115, Matriz de Calidad ISO 19157 (95.3% IGV), Informe de Estado de Avance UAH (.docx), Manual de Uso, Manual de Actualización Técnica, Arquitectura técnica, Bibliografía APA y licencias ODbL 1.0, CC BY-SA 4.0 y GNU AGPLv3.</p>
           </div>
         </div>
 
@@ -1722,26 +1770,26 @@
 <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20260914_db_v1"></script>
-<script src="js/modulos/db_client.js?v=20260914_db_v1"></script>
-<script src="js/modulos/geodesia.js?v=20260914_db_v1"></script>
-<script src="js/modulos/mapa.js?v=20260914_db_v1"></script>
-<script src="js/modulos/importador_capas.js?v=20260914_db_v1"></script>
-<script src="js/modulos/ide_chile.js?v=20260914_db_v1"></script>
-<script src="js/modulos/evaluador_normativo.js?v=20260914_db_v1"></script>
-<script src="js/modulos/osm.js?v=20260914_db_v1"></script>
-<script src="js/modulos/ohsome.js?v=20260914_db_v1"></script>
-<script src="js/modulos/gbif.js?v=20260914_db_v1"></script>
-<script src="js/modulos/umap.js?v=20260914_db_v1"></script>
-<script src="js/modulos/metadatos.js?v=20260914_db_v1"></script>
-<script src="js/modulos/licencias.js?v=20261014_bd_558mb"></script>
-<script src="js/modulos/manual.js?v=20261014_bd_558mb"></script>
-<script src="js/modulos/indicadores_analisis.js?v=20261015_v3"></script>
-<script src="js/modulos/taginfo.js?v=20260914_db_v1"></script>
-<script src="js/modulos/evaluador_calidad_cuantitativa.js?v=20261007_wlc_v2"></script>
-<script src="js/modulos/calidad_analyst.js?v=20260914_db_v1"></script>
-<script src="js/modulos/diccionario.js?v=20260914_db_v1"></script>
-<script src="js/modulos/manifold_canvas.js?v=20260914_db_v1"></script>
-<script src="js/app.js?v=20261015_v3"></script>
+<script src="js/config.js?v=20261015_v4"></script>
+<script src="js/modulos/db_client.js?v=20261015_v4"></script>
+<script src="js/modulos/geodesia.js?v=20261015_v4"></script>
+<script src="js/modulos/mapa.js?v=20261015_v4"></script>
+<script src="js/modulos/importador_capas.js?v=20261015_v4"></script>
+<script src="js/modulos/ide_chile.js?v=20261015_v4"></script>
+<script src="js/modulos/evaluador_normativo.js?v=20261015_v4"></script>
+<script src="js/modulos/osm.js?v=20261015_v4"></script>
+<script src="js/modulos/ohsome.js?v=20261015_v4"></script>
+<script src="js/modulos/gbif.js?v=20261015_v4"></script>
+<script src="js/modulos/umap.js?v=20261015_v4"></script>
+<script src="js/modulos/metadatos.js?v=20261015_v4"></script>
+<script src="js/modulos/licencias.js?v=20261015_v4"></script>
+<script src="js/modulos/manual.js?v=20261015_v4"></script>
+<script src="js/modulos/indicadores_analisis.js?v=20261015_v4"></script>
+<script src="js/modulos/taginfo.js?v=20261015_v4"></script>
+<script src="js/modulos/evaluador_calidad_cuantitativa.js?v=20261015_v4"></script>
+<script src="js/modulos/calidad_analyst.js?v=20261015_v4"></script>
+<script src="js/modulos/diccionario.js?v=20261015_v4"></script>
+<script src="js/modulos/manifold_canvas.js?v=20261015_v4"></script>
+<script src="js/app.js?v=20261015_v4"></script>
 </body>
 </html>
