@@ -314,64 +314,67 @@ const ModuloManual = (() => {
         parte: 'actualizacion',
         numero: 'ACT · 01',
         icono: '🏗️',
-        titulo: 'Principios de Ingeniería y Estructura de Archivos del Repositorio',
-        subtitulo: 'Arquitectura estática autónoma, sincronización espejo data/ <-> src/data/ y almacenamiento dual (.geojson + .gpkg).',
+        titulo: 'Paradigma Tecnológico, Arquitectura de Software y Stack de Lenguajes',
+        subtitulo: 'Serverless Static Spatial Architecture, sincronización simétrica data/ y src/data/, base dual (.geojson + .gpkg) y motor geodésico propio EPSG:32719.',
         html: `
           <p style="font-size:0.9rem; line-height:1.65; color:var(--tinta-suave); margin-bottom:12px;">
-            La arquitectura actual del Atlas constituye la estructura consolidada del proyecto. Toda modificación, incorporación de nuevas coberturas o integración de resultados finales de validación se rige por tres principios técnicos:
+            El Atlas implementa una <strong>Arquitectura Estática Espacial sin Servidor</strong> (<em>Client-Side Serverless Static Architecture</em>), ejecutándose íntegramente en el navegador del cliente mediante tecnologías web abiertas y peticiones asíncronas optimizadas (<code>Fetch API</code>). Esta formulación garantiza independencia frente a servidores de mapas propietarios de pago, eliminando vulnerabilidades de obsolescencia de paquetes compilados y asegurando su operación perpetua en <strong>Netlify</strong> y <strong>GitHub Pages</strong>.
           </p>
 
-          <ol style="padding-left:20px; color:var(--tinta-suave); font-size:0.89rem; line-height:1.7;">
-            <li><strong>Arquitectura Estática Autónoma (HTML5 + CSS3 + Vanilla JS):</strong> El sistema se ejecuta íntegramente en el navegador del cliente sin requerir servidores de mapas de pago ni motores de bases de datos propietarios, asegurando su continuidad operativa en <strong>Netlify</strong> y <strong>GitHub Pages</strong>.</li>
-            <li><strong>Sincronización Simétrica (Raíz y <code>src/</code>):</strong> Dado que <code>netlify.toml</code> define <code>publish = "src"</code> como directorio público de producción mientras los scripts de auditoría operan desde la raíz, todo archivo incorporado en <code>data/</code> se replica de forma idéntica en <code>src/data/</code> (y los documentos de <code>docs/</code> en <code>src/docs/</code>).</li>
-            <li><strong>Almacenamiento Cartográfico Dual (<code>.geojson</code> + <code>.gpkg</code>):</strong> Las 131 capas visualizables se sirven en formato <code>.geojson</code> bajo coordenadas geográficas <strong><code>EPSG:4326</code> (WGS84 / SIRGAS-Chile)</strong>. Paralelamente, se conservan en <code>data/</code> y <code>src/data/</code> los archivos originales <code>.gpkg</code> de aquellas fuentes que almacenan diccionarios técnicos nativos en comentarios SQL de columnas (como las 13 capas del Catastro Nacional de Residuos Sólidos Domiciliarios SUBDERE 2024, <code>bbdd_86</code> a <code>bbdd_98</code>).</li>
-          </ol>
+          <h4 style="color:#38bdf8; margin:14px 0 8px 0;">1. Stack Tecnológico Consolidado</h4>
+          <ul style="padding-left:20px; color:var(--tinta-suave); font-size:0.88rem; line-height:1.65;">
+            <li><strong>Front-End</strong>: HTML5 semántico estructurado en 10 módulos (pestañas <code>00</code> a <code>09</code>) y CSS3 puro con variables nativas en <code>src/css/estilos.css</code> (diseño táctico oscuro, ratios WCAG 2.1 AA y microcomponentes de geometrías).</li>
+            <li><strong>Lógica de Aplicación</strong>: Vanilla JavaScript ES6+ modular basado en el Patrón de Módulo Revelador (IIFE), encapsulando el estado interno en objetos globales <code>window.Modulo...</code>.</li>
+            <li><strong>Motor Cartográfico y Geodesia</strong>: Leaflet 1.9.4 complementado por un motor geodésico propio en <code>src/js/modulos/geodesia.js</code> con cálculo métrico conforme en el elipsoide WGS84 para la Zona UTM 19 Sur (<code>EPSG:32719</code>; Snyder, 1987).</li>
+            <li><strong>Procesamiento y Auditoría</strong>: Suite en Python 3.10+ para verificación topológica, validación de esquemas JSON, cálculo de metacalidad (ISO 19115/19157) y reproyecciones.</li>
+            <li><strong>Formatos Cartográficos</strong>: Formato de intercambio web <code>GeoJSON</code> (RFC 7946; Butler et al., 2016) en coordenadas <code>EPSG:4326</code>, y persistencia de bases relacionales en <code>OGC GeoPackage (.gpkg)</code> para resguardar los comentarios SQLite de columnas de SUBDERE RSD 2024.</li>
+          </ul>
 
-          <h4 style="color:#38bdf8; margin:16px 0 8px 0;">Matriz de Componentes Clave para Mantención</h4>
+          <h4 style="color:#fbbf24; margin:16px 0 8px 0;">2. Matriz de Componentes y Responsabilidades de Mantención</h4>
           <div style="overflow-x:auto; border:1px solid var(--linea-tarjeta); border-radius:10px;">
             <table class="tabla-metadatos" style="width:100%; font-size:0.83rem;">
               <thead>
                 <tr>
                   <th>Ruta del Componente</th>
-                  <th>Función en el Sistema</th>
-                  <th>Intervención Técnica Asociada</th>
+                  <th>Responsabilidad en el Sistema</th>
+                  <th>Protocolo de Intervención</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><code>src/index.html</code></td>
-                  <td>Estructura DOM única: pestañas 00 a 09, visor, acordeones de capas y referencias de scripts.</td>
-                  <td>Inserción de controles <code>.chip-oficial</code> para nuevas coberturas y actualización del sufijo de caché <code>?v=...</code>.</td>
+                  <td>Estructura DOM única: 10 módulos, visor, acordeones de capas, modales de Storyboards y CIN-VGI.</td>
+                  <td>Inserción de controles <code>.chip-oficial</code> para nuevas coberturas e incremento de versión <code>?v=...</code>.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/config.js</code></td>
-                  <td>Parámetros geodésicos, Bbox territorial, comunas RM y definición de las <strong>10 categorías VGI</strong>.</td>
-                  <td>Edición de metadatos o simbología de las 10 categorías colaborativas VGI.</td>
+                  <td>Bbox territorial, coordenadas de encuadre, comunas RM y definición de las <strong>10 categorías VGI</strong>.</td>
+                  <td>Modificación de metadatos o simbología de las coberturas comunitarias OpenStreetMap y GBIF.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/app.js</code></td>
-                  <td>Controlador principal del mapa, filtros espaciales, cuadros de diálogo e <strong>ICV dinámico</strong> (<code>actualizarTelemetriaCapasActivas</code>).</td>
-                  <td>Ajuste de umbrales del Índice de Calidad VGI o lógica de interacción espacial.</td>
+                  <td>Controlador maestro, eventos de mapa, filtros espaciales e <strong>ICV dinámico</strong> en tiempo real.</td>
+                  <td>Ajuste de umbrales del Índice de Calidad VGI en <code>actualizarTelemetriaCapasActivas()</code>.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/ide_chile.js</code></td>
-                  <td>Catálogo maestro de las <strong>121 capas oficiales</strong> (<code>CAPAS_OFICIALES</code>).</td>
-                  <td>Registro de nuevas coberturas estatales especificando ruta <code>archivoLocal</code>, simbología y licencia.</td>
+                  <td>Catálogo maestro de las <strong>121 capas oficiales del Estado</strong> (<code>CAPAS_OFICIALES</code>).</td>
+                  <td>Registro de coberturas estatales con ruta <code>archivoLocal</code>, color, geometría y licencia.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/evaluador_normativo.js</code></td>
-                  <td>Inspector Normativo PRC/OGUC, Certificado CIN-VGI e historial de modificaciones PRC (1990–2024).</td>
-                  <td>Actualización de parámetros urbanísticos en <code>FUENTES_ORDENANZAS_IPT</code> o hitos en <code>HITOS_HISTORICOS_PRC_BRASIL</code>.</td>
+                  <td>Inspector Normativo PRC/OGUC, Certificado CIN-VGI y 10 hitos históricos del PRC (1990–2024).</td>
+                  <td>Actualización de normas urbanas en <code>FUENTES_ORDENANZAS_IPT</code> o adición de hitos en <code>HITOS_HISTORICOS_PRC_BRASIL</code>.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/indicadores_analisis.js</code></td>
-                  <td>Módulo 09: Clasificación en <strong>5 Dimensiones Analíticas</strong> y <strong>7 Storyboards</strong> del Barrio Brasil.</td>
-                  <td>Vinculación de coberturas en <code>DIMENSIONES</code> o edición/incorporación de objetos en <code>STORYBOARDS</code>.</td>
+                  <td>Módulo 09: <strong>5 Dimensiones Analíticas</strong> (131 capas) y <strong>7 Storyboards</strong> territoriales.</td>
+                  <td>Asignación de capas en <code>DIMENSIONES</code> o edición del arreglo de objetos analíticos <code>STORYBOARDS</code>.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/diccionario.js</code></td>
-                  <td>Módulo 06: Catálogo de los <strong>140 descriptores técnicos</strong> de columnas y capas (ISO 19110).</td>
-                  <td>Documentación de los atributos de nuevas coberturas en <code>CATALOGO_DICCIONARIO</code>.</td>
+                  <td>Módulo 06: Diccionario de Datos de los <strong>140 descriptores técnicos</strong> (ISO 19110:2016).</td>
+                  <td>Documentación de columnas y tipos de datos de nuevas coberturas en <code>CATALOGO_DICCIONARIO</code>.</td>
                 </tr>
               </tbody>
             </table>
@@ -383,21 +386,21 @@ const ModuloManual = (() => {
         parte: 'actualizacion',
         numero: 'ACT · 02',
         icono: '➕',
-        titulo: 'Procedimiento de Integración de Nuevas Coberturas Geográficas (6 Etapas)',
-        subtitulo: 'Secuencia metodológica para incorporar nuevas capas vectoriales o actualizar registros existentes.',
+        titulo: 'Procedimiento Integral de Integración de Nuevas Coberturas (6 Etapas)',
+        subtitulo: 'Protocolo secuencial estandarizado para la ingesta de capas vectoriales oficiales o comunitarias.',
         html: `
           <div style="display:flex; flex-direction:column; gap:10px;">
             <div style="background:rgba(15,23,42,0.6); border-left:4px solid #38bdf8; padding:11px 15px; border-radius:8px;">
               <strong style="color:#38bdf8;">Etapa 1 · Normalización Geodésica a <code>EPSG:4326</code>:</strong>
               <span style="font-size:0.87rem; color:var(--tinta-suave); display:block; margin-top:3px;">
-                La cobertura se reproyecta a coordenadas geográficas <strong><code>EPSG:4326</code> (WGS84 / SIRGAS-Chile, grados decimales)</strong> y se exporta en formato <code>GeoJSON</code> con codificación UTF-8.
+                La cobertura debe proyectarse en coordenadas geográficas <strong><code>EPSG:4326</code> (WGS84 / SIRGAS-Chile, grados decimales)</strong>. Se exporta en formato <code>GeoJSON</code> con codificación UTF-8 sin BOM (ejemplo: <code>bbdd_99.geojson</code>).
               </span>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border-left:4px solid #38bdf8; padding:11px 15px; border-radius:8px;">
               <strong style="color:#38bdf8;">Etapa 2 · Almacenamiento Simétrico en <code>data/</code> y <code>src/data/</code>:</strong>
               <span style="font-size:0.87rem; color:var(--tinta-suave); display:block; margin-top:3px;">
-                El archivo (por ejemplo, <code>bbdd_99.geojson</code>) se deposita de manera idéntica en los directorios <code>data/</code> y <code>src/data/</code>.
+                El archivo debe copiarse de forma idéntica en <code>data/bbdd_99.geojson</code> y <code>src/data/bbdd_99.geojson</code>. Si dispone de base GeoPackage (.gpkg) original con diccionarios nativos, resguardarla paralelamente en ambos directorios.
               </span>
             </div>
 
@@ -405,8 +408,8 @@ const ModuloManual = (() => {
               <strong style="color:#38bdf8;">Etapa 3 · Registro en <code>src/js/modulos/ide_chile.js</code> (<code>CAPAS_OFICIALES</code>):</strong>
               <pre style="background:#090d16; padding:9px; border-radius:6px; font-size:0.77rem; color:#e2e8f0; overflow-x:auto; margin:6px 0 0 0;"><code>bbdd_99: {
   id: 'bbdd_99',
-  nombre: 'Denominación Oficial de la Cobertura (BBDD-99)',
-  institucion: 'Institución Custodia',
+  nombre: 'Puntos Limpios y Reciclaje Barrial (BBDD-99)',
+  institucion: 'Ilustre Municipalidad de Santiago / MMA',
   archivoLocal: 'data/bbdd_99.geojson',
   color: '#10b981',
   peso: 2,
@@ -414,31 +417,31 @@ const ModuloManual = (() => {
   geometria: 'Punto', // 'Punto' | 'Línea' | 'Polígono'
   num_bbdd: 99,
   licencia: 'Datos Abiertos / Ley 20.285',
-  descripcion: 'Descripción técnica sintética de la cobertura.'
+  descripcion: 'Catastro georreferenciado de infraestructura de reciclaje en el Barrio Brasil.'
 },</code></pre>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border-left:4px solid #38bdf8; padding:11px 15px; border-radius:8px;">
-              <strong style="color:#38bdf8;">Etapa 4 · Incorporación del Control en <code>src/index.html</code> (<code>#subpanel-ide</code>):</strong>
-              <pre style="background:#090d16; padding:9px; border-radius:6px; font-size:0.77rem; color:#e2e8f0; overflow-x:auto; margin:6px 0 0 0;"><code>&lt;button type="button" class="chip-oficial" id="btn-oficial-bbdd_99" data-capa="bbdd_99"&gt;
+              <strong style="color:#38bdf8;">Etapa 4 · Incorporación del Control Interactivo en <code>src/index.html</code>:</strong>
+              <pre style="background:#090d16; padding:9px; border-radius:6px; font-size:0.77rem; color:#e2e8f0; overflow-x:auto; margin:6px 0 0 0;"><code>&lt;button type="button" class="chip-oficial" id="btn-oficial-bbdd_99" data-capa="bbdd_99" title="Ilustre Municipalidad de Santiago / MMA"&gt;
   &lt;span class="dot-color" style="background:#10b981;"&gt;&lt;/span&gt;
-  &lt;span class="nombre-chip"&gt;99. Denominación Oficial de la Cobertura&lt;/span&gt;
-  &lt;span class="badge-institucion-chip"&gt;SIGLA&lt;/span&gt;
+  &lt;span class="nombre-chip"&gt;99. Puntos Limpios y Reciclaje Barrial&lt;/span&gt;
+  &lt;span class="badge-institucion-chip"&gt;MUNISTGO&lt;/span&gt;
   &lt;span class="badge-geom-chip"&gt;● PUN&lt;/span&gt;
 &lt;/button&gt;</code></pre>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border-left:4px solid #38bdf8; padding:11px 15px; border-radius:8px;">
-              <strong style="color:#38bdf8;">Etapa 5 · Asignación Dimensional (<code>indicadores_analisis.js</code>) y Catalogación (<code>diccionario.js</code>):</strong>
+              <strong style="color:#38bdf8;">Etapa 5 · Asignación Dimensional y Catalogación Atributiva:</strong>
               <span style="font-size:0.87rem; color:var(--tinta-suave); display:block; margin-top:3px;">
-                Se incorpora el identificador <code>'bbdd_99'</code> al arreglo <code>capasIds</code> de la dimensión correspondiente en <code>src/js/modulos/indicadores_analisis.js</code>, y se documentan sus columnas en <code>CATALOGO_DICCIONARIO</code> dentro de <code>src/js/modulos/diccionario.js</code>.
+                En <code>src/js/modulos/indicadores_analisis.js</code>, añadir el nombre en <code>NOMBRES_OFICIALES_FALLBACK</code> y asociar <code>'bbdd_99'</code> al arreglo <code>capasIds</code> de la dimensión analítica correspondiente en <code>DIMENSIONES</code>. En <code>src/js/modulos/diccionario.js</code>, documentar los atributos de la capa en <code>CATALOGO_DICCIONARIO</code>.
               </span>
             </div>
 
             <div style="background:rgba(16,185,129,0.1); border-left:4px solid #10b981; padding:11px 15px; border-radius:8px;">
-              <strong style="color:#34d399;">Etapa 6 · Actualización de Coberturas Existentes sin Cambio de Identificador:</strong>
+              <strong style="color:#34d399;">Etapa 6 · Actualización de Geometrías sin Cambio de Identificador:</strong>
               <span style="font-size:0.87rem; color:var(--tinta-suave); display:block; margin-top:3px;">
-                Cuando únicamente se actualizan las geometrías o atributos de una capa existente conservando su nombre de archivo en <code>data/</code> y <code>src/data/</code>, el visor incorpora los cambios automáticamente sin requerir modificaciones en el código fuente.
+                Cuando únicamente se actualizan las entidades conservando el nombre de archivo existente, basta con sobrescribir el archivo en <code>data/</code> y <code>src/data/</code> bajo <code>EPSG:4326</code>. El motor del visor procesa los nuevos datos automáticamente sin requerir cambios en el código JavaScript.
               </span>
             </div>
           </div>
@@ -448,41 +451,134 @@ const ModuloManual = (() => {
         id: 'cap-act-03',
         parte: 'actualizacion',
         numero: 'ACT · 03',
-        icono: '🔧',
-        titulo: 'Validación Final, Auditoría Automatizada, Despliegue y Referencias APA 7ª Ed.',
-        subtitulo: 'Integración de resultados de validación con actores, scripts de verificación pre-despliegue y aparato bibliográfico.',
+        icono: '📊',
+        titulo: 'Mantención de Storyboards, Evaluador Normativo y Diccionario',
+        subtitulo: 'Esquema canónico de láminas de análisis, actualización de enmiendas al PRC y metadatos ISO 19110.',
         html: `
-          <h4 style="color:#fbbf24; margin:0 0 6px 0;">1. Integración de Ajustes de Análisis y Validación con Actores Territoriales</h4>
-          <ul style="padding-left:20px; color:var(--tinta-suave); font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
-            <li><strong>Incorporación de cartografía participativa validada en talleres:</strong> Los registros consolidados en uMap u OpenStreetMap se exportan en <code>EPSG:4326</code> y se actualizan en <code>data/capa_percepcion.geojson</code> y <code>src/data/capa_percepcion.geojson</code>.</li>
-            <li><strong>Actualización de Storyboards (Módulo 09):</strong> La edición del arreglo <code>STORYBOARDS</code> en <code>src/js/modulos/indicadores_analisis.js</code> actualiza automáticamente la vista al inicializarse el módulo.</li>
-            <li><strong>Recalibración de ponderaciones de calidad (Módulo 02 y Módulo 00):</strong> Los pesos relativos WLC/AHP se ajustan en <code>src/js/modulos/evaluador_calidad_cuantitativa.js</code> y los umbrales de clasificación en <code>actualizarTelemetriaCapasActivas()</code> (<code>src/js/app.js</code>).</li>
+          <h4 style="color:#f59e0b; margin:0 0 6px 0;">1. Estructura Obligatoria para Nuevos Storyboards (Módulo 09)</h4>
+          <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6; margin-bottom:10px;">
+            Para garantizar que el modal <code>abrirLaminaStoryboard</code> se abra sin errores, todo nuevo storyboard en <code>src/js/modulos/indicadores_analisis.js</code> debe definir obligatoriamente las siguientes 10 propiedades en <code>contenido</code>:
+          </p>
+          <ul style="padding-left:20px; color:var(--tinta-suave); font-size:0.86rem; line-height:1.65; margin-bottom:14px;">
+            <li><code>introduccion</code>: Párrafo de apertura o síntesis ejecutiva (cadena de texto).</li>
+            <li><code>datosClave</code>: Arreglo de 4 tarjetas KPI con <code>{ valor, label, sub }</code>.</li>
+            <li><code>porcentajesClave</code>: Arreglo de barras con <code>{ label, valor, porcentaje, contexto }</code>.</li>
+            <li><code>graficoComparativo</code>: Objeto con <code>titulo</code> y arreglo <code>filas</code> de <code>{ label, valor, porcentaje }</code>.</li>
+            <li><code>diagramaSVG</code>: Función flecha <code>() =&gt; \`&lt;svg ...&gt;...\`</code> que retorna el código vectorial SVG.</li>
+            <li><code>tablaIndicadores</code>: Arreglo de filas cuantitativas con <code>{ variable, valor, referencial, fuente }</code>.</li>
+            <li><code>cuerpo</code>: Arreglo de cadenas de texto con los párrafos analíticos profundos.</li>
+            <li><code>conclusion</code>: Síntesis de implicancia territorial y políticas públicas (cadena de texto).</li>
+            <li><code>analisisPorActor</code>: Arreglo de 4 perfiles de usuarios-tipo con <code>{ id, icono, nombre, subtitulo, utilidad }</code> (usar IDs <code>institucion</code>, <code>comunidad</code>, <code>voluntario</code>, <code>ong</code>).</li>
+            <li><code>apartadoBibliografico</code>: Objeto con arreglos <code>fuentesDatos</code> y <code>referenciasAcademicas</code> (norma APA 7ª ed.).</li>
           </ul>
 
-          <h4 style="color:#38bdf8; margin:14px 0 6px 0;">2. Rutinas de Verificación Automatizada y Publicación en Producción</h4>
+          <h4 style="color:#38bdf8; margin:14px 0 6px 0;">2. Actualización del Evaluador Normativo e Hitos Históricos del PRC</h4>
           <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
-            Desde la raíz del repositorio (<code>atlas_vgi_uah</code>), el protocolo de despliegue ejecuta tres controles en Python previos al envío hacia la rama principal:
+            En <code>src/js/modulos/evaluador_normativo.js</code>, el arreglo <code>HITOS_HISTORICOS_PRC_BRASIL</code> documenta la trayectoria regulatoria comunal. Al promulgarse una nueva enmienda o seccional en la Municipalidad de Santiago, se añade un nuevo objeto con <code>anio</code>, <code>hito</code> y <code>detalle</code>. Los datos se propagan automáticamente al inspector del visor y al Certificado CIN-VGI descargable.
           </p>
-          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#34d399; overflow-x:auto;"><code># 1. Auditoría de cuadratura de 131 capas (121 oficiales + 10 VGI) y 140 descriptores:
+
+          <h4 style="color:#a855f7; margin:14px 0 6px 0;">3. Catálogo de Descriptores Técnicos (ISO 19110:2016)</h4>
+          <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
+            En <code>src/js/modulos/diccionario.js</code>, cada cobertura registrada cuenta con su especificación formal en <code>CATALOGO_DICCIONARIO</code>, definiendo código, título, institución custodia, tipo geométrico, norma legal y matriz de atributos con nombre de columna, tipo de dato y descripción semántica.
+          </p>
+        `
+      },
+      {
+        id: 'cap-act-04',
+        parte: 'actualizacion',
+        numero: 'ACT · 04',
+        icono: '🧪',
+        titulo: 'Suite de Verificación Automatizada, Control de Caché y Despliegue',
+        subtitulo: 'Batería de scripts Python pre-despliegue, invalidación de caché (?v=...) y publicación a producción.',
+        html: `
+          <h4 style="color:#34d399; margin:0 0 6px 0;">1. Verificación Pre-Despliegue Obligatoria</h4>
+          <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
+            Previo a cualquier commit en producción, deben ejecutarse desde la raíz del repositorio los tres scripts de auditoría en Python:
+          </p>
+          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#34d399; overflow-x:auto;"><code># 1. Audita la paridad de 131 capas (121 oficiales + 10 VGI) y 140 descriptores:
 python scripts/verificar_conteo_capas.py
 
-# 2. Auditoría de integridad de archivos GeoJSON y paridad entre data/ y src/data/:
+# 2. Audita integridad de archivos GeoJSON, ausencia de punteros LFS y paridad data/ <-> src/data/:
 python scripts/verificar_integridad_despliegue.py
 
-# 3. Cálculo del Índice Global de MetaCalidad (ISO 19115 / ISO 19157):
-python scripts/analisis_metacalidad.py
+# 3. Calcula el Índice Global de MetaCalidad (ISO 19115 / ISO 19157):
+python scripts/analisis_metacalidad.py</code></pre>
 
-# 4. Publicación en Producción (GitHub / Netlify):
-git add -A
-git commit -m "Actualización técnica y documental del Atlas VGI"
-git push origin main</code></pre>
-
-          <h4 style="color:#c084fc; margin:16px 0 6px 0;">3. Aparato Bibliográfico y Trazabilidad Académica (Norma APA 7ª Edición)</h4>
-          <p style="font-size:0.87rem; color:var(--tinta-suave); line-height:1.6; margin-bottom:12px;">
-            La fundamentación epistemológica, la formulación geodésica conforme (<code>EPSG:32719</code>; Snyder, 1987), el modelo matemático de MetaCalidad (ISO 19115-1:2014; ISO 19157:2013; Goodchild, 2007; Haklay, 2010; Raifer et al., 2019) y el repertorio consolidado de <strong>125 referencias bibliográficas en norma APA 7ª edición</strong> se encuentran documentados en los archivos descargables a continuación:
+          <h4 style="color:#fbbf24; margin:14px 0 6px 0;">2. Control de Versión de Caché (Cache-Busting)</h4>
+          <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
+            Al modificar archivos <code>.js</code> o <code>.css</code>, se incrementa el parámetro de versión <code>?v=...</code> en las etiquetas <code>&lt;link&gt;</code> y <code>&lt;script&gt;</code> de <code>src/index.html</code> (por ejemplo, de <code>?v=20261015_v5</code> a <code>?v=20261015_v6</code>), asegurando que los clientes web no retengan scripts obsoletos.
           </p>
 
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <h4 style="color:#38bdf8; margin:14px 0 6px 0;">3. Publicación en Producción (GitHub y Netlify)</h4>
+          <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
+            Con los tres scripts en estado <code>[OK] EXITO</code>, los cambios se envían a la rama principal:
+          </p>
+          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#38bdf8; overflow-x:auto;"><code>git add -A
+git commit -m "Fix: Actualización técnica y documental del Atlas VGI"
+git push origin main</code></pre>
+          <p style="font-size:0.85rem; color:var(--tinta-tenue); margin-top:6px;">
+            Netlify detectará el push en <code>main</code> y sincronizará la versión pública automáticamente en segundos.
+          </p>
+        `
+      },
+      {
+        id: 'cap-act-05',
+        parte: 'actualizacion',
+        numero: 'ACT · 05',
+        icono: '⚖️',
+        titulo: 'Matriz de Diagnóstico de Incidencias y Régimen Jurídico de Datos',
+        subtitulo: 'Guía de resolución de problemas técnicos frecuentes y marco legal de licenciamiento abierto.',
+        html: `
+          <h4 style="color:#ef4444; margin:0 0 8px 0;">1. Matriz de Diagnóstico y Resolución Rápida de Errores</h4>
+          <div style="overflow-x:auto; border:1px solid var(--linea-tarjeta); border-radius:10px; margin-bottom:16px;">
+            <table class="tabla-metadatos" style="width:100%; font-size:0.82rem;">
+              <thead>
+                <tr>
+                  <th>Síntoma Técnico</th>
+                  <th>Causa Identificada</th>
+                  <th>Procedimiento de Solución</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>La capa no se dibuja en el mapa.</strong></td>
+                  <td>Archivo exportado en coordenadas planas UTM (<code>EPSG:32719</code>) en vez de geográficas (<code>EPSG:4326</code>).</td>
+                  <td>Reproyectar a <code>EPSG:4326</code> en QGIS o Python y sobrescribir en <code>data/</code> y <code>src/data/</code>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Error 404 al activar cobertura.</strong></td>
+                  <td>Discrepancia entre la ruta de <code>archivoLocal</code> en <code>ide_chile.js</code> y el archivo en <code>src/data/</code>.</td>
+                  <td>Verificar coincidencia estricta de caracteres en minúscula en la ruta del archivo.</td>
+                </tr>
+                <tr>
+                  <td><strong>Modal de Storyboard no abre al hacer clic.</strong></td>
+                  <td>Incompatibilidad de esquema en <code>indicadores_analisis.js</code> (falta alguna propiedad requerida).</td>
+                  <td>Comprobar en la consola (F12) que <code>datosClave</code>, <code>porcentajesClave</code>, <code>filas</code> y <code>diagramaSVG()</code> existan.</td>
+                </tr>
+                <tr>
+                  <td><strong>Modificaciones no visibles en navegador.</strong></td>
+                  <td>Retención de archivos en caché local.</td>
+                  <td>Incrementar <code>?v=...</code> en <code>src/index.html</code> y forzar recarga (Ctrl + F5).</td>
+                </tr>
+                <tr>
+                  <td><strong>Descuadre en script de conteo de capas.</strong></td>
+                  <td>Capa registrada en <code>ide_chile.js</code> pero omitida en <code>indicadores_analisis.js</code> o <code>diccionario.js</code>.</td>
+                  <td>Revisar el log del script para asociar la capa faltante a su dimensión correspondiente.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4 style="color:#c084fc; margin:16px 0 8px 0;">2. Régimen Jurídico de Licencias y Protección de Datos</h4>
+          <ul style="padding-left:20px; color:var(--tinta-suave); font-size:0.88rem; line-height:1.65; margin-bottom:14px;">
+            <li><strong>Open Database License (ODbL 1.0)</strong>: Rige las categorías VGI provenientes de OpenStreetMap, exigiendo atribución y compartición bajo términos idénticos.</li>
+            <li><strong>Creative Commons Atribución-CompartirIgual 4.0 (CC BY-SA 4.0)</strong>: Aplica sobre las capas de síntesis y productos cartográficos derivados generados por la Universidad Alberto Hurtado.</li>
+            <li><strong>GNU Affero General Public License v3 (AGPLv3)</strong>: Licencia del código fuente de software, asegurando la libertad comunitaria de auditoría y mejora.</li>
+            <li><strong>Ley N° 20.285 de Transparencia</strong>: Fundamenta la disponibilidad y reutilización de datos geográficos generados por organismos públicos del Estado de Chile.</li>
+            <li><strong>Ley N° 19.628 de Protección de la Vida Privada</strong>: Garantizada mediante la anonimización y agregación espacial de microdatos (RSH, Censo, SII) a nivel de manzana y unidad vecinal.</li>
+          </ul>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
             <a href="docs/MANUAL_USO.md" download="MANUAL_USO_ATLAS_VGI.md" class="accion" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📥 Descargar Manual de Uso (.md)</a>
             <a href="docs/MANUAL_ACTUALIZACION_ATLAS.md" download="MANUAL_ACTUALIZACION_ATLAS_VGI.md" class="accion" style="text-decoration:none; font-size:0.82rem; padding:8px 14px; background:linear-gradient(135deg, #f59e0b, #d97706); color:#0f172a; font-weight:800;">🛠️ Descargar Manual de Actualización Técnica (.md)</a>
             <a href="docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md" download="BIBLIOGRAFIA_SEMINARIO_Y_ATLAS_APA7.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📚 Bibliografía APA 7ª Ed. (125 refs .md)</a>
