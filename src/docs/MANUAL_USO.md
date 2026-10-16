@@ -5,6 +5,25 @@
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Fundamentación y Alcance del Sistema](#1-fundamentación-y-alcance-del-sistema)
+2. [Arquitectura de la Interfaz](#2-arquitectura-de-la-interfaz)
+3. [Operación Funcional por Módulo (00 al 09)](#3-operación-funcional-por-módulo-00-al-09)
+   - [3.1. Módulo 00 · Visor para la Gestión Territorial](#31-módulo-00--visor-para-la-gestión-territorial)
+   - [3.2. Módulo 01 · Consultas Overpass (Explorador OSM)](#32-módulo-01--consultas-overpass-explorador-osm)
+   - [3.3. Módulo 02 · Calidad & ICV (ISO 19157 / ohsome / OSMCha)](#33-módulo-02--calidad--icv-iso-19157--ohsome--osmcha)
+   - [3.4. Módulo 03 · Biodiversidad GBIF](#34-módulo-03--biodiversidad-gbif)
+   - [3.5. Módulo 04 · Cartografía Participativa uMap](#35-módulo-04--cartografía-participativa-umap)
+   - [3.6. Módulo 05 · Metadatos ISO 19115 / ISO 19139](#36-módulo-05--metadatos-iso-19115--iso-19139)
+   - [3.7. Módulo 06 · Diccionario de Datos (131 Capas / 140 Descriptores)](#37-módulo-06--diccionario-de-datos-131-capas--140-descriptores)
+   - [3.8. Módulo 07 · Licencias & Catálogos](#38-módulo-07--licencias--catálogos)
+   - [3.9. Módulo 08 · Manual de Uso y Manual de Actualización Técnica](#39-módulo-08--manual-de-uso-y-manual-de-actualización-técnica)
+   - [3.10. Módulo 09 · Indicadores & Storyboards Territoriales](#310-módulo-09--indicadores--storyboards-territoriales)
+4. [Referencias Bibliográficas y Normativas (Norma APA 7ª Edición)](#4-referencias-bibliográficas-y-normativas-norma-apa-7ª-edición)
+
+---
+
 ## 1. Fundamentación y Alcance del Sistema
 
 El **Atlas de Información Geográfica Voluntaria (Atlas VGI)** constituye una plataforma web de código abierto diseñada para articular la cartografía oficial del Estado de Chile con información geográfica voluntaria (*Volunteered Geographic Information*, VGI; Goodchild, 2007; Haklay, 2010) en procesos de diagnóstico multiescalar, evaluación normativa e investigación aplicada sobre el **Barrio Brasil** y su contexto metropolitano.
@@ -24,7 +43,7 @@ La arquitectura consolidada del sistema integra:
 La interfaz de usuario se estructura en tres unidades operativas interconectadas:
 
 1. **Barra superior de navegación modular (Módulos `00` a `09`)**: Permite la conmutación entre el visor cartográfico y los módulos de extracción, auditoría de calidad, metadatos, diccionario, licenciamiento, documentación e indicadores sin alterar el estado de las capas cargadas en memoria.
-2. **Lienzo cartográfico interactivo (Módulo `00`)**: Representación espacial 2D/3D dotada de selector de encuadre territorial (*Barrio Brasil Completo* de $223,75\text{ ha}$ o *Manzana UAH* de $136,10\text{ ha}$), delimitación manual de recuadros de consulta (*Bounding Box* con cálculo métrico en $\text{m}^2$ y $\text{ha}$ bajo proyección `EPSG:32719`), importación de archivos vectoriales locales (`.kmz`, `.kml`, `.geojson`, `.gpx`, `.csv`) y exportación directa de coberturas individuales (`.geojson`) o de la geodatabase íntegra (`.zip`).
+2. **Lienzo cartográfico interactivo (Módulo 00)**: Representación espacial 2D/3D dotada de selector de encuadre territorial (*Barrio Brasil Completo* de $223,75\text{ ha}$ o *Manzana UAH* de $136,10\text{ ha}$), delimitación manual de recuadros de consulta (*Bounding Box* con cálculo métrico en $\text{m}^2$ y $\text{ha}$ bajo proyección `EPSG:32719`), importación de archivos vectoriales locales (`.kmz`, `.kml`, `.geojson`, `.gpx`, `.csv`) y exportación directa de coberturas individuales (`.geojson`) o de la geodatabase íntegra (`.zip`).
 3. **Panel lateral de gestión territorial**:
    - **📊 Métricas**: Reporta en tiempo real el conteo de capas y entidades activas junto al cálculo dinámico del **Índice de Calidad VGI (ICV)** (*Completitud Espacial*, *Actualidad Reciente*, *Atribución Completa* y *Calidad Estimada*).
    - **🏛 Capas IDE**: Buscador indexado y acordeones temáticos para la activación selectiva de las 121 capas estatales y las 10 categorías VGI.
@@ -33,9 +52,9 @@ La interfaz de usuario se estructura en tres unidades operativas interconectadas
 
 ---
 
-## 3. Operación Funcional por Módulo (`00` al `09`)
+## 3. Operación Funcional por Módulo (00 al 09)
 
-### 3.1. Módulo `00` · Visor para la Gestión Territorial
+### 3.1. Módulo 00 · Visor para la Gestión Territorial
 - **Superposición y consulta de coberturas**: La activación de capas desde el panel lateral renderiza las geometrías sobre el lienzo principal (recomendándose la superposición simultánea de 2 a 4 coberturas para preservar la legibilidad cartográfica). La selección de cualquier entidad despliega su tabla de atributos normalizados, la institución custodia, la superficie proyectada en `EPSG:32719` (para polígonos) y el enlace de descarga individual en formato `GeoJSON` (RFC 7946; Butler et al., 2016).
 - **Evaluación Normativa e Historial del PRC de Santiago (1990–2024)**: La activación del **⚖ Inspector Normativo** ejecuta una intersección espacial punto-en-polígono sobre la ubicación seleccionada, emitiendo el **Certificado de Informaciones Normativas VGI (CIN-VGI)**. Dicho reporte sistematiza:
   1. La zonificación comunal (`PRC`) e intercomunal (`PRMS`).
@@ -43,34 +62,34 @@ La interfaz de usuario se estructura en tres unidades operativas interconectadas
   3. Las áreas de riesgo (**Art. 2.1.17 OGUC**) y regímenes de protección patrimonial (**Zonas e Inmuebles de Conservación Histórica y Ley N° 17.288 del CMN**).
   4. El **Expediente Histórico de Modificaciones al PRC de Santiago incidentes en el Barrio Brasil (1990–2024)**, que documenta los 10 hitos regulatorios del sector (Res. N° 26/1990, Seccional Brasil, Modificaciones N° 16, 21, 26 y 31, Enmienda N° 2 de Cités, Enmiendas de Altura N° 1, 3 y 6 y postergaciones selectivas Art. 117 LGUC), vinculando directamente al repositorio documental oficial de Asesoría Urbana de la Ilustre Municipalidad de Santiago (`https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz`).
 
-### 3.2. Módulo `01` · Consultas Overpass (Explorador OSM)
+### 3.2. Módulo 01 · Consultas Overpass (Explorador OSM)
 Ejecuta extracciones en tiempo real sobre la base de datos de OpenStreetMap acotadas al *Bounding Box* activo, operando tanto mediante consultas temáticas preconfiguradas (educación, salud, transporte, movilidad activa, espacio público, patrimonio, accesibilidad y arbolado) como mediante código libre en lenguaje **Overpass QL** (Olbricht, 2023), con exportación directa a `GeoJSON`.
 
-### 3.3. Módulo `02` · Calidad & ICV (ISO 19157 / ohsome / OSMCha)
+### 3.3. Módulo 02 · Calidad & ICV (ISO 19157 / ohsome / OSMCha)
 Instrumenta la auditoría cuantitativa de calidad espacial bajo el estándar **ISO 19157:2013** en tres niveles:
 - **Submódulo A (Evaluador Multicriterio WLC / ISO 19157)**: Cuantifica completitud, exactitud posicional, consistencia lógica y vigencia temporal sobre las coberturas cargadas.
 - **Submódulo B (ohsome API — HeiGIT)**: Procesa series históricas de evolución del mapeo colaborativo (conteo de nodos, longitud de redes en metros y área poligonal en $\text{m}^2$ reproyectada a `EPSG:32719`; Raifer et al., 2019).
 - **Submódulo C (OSMCha / Changesets)**: Audita los conjuntos de cambios recientes en el área de estudio para verificar autoría, semántica de etiquetas y consistencia topológica (Wille, 2023).
 
-### 3.4. Módulo `03` · Biodiversidad GBIF
+### 3.4. Módulo 03 · Biodiversidad GBIF
 Integra ocurrencias biológicas georreferenciadas de flora, fauna y funga urbana provenientes de **GBIF** e **iNaturalist Chile** estructuradas bajo el estándar *Darwin Core (DwC)* (TDWG, 2023; Chapman, 2005a), permitiendo la filtración taxonómica y su representación cartográfica.
 
-### 3.5. Módulo `04` · Cartografía Participativa uMap
+### 3.5. Módulo 04 · Cartografía Participativa uMap
 Incorpora proyectos colaborativos alojados en **uMap** destinados a talleres de cartografía social, levantamiento de percepciones barriales y validación comunitaria en terreno, habilitando la transferencia de sus capas hacia el visor principal.
 
-### 3.6. Módulo `05` · Metadatos ISO 19115 / ISO 19139
+### 3.6. Módulo 05 · Metadatos ISO 19115 / ISO 19139
 Genera y exporta fichas formales de metadatos conforme a **ISO 19115-1:2014**, **ISO 19139:2007** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile / SNIT, 2018)**, documentando identificación, linaje metodológico, sistemas de referencia (`EPSG:4326`, `EPSG:5361`, `EPSG:32719`), custodia institucional y régimen de licencias en formatos `JSON` y `XML`.
 
-### 3.7. Módulo `06` · Diccionario de Datos (131 Capas / 140 Descriptores)
+### 3.7. Módulo 06 · Diccionario de Datos (131 Capas / 140 Descriptores)
 Formaliza el catálogo de objetos y atributos según **ISO 19110:2016**, especificando definición semántica, dominio de valores, fuente institucional y correspondencia con el catálogo nacional de IDE Chile para las **131 capas geográficas** y **9 tablas de referencia** (140 descriptores en total). Incluye el diccionario íntegro de las 13 coberturas del **Catastro Nacional de Residuos Sólidos Domiciliarios (SUBDERE 2024, `BBDD-86` a `BBDD-98`)**.
 
-### 3.8. Módulo `07` · Licencias & Catálogos
+### 3.8. Módulo 07 · Licencias & Catálogos
 Documenta el régimen jurídico tripartito del proyecto —**ODbL 1.0** para bases de datos OpenStreetMap, **CC BY-SA 4.0 / CC-BY 4.0** para cartografía y registros GBIF, **GNU AGPLv3** para el código fuente, **Ley N° 20.285** de Transparencia y **Ley N° 19.628** de resguardo estadístico de datos personales— y provee acceso directo a las matrices consolidadas en formato Excel (`.xlsx`).
 
-### 3.9. Módulo `08` · Manual de Uso y Manual de Actualización Técnica
+### 3.9. Módulo 08 · Manual de Uso y Manual de Actualización Técnica
 Disponibiliza en interfaz tanto el presente **Manual de Uso** como el **Manual de Actualización y Mantención Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)**, junto con el inventario dinámico filtrable de las 131 coberturas y enlaces de descarga documental en formato Markdown (`.md`).
 
-### 3.10. Módulo `09` · Indicadores & Storyboards Territoriales
+### 3.10. Módulo 09 · Indicadores & Storyboards Territoriales
 Articula el análisis aplicado del Barrio Brasil en dos niveles:
 1. **Clasificación en 5 Dimensiones Analíticas (131 capas)**:
    - **01 · Sociodemográfica** (`19 capas`): Censo 2024 (INE), densidad poblacional, estructura etaria, migración e índice socioeconómico.

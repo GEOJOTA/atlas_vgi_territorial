@@ -3,6 +3,25 @@
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Identidad del Proyecto y Marco Epistemológico](#1-identidad-del-proyecto-y-marco-epistemológico)
+2. [Bounding Box del Territorio de Estudio y Encuadre Geodésico](#2-bounding-box-del-territorio-de-estudio-y-encuadre-geodésico)
+3. [Arquitectura del Sistema (Zero-Build SPA y Resiliencia en el Borde)](#3-arquitectura-del-sistema-zero-build-spa-y-resiliencia-en-el-borde)
+4. [Módulos Funcionales del Atlas (Estructura de 9 Paneles)](#4-módulos-funcionales-del-atlas-estructura-de-9-paneles)
+5. [Estructura de la Base Cartográfica (118 Componentes)](#5-estructura-de-la-base-cartográfica-118-componentes)
+6. [Base de Datos Espacial en la Nube (PostgreSQL 17.6 + PostGIS 3.3)](#6-base-de-datos-espacial-en-la-nube-postgresql-176--postgis-33)
+7. [Ecosistema de APIs e Interoperabilidad](#7-ecosistema-de-apis-e-interoperabilidad)
+8. [Diccionario Territorial y Brechas VGI (Hallazgo Metodológico)](#8-diccionario-territorial-y-brechas-vgi-hallazgo-metodológico)
+9. [Perfiles de Actor Territorial y Gobernanza Multiactor](#9-perfiles-de-actor-territorial-y-gobernanza-multiactor)
+10. [Integración Multiescalar del Censo 2024 y Optimización contra Fallos de Memoria (OOM)](#10-integración-multiescalar-del-censo-2024-y-optimización-contra-fallos-de-memoria-oom)
+11. [Motor Algorítmico Universal de Calidad IGV (Marco Teórico ISO 19157 / ISO 19115)](#11-motor-algorítmico-universal-de-calidad-igv-marco-teórico-iso-19157--iso-19115)
+12. [Inspector Normativo Territorial (CIN-VGI) y Rigor Urbanístico](#12-inspector-normativo-territorial-cin-vgi-y-rigor-urbanístico)
+13. [Pipeline CLI de Procesamiento y Aseguramiento de Calidad](#13-pipeline-cli-de-procesamiento-y-aseguramiento-de-calidad)
+14. [Conclusiones y Transferibilidad](#14-conclusiones-y-transferibilidad)
+
+---
+
 ## 1. Identidad del Proyecto y Marco Epistemológico
 
 | Dimensión | Detalle Operativo y Académico |

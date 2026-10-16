@@ -6,6 +6,14 @@ El presente protocolo sintetiza las reglas de consistencia estructural y las rut
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Reglas de Integridad del Repositorio](#1-reglas-de-integridad-del-repositorio)
+2. [Ejecución de Controles Automatizados](#2-ejecución-de-controles-automatizados)
+3. [Despliegue a Producción](#3-despliegue-a-producción)
+
+---
+
 ## 1. Reglas de Integridad del Repositorio
 
 1. **Cuadratura de Coberturas (`131 Capas Operativas` y `140 Descriptores`)**:

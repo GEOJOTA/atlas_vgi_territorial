@@ -8,6 +8,19 @@
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Fundamentación Epistemológica: La VGI en la Geografía Contemporánea](#1-fundamentación-epistemológica-la-vgi-en-la-geografía-contemporánea)
+2. [Marco Normativo, Estándares ISO y Política Geoespacial Chilena y Global](#2-marco-normativo-estándares-iso-y-política-geoespacial-chilena-y-global)
+3. [Evaluación de Calidad de Datos Espaciales (ISO 19157 y Soporte Dual ohsome API v1 y v2)](#3-evaluación-de-calidad-de-datos-espaciales-iso-19157-y-soporte-dual-ohsome-api-v1-y-v2)
+4. [Decisiones de Arquitectura y Defensa Técnica](#4-decisiones-de-arquitectura-y-defensa-técnica)
+5. [Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)](#5-auditoría-universal-de-metacalidad-de-la-base-de-datos-iso-19115--iso-19157--ide-chile)
+6. [Validación Empírica en el Caso Piloto: Barrio Brasil y Campus UAH](#6-validación-empírica-en-el-caso-piloto-barrio-brasil-y-campus-uah)
+7. [Respuestas a Preguntas Críticas del Comité Académico](#7-respuestas-a-preguntas-críticas-del-comité-académico)
+8. [Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)](#8-referencias-bibliográficas-y-fuentes-oficiales-norma-apa-7ª-edición)
+
+---
+
 ## 1. Fundamentación Epistemológica: La VGI en la Geografía Contemporánea
 
 Tradicionalmente, la producción de datos geográficos ha sido monopolio de agencias estatales centralizadas (institutos geográficos militares, ministerios de bienes nacionales, catastros municipales). Aunque rigurosos, estos catastros sufren de tres limitaciones estructurales:
@@ -235,11 +248,11 @@ Ante la evaluación técnica y metodológica, cada componente técnico responde 
 
 ---
 
-## 4. Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
+## 5. Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
 
 Para garantizar la interoperabilidad y el rigor epistemológico del Atlas, se desarrolló e implementó un protocolo programático de evaluación de **MetaCalidad** (calidad integral de metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Este análisis auditó el **100% de la base de datos cartográfica** (**131 capas**: 121 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
 
-### 4.1 Modelo Matemático y Justificación Teórica del Índice Global de MetaCalidad (IGMC)
+### 5.1 Modelo Matemático y Justificación Teórica del Índice Global de MetaCalidad (IGMC)
 Conforme a las directrices de las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007**, **ISO 19110:2016** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, se implementó un modelo lineal aditivo ponderado (**Simple Additive Weighting - SAW / Multi-Attribute Utility Theory - MAUT**; Fishburn, 1967; Keeney & Raiffa, 1976; Malczewski, 1999) fundado en literatura canónica de VGI y calidad espacial (Goodchild, 2007; Haklay, 2010; Ballatore & Zipf, 2015; Senaratne et al., 2017; Herfort et al., 2023):
 
 $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
@@ -252,7 +265,7 @@ $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \
 
 > **Carácter Tentativo del Índice:** El modelo lineal constituye una línea base operativa y transparente, sujeta a re-calibración empírica mediante Proceso Analítico Jerárquico (**AHP**; Saaty, 1980) y paneles Delphi en la fase de validación con actores territoriales e institucionales (OE4).
 
-### 4.2 Dictamen Global y Certificación de Calidad
+### 5.2 Dictamen Global y Certificación de Calidad
 - **Índice Global de MetaCalidad (IGMC):** **96.55% (Grado A+ Excelente)**.
 - **Distribución de Calidad:** 98 capas en **Grado A+ (Excelente)** (83.1%) y 20 capas en **Grado A (Muy Bueno)** (16.9%), con **0 capas deficientes (0.0%)**.
 - **Artefactos Técnicos Generados:**
@@ -262,7 +275,7 @@ $$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \
 
 ---
 
-## 5. Validación Empírica en el Caso Piloto: Barrio Brasil y Campus UAH
+## 6. Validación Empírica en el Caso Piloto: Barrio Brasil y Campus UAH
 
 Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -33.4505, -70.6565, -33.4385]`, se extrajo y validó un universo real de **3.677 entidades geográficas**, categorizadas bajo las **10 macro-categorías territoriales (CAT-01 a CAT-10)** del Atlas:
 
@@ -279,7 +292,7 @@ Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -3
 
 ---
 
-## 6. Respuestas a Preguntas Críticas del Comité Académico
+## 7. Respuestas a Preguntas Críticas del Comité Académico
 
 ### P1: *"¿Por qué confiar en datos de voluntarios si el Estado tiene datos oficiales?"*
 > **Respuesta:** No se trata de reemplazar la cartografía oficial, sino de complementarla en escalas y temáticas donde el Estado no llega a tiempo. El catálogo de IDE Chile no cuenta con un catastro actualizado a nivel de calle de la accesibilidad universal para personas en silla de ruedas o de la ubicación exacta de biciestacionamientos en la manzana universitaria. La VGI llena ese vacío y, gracias a nuestras herramientas de calidad y metadatos ISO 19139, se puede evaluar objetivamente el nivel de confianza de cada capa antes de usarla en un informe.
@@ -295,7 +308,7 @@ Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -3
 
 ---
 
-## 7. Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)
+## 8. Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)
 
 Todas las fuentes citadas a lo largo de este documento, en la interfaz web del Atlas y en el catálogo Excel consolidado ([`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx)) se encuentran estandarizadas bajo la norma **APA 7ª edición** (125 referencias formales) organizadas por tipología documental:
 

@@ -1230,7 +1230,15 @@ def generar_informe_markdown(datos, ruta_salida):
     md = []
     md.append("# Informe de Auditoría del Índice de Calidad y MetaCalidad Cartográfica (IGV / IGMC)")
     md.append("### Atlas de Información Geográfica Voluntaria para la Gestión Territorial — Nodo GeoAbierto UAH")
-    md.append(f"**Fecha de Evaluación:** {fecha_str} | **Marco Normativo:** ISO 19157:2013 / ISO 19157-1:2023, ISO 19115-1:2014, ISO 19139:2007, ISO 19110:2016, IDE Chile/SNIT v2.0\n")
+    md.append("---")
+    md.append("\n## 🧭 Índice de Contenidos\n")
+    md.append("1. [Resumen Ejecutivo y Dictamen de Calidad Integral](#1-resumen-ejecutivo-y-dictamen-de-calidad-integral)")
+    md.append("2. [Fundamentación Teórica y Formulación Matemática del Modelo Dual](#2-fundamentación-teórica-y-formulación-matemática-del-modelo-dual)")
+    md.append("3. [Especificidad Técnica y Catálogo de las 10 Macro-categorías VGI](#3-especificidad-técnica-y-catálogo-de-las-10-macro-categorías-vgi)")
+    md.append("4. [Desempeño por Grupo Temático en el Atlas](#4-desempeño-por-grupo-temático-en-el-atlas)")
+    md.append("5. [Matriz Exhaustiva de Calidad e Índice IGV — Auditoría Universal](#5-matriz-exhaustiva-de-calidad-e-índice-igv--auditoría-universal)")
+    md.append("6. [Hallazgos Clave y Plan de Calibración Futura](#6-hallazgos-clave-y-plan-de-calibración-futura)")
+    md.append("7. [Referencias Bibliográficas y Normativas (Normas APA 7ª Edición)](#7-referencias-bibliográficas-y-normativas-normas-apa-7ª-edición)\n")
     md.append("---")
 
     # 1. RESUMEN EJECUTIVO
@@ -1521,9 +1529,9 @@ def generar_informe_markdown(datos, ruta_salida):
 
     md.append("\n---\n")
 
-    # 5. MATRIZ EXHAUSTIVA DE CALIDAD E ÍNDICE IGV (118 CAPAS)
-    md.append("## 5. Matriz Exhaustiva de Calidad e Índice IGV — Auditoría Universal de los 118 Componentes\n")
-    md.append("A continuación se presenta el desglose universal de las **118 capas** evaluadas bajo los pilares cuantitativo y cualitativo:\n")
+    # 5. MATRIZ EXHAUSTIVA DE CALIDAD E ÍNDICE IGV
+    md.append("## 5. Matriz Exhaustiva de Calidad e Índice IGV — Auditoría Universal\n")
+    md.append(f"A continuación se presenta el desglose universal de las **{m['total_capas']} capas** evaluadas bajo los pilares cuantitativo y cualitativo:\n")
     md.append("| N° | ID Capa | Nombre Oficial / Temático | Tipo Fuente | Cuantitativo (50%) | Topología (30%) | Atributos (25%) | Cualitativo (50%) | IGV Global (%) | Grado ISO 19157 |")
     md.append("| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |")
 

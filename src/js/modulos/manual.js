@@ -314,11 +314,11 @@ const ModuloManual = (() => {
         parte: 'actualizacion',
         numero: 'ACT · 01',
         icono: '🏗️',
-        titulo: 'Paradigma Tecnológico, Arquitectura de Software y Stack de Lenguajes',
-        subtitulo: 'Serverless Static Spatial Architecture, sincronización simétrica data/ y src/data/, base dual (.geojson + .gpkg) y motor geodésico propio EPSG:32719.',
+        titulo: 'Arquitectura Tecnológica, Software y Stack de Lenguajes',
+        subtitulo: 'Arquitectura estática autónoma, sincronización simétrica data/ y src/data/, base dual (.geojson + .gpkg) y motor geodésico propio EPSG:32719.',
         html: `
           <p style="font-size:0.9rem; line-height:1.65; color:var(--tinta-suave); margin-bottom:12px;">
-            El Atlas implementa una <strong>Arquitectura Estática Espacial sin Servidor</strong> (<em>Client-Side Serverless Static Architecture</em>), ejecutándose íntegramente en el navegador del cliente mediante tecnologías web abiertas y peticiones asíncronas optimizadas (<code>Fetch API</code>). Esta formulación garantiza independencia frente a servidores de mapas propietarios de pago, eliminando vulnerabilidades de obsolescencia de paquetes compilados y asegurando su operación perpetua en <strong>Netlify</strong> y <strong>GitHub Pages</strong>.
+            El Atlas implementa una <strong>arquitectura web estática y autónoma</strong>, ejecutándose íntegramente en el navegador del cliente mediante tecnologías web abiertas y peticiones asíncronas optimizadas (<code>Fetch API</code>). Esta formulación garantiza independencia frente a servidores de mapas propietarios de pago, eliminando vulnerabilidades de obsolescencia de paquetes compilados y asegurando su operación perpetua en <strong>Netlify</strong> y <strong>GitHub Pages</strong>.
           </p>
 
           <h4 style="color:#38bdf8; margin:14px 0 8px 0;">1. Stack Tecnológico Consolidado</h4>

@@ -1,409 +1,660 @@
-# Guía de Contribución Abierta, Trazabilidad y Arquitectura del Código — Atlas VGI UAH
+# Manual de Actualización, Mantención y Contribución Técnica — Atlas VGI UAH
 
-¡Te damos la bienvenida al proyecto **Atlas de Información Geográfica Voluntaria (VGI) para la Gestión Territorial en el Barrio Brasil**!
-
-Este Atlas es una iniciativa de ciencia abierta, soberanía de datos y cartografía colaborativa desarrollada en el marco del **Proyecto de Investigación F1261256 (ANID)** por el **Departamento de Geografía de la Universidad Alberto Hurtado (UAH)**, Santiago de Chile.
-
-Nuestro propósito es democratizar el acceso a la información territorial, articulando la cartografía oficial del Estado de Chile (**109 capas oficiales**) con el conocimiento vivo de comunidades, organizaciones barriales y voluntarias/os (**10 macro-categorías VGI**, conformando **119 capas cartográficas en total**).
-
-Este documento detalla la filosofía del proyecto, la anatomía técnica archivo por archivo, los lenguajes utilizados y las guías prácticas paso a paso para que cualquier persona —desde una dirigenta social hasta una desarrolladora SIG— pueda contribuir con código, capas, documentación o mapeo de campo bajo los más altos estándares de fuente abierta.
+**Proyecto Fondecyt Regular N° 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
+**Versión Consolidada del Sistema:** 131 Capas Operativas (121 Oficiales + 10 VGI) · 140 Descriptores en Diccionario · 10 Módulos Funcionales (`00` al `09`) · 7 Storyboards Territoriales · 5 Dimensiones Analíticas.
 
 ---
 
 ## 🧭 Índice de Contenidos
 
-1. [Manifiesto de Ciencia Abierta y Filosofía Zero-Build](#1-manifiesto-de-ciencia-abierta-y-filosofía-zero-build)
-2. [¿Cómo Contribuir según tu Perfil? (Elige tu Camino)](#2-cómo-contribuir-según-tu-perfil-elige-tu-camino)
-   - [Vía 1: Mapeo Territorial en OpenStreetMap (Sin Programar)](#vía-1-mapeo-territorial-en-openstreetmap-sin-programar)
-   - [Vía 2: Reporte o Propuesta de Capa vía GitHub Issues](#vía-2-reporte-o-propuesta-de-capa-vía-github-issues)
-   - [Vía 3: Carga Local en el Visor (Uso en Cabildos y Asambleas)](#vía-3-carga-local-en-el-visor-uso-en-cabildos-y-asambleas)
-   - [Vía 4: Contribución Técnica de Código y Capas (Fork & Pull Request)](#vía-4-contribución-técnica-de-código-y-capas-fork--pull-request)
-3. [Entorno de Desarrollo Local en 5 Segundos](#3-entorno-de-desarrollo-local-en-5-segundos)
-4. [Anatomía del Proyecto: Archivo por Archivo y Lenguaje](#4-anatomía-del-proyecto-archivo-por-archivo-y-lenguaje)
-   - [Frontend Vanilla JavaScript (ES6+ / IIFE SPA)](#frontend-vanilla-javascript-es6--iife-spa)
-   - [Hojas de Estilo CSS Puro (Variables Nativas y Diseño Responsivo)](#hojas-de-estilo-css-puro-variables-nativas-y-diseño-responsivo)
-   - [Capa Geoespacial GeoJSON (WGS 84 / EPSG:4326)](#capa-geoespacial-geojson-wgs-84--epsg4326)
-   - [Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3](#base-de-datos-espacial-postgresql-17--postgis-33)
-   - [Pipeline CLI, Automatización y ETL en Python 3](#pipeline-cli-automatización-y-etl-en-python-3)
-   - [Documentación Académica y Metadatos Markdown](#documentación-académica-y-metadatos-markdown)
-5. [Guías Paso a Paso para Nuevas Contribuciones](#5-guías-paso-a-paso-para-nuevas-contribuciones)
-   - [Cómo agregar una nueva Capa Oficial del Estado](#cómo-agregar-una-nueva-capa-oficial-del-estado)
-   - [Cómo agregar o calibrar una Macro-Categoría VGI](#cómo-agregar-o-calibrar-una-macro-categoría-vgi)
-   - [Cómo modificar estilos y componentes visuales](#cómo-modificar-estilos-y-componentes-visuales)
-   - [Cómo sincronizar catálogos Excel y base de datos SQL](#cómo-sincronizar-catálogos-excel-y-base-de-datos-sql)
-6. [Estándares de Código Abierto y Buenas Prácticas](#6-estándares-de-código-abierto-y-buenas-prácticas)
-   - [Convención de Commits (Conventional Commits)](#convención-de-commits-conventional-commits)
-   - [Tríada de Licencias Abiertas](#tríada-de-licencias-abiertas)
-   - [Trazabilidad, Linaje y Normas APA 7ª Edición](#trazabilidad-linaje-y-normas-apa-7ª-edición)
-7. [Contacto y Soporte Institucional](#7-contacto-y-soporte-institucional)
+1. [Alcance y Objetivos del Proyecto](#1-alcance-y-objetivos-del-proyecto)
+   - [Propósito del documento](#propósito-del-documento)
+   - [Ámbitos y escalas territoriales de estudio](#ámbitos-y-escalas-territoriales-de-estudio)
+   - [Estado de consolidación de la estructura](#estado-de-consolidación-de-la-estructura)
+2. [Vías de Participación y Contribución Territorial](#2-vías-de-participación-y-contribución-territorial)
+   - [Vía 1: Mapeo colaborativo en OpenStreetMap](#vía-1-mapeo-colaborativo-en-openstreetmap)
+   - [Vía 2: Reporte o propuesta de datos vía GitHub Issues](#vía-2-reporte-o-propuesta-de-datos-vía-github-issues)
+   - [Vía 3: Carga local de archivos en el visor](#vía-3-carga-local-de-archivos-en-el-visor)
+   - [Vía 4: Contribución técnica de código y capas mediante Git](#vía-4-contribución-técnica-de-código-y-capas-mediante-git)
+3. [Arquitectura y Tecnologías del Sistema](#3-arquitectura-y-tecnologías-del-sistema)
+   - [Principios de diseño del software](#principios-de-diseño-del-software)
+   - [Lenguajes y herramientas utilizadas](#lenguajes-y-herramientas-utilizadas)
+   - [Sincronización simétrica entre directorios de trabajo y publicación](#sincronización-simétrica-entre-directorios-de-trabajo-y-publicación)
+   - [Almacenamiento cartográfico dual](#almacenamiento-cartográfico-dual)
+4. [Estructura del Repositorio y Anatomía de Archivos](#4-estructura-del-repositorio-y-anatomía-de-archivos)
+   - [Árbol general del repositorio](#árbol-general-del-repositorio)
+   - [Módulos del frontend y lógica de aplicación](#módulos-del-frontend-y-lógica-de-aplicación)
+   - [Scripts de automatización y geoprocesamiento](#scripts-de-automatización-y-geoprocesamiento)
+5. [Diseño Visual, Interfaz y Accesibilidad](#5-diseño-visual-interfaz-y-accesibilidad)
+   - [Distribución de la pantalla principal](#distribución-de-la-pantalla-principal)
+   - [Paleta de colores y componentes visuales](#paleta-de-colores-y-componentes-visuales)
+   - [Insignias de geometría](#insignias-de-geometría)
+   - [Criterios de accesibilidad web](#criterios-de-accesibilidad-web)
+6. [Motor Cartográfico y Cálculos Geodésicos](#6-motor-cartográfico-y-cálculos-geodésicos)
+   - [Visualización cartográfica en Leaflet](#visualización-cartográfica-en-leaflet)
+   - [Biblioteca geodésica propia y proyecciones conformes](#biblioteca-geodésica-propia-y-proyecciones-conformes)
+   - [Cálculo métrico de áreas y distancias](#cálculo-métrico-de-áreas-y-distancias)
+7. [Inventario y Catálogo de Capas Territoriales](#7-inventario-y-catálogo-de-capas-territoriales)
+   - [Cuadratura general de capas](#cuadratura-general-de-capas)
+   - [Clasificación en cinco dimensiones analíticas](#clasificación-en-cinco-dimensiones-analíticas)
+   - [Matriz multivariada y diagnóstico espacial del Barrio Brasil](#matriz-multivariada-y-diagnóstico-espacial-del-barrio-brasil)
+   - [Diccionario técnico de datos](#diccionario-técnico-de-datos)
+8. [Módulos Funcionales del Atlas (00 al 09)](#8-módulos-funcionales-del-atlas-00-al-09)
+9. [Láminas de Análisis Territorial y Storyboards](#9-láminas-de-análisis-territorial-y-storyboards)
+   - [Temáticas de las siete láminas de análisis](#temáticas-de-las-siete-láminas-de-análisis)
+   - [Estructura obligatoria de los storyboards](#estructura-obligatoria-de-los-storyboards)
+10. [Procedimientos de Mantención y Actualización](#10-procedimientos-de-mantención-y-actualización)
+    - [Procedimiento 1: Ingesta de una nueva capa oficial del Estado](#procedimiento-1-ingesta-de-una-nueva-capa-oficial-del-estado)
+    - [Procedimiento 2: Actualización de datos sin cambio de nombre](#procedimiento-2-actualización-de-datos-sin-cambio-de-nombre)
+    - [Procedimiento 3: Incorporación o edición de un storyboard](#procedimiento-3-incorporación-o-edición-de-un-storyboard)
+    - [Procedimiento 4: Actualización de la normativa urbana y el plan regulador](#procedimiento-4-actualización-de-la-normativa-urbana-y-el-plan-regulador)
+    - [Procedimiento 5: Extracción de esquemas desde bases GeoPackage](#procedimiento-5-extracción-de-esquemas-desde-bases-geopackage)
+    - [Procedimiento 6: Control de versiones en archivos estáticos](#procedimiento-6-control-de-versiones-en-archivos-estáticos)
+11. [Batería de Pruebas y Publicación en Producción](#11-batería-de-pruebas-y-publicación-en-producción)
+    - [Pruebas en servidor local](#pruebas-en-servidor-local)
+    - [Ejecución de scripts automáticos de comprobación](#ejecución-de-scripts-automáticos-de-comprobación)
+    - [Publicación de cambios en GitHub y Netlify](#publicación-de-cambios-en-github-y-netlify)
+12. [Diagnóstico y Solución de Problemas Frecuentes](#12-diagnóstico-y-solución-de-problemas-frecuentes)
+13. [Marco Legal, Licencias y Protección de Datos](#13-marco-legal-licencias-y-protección-de-datos)
+    - [Régimen de licenciamiento abierto](#régimen-de-licenciamiento-abierto)
+    - [Transparencia pública y privacidad de las personas](#transparencia-pública-y-privacidad-de-las-personas)
+14. [Referencias Bibliográficas y Normativas](#14-referencias-bibliográficas-y-normativas)
 
 ---
 
-## 1. Manifiesto de Ciencia Abierta y Filosofía Zero-Build
+## 1. Alcance y Objetivos del Proyecto
 
-El Atlas VGI Barrio Brasil se rige por tres principios innegociables:
+### Propósito del documento
+El presente documento constituye la guía integral de mantención técnica, gobernanza de datos y contribución colaborativa para el **Atlas de Información Geográfica Voluntaria (`atlas_vgi_uah`)**. Su redacción adopta un tono técnico-profesional y académico en tercera persona, organizado para que cualquier investigadora, analista espacial o desarrollador web pueda intervenir el código, incorporar coberturas cartográficas, ajustar normativas urbanísticas o realizar despliegues a producción con total autonomía y sin requerir inducción previa.
 
-1. **Cero Barreras Técnicas (*Zero-Build Architecture*):** El software no utiliza Webpack, Vite, Babel ni gestores de paquetes obligatorios para ser ejecutado o modificado. Cualquier persona con un navegador web y un editor de texto puede clonar el repositorio, editar una línea y ver el resultado de inmediato.
-2. **Soberanía y Transparencia de Datos:** La información del Estado de Chile (Ley N° 20.285) se complementa con la cartografía comunitaria libre (OpenStreetMap, GBIF). El código es 100% auditable y no incluye rastreadores, cookies ni telemetría comercial.
-3. **Reproducibilidad Científica:** Cada indicador, capa y polígono cuenta con linaje documentado bajo estándares internacionales ISO (ISO 19115-1:2014 para metadatos, ISO 19157:2013 para calidad de datos e ISO 19110:2016 para catalogación de objetos geográficos) y citas bibliográficas normalizadas en formato APA 7ª edición.
+### Ámbitos y escalas territoriales de estudio
+El Atlas articula tres escalas geográficas complementarias:
+1. **Escala Barrial Núcleo (Barrio Brasil)**: Polígono patrimonial consolidado de $74,85\text{ ha}$ delimitado por Av. Brasil, Alameda, Ricardo Cumming y San Pablo. Se caracteriza por un tejido morfológico tradicional de baja altura (135 inmuebles de 1 a 2 pisos), 9 cités catastrados y 4 torres residenciales en altura.
+2. **Escala Universitaria (Campus UAH)**: Manzana institucional de $136,10\text{ ha}$ sobre el eje de la Alameda y estaciones de Metro Los Héroes, Moneda, Santa Ana y República.
+3. **Escala Metropolitana (Santiago Poniente y Gran Santiago)**: Área de influencia extendida de $223,75\text{ ha}$ y coberturas regionales de la Región Metropolitana de Santiago en proyecciones `EPSG:4326` y `EPSG:32719`.
+
+### Estado de consolidación de la estructura
+La arquitectura actual representa la versión consolidada definitiva de la plataforma. Las actividades de cierre del proyecto —correspondientes a la validación participativa con vecinos y afinamientos analíticos menores— se implementan directamente sobre los módulos, catálogos e indicadores ya en funcionamiento, sin alterar el diseño de software aquí establecido.
 
 ---
 
-## 2. ¿Cómo Contribuir según tu Perfil? (Elige tu Camino)
+## 2. Vías de Participación y Contribución Territorial
 
-### Vía 1: Mapeo Territorial en OpenStreetMap (Sin Programar)
-OpenStreetMap (OSM) es el corazón colaborativo del Atlas. Cualquier dato que agregues o corrijas en OSM se refleja en vivo en las consultas del visor.
+El proyecto cuenta con cuatro modalidades de colaboración según las capacidades e intereses de cada persona o colectivo:
 
-1. Crea tu cuenta gratuita en [OpenStreetMap.org](https://www.openstreetmap.org/).
-2. Haz clic en **"Editar"** para abrir el editor web visual **iD** (funciona en cualquier navegador en computadores o tablets).
-3. Ubica el polígono del **Barrio Brasil y campus UAH** (Santiago Centro) y releva elementos del territorio:
-   - **Comercio barrial y salud:** Almacenes de barrio, panaderías, farmacias, veterinarias (`shop=*`, `amenity=*`).
-   - **Movilidad y accesibilidad universal:** Rebajes de vereda (`kerb=lowered`), rampas peatonales, cruces semaforizados (`highway=crossing` + `crossing=traffic_signals`), estacionamientos de bicicletas (`amenity=bicycle_parking`).
-   - **Espacio público y naturaleza urbana:** Arbolado de calle (`natural=tree`), bancas públicas (`amenity=bench`), luminarias (`highway=street_lamp`), contenedores de reciclaje (`amenity=recycling`).
-4. Al guardar tus cambios, agrega en el comentario del conjunto de cambios (*changeset comment*) el hashtag:
+### Vía 1: Mapeo colaborativo en OpenStreetMap
+OpenStreetMap (OSM) constituye la base de datos comunitaria del Atlas. Cualquier dato incorporado o corregido en OSM se refleja en el visor mediante consultas en tiempo real:
+1. Acceder a [OpenStreetMap.org](https://www.openstreetmap.org/) con una cuenta de usuario.
+2. Abrir el editor web visual **iD** sobre el sector del Barrio Brasil y Campus UAH.
+3. Relevar o actualizar elementos cotidianos:
+   - **Comercio y servicios barriales**: Almacenes, panaderías, farmacias, librerías (`shop=*`, `amenity=*`).
+   - **Accesibilidad y caminabilidad**: Rebajes de vereda (`kerb=lowered`), rampas peatonales, cruces con semáforo (`highway=crossing` con `crossing=traffic_signals`) y estacionamientos de bicicletas (`amenity=bicycle_parking`).
+   - **Espacio público y naturaleza urbana**: Arbolado urbano (`natural=tree`), bancas públicas (`amenity=bench`), iluminación peatonal (`highway=street_lamp`) y puntos limpios (`amenity=recycling`).
+4. Al guardar la edición, incluir en el comentario del conjunto de cambios (*changeset comment*) la etiqueta:
    ```text
    #AtlasVGI_UAH #BarrioBrasil
    ```
-   > [!TIP]
-   > El uso de `#AtlasVGI_UAH` permite que el módulo de calidad y cambios del Atlas (OSMCha / ohsome) certifique tu aporte con trazabilidad comunitaria.
+   Esta etiqueta permite que el módulo de auditoría histórica del Atlas (Módulo 02) certifique la trazabilidad del aporte comunitario.
 
 ---
 
-### Vía 2: Reporte o Propuesta de Capa vía GitHub Issues
-Si detectas un desfase cartográfico, una capa desactualizada o tu colectivo levantó información en terreno:
+### Vía 2: Reporte o propuesta de datos vía GitHub Issues
+Cuando se identifique un desfase cartográfico, una capa desactualizada o se cuente con un levantamiento barrial propio:
+1. Ingresar a [GitHub Issues](https://github.com/GEOJOTA/atlas_vgi_uah/issues).
+2. Crear un nuevo reporte con la siguiente estructura:
+   - **Tipo de contribución**: Corrección de dato existente, propuesta de nueva capa o reporte de inconsistencia.
+   - **Fenómeno territorial**: Nombre del equipamiento, espacio o problemática (por ejemplo, *Puntos limpios comunitarios en calle Maturana*).
+   - **Categoría sugerida**: Dimensión temática o institución pública de referencia.
+   - **Ubicación o tramo**: Calles de referencia o coordenadas aproximadas.
+   - **Fuente de verificación**: Enlace a geoportal institucional, documento público o fecha del levantamiento en terreno.
+   - **Organización o colaborador**: Junta de vecinos, colectivo barrial o institución educativa.
+   - **Fundamentación**: Breve explicación de la relevancia del dato para la gestión comunitaria del barrio.
 
-1. Ingresa a [GitHub Issues](https://github.com/GEOJOTA/atlas_vgi_uah/issues).
-2. Haz clic en **"New Issue"** y utiliza la siguiente plantilla:
-
-```markdown
-### 📍 Propuesta / Reporte de Datos Territoriales
-
-- **Tipo de aporte:** [Corrección de dato existente / Propuesta de nueva capa / Reporte de inconsistencia]
-- **Nombre de la capa o fenómeno:** (Ej: "Bicicleteros públicos y talleres comunitarios en calle Erasmo Escala")
-- **Categoría Temática:** (Ej: CAT-04 Movilidad Activa, o Capa Oficial MINVU/MOP)
-- **Ubicación o Delimitación:** (Ej: Erasmo Escala entre Av. Brasil y Ricardo Cumming)
-- **Fuente o Verificación:** (Ej: Levantamiento en terreno 2026, enlace a geoportal, documento oficial)
-- **Organización / Colaborador:** (Ej: Junta de Vecinos N° 1 Barrio Brasil, colectivo ciclista, investigador/a)
-- **Detalle de la observación:** (Describe brevemente el dato y por qué es relevante para la gestión del barrio)
-```
-
-El equipo mantenedor del Departamento de Geografía UAH auditará la geometría y la incorporará formalmente al catálogo.
+El equipo del Departamento de Geografía de la Universidad Alberto Hurtado evaluará la geometría y la incorporará al catálogo formal.
 
 ---
 
-### Vía 3: Carga Local en el Visor (Uso en Cabildos y Asambleas)
-Para contrastar levantamientos propios de inmediato sin necesidad de software GIS pesado (QGIS o ArcGIS):
-
-1. Ingresa al Atlas en producción: [atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app/).
-2. En el **Panel 00 (Visor Cartográfico)**, haz clic en el botón **"📂 Cargar Archivo Local"**.
-3. Arrastra tu archivo en formato **.GeoJSON**, **.KML**, **.KMZ**, **.GPX** o **.CSV** (con columnas de latitud/longitud).
-4. El visor lo superpondrá al instante sobre las **109 capas oficiales del Estado** y las **10 macro-categorías VGI**, permitiendo auditar normativas urbanísticas (PRC Santiago) y densidades de equipamiento de forma 100% privada (los datos se procesan en la memoria RAM del navegador y nunca salen de tu equipo).
+### Vía 3: Carga local de archivos en el visor
+Para contrastar datos propios de forma inmediata en asambleas vecinales o talleres técnicos sin necesidad de instalar software SIG de escritorio:
+1. Abrir la plataforma en el navegador: [atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app/).
+2. En el **Módulo 00 (Visor para la gestión territorial)**, pulsar el botón **"📂 Cargar Archivo Local"**.
+3. Arrastrar un archivo en formato `.geojson`, `.kml`, `.kmz`, `.gpx` o `.csv` (con columnas de latitud y longitud).
+4. El visor proyectará las entidades directamente sobre las 131 capas del sistema. Esta operación se procesa localmente en la memoria del navegador, garantizando la privacidad de los datos.
 
 ---
 
-### Vía 4: Contribución Técnica de Código y Capas (Fork & Pull Request)
-Si eres desarrollador/a web, analista geoespacial o investigadora/or:
-
-1. Realiza un **Fork** del repositorio a tu cuenta personal de GitHub.
-2. Clona tu fork localmente:
+### Vía 4: Contribución técnica de código y capas mediante Git
+Para desarrolladoras, investigadoras y analistas espaciales:
+1. Realizar un *fork* del repositorio oficial a una cuenta personal de GitHub.
+2. Clonar el repositorio localmente:
    ```bash
    git clone https://github.com/TU_USUARIO/atlas_vgi_uah.git
    cd atlas_vgi_uah
    ```
-3. Crea una rama descriptiva siguiendo la convención de ramas:
+3. Crear una rama de trabajo temática:
    ```bash
-   git checkout -b feat/nueva-capa-equipamiento
+   git checkout -b feat/nueva-capa-residuos
    ```
-4. Desarrolla tus mejoras respetando las directrices de arquitectura explicadas a continuación.
-5. Verifica la integridad del sistema:
+4. Realizar las modificaciones respetando los procedimientos técnicos documentados en la [Sección 10](#10-procedimientos-de-mantención-y-actualización).
+5. Ejecutar la batería de pruebas automatizadas:
    ```bash
-   python3 scripts/verificar_conteo_capas.py
+   python scripts/verificar_conteo_capas.py
+   python scripts/verificar_integridad_despliegue.py
+   python scripts/analisis_metacalidad.py
    ```
-6. Envía un **Pull Request (PR)** hacia la rama `main` del repositorio oficial describiendo los cambios realizados.
+6. Enviar una solicitud de incorporación de cambios (*Pull Request*) hacia la rama `main` del repositorio oficial.
 
 ---
 
-## 3. Entorno de Desarrollo Local en 5 Segundos
+## 3. Arquitectura y Tecnologías del Sistema
 
-Al tratarse de una arquitectura *zero-build*, no requieres ejecutar `npm install` ni compilar activos. Para levantar un servidor de desarrollo local y probar tus cambios en tiempo real, utiliza cualquiera de estas opciones:
+### Principios de diseño del software
+La plataforma implementa una arquitectura estática autónoma del lado del cliente. A diferencia de los sistemas de información geográfica tradicionales basados en servidores de mapas propietarios y costosos (ArcGIS Server, GeoServer y motores PostgreSQL/PostGIS dedicados), el Atlas VGI UAH se ejecuta directamente en el navegador web mediante tecnologías abiertas y peticiones asíncronas optimizadas (`Fetch API`).
 
-```bash
-# Opción 1: Python 3 nativo (Recomendada)
-python3 -m http.server 8000 -d src
+Esta formulación ofrece tres ventajas operativas esenciales:
+1. **Sostenibilidad y costo cero**: La plataforma no requiere servidores de pago, asegurando su funcionamiento continuo en servicios de alojamiento estático como **Netlify** y **GitHub Pages**.
+2. **Independencia de herramientas de compilación**: No se emplean empaquetadores complejos (Webpack, Vite) ni dependencias que sufran obsolescencia rápida. Cualquier cambio en HTML, CSS o JavaScript se refleja de inmediato sin pasos intermedios de compilación.
+3. **Portabilidad y preservación digital**: El repositorio completo puede ejecutarse de manera local sin conexión a internet y preservarse a largo plazo como archivo digital abierto.
 
-# Opción 2: Extensión Live Server de VS Code / Cursor
-# Abre la carpeta 'src' y haz clic en "Go Live" en la barra inferior.
+### Lenguajes y herramientas utilizadas
+- **HTML5 semántico**: Estructuración accesible con roles ARIA para facilitar la navegación y lectura de pantalla.
+- **CSS3 estructurado**: Hoja de estilos centralizada en [`src/css/estilos.css`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/css/estilos.css) con variables nativas (`:root`), maquetación por Grid y Flexbox, y diseño adaptativo a múltiples tamaños de pantalla.
+- **Vanilla JavaScript ES6+ modular**: Código organizado bajo el patrón de módulo revelador mediante funciones inmediatas (IIFE). Cada módulo encapsula sus variables internas y expone una interfaz pública en el objeto global `window`.
+- **Python 3.10+**: Conjunto de scripts de geoprocesamiento, análisis espacial multivariado, cálculo del índice de metacalidad (ISO 19115/19157) y validación previa al despliegue.
+- **Estándar GeoJSON (RFC 7946; Butler et al., 2016)**: Formato de intercambio para las 131 coberturas cartográficas, almacenadas en coordenadas geográficas WGS84 (`EPSG:4326`) y codificación UTF-8.
+- **Estándar OGC GeoPackage v1.2**: Formato relacional SQLite utilizado para preservar esquemas y comentarios técnicos nativos de columnas en fuentes estatales complejas (SUBDERE RSD 2024).
 
-# Opción 3: Servidor Node ligero (si tienes Node.js instalado)
-npx serve src -l 8000
+### Sincronización simétrica entre directorios de trabajo y publicación
+El archivo [`netlify.toml`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/netlify.toml) establece que la raíz de publicación web en producción es el directorio `src/`:
+
+```toml
+[build]
+  publish = "src"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
 ```
 
-Abre tu navegador en `http://localhost:8000` y el Atlas estará plenamente operativo con recarga en vivo.
+Dado que los scripts de auditoría y análisis en Python se ejecutan desde la raíz del repositorio, se debe mantener una **regla de sincronización simétrica**:
+- Todo archivo de datos `.geojson` o `.gpkg` guardado en `data/` debe tener una réplica idéntica en `src/data/`.
+- Todo documento `.md`, `.json` o `.xlsx` de `docs/` debe replicarse simétricamente en `src/docs/`.
+
+### Almacenamiento cartográfico dual
+- **Archivos para visualización web (`.geojson`)**: Las 131 coberturas se sirven al navegador en formato GeoJSON bajo coordenadas geográficas `EPSG:4326`.
+- **Archivos para preservación de esquemas (`.gpkg`)**: En bases de datos oficiales que incluyen diccionarios incrustados como comentarios en la definición SQL de las tablas (específicamente las 13 capas del Catastro Nacional de Residuos Sólidos Domiciliarios SUBDERE 2024, `bbdd_86` a `bbdd_98`), se resguardan los archivos `.gpkg` originales tanto en `data/` como en `src/data/`.
 
 ---
 
-## 4. Anatomía del Proyecto: Archivo por Archivo y Lenguaje
+## 4. Estructura del Repositorio y Anatomía de Archivos
 
-El repositorio está organizado de forma modular, separando estrictamente la presentación, la lógica analítica, los datos espaciales y los scripts de soporte.
+### Árbol general del repositorio
 
-```
+```text
 atlas_vgi_uah/
-├── src/                               # Raíz de la aplicación web estática (SPA)
-│   ├── index.html                     # Maqueta estructural accesible y navegación por 9 módulos
-│   ├── css/                           # Sistema de diseño y hojas de estilo modulares
-│   │   ├── variables.css              # Tokens de diseño, paleta cromática UAH y tema oscuro
-│   │   ├── estilos.css                # Estilos base y tipografías
-│   │   ├── layout.css                 # Grillas de navegación, sidebar y paneles principales
-│   │   ├── mapa.css                   # Overlays de Leaflet, simbología cartográfica y popups
-│   │   ├── componentes.css            # Botones, switches, chips de filtro y badges
-│   │   └── responsive.css             # Reglas para dispositivos móviles, tablets y escritorios
-│   ├── js/                            # Lógica cliente en Vanilla JavaScript ES6+
-│   │   ├── app.js                     # Enrutador SPA, gestión del estado global y perfiles
-│   │   ├── config.js                  # Bbox Barrio Brasil, endpoints de APIs y taxonomía VGI
-│   │   └── modulos/                   # Módulos temáticos independientes
-│   │       ├── mapa.js                # Instancia Leaflet 1.9.4, capas vectoriales, inspector PRC
-│   │       ├── ide_chile.js           # Catálogo maestro de las 109 capas oficiales del Estado
-│   │       ├── overpass.js            # Constructor de consultas Overpass QL en tiempo real
-│   │       ├── ohsome.js              # Ingesta ohsome API v1/v2 y cálculo de calidad ISO 19157
-│   │       ├── gbif.js                # Consultas taxonómicas de biodiversidad urbana
-│   │       ├── umap.js                # Integración de proyectos colaborativos uMap
-│   │       ├── metadatos.js           # Generador de metadatos ISO 19115 / ISO 19139 (XML/JSON)
-│   │       ├── diccionario.js         # Glosario territorial interactivo y catálogo de etiquetas
-│   │       ├── licencias.js           # Matriz jurídica y descargador de catálogos Excel
-│   │       └── manual.js              # Manual de usuario, arquitectura y trazabilidad
-│   ├── data/                          # Almacén de coberturas GeoJSON locales (espejo de data/)
-│   └── docs/                          # Documentación académica y catálogos Excel (.xlsx)
-├── data/                              # Directorio raíz de datos espaciales GeoJSON
-├── docs/                              # Documentos maestros de arquitectura y trazabilidad
-│   ├── ARQUITECTURA.md                # Diagrama detallado de flujos y arquitectura de sistemas
-│   ├── TRAZABILIDAD_ACADEMICA.md      # Marco metodológico, linaje de fuentes y citas APA
-│   ├── GUIA_BASE_DATOS_SUPABASE.md    # Guía de conexión e índices espaciales PostGIS 3.3
-│   └── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md # Corpus bibliográfico extendido (127 fuentes APA)
-├── scripts/                           # Pipeline CLI y automatización en Python 3
-│   ├── db/                            # Scripts SQL para PostgreSQL 17 + PostGIS 3.3
-│   │   ├── 01_schema_postgis.sql      # Tablas, índices GIST y funciones RPC de Bbox
-│   │   └── 02_seed_metadata.sql       # Semilla SQL con los 109 registros oficiales
-│   ├── generar_catalogos_excel.py     # Generador de libros OpenXML (.xlsx) con openpyxl
-│   ├── verificar_conteo_capas.py      # Script de verificación y auditoría matemática de capas
-│   ├── generar_seed_sql.py            # Sincronizador desde ide_chile.js hacia SQL
-│   └── compactar_geojsons_pesados.py  # Optimizador topológico y reductor de decimales
-├── .github/workflows/                 # Integración continua y automatizaciones
-│   └── supabase_keepalive.yml         # Ping de telemetría cada 3 días para PostGIS libre
-├── CONTRIBUTING.md                    # Esta guía integral de contribución
-└── README.md                          # Portada institucional del proyecto
+├── netlify.toml                         # Configuración de publicación web en producción
+├── README.md                            # Resumen institucional y presentación del proyecto
+├── CONTRIBUTING.md                      # Esta guía unificada de mantención y contribución
+├── MANUAL_ACTUALIZACION_ATLAS.md        # Documento espejo de la guía de mantención
+├── MANUAL_USO.md                        # Manual de Uso del sistema para el usuario final
+├── PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md  # Protocolo técnico de verificación pre-despliegue
+│
+├── data/                                # REPOSITORIO MAESTRO DE DATOS (Espejo de src/data/)
+│   ├── *.geojson                        # 131 coberturas cartográficas vectoriales en EPSG:4326
+│   ├── *.gpkg                           # Geodatabases originales con diccionarios de columnas
+│   ├── geodatabase_completa_atlas_vgi.zip # Paquete comprimido maestro para descarga (542 MB)
+│   └── matriz_sintesis_barrio_brasil_manzanas.geojson # Matriz de 51 manzanas y 44 variables
+│
+├── docs/                                # DOCUMENTACIÓN Y CATÁLOGOS ABIERTOS (Espejo de src/docs/)
+│   ├── ARQUITECTURA.md                  # Especificación de arquitectura y flujo de datos
+│   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md# 125 referencias bibliográficas completas en APA 7ª ed.
+│   ├── TRAZABILIDAD_ACADEMICA.md        # Memoria técnica del proyecto Fondecyt F1261256
+│   ├── ANALISIS_METACALIDAD.md          # Reporte de calidad cuantitativa y cualitativa ISO 19157
+│   ├── matriz_metacalidad.json          # Matriz de métricas calculada por scripts
+│   ├── categorias_tematicas_osm.xlsx    # Catálogo OpenXML de categorías VGI
+│   ├── catalogo_fuentes_vgi.xlsx        # Catálogo OpenXML de fuentes oficiales
+│   └── perfil_metadatos_vgi.xlsx        # Catálogo OpenXML del perfil de metadatos IDE Chile
+│
+├── scripts/                             # BATERÍA DE AUTOMATIZACIÓN Y AUDITORÍA EN PYTHON
+│   ├── verificar_conteo_capas.py        # Audita cuadratura: 131 capas, 140 descriptores y dimensiones
+│   ├── verificar_integridad_despliegue.py # Verifica sintaxis JSON, ausencia de LFS y paridad de archivos
+│   ├── analisis_metacalidad.py          # Calcula el Índice Global de MetaCalidad (ISO 19115 / 19157)
+│   └── procesar_bbdd_vgi.py             # Utilidad de reproyección e ingesta batch
+│
+└── src/                                 # DIRECTORIO DE PUBLICACIÓN WEB EN PRODUCCIÓN
+    ├── index.html                       # Interfaz única: 10 pestañas (00-09), visor Leaflet y subpaneles
+    ├── data/                            # Espejo idéntico de data/ consumido por el navegador
+    ├── docs/                            # Espejo idéntico de docs/ para descargas directas del usuario
+    ├── css/
+    │   └── estilos.css                  # Sistema de diseño, paleta cromática y estilos responsivos
+    └── js/
+        ├── config.js                    # Bbox barrial, coordenadas de inicio y 10 categorías VGI
+        ├── app.js                       # Controlador maestro, eventos de mapa, filtros e ICV dinámico
+        └── modulos/
+            ├── geodesia.js              # Biblioteca geodésica propia: proyecciones UTM 19S y áreas
+            ├── mapa.js                  # Inicialización de Leaflet, capas base y controladores
+            ├── ide_chile.js             # Catálogo de las 121 capas oficiales del Estado
+            ├── evaluador_normativo.js   # Inspector Normativo PRC/OGUC e hitos históricos 1990-2024
+            ├── osm.js                   # Módulo 01: Consultas en tiempo real vía Overpass API
+            ├── ohsome.js                # Módulo 02: Series temporales ohsome API y auditoría OSMCha
+            ├── evaluador_calidad_cuantitativa.js # Módulo 02: Matriz multicriterio ISO 19157
+            ├── gbif.js                  # Módulo 03: Registros de biodiversidad GBIF / iNaturalist
+            ├── umap.js                  # Módulo 04: Integración de mapas participativos uMap
+            ├── metadatos.js             # Módulo 05: Generador de fichas XML/JSON (ISO 19115 / 19139)
+            ├── diccionario.js           # Módulo 06: Diccionario de Datos (140 descriptores, ISO 19110)
+            ├── licencias.js             # Módulo 07: Régimen de licencias y descarga de matrices Excel
+            ├── manual.js                # Módulo 08: Renderizador interactivo de manuales de uso y actualización
+            ├── indicadores_analisis.js  # Módulo 09: 5 Dimensiones Analíticas y 7 Storyboards territoriales
+            ├── taginfo.js               # Utilidad de validación de etiquetas con Taginfo API
+            ├── calidad_analyst.js       # Asistente analítico de consistencia espacial
+            ├── db_client.js             # Conector de persistencia cliente (Supabase)
+            └── importador_capas.js      # Procesador cliente de subida de archivos espaciales locales
+```
+
+### Módulos del frontend y lógica de aplicación
+Cada módulo en `src/js/modulos/` opera como un componente autocontenido:
+- [`geodesia.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/geodesia.js): Contiene las fórmulas trigonométricas de transformación conforme entre coordenadas geográficas (`EPSG:4326`) y la proyección UTM 19 Sur (`EPSG:32719`), así como el algoritmo del área de Gauss.
+- [`ide_chile.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/ide_chile.js): Declara el catálogo `CAPAS_OFICIALES` con las 121 coberturas del Estado.
+- [`evaluador_normativo.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/evaluador_normativo.js): Implementa la lógica de intersección de usos de suelo (Art. 2.1.24 OGUC), emisión del certificado CIN-VGI e incorpora los 10 hitos históricos del PRC de Santiago.
+- [`indicadores_analisis.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/indicadores_analisis.js): Gestiona la matriz de 5 dimensiones analíticas y renderiza las 7 láminas monográficas de análisis territorial.
+- [`manual.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/manual.js): Construye la vista interactiva de documentación dentro del Módulo 08, con filtrado en vivo e inventario de capas.
+
+### Scripts de automatización y geoprocesamiento
+- [`verificar_conteo_capas.py`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/scripts/verificar_conteo_capas.py): Comprueba la paridad numérica exacta entre las capas declaradas en `ide_chile.js`, `config.js`, `indicadores_analisis.js` y `diccionario.js`.
+- [`verificar_integridad_despliegue.py`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/scripts/verificar_integridad_despliegue.py): Audita los 216 archivos GeoJSON, certifica la ausencia de punteros Git LFS y valida la simetría entre `data/` y `src/data/`.
+- [`analisis_metacalidad.py`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/scripts/analisis_metacalidad.py): Evalúa los diez criterios de las normas ISO 19115-1:2014 e ISO 19157:2013, generando los reportes JSON, Markdown y hojas de cálculo Excel.
+
+---
+
+## 5. Diseño Visual, Interfaz y Accesibilidad
+
+### Distribución de la pantalla principal
+La interfaz se organiza en torno a tres áreas principales:
+1. **Encabezado institucional**: Contiene el logotipo de la Universidad Alberto Hurtado, la identificación del proyecto Fondecyt F1261256 y la barra horizontal de navegación con las 10 pestañas de módulos (`00` al `09`).
+2. **Lienzo cartográfico central (`#mapa`)**: Gestionado mediante Leaflet, permite el desplazamiento, cambio de escala, consulta de atributos e interacción con los elementos vectoriales.
+3. **Barra de herramientas flotantes**: Permite alternar entre los encuadres territoriales predefinidos, activar la herramienta de dibujo de recuadros con cálculo métrico en hectáreas y descargar la geodatabase completa en `.zip`.
+4. **Paneles laterales colapsables**: Agrupan el catálogo de capas oficiales por ministerio e institución, el panel de métricas dinámicas de calidad VGI y el formulario del inspector normativo.
+5. **Ventanas modales**: Paneles de lectura expandida para la revisión de storyboards territoriales y la emisión de certificados normativos descargables.
+
+### Paleta de colores y componentes visuales
+El diseño adopta una estética oscura funcional, optimizada para destacar la cartografía temática y reducir el cansancio visual durante jornadas prolongadas de trabajo:
+- Fondo general de la aplicación: `#0b1329` (azul pizarra oscuro).
+- Superficie de tarjetas y paneles: `rgba(15, 23, 42, 0.75)` (tono translúcido).
+- Color de acento para capas oficiales: `#38bdf8` (cyan).
+- Color de acento para capas comunitarias VGI: `#10b981` (verde esmeralda).
+- Color de alerta y storyboards normativos: `#f59e0b` (ámbar).
+- Color para patrimonio y conservación histórica: `#a855f7` (púrpura).
+- Color de advertencia normativa o riesgo: `#ef4444` (rojo).
+
+### Insignias de geometría
+Para facilitar la rápida identificación del tipo de dato en los listados del visor:
+- `● PUN` (Puntos, verde esmeralda): Equipamientos puntuales, árboles, semáforos o monumentos.
+- `― LÍN` (Líneas, cyan): Redes viales, ciclovías, líneas de metro o rutas de transporte.
+- `■ POL` (Polígonos, púrpura): Manzanas censales, zonas del plan regulador, predios o parques.
+
+### Criterios de accesibilidad web
+- **Contraste de colores**: Se mantiene una relación de contraste mínima de 4.5:1 entre el texto y el fondo para garantizar su legibilidad según las pautas WCAG 2.1 nivel AA.
+- **Navegación accesible**: Todos los elementos interactivos cuentan con estados de enfoque claramente visibles para personas que utilizan el teclado.
+- **Etiquetado semántico**: Se utilizan atributos `aria-label`, `aria-hidden` y `aria-expanded` para una correcta interpretación por lectores de pantalla.
+
+---
+
+## 6. Motor Cartográfico y Cálculos Geodésicos
+
+### Visualización cartográfica en Leaflet
+En [`src/js/modulos/mapa.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/mapa.js), el visor se inicializa con los siguientes parámetros:
+- **Centro cartográfico**: Latitud `-33.4410`, Longitud `-70.6660` (Plaza Brasil).
+- **Escala de inicio**: Nivel de zoom `15` (escala barrial).
+- **Límites de visualización**: Área restringida a la Región Metropolitana (`[[-33.9, -71.2], [-33.0, -70.1]]`).
+- **Capas base**: CartoDB DarkMatter (predeterminada), OpenStreetMap Standard y Satélite ESRI.
+
+### Biblioteca geodésica propia y proyecciones conformes
+Para evitar los errores comunes de deformación de distancias y superficies que produce la proyección Web Mercator (`EPSG:3857`) en la latitud de Santiago ($-33,4^\circ$), el Atlas cuenta con una biblioteca geodésica propia en [`src/js/modulos/geodesia.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/geodesia.js).
+
+La formulación implementa las ecuaciones rigurosas de la proyección Transversa de Mercator (Snyder, 1987) para el elipsoide WGS84 en la **Zona UTM 19 Sur (`EPSG:32719`)**:
+- Semieje mayor del elipsoide: $a = 6.378.137,0\text{ m}$.
+- Factor de achatamiento: $f = 1 / 298,257223563$.
+- Meridiano central: $\lambda_0 = -69,0^\circ\text{ W}$.
+- Falso Este: $X_0 = 500.000,0\text{ m}$.
+- Falso Norte: $Y_0 = 10.000.000,0\text{ m}$.
+- Factor de escala en el meridiano central: $k_0 = 0,9996$.
+
+### Cálculo métrico de áreas y distancias
+1. **Transformación de coordenadas**: `ModuloGeodesia.geograficasAUTM(lat, lon)` convierte pares geográficos decimales en coordenadas métricas planas Este ($X$) y Norte ($Y$).
+2. **Cálculo de superficie**: `ModuloGeodesia.calcularAreaPoligono(coordsGeograficas)` proyecta los vértices y aplica la fórmula del área de Gauss (Shoelace), entregando el resultado en metros cuadrados ($\text{m}^2$) y hectáreas ($\text{ha}$) con reducción de escala geodésica.
+3. **Cálculo de distancias**: `ModuloGeodesia.calcularDistanciaMetros(p1, p2)` calcula la distancia geodésica mediante la fórmula de Haversine sobre el elipsoide.
+
+---
+
+## 7. Inventario y Catálogo de Capas Territoriales
+
+### Cuadratura general de capas
+El sistema mantiene una consistencia cuantitativa estricta entre todos sus módulos:
+
+```text
+  121 Capas Oficiales del Estado (ide_chile.js)
++  10 Macro-categorías VGI Comunitarias (config.js)
+--------------------------------------------------------
+= 131 Capas Cartográficas Operativas en el Visor
+```
+
+```text
+  131 Capas Cartográficas Operativas
++   9 Tablas de Referencia y Esquemas Normalizados
+--------------------------------------------------------
+= 140 Descriptores Técnicos en el Diccionario (diccionario.js)
+```
+
+### Clasificación en cinco dimensiones analíticas
+En [`src/js/modulos/indicadores_analisis.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/indicadores_analisis.js), las 131 coberturas se distribuyen en cinco dimensiones temáticas:
+
+| Dimensión Temática | Código Interno | Número de Capas | Contenido Resumido |
+| :--- | :--- | :---: | :--- |
+| **Dimensión 01 · Sociodemográfica** | `dim-sociodemografica` | **19 capas** | Censo 2024 (población, tramos etarios, migración, pueblos originarios), RSH y densidad. |
+| **Dimensión 02 · Socioeconómica** | `dim-socioeconomica` | **18 capas** | Vulnerabilidad socioeconómica (CSE), inversión pública BIP, comercio y avalúos fiscales SII. |
+| **Dimensión 03 · Socioambiental** | `dim-socioambiental` | **36 capas** | Arbolado, áreas verdes, ruido ambiental MMA, GBIF y las 13 capas de residuos SUBDERE 2024. |
+| **Dimensión 04 · Sociosanitaria** | `dim-sociosanitaria` | **3 capas** | Red asistencial de salud (CESFAM N° 1), farmacias comunitarias y dependencia funcional RSH. |
+| **Dimensión 05 · Sociourbana o Habitabilidad** | `dim-sociourbana` | **55 capas** | Zonificación PRC Santiago, PRMS, alturas de edificación, 9 cités, patrimonio ZCH/ICH y movilidad. |
+| **TOTAL CONSOLIDADO** | **5 Dimensiones** | **131 capas** | **Totalidad de coberturas cartográficas cuadradas.** |
+
+### Matriz multivariada y diagnóstico espacial del Barrio Brasil
+El archivo [`src/data/matriz_sintesis_barrio_brasil_manzanas.geojson`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/data/matriz_sintesis_barrio_brasil_manzanas.geojson) sintetiza el análisis territorial sobre las **51 manzanas censales consolidadas del Barrio Brasil**:
+- **44 Variables Cuantitativas**: Densidad poblacional, porcentaje de arriendo, avalúo fiscal promedio, presencia de cités, nivel de ruido ponderado (MMA), áreas verdes per cápita a 300 y 500 metros, y distancia a estaciones de Metro.
+- **Descomposición por Análisis de Componentes Principales (PCA)**: Cuatro dimensiones ortogonales que explican el $60,85\%$ de la variabilidad espacial.
+- **Tipologías Urbanas mediante Clustering Ward**: Agrupamiento de las 51 manzanas en 4 tipologías socioespaciales diferenciadas.
+- **Autocorrelación Espacial Local (LISA de Anselin)**: Detección de conglomerados significativos (*High-High*, *Low-Low*, *High-Low*, *Low-High*) con matriz Queen y 999 permutaciones de Monte Carlo.
+
+### Diccionario técnico de datos
+En [`src/js/modulos/diccionario.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/diccionario.js), los **140 descriptores técnicos** cumplen con el estándar **ISO 19110:2016**, detallando para cada capa su institución custodia, geometría, norma legal de origen y la definición semántica de cada una de sus columnas.
+
+---
+
+## 8. Módulos Funcionales del Atlas (00 al 09)
+
+| Módulo | Nombre en Interfaz | Archivo Principal | Funcionalidad Principal |
+| :---: | :--- | :--- | :--- |
+| **`00`** | **Visor para la gestión territorial** | `src/js/app.js`<br>`src/js/modulos/mapa.js`<br>`src/js/modulos/evaluador_normativo.js` | Visualización de las 131 capas cartográficas; cálculo en tiempo real del Índice de Calidad VGI (ICV); delimitación de Bbox geodésico; **Inspector Normativo PRC/OGUC** que analiza la zonificación comunal e intercomunal, evalúa usos permitidos y prohibidos (Art. 2.1.24 OGUC), emite el **Certificado CIN-VGI** e incluye el historial de las **10 modificaciones al PRC de Santiago (1990–2024)** vinculadas a los expedientes oficiales de Asesoría Urbana; e importación local de archivos espaciales. |
+| **`01`** | **Consultas Overpass (OSM)** | `src/js/modulos/osm.js` | Constructor visual de consultas y ejecución de sentencias en lenguaje Overpass QL para la extracción en tiempo real de geometrías y etiquetas desde OpenStreetMap. |
+| **`02`** | **Calidad & ICV (ISO 19157)** | `src/js/modulos/ohsome.js`<br>`src/js/modulos/evaluador_calidad_cuantitativa.js` | Evaluación multicriterio de calidad según ISO 19157:2013 mediante combinación lineal ponderada (WLC / AHP); análisis de series temporales históricas con la API ohsome de HeiGIT; y auditoría de conjuntos de cambios con OSMCha. |
+| **`03`** | **Biodiversidad GBIF** | `src/js/modulos/gbif.js` | Conexión directa a las bases de datos abiertas de GBIF e iNaturalist para la consulta y visualización de registros biológicos urbanos bajo el estándar Darwin Core. |
+| **`04`** | **Cartografía uMap** | `src/js/modulos/umap.js` | Galería interactiva e integración de proyectos territoriales elaborados en la plataforma colaborativa uMap para actividades comunitarias y talleres participativos. |
+| **`05`** | **Metadatos ISO 19115** | `src/js/modulos/metadatos.js` | Generación y exportación de fichas técnicas de metadatos en formatos JSON y XML (ISO 19139:2007) homologadas con el Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT). |
+| **`06`** | **Diccionario de Datos** | `src/js/modulos/diccionario.js` | Consulta interactiva de los 140 descriptores técnicos de capas y atributos bajo el estándar ISO 19110:2016, incluyendo los diccionarios de columnas de las 13 capas SUBDERE RSD 2024. |
+| **`07`** | **Licencias & Catálogos** | `src/js/modulos/licencias.js` | Documentación del marco legal abierto (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285 y Ley N° 19.628) y descarga directa de catálogos en formato Excel (.xlsx). |
+| **`08`** | **Manual de Uso y Actualización** | `src/js/modulos/manual.js` | Visualizador interactivo de la documentación técnica del sistema, con buscador por palabras clave, inventario dinámico de capas y descarga de manuales en Markdown. |
+| **`09`** | **Indicadores & Storyboards** | `src/js/modulos/indicadores_analisis.js` | Consulta de indicadores territoriales organizados en 5 dimensiones analíticas y lectura de las 7 láminas monográficas de análisis territorial. |
+
+---
+
+## 9. Láminas de Análisis Territorial y Storyboards
+
+### Temáticas de las siete láminas de análisis
+Cada storyboard aborda un fenómeno socioterritorial específico mediante el cruce de datos espaciales:
+
+1. **Lámina 1 · Habitar, Altura y Presión sobre el Tejido Patrimonial**:
+   - Analiza la convivencia entre los 135 inmuebles de 1 a 2 pisos protegidos como Zona de Conservación Histórica (ZCH B1) frente al avance de torres habitacionales en los bordes de la Alameda.
+   - *Capas utilizadas*: `minvu_patrimonio`, `minvu_ipt_prc_santiago`, `catastro_predial_sii`, `bbdd_19`, `cat09_edificaciones`.
+2. **Lámina 2 · Movilidad Sustentable y Caminabilidad Peatonal**:
+   - Evalúa los tiempos de caminata hacia el Metro (Líneas 1, 2 y 5), la continuidad de las ciclovías y la seguridad peatonal en cruces regulados por la UOCT.
+   - *Capas utilizadas*: `cat05_transporte`, `lineas_metro`, `estaciones_metro`, `ciclovias_subdere`, `semaforos_rm_uoct_2026`.
+3. **Lámina 3 · El Oasis Verde del Barrio Brasil: Cobertura Arbórea y Biodiversidad**:
+   - Cuantifica la disparidad en la dotación de áreas verdes ($2,1\text{ m}^2/\text{hab}$ en manzanas interiores frente a $46\text{ m}^2/\text{hab}$ en torno a la Plaza Brasil) y el rol del arbolado en la mitigación del ruido urbano.
+   - *Capas utilizadas*: `cat08_espaciopublico`, `bbdd_40`, `bbdd_42`, `mma_ruido_gran_santiago_2010`, `catastro_vegetacional`.
+4. **Lámina 4 · Campus UAH y Vitalidad Económica Cotidiana**:
+   - Examina el rol de la universidad como motor de la vida de barrio y su vinculación con los 381 locales comerciales y gastronómicos del sector.
+   - *Capas utilizadas*: `cat01_educacion`, `cat03_comercio`, `bbdd_12`, `bbdd_14`, `red_vial_caminera`.
+5. **Lámina 5 · Cuidados, Género y Salud Comunitaria**:
+   - Visibiliza el envejecimiento de la población barrial (índice de 118 adultos mayores por cada 100 menores de 15 años), la feminización de las tareas de cuidado no remunerado ($84,6\%$) y las barreras arquitectónicas en casonas y cités.
+   - *Capas utilizadas*: `establecimientos_salud`, `bbdd_67`, `bbdd_70`, `bbdd_66`, `bbdd_73`.
+6. **Lámina 6 · Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)**:
+   - Reconstruye la ruta de las 189.510 toneladas anuales de residuos generadas en Santiago Centro ($500,78\text{ kg/hab/año}$), desde las calles del barrio hasta la Estación de Transferencia Quilicura (12,1 km en camión) y su transporte en tren de carga durante 49 km hasta el Relleno Sanitario Loma Los Colorados en Tiltil ($61,1\text{ km}$ totales), con un costo municipal anual de $\$14.845$ millones CLP según el SINIM.
+   - *Capas utilizadas*: `bbdd_86`, `bbdd_87`, `bbdd_89`, `bbdd_91`, `bbdd_94`, `cat03_comercio`.
+7. **Lámina 7 · Treinta Años de Disputa Normativa: Las Modificaciones al PRC en Barrio Brasil (1990–2024)**:
+   - Sistematiza cómo 10 modificaciones al Plan Regulador Comunal de Santiago (Seccional Brasil, Modificaciones N° 16, 21, 26 y 31, Enmienda N° 2 de Cités, Enmiendas de Altura N° 1, 3 y 6) frenaron la demolición indiscriminada, protegieron los **9 cités catastrados** y consolidaron la protección del $80,4\%$ del barrio bajo conservación histórica frente a la brecha de renta inmobiliaria (*Rent Gap*).
+   - *Capas utilizadas*: `minvu_prc`, `minvu_patrimonio`, `cmn_monumentos`, `cat02_vivienda`.
+
+### Estructura obligatoria de los storyboards
+Para que la ventana modal `abrirLaminaStoryboard` en [`src/js/modulos/indicadores_analisis.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/indicadores_analisis.js) funcione correctamente, cada objeto del arreglo `STORYBOARDS` debe contener obligatoriamente las siguientes diez propiedades en su sección `contenido`:
+1. `introduccion`: Párrafo de apertura o síntesis general (cadena de texto).
+2. `datosClave`: Arreglo de tarjetas con indicadores destacados (`{ valor, label, sub }`).
+3. `porcentajesClave`: Arreglo de barras de porcentaje (`{ label, valor, porcentaje, contexto }`).
+4. `graficoComparativo`: Objeto con `titulo` y arreglo `filas` compuesto por `{ label, valor, porcentaje }`.
+5. `diagramaSVG`: Función que retorna el código vectorial SVG: `() => '<svg ...>...</svg>'`.
+6. `tablaIndicadores`: Arreglo de filas con `{ variable, valor, referencial, fuente }`.
+7. `cuerpo`: Arreglo de cadenas de texto con los párrafos de análisis detallado.
+8. `conclusion`: Párrafo de cierre con implicancias para la gestión territorial.
+9. `analisisPorActor`: Arreglo de cuatro perfiles de usuario con `{ id, icono, nombre, subtitulo, utilidad }`, utilizando los identificadores `institucion`, `comunidad`, `voluntario` y `ong`.
+10. `apartadoBibliografico`: Objeto con los arreglos `fuentesDatos` y `referenciasAcademicas` en formato APA 7ª edición.
+
+---
+
+## 10. Procedimientos de Mantención y Actualización
+
+### Procedimiento 1: Ingesta de una nueva capa oficial del Estado
+
+#### Paso 1. Preparación del archivo
+- Asegurar que la capa se encuentre en coordenadas geográficas WGS84 (`EPSG:4326`) con latitud y longitud en grados decimales.
+- Exportar en formato GeoJSON con codificación UTF-8 sin BOM (ejemplo: `bbdd_99.geojson`).
+
+#### Paso 2. Copia en los directorios correspondientes
+El archivo debe depositarse simétricamente en ambas rutas del repositorio:
+```bash
+cp origen/bbdd_99.geojson data/bbdd_99.geojson
+cp origen/bbdd_99.geojson src/data/bbdd_99.geojson
+```
+
+#### Paso 3. Registro en el catálogo oficial
+Abrir [`src/js/modulos/ide_chile.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/ide_chile.js) e incorporar la definición en `CAPAS_OFICIALES`:
+```javascript
+  bbdd_99: {
+    id: 'bbdd_99',
+    nombre: 'Puntos Limpios y Reciclaje Barrial (BBDD-99)',
+    institucion: 'Ilustre Municipalidad de Santiago / MMA',
+    urlServicio: 'https://ide.minvu.cl/',
+    archivoLocal: 'data/bbdd_99.geojson',
+    color: '#10b981',
+    peso: 2,
+    opacidadRelleno: 0.35,
+    geometria: 'Punto', // 'Punto' | 'Línea' | 'Polígono'
+    num_bbdd: 99,
+    licencia: 'Datos Abiertos / Ley 20.285',
+    descripcion: 'Catastro georreferenciado de infraestructura de reciclaje en Barrio Brasil.'
+  },
+```
+
+#### Paso 4. Incorporación del botón en la interfaz
+En [`src/index.html`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/index.html), añadir el botón dentro del acordeón correspondiente en `#subpanel-ide`:
+```html
+<button type="button" class="chip-oficial" id="btn-oficial-bbdd_99" data-capa="bbdd_99" title="Ilustre Municipalidad de Santiago / MMA">
+  <span class="dot-color" style="background:#10b981;"></span>
+  <span class="nombre-chip">99. Puntos Limpios y Reciclaje Barrial</span>
+  <span class="badge-institucion-chip">MUNISTGO</span>
+  <span class="badge-geom-chip">● PUN</span>
+</button>
+```
+
+#### Paso 5. Asociación a dimensión analítica y diccionario
+1. En [`src/js/modulos/indicadores_analisis.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/indicadores_analisis.js):
+   - Registrar el nombre en `NOMBRES_OFICIALES_FALLBACK`.
+   - Añadir `'bbdd_99'` al arreglo `capasIds` de la dimensión analítica correspondiente en `DIMENSIONES`.
+2. En [`src/js/modulos/diccionario.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/diccionario.js):
+   - Registrar la capa y el detalle de sus atributos en `CATALOGO_DICCIONARIO`.
+
+#### Paso 6. Ajuste de los umbrales de comprobación
+Actualizar el número esperado de capas en [`scripts/verificar_conteo_capas.py`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/scripts/verificar_conteo_capas.py) y ejecutar las pruebas automáticas.
+
+---
+
+### Procedimiento 2: Actualización de datos sin cambio de nombre
+Cuando se dispone de una nueva versión de una capa existente (por ejemplo, una actualización del catastro predial o del censo) conservando el mismo nombre de archivo:
+1. Verificar que el archivo resultante mantenga el CRS `EPSG:4326` y los mismos nombres de atributos.
+2. Sobrescribir el archivo de manera idéntica en `data/` y en `src/data/`.
+3. El visor Leaflet y los cálculos de calidad leerán las nuevas geometrías automáticamente en la siguiente recarga sin requerir cambios en el código JavaScript.
+
+---
+
+### Procedimiento 3: Incorporación o edición de un storyboard
+1. Abrir [`src/js/modulos/indicadores_analisis.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/indicadores_analisis.js).
+2. Localizar el arreglo `STORYBOARDS`.
+3. Agregar o editar el objeto asegurando la presencia de las diez propiedades obligatorias de `contenido` detalladas en la [Sección 9](#estructura-obligatoria-de-los-storyboards).
+4. Si se añade una nueva lámina, crear la tarjeta de presentación correspondiente en [`src/index.html`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/index.html) dentro del contenedor `#panel-indicadores`.
+
+---
+
+### Procedimiento 4: Actualización de la normativa urbana y el plan regulador
+En [`src/js/modulos/evaluador_normativo.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/evaluador_normativo.js):
+- Modificar las zonas y usos de suelo en `FUENTES_ORDENANZAS_IPT`.
+- Si se aprueba una nueva enmienda o modificación al Plan Regulador Comunal de Santiago, incorporar un nuevo registro al arreglo `HITOS_HISTORICOS_PRC_BRASIL`:
+  ```javascript
+  {
+    anio: '2026',
+    hito: 'Modificación N° 35 (Nombre de la modificación)',
+    detalle: 'Resumen claro del impacto en alturas máximas, densidades y usos de suelo.'
+  }
+  ```
+  La modificación se actualizará de forma automática en el visor y en el certificado CIN-VGI descargable.
+
+---
+
+### Procedimiento 5: Extracción de esquemas desde bases GeoPackage
+Para consultar las definiciones y comentarios de columnas incrustados en archivos GeoPackage mediante Python:
+
+```python
+import sqlite3
+
+def inspeccionar_columnas_gpkg(ruta_archivo):
+    conexion = sqlite3.connect(ruta_archivo)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT table_name FROM gpkg_contents WHERE data_type='features'")
+    tablas = [fila[0] for fila in cursor.fetchall()]
+    
+    for tabla in tablas:
+        print(f"\n--- Cobertura: {tabla} ---")
+        cursor.execute(f"PRAGMA table_info('{tabla}')")
+        for col in cursor.fetchall():
+            print(f"Columna: {col[1]:25} | Tipo: {col[2]}")
+
+inspeccionar_columnas_gpkg("data/CATASTRO_RSD_SUBDERE_2024.gpkg")
 ```
 
 ---
 
-### Frontend Vanilla JavaScript (ES6+ / IIFE SPA)
+### Procedimiento 6: Control de versiones en archivos estáticos
+Para evitar que los navegadores web retengan versiones antiguas de los archivos en su memoria caché tras realizar modificaciones en JavaScript o CSS, se debe actualizar el parámetro de versión en [`src/index.html`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/index.html):
 
-- **Tecnología:** JavaScript moderno nativo (ES6+), organizado mediante módulos desacoplados y patrón revelador (*revealing module pattern*) montados sobre el objeto global `window.AtlasVGI`.
-- **Ventajas:** Máxima velocidad de carga, sin dependencias frágiles de compiladores, depuración directa en las herramientas de desarrollo del navegador (`DevTools`).
-- **Principales archivos a modificar:**
-  - `src/js/config.js`: Modifica aquí los Bbox territoriales, las ponderaciones del Índice de Calidad VGI (ICV) o las claves de las 10 categorías temáticas (CAT-01 a CAT-10).
-  - `src/js/modulos/ide_chile.js`: Contiene el objeto maestro `CAPAS_OFICIALES` con la totalidad de capas estatales (109 en total). Aquí se configuran los identificadores (`bbdd_XX`), nombres temáticos, organismos custodios, URLs de descarga y citas bibliográficas en formato APA 7ª edición.
-  - `src/js/modulos/mapa.js`: Controla la inicialización de Leaflet, la conmutación de mapas base (CartoDB Positron, Dark Matter, OpenStreetMap, Ortofoto Esri), el motor de popups informativos y el **Inspector Normativo del Plan Regulador Comunal (PRC Santiago)**.
-  - `src/js/modulos/overpass.js`: Gestiona las consultas en sintaxis Overpass QL hacia los servidores de Overpass API (`overpass-api.de`, `kumi-systems`, `openstreetmap.fr`), extrayendo geometrías vivas de nodos, vías y relaciones.
+```html
+<!-- En el encabezado <head> -->
+<link rel="stylesheet" href="css/estilos.css?v=20261015_v8">
 
----
-
-### Hojas de Estilo CSS Puro (Variables Nativas y Diseño Responsivo)
-
-- **Tecnología:** CSS3 puro con variables nativas (*custom properties*), CSS Grid, Flexbox y media queries fluidas.
-- **Sistema de Diseño (Design Tokens):** Ubicado en `src/css/variables.css`.
-  - Color Primario Institucional (Musgo): `#10B981` (rgb: `16, 185, 129`)
-  - Acento Geográfico (Agua): `#38BDF8` (rgb: `56, 189, 248`)
-  - Acento Comunitario (Ocre): `#FBBF24` (rgb: `251, 191, 36`)
-  - Fondo Base Oscuro: `#0F172A` / `#0B0F19`
-  - Contraste Tipográfico: Texto principal `#FFFFFF` y secundario `#94A3B8`.
-- **Regla de Oro:** No utilices colores fijos en los componentes; referencia siempre las variables declaradas (`var(--musgo)`, `var(--fondo-tarjeta)`, etc.) para garantizar la consistencia visual y el soporte de contraste accesible WCAG 2.1 AA.
+<!-- Al final del cuerpo <body> -->
+<script src="js/config.js?v=20261015_v8"></script>
+<script src="js/app.js?v=20261015_v8"></script>
+<!-- (actualizar en todos los scripts) -->
+```
 
 ---
 
-### Capa Geoespacial GeoJSON (WGS 84 / EPSG:4326)
+## 11. Batería de Pruebas y Publicación en Producción
 
-- **Estándar:** RFC 7946 GeoJSON.
-- **Sistema de Referencia de Coordenadas (CRS):** Obligatoriamente **EPSG:4326 (WGS 84)** en coordenadas geográficas (longitud, latitud en grados decimales).
-- **Esquema Normalizado de Atributos VGI (14 campos):**
-  Toda entidad capturada en terreno o integrada al Atlas debe incluir la siguiente estructura en su objeto `properties`:
-  1. `id`: Identificador alfanumérico único.
-  2. `nombre`: Topónimo o denominación del elemento.
-  3. `categoria_vgi`: Código maestro (`CAT-01` a `CAT-10`).
-  4. `osm_key`: Clave principal de OpenStreetMap (ej: `amenity`).
-  5. `osm_value`: Valor asociado (ej: `bicycle_parking`).
-  6. `fuente`: Origen del dato (`OpenStreetMap`, `GBIF`, `Terreno JJVV`).
-  7. `autor_contribucion`: Usuario OSM o colectivo responsable.
-  8. `fecha_relevamiento`: Fecha ISO 8601 (`YYYY-MM-DD`).
-  9. `calidad_icv`: Puntaje de calidad estimado (0.0 a 1.0).
-  10. `comuna`: Denominación administrativa (`Santiago`).
-  11. `barrio`: Unidad territorial barrial (`Barrio Brasil`).
-  12. `licencia`: Licencia legal del registro (`ODbL 1.0`, `CC BY-SA 4.0`).
-  13. `cita_fuente`: Cita bibliográfica abreviada.
-  14. `atributos_extra`: Objeto JSON con propiedades específicas del fenómeno.
-- **Git LFS (Large File Storage):** Los archivos GeoJSON que superen los 10 MB están gestionados mediante Git LFS para mantener la agilidad del repositorio. Al incorporar archivos de gran volumen, verifica que queden registrados en `.gitattributes`.
+### Pruebas en servidor local
+Antes de enviar cambios al repositorio remoto, se debe comprobar el funcionamiento en un navegador web local:
+```bash
+# Cambiar al directorio de publicación
+cd src
 
----
+# Iniciar servidor web básico en el puerto 8080
+python -m http.server 8080
+```
+Abrir en el navegador la dirección `http://localhost:8080` y comprobar la carga de capas, la apertura de las láminas de análisis y la respuesta del inspector normativo.
 
-### Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3
-
-- **Infraestructura:** Clúster relacional en la nube (Supabase) con extensión espacial PostGIS 3.3.
-- **Arquitectura de Consultas Espaciales:**
-  - Tabla `public.capas_entidades`: Almacena más de 129.000 geometrías vectoriales indexadas con índices R-Tree `GIST(geom)`.
-  - Función RPC `fn_obtener_capa_bbox`: Permite recortar y extraer geometrías en milisegundos basadas en el polígono visible del usuario:
-    ```sql
-    SELECT * FROM public.fn_obtener_capa_bbox('semaforos_rm_uoct_2026', -70.6720, -33.4505, -70.6580, -33.4350);
-    ```
-  - Tabla `public.capas_metadata`: Catálogo relacional con los metadatos de las 109 capas oficiales.
-
----
-
-### Pipeline CLI, Automatización y ETL en Python 3
-
-- **Ubicación:** Carpeta `scripts/`.
-- **Dependencias Python:** `openpyxl` (para generación de hojas de cálculo Excel), `requests` (para consultas HTTP a APIs espaciales).
-- **Scripts Principales:**
-  - `python3 scripts/verificar_conteo_capas.py`: Verifica que el conteo de capas en `src/js/modulos/ide_chile.js` sea exactamente de **109 capas oficiales** y **119 capas totales**.
-  - `python3 scripts/generar_catalogos_excel.py`: Lee la definición de capas desde `ide_chile.js` y genera automáticamente los tres libros Excel institucionales sincronizándolos en `docs/` y `src/docs/`:
-    - `catalogo_fuentes_vgi.xlsx`
-    - `perfil_metadatos_vgi.xlsx`
-    - `categorias_tematicas_osm.xlsx`
-  - `python3 scripts/generar_seed_sql.py`: Sincroniza las 109 capas hacia el archivo `scripts/db/02_seed_metadata.sql` para poblar el clúster PostGIS en la nube.
-
----
-
-## 5. Guías Paso a Paso para Nuevas Contribuciones
-
-### Cómo agregar una nueva Capa Oficial del Estado
-
-1. **Obtén y prepara el archivo GeoJSON:**
-   - Asegúrate de que esté en **EPSG:4326 (WGS 84)**.
-   - Si proviene de un Shapefile (.shp), reproyéctalo con GDAL:
-     ```bash
-     ogr2ogr -f GeoJSON -t_srs EPSG:4326 mi_nueva_capa.geojson mi_capa_original.shp
-     ```
-   - Nómbralo con un identificador claro (ej: `capa_nueva_salud.geojson`).
-   - Cópialo en `data/` y en `src/data/`.
-2. **Registra la capa en `src/js/modulos/ide_chile.js`:**
-   Agrega una nueva entrada dentro del objeto `const CAPAS_OFICIALES = { ... }`:
-   ```javascript
-   'nueva_capa_id': {
-     id: 'nueva_capa_id',
-     num_bbdd: 110,
-     nombre: "Nombre Oficial de la Capa o Indicador",
-     institucion: "Ministerio de Salud / Subsecretaría de Redes Asistenciales",
-     ministerio: "Ministerio de Salud (MINSAL)",
-     tipoServicio: "Vectorial GeoJSON / OGC WFS",
-     urlServicio: "https://geoportal.cl/...",
-     archivoLocal: "data/capa_nueva_salud.geojson",
-     color: "#10B981",
-     icono: "🏥",
-     geometria: "Puntos / Polígonos",
-     grupo: "equipamiento_servicios", // normativa_urbanismo, medio_ambiente_riesgos, comunidad_demografia, movilidad_transporte
-     joinInfo: "ORIGINAL",
-     descripcion: "Descripción técnica e institucional del indicador catastrado para el Atlas VGI.",
-     declaracion: "Información pública oficial del Estado de Chile amparada por la Ley N° 20.285 de Transparencia.",
-     citaAPA: "Ministerio de Salud. (2026). Catastro Nacional de Centros de Salud (Capa N° 110). IDE Chile / Geoportal. https://geoportal.cl"
-   },
-   ```
-3. **Sincroniza los catálogos y la base de datos:**
-   ```bash
-   python3 scripts/generar_seed_sql.py
-   python3 scripts/generar_catalogos_excel.py
-   ```
-4. **Verifica la consistencia global:**
-   Actualiza los números de conteo correspondientes y ejecuta:
-   ```bash
-   python3 scripts/verificar_conteo_capas.py
-   ```
-
----
-
-### Cómo agregar o calibrar una Macro-Categoría VGI
-
-1. Abre `src/js/config.js`.
-2. Localiza el objeto `TAXONOMIA_VGI` o `MACRO_CATEGORIAS`.
-3. Ajusta las etiquetas OSM (`osmKeys`), la paleta cromática o los filtros sugeridos en sintaxis Overpass QL.
-4. Si agregas descriptores al glosario, edita la sección correspondiente en `src/js/modulos/diccionario.js`.
-
----
-
-### Cómo modificar estilos y componentes visuales
-
-1. Si deseas ajustar un color, margen o tipografía, dirígete a `src/css/variables.css`.
-2. Para alterar el comportamiento de botones, tarjetas o modales, modifica `src/css/componentes.css`.
-3. Abre `src/index.html` en tu navegador con un servidor local para verificar que los cambios mantengan la responsividad en móviles y escritorios.
-
----
-
-### Cómo sincronizar catálogos Excel y base de datos SQL
-
-Cada vez que se modifique un nombre de capa, una institución o una cita bibliográfica en `src/js/modulos/ide_chile.js`:
+### Ejecución de scripts automáticos de comprobación
+Desde la raíz del proyecto (`atlas_vgi_uah`), ejecutar de forma obligatoria los tres scripts de control:
 
 ```bash
-# 1. Regenerar el seed SQL para PostGIS
-python3 scripts/generar_seed_sql.py
+# 1. Comprueba la cuadratura de 131 capas y 140 descriptores
+python scripts/verificar_conteo_capas.py
 
-# 2. Regenerar los 3 libros Excel OpenXML
-python3 scripts/generar_catalogos_excel.py
+# 2. Comprueba la integridad de los GeoJSONs y la paridad entre carpetas
+python scripts/verificar_integridad_despliegue.py
 
-# 3. Validar consistencia de conteos
-python3 scripts/verificar_conteo_capas.py
+# 3. Recalcula el Índice Global de MetaCalidad bajo normas ISO
+python scripts/analisis_metacalidad.py
 ```
+Los tres scripts deben finalizar con mensaje de éxito (`[OK]`).
+
+### Publicación de cambios en GitHub y Netlify
+Una vez superadas las comprobaciones automáticas:
+```bash
+# Revisar el estado de los archivos modificados
+git status
+
+# Añadir todos los cambios
+git add -A
+
+# Confirmar los cambios con un mensaje claro y descriptivo
+git commit -m "Actualización técnica y documental del Atlas VGI"
+
+# Enviar los cambios a la rama principal
+git push origin main
+```
+Netlify detectará de forma automática el envío a la rama `main` y actualizará el sitio en producción en menos de un minuto.
 
 ---
 
-## 6. Estándares de Código Abierto y Buenas Prácticas
+## 12. Diagnóstico y Solución de Problemas Frecuentes
 
-### Convención de Commits (Conventional Commits)
-
-Utilizamos el estándar formal de mensajes de confirmación de Git para mantener un historial trazable y legible:
-
-- `feat(modulo):` Nueva funcionalidad o capa cartográfica (ej: `feat(capas): agregar red de ciclovías comunales`).
-- `fix(modulo):` Corrección de error o inconsistencia (ej: `fix(overpass): resolver timeout en consulta de arbolado`).
-- `docs(modulo):` Actualizaciones en manuales o referencias (ej: `docs(conteo): actualizar a 109 capas oficiales`).
-- `style(css):` Ajustes visuales, diseño responsive o contrastes (ej: `style(visor): mejorar padding de popups`).
-- `refactor(codigo):` Reestructuración de código sin alterar su comportamiento externo.
-- `chore(scripts):` Mantenimiento de scripts de soporte, pipelines o dependencias.
-
----
-
-### Tríada de Licencias Abiertas
-
-El Atlas implementa una arquitectura jurídica plural y compatible:
-
-1. **Código Fuente del Software (Frontend SPA & Scripts):**
-   - Licencia: **GNU Affero General Public License v3.0 (AGPLv3)**.
-   - Garantiza que cualquier software derivado o servicio web basado en este Atlas permanezca libre, abierto y disponible para la comunidad bajo la misma licencia.
-2. **Datos Cartográficos Colaborativos (OpenStreetMap):**
-   - Licencia: **Open Database License (ODbL) 1.0** (Open Data Commons).
-   - Cualquier enriquecimiento o derivado de datos OSM debe compartirse bajo ODbL atribuyendo a *© Colaboradores de OpenStreetMap*.
-3. **Observaciones Biológicas y Biodiversidad (GBIF):**
-   - Licencia: **Creative Commons Atribución (CC BY 4.0)** o **Dominio Público (CC0 1.0)**.
-4. **Documentación, Metadatos y Mapas Temáticos:**
-   - Licencia: **Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)**.
-5. **Capas Cartográficas del Estado de Chile:**
-   - Amparadas por la **Ley N° 20.285 de Transparencia y Acceso a la Información Pública**. Datos públicos de libre uso con obligación de citar al organismo emisor.
+| N° | Síntoma Observado | Causa Técnica | Solución Paso a Paso |
+| :---: | :--- | :--- | :--- |
+| **1** | La capa aparece en la lista pero no se visualiza en el mapa. | El archivo `.geojson` fue guardado en coordenadas planas UTM (`EPSG:32719`) en lugar de geográficas (`EPSG:4326`). | Reproyectar a `EPSG:4326` (grados decimales) en QGIS o mediante Python y sobrescribir el archivo en `data/` y `src/data/`. |
+| **2** | Error 404 al intentar activar una capa en el visor. | La ruta especificada en `archivoLocal` dentro de `ide_chile.js` no coincide exactamente con el nombre físico del archivo en `src/data/`. | Comprobar que el nombre del archivo esté escrito en minúsculas y sin espacios tanto en el código como en la carpeta. |
+| **3** | Al pulsar *Leer Lámina ↗*, el modal no se despliega. | Falta alguna de las propiedades requeridas dentro de `contenido` en el archivo `indicadores_analisis.js`. | Abrir la consola del navegador (`F12`), revisar el mensaje de error y verificar que el storyboard incluya `datosClave`, `porcentajesClave`, `filas` y `diagramaSVG()`. |
+| **4** | Los cambios en archivos `.js` o `.css` no se ven reflejados. | El navegador está utilizando una versión guardada en su memoria caché local. | Incrementar el número de versión `?v=...` en `src/index.html` y forzar la recarga en el navegador con `Ctrl + F5` (o `Cmd + Shift + R`). |
+| **5** | Alerta en el script de despliegue por punteros Git LFS. | Un archivo GeoJSON de gran tamaño fue registrado como puntero de texto en lugar de almacenar los datos reales. | Ejecutar `git lfs pull` o restaurar el archivo GeoJSON original en `data/` y `src/data/` antes de realizar el commit. |
+| **6** | Descuadre en el script de conteo de capas. | Se agregó una capa en `ide_chile.js` pero no se asoció a una dimensión en `indicadores_analisis.js` o en `diccionario.js`. | Leer el mensaje del script `verificar_conteo_capas.py`, el cual indicará con precisión qué identificador falta por incorporar. |
+| **7** | El Inspector Normativo no entrega resultados al hacer clic. | El punto consultado cae fuera de los polígonos de zonificación comunal o la capa `minvu_prc.geojson` no se encuentra encendida. | Verificar que las capas del PRC y patrimonio existan en `src/data/` y contengan geometrías válidas sobre el sector consultado. |
+| **8** | Caracteres dañados o signos de interrogación en textos. | El archivo fue guardado con una codificación distinta de UTF-8 (como ANSI o Latin-1). | Abrir el archivo en el editor de código y guardarlo explícitamente con codificación `UTF-8 sin BOM`. |
+| **9** | El cálculo de área en la herramienta de dibujo difiere del software SIG. | Se calculó el área en grados decimales sin proyección geodésica. | Asegurarse de utilizar la función `ModuloGeodesia.calcularAreaPoligono()`, la cual transforma los puntos a UTM 19S previo al cálculo métrico. |
+| **10** | Error de conexión al consultar datos de Overpass o GBIF. | Bloqueo temporal por alta demanda en los servidores públicos de Overpass. | En `src/js/modulos/osm.js`, conmutar temporalmente al servidor de respaldo (`https://overpass.kumi.systems/api/interpreter`). |
 
 ---
 
-### Trazabilidad, Linaje y Normas APA 7ª Edición
+## 13. Marco Legal, Licencias y Protección de Datos
 
-Todo dato incorporado al Atlas debe cumplir con la regla de **"Cero Inventos"**:
-- Cada capa debe contar con su institución de origen verificada y enlace web activo.
-- Las referencias bibliográficas deben formularse rigurosamente bajo el estándar **APA 7ª edición**:
-  ```text
-  Institución Emisora. (Año). Título Oficial de la Capa (Capa N° XX). Portal o Geoportal Oficial. URL_Persistente
-  ```
-- No se admiten capas espaciales sin linaje ni atribución legal explícita.
+### Régimen de licenciamiento abierto
+El Atlas se publica bajo un esquema de licenciamiento abierto que promueve la reutilización social y académica de la información:
+1. **Datos de OpenStreetMap (Categorías VGI `cat01` a `cat10`)**:
+   - Amparados por la licencia **Open Database License (ODbL 1.0)** de la Fundación OpenStreetMap. Permite el uso, adaptación y redistribución de los datos exigiendo dar crédito a *© Colaboradores de OpenStreetMap* y publicar las bases derivadas bajo los mismos términos.
+2. **Capas cartográficas y productos elaborados por la Universidad**:
+   - Distribuidos bajo la licencia **Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)**. Se permite su empleo citando la fuente institucional: *Atlas de Información Geográfica Voluntaria — Universidad Alberto Hurtado, Fondecyt Regular F1261256 (2026)*.
+3. **Código fuente de la plataforma web**:
+   - Publicado bajo la licencia **GNU Affero General Public License v3.0 (AGPLv3)**, lo que asegura que cualquier modificación o servicio web derivado mantenga su código abierto para la comunidad.
+
+### Transparencia pública y privacidad de las personas
+- **Ley N° 20.285 sobre Acceso a la Información Pública**: Respalda el libre acceso y reutilización de la información geográfica producida por ministerios y servicios del Estado de Chile.
+- **Ley N° 19.628 sobre Protección de la Vida Privada**: Las capas provenientes del Censo, del Registro Social de Hogares y del Servicio de Impuestos Internos se presentan agregadas a nivel de manzana o unidad vecinal, sin contener datos personales ni identificadores individuales.
 
 ---
 
-## 7. Contacto y Soporte Institucional
+## 14. Referencias Bibliográficas y Normativas
 
-- **Repositorio Oficial:** [https://github.com/GEOJOTA/atlas_vgi_uah](https://github.com/GEOJOTA/atlas_vgi_uah)
-- **Plataforma Web en Producción:** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
-- **Institución:** Departamento de Geografía, Facultad de Ciencias Sociales, Universidad Alberto Hurtado (UAH), Santiago de Chile.
-- **Marco de Investigación:** Proyecto F1261256 (ANID).
-- **Canal de Discusión y Reportes:** [GitHub Discussions & Issues](https://github.com/GEOJOTA/atlas_vgi_uah/issues)
+El catálogo completo de 125 referencias bibliográficas del proyecto se encuentra disponible en [`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`](docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md):
 
-¡Gracias por ser parte de la construcción de un territorio más justo, transparente y colaborativo! 🗺️✨
+- Anselin, L. (1995). Local indicators of spatial association—LISA. *Geographical Analysis*, 27(2), 93–115. https://doi.org/10.1111/j.1538-4632.1995.tb00338.x
+- Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., & Schaub, T. (2016). *The GeoJSON Format* (RFC No. 7946). Internet Engineering Task Force (IETF). https://doi.org/10.17487/RFC7946
+- Goodchild, M. F. (2007). Citizens as sensors: The world of volunteered geography. *GeoJournal*, 69(4), 211–221. https://doi.org/10.1007/s10708-007-9111-y
+- Haklay, M. (2010). How good is volunteered geographical information? A case study of OpenStreetMap for the UK. *Environment and Planning B: Planning and Design*, 37(4), 682–703. https://doi.org/10.1068/b35097
+- Harvey, D. (2012). *Ciudades rebeldes: del derecho a la ciudad a la revolución urbana*. Ediciones Akal.
+- Heynen, N., Kaika, M., & Swyngedouw, E. (Eds.). (2006). *In the nature of cities: Urban political ecology and the politics of urban metabolism*. Routledge. https://doi.org/10.4324/9780203027523
+- Ilustre Municipalidad de Santiago — Asesoría Urbana. (1990–2024). *Repositorio Oficial de Modificaciones Históricas al Plan Regulador Comunal de Santiago* [Expedientes digitales: Mod. N° 16, N° 21, N° 26, N° 31, Enmiendas N° 1, 2, 3 y 6]. https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz
+- Infraestructura de Datos Espaciales de Chile [IDE Chile]. (2017). *Marco Técnico y Metodológico para la Evaluación de la Calidad de la Información Geográfica en Chile (Norma ISO 19157)*. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. https://www.ide.cl/
+- Infraestructura de Datos Espaciales de Chile [IDE Chile]. (2018). *Perfil Nacional de Metadatos de Chile v2.0 (Basado en ISO 19115:2003 / ISO 19139:2007)*. Secretaría Ejecutiva SNIT, Ministerio de Bienes Nacionales. https://www.ide.cl/
+- International Organization for Standardization [ISO]. (2013). *Geographic information — Data quality* (ISO Standard No. 19157:2013). ISO. https://www.iso.org/standard/32575.html
+- International Organization for Standardization [ISO]. (2014). *Geographic information — Metadata — Part 1: Fundamentals* (ISO Standard No. 19115-1:2014). ISO. https://www.iso.org/standard/53798.html
+- International Organization for Standardization [ISO]. (2016). *Geographic information — Methodology for feature cataloguing* (ISO Standard No. 19110:2016). ISO. https://www.iso.org/standard/57303.html
+- Lefebvre, H. (1974). *La production de l'espace*. Éditions Anthropos.
+- López-Morales, E. (2015). Gentrification by ground rent dispossession: The shadows cast by large-scale urban renewal in Santiago de Chile. *International Journal of Urban and Regional Research*, 39(4), 756–772. https://doi.org/10.1111/1468-2427.12261
+- Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019). OSHDB: A framework for spatio-temporal analysis of OpenStreetMap history data. *Open Geospatial Data, Software and Standards*, 4(1), Article 3. https://doi.org/10.1186/s40965-019-0061-3
+- Smith, N. (1987). Gentrification and the rent gap. *Annals of the Association of American Geographers*, 77(3), 462–465. https://doi.org/10.1111/j.1467-8306.1987.tb00171.x
+- Snyder, J. P. (1987). *Map projections: A working manual* (U.S. Geological Survey Professional Paper No. 1395). U.S. Government Printing Office. https://doi.org/10.3133/pp1395
+- Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). *Catastro Nacional de Instalaciones de Recepción y Disposición Final de Residuos Sólidos Domiciliarios (RSD) y Diccionario Técnico Geodatabase*. Gobierno de Chile.

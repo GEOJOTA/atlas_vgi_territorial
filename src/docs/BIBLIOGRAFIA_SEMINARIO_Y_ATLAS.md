@@ -5,6 +5,15 @@ Este documento reúne las **125 referencias formales estandarizadas en norma APA
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Métricas de Cobertura Documental](#1-métricas-de-cobertura-documental)
+2. [Corpus Científico de Literatura Seminal (51 Obras Fundacionales)](#2-corpus-científico-de-literatura-seminal-51-obras-fundacionales)
+3. [Fuentes Hispanoamericanas y de Pensamiento Geográfico](#3-fuentes-hispanoamericanas-y-de-pensamiento-geográfico)
+4. [Marco Normativo, Institucional y Estándares Técnicos del Atlas Territorial](#4-marco-normativo-institucional-y-estándares-técnicos-del-atlas-territorial)
+
+---
+
 ## 1. Métricas de Cobertura Documental
 
 | Dimensión | Cantidad | Descripción |

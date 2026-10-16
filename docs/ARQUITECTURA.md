@@ -4,6 +4,15 @@
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Principios de Diseño e Ingeniería](#1-principios-de-diseño-e-ingeniería)
+2. [Estructura de Datos: 131 Coberturas Operativas y Base Dual (.geojson + .gpkg)](#2-estructura-de-datos-131-coberturas-operativas-y-base-dual-geojson--gpkg)
+3. [Diagrama de Flujo Modular (00 al 09)](#3-diagrama-de-flujo-modular-00-al-09)
+4. [Sincronización de Directorios (data/ y src/data/)](#4-sincronización-de-directorios-data--srcdata)
+
+---
+
 ## 1. Principios de Diseño e Ingeniería
 
 El **Atlas de Información Geográfica Voluntaria (Atlas VGI)** se fundamenta en una arquitectura estática autónoma (**HTML5 + CSS3 + Vanilla JavaScript ES6+**) diseñada para garantizar la sostenibilidad operativa de costo cero y la transferencia institucional sin dependencia de servidores propietarios ni motores de bases de datos de pago. El procesamiento espacial, la reproyección geodésica (`EPSG:32719`, Snyder, 1987) y el consumo de servicios abiertos (**Overpass API**, **ohsome API**, **GBIF API**) se ejecutan en el navegador del cliente sobre infraestructura estática distribuida (**Netlify** y **GitHub Pages**).
@@ -25,7 +34,7 @@ El repositorio integra un inventario auditado de **131 capas geográficas** norm
 
 ---
 
-## 3. Diagrama de Flujo Modular (`00` al `09`)
+## 3. Diagrama de Flujo Modular (00 al 09)
 
 ```mermaid
 flowchart TD

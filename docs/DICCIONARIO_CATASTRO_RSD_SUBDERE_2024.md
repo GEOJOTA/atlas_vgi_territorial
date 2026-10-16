@@ -5,6 +5,19 @@
 Este documento presenta la catalogación completa, especificación técnica, diccionario de atributos y directrices de interoperabilidad de las **13 capas espaciales oficiales** del Catastro Nacional de Residuos Sólidos Domiciliarios (RSD 2024), publicado por la Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) del Ministerio del Interior y Seguridad Pública, integradas en la base de datos del **Atlas VGI (Barrio Brasil / Universidad Alberto Hurtado)**.
 
 ---
+
+## 🧭 Índice de Contenidos
+
+1. [Ficha Institucional y Metadatos Generales](#1-ficha-institucional-y-metadatos-generales)
+2. [Soporte Técnico de GeoPackage y Conservación de Comentarios](#2-soporte-técnico-de-geopackage-y-conservación-de-comentarios)
+3. [Catálogo de las 13 Capas Oficiales Integradas](#3-catálogo-de-las-13-capas-oficiales-integradas)
+4. [Síntesis Metodológica y Fórmulas Clave (SUBDERE 2024)](#4-síntesis-metodológica-y-fórmulas-clave-subdere-2024)
+5. [Diccionario Maestro de Columnas y Variables (126 Descriptores)](#5-diccionario-maestro-de-columnas-y-variables-126-descriptores)
+6. [Instrucciones de Carga y Acceso a Datos](#6-instrucciones-de-carga-y-acceso-a-datos)
+7. [Cita Bibliográfica Sugerida (Norma APA 7ª Edición)](#7-cita-bibliográfica-sugerida-norma-apa-7ª-edición)
+
+---
+
 ## 1. Ficha Institucional y Metadatos Generales
 
 | Parámetro | Detalle Institucional |

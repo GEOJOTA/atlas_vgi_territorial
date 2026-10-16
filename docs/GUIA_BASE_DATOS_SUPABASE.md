@@ -4,6 +4,18 @@ Esta guía detalla el procedimiento para activar, poblar y conectar la base de d
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [¿Por qué Supabase (PostgreSQL + PostGIS)?](#1-por-qué-supabase-postgresql--postgis)
+2. [Paso a Paso: Creación del Proyecto en Supabase (2 minutos)](#2-paso-a-paso-creación-del-proyecto-en-supabase-2-minutos)
+3. [Despliegue del Esquema Espacial PostGIS](#3-despliegue-del-esquema-espacial-postgis)
+4. [Creación del Storage Bucket para los Archivos GeoJSON](#4-creación-del-storage-bucket-para-los-archivos-geojson)
+5. [Carga de Datos Espaciales e Ingesta Masiva](#5-carga-de-datos-espaciales-e-ingesta-masiva)
+6. [Conexión del Atlas VGI con la Base de Datos](#6-conexión-del-atlas-vgi-con-la-base-de-datos)
+7. [Mantenimiento Anti-Pausa Permanente (Keep-Alive)](#7-mantenimiento-anti-pausa-permanente-keep-alive)
+
+---
+
 ## 1. ¿Por qué Supabase (PostgreSQL + PostGIS)?
 
 1. **100% Código Abierto (Open Source):**

@@ -1,9 +1,9 @@
 # Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Atlas VGI · UAH)
 
 [![Estado del Proyecto](https://img.shields.io/badge/Estado-Producci%C3%B3n_2026-10b981?style=for-the-badge)](https://github.com/santiagogeografia454-sketch/Visualizador-barrio-brasil)
-[![Capas Integradas](https://img.shields.io/badge/Capas_Integradas-131_(121_Oficiales_%2B_10_VGI)-38bdf8?style=for-the-badge)](#estructura-de-datos-y-m%C3%B3dulos)
-[![Diccionario de Datos](https://img.shields.io/badge/Diccionario-140_Descriptores_T%C3%A9cnicos-f59e0b?style=for-the-badge)](#documentaci%C3%B3n-t%C3%A9cnica-y-manuales)
-[![Fondecyt Regular](https://img.shields.io/badge/Fondecyt_Regular-N%C2%B0_1261256_(Geograf%C3%ADa_UAH)-a855f7?style=for-the-badge)](#cr%C3%A9ditos-institucionales)
+[![Capas Integradas](https://img.shields.io/badge/Capas_Integradas-131_(121_Oficiales_%2B_10_VGI)-38bdf8?style=for-the-badge)](#estructura-de-datos-y-módulos-00-al-09)
+[![Diccionario de Datos](https://img.shields.io/badge/Diccionario-140_Descriptores_T%C3%A9cnicos-f59e0b?style=for-the-badge)](#documentación-técnica-y-manuales)
+[![Fondecyt Regular](https://img.shields.io/badge/Fondecyt_Regular-N%C2%B0_1261256_(Geograf%C3%ADa_UAH)-a855f7?style=for-the-badge)](#créditos-institucionales)
 
 Plataforma web abierta desarrollada en el marco del **Proyecto Fondecyt Regular N° 1261256** del **Departamento de Geografía de la Universidad Alberto Hurtado (Chile)**.
 
@@ -11,19 +11,29 @@ El sistema articula cartografía oficial del Estado de Chile con Información Ge
 
 ---
 
+## 🧭 Índice de Contenidos
+
+1. [Documentación Técnica y Manuales](#documentación-técnica-y-manuales)
+2. [Estructura de Datos y Módulos (00 al 09)](#estructura-de-datos-y-módulos-00-al-09)
+   - [Módulos Funcionales de la Plataforma](#módulos-funcionales-de-la-plataforma)
+3. [Despliegue Local y Auditoría Pre-Despliegue](#despliegue-local-y-auditoría-pre-despliegue)
+4. [Créditos Institucionales](#créditos-institucionales)
+
+---
+
 ## Documentación Técnica y Manuales
 
 1. 📘 **[Manual de Uso (`MANUAL_USO.md`)](MANUAL_USO.md)**:  
    Sistematización operativa de los 10 módulos (`00` al `09`), filtros espaciales, evaluación normativa (PRC/OGUC e historial de modificaciones en Barrio Brasil 1990–2024), Índice de Calidad VGI (ICV) dinámico, 5 dimensiones analíticas y 7 Storyboards territoriales.
-2. 🛠️ **[Manual de Actualización y Mantención Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)](MANUAL_ACTUALIZACION_ATLAS.md)**:  
-   Protocolo técnico-metodológico para intervenir el sistema, administrar la base de datos dual (`.geojson` + `.gpkg`), integrar nuevas coberturas en 6 etapas, actualizar indicadores/storyboards, incorporar los ajustes finales de validación de usuarios y desplegar en producción.
+2. 🛠️ **[Manual de Actualización, Mantención y Contribución Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)](MANUAL_ACTUALIZACION_ATLAS.md)**:  
+   Protocolo técnico-metodológico para intervenir el sistema, administrar la base de datos dual (`.geojson` + `.gpkg`), integrar nuevas coberturas en 6 etapas, actualizar indicadores/storyboards, incorporar los ajustes finales de validación de usuarios y desplegar en producción. Unificado con la guía de contribución técnica del repositorio.
 3. 📚 **[Trazabilidad Académica (`docs/TRAZABILIDAD_ACADEMICA.md`)](docs/TRAZABILIDAD_ACADEMICA.md)** y **[Bibliografía Consolidada APA 7ª Ed. (`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`)](docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md)**:  
    Sustento epistemológico, formulación geodésica (`EPSG:32719`), auditoría de MetaCalidad (**ISO 19115 / ISO 19157**) y aparato crítico de 125 referencias.
 4. 🏗️ **[Arquitectura Técnica (`docs/ARQUITECTURA.md`)](docs/ARQUITECTURA.md)** y **[Protocolo de Integridad y Despliegue (`PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md`)](PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md)**.
 
 ---
 
-## Estructura de Datos y Módulos (`00` al `09`)
+## Estructura de Datos y Módulos (00 al 09)
 
 El Atlas integra **131 coberturas geográficas operativas** en coordenadas `EPSG:4326` (WGS84 / SIRGAS-Chile) y **140 descriptores documentados** en su Diccionario de Datos (ISO 19110:2016):
 - **121 Capas Oficiales del Estado de Chile**: IDE Chile, MINVU (PRC, PRMS, ZCH/ICH, Cités), INE (Censo 2024), MTT/DTPM/UOCT, MDSF (RSH / BiDat), SUBDERE (13 capas del Catastro Nacional de Residuos Sólidos Domiciliarios 2024 junto con sus geodatabases `.gpkg` originales), MMA, SERNAGEOMIN, CMN, MINSAL y SII.
