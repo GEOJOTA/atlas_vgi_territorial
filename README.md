@@ -25,11 +25,10 @@ El sistema articula cartografía oficial del Estado de Chile con Información Ge
 
 1. 📘 **[Manual de Uso (`MANUAL_USO.md`)](MANUAL_USO.md)**:  
    Sistematización operativa de los 10 módulos (`00` al `09`), filtros espaciales, evaluación normativa (PRC/OGUC e historial de modificaciones en Barrio Brasil 1990–2024), Índice de Calidad VGI (ICV) dinámico, 5 dimensiones analíticas y 7 Storyboards territoriales.
-2. 🛠️ **[Manual de Actualización, Mantención y Contribución Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)](MANUAL_ACTUALIZACION_ATLAS.md)**:  
-   Protocolo técnico-metodológico para intervenir el sistema, administrar la base de datos dual (`.geojson` + `.gpkg`), integrar nuevas coberturas en 6 etapas, actualizar indicadores/storyboards, incorporar los ajustes finales de validación de usuarios y desplegar en producción. Unificado con la guía de contribución técnica del repositorio.
+2. 🛠️ **[Manual de Actualización, Arquitectura, Integridad y Contribución Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)](MANUAL_ACTUALIZACION_ATLAS.md)**:  
+   Documento maestro exhaustivo y unificado que integra la arquitectura técnica del sistema, el protocolo de integridad y despliegue, las vías de contribución comunitaria y el protocolo secuencial para administrar la base de datos dual (`.geojson` + `.gpkg`), incorporar nuevas coberturas en 6 etapas, actualizar indicadores/storyboards y publicar en producción. Accesible idénticamente desde [`CONTRIBUTING.md`](CONTRIBUTING.md), [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md) y [`PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md`](PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md).
 3. 📚 **[Trazabilidad Académica (`docs/TRAZABILIDAD_ACADEMICA.md`)](docs/TRAZABILIDAD_ACADEMICA.md)** y **[Bibliografía Consolidada APA 7ª Ed. (`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`)](docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md)**:  
    Sustento epistemológico, formulación geodésica (`EPSG:32719`), auditoría de MetaCalidad (**ISO 19115 / ISO 19157**) y aparato crítico de 125 referencias.
-4. 🏗️ **[Arquitectura Técnica (`docs/ARQUITECTURA.md`)](docs/ARQUITECTURA.md)** y **[Protocolo de Integridad y Despliegue (`PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md`)](PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md)**.
 
 ---
 

@@ -1,6 +1,7 @@
-# Manual de Actualización, Mantención y Contribución Técnica — Atlas VGI UAH
+# Manual de Actualización, Arquitectura, Integridad y Contribución Técnica — Atlas VGI UAH
 
 **Proyecto Fondecyt Regular N° 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
+**Documento Maestro Unificado:** Manual de Actualización Técnica · Arquitectura del Sistema · Protocolo de Integridad y Despliegue · Guía de Contribución Abierta.  
 **Versión Consolidada del Sistema:** 131 Capas Operativas (121 Oficiales + 10 VGI) · 140 Descriptores en Diccionario · 10 Módulos Funcionales (`00` al `09`) · 7 Storyboards Territoriales · 5 Dimensiones Analíticas.
 
 ---
@@ -19,6 +20,7 @@
 3. [Arquitectura y Tecnologías del Sistema](#3-arquitectura-y-tecnologías-del-sistema)
    - [Principios de diseño del software](#principios-de-diseño-del-software)
    - [Lenguajes y herramientas utilizadas](#lenguajes-y-herramientas-utilizadas)
+   - [Diagrama de flujo modular de la arquitectura](#diagrama-de-flujo-modular-de-la-arquitectura)
    - [Sincronización simétrica entre directorios de trabajo y publicación](#sincronización-simétrica-entre-directorios-de-trabajo-y-publicación)
    - [Almacenamiento cartográfico dual](#almacenamiento-cartográfico-dual)
 4. [Estructura del Repositorio y Anatomía de Archivos](#4-estructura-del-repositorio-y-anatomía-de-archivos)
@@ -50,7 +52,8 @@
     - [Procedimiento 4: Actualización de la normativa urbana y el plan regulador](#procedimiento-4-actualización-de-la-normativa-urbana-y-el-plan-regulador)
     - [Procedimiento 5: Extracción de esquemas desde bases GeoPackage](#procedimiento-5-extracción-de-esquemas-desde-bases-geopackage)
     - [Procedimiento 6: Control de versiones en archivos estáticos](#procedimiento-6-control-de-versiones-en-archivos-estáticos)
-11. [Batería de Pruebas y Publicación en Producción](#11-batería-de-pruebas-y-publicación-en-producción)
+11. [Protocolo de Integridad, Pruebas y Despliegue en Producción](#11-protocolo-de-integridad-pruebas-y-despliegue-en-producción)
+    - [Reglas de integridad estructural del repositorio](#reglas-de-integridad-estructural-del-repositorio)
     - [Pruebas en servidor local](#pruebas-en-servidor-local)
     - [Ejecución de scripts automáticos de comprobación](#ejecución-de-scripts-automáticos-de-comprobación)
     - [Publicación de cambios en GitHub y Netlify](#publicación-de-cambios-en-github-y-netlify)
@@ -163,6 +166,29 @@ Esta formulación ofrece tres ventajas operativas esenciales:
 - **Python 3.10+**: Conjunto de scripts de geoprocesamiento, análisis espacial multivariado, cálculo del índice de metacalidad (ISO 19115/19157) y validación previa al despliegue.
 - **Estándar GeoJSON (RFC 7946; Butler et al., 2016)**: Formato de intercambio para las 131 coberturas cartográficas, almacenadas en coordenadas geográficas WGS84 (`EPSG:4326`) y codificación UTF-8.
 - **Estándar OGC GeoPackage v1.2**: Formato relacional SQLite utilizado para preservar esquemas y comentarios técnicos nativos de columnas en fuentes estatales complejas (SUBDERE RSD 2024).
+
+### Diagrama de flujo modular de la arquitectura
+
+```mermaid
+flowchart TD
+    UI["src/index.html (Interfaz Única de 10 Módulos: 00 a 09)"]
+    CFG["src/js/config.js (Coordenadas, 10 Categorías VGI y Comunas RM)"]
+    APP["src/js/app.js (Motor Leaflet 2D, Filtros Espaciales e ICV Dinámico)"]
+    
+    UI --> CFG
+    UI --> APP
+    
+    APP --> M00["Módulo 00: ide_chile.js (121 Capas Oficiales) + evaluador_normativo.js (PRC/OGUC e Historial 1990-2024)"]
+    APP --> M01["Módulo 01: osm.js (Consultas Overpass QL en tiempo real)"]
+    APP --> M02["Módulo 02: ohsome.js + evaluador_calidad_cuantitativa.js (ISO 19157 / ohsome / OSMCha)"]
+    APP --> M03["Módulo 03: gbif.js (Biodiversidad GBIF / iNaturalist - Darwin Core)"]
+    APP --> M04["Módulo 04: umap.js (Cartografía Participativa uMap)"]
+    APP --> M05["Módulo 05: metadatos.js (Catálogo ISO 19115 / ISO 19139)"]
+    APP --> M06["Módulo 06: diccionario.js (131 Capas / 140 Descriptores ISO 19110)"]
+    APP --> M07["Módulo 07: licencias.js (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley 20.285)"]
+    APP --> M08["Módulo 08: manual.js (Manual de Uso y Manual de Actualización Técnica)"]
+    APP --> M09["Módulo 09: indicadores_analisis.js (5 Dimensiones y 7 Storyboards de Barrio Brasil)"]
+```
 
 ### Sincronización simétrica entre directorios de trabajo y publicación
 El archivo [`netlify.toml`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/netlify.toml) establece que la raíz de publicación web en producción es el directorio `src/`:
@@ -555,7 +581,20 @@ Para evitar que los navegadores web retengan versiones antiguas de los archivos 
 
 ---
 
-## 11. Batería de Pruebas y Publicación en Producción
+## 11. Protocolo de Integridad, Pruebas y Despliegue en Producción
+
+### Reglas de integridad estructural del repositorio
+Para garantizar la estabilidad y reproducibilidad del sistema, todo cambio previo a su despliegue debe satisfacer tres condiciones de consistencia estricta:
+1. **Cuadratura universal de coberturas y descriptores**:
+   - Exactamente **121 capas oficiales del Estado** registradas en `src/js/modulos/ide_chile.js` (`CAPAS_OFICIALES`), en el acordeón temático de `src/index.html` y en las 5 dimensiones de `src/js/modulos/indicadores_analisis.js`.
+   - Exactamente **10 macro-categorías colaborativas VGI** registradas en `src/js/config.js` (`NODO_CONFIG.categorias_osm`).
+   - Exactamente **131 capas cartográficas operativas** en total (`EPSG:4326`).
+   - Exactamente **140 descriptores técnicos normalizados** en el Diccionario de Datos (`131 capas` + `9 tablas de referencia`).
+2. **Paridad espejo simétrica entre directorios de trabajo y publicación**:
+   - Todo archivo de datos `.geojson` o `.gpkg` alojado en `data/` debe replicarse de manera idéntica en `src/data/`.
+   - Todo documento técnico de `docs/` (`MANUAL_USO.md`, `MANUAL_ACTUALIZACION_ATLAS.md`, `BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`, `TRAZABILIDAD_ACADEMICA.md`, `DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md`) debe mantenerse sincronizado en `src/docs/`.
+3. **Normalización geodésica estricta (`EPSG:4326`)**:
+   - Todos los archivos `.geojson` servidos al visor deben estar expresados en coordenadas geográficas en grados decimales (elipsoide WGS84 / SIRGAS-Chile, `EPSG:4326`), reservando las coordenadas planas métricas `EPSG:32719` para los cálculos de superficie en el motor geodésico.
 
 ### Pruebas en servidor local
 Antes de enviar cambios al repositorio remoto, se debe comprobar el funcionamiento en un navegador web local:

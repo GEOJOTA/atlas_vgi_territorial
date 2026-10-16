@@ -87,7 +87,7 @@ Formaliza el catálogo de objetos y atributos según **ISO 19110:2016**, especif
 Documenta el régimen jurídico tripartito del proyecto —**ODbL 1.0** para bases de datos OpenStreetMap, **CC BY-SA 4.0 / CC-BY 4.0** para cartografía y registros GBIF, **GNU AGPLv3** para el código fuente, **Ley N° 20.285** de Transparencia y **Ley N° 19.628** de resguardo estadístico de datos personales— y provee acceso directo a las matrices consolidadas en formato Excel (`.xlsx`).
 
 ### 3.9. Módulo 08 · Manual de Uso y Manual de Actualización Técnica
-Disponibiliza en interfaz tanto el presente **Manual de Uso** como el **Manual de Actualización y Mantención Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)**, junto con el inventario dinámico filtrable de las 131 coberturas y enlaces de descarga documental en formato Markdown (`.md`).
+Disponibiliza en interfaz tanto el presente **Manual de Uso** como el **Manual de Actualización, Arquitectura, Integridad y Contribución Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)**, junto con el inventario dinámico filtrable de las 131 coberturas y enlaces de descarga documental en formato Markdown (`.md`).
 
 ### 3.10. Módulo 09 · Indicadores & Storyboards Territoriales
 Articula el análisis aplicado del Barrio Brasil en dos niveles:
