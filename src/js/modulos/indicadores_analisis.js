@@ -1011,7 +1011,7 @@ const ModuloIndicadoresAnalisis = (() => {
     {
       id: 'storyboard-residuos-metabolismo-rsd',
       titulo: '6. Metabolismo Urbano y Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)',
-      bajada: '¿Hacia dónde viajan las 189.510 toneladas anuales de residuos de Santiago Centro y cómo impacta el polo gastronómico del Barrio Brasil en la huella metabólica barrial?',
+      bajada: 'Análisis del flujo metabólico de las 189.510 toneladas anuales de residuos de Santiago Centro y del impacto del polo gastronómico en la huella socioambiental del Barrio Brasil.',
       dimensionId: 'dim-socioambiental',
       dimensionNombre: 'Socioambiental & Metabolismo Urbano',
       fecha: 'Octubre 2026',
@@ -1187,7 +1187,7 @@ const ModuloIndicadoresAnalisis = (() => {
           },
           {
             subtitulo: '2. La Enmienda N° 2 de Cités (2014) y las Enmiendas de Altura (N° 1, 3 y 6)',
-            texto: 'Un hito clave dentro del expediente histórico municipal (disponible íntegramente en el repositorio oficial de la Municipalidad de Santiago) fue la Enmienda N° 2 de 2014, que otorgó reconocimiento urbanístico expreso a los Cités y pasajes interiores —50 de los cuales se ubican dentro de nuestro polígono de estudio—, impidiendo su demolición para engome predial. Posteriormente, entre 2016 y 2019, las Enmiendas N° 1, N° 3 y N° 6 rebajaron las alturas máximas en los bordes de manzanas patrimoniales (Sector Especial B3) y la Modificación N° 31 ordenó la transición desde el eje de alta densidad de la Alameda hacia el interior barrial.'
+            texto: 'Un hito clave dentro del expediente histórico municipal (disponible íntegramente en el repositorio oficial de la Municipalidad de Santiago) fue la Enmienda N° 2 de 2014, que otorgó reconocimiento urbanístico expreso a los Cités y pasajes interiores —50 de los cuales se ubican dentro del polígono de estudio—, impidiendo su demolición para engome predial. Posteriormente, entre 2016 y 2019, las Enmiendas N° 1, N° 3 y N° 6 rebajaron las alturas máximas en los bordes de manzanas patrimoniales (Sector Especial B3) y la Modificación N° 31 ordenó la transición desde el eje de alta densidad de la Alameda hacia el interior barrial.'
           },
           {
             subtitulo: '3. Lectura espacial de la brecha de renta (Rent Gap) y postergaciones recientes (2021–2024)',
@@ -1468,7 +1468,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- GRILLA DE LAS 5 GRANDES DIMENSIONES ANALÍTICAS                         -->
         <!-- ===================================================================== -->
         <section class="seccion-dimensiones-analisis" aria-label="Dimensiones de Análisis">
-          <h3 class="subtitulo-centrado-seccion">Selecciona una Dimensión para Desplegar sus Capas Asociadas</h3>
+          <h3 class="subtitulo-centrado-seccion">Dimensiones Analíticas y Coberturas Asociadas</h3>
           
           <div class="grilla-dimensiones-indicadores" id="grilla-tarjetas-dimensiones">
             ${DIMENSIONES.map(dim => {

@@ -1,46 +1,48 @@
-# ✅ Protocolo de Integridad de Datos y Despliegue (Atlas VGI — UAH)
+# Protocolo de Integridad de Datos y Despliegue — Atlas VGI (UAH)
 
-Este documento resume los chequeos rápidos que realizamos antes de publicar cambios en producción para asegurar que ninguna capa, módulo o enlace falle. Si buscas la explicación completa desde cero de cómo modificar el Atlas, revisa **`MANUAL_ACTUALIZACION_ATLAS.md`**.
+**Proyecto Fondecyt Regular N° 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**
+
+El presente protocolo sintetiza las reglas de consistencia estructural y las rutinas de auditoría automatizada ejecutadas previo a cada publicación en producción. El desarrollo metodológico completo se encuentra documentado en [`MANUAL_ACTUALIZACION_ATLAS.md`](MANUAL_ACTUALIZACION_ATLAS.md).
 
 ---
 
 ## 1. Reglas de Integridad del Repositorio
 
-1. **Paridad de Capas (`131 Capas Operativas` y `140 Descriptores`)**:
-   - **121 capas oficiales del Estado** en `src/js/modulos/ide_chile.js` (`CAPAS_OFICIALES`), en el acordeón de `src/index.html` y en las 5 dimensiones de `src/js/modulos/indicadores_analisis.js`.
-   - **10 categorías colaborativas VGI** en `src/js/config.js` (`NODO_CONFIG.categorias_osm`).
-   - **140 descriptores documentados** en `src/js/modulos/diccionario.js` (`131 capas` + `9 tablas de referencia`).
-2. **Espejo Exacto entre Raíz y `src/`**:
-   - Todo archivo `.geojson` o `.gpkg` presente en `data/` debe existir con el mismo nombre y contenido en `src/data/`.
-   - Todo manual o documento en `docs/` (`MANUAL_USO.md`, `MANUAL_ACTUALIZACION_ATLAS.md`, `ARQUITECTURA.md`) debe estar sincronizado en `src/docs/`.
-3. **Coordenadas Estándar Web (`EPSG:4326`)**:
-   - Todos los archivos `.geojson` servidos al visor deben estar en coordenadas geográficas grados decimales (`WGS84 / SIRGAS-Chile EPSG:4326`).
+1. **Cuadratura de Coberturas (`131 Capas Operativas` y `140 Descriptores`)**:
+   - **121 capas oficiales del Estado** registradas en `src/js/modulos/ide_chile.js` (`CAPAS_OFICIALES`), en el acordeón temático de `src/index.html` y en las 5 dimensiones analíticas de `src/js/modulos/indicadores_analisis.js`.
+   - **10 categorías colaborativas VGI** registradas en `src/js/config.js` (`NODO_CONFIG.categorias_osm`).
+   - **140 descriptores técnicos** documentados en `src/js/modulos/diccionario.js` (`131 capas geográficas` + `9 tablas de referencia`).
+2. **Paridad Espejo entre Raíz y Directorio de Publicación (`src/`)**:
+   - Todo archivo `.geojson` o `.gpkg` alojado en `data/` se replica con idéntico nombre y contenido en `src/data/`.
+   - Todo documento técnico en `docs/` (`MANUAL_USO.md`, `MANUAL_ACTUALIZACION_ATLAS.md`, `ARQUITECTURA.md`, `BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`, `TRAZABILIDAD_ACADEMICA.md`) se mantiene sincronizado en `src/docs/`.
+3. **Normalización Geodésica Web (`EPSG:4326`)**:
+   - Todas las coberturas `.geojson` servidas al visor se almacenan en coordenadas geográficas en grados decimales (`WGS84 / SIRGAS-Chile EPSG:4326`).
 
 ---
 
-## 2. Comandos de Verificación Automática
+## 2. Ejecución de Controles Automatizados
 
-Desde la raíz del proyecto (`atlas_vgi_uah`), ejecuta:
+Desde el directorio raíz del repositorio (`atlas_vgi_uah`), se ejecutan secuencialmente los tres verificadores en Python:
 
 ```bash
-# 1. Verificar que los conteos (121 + 10 = 131 capas y 140 descriptores) cuadren en todos los archivos:
+# 1. Auditoría de paridad de conteos (121 + 10 = 131 capas y 140 descriptores):
 python scripts/verificar_conteo_capas.py
 
-# 2. Verificar que todos los archivos existan en data/ y src/data/ y sean JSON válidos:
+# 2. Auditoría de existencia física, sintaxis JSON y sincronización data/ <-> src/data/:
 python scripts/verificar_integridad_despliegue.py
 
-# 3. Recalcular el reporte de metacalidad sobre las capas locales:
+# 3. Cálculo del Índice Global de MetaCalidad (ISO 19115 / ISO 19157):
 python scripts/analisis_metacalidad.py
 ```
 
 ---
 
-## 3. Publicación a Producción
+## 3. Despliegue a Producción
 
-Una vez que los 3 scripts indiquen **`[OK] EXITO`**:
+Verificado el dictamen **`[OK] EXITO`** en los tres scripts de control, se procede al envío hacia la rama principal:
 
 ```bash
 git add -A
-git commit -m "Actualización del Atlas VGI"
+git commit -m "Actualización técnica y documental del Atlas VGI"
 git push origin main
 ```
