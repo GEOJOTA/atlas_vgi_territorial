@@ -57,7 +57,39 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
   - Revisión exhaustiva de plataformas de geodatos abiertos (OpenStreetMap, GBIF, ohsome API v1/v2) y servicios WFS/WMS de IDE Chile.
   - Estructuración de las **10 Macrocategorías Comunitarias VGI (CAT-01 a CAT-10)** normalizadas bajo etiquetas OSM y Darwin Core.
   - Modelamiento conceptual de los **4 Perfiles de Actores Territoriales** bajo el estándar de Diseño Centrado en el Usuario (ISO 9241-210).
-* **Entregables Acreditados:** Ficha técnica del proyecto, documento metodológico de arquitectura conceptual y catálogo preliminar de fuentes VGI.
+
+```mermaid
+flowchart LR
+    subgraph OBJ1["Objetivo Específico 1"]
+        O1["OE 1: Caracterización y Diseño Conceptual\n(Semanas 1-3 · 72 Horas)"]
+    end
+
+    subgraph PROC1["Procedimientos Específicos"]
+        P1_1["1. Delimitación Geodésica BBox\n& Diagnóstico Territorial"]
+        P1_2["2. Auditoría de Plataformas VGI\n(OSM, GBIF, IDE Chile)"]
+        P1_3["3. Estructuración Taxonómica\n10 Macrocategorías VGI"]
+        P1_4["4. Modelamiento DCU (ISO 9241-210)\nde 4 Perfiles de Actores"]
+    end
+
+    subgraph PROD1["Productos Resultantes Específicos"]
+        PR1_1["Polígono Delimitado 223,75 ha\n& BBox Oficial WGS84"]
+        PR1_2["Catálogo de Fuentes VGI\n& Matriz de Brechas Territoriales"]
+        PR1_3["Taxonomía de 10 Macrocategorías\n(CAT-01 a CAT-10) en XLSX"]
+        PR1_4["Matriz Conceptual de 4 Perfiles\nTerritoriales para la SPA"]
+    end
+
+    O1 --> P1_1 --> PR1_1
+    O1 --> P1_2 --> PR1_2
+    O1 --> P1_3 --> PR1_3
+    O1 --> P1_4 --> PR1_4
+```
+
+* **Entregables Acreditados:**
+  1. *Ficha Técnica de Delimitación Territorial y Bounding Box Operativo (Barrio Brasil).*
+  2. *Documento Metodológico de Arquitectura Conceptual: 10 Macrocategorías VGI y 4 Perfiles de Actores Territoriales.*
+  3. *Catálogo Preliminar de Fuentes Geoespaciales y Matriz de Brechas de Información Barrial.*
+
+---
 
 #### Objetivo Específico 2 (OE 2): Geodatabase y Calidad Espacial
 * **Asignación Horaria:** Semanas 4 a 7 · 120 Horas Planificadas · **Hitos 4 y 5 Cerrados / Hito 6 en Proceso.**
@@ -68,7 +100,43 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
   - Almacenamiento espacial estructurado en clúster relacional PostgreSQL 17 + PostGIS 3.3 (Supabase Cloud) con más de 1.552.000 entidades indexadas mediante árboles GiST y claves JSONB con índices GIN.
   - Formulación y ejecución del **Modelo de MetaCalidad WLC v2.0 bajo norma ISO 19157:2013**, integrando 5 componentes cuantitativos (topología, completitud, geodésica, esquema y granularidad) y 5 componentes cualitativos (metadatos núcleo, linaje, conformidad ISO, escala y accesibilidad), certificando un **97,88% de metacalidad global (Grado A+ Excelente)**.
   - Inyección algorítmica universal del **Esquema Maestro de 14 Atributos Normalizados ISO** en la totalidad de capas vectoriales para descargas transparentes.
-* **Entregables Acreditados:** Geodatabase espacial PostGIS/GeoJSON, matriz analítica de calidad ISO 19157 en XLSX/JSON y catálogo maestro de 131 capas cartográficas.
+
+```mermaid
+flowchart LR
+    subgraph OBJ2["Objetivo Específico 2"]
+        O2["OE 2: Geodatabase y Calidad Espacial\n(Semanas 4-7 · 120 Horas)"]
+    end
+
+    subgraph PROC2["Procedimientos Específicos"]
+        P2_1["1. Extracción Automatizada Python\n(Overpass QL + WFS IDE Chile)"]
+        P2_2["2. Homologación Geodésica\n(EPSG:32719 UTM19S -> EPSG:4326)"]
+        P2_3["3. Inyección Universal Esquema\n14 Columnas Estandarizadas ISO"]
+        P2_4["4. Evaluación de Calidad WLC v2.0\n(Norma ISO 19157:2013)"]
+        P2_5["5. Migración & Carga Espacial\nPostgreSQL 17 / PostGIS 3.3"]
+    end
+
+    subgraph PROD2["Productos Resultantes Específicos"]
+        PR2_1["118 Capas Vectoriales GeoJSON\n(108 Oficiales + 10 VGI)"]
+        PR2_2["Coberturas Reproyectadas y\nTopológicamente Validadas"]
+        PR2_3["Bases Vectoriales Enriquecidas con\nLinaje, Fuente y Fechas ISO"]
+        PR2_4["Certificación 97,88% MetaCalidad\n& Matriz Analítica WLC en XLSX"]
+        PR2_5["Geodatabase Relacional PostGIS\ncon Índices GiST e Índices GIN"]
+    end
+
+    O2 --> P2_1 --> PR2_1
+    O2 --> P2_2 --> PR2_2
+    O2 --> P2_3 --> PR2_3
+    O2 --> P2_4 --> PR2_4
+    O2 --> P2_5 --> PR2_5
+```
+
+* **Entregables Acreditados:**
+  1. *Repositorio de Geodatabase Espacial de 118 Coberturas Vectoriales GeoJSON (EPSG:4326).*
+  2. *Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC.*
+  3. *Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (97,88%).*
+  4. *Catálogo Maestro de Geodatos en Formato OpenXML (`catalogos_geodatos_atlas_vgi.xlsx`).*
+
+---
 
 #### Objetivo Específico 3 (OE 3): Geoportal Web Interactivo
 * **Asignación Horaria:** Semanas 8 a 10 · 72 Horas Planificadas · **80% Anticipado (Hitos 7 y 8).**
@@ -81,7 +149,43 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
   - Integración dinámica en tiempo real con Overpass QL API, ohsome API v1/v2 (HeiGIT) y GBIF Occurrence API.
   - Generador de fichas de metadatos estandarizadas en XML ISO 19139 conforme al Perfil Nacional de Metadatos de IDE Chile / SNIT v2.0.
   - Despliegue continuo (CI/CD) alojado en la red perimetral de **Netlify Edge CDN** (`https://atlasvgiuah.netlify.app/`).
-* **Entregables Acreditados:** Plataforma web en producción activa, 10 módulos funcionales operativos y código fuente sincronizado en GitHub.
+
+```mermaid
+flowchart LR
+    subgraph OBJ3["Objetivo Específico 3"]
+        O3["OE 3: Geoportal Web Interactivo\n(Semanas 8-10 · 72 Horas)"]
+    end
+
+    subgraph PROC3["Procedimientos Específicos"]
+        P3_1["1. Programación Frontend SPA IIFE\n(HTML5, CSS3 AAA, Vanilla JS)"]
+        P3_2["2. Integración Motor Cartográfico\nLeaflet 1.9.4 & Marcadores SVG"]
+        P3_3["3. Algoritmo Ray-Casting\nInspector Normativo PRC Santiago"]
+        P3_4["4. Conexión de Clientes API en Vivo\n(Overpass QL, ohsome v2, GBIF)"]
+        P3_5["5. Automatización CI/CD Git\n& Despliegue Netlify Edge CDN"]
+    end
+
+    subgraph PROD3["Productos Resultantes Específicos"]
+        PR3_1["Plataforma Web Ligera Zero-Build\n10 Módulos Operativos"]
+        PR3_2["Visor Cartográfico Multinivel con\nSelector de Mapas Base y Filtros"]
+        PR3_3["Certificado de Informaciones\nNormativas Digital (CIN-VGI)"]
+        PR3_4["Módulos Dinámicos de Consulta,\nCalidad Temporal y Biodiversidad"]
+        PR3_5["Geoportal Web en Producción Viva\n(https://atlasvgiuah.netlify.app)"]
+    end
+
+    O3 --> P3_1 --> PR3_1
+    O3 --> P3_2 --> PR3_2
+    O3 --> P3_3 --> PR3_3
+    O3 --> P3_4 --> PR3_4
+    O3 --> P3_5 --> PR3_5
+```
+
+* **Entregables Acreditados:**
+  1. *Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4).*
+  2. *Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (CIN-VGI).*
+  3. *Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile.*
+  4. *Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM.*
+
+---
 
 #### Objetivo Específico 4 (OE 4): Validación y Transferibilidad
 * **Asignación Horaria:** Semanas 10 a 11 · 36 Horas Planificadas · **En Ejecución (Hitos 9 y 10).**
@@ -92,6 +196,42 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
   - Redacción y publicación del **Manual de Actualización Técnica y Transferibilidad** (>5000 líneas), documentando exhaustivamente la arquitectura, scripts Python, PostGIS, netlify.toml y resolución de incidentes.
   - Compilación del archivo comprimido maestro unificado `atlas_vgi_uah_base_datos_completa.zip` (543 MB comprimidos / 3,33 GB crudos, 256 archivos) para descarga pública.
   - Elaboración de la memoria final de práctica profesional y preparación para el examen de título.
+
+```mermaid
+flowchart LR
+    subgraph OBJ4["Objetivo Específico 4"]
+        O4["OE 4: Validación y Transferibilidad\n(Semanas 10-11 · 36 Horas)"]
+    end
+
+    subgraph PROC4["Procedimientos Específicos"]
+        P4_1["1. Pruebas Guiadas de Usabilidad\n(Estándar ISO 9241-11 & Escala SUS)"]
+        P4_2["2. Redacción Manual de Uso Web\npara los 4 Perfiles de Actores"]
+        P4_3["3. Elaboración Manual Técnico de\nActualización Reproducible (>5000L)"]
+        P4_4["4. Empaquetado & Compresión BBDD\n(GeoJSON, GPKG, XLSX en ZIP)"]
+        P4_5["5. Redacción de Memoria Formal\ny Síntesis de Práctica Profesional"]
+    end
+
+    subgraph PROD4["Productos Resultantes Específicos"]
+        PR4_1["Reporte de Validación con Usuarios,\nPuntaje SUS y Matriz de Ajustes"]
+        PR4_2["Manual de Usuario del Geoportal\nGuía Ilustrada por Perfiles"]
+        PR4_3["Manual Maestro de Administración,\nArquitectura y Transferibilidad Técnica"]
+        PR4_4["Paquete Maestro Comprimido ZIP (543MB)\nBase de Datos Funcional Completa"]
+        PR4_5["Informe Final de Práctica Profesional\nde la Carrera de Geografía UAH"]
+    end
+
+    O4 --> P4_1 --> PR4_1
+    O4 --> P4_2 --> PR4_2
+    O4 --> P4_3 --> PR4_3
+    O4 --> P4_4 --> PR4_4
+    O4 --> P4_5 --> PR4_5
+```
+
+* **Entregables Acreditados:**
+  1. *Informe de Validación Empírica con Usuarios Reales de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes (Entregable 11).*
+  2. *Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales (Entregable 12).*
+  3. *Manual Maestro de Actualización Técnica y Transferibilidad Metodológica: Protocolo ETL, Arquitectura y Despliegue Continuo (Entregable 13).*
+  4. *Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 543 MB (Entregable 14).*
+  5. *Informe Final de Práctica Profesional de la Carrera de Geografía — Universidad Alberto Hurtado (Entregable 15).*
 
 ---
 

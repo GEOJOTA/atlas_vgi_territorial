@@ -431,18 +431,282 @@ nodo-geoabierto/
 
 ## 26. Desglose Quirúrgico de los 10 Módulos del Sistema (01 al 10)
 
-La barra de navegación superior organiza las capacidades del Atlas en 10 módulos funcionales:
+La barra de navegación superior organiza las capacidades del Atlas en 10 módulos funcionales. Para garantizar la máxima comprensión de la ingeniería de software y el flujo de información de la plataforma, a continuación se desglosa cada módulo mediante su arquitectura de **PIPELINE (Input, Procesamiento y Output)**:
 
-* **Módulo 01: Visor Cartográfico y Atlas VGI:** Núcleo espacial interactivo; renderiza las 118 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
-* **Módulo 02: Consultas Overpass en Vivo:** Interfaz de extracción en tiempo real hacia OpenStreetMap con lenguaje Overpass QL; selector de BBox y descarga GeoJSON directa.
-* **Módulo 03: Calidad & ICV (ohsome API):** Auditoría histórica y temporal de aportes en OSM; densidad de nodos por km² y colaboradores únicos activos.
-* **Módulo 04: Biodiversidad Urbana GBIF:** Registros biológicos georreferenciados bajo estándar Darwin Core; cruce con iNaturalist y filtros de incertidumbre métrica.
-* **Módulo 05: Cartografía UMap:** Embebido seguro de proyectos colaborativos externos mediante iframes aislados con sandboxing.
-* **Módulo 06: Metadatos Estandarizados (ISO 19115 / ISO 19139):** Generador y exportador formal de fichas de metadatos en formatos JSON y XML para GeoNetwork e IDE Chile.
-* **Módulo 07: Diccionario Territorial:** Repositorio conceptual interactivo con descriptores que homologan la OGUC y el PRC con etiquetas OSM.
-* **Módulo 08: Licencias y Catálogos:** Gobernanza legal tripartita (ODbL, CC BY-SA, AGPLv3) y descarga de libros Excel (.xlsx) y archivos CSV.
-* **Módulo 09: Indicadores de Análisis y Storyboards:** 7 narrativas espaciales situadas y acceso al Visor Lightbox Pop-Up HD.
-* **Módulo 10: Manual de Uso y Metodología:** Visualizador integrado de la documentación técnica y operativa sin requerir apertura de archivos externos.
+---
+
+### Módulo 01: Visor Cartográfico y Atlas VGI (`src/js/app.js` y `src/js/modulos/mapa.js`)
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 118 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
+
+```mermaid
+flowchart LR
+    subgraph IN_M1["1. INPUT"]
+        GEOJSON["118 Capas GeoJSON (data/*.geojson)"]
+        TILES["Mosaicos Base (OSM, Carto, Esri)"]
+        CLIC["Clic del Usuario en el Mapa"]
+    end
+
+    subgraph PROC_M1["2. PIPELINE DE PROCESAMIENTO"]
+        LOAD["Carga Asíncrona (Fetch API + IIFE)"]
+        STYLE["Aplicación de Estilos CSS & L.divIcon"]
+        RAY["Algoritmo Ray-Casting (Inspector PRC)"]
+        MEASURE["Cálculo Geodésico de Distancias/Áreas"]
+    end
+
+    subgraph OUT_M1["3. OUTPUT"]
+        MAP_VIEW["Lienzo Cartográfico Leaflet 1.9.4"]
+        POPUPS["Popups con Atributos Normalizados ISO"]
+        CIN["Certificado de Informaciones Normativas (CIN-VGI)"]
+    end
+
+    IN_M1 --> PROC_M1 --> OUT_M1
+```
+
+---
+
+### Módulo 02: Consultas Overpass en Vivo (`src/js/modulos/osm.js`)
+* **Propósito Operativo:** Interfaz de extracción en tiempo real hacia OpenStreetMap con lenguaje Overpass QL; selector de BBox y descarga GeoJSON directa.
+
+```mermaid
+flowchart LR
+    subgraph IN_M2["1. INPUT"]
+        BBOX_SEL["BBox Seleccionado (Barrio Brasil)"]
+        QUERY_QL["Filtro Temático Overpass QL / Presets"]
+        ENDPOINTS["Endpoints Espejo Overpass API"]
+    end
+
+    subgraph PROC_M2["2. PIPELINE DE PROCESAMIENTO"]
+        FAILOVER["Algoritmo Round-Robin Failover (4 Espejos)"]
+        OSM_JSON["Recepción de JSON OSM crudo (nodos/ways)"]
+        OSMTOGEO["Conversión osm-to-geojson en Navegador"]
+    end
+
+    subgraph OUT_M2["3. OUTPUT"]
+        CAPA_VIVA["Renderizado de Capa Temporal en Leaflet"]
+        GEOJSON_DL["Descarga de Archivo GeoJSON del Usuario"]
+        STATS_QL["Estadísticas de Entidades Obtenidas"]
+    end
+
+    IN_M2 --> PROC_M2 --> OUT_M2
+```
+
+---
+
+### Módulo 03: Calidad & ICV ohsome API (`src/js/modulos/calidad.js`)
+* **Propósito Operativo:** Auditoría histórica y temporal de aportes en OSM; densidad de nodos por km² y colaboradores únicos activos.
+
+```mermaid
+flowchart LR
+    subgraph IN_M3["1. INPUT"]
+        OHSOME_URL["Endpoint API v2 (api.ohsome.org)"]
+        TIME_SERIES["Rango Temporal (2018 - 2026)"]
+        POLY_BB["Polígono Delimitado Barrio Brasil"]
+    end
+
+    subgraph PROC_M3["2. PIPELINE DE PROCESAMIENTO"]
+        FETCH_OH["Consulta Asíncrona a Endpoints HeiGIT"]
+        METRICS_CALC["Cálculo de Densidad (entidades/km²)"]
+        CHART_ENGINE["Generador de Series Temporales"]
+    end
+
+    subgraph OUT_M3["3. OUTPUT"]
+        GRAF_HIST["Gráfico de Evolución de Mapeo Barrial"]
+        METRICAS_ICV["Tablero de Completitud y Densidad VGI"]
+        REPORT_OH["Auditoría Histórica de Edición OSM"]
+    end
+
+    IN_M3 --> PROC_M3 --> OUT_M3
+```
+
+---
+
+### Módulo 04: Biodiversidad Urbana GBIF (`src/js/modulos/gbif.js`)
+* **Propósito Operativo:** Registros biológicos georreferenciados bajo estándar Darwin Core; cruce con iNaturalist y filtros de incertidumbre métrica.
+
+```mermaid
+flowchart LR
+    subgraph IN_M4["1. INPUT"]
+        GBIF_API["GBIF Occurrence API (api.gbif.org/v1)"]
+        WKT_POLY["Filtro Geométrico WKT de Barrio Brasil"]
+        TAXON_FILTER["Filtros Taxonómicos (Plantae, Aves, Insecta)"]
+    end
+
+    subgraph PROC_M4["2. PIPELINE DE PROCESAMIENTO"]
+        DWC_PARSE["Normalización Darwin Core (DwC)"]
+        UNCERT_FLT["Filtro de Incertidumbre Espacial (<50m)"]
+        CLUSTER_GEO["Agrupamiento de Observaciones Biológicas"]
+    end
+
+    subgraph OUT_M4["3. OUTPUT"]
+        LAYER_GBIF["Capa Cartográfica de Especies Urbanas"]
+        TAXON_CARD["Fichas Taxonómicas con Fotografías"]
+        CSV_GBIF["Exportación de Registros de Biodiversidad"]
+    end
+
+    IN_M4 --> PROC_M4 --> OUT_M4
+```
+
+---
+
+### Módulo 05: Cartografía UMap (`src/js/modulos/umap.js`)
+* **Propósito Operativo:** Embebido seguro de proyectos colaborativos externos mediante iframes aislados con sandboxing.
+
+```mermaid
+flowchart LR
+    subgraph IN_M5["1. INPUT"]
+        UMAP_URL["URL de Mapas UMap Comunitarios"]
+        CONFIG_EMBED["Parámetros de Visualización y Controles"]
+    end
+
+    subgraph PROC_M5["2. PIPELINE DE PROCESAMIENTO"]
+        SANDBOX["Aislamiento Sandbox de iframe (allow-scripts)"]
+        CORS_GUARD["Validación de Origen Seguro HTTPS"]
+        RESIZE_OBS["Ajuste Responsivo Automático de Lienzo"]
+    end
+
+    subgraph OUT_M5["3. OUTPUT"]
+        PANEL_UMAP["Lienzo Interactivo de Mapeo Ciudadano"]
+        MAP_COLLAB["Integración de Proyectos Participativos"]
+    end
+
+    IN_M5 --> PROC_M5 --> OUT_M5
+```
+
+---
+
+### Módulo 06: Metadatos Estandarizados ISO 19115/19139 (`src/js/modulos/metadatos.js`)
+* **Propósito Operativo:** Generador y exportador formal de fichas de metadatos en formatos JSON y XML para GeoNetwork e IDE Chile.
+
+```mermaid
+flowchart LR
+    subgraph IN_M6["1. INPUT"]
+        ID_CAPA["Identificador de Capa Seleccionada"]
+        REGISTRO_JSON["Metadatos Básicos (Fuente, Fecha, BBox)"]
+        SCHEMA_ISO["Esquema Perfil Nacional IDE Chile SNIT"]
+    end
+
+    subgraph PROC_M6["2. PIPELINE DE PROCESAMIENTO"]
+        BUILD_XML["Motor DOMParser y Serialización XML ISO 19139"]
+        BUILD_JSON["Generación de Estructura JSON-LD GeoNetwork"]
+        VALID_ISO["Validación de Conformidad ISO 19115-1:2014"]
+    end
+
+    subgraph OUT_M6["3. OUTPUT"]
+        VIEWER_META["Ficha Técnica Interactiva en la Interfaz"]
+        XML_FILE["Descarga de Archivo XML ISO 19139 Estructurado"]
+        JSON_FILE["Descarga de Ficha en Formato JSON"]
+    end
+
+    IN_M6 --> PROC_M6 --> OUT_M6
+```
+
+---
+
+### Módulo 07: Diccionario Territorial (`src/js/modulos/diccionario.js`)
+* **Propósito Operativo:** Repositorio conceptual interactivo con descriptores que homologan la OGUC y el PRC con etiquetas OSM.
+
+```mermaid
+flowchart LR
+    subgraph IN_M7["1. INPUT"]
+        GLOSARIO_JSON["Base de 140 Descriptores Urbanísticos"]
+        SEARCH_KEY["Término de Búsqueda del Usuario"]
+        FILTRO_TIPO["Filtro por Categoría (Normativa / OSM)"]
+    end
+
+    subgraph PROC_M7["2. PIPELINE DE PROCESAMIENTO"]
+        INDEX_TEXT["Búsqueda Textual Inmediata Client-Side"]
+        HOMOLOGA["Cruce de Códigos OGUC vs Tags de OpenStreetMap"]
+        LINK_CAPA["Vinculación con Capas Cartográficas del Atlas"]
+    end
+
+    subgraph OUT_M7["3. OUTPUT"]
+        CARD_DESCRIP["Tarjetas Conceptuales con Ejemplos Barriales"]
+        HIGHLIGHT["Botón para Resaltar Capas Asociadas en el Mapa"]
+    end
+
+    IN_M7 --> PROC_M7 --> OUT_M7
+```
+
+---
+
+### Módulo 08: Licencias y Catálogos (`src/js/modulos/licencias.js`)
+* **Propósito Operativo:** Gobernanza legal tripartita (ODbL, CC BY-SA, AGPLv3) y descarga de libros Excel (.xlsx) y archivos CSV.
+
+```mermaid
+flowchart LR
+    subgraph IN_M8["1. INPUT"]
+        CAT_XLSX["4 Libros Maestros OpenXML (.xlsx)"]
+        CSV_FILES["Archivos Consolidados Tabulares CSV"]
+        ZIP_MASTER["Paquete Completo geodatabase_completa.zip"]
+    end
+
+    subgraph PROC_M8["2. PIPELINE DE PROCESAMIENTO"]
+        INTEG_CHECK["Validación de Integridad y Tamaño de Archivos"]
+        LIC_MATRIX["Matriz de Compatibilidad Legal de Licencias"]
+        DIRECT_DL["Gestión de Descargas Directas Asíncronas"]
+    end
+
+    subgraph OUT_M8["3. OUTPUT"]
+        TAB_LEGAL["Cuadro de Gobernanza y Términos de Uso"]
+        DOWNLOADS["Descarga de Catálogos XLSX, CSV y ZIP (543 MB)"]
+    end
+
+    IN_M8 --> PROC_M8 --> OUT_M8
+```
+
+---
+
+### Módulo 09: Indicadores de Análisis y Storyboards (`src/js/modulos/storyboards.js`)
+* **Propósito Operativo:** 7 narrativas espaciales situadas y acceso al Visor Lightbox Pop-Up HD.
+
+```mermaid
+flowchart LR
+    subgraph IN_M9["1. INPUT"]
+        STORY_ID["Selección de Storyboard Temático (01 al 07)"]
+        COORD_VIEW["Coordenadas de Enfoque y Zoom Predefinidos"]
+        CAPAS_REQ["Listado de Capas Requeridas por la Narrativa"]
+    end
+
+    subgraph PROC_M9["2. PIPELINE DE PROCESAMIENTO"]
+        FLY_TO["Transición Suave de Cámara (map.flyTo)"]
+        AUTO_LAYER["Activación/Desactivación Automática de Capas"]
+        PANEL_TEXT["Carga de Narrativa Socio-Espacial y Fotografía"]
+    end
+
+    subgraph OUT_M9["3. OUTPUT"]
+        SCENE_VIEW["Escenario Cartográfico Enfocado y Tematizado"]
+        LIGHTBOX["Visor Multimedia Pop-Up HD para Fotografías"]
+    end
+
+    IN_M9 --> PROC_M9 --> OUT_M9
+```
+
+---
+
+### Módulo 10: Manual de Uso y Metodología (`src/js/modulos/manual.js`)
+* **Propósito Operativo:** Visualizador integrado de la documentación técnica y operativa sin requerir apertura de archivos externos.
+
+```mermaid
+flowchart LR
+    subgraph IN_M10["1. INPUT"]
+        DOC_MD["MANUAL_ACTUALIZACION_ATLAS.md (+5000 Líneas)"]
+        USER_ROLE["Rol de Usuario Activo (#sel-perfil-usuario)"]
+        TOC_NAV["Índice de Navegación de Capítulos"]
+    end
+
+    subgraph PROC_M10["2. PIPELINE DE PROCESAMIENTO"]
+        FETCH_MD["Descarga del Documento Markdown desde CDN"]
+        MD_RENDER["Compilación y Renderizado HTML en Tiempo Real"]
+        SCROLL_SYNC["Sincronización de Anclas y Resaltado de Código"]
+    end
+
+    subgraph OUT_M10["3. OUTPUT"]
+        DOC_VIEW["Lector de Documentación Integrado en Pantalla"]
+        CODE_SNIP["Bloques de Código y Diagramas Técnicos Legibles"]
+    end
+
+    IN_M10 --> PROC_M10 --> OUT_M10
+```
 
 ---
 

@@ -353,6 +353,29 @@ Si un servidor rechaza la petición, el script espera 2 segundos, conmuta autom�
 
 ## 8. Auditoría Histórica y Análisis Espacio-Temporal con ohsome API v1/v2 (HeiGIT)
 
+```mermaid
+flowchart LR
+    subgraph IN_OH["1. INPUT"]
+        POLY_BBOX["Polígono WGS84 de Barrio Brasil"]
+        OH_ENDPOINTS["Endpoints HeiGIT (contributions/density)"]
+        DATE_RANGE["Intervalo Temporal (2018-01 a 2026-10)"]
+    end
+
+    subgraph PROC_OH["2. PIPELINE DE PROCESAMIENTO"]
+        REQ_OH["Petición HTTP REST con Filtro InPolygon"]
+        AGG_OH["Agregación Temporal por Trimestre / Semestre"]
+        PARSER_OH["Cálculo de Entidades por km² y Usuarios Únicos"]
+    end
+
+    subgraph OUT_OH["3. OUTPUT"]
+        SERIES_JSON["Serie Temporal de Densidad de Mapeo"]
+        CHART_OH["Gráficos de Madurez Cartográfica Barrial"]
+        ICV_METRIC["Índice de Confiabilidad VGI (ISO 19157)"]
+    end
+
+    IN_OH --> PROC_OH --> OUT_OH
+```
+
 Para superar el escepticismo sobre la calidad de OpenStreetMap, el Atlas integra el motor analítico **ohsome API**, desarrollado por el *Heidelberg Institute for Geoinformation Technology* (HeiGIT) de la Universidad de Heidelberg. Este servicio permite interrogar la base de datos histórica completa de OSM (OpenStreetMap History Database - OSHDB) para Barrio Brasil.
 
 ### 8.1. Endpoints Utilizados y Métricas Extraídas
@@ -368,6 +391,29 @@ Para superar el escepticismo sobre la calidad de OpenStreetMap, el Atlas integra
 ---
 
 ## 9. Integración de Biodiversidad y Ciencia Ciudadana con GBIF y Darwin Core
+
+```mermaid
+flowchart LR
+    subgraph IN_GB["1. INPUT"]
+        DWC_EP["Endpoint GBIF Occurrence API (v1/occurrence/search)"]
+        WKT_BB["Polígono WKT (POLY) de Barrio Brasil"]
+        OCC_CRITERIA["Filtros: hasCoordinate=true, basisOfRecord=HUMAN_OBSERVATION"]
+    end
+
+    subgraph PROC_GB["2. PIPELINE DE PROCESAMIENTO"]
+        GET_GB["Consulta Asíncrona con Filtros Geodésicos WKT"]
+        DWC_MAP["Mapeo de Campos Darwin Core (scientificName, kingdom, eventDate)"]
+        GEO_VAL["Validación de Incertidumbre Espacial coordinateUncertaintyInMeters <= 50m"]
+    end
+
+    subgraph OUT_GB["3. OUTPUT"]
+        GEOJSON_GB["Capa Vectorial de Ocurrencias Biológicas"]
+        POPUP_GB["Fichas de Biodiversidad con Fotografía y Taxonomía"]
+        TAB_GBIF["Consolidado Tabular de Especies Registradas"]
+    end
+
+    IN_GB --> PROC_GB --> OUT_GB
+```
 
 El Módulo 04 ([`src/js/modulos/gbif.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/gbif.js)) consume directamente la API del **Global Biodiversity Information Facility (GBIF)**, incorporando observaciones biológicas georreferenciadas provenientes de museos, herbarios y registros comunitarios de **iNaturalist**.
 
@@ -413,6 +459,27 @@ Cuando un mapa uMap aloja datos vectoriales en servidores remotos que bloquean l
 ---
 
 ## 11. Extractos Masivos Regionales de Geofabrik RM y Generación de GeoPackage OGC
+
+```mermaid
+flowchart LR
+    subgraph IN_GEO["1. INPUT"]
+        PBF_FILE["Extracto Regional Geofabrik (.osm.pbf / .shp.zip)"]
+        BBOX_CLIP["Máscara Territorial de Barrio Brasil / Santiago"]
+    end
+
+    subgraph PROC_GEO["2. PIPELINE DE PROCESAMIENTO"]
+        OSM_CONV["Osmium / GDAL ogr2ogr Filtro Espacial"]
+        LAYER_SPLIT["Separación por Capas (points, lines, polygons)"]
+        ATTR_STD["Inyección de 14 Columnas Estandarizadas ISO"]
+    end
+
+    subgraph OUT_GEO["3. OUTPUT"]
+        GPKG_OGC["geofabrik_rm_osm.gpkg (OGC SQLite)"]
+        GEOJSON_SPLIT["Extractos Vectoriales GeoJSON Homologados"]
+    end
+
+    IN_GEO --> PROC_GEO --> OUT_GEO
+```
 
 Para satisfacer las demandas de investigadores que requieren estudiar la conectividad metropolitana entre Barrio Brasil y el resto de los 52 municipios de la Región Metropolitana, el Atlas incorpora extractos regionales masivos provistos por **Geofabrik GmbH**.
 
@@ -480,6 +547,28 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 ---
 
 ## 14. El Esquema Maestro Obligatorio de 14 Atributos ISO por Entidad Geográfica
+
+```mermaid
+flowchart LR
+    subgraph IN_ISO["1. INPUT"]
+        RAW_VEC["Capas Vectoriales GeoJSON Crudas (VGI y Oficiales)"]
+        METADATA_DICT["Diccionario Maestro de Metadatos y Linaje"]
+    end
+
+    subgraph PROC_ISO["2. PIPELINE DE PROCESAMIENTO"]
+        SCRIPT_ENR["scripts/enriquecer_base_datos_metadatos.py"]
+        INJECT_PROP["Inyección Algorítmica de 14 Claves Obligatorias"]
+        CAST_TYPES["Homologación de Tipos de Datos (String, Float, ISO-Date)"]
+    end
+
+    subgraph OUT_ISO["3. OUTPUT"]
+        STD_GEOJSON["118 Capas GeoJSON 100% Homogéneas"]
+        ISO_CONFORM["Conformidad Total con Perfil IDE Chile / SNIT"]
+        EXPORT_READY["Exportabilidad Directa hacia QGIS y ArcGIS"]
+    end
+
+    IN_ISO --> PROC_ISO --> OUT_ISO
+```
 
 Para garantizar que el Inspector Normativo, el Evaluador de Calidad ISO 19157 y las funciones de exportación tabular operen de manera homogénea sobre cualquier capa (sea comunitaria u oficial), todo archivo GeoJSON en el Atlas debe contener en su objeto `properties` los siguientes **14 atributos maestros normalizados**:
 
