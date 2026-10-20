@@ -1289,7 +1289,7 @@ const ModuloIndicadoresAnalisis = (() => {
     },
     {
       id: 'storyboard-censo2024-densidad-poblacion',
-      titulo: '8. Densidad de Población Censo 2024: Concentración y Patrones Espaciales en Manzanas de Santiago',
+      titulo: '8. Densidad de Población Censo 2024: Concentración y Patrones en Manzanas de Santiago',
       bajada: 'Distribución espacial de la densidad de personas/km² por manzana censal según el Censo Oficial 2024 (INE), clasificada en 4 estratos de concentración territorial.',
       dimensionId: 'dim-sociodemografica',
       dimensionNombre: 'Dimensión Sociodemográfica',
@@ -1317,19 +1317,79 @@ const ModuloIndicadoresAnalisis = (() => {
           titulo: 'Distribución Cartográfica de Estratos de Densidad Poblacional (Censo 2024)',
           filas: [
             { label: 'Estrato 1: Muy Baja Densidad / Suelo Institucional y Parques (0% - 5.06%)', valor: 'Amarillo', porcentaje: 25.0 },
-            { label: 'Estrato 2: Densidad Moderada / Tejido Residencial Tradicional (5.07% - 14.70%)', valor: 'Verde Claro', porcentaje: 50.0 },
+            { label: 'Estrato 2: Densidad Moderada / Tejido Residencial Tradicional (5.07% - 14.70%)', valor: 'Verde Brillante', porcentaje: 50.0 },
             { label: 'Estrato 3: Densidad Media-Alta / Transición Residencial (14.87% - 30.64%)', valor: 'Celeste / Cian', porcentaje: 75.0 },
-            { label: 'Estrato 4: Hiperdensidad Crítica / Torres Residenciales (31.31% - 84.48%)', valor: 'Azul Oscuro', porcentaje: 100.0 }
+            { label: 'Estrato 4: Hiperdensidad Crítica / Torres Residenciales (31.31% - 84.48%)', valor: 'Azul Noche', porcentaje: 100.0 }
           ]
         },
-        analisisActores: {
-          institucion: `Permite a la Dirección de Obras Municipales (DOM) y al MINVU focalizar las inversiones de la Ley de Aportes al Espacio Público en aquellas manzanas del cuartil superior (31,31% - 84,48%), mitigando el déficit de veredas y áreas verdes en los cuadrantes saturados por torres habitacionales.`,
-          comunidad: `Proporciona a las juntas de vecinos de Barrio Brasil un respaldo cartográfico empírico para defender la vigencia de la Zona de Conservación Histórica B1 frente a proyectos que busquen alterar la escala de 1 a 3 pisos del habitar tradicional.`,
-          mapeador: `Orienta la priorización del levantamiento colaborativo de microatributos OSM (número de pisos, accesos a edificios residenciales y comercio de planta baja) en las manzanas de mayor concentración demográfica.`,
-          investigador: `Constituye una línea de base cartográfica de alta resolución espacial para contrastar la densidad residencial con las variables de vulnerabilidad del Registro Social de Hogares y la accesibilidad a servicios urbanos esenciales.`
-        },
-        bibliografia: {
-          fuentesPrimarias: [
+        diagramaSVG: () => `
+          <svg viewBox="0 0 680 200" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
+            <rect width="680" height="200" fill="#0b1329" rx="8"/>
+            <text x="340" y="28" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">Gradiente de Densidad Poblacional Censo 2024 (Manzanas Santiago)</text>
+            <!-- 4 Bloques de Color -->
+            <rect x="50" y="55" width="125" height="70" fill="#FFFF73" rx="6"/>
+            <text x="112" y="85" fill="#000" font-size="11" font-weight="bold" text-anchor="middle">0% - 5.06%</text>
+            <text x="112" y="105" fill="#000" font-size="9" text-anchor="middle">Baja Densidad / Parques</text>
+
+            <rect x="195" y="55" width="125" height="70" fill="#55FF00" rx="6"/>
+            <text x="257" y="85" fill="#000" font-size="11" font-weight="bold" text-anchor="middle">5.07% - 14.7%</text>
+            <text x="257" y="105" fill="#000" font-size="9" text-anchor="middle">Barrio Brasil (1-3P)</text>
+
+            <rect x="340" y="55" width="125" height="70" fill="#00A9E6" rx="6"/>
+            <text x="402" y="85" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">14.87% - 30.64%</text>
+            <text x="402" y="105" fill="#fff" font-size="9" text-anchor="middle">Transición Media</text>
+
+            <rect x="485" y="55" width="145" height="70" fill="#002673" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+            <text x="557" y="85" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">31.31% - 84.48%</text>
+            <text x="557" y="105" fill="#fef08a" font-size="9" text-anchor="middle">Hiperdensidad Vertical</text>
+
+            <!-- Leyenda Inferior -->
+            <text x="340" y="165" fill="#cbd5e1" font-size="10" text-anchor="middle">Fuente Oficial: Instituto Nacional de Estadísticas (INE 2024) · Cartografía: Juan Pablo Lezcano (UAH)</text>
+          </svg>
+        `,
+        tablaIndicadores: [
+          { variable: 'Total Manzanas Censales Analizadas', valor: '1.711 mzn', referencial: '100% Comuna Santiago', fuente: 'Censo 2024 (censo2024_manzanas)' },
+          { variable: 'Manzanas Cuartil Máximo (>31.3%)', valor: '382 mzn', referencial: 'Ejes Santa Isabel, Carmen y San Diego', fuente: 'INE 2024 / Matriz Síntesis' },
+          { variable: 'Manzanas Barrio Brasil en Cuartil 5-14.7%', valor: '84.1%', referencial: 'ZCH B1 de Conservación Histórica', fuente: 'PRC Santiago / Censo 2024' },
+          { variable: 'Población Máxima por Manzana Pico', valor: '4.820 hab/mzn', referencial: 'Torres residenciales (>18 pisos)', fuente: 'Microdatos INE 2024' }
+        ],
+        cuerpo: [
+          `El análisis cartográfico de la densidad de población del Censo 2024 por manzana revela con nitidez la dualidad morfológica y demográfica que atraviesa la Comuna de Santiago. Mientras los sectores protegidos como Barrio Brasil mantienen densidades moderadas armónicas con la escala peatonal, los sectores desregulados del sur comunal concentran densidades extremas que tensionan severamente la provisión de servicios y áreas verdes.`,
+          `Esta cartografía sirve de insumo empírico fundamental para contrastar la distribución de equipamiento y los kernels de densidad VGI (accesibilidad, transporte, comercio y educación), permitiendo identificar si los servicios urbanos acompañan o van rezagados respecto al crecimiento poblacional.`
+        ],
+        conclusion: `La zonificación censal evidencia que la protección patrimonial ha sido un mecanismo eficaz de equilibrio socioespacial, evitando que el Barrio Brasil sufra los colapsos de infraestructura observados en las manzanas hiperdensificadas del pericentro capitalino.`,
+        analisisPorActor: [
+          {
+            id: 'institucion',
+            icono: '🏛️',
+            nombre: 'Institución / Sector Público',
+            subtitulo: 'MINVU · SECPLA Santiago · DITEC · INE',
+            utilidad: 'Permite a SECPLA y al MINVU focalizar las inversiones de mitigación del espacio público en las manzanas de mayor concentración demográfica.'
+          },
+          {
+            id: 'comunidad',
+            icono: '👥',
+            nombre: 'Comunidad / Vecinal',
+            subtitulo: 'Juntas de Vecinos · Asambleas Barriales',
+            utilidad: 'Respalda la exigencia vecinal de proteger la escala barrial y exigir más áreas verdes en cuadrantes con densidades intermedias crecientes.'
+          },
+          {
+            id: 'voluntario',
+            icono: '🗺️',
+            nombre: 'Mapeador / Voluntario OSM',
+            subtitulo: 'Comunidad OSM · Estudiantes Geografía UAH',
+            utilidad: 'Orienta la priorización del mapeo de accesos, microatributos de accesibilidad y comercio barrial en las manzanas de mayor densidad.'
+          },
+          {
+            id: 'ong',
+            icono: '🎓',
+            nombre: 'Investigación / Academia',
+            subtitulo: 'Geografía UAH · Proyecto Fondecyt F1261256',
+            utilidad: 'Base territorial de microdatos para correlaciones espaciales con el Registro Social de Hogares, calidad de vida urbana e islas de calor.'
+          }
+        ],
+        apartadoBibliografico: {
+          fuentesDatos: [
             { codigo: 'censo2024_manzanas', nombre: 'Microdatos y Cartografía Censal por Manzana (Censo 2024)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719 / EPSG:4326', tipo: 'Polígono' },
             { codigo: 'matriz_sintesis_manzanas', nombre: 'Matriz Síntesis de Manzanas Atlas VGI (1.711 Manzanas)', institucion: 'Universidad Alberto Hurtado / Fondecyt F1261256', crs: 'EPSG:32719', tipo: 'Polígono' }
           ],
@@ -1348,8 +1408,8 @@ const ModuloIndicadoresAnalisis = (() => {
     },
     {
       id: 'storyboard-morfologia-segmentos-vertices',
-      titulo: '9. Morfología, Segmentos y Vértices: Geometría Perimetral de la Comuna de Santiago y Barrio Brasil',
-      bajada: 'Modelación espacial de los contornos exteriores comunales y barriales: descomposición en 138 vértices y segmentos principales con cálculo exacto de perímetros y superficies en EPSG:32719.',
+      titulo: '9. Geometría Perimetral: Segmentos y Vértices de Santiago y Barrio Brasil',
+      bajada: 'Modelación geométrica de los 138 vértices del contorno exterior continuo de Santiago (23,05 km²) y del Barrio Brasil (75,24 ha) con longitudes exactas de segmentos en EPSG:32719.',
       dimensionId: 'dim-sociourbana',
       dimensionNombre: 'Dimensión Sociourbana & Morfología Territorial',
       fecha: '19 de Octubre 2026',
@@ -1359,7 +1419,7 @@ const ModuloIndicadoresAnalisis = (() => {
       tags: ['Morfología Urbana', 'Vértices Perimetrales', 'Barrio Brasil', 'Límites Comunales'],
       capasRelevantes: ['minvu_ipt_limite_urbano', 'ide_subdere_dpa_comunas', 'cat09_edificaciones'],
       contenido: {
-        introduccion: `La presente cartografía perimetral técnica, elaborada por Juan Pablo Lezcano en el Atlas VGI (Universidad Alberto Hurtado), modela con rigor métrico euclidiano (WGS 84 / UTM Zona 19S) la geometría envolvente de la Comuna de Santiago y del Barrio Brasil. Mediante la depuración topológica de las 1.711 manzanas censales y la eliminación de discontinuidades viales internas, el mapa aísla los 138 vértices del contorno exterior continuo de Santiago y los vértices estructurales del polígono fundacional de Barrio Brasil, explicitando la longitud de los segmentos perimetrales clave y las áreas netas de ocupación del suelo.`,
+        introduccion: `La presente cartografía técnica, modelada en proyección métrica WGS 84 / UTM Zona 19S (EPSG:32719) por Juan Pablo Lezcano en el Atlas VGI, representa la descomposición geométrica formal del perímetro de la Comuna de Santiago y del polígono histórico de Barrio Brasil. Mediante la depuración topológica de las manzanas censales y la supresión de fisuras viales intermedias, se aíslan los 138 vértices del contorno exterior continuo comunal y los vértices de Barrio Brasil, explicitando la longitud métrica exacta de cada arista estructurante y las superficies netas de suelo.`,
         datosClave: [
           { valor: '23.053.198 m²', label: 'Área Comunal Continua', sub: '2.305,32 hectáreas (Santiago)' },
           { valor: '752.366 m²', label: 'Área Barrio Brasil', sub: '75,24 hectáreas fundacionales' },
@@ -1380,17 +1440,73 @@ const ModuloIndicadoresAnalisis = (() => {
             { label: 'Eje Matucana / Borde Poniente', valor: '2.028 m', porcentaje: 64.1 },
             { label: 'Eje Placer / Franklin / Borde Sur', valor: '1.378 m', porcentaje: 43.6 },
             { label: 'Eje Parque Quinta Normal Norte', valor: '1.124 m', porcentaje: 35.5 },
-            { label: 'Eje Catedrál Poniente (Barrio Brasil)', valor: '1.076 m', porcentaje: 34.0 }
+            { label: 'Eje Catedral Poniente (Barrio Brasil)', valor: '1.076 m', porcentaje: 34.0 }
           ]
         },
-        analisisActores: {
-          institucion: `Entrega a SECPLA y Asesoría Urbana de la I. Municipalidad de Santiago los parámetros geométricos consolidados para la redacción de límites en instrumentos de planificación territorial (PRC) y convenios intersectoriales de conurbación con comunas vecinas.`,
-          comunidad: `Clarifica la delimitación geométrica formal de Barrio Brasil (3,55 km de perímetro y 75,2 ha), permitiendo a las organizaciones sociales argumentar la pertenencia espacial de las juntas de vecinos frente a zonas limítrofes disputadas.`,
-          mapeador: `Proporciona las coordenadas y azimuts de control para el ajuste geométrico de las líneas de contorno en OpenStreetMap y en el visualizador Leaflet.`,
-          investigador: `Permite estudiar la compacidad geométrica, la morfometría urbana y el ratio perímetro/área de la comuna central frente a otros municipios pericentrales del Gran Santiago.`
-        },
-        bibliografia: {
-          fuentesPrimarias: [
+        diagramaSVG: () => `
+          <svg viewBox="0 0 680 200" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
+            <rect width="680" height="200" fill="#0b1329" rx="8"/>
+            <text x="340" y="26" fill="#8b5cf6" font-size="13" font-weight="bold" text-anchor="middle">Morfometría y Geometría Perimetral: Comuna de Santiago vs. Barrio Brasil</text>
+            <!-- Polígono Santiago Esquemático -->
+            <polygon points="120,45 480,50 560,165 420,180 160,180 100,100" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+            <!-- Polígono Barrio Brasil Interior -->
+            <polygon points="200,70 320,72 310,130 190,128" fill="#8b5cf6" fill-opacity="0.35" stroke="#a78bfa" stroke-width="2"/>
+            <text x="255" y="105" fill="#f8fafc" font-size="10" font-weight="bold" text-anchor="middle">Barrio Brasil</text>
+            <text x="255" y="120" fill="#cbd5e1" font-size="8.5" text-anchor="middle">752.366 m² (3.55 km)</text>
+            <!-- Etiquetas de cotas -->
+            <text x="300" y="42" fill="#fef08a" font-size="9" font-weight="bold">Norte: 2.443 m</text>
+            <text x="535" y="110" fill="#fef08a" font-size="9" font-weight="bold">Oriente: 3.163 m</text>
+            <text x="80" y="140" fill="#fef08a" font-size="9" font-weight="bold">Poniente: 2.028 m</text>
+            <text x="280" y="195" fill="#fef08a" font-size="9" font-weight="bold">Sur: 1.378 m</text>
+            <!-- Total Comuna -->
+            <text x="440" y="130" fill="#38bdf8" font-size="11" font-weight="bold">Santiago Total</text>
+            <text x="440" y="146" fill="#94a3b8" font-size="9">Área: 23.053.198 m²</text>
+            <text x="440" y="160" fill="#94a3b8" font-size="9">Perímetro: 23.407 m</text>
+          </svg>
+        `,
+        tablaIndicadores: [
+          { variable: 'Superficie Envolvente Continua Santiago', valor: '23.053.198 m²', referencial: '2.305,32 hectáreas', fuente: 'Borde Depurado EPSG:32719' },
+          { variable: 'Perímetro Exterior Continuo Santiago', valor: '23.407 m', referencial: '23,41 km lineales', fuente: '138 vértices exteriores' },
+          { variable: 'Superficie Polígono Barrio Brasil', valor: '752.366 m²', referencial: '75,24 hectáreas fundacionales', fuente: 'Límite Oficial MuniSTGO' },
+          { variable: 'Perímetro Exterior Barrio Brasil', valor: '3.547 m', referencial: '3,55 km lineales', fuente: '32 vértices exteriores' }
+        ],
+        cuerpo: [
+          `La delimitación morfométrica precisa de una unidad territorial constituye el punto de partida indispensable para cualquier cálculo de densidad poblacional, dotación de áreas verdes por habitante o cálculo de anchos de banda para estimaciones de densidad de kernel.`,
+          `Al unificar las 1.711 manzanas censales de Santiago cerrando las rendijas viales internas, se comprueba que el área comunal neta continua alcanza 23,05 km², mientras que Barrio Brasil ocupa 75,24 hectáreas en el corazón del cuadrante poniente.`
+        ],
+        conclusion: `El modelamiento perimetral en coordenadas proyectadas EPSG:32719 proporciona a la gestión territorial municipal un estándar métrico riguroso, evitando distorsiones de escala en la zonificación urbana y en los cálculos de densidad.`,
+        analisisPorActor: [
+          {
+            id: 'institucion',
+            icono: '🏛️',
+            nombre: 'Institución / Sector Público',
+            subtitulo: 'SECPLA · Asesoría Urbana · MuniSTGO',
+            utilidad: 'Entrega parámetros geométricos consolidados para la redacción de ordenanzas locales y el cálculo de la Ley de Aportes.'
+          },
+          {
+            id: 'comunidad',
+            icono: '👥',
+            nombre: 'Comunidad / Vecinal',
+            subtitulo: 'Juntas de Vecinos Barrio Brasil',
+            utilidad: 'Clarifica la delimitación geométrica formal de Barrio Brasil (3,55 km de borde y 75,2 ha) frente a disputas limítrofes.'
+          },
+          {
+            id: 'voluntario',
+            icono: '🗺️',
+            nombre: 'Mapeador / Voluntario OSM',
+            subtitulo: 'Comunidad OSM · Estudiantes UAH',
+            utilidad: 'Proporciona los vértices y ejes perimetrales de control para calibrar las capas territoriales en OpenStreetMap.'
+          },
+          {
+            id: 'ong',
+            icono: '🎓',
+            nombre: 'Investigación / Academia',
+            subtitulo: 'Geografía UAH · Fondecyt F1261256',
+            utilidad: 'Permite calcular índices de compacidad geométrica, compacidad de Richardson y ratios perímetro/área en morfometría urbana.'
+          }
+        ],
+        apartadoBibliografico: {
+          fuentesDatos: [
             { codigo: 'borde_exterior_manzanas', nombre: 'Borde Exterior Continuo de Manzanas Santiago (EPSG:32719)', institucion: 'Atlas VGI — Universidad Alberto Hurtado', crs: 'EPSG:32719', tipo: 'Polígono / Línea' },
             { codigo: 'limite_barrios_stgo', nombre: 'Límite Oficial de Barrios y Comuna de Santiago', institucion: 'Ilustre Municipalidad de Santiago (MuniSTGO)', crs: 'EPSG:32719', tipo: 'Polígono' }
           ],
@@ -1890,7 +2006,7 @@ const ModuloIndicadoresAnalisis = (() => {
    * Abre la lámina de lectura modal tipo blog para un Storyboard
    */
   function abrirLaminaStoryboard(storyboardId) {
-    const sb = STORYBOARDS.find(s => s.id === storyboardId);
+    const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
     if (!sb) return;
 
     const overlay = document.getElementById('lamina-storyboard-overlay');
@@ -1983,7 +2099,7 @@ const ModuloIndicadoresAnalisis = (() => {
               <h5 class="titulo-diagrama-svg">📐 Diagrama Técnico de Análisis Espacial</h5>
               <span class="badge-fuente-datos">MODELACIÓN VECTORIAL SVG</span>
             </div>
-            ${sb.contenido.diagramaSVG()}
+            ${typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : ''}
             <p class="pie-diagrama-svg">
               Diagrama conceptual interactivo fundamentado en los parámetros normativos y las capas del Atlas VGI.
             </p>
@@ -2001,14 +2117,14 @@ const ModuloIndicadoresAnalisis = (() => {
                 </tr>
               </thead>
               <tbody>
-                ${sb.contenido.tablaIndicadores.map(row => `
+                ${Array.isArray(sb.contenido.tablaIndicadores) ? sb.contenido.tablaIndicadores.map(row => `
                   <tr>
                     <td><strong>${row.variable}</strong></td>
                     <td class="valor-dato">${row.valor}</td>
                     <td class="valor-referencial">${row.referencial}</td>
                     <td><span class="pill-dim-origen oficial" style="font-size:0.68rem;">${row.fuente}</span></td>
                   </tr>
-                `).join('')}
+                `).join('') : ''}
               </tbody>
             </table>
           </div>
@@ -2016,13 +2132,14 @@ const ModuloIndicadoresAnalisis = (() => {
 
         <!-- Cuerpo del Artículo Blog (Párrafos Analíticos) -->
         <div class="cuerpo-narrativo-blog">
-          ${sb.contenido.cuerpo.map(p => `<p class="parrafo-blog">${p}</p>`).join('')}
+          ${Array.isArray(sb.contenido.cuerpo) ? sb.contenido.cuerpo.map(p => `<p class="parrafo-blog">${p}</p>`).join('') : ''}
         </div>
 
         <!-- Conclusión / Reflexión de Gestión Territorial -->
+        ${sb.contenido.conclusion ? `
         <blockquote class="conclusion-destacada-blog">
           <p>${sb.contenido.conclusion}</p>
-        </blockquote>
+        </blockquote>` : ''}
 
         <!-- ================================================================= -->
         <!-- SECCIÓN 4 USUARIOS-TIPO: RELEVANCIA Y UTILIDAD TERRITORIAL        -->
@@ -2033,7 +2150,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <span class="badge-fuente-datos">ENFOQUE MULTI-ACTOR</span>
           </div>
           <div class="grilla-actores-storyboard">
-            ${sb.contenido.analisisPorActor.map(actor => `
+            ${Array.isArray(sb.contenido.analisisPorActor) ? sb.contenido.analisisPorActor.map(actor => `
               <div class="tarjeta-actor-storyboard actor-${actor.id}">
                 <div class="header-actor-tarjeta">
                   <span class="icono-actor">${actor.icono}</span>
@@ -2044,7 +2161,7 @@ const ModuloIndicadoresAnalisis = (() => {
                 </div>
                 <p class="texto-utilidad-actor">${actor.utilidad}</p>
               </div>
-            `).join('')}
+            `).join('') : ''}
           </div>
         </section>
 
@@ -2072,7 +2189,7 @@ const ModuloIndicadoresAnalisis = (() => {
                   </tr>
                 </thead>
                 <tbody>
-                  ${sb.contenido.apartadoBibliografico.fuentesDatos.map(fd => `
+                  ${(sb.contenido.apartadoBibliografico && Array.isArray(sb.contenido.apartadoBibliografico.fuentesDatos)) ? sb.contenido.apartadoBibliografico.fuentesDatos.map(fd => `
                     <tr>
                       <td><code style="color:#38bdf8;">${fd.codigo}</code></td>
                       <td><strong>${fd.nombre}</strong></td>
@@ -2080,7 +2197,7 @@ const ModuloIndicadoresAnalisis = (() => {
                       <td>${fd.crs}</td>
                       <td><span class="pill-dim-geom" style="font-size:0.65rem;">${fd.tipo}</span></td>
                     </tr>
-                  `).join('')}
+                  `).join('') : ''}
                 </tbody>
               </table>
             </div>
@@ -2090,12 +2207,12 @@ const ModuloIndicadoresAnalisis = (() => {
           <div>
             <h5 class="subtitulo-bloque-biblio">2. Referencias Teórico-Metodológicas y Autores Clave</h5>
             <ul class="lista-referencias-apa">
-              ${sb.contenido.apartadoBibliografico.referenciasAcademicas.map(ref => `
+              ${(sb.contenido.apartadoBibliografico && Array.isArray(sb.contenido.apartadoBibliografico.referenciasAcademicas)) ? sb.contenido.apartadoBibliografico.referenciasAcademicas.map(ref => `
                 <li class="item-referencia-apa">
                   <strong>${ref.cita}</strong>
                   <span class="nota-marco-conceptual">${ref.concepto}</span>
                 </li>
-              `).join('')}
+              `).join('') : ''}
             </ul>
           </div>
         </section>
@@ -2177,7 +2294,7 @@ const ModuloIndicadoresAnalisis = (() => {
    * Activa las capas representativas de un storyboard en el mapa
    */
   function activarCapasDeHistoria(storyboardId) {
-    const sb = STORYBOARDS.find(s => s.id === storyboardId);
+    const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
     if (!sb || !sb.capasRelevantes) return;
 
     cerrarLaminaStoryboard();
