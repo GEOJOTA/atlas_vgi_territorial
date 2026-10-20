@@ -146,7 +146,10 @@ $$
 M_{\text{core}} = \min \left( 100, \, \left( \frac{\sum_{k=1}^{10} \mathbb{I}(E_k \neq \emptyset)}{10} \right) \times 100 + B_{\text{desc}} \right)
 $$
 
-Donde $E_k$ representa cada uno de los 10 elementos núcleo obligatorios, $\mathbb{I}(E_k \neq \emptyset)$ es la función indicatriz que asigna $1$ si el campo existe y contiene una cadena válida no vacía y $0$ en caso de ausencia, y $B_{\text{desc}}$ es un factor de exhaustividad documental ($+2.0\%$) asignado cuando el resumen metodológico supera los 60 caracteres descriptivos.
+Donde los componentes de evaluación corresponden a:
+* **$E_k$:** Cada uno de los 10 elementos núcleo obligatorios del estándar ISO 19115-1:2014.
+* **$\mathbb{I}(E_k \neq \emptyset)$:** Función indicatriz que asigna $1$ si el campo existe y contiene una cadena válida no vacía, y $0$ en caso de ausencia.
+* **$B_{\text{desc}}$:** Factor de exhaustividad documental ($+2.0\%$) asignado cuando el resumen metodológico supera los 60 caracteres descriptivos.
 * **Procedimiento de Auditoría Dinámica:** El script [`scripts/modelo_indice_lineal_wlc.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/modelo_indice_lineal_wlc.py) y el inspector de metadatos leen el nodo raíz `metadata` embebido en cada GeoJSON o cruzan el identificador de la capa contra el catálogo OpenXML [`src/docs/perfil_metadatos_vgi.xlsx`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/docs/perfil_metadatos_vgi.xlsx). Mediante introspección JSON por clave-valor (`meta.get('title')`, `meta.get('description')`, `meta.get('institution')`, etc.), se computa en memoria el porcentaje de completitud del registro documental.
 
 #### Dimensión 7: Linaje Metodológico y Legal ($M_{\text{linaje}}$ — Peso 25% en Pilar 2)
@@ -156,7 +159,12 @@ $$
 M_{\text{linaje}} = \min \left( 100, \, \left( \frac{\mathbb{I}_{\text{cita}} + \mathbb{I}_{\text{url}} + \mathbb{I}_{\text{entidad}} + \mathbb{I}_{\text{licencia}}}{4} \right) \times 80 + B_{\text{fuente}} \right)
 $$
 
-Donde $\mathbb{I}_{\text{cita}}$ comprueba la existencia de la cita normalizada bajo norma APA 7ª edición, $\mathbb{I}_{\text{url}}$ valida que el geoservicio o repositorio de origen sea una URL operativa, $\mathbb{I}_{\text{entidad}}$ corrobora la atribución institucional u comunitaria emisora, $\mathbb{I}_{\text{licencia}}$ confirma la declaración explícita de derechos, y $B_{\text{fuente}}$ es una bonificación de linaje trazable ($+18.0\%$ para geodatos oficiales del Estado auditados y $+10.0\%$ a $+12.0\%$ para coberturas comunitarias VGI con registro de changeset OSM).
+Donde los componentes de evaluación corresponden a:
+* **$\mathbb{I}_{\text{cita}}$:** Comprueba la existencia de la cita bibliográfica normalizada bajo norma APA 7ª edición.
+* **$\mathbb{I}_{\text{url}}$:** Valida que el geoservicio o repositorio de procedencia sea una URL operativa accesible vía HTTP/HTTPS.
+* **$\mathbb{I}_{\text{entidad}}$:** Corrobora la atribución institucional del órgano del Estado o comunidad emisora.
+* **$\mathbb{I}_{\text{licencia}}$:** Confirma la declaración explícita de derechos y términos de reutilización abierta.
+* **$B_{\text{fuente}}$:** Bonificación de linaje trazable ($+18.0\%$ para geodatos oficiales del Estado auditados y $+10.0\%$ a $+12.0\%$ para coberturas comunitarias VGI con registro de changeset OSM).
 * **Procedimiento de Auditoría Dinámica:** El evaluador analiza las cadenas atributivas de procedencia mediante expresiones regulares (`r"^https?://"`), coteja los términos normativos de licenciamiento en la tabla de atributos (`declaracion`, `licencia`, `fuente`) y valida que los cambios en geometrías comunitarias mantengan referencia al changeset o extractor Overpass QL utilizado.
 
 #### Dimensión 8: Conformidad Normativa con Esquemas XML ($M_{\text{conf}}$ — Peso 20% en Pilar 2)
@@ -166,7 +174,12 @@ $$
 M_{\text{conf}} = \min \left( 100, \, \left( \frac{\mathbb{I}_{\text{geom-ogc}} + \mathbb{I}_{\text{servicio}} + \mathbb{I}_{\text{clasif}} + \mathbb{I}_{\text{simb}}}{4} \right) \times 80 + B_{\text{esquema}} \right)
 $$
 
-Donde $\mathbb{I}_{\text{geom-ogc}}$ valida que la geometría corresponda estrictamente a los tipos vectoriales admitidos por ISO 19107 / OGC Simple Features, $\mathbb{I}_{\text{servicio}}$ comprueba la interoperabilidad de servicio (WFS, WMS, GeoJSON), $\mathbb{I}_{\text{clasif}}$ verifica la adscripción taxonómica a las macrocategorías del Atlas, $\mathbb{I}_{\text{simb}}$ valida la configuración unívoca de iconografía SVG y estilo cartográfico `#hex`, y $B_{\text{esquema}}$ representa el factor de validación sintáctica contra el esquema XSD de IDE Chile ($+14.0\%$ a $+18.0\%$).
+Donde los componentes de evaluación corresponden a:
+* **$\mathbb{I}_{\text{geom-ogc}}$:** Valida que la geometría corresponda estrictamente a los tipos vectoriales admitidos por ISO 19107 / OGC Simple Features.
+* **$\mathbb{I}_{\text{servicio}}$:** Comprueba la interoperabilidad del servicio de distribución cartográfica (WFS, WMS, GeoJSON).
+* **$\mathbb{I}_{\text{clasif}}$:** Verifica la adscripción taxonómica a las macrocategorías temáticas formales del Atlas.
+* **$\mathbb{I}_{\text{simb}}$:** Valida la configuración unívoca de iconografía SVG y estilo cartográfico en formato hexadecimal (`#hex`).
+* **$B_{\text{esquema}}$:** Factor de validación sintáctica contra el esquema XSD oficial de IDE Chile ($+14.0\%$ a $+18.0\%$).
 * **Procedimiento de Auditoría Dinámica:** El validador procesa las fichas XML exportadas por el Módulo 05 ([`src/js/modulos/metadatos.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/metadatos.js)) utilizando el parser de esquema `xmlschema` / `lxml`, comprobando que no existan nodos XML mal formados, elementos obligatorios omitidos ni discrepancias en los espacios de nombres (`xmlns:gmd`, `xmlns:gco`).
 
 #### Dimensión 9: Resolución Espacial y Escala Equivalente ($M_{\text{res}}$ — Peso 15% en Pilar 2)
@@ -191,7 +204,10 @@ $$
 M_{\text{acc}} = \min \left( 100, \, P_{\text{archivo}} + P_{\text{descarga}} + P_{\text{latencia}} \right)
 $$
 
-Donde $P_{\text{archivo}} = 50.0\%$ si el archivo GeoJSON existe físicamente en el repositorio (`src/data/`) y no corresponde a un puntero LFS corrupto, $P_{\text{descarga}} = 30.0\%$ si cuenta con endpoint local de descarga transparente o RPC en Supabase, y $P_{\text{latencia}}$ es el puntaje de eficiencia de transferencia ($20.0\%$ si el peso es $\le 5\text{ MB}$; $15.0\%$ si se encuentra entre $5\text{ y }15\text{ MB}$; y $10.0\%$ si supera los $15\text{ MB}$, recomendando en este último caso compresión Gzip o particionamiento).
+Donde los componentes de evaluación corresponden a:
+* **$P_{\text{archivo}}$:** Puntuación de existencia física ($50.0\%$) si el archivo GeoJSON reside en el repositorio (`src/data/`) con integridad binaria comprobada.
+* **$P_{\text{descarga}}$:** Puntuación de disponibilidad operativa ($30.0\%$) si cuenta con endpoint local de descarga transparente o función RPC en Supabase.
+* **$P_{\text{latencia}}$:** Puntuación de eficiencia de transferencia ($20.0\%$ para archivos $\le 5\text{ MB}$; $15.0\%$ entre $5\text{ y }15\text{ MB}$; y $10.0\%$ para archivos $> 15\text{ MB}$, recomendando en este último caso compresión Gzip o particionamiento).
 * **Procedimiento de Auditoría Dinámica:** El script de verificación de despliegue ([`scripts/verificar_integridad_despliegue.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/verificar_integridad_despliegue.py)) y la función `evaluar_capa_individual()` de [`scripts/modelo_indice_lineal_wlc.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/modelo_indice_lineal_wlc.py) ejecutan llamadas de verificación física con `os.path.exists()` y `os.path.getsize()`, enviando además solicitudes HTTP `HEAD` a los geoservicios externos declarados en los metadatos para verificar que devuelvan código `HTTP 200 OK` sin redirecciones ni errores `404 Not Found`.
 
 ### 15.3. Rangos y Certificación Formal de Calidad
