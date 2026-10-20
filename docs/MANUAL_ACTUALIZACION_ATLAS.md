@@ -59,28 +59,35 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
 
 ```mermaid
 flowchart LR
-    subgraph OBJ1["Objetivo Específico 1"]
+    subgraph OBJ1["1. Objetivo Específico 1"]
         O1["OE 1: Caracterización y Diseño Conceptual\n(Semanas 1-3 · 72 Horas)"]
     end
 
-    subgraph PROC1["Procedimientos Específicos"]
+    subgraph PROC1["2. Procedimientos Específicos"]
         P1_1["1. Delimitación Geodésica BBox\n& Diagnóstico Territorial"]
         P1_2["2. Auditoría de Plataformas VGI\n(OSM, GBIF, IDE Chile)"]
         P1_3["3. Estructuración Taxonómica\n10 Macrocategorías VGI"]
         P1_4["4. Modelamiento DCU (ISO 9241-210)\nde 4 Perfiles de Actores"]
     end
 
-    subgraph PROD1["Productos Resultantes Específicos"]
+    subgraph PROD1["3. Productos Resultantes Específicos"]
         PR1_1["Polígono Delimitado 223,75 ha\n& BBox Oficial WGS84"]
-        PR1_2["Catálogo de Fuentes VGI\n& Matriz de Brechas Territoriales"]
-        PR1_3["Taxonomía de 10 Macrocategorías\n(CAT-01 a CAT-10) en XLSX"]
+        PR1_2["Catálogo de Fuentes VGI\n& Matriz de Brechas"]
+        PR1_3["Taxonomía de 10 Macrocategorías\n(CAT-01 a CAT-10)"]
         PR1_4["Matriz Conceptual de 4 Perfiles\nTerritoriales para la SPA"]
     end
 
-    O1 --> P1_1 --> PR1_1
-    O1 --> P1_2 --> PR1_2
-    O1 --> P1_3 --> PR1_3
-    O1 --> P1_4 --> PR1_4
+    subgraph LOC1["4. Localización / Fuente Oficial"]
+        L1_1["`docs/delimitacion_barrio_brasil_bbox.md`\n& `src/js/modulos/mapa.js`"]
+        L1_2["`docs/catalogo_fuentes_vgi.xlsx`\n& `src/docs/catalogo_fuentes_vgi.xlsx`"]
+        L1_3["`docs/categorias_tematicas_osm.xlsx`\n(11 Hojas Técnicas)"]
+        L1_4["`docs/arquitectura_conceptual_vgi.md`\n& `src/js/app.js` (#sel-perfil-usuario)"]
+    end
+
+    O1 --> P1_1 --> PR1_1 --> L1_1
+    O1 --> P1_2 --> PR1_2 --> L1_2
+    O1 --> P1_3 --> PR1_3 --> L1_3
+    O1 --> P1_4 --> PR1_4 --> L1_4
 ```
 
 * **Entregables Acreditados y Localización:**
@@ -105,31 +112,39 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    subgraph OBJ2["Objetivo Específico 2"]
+    subgraph OBJ2["1. Objetivo Específico 2"]
         O2["OE 2: Geodatabase y Calidad Espacial\n(Semanas 4-7 · 120 Horas)"]
     end
 
-    subgraph PROC2["Procedimientos Específicos"]
-        P2_1["1. Extracción Automatizada Python\n(Overpass QL + WFS IDE Chile)\n& Descarga manual desde geoportales\nde Datos Públicos del Estado"]
+    subgraph PROC2["2. Procedimientos Específicos"]
+        P2_1["1. Extracción Python & Descarga\nManual Geoportales del Estado"]
         P2_2["2. Homologación Geodésica\n(EPSG:32719 UTM19S -> EPSG:4326)"]
         P2_3["3. Inyección Universal Esquema\n14 Columnas Estandarizadas ISO"]
-        P2_4["4. Evaluación de Calidad WLC v2.0\n(Norma ISO 19157:2013)\n& OSMCha / Changesets v0.6"]
+        P2_4["4. Calidad WLC v2.0 (ISO 19157)\n& OSMCha / Changesets v0.6"]
         P2_5["5. Carga Espacial\nPostgreSQL 17 / PostGIS 3.3"]
     end
 
-    subgraph PROD2["Productos Resultantes Específicos"]
+    subgraph PROD2["3. Productos Resultantes Específicos"]
         PR2_1["118 Capas Vectoriales GeoJSON\n(108 Oficiales + 10 VGI)"]
         PR2_2["Coberturas Reproyectadas y\nTopológicamente Validadas"]
-        PR2_3["Bases Vectoriales Enriquecidas con\nLinaje, Fuente y Fechas ISO"]
-        PR2_4["Certificación 97,88% MetaCalidad\n& Matriz Analítica WLC en XLSX"]
-        PR2_5["Geodatabase Relacional PostGIS\ncon Índices GiST e Índices GIN"]
+        PR2_3["Bases Vectoriales con Linaje,\nFuente y Fechas ISO"]
+        PR2_4["Certificación 97,88% MetaCalidad\n& Matriz Analítica WLC"]
+        PR2_5["Geodatabase Relacional PostGIS\ncon Índices GiST y GIN"]
     end
 
-    O2 --> P2_1 --> PR2_1
-    O2 --> P2_2 --> PR2_2
-    O2 --> P2_3 --> PR2_3
-    O2 --> P2_4 --> PR2_4
-    O2 --> P2_5 --> PR2_5
+    subgraph LOC2["4. Localización / Fuente Oficial"]
+        L2_1["`src/data/*.geojson` (216 archivos)\n& `scripts/descargar_todas_las_categorias_osm.py`"]
+        L2_2["`src/data/` & `scripts/procesar_geofabrik_rm.py`\n(WGS84 EPSG:4326)"]
+        L2_3["`scripts/enriquecer_base_datos_metadatos.py`\n& `src/docs/perfil_metadatos_vgi.xlsx`"]
+        L2_4["`docs/analisis_metacalidad_iso19157.xlsx`\n& `scripts/modelo_indice_lineal_wlc.py`"]
+        L2_5["`supabase/migrations/01_schema_postgis.sql`\n& Clúster Cloud Supabase"]
+    end
+
+    O2 --> P2_1 --> PR2_1 --> L2_1
+    O2 --> P2_2 --> PR2_2 --> L2_2
+    O2 --> P2_3 --> PR2_3 --> L2_3
+    O2 --> P2_4 --> PR2_4 --> L2_4
+    O2 --> P2_5 --> PR2_5 --> L2_5
 ```
 
 * **Entregables Acreditados y Localización:**
@@ -157,31 +172,39 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    subgraph OBJ3["Objetivo Específico 3"]
+    subgraph OBJ3["1. Objetivo Específico 3"]
         O3["OE 3: Geoportal Web Interactivo\n(Semanas 8-10 · 72 Horas)"]
     end
 
-    subgraph PROC3["Procedimientos Específicos"]
+    subgraph PROC3["2. Procedimientos Específicos"]
         P3_1["1. Programación Frontend SPA IIFE\n(HTML5, CSS3 AAA, Vanilla JS)"]
         P3_2["2. Integración Motor Cartográfico\nLeaflet 1.9.4 & Marcadores SVG"]
         P3_3["3. Algoritmo Ray-Casting\nInspector Normativo PRC Santiago"]
-        P3_4["4. Conexión de Clientes API en Vivo\n(Overpass QL, ohsome v2, GBIF)"]
+        P3_4["4. Conexión Clientes API en Vivo\n(Overpass QL, ohsome v2, GBIF)"]
         P3_5["5. Automatización CI/CD Git\n& Despliegue Netlify Edge CDN"]
     end
 
-    subgraph PROD3["Productos Resultantes Específicos"]
-        PR3_1["Plataforma Web Ligera Zero-Build\n10 Módulos Operativos"]
+    subgraph PROD3["3. Productos Resultantes Específicos"]
+        PR3_1["Plataforma Web Zero-Build\n10 Módulos Operativos"]
         PR3_2["Visor Cartográfico Multinivel con\nSelector de Mapas Base y Filtros"]
         PR3_3["Certificado de Informaciones\nNormativas Digital (CIN-VGI)"]
         PR3_4["Módulos Dinámicos de Consulta,\nCalidad Temporal y Biodiversidad"]
-        PR3_5["Geoportal Web en Producción Viva\n(https://atlasvgiuah.netlify.app)"]
+        PR3_5["Geoportal Web en Producción Viva"]
     end
 
-    O3 --> P3_1 --> PR3_1
-    O3 --> P3_2 --> PR3_2
-    O3 --> P3_3 --> PR3_3
-    O3 --> P3_4 --> PR3_4
-    O3 --> P3_5 --> PR3_5
+    subgraph LOC3["4. Localización / Fuente Oficial"]
+        L3_1["`src/index.html` & `src/css/estilos.css`\n& `src/js/app.js`"]
+        L3_2["`src/js/modulos/mapa.js`\n(L.map con BBox Barrio Brasil)"]
+        L3_3["`src/js/modulos/evaluador_normativo.js`\n& `src/data/prc_santiago_zonificacion.geojson`"]
+        L3_4["`src/js/modulos/osm.js`, `calidad.js`\n& `src/js/modulos/gbif.js`"]
+        L3_5["`netlify.toml` (Edge CDN Headers)\n& URL: `https://atlasvgiuah.netlify.app/`"]
+    end
+
+    O3 --> P3_1 --> PR3_1 --> L3_1
+    O3 --> P3_2 --> PR3_2 --> L3_2
+    O3 --> P3_3 --> PR3_3 --> L3_3
+    O3 --> P3_4 --> PR3_4 --> L3_4
+    O3 --> P3_5 --> PR3_5 --> L3_5
 ```
 
 * **Entregables Acreditados y Localización:**
@@ -207,11 +230,11 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    subgraph OBJ4["Objetivo Específico 4"]
+    subgraph OBJ4["1. Objetivo Específico 4"]
         O4["OE 4: Validación y Transferibilidad\n(Semanas 10-11 · 36 Horas)"]
     end
 
-    subgraph PROC4["Procedimientos Específicos"]
+    subgraph PROC4["2. Procedimientos Específicos"]
         P4_1["1. Pruebas Guiadas de Usabilidad\n(Estándar ISO 9241-11 & Escala SUS)"]
         P4_2["2. Redacción Manual de Uso Web\npara los 4 Perfiles de Actores"]
         P4_3["3. Elaboración Manual Técnico de\nActualización Reproducible (>5000L)"]
@@ -219,7 +242,7 @@ flowchart LR
         P4_5["5. Redacción de Memoria Formal\ny Síntesis de Práctica Profesional"]
     end
 
-    subgraph PROD4["Productos Resultantes Específicos"]
+    subgraph PROD4["3. Productos Resultantes Específicos"]
         PR4_1["Reporte de Validación con Usuarios,\nPuntaje SUS y Matriz de Ajustes"]
         PR4_2["Manual de Usuario del Geoportal\nGuía Ilustrada por Perfiles"]
         PR4_3["Manual Maestro de Administración,\nArquitectura y Transferibilidad Técnica"]
@@ -227,11 +250,19 @@ flowchart LR
         PR4_5["Informe Final de Práctica Profesional\nde la Carrera de Geografía UAH"]
     end
 
-    O4 --> P4_1 --> PR4_1
-    O4 --> P4_2 --> PR4_2
-    O4 --> P4_3 --> PR4_3
-    O4 --> P4_4 --> PR4_4
-    O4 --> P4_5 --> PR4_5
+    subgraph LOC4["4. Localización / Fuente Oficial"]
+        L4_1["`docs/informe_validacion_usuarios_sus.docx`\n(Entregable 11 / Hito 9)"]
+        L4_2["`docs/manual_de_uso_atlas_vgi.docx`\n& Módulo 10 en la plataforma web"]
+        L4_3["`MANUAL_ACTUALIZACION_ATLAS.md`\n& `src/docs/MANUAL_ACTUALIZACION_ATLAS.md`"]
+        L4_4["`descargas/atlas_vgi_uah_base_datos_completa.zip`\n& `scripts/empaquetar_base_datos_completa.py`"]
+        L4_5["`docs/informe_final_practica_profesional_geografia_uah.docx`\n(Entregable 15 / Hito 10)"]
+    end
+
+    O4 --> P4_1 --> PR4_1 --> L4_1
+    O4 --> P4_2 --> PR4_2 --> L4_2
+    O4 --> P4_3 --> PR4_3 --> L4_3
+    O4 --> P4_4 --> PR4_4 --> L4_4
+    O4 --> P4_5 --> PR4_5 --> L4_5
 ```
 
 * **Entregables Acreditados y Localización:**
