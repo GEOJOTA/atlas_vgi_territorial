@@ -1258,7 +1258,7 @@ def generar_informe_markdown(datos, ruta_salida):
         f"> **DICTAMEN GLOBAL DE CALIDAD GEOESPACIAL:** El repositorio cartográfico alcanza un **Índice Global de Calidad (IGV) de {m.get('igv_promedio', m['igmc_promedio']):.1f}%**, "
         f"clasificando formalmente en la categoría **Grado A+ (Excelente)** conforme al marco de evaluación de la norma **ISO 19157:2013 / ISO 19157-1:2023**. "
         f"El desempeño se desglosa en **{m.get('score_cuant_promedio', 95.0):.1f}% en el Pilar Cuantitativo Espacial** y **{m.get('score_cual_promedio', 98.0):.1f}% en el Pilar Cualitativo de Metadatos**. "
-        f"La totalidad de los componentes vectoriales se encuentra operativa en el Geoportal, y el sistema dispone ahora del **Evaluador Universal de Calidad (Módulo 02)** "
+        f"La totalidad de los componentes vectoriales se encuentra operativa en el Geoportal, y el sistema dispone ahora del **Evaluador Universal de Calidad (Módulo 06)** "
         f"que permite auditar cualquier dato vectorial externo (.geojson o texto plano) bajo las mismas métricas estandarizadas.\n"
     )
 
@@ -1380,7 +1380,7 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append("    G -->|IGV < 70%| H4[\"Grado C (Deficiente)\"]")
     md.append("```\n")
 
-    md.append("#### Diagrama 2: Módulo 02 en Producción — Evaluador Universal de Datos Externos\n")
+    md.append("#### Diagrama 2: Módulo 06 en Producción — Evaluador Universal de Datos Externos\n")
     md.append("```mermaid")
     md.append("graph LR")
     md.append("    EXT[\"Usuario arrastra .geojson externo<br/>o pega texto plano\"] --> MOD02[\"Módulo 02: Evaluador Universal\"]")

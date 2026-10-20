@@ -1,7 +1,7 @@
 /*
   manual.js
   ---------
-  Módulo 08: Manual de Uso y Manual de Actualización Técnica del Atlas VGI (UAH).
+  Módulo 07: Manual de Uso y Manual de Actualización Técnica del Atlas VGI (UAH).
   Redactado en tercera persona con formato de artículo metodológico y reporte técnico-profesional.
 
   Integra:
@@ -122,7 +122,7 @@ const ModuloManual = (() => {
             <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:14px;">
               <div style="font-size:1.35rem; font-weight:800; color:#fbbf24;">140 Descriptores Técnicos</div>
               <div style="font-size:0.85rem; color:var(--tinta-suave); margin-top:4px;">
-                Especificación de atributos por cobertura y tablas de referencia en el <strong>Módulo 06</strong> (ISO 19110:2016), incluyendo los diccionarios nativos de las geodatabases <code>.gpkg</code> de SUBDERE.
+                Especificación de atributos por cobertura y tablas de referencia en el <strong>Módulo 09</strong> (ISO 19110:2016), incluyendo los diccionarios nativos de las geodatabases <code>.gpkg</code> de SUBDERE.
               </div>
             </div>
             <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:10px; padding:14px;">
@@ -139,7 +139,7 @@ const ModuloManual = (() => {
         parte: 'uso',
         numero: 'USO · 02',
         icono: '🗺️',
-        titulo: 'Operación del Módulo 00: Visor Territorial, Calidad Dinámica e Inspector Normativo',
+        titulo: 'Operación del Módulo 01: Visor Territorial, Calidad Dinámica e Inspector Normativo',
         subtitulo: 'Funcionamiento del lienzo cartográfico, cálculo en tiempo real del Índice de Calidad VGI (ICV) y evaluación del Plan Regulador Comunal.',
         html: `
           <div style="display:flex; flex-direction:column; gap:12px;">
@@ -174,7 +174,7 @@ const ModuloManual = (() => {
                 <li>Integra la síntesis de las <strong>10 modificaciones históricas al PRC de Santiago que inciden en el Barrio Brasil (1990–2024)</strong> (Res. N° 26/1990, Seccional Brasil, Modificaciones N° 16, 21, 26 y 31, Enmienda N° 2 de Cités, Enmiendas de Altura N° 1, 3 y 6 y postergaciones Art. 117 LGUC), vinculando directamente al repositorio documental oficial de Asesoría Urbana de la Municipalidad de Santiago.</li>
               </ul>
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <button type="button" class="accion" onclick="ModuloManual.irAPanel('inicio')" style="font-size:0.83rem; padding:7px 14px;">🗺️ Abrir Módulo 00 (Visor)</button>
+                <button type="button" class="accion" onclick="ModuloManual.irAPanel('inicio')" style="font-size:0.83rem; padding:7px 14px;">🗺️ Abrir Módulo 01 (Visor)</button>
                 <a href="https://drive.google.com/drive/folders/1MMxFwr8G3fYCjX2NzO_0yeUIzPN-CSjz" target="_blank" rel="noopener noreferrer" class="accion secundaria" style="font-size:0.83rem; padding:7px 14px; text-decoration:none;">📂 Expedientes Históricos PRC Munistgo (Google Drive) ↗</a>
               </div>
             </div>
@@ -186,35 +186,26 @@ const ModuloManual = (() => {
         parte: 'uso',
         numero: 'USO · 03',
         icono: '🧩',
-        titulo: 'Estructura Funcional de los Módulos 00 al 09',
+        titulo: 'Estructura Funcional de los Módulos 01 al 10',
         subtitulo: 'Especificación técnica de cada módulo de la plataforma y navegación directa.',
         html: `
           <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(295px, 1fr)); gap:12px;">
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 00</span>
+                <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 01</span>
                 <h4 style="margin:4px 0 6px 0;">Visor para la gestión territorial</h4>
                 <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Visualización integrada de las 131 coberturas, métricas dinámicas ICV, Inspector Normativo PRC/OGUC e ingesta de archivos locales.</p>
               </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('inicio')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 00 ↗</button>
-            </div>
-
-            <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
-              <div>
-                <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 01</span>
-                <h4 style="margin:4px 0 6px 0;">Consultas Overpass (OSM)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Extracción en tiempo real desde OpenStreetMap mediante plantillas temáticas y constructor de consultas Overpass QL.</p>
-              </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('explorador-osm')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 01 ↗</button>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('inicio')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 01 ↗</button>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 02</span>
-                <h4 style="margin:4px 0 6px 0;">Calidad &amp; ICV (ISO 19157 / ohsome / OSMCha)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Evaluación multicriterio WLC bajo norma ISO 19157, series históricas ohsome API (HeiGIT) y auditoría de ediciones OSMCha.</p>
+                <h4 style="margin:4px 0 6px 0;">Consultas Overpass (OSM)</h4>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Extracción en tiempo real desde OpenStreetMap mediante plantillas temáticas y constructor de consultas Overpass QL.</p>
               </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('calidad-ohsome')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 02 ↗</button>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('explorador-osm')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 02 ↗</button>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
@@ -235,40 +226,58 @@ const ModuloManual = (() => {
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('proyectos-umap')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 04 ↗</button>
             </div>
 
+            <div style="background:rgba(15,23,42,0.6); border:1px solid rgba(168,85,247,0.45); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 05</span>
+                <h4 style="margin:4px 0 6px 0;">Indicadores &amp; Storyboards</h4>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Las 131 coberturas agrupadas en 5 Dimensiones Analíticas y 9 Storyboards territoriales del Barrio Brasil con Lightbox HD.</p>
+              </div>
+              <button type="button" class="accion" onclick="ModuloManual.irAPanel('indicadores')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 05 ↗</button>
+            </div>
+
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 05</span>
+                <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 06</span>
+                <h4 style="margin:4px 0 6px 0;">Calidad &amp; ICV (ISO 19157 / ohsome / OSMCha)</h4>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Evaluación multicriterio WLC bajo norma ISO 19157, series históricas ohsome API (HeiGIT) y auditoría de ediciones OSMCha.</p>
+              </div>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('calidad-ohsome')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 06 ↗</button>
+            </div>
+
+            <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <span style="font-size:0.74rem; font-weight:800; color:#34d399;">MÓDULO 07</span>
+                <h4 style="margin:4px 0 6px 0;">Manual de Uso y Actualización Técnica</h4>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Documentación operativa, protocolos de actualización en 6 etapas, inventario de capas y trazabilidad académica APA 7ª ed.</p>
+              </div>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('manual')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 07 ↗</button>
+            </div>
+
+            <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 08</span>
                 <h4 style="margin:4px 0 6px 0;">Metadatos ISO 19115</h4>
                 <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Generación y exportación de fichas de metadatos en JSON y XML (ISO 19139) compatibles con el Perfil Nacional IDE Chile.</p>
               </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('metadatos-iso')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 05 ↗</button>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('metadatos-iso')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 08 ↗</button>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 06</span>
+                <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 09</span>
                 <h4 style="margin:4px 0 6px 0;">Diccionario (131 Capas / 140 Descriptores)</h4>
                 <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Catálogo de objetos y atributos (ISO 19110), homologación SNIT/IDE Chile y diccionario de columnas SUBDERE RSD 2024.</p>
               </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('diccionario')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 06 ↗</button>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('diccionario')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 09 ↗</button>
             </div>
 
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 07</span>
+                <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 10</span>
                 <h4 style="margin:4px 0 6px 0;">Licencias &amp; Catálogos (.xlsx)</h4>
                 <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Régimen jurídico (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285, Ley N° 19.628) y descarga directa de matrices Excel.</p>
               </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('licencias')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 07 ↗</button>
-            </div>
-
-            <div style="background:rgba(15,23,42,0.6); border:1px solid rgba(168,85,247,0.45); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
-              <div>
-                <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 09</span>
-                <h4 style="margin:4px 0 6px 0;">Indicadores &amp; Storyboards</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Las 131 coberturas agrupadas en 5 Dimensiones Analíticas y 7 Storyboards territoriales del Barrio Brasil.</p>
-              </div>
-              <button type="button" class="accion" onclick="ModuloManual.irAPanel('indicadores')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 09 ↗</button>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('licencias')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 10 ↗</button>
             </div>
           </div>
         `
@@ -368,12 +377,12 @@ const ModuloManual = (() => {
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/indicadores_analisis.js</code></td>
-                  <td>Módulo 09: <strong>5 Dimensiones Analíticas</strong> (131 capas) y <strong>7 Storyboards</strong> territoriales.</td>
+                  <td>Módulo 05: <strong>5 Dimensiones Analíticas</strong> (131 capas) y <strong>7 Storyboards</strong> territoriales.</td>
                   <td>Asignación de capas en <code>DIMENSIONES</code> o edición del arreglo de objetos analíticos <code>STORYBOARDS</code>.</td>
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/diccionario.js</code></td>
-                  <td>Módulo 06: Diccionario de Datos de los <strong>140 descriptores técnicos</strong> (ISO 19110:2016).</td>
+                  <td>Módulo 09: Diccionario de Datos de los <strong>140 descriptores técnicos</strong> (ISO 19110:2016).</td>
                   <td>Documentación de columnas y tipos de datos de nuevas coberturas en <code>CATALOGO_DICCIONARIO</code>.</td>
                 </tr>
               </tbody>
@@ -455,7 +464,7 @@ const ModuloManual = (() => {
         titulo: 'Mantención de Storyboards, Evaluador Normativo y Diccionario',
         subtitulo: 'Esquema canónico de láminas de análisis, actualización de enmiendas al PRC y metadatos ISO 19110.',
         html: `
-          <h4 style="color:#f59e0b; margin:0 0 6px 0;">1. Estructura Obligatoria para Nuevos Storyboards (Módulo 09)</h4>
+          <h4 style="color:#f59e0b; margin:0 0 6px 0;">1. Estructura Obligatoria para Nuevos Storyboards (Módulo 05)</h4>
           <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6; margin-bottom:10px;">
             Para garantizar que el modal <code>abrirLaminaStoryboard</code> se abra sin errores, todo nuevo storyboard en <code>src/js/modulos/indicadores_analisis.js</code> debe definir obligatoriamente las siguientes 10 propiedades en <code>contenido</code>:
           </p>
@@ -666,7 +675,7 @@ git push origin main</code></pre>
   }
 
   /**
-   * Renderiza el Manual de Uso y el Manual de Actualización en el contenedor del Módulo 08
+   * Renderiza el Manual de Uso y el Manual de Actualización en el contenedor del Módulo 07
    */
   function renderizarManual() {
     const html = construirHTMLManual();

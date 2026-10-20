@@ -473,12 +473,12 @@ function inicializarAplicacion() {
   }
   cargarResumenMetodologia();
 
-  // Inicializar Módulo 09: Indicadores de Análisis Multidimensional y Storyboards
+  // Inicializar Módulo 05: Indicadores de Análisis Multidimensional y Storyboards
   if (window.ModuloIndicadoresAnalisis) {
     window.ModuloIndicadoresAnalisis.inicializar();
   }
 
-  // Inicializar Módulo 02: Evaluador Universal de Calidad Cuantitativa e Índice IGV (ISO 19157)
+  // Inicializar Módulo 06: Evaluador Universal de Calidad Cuantitativa e Índice IGV (ISO 19157)
   if (window.EvaluadorCalidadCuantitativa) {
     window.EvaluadorCalidadCuantitativa.inicializarUI();
   }
@@ -1074,22 +1074,50 @@ function configurarNavegacion() {
   window.navegarAModulo = function(moduloId) {
     if (!moduloId) return;
     const mapaModulos = {
-      '00': 'inicio',
+      // Nueva numeración oficial 01 al 10
+      '01': 'inicio',
+      '1': 'inicio',
       'inicio': 'inicio',
-      '01': 'explorador-osm',
+      'visor': 'inicio',
+
+      '02': 'explorador-osm',
+      '2': 'explorador-osm',
       'explorador': 'explorador-osm',
-      '02': 'calidad-ohsome',
-      'calidad': 'calidad-ohsome',
+
       '03': 'biodiversidad-gbif',
+      '3': 'biodiversidad-gbif',
       'biodiversidad': 'biodiversidad-gbif',
+
       '04': 'proyectos-umap',
+      '4': 'proyectos-umap',
       'umap': 'proyectos-umap',
-      '05': 'metadatos-iso',
+
+      '05': 'indicadores',
+      '5': 'indicadores',
+      'indicadores': 'indicadores',
+      'storyboards': 'indicadores',
+
+      '06': 'calidad-ohsome',
+      '6': 'calidad-ohsome',
+      'calidad': 'calidad-ohsome',
+
+      '07': 'manual',
+      '7': 'manual',
+      'manual': 'manual',
+
+      '08': 'metadatos-iso',
+      '8': 'metadatos-iso',
       'metadatos': 'metadatos-iso',
-      '06': 'diccionario',
-      '07': 'licencias',
-      '08': 'manual',
-      '09': 'indicadores'
+
+      '09': 'diccionario',
+      '9': 'diccionario',
+      'diccionario': 'diccionario',
+
+      '10': 'licencias',
+      'licencias': 'licencias',
+
+      // Alias retroactivos
+      '00': 'inicio'
     };
     const panelId = mapaModulos[moduloId] || moduloId;
     activarPanel(panelId);

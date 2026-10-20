@@ -97,7 +97,7 @@ OpenStreetMap (OSM) constituye la base de datos comunitaria del Atlas. Cualquier
    ```text
    #AtlasVGI_UAH #BarrioBrasil
    ```
-   Esta etiqueta permite que el módulo de auditoría histórica del Atlas (Módulo 02) certifique la trazabilidad del aporte comunitario.
+   Esta etiqueta permite que el módulo de auditoría histórica del Atlas (Módulo 06) certifique la trazabilidad del aporte comunitario.
 
 ---
 
@@ -120,7 +120,7 @@ El equipo del Departamento de Geografía de la Universidad Alberto Hurtado evalu
 ### Vía 3: Carga local de archivos en el visor
 Para contrastar datos propios de forma inmediata en asambleas vecinales o talleres técnicos sin necesidad de instalar software SIG de escritorio:
 1. Abrir la plataforma en el navegador: [atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app/).
-2. En el **Módulo 00 (Visor para la gestión territorial)**, pulsar el botón **"📂 Cargar Archivo Local"**.
+2. En el **Módulo 01 (Visor para la gestión territorial)**, pulsar el botón **"📂 Cargar Archivo Local"**.
 3. Arrastrar un archivo en formato `.geojson`, `.kml`, `.kmz`, `.gpx` o `.csv` (con columnas de latitud y longitud).
 4. El visor proyectará las entidades directamente sobre las 131 capas del sistema. Esta operación se procesa localmente en la memoria del navegador, garantizando la privacidad de los datos.
 
@@ -178,16 +178,16 @@ flowchart TD
     UI --> CFG
     UI --> APP
     
-    APP --> M00["Módulo 00: ide_chile.js (121 Capas Oficiales) + evaluador_normativo.js (PRC/OGUC e Historial 1990-2024)"]
-    APP --> M01["Módulo 01: osm.js (Consultas Overpass QL en tiempo real)"]
-    APP --> M02["Módulo 02: ohsome.js + evaluador_calidad_cuantitativa.js (ISO 19157 / ohsome / OSMCha)"]
+    APP --> M01["Módulo 01: ide_chile.js (121 Capas Oficiales) + evaluador_normativo.js (PRC/OGUC e Historial 1990-2024)"]
+    APP --> M02["Módulo 02: osm.js (Consultas Overpass QL en tiempo real)"]
     APP --> M03["Módulo 03: gbif.js (Biodiversidad GBIF / iNaturalist - Darwin Core)"]
     APP --> M04["Módulo 04: umap.js (Cartografía Participativa uMap)"]
-    APP --> M05["Módulo 05: metadatos.js (Catálogo ISO 19115 / ISO 19139)"]
-    APP --> M06["Módulo 06: diccionario.js (131 Capas / 140 Descriptores ISO 19110)"]
-    APP --> M07["Módulo 07: licencias.js (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley 20.285)"]
-    APP --> M08["Módulo 08: manual.js (Manual de Uso y Manual de Actualización Técnica)"]
-    APP --> M09["Módulo 09: indicadores_analisis.js (5 Dimensiones y 7 Storyboards de Barrio Brasil)"]
+    APP --> M05["Módulo 05: indicadores_analisis.js (5 Dimensiones y 9 Storyboards territoriales con Lightbox HD)"]
+    APP --> M06["Módulo 06: ohsome.js + evaluador_calidad_cuantitativa.js (ISO 19157 / ohsome / OSMCha)"]
+    APP --> M07["Módulo 07: manual.js (Manual de Uso y Manual de Actualización Técnica)"]
+    APP --> M08["Módulo 08: metadatos.js (Catálogo ISO 19115 / ISO 19139)"]
+    APP --> M09["Módulo 09: diccionario.js (131 Capas / 140 Descriptores ISO 19110)"]
+    APP --> M10["Módulo 10: licencias.js (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley 20.285)"]
 ```
 
 ### Sincronización simétrica entre directorios de trabajo y publicación
@@ -262,16 +262,16 @@ atlas_vgi_uah/
             ├── mapa.js                  # Inicialización de Leaflet, capas base y controladores
             ├── ide_chile.js             # Catálogo de las 121 capas oficiales del Estado
             ├── evaluador_normativo.js   # Inspector Normativo PRC/OGUC e hitos históricos 1990-2024
-            ├── osm.js                   # Módulo 01: Consultas en tiempo real vía Overpass API
-            ├── ohsome.js                # Módulo 02: Series temporales ohsome API y auditoría OSMCha
-            ├── evaluador_calidad_cuantitativa.js # Módulo 02: Matriz multicriterio ISO 19157
+            ├── osm.js                   # Módulo 02: Consultas en tiempo real vía Overpass API
             ├── gbif.js                  # Módulo 03: Registros de biodiversidad GBIF / iNaturalist
             ├── umap.js                  # Módulo 04: Integración de mapas participativos uMap
-            ├── metadatos.js             # Módulo 05: Generador de fichas XML/JSON (ISO 19115 / 19139)
-            ├── diccionario.js           # Módulo 06: Diccionario de Datos (140 descriptores, ISO 19110)
-            ├── licencias.js             # Módulo 07: Régimen de licencias y descarga de matrices Excel
-            ├── manual.js                # Módulo 08: Renderizador interactivo de manuales de uso y actualización
-            ├── indicadores_analisis.js  # Módulo 09: 5 Dimensiones Analíticas y 7 Storyboards territoriales
+            ├── indicadores_analisis.js  # Módulo 05: 5 Dimensiones Analíticas y 9 Storyboards territoriales
+            ├── ohsome.js                # Módulo 06: Series temporales ohsome API y auditoría OSMCha
+            ├── evaluador_calidad_cuantitativa.js # Módulo 06: Matriz multicriterio ISO 19157
+            ├── manual.js                # Módulo 07: Renderizador interactivo de manuales de uso y actualización
+            ├── metadatos.js             # Módulo 08: Generador de fichas XML/JSON (ISO 19115 / 19139)
+            ├── diccionario.js           # Módulo 09: Diccionario de Datos (140 descriptores, ISO 19110)
+            └── licencias.js             # Módulo 10: Régimen de licencias y descarga de matrices Excel
             ├── taginfo.js               # Utilidad de validación de etiquetas con Taginfo API
             ├── calidad_analyst.js       # Asistente analítico de consistencia espacial
             ├── db_client.js             # Conector de persistencia cliente (Supabase)
@@ -284,7 +284,7 @@ Cada módulo en `src/js/modulos/` opera como un componente autocontenido:
 - [`ide_chile.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/ide_chile.js): Declara el catálogo `CAPAS_OFICIALES` con las 121 coberturas del Estado.
 - [`evaluador_normativo.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/evaluador_normativo.js): Implementa la lógica de intersección de usos de suelo (Art. 2.1.24 OGUC), emisión del certificado CIN-VGI e incorpora los 10 hitos históricos del PRC de Santiago.
 - [`indicadores_analisis.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/indicadores_analisis.js): Gestiona la matriz de 5 dimensiones analíticas y renderiza las 7 láminas monográficas de análisis territorial.
-- [`manual.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/manual.js): Construye la vista interactiva de documentación dentro del Módulo 08, con filtrado en vivo e inventario de capas.
+- [`manual.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/manual.js): Construye la vista interactiva de documentación dentro del Módulo 07, con filtrado en vivo e inventario de capas.
 
 ### Scripts de automatización y geoprocesamiento
 - [`verificar_conteo_capas.py`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/scripts/verificar_conteo_capas.py): Comprueba la paridad numérica exacta entre las capas declaradas en `ide_chile.js`, `config.js`, `indicadores_analisis.js` y `diccionario.js`.

@@ -39,18 +39,18 @@
       </div>
     </div>
 
-    <!-- Fila 2: Pestañas de Navegación Única de Módulos (00 al 09) -->
+    <!-- Fila 2: Pestañas de Navegación Única de Módulos (01 al 10) -->
     <nav class="barra-pestanas-profundidad" id="lista-navegacion" aria-label="Navegación directa entre capas y módulos">
-      <button type="button" class="pestana-nodo activa" data-panel="inicio" aria-current="true"><span class="insignia-nodo">00</span> ◈ Visor y Atlas VGI</button>
-      <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">01</span> ⌕ Consultas Overpass</button>
-      <button type="button" class="pestana-nodo" data-panel="calidad-ohsome"><span class="insignia-nodo">02</span> 📊 Calidad & ICV</button>
+      <button type="button" class="pestana-nodo activa" data-panel="inicio" aria-current="true"><span class="insignia-nodo">01</span> ◈ Visor y Atlas VGI</button>
+      <button type="button" class="pestana-nodo" data-panel="explorador-osm"><span class="insignia-nodo">02</span> ⌕ Consultas Overpass</button>
       <button type="button" class="pestana-nodo" data-panel="biodiversidad-gbif"><span class="insignia-nodo">03</span> ☘ Biodiversidad GBIF</button>
       <button type="button" class="pestana-nodo" data-panel="proyectos-umap"><span class="insignia-nodo">04</span> ⬚ Cartografía UMap</button>
-      <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">05</span> 📋 Metadatos ISO 19115</button>
-      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">06</span> ☵ Diccionario (131 Capas)</button>
-      <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">07</span> ⚖ Licencias & Catálogos</button>
-      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">08</span> 📖 Manual de Uso y Actualización</button>
-      <button type="button" class="pestana-nodo" data-panel="indicadores"><span class="insignia-nodo">09</span> 📈 Indicadores &amp; Storyboards</button>
+      <button type="button" class="pestana-nodo" data-panel="indicadores"><span class="insignia-nodo">05</span> 📈 Indicadores &amp; Storyboards</button>
+      <button type="button" class="pestana-nodo" data-panel="calidad-ohsome"><span class="insignia-nodo">06</span> 📊 Calidad &amp; ICV</button>
+      <button type="button" class="pestana-nodo" data-panel="manual"><span class="insignia-nodo">07</span> 📖 Manual de Uso y Actualización</button>
+      <button type="button" class="pestana-nodo" data-panel="metadatos-iso"><span class="insignia-nodo">08</span> 📋 Metadatos ISO 19115</button>
+      <button type="button" class="pestana-nodo" data-panel="diccionario"><span class="insignia-nodo">09</span> ☵ Diccionario (131 Capas)</button>
+      <button type="button" class="pestana-nodo" data-panel="licencias"><span class="insignia-nodo">10</span> ⚖ Licencias &amp; Catálogos</button>
     </nav>
 
     <!-- Fila 3: Estado de conexión de servicios -->
@@ -66,7 +66,7 @@
   <!-- ============ CONTENIDO PRINCIPAL ============ -->
   <main class="contenido">
 
-    <!-- ---------- 00. VISOR Y ATLAS VGI (LEAFLET) ---------- -->
+    <!-- ---------- 01. VISOR Y ATLAS VGI (LEAFLET) ---------- -->
     <section class="panel activo" id="panel-inicio">
       <header class="hero-introduccion-atlas">
         <div class="insignia-fondecyt">
@@ -117,7 +117,7 @@
       <!-- Guía Rápida de Uso y Relación con el Atlas -->
       <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--musgo); background: var(--papel-tarjeta); padding: 20px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">🧭 Módulo 00: Visor para la Gestión Territorial</h4>
+          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">🧭 Módulo 01: Visor para la Gestión Territorial</h4>
           <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">131 CAPAS INTEGRADAS</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
@@ -146,7 +146,7 @@
         <button class="accion secundaria" id="btn-reencuadrar-mapa" title="Volver al área seleccionada">☉ Encuadrar</button>
         <button type="button" class="accion secundaria" id="btn-inspector-normativo" title="Activa el inspector para hacer clic en el mapa y auditar zonificación PRC, normas OGUC y riesgos">⚖ Inspector Normativo</button>
         <button type="button" class="accion secundaria" id="btn-abrir-importador" title="Importar capas espaciales locales (.kmz, .kml, .geojson, .gpx, .csv)">📂 Importar Capas</button>
-        <button type="button" class="accion secundaria" id="btn-abrir-indicadores-directo" data-panel="indicadores" title="Abrir el Módulo 09 de Indicadores de Análisis y Storyboards de Barrio Brasil">📊 Indicadores &amp; Storyboards</button>
+        <button type="button" class="accion secundaria" id="btn-abrir-indicadores-directo" data-panel="indicadores" title="Abrir el Módulo 05 de Indicadores de Análisis y Storyboards de Barrio Brasil">📊 Indicadores &amp; Storyboards</button>
 
         <div style="margin-left:auto; display:flex; gap:8px;">
           <button type="button" class="accion" id="btn-descargar-bd-mapa" style="background:var(--esmeralda,#10b981); color:#0b1924; font-weight:800; border:none; box-shadow:0 2px 8px rgba(16,185,129,0.3);" title="Descargar toda la base de datos en una carpeta comprimida (.zip): VGI, Geofabrik, Capas Oficiales y Catálogos">📦 Base de Datos (.zip)</button>
@@ -437,10 +437,10 @@
       </div>
     </section>
 
-    <!-- ---------- 01. CONSULTAS PROPIAS Y EXPLORADOR OSM ---------- -->
+    <!-- ---------- 02. CONSULTAS PROPIAS Y EXPLORADOR OSM ---------- -->
     <section class="panel" id="panel-explorador-osm">
       <header>
-        <span class="rotulo">01 / Backend & Motor de Consultas VGI</span>
+        <span class="rotulo">02 / Backend & Motor de Consultas VGI</span>
         <h2>Consultas Personalizadas y Explorador OSM</h2>
         <p class="descripcion">Formula tus propias consultas espaciales sobre OpenStreetMap. Filtra por atributos específicos, combina etiquetas o redacta consultas Overpass QL avanzadas.</p>
       </header>
@@ -448,7 +448,7 @@
       <!-- Guía Rápida de Uso y Relación con el Atlas -->
       <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--ocre); background: var(--papel-tarjeta); padding: 20px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--ocre); font-size: 1.15rem;">⚡ Módulo 01: Motor de Consultas Espaciales y Backend Overpass QL</h4>
+          <h4 style="margin: 0; color: var(--ocre); font-size: 1.15rem;">⚡ Módulo 02: Motor de Consultas Espaciales y Backend Overpass QL</h4>
           <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--ocre-claro); color: var(--ocre); border: 1px solid var(--ocre); padding: 3px 10px; border-radius: 6px; font-weight: 800;">OVERPASS API QL</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
@@ -669,223 +669,7 @@
       </div>
     </section>
 
-    <!-- ---------- 02. CALIDAD ESPACIAL, TOPOLOGÍA E ÍNDICE IGV ---------- -->
-    <section class="panel" id="panel-calidad-ohsome">
-      <header>
-        <span class="rotulo">02 / Calidad Espacial, Topología e Índice IGV (ISO 19157 / WLC v2.0 / HeiGIT / OSMCha)</span>
-        <h2>Auditoría de Calidad Espacial, Topología OGC y Modelo Multicriterio WLC v2.0</h2>
-        <p class="descripcion">
-          Motor algorítmico universal de control de calidad: evalúa cualquier conjunto de datos espaciales externo (GeoJSON arrastrado o cargado) o interno del Atlas mediante Combinación Lineal Ponderada (WLC v2.0), normalización Min-Max de criterios de beneficio y costo, consistencia topológica OGC ISO 19157 y metadatos ISO 19115.
-        </p>
-      </header>
-
-      <!-- Guía Rápida de Uso y Relación con el Atlas -->
-      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--violeta); background: var(--papel-tarjeta); padding: 20px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--violeta); font-size: 1.15rem;">📐 Módulo 02: Evaluador Integral de Calidad Espacial (ISO 19157 / ISO 19115)</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--violeta-claro); color: var(--violeta); border: 1px solid var(--violeta); padding: 3px 10px; border-radius: 6px; font-weight: 800;">HEIGIT // ISO 19157 // OGC SFA</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite medir y certificar la calidad geométrica, topológica y semántica de datos espaciales. El Submódulo A audita cualquier archivo vectorial externo o interno calculando el Índice Global de Calidad (IGV). El Submódulo B analiza con ohsome API la evolución temporal histórica (2021-2026). El Submódulo C audita mediante OSMCha las últimas ediciones realizadas por mapeadores.
-          </div>
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Garantiza el rigor metodológico y científico del Atlas, certificando que los datos de Barrio Brasil y capas oficiales cumplen estándares internacionales de interoperabilidad sin geometrías corruptas.
-          </div>
-        </div>
-      </div>
-
-      <!-- SUBMÓDULO A: EVALUADOR UNIVERSAL DE CALIDAD ESPACIAL, TOPOLOGÍA E ÍNDICE IGV -->
-      <div class="bloque" style="border-top: 5px solid var(--esmeralda);">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo A: Evaluador Universal de Calidad Espacial, Topología e Índice IGV</h3>
-          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--esmeralda); text-transform:uppercase; font-weight:800;">[ISO 19157:2023 // OGC SFA // IDE CHILE]</span>
-        </div>
-        <p class="descripcion" style="margin-bottom:14px;">
-          Ingresa cualquier archivo espacial vectorial (externo en formato <code>.geojson</code> / <code>.json</code> o capa de la geodatabase) para auditar en tiempo real: auto-intersecciones (kinks/bowties), polígonos colapsados, anillos abiertos, atributos nulos, rango geodésico y obtener el <strong>Índice Global de Calidad (IGV)</strong> certificado.
-        </p>
-
-        <!-- Zona de Carga de Datos (Drag & Drop y Selectores) -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-bottom:14px;">
-          
-          <!-- Opción 1: Drag & Drop para Archivo Externo -->
-          <div id="calidad-dropzone" style="border:2px dashed var(--linea); border-radius:10px; background:var(--papel-alto); padding:20px 16px; text-align:center; cursor:pointer; transition:all 0.2s ease;">
-            <div style="font-size:1.8rem; margin-bottom:6px;">📁</div>
-            <strong style="display:block; font-size:0.88rem; color:var(--tinta); margin-bottom:4px;">Arrastra aquí un archivo .geojson o .json</strong>
-            <span style="font-size:0.78rem; color:var(--tinta-suave); display:block;">o haz clic para examinar desde tu equipo (límite seguro: 25 MB)</span>
-            <input type="file" id="calidad-input-archivo" accept=".geojson,.json" style="display:none;">
-            <div id="calidad-archivo-seleccionado-nombre" style="display:none; margin-top:8px; font-family:var(--fuente-datos); font-size:0.76rem; background:rgba(16, 185, 129, 0.15); color:var(--esmeralda); padding:3px 8px; border-radius:4px; border:1px solid var(--esmeralda);"></div>
-          </div>
-
-          <!-- Opción 2: Selector de Capas del Atlas -->
-          <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:10px; padding:16px;">
-            <label for="calidad-selector-capa-interna" style="font-size:0.82rem; font-weight:700; color:var(--tinta); display:block; margin-bottom:6px;">
-              O auditar una capa de la Geodatabase (131 componentes):
-            </label>
-            <select id="calidad-selector-capa-interna" style="width:100%; font-size:0.82rem; padding:8px; background:var(--papel); border:1px solid var(--linea); border-radius:6px; color:var(--tinta);">
-              <option value="">-- Selecciona una capa de la base de datos --</option>
-            </select>
-            <span style="font-size:0.74rem; color:var(--tinta-tenue); display:block; margin-top:6px;">
-              Permite contrastar métricas cuantitativas sobre las capas oficiales y VGI existentes.
-            </span>
-          </div>
-
-        </div>
-
-        <!-- Opción 3 Colapsable: Pegar GeoJSON en Texto Plano -->
-        <details style="margin-bottom:14px; background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px 14px;">
-          <summary style="font-size:0.82rem; font-weight:600; cursor:pointer; color:var(--musgo);">
-            ✍️ O pegar contenido GeoJSON directo en texto plano / Información del Índice IGV
-          </summary>
-          <div style="margin-top:10px;">
-            <textarea id="calidad-textarea-geojson" rows="3" placeholder="Pega aquí el objeto FeatureCollection o Feature en formato JSON/GeoJSON..." style="width:100%; font-family:var(--fuente-datos); font-size:0.75rem; padding:8px; background:var(--papel); border:1px solid var(--linea); border-radius:6px; color:var(--tinta);"></textarea>
-            <div style="font-size:0.74rem; color:var(--tinta-tenue); margin-top:6px;">
-              Ponderadores oficiales estándar: <strong>50% Cuantitativo Espacial</strong> (Topología 30%, Completitud 25%, Posicional 20%, Estructura 15%, Granularidad 10%) + <strong>50% Cualitativo</strong> (Metadatos ISO 19115).
-            </div>
-          </div>
-        </details>
-
-        <!-- Control de Focalización Territorial BBox Barrio Brasil -->
-        <div style="background:rgba(6, 182, 212, 0.08); border:1px solid rgba(6, 182, 212, 0.35); border-radius:8px; padding:10px 14px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-          <label for="calidad-chk-filtrar-bbox" style="display:flex; align-items:center; gap:8px; font-size:0.83rem; color:var(--tinta); cursor:pointer;">
-            <input type="checkbox" id="calidad-chk-filtrar-bbox" checked style="accent-color:var(--esmeralda); width:16px; height:16px;">
-            <span><strong>Focalizar auditoría en BBox Barrio Brasil</strong> <code id="calidad-label-bbox-coordenadas" style="color:var(--musgo); font-size:0.75rem;">[-70.6740, -33.4530, -70.6550, -33.4330]</code></span>
-          </label>
-          <span style="font-size:0.74rem; color:var(--tinta-tenue);">Recorta capas multiescalares/masivas (ej. Censo 2024 Manzanas) al cuadrante del piloto</span>
-        </div>
-
-        <!-- Botones de Ejecución -->
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-          <button class="accion" id="btn-ejecutar-auditoria-igv" style="font-weight:700; background:var(--esmeralda); color:#000; padding:10px 20px;">
-            🚀 Auditar Calidad Espacial e Índice IGV
-          </button>
-          <button class="accion secundaria" id="btn-cargar-ejemplo-calidad" style="font-size:0.84rem;">
-            Cargar Ejemplo Piloto (CAT-01 Educación)
-          </button>
-        </div>
-
-        <!-- Contenedor Dinámico de Resultados de la Auditoría -->
-        <div id="resultado-auditoria-igv" aria-live="polite"></div>
-
-      </div>
-
-      <!-- SUBMÓDULO B: OHSOME API & OQT -->
-      <div class="bloque">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo B: Métricas Históricas y Saturación OQT (ohsome API v1/v2)</h3>
-          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[HeiGIT // ISO 19157]</span>
-        </div>
-
-        <div class="fila-campos">
-          <div class="campo"><label for="oh-oeste">Oeste</label><input type="number" step="any" id="oh-oeste"></div>
-          <div class="campo"><label for="oh-sur">Sur</label><input type="number" step="any" id="oh-sur"></div>
-          <div class="campo"><label for="oh-este">Este</label><input type="number" step="any" id="oh-este"></div>
-          <div class="campo"><label for="oh-norte">Norte</label><input type="number" step="any" id="oh-norte"></div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:2; min-width:260px;">
-            <label for="oh-preset-selector">Preset Temático ohsome (10 Macro-Categorías VGI)</label>
-            <select id="oh-preset-selector">
-              <option value="amenity=university and (type:node or type:way)">🏫 CAT-01: Educación y Universidad (amenity=university)</option>
-              <option value="(shop=* or amenity=pharmacy or amenity=clinic or amenity=restaurant or amenity=cafe) and (type:node or type:way)">🏬 CAT-02: Servicios, Comercio y Salud Barrial (shop=* / amenity=*)</option>
-              <option value="(highway=bus_stop or railway=station or railway=subway_entrance) and (type:node or type:way)">🚆 CAT-03: Movilidad y Transporte Público (bus_stop / metro)</option>
-              <option value="(highway=cycleway or cycleway=*) and type:way">🚲 CAT-04: Movilidad Activa y Ciclovías (cycleway=*)</option>
-              <option value="leisure=park and (type:way or type:relation)">🌲 CAT-05: Áreas Verdes y Espacio Público (leisure=park)</option>
-              <option value="(historic=* or heritage=*) and (type:node or type:way)">🏛 CAT-06: Patrimonio Histórico y Cultura (historic=*)</option>
-              <option value="(highway=crossing or kerb=*) and type:node">🦯 CAT-07: Accesibilidad Universal y Caminabilidad (crossing / kerb)</option>
-              <option value="natural=tree and type:node">☘ CAT-08: Biodiversidad Urbana y Arbolado (natural=tree)</option>
-              <option value="building=* and type:way" selected>🏙 CAT-09: Edificaciones y Huella Urbana (building=*)</option>
-              <option value="landuse=* and (type:way or type:relation)">▧ CAT-10: Coberturas y Usos de Suelo (landuse=*)</option>
-              <option value="custom">✍️ — Filtro ohsome personalizado —</option>
-            </select>
-          </div>
-          <div class="campo" style="width:160px;">
-            <label for="oh-intervalo-selector">Intervalo Temporal</label>
-            <select id="oh-intervalo-selector">
-              <option value="P1Y" selected>P1Y (Anual - 5 años)</option>
-              <option value="P6M">P6M (Semestral)</option>
-              <option value="P1M">P1M (Mensual)</option>
-            </select>
-          </div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1;">
-            <label for="oh-filtro">Expresión de Filtro ohsome</label>
-            <input type="text" id="oh-filtro" placeholder="Ej: amenity=university and (type:node or type:way), building=*, landuse=*" value="">
-          </div>
-        </div>
-        <div class="fila-campos" style="margin-top:10px;">
-          <div class="campo" style="flex:1.4; min-width:260px;">
-            <label for="oh-version-selector">Versión de ohsome API (HeiGIT)</label>
-            <select id="oh-version-selector">
-              <option value="v1" selected>🟢 ohsome API v1 (Acceso Libre — Sin API Key — Motor OSHDB)</option>
-              <option value="v2">⚡ ohsome API v2-rc (Alta Velocidad / Citus — ohsomeDB)</option>
-            </select>
-          </div>
-          <div class="campo" id="contenedor-oh-api-key" style="display:none; flex:1.6; min-width:240px;">
-            <label for="oh-api-key">API Key HeiGIT (ohsome v2)</label>
-            <input type="password" id="oh-api-key" placeholder="Pega tu token de api.heigit.org (opcional)">
-          </div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad (ohsome API)</button>
-        </div>
-
-        <div class="caja-guia-referencia">
-          <h4>📐 Fundamentación de Calidad Espacial Multidimensional (ISO 19157 / HeiGIT / OQT)</h4>
-          <p>
-            La calidad de datos espaciales voluntarios (VGI) responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
-          </p>
-          <ul>
-            <li><strong>Soporte Dual ohsome v1 y v2:</strong> Motor histórico OSHDB libre y nueva base relacional ohsomeDB.</li>
-            <li><strong>Reproyección Geodésica Rigurosa a EPSG:32719:</strong> Todo cálculo métrico pasa por proyección conforme Transverse Mercator (UTM Huso 19 Sur) eliminando distorsiones angulares a la latitud de Santiago.</li>
-            <li><strong>Sensibilidad Geométrica:</strong> Red vial por longitud (/length), huellas de edificios por superficie (/area) y equipamientos por conteo (/count).</li>
-            <li><strong>ohsome Quality Analyst (OQT):</strong> Evaluación de saturación y madurez cartográfica territorial (Herfort et al., 2023).</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="bloque resultado" id="resultado-ohsome" aria-live="polite">
-        <p class="descripcion">Todavía no hay ningún cálculo realizado.</p>
-      </div>
-
-      <!-- SUBMÓDULO C: CONTROL DE CAMBIOS Y VALIDACIÓN CON OSMCHA -->
-      <div class="bloque" style="margin-top:16px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
-          <h3 style="margin:0;">Submódulo C: Control de Cambios y Validación de Ediciones (OSMCha / Changesets v0.6)</h3>
-          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[OSMCHA // MAPBOX COMMUNITY]</span>
-        </div>
-        <p class="descripcion" style="margin-bottom:10px;">
-          Inspecciona las ediciones territoriales recientes realizadas por mapeadores en el área delimitada, evalúa heurísticas de calidad (volumen, comentarios, software de edición) e interactúa directamente con la plataforma OSMCha para auditar o validar cambios.
-        </p>
-
-        <div class="fila-campos">
-          <div class="campo" style="flex:1.5; min-width:240px;">
-            <label for="osmcha-filtro-modo">Modo de Consulta OSMCha</label>
-            <select id="osmcha-filtro-modo">
-              <option value="bbox" selected>📍 Ediciones Recientes en el Bbox Territorial Activo</option>
-              <option value="id">🔍 Buscar Changeset por ID Numérico Específico</option>
-            </select>
-          </div>
-          <div class="campo" id="contenedor-osmcha-id" style="display:none; flex:1; min-width:180px;">
-            <label for="osmcha-input-id">ID de Changeset (ej: 148202930)</label>
-            <input type="text" id="osmcha-input-id" placeholder="Ingresa número de changeset">
-          </div>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <button class="accion" id="btn-ejecutar-validacion-osmcha">🔎 Validar Ediciones en OSMCha</button>
-          <button class="accion secundaria" id="btn-abrir-osmcha-externo">↗ Abrir Filtro Territorial en osmcha.org</button>
-        </div>
-
-        <!-- Contenedor interactivo para OSM Changesets & OSMCha API -->
-        <div id="contenedor-auditoria-osmcha" style="margin-top:14px;"></div>
-      </div>
-    </section>
-
-    <!-- ---------- 03. GBIF ---------- -->
+    <!-- ---------- 03. GBIF & INATURALIST (BIODIVERSIDAD) ---------- -->
     <section class="panel" id="panel-biodiversidad-gbif">
       <header>
         <span class="rotulo">03 / GBIF & iNaturalist</span>
@@ -982,7 +766,7 @@
       </div>
     </section>
 
-    <!-- ---------- 04. UMAP ---------- -->
+    <!-- ---------- 04. CARTOGRAFÍA COMUNITARIA UMAP ---------- -->
     <section class="panel" id="panel-proyectos-umap">
       <header>
         <span class="rotulo">04 / Cartografía Temática Comunitaria</span>
@@ -1047,276 +831,7 @@
       </div>
     </section>
 
-    <!-- ---------- 05. METADATOS ISO ---------- -->
-    <section class="panel" id="panel-metadatos-iso">
-      <header>
-        <span class="rotulo">05 / ISO 19115 & ISO 19139 (IDE Chile)</span>
-        <h2>Ficha de Metadatos Estandarizada</h2>
-        <p class="descripcion">Documenta el conjunto de datos geográficos para su catalogación oficial conforme al Perfil Nacional de Metadatos de la Infraestructura de Datos Geoespaciales de Chile.</p>
-      </header>
-
-      <!-- Guía Rápida de Uso y Relación con el Atlas -->
-      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--agua); background: var(--papel-tarjeta); padding: 20px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--agua); font-size: 1.15rem;">📋 Módulo 05: Generador de Metadatos Estandarizados ISO 19115 / ISO 19139</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--agua-claro); color: var(--agua); border: 1px solid var(--agua); padding: 3px 10px; border-radius: 6px; font-weight: 800;">PERFIL NACIONAL IDE CHILE</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Permite documentar formalmente cualquier conjunto de datos extraído o generado. Prellena automáticamente el título, Bbox, linaje, sistema de coordenadas (EPSG:4326 / SIRGAS-Chile) y contacto institucional, exportando fichas en JSON (ISO 19115) y XML oficial para IDE Chile / SNIT.
-          </div>
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Asegura que los datos producidos en el Barrio Brasil sean catalogables e interoperables en servidores del Estado como GeoNode o GeoNetwork.
-          </div>
-        </div>
-      </div>
-
-      <!-- Banner de Auditoría Universal de MetaCalidad (ISO 19115 / ISO 19157) -->
-      <div class="caja-metacalidad-kpi" style="margin-bottom: 24px; background: rgba(10, 61, 46, 0.4); border: 1px solid var(--esmeralda, #10b981); border-left: 6px solid var(--esmeralda, #10b981); border-radius: 8px; padding: 18px 22px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: #10b981; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-            <span>🛡️</span> Auditoría de MetaCalidad de la Base de Datos (131 Capas Cartográficas)
-          </h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.8rem; background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; padding: 4px 12px; border-radius: 6px; font-weight: 800;">
-            IGMC: 96.55% · GRADO A+ (EXCELENTE)
-          </span>
-        </div>
-        <p style="margin: 0 0 12px 0; font-size: 0.88rem; color: var(--tinta-suave); line-height: 1.5;">
-          Conforme a las normas <strong>ISO 19115-1:2014</strong> e <strong>ISO 19157:2013/2023</strong>, el 100% de la base de datos (121 capas oficiales del Estado y 10 macrocategorías VGI) cuenta con metadatos auditados: <strong>89.9% Completitud Núcleo</strong>, <strong>97.9% Conformidad de Esquema</strong>, <strong>100% Linaje y Trazabilidad</strong>, <strong>100% Granularidad Territorial</strong> y <strong>100% Accesibilidad</strong>.
-        </p>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <a href="docs/ANALISIS_METACALIDAD.md" target="_blank" class="accion secundaria" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-            📄 Ver Informe de MetaCalidad (Markdown) ↗
-          </a>
-          <a href="docs/matriz_metacalidad.json" download="matriz_metacalidad.json" class="accion secundaria" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-            📥 Descargar Matriz JSON ↗
-          </a>
-          <a href="docs/perfil_metadatos_vgi.xlsx" download="perfil_metadatos_vgi.xlsx" class="accion" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: #10b981; color: #000;">
-            📊 Matriz en Excel (.xlsx) ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="bloque">
-        <button class="accion secundaria" id="btn-prellenar-metadatos">Prellenar con datos de la última consulta (Barrio Brasil / UAH)</button>
-      </div>
-
-      <form class="bloque" id="form-metadatos">
-        <h3>Identificación del Recurso</h3>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1"><label for="md-titulo">Título del recurso</label><input type="text" id="md-titulo" value="Catastro VGI de Equipamiento Universitario y Urbano: Barrio Brasil - Universidad Alberto Hurtado"></div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1.5;">
-            <label for="md-categoria-iso">Categoría Temática ISO 19115 (topicCategory)</label>
-            <select id="md-categoria-iso">
-              <option value="planningCadastre" selected>planningCadastre (Planificación Urbana y Catastro)</option>
-              <option value="structure">structure (Estructuras, Edificaciones y Casonas)</option>
-              <option value="transportation">transportation (Transporte, Red Vial y Ciclovías)</option>
-              <option value="society">society (Sociedad, Equipamiento y Cultura)</option>
-              <option value="health">health (Salud, Farmacias y Servicios de Emergencia)</option>
-              <option value="biota">biota (Biota, Fauna y Flora Urbana)</option>
-              <option value="environment">environment (Medio Ambiente y Espacios Públicos)</option>
-            </select>
-          </div>
-          <div class="campo" style="flex:1;">
-            <label for="md-frecuencia">Frecuencia de Mantenimiento</label>
-            <select id="md-frecuencia">
-              <option value="asNeeded" selected>asNeeded (Según necesidad / Mapeo continuo VGI)</option>
-              <option value="monthly">monthly (Mensual)</option>
-              <option value="quarterly">quarterly (Trimestral)</option>
-              <option value="annually">annually (Anual)</option>
-              <option value="continual">continual (En tiempo real)</option>
-            </select>
-          </div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1"><label for="md-resumen">Resumen / Abstract</label><textarea id="md-resumen" rows="3">Conjunto de datos espaciales voluntarios compilado para la gestión territorial en Barrio Brasil y entorno del campus Universidad Alberto Hurtado (Santiago Centro, Chile). Comprende infraestructura educativa, movilidad, espacio público y comercio.</textarea></div>
-        </div>
-
-        <h3>Extensión Geográfica y Sistema de Coordenadas</h3>
-        <div class="fila-campos">
-          <div class="campo"><label for="md-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="md-oeste"></div>
-          <div class="campo"><label for="md-sur">Sur (Lat Min)</label><input type="number" step="any" id="md-sur"></div>
-          <div class="campo"><label for="md-este">Este (Lng Max)</label><input type="number" step="any" id="md-este"></div>
-          <div class="campo"><label for="md-norte">Norte (Lat Max)</label><input type="number" step="any" id="md-norte"></div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1.2;">
-            <label for="md-srs-select">Sistema de Referencia Espacial (Seleccionable)</label>
-            <select id="md-srs-select">
-              <option value="EPSG:4326 (WGS84)" selected>EPSG:4326 — WGS84 (Grados Decimales / GPS y Web)</option>
-              <option value="EPSG:5361 (SIRGAS-Chile 2016)">EPSG:5361 — SIRGAS-Chile 2016 (Oficial IDE Chile / SNIT)</option>
-              <option value="EPSG:32719 (WGS 84 / UTM Zona 19S)">EPSG:32719 — UTM Huso 19 Sur (Métrico para Santiago)</option>
-            </select>
-          </div>
-          <div class="campo" style="flex:1;">
-            <label for="md-srs">Código SRS Oficial</label>
-            <input type="text" id="md-srs" value="EPSG:4326 (WGS84) / Compatible con EPSG:5361 SIRGAS-Chile">
-          </div>
-        </div>
-
-        <h3>Linaje, Metodología y Restricciones</h3>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1"><label for="md-linaje">Linaje / Proceso de captura</label><textarea id="md-linaje" rows="2">Extraído de OpenStreetMap vía Overpass API QL y de GBIF Occurrence API. Normalizado según taxonomía de 10 categorías maestras VGI en septiembre de 2026.</textarea></div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1.2;">
-            <label for="md-licencia-select">Marco Jurídico de Licenciamiento (Seleccionable)</label>
-            <select id="md-licencia-select">
-              <option value="odbl" selected>Open Database License (ODbL 1.0) — OpenStreetMap</option>
-              <option value="cc_by">Creative Commons Atribución (CC-BY 4.0) — GBIF</option>
-              <option value="datos_gob">Datos Abiertos del Estado de Chile (IDE Chile / GeoNode)</option>
-              <option value="vgi_mixta">Licencia Mixta VGI (ODbL 1.0 para OSM + CC-BY para GBIF)</option>
-            </select>
-          </div>
-          <div class="campo" style="flex:1;">
-            <label for="md-rol-select">Rol de la Parte Responsable</label>
-            <select id="md-rol-select">
-              <option value="author" selected>author (Autor / Geógrafo Investigador)</option>
-              <option value="custodian">custodian (Custodio Institucional)</option>
-              <option value="pointOfContact">pointOfContact (Punto de Contacto)</option>
-              <option value="distributor">distributor (Distribuidor de Datos Abiertos)</option>
-            </select>
-          </div>
-        </div>
-        <div class="fila-campos">
-          <div class="campo" style="flex:1"><label for="md-restricciones">Declaración de Restricciones Legales y Licencia</label><textarea id="md-restricciones" rows="2">Open Database License (ODbL) 1.0 para datos vectoriales de OSM (© colaboradores de OpenStreetMap); Creative Commons CC-BY 4.0 para registros biológicos.</textarea></div>
-        </div>
-
-        <h3>Punto de Contacto Responsable</h3>
-        <div class="fila-campos">
-          <div class="campo"><label for="md-contacto-org">Organización</label><input type="text" id="md-contacto-org" value="Departamento de Geografía — Universidad Alberto Hurtado 2026"></div>
-          <div class="campo"><label for="md-contacto-correo">Correo electrónico</label><input type="email" id="md-contacto-correo" value="juanpablolescanovillegas@gmail.com"></div>
-        </div>
-
-        <div class="caja-guia-referencia">
-          <h4>🏛️ Estándar de Metadatos Espaciales (ISO 19115 / ISO 19139 / IDE Chile)</h4>
-          <p>
-            Los metadatos son la documentación estandarizada que responde a las preguntas clave sobre cualquier dato geográfico: <em>¿quién lo produjo?, ¿cuándo?, ¿con qué método (linaje)?, ¿con qué licencia? y ¿en qué sistema de coordenadas?</em>.
-          </p>
-          <ul>
-            <li><strong>Perfil Nacional de Metadatos de Chile:</strong> Basado en ISO 19115:2003 / Cor 1:2006 y codificado en XML mediante ISO 19139:2007. Obligatorio para servicios públicos bajo el SNIT (Decreto N° 28 del Ministerio de Bienes Nacionales).</li>
-            <li><strong>Interoperabilidad Institucional:</strong> El archivo XML descargable desde este panel puede subirse directamente a catálogos nacionales como GeoNetwork o plataformas comunales como GeoNode.</li>
-            <li><strong>Ley N° 20.285:</strong> Marco legal chileno de Acceso a la Información Pública y Reutilización de Datos Abiertos.</li>
-          </ul>
-        </div>
-
-        <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
-          <button type="submit" class="accion">Generar Ficha en Pantalla</button>
-          <button type="button" class="accion" id="btn-exportar-json" style="background:var(--agua);">📄 Exportar JSON (ISO 19115)</button>
-          <button type="button" class="accion secundaria" id="btn-exportar-xml">🏛️ Exportar XML (ISO 19139 / IDE Chile)</button>
-        </div>
-      </form>
-
-      <div class="bloque resultado" id="resultado-metadatos" aria-live="polite"></div>
-    </section>
-
-    <!-- ---------- 06. DICCIONARIO TERRITORIAL ---------- -->
-    <section class="panel" id="panel-diccionario">
-      <header>
-        <span class="rotulo">06 / Estándar y Diccionario de Datos</span>
-        <h2>Diccionario de Metadatos y Atributos Territoriales</h2>
-        <p class="descripcion">Definición de cada campo normalizado, homologación oficial con IDE Chile (SNIT) y glosario de etiquetas OpenStreetMap aplicadas a Barrio Brasil y la UAH.</p>
-      </header>
-
-      <!-- Guía Rápida de Uso y Relación con el Atlas -->
-      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--teal); background: var(--papel-tarjeta); padding: 20px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--teal); font-size: 1.15rem;">📖 Módulo 06: Diccionario de Objetos Territoriales y Homologación IDE Chile</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: rgba(13,148,136,0.22); color: var(--teal); border: 1px solid var(--teal); padding: 3px 10px; border-radius: 6px; font-weight: 800;">140 DESCRIPTORES NORMATIVOS</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Entrega un glosario interactivo con 140 descriptores. Explica qué significa cada etiqueta OpenStreetMap (`amenity`, `highway`, `kerb`, `building`), las variables de residuos sólidos de SUBDERE, cuáles tienen equivalente estatal en IDE Chile / MINVU y cuáles representan "Brechas VGI" comunitarias.
-          </div>
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Constituye el estándar de codificación técnica del Atlas, facilitando la interpretación de los atributos recopilados en el Barrio Brasil y la UAH.
-          </div>
-        </div>
-      </div>
-
-      <div class="bloque" style="margin-bottom:14px;">
-        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
-          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (140)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (86 Descriptores sin Homólogo Estatal)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales del Estado (121 Capas)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema Normalizado (23 Atributos)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="patrimonio_verde">🌳 Plazas y Patrimonio (CAT 5-6)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="accesibilidad_biodiv">♿ Accesibilidad y Biodiversidad (CAT 7-8)</button>
-          <button type="button" class="filtro-dicc-btn" data-grupo="edificaciones_suelo">🏢 Edificaciones y Suelos (CAT 9-10)</button>
-        </div>
-        <input type="text" id="filtro-diccionario" placeholder="🔍 Buscar por palabra clave, código IDE o etiqueta OSM (ej: accesibilidad, amenity, kerb, universidad, EPSG)..." style="width:100%; padding:8px 12px; font-size:0.9rem; border:1px solid var(--linea); background:var(--papel);">
-      </div>
-
-      <div id="contenido-diccionario">
-        <!-- Renderizado dinámico desde ModuloDiccionario -->
-      </div>
-    </section>
-
-    <!-- ---------- 07. LICENCIAS Y CATÁLOGOS ---------- -->
-    <section class="panel" id="panel-licencias">
-      <header>
-        <span class="rotulo">07 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
-        <h2>Licencias Abiertas y Descarga de Catálogos Oficiales</h2>
-        <p class="descripcion">Acceso directo a las matrices metodológicas en formato Excel (.xlsx) generadas para el Atlas territorial y marco jurídico de cada fuente.</p>
-      </header>
-
-      <!-- Guía Rápida de Uso y Relación con el Atlas -->
-      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--ocre); background: var(--papel-tarjeta); padding: 20px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--ocre); font-size: 1.15rem;">⚖️ Módulo 07: Licenciamiento Jurídico y Descarga de Matrices (.xlsx)</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--ocre-claro); color: var(--ocre); border: 1px solid var(--ocre); padding: 3px 10px; border-radius: 6px; font-weight: 800;">ODbL 1.0 // CC-BY 4.0 // LEY 20.285</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
-            Proporciona certeza jurídica sobre el uso de los datos (Open Database License ODbL para OSM, CC-BY 4.0 para GBIF, Ley N° 20.285 para IDE Chile) y permite descargar las matrices de datos en planillas Excel (.xlsx) estructuradas.
-          </div>
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
-            Garantiza la reutilización libre y ética de los entregables producidos para la gestión municipal y académica en Barrio Brasil.
-          </div>
-        </div>
-      </div>
-      <div class="bloque resultado" id="contenido-licencias"></div>
-    </section>
-
-    <!-- ---------- 08. MANUAL DE USO Y ACTUALIZACIÓN ---------- -->
-    <section class="panel" id="panel-manual">
-      <header>
-        <span class="rotulo">08 / Documentación Técnica Oficial</span>
-        <h2>Manual de Uso y Manual de Actualización Técnica del Atlas VGI</h2>
-        <p class="descripcion">Documentación operativa y protocolo de mantención técnica: uso de los 10 módulos (00 al 09), catálogo de las 131 capas, arquitectura del repositorio, procedimiento de integración de nuevas bases de datos (.geojson y .gpkg) y despliegue a producción.</p>
-      </header>
-
-      <!-- Guía Rápida de Uso y Relación con el Atlas -->
-      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--musgo); background: var(--papel-tarjeta); padding: 20px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">📚 Módulo 08: Manual de Uso y Protocolo de Actualización Técnica</h4>
-          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">USO + MANTENCIÓN TÉCNICA</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Parte I — Manual de Uso:</strong>
-            Síntesis funcional de los 10 módulos de la plataforma, uso del Inspector Normativo (PRC/OGUC e historial de modificaciones en Barrio Brasil 1990–2024), Índice de Calidad VGI dinámico y buscador de las 131 capas integradas.
-          </div>
-          <div>
-            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Parte II — Manual de Actualización Técnica:</strong>
-            Protocolo paso a paso para modificar la estructura, integrar nuevas capas en 6 pasos, mantener la paridad entre <code>data/</code> y <code>src/data/</code>, incorporar ajustes de validación de usuarios y publicar en producción.
-          </div>
-        </div>
-      </div>
-      <div id="contenido-manual"></div>
-    </section>
-
-    <!-- ---------- 09. INDICADORES DE ANÁLISIS & STORYBOARDS ---------- -->
+    <!-- ---------- 05. INDICADORES DE ANÁLISIS & STORYBOARDS ---------- -->
     <section class="panel" id="panel-indicadores">
       <div id="contenedor-indicadores-analisis">
 <div class="modulo-indicadores-analisis-wrapper">
@@ -1325,7 +840,7 @@
         <header class="header-modulo-indicadores">
           <div class="insignia-indicadores">
             <span class="punto-pulso"></span>
-            MÓDULO 09 · ANÁLISIS MULTIDIMENSIONAL &amp; DATA STORYTELLING
+            MÓDULO 05 · ANÁLISIS MULTIDIMENSIONAL &amp; DATA STORYTELLING
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial</h2>
           <p class="bajada-modulo-indicadores">
@@ -1875,7 +1390,490 @@
       </div>
     </section>
 
+    <!-- ---------- 06. CALIDAD ESPACIAL, TOPOLOGÍA E ÍNDICE IGV ---------- -->
+    <section class="panel" id="panel-calidad-ohsome">
+      <header>
+        <span class="rotulo">06 / Calidad Espacial, Topología e Índice IGV (ISO 19157 / WLC v2.0 / HeiGIT / OSMCha)</span>
+        <h2>Auditoría de Calidad Espacial, Topología OGC y Modelo Multicriterio WLC v2.0</h2>
+        <p class="descripcion">
+          Motor algorítmico universal de control de calidad: evalúa cualquier conjunto de datos espaciales externo (GeoJSON arrastrado o cargado) o interno del Atlas mediante Combinación Lineal Ponderada (WLC v2.0), normalización Min-Max de criterios de beneficio y costo, consistencia topológica OGC ISO 19157 y metadatos ISO 19115.
+        </p>
+      </header>
 
+      <!-- Guía Rápida de Uso y Relación con el Atlas -->
+      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--violeta); background: var(--papel-tarjeta); padding: 20px 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <h4 style="margin: 0; color: var(--violeta); font-size: 1.15rem;">📐 Módulo 06: Evaluador Integral de Calidad Espacial (ISO 19157 / ISO 19115)</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--violeta-claro); color: var(--violeta); border: 1px solid var(--violeta); padding: 3px 10px; border-radius: 6px; font-weight: 800;">HEIGIT // ISO 19157 // OGC SFA</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
+            Permite medir y certificar la calidad geométrica, topológica y semántica de datos espaciales. El Submódulo A audita cualquier archivo vectorial externo o interno calculando el Índice Global de Calidad (IGV). El Submódulo B analiza con ohsome API la evolución temporal histórica (2021-2026). El Submódulo C audita mediante OSMCha las últimas ediciones realizadas por mapeadores.
+          </div>
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
+            Garantiza el rigor metodológico y científico del Atlas, certificando que los datos de Barrio Brasil y capas oficiales cumplen estándares internacionales de interoperabilidad sin geometrías corruptas.
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMÓDULO A: EVALUADOR UNIVERSAL DE CALIDAD ESPACIAL, TOPOLOGÍA E ÍNDICE IGV -->
+      <div class="bloque" style="border-top: 5px solid var(--esmeralda);">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo A: Evaluador Universal de Calidad Espacial, Topología e Índice IGV</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--esmeralda); text-transform:uppercase; font-weight:800;">[ISO 19157:2023 // OGC SFA // IDE CHILE]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:14px;">
+          Ingresa cualquier archivo espacial vectorial (externo en formato <code>.geojson</code> / <code>.json</code> o capa de la geodatabase) para auditar en tiempo real: auto-intersecciones (kinks/bowties), polígonos colapsados, anillos abiertos, atributos nulos, rango geodésico y obtener el <strong>Índice Global de Calidad (IGV)</strong> certificado.
+        </p>
+
+        <!-- Zona de Carga de Datos (Drag & Drop y Selectores) -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-bottom:14px;">
+          
+          <!-- Opción 1: Drag & Drop para Archivo Externo -->
+          <div id="calidad-dropzone" style="border:2px dashed var(--linea); border-radius:10px; background:var(--papel-alto); padding:20px 16px; text-align:center; cursor:pointer; transition:all 0.2s ease;">
+            <div style="font-size:1.8rem; margin-bottom:6px;">📁</div>
+            <strong style="display:block; font-size:0.88rem; color:var(--tinta); margin-bottom:4px;">Arrastra aquí un archivo .geojson o .json</strong>
+            <span style="font-size:0.78rem; color:var(--tinta-suave); display:block;">o haz clic para examinar desde tu equipo (límite seguro: 25 MB)</span>
+            <input type="file" id="calidad-input-archivo" accept=".geojson,.json" style="display:none;">
+            <div id="calidad-archivo-seleccionado-nombre" style="display:none; margin-top:8px; font-family:var(--fuente-datos); font-size:0.76rem; background:rgba(16, 185, 129, 0.15); color:var(--esmeralda); padding:3px 8px; border-radius:4px; border:1px solid var(--esmeralda);"></div>
+          </div>
+
+          <!-- Opción 2: Selector de Capas del Atlas -->
+          <div style="background:var(--papel-alto); border:1px solid var(--linea); border-radius:10px; padding:16px;">
+            <label for="calidad-selector-capa-interna" style="font-size:0.82rem; font-weight:700; color:var(--tinta); display:block; margin-bottom:6px;">
+              O auditar una capa de la Geodatabase (131 componentes):
+            </label>
+            <select id="calidad-selector-capa-interna" style="width:100%; font-size:0.82rem; padding:8px; background:var(--papel); border:1px solid var(--linea); border-radius:6px; color:var(--tinta);">
+              <option value="">-- Selecciona una capa de la base de datos --</option>
+            </select>
+            <span style="font-size:0.74rem; color:var(--tinta-tenue); display:block; margin-top:6px;">
+              Permite contrastar métricas cuantitativas sobre las capas oficiales y VGI existentes.
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Opción 3 Colapsable: Pegar GeoJSON en Texto Plano -->
+        <details style="margin-bottom:14px; background:var(--papel-alto); border:1px solid var(--linea); border-radius:8px; padding:10px 14px;">
+          <summary style="font-size:0.82rem; font-weight:600; cursor:pointer; color:var(--musgo);">
+            ✍️ O pegar contenido GeoJSON directo en texto plano / Información del Índice IGV
+          </summary>
+          <div style="margin-top:10px;">
+            <textarea id="calidad-textarea-geojson" rows="3" placeholder="Pega aquí el objeto FeatureCollection o Feature en formato JSON/GeoJSON..." style="width:100%; font-family:var(--fuente-datos); font-size:0.75rem; padding:8px; background:var(--papel); border:1px solid var(--linea); border-radius:6px; color:var(--tinta);"></textarea>
+            <div style="font-size:0.74rem; color:var(--tinta-tenue); margin-top:6px;">
+              Ponderadores oficiales estándar: <strong>50% Cuantitativo Espacial</strong> (Topología 30%, Completitud 25%, Posicional 20%, Estructura 15%, Granularidad 10%) + <strong>50% Cualitativo</strong> (Metadatos ISO 19115).
+            </div>
+          </div>
+        </details>
+
+        <!-- Control de Focalización Territorial BBox Barrio Brasil -->
+        <div style="background:rgba(6, 182, 212, 0.08); border:1px solid rgba(6, 182, 212, 0.35); border-radius:8px; padding:10px 14px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+          <label for="calidad-chk-filtrar-bbox" style="display:flex; align-items:center; gap:8px; font-size:0.83rem; color:var(--tinta); cursor:pointer;">
+            <input type="checkbox" id="calidad-chk-filtrar-bbox" checked style="accent-color:var(--esmeralda); width:16px; height:16px;">
+            <span><strong>Focalizar auditoría en BBox Barrio Brasil</strong> <code id="calidad-label-bbox-coordenadas" style="color:var(--musgo); font-size:0.75rem;">[-70.6740, -33.4530, -70.6550, -33.4330]</code></span>
+          </label>
+          <span style="font-size:0.74rem; color:var(--tinta-tenue);">Recorta capas multiescalares/masivas (ej. Censo 2024 Manzanas) al cuadrante del piloto</span>
+        </div>
+
+        <!-- Botones de Ejecución -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="accion" id="btn-ejecutar-auditoria-igv" style="font-weight:700; background:var(--esmeralda); color:#000; padding:10px 20px;">
+            🚀 Auditar Calidad Espacial e Índice IGV
+          </button>
+          <button class="accion secundaria" id="btn-cargar-ejemplo-calidad" style="font-size:0.84rem;">
+            Cargar Ejemplo Piloto (CAT-01 Educación)
+          </button>
+        </div>
+
+        <!-- Contenedor Dinámico de Resultados de la Auditoría -->
+        <div id="resultado-auditoria-igv" aria-live="polite"></div>
+
+      </div>
+
+      <!-- SUBMÓDULO B: OHSOME API & OQT -->
+      <div class="bloque">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo B: Métricas Históricas y Saturación OQT (ohsome API v1/v2)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[HeiGIT // ISO 19157]</span>
+        </div>
+
+        <div class="fila-campos">
+          <div class="campo"><label for="oh-oeste">Oeste</label><input type="number" step="any" id="oh-oeste"></div>
+          <div class="campo"><label for="oh-sur">Sur</label><input type="number" step="any" id="oh-sur"></div>
+          <div class="campo"><label for="oh-este">Este</label><input type="number" step="any" id="oh-este"></div>
+          <div class="campo"><label for="oh-norte">Norte</label><input type="number" step="any" id="oh-norte"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:2; min-width:260px;">
+            <label for="oh-preset-selector">Preset Temático ohsome (10 Macro-Categorías VGI)</label>
+            <select id="oh-preset-selector">
+              <option value="amenity=university and (type:node or type:way)">🏫 CAT-01: Educación y Universidad (amenity=university)</option>
+              <option value="(shop=* or amenity=pharmacy or amenity=clinic or amenity=restaurant or amenity=cafe) and (type:node or type:way)">🏬 CAT-02: Servicios, Comercio y Salud Barrial (shop=* / amenity=*)</option>
+              <option value="(highway=bus_stop or railway=station or railway=subway_entrance) and (type:node or type:way)">🚆 CAT-03: Movilidad y Transporte Público (bus_stop / metro)</option>
+              <option value="(highway=cycleway or cycleway=*) and type:way">🚲 CAT-04: Movilidad Activa y Ciclovías (cycleway=*)</option>
+              <option value="leisure=park and (type:way or type:relation)">🌲 CAT-05: Áreas Verdes y Espacio Público (leisure=park)</option>
+              <option value="(historic=* or heritage=*) and (type:node or type:way)">🏛 CAT-06: Patrimonio Histórico y Cultura (historic=*)</option>
+              <option value="(highway=crossing or kerb=*) and type:node">🦯 CAT-07: Accesibilidad Universal y Caminabilidad (crossing / kerb)</option>
+              <option value="natural=tree and type:node">☘ CAT-08: Biodiversidad Urbana y Arbolado (natural=tree)</option>
+              <option value="building=* and type:way" selected>🏙 CAT-09: Edificaciones y Huella Urbana (building=*)</option>
+              <option value="landuse=* and (type:way or type:relation)">▧ CAT-10: Coberturas y Usos de Suelo (landuse=*)</option>
+              <option value="custom">✍️ — Filtro ohsome personalizado —</option>
+            </select>
+          </div>
+          <div class="campo" style="width:160px;">
+            <label for="oh-intervalo-selector">Intervalo Temporal</label>
+            <select id="oh-intervalo-selector">
+              <option value="P1Y" selected>P1Y (Anual - 5 años)</option>
+              <option value="P6M">P6M (Semestral)</option>
+              <option value="P1M">P1M (Mensual)</option>
+            </select>
+          </div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1;">
+            <label for="oh-filtro">Expresión de Filtro ohsome</label>
+            <input type="text" id="oh-filtro" placeholder="Ej: amenity=university and (type:node or type:way), building=*, landuse=*" value="">
+          </div>
+        </div>
+        <div class="fila-campos" style="margin-top:10px;">
+          <div class="campo" style="flex:1.4; min-width:260px;">
+            <label for="oh-version-selector">Versión de ohsome API (HeiGIT)</label>
+            <select id="oh-version-selector">
+              <option value="v1" selected>🟢 ohsome API v1 (Acceso Libre — Sin API Key — Motor OSHDB)</option>
+              <option value="v2">⚡ ohsome API v2-rc (Alta Velocidad / Citus — ohsomeDB)</option>
+            </select>
+          </div>
+          <div class="campo" id="contenedor-oh-api-key" style="display:none; flex:1.6; min-width:240px;">
+            <label for="oh-api-key">API Key HeiGIT (ohsome v2)</label>
+            <input type="password" id="oh-api-key" placeholder="Pega tu token de api.heigit.org (opcional)">
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+          <button class="accion" id="btn-consultar-ohsome">Calcular Indicadores de Calidad (ohsome API)</button>
+        </div>
+
+        <div class="caja-guia-referencia">
+          <h4>📐 Fundamentación de Calidad Espacial Multidimensional (ISO 19157 / HeiGIT / OQT)</h4>
+          <p>
+            La calidad de datos espaciales voluntarios (VGI) responde a dimensiones estandarizadas bajo la norma <strong>ISO 19157:2013</strong> y la infraestructura de análisis histórico desarrollada por el Heidelberg Institute for Geoinformation Technology (HeiGIT):
+          </p>
+          <ul>
+            <li><strong>Soporte Dual ohsome v1 y v2:</strong> Motor histórico OSHDB libre y nueva base relacional ohsomeDB.</li>
+            <li><strong>Reproyección Geodésica Rigurosa a EPSG:32719:</strong> Todo cálculo métrico pasa por proyección conforme Transverse Mercator (UTM Huso 19 Sur) eliminando distorsiones angulares a la latitud de Santiago.</li>
+            <li><strong>Sensibilidad Geométrica:</strong> Red vial por longitud (/length), huellas de edificios por superficie (/area) y equipamientos por conteo (/count).</li>
+            <li><strong>ohsome Quality Analyst (OQT):</strong> Evaluación de saturación y madurez cartográfica territorial (Herfort et al., 2023).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bloque resultado" id="resultado-ohsome" aria-live="polite">
+        <p class="descripcion">Todavía no hay ningún cálculo realizado.</p>
+      </div>
+
+      <!-- SUBMÓDULO C: CONTROL DE CAMBIOS Y VALIDACIÓN CON OSMCHA -->
+      <div class="bloque" style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--linea); padding-bottom:6px; margin-bottom:12px;">
+          <h3 style="margin:0;">Submódulo C: Control de Cambios y Validación de Ediciones (OSMCha / Changesets v0.6)</h3>
+          <span style="font-family:var(--fuente-datos); font-size:0.72rem; color:var(--musgo); text-transform:uppercase;">[OSMCHA // MAPBOX COMMUNITY]</span>
+        </div>
+        <p class="descripcion" style="margin-bottom:10px;">
+          Inspecciona las ediciones territoriales recientes realizadas por mapeadores en el área delimitada, evalúa heurísticas de calidad (volumen, comentarios, software de edición) e interactúa directamente con la plataforma OSMCha para auditar o validar cambios.
+        </p>
+
+        <div class="fila-campos">
+          <div class="campo" style="flex:1.5; min-width:240px;">
+            <label for="osmcha-filtro-modo">Modo de Consulta OSMCha</label>
+            <select id="osmcha-filtro-modo">
+              <option value="bbox" selected>📍 Ediciones Recientes en el Bbox Territorial Activo</option>
+              <option value="id">🔍 Buscar Changeset por ID Numérico Específico</option>
+            </select>
+          </div>
+          <div class="campo" id="contenedor-osmcha-id" style="display:none; flex:1; min-width:180px;">
+            <label for="osmcha-input-id">ID de Changeset (ej: 148202930)</label>
+            <input type="text" id="osmcha-input-id" placeholder="Ingresa número de changeset">
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+          <button class="accion" id="btn-ejecutar-validacion-osmcha">🔎 Validar Ediciones en OSMCha</button>
+          <button class="accion secundaria" id="btn-abrir-osmcha-externo">↗ Abrir Filtro Territorial en osmcha.org</button>
+        </div>
+
+        <!-- Contenedor interactivo para OSM Changesets & OSMCha API -->
+        <div id="contenedor-auditoria-osmcha" style="margin-top:14px;"></div>
+      </div>
+    </section>
+
+    <!-- ---------- 07. MANUAL DE USO Y ACTUALIZACIÓN TÉCNICA ---------- -->
+    <section class="panel" id="panel-manual">
+      <header>
+        <span class="rotulo">07 / Documentación Técnica Oficial</span>
+        <h2>Manual de Uso y Manual de Actualización Técnica del Atlas VGI</h2>
+        <p class="descripcion">Documentación operativa y protocolo de mantención técnica: uso de los 10 módulos (00 al 09), catálogo de las 131 capas, arquitectura del repositorio, procedimiento de integración de nuevas bases de datos (.geojson y .gpkg) y despliegue a producción.</p>
+      </header>
+
+      <!-- Guía Rápida de Uso y Relación con el Atlas -->
+      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--musgo); background: var(--papel-tarjeta); padding: 20px 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <h4 style="margin: 0; color: var(--musgo); font-size: 1.15rem;">📚 Módulo 07: Manual de Uso y Protocolo de Actualización Técnica</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--musgo-claro); color: var(--musgo); border: 1px solid var(--musgo); padding: 3px 10px; border-radius: 6px; font-weight: 800;">USO + MANTENCIÓN TÉCNICA</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Parte I — Manual de Uso:</strong>
+            Síntesis funcional de los 10 módulos de la plataforma, uso del Inspector Normativo (PRC/OGUC e historial de modificaciones en Barrio Brasil 1990–2024), Índice de Calidad VGI dinámico y buscador de las 131 capas integradas.
+          </div>
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Parte II — Manual de Actualización Técnica:</strong>
+            Protocolo paso a paso para modificar la estructura, integrar nuevas capas en 6 pasos, mantener la paridad entre <code>data/</code> y <code>src/data/</code>, incorporar ajustes de validación de usuarios y publicar en producción.
+          </div>
+        </div>
+      </div>
+      <div id="contenido-manual"></div>
+    </section>
+
+    <!-- ---------- 08. METADATOS ISO 19115 / ISO 19139 ---------- -->
+    <section class="panel" id="panel-metadatos-iso">
+      <header>
+        <span class="rotulo">08 / ISO 19115 & ISO 19139 (IDE Chile)</span>
+        <h2>Ficha de Metadatos Estandarizada</h2>
+        <p class="descripcion">Documenta el conjunto de datos geográficos para su catalogación oficial conforme al Perfil Nacional de Metadatos de la Infraestructura de Datos Geoespaciales de Chile.</p>
+      </header>
+
+      <!-- Guía Rápida de Uso y Relación con el Atlas -->
+      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--agua); background: var(--papel-tarjeta); padding: 20px 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <h4 style="margin: 0; color: var(--agua); font-size: 1.15rem;">📋 Módulo 08: Generador de Metadatos Estandarizados ISO 19115 / ISO 19139</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--agua-claro); color: var(--agua); border: 1px solid var(--agua); padding: 3px 10px; border-radius: 6px; font-weight: 800;">PERFIL NACIONAL IDE CHILE</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
+            Permite documentar formalmente cualquier conjunto de datos extraído o generado. Prellena automáticamente el título, Bbox, linaje, sistema de coordenadas (EPSG:4326 / SIRGAS-Chile) y contacto institucional, exportando fichas en JSON (ISO 19115) y XML oficial para IDE Chile / SNIT.
+          </div>
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
+            Asegura que los datos producidos en el Barrio Brasil sean catalogables e interoperables en servidores del Estado como GeoNode o GeoNetwork.
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner de Auditoría Universal de MetaCalidad (ISO 19115 / ISO 19157) -->
+      <div class="caja-metacalidad-kpi" style="margin-bottom: 24px; background: rgba(10, 61, 46, 0.4); border: 1px solid var(--esmeralda, #10b981); border-left: 6px solid var(--esmeralda, #10b981); border-radius: 8px; padding: 18px 22px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <h4 style="margin: 0; color: #10b981; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+            <span>🛡️</span> Auditoría de MetaCalidad de la Base de Datos (131 Capas Cartográficas)
+          </h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.8rem; background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; padding: 4px 12px; border-radius: 6px; font-weight: 800;">
+            IGMC: 96.55% · GRADO A+ (EXCELENTE)
+          </span>
+        </div>
+        <p style="margin: 0 0 12px 0; font-size: 0.88rem; color: var(--tinta-suave); line-height: 1.5;">
+          Conforme a las normas <strong>ISO 19115-1:2014</strong> e <strong>ISO 19157:2013/2023</strong>, el 100% de la base de datos (121 capas oficiales del Estado y 10 macrocategorías VGI) cuenta con metadatos auditados: <strong>89.9% Completitud Núcleo</strong>, <strong>97.9% Conformidad de Esquema</strong>, <strong>100% Linaje y Trazabilidad</strong>, <strong>100% Granularidad Territorial</strong> y <strong>100% Accesibilidad</strong>.
+        </p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="docs/ANALISIS_METACALIDAD.md" target="_blank" class="accion secundaria" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            📄 Ver Informe de MetaCalidad (Markdown) ↗
+          </a>
+          <a href="docs/matriz_metacalidad.json" download="matriz_metacalidad.json" class="accion secundaria" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            📥 Descargar Matriz JSON ↗
+          </a>
+          <a href="docs/perfil_metadatos_vgi.xlsx" download="perfil_metadatos_vgi.xlsx" class="accion" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: #10b981; color: #000;">
+            📊 Matriz en Excel (.xlsx) ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <button class="accion secundaria" id="btn-prellenar-metadatos">Prellenar con datos de la última consulta (Barrio Brasil / UAH)</button>
+      </div>
+
+      <form class="bloque" id="form-metadatos">
+        <h3>Identificación del Recurso</h3>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-titulo">Título del recurso</label><input type="text" id="md-titulo" value="Catastro VGI de Equipamiento Universitario y Urbano: Barrio Brasil - Universidad Alberto Hurtado"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1.5;">
+            <label for="md-categoria-iso">Categoría Temática ISO 19115 (topicCategory)</label>
+            <select id="md-categoria-iso">
+              <option value="planningCadastre" selected>planningCadastre (Planificación Urbana y Catastro)</option>
+              <option value="structure">structure (Estructuras, Edificaciones y Casonas)</option>
+              <option value="transportation">transportation (Transporte, Red Vial y Ciclovías)</option>
+              <option value="society">society (Sociedad, Equipamiento y Cultura)</option>
+              <option value="health">health (Salud, Farmacias y Servicios de Emergencia)</option>
+              <option value="biota">biota (Biota, Fauna y Flora Urbana)</option>
+              <option value="environment">environment (Medio Ambiente y Espacios Públicos)</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1;">
+            <label for="md-frecuencia">Frecuencia de Mantenimiento</label>
+            <select id="md-frecuencia">
+              <option value="asNeeded" selected>asNeeded (Según necesidad / Mapeo continuo VGI)</option>
+              <option value="monthly">monthly (Mensual)</option>
+              <option value="quarterly">quarterly (Trimestral)</option>
+              <option value="annually">annually (Anual)</option>
+              <option value="continual">continual (En tiempo real)</option>
+            </select>
+          </div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-resumen">Resumen / Abstract</label><textarea id="md-resumen" rows="3">Conjunto de datos espaciales voluntarios compilado para la gestión territorial en Barrio Brasil y entorno del campus Universidad Alberto Hurtado (Santiago Centro, Chile). Comprende infraestructura educativa, movilidad, espacio público y comercio.</textarea></div>
+        </div>
+
+        <h3>Extensión Geográfica y Sistema de Coordenadas</h3>
+        <div class="fila-campos">
+          <div class="campo"><label for="md-oeste">Oeste (Lng Min)</label><input type="number" step="any" id="md-oeste"></div>
+          <div class="campo"><label for="md-sur">Sur (Lat Min)</label><input type="number" step="any" id="md-sur"></div>
+          <div class="campo"><label for="md-este">Este (Lng Max)</label><input type="number" step="any" id="md-este"></div>
+          <div class="campo"><label for="md-norte">Norte (Lat Max)</label><input type="number" step="any" id="md-norte"></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1.2;">
+            <label for="md-srs-select">Sistema de Referencia Espacial (Seleccionable)</label>
+            <select id="md-srs-select">
+              <option value="EPSG:4326 (WGS84)" selected>EPSG:4326 — WGS84 (Grados Decimales / GPS y Web)</option>
+              <option value="EPSG:5361 (SIRGAS-Chile 2016)">EPSG:5361 — SIRGAS-Chile 2016 (Oficial IDE Chile / SNIT)</option>
+              <option value="EPSG:32719 (WGS 84 / UTM Zona 19S)">EPSG:32719 — UTM Huso 19 Sur (Métrico para Santiago)</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1;">
+            <label for="md-srs">Código SRS Oficial</label>
+            <input type="text" id="md-srs" value="EPSG:4326 (WGS84) / Compatible con EPSG:5361 SIRGAS-Chile">
+          </div>
+        </div>
+
+        <h3>Linaje, Metodología y Restricciones</h3>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-linaje">Linaje / Proceso de captura</label><textarea id="md-linaje" rows="2">Extraído de OpenStreetMap vía Overpass API QL y de GBIF Occurrence API. Normalizado según taxonomía de 10 categorías maestras VGI en septiembre de 2026.</textarea></div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1.2;">
+            <label for="md-licencia-select">Marco Jurídico de Licenciamiento (Seleccionable)</label>
+            <select id="md-licencia-select">
+              <option value="odbl" selected>Open Database License (ODbL 1.0) — OpenStreetMap</option>
+              <option value="cc_by">Creative Commons Atribución (CC-BY 4.0) — GBIF</option>
+              <option value="datos_gob">Datos Abiertos del Estado de Chile (IDE Chile / GeoNode)</option>
+              <option value="vgi_mixta">Licencia Mixta VGI (ODbL 1.0 para OSM + CC-BY para GBIF)</option>
+            </select>
+          </div>
+          <div class="campo" style="flex:1;">
+            <label for="md-rol-select">Rol de la Parte Responsable</label>
+            <select id="md-rol-select">
+              <option value="author" selected>author (Autor / Geógrafo Investigador)</option>
+              <option value="custodian">custodian (Custodio Institucional)</option>
+              <option value="pointOfContact">pointOfContact (Punto de Contacto)</option>
+              <option value="distributor">distributor (Distribuidor de Datos Abiertos)</option>
+            </select>
+          </div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo" style="flex:1"><label for="md-restricciones">Declaración de Restricciones Legales y Licencia</label><textarea id="md-restricciones" rows="2">Open Database License (ODbL) 1.0 para datos vectoriales de OSM (© colaboradores de OpenStreetMap); Creative Commons CC-BY 4.0 para registros biológicos.</textarea></div>
+        </div>
+
+        <h3>Punto de Contacto Responsable</h3>
+        <div class="fila-campos">
+          <div class="campo"><label for="md-contacto-org">Organización</label><input type="text" id="md-contacto-org" value="Departamento de Geografía — Universidad Alberto Hurtado 2026"></div>
+          <div class="campo"><label for="md-contacto-correo">Correo electrónico</label><input type="email" id="md-contacto-correo" value="juanpablolescanovillegas@gmail.com"></div>
+        </div>
+
+        <div class="caja-guia-referencia">
+          <h4>🏛️ Estándar de Metadatos Espaciales (ISO 19115 / ISO 19139 / IDE Chile)</h4>
+          <p>
+            Los metadatos son la documentación estandarizada que responde a las preguntas clave sobre cualquier dato geográfico: <em>¿quién lo produjo?, ¿cuándo?, ¿con qué método (linaje)?, ¿con qué licencia? y ¿en qué sistema de coordenadas?</em>.
+          </p>
+          <ul>
+            <li><strong>Perfil Nacional de Metadatos de Chile:</strong> Basado en ISO 19115:2003 / Cor 1:2006 y codificado en XML mediante ISO 19139:2007. Obligatorio para servicios públicos bajo el SNIT (Decreto N° 28 del Ministerio de Bienes Nacionales).</li>
+            <li><strong>Interoperabilidad Institucional:</strong> El archivo XML descargable desde este panel puede subirse directamente a catálogos nacionales como GeoNetwork o plataformas comunales como GeoNode.</li>
+            <li><strong>Ley N° 20.285:</strong> Marco legal chileno de Acceso a la Información Pública y Reutilización de Datos Abiertos.</li>
+          </ul>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+          <button type="submit" class="accion">Generar Ficha en Pantalla</button>
+          <button type="button" class="accion" id="btn-exportar-json" style="background:var(--agua);">📄 Exportar JSON (ISO 19115)</button>
+          <button type="button" class="accion secundaria" id="btn-exportar-xml">🏛️ Exportar XML (ISO 19139 / IDE Chile)</button>
+        </div>
+      </form>
+
+      <div class="bloque resultado" id="resultado-metadatos" aria-live="polite"></div>
+    </section>
+
+    <!-- ---------- 09. DICCIONARIO TERRITORIAL (131 CAPAS) ---------- -->
+    <section class="panel" id="panel-diccionario">
+      <header>
+        <span class="rotulo">09 / Estándar y Diccionario de Datos</span>
+        <h2>Diccionario de Metadatos y Atributos Territoriales</h2>
+        <p class="descripcion">Definición de cada campo normalizado, homologación oficial con IDE Chile (SNIT) y glosario de etiquetas OpenStreetMap aplicadas a Barrio Brasil y la UAH.</p>
+      </header>
+
+      <!-- Guía Rápida de Uso y Relación con el Atlas -->
+      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--teal); background: var(--papel-tarjeta); padding: 20px 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <h4 style="margin: 0; color: var(--teal); font-size: 1.15rem;">📖 Módulo 09: Diccionario de Objetos Territoriales y Homologación IDE Chile</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: rgba(13,148,136,0.22); color: var(--teal); border: 1px solid var(--teal); padding: 3px 10px; border-radius: 6px; font-weight: 800;">140 DESCRIPTORES NORMATIVOS</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
+            Entrega un glosario interactivo con 140 descriptores. Explica qué significa cada etiqueta OpenStreetMap (`amenity`, `highway`, `kerb`, `building`), las variables de residuos sólidos de SUBDERE, cuáles tienen equivalente estatal en IDE Chile / MINVU y cuáles representan "Brechas VGI" comunitarias.
+          </div>
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
+            Constituye el estándar de codificación técnica del Atlas, facilitando la interpretación de los atributos recopilados en el Barrio Brasil y la UAH.
+          </div>
+        </div>
+      </div>
+
+      <div class="bloque" style="margin-bottom:14px;">
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;" id="contenedor-filtros-diccionario">
+          <button type="button" class="filtro-dicc-btn activo" data-grupo="todos">🌐 Todos los Atributos y Descriptores (140)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="brechas">⚡ Solo Brechas VGI (86 Descriptores sin Homólogo Estatal)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="oficiales">🏛️ Capas Oficiales del Estado (121 Capas)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="esquema">🏛️ Esquema Normalizado (23 Atributos)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="educacion_servicios">🎓 Educación y Servicios (CAT 1-2)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="movilidad">🚲 Movilidad y Transporte (CAT 3-4)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="patrimonio_verde">🌳 Plazas y Patrimonio (CAT 5-6)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="accesibilidad_biodiv">♿ Accesibilidad y Biodiversidad (CAT 7-8)</button>
+          <button type="button" class="filtro-dicc-btn" data-grupo="edificaciones_suelo">🏢 Edificaciones y Suelos (CAT 9-10)</button>
+        </div>
+        <input type="text" id="filtro-diccionario" placeholder="🔍 Buscar por palabra clave, código IDE o etiqueta OSM (ej: accesibilidad, amenity, kerb, universidad, EPSG)..." style="width:100%; padding:8px 12px; font-size:0.9rem; border:1px solid var(--linea); background:var(--papel);">
+      </div>
+
+      <div id="contenido-diccionario">
+        <!-- Renderizado dinámico desde ModuloDiccionario -->
+      </div>
+    </section>
+
+    <!-- ---------- 10. LICENCIAS Y CATÁLOGOS ---------- -->
+    <section class="panel" id="panel-licencias">
+      <header>
+        <span class="rotulo">10 / Licenciamiento Jurídico y Descarga Excel (.xlsx)</span>
+        <h2>Licencias Abiertas y Descarga de Catálogos Oficiales</h2>
+        <p class="descripcion">Acceso directo a las matrices metodológicas en formato Excel (.xlsx) generadas para el Atlas territorial y marco jurídico de cada fuente.</p>
+      </header>
+
+      <!-- Guía Rápida de Uso y Relación con el Atlas -->
+      <div class="caja-guia-referencia" style="margin-bottom: 24px; border-left: 6px solid var(--ocre); background: var(--papel-tarjeta); padding: 20px 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <h4 style="margin: 0; color: var(--ocre); font-size: 1.15rem;">⚖️ Módulo 10: Licenciamiento Jurídico y Descarga de Matrices (.xlsx)</h4>
+          <span style="font-family: var(--fuente-datos); font-size: 0.75rem; background: var(--ocre-claro); color: var(--ocre); border: 1px solid var(--ocre); padding: 3px 10px; border-radius: 6px; font-weight: 800;">ODbL 1.0 // CC-BY 4.0 // LEY 20.285</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; font-size: 0.9rem; color: var(--tinta-suave);">
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Utilidad de esta sección:</strong>
+            Proporciona certeza jurídica sobre el uso de los datos (Open Database License ODbL para OSM, CC-BY 4.0 para GBIF, Ley N° 20.285 para IDE Chile) y permite descargar las matrices de datos en planillas Excel (.xlsx) estructuradas.
+          </div>
+          <div>
+            <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Relación con el Atlas y Territorio:</strong>
+            Garantiza la reutilización libre y ética de los entregables producidos para la gestión municipal y académica en Barrio Brasil.
+          </div>
+        </div>
+      </div>
+      <div class="bloque resultado" id="contenido-licencias"></div>
+    </section>
 
 
     <footer class="pie-datos">

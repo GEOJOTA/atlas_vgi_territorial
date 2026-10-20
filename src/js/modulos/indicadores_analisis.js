@@ -29,7 +29,7 @@
 const ModuloIndicadoresAnalisis = (() => {
 
   // =========================================================================
-  // 1. DICCIONARIOS DE METADATOS Y FALLBACK CON PARIDAD EXACTA (MÓDULO 00)
+  // 1. DICCIONARIOS DE METADATOS Y FALLBACK CON PARIDAD EXACTA (MÓDULO 01)
   // =========================================================================
   const NOMBRES_OFICIALES_FALLBACK = {
   "censo2024_regional": "Censo 2024 (Marco Regional RM)",
@@ -1569,7 +1569,7 @@ const ModuloIndicadoresAnalisis = (() => {
           id: catFound.id,
           tipo: 'vgi',
           codigo: catFound.codigo,
-          nombre: catFound.nombre, // NOMBRE EXACTO de Módulo 00
+          nombre: catFound.nombre, // NOMBRE EXACTO de Módulo 01
           institucion: 'OSM / VGI',
           sigla: 'OSM / VGI',
           geometria: tipoGeom,
@@ -1619,7 +1619,7 @@ const ModuloIndicadoresAnalisis = (() => {
         id: def.id,
         tipo: 'oficial',
         codigo: codigo,
-        nombre: def.nombre, // NOMBRE EXACTO de Módulo 00
+        nombre: def.nombre, // NOMBRE EXACTO de Módulo 01
         institucion: def.institucion || 'Estado de Chile',
         sigla: sigla,
         geometria: tipoGeom,
@@ -1638,7 +1638,7 @@ const ModuloIndicadoresAnalisis = (() => {
       id: capaId,
       tipo: 'oficial',
       codigo: codigoFallback,
-      nombre: nombreFallback, // NOMBRE EXACTO de Módulo 00
+      nombre: nombreFallback, // NOMBRE EXACTO de Módulo 01
       institucion: 'Estado de Chile (IDE Chile)',
       sigla: 'ESTADO',
       geometria: 'VECTORIAL',
@@ -1664,7 +1664,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <header class="header-modulo-indicadores">
           <div class="insignia-indicadores">
             <span class="punto-pulso"></span>
-            MÓDULO 09 · ANÁLISIS MULTIDIMENSIONAL &amp; DATA STORYTELLING
+            MÓDULO 05 · ANÁLISIS MULTIDIMENSIONAL &amp; DATA STORYTELLING
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial</h2>
           <p class="bajada-modulo-indicadores">
@@ -1836,7 +1836,7 @@ const ModuloIndicadoresAnalisis = (() => {
     const conteoOficiales = dim.capasIds.filter(id => !id.startsWith('cat0') && !id.startsWith('cat1')).length;
     const conteoVGI = dim.capasIds.filter(id => id.startsWith('cat0') || id.startsWith('cat1')).length;
 
-    // Generar tarjetas de capas con nombres EXACTOS de Módulo 00 y estética Atlas VGI
+    // Generar tarjetas de capas con nombres EXACTOS de Módulo 01 y estética Atlas VGI
     const htmlCapas = dim.capasIds.map(capaId => {
       const info = resolverDefinicionCapa(capaId);
       const geomIcon = info.geometria.includes('POL') ? '⬡' : (info.geometria.includes('PUN') ? '●' : (info.geometria.includes('LÍN') ? '〰' : '◆'));
