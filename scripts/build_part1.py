@@ -15,37 +15,18 @@ part1_text = r"""# PARTE I: ALCANCE OPERATIVO, FORMULACIÓN ESTRATÉGICA Y PERFI
 
 ---
 
-## 1. Identificación y Alcance Operativo del Proyecto
+## Identificación y Alcance Operativo del Proyecto
 
 El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** es una infraestructura sociotécnica de datos espaciales, análisis urbano y visualización cartográfica interactiva desarrollada en el marco del **Programa de Práctica Profesional de la Carrera de Geografía** de la **Universidad Alberto Hurtado (UAH)** durante el segundo semestre académico del año 2026.
 
-```text
-┌────────────────────────────────────────────────────────────────────────┐
-│             FICHA TÉCNICA Y OPERATIVA DEL PROYECTO                     │
-├────────────────────────────────────────────────────────────────────────┤
-│ • Denominación:     Atlas de Información Geográfica Voluntaria (VGI)   │
-│ • Subtítulo:        Nodo GeoAbierto para la Gestión Territorial        │
-│ • Área de Estudio:  Barrio Brasil y campus UAH, Comuna de Santiago     │
-│ • Superficie Piloto:223,75 hectáreas (Polígono territorial delimitado) │
-│ • Institución:      Departamento de Geografía · Fac. de Ciencias Sociales│
-│                     Universidad Alberto Hurtado (UAH), Santiago, Chile │
-│ • Autor / Diseñador: Juan Pablo Lescano Villegas (Estudiante Geografía) │
-│ • Supervisión:      Cuerpo Docente e Investigadores Depto. Geografía UAH│
-│ • Carga Horaria:    300 horas cronológicas reglamentarias (50 días)    │
-│ • Período:          01 de Septiembre de 2026 al 12 de Noviembre de 2026│
-│ • Repositorio Git:  https://github.com/geojplescano/nodo-geoabierto    │
-│ • Despliegue Web:   https://atlasvgiuah.netlify.app                    │
-│ • Licencia Código:  GNU Affero General Public License v3.0 (AGPLv3)    │
-│ • Licencia Datos:   Open Database License 1.0 (ODbL) / CC-BY 4.0       │
-└────────────────────────────────────────────────────────────────────────┘
-```
 
-### 1.1. Propósito y Misión Operativa
+
+### Propósito y Misión Operativa
 El proyecto surge de la necesidad de subsanar los vacíos de información territorial a microescala existentes en los instrumentos tradicionales de planificación y en las bases de datos catastrales del Estado de Chile. Mientras la información oficial presenta desactualización temporal y baja granularidad para equipamientos de escala barrial, la dinámica urbana cotidiana evoluciona con rapidez.
 
 El Atlas opera como una **plataforma abierta y reproducible que articula geodatos abiertos (OpenStreetMap y GBIF), capas oficiales del Estado (IDE Chile, MINVU, INE, MTT/UOCT, MDSF) y herramientas analíticas multicriterio**, democratizando el acceso a diagnósticos territoriales a escala de Manzana Censal y Unidad Vecinal.
 
-### 1.2. Delimitación Geodésica y Cobertura Territorial
+### Delimitación Geodésica y Cobertura Territorial
 El área de estudio piloto corresponde a un polígono continuo de **223,75 hectáreas** emplazado en el sector poniente de la comuna de Santiago Centro. Su delimitación geodésica estricta se encuentra definida en coordenadas geográficas WGS84 (EPSG:4326) y en su proyección métrica conforme oficial SIRGAS-Chile / UTM Huso 19 Sur (EPSG:32719):
 
 $$\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]$$
@@ -57,7 +38,7 @@ $$\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]$
 
 ---
 
-## 2. Formulación Estratégica: Objetivos del Plan de Trabajo
+## Formulación Estratégica: Objetivos del Plan de Trabajo
 
 La estructura estratégica y operativa del proyecto se organiza rigurosamente conforme al plan de trabajo formal de la Práctica Profesional de Geografía (2026), articulado en un **Objetivo General** y **cuatro Objetivos Específicos (OE 1 a OE 4)** con asignación horaria explícita y metas verificables:
 
@@ -72,12 +53,12 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 2.1. Objetivo General de la Práctica Profesional
+### Objetivo General de la Práctica Profesional
 > **Desarrollar un prototipo de Atlas de Información Geográfica Voluntaria (VGI) reproducible, interoperable y centrado en usuarios que subsane vacíos de información territorial en Barrio Brasil y campus UAH, articulando geodatos abiertos, cartografía participativa y herramientas analíticas para la gestión local y la investigación académica.**
 
 ---
 
-### 2.2. Objetivos Específicos y Metas Operativas
+### Objetivos Específicos y Metas Operativas
 
 #### Objetivo Específico 1 (OE 1): Caracterización y Diseño Conceptual
 * **Asignación Horaria:** Semanas 1 a 3 · 72 Horas Planificadas · **100% Cerrado (Hitos 1, 2 y 3).**
@@ -126,7 +107,7 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
 
 ---
 
-## 3. Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo
+## Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo
 
 ```mermaid
 flowchart TD
@@ -168,7 +149,7 @@ flowchart TD
 
 ---
 
-## 4. Los Cuatro Perfiles de Actores Territoriales (Alineación con Plataforma Web en Vivo)
+## Los Cuatro Perfiles de Actores Territoriales (Alineación con Plataforma Web en Vivo)
 
 En estricta coherencia con la interfaz web desplegada en producción (`https://atlasvgiuah.netlify.app/`) y el selector dinámico `#sel-perfil-usuario` configurado en `src/index.html` y `src/js/app.js`, el Atlas estructura sus herramientas y accesos en torno a **cuatro perfiles de actores territoriales** formulados bajo el enfoque de Diseño Centrado en el Usuario (*User-Centered Design*, ISO 9241-210):
 
@@ -185,7 +166,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
 
 ---
 
-### 4.1. Perfil 1: Autoridades / Instituciones (IDE / Municipio) [`institucion`]
+### Perfil 1: Autoridades / Instituciones (IDE / Municipio) [`institucion`]
 * **Definición Canónica en Plataforma:**
   > *"🏛 Perfil Institucional / Municipal / IDE Chile: Prioriza metadatos normalizados (ISO 19115/19139), catastro de equipamiento crítico, licencias abiertas y control de calidad espacial."*
 * **Actores Destinatarios:** Profesionales de la Secretaría Comunal de Planificación (SECPLA), Dirección de Obras Municipales (DOM), Dirección de Medio Ambiente, Aseo y Ornato (DIMAO) de la Municipalidad de Santiago; analistas sectoriales de ministerios (MINVU, MOP, MIDESO/RSH, MTT/UOCT) y equipo de IDE Chile / SNIT.
@@ -201,7 +182,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
 
 ---
 
-### 4.2. Perfil 2: Organizaciones Comunitarias / Vecinos [`comunidad`]
+### Perfil 2: Organizaciones Comunitarias / Vecinos [`comunidad`]
 * **Definición Canónica en Plataforma:**
   > *"🗫 Perfil Comunitario / Vecinal: Facilita consultas rápidas en 1 clic para plazas, patrimonio, ciclovías, comercios locales y mapeo barrial colaborativo en UMap."*
 * **Actores Destinatarios:** Junta de Vecinos N° 1 Barrio Brasil, comités de vivienda de cités y pasajes residenciales, colectivos de patrimonio barrial, asambleas vecinales, comerciantes tradicionales y residentes locales.
@@ -218,7 +199,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
 
 ---
 
-### 4.3. Perfil 3: Mapeadores / Voluntarios OSM [`voluntario`]
+### Perfil 3: Mapeadores / Voluntarios OSM [`voluntario`]
 * **Definición Canónica en Plataforma:**
   > *"⌖ Perfil Mapeador / Voluntario OSM: Herramientas analíticas avanzadas, métricas geométricas ohsome v1 (longitud/área/densidad), editor Overpass QL y taxonomía."*
 * **Actores Destinatarios:** Comunidad de mapeadores voluntarios de OpenStreetMap Chile, colaboradores de HOT (Humanitarian OpenStreetMap Team), estudiantes de geografía y entusiastas de la geoinformación colaborativa.
@@ -235,7 +216,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
 
 ---
 
-### 4.4. Perfil 4: ONGs / Territoriales [`ong`]
+### Perfil 4: ONGs / Territoriales [`ong`]
 * **Definición Canónica en Plataforma:**
   > *"🔬 Perfil ONGs / Territoriales: Proporciona cálculo de densidades territoriales rigurosas mediante reproyección EPSG:32719, calidad ISO 19157 con ohsome v1/v2, exportación GeoJSON para QGIS, articulación comunitaria y fuentes bibliográficas (Departamento de Geografía UAH 2026)."*
 * **Actores Destinatarios:** Organizaciones no gubernamentales (ONGs) de derecho a la ciudad, corporaciones de desarrollo barrial, centros de investigación socioespacial, tesistas y estudiantes de posgrado de la Universidad Alberto Hurtado y universidades metropolitanas.

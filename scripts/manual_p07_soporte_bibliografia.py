@@ -891,7 +891,7 @@ A continuación se presenta la transcripción y verificación exacta de las 51 r
 
 ---
 
-## 3. Fuentes Hispanoamericanas y de Pensamiento Geográfico
+## Fuentes Hispanoamericanas y de Pensamiento Geográfico
 
 Durante la formulación teórica y epistemológica del proyecto se identificaron las siguientes fuentes en español y obras fundacionales que complementan el marco conceptual del Atlas territorial:
 
