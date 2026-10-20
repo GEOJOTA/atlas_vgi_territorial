@@ -140,19 +140,59 @@ C_{\text{gran}} = \left( 1 - \frac{N_{\text{slivers}}}{N_{\text{polígonos}}} \r
 $$
 
 #### Dimensión 6: Metadatos Núcleo ISO 19115 ($M_{\text{core}}$ — Peso 30% en Pilar 2)
-Audita la presencia de los 10 campos indispensables del perfil básico ISO 19115-1:2014: título formal, resumen descriptivo, fecha de publicación, sistema de referencia (EPSG), tipo de representación espacial, palabras clave temáticas, extensión geográfica BBox, punto de contacto institucional, frecuencia de mantenimiento y formato de distribución.
+Audita dinámicamente la presencia y validez de los **10 elementos indispensables** del perfil básico ISO 19115-1:2014 / SNIT v2.0 (título formal, resumen metodológico, fecha de publicación, sistema de referencia geodésico EPSG, tipo de representación espacial, palabras clave temáticas, extensión BBox, punto de contacto institucional, frecuencia de actualización y formato de distribución):
+
+$$
+M_{\text{core}} = \min \left( 100, \, \left( \frac{\sum_{k=1}^{10} \mathbb{I}(E_k \neq \emptyset)}{10} \right) \times 100 + B_{\text{desc}} \right)
+$$
+
+Donde $E_k$ representa cada uno de los 10 elementos núcleo obligatorios, $\mathbb{I}(E_k \neq \emptyset)$ es la función indicatriz que asigna $1$ si el campo existe y contiene una cadena válida no vacía y $0$ en caso de ausencia, y $B_{\text{desc}}$ es un factor de exhaustividad documental ($+2.0\%$) asignado cuando el resumen metodológico supera los 60 caracteres descriptivos.
+* **Procedimiento de Auditoría Dinámica:** El script [`scripts/modelo_indice_lineal_wlc.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/modelo_indice_lineal_wlc.py) y el inspector de metadatos leen el nodo raíz `metadata` embebido en cada GeoJSON o cruzan el identificador de la capa contra el catálogo OpenXML [`src/docs/perfil_metadatos_vgi.xlsx`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/docs/perfil_metadatos_vgi.xlsx). Mediante introspección JSON por clave-valor (`meta.get('title')`, `meta.get('description')`, `meta.get('institution')`, etc.), se computa en memoria el porcentaje de completitud del registro documental.
 
 #### Dimensión 7: Linaje Metodológico y Legal ($M_{\text{linaje}}$ — Peso 25% en Pilar 2)
-Verifica la presencia explícita de la declaración de procedencia (*lineage statement*), los pasos de transformación espacial aplicados, la cita bibliográfica normalizada bajo norma APA 7ª edición y la base legal de reutilización (Ley N° 20.285 de Transparencia, licencia ODbL 1.0 o CC BY-SA 4.0).
+Verifica la trazabilidad del dato espacial, la cadena de custodia metodológica y la fundamentación jurídica de reutilización (Ley N° 20.285 sobre Acceso a la Información Pública del Estado de Chile, o licencias abiertas ODbL 1.0 y Creative Commons CC BY-SA 4.0):
+
+$$
+M_{\text{linaje}} = \min \left( 100, \, \left( \frac{\mathbb{I}_{\text{cita}} + \mathbb{I}_{\text{url}} + \mathbb{I}_{\text{entidad}} + \mathbb{I}_{\text{licencia}}}{4} \right) \times 80 + B_{\text{fuente}} \right)
+$$
+
+Donde $\mathbb{I}_{\text{cita}}$ comprueba la existencia de la cita normalizada bajo norma APA 7ª edición, $\mathbb{I}_{\text{url}}$ valida que el geoservicio o repositorio de origen sea una URL operativa, $\mathbb{I}_{\text{entidad}}$ corrobora la atribución institucional u comunitaria emisora, $\mathbb{I}_{\text{licencia}}$ confirma la declaración explícita de derechos, y $B_{\text{fuente}}$ es una bonificación de linaje trazable ($+18.0\%$ para geodatos oficiales del Estado auditados y $+10.0\%$ a $+12.0\%$ para coberturas comunitarias VGI con registro de changeset OSM).
+* **Procedimiento de Auditoría Dinámica:** El evaluador analiza las cadenas atributivas de procedencia mediante expresiones regulares (`r"^https?://"`), coteja los términos normativos de licenciamiento en la tabla de atributos (`declaracion`, `licencia`, `fuente`) y valida que los cambios en geometrías comunitarias mantengan referencia al changeset o extractor Overpass QL utilizado.
 
 #### Dimensión 8: Conformidad Normativa con Esquemas XML ($M_{\text{conf}}$ — Peso 20% en Pilar 2)
-Evalúa la validación sintáctica del metadato contra los esquemas XSD de la norma ISO 19139:2007 (`gmd:MD_Metadata`), garantizando que la ficha pueda ser cosechada por catálogos CSW institucionales (GeoNetwork, GeoNode o IDE Chile).
+Evalúa la conformidad sintáctica y estructural de los metadatos frente a los esquemas XSD oficiales de la norma ISO 19139:2007 (`gmd:MD_Metadata`) y el catálogo de fenómenos geográficos ISO 19110:2016:
+
+$$
+M_{\text{conf}} = \min \left( 100, \, \left( \frac{\mathbb{I}_{\text{geom-ogc}} + \mathbb{I}_{\text{servicio}} + \mathbb{I}_{\text{clasif}} + \mathbb{I}_{\text{simb}}}{4} \right) \times 80 + B_{\text{esquema}} \right)
+$$
+
+Donde $\mathbb{I}_{\text{geom-ogc}}$ valida que la geometría corresponda estrictamente a los tipos vectoriales admitidos por ISO 19107 / OGC Simple Features, $\mathbb{I}_{\text{servicio}}$ comprueba la interoperabilidad de servicio (WFS, WMS, GeoJSON), $\mathbb{I}_{\text{clasif}}$ verifica la adscripción taxonómica a las macrocategorías del Atlas, $\mathbb{I}_{\text{simb}}$ valida la configuración unívoca de iconografía SVG y estilo cartográfico `#hex`, y $B_{\text{esquema}}$ representa el factor de validación sintáctica contra el esquema XSD de IDE Chile ($+14.0\%$ a $+18.0\%$).
+* **Procedimiento de Auditoría Dinámica:** El validador procesa las fichas XML exportadas por el Módulo 05 ([`src/js/modulos/metadatos.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/metadatos.js)) utilizando el parser de esquema `xmlschema` / `lxml`, comprobando que no existan nodos XML mal formados, elementos obligatorios omitidos ni discrepancias en los espacios de nombres (`xmlns:gmd`, `xmlns:gco`).
 
 #### Dimensión 9: Resolución Espacial y Escala Equivalente ($M_{\text{res}}$ — Peso 15% en Pilar 2)
-Verifica la declaración formal de la escala cartográfica equivalente de captura (ej. 1:1.000, 1:5.000) o la distancia de muestreo terrestre (GSD), evitando que usuarios utilicen datos a escalas para las cuales no fueron diseñados.
+Mide la pertinencia cartográfica entre la escala de captura del conjunto de datos y el ámbito de gestión microterritorial de Barrio Brasil, penalizando el uso de datos macroescalares o generalizados en análisis barriales:
+
+$$
+M_{\text{res}} = \begin{cases} 
+100.0\% & \text{si la escala es de detalle predial / barrial } (\le 1:1.000 \text{ o precisión submétrica}) \\
+92.0\% - 95.0\% & \text{si la escala es comunal / manzana censal } (1:1.000 < E \le 1:5.000) \\
+85.0\% - 88.0\% & \text{si la escala es intercomunal / vial estructurante } (1:5.000 < E \le 1:25.000) \\
+75.0\% - 80.0\% & \text{si la escala es regional / generalizada } (> 1:25.000)
+\end{cases}
+$$
+
+Donde $E$ representa la escala cartográfica nominal equivalente y la distancia de muestreo terrestre (GSD).
+* **Procedimiento de Auditoría Dinámica:** El algoritmo calcula la densidad geométrica relativa de vértices por entidad ($\delta_v = V_{\text{totales}} / N_{\text{entidades}}$) y analiza las palabras clave de granularidad en el identificador de la capa (`predial`, `manzana`, `local`, `intercomunal`, `regional`). Capas de alta resolución espacial (cruces peatonales PMR, luminarias, arbolado viario) obtienen puntuación máxima ($100.0\%$), mientras que polígonos regionales de amortiguación reciben una calificación ajustada a su nivel de generalización.
 
 #### Dimensión 10: Accesibilidad Operativa y Enlaces Web ($M_{\text{acc}}$ — Peso 10% en Pilar 2)
-Comprueba mediante solicitudes HTTP automatizadas (`HEAD` o `GET`) que los enlaces declarados en el metadato (URL del geoservicio de origen, enlace de descarga GeoJSON y documentación) respondan con código `HTTP 200 OK` y no presenten barreras arancelarias ni muros de registro.
+Comprueba la disponibilidad operativa inmediata y la accesibilidad pública de los geodatos, penalizando barreras arancelarias, formularios de registro forzoso o hipervínculos rotos:
+
+$$
+M_{\text{acc}} = \min \left( 100, \, P_{\text{archivo}} + P_{\text{descarga}} + P_{\text{latencia}} \right)
+$$
+
+Donde $P_{\text{archivo}} = 50.0\%$ si el archivo GeoJSON existe físicamente en el repositorio (`src/data/`) y no corresponde a un puntero LFS corrupto, $P_{\text{descarga}} = 30.0\%$ si cuenta con endpoint local de descarga transparente o RPC en Supabase, y $P_{\text{latencia}}$ es el puntaje de eficiencia de transferencia ($20.0\%$ si el peso es $\le 5\text{ MB}$; $15.0\%$ si se encuentra entre $5\text{ y }15\text{ MB}$; y $10.0\%$ si supera los $15\text{ MB}$, recomendando en este último caso compresión Gzip o particionamiento).
+* **Procedimiento de Auditoría Dinámica:** El script de verificación de despliegue ([`scripts/verificar_integridad_despliegue.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/verificar_integridad_despliegue.py)) y la función `evaluar_capa_individual()` de [`scripts/modelo_indice_lineal_wlc.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/modelo_indice_lineal_wlc.py) ejecutan llamadas de verificación física con `os.path.exists()` y `os.path.getsize()`, enviando además solicitudes HTTP `HEAD` a los geoservicios externos declarados en los metadatos para verificar que devuelvan código `HTTP 200 OK` sin redirecciones ni errores `404 Not Found`.
 
 ### 15.3. Rangos y Certificación Formal de Calidad
 De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certifican en cuatro categorías normativas:
