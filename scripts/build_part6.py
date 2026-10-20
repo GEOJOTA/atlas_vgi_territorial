@@ -636,7 +636,11 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 - **Invocación CLI:** `python3 scripts/modelo_indice_lineal_wlc.py --export-csv "catalogos/metricas_calidad_wlc.csv"`
 - **Dependencias:** `math`, `csv`, `json`.
 - **Ecuación Evaluada:**
-  $$IGV = 0.50 \cdot P_{\text{cuant}} + 0.50 \cdot P_{\text{cual}}$$
+
+  $$
+  IGV = 0.50 \cdot P_{\text{cuant}} + 0.50 \cdot P_{\text{cual}}
+  $$
+
 - **Salidas:** Matriz de puntajes de calidad y actualización del campo `indice_calidad_wlc` en cada capa GeoJSON.
 
 ---
@@ -897,7 +901,11 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 2: Validación de Geometrías y Bounding Box WGS84
 - **Metodología:** Verifica que las coordenadas se encuentren dentro de los rangos válidos del elipsoide WGS84:
-  $$-180.0 \le \text{Longitud} \le 180.0 \quad \text{y} \quad -90.0 \le \text{Latitud} \le 90.0$$
+
+  $$
+  -180.0 \le \text{Longitud} \le 180.0 \quad \text{y} \quad -90.0 \le \text{Latitud} \le 90.0
+  $$
+
   Para el caso específico de Barrio Brasil y Santiago Centro, comprueba que las coordenadas no estén invertidas (evitando el error común de asignar Latitud a Longitud).
 - **Criterio de Aprobación:** 100% de geometrías válidas y polígonos cerrados (primer punto idéntico al último).
 
@@ -908,7 +916,11 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 4: Normalización Matemática del Índice WLC
 - **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-  $$0.0000 \le \text{calidad-wlc} \le 1.0000$$
+
+  $$
+  0.0000 \le \text{calidad-wlc} \le 1.0000
+  $$
+
 - **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)

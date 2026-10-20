@@ -129,7 +129,9 @@ descargas/atlas_vgi_uah_base_datos_completa.zip filter=lfs diff=lfs merge=lfs -t
 
 Para mantener un historial de cambios legible, auditable y compatible con generadores automáticos de bitácoras (*Changelogs*), todo commit en el repositorio debe seguir la convención semántica:
 
-$$\text{tipo(ámbito opcional): descripción en presente o infinitivo}$$
+$$
+\text{tipo(ámbito opcional): descripción en presente o infinitivo}
+$$
 
 | Prefijo | Significado y Casos de Uso en el Atlas |
 |---|---|

@@ -111,7 +111,9 @@ descargas/atlas_vgi_uah_base_datos_completa.zip filter=lfs diff=lfs merge=lfs -t
 
 Para mantener un historial de cambios legible, auditable y compatible con generadores automáticos de bitácoras (*Changelogs*), todo commit en el repositorio debe seguir la convención semántica:
 
-$$\text{tipo(ámbito opcional): descripción en presente o infinitivo}$$
+$$
+\text{tipo(ámbito opcional): descripción en presente o infinitivo}
+$$
 
 | Prefijo | Significado y Casos de Uso en el Atlas |
 |---|---|
@@ -891,7 +893,7 @@ A continuación se presenta la transcripción y verificación exacta de las 51 r
 
 ---
 
-## Fuentes Hispanoamericanas y de Pensamiento Geográfico
+## 3. Fuentes Hispanoamericanas y de Pensamiento Geográfico
 
 Durante la formulación teórica y epistemológica del proyecto se identificaron las siguientes fuentes en español y obras fundacionales que complementan el marco conceptual del Atlas territorial:
 

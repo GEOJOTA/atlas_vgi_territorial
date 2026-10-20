@@ -17,7 +17,9 @@ El Atlas opera como una **plataforma abierta y reproducible que articula geodato
 ### Delimitación Geodésica y Cobertura Territorial
 El área de estudio piloto corresponde a un polígono continuo de **223,75 hectáreas** emplazado en el sector poniente de la comuna de Santiago Centro. Su delimitación geodésica estricta se encuentra definida en coordenadas geográficas WGS84 (EPSG:4326) y en su proyección métrica conforme oficial SIRGAS-Chile / UTM Huso 19 Sur (EPSG:32719):
 
-$$\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]$$
+$$
+\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]
+$$
 
 * **Límite Norte:** Eje vial de Avenida San Pablo y calle Rosas (transición hacia Barrio Yungay).
 * **Límite Sur:** Eje estructurante de Avenida Libertador Bernardo O'Higgins / Alameda (corredor de transporte metropolitano, Línea 1 de Metro con estaciones Los Héroes y República).

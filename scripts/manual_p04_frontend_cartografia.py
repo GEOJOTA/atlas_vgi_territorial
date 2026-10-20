@@ -181,7 +181,9 @@ sequenceDiagram
 ### 22.1. El Algoritmo Ray-Casting (Point-in-Polygon)
 Para evitar peticiones lentas a servidores remotos, el cálculo se realiza íntegramente en JavaScript mediante el **Algoritmo de Trazado de Rayos (*Ray-Casting Algorithm*)**, fundamentado en el Teorema de la Curva de Jordan:
 
-$$\text{Si el número de intersecciones de un rayo horizontal con el perímetro es impar } \implies \text{Punto Interior}$$
+$$
+\text{Si el número de intersecciones de un rayo horizontal con el perímetro es impar } \implies \text{Punto Interior}
+$$
 
 ```javascript
 // Algoritmo de Trazado de Rayos (Jordan Curve Theorem) implementado en el Atlas

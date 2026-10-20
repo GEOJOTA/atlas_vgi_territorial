@@ -16,7 +16,9 @@ El Atlas opera como una **plataforma abierta y reproducible que articula geodato
 ### Delimitación Geodésica y Cobertura Territorial
 El área de estudio piloto corresponde a un polígono continuo de **223,75 hectáreas** emplazado en el sector poniente de la comuna de Santiago Centro. Su delimitación geodésica estricta se encuentra definida en coordenadas geográficas WGS84 (EPSG:4326) y en su proyección métrica conforme oficial SIRGAS-Chile / UTM Huso 19 Sur (EPSG:32719):
 
-$$\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]$$
+$$
+\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]
+$$
 
 * **Límite Norte:** Eje vial de Avenida San Pablo y calle Rosas (transición hacia Barrio Yungay).
 * **Límite Sur:** Eje estructurante de Avenida Libertador Bernardo O'Higgins / Alameda (corredor de transporte metropolitano, Línea 1 de Metro con estaciones Los Héroes y República).
@@ -1179,52 +1181,74 @@ flowchart TD
 ### 15.1. Formulación Matemática Canónica
 El Índice Global de Calidad Geográfica ($IGV$) de cada capa cartográfica se define como la combinación lineal equilibrada de dos pilares ortogonales ponderados equitativamente al 50%:
 
-$$IGV = 0.50 \cdot P_{\text{cuantitativo}} + 0.50 \cdot P_{\text{cualitativo}}$$
+$$
+IGV = 0.50 \cdot P_{\text{cuantitativo}} + 0.50 \cdot P_{\text{cualitativo}}
+$$
 
 Donde el **Pilar Cuantitativo Espacial** ($P_{\text{cuantitativo}} \in [0, 100]$) evalúa las propiedades geométricas y la completitud del archivo GeoJSON:
 
-$$P_{\text{cuantitativo}} = w_{c1} \cdot C_{\text{topo}} + w_{c2} \cdot C_{\text{comp}} + w_{c3} \cdot C_{\text{pos}} + w_{c4} \cdot C_{\text{estruc}} + w_{c5} \cdot C_{\text{gran}}$$
+$$
+P_{\text{cuantitativo}} = w_{c1} \cdot C_{\text{topo}} + w_{c2} \cdot C_{\text{comp}} + w_{c3} \cdot C_{\text{pos}} + w_{c4} \cdot C_{\text{estruc}} + w_{c5} \cdot C_{\text{gran}}
+$$
 
 Con el vector de ponderadores cuantitativos normalizado a la unidad:
-$$\mathbf{w}_c = [0.30, 0.25, 0.20, 0.15, 0.10], \quad \sum_{i=1}^5 w_{ci} = 1.00$$
+
+$$
+\mathbf{w}_c = [0.30, 0.25, 0.20, 0.15, 0.10], \quad \sum_{i=1}^{5} w_{ci} = 1.00
+$$
 
 Y el **Pilar Cualitativo de Metadatos** ($P_{\text{cualitativo}} \in [0, 100]$) evalúa el cumplimiento normativo de la gobernanza de datos conforme al estándar ISO 19115-1:2014:
 
-$$P_{\text{cualitativo}} = w_{m1} \cdot M_{\text{core}} + w_{m2} \cdot M_{\text{linaje}} + w_{m3} \cdot M_{\text{conf}} + w_{m4} \cdot M_{\text{res}} + w_{m5} \cdot M_{\text{acc}}$$
+$$
+P_{\text{cualitativo}} = w_{m1} \cdot M_{\text{core}} + w_{m2} \cdot M_{\text{linaje}} + w_{m3} \cdot M_{\text{conf}} + w_{m4} \cdot M_{\text{res}} + w_{m5} \cdot M_{\text{acc}}
+$$
 
-Con el vector de ponderadores cualitativos normalizado:
-$$\mathbf{w}_m = [0.30, 0.25, 0.20, 0.15, 0.10], \quad \sum_{j=1}^5 w_{mj} = 1.00$$
+Con el vector de ponderadores cualitativos normalizado a la unidad:
+
+$$
+\mathbf{w}_m = [0.30, 0.25, 0.20, 0.15, 0.10], \quad \sum_{j=1}^{5} w_{mj} = 1.00
+$$
 
 ### 15.2. Desglose Algorítmico y Fórmulas de las 10 Dimensiones de Calidad
 
 #### Dimensión 1: Consistencia Topológica OGC ($C_{\text{topo}}$ — Peso 30% en Pilar 1)
 Evalúa que las geometrías respeten los axiomas de la especificación *OGC Simple Feature Access* (ISO 19125-1). En el caso de polígonos, verifica que el primer y último vértice sean idénticos (anillo cerrado), que no existan auto-intersecciones en bordes (*kinks* o lazos en ocho) y que los orificios interiores se encuentren estrictamente contenidos en la cáscara exterior (*exterior ring*):
 
-$$C_{\text{topo}} = \left( 1 - \frac{N_{\text{inválidas}} + N_{\text{colapsadas}}}{N_{\text{total}}} \right) \times 100$$
+$$
+C_{\text{topo}} = \left( 1 - \frac{N_{\text{inválidas}} + N_{\text{colapsadas}}}{N_{\text{total}}} \right) \times 100
+$$
 
 Donde $N_{\text{inválidas}}$ se calcula mediante la función booleana `ST_IsValid(geom)` en PostGIS o `shapely.validation.explain_validity()` en Python.
 
 #### Dimensión 2: Completitud Tabular de Atributos ($C_{\text{comp}}$ — Peso 25% en Pilar 1)
 Mide la ausencia de valores nulos (`null`), indefinidos (`undefined`) o cadenas de caracteres vacías (`""` o `" "`) en los campos informativos de la tabla de atributos:
 
-$$C_{\text{comp}} = \left( \frac{\sum_{i=1}^N \sum_{j=1}^K \mathbb{I}(a_{ij} \neq \emptyset)}{N \cdot K} \right) \times 100$$
+$$
+C_{\text{comp}} = \left( \frac{\sum_{i=1}^N \sum_{j=1}^K \mathbb{I}(a_{ij} \neq \emptyset)}{N \cdot K} \right) \times 100
+$$
 
 Donde $N$ es el total de entidades, $K$ es el número de campos evaluados y $\mathbb{I}$ es la función indicatriz que asigna $1$ si la celda contiene un dato válido y $0$ si es nulo.
 
 #### Dimensión 3: Integridad Posicional Geodésica ($C_{\text{pos}}$ — Peso 20% en Pilar 1)
 Verifica que las coordenadas de los vértices se ubiquen estrictamente dentro del ámbito territorial legítimo (Bounding Box de la Región Metropolitana de Santiago: $[-71.72, -34.30, -69.75, -32.92]$), penalizando severamente valores fuera de rango o coordenadas invertidas (Lat/Lon en lugar de Lon/Lat):
 
-$$C_{\text{pos}} = \left( \frac{V_{\text{dentro-bbox}}}{V_{\text{total-vértices}}} \right) \times 100$$
+$$
+C_{\text{pos}} = \left( \frac{V_{\text{dentro-bbox}}}{V_{\text{total-vértices}}} \right) \times 100
+$$
 
 #### Dimensión 4: Estructura y Esquema Normalizado ($C_{\text{estruc}}$ — Peso 15% en Pilar 1)
 Evalúa la adopción del esquema maestro de los **14 atributos ISO obligatorios** en el objeto `properties` de cada Feature, verificando que los identificadores `id_atlas` sean unívocos y no presenten colisiones de clave primaria:
 
-$$C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos-faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids-únicos}}}{N_{\text{total}}} \right)$$
+$$
+C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos-faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids-únicos}}}{N_{\text{total}}} \right)
+$$
 
 #### Dimensión 5: Granularidad y Micro-Slivers ($C_{\text{gran}}$ — Peso 10% en Pilar 1)
 Detecta y penaliza polígonos degenerados (*slivers*) de área despreciable resultantes de errores de digitalización o intersecciones defectuosas (polígonos con área $< 0.5 \text{ m}^2$ o líneas de longitud nula):
 
-$$C_{\text{gran}} = \left( 1 - \frac{N_{\text{slivers}}}{N_{\text{polígonos}}} \right) \times 100$$
+$$
+C_{\text{gran}} = \left( 1 - \frac{N_{\text{slivers}}}{N_{\text{polígonos}}} \right) \times 100
+$$
 
 #### Dimensión 6: Metadatos Núcleo ISO 19115 ($M_{\text{core}}$ — Peso 30% en Pilar 2)
 Audita la presencia de los 10 campos indispensables del perfil básico ISO 19115-1:2014: título formal, resumen descriptivo, fecha de publicación, sistema de referencia (EPSG), tipo de representación espacial, palabras clave temáticas, extensión geográfica BBox, punto de contacto institucional, frecuencia de mantenimiento y formato de distribución.
@@ -1258,7 +1282,9 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 ### 16.1. Matriz de Correlación Lineal de Pearson ($r$)
 Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 131 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
 
-$$r_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}$$
+$$
+r_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}
+$$
 
 * **Hallazgo Clave 1 (Ortogonalidad Cuantitativa vs. Cualitativa):** La correlación promedio entre las dimensiones del Pilar 1 (geometría) y las del Pilar 2 (metadatos) es de $r = 0.22$, lo que demuestra que un archivo GeoJSON puede ser geométricamente perfecto (topología 100%) pero carecer de linaje y metadatos, o viceversa. Esto justifica plenamente la ponderación al 50% de ambos pilares.
 * **Hallazgo Clave 2 (Completitud vs. Linaje):** Existe una correlación positiva moderada ($r = 0.58$) entre la completitud de atributos y la calidad del linaje, indicando que las instituciones que documentan formalmente sus metodologías tienden a generar tablas de atributos más completas.
@@ -1630,7 +1656,9 @@ sequenceDiagram
 ### 22.1. El Algoritmo Ray-Casting (Point-in-Polygon)
 Para evitar peticiones lentas a servidores remotos, el cálculo se realiza íntegramente en JavaScript mediante el **Algoritmo de Trazado de Rayos (*Ray-Casting Algorithm*)**, fundamentado en el Teorema de la Curva de Jordan:
 
-$$\text{Si el número de intersecciones de un rayo horizontal con el perímetro es impar } \implies \text{Punto Interior}$$
+$$
+\text{Si el número de intersecciones de un rayo horizontal con el perímetro es impar } \implies \text{Punto Interior}
+$$
 
 ```javascript
 // Algoritmo de Trazado de Rayos (Jordan Curve Theorem) implementado en el Atlas
@@ -3128,7 +3156,11 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 - **Invocación CLI:** `python3 scripts/modelo_indice_lineal_wlc.py --export-csv "catalogos/metricas_calidad_wlc.csv"`
 - **Dependencias:** `math`, `csv`, `json`.
 - **Ecuación Evaluada:**
-  $$IGV = 0.50 \cdot P_{\text{cuant}} + 0.50 \cdot P_{\text{cual}}$$
+
+  $$
+  IGV = 0.50 \cdot P_{\text{cuant}} + 0.50 \cdot P_{\text{cual}}
+  $$
+
 - **Salidas:** Matriz de puntajes de calidad y actualización del campo `indice_calidad_wlc` en cada capa GeoJSON.
 
 ---
@@ -3389,7 +3421,11 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 2: Validación de Geometrías y Bounding Box WGS84
 - **Metodología:** Verifica que las coordenadas se encuentren dentro de los rangos válidos del elipsoide WGS84:
-  $$-180.0 \le \text{Longitud} \le 180.0 \quad \text{y} \quad -90.0 \le \text{Latitud} \le 90.0$$
+
+  $$
+  -180.0 \le \text{Longitud} \le 180.0 \quad \text{y} \quad -90.0 \le \text{Latitud} \le 90.0
+  $$
+
   Para el caso específico de Barrio Brasil y Santiago Centro, comprueba que las coordenadas no estén invertidas (evitando el error común de asignar Latitud a Longitud).
 - **Criterio de Aprobación:** 100% de geometrías válidas y polígonos cerrados (primer punto idéntico al último).
 
@@ -3400,7 +3436,11 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 4: Normalización Matemática del Índice WLC
 - **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-  $$0.0000 \le \text{calidad-wlc} \le 1.0000$$
+
+  $$
+  0.0000 \le \text{calidad-wlc} \le 1.0000
+  $$
+
 - **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)
@@ -3723,7 +3763,9 @@ descargas/atlas_vgi_uah_base_datos_completa.zip filter=lfs diff=lfs merge=lfs -t
 
 Para mantener un historial de cambios legible, auditable y compatible con generadores automáticos de bitácoras (*Changelogs*), todo commit en el repositorio debe seguir la convención semántica:
 
-$$\text{tipo(ámbito opcional): descripción en presente o infinitivo}$$
+$$
+\text{tipo(ámbito opcional): descripción en presente o infinitivo}
+$$
 
 | Prefijo | Significado y Casos de Uso en el Atlas |
 |---|---|
@@ -4503,7 +4545,7 @@ A continuación se presenta la transcripción y verificación exacta de las 51 r
 
 ---
 
-## Fuentes Hispanoamericanas y de Pensamiento Geográfico
+## 3. Fuentes Hispanoamericanas y de Pensamiento Geográfico
 
 Durante la formulación teórica y epistemológica del proyecto se identificaron las siguientes fuentes en español y obras fundacionales que complementan el marco conceptual del Atlas territorial:
 
@@ -5726,19 +5768,30 @@ En el marco del compromiso ético y de inclusión de la Universidad Alberto Hurt
 ### 55.1. Fórmula Matemática de Luminancia Relativa y Contraste
 La luminancia relativa ($L$) de cualquier color RGB normalizado en $[0, 1]$ se calcula mediante:
 
-$$L = 0.2126 \cdot R + 0.7152 \cdot G + 0.0722 \cdot B$$
+$$
+L = 0.2126 \cdot R + 0.7152 \cdot G + 0.0722 \cdot B
+$$
 
 Donde cada canal se linealiza como:
-$$C = \begin{cases} \frac{C_{\text{sRGB}}}{12.92} & \text{si } C_{\text{sRGB}} \le 0.03928 \\ \left(\frac{C_{\text{sRGB}} + 0.055}{1.055}\right)^{2.4} & \text{si } C_{\text{sRGB}} > 0.03928 \end{cases}$$
+
+$$
+C = \begin{cases} \frac{C_{\text{sRGB}}}{12.92} & \text{si } C_{\text{sRGB}} \le 0.03928 \\ \left(\frac{C_{\text{sRGB}} + 0.055}{1.055}\right)^{2.4} & \text{si } C_{\text{sRGB}} > 0.03928 \end{cases}
+$$
 
 La relación de contraste entre dos colores con luminancias $L_1$ (más claro) y $L_2$ (más oscuro) se determina por:
 
-$$\text{Ratio de Contraste} = \frac{L_1 + 0.05}{L_2 + 0.05} \ge 7.00:1 \quad (\text{WCAG AAA})$$
+$$
+\text{Ratio de Contraste} = \frac{L_1 + 0.05}{L_2 + 0.05} \ge 7.00:1 \quad (\text{WCAG AAA})
+$$
 
 ### 55.2. Verificación de Accesibilidad en la Paleta del Atlas
 - **Fondo Oscuro (`#0f172a`):** Luminancia $L_2 = 0.012$.
 - **Texto Blanco (`#ffffff`):** Luminancia $L_1 = 1.000$.
-  $$\text{Contraste} = \frac{1.000 + 0.05}{0.012 + 0.05} = \frac{1.05}{0.062} \approx \mathbf{16.93:1} \quad (\text{Supera ampliamente el umbral AAA de 7:1})$$
+
+  $$
+  \text{Contraste} = \frac{1.000 + 0.05}{0.012 + 0.05} = \frac{1.05}{0.062} \approx \mathbf{16.93:1} \quad (\text{Supera ampliamente el umbral AAA de 7:1})
+  $$
+
 - **Verde Musgo (`#2d5a27`) sobre Blanco (`#ffffff`):** Luminancia $L_2 = 0.088 \implies \text{Contraste} = \frac{1.05}{0.138} \approx \mathbf{7.61:1}$ (Cumple WCAG AAA).
 
 ---

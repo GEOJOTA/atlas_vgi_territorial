@@ -630,19 +630,30 @@ En el marco del compromiso ético y de inclusión de la Universidad Alberto Hurt
 ### 55.1. Fórmula Matemática de Luminancia Relativa y Contraste
 La luminancia relativa ($L$) de cualquier color RGB normalizado en $[0, 1]$ se calcula mediante:
 
-$$L = 0.2126 \cdot R + 0.7152 \cdot G + 0.0722 \cdot B$$
+$$
+L = 0.2126 \cdot R + 0.7152 \cdot G + 0.0722 \cdot B
+$$
 
 Donde cada canal se linealiza como:
-$$C = \begin{cases} \frac{C_{\text{sRGB}}}{12.92} & \text{si } C_{\text{sRGB}} \le 0.03928 \\ \left(\frac{C_{\text{sRGB}} + 0.055}{1.055}\right)^{2.4} & \text{si } C_{\text{sRGB}} > 0.03928 \end{cases}$$
+
+$$
+C = \begin{cases} \frac{C_{\text{sRGB}}}{12.92} & \text{si } C_{\text{sRGB}} \le 0.03928 \\ \left(\frac{C_{\text{sRGB}} + 0.055}{1.055}\right)^{2.4} & \text{si } C_{\text{sRGB}} > 0.03928 \end{cases}
+$$
 
 La relación de contraste entre dos colores con luminancias $L_1$ (más claro) y $L_2$ (más oscuro) se determina por:
 
-$$\text{Ratio de Contraste} = \frac{L_1 + 0.05}{L_2 + 0.05} \ge 7.00:1 \quad (\text{WCAG AAA})$$
+$$
+\text{Ratio de Contraste} = \frac{L_1 + 0.05}{L_2 + 0.05} \ge 7.00:1 \quad (\text{WCAG AAA})
+$$
 
 ### 55.2. Verificación de Accesibilidad en la Paleta del Atlas
 - **Fondo Oscuro (`#0f172a`):** Luminancia $L_2 = 0.012$.
 - **Texto Blanco (`#ffffff`):** Luminancia $L_1 = 1.000$.
-  $$\text{Contraste} = \frac{1.000 + 0.05}{0.012 + 0.05} = \frac{1.05}{0.062} \approx \mathbf{16.93:1} \quad (\text{Supera ampliamente el umbral AAA de 7:1})$$
+
+  $$
+  \text{Contraste} = \frac{1.000 + 0.05}{0.012 + 0.05} = \frac{1.05}{0.062} \approx \mathbf{16.93:1} \quad (\text{Supera ampliamente el umbral AAA de 7:1})
+  $$
+
 - **Verde Musgo (`#2d5a27`) sobre Blanco (`#ffffff`):** Luminancia $L_2 = 0.088 \implies \text{Contraste} = \frac{1.05}{0.138} \approx \mathbf{7.61:1}$ (Cumple WCAG AAA).
 
 ---

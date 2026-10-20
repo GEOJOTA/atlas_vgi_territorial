@@ -10,7 +10,7 @@ PARTE_02 = r"""# PARTE II: INGENIERÍA DE DATOS, PIPELINES DE EXTRACCIÓN Y NORM
 
 ## 6. Arquitectura y Taxonomía de las 10 Macrocategorías Comunitarias VGI
 
-Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas VGI estableció una **taxonomía de 10 macrocategorías temáticas maestras (CAT-01 a CAT-10)**, cruzando las etiquetas de la Wiki oficial de OpenStreetMap con el estándar Darwin Core de biodiversidad y la Ordenanza General de Urbanismo y Construcciones (OGUC).
+Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas VGI estableció una **taxonomía de 10 macrocategorías temáticas maestras (CAT-01 a CAT-10)**, cruzando las etiquetas de la Wiki oficial de OpenStreetMap con el estándar Darwin Core de biodiversidad.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -32,62 +32,52 @@ Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas
 A continuación se detalla la especificación técnica de cada categoría:
 
 ### 6.1. CAT-01: Educación y Universidad
-* **Propósito Territorial:** Mapear la infraestructura educacional escolar, preescolar y universitaria, fundamental para el análisis de flujos peatonales estudiantiles hacia el campus de la Universidad Alberto Hurtado.
 * **Etiquetas OSM Primarias:** `amenity=school`, `amenity=kindergarten`, `amenity=college`, `amenity=university`, `amenity=library`.
 * **Etiquetas OSM Complementarias:** `operator:type=public|private`, `name=*`, `addr:street=*`, `capacity=*`, `wheelchair=yes|no|limited`.
 * **Geometrías Admitidas:** Puntos (nodos de acceso) y Polígonos (huella predial del establecimiento).
 * **Entidades Clave en Barrio Brasil:** Campus Universidad Alberto Hurtado (sedes patrimoniales Cienfuegos, Erasmo Escala y Almirante Barroso), Liceo Experimental Manuel de Salas, Escuela Básica República de Panamá, Biblioteca Pública de Santiago.
 
 ### 6.2. CAT-02: Servicios y Comercio Barrial
-* **Propósito Territorial:** Identificar la red de atención médica de urgencia, centros de salud comunal y establecimientos farmacéuticos para el cálculo de isócronas de accesibilidad de adultos mayores.
 * **Etiquetas OSM Primarias:** `amenity=hospital`, `amenity=clinic`, `amenity=doctors`, `amenity=pharmacy`, `healthcare=centre`.
 * **Etiquetas Complementarias:** `emergency=yes|no`, `dispensing=yes`, `opening_hours=*`.
 * **Entidades Clave:** Hospital San Juan de Dios (entorno poniente), CESFAM Ignacio Domeyko, SAPU barrial, farmacias comunitarias y farmacias de turno de calle San Pablo.
 
 ### 6.3. CAT-03: Movilidad y Transporte
-* **Propósito Territorial:** Representar los puntos de acceso al sistema de transporte público metropolitano (RED Movilidad y Metro de Santiago).
 * **Etiquetas OSM Primarias:** `highway=bus_stop`, `railway=station`, `railway=subway_entrance`, `amenity=bus_station`.
 * **Etiquetas Complementarias:** `shelter=yes|no`, `bench=yes|no`, `network=Red Metropolitana de Movilidad`, `operator=Metro de Santiago`.
 * **Entidades Clave:** Estaciones de Metro Los Héroes (Línea 1 y Línea 2), Santa Ana (Línea 2 y Línea 5), Cumming (Línea 5), paraderos troncales de Alameda, San Pablo y Manuel Rodríguez.
 
 ### 6.4. CAT-04: Movilidad Activa y Ciclovías
-* **Propósito Territorial:** Diagnosticar la red de movilidad ciclista y micromovilidad, evaluando continuidad de ejes y zonas de conflicto con el transporte motorizado.
 * **Etiquetas OSM Primarias:** `highway=cycleway`, `cycleway=lane|track|shared_lane`, `amenity=bicycle_parking`, `amenity=bicycle_repair_station`.
 * **Etiquetas Complementarias:** `segregated=yes|no`, `surface=asphalt|paved`, `capacity=*`.
 * **Entidades Clave:** Ciclovía Avenida Brasil, ciclovía calle Rosas, ciclovía calle Mapocho, bicicleteros de las estaciones de Metro y talleres barriales.
 
 ### 6.5. CAT-05: Áreas Verdes y Espacio Público
-* **Propósito Territorial:** Evaluar la superficie efectiva de esparcimiento vecinal y áreas verdes de permanencia.
 * **Etiquetas OSM Primarias:** `leisure=park`, `leisure=pitch`, `leisure=playground`, `highway=pedestrian`.
 * **Etiquetas Complementarias:** `surface=grass|paved`, `lit=yes|no`, `access=yes`.
 * **Entidades Clave:** Plaza Brasil, Plaza Yungay, Plaza Manuel Rodríguez, bulevares peatonales y áreas de juegos infantiles.
 
 ### 6.6. CAT-06: Patrimonio y Cultura
-* **Propósito Territorial:** Visibilizar los Monumentos Nacionales, Inmuebles de Conservación Histórica y sitios de memoria barrial vinculados a la historia política de Chile.
 * **Etiquetas OSM Primarias:** `historic=monument`, `historic=memorial`, `historic=building`, `heritage=*`.
 * **Etiquetas Complementarias:** `heritage:operator=Consejo de Monumentos Nacionales`, `start_date=*`.
 * **Entidades Clave:** Zona Típica Barrio Brasil (D.S. 432/1993), Basílica del Salvador, Iglesia San Saturnino, casonas patrimoniales UAH, placas conmemorativas.
 
 ### 6.7. CAT-07: Accesibilidad Universal
-* **Propósito Territorial:** Auditar la transitabilidad peatonal para personas con movilidad reducida (PMR) conforme al Art. 2.2.8 de la OGUC.
 * **Etiquetas OSM Primarias:** `highway=crossing`, `kerb=lowered|flush|raised`, `blind:description=*`, `traffic_signals:sound=yes|no`.
 * **Etiquetas Complementarias:** `tactile_paving=yes|no`, `sloped_curb=*`, `wheelchair=yes|no`.
 * **Entidades Clave:** Cruces semaforizados de Alameda con Cumming y Brasil, cruces de calle Catedral con Maturana.
 
 ### 6.8. CAT-08: Biodiversidad Urbana
-* **Propósito Territorial:** Mapear la cobertura vegetal de copas de árboles y registrar observaciones de flora y fauna nativa y asilvestrada.
 * **Etiquetas OSM / GBIF:** `natural=tree`, `landuse=forest`, `natural=wood`, registros Darwin Core (`taxonRank`, `scientificName`).
 * **Etiquetas Complementarias:** `species=*`, `circumference=*`, `height=*`, `denotation=urban`.
 * **Entidades Clave:** Arbolado viario de plátanos orientales de Avenida Brasil, palmeras centenarias de Plaza Brasil, jardines interiores UAH.
 
 ### 6.9. CAT-09: Edificaciones y Huella Urbana (Polígonos)
-* **Propósito Territorial:** Desglosar la huella edilicia tridimensional y penetrar en la microgeografía de cités y pasajes interiores.
 * **Etiquetas OSM Primarias:** `building=yes|residential|commercial`, `building:levels=*`, `building:cité=yes`, `highway=service`.
 * **Etiquetas Complementarias:** `building:material=brick|adobe|concrete`, `roof:shape=flat|gabled`.
 * **Entidades Clave:** Más de 1.800 huellas de edificios y 45 cités residenciales catalogados en el cuadrante.
 
 ### 6.10. CAT-10: Coberturas y Usos de Suelo (Polígonos)
-* **Propósito Territorial:** Zonificar la ocupación del suelo urbano para cruzarlo contra la normativa del Plan Regulador Comunal (PRC).
 * **Etiquetas OSM Primarias:** `landuse=residential`, `landuse=commercial`, `landuse=retail`, `landuse=industrial`, `landuse=brownfield`.
 * **Etiquetas Complementarias:** `commercial:type=*`, `service:type=*`.
 
