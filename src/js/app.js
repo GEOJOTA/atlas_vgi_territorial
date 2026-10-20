@@ -1089,10 +1089,7 @@ function configurarNavegacion() {
       '06': 'diccionario',
       '07': 'licencias',
       '08': 'manual',
-      '09': 'indicadores',
-      '10': 'dashboard-analitico',
-      'dashboard': 'dashboard-analitico',
-      'dashboard-analitico': 'dashboard-analitico'
+      '09': 'indicadores'
     };
     const panelId = mapaModulos[moduloId] || moduloId;
     activarPanel(panelId);
