@@ -1286,6 +1286,126 @@ const ModuloIndicadoresAnalisis = (() => {
           ]
         }
       }
+    },
+    {
+      id: 'storyboard-censo2024-densidad-poblacion',
+      titulo: '8. Densidad de Población Censo 2024: Concentración y Patrones Espaciales en Manzanas de Santiago',
+      bajada: 'Distribución espacial de la densidad de personas/km² por manzana censal según el Censo Oficial 2024 (INE), clasificada en 4 estratos de concentración territorial.',
+      dimensionId: 'dim-sociodemografica',
+      dimensionNombre: 'Dimensión Sociodemográfica',
+      fecha: '19 de Octubre 2026',
+      autor: 'Juan Pablo Lezcano — Departamento de Geografía, Universidad Alberto Hurtado',
+      tiempoLectura: '4 min lectura',
+      imagen: 'img/cartografias/cartografia_censo2024_densidad_poblacion_santiago.jpg',
+      tags: ['Censo 2024 INE', 'Densidad Habitacional', 'Manzanas Censales', 'Santiago Poniente'],
+      capasRelevantes: ['censo2024_manzanas', 'censo2024_zonal', 'bbdd_08'],
+      contenido: {
+        introduccion: `La presente lámina cartográfica oficial, diseñada por Juan Pablo Lezcano en el marco del Atlas VGI (Universidad Alberto Hurtado), espacializa los resultados definitivos del Censo 2024 a nivel de manzana censal en la Comuna de Santiago. El mapa evidencia un marcado contraste entre el cuadrante poniente (Barrio Brasil, Yungay y Matucana), caracterizado por densidades intermedias compatibles con el tejido patrimonial tradicional de casonas y cités, y los corredores de hiperdensificación vertical en altura concentrados en el eje Santa Isabel, Carmen y San Diego, donde se superan los umbrales críticos de presión sobre el espacio público.`,
+        datosClave: [
+          { valor: '1.711 Mzn', label: 'Manzanas Analizadas', sub: 'Comuna de Santiago Censo 2024' },
+          { valor: '4 Rangos', label: 'Estratificación Areal', sub: 'Porcentaje del total % / km²' },
+          { valor: '31,31% - 84,48%', label: 'Estrato Máximo Pico', sub: 'Hiperdensificación en altura' },
+          { valor: '0% - 5,06%', label: 'Estrato Base Suelo', sub: 'Zonas patrimoniales y equipamiento' }
+        ],
+        porcentajesClave: [
+          { label: 'Rango Crítico de Hiperdensificación (31,31% - 84,48%)', valor: '31.3% - 84.5%', porcentaje: 84.5, contexto: 'Concentrado en ejes de renovación inmobiliaria en altura del pericentro sur y oriente' },
+          { label: 'Rango Medio-Alto de Concentración (14,87% - 30,64%)', valor: '14.9% - 30.6%', porcentaje: 30.6, contexto: 'Bordes de transición y manzanas mixtas con edificios residenciales de media altura' },
+          { label: 'Rango Moderado Tradicional (5,07% - 14,70%)', valor: '5.1% - 14.7%', porcentaje: 14.7, contexto: 'Prevalente en el núcleo patrimonial de Barrio Brasil y áreas residenciales consolidadas' },
+          { label: 'Rango Bajo y Espacio Público (0% - 5,06%)', valor: '0.0% - 5.1%', porcentaje: 5.1, contexto: 'Manzanas de uso institucional, parques urbanos, campus universitarios y bodegas' }
+        ],
+        graficoComparativo: {
+          titulo: 'Distribución Cartográfica de Estratos de Densidad Poblacional (Censo 2024)',
+          filas: [
+            { label: 'Estrato 1: Muy Baja Densidad / Suelo Institucional y Parques (0% - 5.06%)', valor: 'Amarillo', porcentaje: 25.0 },
+            { label: 'Estrato 2: Densidad Moderada / Tejido Residencial Tradicional (5.07% - 14.70%)', valor: 'Verde Claro', porcentaje: 50.0 },
+            { label: 'Estrato 3: Densidad Media-Alta / Transición Residencial (14.87% - 30.64%)', valor: 'Celeste / Cian', porcentaje: 75.0 },
+            { label: 'Estrato 4: Hiperdensidad Crítica / Torres Residenciales (31.31% - 84.48%)', valor: 'Azul Oscuro', porcentaje: 100.0 }
+          ]
+        },
+        analisisActores: {
+          institucion: `Permite a la Dirección de Obras Municipales (DOM) y al MINVU focalizar las inversiones de la Ley de Aportes al Espacio Público en aquellas manzanas del cuartil superior (31,31% - 84,48%), mitigando el déficit de veredas y áreas verdes en los cuadrantes saturados por torres habitacionales.`,
+          comunidad: `Proporciona a las juntas de vecinos de Barrio Brasil un respaldo cartográfico empírico para defender la vigencia de la Zona de Conservación Histórica B1 frente a proyectos que busquen alterar la escala de 1 a 3 pisos del habitar tradicional.`,
+          mapeador: `Orienta la priorización del levantamiento colaborativo de microatributos OSM (número de pisos, accesos a edificios residenciales y comercio de planta baja) en las manzanas de mayor concentración demográfica.`,
+          investigador: `Constituye una línea de base cartográfica de alta resolución espacial para contrastar la densidad residencial con las variables de vulnerabilidad del Registro Social de Hogares y la accesibilidad a servicios urbanos esenciales.`
+        },
+        bibliografia: {
+          fuentesPrimarias: [
+            { codigo: 'censo2024_manzanas', nombre: 'Microdatos y Cartografía Censal por Manzana (Censo 2024)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719 / EPSG:4326', tipo: 'Polígono' },
+            { codigo: 'matriz_sintesis_manzanas', nombre: 'Matriz Síntesis de Manzanas Atlas VGI (1.711 Manzanas)', institucion: 'Universidad Alberto Hurtado / Fondecyt F1261256', crs: 'EPSG:32719', tipo: 'Polígono' }
+          ],
+          referenciasAcademicas: [
+            {
+              cita: 'Instituto Nacional de Estadísticas [INE]. (2024). Censo de Población y Vivienda 2024: Resultados Definitivos y Cartografía Censal. Gobierno de Chile.',
+              concepto: 'Fuente oficial primaria: Base territorial de manzanas censales y conteo desagregado de habitantes por unidad espacial.'
+            },
+            {
+              cita: 'Lezcano, J. P. (2026). Cartografía Oficial de Densidad Poblacional (Censo 2024) por Manzana en la Comuna de Santiago. Atlas VGI — Universidad Alberto Hurtado.',
+              concepto: 'Autoría cartográfica: Diseño de cuadrantes, simbología multiclase y correlación espacial territorial.'
+            }
+          ]
+        }
+      }
+    },
+    {
+      id: 'storyboard-morfologia-segmentos-vertices',
+      titulo: '9. Morfología, Segmentos y Vértices: Geometría Perimetral de la Comuna de Santiago y Barrio Brasil',
+      bajada: 'Modelación espacial de los contornos exteriores comunales y barriales: descomposición en 138 vértices y segmentos principales con cálculo exacto de perímetros y superficies en EPSG:32719.',
+      dimensionId: 'dim-sociourbana',
+      dimensionNombre: 'Dimensión Sociourbana & Morfología Territorial',
+      fecha: '19 de Octubre 2026',
+      autor: 'Juan Pablo Lezcano — Departamento de Geografía, Universidad Alberto Hurtado',
+      tiempoLectura: '4 min lectura',
+      imagen: 'img/cartografias/cartografia_segmentos_vertices_comuna_santiago.png',
+      tags: ['Morfología Urbana', 'Vértices Perimetrales', 'Barrio Brasil', 'Límites Comunales'],
+      capasRelevantes: ['minvu_ipt_limite_urbano', 'ide_subdere_dpa_comunas', 'cat09_edificaciones'],
+      contenido: {
+        introduccion: `La presente cartografía perimetral técnica, elaborada por Juan Pablo Lezcano en el Atlas VGI (Universidad Alberto Hurtado), modela con rigor métrico euclidiano (WGS 84 / UTM Zona 19S) la geometría envolvente de la Comuna de Santiago y del Barrio Brasil. Mediante la depuración topológica de las 1.711 manzanas censales y la eliminación de discontinuidades viales internas, el mapa aísla los 138 vértices del contorno exterior continuo de Santiago y los vértices estructurales del polígono fundacional de Barrio Brasil, explicitando la longitud de los segmentos perimetrales clave y las áreas netas de ocupación del suelo.`,
+        datosClave: [
+          { valor: '23.053.198 m²', label: 'Área Comunal Continua', sub: '2.305,32 hectáreas (Santiago)' },
+          { valor: '752.366 m²', label: 'Área Barrio Brasil', sub: '75,24 hectáreas fundacionales' },
+          { valor: '23.407 m', label: 'Perímetro Exterior Santiago', sub: '23,41 km de borde continuo' },
+          { valor: '3.547 m', label: 'Perímetro Barrio Brasil', sub: '3,55 km de borde barrial' }
+        ],
+        porcentajesClave: [
+          { label: 'Proporción Territorial de Barrio Brasil en la Comuna de Santiago', valor: '3.26%', porcentaje: 3.26, contexto: '752.366 m² respecto a los 23.053.198 m² de la envolvente comunal continua' },
+          { label: 'Longitud del Eje Norte Estructurante (Costanera Norte / Río Mapocho)', valor: '2.443 m', porcentaje: 100.0, contexto: 'Segmento continuo superior entre Puente Bulnes y Estación Mapocho' },
+          { label: 'Longitud del Eje Oriente (Avenida Vicuña Mackenna / Santa Elena)', valor: '3.163 m', porcentaje: 100.0, contexto: 'El segmento recto más largo del perímetro comunal oriente' },
+          { label: 'Longitud del Eje Poniente (Avenida Matucana)', valor: '2.028 m', porcentaje: 100.0, contexto: 'Frontera poniente de Santiago frente a Estación Central y Quinta Normal' }
+        ],
+        graficoComparativo: {
+          titulo: 'Longitud en Metros de los Segmentos Perimetrales Principales de Santiago',
+          filas: [
+            { label: 'Eje Vicuña Mackenna / Borde Oriente', valor: '3.163 m', porcentaje: 100.0 },
+            { label: 'Eje Costanera Norte / Borde Mapocho', valor: '2.443 m', porcentaje: 77.2 },
+            { label: 'Eje Matucana / Borde Poniente', valor: '2.028 m', porcentaje: 64.1 },
+            { label: 'Eje Placer / Franklin / Borde Sur', valor: '1.378 m', porcentaje: 43.6 },
+            { label: 'Eje Parque Quinta Normal Norte', valor: '1.124 m', porcentaje: 35.5 },
+            { label: 'Eje Catedrál Poniente (Barrio Brasil)', valor: '1.076 m', porcentaje: 34.0 }
+          ]
+        },
+        analisisActores: {
+          institucion: `Entrega a SECPLA y Asesoría Urbana de la I. Municipalidad de Santiago los parámetros geométricos consolidados para la redacción de límites en instrumentos de planificación territorial (PRC) y convenios intersectoriales de conurbación con comunas vecinas.`,
+          comunidad: `Clarifica la delimitación geométrica formal de Barrio Brasil (3,55 km de perímetro y 75,2 ha), permitiendo a las organizaciones sociales argumentar la pertenencia espacial de las juntas de vecinos frente a zonas limítrofes disputadas.`,
+          mapeador: `Proporciona las coordenadas y azimuts de control para el ajuste geométrico de las líneas de contorno en OpenStreetMap y en el visualizador Leaflet.`,
+          investigador: `Permite estudiar la compacidad geométrica, la morfometría urbana y el ratio perímetro/área de la comuna central frente a otros municipios pericentrales del Gran Santiago.`
+        },
+        bibliografia: {
+          fuentesPrimarias: [
+            { codigo: 'borde_exterior_manzanas', nombre: 'Borde Exterior Continuo de Manzanas Santiago (EPSG:32719)', institucion: 'Atlas VGI — Universidad Alberto Hurtado', crs: 'EPSG:32719', tipo: 'Polígono / Línea' },
+            { codigo: 'limite_barrios_stgo', nombre: 'Límite Oficial de Barrios y Comuna de Santiago', institucion: 'Ilustre Municipalidad de Santiago (MuniSTGO)', crs: 'EPSG:32719', tipo: 'Polígono' }
+          ],
+          referenciasAcademicas: [
+            {
+              cita: 'Lezcano, J. P. (2026). Cartografía de Segmentos y Vértices de la Comuna de Santiago y Barrio Brasil (Región Metropolitana). Atlas VGI — Universidad Alberto Hurtado.',
+              concepto: 'Autoría cartográfica: Descomposición geométrica de vértices, simplificación Douglas-Peucker y parametrización métrica.'
+            },
+            {
+              cita: 'Buzai, G. D., & Baxendale, C. A. (2012). Análisis espacial con sistemas de información geográfica. Lugar Editorial.',
+              concepto: 'Metodología espacial: Métricas de morfometría, forma, compacidad y delimitación de unidades espaciales de análisis.'
+            }
+          ]
+        }
+      }
     }
   ];
 
