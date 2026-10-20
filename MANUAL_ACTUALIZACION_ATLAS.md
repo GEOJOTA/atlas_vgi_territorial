@@ -83,10 +83,13 @@ flowchart LR
     O1 --> P1_4 --> PR1_4
 ```
 
-* **Entregables Acreditados:**
-  1. *Ficha Técnica de Delimitación Territorial y Bounding Box Operativo (Barrio Brasil).*
-  2. *Documento Metodológico de Arquitectura Conceptual: 10 Macrocategorías VGI y 4 Perfiles de Actores Territoriales.*
-  3. *Catálogo Preliminar de Fuentes Geoespaciales y Matriz de Brechas de Información Barrial.*
+* **Entregables Acreditados y Localización:**
+
+| N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
+|:---:|:---|:---:|:---|
+| **E-01** | Ficha Técnica de Delimitación Territorial y Bounding Box Operativo (Barrio Brasil). | Cartográfico / Técnico | `docs/delimitacion_barrio_brasil_bbox.md` y `src/js/modulos/mapa.js` |
+| **E-02** | Documento Metodológico de Arquitectura Conceptual: 10 Macrocategorías VGI y 4 Perfiles de Actores Territoriales. | Metodológico / Conceptual | `docs/arquitectura_conceptual_vgi.md` y `docs/MANUAL_ACTUALIZACION_ATLAS.md` |
+| **E-03** | Catálogo Preliminar de Fuentes Geoespaciales y Matriz de Brechas de Información Barrial. | Catálogo / Datos | `docs/catalogo_fuentes_vgi.xlsx` y `src/docs/catalogo_fuentes_vgi.xlsx` |
 
 ---
 
@@ -107,11 +110,11 @@ flowchart LR
     end
 
     subgraph PROC2["Procedimientos Específicos"]
-        P2_1["1. Extracción Automatizada Python\n(Overpass QL + WFS IDE Chile)"]
+        P2_1["1. Extracción Automatizada Python\n(Overpass QL + WFS IDE Chile)\n& Descarga manual desde geoportales\nde Datos Públicos del Estado"]
         P2_2["2. Homologación Geodésica\n(EPSG:32719 UTM19S -> EPSG:4326)"]
         P2_3["3. Inyección Universal Esquema\n14 Columnas Estandarizadas ISO"]
-        P2_4["4. Evaluación de Calidad WLC v2.0\n(Norma ISO 19157:2013)"]
-        P2_5["5. Migración & Carga Espacial\nPostgreSQL 17 / PostGIS 3.3"]
+        P2_4["4. Evaluación de Calidad WLC v2.0\n(Norma ISO 19157:2013)\n& OSMCha / Changesets v0.6"]
+        P2_5["5. Carga Espacial\nPostgreSQL 17 / PostGIS 3.3"]
     end
 
     subgraph PROD2["Productos Resultantes Específicos"]
@@ -129,11 +132,14 @@ flowchart LR
     O2 --> P2_5 --> PR2_5
 ```
 
-* **Entregables Acreditados:**
-  1. *Repositorio de Geodatabase Espacial de 118 Coberturas Vectoriales GeoJSON (EPSG:4326).*
-  2. *Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC.*
-  3. *Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (97,88%).*
-  4. *Catálogo Maestro de Geodatos en Formato OpenXML (`catalogos_geodatos_atlas_vgi.xlsx`).*
+* **Entregables Acreditados y Localización:**
+
+| N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
+|:---:|:---|:---:|:---|
+| **E-04** | Repositorio de Geodatabase Espacial de 118 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` (216 archivos, 3,33 GB totales) |
+| **E-05** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `supabase/migrations/01_schema_postgis.sql` y Clúster Cloud Supabase |
+| **E-06** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (97,88%). | Matriz / Certificación | `docs/analisis_metacalidad_iso19157.xlsx` y `scripts/modelo_indice_lineal_wlc.py` |
+| **E-07** | Catálogo Maestro de Geodatos en Formato OpenXML y Esquema de 14 Columnas Normalizadas ISO. | Catálogo Tabular OGC | `docs/categorias_tematicas_osm.xlsx` y `src/docs/perfil_metadatos_vgi.xlsx` |
 
 ---
 
@@ -142,7 +148,7 @@ flowchart LR
 * **Definición Formal:**
   > Implementar el geoportal interactivo con visor Leaflet 1.9.4, conexión a APIs en vivo (Overpass, ohsome, GBIF), generador de metadatos ISO 19115/19139, diccionario territorial y despliegue continuo en Netlify.
 * **Componentes Ejecutados:**
-  - Desarrollo de una Single Page Application (SPA) bajo arquitectura Zero-Build Vanilla JavaScript (ES6+), garantizando portabilidad absoluta y costo recurrente $0.
+  - Desarrollo de una Single Page Application (SPA) bajo arquitectura Zero-Build Vanilla JavaScript (ES6+), garantizando portabilidad absoluta y costo recurrente \$0.
   - Implementación del visor cartográfico interactivo (Leaflet 1.9.4) con control de capas en acordeón jerárquico, selectores de mapas base y herramientas de medición de distancias y superficies.
   - Programación del **Inspector Normativo Territorial del PRC de Santiago**, que ejecuta en el navegador el algoritmo de geometría computacional *Ray-Casting (Point-in-Polygon)* para emitir instantáneamente el Certificado de Informaciones Normativas VGI (CIN-VGI).
   - Integración dinámica en tiempo real con Overpass QL API, ohsome API v1/v2 (HeiGIT) y GBIF Occurrence API.
@@ -178,11 +184,14 @@ flowchart LR
     O3 --> P3_5 --> PR3_5
 ```
 
-* **Entregables Acreditados:**
-  1. *Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4).*
-  2. *Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (CIN-VGI).*
-  3. *Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile.*
-  4. *Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM.*
+* **Entregables Acreditados y Localización:**
+
+| N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
+|:---:|:---|:---:|:---|
+| **E-08** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web SPA | `src/index.html`, `src/js/app.js` y URL: `https://atlasvgiuah.netlify.app/` |
+| **E-09** | Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (CIN-VGI Ray-Casting). | Motor Computacional Client-Side | `src/js/modulos/evaluador_normativo.js` y `src/data/prc_santiago_zonificacion.geojson` |
+| **E-10** | Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile. | Motor de Metadatos XML | `src/js/modulos/metadatos.js` e interoperabilidad GeoNetwork IDE Chile |
+| **E-11** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `src/data/diccionario_territorial.json` |
 
 ---
 
@@ -225,12 +234,15 @@ flowchart LR
     O4 --> P4_5 --> PR4_5
 ```
 
-* **Entregables Acreditados:**
-  1. *Informe de Validación Empírica con Usuarios Reales de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes (Entregable 11).*
-  2. *Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales (Entregable 12).*
-  3. *Manual Maestro de Actualización Técnica y Transferibilidad Metodológica: Protocolo ETL, Arquitectura y Despliegue Continuo (Entregable 13).*
-  4. *Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 543 MB (Entregable 14).*
-  5. *Informe Final de Práctica Profesional de la Carrera de Geografía — Universidad Alberto Hurtado (Entregable 15).*
+* **Entregables Acreditados y Localización:**
+
+| N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
+|:---:|:---|:---:|:---|
+| **E-12** | Informe de Validación Empírica con Usuarios Reales de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes. | Validación de Usabilidad | `docs/informe_validacion_usuarios_sus.docx` (Entregable 11 / Hito 9) |
+| **E-13** | Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales. | Manual de Usuario | `docs/manual_de_uso_atlas_vgi.docx` (Entregable 12 / Módulo 10 web) |
+| **E-14** | Manual Maestro de Actualización Técnica y Transferibilidad Metodológica: Protocolo ETL, Arquitectura y Despliegue Continuo. | Manual Maestro (>5000L) | `MANUAL_ACTUALIZACION_ATLAS.md` y `src/docs/MANUAL_ACTUALIZACION_ATLAS.md` |
+| **E-15** | Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 543 MB. | Paquete de Datos Binario | `descargas/atlas_vgi_uah_base_datos_completa.zip` y `geofabrik_rm_osm.gpkg` |
+| **E-16** | Informe Final de Práctica Profesional de la Carrera de Geografía — Universidad Alberto Hurtado. | Memoria Académica Oficial | `docs/informe_final_practica_profesional_geografia_uah.docx` (Entregable 15) |
 
 ---
 
@@ -1181,12 +1193,12 @@ Donde $N$ es el total de entidades, $K$ es el número de campos evaluados y $\ma
 #### Dimensión 3: Integridad Posicional Geodésica ($C_{\text{pos}}$ — Peso 20% en Pilar 1)
 Verifica que las coordenadas de los vértices se ubiquen estrictamente dentro del ámbito territorial legítimo (Bounding Box de la Región Metropolitana de Santiago: $[-71.72, -34.30, -69.75, -32.92]$), penalizando severamente valores fuera de rango o coordenadas invertidas (Lat/Lon en lugar de Lon/Lat):
 
-$$C_{\text{pos}} = \left( \frac{V_{\text{dentro\_bbox}}}{V_{\text{total\_vértices}}} \right) \times 100$$
+$$C_{\text{pos}} = \left( \frac{V_{\text{dentro-bbox}}}{V_{\text{total-vértices}}} \right) \times 100$$
 
 #### Dimensión 4: Estructura y Esquema Normalizado ($C_{\text{estruc}}$ — Peso 15% en Pilar 1)
 Evalúa la adopción del esquema maestro de los **14 atributos ISO obligatorios** en el objeto `properties` de cada Feature, verificando que los identificadores `id_atlas` sean unívocos y no presenten colisiones de clave primaria:
 
-$$C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos\_faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids\_únicos}}}{N_{\text{total}}} \right)$$
+$$C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos-faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids-únicos}}}{N_{\text{total}}} \right)$$
 
 #### Dimensión 5: Granularidad y Micro-Slivers ($C_{\text{gran}}$ — Peso 10% en Pilar 1)
 Detecta y penaliza polígonos degenerados (*slivers*) de área despreciable resultantes de errores de digitalización o intersecciones defectuosas (polígonos con área $< 0.5 \text{ m}^2$ o líneas de longitud nula):
@@ -1318,7 +1330,7 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title>
-            <gco:CharacterString>CAT-01: Educación y Universidad VGI — Barrio Brasil</gco:CharacterString>
+            <gco:CharacterString>CAT-01: Educación y Equipamiento Formativo VGI — Barrio Brasil</gco:CharacterString>
           </gmd:title>
           <gmd:date>
             <gmd:CI_Date>
@@ -2977,7 +2989,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
   5. Inyecta el esquema maestro de 14 atributos con valores predeterminados.
 - **Salida de Terminal Típica:**
   ```text
-  [*] Conectando a Overpass API para CAT-08 (Biodiversidad Urbana)...
+  [*] Conectando a Overpass API para CAT-01 (Arbolado Urbano)...
       ✓ HTTP 200 OK. 1,482 nodos descargados en 3.42s.
       ✓ Transformación a FeatureCollection GeoJSON completada.
       ✓ Guardado en datos/capas/cat01_arbolado_urbano.geojson.
@@ -3367,7 +3379,7 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 4: Normalización Matemática del Índice WLC
 - **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-  $$0.0000 \le \text{calidad\_wlc} \le 1.0000$$
+  $$0.0000 \le \text{calidad-wlc} \le 1.0000$$
 - **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)

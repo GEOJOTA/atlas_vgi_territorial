@@ -908,7 +908,7 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 4: Normalización Matemática del Índice WLC
 - **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-  $$0.0000 \le \text{calidad\_wlc} \le 1.0000$$
+  $$0.0000 \le \text{calidad-wlc} \le 1.0000$$
 - **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)

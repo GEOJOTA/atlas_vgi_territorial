@@ -111,12 +111,12 @@ Donde $N$ es el total de entidades, $K$ es el número de campos evaluados y $\ma
 #### Dimensión 3: Integridad Posicional Geodésica ($C_{\text{pos}}$ — Peso 20% en Pilar 1)
 Verifica que las coordenadas de los vértices se ubiquen estrictamente dentro del ámbito territorial legítimo (Bounding Box de la Región Metropolitana de Santiago: $[-71.72, -34.30, -69.75, -32.92]$), penalizando severamente valores fuera de rango o coordenadas invertidas (Lat/Lon en lugar de Lon/Lat):
 
-$$C_{\text{pos}} = \left( \frac{V_{\text{dentro\_bbox}}}{V_{\text{total\_vértices}}} \right) \times 100$$
+$$C_{\text{pos}} = \left( \frac{V_{\text{dentro-bbox}}}{V_{\text{total-vértices}}} \right) \times 100$$
 
 #### Dimensión 4: Estructura y Esquema Normalizado ($C_{\text{estruc}}$ — Peso 15% en Pilar 1)
 Evalúa la adopción del esquema maestro de los **14 atributos ISO obligatorios** en el objeto `properties` de cada Feature, verificando que los identificadores `id_atlas` sean unívocos y no presenten colisiones de clave primaria:
 
-$$C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos\_faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids\_únicos}}}{N_{\text{total}}} \right)$$
+$$C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos-faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids-únicos}}}{N_{\text{total}}} \right)$$
 
 #### Dimensión 5: Granularidad y Micro-Slivers ($C_{\text{gran}}$ — Peso 10% en Pilar 1)
 Detecta y penaliza polígonos degenerados (*slivers*) de área despreciable resultantes de errores de digitalización o intersecciones defectuosas (polígonos con área $< 0.5 \text{ m}^2$ o líneas de longitud nula):

@@ -507,7 +507,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
   5. Inyecta el esquema maestro de 14 atributos con valores predeterminados.
 - **Salida de Terminal Típica:**
   ```text
-  [*] Conectando a Overpass API para CAT-08 (Biodiversidad Urbana)...
+  [*] Conectando a Overpass API para CAT-01 (Arbolado Urbano)...
       ✓ HTTP 200 OK. 1,482 nodos descargados en 3.42s.
       ✓ Transformación a FeatureCollection GeoJSON completada.
       ✓ Guardado en datos/capas/cat01_arbolado_urbano.geojson.
@@ -897,7 +897,7 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 
 #### Banco 4: Normalización Matemática del Índice WLC
 - **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-  $$0.0000 \le \text{calidad\_wlc} \le 1.0000$$
+  $$0.0000 \le \text{calidad-wlc} \le 1.0000$$
 - **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)
