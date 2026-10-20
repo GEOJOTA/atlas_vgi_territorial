@@ -16,77 +16,77 @@ Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas
 ┌────────────────────────────────────────────────────────────────────────┐
 │             LAS 10 MACROCATEGORÍAS TEMÁTICAS MAESTRAS VGI              │
 ├────────────────────────────────────────────────────────────────────────┤
-│ CAT-01: Educación y Equipamiento Formativo                             │
-│ CAT-02: Salud y Atención Primaria Barrial                              │
-│ CAT-03: Transporte y Movilidad Colectiva                               │
-│ CAT-04: Ciclovías e Infraestructura Activa                             │
-│ CAT-05: Espacio Público, Plazas y Parques                              │
-│ CAT-06: Patrimonio Histórico y Sitios de Memoria                       │
-│ CAT-07: Accesibilidad Universal y Cruces PMR                           │
-│ CAT-08: Biodiversidad Urbana y Arbolado Viario                         │
-│ CAT-09: Edificaciones, Cités y Pasajes Residenciales                   │
-│ CAT-10: Cobertura y Usos de Suelo Urbano                               │
+│ CAT-01: Educación y Universidad                                        │
+│ CAT-02: Servicios y Comercio Barrial                                   │
+│ CAT-03: Movilidad y Transporte                                         │
+│ CAT-04: Movilidad Activa y Ciclovías                                   │
+│ CAT-05: Áreas Verdes y Espacio Público                                 │
+│ CAT-06: Patrimonio y Cultura                                           │
+│ CAT-07: Accesibilidad Universal                                        │
+│ CAT-08: Biodiversidad Urbana                                           │
+│ CAT-09: Edificaciones y Huella Urbana (Polígonos)                     │
+│ CAT-10: Coberturas y Usos de Suelo (Polígonos)                         │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 A continuación se detalla la especificación técnica de cada categoría:
 
-### 6.1. CAT-01: Educación y Equipamiento Formativo
+### 6.1. CAT-01: Educación y Universidad
 * **Propósito Territorial:** Mapear la infraestructura educacional escolar, preescolar y universitaria, fundamental para el análisis de flujos peatonales estudiantiles hacia el campus de la Universidad Alberto Hurtado.
 * **Etiquetas OSM Primarias:** `amenity=school`, `amenity=kindergarten`, `amenity=college`, `amenity=university`, `amenity=library`.
 * **Etiquetas OSM Complementarias:** `operator:type=public|private`, `name=*`, `addr:street=*`, `capacity=*`, `wheelchair=yes|no|limited`.
 * **Geometrías Admitidas:** Puntos (nodos de acceso) y Polígonos (huella predial del establecimiento).
 * **Entidades Clave en Barrio Brasil:** Campus Universidad Alberto Hurtado (sedes patrimoniales Cienfuegos, Erasmo Escala y Almirante Barroso), Liceo Experimental Manuel de Salas, Escuela Básica República de Panamá, Biblioteca Pública de Santiago.
 
-### 6.2. CAT-02: Salud y Atención Primaria Barrial
+### 6.2. CAT-02: Servicios y Comercio Barrial
 * **Propósito Territorial:** Identificar la red de atención médica de urgencia, centros de salud comunal y establecimientos farmacéuticos para el cálculo de isócronas de accesibilidad de adultos mayores.
 * **Etiquetas OSM Primarias:** `amenity=hospital`, `amenity=clinic`, `amenity=doctors`, `amenity=pharmacy`, `healthcare=centre`.
 * **Etiquetas Complementarias:** `emergency=yes|no`, `dispensing=yes`, `opening_hours=*`.
 * **Entidades Clave:** Hospital San Juan de Dios (entorno poniente), CESFAM Ignacio Domeyko, SAPU barrial, farmacias comunitarias y farmacias de turno de calle San Pablo.
 
-### 6.3. CAT-03: Transporte y Movilidad Colectiva
+### 6.3. CAT-03: Movilidad y Transporte
 * **Propósito Territorial:** Representar los puntos de acceso al sistema de transporte público metropolitano (RED Movilidad y Metro de Santiago).
 * **Etiquetas OSM Primarias:** `highway=bus_stop`, `railway=station`, `railway=subway_entrance`, `amenity=bus_station`.
 * **Etiquetas Complementarias:** `shelter=yes|no`, `bench=yes|no`, `network=Red Metropolitana de Movilidad`, `operator=Metro de Santiago`.
 * **Entidades Clave:** Estaciones de Metro Los Héroes (Línea 1 y Línea 2), Santa Ana (Línea 2 y Línea 5), Cumming (Línea 5), paraderos troncales de Alameda, San Pablo y Manuel Rodríguez.
 
-### 6.4. CAT-04: Ciclovías e Infraestructura Activa
+### 6.4. CAT-04: Movilidad Activa y Ciclovías
 * **Propósito Territorial:** Diagnosticar la red de movilidad ciclista y micromovilidad, evaluando continuidad de ejes y zonas de conflicto con el transporte motorizado.
 * **Etiquetas OSM Primarias:** `highway=cycleway`, `cycleway=lane|track|shared_lane`, `amenity=bicycle_parking`, `amenity=bicycle_repair_station`.
 * **Etiquetas Complementarias:** `segregated=yes|no`, `surface=asphalt|paved`, `capacity=*`.
 * **Entidades Clave:** Ciclovía Avenida Brasil, ciclovía calle Rosas, ciclovía calle Mapocho, bicicleteros de las estaciones de Metro y talleres barriales.
 
-### 6.5. CAT-05: Espacio Público, Plazas y Parques
+### 6.5. CAT-05: Áreas Verdes y Espacio Público
 * **Propósito Territorial:** Evaluar la superficie efectiva de esparcimiento vecinal y áreas verdes de permanencia.
 * **Etiquetas OSM Primarias:** `leisure=park`, `leisure=pitch`, `leisure=playground`, `highway=pedestrian`.
 * **Etiquetas Complementarias:** `surface=grass|paved`, `lit=yes|no`, `access=yes`.
 * **Entidades Clave:** Plaza Brasil, Plaza Yungay, Plaza Manuel Rodríguez, bulevares peatonales y áreas de juegos infantiles.
 
-### 6.6. CAT-06: Patrimonio Histórico y Sitios de Memoria
+### 6.6. CAT-06: Patrimonio y Cultura
 * **Propósito Territorial:** Visibilizar los Monumentos Nacionales, Inmuebles de Conservación Histórica y sitios de memoria barrial vinculados a la historia política de Chile.
 * **Etiquetas OSM Primarias:** `historic=monument`, `historic=memorial`, `historic=building`, `heritage=*`.
 * **Etiquetas Complementarias:** `heritage:operator=Consejo de Monumentos Nacionales`, `start_date=*`.
 * **Entidades Clave:** Zona Típica Barrio Brasil (D.S. 432/1993), Basílica del Salvador, Iglesia San Saturnino, casonas patrimoniales UAH, placas conmemorativas.
 
-### 6.7. CAT-07: Accesibilidad Universal y Cruces PMR
+### 6.7. CAT-07: Accesibilidad Universal
 * **Propósito Territorial:** Auditar la transitabilidad peatonal para personas con movilidad reducida (PMR) conforme al Art. 2.2.8 de la OGUC.
 * **Etiquetas OSM Primarias:** `highway=crossing`, `kerb=lowered|flush|raised`, `blind:description=*`, `traffic_signals:sound=yes|no`.
 * **Etiquetas Complementarias:** `tactile_paving=yes|no`, `sloped_curb=*`, `wheelchair=yes|no`.
 * **Entidades Clave:** Cruces semaforizados de Alameda con Cumming y Brasil, cruces de calle Catedral con Maturana.
 
-### 6.8. CAT-08: Biodiversidad Urbana y Arbolado Viario
+### 6.8. CAT-08: Biodiversidad Urbana
 * **Propósito Territorial:** Mapear la cobertura vegetal de copas de árboles y registrar observaciones de flora y fauna nativa y asilvestrada.
 * **Etiquetas OSM / GBIF:** `natural=tree`, `landuse=forest`, `natural=wood`, registros Darwin Core (`taxonRank`, `scientificName`).
 * **Etiquetas Complementarias:** `species=*`, `circumference=*`, `height=*`, `denotation=urban`.
 * **Entidades Clave:** Arbolado viario de plátanos orientales de Avenida Brasil, palmeras centenarias de Plaza Brasil, jardines interiores UAH.
 
-### 6.9. CAT-09: Edificaciones, Cités y Pasajes Residenciales
+### 6.9. CAT-09: Edificaciones y Huella Urbana (Polígonos)
 * **Propósito Territorial:** Desglosar la huella edilicia tridimensional y penetrar en la microgeografía de cités y pasajes interiores.
 * **Etiquetas OSM Primarias:** `building=yes|residential|commercial`, `building:levels=*`, `building:cité=yes`, `highway=service`.
 * **Etiquetas Complementarias:** `building:material=brick|adobe|concrete`, `roof:shape=flat|gabled`.
 * **Entidades Clave:** Más de 1.800 huellas de edificios y 45 cités residenciales catalogados en el cuadrante.
 
-### 6.10. CAT-10: Cobertura y Usos de Suelo Urbano
+### 6.10. CAT-10: Coberturas y Usos de Suelo (Polígonos)
 * **Propósito Territorial:** Zonificar la ocupación del suelo urbano para cruzarlo contra la normativa del Plan Regulador Comunal (PRC).
 * **Etiquetas OSM Primarias:** `landuse=residential`, `landuse=commercial`, `landuse=retail`, `landuse=industrial`, `landuse=brownfield`.
 * **Etiquetas Complementarias:** `commercial:type=*`, `service:type=*`.
@@ -153,7 +153,7 @@ out skel qt;
 
 A continuación se exponen las consultas QL canónicas utilizadas para cada macrocategoría:
 
-#### Consulta QL: CAT-01 Educación
+#### Consulta QL: CAT-01 Educación y Universidad
 ```text
 [out:json][timeout:30];
 (
@@ -164,7 +164,7 @@ A continuación se exponen las consultas QL canónicas utilizadas para cada macr
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-02 Salud
+#### Consulta QL: CAT-02 Servicios y Comercio Barrial
 ```text
 [out:json][timeout:30];
 (
@@ -175,7 +175,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-03 Transporte Colectivo
+#### Consulta QL: CAT-03 Movilidad y Transporte
 ```text
 [out:json][timeout:30];
 (
@@ -187,7 +187,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-04 Ciclovías
+#### Consulta QL: CAT-04 Movilidad Activa y Ciclovías
 ```text
 [out:json][timeout:30];
 (
@@ -199,7 +199,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-05 Espacio Público y Plazas
+#### Consulta QL: CAT-05 Áreas Verdes y Espacio Público
 ```text
 [out:json][timeout:30];
 (
@@ -210,7 +210,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-06 Patrimonio y Memoria
+#### Consulta QL: CAT-06 Patrimonio y Cultura
 ```text
 [out:json][timeout:30];
 (
@@ -223,7 +223,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-07 Accesibilidad PMR
+#### Consulta QL: CAT-07 Accesibilidad Universal
 ```text
 [out:json][timeout:30];
 (
@@ -246,7 +246,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-09 Edificaciones y Cités
+#### Consulta QL: CAT-09 Edificaciones y Huella Urbana
 ```text
 [out:json][timeout:60];
 (
@@ -256,7 +256,7 @@ out body; >; out skel qt;
 out body; >; out skel qt;
 ```
 
-#### Consulta QL: CAT-10 Cobertura de Suelo
+#### Consulta QL: CAT-10 Coberturas y Usos de Suelo
 ```text
 [out:json][timeout:45];
 (
@@ -405,16 +405,16 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 ### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil)
 | N° | ID de Capa | Denominación Oficial | Dimensión Territorial | Geometría OGC | Fuente Primaria | Ruta Local |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
-| 01 | `cat01_educacion_vgi` | CAT-01: Educación y Equipamiento Formativo VGI | Equipamiento Comunitario | Puntos / Polígonos | OpenStreetMap | `data/cat01_educacion_vgi.geojson` |
-| 02 | `cat02_salud_vgi` | CAT-02: Salud y Atención Primaria VGI | Equipamiento Comunitario | Puntos / Polígonos | OpenStreetMap | `data/cat02_salud_vgi.geojson` |
-| 03 | `cat03_transporte_vgi` | CAT-03: Transporte y Movilidad Colectiva VGI | Movilidad Urbana | Puntos / Líneas | OpenStreetMap | `data/cat03_transporte_vgi.geojson` |
-| 04 | `cat04_ciclovias_vgi` | CAT-04: Ciclovías e Infraestructura Activa VGI | Movilidad Urbana | Líneas / Puntos | OpenStreetMap | `data/cat04_ciclovias_vgi.geojson` |
-| 05 | `cat05_espacio_publico_vgi` | CAT-05: Plazas y Parques Urbanos VGI | Espacio Público | Polígonos | OpenStreetMap | `data/cat05_espacio_publico_vgi.geojson` |
-| 06 | `cat06_patrimonio_vgi` | CAT-06: Patrimonio y Sitios de Memoria VGI | Patrimonio Barrial | Puntos / Polígonos | OpenStreetMap | `data/cat06_patrimonio_vgi.geojson` |
-| 07 | `cat07_accesibilidad_vgi` | CAT-07: Accesibilidad y Cruces PMR VGI | Inclusión Urbana | Puntos | OpenStreetMap | `data/cat07_accesibilidad_vgi.geojson` |
-| 08 | `cat08_biodiversidad_vgi` | CAT-08: Biodiversidad y Arbolado Urbano VGI | Medio Ambiente | Puntos / Polígonos | OpenStreetMap / GBIF | `data/cat08_biodiversidad_vgi.geojson` |
-| 09 | `cat09_edificaciones_vgi` | CAT-09: Huella Edilicia y Pasajes VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat09_edificaciones_vgi.geojson` |
-| 10 | `cat10_cobertura_suelo_vgi` | CAT-10: Cobertura y Usos de Suelo VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat10_cobertura_suelo_vgi.geojson` |
+| 01 | `cat01_educacion_vgi` | CAT-01: Educación y Universidad VGI | Equipamiento Comunitario | Puntos / Polígonos | OpenStreetMap | `data/cat01_educacion_vgi.geojson` |
+| 02 | `cat02_salud_vgi` | CAT-02: Servicios y Comercio Barrial VGI | Equipamiento Comunitario | Puntos / Polígonos | OpenStreetMap | `data/cat02_salud_vgi.geojson` |
+| 03 | `cat03_transporte_vgi` | CAT-03: Movilidad y Transporte VGI | Movilidad Urbana | Puntos / Líneas | OpenStreetMap | `data/cat03_transporte_vgi.geojson` |
+| 04 | `cat04_ciclovias_vgi` | CAT-04: Movilidad Activa y Ciclovías VGI | Movilidad Urbana | Líneas / Puntos | OpenStreetMap | `data/cat04_ciclovias_vgi.geojson` |
+| 05 | `cat05_espacio_publico_vgi` | CAT-05: Áreas Verdes y Espacio Público VGI | Espacio Público | Polígonos | OpenStreetMap | `data/cat05_espacio_publico_vgi.geojson` |
+| 06 | `cat06_patrimonio_vgi` | CAT-06: Patrimonio y Cultura VGI | Patrimonio Barrial | Puntos / Polígonos | OpenStreetMap | `data/cat06_patrimonio_vgi.geojson` |
+| 07 | `cat07_accesibilidad_vgi` | CAT-07: Accesibilidad Universal VGI | Inclusión Urbana | Puntos | OpenStreetMap | `data/cat07_accesibilidad_vgi.geojson` |
+| 08 | `cat08_biodiversidad_vgi` | CAT-08: Biodiversidad Urbana VGI | Medio Ambiente | Puntos / Polígonos | OpenStreetMap / GBIF | `data/cat08_biodiversidad_vgi.geojson` |
+| 09 | `cat09_edificaciones_vgi` | CAT-09: Edificaciones y Huella Urbana VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat09_edificaciones_vgi.geojson` |
+| 10 | `cat10_cobertura_suelo_vgi` | CAT-10: Coberturas y Usos de Suelo VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat10_cobertura_suelo_vgi.geojson` |
 
 
 ### 13.2. Las 121 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)

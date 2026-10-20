@@ -507,7 +507,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
   5. Inyecta el esquema maestro de 14 atributos con valores predeterminados.
 - **Salida de Terminal Típica:**
   ```text
-  [*] Conectando a Overpass API para CAT-01 (Arbolado Urbano)...
+  [*] Conectando a Overpass API para CAT-08 (Biodiversidad Urbana)...
       ✓ HTTP 200 OK. 1,482 nodos descargados en 3.42s.
       ✓ Transformación a FeatureCollection GeoJSON completada.
       ✓ Guardado en datos/capas/cat01_arbolado_urbano.geojson.

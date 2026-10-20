@@ -242,7 +242,7 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title>
-            <gco:CharacterString>CAT-01: Educación y Equipamiento Formativo VGI — Barrio Brasil</gco:CharacterString>
+            <gco:CharacterString>CAT-01: Educación y Universidad VGI — Barrio Brasil</gco:CharacterString>
           </gmd:title>
           <gmd:date>
             <gmd:CI_Date>
