@@ -78,10 +78,10 @@ flowchart LR
     end
 
     subgraph LOC1["4. Localización / Fuente Oficial"]
-        L1_1["`docs/delimitacion_barrio_brasil_bbox.md`\n& `src/js/modulos/mapa.js`"]
-        L1_2["`docs/catalogo_fuentes_vgi.xlsx`\n& `src/docs/catalogo_fuentes_vgi.xlsx`"]
-        L1_3["`docs/categorias_tematicas_osm.xlsx`\n(11 Hojas Técnicas)"]
-        L1_4["`docs/arquitectura_conceptual_vgi.md`\n& `src/js/app.js` (#sel-perfil-usuario)"]
+        L1_1["docs/delimitacion_barrio_brasil_bbox.md\n& src/js/modulos/mapa.js"]
+        L1_2["docs/catalogo_fuentes_vgi.xlsx\n& src/docs/catalogo_fuentes_vgi.xlsx"]
+        L1_3["docs/categorias_tematicas_osm.xlsx\n(11 Hojas Técnicas)"]
+        L1_4["docs/arquitectura_conceptual_vgi.md\n& src/js/app.js (#sel-perfil-usuario)"]
     end
 
     O1 --> P1_1 --> PR1_1 --> L1_1
@@ -133,11 +133,11 @@ flowchart LR
     end
 
     subgraph LOC2["4. Localización / Fuente Oficial"]
-        L2_1["`src/data/*.geojson` (216 archivos)\n& `scripts/descargar_todas_las_categorias_osm.py`"]
-        L2_2["`src/data/` & `scripts/procesar_geofabrik_rm.py`\n(WGS84 EPSG:4326)"]
-        L2_3["`scripts/enriquecer_base_datos_metadatos.py`\n& `src/docs/perfil_metadatos_vgi.xlsx`"]
-        L2_4["`docs/analisis_metacalidad_iso19157.xlsx`\n& `scripts/modelo_indice_lineal_wlc.py`"]
-        L2_5["`supabase/migrations/01_schema_postgis.sql`\n& Clúster Cloud Supabase"]
+        L2_1["src/data/*.geojson (216 archivos)\n& scripts/descargar_todas_las_categorias_osm.py"]
+        L2_2["src/data/ & scripts/procesar_geofabrik_rm.py\n(WGS84 EPSG:4326)"]
+        L2_3["scripts/enriquecer_base_datos_metadatos.py\n& src/docs/perfil_metadatos_vgi.xlsx"]
+        L2_4["docs/analisis_metacalidad_iso19157.xlsx\n& scripts/modelo_indice_lineal_wlc.py"]
+        L2_5["supabase/migrations/01_schema_postgis.sql\n& Clúster Cloud Supabase"]
     end
 
     O2 --> P2_1 --> PR2_1 --> L2_1
@@ -168,7 +168,7 @@ flowchart LR
   - Programación del **Inspector Normativo Territorial del PRC de Santiago**, que ejecuta en el navegador el algoritmo de geometría computacional *Ray-Casting (Point-in-Polygon)* para emitir instantáneamente el Certificado de Informaciones Normativas VGI (CIN-VGI).
   - Integración dinámica en tiempo real con Overpass QL API, ohsome API v1/v2 (HeiGIT) y GBIF Occurrence API.
   - Generador de fichas de metadatos estandarizadas en XML ISO 19139 conforme al Perfil Nacional de Metadatos de IDE Chile / SNIT v2.0.
-  - Despliegue continuo (CI/CD) alojado en la red perimetral de **Netlify Edge CDN** (`https://atlasvgiuah.netlify.app/`).
+  - Despliegue continuo (CI/CD) alojado en la red perimetral de **Netlify Edge CDN** (https://atlasvgiuah.netlify.app/).
 
 ```mermaid
 flowchart LR
@@ -193,11 +193,11 @@ flowchart LR
     end
 
     subgraph LOC3["4. Localización / Fuente Oficial"]
-        L3_1["`src/index.html` & `src/css/estilos.css`\n& `src/js/app.js`"]
-        L3_2["`src/js/modulos/mapa.js`\n(L.map con BBox Barrio Brasil)"]
-        L3_3["`src/js/modulos/evaluador_normativo.js`\n& `src/data/prc_santiago_zonificacion.geojson`"]
-        L3_4["`src/js/modulos/osm.js`, `calidad.js`\n& `src/js/modulos/gbif.js`"]
-        L3_5["`netlify.toml` (Edge CDN Headers)\n& URL: `https://atlasvgiuah.netlify.app/`"]
+        L3_1["src/index.html & src/css/estilos.css\n& src/js/app.js"]
+        L3_2["src/js/modulos/mapa.js\n(L.map con BBox Barrio Brasil)"]
+        L3_3["src/js/modulos/evaluador_normativo.js\n& src/data/prc_santiago_zonificacion.geojson"]
+        L3_4["src/js/modulos/osm.js, calidad.js\n& src/js/modulos/gbif.js"]
+        L3_5["netlify.toml (Edge CDN Headers)\n& URL: https://atlasvgiuah.netlify.app/"]
     end
 
     O3 --> P3_1 --> PR3_1 --> L3_1
@@ -211,7 +211,7 @@ flowchart LR
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-08** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web SPA | `src/index.html`, `src/js/app.js` y URL: `https://atlasvgiuah.netlify.app/` |
+| **E-08** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web SPA | `src/index.html`, `src/js/app.js` y URL: https://atlasvgiuah.netlify.app/ |
 | **E-09** | Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (CIN-VGI Ray-Casting). | Motor Computacional Client-Side | `src/js/modulos/evaluador_normativo.js` y `src/data/prc_santiago_zonificacion.geojson` |
 | **E-10** | Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile. | Motor de Metadatos XML | `src/js/modulos/metadatos.js` e interoperabilidad GeoNetwork IDE Chile |
 | **E-11** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `src/data/diccionario_territorial.json` |
@@ -251,11 +251,11 @@ flowchart LR
     end
 
     subgraph LOC4["4. Localización / Fuente Oficial"]
-        L4_1["`docs/informe_validacion_usuarios_sus.docx`\n(Entregable 11 / Hito 9)"]
-        L4_2["`docs/manual_de_uso_atlas_vgi.docx`\n& Módulo 10 en la plataforma web"]
-        L4_3["`MANUAL_ACTUALIZACION_ATLAS.md`\n& `src/docs/MANUAL_ACTUALIZACION_ATLAS.md`"]
-        L4_4["`descargas/atlas_vgi_uah_base_datos_completa.zip`\n& `scripts/empaquetar_base_datos_completa.py`"]
-        L4_5["`docs/informe_final_practica_profesional_geografia_uah.docx`\n(Entregable 15 / Hito 10)"]
+        L4_1["docs/informe_validacion_usuarios_sus.docx\n(Entregable 11 / Hito 9)"]
+        L4_2["docs/manual_de_uso_atlas_vgi.docx\n& Módulo 10 en la plataforma web"]
+        L4_3["MANUAL_ACTUALIZACION_ATLAS.md\n& src/docs/MANUAL_ACTUALIZACION_ATLAS.md"]
+        L4_4["descargas/atlas_vgi_uah_base_datos_completa.zip\n& scripts/empaquetar_base_datos_completa.py"]
+        L4_5["docs/informe_final_practica_profesional_geografia_uah.docx\n(Entregable 15 / Hito 10)"]
     end
 
     O4 --> P4_1 --> PR4_1 --> L4_1
