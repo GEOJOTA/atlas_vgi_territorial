@@ -18,7 +18,7 @@ Estándares y Marcos Normativos Internacionales y Nacionales:
 - Creative Commons Atribución (CC-BY 4.0 / CC0 1.0) para GBIF / Darwin Core.
 
 Autor: Departamento de Geografía — Universidad Alberto Hurtado (UAH) / GEOJOTA
-Proyecto: Atlas VGI — Nodo GeoAbierto (Proyecto F1261256 ANID)
+Proyecto: Atlas VGI — Nodo GeoAbierto (Departamento de Geografía UAH)
 Fecha: Octubre 2026
 """
 

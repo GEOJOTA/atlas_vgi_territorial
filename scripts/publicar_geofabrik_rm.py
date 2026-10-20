@@ -370,7 +370,7 @@ def main():
         "- Sustitucion de la capa de Unidades Vecinales (bbdd_66 y unidades_vecinales_bidat) por la cobertura oficial integra de la RM (1.364 poligonos, 159.495 vertices conservados al 100%, sin simplificacion).\n"
         "- Resolucion integral de errores topologicos (auto-intersecciones y bowties) en capas de origen mediante make_valid() en Areas Verdes, CCU (1993-2024) y coberturas comunitarias VGI (OSM).\n"
         "- Sincronizacion de ultimas actualizaciones del repositorio (metadatos, presentacion blanco estandarizado, metacalidad IGMC 98.58%).\n"
-        "- Preservacion estricta de la integridad de la base de datos bajo estandares ISO 19115 / ISO 19157 (Fondecyt 1261256)."
+        "- Preservacion estricta de la integridad de la base de datos bajo estandares ISO 19115 / ISO 19157 (Geografía UAH)."
     )
 
 

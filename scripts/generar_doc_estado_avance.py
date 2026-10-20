@@ -756,7 +756,7 @@ def crear_documento():
     r.font.bold = True; r.font.size = Pt(10); r.font.color.rgb = COLOR_AZUL_UAH
     r = p.add_run("DEPARTAMENTO DE GEOGRAFÍA · PRÁCTICA PROFESIONAL 2026 S2\n")
     r.font.bold = True; r.font.size = Pt(9.5); r.font.color.rgb = COLOR_AZUL_SEC
-    r = p.add_run("Proyecto Fondecyt Regular F1261256 (ANID)")
+    r = p.add_run("Atlas VGI Territorial — Geografía UAH (ANID)")
     r.font.italic = True; r.font.size = Pt(9); r.font.color.rgb = COLOR_GRIS
 
     p = doc.add_paragraph()
@@ -777,7 +777,7 @@ def crear_documento():
     ficha = [
         ("Estudiante practicante", "Juan Pablo Lescano Villegas — Licenciatura en Geografía"),
         ("Coordinador de prácticas", "Alejandro Cortés (UAH)"),
-        ("Supervisión", "Prof. Manuel Fuenzalida (UAH) e investigador colaborador Fondecyt"),
+        ("Supervisión", "Prof. Manuel Fuenzalida (UAH) e investigador colaborador Geografía UAH"),
         ("Período de práctica", "01/09/2026 – 12/11/2026 · 300 horas · 50 días hábiles"),
         ("Corte reportado", "150 horas (50 %) · Hitos 1 a 5 concluidos"),
     ]
@@ -920,7 +920,7 @@ def crear_documento():
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r = p.add_run("Juan Pablo Lescano Villegas\n")
     r.font.bold = True; r.font.size = Pt(11); r.font.color.rgb = COLOR_AZUL_UAH
-    r = p.add_run("Estudiante de Geografía · Practicante Proyecto Fondecyt F1261256\nUniversidad Alberto Hurtado")
+    r = p.add_run("Estudiante de Geografía · Practicante Departamento de Geografía UAH\nUniversidad Alberto Hurtado")
     r.font.size = Pt(9.5); r.font.color.rgb = COLOR_GRIS
 
     doc.save(OUTPUT_DOCX)

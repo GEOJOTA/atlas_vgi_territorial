@@ -348,7 +348,7 @@ JSON_ISO19115 = {
     },
     "contacto": {
         "organizacion": "Departamento de Geografía — Universidad Alberto Hurtado (UAH)",
-        "proyecto": "Fondecyt Regular F1261256 · Práctica Profesional 2026 S2",
+        "proyecto": "Investigación Cartográfica UAH · Práctica Profesional 2026 S2",
         "practicante": "Juan Pablo Lescano Villegas (GEOJOTA)",
         "correo": "juanpablolescanovillegas@gmail.com",
         "supervisor": "Prof. Manuel Fuenzalida",
@@ -415,7 +415,7 @@ osmium extract -b -70.6720,-33.4505,-70.6580,-33.4350 chile-latest.osm.pbf -o ba
 LEAME_TEXT = """================================================================================
 ATLAS DE INFORMACIÓN GEOGRÁFICA VOLUNTARIA (VGI) PARA LA GESTIÓN TERRITORIAL
 CASO PILOTO: BARRIO BRASIL Y CAMPUS UNIVERSIDAD ALBERTO HURTADO (SANTIAGO, CHILE)
-PROYECTO FONDECYT REGULAR F1261256 · DEPARTAMENTO DE GEOGRAFÍA UAH 2026
+DEPARTAMENTO DE GEOGRAFÍA UAH 2026
 ================================================================================
 
 Este archivo comprimido (.zip) contiene la base de datos ÍNTEGRA Y COMPLETA,

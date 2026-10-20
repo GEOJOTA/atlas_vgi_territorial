@@ -2,7 +2,7 @@
   indicadores_analisis.js
   -----------------------
   Módulo de Indicadores de Análisis Multidimensional y Storyboards Territoriales de Barrio Brasil.
-  Proyecto Fondecyt Regular F1261256 — Geografía Universidad Alberto Hurtado (2026).
+  Atlas VGI Territorial — Geografía UAH — Geografía Universidad Alberto Hurtado (2026).
 
   Estructura y Principios:
   1. Agrupación analítica de las 131 capas del Atlas (121 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
@@ -19,7 +19,7 @@
        * Institución / Autoridad Pública (MINVU, Municipio, MTT, IDE Chile)
        * Comunidad / Vecinal (Juntas de Vecinos, asambleas barriales, vecinos)
        * Mapeador / Voluntario OSM (comunidad OSM, estudiantes UAH)
-       * ONGs / Investigadores / Academia (Geografía UAH, Fondecyt F1261256)
+       * ONGs / Investigadores / Academia (Geografía UAH, Geografía UAH)
      - Apartado Bibliográfico y Trazabilidad de Datos Formales:
        * Fuentes espaciales primarias (con código BBDD/CAT, institución custodia y sistema de referencia).
        * Referencias teórico-metodológicas de autores clave en norma APA 7ma edición.
@@ -465,8 +465,8 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🔬',
             nombre: 'ONGs / Investigadores / Academia',
-            subtitulo: 'Geografía UAH · Fondecyt F1261256',
-            utilidad: 'Aporta insumos empíricos georreferenciados (EPSG:32719) para modelar la elasticidad del valor de suelo (SII) versus la protección patrimonial (MINVU) en el marco de la investigación Fondecyt.'
+            subtitulo: 'Geografía UAH · Geografía UAH',
+            utilidad: 'Aporta insumos empíricos georreferenciados (EPSG:32719) para modelar la elasticidad del valor de suelo (SII) versus la protección patrimonial (MINVU) en el marco de la investigación territorial.'
           }
         ],
 
@@ -718,7 +718,7 @@ const ModuloIndicadoresAnalisis = (() => {
             icono: '🔬',
             nombre: 'ONGs / Investigadores / Academia',
             subtitulo: 'Ecología Urbana · Departamento de Geografía UAH',
-            utilidad: 'Proporciona una base espacial verificada para estudios de justicia ambiental, confort bioclimático e islas de calor urbanas en el marco del Fondecyt F1261256.'
+            utilidad: 'Proporciona una base espacial verificada para estudios de justicia ambiental, confort bioclimático e islas de calor urbanas en el marco del Geografía UAH.'
           }
         ],
 
@@ -728,7 +728,7 @@ const ModuloIndicadoresAnalisis = (() => {
             { codigo: 'minvu_ipt_areas_verdes', nombre: 'Áreas Verdes Normativas (MINVU / INE 2023)', institucion: 'MINVU / INE', crs: 'EPSG:4326', tipo: 'Polígono' },
             { codigo: 'cat05_espacio_publico', nombre: 'Áreas Verdes y Espacio Público', institucion: 'OpenStreetMap Contributors / UAH', crs: 'EPSG:4326', tipo: 'Polígono' },
             { codigo: 'cat08_biodiversidad', nombre: 'Biodiversidad Urbana (Catastro de Flora y Fauna)', institucion: 'GBIF.org / iNaturalist / UAH', crs: 'EPSG:4326', tipo: 'Punto' },
-            { codigo: 'cat10_cobertura_suelo', nombre: 'Coberturas y Usos de Suelo', institucion: 'OpenStreetMap Contributors / Fondecyt', crs: 'EPSG:4326', tipo: 'Polígono' },
+            { codigo: 'cat10_cobertura_suelo', nombre: 'Coberturas y Usos de Suelo', institucion: 'OpenStreetMap Contributors / Geografía UAH', crs: 'EPSG:4326', tipo: 'Polígono' },
             { codigo: 'bbdd_39', nombre: 'Estaciones de monitoreo de calidad de aire (Red Pública)', institucion: 'Ministerio del Medio Ambiente (SINCA)', crs: 'EPSG:4326', tipo: 'Punto' },
             { codigo: 'bbdd_64', nombre: 'Índice Global de Vulnerabilidad Socioterritorial (IGVUST)', institucion: 'MINVU', crs: 'EPSG:4326', tipo: 'Polígono' }
           ],
@@ -846,8 +846,8 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🔬',
             nombre: 'ONGs / Investigadores / Academia',
-            subtitulo: 'Economía Urbana · Fondecyt F1261256 UAH',
-            utilidad: 'Caso de estudio empírico sobre economías urbanas de proximidad, gentrificación estudiantil y conservación del patrimonio en el marco del proyecto Fondecyt.'
+            subtitulo: 'Economía Urbana · Geografía UAH UAH',
+            utilidad: 'Caso de estudio empírico sobre economías urbanas de proximidad, gentrificación estudiantil y conservación del patrimonio en el marco del proyecto Atlas VGI.'
           }
         ],
 
@@ -976,7 +976,7 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🔬',
             nombre: 'ONGs / Investigadores / Academia',
-            subtitulo: 'Geografías del Cuidado · Fondecyt F1261256 UAH',
+            subtitulo: 'Geografías del Cuidado · Geografía UAH UAH',
             utilidad: 'Ofrece una base espacial rigurosa para modelar la relación entre morfología patrimonial, envejecimiento socioterritorial y feminización de las labores de cuidado en el centro de Santiago.'
           }
         ],
@@ -1015,7 +1015,7 @@ const ModuloIndicadoresAnalisis = (() => {
       dimensionId: 'dim-socioambiental',
       dimensionNombre: 'Socioambiental & Metabolismo Urbano',
       fecha: 'Octubre 2026',
-      autor: 'Equipo Fondecyt F1261256 · Geografía UAH',
+      autor: 'Equipo Geografía UAH · Geografía UAH',
       tiempoLectura: '6 min lectura',
       imagen: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80',
       tags: ['Residuos Sólidos (SUBDERE)', 'Metabolismo Urbano', 'Estación Quilicura', 'Loma Los Colorados'],
@@ -1124,7 +1124,7 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🔬',
             nombre: 'ONGs / Investigadores / Academia',
-            subtitulo: 'Ecología Política Urbana · Geografía UAH · Fondecyt F1261256',
+            subtitulo: 'Ecología Política Urbana · Geografía UAH · Geografía UAH',
             utilidad: 'Conecta la escala micro del consumo barrial y la gentrificación comercial con la escala macro de la justicia ambiental metropolitana entre el centro histórico y Tiltil.'
           }
         ],
@@ -1156,7 +1156,7 @@ const ModuloIndicadoresAnalisis = (() => {
       dimensionId: 'dim-sociourbana',
       dimensionNombre: 'Sociourbana, Normativa & Patrimonio',
       fecha: 'Octubre 2026',
-      autor: 'Equipo Fondecyt F1261256 · Geografía UAH',
+      autor: 'Equipo Geografía UAH · Geografía UAH',
       tiempoLectura: '6 min lectura',
       imagen: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
       tags: ['Modificaciones PRC', 'Conservación Histórica', 'Cités (Enmienda N° 2)', 'Rent Gap Inmobiliario'],
@@ -1259,7 +1259,7 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🔬',
             nombre: 'ONGs / Investigadores / Academia',
-            subtitulo: 'Geografía Urbana UAH · Fondecyt F1261256 · Estudios Patrimoniales',
+            subtitulo: 'Geografía Urbana UAH · Geografía UAH · Estudios Patrimoniales',
             utilidad: 'Entrega la trazabilidad histórica completa entre regulación urbanística, morfología edificada y brecha de renta (Rent Gap) en centros históricos latinoamericanos.'
           }
         ],
@@ -1384,14 +1384,14 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🎓',
             nombre: 'Investigación / Academia',
-            subtitulo: 'Geografía UAH · Proyecto Fondecyt F1261256',
+            subtitulo: 'Geografía UAH · Departamento de Geografía UAH',
             utilidad: 'Base territorial de microdatos para correlaciones espaciales con el Registro Social de Hogares, calidad de vida urbana e islas de calor.'
           }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
             { codigo: 'censo2024_manzanas', nombre: 'Microdatos y Cartografía Censal por Manzana (Censo 2024)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719 / EPSG:4326', tipo: 'Polígono' },
-            { codigo: 'matriz_sintesis_manzanas', nombre: 'Matriz Síntesis de Manzanas Atlas VGI (1.711 Manzanas)', institucion: 'Universidad Alberto Hurtado / Fondecyt F1261256', crs: 'EPSG:32719', tipo: 'Polígono' }
+            { codigo: 'matriz_sintesis_manzanas', nombre: 'Matriz Síntesis de Manzanas Atlas VGI (1.711 Manzanas)', institucion: 'Universidad Alberto Hurtado / Geografía UAH', crs: 'EPSG:32719', tipo: 'Polígono' }
           ],
           referenciasAcademicas: [
             {
@@ -1501,7 +1501,7 @@ const ModuloIndicadoresAnalisis = (() => {
             id: 'ong',
             icono: '🎓',
             nombre: 'Investigación / Academia',
-            subtitulo: 'Geografía UAH · Fondecyt F1261256',
+            subtitulo: 'Geografía UAH · Geografía UAH',
             utilidad: 'Permite calcular índices de compacidad geométrica, compacidad de Richardson y ratios perímetro/área en morfometría urbana.'
           }
         ],
@@ -1673,7 +1673,7 @@ const ModuloIndicadoresAnalisis = (() => {
           <div class="aviso-tentativo-banner">
             <span class="icono-aviso">ℹ️</span>
             <div class="texto-aviso">
-              <strong>Módulo Analítico y Catálogo Tentativo en Desarrollo:</strong> Esta estructuración multidimensional y los storyboards barriales constituyen propuestas exploratorias en desarrollo colaborativo para el Proyecto Fondecyt F1261256 (Geografía UAH), orientadas a contrastar narrativas territoriales con la base de datos abierta formal.
+              <strong>Módulo Analítico y Catálogo Tentativo en Desarrollo:</strong> Esta estructuración multidimensional y los storyboards barriales constituyen propuestas exploratorias en desarrollo colaborativo para el Departamento de Geografía UAH (Geografía UAH), orientadas a contrastar narrativas territoriales con la base de datos abierta formal.
             </div>
           </div>
         </header>
@@ -2245,7 +2245,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- Nota Metodológica de Transparencia -->
         <footer class="footer-articulo-blog">
           <small>
-            * Este storyboard forma parte de los entregables exploratorios y análisis cuali-cuantitativos del Proyecto Fondecyt Regular F1261256 (Geografía UAH). Datos obtenidos estrictamente de las fuentes formales del Atlas VGI (IDE Chile, MINVU, INE Censo 2024, UOCT/MTT, MDSF BiDat, OpenStreetMap contributors y GBIF.org).
+            * Este storyboard forma parte de los entregables exploratorios y análisis cuali-cuantitativos del Atlas VGI Territorial — Geografía UAH (Geografía UAH). Datos obtenidos estrictamente de las fuentes formales del Atlas VGI (IDE Chile, MINVU, INE Censo 2024, UOCT/MTT, MDSF BiDat, OpenStreetMap contributors y GBIF.org).
           </small>
         </footer>
 

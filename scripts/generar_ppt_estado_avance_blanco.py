@@ -227,7 +227,7 @@ def crear_presentacion():
     p2.space_after = Pt(2)
 
     p3 = tf_inst.add_paragraph()
-    p3.text = "Proyecto Fondecyt Regular F1261256 (ANID) — 'Información Geográfica Voluntaria y Gestión Territorial'"
+    p3.text = "Atlas VGI Territorial — Geografía UAH (ANID) — 'Información Geográfica Voluntaria y Gestión Territorial'"
     p3.font.name = FONT_NAME
     p3.font.size = Pt(10.5)
     p3.font.italic = True
@@ -272,7 +272,7 @@ def crear_presentacion():
     ficha_items = [
         ("Estudiante Practicante:", "Juan Pablo Lescano Villegas (GEOJOTA) — Licenciatura en Geografía"),
         ("Coordinador de Prácticas:", "Alejandro Cortés (UAH)"),
-        ("Docente Guía / Supervisor:", "Prof. Manuel Fuenzalida (UAH) & Investigador Colaborador Fondecyt"),
+        ("Docente Guía / Supervisor:", "Prof. Manuel Fuenzalida (UAH) & Investigador Colaborador Geografía UAH"),
         ("Área de Estudio Piloto:", "Barrio Brasil y campus UAH, Comuna de Santiago (223,75 ha)"),
         ("Período y Carga Horaria:", "01/09/2026 – 12/11/2026 · 150 horas concluidas de 300 hrs programadas (50%)")
     ]
@@ -293,7 +293,7 @@ def crear_presentacion():
 
     agregar_notas_orador(s1,
         "Buenos días profesores y miembros de la comisión. Presento el informe formal de estado de avance a las 150 horas "
-        "cronológicas de mi práctica profesional en el marco del Proyecto Fondecyt Regular F1261256, bajo la guía del profesor "
+        "cronológicas de mi práctica profesional en el marco del Atlas VGI Territorial — Geografía UAH, bajo la guía del profesor "
         "Manuel Fuenzalida y la coordinación de prácticas de Alejandro Cortés. El proyecto desarrolla un Atlas VGI para la gestión territorial en Barrio Brasil."
     )
 
@@ -303,12 +303,12 @@ def crear_presentacion():
     s2 = prs.slides.add_slide(blank_layout)
     agregar_encabezado(s2, "Contexto Institucional y Justificación Territorial", 
                        categoria="1. Introducción y Marco del Problema",
-                       subtitulo="Articulación entre investigación Fondecyt, información colaborativa y gestión local")
+                       subtitulo="Articulación entre investigación territorial, información colaborativa y gestión local")
     agregar_pie_pagina(s2, 2)
 
     cards_ctx = [
         ("Marco Institucional y Científico", [
-            ("Línea Fondecyt F1261256:", "Investigación orientada a integrar datos colaborativos en la planificación territorial metropolitana."),
+            ("Línea Geografía UAH:", "Investigación orientada a integrar datos colaborativos en la planificación territorial metropolitana."),
             ("Departamento de Geografía UAH:", "Espacio de vinculación académica, docencia y análisis geoespacial aplicado al medio urbano."),
             ("Coordinación de Práctica:", "Supervisión metodológica del profesor guía Manuel Fuenzalida y coordinación de Alejandro Cortés.")
         ]),
@@ -358,7 +358,7 @@ def crear_presentacion():
             r_t.font.color.rgb = COLOR_NEGRO
 
     agregar_notas_orador(s2,
-        "La justificación se basa en tres pilares: primero, el anclaje institucional en el Fondecyt y el Departamento de Geografía UAH; "
+        "La justificación se basa en tres pilares: primero, el anclaje institucional en el Geografía UAH y el Departamento de Geografía UAH; "
         "segundo, la selección de Barrio Brasil como laboratorio urbano de 223 hectáreas con fuertes contrastes; y tercero, "
         "la necesidad de subsanar los vacíos de datos oficiales mediante Información Geográfica Voluntaria estandarizada."
     )
@@ -1137,7 +1137,7 @@ def crear_presentacion():
     inj_points = [
         "• 14 Atributos Normalizados ISO: Inyectados directamente en las propiedades de cada GeoJSON, GeoPackage y Shapefile descargable desde el Atlas.",
         "• Trazabilidad Inmediata: Cualquier usuario o investigador que descargue datos obtiene custodio, fecha, licencia, linaje y metacalidad en el mismo archivo.",
-        "• Criterio de Metacalidad Homogéneo: Garantiza el cumplimiento de estándares para la investigación Fondecyt y la gestión territorial comunitaria."
+        "• Criterio de Metacalidad Homogéneo: Garantiza el cumplimiento de estándares para la investigación territorial y la gestión territorial comunitaria."
     ]
     for pt in inj_points:
         p_pt = tf_inj.add_paragraph()
@@ -1359,7 +1359,7 @@ def crear_presentacion():
         ("Carácter Preliminar y Explicativo:", "Los criterios e indicadores se presentan como una base conceptual explicativa de diagnóstico barrial; no representan métricas definitivas cerradas."),
         ("Metodología en Desarrollo (Hito 6):", "La formulación matemática detallada y los algoritmos espaciales se programan para su ejecución formal en las Semanas 6 y 7."),
         ("Ponderación Multicriterio Simple:", "Se contempla un esquema de normalización lineal simple (escala 0 a 1) que permita una lectura comprensible y sin opacidad técnica para la comunidad."),
-        ("Validación Comunitaria y con Expertos:", "Los indicadores y sus ponderaciones serán contrastados con dirigentes vecinales de Barrio Brasil (Hito 7) y el comité del Proyecto Fondecyt UAH."),
+        ("Validación Comunitaria y con Expertos:", "Los indicadores y sus ponderaciones serán contrastados con dirigentes vecinales de Barrio Brasil (Hito 7) y el comité del proyecto Atlas VGI UAH."),
         ("Integración al Geoportal:", "Al concluir el Hito 6, estos indicadores alimentarán de forma automatizada los storyboards territoriales interactivos del Módulo 09.")
     ]
     for subt, txt in metodologia_items:
@@ -1808,7 +1808,7 @@ def crear_presentacion():
             "• Evaluación estructurada bajo norma ISO 9241-11 (efectividad, eficiencia y satisfacción percibida)."
         ]),
         ("Semana 11 (09 al 12 Nov)", "Hito 10: Manuales de Transferibilidad, Informe Final y Titulación", [
-            "• Redacción del Manual Metodológico para el Departamento de Geografía UAH y Proyecto Fondecyt F1261256.",
+            "• Redacción del Manual Metodológico para el Departamento de Geografía UAH y Departamento de Geografía UAH.",
             "• Guía de administración, actualización de datos con scripts Python y mantenimiento a costo $0.",
             "• Elaboración y entrega del Informe Final de Práctica Profesional y preparación del examen de título."
         ])
@@ -1878,7 +1878,7 @@ def crear_presentacion():
         ("3. Sostenibilidad y Transferibilidad", [
             ("Costo Cero Recurrente ($0):", "Arquitectura serverless en Netlify y Supabase que garantiza continuidad operativa sin costos para la UAH."),
             ("Apropiación Social:", "Herramienta que democratiza el acceso a la información territorial para dirigentes vecinales y la comunidad."),
-            ("Proyección a Titulación:", "Sólida base empírica para la memoria de titulación y transferibilidad directa al Fondecyt F1261256.")
+            ("Proyección a Titulación:", "Sólida base empírica para la memoria de titulación y transferibilidad directa al Geografía UAH.")
         ])
     ]
     card_w22 = 3.75

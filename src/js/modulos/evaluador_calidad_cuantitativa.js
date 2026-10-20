@@ -13,7 +13,7 @@
   de datos espaciales externo ingresado por el usuario (GeoJSON / JSON / archivos cargados).
 
   Autor: Departamento de Geografía — Universidad Alberto Hurtado (UAH) / GEOJOTA
-  Proyecto: Atlas VGI — Nodo GeoAbierto (Proyecto F1261256 ANID)
+  Proyecto: Atlas VGI — Nodo GeoAbierto (Departamento de Geografía UAH)
   Fecha: Octubre 2026
 */
 
@@ -1440,7 +1440,7 @@ const EvaluadorCalidadCuantitativa = (() => {
     const dc = resultado.dimensionesCuantitativas;
 
     const texto = `# PLAN DE SUBSANACIÓN Y REPARACIÓN DE CALIDAD ESPACIAL (ISO 19157 / ISO 19115)
-Atlas VGI Territorial — Nodo GeoAbierto (Proyecto F1261256 ANID)
+Atlas VGI Territorial — Nodo GeoAbierto (Departamento de Geografía UAH)
 Fecha: ${resultado.fechaAuditoria}
 Dataset: ${resultado.nombreCapa} (${rd.totalFeatures.toLocaleString('es-CL')} entidades, ${rd.totalVertices.toLocaleString('es-CL')} vértices)
 Índice Global IGV: ${ig.igv}% [${ig.grado}]
@@ -2365,7 +2365,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
           const inpResumen = document.getElementById('md-resumen');
           if (inpResumen && resultado.resumenDataset) {
             const rd = resultado.resumenDataset;
-            inpResumen.value = `Conjunto de datos espaciales: ${resultado.nombreCapa || 'Capa territorial'}. Comprende ${rd.totalFeatures} entidades vectoriales (${rd.tasaValidezTopologica} conformes con OGC SFA) y ${rd.totalVertices ? rd.totalVertices.toLocaleString('es-CL') : 0} vértices evaluados bajo norma ISO 19157 e ISO 19115 (Atlas VGI - Fondecyt 1261256).`;
+            inpResumen.value = `Conjunto de datos espaciales: ${resultado.nombreCapa || 'Capa territorial'}. Comprende ${rd.totalFeatures} entidades vectoriales (${rd.tasaValidezTopologica} conformes con OGC SFA) y ${rd.totalVertices ? rd.totalVertices.toLocaleString('es-CL') : 0} vértices evaluados bajo norma ISO 19157 e ISO 19115 (Atlas VGI - Geografía UAH).`;
           }
           if (resultado.resumenDataset && resultado.resumenDataset.bbox) {
             const bbox = resultado.resumenDataset.bbox;
@@ -2380,7 +2380,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
           }
           const inpLinaje = document.getElementById('md-linaje');
           if (inpLinaje && resultado.nombreCapa) {
-            inpLinaje.value = `Capa vectorial "${resultado.nombreCapa}" auditada con el Evaluador de Calidad Espacial ISO 19157 del Atlas VGI (UAH Fondecyt 1261256). Índice Global IGV: ${resultado.indiceGlobal ? resultado.indiceGlobal.igv : 100}%.`;
+            inpLinaje.value = `Capa vectorial "${resultado.nombreCapa}" auditada con el Evaluador de Calidad Espacial ISO 19157 del Atlas VGI (UAH Geografía UAH). Índice Global IGV: ${resultado.indiceGlobal ? resultado.indiceGlobal.igv : 100}%.`;
           }
 
           // Disparar generación automática de la ficha ISO para reflejar de inmediato los datos
@@ -2416,7 +2416,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
     if (btnCopiar) {
       btnCopiar.addEventListener('click', () => {
         const resumenTexto = `CERTIFICADO DE CALIDAD ESPACIAL ISO 19157 / ISO 19115\n` +
-          `Atlas VGI Territorial — Nodo GeoAbierto (UAH Fondecyt 1261256)\n` +
+          `Atlas VGI Territorial — Nodo GeoAbierto (UAH Geografía UAH)\n` +
           `Fecha: ${resultado.fechaAuditoria}\n` +
           `Índice Global IGV: ${ig.igv}% [${ig.grado}]\n` +
           `- Pilar Cuantitativo: ${ig.scoreCuantitativo}%\n` +

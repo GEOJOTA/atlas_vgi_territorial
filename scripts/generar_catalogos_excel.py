@@ -665,7 +665,7 @@ def crear_perfil_metadatos():
         [
             4, "CI_ResponsibleParty.organisationName", "Custodio o Responsable Institucional", "Obligatorio (M) - Núcleo 4",
             "Carácter", "Punto de Contacto / Custodio (IDE Chile)", "Institución, organismo u organización comunitaria a cargo de la custodia y administración del dataset.",
-            "Departamento de Geografía Universidad Alberto Hurtado 2026 — Nodo GeoAbierto (Proyecto Fondecyt 1261256)"
+            "Departamento de Geografía Universidad Alberto Hurtado 2026 — Nodo GeoAbierto (Proyecto Geografía UAH)"
         ],
         [
             5, "CI_Date.date", "Fecha de Referencia y Vigencia", "Obligatorio (M) - Núcleo 5",
