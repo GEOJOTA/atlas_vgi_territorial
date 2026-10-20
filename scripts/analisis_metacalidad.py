@@ -803,7 +803,7 @@ def evaluar_metacalidad_capa(capa):
         bonus_ll = 12.0
     score_ll = round(min(100.0, max(80.0, base_ll + bonus_ll)), 1)
 
-    # DIMENSIÓN 4: RESOLUCIÓN ESPACIAL Y GRANULARIDAD (RG - Snyder / Escalas) (15%)
+    # DIMENSIÓN 4: RESOLUCIÓN ESPACIAL Y GRANULARIDAD (RG - EPSG:32719 / Escalas) (15%)
     nom_l = (capa.get('nombre', '') + ' ' + lid).lower()
     if any(k in nom_l for k in ['predial', 'semáforo', 'paradero', 'local', 'colegio', 'barrio', 'edific', 'cat01', 'cat02', 'cat03', 'cat04', 'cat07']):
         score_rg = 100.0
@@ -1275,7 +1275,7 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append(f"| ├── 1. Metadatos Núcleo (MC) | ISO 19115 Core (10 campos) | 30% del pilar | **{m['mc_promedio']:.1f}%** | 🟢 Excelente |")
     md.append(f"| ├── 2. Conformidad Normativa (CC) | ISO 19139 / ISO 19110 | 20% del pilar | **{m['cc_promedio']:.1f}%** | 🟢 Excelente |")
     md.append(f"| ├── 3. Linaje y Trazabilidad (LL) | Ley 20.285 / ODbL / CC-BY | 25% del pilar | **{m['ll_promedio']:.1f}%** | 🟢 Excelente |")
-    md.append(f"| ├── 4. Resolución Geodésica (RG) | Snyder 1987 / Escala Cartográfica | 15% del pilar | **{m['rg_promedio']:.1f}%** | 🟢 Excelente |")
+    md.append(f"| ├── 4. Resolución Geodésica (RG) | EPSG:32719 UTM 19S / Escala Cartográfica | 15% del pilar | **{m['rg_promedio']:.1f}%** | 🟢 Excelente |")
     md.append(f"| └── 5. Accesibilidad Operativa (AI) | CDN Edge / Sin Punteros Rotos | 10% del pilar | **{m['ai_promedio']:.1f}%** | 🟢 Excelente |")
     md.append(f"| 🏆 **ÍNDICE GLOBAL DE CALIDAD (IGV)** | **ISO 19157:2023 & ISO 19115** | **100% TOTAL** | **{m.get('igv_promedio', m['igmc_promedio']):.1f}%** | **🟢 Grado A+ (Excelente)** |\n")
 
@@ -1348,7 +1348,7 @@ def generar_informe_markdown(datos, ruta_salida):
         "1. **Completitud Núcleo ($MC$ - 30%):** 10 campos obligatorios del Perfil Nacional de Metadatos (ID, título, resumen, custodio, temporalidad, categoría temática, extensión, CRS, licencia y linaje).\n"
         "2. **Conformidad Normativa ($CC$ - 20%):** Consistencia con esquemas ISO 19139 / ISO 19110 y catalogación de entidades según el Diccionario Territorial.\n"
         "3. **Linaje y Derechos Jurídicos ($LL$ - 25%):** Delimitación de licenciamiento (Ley N° 20.285 de Transparencia para datos estatales; ODbL 1.0 para OSM; CC-BY 4.0 para GBIF) y cita académica formal APA 7ª edición.\n"
-        "4. **Resolución Geodésica ($RG$ - 15%):** Declaración formal de CRS dual: WGS84 para visualización web y UTM 19S (Snyder, 1987) para análisis métrico.\n"
+        "4. **Resolución Geodésica ($RG$ - 15%):** Declaración formal de CRS dual: WGS84 para visualización web y UTM 19S (EPSG:32719 en geodesia.js) para análisis métrico.\n"
         "5. **Accesibilidad e Integridad ($AI$ - 10%):** Disponibilidad física local y CDN sin enlaces caídos a costo cero ($0 USD).\n"
     )
 
@@ -1406,7 +1406,7 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append("    end")
     md.append("    subgraph MotorNormalizacion [Motor de Normalización y MetaCalidad]")
     md.append("        N1[\"Normalización de Atributos: 13 Campos Estándar ISO 19110\"]")
-    md.append("        N2[\"Doble Geodesia: WGS84 EPSG:4326 + UTM 19S EPSG:32719 (Snyder)\"]")
+    md.append("        N2[\"Doble Geodesia: WGS84 EPSG:4326 + UTM 19S EPSG:32719 (geodesia.js)\"]")
     md.append("        N3[\"Auditoría de MetaCalidad Programática ISO 19157\"]")
     md.append("    end")
     md.append("    FuentesOficiales --> MotorNormalizacion")

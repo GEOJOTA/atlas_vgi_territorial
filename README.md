@@ -5,16 +5,16 @@
 [![Diccionario de Datos](https://img.shields.io/badge/Diccionario-140_Descriptores_T%C3%A9cnicos-f59e0b?style=for-the-badge)](#documentación-técnica-y-manuales)
 [![Fondecyt Regular](https://img.shields.io/badge/Fondecyt_Regular-N%C2%B0_1261256_(Geograf%C3%ADa_UAH)-a855f7?style=for-the-badge)](#créditos-institucionales)
 
-Plataforma web abierta desarrollada en el marco del **Proyecto Fondecyt Regular N° 1261256** del **Departamento de Geografía de la Universidad Alberto Hurtado (Chile)**.
+Plataforma web abierta desarrollada en el marco del **Proyecto Fondecyt Regular Nº 1261256** del **Departamento de Geografía de la Universidad Alberto Hurtado (Chile)**.
 
-El sistema articula cartografía oficial del Estado de Chile con Información Geográfica Voluntaria (*Volunteered Geographic Information*, VGI; Goodchild, 2007; Haklay, 2010) para el diagnóstico espacial, la evaluación normativa y la gestión territorial del **Barrio Brasil**, el entorno del Campus Universidad Alberto Hurtado, la **Comuna de Santiago** y la **Región Metropolitana**.
+El sistema articula la cartografía oficial del Estado de Chile con Información Geográfica Voluntaria (*Volunteered Geographic Information*, VGI; Goodchild, 2007; Haklay, 2010) para el diagnóstico espacial, la evaluación normativa y la gestión territorial del **Barrio Brasil**, el entorno del Campus Universidad Alberto Hurtado, la **Comuna de Santiago** y la **Región Metropolitana**.
 
 ---
 
 ## 🧭 Índice de Contenidos
 
 1. [Documentación Técnica y Manuales](#documentación-técnica-y-manuales)
-2. [Estructura de Datos y Módulos (00 al 09)](#estructura-de-datos-y-módulos-01-al-10)
+2. [Estructura de Datos y Módulos (01 al 10)](#estructura-de-datos-y-módulos-01-al-10)
    - [Módulos Funcionales de la Plataforma](#módulos-funcionales-de-la-plataforma)
 3. [Despliegue Local y Auditoría Pre-Despliegue](#despliegue-local-y-auditoría-pre-despliegue)
 4. [Créditos Institucionales](#créditos-institucionales)
@@ -23,12 +23,12 @@ El sistema articula cartografía oficial del Estado de Chile con Información Ge
 
 ## Documentación Técnica y Manuales
 
-1. 📘 **[Manual de Uso (`MANUAL_USO.md`)](MANUAL_USO.md)**:  
-   Sistematización operativa de los 10 módulos (`01` al `10`), filtros espaciales, evaluación normativa (PRC/OGUC e historial de modificaciones en Barrio Brasil 1990–2024), Índice de Calidad VGI (ICV) dinámico, 5 dimensiones analíticas y 7 Storyboards territoriales.
-2. 🛠️ **[Manual de Actualización, Arquitectura, Integridad y Contribución Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)](MANUAL_ACTUALIZACION_ATLAS.md)**:  
-   Documento maestro exhaustivo y unificado que integra la arquitectura técnica del sistema, el protocolo de integridad y despliegue, las vías de contribución comunitaria y el protocolo secuencial para administrar la base de datos dual (`.geojson` + `.gpkg`), incorporar nuevas coberturas en 6 etapas, actualizar indicadores/storyboards y publicar en producción. Accesible idénticamente desde [`CONTRIBUTING.md`](CONTRIBUTING.md), [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md) y [`PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md`](PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md).
+1. 🛠️ **[Manual de Actualización, Arquitectura, Integridad y Contribución Técnica (`MANUAL_ACTUALIZACION_ATLAS.md`)](MANUAL_ACTUALIZACION_ATLAS.md)**:  
+   **Documento maestro universal de operaciones y mantención.** Detalla la arquitectura de software, la sincronización simétrica entre carpetas (`src/data/` y `data/`), el almacenamiento en `EPSG:4326`, el módulo de reproyección métrica (`EPSG:32719` en `src/js/modulos/geodesia.js`) y los **15 procedimientos estandarizados** para modificar cualquier detalle del Atlas (incorporación de capas oficiales/VGI, storyboards, Inspector Normativo, metadatos, diccionario, estilos visuales y despliegue a producción). Accesible idénticamente desde [`CONTRIBUTING.md`](CONTRIBUTING.md), [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md) y [`PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md`](PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md).
+2. 📘 **[Manual de Uso (`MANUAL_USO.md`)](MANUAL_USO.md)**:  
+   Guía de operación de los 10 módulos funcionales (`01` al `10`), filtros espaciales, evaluación normativa (PRC/OGUC y expediente histórico 1990–2024), Índice de Calidad VGI (ICV) dinámico, 5 dimensiones analíticas y 9 storyboards territoriales con modal HD interactivo.
 3. 📚 **[Trazabilidad Académica (`docs/TRAZABILIDAD_ACADEMICA.md`)](docs/TRAZABILIDAD_ACADEMICA.md)** y **[Bibliografía Consolidada APA 7ª Ed. (`docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md`)](docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md)**:  
-   Sustento epistemológico, formulación geodésica (`EPSG:32719`), auditoría de MetaCalidad (**ISO 19115 / ISO 19157**) y aparato crítico de 125 referencias.
+   Sustento epistemológico, justificación metodológica de la reproyección cartográfica oficial (**ISO 19111 / EPSG:32719**), modelo de auditoría de MetaCalidad (**ISO 19115 / ISO 19157**) y aparato crítico de 125 referencias bibliográficas.
 
 ---
 
@@ -39,16 +39,16 @@ El Atlas integra **131 coberturas geográficas operativas** en coordenadas `EPSG
 - **10 Categorías Colaborativas VGI**: Levantamientos comunitarios en OpenStreetMap (OSM) y registros de biodiversidad en GBIF / iNaturalist.
 
 ### Módulos Funcionales de la Plataforma
-- **`01` · Visor para la gestión territorial**: Lienzo cartográfico 2D/3D, buscador de las 131 coberturas, cálculo en tiempo real del **Índice de Calidad VGI (ICV)** e **Inspector Normativo (Certificado CIN-VGI)** con acceso directo al expediente histórico de modificaciones al PRC de Santiago (1990–2024).
+- **`01` · Visor y Atlas VGI**: Lienzo cartográfico 2D/3D con las 131 coberturas, cálculo en tiempo real del **Índice de Calidad VGI (ICV)**, importación local de archivos espaciales e **Inspector Normativo (Certificado CIN-VGI)** con acceso directo al expediente histórico de modificaciones al PRC de Santiago (1990–2024).
 - **`02` · Consultas Overpass**: Extracción en tiempo real desde OpenStreetMap mediante plantillas temáticas y lenguaje Overpass QL.
 - **`03` · Biodiversidad GBIF**: Ocurrencias biológicas de flora, fauna y funga urbana validadas en GBIF e iNaturalist bajo estándar Darwin Core.
-- **`04` · Cartografía uMap**: Integración de lienzos colaborativos uMap orientados a talleres participativos y validación comunitaria.
-- **`05` · Indicadores & Storyboards**: Clasificación de las 131 capas en **5 Dimensiones Analíticas** (*Sociodemográfica*, *Socioeconómica*, *Socioambiental*, *Sociosanitaria* y *Sociourbana*), catálogo interactivo con acceso al mapa y **9 Storyboards territoriales** con Lightbox HD interactivo.
-- **`06` · Calidad & ICV**: Evaluación multicriterio bajo norma ISO 19157, series históricas ohsome API (HeiGIT) y auditoría de cambios OSMCha.
-- **`07` · Manual de Uso y Actualización**: Documentación interactiva integrada en la plataforma (Manual de Uso, Manual de Actualización Técnica y Bibliografía APA 7ª ed.).
-- **`08` · Metadatos ISO 19115**: Generación y exportación de fichas formales de metadatos en formatos XML (ISO 19139) y JSON.
-- **`09` · Diccionario de Datos (131 Capas / 140 Descriptores)**: Especificación técnica de atributos por cobertura, incluyendo los diccionarios nativos de columnas `.gpkg` de SUBDERE RSD 2024.
-- **`10` · Licencias & Catálogos**: Marco jurídico (ODbL 1.0, CC BY-SA 4.0, GNU AGPLv3, Ley N° 20.285, Ley N° 19.628) y descarga de matrices en formato Excel (`.xlsx`).
+- **`04` · Cartografía UMAP**: Integración de lienzos colaborativos uMap orientados a talleres participativos y validación comunitaria en terreno.
+- **`05` · Indicadores y Storyboards**: Clasificación de las 131 capas en **5 Dimensiones Analíticas** (*Sociodemográfica*, *Socioeconómica*, *Socioambiental*, *Sociosanitaria* y *Sociourbana*) y **9 Storyboards territoriales** con indicadores cuantitativos y visor modal (*pop-up*) HD interactivo para la ampliación de imágenes y gráficos.
+- **`06` · Calidad e ICV**: Evaluación cuantitativa multicriterio bajo norma ISO 19157, series históricas con la API ohsome (HeiGIT) y auditoría de conjuntos de cambios con OSMCha.
+- **`07` · Manual de uso y Actualización**: Centro documental interactivo embebido en la aplicación web (Manual de Uso, Manual de Actualización Técnica y Catálogo general).
+- **`08` · Metadatos ISO 19115**: Generación y exportación de fichas formales de metadatos espaciales en esquemas XML (ISO 19139) y JSON.
+- **`09` · Diccionario (131 capas)**: Especificación técnica de los 140 descriptores de atributos (ISO 19110:2016), incluyendo los diccionarios nativos de columnas de las bases GeoPackage de SUBDERE RSD 2024.
+- **`10` · Licencias y Catálogos**: Marco jurídico abierto (ODbL 1.0, CC BY-SA 4.0, GNU AGPLv3, Leyes Nº 20.285 y 19.628) y descarga directa de catálogos y matrices en formato Excel (`.xlsx`).
 
 ---
 
@@ -61,7 +61,7 @@ El Atlas integra **131 coberturas geográficas operativas** en coordenadas `EPSG
    ```
    El sistema se sirve localmente en `http://localhost:8080`.
 
-2. **Ejecución de scripts de verificación (desde la raíz):**
+2. **Ejecución de scripts de comprobación pre-despliegue (desde la raíz):**
    ```bash
    python scripts/verificar_conteo_capas.py
    python scripts/verificar_integridad_despliegue.py
@@ -72,5 +72,5 @@ El Atlas integra **131 coberturas geográficas operativas** en coordenadas `EPSG
 
 ## Créditos Institucionales
 
-- **Proyecto:** Fondecyt Regular N° 1261256 (*"Calidad y gobernanza de la Información Geográfica Voluntaria para la gestión urbana integrada"*).
+- **Proyecto:** Fondecyt Regular Nº 1261256 (*"Calidad y gobernanza de la Información Geográfica Voluntaria para la gestión urbana integrada"*).
 - **Institución:** Departamento de Geografía · Facultad de Ciencias Sociales · Universidad Alberto Hurtado (Santiago de Chile).

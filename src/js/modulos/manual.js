@@ -5,7 +5,7 @@
   Redactado en tercera persona con formato de artículo metodológico y reporte técnico-profesional.
 
   Integra:
-  - Parte I: Manual de Uso del Atlas (Fundamentación, arquitectura de interfaz, operación de los Módulos 00 al 09,
+  - Parte I: Manual de Uso del Atlas (Fundamentación, arquitectura de interfaz, operación de los Módulos 01 al 10,
     ICV Dinámico, Inspector Normativo PRC/OGUC con expediente histórico 1990-2024 y Catálogo de las 131 capas).
   - Parte II: Manual de Actualización y Mantención Técnica (Principios de ingeniería, sincronización espejo
     data/ y src/data/, base dual .geojson + .gpkg, protocolo de 6 etapas para integración de coberturas,
@@ -332,9 +332,9 @@ const ModuloManual = (() => {
 
           <h4 style="color:#38bdf8; margin:14px 0 8px 0;">1. Stack Tecnológico Consolidado</h4>
           <ul style="padding-left:20px; color:var(--tinta-suave); font-size:0.88rem; line-height:1.65;">
-            <li><strong>Front-End</strong>: HTML5 semántico estructurado en 10 módulos (pestañas <code>00</code> a <code>09</code>) y CSS3 puro con variables nativas en <code>src/css/estilos.css</code> (diseño táctico oscuro, ratios WCAG 2.1 AA y microcomponentes de geometrías).</li>
+            <li><strong>Front-End</strong>: HTML5 semántico estructurado en 10 módulos (pestañas <code>01</code> a <code>10</code>) y CSS3 puro con variables nativas en <code>src/css/estilos.css</code> (diseño táctico oscuro, ratios WCAG 2.1 AA y microcomponentes de geometrías).</li>
             <li><strong>Lógica de Aplicación</strong>: Vanilla JavaScript ES6+ modular basado en el Patrón de Módulo Revelador (IIFE), encapsulando el estado interno en objetos globales <code>window.Modulo...</code>.</li>
-            <li><strong>Motor Cartográfico y Geodesia</strong>: Leaflet 1.9.4 complementado por un motor geodésico propio en <code>src/js/modulos/geodesia.js</code> con cálculo métrico conforme en el elipsoide WGS84 para la Zona UTM 19 Sur (<code>EPSG:32719</code>; Snyder, 1987).</li>
+            <li><strong>Motor Cartográfico y Métricas</strong>: Leaflet 1.9.4 articulado con un módulo de reproyección y métricas en <code>src/js/modulos/geodesia.js</code> para la Zona UTM 19 Sur (<code>EPSG:32719</code>; ISO 19111), configurable mediante el Manual de Actualización Técnica.</li>
             <li><strong>Procesamiento y Auditoría</strong>: Suite en Python 3.10+ para verificación topológica, validación de esquemas JSON, cálculo de metacalidad (ISO 19115/19157) y reproyecciones.</li>
             <li><strong>Formatos Cartográficos</strong>: Formato de intercambio web <code>GeoJSON</code> (RFC 7946; Butler et al., 2016) en coordenadas <code>EPSG:4326</code>, y persistencia de bases relacionales en <code>OGC GeoPackage (.gpkg)</code> para resguardar los comentarios SQLite de columnas de SUBDERE RSD 2024.</li>
           </ul>
@@ -712,7 +712,7 @@ git push origin main</code></pre>
   }
 
   /**
-   * Navega directamente a cualquiera de los 10 módulos del Atlas (00 al 09)
+   * Navega directamente a cualquiera de los 10 módulos del Atlas (01 al 10)
    */
   function irAPanel(panelId) {
     const mapaAlias = {
