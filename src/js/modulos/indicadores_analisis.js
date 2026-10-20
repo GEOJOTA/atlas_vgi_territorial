@@ -1745,6 +1745,7 @@ const ModuloIndicadoresAnalisis = (() => {
                   <div class="imagen-cuadrada-wrapper">
                     <img src="${sb.imagen}" alt="${sb.titulo}" loading="lazy" class="img-storyboard-cuadro">
                     <div class="overlay-gradiente-storyboard"></div>
+                    <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Ampliar imagen / cartografía en alta resolución">🔍</button>
                     <span class="badge-dimension-tag">${sb.dimensionNombre.split('&')[0]}</span>
                     <span class="badge-tiempo-lectura">⏱ ${sb.tiempoLectura}</span>
                   </div>
@@ -2029,11 +2030,16 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
         </header>
 
-        <!-- Imagen Destacada del Storyboard -->
-        <figure class="figura-destacada-blog">
-          <img src="${sb.imagen}" alt="${sb.titulo}" class="img-destacada-blog">
+        <!-- Imagen Destacada del Storyboard (Clic para Ampliar) -->
+        <figure class="figura-destacada-blog figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Haz clic para ampliar la imagen/cartografía en alta resolución">
+          <div class="contenedor-imagen-ampliable">
+            <img src="${sb.imagen}" alt="${sb.titulo}" class="img-destacada-blog">
+            <div class="overlay-zoom-hover">
+              <span class="badge-zoom-cta">🔍 Clic para ampliar en pantalla completa (Zoom HD)</span>
+            </div>
+          </div>
           <figcaption class="pie-figura-blog">
-            Registro territorial de Barrio Brasil contextualizado con las capas oficiales del Estado y la cartografía colaborativa VGI.
+            Registro territorial contextualizado con las capas del Atlas VGI. <span class="nota-ampliable">· Clic en la imagen para ampliar en alta resolución ↗</span>
           </figcaption>
         </figure>
 
@@ -2079,9 +2085,12 @@ const ModuloIndicadoresAnalisis = (() => {
             `).join('')}
           </div>
 
-          <!-- Gráfico Comparativo / Benchmark -->
-          <div class="contenedor-grafico-comparativo">
-            <h5 class="titulo-grafico-comparativo">${sb.contenido.graficoComparativo.titulo}</h5>
+          <!-- Gráfico Comparativo / Benchmark (Clic para Ampliar) -->
+          <div class="contenedor-grafico-comparativo contenedor-figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxGrafico('${sb.id}')" title="Haz clic para ampliar el gráfico comparativo en pantalla completa">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h5 class="titulo-grafico-comparativo" style="margin:0;">${sb.contenido.graficoComparativo.titulo}</h5>
+              <span class="btn-micro-zoom" title="Ampliar gráfico">🔍 Ampliar Gráfico</span>
+            </div>
             ${sb.contenido.graficoComparativo.filas.map(f => `
               <div class="fila-grafico-barra">
                 <span class="etiqueta-fila-barra" title="${f.label}">${f.label}</span>
@@ -2093,15 +2102,20 @@ const ModuloIndicadoresAnalisis = (() => {
             `).join('')}
           </div>
 
-          <!-- Diagrama Técnico Vectorial SVG -->
-          <div class="contenedor-diagrama-svg">
+          <!-- Diagrama Técnico Vectorial SVG (Clic para Ampliar) -->
+          <div class="contenedor-diagrama-svg contenedor-figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxDiagrama('${sb.id}')" title="Haz clic para ampliar el diagrama vectorial en pantalla completa">
             <div class="header-diagrama-svg">
               <h5 class="titulo-diagrama-svg">📐 Diagrama Técnico de Análisis Espacial</h5>
-              <span class="badge-fuente-datos">MODELACIÓN VECTORIAL SVG</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span class="badge-fuente-datos">MODELACIÓN VECTORIAL SVG</span>
+                <span class="btn-micro-zoom" title="Ampliar diagrama">🔍 Ampliar Diagrama</span>
+              </div>
             </div>
-            ${typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : ''}
+            <div class="svg-diagrama-canvas-wrapper">
+              ${typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : ''}
+            </div>
             <p class="pie-diagrama-svg">
-              Diagrama conceptual interactivo fundamentado en los parámetros normativos y las capas del Atlas VGI.
+              Diagrama conceptual interactivo fundamentado en los parámetros normativos y las capas del Atlas VGI. <span class="nota-ampliable">· Clic para ampliar ↗</span>
             </p>
           </div>
 
@@ -2247,6 +2261,7 @@ const ModuloIndicadoresAnalisis = (() => {
    * Cierra la lámina modal de lectura
    */
   function cerrarLaminaStoryboard() {
+    cerrarLightboxFigura();
     const overlay = document.getElementById('lamina-storyboard-overlay');
     if (overlay) {
       overlay.style.display = 'none';
@@ -2254,6 +2269,279 @@ const ModuloIndicadoresAnalisis = (() => {
     }
     document.body.style.overflow = '';
   }
+
+  // =========================================================================
+  // SISTEMA UNIVERSAL DE LIGHTBOX / ZOOM DE FIGURAS Y CARTOGRAFÍA
+  // =========================================================================
+
+  const lightboxState = {
+    abierto: false,
+    zoom: 1.0,
+    minZoom: 0.5,
+    maxZoom: 4.5,
+    panX: 0,
+    panY: 0,
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    urlRecurso: ''
+  };
+
+  function asegurarLightboxEnDOM() {
+    if (typeof document === 'undefined') return null;
+    let overlay = document.getElementById('lightbox-figura-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'lightbox-figura-overlay';
+      overlay.id = 'lightbox-figura-overlay';
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+
+      overlay.innerHTML = `
+        <div class="lightbox-figura-contenedor" id="lightbox-figura-contenedor">
+          <header class="lightbox-header">
+            <div class="lightbox-info-titulo">
+              <span class="lightbox-tipo-badge" id="lightbox-tipo-badge">🗺️ CARTOGRAFÍA HD</span>
+              <h3 class="lightbox-titulo" id="lightbox-titulo">Figura Ampliada</h3>
+              <span class="lightbox-subtitulo" id="lightbox-subtitulo">Visualización completa en alta resolución</span>
+            </div>
+            <div class="lightbox-controles">
+              <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-in" title="Acercar (+)">＋</button>
+              <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-out" title="Alejar (-)">－</button>
+              <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-reset" title="Restablecer tamaño (100%)">⟲ 100%</button>
+              <a id="btn-lightbox-abrir-nueva-pestana" href="#" target="_blank" rel="noopener" class="btn-control-lightbox" title="Abrir recurso original en pestaña nueva ↗">↗</a>
+              <button type="button" class="btn-control-lightbox btn-cerrar-lightbox" id="btn-cerrar-lightbox" title="Cerrar (ESC)">✕</button>
+            </div>
+          </header>
+
+          <div class="lightbox-viewport" id="lightbox-viewport">
+            <div class="lightbox-canvas" id="lightbox-canvas"></div>
+          </div>
+
+          <footer class="lightbox-footer">
+            <span class="lightbox-ayuda-teclado">💡 <strong>[ESC]</strong> Cerrar · <strong>[Rueda Ratón]</strong> Zoom · <strong>[Arrastrar]</strong> Desplazar</span>
+            <span class="lightbox-escala-indicador" id="lightbox-escala-indicador">Escala: 100%</span>
+          </footer>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    // Configurar listeners una sola vez
+    if (!overlay.dataset || !overlay.dataset.listenersConfigurados) {
+      if (overlay.dataset) overlay.dataset.listenersConfigurados = 'true';
+
+      const btnCerrar = overlay.querySelector('#btn-cerrar-lightbox');
+      if (btnCerrar) btnCerrar.onclick = cerrarLightboxFigura;
+
+      const btnIn = overlay.querySelector('#btn-lightbox-zoom-in');
+      if (btnIn) btnIn.onclick = () => aplicarZoom(0.25);
+
+      const btnOut = overlay.querySelector('#btn-lightbox-zoom-out');
+      if (btnOut) btnOut.onclick = () => aplicarZoom(-0.25);
+
+      const btnReset = overlay.querySelector('#btn-lightbox-zoom-reset');
+      if (btnReset) btnReset.onclick = () => aplicarZoom(0, true);
+
+      // Cerrar al hacer clic en el backdrop
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          cerrarLightboxFigura();
+        }
+      });
+
+      // Viewport Pan y Zoom
+      const viewport = overlay.querySelector('#lightbox-viewport');
+      if (viewport) {
+        viewport.addEventListener('mousedown', (e) => {
+          if (e.target.closest && (e.target.closest('.lightbox-header') || e.target.closest('.lightbox-footer') || e.target.closest('button') || e.target.closest('a'))) return;
+          lightboxState.isDragging = true;
+          lightboxState.startX = e.clientX - lightboxState.panX;
+          lightboxState.startY = e.clientY - lightboxState.panY;
+          viewport.classList.add('is-dragging');
+        });
+
+        if (typeof window !== 'undefined') {
+          window.addEventListener('mousemove', (e) => {
+            if (!lightboxState.isDragging) return;
+            e.preventDefault();
+            lightboxState.panX = e.clientX - lightboxState.startX;
+            lightboxState.panY = e.clientY - lightboxState.startY;
+            actualizarTransformCanvas();
+          });
+
+          window.addEventListener('mouseup', () => {
+            if (lightboxState.isDragging) {
+              lightboxState.isDragging = false;
+              viewport.classList.remove('is-dragging');
+            }
+          });
+
+          viewport.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.2 : -0.2;
+            aplicarZoom(delta);
+          }, { passive: false });
+
+          viewport.addEventListener('dblclick', (e) => {
+            if (e.target.closest && (e.target.closest('button') || e.target.closest('a'))) return;
+            if (lightboxState.zoom > 1.1) {
+              aplicarZoom(0, true);
+            } else {
+              aplicarZoom(0.8);
+            }
+          });
+
+          // Teclado
+          window.addEventListener('keydown', (e) => {
+            if (!lightboxState.abierto) return;
+            if (e.key === 'Escape') {
+              e.preventDefault();
+              e.stopPropagation();
+              cerrarLightboxFigura();
+            } else if (e.key === '+' || e.key === '=') {
+              e.preventDefault();
+              aplicarZoom(0.25);
+            } else if (e.key === '-' || e.key === '_') {
+              e.preventDefault();
+              aplicarZoom(-0.25);
+            } else if (e.key === '0') {
+              e.preventDefault();
+              aplicarZoom(0, true);
+            }
+          });
+        }
+      }
+    }
+
+    return overlay;
+  }
+
+  function actualizarTransformCanvas() {
+    if (typeof document === 'undefined') return;
+    const canvas = document.getElementById('lightbox-canvas');
+    const indicador = document.getElementById('lightbox-escala-indicador');
+    if (canvas && canvas.style) {
+      canvas.style.transform = `translate(${lightboxState.panX}px, ${lightboxState.panY}px) scale(${lightboxState.zoom})`;
+    }
+    if (indicador) {
+      indicador.textContent = `Escala: ${Math.round(lightboxState.zoom * 100)}%`;
+    }
+  }
+
+  function aplicarZoom(delta, reset = false) {
+    if (reset) {
+      lightboxState.zoom = 1.0;
+      lightboxState.panX = 0;
+      lightboxState.panY = 0;
+    } else {
+      const nuevoZoom = Math.max(lightboxState.minZoom, Math.min(lightboxState.maxZoom, lightboxState.zoom + delta));
+      lightboxState.zoom = parseFloat(nuevoZoom.toFixed(2));
+    }
+    actualizarTransformCanvas();
+  }
+
+  function abrirLightboxGenerico(htmlContenido, badgeTexto, tituloTexto, subtituloTexto, urlRecurso = null) {
+    const overlay = asegurarLightboxEnDOM();
+    if (!overlay) return;
+    const canvas = document.getElementById('lightbox-canvas');
+    const badge = document.getElementById('lightbox-tipo-badge');
+    const titulo = document.getElementById('lightbox-titulo');
+    const subtitulo = document.getElementById('lightbox-subtitulo');
+    const btnPestana = document.getElementById('btn-lightbox-abrir-nueva-pestana');
+
+    if (canvas) canvas.innerHTML = htmlContenido;
+    if (badge) badge.textContent = badgeTexto;
+    if (titulo) titulo.textContent = tituloTexto;
+    if (subtitulo) subtitulo.textContent = subtituloTexto;
+
+    if (btnPestana) {
+      if (urlRecurso) {
+        btnPestana.href = urlRecurso;
+        btnPestana.style.display = 'inline-flex';
+      } else {
+        btnPestana.style.display = 'none';
+      }
+    }
+
+    lightboxState.abierto = true;
+    lightboxState.zoom = 1.0;
+    lightboxState.panX = 0;
+    lightboxState.panY = 0;
+    actualizarTransformCanvas();
+
+    if (overlay.style) overlay.style.display = 'flex';
+    if (overlay.setAttribute) overlay.setAttribute('aria-hidden', 'false');
+    if (typeof document !== 'undefined' && document.body && document.body.style) {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function abrirLightboxImagenDeStoryboard(storyboardId) {
+    const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
+    if (!sb) return;
+    abrirLightboxImagen(sb.imagen, sb.titulo, sb.dimensionNombre);
+  }
+
+  function abrirLightboxImagen(src, titulo, subtitulo) {
+    const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" draggable="false">`;
+    abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN HD', titulo, subtitulo || 'Visualización completa en alta resolución', src);
+  }
+
+  function abrirLightboxDiagrama(storyboardId) {
+    const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
+    if (!sb) return;
+    const svgContent = typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : '<p>Diagrama no disponible</p>';
+    abrirLightboxGenerico(svgContent, '📐 DIAGRAMA TÉCNICO VECTORIAL', `Diagrama: ${sb.titulo}`, 'Modelación conceptual vectorial en escala ampliada', null);
+  }
+
+  function abrirLightboxGrafico(storyboardId) {
+    const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
+    if (!sb || !sb.contenido.graficoComparativo) return;
+    const g = sb.contenido.graficoComparativo;
+    const html = `
+      <div class="lightbox-chart-content">
+        <h3 style="color:#ffffff; margin:0 0 16px 0; font-size:1.3rem;">📊 ${g.titulo}</h3>
+        <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:24px;">Análisis estadístico y distribución porcentual parametrizada para Barrio Brasil y la Comuna de Santiago.</p>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          ${g.filas.map(f => `
+            <div style="display:grid; grid-template-columns: 260px 1fr 100px; align-items:center; gap:16px;">
+              <span style="color:#f1f5f9; font-weight:700; font-size:0.95rem;">${f.label}</span>
+              <div style="height:20px; background:rgba(0,0,0,0.5); border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
+                <div style="height:100%; width:${f.porcentaje}%; background:linear-gradient(90deg, #0284c7 0%, #38bdf8 100%); border-radius:6px;"></div>
+              </div>
+              <span style="color:#38bdf8; font-weight:800; font-family:var(--fuente-datos, monospace); font-size:1.05rem; text-align:right;">${f.valor}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    abrirLightboxGenerico(html, '📈 GRÁFICO COMPARATIVO & BENCHMARK', `Benchmark: ${g.titulo}`, 'Distribución métrica y comparativa ampliada', null);
+  }
+
+  function cerrarLightboxFigura() {
+    if (typeof document === 'undefined') return;
+    const overlay = document.getElementById('lightbox-figura-overlay');
+    if (overlay) {
+      if (overlay.style) overlay.style.display = 'none';
+      if (overlay.setAttribute) overlay.setAttribute('aria-hidden', 'true');
+    }
+    lightboxState.abierto = false;
+    lightboxState.zoom = 1.0;
+    lightboxState.panX = 0;
+    lightboxState.panY = 0;
+
+    // Si la lámina modal está abierta, mantener body overflow hidden
+    const laminaOverlay = document.getElementById('lamina-storyboard-overlay');
+    if (laminaOverlay && laminaOverlay.style && laminaOverlay.style.display !== 'none') {
+      if (document.body && document.body.style) document.body.style.overflow = 'hidden';
+    } else {
+      if (document.body && document.body.style) document.body.style.overflow = '';
+    }
+  }
+
 
   /**
    * Conmuta a la pestaña del visor y activa una capa específica
@@ -2335,6 +2623,13 @@ const ModuloIndicadoresAnalisis = (() => {
     restablecerFiltros,
     abrirLaminaStoryboard,
     cerrarLaminaStoryboard,
+    abrirLightboxImagenDeStoryboard,
+    abrirLightboxImagen,
+    abrirLightboxDiagrama,
+    abrirLightboxGrafico,
+    abrirLightboxGenerico,
+    cerrarLightboxFigura,
+    aplicarZoom,
     activarCapaEnMapa,
     activarCapasDeHistoria,
     resolverDefinicionCapa,

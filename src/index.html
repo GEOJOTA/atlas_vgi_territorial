@@ -1840,6 +1840,39 @@
           </div>
         </div>
       </div>
+
+      <!-- ===================================================================== -->
+      <!-- LIGHTBOX / POP-UP DE AMPLIACIÓN DE FIGURAS, CARTOGRAFÍAS Y DIAGRAMAS   -->
+      <!-- ===================================================================== -->
+      <div class="lightbox-figura-overlay" id="lightbox-figura-overlay" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="lightbox-figura-contenedor" id="lightbox-figura-contenedor">
+          <header class="lightbox-header">
+            <div class="lightbox-info-titulo">
+              <span class="lightbox-tipo-badge" id="lightbox-tipo-badge">🗺️ CARTOGRAFÍA HD</span>
+              <h3 class="lightbox-titulo" id="lightbox-titulo">Figura Ampliada</h3>
+              <span class="lightbox-subtitulo" id="lightbox-subtitulo">Visualización completa en alta resolución</span>
+            </div>
+            <div class="lightbox-controles">
+              <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-in" title="Acercar (+)">＋</button>
+              <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-out" title="Alejar (-)">－</button>
+              <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-reset" title="Restablecer tamaño (100%)">⟲ 100%</button>
+              <a id="btn-lightbox-abrir-nueva-pestana" href="#" target="_blank" rel="noopener" class="btn-control-lightbox" title="Abrir recurso original en pestaña nueva ↗">↗</a>
+              <button type="button" class="btn-control-lightbox btn-cerrar-lightbox" id="btn-cerrar-lightbox" onclick="ModuloIndicadoresAnalisis.cerrarLightboxFigura()" title="Cerrar (ESC)">✕</button>
+            </div>
+          </header>
+
+          <div class="lightbox-viewport" id="lightbox-viewport">
+            <div class="lightbox-canvas" id="lightbox-canvas">
+              <!-- Elemento renderizado dinámicamente -->
+            </div>
+          </div>
+
+          <footer class="lightbox-footer">
+            <span class="lightbox-ayuda-teclado">💡 <strong>[ESC]</strong> Cerrar · <strong>[Rueda Ratón]</strong> Zoom · <strong>[Arrastrar]</strong> Desplazar</span>
+            <span class="lightbox-escala-indicador" id="lightbox-escala-indicador">Escala: 100%</span>
+          </footer>
+        </div>
+      </div>
       </div>
     </section>
 
