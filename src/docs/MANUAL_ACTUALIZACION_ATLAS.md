@@ -151,7 +151,6 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
 * **Definición Formal:**
   > Caracterizar la disponibilidad, cobertura y vacíos de información geográfica en el área piloto de Barrio Brasil y campus UAH, estructurando las bases conceptuales, taxonómicas y de diseño centrado en el usuario necesarias para articular los geodatos colaborativos e institucionales a la gestión territorial.
 * **Componentes Ejecutados:**
-  - Delimitación operativa del polígono piloto de 223,75 ha que articula el casco patrimonial poniente y las sedes del campus UAH.
   - Revisión exhaustiva de plataformas de geodatos abiertos (OpenStreetMap, GBIF, ohsome API v1/v2) y servicios WFS/WMS de IDE Chile.
   - Estructuración de las **10 Macrocategorías Comunitarias VGI (CAT-01 a CAT-10)** normalizadas bajo etiquetas OSM y Darwin Core.
   - Modelamiento conceptual de los **4 Perfiles de Actores Territoriales** bajo el estándar de Diseño Centrado en el Usuario (ISO 9241-210).
@@ -163,39 +162,34 @@ flowchart LR
     end
 
     subgraph PROC1["2. Procedimientos Específicos"]
-        P1_1["1. Delimitación Geodésica BBox\n& Diagnóstico Territorial"]
-        P1_2["2. Auditoría de Plataformas VGI\n(OSM, GBIF, IDE Chile)"]
-        P1_3["3. Estructuración Taxonómica\n10 Macrocategorías VGI"]
-        P1_4["4. Modelamiento DCU (ISO 9241-210)\nde 4 Perfiles de Actores"]
+        P1_1["1. Auditoría de Plataformas VGI\n(OSM, GBIF, IDE Chile)"]
+        P1_2["2. Estructuración Taxonómica\n10 Macrocategorías VGI"]
+        P1_3["3. Modelamiento DCU (ISO 9241-210)\nde 4 Perfiles de Actores"]
     end
 
     subgraph PROD1["3. Productos Resultantes Específicos"]
-        PR1_1["Polígono Delimitado 223,75 ha\n& BBox Oficial WGS84"]
-        PR1_2["Catálogo de Fuentes VGI\n& Matriz de Brechas"]
-        PR1_3["Taxonomía de 10 Macrocategorías\n(CAT-01 a CAT-10)"]
-        PR1_4["Matriz Conceptual de 4 Perfiles\nTerritoriales para la SPA"]
+        PR1_1["Catálogo de Fuentes VGI\n& Matriz de Brechas"]
+        PR1_2["Taxonomía de 10 Macrocategorías\n(CAT-01 a CAT-10)"]
+        PR1_3["Matriz Conceptual de 4 Perfiles\nTerritoriales para la SPA"]
     end
 
     subgraph LOC1["4. Localización / Fuente Oficial"]
-        L1_1["docs/delimitacion_barrio_brasil_bbox.md\n& src/js/modulos/mapa.js"]
-        L1_2["docs/catalogo_fuentes_vgi.xlsx\n& src/docs/catalogo_fuentes_vgi.xlsx"]
-        L1_3["docs/categorias_tematicas_osm.xlsx\n(11 Hojas Técnicas)"]
-        L1_4["docs/arquitectura_conceptual_vgi.md\n& src/js/app.js (#sel-perfil-usuario)"]
+        L1_1["docs/catalogo_fuentes_vgi.xlsx\n& src/docs/catalogo_fuentes_vgi.xlsx"]
+        L1_2["docs/categorias_tematicas_osm.xlsx\n(11 Hojas Técnicas)"]
+        L1_3["docs/arquitectura_conceptual_vgi.md\n& src/js/app.js (#sel-perfil-usuario)"]
     end
 
     O1 --> P1_1 --> PR1_1 --> L1_1
     O1 --> P1_2 --> PR1_2 --> L1_2
     O1 --> P1_3 --> PR1_3 --> L1_3
-    O1 --> P1_4 --> PR1_4 --> L1_4
 ```
 
 * **Entregables Acreditados y Localización:**
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-01** | Ficha Técnica de Delimitación Territorial y Bounding Box Operativo (Barrio Brasil). | Cartográfico / Técnico | `docs/delimitacion_barrio_brasil_bbox.md` y `src/js/modulos/mapa.js` |
-| **E-02** | Documento Metodológico de Arquitectura Conceptual: 10 Macrocategorías VGI y 4 Perfiles de Actores Territoriales. | Metodológico / Conceptual | `docs/arquitectura_conceptual_vgi.md` y `docs/MANUAL_ACTUALIZACION_ATLAS.md` |
-| **E-03** | Catálogo Preliminar de Fuentes Geoespaciales y Matriz de Brechas de Información Barrial. | Catálogo / Datos | `docs/catalogo_fuentes_vgi.xlsx` y `src/docs/catalogo_fuentes_vgi.xlsx` |
+| **E-01** | Documento Metodológico de Arquitectura Conceptual: 10 Macrocategorías VGI y 4 Perfiles de Actores Territoriales. | Metodológico / Conceptual | `docs/arquitectura_conceptual_vgi.md` y `docs/MANUAL_ACTUALIZACION_ATLAS.md` |
+| **E-02** | Catálogo Preliminar de Fuentes Geoespaciales y Matriz de Brechas de Información Barrial. | Catálogo / Datos | `docs/catalogo_fuentes_vgi.xlsx` y `src/docs/catalogo_fuentes_vgi.xlsx` |
 
 ---
 
@@ -217,43 +211,39 @@ flowchart LR
 
     subgraph PROC2["2. Procedimientos Específicos"]
         P2_1["1. Extracción Python & Descarga\nManual Geoportales del Estado"]
-        P2_2["2. Homologación Geodésica\n(EPSG:32719 UTM19S -> EPSG:4326)"]
-        P2_3["3. Inyección Universal Esquema\n14 Columnas Estandarizadas ISO"]
-        P2_4["4. Calidad WLC v2.0 (ISO 19157)\n& OSMCha / Changesets v0.6"]
-        P2_5["5. Carga Espacial\nPostgreSQL 17 / PostGIS 3.3"]
+        P2_2["2. Inyección Universal Esquema\n14 Columnas Estandarizadas ISO"]
+        P2_3["3. Calidad WLC v2.0 (ISO 19157)\n& OSMCha / Changesets v0.6"]
+        P2_4["4. Carga Espacial\nPostgreSQL 17 / PostGIS 3.3"]
     end
 
     subgraph PROD2["3. Productos Resultantes Específicos"]
         PR2_1["118 Capas Vectoriales GeoJSON\n(108 Oficiales + 10 VGI)"]
-        PR2_2["Coberturas Reproyectadas y\nTopológicamente Validadas"]
-        PR2_3["Bases Vectoriales con Linaje,\nFuente y Fechas ISO"]
-        PR2_4["Certificación 97,88% MetaCalidad\n& Matriz Analítica WLC"]
-        PR2_5["Geodatabase Relacional PostGIS\ncon Índices GiST y GIN"]
+        PR2_2["Bases Vectoriales con Linaje,\nFuente y Fechas ISO"]
+        PR2_3["Certificación 97,88% MetaCalidad\n& Matriz Analítica WLC"]
+        PR2_4["Geodatabase Relacional PostGIS\ncon Índices GiST y GIN"]
     end
 
     subgraph LOC2["4. Localización / Fuente Oficial"]
         L2_1["src/data/*.geojson (216 archivos)\n& scripts/descargar_todas_las_categorias_osm.py"]
-        L2_2["src/data/ & scripts/procesar_geofabrik_rm.py\n(WGS84 EPSG:4326)"]
-        L2_3["scripts/enriquecer_base_datos_metadatos.py\n& src/docs/perfil_metadatos_vgi.xlsx"]
-        L2_4["docs/analisis_metacalidad_iso19157.xlsx\n& scripts/modelo_indice_lineal_wlc.py"]
-        L2_5["supabase/migrations/01_schema_postgis.sql\n& Clúster Cloud Supabase"]
+        L2_2["scripts/enriquecer_base_datos_metadatos.py\n& src/docs/perfil_metadatos_vgi.xlsx"]
+        L2_3["docs/analisis_metacalidad_iso19157.xlsx\n& scripts/modelo_indice_lineal_wlc.py"]
+        L2_4["supabase/migrations/01_schema_postgis.sql\n& Clúster Cloud Supabase"]
     end
 
     O2 --> P2_1 --> PR2_1 --> L2_1
     O2 --> P2_2 --> PR2_2 --> L2_2
     O2 --> P2_3 --> PR2_3 --> L2_3
     O2 --> P2_4 --> PR2_4 --> L2_4
-    O2 --> P2_5 --> PR2_5 --> L2_5
 ```
 
 * **Entregables Acreditados y Localización:**
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-04** | Repositorio de Geodatabase Espacial de 118 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` (216 archivos, 3,33 GB totales) |
-| **E-05** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `supabase/migrations/01_schema_postgis.sql` y Clúster Cloud Supabase |
-| **E-06** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (97,88%). | Matriz / Certificación | `docs/analisis_metacalidad_iso19157.xlsx` y `scripts/modelo_indice_lineal_wlc.py` |
-| **E-07** | Catálogo Maestro de Geodatos en Formato OpenXML y Esquema de 14 Columnas Normalizadas ISO. | Catálogo Tabular OGC | `docs/categorias_tematicas_osm.xlsx` y `src/docs/perfil_metadatos_vgi.xlsx` |
+| **E-03** | Repositorio de Geodatabase Espacial de 118 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` (216 archivos, 3,33 GB totales) |
+| **E-04** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `supabase/migrations/01_schema_postgis.sql` y Clúster Cloud Supabase |
+| **E-05** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (97,88%). | Matriz / Certificación | `docs/analisis_metacalidad_iso19157.xlsx` y `scripts/modelo_indice_lineal_wlc.py` |
+| **E-06** | Catálogo Maestro de Geodatos en Formato OpenXML y Esquema de 14 Columnas Normalizadas ISO. | Catálogo Tabular OGC | `docs/categorias_tematicas_osm.xlsx` y `src/docs/perfil_metadatos_vgi.xlsx` |
 
 ---
 
@@ -310,10 +300,10 @@ flowchart LR
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-08** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web SPA | `src/index.html`, `src/js/app.js` y URL: https://atlasvgiuah.netlify.app/ |
-| **E-09** | Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (CIN-VGI Ray-Casting). | Motor Computacional Client-Side | `src/js/modulos/evaluador_normativo.js` y `src/data/prc_santiago_zonificacion.geojson` |
-| **E-10** | Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile. | Motor de Metadatos XML | `src/js/modulos/metadatos.js` e interoperabilidad GeoNetwork IDE Chile |
-| **E-11** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `src/data/diccionario_territorial.json` |
+| **E-07** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web SPA | `src/index.html`, `src/js/app.js` y URL: https://atlasvgiuah.netlify.app/ |
+| **E-08** | Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (CIN-VGI Ray-Casting). | Motor Computacional Client-Side | `src/js/modulos/evaluador_normativo.js` y `src/data/prc_santiago_zonificacion.geojson` |
+| **E-09** | Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile. | Motor de Metadatos XML | `src/js/modulos/metadatos.js` e interoperabilidad GeoNetwork IDE Chile |
+| **E-10** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `src/data/diccionario_territorial.json` |
 
 ---
 
@@ -325,7 +315,6 @@ flowchart LR
   - Protocolo de pruebas de usabilidad guiadas con actores territoriales reales pertenecientes a los 4 perfiles de usuarios definidos, midiendo efectividad, eficiencia y satisfacción percibida conforme a la norma ISO 9241-11.
   - Redacción y publicación del **Manual de Actualización Técnica y Transferibilidad** (>5000 líneas), documentando exhaustivamente la arquitectura, scripts Python, PostGIS, netlify.toml y resolución de incidentes.
   - Compilación del archivo comprimido maestro unificado `atlas_vgi_uah_base_datos_completa.zip` (543 MB comprimidos / 3,33 GB crudos, 256 archivos) para descarga pública.
-  - Elaboración de la memoria final de práctica profesional y preparación para el examen de título.
 
 ```mermaid
 flowchart LR
@@ -338,7 +327,6 @@ flowchart LR
         P4_2["2. Redacción Manual de Uso Web\npara los 4 Perfiles de Actores"]
         P4_3["3. Elaboración Manual Técnico de\nActualización Reproducible (>5000L)"]
         P4_4["4. Empaquetado & Compresión BBDD\n(GeoJSON, GPKG, XLSX en ZIP)"]
-        P4_5["5. Redacción de Memoria Formal\ny Síntesis de Práctica Profesional"]
     end
 
     subgraph PROD4["3. Productos Resultantes Específicos"]
@@ -346,7 +334,6 @@ flowchart LR
         PR4_2["Manual de Usuario del Geoportal\nGuía Ilustrada por Perfiles"]
         PR4_3["Manual Maestro de Administración,\nArquitectura y Transferibilidad Técnica"]
         PR4_4["Paquete Maestro Comprimido ZIP (543MB)\nBase de Datos Funcional Completa"]
-        PR4_5["Informe Final de Práctica Profesional\nde la Carrera de Geografía UAH"]
     end
 
     subgraph LOC4["4. Localización / Fuente Oficial"]
@@ -354,25 +341,22 @@ flowchart LR
         L4_2["docs/manual_de_uso_atlas_vgi.docx\n& Módulo 10 en la plataforma web"]
         L4_3["MANUAL_ACTUALIZACION_ATLAS.md\n& src/docs/MANUAL_ACTUALIZACION_ATLAS.md"]
         L4_4["descargas/atlas_vgi_uah_base_datos_completa.zip\n& scripts/empaquetar_base_datos_completa.py"]
-        L4_5["docs/informe_final_practica_profesional_geografia_uah.docx\n(Entregable 15 / Hito 10)"]
     end
 
     O4 --> P4_1 --> PR4_1 --> L4_1
     O4 --> P4_2 --> PR4_2 --> L4_2
     O4 --> P4_3 --> PR4_3 --> L4_3
     O4 --> P4_4 --> PR4_4 --> L4_4
-    O4 --> P4_5 --> PR4_5 --> L4_5
 ```
 
 * **Entregables Acreditados y Localización:**
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-12** | Informe de Validación Empírica con Usuarios Reales de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes. | Validación de Usabilidad | `docs/informe_validacion_usuarios_sus.docx` (Entregable 11 / Hito 9) |
-| **E-13** | Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales. | Manual de Usuario | `docs/manual_de_uso_atlas_vgi.docx` (Entregable 12 / Módulo 10 web) |
-| **E-14** | Manual Maestro de Actualización Técnica y Transferibilidad Metodológica: Protocolo ETL, Arquitectura y Despliegue Continuo. | Manual Maestro (>5000L) | `MANUAL_ACTUALIZACION_ATLAS.md` y `src/docs/MANUAL_ACTUALIZACION_ATLAS.md` |
-| **E-15** | Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 543 MB. | Paquete de Datos Binario | `descargas/atlas_vgi_uah_base_datos_completa.zip` y `geofabrik_rm_osm.gpkg` |
-| **E-16** | Informe Final de Práctica Profesional de la Carrera de Geografía — Universidad Alberto Hurtado. | Memoria Académica Oficial | `docs/informe_final_practica_profesional_geografia_uah.docx` (Entregable 15) |
+| **E-11** | Informe de Validación Empírica con Usuarios Reales de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes. | Validación de Usabilidad | `docs/informe_validacion_usuarios_sus.docx` (Entregable 11 / Hito 9) |
+| **E-12** | Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales. | Manual de Usuario | `docs/manual_de_uso_atlas_vgi.docx` (Entregable 12 / Módulo 10 web) |
+| **E-13** | Manual Maestro de Actualización Técnica y Transferibilidad Metodológica: Protocolo ETL, Arquitectura y Despliegue Continuo. | Manual Maestro (>5000L) | `MANUAL_ACTUALIZACION_ATLAS.md` y `src/docs/MANUAL_ACTUALIZACION_ATLAS.md` |
+| **E-14** | Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 543 MB. | Paquete de Datos Binario | `descargas/atlas_vgi_uah_base_datos_completa.zip` y `geofabrik_rm_osm.gpkg` |
 
 ---
 
@@ -395,7 +379,7 @@ flowchart TD
     end
 
     subgraph FASE4["FASE IV: Validación & Transferibilidad (Sem 10–11 · 36h)"]
-        H9["Hito 9: Pruebas de Usabilidad ISO 9241-11"] --> H10["Hito 10: Manual Maestro, ZIP 543MB & Cierre Titulación"]
+        H9["Hito 9: Pruebas de Usabilidad ISO 9241-11"] --> H10["Hito 10: Manual Maestro, ZIP 543MB & Transferibilidad Técnica"]
     end
 
     FASE1 --> FASE2
@@ -405,7 +389,7 @@ flowchart TD
 
 | Hito | Denominación Oficial | OE Asociado | Semanas | Horas | Estado | Entregable Acreditado |
 |:---:|:---|:---:|:---:|:---:|:---:|:---|
-| **Hito 1** | Diagnóstico territorial, delimitación y revisión de plataformas VGI. | **OE 1** | Sem 01–02 | 36 hrs | **100% Cerrado** | Ficha de proyecto, BBox oficial y revisión de fuentes. |
+| **Hito 1** | Diagnóstico territorial y revisión de plataformas VGI. | **OE 1** | Sem 01–02 | 36 hrs | **100% Cerrado** | Diagnóstico territorial y catálogo de fuentes. |
 | **Hito 2** | Estructuración de 10 macrocategorías VGI y 4 perfiles multiactor. | **OE 1** | Sem 02–03 | 24 hrs | **100% Cerrado** | Taxonomía temática y perfiles de usuario DCU. |
 | **Hito 3** | Inventario exhaustivo de fuentes colaborativas y oficiales. | **OE 1** | Sem 03 | 12 hrs | **100% Cerrado** | Catálogo formal de fuentes y matriz de brechas. |
 | **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Sem 04–05 | 40 hrs | **100% Cerrado** | Scripts Python y 118 capas vectoriales pobladas. |
