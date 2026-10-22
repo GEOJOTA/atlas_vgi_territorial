@@ -1,7 +1,7 @@
 # Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Atlas VGI · UAH)
 
 [![Estado del Proyecto](https://img.shields.io/badge/Estado-Producci%C3%B3n_2026-10b981?style=for-the-badge)](https://github.com/santiagogeografia454-sketch/Visualizador-barrio-brasil)
-[![Capas Integradas](https://img.shields.io/badge/Capas_Integradas-131_(121_Oficiales_%2B_10_VGI)-38bdf8?style=for-the-badge)](#estructura-de-datos-y-módulos-01-al-10)
+[![Capas Integradas](https://img.shields.io/badge/Capas_Integradas-132_(122_Oficiales_%2B_10_VGI)-38bdf8?style=for-the-badge)](#estructura-de-datos-y-módulos-01-al-10)
 [![Diccionario de Datos](https://img.shields.io/badge/Diccionario-140_Descriptores_T%C3%A9cnicos-f59e0b?style=for-the-badge)](#documentación-técnica-y-manuales)
 [![Fondecyt Regular](https://img.shields.io/badge/Fondecyt_Regular-N%C2%B0_1261256_(Geograf%C3%ADa_UAH)-a855f7?style=for-the-badge)](#créditos-institucionales)
 
@@ -34,20 +34,20 @@ El sistema articula la cartografía oficial del Estado de Chile con Información
 
 ## Estructura de Datos y Módulos (01 al 10)
 
-El Atlas integra **131 coberturas geográficas operativas** en coordenadas `EPSG:4326` (WGS84 / SIRGAS-Chile) y **140 descriptores documentados** en su Diccionario de Datos (ISO 19110:2016):
+El Atlas integra **132 coberturas geográficas operativas** en coordenadas `EPSG:4326` (WGS84 / SIRGAS-Chile) y **146 descriptores documentados** en su Diccionario de Datos (ISO 19110:2016):
 - **121 Capas Oficiales del Estado de Chile**: IDE Chile, MINVU (PRC, PRMS, ZCH/ICH, Cités), INE (Censo 2024), MTT/DTPM/UOCT, MDSF (RSH / BiDat), SUBDERE (13 capas del Catastro Nacional de Residuos Sólidos Domiciliarios 2024 junto con sus geodatabases `.gpkg` originales), MMA, SERNAGEOMIN, CMN, MINSAL y SII.
 - **10 Categorías Colaborativas VGI**: Levantamientos comunitarios en OpenStreetMap (OSM) y registros de biodiversidad en GBIF / iNaturalist.
 
 ### Módulos Funcionales de la Plataforma
-- **`01` · Visor y Atlas VGI**: Lienzo cartográfico 2D/3D con las 131 coberturas, cálculo en tiempo real del **Índice de Calidad VGI (ICV)**, importación local de archivos espaciales e **Inspector Normativo (Certificado CIN-VGI)** con acceso directo al expediente histórico de modificaciones al PRC de Santiago (1990–2024).
+- **`01` · Visor y Atlas VGI**: Lienzo cartográfico 2D/3D con las 132 coberturas, cálculo en tiempo real del **Índice de Calidad VGI (ICV)**, importación local de archivos espaciales e **Inspector Normativo (Certificado CIN-VGI)** con acceso directo al expediente histórico de modificaciones al PRC de Santiago (1990–2024).
 - **`02` · Consultas Overpass**: Extracción en tiempo real desde OpenStreetMap mediante plantillas temáticas y lenguaje Overpass QL.
 - **`03` · Biodiversidad GBIF**: Ocurrencias biológicas de flora, fauna y funga urbana validadas en GBIF e iNaturalist bajo estándar Darwin Core.
 - **`04` · Cartografía UMAP**: Integración de lienzos colaborativos uMap orientados a talleres participativos y validación comunitaria en terreno.
-- **`05` · Indicadores y Storyboards**: Clasificación de las 131 capas en **5 Dimensiones Analíticas** (*Sociodemográfica*, *Socioeconómica*, *Socioambiental*, *Sociosanitaria* y *Sociourbana*) y **9 Storyboards territoriales** con indicadores cuantitativos y visor modal (*pop-up*) HD interactivo para la ampliación de imágenes y gráficos.
+- **`05` · Indicadores y Storyboards**: Clasificación de las 132 capas en **5 Dimensiones Analíticas** (*Sociodemográfica*, *Socioeconómica*, *Socioambiental*, *Sociosanitaria* y *Sociourbana*) y **9 Storyboards territoriales** con indicadores cuantitativos y visor modal (*pop-up*) HD interactivo para la ampliación de imágenes y gráficos.
 - **`06` · Calidad e ICV**: Evaluación cuantitativa multicriterio bajo norma ISO 19157, series históricas con la API ohsome (HeiGIT) y auditoría de conjuntos de cambios con OSMCha.
 - **`07` · Manual de uso y Actualización**: Centro documental interactivo embebido en la aplicación web (Manual de Uso, Manual de Actualización Técnica y Catálogo general).
 - **`08` · Metadatos ISO 19115**: Generación y exportación de fichas formales de metadatos espaciales en esquemas XML (ISO 19139) y JSON.
-- **`09` · Diccionario (131 capas)**: Especificación técnica de los 140 descriptores de atributos (ISO 19110:2016), incluyendo los diccionarios nativos de columnas de las bases GeoPackage de SUBDERE RSD 2024.
+- **`09` · Diccionario (132 capas)**: Especificación técnica de los 146 descriptores de atributos (ISO 19110:2016), incluyendo los diccionarios nativos de columnas de las bases GeoPackage de SUBDERE RSD 2024.
 - **`10` · Licencias y Catálogos**: Marco jurídico abierto (ODbL 1.0, CC BY-SA 4.0, GNU AGPLv3, Leyes Nº 20.285 y 19.628) y descarga directa de catálogos y matrices en formato Excel (`.xlsx`).
 
 ---

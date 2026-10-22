@@ -2138,6 +2138,25 @@ const ModuloIDEChile = (() => {
       declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
       citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
     }
+},
+    munistgo_aseo_zonas_residuos_2026: {
+      id: 'munistgo_aseo_zonas_residuos_2026',
+      num_bbdd: 'ASEO-01',
+      nombre: 'MuniSTGO - Catastro Zonas de Aseo, Contenedores y Papeleros (Junio 2026)',
+      institucion: 'Ilustre Municipalidad de Santiago (Subdirección de Aseo y Gestión Integral de Residuos)',
+      ministerio: 'Municipalidad de Santiago / Ley N° 20.285 Transparencia',
+      tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Comunal Santiago',
+      urlServicio: 'https://www.municipalidaddesantiago.cl',
+      archivoLocal: 'data/zonas_aseo_contenedores_papeleros_santiago.geojson',
+      archivoGpkg: 'data/zonas_aseo_contenedores_papeleros_santiago.gpkg',
+      color: '#06b6d4',
+      icono: '🗑️',
+      geometria: 'Polígonos (Macro-Zonas de Aseo)',
+      grupo: 'medio_ambiente',
+      descripcion: 'Catastro comunal oficial de infraestructura de residuos sólidos domiciliarios y mobiliario urbano de aseo: 5 macro-zonas de aseo (Oriente, Centro Oriente, Centro Poniente, Centro Plaza, Poniente), desagregación por volumen (240L, 360L, 770L), papeleros peatonales, tasas de operatividad, deterioro físico y pérdida.',
+      declaracion: 'Información pública oficial de la Municipalidad de Santiago provista conforme a la Ley N° 20.285 sobre Acceso a la Información Pública (Oficio N° E-1528/2026, MU-18117 / Memorando N° 204). Licencia de Datos Abiertos.',
+      citaAPA: 'Municipalidad de Santiago. (2026). Catastro de contenedores y papeleros por zonas de aseo comunal (Memorando N° 204 / Oficio N° E-1528/2026, MU-18117). Subdirección de Aseo y Gestión Integral de Residuos, Dirección de Asesoría Jurídica. Santiago, Chile.'
+    }
   };
 
   // Diccionario multirregional escalable de endpoints IPT en MINVU GeoIDE
@@ -2630,6 +2649,25 @@ const ModuloIDEChile = (() => {
             'Aporte Fondo Común Municipal (FCM)': props.Ing_FCM ? '$' + Number(props.Ing_FCM).toLocaleString('es-CL') : '-',
             'Recaudación Derechos de Aseo': props.DerAseo ? '$' + Number(props.DerAseo).toLocaleString('es-CL') : '-'
           };
+        } else if (idCapa.includes('aseo') || idCapa.includes('residuos_2026')) {
+          extraInfo = {
+            'Macro-Zona Operativa': props.zona_aseo,
+            'Código de Zona': props.zona_codigo,
+            'Barrios Integrantes': (props.n_barrios_agrupados || '') + ' barrios (' + (props.barrios_integrantes || '') + ')',
+            'Superficie Territorial': (props.superficie_ha || 0) + ' ha (' + (props.superficie_km2 || 0) + ' km²)',
+            'Contenedores Totales': (props.contenedores_tot || 0) + ' unidades (' + (props.pct_contenedores_comunal || 0) + '%)',
+            'Papeleros Peatonales': (props.papeleros_tot || 0) + ' unidades (' + (props.pct_papeleros_comunal || 0) + '%)',
+            'Total Elementos Aseo': (props.elementos_tot || 0) + ' unidades',
+            'Capacidad de Acopio': (props.capacidad_total_litros ? Number(props.capacidad_total_litros).toLocaleString('es-CL') : '0') + ' L (' + (props.pct_capacidad_comunal || 0) + '%)',
+            'Volumetría Contenedores': '240L: ' + (props.cont_240l || 0) + ' | 360L: ' + (props.cont_360l || 0) + ' | 770L: ' + (props.cont_770l || 0),
+            'Tasa Deterioro Físico': (props.tasa_deterioro_pct || 0) + '%',
+            'Tasa Operatividad': (props.tasa_operativo_pct || 0) + '%',
+            'Tasa Pérdida / No está': (props.tasa_perdida_pct || 0) + '%',
+            'Densidad Contenedores': (props.densidad_contenedores_km2 || 0) + ' cont/km²',
+            'Densidad Capacidad': (props.densidad_capacidad_litros_ha || 0) + ' L/ha',
+            'Ratio Contenedores / Papeleros': props.ratio_contenedores_papeleros || '0',
+            'Diagnóstico Técnico': props.nota_estado || '-'
+          };
         } else if (idCapa.includes('sdf_comunas') || idCapa.includes('sdf_municipios')) {
           extraInfo = {
             'Comuna Evaluada': nomComuna,
@@ -2726,6 +2764,9 @@ const ModuloIDEChile = (() => {
         if (CAPAS_OFICIALES[alias]) return CAPAS_OFICIALES[alias];
       }
       // Alias / fallback de compatibilidad para capas consolidadas:
+      if (idCapa === 'zonas_aseo' || idCapa === 'aseo_santiago' || idCapa === 'capa_zonas_aseo') {
+        return CAPAS_OFICIALES['munistgo_aseo_zonas_residuos_2026'];
+      }
       if (idCapa === 'unidades_vecinales_bidat' || idCapa === 'capa_unidades_vecinales_bidat' || idCapa === 'ide_minvu_unidades_vecinales_rsh') {
         return CAPAS_OFICIALES['bbdd_66'];
       }
@@ -2740,6 +2781,7 @@ const ModuloIDEChile = (() => {
     crearCapaWMSLeaflet,
     obtenerCapasDisponibles,
     obtenerDefinicion,
+    obtenerDefinicionCapa: obtenerDefinicion,
     obtenerCatalogoCapas: () => CAPAS_OFICIALES
   };
 })();

@@ -152,7 +152,8 @@ const ModuloIndicadoresAnalisis = (() => {
   "subdere_rsd_sdf_comunas_destino_rm": "SUBDERE RSD 2024 - Destino de Disposición Final por Comuna (RM)",
   "subdere_rsd_sdf_municipios_puntos_rm": "SUBDERE RSD 2024 - Sedes Municipales y Relleno Receptor (Puntos RM)",
   "subdere_rsd_sitios_disposicion_instalaciones_rm": "SUBDERE RSD 2024 - Rellenos Sanitarios e Instalaciones (RM)",
-  "subdere_rsd_sitios_intermedios_transferencia_rm": "SUBDERE RSD 2024 - Estaciones de Transferencia Intermedia (RM)"
+  "subdere_rsd_sitios_intermedios_transferencia_rm": "SUBDERE RSD 2024 - Estaciones de Transferencia Intermedia (RM)",
+  "munistgo_aseo_zonas_residuos_2026": "MuniSTGO - Catastro Zonas de Aseo, Contenedores y Papeleros (Junio 2026)"
 };
 
   const NOMBRES_VGI_FALLBACK = {
@@ -281,7 +282,8 @@ const ModuloIndicadoresAnalisis = (() => {
         'subdere_rsd_sdf_comunas_destino_rm',
         'subdere_rsd_sdf_municipios_puntos_rm',
         'subdere_rsd_sitios_disposicion_instalaciones_rm',
-        'subdere_rsd_sitios_intermedios_transferencia_rm'
+        'subdere_rsd_sitios_intermedios_transferencia_rm',
+        'munistgo_aseo_zonas_residuos_2026'
       ]
     },
     {

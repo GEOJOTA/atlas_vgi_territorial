@@ -43,7 +43,8 @@ ARCHIVOS_OBJETIVO = [
     'BIP_Iniciativas_Inversion_RM_Comunas.geojson',
     'semaforos_rm_uoct_2026.geojson',
     'capa_bbdd_66.geojson',
-    'capa_unidades_vecinales_bidat.geojson'
+    'capa_unidades_vecinales_bidat.geojson',
+    'zonas_aseo_contenedores_papeleros_santiago.geojson'
 ]
 
 CATALOGOS_EXCEL = [

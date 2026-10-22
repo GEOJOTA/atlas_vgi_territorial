@@ -217,6 +217,60 @@ const ModuloDiccionario = (() => {
       ejemplo: '64.8 km',
       equivalenciaIDE: 'Logística de Residuos Urbanos (SUBDERE)',
       importancia: 'Determina las emisiones de gases de efecto invernadero y el gasto en combustible de la flota de camiones recolectores.'
+    },
+    {
+      campo: 'zona_aseo',
+      nombre: 'Macro-Zona Operativa de Aseo y Residuos',
+      tipo: 'Texto (Categoría Territorial)',
+      definicion: 'Zonificación operativa municipal de aseo (Oriente, Centro Oriente, Centro Poniente, Centro Plaza, Poniente) adaptada para la gestión, fiscalización y mantenimiento de contenedores y papeleros.',
+      ejemplo: 'Centro Poniente',
+      equivalenciaIDE: 'Zona Operacional de Aseo / Sectorización Municipal',
+      importancia: 'Permite desagregar las políticas de acopio y recolección de residuos en unidades territoriales homogéneas.'
+    },
+    {
+      campo: 'contenedores_tot',
+      nombre: 'Total de Contenedores de Acopio Volumétrico',
+      tipo: 'Numérico Entero (Unidades)',
+      definicion: 'Número total de contenedores de carga domiciliaria y comercial instalados en la calzada o acera dentro de la macro-zona.',
+      ejemplo: '261 unidades',
+      equivalenciaIDE: 'Infraestructura de Acopio de Residuos Sólidos (MuniSTGO)',
+      importancia: 'Cuantifica el volumen de equipamiento primario disponible para la disposición de residuos de vecinos y locatarios.'
+    },
+    {
+      campo: 'papeleros_tot',
+      nombre: 'Total de Papeleros Peatonales',
+      tipo: 'Numérico Entero (Unidades)',
+      definicion: 'Número de papeleros o basureros peatonales destinados al descarte rápido de residuos menores por transeúntes.',
+      ejemplo: '24 unidades',
+      equivalenciaIDE: 'Mobiliario Urbano de Paseo y Vía Pública',
+      importancia: 'Esencial para evaluar la limpieza de paseos peatonales, paraderos y áreas de alta circulación.'
+    },
+    {
+      campo: 'capacidad_total_litros',
+      nombre: 'Capacidad Total de Acopio Simultáneo (Litros)',
+      tipo: 'Numérico Entero (Litros)',
+      definicion: 'Volumen total de almacenamiento simultáneo en litros resultante de la ponderación por tipología de contenedor (240L, 360L y 770L).',
+      ejemplo: '109,660 L',
+      equivalenciaIDE: 'Capacidad de Acopio Comunal de Residuos',
+      importancia: 'Permite estimar la suficiencia volumétrica frente a la generación diaria de residuos de la población atendida.'
+    },
+    {
+      campo: 'ratio_contenedores_papeleros',
+      nombre: 'Ratio Contenedores / Papeleros',
+      tipo: 'Numérico Flotante (Razón C/P)',
+      definicion: 'Relación cuantitativa entre contenedores de acopio volumétrico y papeleros peatonales instalados.',
+      ejemplo: '10.88',
+      equivalenciaIDE: 'Índice de Balance de Equipamiento de Aseo',
+      importancia: 'Identifica desequilibrios espaciales entre acopio domiciliario/comercial y mobiliario para peatones en el espacio público.'
+    },
+    {
+      campo: 'tasa_deterioro_pct',
+      nombre: 'Tasa de Deterioro Físico de Contenedores (%)',
+      tipo: 'Porcentaje (%)',
+      definicion: 'Porcentaje de contenedores catastrados en terreno cuyo estado de conservación fue clasificado como Regular o Malo.',
+      ejemplo: '91.19%',
+      equivalenciaIDE: 'Estado de Conservación de Mobiliario Urbano',
+      importancia: 'Prioriza zonas de intervención urgente para el recambio o reparación de infraestructura deteriorada.'
     }
   ];
 

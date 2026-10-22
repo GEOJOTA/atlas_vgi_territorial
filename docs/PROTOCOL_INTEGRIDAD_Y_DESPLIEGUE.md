@@ -2,7 +2,7 @@
 
 **Proyecto Fondecyt Regular Nº 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
 **Documento Maestro de Operaciones y Mantenimiento Integral:** Manual de Actualización Técnica · Arquitectura del Sistema · Protocolo de Integridad y Despliegue · Guía de Contribución Abierta.  
-**Versión Consolidada del Sistema:** 131 Capas Operativas (121 Oficiales + 10 VGI) · 140 Descriptores en Diccionario · 10 Módulos Funcionales (`01` al `10`) · 9 Storyboards Territoriales con Modal Interactivo · 5 Dimensiones Analíticas.
+**Versión Consolidada del Sistema:** 132 Capas Operativas (122 Oficiales + 10 VGI) · 146 Descriptores en Diccionario · 10 Módulos Funcionales (`01` al `10`) · 9 Storyboards Territoriales con Modal Interactivo · 5 Dimensiones Analíticas.
 
 ---
 
@@ -219,8 +219,8 @@ El visor se inicializa en [`src/js/modulos/mapa.js`](file:///d:/17082025/2026/Pr
 ## 7. Inventario y Catálogo de Capas Territoriales (131 Coberturas)
 
 ### Cuadratura general de capas
-El sistema cuenta con un universo cerrado y auditado de **131 capas operativas**:
-- **121 Capas Oficiales del Estado de Chile**: Custodiadas por ministerios, servicios públicos y municipios (MINVU, INE, MTT, SUBDERE, SII, MMA, SERNAGEOMIN, CMN, MINSAL, Asesoría Urbana).
+El sistema cuenta con un universo cerrado y auditado de **132 capas operativas**:
+- **122 Capas Oficiales del Estado de Chile**: Custodiadas por ministerios, servicios públicos y municipios (MINVU, INE, MTT, SUBDERE, SII, MMA, SERNAGEOMIN, CMN, MINSAL, Asesoría Urbana).
 - **10 Categorías Colaborativas VGI**: Extraídas desde OpenStreetMap y registros biológicos de GBIF / iNaturalist.
 
 ### Clasificación en cinco dimensiones analíticas
@@ -239,7 +239,7 @@ El Módulo 09 del Atlas contiene la ficha técnica de los **140 descriptores de 
 
 | Módulo | Denominación en Interfaz | Archivos Fuente Principales | Descripción Funcional y Alcance |
 | :---: | :--- | :--- | :--- |
-| **`01`** | **Visor y Atlas VGI** | `src/js/app.js`<br>`src/js/modulos/mapa.js`<br>`src/js/modulos/evaluador_normativo.js` | Lienzo cartográfico multiescalar con las 131 capas operativas. Incluye cálculo en tiempo real del **Índice de Calidad VGI (ICV)**, delimitación dinámica de Bbox métrico en UTM 19S, importación local de archivos espaciales e **Inspector Normativo PRC/OGUC** que emite el Certificado CIN-VGI e integra el expediente histórico de las 10 modificaciones al PRC de Santiago (1990–2024). |
+| **`01`** | **Visor y Atlas VGI** | `src/js/app.js`<br>`src/js/modulos/mapa.js`<br>`src/js/modulos/evaluador_normativo.js` | Lienzo cartográfico multiescalar con las 132 capas operativas. Incluye cálculo en tiempo real del **Índice de Calidad VGI (ICV)**, delimitación dinámica de Bbox métrico en UTM 19S, importación local de archivos espaciales e **Inspector Normativo PRC/OGUC** que emite el Certificado CIN-VGI e integra el expediente histórico de las 10 modificaciones al PRC de Santiago (1990–2024). |
 | **`02`** | **Consultas Overpass** | `src/js/modulos/osm.js` | Constructor visual y consola de ejecución en lenguaje Overpass QL para la extracción en tiempo real de geometrías, nodos y etiquetas desde los servidores globales de OpenStreetMap. |
 | **`03`** | **Biodiversidad GBIF** | `src/js/modulos/gbif.js` | Conector directo con la API pública de GBIF y registros de iNaturalist para la consulta y visualización de ocurrencias de flora, fauna y funga urbana bajo el estándar Darwin Core. |
 | **`04`** | **Cartografía UMAP** | `src/js/modulos/umap.js` | Espacio de integración e incrustación de visores participativos uMap para talleres comunitarios, mapeos colaborativos barriales y cartografía social. |
