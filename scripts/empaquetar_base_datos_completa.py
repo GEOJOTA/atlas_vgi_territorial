@@ -122,8 +122,8 @@ for m in matches:
             "cita_apa_7": cita.group(1) if cita else ""
         })
 
-print(f"[*] Capas Oficiales del Estado detectadas en ide_chile.js: {len(capas_oficiales_meta)} (Meta: 121)")
-assert len(capas_oficiales_meta) == 121, f"Se esperaban 121 capas oficiales, se hallaron {len(capas_oficiales_meta)}"
+print(f"[*] Capas Oficiales del Estado detectadas en ide_chile.js: {len(capas_oficiales_meta)} (Meta: 122)")
+assert len(capas_oficiales_meta) == 122, f"Se esperaban 122 capas oficiales, se hallaron {len(capas_oficiales_meta)}"
 
 # -----------------------------------------------------------------------------
 # 2. Definir las 10 macrocategorías VGI + dataset consolidado (11 capas)
