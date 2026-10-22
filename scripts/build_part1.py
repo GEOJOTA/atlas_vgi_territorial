@@ -8,7 +8,7 @@ Matriz de Fases e Hitos del Plan de Trabajo (11 Semanas / 300 Horas) y los Cuatr
 
 import os
 
-BASE_DIR = "/Users/geojplescano/Programas/Práctica profesional 2026 S2/nodo-geoabierto"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_FILE = os.path.join(BASE_DIR, "scripts", "manual_p01_genesis_metodologia.py")
 
 part1_text = r"""# PARTE I: ALCANCE OPERATIVO, FORMULACIÓN ESTRATÉGICA Y PERFILES TERRITORIALES
@@ -65,7 +65,7 @@ La estructura estratégica y operativa del proyecto se organiza rigurosamente co
 #### Objetivo Específico 1 (OE 1): Caracterización y Diseño Conceptual
 * **Asignación Horaria:** Semanas 1 a 3 · 72 Horas Planificadas · **100% Cerrado (Hitos 1, 2 y 3).**
 * **Definición Formal:**
-  > Diagnosticar el escenario territorial de Barrio Brasil, revisar plataformas VGI referenciales (OSM, GBIF, IDE Chile) y estructurar la arquitectura conceptual: 10 macrocategorías VGI y 4 perfiles de actores territoriales.
+  > Caracterizar la disponibilidad, cobertura y vacíos de información geográfica en el área piloto de Barrio Brasil y campus UAH, estructurando las bases conceptuales, taxonómicas y de diseño centrado en el usuario necesarias para articular los geodatos colaborativos e institucionales a la gestión territorial.
 * **Componentes Ejecutados:**
   - Delimitación operativa del polígono piloto de 223,75 ha que articula el casco patrimonial poniente y las sedes del campus UAH.
   - Revisión exhaustiva de plataformas de geodatos abiertos (OpenStreetMap, GBIF, ohsome API v1/v2) y servicios WFS/WMS de IDE Chile.
@@ -118,7 +118,7 @@ flowchart LR
 #### Objetivo Específico 2 (OE 2): Geodatabase y Calidad Espacial
 * **Asignación Horaria:** Semanas 4 a 7 · 120 Horas Planificadas · **Hitos 4 y 5 Cerrados / Hito 6 en Proceso.**
 * **Definición Formal:**
-  > Diseñar y poblar la geodatabase espacial: descarga de 118 capas (108 oficiales + 10 VGI, 2,56 GB). Auditoría completa de MetaCalidad ISO 19157 (97,88%) e inyección universal de 14 columnas ISO en descargas.
+  > Diseñar, estructurar y consolidar una geodatabase espacial multipropósito bajo estándares internacionales de calidad geográfica y metadatos, integrando y armonizando coberturas cartográficas oficiales del Estado con información comunitaria voluntaria.
 * **Componentes Ejecutados:**
   - Descarga, normalización y geoprocesamiento de 118 coberturas vectoriales (108 oficiales del Estado de Chile + 10 VGI comunitarias), totalizando 2,56 GB de datos en EPSG:4326 y EPSG:32719.
   - Almacenamiento espacial estructurado en clúster relacional PostgreSQL 17 + PostGIS 3.3 (Supabase Cloud) con más de 1.552.000 entidades indexadas mediante árboles GiST y claves JSONB con índices GIN.
@@ -176,7 +176,7 @@ flowchart LR
 #### Objetivo Específico 3 (OE 3): Geoportal Web Interactivo
 * **Asignación Horaria:** Semanas 8 a 10 · 72 Horas Planificadas · **80% Anticipado (Hitos 7 y 8).**
 * **Definición Formal:**
-  > Implementar el geoportal interactivo con visor Leaflet 1.9.4, conexión a APIs en vivo (Overpass, ohsome, GBIF), generador de metadatos ISO 19115/19139, diccionario territorial y despliegue continuo en Netlify.
+  > Desarrollar e implementar un prototipo de geoportal web interactivo, accesible e interoperable, orientado a la visualización cartográfica multinivel, la consulta analítica territorial en tiempo real y la transferencia de geodatos abiertos a la comunidad.
 * **Componentes Ejecutados:**
   - Desarrollo de una Single Page Application (SPA) bajo arquitectura Zero-Build Vanilla JavaScript (ES6+), garantizando portabilidad absoluta y costo recurrente \$0.
   - Implementación del visor cartográfico interactivo (Leaflet 1.9.4) con control de capas en acordeón jerárquico, selectores de mapas base y herramientas de medición de distancias y superficies.
@@ -236,7 +236,7 @@ flowchart LR
 #### Objetivo Específico 4 (OE 4): Validación y Transferibilidad
 * **Asignación Horaria:** Semanas 10 a 11 · 36 Horas Planificadas · **En Ejecución (Hitos 9 y 10).**
 * **Definición Formal:**
-  > Evaluar empíricamente la plataforma mediante pruebas guiadas con usuarios reales bajo estándar ISO 9241-11, redactar manuales metodológicos de administración y elaborar el informe final de titulación.
+  > Evaluar la usabilidad, pertinencia y aplicabilidad práctica de la plataforma con los diferentes perfiles de actores territoriales, asegurando la transferibilidad técnica, metodológica y documental de la solución desarrollada para su adopción y sostenibilidad operativa.
 * **Componentes en Ejecución:**
   - Protocolo de pruebas de usabilidad guiadas con actores territoriales reales pertenecientes a los 4 perfiles de usuarios definidos, midiendo efectividad, eficiencia y satisfacción percibida conforme a la norma ISO 9241-11.
   - Redacción y publicación del **Manual de Actualización Técnica y Transferibilidad** (>5000 líneas), documentando exhaustivamente la arquitectura, scripts Python, PostGIS, netlify.toml y resolución de incidentes.
