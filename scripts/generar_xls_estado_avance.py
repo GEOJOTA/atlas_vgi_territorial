@@ -83,7 +83,7 @@ def crear_libro():
     ws1.row_dimensions[1].height = 24
 
     ws1.merge_cells("A2:I2")
-    ws1["A2"] = "Practicante: Juan Pablo Lescano Villegas (GEOJOTA) | Dpto. Geografía UAH | Proyecto Fondecyt F1261256 | Corte: Semanas 1 a 5 (50% avance)"
+    ws1["A2"] = "Practicante: Juan Pablo Lescano Villegas (GEOJOTA) | Dpto. Geografía UAH | Departamento de Geografía UAH | Corte: Semanas 1 a 5 (50% avance)"
     ws1["A2"].font = Font(name="Calibri", size=9.5, italic=True, color="64748B")
     ws1["A2"].alignment = Alignment(horizontal="left", vertical="center")
     ws1.row_dimensions[2].height = 18
@@ -143,7 +143,7 @@ def crear_libro():
             0,
             "25%",
             "En Preparación",
-            "Diseño metodológico de protocolos de prueba con usuarios para los 4 perfiles; estructura preliminar del Manual Metodológico para el Departamento de Geografía UAH y Proyecto Fondecyt F1261256."
+            "Diseño metodológico de protocolos de prueba con usuarios para los 4 perfiles; estructura preliminar del Manual Metodológico para el Departamento de Geografía UAH y Departamento de Geografía UAH."
         ],
         [
             "TOTALES",

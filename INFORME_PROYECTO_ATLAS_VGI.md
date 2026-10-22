@@ -30,7 +30,7 @@
 | **Autor y Desarrollador** | Juan Pablo Lescano Villegas (`GEOJOTA`) |
 | **Contacto Institucional** | juanpablolescanovillegas@gmail.com |
 | **Institución Patrocinante** | Departamento de Geografía, Facultad de Ciencias Sociales, Universidad Alberto Hurtado (UAH) |
-| **Marco de Investigación** | Proyecto Fondecyt Regular N° 1261256 sobre VGI, Infraestructuras de Datos Espaciales y Gobernanza Territorial (Investigador Responsable: Dr. Manuel Fuenzalida, UAH) |
+| **Marco de Investigación** | Proyecto Investigación Territorial N° 1261256 sobre VGI, Infraestructuras de Datos Espaciales y Gobernanza Territorial (Investigador Responsable: Dr. Manuel Fuenzalida, UAH) |
 | **Caso Piloto Territorial** | Barrio Brasil y Entorno Patrimonial Campus UAH — Comuna de Santiago, Región Metropolitana, Chile |
 | **Plataforma en Producción** | [https://atlasvgiuah.netlify.app/](https://atlasvgiuah.netlify.app/) |
 | **Repositorio Oficial** | [https://github.com/GEOJOTA/atlas_vgi_uah](https://github.com/GEOJOTA/atlas_vgi_uah) |

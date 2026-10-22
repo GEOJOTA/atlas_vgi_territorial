@@ -3,9 +3,9 @@
 [![Estado del Proyecto](https://img.shields.io/badge/Estado-Producci%C3%B3n_2026-10b981?style=for-the-badge)](https://github.com/santiagogeografia454-sketch/Visualizador-barrio-brasil)
 [![Capas Integradas](https://img.shields.io/badge/Capas_Integradas-132_(122_Oficiales_%2B_10_VGI)-38bdf8?style=for-the-badge)](#estructura-de-datos-y-módulos-01-al-10)
 [![Diccionario de Datos](https://img.shields.io/badge/Diccionario-140_Descriptores_T%C3%A9cnicos-f59e0b?style=for-the-badge)](#documentación-técnica-y-manuales)
-[![Fondecyt Regular](https://img.shields.io/badge/Fondecyt_Regular-N%C2%B0_1261256_(Geograf%C3%ADa_UAH)-a855f7?style=for-the-badge)](#créditos-institucionales)
+[![Investigación Territorial](https://img.shields.io/badge/Geografía UAH_Regular-N%C2%B0_1261256_(Geograf%C3%ADa_UAH)-a855f7?style=for-the-badge)](#créditos-institucionales)
 
-Plataforma web abierta desarrollada en el marco del **Proyecto Fondecyt Regular Nº 1261256** del **Departamento de Geografía de la Universidad Alberto Hurtado (Chile)**.
+Plataforma web abierta desarrollada en el marco del **Proyecto Investigación Cartográfica UAH** del **Departamento de Geografía de la Universidad Alberto Hurtado (Chile)**.
 
 El sistema articula la cartografía oficial del Estado de Chile con Información Geográfica Voluntaria (*Volunteered Geographic Information*, VGI; Goodchild, 2007; Haklay, 2010) para el diagnóstico espacial, la evaluación normativa y la gestión territorial del **Barrio Brasil**, el entorno del Campus Universidad Alberto Hurtado, la **Comuna de Santiago** y la **Región Metropolitana**.
 
@@ -72,5 +72,5 @@ El Atlas integra **132 coberturas geográficas operativas** en coordenadas `EPSG
 
 ## Créditos Institucionales
 
-- **Proyecto:** Fondecyt Regular Nº 1261256 (*"Calidad y gobernanza de la Información Geográfica Voluntaria para la gestión urbana integrada"*).
+- **Proyecto:** Investigación Cartográfica UAH (*"Calidad y gobernanza de la Información Geográfica Voluntaria para la gestión urbana integrada"*).
 - **Institución:** Departamento de Geografía · Facultad de Ciencias Sociales · Universidad Alberto Hurtado (Santiago de Chile).

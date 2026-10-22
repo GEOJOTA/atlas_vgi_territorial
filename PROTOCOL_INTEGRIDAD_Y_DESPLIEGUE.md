@@ -1,6 +1,6 @@
 # Manual de Actualización, Arquitectura, Integridad y Contribución Técnica — Atlas VGI UAH
 
-**Proyecto Fondecyt Regular Nº 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
+**Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
 **Documento Maestro de Operaciones y Mantenimiento Integral:** Manual de Actualización Técnica · Arquitectura del Sistema · Protocolo de Integridad y Despliegue · Guía de Contribución Abierta.  
 **Versión Consolidada del Sistema:** 132 Capas Operativas (122 Oficiales + 10 VGI) · 146 Descriptores en Diccionario · 10 Módulos Funcionales (`01` al `10`) · 9 Storyboards Territoriales con Modal Interactivo · 5 Dimensiones Analíticas.
 

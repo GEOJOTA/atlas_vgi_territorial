@@ -5,7 +5,7 @@ r"""
   MODELO DE ÍNDICE LINEAL PONDERADO (WLC) PARA METACALIDAD ESPACIAL (IGV)
   Weighted Linear Combination for Spatial Data & Metadata Quality
   Atlas VGI — Nodo GeoAbierto | Universidad Alberto Hurtado (UAH)
-  Proyecto Fondecyt Regular F1261256 (ANID)
+  Atlas VGI Territorial — Geografía UAH (ANID)
 =============================================================================
 
 DESCRIPCIÓN GENERAL

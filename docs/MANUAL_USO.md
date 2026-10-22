@@ -1,7 +1,7 @@
 # Manual de Uso — Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Atlas VGI · UAH)
 
-**Proyecto Fondecyt Regular Nº 1261256 · Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
-**Versión del Sistema:** 132 Capas Operativas (121 Oficiales + 10 VGI) · 146 Descriptores Técnicos (ISO 19110) · 10 Módulos Funcionales (`01` al `10`) · 9 Storyboards Territoriales con Modal Interactivo · 5 Dimensiones Analíticas.
+**Departamento de Geografía · Universidad Alberto Hurtado (2026)**  
+**Versión del Sistema:** 132 Capas Operativas (122 Oficiales + 10 VGI) · 146 Descriptores Técnicos (ISO 19110) · 10 Módulos Funcionales (`01` al `10`) · 9 Storyboards Territoriales con Modal Interactivo · 5 Dimensiones Analíticas.
 
 ---
 
