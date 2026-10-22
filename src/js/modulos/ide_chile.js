@@ -2137,8 +2137,7 @@ const ModuloIDEChile = (() => {
       descripcion: 'Estaciones intermedias de transbordo, compactación y transferencia de residuos en la Región Metropolitana (Estación de Transferencia Quilicura KDM).',
       declaracion: 'Información pública oficial de SUBDERE amparada por la Ley N° 20.285.',
       citaAPA: 'Subsecretaría de Desarrollo Regional y Administrativo [SUBDERE]. (2024). Diagnóstico y catastro nacional de residuos sólidos domiciliarios: Síntesis Nacional y Catastro RSD 2024. Programa Nacional de Residuos Sólidos. Gobierno de Chile. https://proactiva.subdere.gov.cl'
-    }
-},
+    },
     munistgo_aseo_zonas_residuos_2026: {
       id: 'munistgo_aseo_zonas_residuos_2026',
       num_bbdd: 'ASEO-01',
@@ -2227,7 +2226,7 @@ const ModuloIDEChile = (() => {
       return cacheCapasOficiales.get(idCapa);
     }
 
-    const def = CAPAS_OFICIALES[idCapa];
+    const def = obtenerDefinicion(idCapa);
     if (!def) {
       throw new Error(`Capa oficial "${idCapa}" no reconocida en el catálogo.`);
     }
@@ -2650,23 +2649,25 @@ const ModuloIDEChile = (() => {
             'Recaudación Derechos de Aseo': props.DerAseo ? '$' + Number(props.DerAseo).toLocaleString('es-CL') : '-'
           };
         } else if (idCapa.includes('aseo') || idCapa.includes('residuos_2026')) {
+          nombreEntidad = props.BARRIO ? `Barrio ${props.BARRIO} (Zona ${props.zona_aseo || ''})` : `Macro-Zona de Aseo: ${props.zona_aseo || 'Comuna de Santiago'}`;
+          detalleTipo = `Capacidad: ${(props.capacidad_total_litros || props.zona_capacidad_litros ? Number(props.capacidad_total_litros || props.zona_capacidad_litros).toLocaleString('es-CL') : '0')} L | Contenedores: ${props.contenedores_tot || props.zona_contenedores_tot || 0}`;
           extraInfo = {
-            'Macro-Zona Operativa': props.zona_aseo,
-            'Código de Zona': props.zona_codigo,
-            'Barrios Integrantes': (props.n_barrios_agrupados || '') + ' barrios (' + (props.barrios_integrantes || '') + ')',
-            'Superficie Territorial': (props.superficie_ha || 0) + ' ha (' + (props.superficie_km2 || 0) + ' km²)',
-            'Contenedores Totales': (props.contenedores_tot || 0) + ' unidades (' + (props.pct_contenedores_comunal || 0) + '%)',
-            'Papeleros Peatonales': (props.papeleros_tot || 0) + ' unidades (' + (props.pct_papeleros_comunal || 0) + '%)',
-            'Total Elementos Aseo': (props.elementos_tot || 0) + ' unidades',
-            'Capacidad de Acopio': (props.capacidad_total_litros ? Number(props.capacidad_total_litros).toLocaleString('es-CL') : '0') + ' L (' + (props.pct_capacidad_comunal || 0) + '%)',
-            'Volumetría Contenedores': '240L: ' + (props.cont_240l || 0) + ' | 360L: ' + (props.cont_360l || 0) + ' | 770L: ' + (props.cont_770l || 0),
-            'Tasa Deterioro Físico': (props.tasa_deterioro_pct || 0) + '%',
-            'Tasa Operatividad': (props.tasa_operativo_pct || 0) + '%',
-            'Tasa Pérdida / No está': (props.tasa_perdida_pct || 0) + '%',
-            'Densidad Contenedores': (props.densidad_contenedores_km2 || 0) + ' cont/km²',
-            'Densidad Capacidad': (props.densidad_capacidad_litros_ha || 0) + ' L/ha',
+            'Macro-Zona Operativa': props.zona_aseo || '-',
+            'Código de Zona': props.zona_codigo || '-',
+            'Barrio / Sector': props.BARRIO || ((props.n_barrios_agrupados || '') + ' barrios (' + (props.barrios_integrantes || '') + ')'),
+            'Superficie Territorial': (props.superficie_ha || props.SUP_HA || 0) + ' ha (' + (props.superficie_km2 || props.SUP_KM || 0) + ' km²)',
+            'Contenedores Totales': (props.contenedores_tot || props.zona_contenedores_tot || 0) + ' unidades (' + (props.pct_contenedores_comunal || props.zona_pct_cont_comunal || 0) + '%)',
+            'Papeleros Peatonales': (props.papeleros_tot || props.zona_papeleros_tot || 0) + ' unidades (' + (props.pct_papeleros_comunal || props.zona_pct_pap_comunal || 0) + '%)',
+            'Total Elementos Aseo': (props.elementos_tot || props.zona_elementos_tot || 0) + ' unidades',
+            'Capacidad de Acopio': (props.capacidad_total_litros || props.zona_capacidad_litros ? Number(props.capacidad_total_litros || props.zona_capacidad_litros).toLocaleString('es-CL') : '0') + ' L',
+            'Volumetría Contenedores': '240L: ' + (props.cont_240l || props.zona_cont_240l || 0) + ' | 360L: ' + (props.cont_360l || props.zona_cont_360l || 0) + ' | 770L: ' + (props.cont_770l || props.zona_cont_770l || 0),
+            'Tasa Deterioro Físico': (props.tasa_deterioro_pct || props.zona_tasa_deterioro_pct || 0) + '%',
+            'Tasa Operatividad': (props.tasa_operativo_pct || props.zona_tasa_operativo_pct || 0) + '%',
+            'Tasa Pérdida / No está': (props.tasa_perdida_pct || props.zona_tasa_perdida_pct || 0) + '%',
+            'Densidad Contenedores': (props.densidad_contenedores_km2 || props.zona_densidad_cont_km2 || 0) + ' cont/km²',
+            'Densidad Capacidad': (props.densidad_capacidad_litros_ha || props.zona_densidad_cap_litros_ha || 0) + ' L/ha',
             'Ratio Contenedores / Papeleros': props.ratio_contenedores_papeleros || '0',
-            'Diagnóstico Técnico': props.nota_estado || '-'
+            'Diagnóstico Técnico': props.nota_estado || props.zona_nota_estado || '-'
           };
         } else if (idCapa.includes('sdf_comunas') || idCapa.includes('sdf_municipios')) {
           extraInfo = {
@@ -2766,6 +2767,15 @@ const ModuloIDEChile = (() => {
       // Alias / fallback de compatibilidad para capas consolidadas:
       if (idCapa === 'zonas_aseo' || idCapa === 'aseo_santiago' || idCapa === 'capa_zonas_aseo') {
         return CAPAS_OFICIALES['munistgo_aseo_zonas_residuos_2026'];
+      }
+      if (idCapa === 'barrios_santiago_con_zonas_aseo' || idCapa === 'capa_barrios_santiago_con_zonas_aseo') {
+        return {
+          ...CAPAS_OFICIALES['munistgo_aseo_zonas_residuos_2026'],
+          id: 'barrios_santiago_con_zonas_aseo',
+          nombre: 'MuniSTGO - Barrios con Catastro de Zonas de Aseo y Residuos',
+          archivoLocal: 'data/barrios_santiago_con_zonas_aseo.geojson',
+          geometria: 'Polígonos (27 Barrios Santiago)'
+        };
       }
       if (idCapa === 'unidades_vecinales_bidat' || idCapa === 'capa_unidades_vecinales_bidat' || idCapa === 'ide_minvu_unidades_vecinales_rsh') {
         return CAPAS_OFICIALES['bbdd_66'];

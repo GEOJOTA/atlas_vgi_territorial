@@ -27,10 +27,10 @@
 * [8. Auditoría Histórica y Análisis Espacio-Temporal con ohsome API v1/v2 (HeiGIT)](#8-auditoría-histórica-y-análisis-espacio-temporal-con-ohsome-api-v1v2-heigit)
 * [9. Integración de Biodiversidad y Ciencia Ciudadana con GBIF y Darwin Core](#9-integración-de-biodiversidad-y-ciencia-ciudadana-con-gbif-y-darwin-core)
 * [10. Integración de Cartografía Externa con uMap e iframes Aislados](#10-integración-de-cartografía-externa-con-umap-e-iframes-aislados)
-* [11. Pipeline de Descarga e Integración de Capas Oficiales del Estado de Chile (IDE Chile / SNIT)](#11-pipeline-de-descarga-e-integración-de-capas-oficiales-del-estado-de-chile-ide-chile--snit)
-* [12. Protocolo de Estandarización Geodésica, Limpieza Topológica y Validación OGC](#12-protocolo-de-estandarización-geodésica-limpieza-topológica-y-validación-ogc)
-* [13. El Esquema Maestro de los 14 Atributos Normalizados ISO](#13-el-esquema-maestro-de-los-14-atributos-normalizados-iso)
-* [14. Diccionario de Datos Completo de las 121 Capas Oficiales Integradas](#14-diccionario-de-datos-completo-de-las-121-capas-oficiales-integradas)
+* [11. Extractos Masivos Regionales de Geofabrik RM y Generación de GeoPackage OGC](#11-extractos-masivos-regionales-de-geofabrik-rm-y-generación-de-geopackage-ogc)
+* [12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-122-capas-oficiales-del-estado-de-chile)
+* [13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas](#13-catálogo-exhaustivo-detallado-de-las-132-capas-cartográficas)
+* [14. El Esquema Maestro Obligatorio de 14 Atributos ISO por Entidad Geográfica](#14-el-esquema-maestro-obligatorio-de-14-atributos-iso-por-entidad-geográfica)
 
 ### [PARTE III: MODELAMIENTO MATEMÁTICO DE CALIDAD, METADATOS Y ESTÁNDARES INTERNACIONALES](#parte-iii-modelamiento-matemático-de-calidad-metadatos-y-estándares-internacionales)
 * [15. Modelo de MetaCalidad WLC v2.0 (ISO 19157:2013 / ISO 19157-1:2023)](#15-modelo-de-metacalidad-wlc-v20-iso-191572013--iso-19157-12023)
@@ -907,9 +907,9 @@ El archivo resultante (`docs/geofabrik_chile_rm_completo.gpkg`) cuenta con índi
 
 ---
 
-## 12. Ingesta, Normalización y Homologación de las 121 Capas Oficiales del Estado de Chile
+## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
 
-El Atlas VGI integra exactamente **121 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
+El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
 A continuación se detalla la proveniencia institucional y aporte temático de las principales entidades públicas integradas:
 
@@ -939,9 +939,9 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 
 ---
 
-## 13. Catálogo Exhaustivo Detallado de las 131 Capas Cartográficas
+## 13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas
 
-A continuación se expone la tabla maestra con el inventario universal de las 131 capas que operan en la plataforma web y en la geodatabase unificada:
+A continuación se expone la tabla maestra con el inventario universal de las 132 capas que operan en la plataforma web y en la geodatabase unificada:
 
 ### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil)
 | N° | ID de Capa | Denominación Oficial | Dimensión Territorial | Geometría OGC | Fuente Primaria | Ruta Local |
@@ -958,7 +958,7 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 | 10 | `cat10_cobertura_suelo_vgi` | CAT-10: Coberturas y Usos de Suelo VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat10_cobertura_suelo_vgi.geojson` |
 
 
-### 13.2. Las 121 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
+### 13.2. Las 122 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
 | N° | ID de Capa | Nombre Oficial | Institución Responsable | Ministerio / Sector | Geometría | Archivo Local |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
 | 011 | `censo2024_regional` | Censo 2024 (Marco Regional RM) | Instituto Nacional de Estadísticas (INE) / IDE Chile | Ministerio de Economía, Fomento y Turismo | Polígono (Región Metropolitana) | `data/ide_censo2024_regional.geojson` |
@@ -1081,7 +1081,8 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 | 128 | `subdere_rsd_sdf_comunas_destino_rm` | SUBDERE RSD 2024 - Destino de Disposición Final por Comuna (RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Polígonos Comunales | `data/subdere_rsd_2024_rm/SDF_Comunas_RM.geojson` |
 | 129 | `subdere_rsd_sdf_municipios_puntos_rm` | SUBDERE RSD 2024 - Sedes Municipales y Relleno Receptor (Puntos RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Municipios) | `data/subdere_rsd_2024_rm/SDF_Municipios_RM.geojson` |
 | 130 | `subdere_rsd_sitios_disposicion_instalaciones_rm` | SUBDERE RSD 2024 - Rellenos Sanitarios e Instalaciones (RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Instalaciones) | `data/subdere_rsd_2024_rm/Sitios_Disposicion_RSD_Ene24_RM.geojson` |
-| 131 | `subdere_rsd_sitios_intermedios_transferencia_rm` | Región de Los Lagos | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Estaciones de Transferencia) | `data/subdere_rsd_2024_rm/Sitios_Intermedios_Disposicion_RSD_Ene24_RM.geojson` |
+| 131 | `subdere_rsd_sitios_intermedios_transferencia_rm` | SUBDERE RSD 2024 - Estaciones de Transferencia Intermedia (RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Estaciones de Transferencia) | `data/subdere_rsd_2024_rm/Sitios_Intermedios_Disposicion_RSD_Ene24_RM.geojson` |
+| 132 | `munistgo_aseo_zonas_residuos_2026` | MuniSTGO - Catastro Zonas de Aseo, Contenedores y Papeleros (Junio 2026) | Ilustre Municipalidad de Santiago (Subdirección de Aseo y Gestión Integral de Residuos) | Municipalidad de Santiago / Ley N° 20.285 Transparencia | Polígonos (Macro-Zonas de Aseo) | `data/zonas_aseo_contenedores_papeleros_santiago.geojson` |
 
 
 ---
@@ -1417,7 +1418,7 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 ## 16. Correlaciones Estadísticas, Sensibilidad y Ranking de Metacalidad
 
 ### 16.1. Matriz de Correlación Lineal de Pearson ($r$)
-Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 131 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
+Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 132 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
 
 $$
 r_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}
@@ -1576,14 +1577,14 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ### 18.1. Los 4 Libros Maestros OpenXML (`.xlsx`)
 1. **`docs/categorias_tematicas_osm.xlsx` (52.5 KB):** Contiene 11 hojas estructuradas (Resumen General + Hojas CAT-01 a CAT-10). Define códigos unívocos, nombres en español, etiquetas primarias y secundarias de OSM, pesos de habitabilidad y criterios de verificación comunitaria.
-2. **`docs/catalogo_fuentes_vgi.xlsx` (37.4 KB):** Ficha exhaustiva de las **131 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
+2. **`docs/catalogo_fuentes_vgi.xlsx` (37.4 KB):** Ficha exhaustiva de las **132 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
 3. **`docs/perfil_metadatos_vgi.xlsx` (30.6 KB):** Matriz de parametrización de los 7 paquetes normativos de la norma ISO 19115-1:2014 con definición de obligatoriedad, cardinalidad OGC y mapeo XSD ISO 19139.
 4. **`docs/catalogo_diccionario_territorial_140.xlsx`:** Catálogo estructurado de los 140 descriptores conceptuales y normativos del Atlas.
 
 ### 18.2. Los Archivos Consolidados CSV UTF-8
 * **`data/bip_inversiones_santiago.csv` (3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
 * **`docs/correlacion_dimensiones_calidad.csv` (837 bytes):** Matriz simétrica $10 \times 10$ de coeficientes de correlación de Pearson del modelo WLC v2.0.
-* **`docs/wlc_metacalidad_ranking.csv` (29.5 KB):** Tabla ordenada de las 131 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
+* **`docs/wlc_metacalidad_ranking.csv` (29.5 KB):** Tabla ordenada de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
 * **`data/resumen_catastro_vgi.csv` (168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
 
 ---
@@ -1635,7 +1636,7 @@ El Atlas de Información Geográfica Voluntaria adopta una filosofía de ingenie
 │         ┌───────────────────────────────────────────────────┤          │
 │         ▼                                                   ▼          │
 │  MÓDULOS ESPECIALIZADOS IIFE                  MOTOR CARTOGRÁFICO       │
-│  • ModuloIDEChile (121 capas)                 • Leaflet 1.9.4          │
+│  • ModuloIDEChile (122 capas)                 • Leaflet 1.9.4          │
 │  • ModuloOSM (Overpass QL)                    • L.tileLayer / WMS      │
 │  • ModuloOhsome (HeiGIT API)                  • L.geoJSON / L.divIcon  │
 │  • ModuloEvaluadorNormativo (PRC)             • Popups Dinámicos       │
@@ -3311,7 +3312,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 
 ### Script 16: `generar_catalogos_excel.py`
 - **Propósito:** Construye de forma automatizada los **cuatro libros de cálculo maestros en formato OpenXML (.xlsx)** con estilos visuales profesionales, cabeceras institucionales en verde musgo (`#2d5a27`), fórmulas de conteo (`CONTAR.SI`), formato condicional y validación de datos:
-  1. `catalogo_capas_completo_vgi_uah.xlsx` (131 capas catalogadas).
+  1. `catalogo_capas_completo_vgi_uah.xlsx` (132 capas catalogadas).
   2. `catalogo_metadatos_iso19115_uah.xlsx` (perfil ISO 19115-1).
   3. `catalogo_indicadores_calidad_vgi.xlsx` (métricas ISO 19157).
   4. `catalogo_fuentes_y_licencias_territoriales.xlsx` (marco de propiedad intelectual).
@@ -3367,7 +3368,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
   ```text
   [+] Conteo de Capas del Atlas VGI UAH:
       - Capas en datos/capas/: 118 archivos GeoJSON
-      - Capas registradas en catálogo Excel: 131 capas
+      - Capas registradas en catálogo Excel: 132 capas
       - Capas activas en visor web Leaflet: 118 capas
       ✓ Coherencia operativa: 100% OK.
   ```
@@ -5527,7 +5528,7 @@ python3 scripts/enriquecer_base_datos_metadatos.py
 ```
 
 ### Paso 3: Registrar la Capa en `catalogo_capas_completo_vgi_uah.xlsx`
-Abra el libro de cálculo o ejecute `python3 scripts/generar_catalogos_excel.py` para asegurar que figure en las 131 capas catalogadas con su respectiva licencia y linaje.
+Abra el libro de cálculo o ejecute `python3 scripts/generar_catalogos_excel.py` para asegurar que figure en las 132 capas catalogadas con su respectiva licencia y linaje.
 
 ### Paso 4: Añadir la Casilla Checkbox en `src/index.html`
 Dentro del acordeón temático correspondiente:

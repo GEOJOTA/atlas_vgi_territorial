@@ -2982,6 +2982,8 @@ function configurarCapasOficialesIDE() {
   const todasCapas = window.ModuloIDEChile.obtenerCapasDisponibles();
   const kpiTotalEl = document.getElementById('kpi-total-capas');
   if (kpiTotalEl) kpiTotalEl.textContent = String(todasCapas.length + 10);
+  const badgeOficialEl = document.querySelector('.pestana-capas[data-seccion="seccion-capas-oficiales"] .badge-tab-conteo');
+  if (badgeOficialEl) badgeOficialEl.textContent = String(todasCapas.length);
   const capasMap = {};
   todasCapas.forEach(c => { capasMap[c.id] = c; });
 

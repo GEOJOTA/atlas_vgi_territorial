@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 scripts/manual_p02_ingenieria_datos.py
-Capítulos 06 al 14: Ingeniería de Datos, Extracción, Normalización y Catálogo de 131 Capas.
+Capítulos 06 al 14: Ingeniería de Datos, Extracción, Normalización y Catálogo de 132 Capas.
 """
 
 PARTE_02 = r"""# PARTE II: INGENIERÍA DE DATOS, PIPELINES DE EXTRACCIÓN Y NORMALIZACIÓN CARTOGRÁFICA
@@ -423,9 +423,9 @@ El archivo resultante (`docs/geofabrik_chile_rm_completo.gpkg`) cuenta con índi
 
 ---
 
-## 12. Ingesta, Normalización y Homologación de las 121 Capas Oficiales del Estado de Chile
+## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
 
-El Atlas VGI integra exactamente **121 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
+El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
 A continuación se detalla la proveniencia institucional y aporte temático de las principales entidades públicas integradas:
 
@@ -455,9 +455,9 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 
 ---
 
-## 13. Catálogo Exhaustivo Detallado de las 131 Capas Cartográficas
+## 13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas
 
-A continuación se expone la tabla maestra con el inventario universal de las 131 capas que operan en la plataforma web y en la geodatabase unificada:
+A continuación se expone la tabla maestra con el inventario universal de las 132 capas que operan en la plataforma web y en la geodatabase unificada:
 
 ### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil)
 | N° | ID de Capa | Denominación Oficial | Dimensión Territorial | Geometría OGC | Fuente Primaria | Ruta Local |
@@ -474,7 +474,7 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 | 10 | `cat10_cobertura_suelo_vgi` | CAT-10: Coberturas y Usos de Suelo VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat10_cobertura_suelo_vgi.geojson` |
 
 
-### 13.2. Las 121 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
+### 13.2. Las 122 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
 | N° | ID de Capa | Nombre Oficial | Institución Responsable | Ministerio / Sector | Geometría | Archivo Local |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
 | 011 | `censo2024_regional` | Censo 2024 (Marco Regional RM) | Instituto Nacional de Estadísticas (INE) / IDE Chile | Ministerio de Economía, Fomento y Turismo | Polígono (Región Metropolitana) | `data/ide_censo2024_regional.geojson` |
@@ -597,7 +597,8 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 | 128 | `subdere_rsd_sdf_comunas_destino_rm` | SUBDERE RSD 2024 - Destino de Disposición Final por Comuna (RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Polígonos Comunales | `data/subdere_rsd_2024_rm/SDF_Comunas_RM.geojson` |
 | 129 | `subdere_rsd_sdf_municipios_puntos_rm` | SUBDERE RSD 2024 - Sedes Municipales y Relleno Receptor (Puntos RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Municipios) | `data/subdere_rsd_2024_rm/SDF_Municipios_RM.geojson` |
 | 130 | `subdere_rsd_sitios_disposicion_instalaciones_rm` | SUBDERE RSD 2024 - Rellenos Sanitarios e Instalaciones (RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Instalaciones) | `data/subdere_rsd_2024_rm/Sitios_Disposicion_RSD_Ene24_RM.geojson` |
-| 131 | `subdere_rsd_sitios_intermedios_transferencia_rm` | Región de Los Lagos | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Estaciones de Transferencia) | `data/subdere_rsd_2024_rm/Sitios_Intermedios_Disposicion_RSD_Ene24_RM.geojson` |
+| 131 | `subdere_rsd_sitios_intermedios_transferencia_rm` | SUBDERE RSD 2024 - Estaciones de Transferencia Intermedia (RM) | Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) | Ministerio del Interior y Seguridad Pública | Puntos (Estaciones de Transferencia) | `data/subdere_rsd_2024_rm/Sitios_Intermedios_Disposicion_RSD_Ene24_RM.geojson` |
+| 132 | `munistgo_aseo_zonas_residuos_2026` | MuniSTGO - Catastro Zonas de Aseo, Contenedores y Papeleros (Junio 2026) | Ilustre Municipalidad de Santiago (Subdirección de Aseo y Gestión Integral de Residuos) | Municipalidad de Santiago / Ley N° 20.285 Transparencia | Polígonos (Macro-Zonas de Aseo) | `data/zonas_aseo_contenedores_papeleros_santiago.geojson` |
 
 
 ---

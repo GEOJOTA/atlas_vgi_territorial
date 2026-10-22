@@ -225,7 +225,7 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 ## 16. Correlaciones Estadísticas, Sensibilidad y Ranking de Metacalidad
 
 ### 16.1. Matriz de Correlación Lineal de Pearson ($r$)
-Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 131 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
+Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 132 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
 
 $$
 r_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}
@@ -384,14 +384,14 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ### 18.1. Los 4 Libros Maestros OpenXML (`.xlsx`)
 1. **`docs/categorias_tematicas_osm.xlsx` (52.5 KB):** Contiene 11 hojas estructuradas (Resumen General + Hojas CAT-01 a CAT-10). Define códigos unívocos, nombres en español, etiquetas primarias y secundarias de OSM, pesos de habitabilidad y criterios de verificación comunitaria.
-2. **`docs/catalogo_fuentes_vgi.xlsx` (37.4 KB):** Ficha exhaustiva de las **131 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
+2. **`docs/catalogo_fuentes_vgi.xlsx` (37.4 KB):** Ficha exhaustiva de las **132 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
 3. **`docs/perfil_metadatos_vgi.xlsx` (30.6 KB):** Matriz de parametrización de los 7 paquetes normativos de la norma ISO 19115-1:2014 con definición de obligatoriedad, cardinalidad OGC y mapeo XSD ISO 19139.
 4. **`docs/catalogo_diccionario_territorial_140.xlsx`:** Catálogo estructurado de los 140 descriptores conceptuales y normativos del Atlas.
 
 ### 18.2. Los Archivos Consolidados CSV UTF-8
 * **`data/bip_inversiones_santiago.csv` (3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
 * **`docs/correlacion_dimensiones_calidad.csv` (837 bytes):** Matriz simétrica $10 \times 10$ de coeficientes de correlación de Pearson del modelo WLC v2.0.
-* **`docs/wlc_metacalidad_ranking.csv` (29.5 KB):** Tabla ordenada de las 131 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
+* **`docs/wlc_metacalidad_ranking.csv` (29.5 KB):** Tabla ordenada de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
 * **`data/resumen_catastro_vgi.csv` (168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
 
 ---

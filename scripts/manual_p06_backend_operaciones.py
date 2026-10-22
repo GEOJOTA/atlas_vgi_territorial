@@ -643,7 +643,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 
 ### Script 16: `generar_catalogos_excel.py`
 - **Propósito:** Construye de forma automatizada los **cuatro libros de cálculo maestros en formato OpenXML (.xlsx)** con estilos visuales profesionales, cabeceras institucionales en verde musgo (`#2d5a27`), fórmulas de conteo (`CONTAR.SI`), formato condicional y validación de datos:
-  1. `catalogo_capas_completo_vgi_uah.xlsx` (131 capas catalogadas).
+  1. `catalogo_capas_completo_vgi_uah.xlsx` (132 capas catalogadas).
   2. `catalogo_metadatos_iso19115_uah.xlsx` (perfil ISO 19115-1).
   3. `catalogo_indicadores_calidad_vgi.xlsx` (métricas ISO 19157).
   4. `catalogo_fuentes_y_licencias_territoriales.xlsx` (marco de propiedad intelectual).
@@ -699,7 +699,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
   ```text
   [+] Conteo de Capas del Atlas VGI UAH:
       - Capas en datos/capas/: 118 archivos GeoJSON
-      - Capas registradas en catálogo Excel: 131 capas
+      - Capas registradas en catálogo Excel: 132 capas
       - Capas activas en visor web Leaflet: 118 capas
       ✓ Coherencia operativa: 100% OK.
   ```

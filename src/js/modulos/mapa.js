@@ -775,6 +775,23 @@ const ModuloMapa = (() => {
     licencia: 'Información Pública Oficial — Ley N° 20.285 de Transparencia (Oficio N° E-1528/2026)'
   };
   META_CAPAS_BIDAT['zonas_aseo_contenedores_papeleros_santiago'] = META_CAPAS_BIDAT['munistgo_aseo_zonas_residuos_2026'];
+  META_CAPAS_BIDAT['barrios_santiago_con_zonas_aseo'] = {
+    fuente: 'Municipalidad de Santiago — Subdirección de Aseo y Gestión Integral de Residuos',
+    archivo_origen: 'Oficio Transparencia MU-18117 / Memorando N° 204 / Catastro Junio 2026',
+    descripcion: 'Catastro comunal de los 27 barrios oficiales de la Comuna de Santiago con atributos asociados de zonas de aseo, volumen de contenedores y tasas de operatividad.',
+    cobertura: '27 Barrios de la Comuna de Santiago (100% comunal)',
+    features_salida: 27,
+    crs_entrada: 'EPSG:32719 (WGS 84 / UTM Huso 19S)',
+    crs_salida: 'EPSG:4326',
+    fecha_proceso: '2026-10-22',
+    tamano_mb: 0.09,
+    archivo_geojson: 'barrios_santiago_con_zonas_aseo.geojson',
+    archivo_gpkg: 'barrios_santiago_con_zonas_aseo.gpkg',
+    columnas_totales: 43,
+    licencia: 'Información Pública Oficial — Ley N° 20.285 de Transparencia (Oficio N° E-1528/2026)'
+  };
+  META_CAPAS_BIDAT['zonas_aseo'] = META_CAPAS_BIDAT['munistgo_aseo_zonas_residuos_2026'];
+  META_CAPAS_BIDAT['aseo_santiago'] = META_CAPAS_BIDAT['munistgo_aseo_zonas_residuos_2026'];
   META_CAPAS_BIDAT['semaforos_rm_uoct_2026'] = {
     fuente: 'UOCT / MTT — Oficio N° 26105 / 2026',
     descripcion: 'Catastro de Cruces e Intersecciones Semaforizadas Conectadas al Sistema de Control de Tránsito RM (3.483 intersecciones operativas en 47 comunas).',

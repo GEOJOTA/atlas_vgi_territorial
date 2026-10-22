@@ -44,7 +44,8 @@ ARCHIVOS_OBJETIVO = [
     'semaforos_rm_uoct_2026.geojson',
     'capa_bbdd_66.geojson',
     'capa_unidades_vecinales_bidat.geojson',
-    'zonas_aseo_contenedores_papeleros_santiago.geojson'
+    'zonas_aseo_contenedores_papeleros_santiago.geojson',
+    'barrios_santiago_con_zonas_aseo.geojson'
 ]
 
 CATALOGOS_EXCEL = [

@@ -5,10 +5,10 @@
   Atlas VGI Territorial — Geografía UAH — Geografía Universidad Alberto Hurtado (2026).
 
   Estructura y Principios:
-  1. Agrupación analítica de las 131 capas del Atlas (121 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
+  1. Agrupación analítica de las 132 capas del Atlas (122 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
      - 1) Sociodemográfica (19 capas)
      - 2) Socioeconómica (18 capas)
-     - 3) Socioambiental (36 capas)
+     - 3) Socioambiental (37 capas)
      - 4) Sociosanitaria (3 capas)
      - 5) Sociourbana o Habitabilidad (55 capas)
   2. Nombres de capas rigurosamente idénticos a los del Módulo "00. Visor y Atlas VGI".
@@ -170,7 +170,7 @@ const ModuloIndicadoresAnalisis = (() => {
   };
 
   // =========================================================================
-  // 2. DEFINICIÓN DE LAS 5 DIMENSIONES ESTRATÉGICAS (131 CAPAS TOTALES)
+  // 2. DEFINICIÓN DE LAS 5 DIMENSIONES ESTRATÉGICAS (132 CAPAS TOTALES)
   // =========================================================================
   const DIMENSIONES = [
     {
@@ -1657,7 +1657,7 @@ const ModuloIndicadoresAnalisis = (() => {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
-    const totalCapasAtlas = 131; // 121 oficiales + 10 VGI
+    const totalCapasAtlas = 132; // 122 oficiales + 10 VGI
     
     contenedor.innerHTML = `
       <div class="modulo-indicadores-analisis-wrapper">
@@ -1670,7 +1670,7 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial</h2>
           <p class="bajada-modulo-indicadores">
-            Estructura analítica integrada para la gestión territorial y comunitaria. Las <strong>${totalCapasAtlas} capas del Atlas VGI</strong> (121 oficiales del Estado de Chile y 10 colaborativas OSM/GBIF) organizadas en <strong>5 dimensiones estratégicas</strong> con acceso directo al mapa interactivo y descarga de datos abiertos.
+            Estructura analítica integrada para la gestión territorial y comunitaria. Las <strong>${totalCapasAtlas} capas del Atlas VGI</strong> (122 oficiales del Estado de Chile y 10 colaborativas OSM/GBIF) organizadas en <strong>5 dimensiones estratégicas</strong> con acceso directo al mapa interactivo y descarga de datos abiertos.
           </p>
           <div class="aviso-tentativo-banner">
             <span class="icono-aviso">ℹ️</span>
