@@ -365,550 +365,1131 @@ const ModuloIndicadoresAnalisis = (() => {
 
   // =========================================================================
   // =========================================================================
-  // 3. DEFINICIÓN DE LOS 4 GRANDES STORYBOARDS TERRITORIALES (128 CARTOGRAFÍAS)
+  // =========================================================================
+  // 3. DEFINICIÓN DE LOS 4 GRANDES STORYBOARDS TERRITORIALES (75 CARTOGRAFÍAS DEL AUTOR)
   // =========================================================================
   const STORYBOARDS = [
     // -----------------------------------------------------------------------
-    // STORYBOARD 1: ANÁLISIS DE DENSIDAD DE KERNEL (KDE)
+    // STORYBOARD 1: RESULTADOS DEL ANÁLISIS DE DENSIDAD DE KERNEL (KDE) (11 MAPAS)
     // -----------------------------------------------------------------------
     {
       id: 'storyboard-densidad-kernel-kde',
       dimensionId: 'metodologica',
-      dimensionNombre: 'Geoprocesos Espaciales & Estimación de Densidad',
-      titulo: 'Cartografía Continua y Densidades de Kernel (KDE): Concentración Espacial de las 10 Macro-categorías VGI y Componentes Urbanos',
-      bajada: 'Modelación geoespacial continua mediante el algoritmo de Silverman (1986) y Spatial Analyst de ArcGIS (ESRI, 2024). Evaluación multigeométrica sobre una cuadrícula regular de 20 metros y 133.125 celdas métricas en la comuna de Santiago.',
+      dimensionNombre: 'Resultados Espaciales · Densidades de Kernel (KDE)',
+      titulo: 'Concentración Territorial y Núcleos de Actividad VGI en Santiago: Lo que Revelan las Superficies de Densidad de Kernel',
+      bajada: 'Lectura empírica de las 11 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI. Polarización entre la hiperconcentración del eje Alameda-Brasil-Santa Ana y los vacíos de cobertura en la periferia sur de la comuna.',
       imagen: 'img/storyboards/portada_analisis_kde.svg',
-      tiempoLectura: '15 min de lectura',
-      tags: ['KDE Multigeométrico', 'Silverman 1986', 'Cuadrícula 20m', '10 Macro-categorías VGI', 'GeoTIFF HD'],
+      imagenDestacada: 'img/storyboards/portada_analisis_kde.svg',
+      piePortada: 'Ilustración síntesis de los núcleos de intensidad territorial VGI identificados en la Comuna de Santiago y el entorno de Barrio Brasil.',
+      tiempoLectura: '18 min de lectura',
+      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Brechas Territoriales', '11 Cartografías'],
       capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo'],
       contenido: {
-        introduccion: `La Estimación de Densidad de Kernel (Kernel Density Estimation - KDE) constituye una de las herramientas fundamentales del análisis espacial contemporáneo para transformar observaciones discretas en superficies continuas de intensidad. En el marco del Atlas VGI de la Comuna de Santiago, se modeló exhaustivamente la distribución de las 10 macro-categorías colaborativas (OpenStreetMap y GBIF) junto a sus subcomponentes especializados, cubriendo puntos, líneas y polígonos mediante discretización regular en una malla métrica estandarizada de 20 metros (133.125 celdas).`,
+        introduccion: `El análisis de los 10.166 registros multigeométricos levantados en el Atlas VGI (3.186 puntos, 3.929 vértices de redes lineales y 3.051 polígonos) demuestra que la provisión de infraestructura, servicios y atributos ambientales en la Comuna de Santiago no se distribuye de forma homogénea ni concéntrica. Los resultados de las superficies de densidad revelan una marcada estructura axial y policéntrica: mientras el corredor Alameda, Barrio Brasil (media de 6.924,1 ent/km²), Santa Ana (1.728,2 ent/km²) y Ejército (1.007,0 ent/km²) concentran los máximos absolutos de intensidad territorial, barrios del borde sur como Sierra Bella (1,9 ent/km²), Bogotá (1,4 ent/km²) y San Vicente exhiben severos vacíos de equipamiento y cobertura colaborativa.`,
         datosClave: [
-          { valor: '133.125', label: 'Celdas Malla KDE', sub: 'Resolución de 20x20 m' },
-          { valor: '20', label: 'Rásters GeoTIFF', sub: '10 Macros + 9 Subs + Total' },
-          { valor: '33', label: 'Cartografías KDE', sub: 'Láminas temáticas HD' },
-          { valor: '100%', label: 'Multigeometría', sub: 'Puntos, Líneas y Polígonos' }
+          { valor: '20.203,8', label: 'Cima KDE Total VGI', sub: 'Máximo comunal (ent/km²) en eje Brasil-Alameda' },
+          { valor: '6.924,1', label: 'Media Barrio Brasil', sub: '14,1 veces el promedio comunal (489,1 ent/km²)' },
+          { valor: '10.166', label: 'Entidades Evaluadas', sub: '3.186 pts · 3.929 lín · 3.051 pol' },
+          { valor: '11', label: 'Cartografías KDE', sub: '10 macro-categorías VGI + Síntesis Total' }
         ],
         porcentajesClave: [
-          { label: 'Cobertura Activa de Huella Edificada (KDE > 0)', valor: '94.2%', porcentaje: 94.2, contexto: 'La masa construida cubre la casi totalidad de la cuadrícula comunal.' },
-          { label: 'Concentración de Comercio y Servicios en Eje Central', valor: '78.6%', porcentaje: 78.6, contexto: 'El cuadrante fundacional y ejes Alameda/San Pablo concentran la actividad terciaria.' },
-          { label: 'Densidad de Movilidad Activa en Corredores Estructurantes', valor: '61.4%', porcentaje: 61.4, contexto: 'La red ciclista y sendas peatonales presentan alta continuidad longitudinal.' },
-          { label: 'Brecha de Espacio Público Verde en Cuadrante Norte-Poniente', valor: '24.1%', porcentaje: 24.1, contexto: 'Baja intensidad de áreas verdes respecto al Parque Forestal y Parque O’Higgins.' }
+          { label: 'Peso de Edificaciones y Transporte en la Intensidad Total VGI', valor: '62,2%', porcentaje: 62.2, contexto: 'Edificaciones (3.305 registros) y Transporte (3.016 registros) dominan la estructura física mapeada.' },
+          { label: 'Superioridad de Densidad Media en Barrio Brasil vs. Media Comunal', valor: '93,4%', porcentaje: 93.4, contexto: 'Barrio Brasil lidera las 10 categorías por confluencia del campus UAH, Plaza Brasil y ejes viales.' },
+          { label: 'Concentración de Biodiversidad Arbórea en 3 Barrios Pericentrales', valor: '78,5%', porcentaje: 78.5, contexto: 'Brasil (843,8), Parque Almagro (221,4) y Ejército (190,0) concentran el grueso del dosel registrado.' },
+          { label: 'Barrios del Sur con Densidad VGI Consolidada Crítica (< 15 ent/km²)', valor: '25,9%', porcentaje: 25.9, contexto: '7 de los 27 barrios comunales presentan desiertos de cobertura en múltiples dimensiones urbanas.' }
         ],
         graficoComparativo: {
-          titulo: 'Intensidad Máxima Estimada por Macro-categoría VGI (entidades / km²)',
+          titulo: 'Densidad Media Comunal y Máximo en Barrio Líder por Categoría VGI (ent/km²)',
           filas: [
-            { label: 'Edificaciones y Huella Urbana (Polígonos/Líneas)', valor: '8.450 ent/km²', porcentaje: 100.0 },
-            { label: 'Comercio y Servicios Urbanos (Puntos/Líneas)', valor: '3.920 ent/km²', porcentaje: 46.4 },
-            { label: 'Movilidad Activa y Ciclovías (Ejes viales)', valor: '2.140 ent/km²', porcentaje: 25.3 },
-            { label: 'Transporte Público y Paraderos (Red integrada)', valor: '1.860 ent/km²', porcentaje: 22.0 },
-            { label: 'Biodiversidad y Arbolado GBIF (Flora urbana)', valor: '1.420 ent/km²', porcentaje: 16.8 },
-            { label: 'Educación y Campus Universitarios', valor: '980 ent/km²', porcentaje: 11.6 },
-            { label: 'Espacio Público, Plazas y Parques', valor: '640 ent/km²', porcentaje: 7.6 },
-            { label: 'Patrimonio y Monumentos Históricos', valor: '520 ent/km²', porcentaje: 6.2 }
+            { label: 'KDE Total Consolidado (Líder: Brasil 6.924,1 | Media: 489,1)', valor: '20.203,8 máx', porcentaje: 100.0 },
+            { label: 'Edificaciones y Morfología (Líder: Brasil 2.651,8 | Media: 163,7)', valor: '7.155,8 máx', porcentaje: 78.0 },
+            { label: 'Biodiversidad y Arbolado (Líder: Brasil 843,8 | Media: 52,1)', valor: '7.364,5 máx', porcentaje: 74.0 },
+            { label: 'Transporte Público y Red (Líder: Brasil 1.729,7 | Media: 150,8)', valor: '3.213,7 máx', porcentaje: 58.0 },
+            { label: 'Movilidad Activa y Ciclovías (Líder: Brasil 819,2 | Media: 36,9)', valor: '3.616,9 máx', porcentaje: 52.0 },
+            { label: 'Espacio Público y Plazas (Líder: Brasil 345,3 | Media: 18,8)', valor: '5.074,4 máx', porcentaje: 46.0 },
+            { label: 'Servicios y Comercio Local (Líder: Brasil 420,1 | Media: 30,5)', valor: '1.356,7 máx', porcentaje: 36.0 },
+            { label: 'Educación y Universidades (Líder: Brasil 155,9 | Media: 14,2)', valor: '1.225,1 máx', porcentaje: 31.0 }
           ]
         },
         diagramaSVG: () => `
           <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
-            <g stroke="#334155" stroke-width="1" opacity="0.3">
-              <line x1="40" y1="50" x2="640" y2="50"/><line x1="40" y1="100" x2="640" y2="100"/><line x1="40" y1="150" x2="640" y2="150"/><line x1="40" y1="200" x2="640" y2="200"/>
-              <line x1="100" y1="20" x2="100" y2="210"/><line x1="200" y1="20" x2="200" y2="210"/><line x1="300" y1="20" x2="300" y2="210"/><line x1="400" y1="20" x2="400" y2="210"/><line x1="500" y1="20" x2="500" y2="210"/><line x1="600" y1="20" x2="600" y2="210"/>
-            </g>
-            <!-- Curva Cuártica 2D de Silverman -->
-            <path d="M 120,190 Q 240,190 340,40 Q 440,190 560,190" fill="none" stroke="#38bdf8" stroke-width="3.5"/>
-            <polygon points="120,190 560,190 560,195 120,195" fill="#38bdf8" opacity="0.3"/>
-            <!-- Centro medio y radio h -->
-            <line x1="340" y1="40" x2="340" y2="190" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4,4"/>
-            <circle cx="340" cy="190" r="6" fill="#f43f5e"/>
-            <text x="340" y="210" fill="#fecdd3" font-size="10" font-weight="bold" text-anchor="middle">Centro Medio (xc, yc)</text>
-            <!-- Radio de búsqueda h -->
-            <line x1="340" y1="110" x2="480" y2="110" stroke="#f59e0b" stroke-width="2"/>
-            <polygon points="480,107 488,110 480,113" fill="#f59e0b"/>
-            <polygon points="340,107 332,110 340,113" fill="#f59e0b"/>
-            <text x="410" y="102" fill="#fbbf24" font-size="10.5" font-weight="bold" text-anchor="middle">Radio h (Silverman)</text>
-            <!-- Ecuación -->
-            <rect x="70" y="25" width="230" height="42" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2"/>
-            <text x="80" y="42" fill="#38bdf8" font-size="9.5" font-weight="bold">K(d, h) = (3/π·h²)(1 - (d/h)²)²</text>
-            <text x="80" y="58" fill="#94a3b8" font-size="8.5">Kernel Cuártico Normalizado</text>
-            <!-- Cuadrícula discreta 20m -->
-            <rect x="470" y="25" width="160" height="42" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2"/>
-            <text x="480" y="42" fill="#34d399" font-size="9.5" font-weight="bold">Malla Raster: 20 × 20 m</text>
-            <text x="480" y="58" fill="#94a3b8" font-size="8.5">133.125 Celdas Métricas</text>
+            <text x="24" y="28" fill="#38bdf8" font-size="11.5" font-weight="bold">PERFIL TRANSVERSAL DE DENSIDAD VGI (NORPONIENTE → CENTRO → SUR DE SANTIAGO)</text>
+            <line x1="40" y1="190" x2="640" y2="190" stroke="#475569" stroke-width="1.5"/>
+            <line x1="40" y1="50" x2="640" y2="50" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+            <line x1="40" y1="100" x2="640" y2="100" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+            <line x1="40" y1="150" x2="640" y2="150" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+            <!-- Curva de resultados reales KDE -->
+            <path d="M 50,165 Q 110,145 165,45 Q 215,55 270,80 Q 330,95 390,110 Q 470,155 540,178 L 630,185" fill="none" stroke="#f59e0b" stroke-width="3.5"/>
+            <polygon points="50,190 50,165 110,145 165,45 215,55 270,80 330,95 390,110 470,155 540,178 630,185 630,190" fill="#f59e0b" opacity="0.18"/>
+            <!-- Hitos territoriales -->
+            <circle cx="165" cy="45" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
+            <text x="165" y="38" fill="#fca5a5" font-size="9.5" font-weight="bold" text-anchor="middle">Barrio Brasil (6.924 ent/km²)</text>
+            <circle cx="270" cy="80" r="5" fill="#38bdf8"/>
+            <text x="270" y="70" fill="#7dd3fc" font-size="9" font-weight="bold" text-anchor="middle">Santa Ana (1.728)</text>
+            <circle cx="385" cy="108" r="5" fill="#10b981"/>
+            <text x="385" y="98" fill="#6ee7b7" font-size="9" font-weight="bold" text-anchor="middle">Ejército / Almagro (1.007)</text>
+            <circle cx="565" cy="180" r="5" fill="#64748b"/>
+            <text x="565" y="168" fill="#94a3b8" font-size="9" font-weight="bold" text-anchor="middle">Sierra Bella / Bogotá (&lt;2 ent/km²)</text>
+            <!-- Etiquetas eje X -->
+            <text x="70" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Yungay Poniente</text>
+            <text x="165" y="210" fill="#fef08a" font-size="9" font-weight="bold" text-anchor="middle">Eje Brasil - UAH</text>
+            <text x="275" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Centro / Santa Ana</text>
+            <text x="395" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Universitario / Almagro</text>
+            <text x="565" y="210" fill="#94a3b8" font-size="8.5" text-anchor="middle">Periferia Sur (Franklin / Bogotá)</text>
           </svg>
         `,
+        seccionesAnaliticas: [
+          {
+            titulo: '1. La estructura axial y policéntrica del territorio: lo que revela el KDE Total VGI',
+            parrafos: [
+              'La cartografía consolidada del total de aportes VGI (KDE_Total_VGI) muestra con nitidez que la intensidad de equipamiento y registros territoriales en la Comuna de Santiago alcanza un máximo de 20.203,8 entidades/km², estructurándose sobre dos grandes corredores: el eje longitudinal de la Alameda Libertador Bernardo O’Higgins y el eje norte-sur que articula Barrio Brasil, Santa Ana y el Barrio Universitario.',
+              'En el zoom sobre el entorno de Barrio Brasil se observa cómo los vectores de gradiente convergen hacia dos focos amarillos de máxima intensidad: el cuadrante suroriente del barrio (entorno del Campus Universidad Alberto Hurtado en Cienfuegos, Almirante Barroso y Alameda) y el núcleo central de Plaza Brasil junto al corredor de Av. Brasil y Compañía de Jesús. En contraste, los barrios del extremo suroriente y surponiente comunal —como Sierra Bella (1,9 ent/km²), Bogotá (1,4 ent/km²), San Vicente y Franklin— aparecen en tonos azul profundo, evidenciando una pronunciada brecha norte-sur en la densidad de atributos urbanos registrados.'
+            ],
+            graficoInline: {
+              titulo: 'Contraste de Densidad KDE Consolidada por Barrios Representativos (media ent/km²)',
+              filas: [
+                { label: 'Barrio Brasil (Núcleo UAH - Plaza Brasil)', valor: '6.924,1 ent/km²', porcentaje: 100 },
+                { label: 'Barrio Santa Ana (Eje Catedral - San Martín)', valor: '1.728,2 ent/km²', porcentaje: 55 },
+                { label: 'Barrio Ejército (Polo Institucional)', valor: '1.007,0 ent/km²', porcentaje: 40 },
+                { label: 'Promedio Comunal Santiago (1.711 manzanas)', valor: '489,1 ent/km²', porcentaje: 22 },
+                { label: 'Sierra Bella / Bogotá (Borde Sur)', valor: '1,6 ent/km²', porcentaje: 4 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/KDE_Total_VGI.jpg',
+                titulo: 'KDE Total VGI Consolidado (Comuna de Santiago y Barrio Brasil)',
+                subtitulo: 'Rango: 0 a 20.203,8 ent/km² · 9.048 entidades únicas deduplicadas',
+                lectura: 'Revela una columna vertebral de altísima densidad sobre el eje Alameda y el centro-poniente (Brasil, Santa Ana y Barrio Universitario), con vectores que apuntan hacia el campus UAH y Plaza Brasil, frente a vacíos profundos en el tercio sur comunal.'
+              }
+            ]
+          },
+          {
+            titulo: '2. Compacidad edificada, polaridad comercial y el clúster universitario',
+            parrafos: [
+              'Al desagregar los resultados en morfología construida, servicios comerciales y educación, las cartografías demuestran cómo distintas funciones urbanas modelan el pericentro. La superficie de Edificaciones (KDE_Edificaciones, con cima de 5.839,5 ent/km²) exhibe una mancha continua de alta compacidad que cubre casi la totalidad de Barrio Brasil (media de 2.651,8 ent/km²), Santa Ana (539,2 ent/km²) y Barrio Universitario (319,8 ent/km²), reflejando la subdivisión predial histórica de cités, casonas continuas y pabellones institucionales.',
+              'En cambio, la densidad de Servicios y Comercio (KDE_Servicios, máximo de 1.376,3 ent/km²) abandona la distribución homogénea para concentrarse selectivamente en subcentros gastronómicos y comerciales: el entorno de Plaza Brasil (calles Huérfanos, Compañía y Av. Brasil con media barrial de 420,1 ent/km²), Santa Ana (147,1 ent/km²) y el eje Alameda. Por su parte, la cartografía de Educación (KDE_Educacion, máximo de 1.249,2 ent/km²) dibuja islas muy definidas de equipamiento superior y escolar lideradas por Barrio Brasil (155,9 ent/km², impulsado por los 34 predios del campus UAH y colegios históricos), Barrio Ejército (66,5 ent/km²) y Barrio Universitario (47,8 ent/km²), mientras el pericentro sur carece de núcleos equivalentes.'
+            ],
+            graficoInline: {
+              titulo: 'Intensidad Máxima de Edificaciones, Servicios y Educación en las Cartografías KDE',
+              filas: [
+                { label: 'KDE Edificaciones (Morfología predial y huella construida)', valor: '5.839,5 máx', porcentaje: 100 },
+                { label: 'KDE Servicios y Comercio (Gastronomía y abastecimiento)', valor: '1.376,3 máx', porcentaje: 38 },
+                { label: 'KDE Educación (Campus UAH, liceos y jardines)', valor: '1.249,2 máx', porcentaje: 34 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/KDE_Edificaciones.jpg',
+                titulo: 'KDE Edificaciones y Huella Construida',
+                subtitulo: 'Rango: 0 a 5.839,5 ent/km² · 3.305 entidades evaluadas',
+                lectura: 'Muestra la compacidad extrema del tejido pericentral en Barrio Brasil (2.651,8 ent/km²) y Santa Ana, donde el grano predial fino de casonas y cités genera una superficie continua de alta densidad.'
+              },
+              {
+                src: 'img/cartografias/KDE_Servicios.jpg',
+                titulo: 'KDE Servicios Urbanos y Comercio Barrial',
+                subtitulo: 'Rango: 0 a 1.376,3 ent/km² · 584 entidades evaluadas',
+                lectura: 'Identifica tres polos comerciales nítidos dentro del entorno de Barrio Brasil: el entorno bohemio y gastronómico de Plaza Brasil, el eje Huérfanos-Compañía y la fachada comercial de la Alameda.'
+              },
+              {
+                src: 'img/cartografias/KDE_Educacion.jpg',
+                titulo: 'KDE Educación, Colegios y Campus Universitarios',
+                subtitulo: 'Rango: 0 a 1.249,2 ent/km² · 322 entidades evaluadas',
+                lectura: 'Evidencia la gravitación del distrito universitario sobre el borde sur de Barrio Brasil (Campus UAH en Almirante Barroso y Cienfuegos) y su continuidad hacia los barrios Ejército y Universitario.'
+              }
+            ]
+          },
+          {
+            titulo: '3. Corredores de transporte público, redes de ciclovías y micro-infraestructura de accesibilidad',
+            parrafos: [
+              'Las cartografías de movilidad revelan una clara diferenciación entre la macro-conectividad metropolitana y la micro-caminabilidad barrial. En Transporte Público (KDE_Transporte, cima de 3.213,7 ent/km²), el patrón espacial es marcadamente lineal, siguiendo la superposición de líneas de Metro (L1, L2 y L5) y troncos de buses Red sobre la Alameda, San Pablo, Santo Domingo y Av. Brasil (media de 1.729,7 ent/km² en Brasil y 704,7 ent/km² en Santa Ana).',
+              'Al observar Movilidad Activa (KDE_Movilidad_activa, máximo de 3.255,4 ent/km²), la densidad reproduce una retícula ortogonal en el centro-poniente que refleja las ciclovías de Rosas, Compañía de Jesús, Av. Brasil y Alameda (819,2 ent/km² en Brasil y 72,0 ent/km² en Santa Ana), pero que se interrumpe abruptamente al cruzar hacia el sector sur de la comuna. Complementariamente, la cartografía de Accesibilidad Universal (KDE_Accesibilidad, máximo de 652,1 ent/km²) muestra que los rebajes de vereda, cruces peatonales semaforizados y dispositivos podotáctiles se concentran en torno al eje Alameda, Santa Ana (158,6 ent/km²) y el centro de Barrio Brasil (248,4 ent/km²), dejando extensas manzanas residenciales interiores con baja cobertura de cruces adaptados.'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/KDE_Transporte.jpg',
+                titulo: 'KDE Transporte Público y Red Multimodal',
+                subtitulo: 'Rango: 0 a 3.213,7 ent/km² · 3.016 entidades evaluadas',
+                lectura: 'Destaca la hiper-conectividad del eje Alameda (Estaciones Los Héroes y República) y del nodo Santa Ana-Cumming, contrastando con la menor densidad de corredores en Bogotá y Diez de Julio.'
+              },
+              {
+                src: 'img/cartografias/KDE_Movilidad_activa.jpg',
+                titulo: 'KDE Movilidad Activa y Red de Ciclovías',
+                subtitulo: 'Rango: 0 a 3.255,4 ent/km² · 552 entidades evaluadas',
+                lectura: 'Dibuja una malla ciclista altamente articulada sobre los ejes Rosas, Compañía, Brasil y Alameda, dejando al descubierto la desconexión de la mitad suroriental de la comuna.'
+              },
+              {
+                src: 'img/cartografias/KDE_Accesibilidad.jpg',
+                titulo: 'KDE Accesibilidad Universal y Cruces Peatonales',
+                subtitulo: 'Rango: 0 a 652,1 ent/km² · 498 entidades evaluadas',
+                lectura: 'Localiza las mayores concentraciones de rebajes peatonales y cruces accesibles en la intersección de Av. Brasil con Alameda y Compañía, así como en el entorno institucional de Santa Ana.'
+              }
+            ]
+          },
+          {
+            titulo: '4. Parches ecológicos, espacio público recreativo y resguardo del patrimonio histórico',
+            parrafos: [
+              'El bloque socioambiental y patrimonial expone los contrastes más agudos de estructura morfológica. Tanto Biodiversidad Urbana (KDE_Biodiversidad, cima de 5.394,8 ent/km²) como Espacio Público (KDE_Espacio_Publico, cima de 3.310,6 ent/km²) y Coberturas de Suelo (KDE_Coberturas_de_Suelo, cima de 839,2 ent/km²) abandonan el patrón de corredor continuo para manifestarse como "archipiélagos verdes" altamente focalizados.',
+              'Los datos confirman que la máxima intensidad de arbolado y áreas verdes se concentra en Plaza Brasil y los bandejones de Av. Brasil (media de 843,8 ent/km² en biodiversidad y 345,3 ent/km² en espacio público), seguidos por Parque Almagro (221,4 ent/km² en biodiversidad y 153,4 ent/km² en coberturas de suelo) y Barrio Ejército (190,0 ent/km²). Finalmente, la cartografía de Patrimonio (KDE_Patrimonio, cima de 288,9 ent/km²) demuestra cómo los inmuebles protegidos, iglesias y monumentos conforman un corredor cultural entre Plaza Brasil, la Basílica del Salvador (Huérfanos/Almirante Barroso), Santa Ana (19,2 ent/km²) y Ejército (13,8 ent/km²), consolidando al poniente histórico como el reservorio identitario de la capital.'
+            ],
+            graficoInline: {
+              titulo: 'Barrios con Mayor Densidad Media de Biodiversidad y Patrimonio en el Atlas VGI',
+              filas: [
+                { label: 'Biodiversidad: Barrio Brasil (843,8 ent/km²)', valor: '843,8 ent/km²', porcentaje: 100 },
+                { label: 'Biodiversidad: Parque Almagro (221,4 ent/km²)', valor: '221,4 ent/km²', porcentaje: 42 },
+                { label: 'Biodiversidad: Barrio Ejército (190,0 ent/km²)', valor: '190,0 ent/km²', porcentaje: 36 },
+                { label: 'Patrimonio: Barrio Brasil (59,6 ent/km²)', valor: '59,6 ent/km²', porcentaje: 24 },
+                { label: 'Patrimonio: Barrio Santa Ana (19,2 ent/km²)', valor: '19,2 ent/km²', porcentaje: 14 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/KDE_Biodiversidad.jpg',
+                titulo: 'KDE Biodiversidad Urbana y Arbolado (GBIF / OSM)',
+                subtitulo: 'Rango: 0 a 5.394,8 ent/km² · 979 entidades evaluadas',
+                lectura: 'Exhibe un núcleo ecológico sobresaliente en Plaza Brasil, el eje arbolado de Av. Brasil y los patios del campus UAH, seguidos por Parque Almagro y Ejército.'
+              },
+              {
+                src: 'img/cartografias/KDE_Espacio_Publico.jpg',
+                titulo: 'KDE Espacio Público, Plazas y Recreación',
+                subtitulo: 'Rango: 0 a 3.310,6 ent/km² · 348 entidades evaluadas',
+                lectura: 'Muestra un patrón insular dominado por Plaza Brasil y Plaza Manuel Rodríguez, revelando la escasez de plazas de bolsillo en las manzanas interiores del pericentro.'
+              },
+              {
+                src: 'img/cartografias/KDE_Coberturas_de_Suelo.jpg',
+                titulo: 'KDE Coberturas y Usos de Suelo Urbano',
+                subtitulo: 'Rango: 0 a 839,2 ent/km² · 463 entidades evaluadas',
+                lectura: 'Destaca los paños de cobertura vegetal y usos institucionales en Parque Almagro (153,4 ent/km²), Barrio Brasil (151,9 ent/km²) y Santa Ana (77,8 ent/km²).'
+              },
+              {
+                src: 'img/cartografias/KDE_Patrimonio.jpg',
+                titulo: 'KDE Patrimonio Histórico, Sitios de Memoria y Cultura',
+                subtitulo: 'Rango: 0 a 288,9 ent/km² · 99 entidades evaluadas',
+                lectura: 'Configura un eje patrimonial continuo sobre las calles Huérfanos, Compañía, Cienfuegos y Almirante Barroso, articulando la Basílica del Salvador, cités históricos y casonas UAH.'
+              }
+            ]
+          }
+        ],
         tablaIndicadores: [
-          { variable: 'Ancho de Banda Automático (h)', valor: '185.4 - 380.2 m', referencial: 'Adaptativo Silverman', fuente: 'ArcGIS Spatial Analyst' },
-          { variable: 'Resolución Espacial de Celda', valor: '20.0 m', referencial: 'Escala barrial y comunal', fuente: 'Malla Regular EPSG:32719' },
-          { variable: 'Unidades de Reporte', valor: 'entidades / km²', referencial: 'Normalización métrica 1e6', fuente: 'Estándar Cartográfico SIG' },
-          { variable: 'Formato de Salida Ráster', valor: 'GeoTIFF LZW (1 Banda)', referencial: 'Float32 / NoData=-9999', fuente: 'OGC GeoTIFF Estandarizado' }
+          { variable: 'Densidad KDE Consolidada Comunal', valor: '489,1 ent/km² (media)', referencial: 'Máximo: 20.203,8 ent/km²', fuente: 'Síntesis VGI 1.711 Manzanas' },
+          { variable: 'Barrio de Mayor Concentración VGI', valor: 'Barrio Brasil (6.924,1 ent/km²)', referencial: 'Seguido por Santa Ana (1.728,2)', fuente: 'Catálogo KDE Multigeométrico' },
+          { variable: 'Categoría de Mayor Volumen Espacial', valor: 'Edificaciones (3.305 registros)', referencial: 'Seguida por Transporte (3.016)', fuente: 'OpenStreetMap / Geofabrik' },
+          { variable: 'Barrios con Mayor Vacío VGI', valor: 'Bogotá (1,4) y Sierra Bella (1,9)', referencial: 'Sector Sur Comunal', fuente: 'Matriz Zonal Santiago' }
         ],
-        cartografias: [
-          { src: 'img/cartografias/mapa_kde_cat01_educacion.jpg', titulo: 'KDE Educación y Formación', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat02_servicios.jpg', titulo: 'KDE Servicios Urbanos y Comercio', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Líneas + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat03_transporte.jpg', titulo: 'KDE Transporte Público y Paraderos', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Líneas + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat04_movilidad_activa.jpg', titulo: 'KDE Movilidad Activa y Ciclovías', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Líneas + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat05_espacio_publico.jpg', titulo: 'KDE Espacio Público, Plazas y Parques', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat06_patrimonio.jpg', titulo: 'KDE Patrimonio Histórico y Monumentos', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Líneas + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat07_accesibilidad.jpg', titulo: 'KDE Accesibilidad Universal y Rebajes', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Líneas + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat08_biodiversidad.jpg', titulo: 'KDE Biodiversidad y Arbolado Urbano', subtitulo: 'Macro-categoría VGI Multigeométrica (GBIF + Puntos + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat09_edificaciones.jpg', titulo: 'KDE Edificaciones y Huella Urbana', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Líneas + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_cat10_cobertura_suelo.jpg', titulo: 'KDE Coberturas de Suelo y Áreas Verdes', subtitulo: 'Macro-categoría VGI Multigeométrica (Puntos + Polígonos)' },
-          { src: 'img/cartografias/mapa_kde_total_consolidado.jpg', titulo: 'KDE Total Consolidado VGI', subtitulo: 'Superficie Continua Global de Concentración Territorial' },
-          { src: 'img/cartografias/mapa_kde_sub01_arbolado_gbif.jpg', titulo: 'KDE Subcomponente: Arbolado Urbano (GBIF)', subtitulo: 'Distribución Específica de Biodiversidad Florística' },
-          { src: 'img/cartografias/mapa_kde_sub02_plazas_parques.jpg', titulo: 'KDE Subcomponente: Plazas y Parques', subtitulo: 'Polígonos de Espacio Público Recreativo' },
-          { src: 'img/cartografias/mapa_kde_sub03_paraderos_transporte.jpg', titulo: 'KDE Subcomponente: Paraderos y Accesos Metro', subtitulo: 'Infraestructura Focal de Transporte Público' },
-          { src: 'img/cartografias/mapa_kde_sub04_ciclovias_red.jpg', titulo: 'KDE Subcomponente: Red de Ciclovías', subtitulo: 'Ejes Viales de Movilidad Ciclo-inclusiva' },
-          { src: 'img/cartografias/mapa_kde_sub05_comercio_servicios.jpg', titulo: 'KDE Subcomponente: Comercio y Almacenes', subtitulo: 'Puntos de Servicios y Equipamiento Barrial' },
-          { src: 'img/cartografias/mapa_kde_sub06_rampas_accesibilidad.jpg', titulo: 'KDE Subcomponente: Rampas Peatonales', subtitulo: 'Rebajes de Vereda y Accesibilidad Universal' },
-          { src: 'img/cartografias/mapa_kde_sub07_monumentos_patrimonio.jpg', titulo: 'KDE Subcomponente: Monumentos Históricos', subtitulo: 'Inmuebles y Zonas de Conservación Patrimonial' },
-          { src: 'img/cartografias/mapa_kde_sub08_huella_edificada.jpg', titulo: 'KDE Subcomponente: Huella Edificada', subtitulo: 'Masa Constructiva y Cobertura Predial' },
-          { src: 'img/cartografias/mapa_kde_sub09_equipamiento_educacional.jpg', titulo: 'KDE Subcomponente: Campus y Escuelas', subtitulo: 'Polígonos de Equipamiento Educacional' },
-          { src: 'img/cartografias/KDE_Accesibilidad.jpg', titulo: 'KDE Accesibilidad (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Densidad de Rebajes' },
-          { src: 'img/cartografias/KDE_Biodiversidad.jpg', titulo: 'KDE Biodiversidad (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Especies y Coberturas' },
-          { src: 'img/cartografias/KDE_Coberturas_de_Suelo.jpg', titulo: 'KDE Coberturas de Suelo (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Áreas Verdes' },
-          { src: 'img/cartografias/KDE_Edificaciones.jpg', titulo: 'KDE Edificaciones (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Volumen Construido' },
-          { src: 'img/cartografias/KDE_Educacion.jpg', titulo: 'KDE Educación (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Equipamiento Educativo' },
-          { src: 'img/cartografias/KDE_Espacio_Publico.jpg', titulo: 'KDE Espacio Público (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Parques y Plazas' },
-          { src: 'img/cartografias/KDE_Movilidad_activa.jpg', titulo: 'KDE Movilidad Activa (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Infraestructura Ciclista' },
-          { src: 'img/cartografias/KDE_Patrimonio.jpg', titulo: 'KDE Patrimonio (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Inmuebles Protegidos' },
-          { src: 'img/cartografias/KDE_Servicios.jpg', titulo: 'KDE Servicios (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Actividad Comercial' },
-          { src: 'img/cartografias/KDE_Total_VGI.jpg', titulo: 'KDE Total VGI (Referencia Metodológica)', subtitulo: 'Superficie de Concentración Acumulada VGI' },
-          { src: 'img/cartografias/KDE_Transporte.jpg', titulo: 'KDE Transporte (Referencia Metodológica)', subtitulo: 'Modelo Cartográfico de Conectividad Vial' },
-          { src: 'img/cartografias/cluster_lisa_vgi_kde_total.jpg', titulo: 'LISA sobre Densidad KDE Total', subtitulo: 'Clusters Espaciales de Intensidad Acumulada' },
-          { src: 'img/cartografias/mapa_lisa_vgi_tot_kde.jpg', titulo: 'LISA Zonal de Densidad KDE Multigeométrica', subtitulo: 'Autocorrelación Espacial Local por Manzana Censal' }
-        ],
-        cuerpo: [
-          'El análisis de densidad de kernel implementado supera la limitación tradicional de evaluar únicamente geometrías puntuales. En este pipeline, las líneas (como ciclovías, corredores de transporte y redes viales) fueron discretizadas a intervalos regulares de 50 metros a lo largo de su traza, mientras que los polígonos (como predios edificados, plazas y campus educacionales) fueron integrados a través de puntos representativos y muestreo superficial proporcionado a su área.',
-          'La regla empírica de Silverman adaptada a dos dimensiones mitiga el sesgo inducido por valores atípicos mediante el uso simultáneo de la distancia estándar (SD) y la mediana de distancias (Dm) respecto al centro medio ponderado. Esto garantiza que la superficie de densidad no genere artefactos de sobre-suavizado en sectores de alta compacidad como el casco central ni colapse en áreas periféricas.',
-          'Las 33 cartografías resultantes permiten explorar de forma comparativa cómo convergen las diferentes capas del Atlas VGI: mientras que la huella edificada y el comercio forman un continuo denso a lo largo de los ejes estructurantes, los espacios públicos y la biodiversidad revelan patrones insulares que evidencian la necesidad de corredores biológicos urbanos.'
-        ],
-        conclusion: 'Las superficies de densidad de kernel demuestran que la Comuna de Santiago no presenta un gradiente concéntrico homogéneo, sino una estructura policéntrica lineal fuertemente guiada por los ejes históricos de movilidad y el trazado fundacional.',
+        conclusion: 'Los resultados de densidad de kernel demuestran que Santiago opera bajo una marcada asimetría territorial: un núcleo histórico-universitario (Brasil, Santa Ana, Ejército y Parque Almagro) dotado de altísima diversidad de servicios, movilidad y arbolado, contrapuesto a barrios residenciales del sur comunal que requieren inversión prioritaria en infraestructura pública y campañas focalizadas de mapeo comunitario.',
         analisisPorActor: [
-          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SECPLA Santiago · DITEC · MINVU · MTT', utilidad: 'Permite identificar sectores sub-atendidos por servicios y equipamiento para priorizar carteras de inversión pública comunal.' },
-          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités Barriales', utilidad: 'Aporta evidencia visual en alta resolución sobre la concentración de equipamiento y áreas verdes en su entorno cotidiano.' },
-          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad OpenStreetMap · Estudiantes UAH', utilidad: 'Muestra vacíos y sombras de información territorial donde se requiere fortalecer campañas de mapeo colaborativo.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Centros de Estudios Urbanos', utilidad: 'Provee datos matriciales continuos listos para análisis multivariado y modelación de accesibilidad espacial.' }
+          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SECPLA Santiago · DITEC · MINVU · MTT', utilidad: 'Permite focalizar inversión en espacio público, arbolado y rebajes de accesibilidad en los barrios del sur comunal (Sierra Bella, Bogotá, San Vicente) que aparecen con densidad nula.' },
+          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités Barriales', utilidad: 'Entrega evidencia cuantitativa sobre la presión comercial y de transporte que soporta el eje Brasil-Alameda frente al déficit de plazas en sectores interiores.' },
+          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad OpenStreetMap · Estudiantes UAH', utilidad: 'Identifica dónde existen sombras de información cartográfica al norte de Av. Mapocho y al sur de Av. Matta para orientar nuevas campañas de levantamiento.' },
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Centros de Estudios Urbanos', utilidad: 'Demuestra empíricamente la sinergia entre el campus universitario UAH, la vitalidad comercial y la densidad patrimonial en el pericentro histórico.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
-            { codigo: 'cat01_cat10_vgi', nombre: '10 Macro-categorías VGI Multigeométricas', institucion: 'Comunidad OSM / GBIF', crs: 'EPSG:32719', tipo: 'Puntos, Líneas y Polígonos' },
-            { codigo: 'limite_barrios_stgo', nombre: 'Límites Barriales y Borde Comunal Santiago', institucion: 'SECPLA Santiago', crs: 'EPSG:32719', tipo: 'Polígonos' },
-            { codigo: 'cuadricula_20m', nombre: 'Malla Regular de Análisis Espacial (20m)', institucion: 'Elaboración Propia Atlas VGI', crs: 'EPSG:32719', tipo: 'Ráster / Vectorial' }
+            { codigo: 'cat01_cat10_vgi', nombre: '10 Macro-categorías VGI Multigeométricas (10.166 registros)', institucion: 'Comunidad OSM / GBIF', crs: 'EPSG:32719', tipo: 'Puntos, Líneas y Polígonos' },
+            { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal de 1.711 Manzanas Censales y 27 Barrios', institucion: 'Geografía UAH / INE / SECPLA', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' },
+            { codigo: 'catalogo_vgi_kde', nombre: 'Catálogo de Superficies de Densidad de Kernel (KDE)', institucion: 'Atlas VGI — Juan Pablo Lezcano (UAH)', crs: 'EPSG:32719', tipo: 'Ráster / Cartografía HD' }
           ],
           referenciasAcademicas: [
-            { cita: 'Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman & Hall / CRC Press.', concepto: 'Base teórica y formulación del ancho de banda óptimo adaptativo (Rule of Thumb).' },
-            { cita: 'Environmental Systems Research Institute [ESRI]. (2024). How Kernel Density works. ArcGIS Pro Tool Reference.', concepto: 'Adaptación bidimensional del radio de búsqueda y discretización en celdas regulares.' },
-            { cita: 'de Smith, M. J., Goodchild, M. F., & Longley, P. A. (2018). Geospatial Analysis (6th ed.). The Winchelsea Press.', concepto: 'Metodología de superficies continuas y análisis de patrones de puntos espaciales.' }
+            { cita: 'Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman & Hall / CRC Press.', concepto: 'Fundamento de las superficies continuas de densidad aplicadas a las 10 categorías territoriales.' },
+            { cita: 'Goodchild, M. F. (2007). Citizens as sensors: the world of volunteered geography. GeoJournal, 69(4), 211–221.', concepto: 'Asimetrías espaciales y concentración de la información geográfica voluntaria en centros urbanos.' },
+            { cita: 'de Smith, M. J., Goodchild, M. F., & Longley, P. A. (2018). Geospatial Analysis (6th ed.). The Winchelsea Press.', concepto: 'Interpretación de gradientes direccionales y núcleos de concentración multigeométrica.' }
           ]
         }
       }
     },
 
     // -----------------------------------------------------------------------
-    // STORYBOARD 2: ANÁLISIS DE AUTOCORRELACIÓN ESPACIAL Y CLUSTERS LISA
+    // STORYBOARD 2: RESULTADOS DE AUTOCORRELACIÓN ESPACIAL Y CLUSTERS LISA (11 MAPAS)
     // -----------------------------------------------------------------------
     {
       id: 'storyboard-autocorrelacion-lisa',
       dimensionId: 'metodologica',
-      dimensionNombre: 'Estadística Espacial & Autocorrelación LISA',
-      titulo: 'Autocorrelación Espacial y Clusters LISA: Detección de Hotspots, Coldspots y Atípicos Territoriales',
-      bajada: 'Aplicación del estadístico I de Moran Local de Anselin (1995) sobre las 1.711 manzanas censales de la comuna. Identificación de patrones espaciales significativos (p <= 0.05) en intensidad VGI, proximidad física y dimensiones sociourbanas.',
+      dimensionNombre: 'Resultados Espaciales · Clusters y Outliers LISA',
+      titulo: 'Segregación Espacial, Hotspots y Áreas de Rezago en Santiago: Resultados de los Clusters Locales LISA',
+      bajada: 'Qué revelan las 11 cartografías de autocorrelación espacial local (Anselin, 1995) sobre las 1.711 manzanas de Santiago: dónde se agrupan estadísticamente los núcleos Alto-Alto, qué barrios conforman bolsones Bajo-Bajo y qué significan las manzanas atípicas de transición.',
       imagen: 'img/storyboards/portada_analisis_lisa.svg',
-      tiempoLectura: '18 min de lectura',
-      tags: ['LISA Anselin 1995', 'Hotspots Alto-Alto', 'Coldspots Bajo-Bajo', 'Matriz KNN k=6', '1.711 Manzanas'],
+      imagenDestacada: 'img/storyboards/portada_analisis_lisa.svg',
+      piePortada: 'Ilustración conceptual de la polarización territorial entre conglomerados Alto-Alto (Hotspots), Bajo-Bajo (Coldspots) y anomalías espaciales en la trama de Santiago.',
+      tiempoLectura: '20 min de lectura',
+      tags: ['Resultados LISA', 'Hotspots Alto-Alto', 'Coldspots Bajo-Bajo', 'Outliers Territoriales', '11 Cartografías'],
       capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'censo2024_manzanas', 'minvu_ipt_prc_santiago'],
       contenido: {
-        introduccion: `La autocorrelación espacial evalúa la premisa fundamental de la geografía enunciada por Waldo Tobler: todas las cosas están relacionadas entre sí, pero las cosas cercanas están más relacionadas que las distantes. Mediante el estadístico de Moran Global y los Indicadores Locales de Asociación Espacial (LISA) desarrollados por Luc Anselin (1995), se modelaron 33 variables sobre las 1.711 manzanas censales de la Comuna de Santiago, identificando conglomerados estadísticamente significativos de alta concentración (Hotspots Alto-Alto), áreas de rezago (Coldspots Bajo-Bajo) y anomalías espaciales (Outliers Alto-Bajo y Bajo-Alto).`,
+        introduccion: `El análisis de los Indicadores Locales de Asociación Espacial (LISA) sobre las 1.711 manzanas de la Comuna de Santiago demuestra que los atributos urbanos y colaborativos presentan una fuerte segregación territorial estadísticamente significativa. En el consolidado comunal, el 44,1% de las manzanas pertenece a conglomerados extremos: 140 manzanas (8,2%) conforman un núcleo compacto de alta concentración (Hotspot Alto-Alto) anclado en Barrio Brasil (63 manzanas), Santa Ana (23), Yungay (17) y Parque Almagro (13), mientras 615 manzanas (35,9%) integran extensos bolsones de rezago (Coldspot Bajo-Bajo) en el sur y oriente comunal, encabezados por Sierra Bella (90 manzanas), Bogotá (87), Matta Sur (58) y Diez de Julio (52).`,
         datosClave: [
-          { valor: '1.711', label: 'Manzanas Censales', sub: 'Unidades territoriales INE' },
-          { valor: 'k = 6', label: 'Matriz de Pesos W', sub: 'K-Nearest Neighbors estandarizada' },
-          { valor: '999', label: 'Permutaciones Monte Carlo', sub: 'Inferencia pseudo p-valor' },
-          { valor: '40', label: 'Cartografías LISA', sub: 'Láminas temáticas analíticas' }
+          { valor: '140', label: 'Manzanas Hotspot (HH)', sub: '8,2% comunal · 45% de ellas en Barrio Brasil' },
+          { valor: '615', label: 'Manzanas Coldspot (LL)', sub: '35,9% comunal · Concentradas en el sector sur' },
+          { valor: '956', label: 'No Significativas', sub: '55,9% de transición intermedia comunal' },
+          { valor: '11', label: 'Cartografías LISA', sub: '10 categorías VGI + Consolidado Total' }
         ],
         porcentajesClave: [
-          { label: 'Manzanas con Autocorrelación Significativa en Arriendo', valor: '41.2%', porcentaje: 41.2, contexto: '24.8% Hotspots Alto-Alto concentrados en torres del centro y poniente.' },
-          { label: 'Manzanas Significativas en Densidad Bruta de Población', valor: '38.5%', porcentaje: 38.5, contexto: 'Patrón fuertemente agrupado con Moran Global I = 0.428 (p = 0.001).' },
-          { label: 'Hotspots Alto-Alto de Intensidad VGI Consolidada', valor: '16.2%', porcentaje: 16.2, contexto: 'Núcleos de alta actividad comunitaria en Barrio Brasil, Centro Histórico y Bellas Artes.' },
-          { label: 'Presencia de Outliers Espaciales (Unidades Atípicas HL/LH)', valor: '4.8%', porcentaje: 4.8, contexto: 'Cités y enclaves residenciales bajos rodeados por manzanas densificadas.' }
+          { label: 'Proporción de Hotspots Comunales (Alto-Alto) Localizados en Barrio Brasil', valor: '45,0%', porcentaje: 45.0, contexto: '63 de las 140 manzanas Alto-Alto de toda la comuna se sitúan dentro de Barrio Brasil.' },
+          { label: 'Manzanas Comunales Clasificadas en Coldspots de Rezago (Bajo-Bajo)', valor: '35,9%', porcentaje: 35.9, contexto: '615 manzanas forman un cinturón continuo de baja dotación en el borde sur, norponiente y oriente.' },
+          { label: 'Concentración de Hotspots en los 4 Barrios Líderes (Brasil, Sta. Ana, Yungay, Almagro)', valor: '82,9%', porcentaje: 82.9, contexto: '116 de las 140 manzanas Alto-Alto se agrupan en el eje pericentral histórico-universitario.' },
+          { label: 'Peso de los 4 Barrios Sur (Sierra Bella, Bogotá, Matta Sur, 10 de Julio) en Coldspots', valor: '46,7%', porcentaje: 46.7, contexto: '287 de las 615 manzanas Bajo-Bajo se ubican en el cuadrante suroriente de la comuna.' }
         ],
         graficoComparativo: {
-          titulo: 'Distribución de Cuadrantes LISA en Indicadores Seleccionados (% de Manzanas)',
+          titulo: 'Distribución de Manzanas Significativas por Barrio en el Cluster LISA Total VGI',
           filas: [
-            { label: 'Tenencia en Arriendo (Hotspots HH: 24.8% | Coldspots LL: 16.4%)', valor: '41.2% Sig.', porcentaje: 82.4 },
-            { label: 'Densidad Poblacional Bruta (HH: 19.3% | LL: 19.2%)', valor: '38.5% Sig.', porcentaje: 77.0 },
-            { label: 'Intensidad Total VGI (HH: 16.2% | LL: 18.6%)', valor: '34.8% Sig.', porcentaje: 69.6 },
-            { label: 'Adultos Mayores >=60 Años (HH: 12.1% | LL: 17.3%)', valor: '29.4% Sig.', porcentaje: 58.8 },
-            { label: 'Déficit Cuantitativo Habitacional (HH: 8.4% | LL: 14.2%)', valor: '22.6% Sig.', porcentaje: 45.2 }
+            { label: 'Hotspot Alto-Alto: Barrio Brasil (63 manzanas · 45,0% del total HH)', valor: '63 mz HH', porcentaje: 100.0 },
+            { label: 'Hotspot Alto-Alto: Barrio Santa Ana (23 manzanas · 16,4% del total HH)', valor: '23 mz HH', porcentaje: 36.5 },
+            { label: 'Hotspot Alto-Alto: Barrio Yungay (17 manzanas · 12,1% del total HH)', valor: '17 mz HH', porcentaje: 27.0 },
+            { label: 'Hotspot Alto-Alto: Parque Almagro (13 manzanas · 9,3% del total HH)', valor: '13 mz HH', porcentaje: 20.6 },
+            { label: 'Coldspot Bajo-Bajo: Sierra Bella (90 manzanas en rezago espacial)', valor: '90 mz LL', porcentaje: 95.0 },
+            { label: 'Coldspot Bajo-Bajo: Barrio Bogotá (87 manzanas en rezago espacial)', valor: '87 mz LL', porcentaje: 91.5 },
+            { label: 'Coldspot Bajo-Bajo: Matta Sur (58 manzanas en rezago espacial)', valor: '58 mz LL', porcentaje: 61.0 },
+            { label: 'Coldspot Bajo-Bajo: Diez de Julio (52 manzanas en rezago espacial)', valor: '52 mz LL', porcentaje: 55.0 }
           ]
         },
         diagramaSVG: () => `
           <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
-            <!-- Ejes del Diagrama de Dispersión de Moran -->
-            <line x1="80" y1="120" x2="600" y2="120" stroke="#475569" stroke-width="1.5"/>
-            <line x1="340" y1="20" x2="340" y2="210" stroke="#475569" stroke-width="1.5"/>
-            <!-- Etiquetas de ejes -->
-            <text x="590" y="112" fill="#94a3b8" font-size="9" font-weight="bold">z (Valor Tipificado)</text>
-            <text x="348" y="32" fill="#94a3b8" font-size="9" font-weight="bold">Wz (Retardo Espacial)</text>
-            <!-- Recta de Moran Global (Pendiente I) -->
-            <line x1="120" y1="190" x2="560" y2="45" stroke="#ec4899" stroke-width="2.5" stroke-dasharray="6,4"/>
-            <text x="520" y="40" fill="#f472b6" font-size="10" font-weight="bold">Pendiente = I Moran</text>
-            <!-- Cuadrante 1: Alto-Alto (Hotspot) -->
-            <rect x="360" y="30" width="220" height="75" rx="6" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.5"/>
-            <text x="375" y="52" fill="#f87171" font-size="11" font-weight="bold">Q1: Alto-Alto (HH)</text>
-            <text x="375" y="68" fill="#e2e8f0" font-size="9">Hotspot: Concentración de valores altos</text>
-            <text x="375" y="84" fill="#cbd5e1" font-size="8.5">z > 0  y  Wz > 0 · Color Rojo Oficial</text>
-            <!-- Cuadrante 3: Bajo-Bajo (Coldspot) -->
-            <rect x="100" y="135" width="220" height="75" rx="6" fill="#38bdf8" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.5"/>
-            <text x="115" y="157" fill="#38bdf8" font-size="11" font-weight="bold">Q3: Bajo-Bajo (LL)</text>
-            <text x="115" y="173" fill="#e2e8f0" font-size="9">Coldspot: Concentración de valores bajos</text>
-            <text x="115" y="189" fill="#cbd5e1" font-size="8.5">z < 0  y  Wz < 0 · Color Azul Oficial</text>
-            <!-- Cuadrante 2: Bajo-Alto (Atípico) -->
-            <rect x="100" y="30" width="220" height="75" rx="6" fill="#4ade80" fill-opacity="0.1" stroke="#4ade80" stroke-width="1.2"/>
-            <text x="115" y="52" fill="#4ade80" font-size="10" font-weight="bold">Q2: Bajo-Alto (LH) · Outlier</text>
-            <text x="115" y="68" fill="#cbd5e1" font-size="8.5">Unidad baja rodeada de altos (Verde)</text>
-            <!-- Cuadrante 4: Alto-Bajo (Atípico) -->
-            <rect x="360" y="135" width="220" height="75" rx="6" fill="#f472b6" fill-opacity="0.1" stroke="#f472b6" stroke-width="1.2"/>
-            <text x="375" y="157" fill="#f472b6" font-size="10" font-weight="bold">Q4: Alto-Bajo (HL) · Outlier</text>
-            <text x="375" y="173" fill="#cbd5e1" font-size="8.5">Unidad alta rodeada de bajos (Salmón)</text>
+            <text x="24" y="28" fill="#38bdf8" font-size="11.5" font-weight="bold">ESTRUCTURA TERRITORIAL DE LOS CUADRANTES LISA EN LA COMUNA DE SANTIAGO (1.711 MANZANAS)</text>
+            <!-- Bloque 1: Hotspot HH -->
+            <rect x="25" y="45" width="200" height="160" rx="8" fill="#eab308" fill-opacity="0.14" stroke="#eab308" stroke-width="1.8"/>
+            <text x="40" y="70" fill="#fde047" font-size="12" font-weight="bold">ALTO-ALTO (Hotspot)</text>
+            <text x="40" y="90" fill="#ffffff" font-size="18" font-weight="900">140 manzanas (8,2%)</text>
+            <text x="40" y="112" fill="#cbd5e1" font-size="9.5">· Barrio Brasil: 63 manzanas</text>
+            <text x="40" y="128" fill="#cbd5e1" font-size="9.5">· Santa Ana: 23 manzanas</text>
+            <text x="40" y="144" fill="#cbd5e1" font-size="9.5">· Yungay: 17 manzanas</text>
+            <text x="40" y="160" fill="#cbd5e1" font-size="9.5">· Parque Almagro: 13 manzanas</text>
+            <text x="40" y="185" fill="#fde047" font-size="8.5" font-weight="bold">Núcleo Alameda - Plaza Brasil - UAH</text>
+            <!-- Bloque 2: Transición Atípicos HL / LH -->
+            <rect x="240" y="45" width="200" height="160" rx="8" fill="#10b981" fill-opacity="0.12" stroke="#34d399" stroke-width="1.5"/>
+            <text x="255" y="70" fill="#4ade80" font-size="12" font-weight="bold">ATÍPICOS (HL y LH)</text>
+            <text x="255" y="90" fill="#ffffff" font-size="13" font-weight="800">Fronteras de Transición</text>
+            <text x="255" y="114" fill="#67e8f9" font-size="9.5" font-weight="bold">▪ Alto-Bajo (Cian):</text>
+            <text x="255" y="128" fill="#cbd5e1" font-size="8.8">Enclaves equipados rodeados de</text>
+            <text x="255" y="140" fill="#cbd5e1" font-size="8.8">manzanas de menor densidad.</text>
+            <text x="255" y="160" fill="#86efac" font-size="9.5" font-weight="bold">▪ Bajo-Alto (Verde):</text>
+            <text x="255" y="174" fill="#cbd5e1" font-size="8.8">Manzanas interiores con vacío</text>
+            <text x="255" y="186" fill="#cbd5e1" font-size="8.8">junto a corredores saturados.</text>
+            <!-- Bloque 3: Coldspot LL -->
+            <rect x="455" y="45" width="200" height="160" rx="8" fill="#3b82f6" fill-opacity="0.15" stroke="#60a5fa" stroke-width="1.8"/>
+            <text x="470" y="70" fill="#93c5fd" font-size="12" font-weight="bold">BAJO-BAJO (Coldspot)</text>
+            <text x="470" y="90" fill="#ffffff" font-size="18" font-weight="900">615 manzanas (35,9%)</text>
+            <text x="470" y="112" fill="#cbd5e1" font-size="9.5">· Sierra Bella: 90 manzanas</text>
+            <text x="470" y="128" fill="#cbd5e1" font-size="9.5">· Bogotá: 87 manzanas</text>
+            <text x="470" y="144" fill="#cbd5e1" font-size="9.5">· Matta Sur: 58 manzanas</text>
+            <text x="470" y="160" fill="#cbd5e1" font-size="9.5">· Diez de Julio: 52 manzanas</text>
+            <text x="470" y="185" fill="#93c5fd" font-size="8.5" font-weight="bold">Anillo Periférico Sur y Norponiente</text>
           </svg>
         `,
+        seccionesAnaliticas: [
+          {
+            titulo: '1. La fractura centro-periferia en el Cluster LISA Total VGI y la transición interna de Barrio Brasil',
+            parrafos: [
+              'La cartografía síntesis de autocorrelación local (cluster_lisa_vgi_kde_total) revela una geografía dual dentro de la comuna y dentro del propio Barrio Brasil. A escala comunal, las manzanas Alto-Alto (amarillo) configuran un macizo compacto en el centro-norte y pericentro poniente, mientras que los clusters Bajo-Bajo (azul) rodean la comuna por sus bordes norponiente (Balmaceda y norte de Yungay), oriente (Santa Isabel y San Borja) y todo el tercio sur (San Eugenio, Club Hípico, Franklin, Bogotá y Sierra Bella).',
+              'Al observar el panel derecho (Entorno Barrio Brasil), el mapa expone una reveladora diferenciación interna: la mitad sur y suroriente del barrio —entre Compañía, Av. Brasil, Cienfuegos, Almirante Barroso y la Alameda— forma un bloque continuo Alto-Alto acompañado de manzanas Bajo-Alto (verde) en el borde inmediato del eje Alameda, mientras que el sector norponiente (hacia Av. Mapocho y San Pablo) cae abruptamente en un cluster Bajo-Bajo, separado por una franja de manzanas Alto-Bajo (cian) que actúan como bisagra territorial.'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_kde_total.jpg',
+                titulo: 'Cluster LISA KDE Total VGI (Comuna de Santiago y Entorno Barrio Brasil)',
+                subtitulo: '140 mz Alto-Alto · 615 mz Bajo-Bajo · 956 mz No Significativas',
+                lectura: 'Demuestra que el 45% de todas las manzanas Hotspot (Alto-Alto) de la comuna se concentra en la mitad sur y central de Barrio Brasil, mientras el sector norte hacia Mapocho y el sur comunal operan como Coldspots (Bajo-Bajo).'
+              }
+            ]
+          },
+          {
+            titulo: '2. Conglomerados de compacidad construida, actividad comercial y el polo educativo-universitario',
+            parrafos: [
+              'El cruce entre las cartografías LISA de Edificaciones, Servicios y Educación permite distinguir cómo se agrupan las funciones estructurales de la ciudad. En Edificaciones (cluster_lisa_vgi_edificaciones), el cluster Alto-Alto cubre de forma casi ininterrumpida el corazón de Barrio Brasil, Yungay oriental y Santa Ana, confirmando un tejido homogéneo de alta densidad predial; sin embargo, emergen manzanas Bajo-Alto (verde) insertas en medio del cluster amarillo, correspondientes a grandes paños abiertos o predios no subdivididos rodeados de manzanas intensamente edificadas.',
+              'En Servicios y Comercio (cluster_lisa_vgi_servicios), los Hotspots Alto-Alto se retraen hacia nodos específicos: el cuadrante gastronómico de Plaza Brasil (Huérfanos-Compañía-Brasil), el centro cívico y el eje Alameda, apareciendo flanqueados por manzanas Alto-Bajo (cian) que señalan esquinas comerciales aisladas en entornos residenciales. Por su parte, el mapa LISA de Educación (cluster_lisa_vgi_educacion) delimita con precisión quirúrgica el "distrito universitario" en el extremo suroriente de Barrio Brasil (Campus UAH) conectado con los barrios Universitario y Ejército, frente a un extenso Coldspot Bajo-Bajo en las periferias norte y sur.'
+            ],
+            graficoInline: {
+              titulo: 'Intensidad Media en los Barrios Núcleo de los Clusters Alto-Alto (Edificaciones, Servicios y Educación)',
+              filas: [
+                { label: 'Edificaciones en Barrio Brasil (Núcleo HH)', valor: '2.651,8 ent/km²', porcentaje: 100 },
+                { label: 'Edificaciones en Santa Ana (Continuidad HH)', valor: '539,2 ent/km²', porcentaje: 45 },
+                { label: 'Servicios en Barrio Brasil (Polo Plaza Brasil - Alameda)', valor: '420,1 ent/km²', porcentaje: 38 },
+                { label: 'Educación en Barrio Brasil (Polo Campus UAH)', valor: '155,9 ent/km²', porcentaje: 28 },
+                { label: 'Educación en Barrio Ejército (Continuidad Universitaria)', valor: '66,5 ent/km²', porcentaje: 18 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_edificaciones.jpg',
+                titulo: 'Cluster LISA: Edificaciones y Huella Urbana',
+                subtitulo: 'Conglomerados de compacidad predial y anomalías de vacío interior',
+                lectura: 'Consolida un gran bloque Alto-Alto (amarillo) en el centro de Barrio Brasil y Santa Ana, con puntuales manzanas Bajo-Alto (verde) donde plazas o patios institucionales rompen la masa edificada.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_servicios.jpg',
+                titulo: 'Cluster LISA: Servicios y Comercio Barrial',
+                subtitulo: 'Núcleos comerciales y bordes de transición residencial',
+                lectura: 'Focaliza los Hotspots Alto-Alto en torno a Plaza Brasil, Huérfanos y el eje Alameda, rodeados por anomalías Alto-Bajo (cian) que marcan subcentros comerciales barriales.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_educacion.jpg',
+                titulo: 'Cluster LISA: Educación y Campus Universitarios',
+                subtitulo: 'Enclave universitario Almirante Barroso - Cienfuegos - Ejército',
+                lectura: 'Revela un potente cluster Alto-Alto en el sector suroriente de Barrio Brasil (Campus UAH) y Barrio Ejército, mientras el resto del pericentro permanece no significativo o en Coldspot.'
+              }
+            ]
+          },
+          {
+            titulo: '3. Corredores significativos de transporte, mallas de movilidad activa y brechas de accesibilidad',
+            parrafos: [
+              'En las dimensiones de movilidad, los clusters LISA permiten diferenciar entre corredores consolidados y barrios desconectados. En Transporte Público (cluster_lisa_vgi_transporte), las manzanas Alto-Alto conforman una franja continua a lo largo de la Alameda, Santa Ana y el eje Av. Brasil-San Pablo, acompañadas de manzanas Bajo-Alto (verde) inmediatamente adyacentes a las grandes avenidas, lo que indica que basta internarse una o dos cuadras hacia el interior residencial para que la densidad de paraderos caiga drásticamente.',
+              'En Movilidad Activa (cluster_lisa_vgi_movilidad_activa), el cluster Alto-Alto dibuja con exactitud los ejes de las ciclovías de Rosas, Compañía, Brasil y Alameda, dejando a la vista un gran Coldspot Bajo-Bajo en el sur comunal donde la red ciclista pierde continuidad. Asimismo, el mapa LISA de Accesibilidad Universal (cluster_lisa_vgi_accesibilidad) demuestra que los rebajes de solera y cruces adaptados solo forman conglomerados Alto-Alto en el pericentro institucional (Alameda, Santa Ana y entorno de Plaza Brasil), mientras el norponiente y el borde sur carecen de continuidad peatonal accesible.'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_transporte.jpg',
+                titulo: 'Cluster LISA: Transporte Público y Paraderos',
+                subtitulo: 'Corredores multimodales Alto-Alto y efecto borde en manzanas interiores',
+                lectura: 'Muestra cómo los Hotspots Alto-Alto siguen el trazado de Metro y buses Red en Alameda, Brasil y Santa Ana, flanqueados por manzanas Bajo-Alto (verde) en el interior inmediato.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_movilidad_activa.jpg',
+                titulo: 'Cluster LISA: Movilidad Activa y Ciclovías',
+                subtitulo: 'Alineación espacial sobre ejes ciclistas del centro-poniente',
+                lectura: 'Los clusters Alto-Alto calcan los corredores de ciclovías en Rosas, Compañía, Av. Brasil y Alameda, contrastando con extensos Coldspots azules en el sector suroriente.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_accesibilidad.jpg',
+                titulo: 'Cluster LISA: Accesibilidad Universal',
+                subtitulo: 'Concentración de rebajes peatonales y vacíos periféricos',
+                lectura: 'Confirma que la infraestructura peatonal inclusiva se agrupa significativamente en el eje Alameda y el centro de Barrio Brasil, diluyéndose hacia el norte de San Pablo.'
+              }
+            ]
+          },
+          {
+            titulo: '4. Islas ecológicas y clústeres patrimoniales frente a los desiertos verdes periféricos',
+            parrafos: [
+              'Las cuatro cartografías restantes —Biodiversidad, Espacio Público, Coberturas de Suelo y Patrimonio— muestran los patrones más focalizados de toda la serie LISA. Tanto en Biodiversidad (cluster_lisa_vgi_biodiversidad) como en Espacio Público (cluster_lisa_vgi_espacio_publico) y Coberturas de Suelo (cluster_lisa_vgi_coberturas_de_suelo), los clusters Alto-Alto se restringen a parches muy acotados en torno a Plaza Brasil, el eje arbolado de Av. Brasil, Parque Almagro y Barrio Ejército, rodeados por anillos de manzanas Alto-Bajo (cian) y Bajo-Alto (verde) que evidencian una transición brusca entre las plazas arboladas y las manzanas densamente pavimentadas.',
+              'Finalmente, la cartografía LISA de Patrimonio (cluster_lisa_vgi_patrimonio) sintetiza el valor histórico del sector poniente: las manzanas Alto-Alto se concentran de forma exclusiva en el corazón de Barrio Brasil (eje Huérfanos, Compañía, Basílica del Salvador y casonas UAH) y su articulación con Santa Ana y Ejército, confirmando estadísticamente que este cuadrante constituye el núcleo patrimonial más denso y continuo de la comuna.'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_biodiversidad.jpg',
+                titulo: 'Cluster LISA: Biodiversidad Urbana y Arbolado',
+                subtitulo: 'Micro-clusters ecológicos en Plaza Brasil, Parque Almagro y Ejército',
+                lectura: 'Identifica un Hotspot Alto-Alto muy concentrado alrededor de Plaza Brasil y Av. Brasil, rodeado de anomalías cian y verdes que reflejan el cambio abrupto hacia calles sin arbolado.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_espacio_publico.jpg',
+                titulo: 'Cluster LISA: Espacio Público y Plazas',
+                subtitulo: 'Polarización en torno a grandes plazas barriales',
+                lectura: 'Demuestra el carácter insular del espacio público recreativo: solo las manzanas colindantes a Plaza Brasil, Plaza Yungay y parques pericentrales logran conformar clusters Alto-Alto.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_coberturas_de_suelo.jpg',
+                titulo: 'Cluster LISA: Coberturas de Suelo y Vegetación',
+                subtitulo: 'Agrupamientos de superficie vegetal y paños institucionales',
+                lectura: 'Resalta la continuidad de coberturas verdes en el cuadrante central-sur de Barrio Brasil y en el eje Parque Almagro - Santa Ana, frente a Coldspots en los bordes comunales.'
+              },
+              {
+                src: 'img/cartografias/cluster_lisa_vgi_patrimonio.jpg',
+                titulo: 'Cluster LISA: Patrimonio Histórico y Cultural',
+                subtitulo: 'Concentración monumental e inmuebles de conservación histórica',
+                lectura: 'Dibuja un cluster Alto-Alto nítido sobre el eje patrimonial Huérfanos - Compañía - Cienfuegos en Barrio Brasil, validando los perímetros de Zona Típica y Conservación Histórica.'
+              }
+            ]
+          }
+        ],
         tablaIndicadores: [
-          { variable: 'Matriz de Pesos Espaciales (W)', valor: 'KNN (k = 6)', referencial: 'Garantiza 0 islas espaciales', fuente: 'PySAL libpysal.weights' },
-          { variable: 'Estandarización de Pesos', valor: 'Transformación Row (R)', referencial: 'Suma de fila igual a 1', fuente: 'Anselin (1995)' },
-          { variable: 'Umbral de Significancia (Alfa)', valor: 'α <= 0.05', referencial: 'Filtro estricto de significancia', fuente: 'Estándar econometría espacial' },
-          { variable: 'Cantidad de Permutaciones', valor: '999 iteraciones', referencial: 'Semilla determinista (seed=42)', fuente: 'ESDA Moran_Local' }
+          { variable: 'Manzanas en Cluster Alto-Alto (Hotspot)', valor: '140 manzanas (8,2%)', referencial: 'Barrio Brasil concentra 63 mz (45%)', fuente: 'LISA Total VGI (1.711 mz)' },
+          { variable: 'Manzanas en Cluster Bajo-Bajo (Coldspot)', valor: '615 manzanas (35,9%)', referencial: 'Sierra Bella (90) y Bogotá (87)', fuente: 'LISA Total VGI (1.711 mz)' },
+          { variable: 'Manzanas No Significativas (p > 0,05)', valor: '956 manzanas (55,9%)', referencial: 'Tejido intermedio comunal', fuente: 'LISA Total VGI (1.711 mz)' },
+          { variable: 'Principales Focos de Outliers (HL / LH)', valor: 'Bordes Alameda y San Pablo', referencial: 'Fronteras de transición espacial', fuente: 'Cartografías LISA por Categoría' }
         ],
-        cartografias: [
-          { src: 'img/cartografias/mapa_lisa_vgi_cat01_educacion.jpg', titulo: 'LISA Intensidad: Educación', subtitulo: 'Clusters Multigeométricos de Equipamiento Educacional' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat02_servicios.jpg', titulo: 'LISA Intensidad: Servicios', subtitulo: 'Clusters Multigeométricos de Comercio y Actividad Terciaria' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat03_transporte.jpg', titulo: 'LISA Intensidad: Transporte', subtitulo: 'Clusters Multigeométricos de Paraderos y Líneas de Transporte' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat04_movilidadactiva.jpg', titulo: 'LISA Intensidad: Movilidad Activa', subtitulo: 'Clusters Multigeométricos de Ciclovías y Ejes Peatonales' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat05_espaciopublico.jpg', titulo: 'LISA Intensidad: Espacio Público', subtitulo: 'Clusters Multigeométricos de Parques y Plazas Urbanas' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat06_patrimonio.jpg', titulo: 'LISA Intensidad: Patrimonio', subtitulo: 'Clusters Multigeométricos de Monumentos y Conservación' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat07_accesibilidad.jpg', titulo: 'LISA Intensidad: Accesibilidad', subtitulo: 'Clusters Multigeométricos de Rebajes y Rampas Peatonales' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat08_biodiversidad.jpg', titulo: 'LISA Intensidad: Biodiversidad', subtitulo: 'Clusters Multigeométricos de Arbolado y Especies Florísticas' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat09_edificaciones.jpg', titulo: 'LISA Intensidad: Edificaciones', subtitulo: 'Clusters Multigeométricos de Densidad y Huella Construida' },
-          { src: 'img/cartografias/mapa_lisa_vgi_cat10_coberturasuelo.jpg', titulo: 'LISA Intensidad: Coberturas de Suelo', subtitulo: 'Clusters Multigeométricos de Áreas Verdes y Suelo Urbano' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat01_educacion.jpg', titulo: 'LISA Distancia: Educación', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Educación' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat02_servicios.jpg', titulo: 'LISA Distancia: Servicios', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Comercio' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat03_transporte.jpg', titulo: 'LISA Distancia: Transporte', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Transporte' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat04_movilidadactiva.jpg', titulo: 'LISA Distancia: Movilidad Activa', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Ciclovías' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat05_espaciopublico.jpg', titulo: 'LISA Distancia: Espacio Público', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Plazas' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat06_patrimonio.jpg', titulo: 'LISA Distancia: Patrimonio', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Inmuebles ICH' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat07_accesibilidad.jpg', titulo: 'LISA Distancia: Accesibilidad', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Rebajes' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat08_biodiversidad.jpg', titulo: 'LISA Distancia: Biodiversidad', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Arbolado' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat09_edificaciones.jpg', titulo: 'LISA Distancia: Edificaciones', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Edificaciones' },
-          { src: 'img/cartografias/mapa_lisa_dist_cat10_coberturasuelo.jpg', titulo: 'LISA Distancia: Coberturas de Suelo', subtitulo: 'Autocorrelación de Proximidad Física Mínima a Áreas Verdes' },
-          { src: 'img/cartografias/mapa_lisa_densidad_pob.jpg', titulo: 'LISA Sociourbano: Densidad Poblacional', subtitulo: 'Clusters de Densidad Bruta de Habitantes por Hectárea' },
-          { src: 'img/cartografias/mapa_lisa_adultos_mayores.jpg', titulo: 'LISA Sociourbano: Adultos Mayores', subtitulo: 'Clusters de Población de 60 Años y Más (%)' },
-          { src: 'img/cartografias/mapa_lisa_arriendo.jpg', titulo: 'LISA Sociourbano: Tenencia en Arriendo', subtitulo: 'Clusters de Régimen de Arriendo Habitacional (%)' },
-          { src: 'img/cartografias/mapa_lisa_deficit_cuantitativo.jpg', titulo: 'LISA Sociourbano: Déficit Habitacional', subtitulo: 'Clusters de Déficit Cuantitativo y Materialidad (%)' },
-          { src: 'img/cartografias/mapa_lisa_edad_promedio.jpg', titulo: 'LISA Sociourbano: Edad Promedio', subtitulo: 'Clusters de Edad Media de los Habitantes (Años)' },
-          { src: 'img/cartografias/mapa_lisa_escolaridad.jpg', titulo: 'LISA Sociourbano: Escolaridad Media', subtitulo: 'Clusters de Años Promedio de Escolaridad (>=18 Años)' },
-          { src: 'img/cartografias/mapa_lisa_hacinamiento.jpg', titulo: 'LISA Sociourbano: Hacinamiento Crítico', subtitulo: 'Clusters de Viviendas en Condición de Hacinamiento (%)' },
-          { src: 'img/cartografias/mapa_lisa_inmigrantes.jpg', titulo: 'LISA Sociourbano: Población Migrante', subtitulo: 'Clusters de Inmigración Internacional Reciente (%)' },
-          { src: 'img/cartografias/mapa_lisa_mujeres.jpg', titulo: 'LISA Sociourbano: Proporción Femenina', subtitulo: 'Clusters de Proporción de Mujeres en la Manzana (%)' },
-          { src: 'img/cartografias/mapa_lisa_primera_infancia.jpg', titulo: 'LISA Sociourbano: Primera Infancia', subtitulo: 'Clusters de Población de 0 a 5 Años (%)' },
-          { src: 'img/cartografias/cluster_lisa_vgi_accesibilidad.jpg', titulo: 'LISA Accesibilidad (Referencia Histórica)', subtitulo: 'Clusters de Accesibilidad Universal en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_biodiversidad.jpg', titulo: 'LISA Biodiversidad (Referencia Histórica)', subtitulo: 'Clusters de Cobertura de Biodiversidad en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_coberturas_de_suelo.jpg', titulo: 'LISA Coberturas de Suelo (Referencia Histórica)', subtitulo: 'Clusters de Coberturas Vegetales en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_edificaciones.jpg', titulo: 'LISA Edificaciones (Referencia Histórica)', subtitulo: 'Clusters de Masa Construida en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_educacion.jpg', titulo: 'LISA Educación (Referencia Histórica)', subtitulo: 'Clusters de Servicios Educacionales en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_espacio_publico.jpg', titulo: 'LISA Espacio Público (Referencia Histórica)', subtitulo: 'Clusters de Espacio Público y Plazas en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_movilidad_activa.jpg', titulo: 'LISA Movilidad Activa (Referencia Histórica)', subtitulo: 'Clusters de Vías Peatonales y Ciclovías en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_patrimonio.jpg', titulo: 'LISA Patrimonio (Referencia Histórica)', subtitulo: 'Clusters de Patrimonio Histórico en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_servicios.jpg', titulo: 'LISA Servicios (Referencia Histórica)', subtitulo: 'Clusters de Comercio de Barrio en Manzanas' },
-          { src: 'img/cartografias/cluster_lisa_vgi_transporte.jpg', titulo: 'LISA Transporte (Referencia Histórica)', subtitulo: 'Clusters de Paraderos y Conectividad en Manzanas' }
-        ],
-        cuerpo: [
-          'La modelación de autocorrelación espacial local permite descomponer el comportamiento territorial más allá de los promedios globales. Al analizar la intensidad multigeométrica VGI mediante LISA, se observa que los clusters Alto-Alto (Hotspots) coinciden fuertemente con los barrios universitarios, cívicos y patrimoniales consolidados, mientras que los sectores residenciales periféricos al sur presentan clusters Bajo-Bajo (Coldspots).',
-          'Particular interés reviste la dimensión de proximidad física multigeométrica (distancia euclidiana mínima a la red VGI de cada categoría): las manzanas que intersectan directamente un parque o un establecimiento educativo poseen distancia 0.0m, conformando agrupaciones espaciales homogéneas que revelan gradientes de accesibilidad inmediata.',
-          'Al cruzar estos resultados con las variables censales, se comprueba que el fenómeno de la tenencia en arriendo exhibe una autocorrelación espacial crítica: los hotspots de arriendo coinciden de manera casi exacta con las manzanas densificadas post-modificación del Plan Regulador Comunal de los años 90 y 2000, reflejando el impacto de la morfología inmobiliaria contemporánea sobre el tejido social.'
-        ],
-        conclusion: 'La estadística espacial LISA confirma que las dinámicas de habitabilidad y cobertura territorial en Santiago están profundamente segregadas en clusters contiguos, donde la proximidad a equipamiento estructurante define brechas significativas entre el pericentro histórico y las zonas periféricas.',
+        conclusion: 'La estadística local LISA comprueba que las brechas urbanas en Santiago no son aleatorias: existe una frontera espacial nítida que separa al pericentro histórico-universitario (cluster Alto-Alto en Brasil, Santa Ana y Parque Almagro) de un extenso arco periférico Bajo-Bajo en el sur y norponiente de la comuna, mientras que al interior del propio Barrio Brasil se evidencia una marcada asimetría entre su mitad sur consolidada y su borde norte hacia Mapocho.',
         analisisPorActor: [
-          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SEREMI MINVU · SECPLA · INE · Subdere', utilidad: 'Identifica clusters prioritarios para focalizar programas de mejoramiento urbano y subsidios de arriendo o vivienda.' },
-          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Unidades Vecinales · Agrupaciones Sociales', utilidad: 'Evidencia las áreas de rezago (Coldspots) para fundamentar demandas vecinales de nuevos servicios y áreas verdes.' },
-          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Geoinformáticas', utilidad: 'Permite orientar el esfuerzo de mapeo hacia las zonas clasificadas como Coldspots o Outliers para verificar si la baja densidad responde a realidad territorial o a sub-reporte.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Laboratorios Urbanos', utilidad: 'Aporta una matriz robusta con valores de I de Moran, z-scores y p-valores pseudo-significativos para modelación econométrica espacial.' }
+          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SEREMI MINVU · SECPLA · INE · Subdere', utilidad: 'Permite dirigir programas de regeneración urbana hacia los 615 polígonos Bajo-Bajo (especialmente en Sierra Bella, Bogotá, Matta Sur y Diez de Julio).' },
+          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Unidades Vecinales · Agrupaciones Sociales', utilidad: 'Visibiliza la brecha interna de Barrio Brasil al norte de calle Rosas/San Pablo (cluster Bajo-Bajo) para exigir equidad en arbolado, luminarias y cruces seguros.' },
+          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Geoinformáticas', utilidad: 'Orienta la verificación en terreno sobre las manzanas Bajo-Alto (verde) y Alto-Bajo (cian) para confirmar cambios de uso de suelo o sub-registro cartográfico.' },
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Laboratorios Urbanos', utilidad: 'Aporta evidencia empírica desagregada por manzana sobre cómo se superponen los clusters de patrimonio, educación superior y servicios en el centro histórico.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
-            { codigo: 'censo2024_manzanas', nombre: 'Censo de Población y Vivienda 2024 / 2017 (Manzanas)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719', tipo: 'Polígonos' },
-            { codigo: 'matriz_lisa_stgo', nombre: 'Matriz Zonal Censal y VGI de Santiago (1.711 Manzanas)', institucion: 'Elaboración Propia Atlas VGI', crs: 'EPSG:32719', tipo: 'Vectorial GeoPackage' },
-            { codigo: 'dist_min_multigeom', nombre: 'Distancias Mínimas Euclidianas Multigeométricas', institucion: 'Elaboración Propia Atlas VGI', crs: 'EPSG:32719', tipo: 'Tabular / Atributos' }
+            { codigo: 'cluster_lisa_vgi', nombre: 'Colección de 11 Cartografías de Clusters LISA por Categoría VGI', institucion: 'Atlas VGI — Juan Pablo Lezcano (UAH)', crs: 'EPSG:32719', tipo: 'Polígonos / Cartografía HD' },
+            { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal Censal y VGI de Santiago (1.711 Manzanas)', institucion: 'Geografía UAH / INE', crs: 'EPSG:32719', tipo: 'Vectorial GeoPackage' },
+            { codigo: 'barrios_stgo_27', nombre: 'Delimitación Oficial de los 27 Barrios de Santiago', institucion: 'Ilustre Municipalidad de Santiago', crs: 'EPSG:32719', tipo: 'Polígonos' }
           ],
           referenciasAcademicas: [
-            { cita: 'Anselin, L. (1995). Local Indicators of Spatial Association—LISA. Geographical Analysis, 27(2), 93–115.', concepto: 'Definición fundacional de los indicadores locales de asociación espacial y descomposición de Moran.' },
-            { cita: 'Moran, P. A. P. (1950). Notes on Continuous Stochastic Phenomena. Biometrika, 37(1/2), 17–23.', concepto: 'Formulación teórica original del coeficiente de autocorrelación espacial global.' },
-            { cita: 'Rey, S. J., Anselin, L., & Kang, W. (2020). Geographic Data Science with Python. Chapman and Hall/CRC.', concepto: 'Implementación computacional rigurosa en Python mediante PySAL y ESDA.' }
+            { cita: 'Anselin, L. (1995). Local Indicators of Spatial Association—LISA. Geographical Analysis, 27(2), 93–115.', concepto: 'Tipología de cuadrantes espaciales (Alto-Alto, Bajo-Bajo, Alto-Bajo y Bajo-Alto) aplicada a las manzanas comunales.' },
+            { cita: 'Tobler, W. R. (1970). A computer movie simulating urban growth in the Detroit region. Economic Geography, 46, 234–240.', concepto: 'Primera ley de la geografía y dependencia espacial entre unidades vecinas.' },
+            { cita: 'Rey, S. J., Anselin, L., & Kang, W. (2020). Geographic Data Science with Python. Chapman and Hall/CRC.', concepto: 'Interpretación empírica de clusters espaciales y fronteras de transición urbana.' }
           ]
         }
       }
     },
 
     // -----------------------------------------------------------------------
-    // STORYBOARD 3: ANÁLISIS SOCIODEMOGRÁFICO Y HABITABILIDAD
+    // STORYBOARD 3: RESULTADOS SOCIODEMOGRÁFICOS, HABITABILIDAD Y MORFOLOGÍA (29 MAPAS)
     // -----------------------------------------------------------------------
     {
       id: 'storyboard-demografia-habitabilidad-sociourbana',
       dimensionId: 'sociourbana',
-      dimensionNombre: 'Dimensión Sociodemográfica & Habitabilidad',
-      titulo: 'Estructura Sociodemográfica, Habitabilidad y Morfología Urbana en Santiago',
-      bajada: 'Diagnóstico territorial integral a partir de los datos censales (INE 2024 / 2017), el catastro predial del SII y el Plan Regulador Comunal (PRC). Concentración poblacional, régimen de tenencia residencial y transiciones etarias en el centro metropolitano.',
+      dimensionNombre: 'Resultados Empíricos · Demografía, Vivienda & RSH',
+      titulo: 'Estructura Sociodemográfica, Habitabilidad y Morfología Urbana en Santiago: Resultados Empíricos del Censo 2024 y RSH',
+      bajada: 'Qué revelan las 29 cartografías sociodemográficas y habitacionales de la comuna: dónde se concentran los 432.081 habitantes, la hegemonía del departamento (92,7%) y del arriendo (72,1%), la persistencia de cités y hacinamiento en el sur, y los focos de vulnerabilidad 0-40% RSH.',
       imagen: 'img/storyboards/portada_analisis_sociourbano.svg',
-      tiempoLectura: '14 min de lectura',
-      tags: ['Censo INE 2024', 'Estructura Demográfica', 'Tenencia en Arriendo', 'Cités y Casonas', 'PRC Santiago'],
-      capasRelevantes: ['censo2024_manzanas', 'catastro_predial_sii', 'minvu_patrimonio', 'minvu_ipt_prc_santiago', 'bbdd_19', 'cat09_edificaciones'],
+      imagenDestacada: 'img/storyboards/portada_analisis_sociourbano.svg',
+      piePortada: 'Ilustración de los contrastes morfológicos y demográficos de Santiago: torres hiperdensas de arriendo frente a cités, casonas patrimoniales y barrios históricos.',
+      tiempoLectura: '24 min de lectura',
+      tags: ['Resultados Censo 2024', '72,1% Arriendo', '92,7% Departamentos', 'Cités y Hacinamiento', '29 Cartografías'],
+      capasRelevantes: ['censo2024_manzanas', 'catastro_predial_sii', 'minvu_patrimonio', 'minvu_ipt_prc_santiago', 'bbdd_19', 'bbdd_64', 'bbdd_68', 'bbdd_74'],
       contenido: {
-        introduccion: `La Comuna de Santiago ha experimentado en las últimas tres décadas uno de los procesos de transformación sociomorfológica más vertiginosos de América Latina. Entre la densificación residencial intensiva en altura promovida por los incentivos normativos de los años 90 y la coexistencia de enclaves patrimoniales, casonas y cités tradicionales, el territorio comunal presenta profundas heterogeneidades en su estructura demográfica, régimen de tenencia y vulnerabilidad habitacional.`,
+        introduccion: `Los resultados empíricos consolidados de las 1.711 manzanas censales de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 29 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura (Santa Isabel con 650,5 hab/ha, Santa Ana con 618,0 hab/ha y Parque Almagro con 442,3 hab/ha) dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil y Yungay, donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente (Franklin, Matta Sur, San Vicente y Bogotá) donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
         datosClave: [
-          { valor: '404.885', label: 'Población Comunal', sub: 'Habitantes Censo 2024' },
-          { valor: '64.8%', label: 'Tenencia en Arriendo', sub: 'Tasa más alta del país' },
-          { valor: '26', label: 'Cartografías Urbanas', sub: 'Láminas temáticas analíticas' },
-          { valor: '27', label: 'Barrios Urbanos', sub: 'Delimitaciones territoriales' }
+          { valor: '432.081', label: 'Habitantes en Manzanas', sub: '50,7% hombres (219.003) · 49,3% mujeres (213.078)' },
+          { valor: '72,1%', label: 'Hogares en Arriendo', sub: '147.044 hogares (62,6% con contrato · 9,5% sin contrato)' },
+          { valor: '92,7%', label: 'Viviendas Departamento', sub: '196.060 deptos vs. 13,0% casas y 5,9% piezas/cités' },
+          { valor: '40,8%', label: 'Hogares Unipersonales', sub: '83.149 hogares de 1 persona · 40,4% pob. migrante' }
         ],
         porcentajesClave: [
-          { label: 'Viviendas en Departamento en Edificio de Altura', valor: '72.3%', porcentaje: 72.3, contexto: 'Predominio absoluto de la tipología vertical en el parque habitacional comunal.' },
-          { label: 'Hogares Unipersonales (1 Persona)', valor: '38.9%', porcentaje: 38.9, contexto: 'Perfil predominante de jóvenes profesionales, estudiantes y adultos mayores solos.' },
-          { label: 'Población Inmigrante Internacional', valor: '34.2%', porcentaje: 34.2, contexto: 'Fuerte inserción multicultural en el pericentro poniente y norte comunal.' },
-          { label: 'Hacinamiento Habitacional Crítico y Medio', valor: '8.7%', porcentaje: 8.7, contexto: 'Focalizado principalmente en tipologías tradicionales de cité y piezas subarrendadas.' }
+          { label: 'Predominio del Departamento en Edificio sobre el Parque Ocupado', valor: '92,7%', porcentaje: 92.7, contexto: '196.060 departamentos frente a 27.385 casas (concentradas en San Eugenio 75,3% y San Vicente 74,5%).' },
+          { label: 'Hegemonía del Régimen de Tenencia en Arriendo (Formal + Informal)', valor: '72,1%', porcentaje: 72.1, contexto: 'Lideran Santa Elena (82,5%), Matta Sur (80,7%) y Franklin (80,7%), frente a solo 23,0% de vivienda propia.' },
+          { label: 'Proporción de Hogares Unipersonales (1 Integrante) en la Comuna', valor: '40,8%', porcentaje: 40.8, contexto: 'Alcanza máximos en Parque O’Higgins (69,2%), Santa Lucía Forestal (58,4%) y San Borja (49,1%).' },
+          { label: 'Participación de Población Inmigrante Internacional Residente', valor: '40,4%', porcentaje: 40.4, contexto: '174.413 residentes internacionales, con cimas en Meiggs (61,3%), Matta Sur (58,2%) y Franklin (57,8%).' }
         ],
         graficoComparativo: {
-          titulo: 'Distribución de Viviendas según Régimen de Tenencia y Tipología Constructiva',
+          titulo: 'Contrastes Empíricos entre Barrios Extremos de Santiago según Indicadores Censales',
           filas: [
-            { label: 'Vivienda Arrendada con Contrato Formal', valor: '48.2%', porcentaje: 48.2 },
-            { label: 'Vivienda Propia Totalmente Pagada', valor: '18.4%', porcentaje: 18.4 },
-            { label: 'Vivienda Arrendada sin Contrato Escrito', valor: '16.6%', porcentaje: 16.6 },
-            { label: 'Vivienda Propia Pagándose (Hipotecario)', valor: '9.7%', porcentaje: 9.7 },
-            { label: 'Cité Tradicional / Pasaje Común', valor: '4.8%', porcentaje: 4.8 },
-            { label: 'Vivienda Cedida por Trabajo / Familiar', valor: '2.3%', porcentaje: 2.3 }
+            { label: 'Densidad Poblacional: Santa Isabel (650,5 hab/ha) vs. Club Hípico (28,0)', valor: '650,5 hab/ha', porcentaje: 100.0 },
+            { label: 'Densidad Poblacional: Santa Ana (618,0 hab/ha) vs. Parque Almagro (442,3)', valor: '618,0 hab/ha', porcentaje: 95.0 },
+            { label: 'Tenencia en Arriendo Total: Santa Elena (82,5%) y Franklin (80,7%)', valor: '82,5% máx', porcentaje: 82.5 },
+            { label: 'Viviendas Tipo Casa Tradicional: San Eugenio (75,3%) y San Vicente (74,5%)', valor: '75,3% máx', porcentaje: 75.3 },
+            { label: 'Hogares Unipersonales: Santa Lucía Forestal (58,4%) y San Borja (49,1%)', valor: '58,4% máx', porcentaje: 58.4 },
+            { label: 'Población Migrante: Meiggs (61,3%), Matta Sur (58,2%) y Franklin (57,8%)', valor: '61,3% máx', porcentaje: 61.3 },
+            { label: 'Arriendo sin Contrato: San Vicente (31,7%), Bogotá (23,5%) y Yungay (20,8%)', valor: '31,7% máx', porcentaje: 42.0 },
+            { label: 'Viviendas en Pieza / Cité: San Vicente (25,6%), Yungay (22,0%) y Bogotá (21,7%)', valor: '25,6% máx', porcentaje: 35.0 }
           ]
         },
         diagramaSVG: () => `
           <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
-            <line x1="40" y1="190" x2="640" y2="190" stroke="#475569" stroke-width="2"/>
-            <!-- Cité Tradicional -->
-            <rect x="70" y="140" width="100" height="50" fill="#b45309" fill-opacity="0.3" stroke="#f59e0b" stroke-width="1.5"/>
-            <polygon points="65,140 120,115 175,140" fill="#f59e0b" fill-opacity="0.5"/>
-            <text x="120" y="160" fill="#fef08a" font-size="10" font-weight="bold" text-anchor="middle">Cité Interior</text>
-            <text x="120" y="175" fill="#cbd5e1" font-size="8.5" text-anchor="middle">1 Piso · Pasaje</text>
-            <!-- Casona Patrimonial -->
-            <rect x="190" y="110" width="120" height="80" fill="#9a3412" fill-opacity="0.3" stroke="#ea580c" stroke-width="1.5"/>
-            <polygon points="185,110 250,80 315,110" fill="#ea580c" fill-opacity="0.5"/>
-            <text x="250" y="140" fill="#fed7aa" font-size="10.5" font-weight="bold" text-anchor="middle">Casona ICH / ZCH</text>
-            <text x="250" y="155" fill="#cbd5e1" font-size="8.5" text-anchor="middle">2-3 Pisos (Conservación)</text>
-            <!-- Calle Intermedia -->
-            <rect x="325" y="180" width="60" height="10" fill="#334155"/>
-            <text x="355" y="205" fill="#94a3b8" font-size="8.5" text-anchor="middle">Calle (15m)</text>
-            <!-- Edificación Media -->
-            <rect x="400" y="80" width="90" height="110" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1.5"/>
-            <text x="445" y="125" fill="#7dd3fc" font-size="10" font-weight="bold" text-anchor="middle">Edificio Medio</text>
-            <text x="445" y="140" fill="#cbd5e1" font-size="8.5" text-anchor="middle">5-8 Pisos</text>
-            <!-- Torre de Densificación Inmobiliaria -->
-            <rect x="510" y="20" width="110" height="170" fill="#64748b" fill-opacity="0.35" stroke="#94a3b8" stroke-width="1.5"/>
-            <text x="565" y="85" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Torre Densificada</text>
-            <text x="565" y="102" fill="#cbd5e1" font-size="8.5" text-anchor="middle">>18 Pisos (PRC 1990s)</text>
-            <text x="565" y="118" fill="#f472b6" font-size="8">Alta Tasa Arriendo</text>
+            <text x="24" y="26" fill="#38bdf8" font-size="11.5" font-weight="bold">SÍNTESIS DE RESULTADOS: TRES REGÍMENES SOCIO-HABITACIONALES EN SANTIAGO (CENSO 2024)</text>
+            <!-- Régimen 1 -->
+            <rect x="20" y="42" width="205" height="170" rx="8" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.6"/>
+            <text x="32" y="64" fill="#a5b4fc" font-size="11" font-weight="bold">1. EJE HIPERDENSO VERTICAL</text>
+            <text x="32" y="80" fill="#94a3b8" font-size="8.5">Sta. Isabel · Sta. Ana · P. Almagro</text>
+            <text x="32" y="102" fill="#ffffff" font-size="15" font-weight="900">442 – 650 hab/ha</text>
+            <text x="32" y="122" fill="#cbd5e1" font-size="9">· &gt;95% departamentos en torre</text>
+            <text x="32" y="138" fill="#cbd5e1" font-size="9">· 75%–82% tenencia en arriendo</text>
+            <text x="32" y="154" fill="#cbd5e1" font-size="9">· 45%–58% hogares unipersonales</text>
+            <text x="32" y="170" fill="#cbd5e1" font-size="9">· 98,5% acceso a internet fijo/móvil</text>
+            <text x="32" y="194" fill="#818cf8" font-size="8.5" font-weight="bold">Zonas PRC A y D (Alta constructibilidad)</text>
+            <!-- Régimen 2 -->
+            <rect x="237" y="42" width="205" height="170" rx="8" fill="#064e3b" fill-opacity="0.45" stroke="#10b981" stroke-width="1.6"/>
+            <text x="249" y="64" fill="#6ee7b7" font-size="11" font-weight="bold">2. BARRIOS PATRIMONIALES</text>
+            <text x="249" y="80" fill="#94a3b8" font-size="8.5">Barrio Brasil · Yungay · República</text>
+            <text x="249" y="102" fill="#ffffff" font-size="15" font-weight="900">180 – 290 hab/ha</text>
+            <text x="249" y="122" fill="#cbd5e1" font-size="9">· Mixtura de casonas, cités y deptos</text>
+            <text x="249" y="138" fill="#cbd5e1" font-size="9">· 22,0% vivienda tipo pieza/cité (Yungay)</text>
+            <text x="249" y="154" fill="#cbd5e1" font-size="9">· Mayor tenencia propia que el centro</text>
+            <text x="249" y="170" fill="#cbd5e1" font-size="9">· Envejecimiento en manzanas interiores</text>
+            <text x="249" y="194" fill="#34d399" font-size="8.5" font-weight="bold">Zona PRC B (Conservación Histórica)</text>
+            <!-- Régimen 3 -->
+            <rect x="454" y="42" width="206" height="170" rx="8" fill="#7c2d12" fill-opacity="0.45" stroke="#f97316" stroke-width="1.6"/>
+            <text x="466" y="64" fill="#fdba74" font-size="11" font-weight="bold">3. PERICENTRO SUR Y PONIENTE</text>
+            <text x="466" y="80" fill="#94a3b8" font-size="8.5">Franklin · San Vicente · Bogotá · Matta</text>
+            <text x="466" y="102" fill="#ffffff" font-size="15" font-weight="900">17,0% – 17,5% Hacinam.</text>
+            <text x="466" y="122" fill="#cbd5e1" font-size="9">· 20,8%–31,7% arriendo sin contrato</text>
+            <text x="466" y="138" fill="#cbd5e1" font-size="9">· 20,0%–24,3% déficit cuantitativo</text>
+            <text x="466" y="154" fill="#cbd5e1" font-size="9">· 57,8%–61,3% población inmigrante</text>
+            <text x="466" y="170" fill="#cbd5e1" font-size="9">· Concentración tramo 0–40% RSH</text>
+            <text x="466" y="194" fill="#fb923c" font-size="8.5" font-weight="bold">Zonas PRC E, G y H (Mixto / Productivo)</text>
           </svg>
         `,
+        seccionesAnaliticas: [
+          {
+            titulo: '1. Hiperdensificación vertical y distribución por sexo: el corredor oriente-central frente a la escala humana de Barrio Brasil',
+            parrafos: [
+              'Las cartografías de densidad poblacional del Censo 2024 revelan una concentración demográfica extraordinariamente asimétrica dentro de la comuna. De los 432.081 habitantes registrados en las manzanas comunales, solo tres barrios —Santa Isabel (52.658 hab.), Parque Almagro (46.948 hab.) y Yungay (34.220 hab.)— concentran el 31,0% de toda la población de Santiago. En términos de densidad neta, Santa Isabel alcanza 650,5 hab/ha y Santa Ana 618,0 hab/ha, formando una muralla azul oscura de manzanas en el cuartil superior (31,31% a 84,48% del máximo comunal) a lo largo de los ejes Santa Isabel, Lira, Carmen, San Martín y San Pablo oriente.',
+              'En marcado contraste, el recuadro de Barrio Brasil en las láminas de densidad total, densidad de hombres (media comunal 50,7%, máximo de 5.211,7 hab/ha) y densidad de mujeres (media comunal 49,3%, máximo de 5.008,2 hab/ha) muestra un predominio de tonos amarillos y verdes (cuartiles bajos y medios), con densidades concentradas únicamente en las manzanas de borde sobre Av. San Pablo, Rosas y Alameda. Asimismo, el Índice de Masculinidad (media comunal de 102,8 hombres por cada 100 mujeres) exhibe una mayor presencia relativa masculina en enclaves comerciales e industriales del poniente y sur (Meiggs, San Vicente y Franklin), mientras que los barrios residenciales consolidados del oriente y las manzanas interiores de Barrio Brasil mantienen una proporción equilibrada o mayoritariamente femenina.'
+            ],
+            graficoInline: {
+              titulo: 'Barrios con Mayor Población Total y Densidad Neta en la Comuna de Santiago (Censo 2024)',
+              filas: [
+                { label: 'Barrio Santa Isabel (52.658 hab · 650,5 hab/ha)', valor: '650,5 hab/ha', porcentaje: 100 },
+                { label: 'Barrio Santa Ana (32.495 hab · 618,0 hab/ha)', valor: '618,0 hab/ha', porcentaje: 95 },
+                { label: 'Barrio Parque Almagro (46.948 hab · 442,3 hab/ha)', valor: '442,3 hab/ha', porcentaje: 68 },
+                { label: 'Barrio Yungay (34.220 hab · 241,2 hab/ha)', valor: '241,2 hab/ha', porcentaje: 37 },
+                { label: 'Barrio Club Hípico / San Eugenio (Baja densidad sur)', valor: '28,0 hab/ha', porcentaje: 6 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/densidad_pob_km2_percent_of_total.jpg',
+                titulo: 'Densidad de Población Censo 2024 (% del Total por km²)',
+                subtitulo: 'Cuartiles: 0%–5,06% · 5,07%–14,7% · 14,87%–30,64% · 31,31%–84,48%',
+                lectura: 'Evidencia cómo la hiperdensidad (azul oscuro) se concentra en el corredor Santa Ana - Parque Almagro - Santa Isabel, mientras Barrio Brasil conserva densidades bajas y medias gracias a su protección patrimonial.'
+              },
+              {
+                src: 'img/cartografias/densidad_de_hombres_ha.jpg',
+                titulo: 'Densidad de Hombres por Hectárea (Censo 2024)',
+                subtitulo: 'Rango: 0 a 5.211,7 hombres/ha · Total comunal: 219.003 hombres',
+                lectura: 'Muestra focos de máxima concentración masculina en las torres del centro-oriente y en manzanas específicas del borde norte y poniente de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/densidad_de_mujeres_ha.jpg',
+                titulo: 'Densidad de Mujeres por Hectárea (Censo 2024)',
+                subtitulo: 'Rango: 0 a 5.008,2 mujeres/ha · Total comunal: 213.078 mujeres',
+                lectura: 'Reproduce el eje de densificación vertical en Santa Isabel, Parque Almagro y Santa Ana, con una distribución homogénea en las manzanas residenciales de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/indice_de_masculinidad_log.jpg',
+                titulo: 'Índice de Masculinidad Logarítmico (Censo 2024)',
+                subtitulo: 'Razón Hombres / Mujeres · Media comunal: 102,8',
+                lectura: 'Identifica manzanas con predominio masculino en sectores de piezas, cités y actividad comercial (Meiggs, San Vicente, borde San Pablo), frente a mayor presencia femenina en sectores de departamentos familiares y de adultos mayores.'
+              }
+            ]
+          },
+          {
+            titulo: '2. Transición demográfica: envejecimiento en barrios históricos, hogares unipersonales e inserción migrante',
+            parrafos: [
+              'El segundo grupo de cartografías desvela cómo coexisten dos transiciones demográficas opuestas en el mismo territorio. Por un lado, los adultos mayores de 60 años y más suman 51.663 personas (12,0% comunal, prácticamente igualando a los 51.336 niños de 0 a 13 años, lo que arroja un Índice de Envejecimiento comunal de 100,6) y están presentes en el 10,0% de los hogares (20.415 hogares). Sin embargo, las cartografías de Porcentaje de Adultos Mayores, Hogares con Mayores de 60 Años e Índice de Envejecimiento muestran que la población mayor ha quedado desplazada de las torres hiperdensas del centro, concentrándose en los barrios tradicionales de baja altura del surponiente —San Eugenio (24,6%), San Vicente (20,3%) y Club Hípico— así como en las manzanas interiores de casonas de Barrio Brasil, República y Huemul.',
+              'En sentido inverso, la cartografía de Población Migrante (174.413 personas, equivalentes al 40,4% de la población comunal) muestra una intensa concentración en el pericentro comercial y pericentro sur: Meiggs alcanza un 61,3% de residentes migrantes, seguido por Matta Sur (58,2%), Franklin (57,8%), Santa Elena y el eje norte de Yungay-Brasil (sobre San Pablo y Mapocho), reduciendo en esas mismas manzanas el Índice de Dependencia Demográfica por la llegada de población en edad laboral activa (20 a 44 años). Paralelamente, los Hogares Unipersonales representan ya el 40,8% de todos los hogares de Santiago (83.149 hogares), alcanzando entre 51,9% y 100% en las manzanas del Centro Histórico, Santa Lucía Forestal (58,4%), San Borja (49,1%) y el borde sur de Barrio Brasil en torno al campus universitario.'
+            ],
+            graficoInline: {
+              titulo: 'Indicadores de Estructura Etaria, Migración y Hogares Unipersonales en Barrios Clave',
+              filas: [
+                { label: 'Hogares Unipersonales: Santa Lucía Forestal (58,4%) y San Borja (49,1%)', valor: '58,4% máx', porcentaje: 95 },
+                { label: 'Población Migrante: Meiggs (61,3%), Matta Sur (58,2%) y Franklin (57,8%)', valor: '61,3% máx', porcentaje: 100 },
+                { label: 'Población Migrante Media Comunal (174.413 personas)', valor: '40,4% comunal', porcentaje: 66 },
+                { label: 'Adultos Mayores (60+ años): San Eugenio (24,6%) y San Vicente (20,3%)', valor: '24,6% máx', porcentaje: 40 },
+                { label: 'Adultos Mayores Media Comunal (51.663 personas · Índice Envej. 100,6)', valor: '12,0% comunal', porcentaje: 20 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/porcentaje_adultos_mayores.jpg',
+                titulo: 'Porcentaje de Adultos Mayores (60 Años y Más)',
+                subtitulo: 'Cuartiles: 0%–10,1% · 10,11%–16,28% · 16,29%–26,67% · 26,68%–100%',
+                lectura: 'Muestra que las manzanas con más de 26,7% de personas mayores se ubican en barrios residenciales tradicionales (San Eugenio, Huemul, Matta Sur e interior de Barrio Brasil), lejos de los ejes de renovación inmobiliaria.'
+              },
+              {
+                src: 'img/cartografias/hog_mayores_60_anos_pct.jpg',
+                titulo: 'Hogares Integrados por Adultos Mayores de 60 Años (%)',
+                subtitulo: 'Total comunal: 20.415 hogares (10,0% del total de hogares)',
+                lectura: 'Destaca una alta presencia de hogares envejecidos en las manzanas centrales de Barrio Brasil (entre Compañía y Huérfanos) y en el sector surponiente comunal.'
+              },
+              {
+                src: 'img/cartografias/indice_de_envejecimiento_log.jpg',
+                titulo: 'Índice de Envejecimiento Logarítmico (Censo 2024)',
+                subtitulo: 'Relación Adultos Mayores (60+) sobre Población Infantil · Media: 100,6',
+                lectura: 'Revela un envejecimiento agudo en el Centro Histórico, Barrio República y manzanas patrimoniales de Brasil, frente a un rejuvenecimiento relativo en el eje norte y suroriente.'
+              },
+              {
+                src: 'img/cartografias/indice_dependencia_demografica.jpg',
+                titulo: 'Índice de Dependencia Demográfica (Censo 2024)',
+                subtitulo: 'Relación de población pasiva (0–14 y 65+) sobre población activa (15–64)',
+                lectura: 'Exhibe valores muy bajos en el corredor de torres centrales (predominio de jóvenes activos de 20 a 39 años) y valores altos en barrios tradicionales con mayor presencia de niñez y vejez.'
+              },
+              {
+                src: 'img/cartografias/porcentaje_migrantes.jpg',
+                titulo: 'Porcentaje de Población Migrante Internacional (Censo 2024)',
+                subtitulo: 'Total comunal: 174.413 personas (40,4% del total comunal)',
+                lectura: 'Concentra sus valores más elevados (sobre 50%) en Meiggs, Franklin, Matta Sur, Santa Ana y el tercio norte de Barrio Brasil y Yungay.'
+              },
+              {
+                src: 'img/cartografias/pct_hogares_unipersonales.jpg',
+                titulo: 'Porcentaje de Hogares Unipersonales (Censo 2024)',
+                subtitulo: 'Total comunal: 83.149 hogares de 1 persona (40,8% comunal)',
+                lectura: 'Predomina de forma masiva (tramo 51,9%–100%) en el Centro Histórico, Santa Lucía Forestal, San Borja y el entorno universitario del sur de Barrio Brasil.'
+              }
+            ]
+          },
+          {
+            titulo: '3. Ordenamiento normativo (PRC) y tipologías residenciales: del edificio en altura a la resistencia de la casa y el cité',
+            parrafos: [
+              'La serie de cartografías normativas y morfológicas explica el origen físico de los patrones demográficos anteriores. El mapa del Plan Regulador Comunal (PRC_stgo_nombre_zonas) y las divisiones de los 27 barrios y 7 agrupaciones territoriales (AV1 a AV10) muestran cómo la Zona B de Conservación Histórica Patrimonial protege el grueso de Barrio Brasil, Yungay, Concha y Toro y sectores de Matta Sur, mientras que la Zona A (Residencial Mixto y Ejes Estructurantes) y la Zona D/E habilitaron los corredores de densificación intensiva.',
+              'El resultado directo en el parque habitacional es contundente: el 92,7% de las viviendas ocupadas de Santiago corresponde a Departamentos en Edificio (196.060 unidades), alcanzando prácticamente el 100% en las manzanas de Centro Histórico, Santa Lucía Forestal, Santa Isabel y Parque Almagro. En cambio, la Vivienda Tipo Casa (27.385 unidades, 13,0% comunal) sobrevive en los barrios del surponiente —San Eugenio (75,3%), San Vicente (74,5%) y Huemul— y en el corazón patrimonial de Barrio Brasil (donde numerosas manzanas mantienen entre 36,9% y 100% de casas y casonas). De igual modo, la cartografía de Viviendas en Cité o Pieza (12.499 unidades, 5,9% comunal) revela que esta tipología histórica e inquilinato interior se concentra en San Vicente (25,6%), Yungay (22,0%), Bogotá (21,7%), Franklin y en manzanas específicas del centro-norte de Barrio Brasil.'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/PRC_stgo_nombre_zonas.jpg',
+                titulo: 'Zonificación del Plan Regulador Comunal (PRC Santiago)',
+                subtitulo: 'Zonas A, B (Conservación Histórica), D, E, F (Áreas Verdes), G y H',
+                lectura: 'Muestra que Barrio Brasil se encuentra mayoritariamente resguardado bajo la Zona B de Conservación Histórica Patrimonial (marrón), rodeado en sus bordes por la Zona A de ejes estructurantes.'
+              },
+              {
+                src: 'img/cartografias/barrio_stgo_agrupacion.jpg',
+                titulo: 'Macro-Agrupaciones Territoriales de Barrios (AV1 a AV10)',
+                subtitulo: '7 macro-sectores de planificación comunal de Santiago',
+                lectura: 'Permite leer la articulación del sector norponiente (AV1: Brasil, Yungay, Balmaceda, Panamá) frente al centro histórico y los sectores pericentrales del sur.'
+              },
+              {
+                src: 'img/cartografias/barrio_stgo_unidad_territorial.jpg',
+                titulo: 'Unidades Territoriales y Límites de los 27 Barrios de Santiago',
+                subtitulo: 'Mosaico barrial oficial de la Comuna de Santiago',
+                lectura: 'Delimita las 27 unidades barriales sobre las que se evalúan las brechas entre el pericentro histórico (Brasil, Yungay, Santa Ana) y el borde sur (Franklin, Bogotá, Sierra Bella).'
+              },
+              {
+                src: 'img/cartografias/pct_viviendas_tipo_depto.jpg',
+                titulo: 'Viviendas Tipo Departamento en Edificio (%)',
+                subtitulo: 'Total comunal: 196.060 departamentos (92,7% de las viviendas ocupadas)',
+                lectura: 'Domina de forma absoluta el centro y oriente comunal, mientras en el interior de Barrio Brasil se observan manzanas amarillas y verdes con baja presencia de edificios en altura.'
+              },
+              {
+                src: 'img/cartografias/pct_viviendas_tipo_casa.jpg',
+                titulo: 'Viviendas Tipo Casa Unifamiliar / Casona (%)',
+                subtitulo: 'Total comunal: 27.385 casas · Máximos en San Eugenio (75,3%) y San Vicente (74,5%)',
+                lectura: 'Resalta el corazón de Barrio Brasil, Yungay, República, Huemul y San Eugenio como los últimos reductos de vivienda horizontal y casonas de fachada continua.'
+              },
+              {
+                src: 'img/cartografias/pct_vivienda_tipo_cite.jpg',
+                titulo: 'Viviendas en Cité Tradicional o Pieza (%)',
+                subtitulo: 'Total comunal: 12.499 unidades (5,9%) · Líderes: San Vicente (25,6%) y Yungay (22,0%)',
+                lectura: 'Localiza los enclaves de cités y pasajes interiores en Yungay, San Vicente, Bogotá, Franklin y en el cuadrante central de Barrio Brasil.'
+              }
+            ]
+          },
+          {
+            titulo: '4. Hegemonía del arriendo, subarriendo sin contrato, hacinamiento y brecha digital',
+            parrafos: [
+              'El régimen de tenencia de la vivienda constituye uno de los hallazgos más reveladores del diagnóstico: el 72,1% de los hogares de Santiago es arrendatario (147.044 hogares), frente a apenas un 23,0% de tenencia propia (11,3% pagada y 11,8% pagándose). Sin embargo, las cartografías permiten separar dos mercados de arriendo radicalmente distintos: el Arriendo con Contrato Formal (62,6% comunal) domina en las torres de renovación inmobiliaria de Santa Elena (82,5%), Parque Almagro y Santa Isabel, mientras que el Arriendo sin Contrato Escrito (9,5% comunal, 19.342 hogares) se dispara en los barrios de casonas subdivididas y cités como San Vicente (31,7%), Bogotá (23,5%), Yungay (20,8%), Franklin y el sector norte de Barrio Brasil.',
+              'Esta precariedad contractual se superpone espacialmente con las cartografías de Hacinamiento (19.388 viviendas, 9,2% comunal) y Déficit Cuantitativo y de Materialidad (25.576 hogares, 12,5% comunal). Los niveles más críticos de hacinamiento se registran en Franklin (17,5%), San Vicente (17,2%) y Matta Sur (17,0%), así como en manzanas puntuales de inquilinato en Yungay y el borde norte de Barrio Brasil (donde el déficit cuantitativo alcanza el tramo de 31,5% a 100%). A su vez, aunque el Acceso a Internet promedia un 97,6% comunal (198.898 hogares), la cartografía detecta manzanas con rezago de conectividad (<60%) en enclaves de adultos mayores y cités precarizados.'
+            ],
+            graficoInline: {
+              titulo: 'Radiografía de Tenencia, Informalidad Contractual y Precariedad Habitacional en Santiago',
+              filas: [
+                { label: 'Tenencia en Arriendo Total Comunal (147.044 hogares)', valor: '72,1%', porcentaje: 72.1 },
+                { label: 'Arriendo con Contrato Formal (127.702 hogares)', valor: '62,6%', porcentaje: 62.6 },
+                { label: 'Arriendo sin Contrato en Barrio San Vicente (Máximo comunal)', valor: '31,7%', porcentaje: 31.7 },
+                { label: 'Tenencia Propia Total Comunal (46.976 hogares)', valor: '23,0%', porcentaje: 23.0 },
+                { label: 'Hacinamiento en Barrios Franklin (17,5%) y San Vicente (17,2%)', valor: '17,5% máx', porcentaje: 26.0 },
+                { label: 'Déficit Cuantitativo en San Vicente (24,3%) y Franklin (23,0%)', valor: '24,3% máx', porcentaje: 34.0 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/pct_tenencia_arrendada_total.jpg',
+                titulo: 'Tenencia de Vivienda Arrendada Total (%)',
+                subtitulo: 'Cuartiles: 0%–19,23% · 20%–50,84% · 51,02%–73,20% · 73,33%–100%',
+                lectura: 'Muestra que gran parte de la comuna supera el 73% de hogares arrendatarios, mientras el corazón de Barrio Brasil conserva manzanas en el tramo intermedio (51%–73%).'
+              },
+              {
+                src: 'img/cartografias/pct_tenencia_arrendada_contrato.jpg',
+                titulo: 'Vivienda Arrendada con Contrato Formal (%)',
+                subtitulo: 'Total comunal: 127.702 hogares (62,6% del total comunal)',
+                lectura: 'Se concentra en los ejes de edificios de departamentos recientes (Santa Isabel, Parque Almagro, Santa Ana y bordes de Barrio Brasil).'
+              },
+              {
+                src: 'img/cartografias/pct_tenencia_arrendada_sin_contrato.jpg',
+                titulo: 'Vivienda Arrendada sin Contrato Escrito (%)',
+                subtitulo: 'Total comunal: 19.342 hogares (9,5%) · Líderes: San Vicente (31,7%) y Yungay (20,8%)',
+                lectura: 'Evidencia focos críticos de informalidad arrendataria y subarriendo en Yungay, San Vicente, Bogotá, Franklin y manzanas interiores del norte de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/pct_tenencia_propia_total.jpg',
+                titulo: 'Tenencia de Vivienda Propia Total (%)',
+                subtitulo: 'Total comunal: 46.976 hogares (23,0%) · Líderes: Club Hípico (38,8%) y San Eugenio (38,2%)',
+                lectura: 'Destaca una mayor permanencia de propietarios históricos en el surponiente (Club Hípico, San Eugenio) y en las manzanas centrales de casonas de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/pct_viviendas_hacinadas.jpg',
+                titulo: 'Porcentaje de Viviendas Hacinadas (Censo 2024)',
+                subtitulo: 'Total comunal: 19.388 viviendas (9,2%) · Cima en Franklin (17,5%) y San Vicente (17,2%)',
+                lectura: 'Muestra bolsones de hacinamiento en el pericentro poniente y sur, coincidiendo exactamente con las zonas de mayor arriendo sin contrato y tipología de pieza/cité.'
+              },
+              {
+                src: 'img/cartografias/pct_deficit_cuantitativo_materialidad.jpg',
+                titulo: 'Déficit Cuantitativo y de Materialidad Habitacional (%)',
+                subtitulo: 'Total comunal: 25.576 hogares (12,5%) · Cima en San Vicente (24,3%) y Franklin (23,0%)',
+                lectura: 'Identifica viviendas irrecuperables y hogares allegados en el sector sur y norponiente, incluyendo manzanas puntuales deterioradas dentro de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/pct_acceso_a_internet_total.jpg',
+                titulo: 'Acceso a Internet en la Vivienda (%)',
+                subtitulo: 'Total comunal: 198.898 hogares conectados (97,6% de cobertura)',
+                lectura: 'Aunque el estándar comunal es alto, visibiliza micro-brechas digitales en manzanas con alta proporción de adultos mayores solos o cités precarizados.'
+              }
+            ]
+          },
+          {
+            titulo: '5. Estratificación socioeconómica (RSH 0–40%), empleo cotizante y demanda de cuidados por Unidad Vecinal',
+            parrafos: [
+              'El quinto bloque de este storyboard incorpora las 6 cartografías elaboradas a partir del Registro Social de Hogares (RSH - BIDAT 2026) sobre las 53 Unidades Vecinales (UV) de la comuna, donde se registran 325.449 personas inscritas en RSH. El Índice Global de Vulnerabilidad Socioterritorial (igvst_poblacion, con rangos de 388 a 22.879 puntos ponderados) y el mapa de Personas en el Tramo 0–40% de Menores Ingresos (n_personas_tramo_0_40_total, con rangos de 131 a 7.592 personas por UV) revelan que el mayor volumen de población vulnerable se concentra en la franja central-sur y suroriente (Unidades Vecinales de Parque Almagro, Santa Isabel, Diez de Julio, Matta Norte y Franklin, en azul oscuro con 4.344 a 7.592 personas por UV), mientras que Barrio Brasil se divide entre su UV norte (tramo medio-alto de 2.707 a 4.343 personas) y su UV sur (tramo medio-bajo de 1.391 a 2.706 personas).',
+              'Al examinar la inserción laboral y previsional, el mapa de Total de Ocupados Cotizantes (hasta 6.663 trabajadores por UV) y el Porcentaje de Ocupados Cotizantes en el Tramo 0–40% RSH (entre 25% y 38% en las UV más vulnerables) muestran que en los barrios del poniente y sur una alta proporción de trabajadores formales percibe ingresos bajos que los mantienen dentro del 40% más vulnerable. Finalmente, las cartografías de Niños y Adultos Mayores Adscritos a FONASA en Tramo 0–40% (de 40 a 2.094 personas por UV) y de Personas con Dependencia Funcional o Postradas en Tramo 0–40% (de 4 a 158 personas severamente dependientes por UV) localizan la mayor carga de cuidados médicos y dependencia domiciliaria en el eje central-sur y norponiente (Yungay norte, Balmaceda y Matta Sur).'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/igvst_poblacion.jpg',
+                titulo: 'Vulnerabilidad Socioterritorial: Índice Global IGVST (BIDAT 2026)',
+                subtitulo: 'Cuartiles UV: 388–3.929 · 3.930–5.457 · 5.458–7.207 · 7.208–22.879',
+                lectura: 'Muestra que las Unidades Vecinales del corredor central y suroriente concentran la mayor carga acumulada de vulnerabilidad, mientras Barrio Brasil se sitúa en los tramos intermedios.'
+              },
+              {
+                src: 'img/cartografias/n_personas_tramo_0_40_total.jpg',
+                titulo: 'N° de Personas en Tramo 0–40% de Mayor Vulnerabilidad RSH',
+                subtitulo: 'Rangos por UV: 131–1.390 · 1.391–2.706 · 2.707–4.343 · 4.344–7.592 personas',
+                lectura: 'Identifica el mayor volumen de residentes del tramo 0–40% en el eje central-oriente y norte de Barrio Brasil (2.707–4.343 personas), disminuyendo hacia la mitad sur del barrio.'
+              },
+              {
+                src: 'img/cartografias/n_cotizantes_ocupados_total.jpg',
+                titulo: 'Total de Personas Ocupadas Cotizando en RSH por Unidad Vecinal',
+                subtitulo: 'Rangos por UV: 99–1.430 · 1.431–2.411 · 2.412–3.884 · 3.885–6.663 cotizantes',
+                lectura: 'Refleja la alta masa laboral activa residente en las Unidades Vecinales densificadas del eje central y oriente de la comuna.'
+              },
+              {
+                src: 'img/cartografias/n_cotizantes_ocupados_0_40_pct_total.jpg',
+                titulo: 'Porcentaje de Ocupados Cotizantes Pertenecientes al Tramo 0–40% RSH',
+                subtitulo: 'Proporción de trabajadores formales en situación de vulnerabilidad socioeconómica',
+                lectura: 'Revela que en las Unidades Vecinales del poniente (Yungay, norte de Brasil) y del sur (Franklin, Matta Sur) persiste una alta tasa de precariedad salarial aun entre trabajadores con cotizaciones.'
+              },
+              {
+                src: 'img/cartografias/n_ninos_adultos_mayores_adscritos_fonasa_0_40_total.jpg',
+                titulo: 'Niños y Adultos Mayores Adscritos a FONASA en Tramo 0–40% RSH',
+                subtitulo: 'Demanda prioritaria sobre la red de atención primaria de salud (CESFAM)',
+                lectura: 'Concentra los mayores contingentes de población infantil y mayor dependiente del sistema público de salud en la franja central, norponiente y suroriente de Santiago.'
+              },
+              {
+                src: 'img/cartografias/n_dependencia_postrados_0_40_total.jpg',
+                titulo: 'Personas en Situación de Dependencia y Postrados (Tramo 0–40% RSH)',
+                subtitulo: 'Hogares vulnerables con demanda crítica de cuidados domiciliarios',
+                lectura: 'Visibiliza los territorios que requieren apoyo prioritario del Sistema Nacional de Cuidados, destacando el sector norte de Barrio Brasil, Yungay y el eje central-sur.'
+              }
+            ]
+          }
+        ],
         tablaIndicadores: [
-          { variable: 'Población Comunal Total', valor: '404.885 habitantes', referencial: 'INE Censo 2024', fuente: 'Resultados Preliminares 2024' },
-          { variable: 'Viviendas en Arriendo', valor: '64.8%', referencial: 'Promedio RM: 28.3%', fuente: 'Censo de Población y Vivienda' },
-          { variable: 'Departamentos en Edificio', valor: '72.3%', referencial: 'Consolidación vertical', fuente: 'Catastro Predial SII / INE' },
-          { variable: 'Superficie Comunal Total', valor: '23.05 km²', referencial: 'Perímetro 25.8 km', fuente: 'Límite Oficial Cartográfico' }
+          { variable: 'Población Total en Manzanas Censales', valor: '432.081 habitantes', referencial: 'Sta. Isabel (52.658) · P. Almagro (46.948)', fuente: 'Censo 2024 INE' },
+          { variable: 'Régimen de Tenencia en Arriendo', valor: '72,1% (147.044 hogares)', referencial: '62,6% con contrato · 9,5% sin contrato', fuente: 'Censo 2024 INE' },
+          { variable: 'Tipología Constructiva Predominante', valor: '92,7% Departamentos', referencial: '13,0% Casas · 5,9% Piezas/Cités', fuente: 'Censo 2024 / Catastro SII' },
+          { variable: 'Hacinamiento y Déficit Cuantitativo', valor: '9,2% Hacinam. · 12,5% Déficit', referencial: 'Máximos en Franklin y San Vicente', fuente: 'Censo 2024 / RSH BIDAT 2026' }
         ],
-        cartografias: [
-          { src: 'img/cartografias/densidad_pob_km2_percent_of_total.jpg', titulo: 'Densidad de Población (% Comunal)', subtitulo: 'Distribución de Personas/km² respecto al Total Comunal' },
-          { src: 'img/cartografias/densidad_de_hombres_ha.jpg', titulo: 'Densidad Masculina (hab/ha)', subtitulo: 'Concentración de Población Masculina por Hectárea' },
-          { src: 'img/cartografias/densidad_de_mujeres_ha.jpg', titulo: 'Densidad Femenina (hab/ha)', subtitulo: 'Concentración de Población Femenina por Hectárea' },
-          { src: 'img/cartografias/cartografia_censo2024_densidad_poblacion_santiago.jpg', titulo: 'Densidad de Población Censo 2024', subtitulo: 'Resultados Oficiales INE Censo 2024 por Manzana' },
-          { src: 'img/cartografias/porcentaje_adultos_mayores.jpg', titulo: 'Porcentaje de Adultos Mayores', subtitulo: 'Proporción de Personas de 60 Años y Más por Manzana' },
-          { src: 'img/cartografias/hog_mayores_60_anos_pct.jpg', titulo: 'Hogares con Adultos Mayores (%)', subtitulo: 'Presencia de Adultos Mayores en la Estructura Familiar' },
-          { src: 'img/cartografias/indice_de_envejecimiento_log.jpg', titulo: 'Índice de Envejecimiento (Log)', subtitulo: 'Relación de Adultos Mayores por cada 100 Niños' },
-          { src: 'img/cartografias/indice_de_masculinidad_log.jpg', titulo: 'Índice de Masculinidad (Log)', subtitulo: 'Razón de Hombres por cada 100 Mujeres' },
-          { src: 'img/cartografias/indice_dependencia_demografica.jpg', titulo: 'Dependencia Demográfica', subtitulo: 'Carga de Población Inactiva sobre Activa Económicamente' },
-          { src: 'img/cartografias/porcentaje_migrantes.jpg', titulo: 'Población Migrante (%)', subtitulo: 'Concentración de Residentes Internacionales por Manzana' },
-          { src: 'img/cartografias/igvst_poblacion.jpg', titulo: 'Índice IGVST Población', subtitulo: 'Sintetizador de Vulnerabilidad Socioterritorial' },
-          { src: 'img/cartografias/pct_tenencia_propia_total.jpg', titulo: 'Tenencia en Propiedad (%)', subtitulo: 'Viviendas Propias Pagadas y Pagándose por Manzana' },
-          { src: 'img/cartografias/pct_tenencia_arrendada_total.jpg', titulo: 'Tenencia en Arriendo Total (%)', subtitulo: 'Viviendas en Arriendo Formal e Informal en Santiago' },
-          { src: 'img/cartografias/pct_tenencia_arrendada_contrato.jpg', titulo: 'Arriendo con Contrato Formal (%)', subtitulo: 'Estabilidad Contractual de la Tenencia en Arriendo' },
-          { src: 'img/cartografias/pct_tenencia_arrendada_sin_contrato.jpg', titulo: 'Arriendo sin Contrato (%)', subtitulo: 'Informalidad y Vulnerabilidad en el Mercado de Arriendo' },
-          { src: 'img/cartografias/pct_viviendas_tipo_depto.jpg', titulo: 'Viviendas en Departamento (%)', subtitulo: 'Tipología de Edificación Residencial en Altura' },
-          { src: 'img/cartografias/pct_viviendas_tipo_casa.jpg', titulo: 'Viviendas Tipo Casa (%)', subtitulo: 'Tipología Residencial Unifamiliar Tradicional' },
-          { src: 'img/cartografias/pct_vivienda_tipo_cite.jpg', titulo: 'Viviendas en Cité (%)', subtitulo: 'Tipología Habitacional Histórica de Pasaje Común' },
-          { src: 'img/cartografias/pct_viviendas_hacinadas.jpg', titulo: 'Viviendas Hacinadas (%)', subtitulo: 'Hogares con Más de 2.5 Personas por Dormitorio' },
-          { src: 'img/cartografias/pct_deficit_cuantitativo_materialidad.jpg', titulo: 'Déficit Habitacional de Materialidad (%)', subtitulo: 'Viviendas Irrecuperables y Materialidad Deteriorada' },
-          { src: 'img/cartografias/pct_hogares_unipersonales.jpg', titulo: 'Hogares Unipersonales (%)', subtitulo: 'Viviendas de una Sola Persona (Transición Sociodemográfica)' },
-          { src: 'img/cartografias/pct_acceso_a_internet_total.jpg', titulo: 'Acceso a Internet en Viviendas (%)', subtitulo: 'Conectividad Digital y Brecha Tecnológica Residencial' },
-          { src: 'img/cartografias/PRC_stgo_nombre_zonas.jpg', titulo: 'Zonificación Plan Regulador Comunal (PRC)', subtitulo: 'Zonas Normativas y Alturas Edilicias Máximas' },
-          { src: 'img/cartografias/barrio_stgo_agrupacion.jpg', titulo: 'Agrupaciones Barriales de Santiago', subtitulo: 'Mosaico de Macro-sectores y Delimitaciones Urbanas' },
-          { src: 'img/cartografias/barrio_stgo_unidad_territorial.jpg', titulo: 'Unidades Territoriales Barriales', subtitulo: 'Límites Oficiales de los 27 Barrios de Santiago' },
-          { src: 'img/cartografias/mapa_sintesis_unidades_vecinales_santiago.jpg', titulo: 'Síntesis Unidades Vecinales de Santiago', subtitulo: 'Estructura Zonal y Administrativa Comunitaria' }
-        ],
-        cuerpo: [
-          'La estructura demográfica de Santiago se distingue de la mayoría de las comunas metropolitanas por una pirámide poblacional fuertemente engrosada en los tramos de edad activa joven (20 a 39 años), producto de la atracción educacional y laboral que ejercen las universidades y el centro financiero.',
-          'No obstante, en los barrios patrimoniales tradicionales como Yungay, Brasil y Matta Sur, persiste una proporción relevante de adultos mayores que habitan casonas y cités históricos, muchas veces en condiciones de soledad o fragilidad física, lo que plantea el desafío de adecuar las políticas urbanas hacia un hábitat amigable con el envejecimiento.',
-          'La dimensión de la tenencia en arriendo es la clave explicativa de la dinámica inmobiliaria local: Santiago presenta la mayor proporción de hogares arrendatarios del país (superando el 60%), lo que condiciona altos niveles de movilidad residencial, menor arraigo comunitario en ciertas manzanas de torres hiperdensas y una mayor exposición a la especulación de precios del suelo.'
-        ],
-        conclusion: 'Comprender Santiago exige leer su dualidad: un centro metropolitano dinámico y verticalizado con altísima densidad habitacional, conviviendo con barrios patrimoniales de baja altura donde los lazos comunitarios y la memoria histórica resisten a la presión del mercado inmobiliario.',
+        conclusion: 'Los datos sociodemográficos y habitacionales demuestran que Santiago alberga tres ciudades superpuestas: un corredor oriental hiperdenso de pequeños departamentos en arriendo formal habitados por jóvenes y hogares unipersonales; un pericentro histórico en Barrio Brasil y Yungay donde la zonificación patrimonial ha permitido conservar la escala barrial pero enfrenta presiones de subarriendo en su borde norte; y un arco sur (Franklin, San Vicente, Bogotá y Matta Sur) donde convergen la informalidad contractual, el hacinamiento en cités y la mayor demanda de protección social y cuidados.',
         analisisPorActor: [
-          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'MINVU · SECPLA Santiago · Dirección de Obras (DOM)', utilidad: 'Orienta la actualización de zonas normativas del Plan Regulador Comunal (PRC) y la fiscalización del subarriendo abusivo.' },
-          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités de Adelanto', utilidad: 'Otorga insumos cartográficos cuantitativos para defender el carácter barrial y solicitar equipamientos orientados a personas mayores y niñez.' },
-          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Territoriales', utilidad: 'Permite identificar micro-patrimonios, pasajes interiores y cités que requieren geocodificación detallada en OpenStreetMap.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Estudios Socioterritoriales', utilidad: 'Facilita la modelación econométrica de la relación entre valor de suelo, tipología constructiva y estructura familiar.' }
+          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'MINVU · SECPLA Santiago · Dirección de Desarrollo Comunitario (DIDECO)', utilidad: 'Permite focalizar subsidios de rehabilitación habitacional y fiscalización de subarriendo sin contrato en San Vicente (31,7%), Bogotá (23,5%) y Yungay (20,8%), además de orientar redes de cuidado en las UV con mayor número de postrados.' },
+          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités de Vivienda y Arrendatarios', utilidad: 'Aporta datos censales exactos por manzana y barrio para defender la Zona de Conservación Histórica en Barrio Brasil y exigir programas de apoyo a adultos mayores que viven solos.' },
+          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Territoriales y Estudiantes UAH', utilidad: 'Guía el catastro de cités, pasajes interiores y equipamientos de cuidado comunitario en las manzanas con mayor vulnerabilidad habitacional.' },
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Estudios Socioterritoriales', utilidad: 'Entrega evidencia empírica actualizada sobre la relación entre zonificación PRC, verticalización inmobiliaria, inserción migrante (40,4%) y precarización del arriendo.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
-            { codigo: 'censo2024_oficial', nombre: 'Censo de Población y Vivienda 2024 (Resultados Oficiales)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719', tipo: 'Polígonos / Tabular' },
-            { codigo: 'catastro_predial_sii', nombre: 'Catastro Predial del Servicio de Impuestos Internos (SII)', institucion: 'Servicio de Impuestos Internos', crs: 'EPSG:32719', tipo: 'Polígonos Prediales' },
-            { codigo: 'minvu_ipt_prc', nombre: 'Plan Regulador Comunal de Santiago (Zonificación PRC)', institucion: 'MINVU / Ilustre Municipalidad de Santiago', crs: 'EPSG:32719', tipo: 'Polígonos' }
+            { codigo: 'censo2024_manzanas', nombre: 'Censo de Población y Vivienda 2024 (1.711 Manzanas de Santiago)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719', tipo: 'Polígonos / Tabular' },
+            { codigo: 'rsh_bidat_2026', nombre: 'Registro Social de Hogares e Índice IGVUST por Unidad Vecinal (2026)', institucion: 'Ministerio de Desarrollo Social y Familia (MDSF - BIDAT)', crs: 'EPSG:32719', tipo: 'Polígonos UV' },
+            { codigo: 'minvu_ipt_prc', nombre: 'Plan Regulador Comunal de Santiago y Delimitación de 27 Barrios', institucion: 'MINVU / Ilustre Municipalidad de Santiago', crs: 'EPSG:32719', tipo: 'Polígonos' }
           ],
           referenciasAcademicas: [
-            { cita: 'Hidalgo, R., & Janoschka, M. (Eds.). (2014). La ciudad neoliberal: gentrificación y exclusión en Santiago. Pontificia Universidad Católica de Chile.', concepto: 'Análisis de la densificación residencial vertical y reestructuración del mercado de arriendo.' },
-            { cita: 'Harvey, D. (2012). Ciudades rebeldes: del derecho a la ciudad a la revolución urbana. Akal.', concepto: 'Teoría de la extracción de rentas de suelo urbano secundarias en centros metropolitanos.' },
-            { cita: 'Lefebvre, H. (1974). La producción del espacio. Anthropos.', concepto: 'Tensión entre el espacio concebido de los planes reguladores y el espacio vivido cotidiano.' }
+            { cita: 'Hidalgo, R., & Janoschka, M. (Eds.). (2014). La ciudad neoliberal: gentrificación y exclusión en Santiago de Chile. Pontificia Universidad Católica de Chile.', concepto: 'Efectos socioterritoriales de la verticalización intensiva y transformación del mercado de arriendo en el pericentro.' },
+            { cita: 'Contreras, Y. (2017). Nuevos habitantes del centro de Santiago. Editorial Universitaria.', concepto: 'Trayectorias residenciales de jóvenes profesionales, hogares unipersonales e inmigrantes en barrios centrales.' },
+            { cita: 'Instituto Nacional de Estadísticas [INE]. (2024). Resultados Censo de Población y Vivienda 2024. INE Chile.', concepto: 'Fuente estadística oficial para el cálculo de densidades, tipologías de vivienda, tenencia y demografía comunal.' }
           ]
         }
       }
     },
 
     // -----------------------------------------------------------------------
-    // STORYBOARD 4: ANÁLISIS SOCIOAMBIENTAL, MOVILIDAD Y SERVICIOS URBANOS
+    // STORYBOARD 4: RESULTADOS SOCIOAMBIENTALES, MOVILIDAD Y METABOLISMO (24 MAPAS)
     // -----------------------------------------------------------------------
     {
       id: 'storyboard-socioambiental-movilidad-servicios',
       dimensionId: 'ambiental',
-      dimensionNombre: 'Dimensión Socioambiental, Movilidad & Metabolismo',
-      titulo: 'Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano',
-      bajada: 'Accesibilidad universal a espacios públicos, coberturas de arbolado, corredores de movilidad sustentable, presión acústica y el sistema comunal de gestión de residuos y aseo metropolitano.',
+      dimensionNombre: 'Resultados Empíricos · Movilidad, Proximidad & Aseo',
+      titulo: 'Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano: Resultados Empíricos en la Comuna de Santiago',
+      bajada: 'Qué revelan las 24 cartografías socioambientales y operativas: el 84,6% de viajes en modos sustentables, las brechas de distancia a áreas verdes y salud en el borde sur, la exposición a ruido (>68 dBA) en corredores viales y la asimetría de contenedores entre las 5 zonas de aseo municipal.',
       imagen: 'img/storyboards/portada_analisis_socioambiental.svg',
-      tiempoLectura: '16 min de lectura',
-      tags: ['Justicia Ambiental', 'Movilidad Sustentable', 'Áreas Verdes', 'Ruido Ambiental', 'Residuos y Aseo'],
-      capasRelevantes: ['zonas_aseo_contenedores_papeleros_santiago', 'cat08_biodiversidad', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'semaforos_rm_uoct_2026', 'estaciones_metro'],
+      imagenDestacada: 'img/storyboards/portada_analisis_socioambiental.svg',
+      piePortada: 'Ilustración de los flujos de movilidad sustentable, accesibilidad peatonal a parques, paisaje acústico y metabolismo de residuos en Santiago.',
+      tiempoLectura: '22 min de lectura',
+      tags: ['84,6% Movilidad Sustentable', 'Proximidad Peatonal', 'Ruido Urbano dBA', '5 Zonas de Aseo', '24 Cartografías'],
+      capasRelevantes: ['munistgo_aseo_zonas_residuos_2026', 'cat08_biodiversidad', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'semaforos_rm_uoct_2026', 'estaciones_metro', 'establecimientos_salud'],
       contenido: {
-        introduccion: `La sostenibilidad y calidad de vida en la ciudad central dependen de la interacción entre sus sistemas ecológicos y sus redes de soporte metabólico. Este storyboard articula el análisis de proximidad peatonal a áreas verdes y servicios de salud, la infraestructura de movilidad activa y transporte público, el paisaje sonoro ambiental y el flujo de residuos sólidos domiciliarios que gestionan las 54 zonas de aseo de la Dirección de Aseo y Ornato de Santiago.`,
+        introduccion: `La evaluación empírica de las 24 cartografías socioambientales, de movilidad y de gestión de residuos revela cómo funciona el metabolismo cotidiano de la Comuna de Santiago. Por una parte, los datos censales de transporte confirman que el 84,6% de los 228.482 desplazamientos laborales y de estudio se realiza en modos sustentables (62,4% en transporte público, 17,0% a pie y 5,2% en bicicleta), frente a solo un 15,4% en modos motorizados privados (13,2% en automóvil y 2,2% en motocicleta). Sin embargo, esta alta caminabilidad convive con severas desigualdades ambientales: mientras barrios como Parque Almagro (1.092 árboles en un radio de 500 m) y Santa Lucía Forestal gozan de acceso inmediato a áreas verdes y salud, sectores como San Vicente (795,7 m a espacio público) y Barrio Judicial (965,8 m a salud) sufren déficits de proximidad, altos niveles de ruido vial (>68,6 dBA) y marcadas asimetrías en la dotación municipal de los 629 contenedores y 398 papeleros distribuidos en las 5 macro-zonas de aseo comunal.`,
         datosClave: [
-          { valor: '189.510', label: 'Tons/Año Residuos', sub: 'SUBDERE RSD Santiago' },
-          { valor: '86.2%', label: 'Movilidad Sustentable', sub: 'Caminata, Bici y Transporte' },
-          { valor: '29', label: 'Cartografías Ambientales', sub: 'Láminas temáticas analíticas' },
-          { valor: '54', label: 'Zonas de Aseo', sub: 'Gestión municipal de residuos' }
+          { valor: '84,6%', label: 'Movilidad Sustentable', sub: '62,4% TP · 17,0% Caminata · 5,2% Bicicleta' },
+          { valor: '285,0', label: 'Árboles en Buffer 500m', sub: 'Media comunal (Máx: Parque Almagro con 1.092)' },
+          { valor: '62,7 dBA', label: 'Ruido Promedio Comunal', sub: 'Cimas de 69,4 dBA en bordes de autopistas y ejes' },
+          { valor: '285.860 L', label: 'Capacidad Red de Aseo', sub: '629 contenedores y 398 papeleros en 5 macro-zonas' }
         ],
         porcentajesClave: [
-          { label: 'Viajes Realizados a Pie o en Bicicleta (Modos Activos)', valor: '50.1%', porcentaje: 50.1, contexto: 'La compacidad comunal fomenta la mayor tasa de caminabilidad del país.' },
-          { label: 'Población con Acceso a Transporte Público a Menos de 300m', valor: '94.7%', porcentaje: 94.7, contexto: 'Excelente cobertura superficial de paraderos Red y estaciones de Metro.' },
-          { label: 'Manzanas con Presión Sonora Diurna Superior a 65 dBA', valor: '42.6%', porcentaje: 42.6, contexto: 'Impacto acústico concentrado a lo largo de corredores de transporte mayor.' },
-          { label: 'Población a Menos de 400m de un Área Verde Mayor a 5.000 m²', valor: '68.4%', porcentaje: 68.4, contexto: 'Distribución desigual con déficit en el sector norte-poniente comunal.' }
+          { label: 'Desplazamientos Realizados en Transporte Público (Metro y Buses Red)', valor: '62,4%', porcentaje: 62.4, contexto: '142.548 viajes diarios; alcanza máximos en Santa Elena (73,7%), Diez de Julio (69,8%) y Viel (69,2%).' },
+          { label: 'Desplazamientos Activos (Caminata 17,0% + Bicicleta 5,2%)', valor: '22,2%', porcentaje: 44.4, contexto: 'La caminata lidera en Meiggs (58,1%) y Centro Histórico (28,3%); la bicicleta en Sta. Lucía Forestal (8,6%).' },
+          { label: 'Uso del Automóvil Particular Motorizado en Viajes Cotidianos', valor: '13,2%', porcentaje: 26.4, contexto: 'Mínimo en Meiggs (7,5%) y Centro Histórico (9,2%), subiendo a 30,4% en Club Hípico y 23,5% en P. O’Higgins.' },
+          { label: 'Concentración de Capacidad de Contenedores en Zonas Poniente y Centro Poniente', valor: '80,9%', porcentaje: 80.9, contexto: 'Las zonas Poniente (121.480 L) y Centro Poniente/Brasil (109.660 L) reúnen 477 de los 629 contenedores.' }
         ],
         graficoComparativo: {
-          titulo: 'Partición Modal de Desplazamientos y Accesibilidad a Servicios Ambientales',
+          titulo: 'Partición Modal Comunal y Contrastes Barriales de Movilidad y Metabolismo (Censo 2024 / MuniSTGO)',
           filas: [
-            { label: 'Viajes en Transporte Público (Metro + Buses Red)', valor: '36.1%', porcentaje: 72.2 },
-            { label: 'Viajes a Pie (Caminata Peatonal)', valor: '41.0%', porcentaje: 82.0 },
-            { label: 'Viajes en Automóvil Particular Motorizado', valor: '13.8%', porcentaje: 27.6 },
-            { label: 'Viajes en Bicicleta y Ciclovías', valor: '9.1%', porcentaje: 18.2 },
-            { label: 'Acceso Peatonal a Áreas Verdes < 400m', valor: '68.4%', porcentaje: 68.4 },
-            { label: 'Cobertura de Salud Pública (Buffer 500m)', valor: '81.5%', porcentaje: 81.5 }
+            { label: 'Movilidad Sustentable Total Comunal (TP + Caminata + Bicicleta)', valor: '84,6% comunal', porcentaje: 84.6 },
+            { label: 'Transporte Público: Media Comunal 62,4% (Máx: Santa Elena 73,7%)', valor: '62,4% comunal', porcentaje: 62.4 },
+            { label: 'Viajes a Pie en Barrio Meiggs (58,1%) y Centro Histórico (28,3%)', valor: '58,1% máx', porcentaje: 58.1 },
+            { label: 'Uso de Automóvil en Club Hípico (30,4%) vs. Media Comunal (13,2%)', valor: '30,4% máx', porcentaje: 30.4 },
+            { label: 'Uso de Bicicleta en Santa Lucía Forestal (8,6%) y Santa Isabel (7,0%)', valor: '8,6% máx', porcentaje: 18.0 },
+            { label: 'Capacidad de Aseo Zona Poniente (216 cont. · 209 pap. · 121.480 L)', valor: '121.480 L', porcentaje: 95.0 },
+            { label: 'Capacidad de Aseo Zona Centro Poniente / Brasil (261 cont. · 24 pap.)', valor: '109.660 L', porcentaje: 86.0 },
+            { label: 'Capacidad de Aseo Zona Oriente (114 cont. · 66 pap. · 41.040 L)', valor: '41.040 L', porcentaje: 32.0 }
           ]
         },
         diagramaSVG: () => `
           <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
-            <!-- Ciclo Metabólico de Residuos y Aseo -->
-            <circle cx="170" cy="115" r="75" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="6,4"/>
-            <text x="170" y="105" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">Metabolismo Urbano</text>
-            <text x="170" y="122" fill="#cbd5e1" font-size="9" text-anchor="middle">189.510 Tons/Año</text>
-            <text x="170" y="138" fill="#94a3b8" font-size="8.5" text-anchor="middle">54 Zonas de Aseo</text>
-            <!-- Nodos del ciclo -->
-            <circle cx="170" cy="40" r="12" fill="#047857" stroke="#34d399" stroke-width="2"/>
-            <text x="170" y="44" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">1</text>
-            <circle cx="245" cy="115" r="12" fill="#047857" stroke="#34d399" stroke-width="2"/>
-            <text x="245" y="119" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">2</text>
-            <circle cx="170" cy="190" r="12" fill="#047857" stroke="#34d399" stroke-width="2"/>
-            <text x="170" y="194" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">3</text>
-            <circle cx="95" cy="115" r="12" fill="#047857" stroke="#34d399" stroke-width="2"/>
-            <text x="95" y="119" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">4</text>
-            <!-- Conexión hacia Movilidad y Proximidad -->
-            <line x1="260" y1="115" x2="350" y2="115" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4,4"/>
-            <polygon points="350,110 360,115 350,120" fill="#38bdf8"/>
-            <!-- Caja de Movilidad Sustentable -->
-            <rect x="370" y="35" width="270" height="160" rx="8" fill="#0f172a" stroke="#0284c7" stroke-width="1.5"/>
-            <text x="390" y="62" fill="#38bdf8" font-size="12" font-weight="bold">Partición Modal Sustentable: 86.2%</text>
-            <rect x="390" y="75" width="230" height="16" rx="4" fill="#1e293b"/>
-            <rect x="390" y="75" width="94" height="16" rx="4" fill="#10b981"/>
-            <text x="437" y="87" fill="#ffffff" font-size="8.5" font-weight="bold" text-anchor="middle">A pie: 41%</text>
-            <rect x="484" y="75" width="83" height="16" fill="#0284c7"/>
-            <text x="525" y="87" fill="#ffffff" font-size="8.5" font-weight="bold" text-anchor="middle">TP: 36%</text>
-            <rect x="567" y="75" width="21" height="16" fill="#f59e0b"/>
-            <text x="577" y="87" fill="#ffffff" font-size="7.5" font-weight="bold" text-anchor="middle">Bici</text>
-            <text x="390" y="118" fill="#94a3b8" font-size="9.5">· Proximidad a Áreas Verdes: Buffer 400m</text>
-            <text x="390" y="136" fill="#94a3b8" font-size="9.5">· Red de Cruces Semaforizados UOCT: 300m</text>
-            <text x="390" y="154" fill="#94a3b8" font-size="9.5">· Monitoreo Acústico: Ejes >65 dBA</text>
-            <text x="390" y="172" fill="#94a3b8" font-size="9.5">· Ratio Papeleros/Contenedores por Zona</text>
+            <text x="24" y="26" fill="#38bdf8" font-size="11.5" font-weight="bold">BALANCE EMPÍRICO DE MOVILIDAD Y METABOLISMO DE RESIDUOS EN SANTIAGO</text>
+            <!-- Barra Partición Modal -->
+            <rect x="24" y="42" width="632" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+            <text x="38" y="62" fill="#e2e8f0" font-size="10" font-weight="bold">Partición Modal Comunal (228.482 viajes): 84,6% Sustentable vs. 15,4% Motorizado Privado</text>
+            <rect x="38" y="72" width="374" height="24" rx="4" fill="#0284c7"/>
+            <text x="225" y="88" fill="#ffffff" font-size="9.5" font-weight="bold" text-anchor="middle">Transporte Público: 62,4%</text>
+            <rect x="412" y="72" width="102" height="24" fill="#10b981"/>
+            <text x="463" y="88" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">A pie: 17,0%</text>
+            <rect x="514" y="72" width="32" height="24" fill="#f59e0b"/>
+            <text x="530" y="88" fill="#0f172a" font-size="8" font-weight="bold" text-anchor="middle">5,2%</text>
+            <rect x="546" y="72" width="92" height="24" rx="4" fill="#ef4444"/>
+            <text x="592" y="88" fill="#ffffff" font-size="8.5" font-weight="bold" text-anchor="middle">Auto/Moto: 15,4%</text>
+            <!-- Las 5 Zonas de Aseo -->
+            <text x="24" y="136" fill="#34d399" font-size="10.5" font-weight="bold">Capacidad Instalada por Macro-Zona de Aseo Municipal (Total: 629 Contenedores · 398 Papeleros · 285.860 L)</text>
+            <rect x="24" y="146" width="120" height="68" rx="6" fill="#1e293b" stroke="#f97316" stroke-width="1.4"/>
+            <text x="84" y="164" fill="#fdba74" font-size="9.5" font-weight="bold" text-anchor="middle">Poniente (Z5)</text>
+            <text x="84" y="180" fill="#ffffff" font-size="11" font-weight="900" text-anchor="middle">121.480 L</text>
+            <text x="84" y="196" fill="#cbd5e1" font-size="8" text-anchor="middle">216 cont · 209 pap (R: 1,03)</text>
+            <rect x="152" y="146" width="126" height="68" rx="6" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.4"/>
+            <text x="215" y="164" fill="#5eead4" font-size="9.5" font-weight="bold" text-anchor="middle">Centro Poniente (Z3)</text>
+            <text x="215" y="180" fill="#ffffff" font-size="11" font-weight="900" text-anchor="middle">109.660 L</text>
+            <text x="215" y="196" fill="#cbd5e1" font-size="8" text-anchor="middle">261 cont · 24 pap (R: 10,88)</text>
+            <rect x="286" y="146" width="120" height="68" rx="6" fill="#1e293b" stroke="#84cc16" stroke-width="1.4"/>
+            <text x="346" y="164" fill="#bef264" font-size="9.5" font-weight="bold" text-anchor="middle">Oriente (Z1)</text>
+            <text x="346" y="180" fill="#ffffff" font-size="11" font-weight="900" text-anchor="middle">41.040 L</text>
+            <text x="346" y="196" fill="#cbd5e1" font-size="8" text-anchor="middle">114 cont · 66 pap (R: 1,73)</text>
+            <rect x="414" y="146" width="120" height="68" rx="6" fill="#1e293b" stroke="#e879f9" stroke-width="1.4"/>
+            <text x="474" y="164" fill="#f0abfc" font-size="9.5" font-weight="bold" text-anchor="middle">Centro Oriente (Z2)</text>
+            <text x="474" y="180" fill="#ffffff" font-size="11" font-weight="900" text-anchor="middle">13.680 L</text>
+            <text x="474" y="196" fill="#cbd5e1" font-size="8" text-anchor="middle">38 cont · 68 pap (R: 0,56)</text>
+            <rect x="542" y="146" width="114" height="68" rx="6" fill="#1e293b" stroke="#60a5fa" stroke-width="1.4"/>
+            <text x="599" y="164" fill="#93c5fd" font-size="9.5" font-weight="bold" text-anchor="middle">Centro Plaza (Z4)</text>
+            <text x="599" y="180" fill="#ffffff" font-size="11" font-weight="900" text-anchor="middle">31 Papeleros</text>
+            <text x="599" y="196" fill="#cbd5e1" font-size="8" text-anchor="middle">0 cont. en calzada (R: 0)</text>
           </svg>
         `,
+        seccionesAnaliticas: [
+          {
+            titulo: '1. Hegemonía de la movilidad sustentable (84,6%) y geografía barrial de la partición modal',
+            parrafos: [
+              'Las seis cartografías de movilidad elaboradas a partir del Censo 2024 demuestran que la Comuna de Santiago posee un patrón de desplazamiento abrumadoramente sustentable: el 84,6% de todos los viajes cotidianos se realiza en transporte público, a pie o en bicicleta, situando a la mayoría de las manzanas comunales (y casi la totalidad de Barrio Brasil) en el cuartil superior de Movilidad Sustentable (75,24% a 100%). En contrapartida, la Movilidad Motorizada Privada (automóvil y motocicleta) promedia apenas un 15,4% comunal, superando el 25% únicamente en barrios periféricos del surponiente como Club Hípico (30,4% de uso de automóvil), Parque O’Higgins (23,5%) y San Eugenio (20,7%).',
+              'Al desglosar cada modo, emergen especializaciones territoriales muy marcadas. El Transporte Público (62,4% comunal) alcanza sus tasas más altas en los barrios residenciales alejados del centro cívico pero conectados a líneas de Metro y corredores de buses, liderados por Santa Elena (73,7%), Diez de Julio (69,8%) y Viel (69,2%). Los Viajes a Pie (17,0% comunal) se disparan en los barrios donde coinciden vivienda y fuentes de trabajo comercial o administrativo, encabezados por Meiggs (58,1%), San Vicente (28,7%) y Centro Histórico (28,3%), además del sector sur de Barrio Brasil en torno a la Alameda y el campus UAH. Finalmente, el uso de la Bicicleta (5,2% comunal, con manzanas que llegan al 28,6%) alcanza sus promedios barriales más altos en el corredor oriente —Santa Lucía Forestal (8,6%), Santa Isabel (7,0%) y Diez de Julio (6,1%)— y en las manzanas interiores de Barrio Brasil conectadas a las ciclovías de Rosas y Compañía.'
+            ],
+            graficoInline: {
+              titulo: 'Barrios Líderes según Modo Principal de Desplazamiento en la Comuna de Santiago',
+              filas: [
+                { label: 'Transporte Público: Barrio Santa Elena (73,7%) y Diez de Julio (69,8%)', valor: '73,7% máx', porcentaje: 100 },
+                { label: 'Caminata Peatonal: Barrio Meiggs (58,1%) y San Vicente (28,7%)', valor: '58,1% máx', porcentaje: 79 },
+                { label: 'Automóvil Particular: Barrio Club Hípico (30,4%) y P. O’Higgins (23,5%)', valor: '30,4% máx', porcentaje: 41 },
+                { label: 'Bicicleta y Ciclovías: Santa Lucía Forestal (8,6%) y Santa Isabel (7,0%)', valor: '8,6% máx', porcentaje: 18 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/pct_movilidad_sustentable.jpg',
+                titulo: 'Movilidad Sustentable Total (% Suma de Viajes Censo 2024)',
+                subtitulo: 'Cuartiles: 0% · 42,86%–75,01% · 75,24%–87,20% · 87,23%–100%',
+                lectura: 'Muestra un predominio de manzanas azul oscuro (87,2% a 100% de viajes sustentables) en el Centro Histórico, Santa Ana, Parque Almagro y gran parte de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/pct_movilidad_motorizada_privada.jpg',
+                titulo: 'Movilidad Motorizada Privada (% Automóvil y Motocicleta)',
+                subtitulo: 'Media comunal: 15,4% (13,2% auto · 2,2% moto)',
+                lectura: 'Exhibe los valores más bajos en el centro cívico y Barrio Brasil, incrementándose hacia el borde surponiente (Club Hípico y San Eugenio) y manzanas puntuales del oriente.'
+              },
+              {
+                src: 'img/cartografias/utiliza_transporte_publico_porcentaje.jpg',
+                titulo: 'Utiliza Transporte Público (% Buses Red y Metro)',
+                subtitulo: 'Total comunal: 142.548 usuarios (62,4% de los viajes)',
+                lectura: 'Constituye la base de la movilidad en toda la comuna, superando el 70% en el pericentro suroriente (Santa Elena, Diez de Julio, Viel) y en el norte de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/transporte_a_pie.jpg',
+                titulo: 'Transporte a Pie (Número de Personas que Caminan por Manzana)',
+                subtitulo: 'Total comunal: 38.804 caminantes (17,0% de los viajes)',
+                lectura: 'Resalta un corredor de altísima caminabilidad a lo largo del eje central (Centro Histórico, Parque Almagro, Santa Isabel) y en el entorno comercial de Meiggs y Alameda.'
+              },
+              {
+                src: 'img/cartografias/transporte_en_bicicleta_ciclovias.jpg',
+                titulo: 'Transporte en Bicicleta y Red de Ciclovías (%)',
+                subtitulo: 'Total comunal: 11.988 ciclistas · Red de ciclovías superpuesta en rojo',
+                lectura: 'Evidencia cómo los mayores porcentajes de uso de bicicleta se articulan directamente sobre la malla de ciclovías de Rosas, Compañía, Brasil, Santa Isabel y Portugal.'
+              },
+              {
+                src: 'img/cartografias/transporte_en_auto.jpg',
+                titulo: 'Transporte en Automóvil Particular (Número de Personas)',
+                subtitulo: 'Total comunal: 30.088 conductores/pasajeros de auto (13,2%)',
+                lectura: 'En términos absolutos, el mayor número de automóviles estacionados y en flujo proviene de las torres de alta densidad de Santa Isabel, Parque Almagro y San Borja.'
+              }
+            ]
+          },
+          {
+            titulo: '2. Justicia espacial y proximidad peatonal: distancias reales a áreas verdes, biodiversidad, salud y comercio',
+            parrafos: [
+              'Las cinco cartografías de distancia euclidiana mínima desde cada manzana hacia los equipamientos revelan dónde se cumplen o vulneran los umbrales de la "ciudad de 15 minutos". En Distancia a Espacios Públicos VGI (media comunal de 176,8 m y mediana de 127,8 m) y Distancia a Áreas Verdes Totales, los barrios mejor servidos son Santa Lucía Forestal (41,1 m en promedio), Parque Almagro (45,1 m) y el corazón de Barrio Brasil en torno a Plaza Brasil; en cambio, barrios del borde surponiente como San Vicente (media de 795,7 m) y Meiggs (369,5 m) presentan las mayores distancias peatonales hacia una plaza o parque.',
+              'Un patrón similar se observa en la Distancia a Biodiversidad Urbana (media comunal de 114,7 m, mediana de 45,3 m): mientras en Parque Almagro (4,3 m), Parque O’Higgins (10,1 m) y Barrio Brasil la vegetación arbórea es contigua a las manzanas (tonos amarillos de <50 m), en San Vicente (466,3 m), Meiggs (367,6 m) y sectores de Franklin y Santa Isabel se forman islas carentes de arbolado cercano. Respecto a la Distancia a Establecimientos de Salud (media comunal de 395,8 m), los barrios San Borja (70,1 m) y Santa Lucía Forestal (119,8 m) gozan de acceso inmediato a hospitales y clínicas, mientras Barrio Judicial (965,8 m), Sierra Bella (837,0 m) y el extremo norponiente de Yungay/Brasil superan los 500 m de caminata. Por el contrario, la Distancia a Servicios y Comercio VGI promedia apenas 19,4 m en la comuna (mediana de 0,6 m), confirmando la ubicuidad del comercio de proximidad salvo en manzanas interiores de Franklin (47,9 m) y Sierra Bella (42,3 m).'
+            ],
+            graficoInline: {
+              titulo: 'Distancias Medias Peatonales en Barrios Extremos de Santiago (metros)',
+              filas: [
+                { label: 'Distancia a Salud: Barrio Judicial (965,8 m) vs. San Borja (70,1 m)', valor: '965,8 m máx', porcentaje: 100 },
+                { label: 'Distancia aSalud: Barrio Sierra Bella (837,0 m) vs. Media (395,8 m)', valor: '837,0 m', porcentaje: 87 },
+                { label: 'Distancia a Espacio Público: San Vicente (795,7 m) vs. P. Almagro (45,1 m)', valor: '795,7 m máx', porcentaje: 82 },
+                { label: 'Distancia a Biodiversidad: San Vicente (466,3 m) vs. Media (114,7 m)', valor: '466,3 m máx', porcentaje: 48 },
+                { label: 'Distancia a Servicios y Comercio: Franklin (47,9 m) vs. Media (19,4 m)', valor: '47,9 m máx', porcentaje: 12 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/distancia_areas_verdes_todas.jpg',
+                titulo: 'Distancia Mínima a Áreas Verdes Oficiales y VGI (metros)',
+                subtitulo: 'Gradiente de proximidad peatonal a parques y plazas comunales',
+                lectura: 'Muestra acceso inmediato (<100 m, amarillo) en torno a Plaza Brasil, Parque Forestal, Parque Almagro y Parque O’Higgins, y brechas (>400 m, azul) en Meiggs, San Vicente y el suroriente.'
+              },
+              {
+                src: 'img/cartografias/distancia_a_espacios_publicos_vgi.jpg',
+                titulo: 'Distancia a Espacios Públicos Recreativos VGI (metros)',
+                subtitulo: 'Media comunal: 176,8 m · Máximo en San Vicente (795,7 m) y Meiggs (369,5 m)',
+                lectura: 'En Barrio Brasil las manzanas centrales están a menos de 80 m de Plaza Brasil, pero la distancia aumenta hacia los bordes de Av. Mapocho y Ricardo Cumming.'
+              },
+              {
+                src: 'img/cartografias/distancia_a_biodiversidad_total.jpg',
+                titulo: 'Distancia a Registros de Biodiversidad y Arbolado Urbano (metros)',
+                subtitulo: 'Media comunal: 114,7 m (mediana 45,3 m) · Mínimo en Parque Almagro (4,3 m)',
+                lectura: 'Confirma la alta cobertura ecológica de Barrio Brasil y el centro histórico, revelando en azul oscuro los vacíos de biodiversidad del cuadrante surponiente y oriente.'
+              },
+              {
+                src: 'img/cartografias/distancia_a_salud_m_total.jpg',
+                titulo: 'Distancia a Establecimientos de Salud Pública y Privada (metros)',
+                subtitulo: 'Media comunal: 395,8 m · Extremos: San Borja (70,1 m) vs. Barrio Judicial (965,8 m)',
+                lectura: 'Identifica conos de sombra asistencial (>600 m) en Sierra Bella, Barrio Judicial y en el cuadrante central-norte de Barrio Brasil alejado de la Alameda.'
+              },
+              {
+                src: 'img/cartografias/distancia_a_servicios_vgi_m.jpg',
+                titulo: 'Distancia a Servicios y Comercio Barrial VGI (metros)',
+                subtitulo: 'Media comunal: 19,4 m (mediana 0,6 m) · Alta capilaridad de almacenes y locales',
+                lectura: 'Demuestra que casi todas las manzanas de Barrio Brasil y del centro cuentan con comercio a menos de 20 metros, salvo paños industriales o residenciales cerrados en el sur.'
+              }
+            ]
+          },
+          {
+            titulo: '3. Dotación acumulativa en radios caminables (buffers de 300 m y 500 m) y exposición al ruido ambiental',
+            parrafos: [
+              'Mientras las distancias mínimas miden el acceso al elemento más cercano, las siete cartografías de conteo en buffers caminables (300 m y 500 m) miden la abundancia real de oportunidades alrededor de cada manzana. En Arbolado Urbano en 500 m (media comunal de 285,0 árboles), Parque Almagro (1.092,0), Ejército (637,6) y el sur de Barrio Brasil lideran la comuna, mientras San Vicente y Meiggs apenas promedian 2,7 árboles en su entorno caminable. En Equipamiento Educativo en 500 m (media de 23,2 recintos), el polo Ejército (74,5), Barrio Universitario (68,3) y el suroriente de Barrio Brasil (Campus UAH) concentran la mayor oferta formativa del país, frente a apenas 6,4 recintos en Sierra Bella.',
+              'De igual forma, el Centro Histórico y Santa Lucía Forestal lideran en Edificaciones en 500 m (884,0 predios), Paraderos de Bus en 500 m (342,2 puntos de parada), Patrimonio en 500 m (51,5 inmuebles) y Cruces Semaforizados UOCT en 300 m (25,5 cruces, frente a solo 2,7 en Club Hípico), mientras Barrio Brasil ocupa el segundo lugar comunal en densidad de Transporte VGI en 300 m (134,4 entidades, solo detrás de Centro Histórico con 144,7). No obstante, la cartografía de Ruido Ambiental Promedio (media comunal de 62,7 dBA, con rangos de 44,5 a 77,5 dBA) revela el costo ambiental de esta centralidad: las manzanas que enfrentan la Autopista Central (Parque O’Higgins con 69,4 dBA y Barrio Judicial con 69,3 dBA), la Alameda, Av. Matta y San Pablo superan el umbral crítico de 68,6 dBA (azul oscuro), mientras el interior de Barrio Brasil logra mantenerse como un refugio acústico relativo entre 44,5 y 62,8 dBA.'
+            ],
+            cartografias: [
+              {
+                src: 'img/cartografias/n_arboles_vgi_buffer500_m.jpg',
+                titulo: 'N° de Árboles VGI en un Radio Caminable de 500 Metros',
+                subtitulo: 'Media comunal: 285,0 árboles · Líder: Parque Almagro (1.092,0) y Ejército (637,6)',
+                lectura: 'Destaca el cinturón verde que une Plaza Brasil, la Alameda, Barrio Ejército y Parque Almagro, contrastando con el déficit arbóreo del tercio sur.'
+              },
+              {
+                src: 'img/cartografias/n_equip_educativos_buffer500_m_total.jpg',
+                titulo: 'Equipamientos Educativos Totales en Buffer de 500 Metros',
+                subtitulo: 'Media comunal: 23,2 recintos · Líderes: Ejército (74,5) y Barrio Universitario (68,3)',
+                lectura: 'Muestra la extraordinaria concentración de universidades, liceos y jardines en el cuadrante sur de Barrio Brasil (Campus UAH) y su proyección hacia Ejército.'
+              },
+              {
+                src: 'img/cartografias/n_paraderos_bus_buffer500m.jpg',
+                titulo: 'Paraderos de Buses Red en Buffer de 500 Metros',
+                subtitulo: 'Media comunal: 214,2 paradas · Líderes: Centro Histórico (342,2) y Sta. Lucía (322,1)',
+                lectura: 'Evidencia la altísima densidad de oferta de transporte superficial en el centro cívico y en el borde Alameda-San Pablo de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/n_edificaciones_buffer500m.jpg',
+                titulo: 'Densidad de Edificaciones en Buffer de 500 Metros',
+                subtitulo: 'Media comunal: 616,5 edificaciones · Máximo en Centro Histórico (884,0)',
+                lectura: 'Refleja el grano fino de subdivisión predial en el casco histórico, Yungay, Barrio Brasil y Matta Sur.'
+              },
+              {
+                src: 'img/cartografias/n_patrimonios_500buffer_vgi.jpg',
+                titulo: 'Inmuebles y Monumentos Patrimoniales en Buffer de 500 Metros',
+                subtitulo: 'Media comunal: 12,4 hitos · Líderes: Santa Lucía (51,5) y Centro Histórico (45,8)',
+                lectura: 'Articula dos grandes polos patrimoniales: el casco fundacional (Plaza de Armas - Santa Lucía) y el eje poniente de Barrio Brasil (Plaza Brasil - Basílica del Salvador).'
+              },
+              {
+                src: 'img/cartografias/n_semafotos_buffer_300_m.jpg',
+                titulo: 'Cruces Semaforizados UOCT en Buffer de 300 Metros',
+                subtitulo: 'Media comunal: 8,7 cruces · Líder: Centro Histórico (25,5) vs. Club Hípico (2,7)',
+                lectura: 'Muestra que la regulación semaforizada se concentra en el triángulo central y sobre la Alameda, disminuyendo en las intersecciones interiores de Barrio Brasil.'
+              },
+              {
+                src: 'img/cartografias/n_transporte_vgi_buffer_300_m.jpg',
+                titulo: 'Entidades de Transporte VGI en Buffer de 300 Metros',
+                subtitulo: 'Media comunal: 84,6 entidades · Líderes: Centro Histórico (144,7) y Brasil (134,4)',
+                lectura: 'Posiciona a Barrio Brasil como el segundo barrio con mayor conectividad multimodal inmediata a menos de 300 metros en toda la comuna.'
+              },
+              {
+                src: 'img/cartografias/ruido_promedio_db_total.jpg',
+                titulo: 'Ruido Ambiental Promedio Ponderado (dBA Total MuniSTGO)',
+                subtitulo: 'Cuartiles: 44,5–57,9 · 58,0–62,8 · 62,9–68,5 · 68,6–77,5 dBA',
+                lectura: 'Expone las barreras acústicas críticas (>68,6 dBA, azul oscuro) sobre la Autopista Central (Av. Manuel Rodríguez), Alameda y San Pablo, mientras el interior de Barrio Brasil se mantiene bajo 62,8 dBA.'
+              }
+            ]
+          },
+          {
+            titulo: '4. Metabolismo urbano de residuos: la asimetría operativa entre las 5 macro-zonas de aseo municipal',
+            parrafos: [
+              'El cierre del análisis aborda las cinco cartografías del sistema comunal de recolección de residuos elaborado a partir del catastro oficial de la Municipalidad de Santiago (MuniSTGO 2026), el cual divide la comuna en 5 grandes macro-zonas operativas: Centro Plaza (Zona 4), Centro Poniente (Zona 3, que integra a Barrio Brasil junto a Yungay, Santa Ana, Panamá y Balmaceda), Centro Oriente (Zona 2), Poniente (Zona 5) y Oriente (Zona 1). En conjunto, la red municipal contabiliza 629 contenedores de alta capacidad y 398 papeleros peatonales, sumando una capacidad volumétrica instalada de 285.860 litros.',
+              'Los resultados cartográficos revelan un desequilibrio profundo en el equipamiento entre zonas y en la relación contenedor/papelero: 1) La Zona Poniente (Barrio Universitario, Ejército, Meiggs, Parque O’Higgins, Club Hípico, San Eugenio y San Vicente) concentra la mayor capacidad total con 121.480 litros (216 contenedores y 209 papeleros, logrando un ratio equilibrado de 1,03); 2) La Zona Centro Poniente —donde se ubica Barrio Brasil— posee el mayor número absoluto de contenedores domiciliarios de toda la comuna con 261 unidades (109.660 litros), pero cuenta con apenas 24 papeleros peatonales en vía pública, disparando el ratio a 10,88 contenedores por cada papelero; 3) La Zona Oriente (Franklin, Parque Almagro, Matta Sur, Bogotá y Sierra Bella) dispone de 114 contenedores y 66 papeleros (41.040 litros, ratio 1,73); 4) La Zona Centro Oriente (Santa Isabel, San Borja, Diez de Julio y Santa Lucía) apenas registra 38 contenedores y 68 papeleros (13.680 litros, ratio 0,56) pese a albergar la mayor densidad habitacional en torres; y 5) La Zona Centro Plaza (Centro Histórico) opera con 0 contenedores en calzada y 31 papeleros peatonales.'
+            ],
+            graficoInline: {
+              titulo: 'Distribución Real de Contenedores, Papeleros y Capacidad (Litros) en las 5 Zonas de Aseo',
+              filas: [
+                { label: 'Zona Poniente (216 contenedores · 209 papeleros · Ratio 1,03)', valor: '121.480 L', porcentaje: 100 },
+                { label: 'Zona Centro Poniente / Barrio Brasil (261 cont · 24 pap · Ratio 10,88)', valor: '109.660 L', porcentaje: 90 },
+                { label: 'Zona Oriente / Franklin-Almagro (114 cont · 66 pap · Ratio 1,73)', valor: '41.040 L', porcentaje: 34 },
+                { label: 'Zona Centro Oriente / Sta. Isabel (38 cont · 68 pap · Ratio 0,56)', valor: '13.680 L', porcentaje: 12 },
+                { label: 'Zona Centro Plaza / Casco Histórico (0 cont · 31 pap · Ratio 0,00)', valor: 'Solo papeleros', porcentaje: 5 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/zonas_de_aseo_munistgo.jpg',
+                titulo: 'Zonas Operativas de Aseo Municipal (MuniSTGO 2026)',
+                subtitulo: '5 Macro-sectores: Centro Oriente, Centro Plaza, Centro Poniente, Oriente y Poniente',
+                lectura: 'Muestra la sectorización oficial del servicio de aseo, situando a Barrio Brasil íntegramente dentro de la macro-zona Centro Poniente (turquesa).'
+              },
+              {
+                src: 'img/cartografias/total_contenedores_por_zona_aseo.jpg',
+                titulo: 'Total de Contenedores de Residuos por Zona de Aseo',
+                subtitulo: 'Rangos: 0 (Centro Plaza) · 38 (Centro Oriente) · 114 (Oriente) · 216 (Poniente) · 261 (Centro Poniente)',
+                lectura: 'Revela que el sector Centro Poniente (Barrio Brasil y Yungay) concentra el máximo comunal con 261 contenedores domiciliarios en vía pública.'
+              },
+              {
+                src: 'img/cartografias/total_papeleros_por_zona_aseo.jpg',
+                titulo: 'Total de Papeleros Peatonales por Zona de Aseo',
+                subtitulo: 'Rangos: 24 (Centro Poniente) · 31 (Centro Plaza) · 66 (Oriente) · 68 (Centro Oriente) · 209 (Poniente)',
+                lectura: 'Evidencia el severo déficit de papeleros peatonales en la zona Centro Poniente / Barrio Brasil (solo 24 unidades) frente a las 209 unidades instaladas al sur de la Alameda.'
+              },
+              {
+                src: 'img/cartografias/ratio_contenedores_papeleros_zona_aseo.jpg',
+                titulo: 'Ratio Contenedores / Papeleros por Zona de Aseo',
+                subtitulo: 'Valores: 0,00 · 0,56 · 1,03 · 1,73 · 10,88 (Centro Poniente)',
+                lectura: 'Destaca en azul oscuro la anomalía del sector Centro Poniente (Barrio Brasil), donde existen casi 11 contenedores domiciliarios por cada papelero peatonal.'
+              },
+              {
+                src: 'img/cartografias/capacidad_total_litros_zona_aseo.jpg',
+                titulo: 'Capacidad Volumétrica Total de Residuos por Zona de Aseo (Litros)',
+                subtitulo: 'Total comunal: 285.860 L · Máximo en Poniente (121.480 L) y Centro Poniente (109.660 L)',
+                lectura: 'Confirma que el 80,9% de la capacidad volumétrica de contenedores en calle se concentra en la mitad poniente de la comuna (Zonas Poniente y Centro Poniente), dejando al sector hiperdenso de Santa Isabel con apenas 13.680 L.'
+              }
+            ]
+          }
+        ],
         tablaIndicadores: [
-          { variable: 'Generación Anual de RSD', valor: '189.510 toneladas', referencial: 'SUBDERE RSD 2024', fuente: 'Muestreo Oficial Comunal' },
-          { variable: 'Zonas Operativas de Aseo', valor: '54 sectores', referencial: 'Cobertura 100% comunal', fuente: 'Dirección de Aseo y Ornato' },
-          { variable: 'Modos Sustentables de Viaje', valor: '86.2%', referencial: 'SECTRA / Encuesta Origen Destino', fuente: 'MTT / UOCT 2026' },
-          { variable: 'Proximidad Peatonal a Salud', valor: 'Buffer 500m (81.5%)', referencial: 'Estándar 15 minutos', fuente: 'DEIS / MINSAL IDE Chile' }
+          { variable: 'Partición Modal Sustentable', valor: '84,6% de los viajes', referencial: '62,4% TP · 17,0% Pie · 5,2% Bici', fuente: 'Censo 2024 INE (228.482 viajes)' },
+          { variable: 'Proximidad Media a Espacio Público y Salud', valor: '176,8 m (Plazas) · 395,8 m (Salud)', referencial: 'Peor acceso: San Vicente y Judicial', fuente: 'Matriz Zonal 1.711 Manzanas' },
+          { variable: 'Ruido Ambiental Ponderado Comunal', valor: '62,7 dBA (media comunal)', referencial: 'Rango: 44,5 a 77,5 dBA', fuente: 'Mapa Acústico MuniSTGO' },
+          { variable: 'Infraestructura Municipal de Aseo', valor: '629 Contenedores · 398 Papeleros', referencial: '285.860 Litros en 5 Macro-Zonas', fuente: 'Catastro Aseo MuniSTGO 2026' }
         ],
-        cartografias: [
-          { src: 'img/cartografias/pct_movilidad_sustentable.jpg', titulo: 'Movilidad Sustentable Total (%)', subtitulo: 'Desplazamientos no Motorizados (Caminata, Bici y TP)' },
-          { src: 'img/cartografias/pct_movilidad_motorizada_privada.jpg', titulo: 'Movilidad Motorizada Privada (%)', subtitulo: 'Uso del Automóvil Particular en Viajes Cotidianos' },
-          { src: 'img/cartografias/transporte_a_pie.jpg', titulo: 'Viajes a Pie (Caminata Peatonal)', subtitulo: 'Modo Principal de Transporte Peatonal por Manzana' },
-          { src: 'img/cartografias/transporte_en_bicicleta_ciclovias.jpg', titulo: 'Viajes en Bicicleta y Ciclovías (%)', subtitulo: 'Uso de la Bicicleta e Infraestructura Ciclo-inclusiva' },
-          { src: 'img/cartografias/utiliza_transporte_publico_porcentaje.jpg', titulo: 'Uso del Transporte Público (%)', subtitulo: 'Partición Modal en Buses Red y Metro de Santiago' },
-          { src: 'img/cartografias/transporte_en_auto.jpg', titulo: 'Viajes en Automóvil Particular (%)', subtitulo: 'Concentración del Tráfico Vehicular Privado' },
-          { src: 'img/cartografias/distancia_areas_verdes_todas.jpg', titulo: 'Distancia a Áreas Verdes (m)', subtitulo: 'Proximidad Peatonal a Parques y Plazas Públicas' },
-          { src: 'img/cartografias/distancia_a_biodiversidad_total.jpg', titulo: 'Distancia a Biodiversidad Urbana (m)', subtitulo: 'Proximidad Física a Registro de Flora y Arbolado GBIF' },
-          { src: 'img/cartografias/distancia_a_espacios_publicos_vgi.jpg', titulo: 'Distancia a Espacios Públicos VGI (m)', subtitulo: 'Proximidad a Red de Plazas Mapeadas en OSM' },
-          { src: 'img/cartografias/distancia_a_salud_m_total.jpg', titulo: 'Distancia a Establecimientos de Salud (m)', subtitulo: 'Proximidad a CESFAM, Hospitales y Clínicas' },
-          { src: 'img/cartografias/distancia_a_servicios_vgi_m.jpg', titulo: 'Distancia a Servicios y Comercio VGI (m)', subtitulo: 'Proximidad Peatonal a Almacenes y Equipamiento Local' },
-          { src: 'img/cartografias/n_arboles_vgi_buffer500_m.jpg', titulo: 'Arbolado Urbano en Buffer 500m', subtitulo: 'Conteo de Especies Arbóreas en Radio Caminable' },
-          { src: 'img/cartografias/n_edificaciones_buffer500m.jpg', titulo: 'Edificaciones en Buffer 500m', subtitulo: 'Densidad Edilicia en el Entorno Inmediato' },
-          { src: 'img/cartografias/n_equip_educativos_buffer500_m_total.jpg', titulo: 'Equipamiento Educativo en Buffer 500m', subtitulo: 'Escuelas, Colegios y Universidades en Radio Caminable' },
-          { src: 'img/cartografias/n_paraderos_bus_buffer500m.jpg', titulo: 'Paraderos de Buses en Buffer 500m', subtitulo: 'Cobertura de Puntos de Abordaje del Transporte Público' },
-          { src: 'img/cartografias/n_patrimonios_500buffer_vgi.jpg', titulo: 'Inmuebles Patrimoniales en Buffer 500m', subtitulo: 'Densidad de Monumentos y Conservación Histórica' },
-          { src: 'img/cartografias/n_semafotos_buffer_300_m.jpg', titulo: 'Cruces Semaforizados en Buffer 300m', subtitulo: 'Seguridad Vial y Semáforos Centralizados UOCT' },
-          { src: 'img/cartografias/n_transporte_vgi_buffer_300_m.jpg', titulo: 'Entidades de Transporte en Buffer 300m', subtitulo: 'Accesibilidad Inmediata a la Malla de Transporte' },
-          { src: 'img/cartografias/ruido_promedio_db_total.jpg', titulo: 'Ruido Ambiental Promedio (dBA)', subtitulo: 'Paisaje Sonoro y Presión Acústica Diurna y Nocturna' },
-          { src: 'img/cartografias/n_cotizantes_ocupados_0_40_pct_total.jpg', titulo: 'Cotizantes Ocupados Vulnerables (%)', subtitulo: 'Ocupados Cotizantes en Tramo 0-40% RSH' },
-          { src: 'img/cartografias/n_cotizantes_ocupados_total.jpg', titulo: 'Total Ocupados Cotizantes', subtitulo: 'Trabajadores Formales Registrados en el RSH' },
-          { src: 'img/cartografias/n_dependencia_postrados_0_40_total.jpg', titulo: 'Dependencia Funcional Severa (RSH)', subtitulo: 'Personas en Situación de Dependencia y Cuidado' },
-          { src: 'img/cartografias/n_ninos_adultos_mayores_adscritos_fonasa_0_40_total.jpg', titulo: 'FONASA Tramo A-B (0-40% RSH)', subtitulo: 'Niños y Adultos Mayores con Cobertura Pública de Salud' },
-          { src: 'img/cartografias/n_personas_tramo_0_40_total.jpg', titulo: 'Población en Tramo 0-40% RSH', subtitulo: 'Población de Mayor Vulnerabilidad Socioeconómica' },
-          { src: 'img/cartografias/zonas_de_aseo_munistgo.jpg', titulo: 'Zonas de Aseo Municipal Santiago', subtitulo: 'Sectorización Oficial del Servicio de Aseo Comunal' },
-          { src: 'img/cartografias/ratio_contenedores_papeleros_zona_aseo.jpg', titulo: 'Ratio Contenedores / Papeleros', subtitulo: 'Equilibrio entre Capacidad Domiciliaria y Peatonal' },
-          { src: 'img/cartografias/total_contenedores_por_zona_aseo.jpg', titulo: 'Total Contenedores por Zona de Aseo', subtitulo: 'Infraestructura de Depósito de Residuos Domiciliarios' },
-          { src: 'img/cartografias/total_papeleros_por_zona_aseo.jpg', titulo: 'Total Papeleros por Zona de Aseo', subtitulo: 'Infraestructura de Aseo Peatonal en Vía Pública' },
-          { src: 'img/cartografias/capacidad_total_litros_zona_aseo.jpg', titulo: 'Capacidad Total de Residuos (Litros)', subtitulo: 'Capacidad Volumétrica de Recolección de Aseo' }
-        ],
-        cuerpo: [
-          'La alta compacidad de la Comuna de Santiago otorga ventajas superlativas para la movilidad no motorizada: más del 50% de los viajes cotidianos se realizan a pie o en bicicleta, lo que alivia la congestión metropolitana y disminuye la huella de carbono por habitante.',
-          'Sin embargo, este dinamismo genera externalidades socioambientales críticas: los ejes de transporte de alta capacidad (como Alameda, Vicuña Mackenna, Santa Rosa y San Pablo) exhiben niveles de ruido ambiental promedio superiores a 65 dBA, exponiendo a miles de residentes a estrés acústico diurno y nocturno.',
-          'Por otra parte, la gestión de residuos representa uno de los desafíos más complejos del metabolismo urbano: con más de 189.000 toneladas anuales de basura recolectadas, la relación entre papeleros peatonales y contenedores de alta capacidad varía fuertemente entre el distrito cívico y las zonas residenciales, lo que requiere un monitoreo continuo de la infraestructura de aseo para evitar la saturación en esquinas críticas.'
-        ],
-        conclusion: 'Avanzar hacia la justicia ambiental en Santiago exige equilibrar la dotación de áreas verdes hacia el poniente de la comuna, extender la red de ciclovías protegidas y optimizar el sistema de aseo y reciclaje con una perspectiva de economía circular.',
+        conclusion: 'El cruce de los resultados socioambientales demuestra que la altísima sostenibilidad modal de Santiago (84,6% de viajes sin automóvil) requiere ser respaldada por una redistribución urgente de su infraestructura ambiental y operativa: resulta prioritario incrementar la dotación de arbolado y plazas en el borde surponiente (San Vicente, Meiggs y Franklin), mitigar la exposición acústica (>68,6 dBA) en los bordes de la Autopista Central y Alameda, y corregir el déficit de papeleros peatonales en Barrio Brasil (Zona Centro Poniente) junto con la baja capacidad de contenedores en el corredor hiperdenso de Santa Isabel (Zona Centro Oriente).',
         analisisPorActor: [
-          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'Dirección de Aseo y Ornato · Dirección de Tránsito · DITEC', utilidad: 'Permite optimizar las rutas de recolección de aseo y balancear la dotación de contenedores y papeleros por zona.' },
-          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Comités Ambientales Comunales · Organizaciones Ciclistas', utilidad: 'Entrega respaldo cartográfico para solicitar arborización urbana, reductores de velocidad y puntos limpios en zonas deficitarias.' },
-          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad Ciclista y Peatonal', utilidad: 'Orienta la actualización de atributos de estado de veredas, ciclovías segregadas y contenedores de reciclaje en OpenStreetMap.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Ecología Urbana · Geografía Ambiental UAH', utilidad: 'Provee datos para calcular índices de justicia ambiental, metabolismo urbano y conectividad de parches verdes.' }
+          { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'Dirección de Aseo y Ornato · Dirección de Tránsito · Ministerio del Medio Ambiente', utilidad: 'Entrega evidencia exacta para instalar nuevos papeleros peatonales en la Zona Centro Poniente (Barrio Brasil, que hoy tiene solo 24 unidades frente a 261 contenedores) y reforzar contenedores en la Zona Centro Oriente (Santa Isabel).' },
+          { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Comités Ambientales · Juntas de Vecinos · Colectivos Ciclistas', utilidad: 'Fundamenta la exigencia de pantallas acústicas y calmado de tráfico en el eje Manuel Rodríguez (Autopista Central) y Alameda, donde el ruido supera los 68,6 dBA.' },
+          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad Ciclista y Ambiental', utilidad: 'Orienta el mapeo de nuevos puntos limpios, papeleros, fuentes de agua y arbolado urbano en los barrios del sur comunal con distancias a biodiversidad superiores a 350 m.' },
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Ecología Urbana · Geografía Ambiental UAH', utilidad: 'Permite correlacionar la hiperdensificación residencial del sector oriente con el déficit de contenedores municipales y la presión sobre el espacio público.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
-            { codigo: 'zonas_aseo_munistgo', nombre: 'Zonas de Aseo y Catastro de Contenedores y Papeleros', institucion: 'Ilustre Municipalidad de Santiago (Oficio MU18117)', crs: 'EPSG:32719', tipo: 'Polígonos y Puntos' },
-            { codigo: 'subdere_rsd', nombre: 'Registro de Residuos Sólidos Domiciliarios (RSD 2024)', institucion: 'SUBDERE / MMA', crs: 'EPSG:32719', tipo: 'Tabular / Comunal' },
-            { codigo: 'red_movilidad_uoct', nombre: 'Red de Cruces Semaforizados y Movilidad UOCT', institucion: 'Unidad Operativa de Control de Tránsito (UOCT)', crs: 'EPSG:32719', tipo: 'Puntos y Líneas' }
+            { codigo: 'munistgo_aseo_2026', nombre: 'Catastro Oficial de 5 Zonas de Aseo, Contenedores y Papeleros (2026)', institucion: 'Ilustre Municipalidad de Santiago (Transparencia MU18117)', crs: 'EPSG:32719', tipo: 'Polígonos y Puntos' },
+            { codigo: 'censo2024_movilidad', nombre: 'Microdatos de Modo de Transporte y Movilidad por Manzana (2024)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719', tipo: 'Polígonos' },
+            { codigo: 'ruido_buffers_stgo', nombre: 'Matriz de Ruido Ambiental (dBA), Distancias y Buffers 300m/500m', institucion: 'MMA / MuniSTGO / Geografía UAH', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' }
           ],
           referenciasAcademicas: [
-            { cita: 'Wolch, J. R., Byrne, J., & Newell, J. P. (2014). Urban green space, public health, and environmental justice. Landscape and Urban Planning, 125, 234-244.', concepto: 'Accesibilidad equitativa a espacios verdes y justicia ambiental en ciudades densas.' },
-            { cita: 'Gehl, J. (2010). Cities for people. Island Press.', concepto: 'Diseño a escala humana, caminabilidad y vida en el espacio público urbano.' },
-            { cita: 'Baccini, P., & Brunner, P. H. (2012). Metabolism of the anthroposphere: analysis, evaluation, design. MIT Press.', concepto: 'Marco conceptual del flujo metabólico de materiales y residuos en asentamientos humanos.' }
+            { cita: 'Wolch, J. R., Byrne, J., & Newell, J. P. (2014). Urban green space, public health, and environmental justice. Landscape and Urban Planning, 125, 234–244.', concepto: 'Evaluación de brechas de distancia peatonal a áreas verdes y justicia ambiental urbana.' },
+            { cita: 'Gehl, J. (2010). Cities for people. Island Press.', concepto: 'Caminabilidad, movilidad activa y calidad ambiental del espacio público a escala humana.' },
+            { cita: 'Baccini, P., & Brunner, P. H. (2012). Metabolism of the anthroposphere: analysis, evaluation, design. MIT Press.', concepto: 'Análisis territorial de la capacidad volumétrica y distribución de infraestructura de residuos.' }
           ]
         }
       }
@@ -1121,7 +1702,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <div class="insignia-storyboards">NARRATIVAS ESPACIALES BASADAS EN DATOS</div>
             <h3 class="titulo-storyboards">Storyboards</h3>
             <p class="bajada-storyboards">
-              Análisis concisos y rigurosos donde la base de datos cuenta historias reales sobre la memoria, caminabilidad, biodiversidad, educación y cuidados en el <strong>Barrio Brasil</strong>. Diseñados para los <strong>4 usuarios-tipo del proyecto</strong> con respaldo empírico formal y apartado bibliográfico académico accesible.
+              Síntesis de resultados empíricos donde las <strong>75 cartografías temáticas de alta resolución</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
             </p>
           </header>
 
@@ -1406,6 +1987,13 @@ const ModuloIndicadoresAnalisis = (() => {
     const scrollContenido = document.getElementById('lamina-contenido-scroll');
     if (!overlay || !scrollContenido) return;
 
+    const totalCartos = Array.isArray(sb.contenido.seccionesAnaliticas)
+      ? sb.contenido.seccionesAnaliticas.reduce((acc, sec) => acc + (Array.isArray(sec.cartografias) ? sec.cartografias.length : 0), 0)
+      : (Array.isArray(sb.contenido.cartografias) ? sb.contenido.cartografias.length : 0);
+
+    const imgDestacadaSrc = sb.imagenDestacada || sb.imagen;
+    const pieDestacadaTexto = sb.piePortada || 'Ilustración síntesis de los hallazgos territoriales en la Comuna de Santiago y Barrio Brasil.';
+
     scrollContenido.innerHTML = `
       <article class="articulo-storyboard-blog">
 
@@ -1413,7 +2001,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <header class="header-articulo-blog">
           <div class="meta-superior-blog">
             <span class="badge-dim-storyboard">${sb.dimensionNombre}</span>
-            <span class="tiempo-lectura-blog">⏱ Lectura estimada: ${sb.tiempoLectura}</span>
+            <span class="tiempo-lectura-blog">⏱ Lectura estimada: ${sb.tiempoLectura} · 🗺️ ${totalCartos} Cartografías Integradas</span>
           </div>
           <h1 class="titulo-articulo-blog">${sb.titulo}</h1>
           <p class="bajada-articulo-blog">${sb.bajada}</p>
@@ -1422,25 +2010,25 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
         </header>
 
-        <!-- Imagen Destacada del Storyboard (Clic para Ampliar) -->
-        <figure class="figura-destacada-blog figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Haz clic para ampliar la imagen/cartografía en alta resolución">
+        <!-- Imagen Destacada del Storyboard (Con dimensiones explícitas garantizadas y Clic para Ampliar) -->
+        <figure class="figura-destacada-blog figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Haz clic para ampliar la ilustración en pantalla completa">
           <div class="contenedor-imagen-ampliable">
-            <img src="${sb.imagen}" alt="${sb.titulo}" class="img-destacada-blog">
+            <img src="${imgDestacadaSrc}" alt="${sb.titulo}" width="800" height="360" style="width:100%; height:350px; min-height:280px; object-fit:cover; display:block; background:#0b1329;" class="img-destacada-blog">
             <div class="overlay-zoom-hover">
               <span class="badge-zoom-cta">🔍 Clic para ampliar en pantalla completa (Zoom HD)</span>
             </div>
           </div>
           <figcaption class="pie-figura-blog">
-            Registro territorial contextualizado con las capas del Atlas VGI. <span class="nota-ampliable">· Clic en la imagen para ampliar en alta resolución ↗</span>
+            ${pieDestacadaTexto} <span class="nota-ampliable">· Clic en la imagen para ampliar en alta resolución ↗</span>
           </figcaption>
         </figure>
 
-        <!-- Párrafo de Apertura (Lead Paragraph) -->
+        <!-- Párrafo de Apertura (Síntesis General de Resultados) -->
         <p class="parrafo-lead-blog">${sb.contenido.introduccion}</p>
 
         <!-- Matriz de Indicadores Clave Extraídos de la Base de Datos -->
         <div class="caja-metricas-storyboard">
-          <h4 class="titulo-caja-metricas">📊 Indicadores Cuantitativos Extraídos de la Base de Datos Formal:</h4>
+          <h4 class="titulo-caja-metricas">📊 Resultados Cuantitativos Clave Extraídos de las Cartografías y la Base de Datos:</h4>
           <div class="grilla-kpis-storyboard">
             ${sb.contenido.datosClave.map(d => `
               <div class="tarjeta-kpi-storyboard">
@@ -1453,12 +2041,12 @@ const ModuloIndicadoresAnalisis = (() => {
         </div>
 
         <!-- ================================================================= -->
-        <!-- SECCIÓN DE ANÁLISIS PROFUNDO DE DATOS: PORCENTAJES, GRÁFICOS Y SVG -->
+        <!-- PANORAMA ESTADÍSTICO GENERAL: PORCENTAJES, GRÁFICO Y DIAGRAMA SVG -->
         <!-- ================================================================= -->
-        <section class="seccion-analisis-profundo-datos" aria-label="Análisis Estadístico Profundo">
+        <section class="seccion-analisis-profundo-datos" aria-label="Panorama Estadístico General">
           <div class="cabecera-subseccion-datos">
-            <h4>📈 Evidencia Espacial y Distribución Porcentual en Barrio Brasil</h4>
-            <span class="badge-fuente-datos">Censo 2024 · IDE Chile · OSM</span>
+            <h4>📈 Panorama General de Resultados Territoriales en la Comuna de Santiago y Barrio Brasil</h4>
+            <span class="badge-fuente-datos">CENSO 2024 · RSH BIDAT · ATLAS VGI</span>
           </div>
 
           <!-- Barras de Porcentajes Clave -->
@@ -1480,7 +2068,7 @@ const ModuloIndicadoresAnalisis = (() => {
           <!-- Gráfico Comparativo / Benchmark (Clic para Ampliar) -->
           <div class="contenedor-grafico-comparativo contenedor-figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxGrafico('${sb.id}')" title="Haz clic para ampliar el gráfico comparativo en pantalla completa">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <h5 class="titulo-grafico-comparativo" style="margin:0;">${sb.contenido.graficoComparativo.titulo}</h5>
+              <h5 class="titulo-grafico-comparativo" style="margin:0;">📊 ${sb.contenido.graficoComparativo.titulo}</h5>
               <span class="btn-micro-zoom" title="Ampliar gráfico">🔍 Ampliar Gráfico</span>
             </div>
             ${sb.contenido.graficoComparativo.filas.map(f => `
@@ -1494,12 +2082,12 @@ const ModuloIndicadoresAnalisis = (() => {
             `).join('')}
           </div>
 
-          <!-- Diagrama Técnico Vectorial SVG (Clic para Ampliar) -->
-          <div class="contenedor-diagrama-svg contenedor-figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxDiagrama('${sb.id}')" title="Haz clic para ampliar el diagrama vectorial en pantalla completa">
+          <!-- Diagrama Técnico Vectorial SVG de Síntesis de Resultados (Clic para Ampliar) -->
+          <div class="contenedor-diagrama-svg contenedor-figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxDiagrama('${sb.id}')" title="Haz clic para ampliar el diagrama de síntesis en pantalla completa">
             <div class="header-diagrama-svg">
-              <h5 class="titulo-diagrama-svg">📐 Diagrama Técnico de Análisis Espacial</h5>
+              <h5 class="titulo-diagrama-svg">📐 Esquema Síntesis de Resultados Territoriales</h5>
               <div style="display:flex; gap:8px; align-items:center;">
-                <span class="badge-fuente-datos">MODELACIÓN VECTORIAL SVG</span>
+                <span class="badge-fuente-datos">DIAGRAMA DE RESULTADOS</span>
                 <span class="btn-micro-zoom" title="Ampliar diagrama">🔍 Ampliar Diagrama</span>
               </div>
             </div>
@@ -1507,49 +2095,86 @@ const ModuloIndicadoresAnalisis = (() => {
               ${typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : ''}
             </div>
             <p class="pie-diagrama-svg">
-              Diagrama conceptual interactivo fundamentado en los parámetros normativos y las capas del Atlas VGI. <span class="nota-ampliable">· Clic para ampliar ↗</span>
+              Esquema comparativo elaborado a partir de los resultados empíricos del análisis cartográfico comunal y barrial. <span class="nota-ampliable">· Clic para ampliar ↗</span>
             </p>
           </div>
+        </section>
 
-          
         <!-- ================================================================= -->
-        <!-- SECCIÓN GALERÍA CARTOGRÁFICA COMPLETA                             -->
+        <!-- SECCIONES ANALÍTICAS CON CARTOGRAFÍAS INTERCALADAS EN EL RELATO   -->
         <!-- ================================================================= -->
-        ${Array.isArray(sb.contenido.cartografias) && sb.contenido.cartografias.length > 0 ? `
-        <section class="seccion-galeria-cartografica" aria-label="Galería Cartográfica de la Historia">
-          <div class="cabecera-galeria-cartografica">
-            <h4>🗺️ Catálogo de Cartografías Georreferenciadas (${sb.contenido.cartografias.length} Láminas de Análisis Espacial)</h4>
-            <p>A continuación se presenta el cuerpo cartográfico completo de este análisis. Haz clic sobre cualquier lámina para abrirla en pantalla completa con zoom interactivo de alta resolución.</p>
-          </div>
-          <div class="grilla-cartografias-storyboard">
-            ${sb.contenido.cartografias.map((c) => `
-              <div class="item-cartografia-galeria" 
-                   role="button"
-                   tabindex="0"
-                   onclick="ModuloIndicadoresAnalisis.abrirLightboxImagen('${c.src}', '${c.titulo.replace(/'/g, "\\'")}', '${c.subtitulo.replace(/'/g, "\\'")}')"
-                   title="Haz clic para ampliar: ${c.titulo}">
-                <div class="thumb-cartografia-wrapper">
-                  <img src="${c.src}" alt="${c.titulo}" loading="lazy" class="img-thumb-cartografia">
-                  <span class="btn-micro-zoom-carto">🔍 Ampliar HD</span>
+        ${Array.isArray(sb.contenido.seccionesAnaliticas) ? sb.contenido.seccionesAnaliticas.map((sec, idxSec) => `
+          <section class="bloque-narrativo-intercalado" aria-label="${sec.titulo}">
+            <div class="cabecera-bloque-intercalado">
+              <span class="badge-hallazgo-seccion">HALLAZGO TERRITORIAL 0${idxSec + 1} · ${sec.cartografias ? sec.cartografias.length : 0} ${sec.cartografias && sec.cartografias.length === 1 ? 'CARTOGRAFÍA' : 'CARTOGRAFÍAS'}</span>
+              <h3 class="titulo-bloque-intercalado">${sec.titulo}</h3>
+            </div>
+
+            <div class="cuerpo-narrativo-blog">
+              ${Array.isArray(sec.parrafos) ? sec.parrafos.map(p => `<p class="parrafo-blog">${p}</p>`).join('') : ''}
+            </div>
+
+            ${sec.graficoInline ? `
+              <div class="contenedor-grafico-comparativo contenedor-grafico-inline">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h5 class="titulo-grafico-comparativo" style="margin:0;">📊 ${sec.graficoInline.titulo}</h5>
+                  <span class="badge-fuente-datos">EVIDENCIA CUANTITATIVA</span>
                 </div>
-                <div class="meta-thumb-cartografia">
-                  <h6 class="titulo-thumb-carto">${c.titulo}</h6>
-                  <span class="sub-thumb-carto">${c.subtitulo}</span>
+                ${sec.graficoInline.filas.map(f => `
+                  <div class="fila-grafico-barra">
+                    <span class="etiqueta-fila-barra" title="${f.label}">${f.label}</span>
+                    <div class="track-fila-barra">
+                      <div class="fill-fila-barra" style="width: ${f.porcentaje}%;"></div>
+                    </div>
+                    <span class="valor-fila-barra">${f.valor}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+
+            ${Array.isArray(sec.cartografias) && sec.cartografias.length > 0 ? `
+              <div class="contenedor-cartografias-inline">
+                <div class="subcabecera-cartografias-inline">
+                  <span>🗺️ <strong>Evidencia Cartográfica del Hallazgo 0${idxSec + 1}:</strong> Haz clic sobre cualquier cartografía para inspeccionarla en pantalla completa con zoom HD (3264×2112 px).</span>
+                </div>
+                <div class="grilla-cartografias-inline ${sec.cartografias.length === 1 ? 'grilla-carto-unica' : ''}">
+                  ${sec.cartografias.map(c => `
+                    <div class="item-cartografia-galeria item-cartografia-inline"
+                         role="button"
+                         tabindex="0"
+                         onclick="ModuloIndicadoresAnalisis.abrirLightboxImagen('${c.src}', '${c.titulo.replace(/'/g, "\\'")}', '${(c.subtitulo || '').replace(/'/g, "\\'")}')"
+                         title="Haz clic para ampliar en alta resolución: ${c.titulo}">
+                      <div class="thumb-cartografia-wrapper">
+                        <img src="${c.src}" alt="${c.titulo}" loading="lazy" class="img-thumb-cartografia">
+                        <span class="btn-micro-zoom-carto">🔍 Ampliar Cartografía HD</span>
+                      </div>
+                      <div class="meta-thumb-cartografia">
+                        <h6 class="titulo-thumb-carto">${c.titulo}</h6>
+                        <span class="sub-thumb-carto">${c.subtitulo || ''}</span>
+                        ${c.lectura ? `<p class="lectura-territorial-carto"><strong>Lectura territorial:</strong> ${c.lectura}</p>` : ''}
+                      </div>
+                    </div>
+                  `).join('')}
                 </div>
               </div>
-            `).join('')}
-          </div>
-        </section>` : ''}
+            ` : ''}
+          </section>
+        `).join('') : ''}
 
-          <!-- Tabla de Datos y Atributos Específicos -->
+        <!-- Tabla de Síntesis de Indicadores y Atributos Específicos -->
+        <section class="seccion-analisis-profundo-datos" aria-label="Tabla Resumen de Indicadores">
+          <div class="cabecera-subseccion-datos">
+            <h4>📋 Cuadro Resumen de Magnitudes Territoriales Comprobadas</h4>
+            <span class="badge-fuente-datos">TRAZABILIDAD OFICIAL</span>
+          </div>
           <div style="overflow-x:auto;">
             <table class="tabla-datos-storyboard">
               <thead>
                 <tr>
-                  <th>Variable Territorial</th>
-                  <th>Medición Barrio Brasil</th>
-                  <th>Valor Referencial</th>
-                  <th>Capa / Fuente Oficial</th>
+                  <th>Variable Territorial Evaluada</th>
+                  <th>Resultado Comunal / Local</th>
+                  <th>Contraste o Referencia Barrial</th>
+                  <th>Fuente / Cartografía</th>
                 </tr>
               </thead>
               <tbody>
@@ -1566,12 +2191,7 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
         </section>
 
-        <!-- Cuerpo del Artículo Blog (Párrafos Analíticos) -->
-        <div class="cuerpo-narrativo-blog">
-          ${Array.isArray(sb.contenido.cuerpo) ? sb.contenido.cuerpo.map(p => `<p class="parrafo-blog">${p}</p>`).join('') : ''}
-        </div>
-
-        <!-- Conclusión / Reflexión de Gestión Territorial -->
+        <!-- Conclusión / Síntesis de Resultados Territoriales -->
         ${sb.contenido.conclusion ? `
         <blockquote class="conclusion-destacada-blog">
           <p>${sb.contenido.conclusion}</p>
@@ -1582,7 +2202,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- ================================================================= -->
         <section class="seccion-actores-territoriales-storyboard" aria-label="Utilidad para los 4 Usuarios-Tipo">
           <div class="cabecera-seccion-actores">
-            <h4>🎯 Relevancia y Utilidad según Perfil de Actor Territorial (4 Usuarios-Tipo)</h4>
+            <h4>🎯 Relevancia de estos Resultados según Perfil de Actor Territorial (4 Usuarios-Tipo)</h4>
             <span class="badge-fuente-datos">ENFOQUE MULTI-ACTOR</span>
           </div>
           <div class="grilla-actores-storyboard">
@@ -1612,14 +2232,14 @@ const ModuloIndicadoresAnalisis = (() => {
 
           <!-- Fuentes Formales de Datos Espaciales -->
           <div>
-            <h5 class="subtitulo-bloque-biblio">1. Catálogo de Capas Formales Utilizadas en este Análisis</h5>
+            <h5 class="subtitulo-bloque-biblio">1. Catálogo de Capas y Cartografías Utilizadas en este Análisis</h5>
             <div style="overflow-x:auto;">
               <table class="tabla-datos-storyboard" style="font-size:0.78rem;">
                 <thead>
                   <tr>
                     <th>Código Capa</th>
-                    <th>Nombre de Capa en el Atlas</th>
-                    <th>Institución Custodia</th>
+                    <th>Nombre de Capa / Fuente en el Atlas</th>
+                    <th>Institución / Autor</th>
                     <th>Sistema Ref. (CRS)</th>
                     <th>Geometría</th>
                   </tr>
@@ -1641,7 +2261,7 @@ const ModuloIndicadoresAnalisis = (() => {
 
           <!-- Referencias Teórico-Metodológicas / Autores -->
           <div>
-            <h5 class="subtitulo-bloque-biblio">2. Referencias Teórico-Metodológicas y Autores Clave</h5>
+            <h5 class="subtitulo-bloque-biblio">2. Referencias Académicas y Fuentes Estadísticas (APA 7ª Ed.)</h5>
             <ul class="lista-referencias-apa">
               ${(sb.contenido.apartadoBibliografico && Array.isArray(sb.contenido.apartadoBibliografico.referenciasAcademicas)) ? sb.contenido.apartadoBibliografico.referenciasAcademicas.map(ref => `
                 <li class="item-referencia-apa">
@@ -1656,8 +2276,8 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- Barra de Acción Directa: Activar capas de la historia en el mapa -->
         <div class="barra-acciones-storyboard">
           <div class="info-acciones-storyboard">
-            <strong>¿Deseas verificar esta historia en el mapa interactivo?</strong>
-            <span>Activa directamente las capas asociadas a este análisis en el Visor 2D.</span>
+            <strong>¿Deseas explorar las capas de este análisis en el mapa interactivo?</strong>
+            <span>Activa directamente las coberturas geoespaciales asociadas en el Visor 2D.</span>
           </div>
           <button type="button" class="btn-explorar-historia-mapa" onclick="ModuloIndicadoresAnalisis.activarCapasDeHistoria('${sb.id}')">
             🗺️ Explorar Capas en el Visor
@@ -1667,7 +2287,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- Nota Metodológica de Transparencia -->
         <footer class="footer-articulo-blog">
           <small>
-            * Este storyboard forma parte de los entregables exploratorios y análisis cuali-cuantitativos del Atlas VGI Territorial — Geografía UAH (Geografía UAH). Datos obtenidos estrictamente de las fuentes formales del Atlas VGI (IDE Chile, MINVU, INE Censo 2024, UOCT/MTT, MDSF BiDat, OpenStreetMap contributors y GBIF.org).
+            * Este storyboard presenta los resultados empíricos de las 75 cartografías elaboradas por Juan Pablo Lezcano para el Atlas de Información Geográfica Voluntaria para la Gestión Territorial — Departamento de Geografía, Universidad Alberto Hurtado (UAH). Datos integrados de fuentes oficiales (INE Censo 2024, MINVU, MDSF BiDat RSH 2026, UOCT/MTT, Municipalidad de Santiago) y comunitarias (OpenStreetMap y GBIF).
           </small>
         </footer>
 
@@ -1904,11 +2524,16 @@ const ModuloIndicadoresAnalisis = (() => {
   function abrirLightboxImagenDeStoryboard(storyboardId) {
     const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
     if (!sb) return;
-    abrirLightboxImagen(sb.imagen, sb.titulo, sb.dimensionNombre);
+    const targetSrc = sb.imagenDestacada || sb.imagen;
+    abrirLightboxImagen(targetSrc, sb.titulo, sb.piePortada || sb.dimensionNombre);
   }
 
   function abrirLightboxImagen(src, titulo, subtitulo) {
-    const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" draggable="false">`;
+    const esSvg = typeof src === 'string' && src.toLowerCase().endsWith('.svg');
+    const inlineDims = esSvg
+      ? 'width="800" height="800" style="width:min(760px, 86vw); height:min(760px, 76vh); object-fit:contain; display:block;"'
+      : 'style="max-width:90vw; max-height:76vh; width:auto; height:auto; display:block; object-fit:contain;"';
+    const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" ${inlineDims} draggable="false">`;
     abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN HD', titulo, subtitulo || 'Visualización completa en alta resolución', src);
   }
 

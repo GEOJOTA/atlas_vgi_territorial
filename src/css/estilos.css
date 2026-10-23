@@ -4675,8 +4675,12 @@ table.tabla-datos tr:hover td {
 
 .img-destacada-blog {
   width: 100%;
+  height: 360px;
+  min-height: 280px;
   max-height: 380px;
   object-fit: cover;
+  display: block;
+  background: #0b1329;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
@@ -5904,4 +5908,89 @@ table.tabla-datos tr:hover td {
   font-size: 0.74rem;
   color: #94a3b8;
   line-height: 1.25;
+}
+
+
+/* ========================================================================== */
+/* BLOQUES NARRATIVOS INTERCALADOS (RELATO DE RESULTADOS + CARTOGRAFÍAS INLINE) */
+/* ========================================================================== */
+.bloque-narrativo-intercalado {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-left: 4px solid #38bdf8;
+  border-radius: 14px;
+  padding: 24px 26px;
+  margin: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.38);
+}
+
+.cabecera-bloque-intercalado {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  padding-bottom: 12px;
+}
+
+.badge-hallazgo-seccion {
+  font-family: var(--fuente-datos, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 3px 10px;
+  border-radius: 999px;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.titulo-bloque-intercalado {
+  font-size: 1.24rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.grafico-inline-bloque {
+  margin: 6px 0 4px 0;
+  background: rgba(11, 19, 41, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+}
+
+.contenedor-cartografias-inline {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(56, 189, 248, 0.28);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.etiqueta-evidencia-carto {
+  font-family: var(--fuente-datos, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #7dd3fc;
+  letter-spacing: 0.3px;
+}
+
+.grilla-cartografias-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 18px;
+}
+
+.lectura-territorial-carto {
+  font-size: 0.79rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 6px 0 0 0;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
