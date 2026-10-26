@@ -377,19 +377,19 @@ const ModuloIndicadoresAnalisis = (() => {
       dimensionId: 'metodologica',
       dimensionNombre: 'Resultados Espaciales · Densidades de Kernel (KDE)',
       titulo: 'Concentración Territorial y Núcleos de Actividad VGI en Santiago: Lo que Revelan las Superficies de Densidad de Kernel',
-      bajada: 'Análisis espacial de las 11 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI. Polarización entre la hiperconcentración del eje Alameda-Brasil-Santa Ana y los vacíos de cobertura en la periferia sur de la comuna.',
+      bajada: 'Análisis espacial de las 12 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI y la red de semáforos UOCT. Polarización entre la hiperconcentración del eje Alameda-Brasil-Santa Ana y los vacíos de cobertura en la periferia sur de la comuna.',
       imagen: 'img/storyboards/portada_analisis_kde.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_kde.svg',
       piePortada: 'Ilustración síntesis de los núcleos de intensidad territorial VGI identificados en la Comuna de Santiago y el entorno de Barrio Brasil.',
-      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Brechas Territoriales', '11 Cartografías'],
-      capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo'],
+      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Semaforización UOCT', '12 Cartografías'],
+      capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo', 'semaforos_rm_uoct_2026'],
       contenido: {
         introduccion: `El análisis de los 10.166 registros multigeométricos levantados en el Atlas VGI (3.186 puntos, 3.929 vértices de redes lineales y 3.051 polígonos) demuestra que la provisión de infraestructura, servicios y atributos ambientales en la Comuna de Santiago no se distribuye de forma homogénea ni concéntrica. Los resultados de las superficies de densidad revelan una marcada estructura axial y policéntrica: mientras el corredor Alameda, Barrio Brasil (media de 6.924,1 ent/km²), Santa Ana (1.728,2 ent/km²) y Ejército (1.007,0 ent/km²) concentran los máximos absolutos de intensidad territorial, barrios del borde sur como Sierra Bella (1,9 ent/km²), Bogotá (1,4 ent/km²) y San Vicente exhiben severos vacíos de equipamiento y cobertura colaborativa.`,
         datosClave: [
           { valor: '20.203,8', label: 'Cima KDE Total VGI', sub: 'Máximo comunal (ent/km²) en eje Brasil-Alameda' },
           { valor: '6.924,1', label: 'Media Barrio Brasil', sub: '14,1 veces el promedio comunal (489,1 ent/km²)' },
           { valor: '10.166', label: 'Entidades Evaluadas', sub: '3.186 pts · 3.929 lín · 3.051 pol' },
-          { valor: '11', label: 'Cartografías KDE', sub: '10 macro-categorías VGI + Síntesis Total' }
+          { valor: '12', label: 'Cartografías KDE', sub: '10 macro-categorías VGI + UOCT + Síntesis Total' }
         ],
         porcentajesClave: [
           { label: 'Peso de Edificaciones y Transporte en la Intensidad Total VGI', valor: '62,2%', porcentaje: 62.2, contexto: 'Edificaciones (3.305 registros) y Transporte (3.016 registros) dominan la estructura física mapeada.' },
@@ -500,10 +500,11 @@ const ModuloIndicadoresAnalisis = (() => {
             ]
           },
           {
-            titulo: '3. Corredores de transporte público, redes de ciclovías y micro-infraestructura de accesibilidad',
+            titulo: '3. Corredores de transporte público, regulación semafórica UOCT, redes de ciclovías y micro-infraestructura de accesibilidad',
             parrafos: [
               'Las cartografías de movilidad revelan una clara diferenciación entre la macro-conectividad metropolitana y la micro-caminabilidad barrial. En Transporte Público (KDE_Transporte, cima de 3.213,7 ent/km²), el patrón espacial es marcadamente lineal, siguiendo la superposición de líneas de Metro (L1, L2 y L5) y troncos de buses Red sobre la Alameda, San Pablo, Santo Domingo y Av. Brasil (media de 1.729,7 ent/km² en Brasil y 704,7 ent/km² en Santa Ana).',
-              'Al observar Movilidad Activa (KDE_Movilidad_activa, máximo de 3.255,4 ent/km²), la densidad reproduce una retícula ortogonal en el centro-poniente que refleja las ciclovías de Rosas, Compañía de Jesús, Av. Brasil y Alameda (819,2 ent/km² en Brasil y 72,0 ent/km² en Santa Ana), pero que se interrumpe abruptamente al cruzar hacia el sector sur de la comuna. Complementariamente, la cartografía de Accesibilidad Universal (KDE_Accesibilidad, máximo de 652,1 ent/km²) muestra que los rebajes de vereda, cruces peatonales semaforizados y dispositivos podotáctiles se concentran en torno al eje Alameda, Santa Ana (158,6 ent/km²) y el centro de Barrio Brasil (248,4 ent/km²), dejando extensas manzanas residenciales interiores con baja cobertura de cruces adaptados.'
+              'A esta configuración de transporte se suma la cartografía de Semáforos Conectados al Sistema de Control de la UOCT (KDE_Semaforos_UOCT, evaluando 3.483 cruces semaforizados en la RM). La superficie de densidad de semáforos expone cómo la semaforización y la regulación de tránsito se concentran intensamente a lo largo de la Alameda y en las vías estructurantes de Barrio Brasil (Av. Brasil, Cumming, Compañía y Huérfanos), coordinando los flujos vehiculares de transporte colectivo con cruces peatonales controlados hacia las zonas residenciales y campus universitarios.',
+              'Al observar Movilidad Activa (KDE_Movilidad_activa, máximo de 3.255,4 ent/km²), la densidad reproduce una retícula ortogonal en el centro-poniente que refleja las ciclovías de Rosas, Compañía de Jesús, Av. Brasil y Alameda (819,2 ent/km² en Brasil y 72,0 ent/km² en Santa Ana), pero que se interrumpe abruptamente al cruzar hacia el sector sur de la comuna. Complementariamente, la cartografía de Accesibilidad Universal (KDE_Accesibilidad, máximo de 652,1 ent/km²) muestra que los rebajes de vereda, cruces peatonales adaptados y dispositivos podotáctiles se concentran en torno al eje Alameda, Santa Ana (158,6 ent/km²) y el centro de Barrio Brasil (248,4 ent/km²), dejando extensas manzanas residenciales interiores con baja cobertura de cruces adaptados.'
             ],
             cartografias: [
               {
@@ -511,6 +512,12 @@ const ModuloIndicadoresAnalisis = (() => {
                 titulo: 'KDE Transporte Público y Red Multimodal',
                 subtitulo: 'Rango: 0 a 3.213,7 ent/km² · 3.016 entidades evaluadas',
                 lectura: 'Destaca la hiper-conectividad del eje Alameda (Estaciones Los Héroes y República) y del nodo Santa Ana-Cumming, contrastando con la menor densidad de corredores en Bogotá y Diez de Julio.'
+              },
+              {
+                src: 'img/cartografias/KDE_Semaforos_UOCT.jpg',
+                titulo: 'KDE Red de Semáforos y Control de Tránsito UOCT',
+                subtitulo: 'Región Metropolitana y Comuna de Santiago · 3.483 cruces semaforizados (UOCT / MTT)',
+                lectura: 'Evidencia la alta densidad de cruces semaforizados en el corredor Alameda y en los ejes conectores de Barrio Brasil (Av. Brasil, Cumming, Compañía y Huérfanos), vinculando la gestión semafórica con la canalización de flujos y la seguridad de cruce peatonal.'
               },
               {
                 src: 'img/cartografias/KDE_Movilidad_activa.jpg',
@@ -586,11 +593,13 @@ const ModuloIndicadoresAnalisis = (() => {
         apartadoBibliografico: {
           fuentesDatos: [
             { codigo: 'cat01_cat10_vgi', nombre: '10 Macro-categorías VGI Multigeométricas (10.166 registros)', institucion: 'Comunidad OSM / GBIF', crs: 'EPSG:32719', tipo: 'Puntos, Líneas y Polígonos' },
+            { codigo: 'semaforos_rm_uoct_2026', nombre: 'Red de Cruces Semaforizados RM (3.483 entidades)', institucion: 'Unidad Operativa de Control de Tránsito (UOCT) / MTT', crs: 'EPSG:32719', tipo: 'Puntos Georreferenciados' },
             { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal de 1.711 Manzanas Censales y 27 Barrios', institucion: 'INE / SECPLA', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' },
             { codigo: 'catalogo_vgi_kde', nombre: 'Catálogo de Superficies de Densidad de Kernel (KDE)', institucion: 'Atlas de Información Geográfica Voluntaria', crs: 'EPSG:32719', tipo: 'Ráster / Cartografía' }
           ],
           referenciasAcademicas: [
-            { cita: 'Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman & Hall / CRC Press.', concepto: 'Fundamento de las superficies continuas de densidad aplicadas a las 10 categorías territoriales.' },
+            { cita: 'Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman & Hall / CRC Press.', concepto: 'Fundamento de las superficies continuas de densidad aplicadas a las 10 categorías territoriales y red semafórica.' },
+            { cita: 'Unidad Operativa de Control de Tránsito [UOCT]. (2026). Catastro de Cruces Semafóricos Conectados al Sistema de Control. Ministerio de Transportes y Telecomunicaciones de Chile.', concepto: 'Superficie continua de densidad y cobertura de regulación semafórica urbana.' },
             { cita: 'Goodchild, M. F. (2007). Citizens as sensors: the world of volunteered geography. GeoJournal, 69(4), 211–221.', concepto: 'Asimetrías espaciales y concentración de la información geográfica voluntaria en centros urbanos.' },
             { cita: 'de Smith, M. J., Goodchild, M. F., & Longley, P. A. (2018). Geospatial Analysis (6th ed.). The Winchelsea Press.', concepto: 'Interpretación de gradientes direccionales y núcleos de concentración multigeométrica.' }
           ]
