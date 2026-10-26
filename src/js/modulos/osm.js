@@ -422,7 +422,8 @@ const ModuloOSM = (() => {
       `./data/${nombreArchivo}`,
       `../data/${nombreArchivo}`,
       `/data/${nombreArchivo}`,
-      `src/data/${nombreArchivo}`
+      `src/data/${nombreArchivo}`,
+      `https://atlasvgiuah.netlify.app/data/${nombreArchivo}`
     ];
     for (const r of rutas) {
       try {

@@ -2242,7 +2242,8 @@ const ModuloIDEChile = (() => {
         `../${def.archivoLocal}`,
         `src/${def.archivoLocal}`,
         `data/${def.archivoLocal.split('/').pop()}`,
-        `src/data/${def.archivoLocal.split('/').pop()}`
+        `src/data/${def.archivoLocal.split('/').pop()}`,
+        `https://atlasvgiuah.netlify.app/data/${def.archivoLocal.split('/').pop()}`
       ];
       if (def.archivoAlternativo) {
         rutas.push(

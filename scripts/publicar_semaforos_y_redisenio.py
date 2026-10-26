@@ -22,7 +22,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 OWNER = "GEOJOTA"
 REPO = "atlas_vgi_uah"
 BRANCH = "main"
-TOKEN = "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"
+TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

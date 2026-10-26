@@ -251,7 +251,11 @@ const ModuloMetadatos = (() => {
   async function obtenerCatalogoMetadatosGlobal() {
     if (_matrizMetacalidadCache) return _matrizMetacalidadCache;
     try {
-      const resp = await fetch('docs/matriz_metacalidad.json');
+      let resp = await fetch('docs/matriz_metacalidad.json').catch(() => null);
+      if (!resp || !resp.ok) {
+        resp = await fetch('src/docs/matriz_metacalidad.json').catch(() => null) ||
+               await fetch('https://atlasvgiuah.netlify.app/docs/matriz_metacalidad.json').catch(() => null);
+      }
       if (resp.ok) {
         const datos = await resp.json();
         if (datos && datos.capas) {
