@@ -48,7 +48,7 @@ flowchart TD
 La elección de PostGIS frente a otras soluciones de almacenamiento de datos espaciales (como MongoDB GeoJSON, Spatialite o bases NoSQL basadas en GeoHash) responde a las siguientes exigencias técnicas y académicas del proyecto:
 
 1. **Cumplimiento Estricto de Estándares OGC:** PostGIS implementa fielmente la especificación *Open Geospatial Consortium (OGC) Simple Features for SQL (SFSQL)*, garantizando que todas las geometrías (Puntos, Líneas, Polígonos y Multi-geometrías) cumplan con las reglas de validez topológica universalmente reconocidas.
-2. **Indexación Espacial GiST (Generalized Search Tree):** El motor utiliza árboles R-Tree balanceados (`GIST`) para indexar las cajas de delimitación mínima (*Minimum Bounding Boxes* - MBR) de cada geometría. Esto reduce la complejidad computacional de las consultas espaciales de un escaneo secuencial $\mathcal{O}(n)$ a una búsqueda logarítmica $\mathcal{O}(\log n)$, permitiendo filtrar cientos de miles de entidades en milisegundos.
+2. **Indexación Espacial GiST (Generalized Search Tree):** El motor utiliza árboles R-Tree balanceados (`GIST`) para indexar las cajas de delimitación mínima (*Minimum Bounding Boxes* - MBR) de cada geometría. Esto reduce la complejidad computacional de las consultas espaciales de un escaneo secuencial `O(n)` a una búsqueda logarítmica `O(log n)`, permitiendo filtrar cientos de miles de entidades en milisegundos.
 3. **Indexación GIN para Metadatos Semánticos JSONB:** Los atributos alfanuméricos de OpenStreetMap y fuentes oficiales presentan esquemas altamente variables y no uniformes. La utilización del tipo de dato `JSONB` de PostgreSQL, combinada con índices invertidos generalizados (`GIN`), permite indexar cada clave-valor semántica (`amenity`, `highway`, `building`, `operator`) sin requerir costosas modificaciones al esquema relacional de la tabla.
 4. **Capacidades Analíticas Nativas en el Servidor:** La presencia de funciones espaciales como `ST_Intersects`, `ST_Contains`, `ST_DWithin`, `ST_Buffer`, `ST_Centroid`, `ST_SimplifyPreserveTopology` y `ST_AsGeoJSON` elimina la necesidad de transferir millones de coordenadas al navegador web cuando solo se requiere un subconjunto o una métrica derivada.
 
@@ -499,19 +499,153 @@ if __name__ == "__main__":
 
 ---
 
-## 32. Catálogo Exhaustivo de los Scripts Operativos en `scripts/`
+## 32. Catálogo Estandarizado Multi-Lenguaje de Componentes, Archivos y Scripts de la Plataforma Web
 
-A continuación se documenta de forma exhaustiva cada uno de los **25 scripts principales** del proyecto, detallando su propósito, modo de ejecución, dependencias, flujo algorítmico, entradas, salidas y código de salida:
+La plataforma web del Atlas opera mediante una arquitectura desacoplada y libre de transpiladores opacos, articulando **seis familias de lenguajes y estándares técnicos** (**HTML5**, **CSS3**, **JavaScript ES6+ IIFE**, **SQL / PL/pgSQL / Overpass QL**, **JSON / GeoJSON / TOML / XML** y **Python 3**).
+
+Para facilitar la comprensión integral del ecosistema y permitir su modificación segura, todos los archivos de la plataforma se documentan a continuación bajo una **Estructura Estandarizada de 6 Atributos Técnicos**:
+1. **Lenguaje y Estándar:** Especificación técnica e intérprete o motor de ejecución.
+2. **Ruta en el Proyecto:** Ubicación relativa dentro del árbol del repositorio.
+3. **Rol dentro de la Plataforma Web:** Función arquitectónica y responsabilidad dentro del geoportal.
+4. **Estructura Interna y Componentes Clave:** Secciones, selectores, funciones públicas o tablas que lo componen.
+5. **Entradas y Salidas (I/O):** Datos consumidos y artefactos o estados generados.
+6. **Pautas de Modificación y Extensibilidad:** Instrucciones concretas para editar o ampliar el archivo sin romper la coherencia del sistema.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             MATRIZ DE AUTOMATIZACIÓN Y SCRIPTS EN SCRIPTS/             │
+│     ECOSISTEMA MULTI-LENGUAJE DE LA PLATAFORMA WEB (ESTRUCTURA)        │
+├────────────────────────────────────────────────────────────────────────┤
+│ 32.1 HTML5 Semántico (WCAG 2.1 AAA)    ──► src/index.html              │
+│ 32.2 CSS3 Nativo (:root + Flexbox/Grid)──► src/css/estilos.css         │
+│ 32.3 JavaScript ES6+ (IIFE Modular)    ──► 21 módulos en src/js/       │
+│ 32.4 SQL / PL/pgSQL + Overpass QL      ──► supabase/ y consultas QL    │
+│ 32.5 JSON / GeoJSON / TOML / XML       ──► config/, netlify.toml, data/│
+│ 32.6 Python 3 (Pipelines ETL y QA/QC)  ──► 25 scripts en scripts/      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 32.1. Lenguaje de Marcado y Maquetación Estructural (HTML5 Semántico / WCAG 2.1 AAA)
+
+#### Componente HTML-01: `src/index.html`
+- **Lenguaje y Estándar:** HTML5 Semántico (`<!DOCTYPE html>`, `lang="es"`) con atributos de accesibilidad WAI-ARIA (`role`, `aria-label`, `aria-expanded`, `aria-live`) bajo norma WCAG 2.1 Nivel AAA.
+- **Ruta en el Proyecto:** `src/index.html`
+- **Rol dentro de la Plataforma Web:** Documento contenedor de página única (*Single-Page Application* - SPA) que estructura el lienzo cartográfico, la barra de navegación superior de los 10 módulos (`01` a `10`), la consola lateral de herramientas SIG, las vistas dedicadas de análisis y el orden determinista de carga de hojas de estilo y scripts.
+- **Estructura Interna y Componentes Clave:**
+  - `<head>`: Metadatos de codificación UTF-8, viewport responsivo, precarga de fuentes (`Inter`, `Fraunces`, `JetBrains Mono`), hoja de estilos de Leaflet 1.9.4 y `css/estilos.css`.
+  - `<header class="encabezado-principal">`: Identidad del geoportal, selector rápido de ámbito y barra de navegación principal (`.nav-principal`) con los botones de los 10 módulos (`data-vista`).
+  - `<section id="vista-visor">`: Contenedor principal dividido en el lienzo `#mapa-principal`, el lienzo `#mapa-comparacion` (Swipe), la consola lateral `.consola-lateral-gis` (con las pestañas Capas, Herramientas y Leyenda) y los paneles flotantes (Diagnóstico Territorial, PRC, Isócronas, Auditoría Temporal ohsome y Evaluador de Calidad).
+  - `<section id="vista-indicadores">`, `<section id="vista-metadatos">`, `<section id="vista-licencias">` y `<section id="vista-manual">`: Vistas modulares a pantalla completa para los Módulos `07`, `08`, `09` y `10`.
+  - Bloque final de scripts (`<script src="...">`): Carga secuencial de Leaflet, Chart.js, `js/config.js`, utilidades (`js/utils/*.js`), los 16 módulos funcionales (`js/modulos/*.js`) y el orquestador `js/app.js`.
+- **Entradas y Salidas (I/O):**
+  - *Entradas:* Eventos de interacción del usuario (clics, teclado, selección de formularios) e inyecciones dinámicas del DOM desde los módulos JavaScript.
+  - *Salidas:* Árbol DOM renderizado en el navegador y contenedores de montaje para mapas y gráficos.
+- **Pautas de Modificación y Extensibilidad:**
+  - Para añadir un nuevo módulo de navegación, agregue un botón `<button class="nav-btn" data-vista="nuevo-modulo">` en `.nav-principal` y cree su contenedor `<section id="vista-nuevo-modulo" class="vista-contenido">` antes del pie de página.
+  - Al actualizar cualquier archivo JS o CSS en producción, incremente el parámetro de versión `?v=...` en las etiquetas `<link>` y `<script>` de `src/index.html` para invalidar la caché de los navegadores.
+
+---
+
+### 32.2. Lenguaje de Estilización y Sistema de Diseño Visual (CSS3 Nativo)
+
+#### Componente CSS-01: `src/css/estilos.css`
+- **Lenguaje y Estándar:** CSS3 Nativo con Variables Personalizadas (*CSS Custom Properties* en `:root`), maquetación mediante `Flexbox` y `CSS Grid`, unidades dinámicas de viewport (`100dvh`), animaciones `@keyframes` y consultas de medios (`@media`).
+- **Ruta en el Proyecto:** `src/css/estilos.css`
+- **Rol dentro de la Plataforma Web:** Gobernador visual único del geoportal. Define la paleta cromática de alto contraste, la jerarquía tipográfica, el comportamiento responsivo en escritorio, tablet y móvil, los estados de los cursores del mapa, los marcadores vectoriales pulsantes y las reglas de exportación para impresión (`@media print`).
+- **Estructura Interna y Componentes Clave:**
+  - Bloque `:root`: Tokens semánticos de color (`--musgo`, `--esmeralda`, `--ocre`, `--carmesí`, `--bg-dark`, `--papel`, `--tinta`), tipografía (`--fuente-texto`, `--fuente-datos`) y dimensiones (`--ancho-consola-gis`, `--alto-header`).
+  - Layout Principal: Reglas para `.contenedor-visor`, `.consola-lateral-gis`, `.area-mapa` y `.vista-contenido`.
+  - Componentes Analíticos: Estilos para `.tarjeta-capa-gis`, `.kpi-card`, `.tabla-datos`, `.badge-estado`, `.modal-overlay` y tarjetas narrativas de Storyboards (`.tarjeta-storyboard`).
+  - Simbología Cartográfica: Clases `.pin-svg-pulso`, `.pin-halo`, `.pin-cuerpo` y cursores `.modo-inspeccion-activa`.
+- **Entradas y Salidas (I/O):**
+  - *Entradas:* Clases, atributos `data-*` y variables en línea (`style="--color-pin: ..."`) aplicadas en el DOM.
+  - *Salidas:* Renderizado visual acelerado por GPU en el navegador con contraste validado WCAG 2.1 AAA.
+- **Pautas de Modificación y Extensibilidad:**
+  - Para modificar los colores globales de toda la plataforma, edite exclusivamente los tokens del bloque `:root` al inicio del archivo; evite escribir colores hexadecimales fijos en reglas individuales.
+  - Para ajustar el ancho del panel lateral izquierdo del visor, modifique la variable `--ancho-consola-gis: 380px;`.
+
+---
+
+### 32.3. Lenguaje de Programación Cliente y Motor Cartográfico (JavaScript ES6+ Modular IIFE)
+
+La lógica interactiva del cliente web se compone de **21 archivos JavaScript ES6+** organizados sin dependencias de compiladores externos mediante el patrón **IIFE (*Immediately Invoked Function Expression*)**, exponiendo interfaces limpias en el objeto global `window`.
+
+| ID | Archivo en `src/js/` | Rol Arquitectónico dentro de la Plataforma Web | API / Funciones Públicas Clave | Entradas / Salidas (I/O) | Pautas de Modificación |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **JS-01** | `js/config.js` | **Configuración Maestra del Cliente:** Almacena las constantes globales del ámbito de estudio, coordenadas centrales, Bounding Box, endpoints de APIs (Overpass, ohsome, GBIF, Taginfo, IDE Chile, Supabase), mapas base y catálogo base de capas VGI. | `window.CONFIG` (`estudio`, `mapa`, `capasBase`, `endpoints`, `capasVGI`, `pesosCalidad`) | **In:** `config/config.json`. **Out:** Objeto inmutable `CONFIG` consumido por todos los módulos. | Edite `estudio.bbox`, `mapa.centro` o `endpoints` para trasladar el visor a otra comuna o servidor. |
+| **JS-02** | `js/modulos/geodesia.js` | **Motor Geodésico y Proyecciones:** Transforma coordenadas entre WGS84 (`EPSG:4326`), Web Mercator (`EPSG:3857`) y UTM Huso 19 Sur (`EPSG:32719` / SIRGAS-Chile), y calcula áreas geodésicas y distancias Haversine. | `Geodesia.wgs84AUTM19S()`, `utm19SAWgs84()`, `distanciaHaversine()`, `areaPoligonoM2()` | **In:** Pares `[lon, lat]` o geometrías GeoJSON. **Out:** Coordenadas métricas `(Este, Norte)` en metros y superficies en `m²`/`ha`. | Si el área de estudio cambia al Huso 18 Sur (`EPSG:32718`), actualice el meridiano central `λ₀ = -75°`. |
+| **JS-03** | `js/modulos/db_client.js` | **Conector Híbrido de Triple Redundancia:** Gestiona las consultas espaciales hacia Supabase PostGIS RPC con conmutación automática (*failover*) a los archivos GeoJSON en Netlify CDN y caché en memoria. | `DBClient.obtenerCapa()`, `consultarBBox()`, `buscarRadio()`, `estadoConexion()` | **In:** `capa_id`, `bbox` o radio en metros. **Out:** `Promise<FeatureCollection>` homologada en EPSG:4326. | Ajuste el umbral `TIMEOUT_MS` (por defecto `1200` ms) para calibrar la conmutación al modo estático. |
+| **JS-04** | `js/modulos/importador_capas.js` | **Importador y Exportador Local de Geodatos:** Permite cargar archivos locales del usuario (`.geojson`, `.json`, `.kml`, `.csv`) sobre el mapa y exportar subconjuntos vectoriales filtrados. | `ImportadorCapas.cargarArchivo()`, `exportarGeoJSON()`, `exportarCSV()` | **In:** Archivos locales arrastrados o `FeatureCollection` activa. **Out:** Capas temporales en Leaflet o flujo `Blob` descargado. | Añada nuevos analizadores de formato manteniendo la validación de rangos `EPSG:4326`. |
+| **JS-05** | `js/modulos/mapa.js` | **Núcleo Cartográfico Leaflet (Módulo 01):** Inicializa el lienzo Leaflet, gestiona los mapas base, controla la pila de capas vectoriales, el comparador Swipe/Lupa, la barra de coordenadas UTM/WGS84 y los marcadores SVG. | `Mapa.inicializar()`, `cargarCapaGeoJSON()`, `cambiarMapaBase()`, `activarComparador()` | **In:** `CONFIG.mapa`, eventos de ratón y capas GeoJSON. **Out:** Instancia `L.Map`, capas renderizadas y popups interactivos. | Modifique `crearPopupEntidad()` para personalizar los campos visibles al hacer clic en un elemento del mapa. |
+| **JS-06** | `js/modulos/manifold_canvas.js` | ** Acelerador de Renderizado Vectorial en Canvas:** Optimiza el dibujo de coberturas masivas de puntos, líneas y polígonos mediante `L.canvas()` para mantener 60 FPS en el navegador. | `ManifoldCanvas.crearRenderer()`, `optimizarCapaMasiva()` | **In:** `FeatureCollection` con miles de vértices. **Out:** Instancia `L.Canvas` de alto rendimiento. | Ajuste la tolerancia de acolchado (`padding: 0.5`) según la densidad de geometrías. |
+| **JS-07** | `js/modulos/ide_chile.js` | **Gestor del Catálogo Territorial de 132 Capas (Módulo 01):** Administra el árbol de las **122 coberturas oficiales** y **10 categorías VGI**, el buscador instantáneo, los filtros por geometría/fuente y la simbología temática. | `IDEChile.inicializar()`, `activarCapa()`, `desactivarCapa()`, `filtrarCatalogo()` | **In:** `src/data/capas_barrio_brasil.json` y `src/data/*.geojson`. **Out:** Árbol DOM de capas, contadores por categoría y leyenda dinámica. | Para registrar una nueva cobertura local, agréguela en `capas_barrio_brasil.json` y en `CAPAS_IDE_CHILE`. |
+| **JS-08** | `js/modulos/osm.js` | **Conector en Vivo a OpenStreetMap (Módulo 02):** Ejecuta consultas en lenguaje Overpass QL en tiempo real para las 10 macrocategorías VGI con rotación de servidores espejo y conversión a GeoJSON. | `OSM.consultarCategoria()`, `ejecutarConsultaQL()`, `convertirOSM2GeoJSON()` | **In:** Cadena Overpass QL y `bbox`. **Out:** `FeatureCollection` extraída directamente de OpenStreetMap. | Modifique el diccionario de consultas para incorporar nuevas combinaciones de etiquetas OSM (`key=value`). |
+| **JS-09** | `js/modulos/umap.js` | **Integrador de Cartografía Colaborativa uMap (Módulo 03):** Gestiona la inserción segura de mapas comunitarios externos alojados en uMap y la importación de capas remotas compatibles. | `UMap.cargarMapaEmbebido()`, `importarGeoJSONRemoto()` | **In:** URL de mapa uMap o endpoint GeoJSON. **Out:** Contenedor `<iframe>` aislado con atributos `sandbox` o capa Leaflet. | Agregue nuevos proyectos comunitarios preconfigurados en el listado `MAPAS_UMAP_DESTACADOS`. |
+| **JS-10** | `js/modulos/gbif.js` | **Conector de Biodiversidad y Ciencia Ciudadana GBIF (Módulo 04):** Consulta la API v1 de GBIF (`occurrence/search`) dentro del polígono WKT de estudio, normalizando registros bajo el estándar **Darwin Core (DwC)**. | `GBIF.consultarOcurrencias()`, `filtrarPorReino()`, `renderizarFichaTaxonomica()` | **In:** Polígono WKT, filtros taxonómicos y de base de registro (`HUMAN_OBSERVATION`). **Out:** Marcadores biológicos y métricas de riqueza de especies. | Ajuste el límite de paginación (`limit`) o agregue nuevos filtros taxonómicos en `PARAMETROS_GBIF`. |
+| **JS-11** | `js/modulos/taginfo.js` | **Auditor Semántico de Etiquetas Taginfo API v4 (Módulo 05):** Consulta frecuencias globales y consenso comunitario de pares `key=value` en Taginfo API v4 y calcula las componentes cualitativas del modelo WLC. | `Taginfo.auditarEtiqueta()`, `obtenerEstadisticasTag()`, `evaluarConsensoSemántico()` | **In:** Claves y valores OSM (`key`, `value`). **Out:** Frecuencia global de uso, estado de documentación Wiki y puntaje semántico. | Modifique los umbrales de consenso global en `UMBRALES_TAGINFO` para ajustar la sensibilidad semántica. |
+| **JS-12** | `js/modulos/ohsome.js` | **Auditoría Histórica y Espacio-Temporal ohsome API (Módulo 06):** Conecta con la API v1 de HeiGIT (`ohsome`) y API v0.6 de OSM para ejecutar los 3 submódulos: Auditoría Histórica (`2008–2026`), Tendencias y Saturación (Herfort et al., 2023 / ISO 19157) y Monitor de Changesets / OSMCha. | `Ohsome.ejecutarAuditoria()`, `calcularIndiceSaturacion()`, `consultarChangesets()` | **In:** Categoría OSM (`filter`), rango temporal (`2008-01-01/2026-03-01/P1Y`), `bpolys` en EPSG:4326 y área reproyectada en `EPSG:32719`. **Out:** Series de tiempo, densidad `elem/km²` y `elem / 10.000 m²`, intensidad `edit/user`, Score `/100`, Estado de Saturación y enlaces OSMCha. | Para añadir una nueva categoría de auditoría histórica, incorpore su filtro y el `endpointTipo` (`/count`, `/length` o `/area`) en `CATEGORIAS_OHSOME`. |
+| **JS-13** | `js/modulos/calidad_analyst.js` | **Analista Multicriterio WLC y Correlación (Módulo 05):** Ejecuta el modelo de Combinación Lineal Ponderada (WLC v2.0) combinando las 10 dimensiones cuantitativas y cualitativas ISO 19157, y grafica matrices de correlación de Pearson. | `CalidadAnalyst.calcularWLC()`, `actualizarPesos()`, `renderizarMatrizPearson()` | **In:** Vectores de calidad de las capas y pesos ponderadores (`w_i`). **Out:** Índice Global VGI (`IGV`), clasificación por niveles y gráficos radar. | Modifique los pesos predeterminados en `PESOS_WLC_DEFAULT` manteniendo siempre la restricción `∑ w_i = 1.00`. |
+| **JS-14** | `js/modulos/evaluador_calidad_cuantitativa.js` | **Auditor Cuantitativo de Geometrías y Topología (Módulo 05):** Verifica el cierre de anillos poligonales, ausencia de vértices duplicados, validez de rangos WGS84, completitud del esquema de 14 atributos y frescura temporal. | `EvaluadorCuantitativo.auditarCapa()`, `validarTopologia()`, `verificarEsquema14()` | **In:** Geometrías y propiedades de las capas vectoriales. **Out:** Puntajes `[0-100%]` en las 5 dimensiones cuantitativas ISO 19157. | Añada nuevas reglas geométricas o campos obligatorios dentro de `validarEntidadIndividual()`. |
+| **JS-15** | `js/modulos/evaluador_normativo.js` | **Inspector Normativo PRC e Isócronas de Accesibilidad (Módulo 01/07):** Evalúa mediante algoritmo *Ray-Casting* (*Point-in-Polygon*) la zona del PRC Santiago, Zonas Típicas e ICH, y calcula anillos de accesibilidad peatonal de 5, 10 y 15 minutos. | `EvaluadorNormativo.inspeccionarPredio()`, `calcularIsocronas()`, `emitirCertificado()` | **In:** Coordenadas `[lon, lat]` del clic, polígonos PRC/CMN y capas de equipamiento. **Out:** Ficha normativa de edificación y polígonos de isócronas. | Actualice los parámetros urbanísticos en `ZONAS_PRC_SANTIAGO` ante modificaciones o enmiendas comunales. |
+| **JS-16** | `js/modulos/indicadores_analisis.js` | **Indicadores Territoriales y Storyboards Narrativos (Módulo 07):** Gestiona la vista de síntesis territorial, renderizando el tablero de indicadores clave y los **4 Storyboards Interactivos** con **75 cartografías integradas** (`11 + 11 + 29 + 24`) sincronizadas con el visor. | `IndicadoresAnalisis.inicializar()`, `abrirStoryboard()`, `cargarCartografiaEnVisor()` | **In:** `src/data/reporte_indice_calidad_vgi.json`, `capas_barrio_brasil.json` y catálogo `STORYBOARDS`. **Out:** Tarjetas de síntesis, modal narrativo interactivo con visor cartográfico embebido y tablas de datos. | Para agregar un nuevo Storyboard o capítulo cartográfico, añada un objeto al arreglo `STORYBOARDS` especificando sus `capas` y `analisisCapitulos`. |
+| **JS-17** | `js/modulos/metadatos.js` | **Catálogo de Metadatos ISO 19115-1 y Exportador XML ISO 19139 (Módulo 08):** Renderiza el explorador interactivo de fichas de metadatos para las **132 coberturas (122 oficiales + 10 VGI)** y genera documentos XML `gmd:MD_Metadata`. | `Metadatos.inicializar()`, `mostrarFichaISO()`, `exportarXMLISO19139()` | **In:** Inventario de 132 capas y perfiles ISO 19115-1:2014 / ISO 19157:2013. **Out:** Tabla maestra de metadatos, modal de 14 atributos y descarga XML/JSON. | Edite la función `generarXMLISO19139()` para incorporar campos adicionales del Perfil Nacional de Metadatos de IDE Chile. |
+| **JS-18** | `js/modulos/diccionario.js` | **Diccionario Territorial Interactivo ISO 19110 (Módulo 08):** Administra el catálogo de los **140 descriptores normativos y etiquetas OSM**, permitiendo filtrar por macrocategoría y consultar su equivalencia oficial-comunitaria. | `Diccionario.inicializar()`, `buscarDescriptor()`, `filtrarPorCategoria()` | **In:** Base de 140 descriptores semánticos ISO 19110. **Out:** Grilla interactiva de definiciones, tipos de datos y dominios de valores. | Incorpore nuevos descriptores en el arreglo `DESCRIPTORES_ISO19110` especificando clave OSM, fuente oficial y tipo geométrico. |
+| **JS-19** | `js/modulos/licencias.js` | **Centro de Descargas, Licencias y Gobernanza (Módulo 09):** Administra el portal de descarga de la Geodatabase completa (`ZIP`), los 4 catálogos Excel OpenXML, las capas individuales y la matriz de compatibilidad jurídica (ODbL 1.0, CC BY 4.0, Ley 19.628). | `Licencias.inicializar()`, `descargarGeodatabase()`, `filtrarPorLicencia()` | **In:** Rutas de `docs/geodatabase_completa_atlas_vgi.zip` y catálogos en `datos/catalogos/`. **Out:** Descargas directas con validación de integridad y fichas legales. | Si se actualiza el paquete ZIP masivo, actualice los metadatos de peso y conteo de archivos en el módulo. |
+| **JS-20** | `js/modulos/manual.js` | **Manual de Uso y Actualización In-App (Módulo 10):** Renderiza dentro de la plataforma web la guía interactiva dividida en Manual de Uso (`USO · 01` a `USO · 10`) y Manual de Actualización (`ACT · 01` a `ACT · 07`), con buscador instantáneo y guía por perfil. | `Manual.inicializar()`, `cambiarCapitulo()`, `filtrarCapitulos()`, `renderizarGuiaPerfil()` | **In:** Inventario dinámico de 132 capas y `docs/MANUAL_ACTUALIZACION_ATLAS.md`. **Out:** Interfaz documental navegable con índice lateral, tablas filtrables y descarga del manual maestro. | Añada nuevas secciones operativas en `obtenerCapitulosManual()` manteniendo la sincronía con el archivo Markdown maestro. |
+| **JS-21** | `js/app.js` | **Orquestador Principal de la Aplicación (Controlador SPA):** Coordina el ciclo de vida completo de la plataforma web, enlaza la navegación entre los 10 módulos (`01` a `10`), gestiona los perfiles de usuario, las notificaciones *Toast* y el estado global. | `App.inicializar()`, `cambiarVista()`, `aplicarPerfil()`, `mostrarNotificacion()` | **In:** Eventos globales `DOMContentLoaded` y acciones de los 20 módulos anteriores. **Out:** Transiciones fluidas entre vistas y sincronización del estado entre el visor y los paneles analíticos. | Registre cualquier nuevo módulo dentro de la secuencia de arranque `App.inicializar()` y en el controlador de pestañas. |
+
+---
+
+### 32.4. Lenguajes de Base de Datos Espacial y Consultas (SQL / PL/pgSQL PostGIS y Overpass QL)
+
+#### Componente SQL-01: `supabase/migrations/01_schema_postgis.sql`
+- **Lenguaje y Estándar:** SQL ANSI / PostgreSQL 17 DDL y lenguaje procedimental `PL/pgSQL` con extensión espacial **PostGIS 3.3** (estándar OGC Simple Features for SQL).
+- **Ruta en el Proyecto:** `supabase/migrations/01_schema_postgis.sql`
+- **Rol dentro de la Plataforma Web:** Define la estructura relacional y espacial del backend en la nube, incluyendo las tablas maestras, los índices espaciales R-Tree (`GiST`), los índices semánticos sobre atributos variables (`GIN JSONB`), las políticas de seguridad por fila (*Row Level Security* - RLS) y las funciones remotas RPC consumidas por el visor.
+- **Estructura Interna y Componentes Clave:**
+  - Extensiones: `uuid-ossp`, `postgis`, `postgis_topology`.
+  - Tablas: `public.capas_metadata`, `public.capas_entidades` (con columna `geom geometry(Geometry, 4326)` y `propiedades JSONB`) y `public.auditoria_actualizaciones`.
+  - Funciones RPC: `fn_obtener_capa_bbox`, `fn_buscar_entidades_radio` y `fn_resumen_estadistico_capa`.
+- **Entradas y Salidas (I/O):**
+  - *Entradas:* Peticiones HTTP POST vía PostgREST desde `cliente_postgis.js` o lotes de inserción desde los scripts Python.
+  - *Salidas:* Objetos `FeatureCollection` GeoJSON ensamblados directamente en el motor de base de datos mediante `ST_AsGeoJSON()`.
+- **Pautas de Modificación y Extensibilidad:**
+  - Para crear una nueva consulta espacial en el servidor, escriba una función `CREATE OR REPLACE FUNCTION public.fn_nueva_consulta(...) RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER` y expóngala al rol `anon`.
+
+#### Componente QL-01: `scripts/consultas_overpass.json`
+- **Lenguaje y Estándar:** **Overpass QL** (*Overpass Query Language*) encapsulado en estructura JSON.
+- **Ruta en el Proyecto:** `scripts/consultas_overpass.json`
+- **Rol dentro de la Plataforma Web:** Almacena las sentencias de extracción semántica y espacial para las **10 macrocategorías comunitarias VGI** sobre la base de datos global de OpenStreetMap.
+- **Estructura Interna y Componentes Clave:** Directivas `[out:json][timeout:60];`, bloques de unión `( node[...](bbox); way[...](bbox); relation[...](bbox); );` y directiva de salida geométrica `out body geom;`.
+- **Pautas de Modificación y Extensibilidad:** Para incorporar nuevas etiquetas comunitarias en una macrocategoría, agregue el predicado `["clave"="valor"]` dentro del bloque de unión correspondiente y ejecute el script de sincronización.
+
+---
+
+### 32.5. Lenguajes de Configuración, Manifiestos e Intercambio de Datos (JSON, GeoJSON RFC 7946, TOML y XML)
+
+| Componente | Lenguaje / Estándar | Ruta en el Proyecto | Rol dentro de la Plataforma Web | Estructura Interna Clave | Pautas de Modificación |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **CFG-01** | **JSON** (ECMA-404) | `config/config.json` y `src/config/config.json` | **Manifiesto de Configuración Territorial:** Define los parámetros del área de estudio, límites geográficos (`bbox`), proyección métrica, endpoints y metadatos generales compartidos entre el backend Python y el frontend web. | Bloques `proyecto`, `ambito_estudio`, `coordenadas`, `proyecciones` y `endpoints`. | Mantenga ambos archivos sincronizados al cambiar el polígono de estudio o el nombre del proyecto. |
+| **CFG-02** | **TOML** v1.0.0 | `netlify.toml` | **Configuración Perimetral y Despliegue CDN:** Gobierna el directorio de publicación (`publish = "src"`), la expansión de binarios Git LFS (`GIT_LFS_SKIP_SMUDGE = "0"`), las cabeceras de seguridad/CORS y las redirecciones canónicas. | Bloques `[build]`, `[build.environment]`, `[[headers]]` y `[[redirects]]`. | Añada nuevas reglas `[[headers]]` si incorpora nuevos formatos binarios (ej. `.pmtiles` o `.tif`). |
+| **DAT-01** | **GeoJSON** (IETF RFC 7946) | `src/data/*.geojson` y `datos/capas/*.geojson` | **Almacén Vectorial Estático:** Contiene las **132 coberturas espaciales** (122 oficiales + 10 VGI) en `EPSG:4326` con el esquema estandarizado de 14 atributos por entidad. | Objeto `FeatureCollection` con arreglo `features` (`geometry` + `properties`). | Valide siempre todo archivo editado con `verificar_integridad_despliegue.py` para asegurar topología y codificación UTF-8. |
+| **DAT-02** | **JSON Analítico** | `src/data/capas_barrio_brasil.json` y `src/data/reporte_indice_calidad_vgi.json` | **Índice Maestro de Capas y Reporte de Calidad:** Registra el inventario completo de capas, conteos de entidades, categorías, fuentes y resultados de las evaluaciones ISO 19157 consumidos por los Módulos `01`, `05`, `07` y `08`. | Arreglos de objetos con `id`, `nombre`, `archivo`, `categoria`, `fuente`, `total_entidades` e `indice_wlc`. | Se regeneran automáticamente al ejecutar los scripts de enriquecimiento y modelamiento de calidad en Python. |
+
+---
+
+### 32.6. Lenguaje de Automatización Backend, ETL Geoespacial y Auditoría (Python 3)
+
+A continuación se documentan los **25 scripts operativos en Python 3** ubicados en el directorio `scripts/`, encargados de la extracción automatizada, normalización topológica, cálculo de calidad, generación de catálogos OpenXML, sincronización PostGIS y validación de integridad:
+
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│             MATRIZ DE AUTOMATIZACIÓN PYTHON 3 EN SCRIPTS/              │
 ├────────────────────────────────────────────────────────────────────────┤
 │ 1. Ingesta y Extracción: Overpass, Geofabrik, IDE Chile, APIs REST     │
 │ 2. Estandarización y Metadatos: ISO 19115/19157, Esquema 14 Atributos   │
 │ 3. Modelamiento Espacial y Calidad: Algoritmo WLC, Correlación Pearson │
 │ 4. Operaciones PostGIS: Esquemas DDL, Ingesta por Lotes, RPCs          │
-│ 5. Control de Calidad y Despliegue: Verificador de 8 Pruebas y ZIP Masivo│
+│ 5. Control de Calidad y Despliegue: Verificador de 8 Pruebas y ZIP     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -645,15 +779,13 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 ---
 
 ### Script 14: `modelo_indice_lineal_wlc.py`
-- **Propósito:** Implementa el modelo matemático de **Combinación Lineal Ponderada (WLC v2.0)** bajo norma ISO 19157:2013, calculando los puntajes de calidad cuantitativa ($P_{\text{cuant}}$), cualitativa ($P_{\text{cual}}$) e Índice Global VGI ($IGV$) para cada una de las capas cartográficas.
+- **Propósito:** Implementa el modelo matemático de **Combinación Lineal Ponderada (WLC v2.0)** bajo norma ISO 19157:2013, calculando los puntajes de calidad cuantitativa (`P_cuant`), cualitativa (`P_cual`) e Índice Global VGI (`IGV`) para cada una de las capas cartográficas.
 - **Invocación CLI:** `python3 scripts/modelo_indice_lineal_wlc.py --export-csv "catalogos/metricas_calidad_wlc.csv"`
 - **Dependencias:** `math`, `csv`, `json`.
 - **Ecuación Evaluada:**
-
-  $$
-  IGV = 0.50 \cdot P_{\text{cuant}} + 0.50 \cdot P_{\text{cual}}
-  $$
-
+  ```text
+  IGV = 0.50 × P_cuant + 0.50 × P_cual
+  ```
 - **Salidas:** Matriz de puntajes de calidad y actualización del campo `indice_calidad_wlc` en cada capa GeoJSON.
 
 ---
@@ -661,7 +793,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 ### Script 15: `analisis_metacalidad.py`
 - **Propósito:** Ejecuta el análisis de correlación bivariada de Pearson entre las dimensiones de calidad espacial y calcula las matrices de covarianza para validar la ortogonalidad e independencia de los 10 criterios de evaluación de metacalidad.
 - **Invocación CLI:** `python3 scripts/analisis_metacalidad.py`
-- **Salidas:** Resumen estadístico de coeficientes $r$ de Pearson y prueba de significancia $p < 0.05$.
+- **Salidas:** Resumen estadístico de coeficientes `r` de Pearson y prueba de significancia `p < 0.05`.
 
 ---
 
@@ -913,14 +1045,12 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 - **Acción ante fallo:** Reporta el archivo corrupto y la línea exacta del error de formateo.
 
 #### Banco 2: Validación de Geometrías y Bounding Box WGS84
-- **Metodología:** Verifica que las coordenadas se encuentren dentro de los rangos válidos del elipsoide WGS84:
-
-  $$
-  -180.0 \le \text{Longitud} \le 180.0 \quad \text{y} \quad -90.0 \le \text{Latitud} \le 90.0
-  $$
-
-  Para el caso específico de Barrio Brasil y Santiago Centro, comprueba que las coordenadas no estén invertidas (evitando el error común de asignar Latitud a Longitud).
-- **Criterio de Aprobación:** 100% de geometrías válidas y polígonos cerrados (primer punto idéntico al último).
+- **Metodología:** Verifica que las coordenadas geográficas se encuentren dentro de los rangos válidos del elipsoide WGS84 (`EPSG:4326`):
+  ```text
+  -180.0° ≤ Longitud ≤ 180.0°   y   -90.0° ≤ Latitud ≤ 90.0°
+  ```
+  Para el ámbito específico de Barrio Brasil y Santiago Centro, comprueba además que las coordenadas se ubiquen dentro del rectángulo envolvente esperado y que no estén invertidas (evitando el error frecuente de permutar Latitud y Longitud).
+- **Criterio de Aprobación:** 100% de geometrías válidas y anillos poligonales cerrados (primer vértice idéntico al último).
 
 #### Banco 3: Validación del Esquema Maestro de 14 Atributos
 - **Metodología:** Inspecciona el diccionario `properties` de cada `Feature` vectorial, comprobando la presencia obligatoria de:
@@ -928,13 +1058,11 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 - **Criterio de Aprobación:** Todas las entidades cumplen con el esquema unificado.
 
 #### Banco 4: Normalización Matemática del Índice WLC
-- **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-
-  $$
-  0.0000 \le \text{calidad-wlc} \le 1.0000
-  $$
-
-- **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
+- **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción de intervalo unitario cerrado:
+  ```text
+  0.0000 ≤ calidad_wlc ≤ 1.0000
+  ```
+- **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a `1.0000`.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)
 - **Metodología:** Abre `catalogo_capas_completo_vgi_uah.xlsx` mediante `openpyxl` y compara los identificadores de capa listados contra los nombres de archivos reales presentes en `datos/capas/`.

@@ -61,7 +61,7 @@ const ModuloMetadatos = (() => {
         acceso: 'Acceso público y libre reutilización con atribución a las fuentes comunitarias.'
       },
       puntoDeContacto: {
-        organizacion: datos.contactoOrganizacion || 'Departamento de Geografía — Universidad Alberto Hurtado 2026',
+        organizacion: datos.contactoOrganizacion || 'Atlas de Información Geográfica Voluntaria — Nodo GeoAbierto',
         persona: datos.contactoPersona || 'GEOJOTA',
         correo: datos.contactoCorreo || 'juanpablolescanovillegas@gmail.com',
         rol: datos.rol || 'custodian'

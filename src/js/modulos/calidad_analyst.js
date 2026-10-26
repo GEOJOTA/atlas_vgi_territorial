@@ -177,7 +177,7 @@ const ModuloCalidadAnalyst = (() => {
   }
 
   /**
-   * Calcula indicadores empíricos de calidad y madurez territorial (OQT / ISO 19157)
+   * Calcula el Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / OQT / ISO 19157)
    */
   function calcularIndicadoresOQT(datosOhsome, elementosGeoJSON = []) {
     let saturacion = 'Fase de Levantamiento Activo';

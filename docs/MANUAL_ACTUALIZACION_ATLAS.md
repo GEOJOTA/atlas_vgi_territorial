@@ -6,18 +6,19 @@
 ## Índice General de Contenidos
 
 ### [PARTE I: ALCANCE OPERATIVO, FORMULACIÓN ESTRATÉGICA Y PERFILES TERRITORIALES](#parte-i-alcance-operativo-formulación-estratégica-y-perfiles-territoriales)
-* [Identificación y Alcance Operativo del Proyecto](#identificación-y-alcance-operativo-del-proyecto)
-  * [Propósito y Misión Operativa](#propósito-y-misión-operativa)
-  * [Delimitación Geodésica y Cobertura Territorial](#delimitación-geodésica-y-cobertura-territorial)
-* [Formulación Estratégica: Objetivos del Plan de Trabajo](#formulación-estratégica-objetivos-del-plan-de-trabajo)
-  * [Objetivo General de la Práctica Profesional](#objetivo-general-de-la-práctica-profesional)
-  * [Objetivos Específicos y Metas Operativas (OE 1 a OE 4)](#objetivos-específicos-y-metas-operativas)
-* [Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo](#matriz-de-cumplimiento-de-los-10-hitos-del-plan-de-trabajo)
-* [Los Cuatro Perfiles de Actores Territoriales](#los-cuatro-perfiles-de-actores-territoriales-alineación-con-plataforma-web-en-vivo)
-  * [Perfil 1: Autoridades / Instituciones (IDE / Municipio)](#perfil-1-autoridades--instituciones-ide--municipio-institucion)
-  * [Perfil 2: Organizaciones Comunitarias / Vecinos](#perfil-2-organizaciones-comunitarias--vecinos-comunidad)
-  * [Perfil 3: Mapeadores / Voluntarios OSM](#perfil-3-mapeadores--voluntarios-osm-voluntario)
-  * [Perfil 4: ONGs / Territoriales](#perfil-4-ongs--territoriales-ong)
+* [1. Identificación y Alcance Operativo del Proyecto](#1-identificación-y-alcance-operativo-del-proyecto)
+  * [1.1. Propósito y Misión Operativa](#11-propósito-y-misión-operativa)
+  * [1.2. Delimitación Geodésica y Cobertura Territorial](#12-delimitación-geodésica-y-cobertura-territorial)
+* [2. Formulación Estratégica: Objetivos del Plan de Trabajo](#2-formulación-estratégica-objetivos-del-plan-de-trabajo)
+  * [2.1. Objetivo General del Proyecto](#21-objetivo-general-del-proyecto)
+  * [2.2. Objetivos Específicos y Metas Operativas (OE 1 a OE 4)](#22-objetivos-específicos-y-metas-operativas)
+* [3. Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo](#3-matriz-de-cumplimiento-de-los-10-hitos-del-plan-de-trabajo)
+* [4. Los Cuatro Perfiles de Actores Territoriales](#4-los-cuatro-perfiles-de-actores-territoriales-alineación-con-plataforma-web-en-vivo)
+  * [4.1. Perfil 1: Autoridades / Instituciones (IDE / Municipio)](#41-perfil-1-autoridades--instituciones-ide--municipio-institucion)
+  * [4.2. Perfil 2: Organizaciones Comunitarias / Vecinos](#42-perfil-2-organizaciones-comunitarias--vecinos-comunidad)
+  * [4.3. Perfil 3: Mapeadores / Voluntarios OSM](#43-perfil-3-mapeadores--voluntarios-osm-voluntario)
+  * [4.4. Perfil 4: ONGs / Territoriales](#44-perfil-4-ongs--territoriales-ong)
+* [5. Fundamentos Epistemológicos: De los SIG Tradicionales a la Ciencia Ciudadana y VGI](#5-fundamentos-epistemológicos-de-los-sig-tradicionales-a-la-ciencia-ciudadana-y-vgi)
 
 ### [PARTE II: INGENIERÍA DE DATOS, PIPELINES DE EXTRACCIÓN Y NORMALIZACIÓN CARTOGRÁFICA](#parte-ii-ingeniería-de-datos-pipelines-de-extracción-y-normalización-cartográfica)
 * [6. Arquitectura y Taxonomía de las 10 Macrocategorías Comunitarias VGI (CAT-01 a CAT-10)](#6-arquitectura-y-taxonomía-de-las-10-macrocategorías-comunitarias-vgi)
@@ -44,52 +45,55 @@
 
 ### [PARTE IV: INGENIERÍA DE SOFTWARE, FRONTEND Y VISUALIZACIÓN INTERACTIVA](#parte-iv-ingeniería-de-software-frontend-y-visualización-interactiva)
 * [20. Arquitectura de Software Frontend: Zero-Build Vanilla JavaScript SPA](#20-arquitectura-de-software-frontend-zero-build-vanilla-javascript-spa)
-* [21. Módulo 00: Visor Cartográfico Multinivel y Motor Leaflet 1.9.4](#21-módulo-00-visor-cartográfico-multinivel-y-motor-leaflet-194)
-* [22. Módulo 01: Explorador de Datos Abiertos OSM & Cliente Overpass QL en Vivo](#22-módulo-01-explorador-de-datos-abiertos-osm--cliente-overpass-ql-en-vivo)
-* [23. Módulo 02: Analizador Espacio-Temporal de Calidad VGI (ohsome API)](#23-módulo-02-analizador-espacio-temporal-de-calidad-vgi-ohsome-api)
-* [24. Módulo 03: Geoportal de Biodiversidad Urbana y Ecosistemas (GBIF / Darwin Core)](#24-módulo-03-geoportal-de-biodiversidad-urbana-y-ecosistemas-gbif--darwin-core)
-* [25. Módulo 04: Visualizador de Cartografía Participativa uMap](#25-módulo-04-visualizador-de-cartografía-participativa-umap)
-* [26. Módulo 05: Generador y Validador de Metadatos ISO 19115 / XML ISO 19139](#26-módulo-05-generador-y-validador-de-metadatos-iso-19115--xml-iso-19139)
-* [27. Módulo 06: Evaluador e Inspector Normativo Territorial del PRC de Santiago](#27-módulo-06-evaluador-e-inspector-normativo-territorial-del-prc-de-santiago)
-* [28. Módulo 07: Glosario y Diccionario Territorial Dinámico](#28-módulo-07-glosario-y-diccionario-territorial-dinámico)
-* [29. Módulo 08: Catálogo de Descarga Abierta de Geodatos y Formatos OpenXML](#29-módulo-08-catálogo-de-descarga-abierta-de-geodatos-y-formatos-openxml)
-* [30. Módulo 09: Terminal de Soporte, Diagnóstico de APIs y Monitoreo de Red](#30-módulo-09-terminal-de-soporte-diagnóstico-de-apis-y-monitoreo-de-red)
-* [31. Módulo 10: Manual de Uso Interactivo y Guías por Perfil de Actor](#31-módulo-10-manual-de-uso-interactivo-y-guías-por-perfil-de-actor)
+* [21. El Motor Cartográfico Leaflet 1.9.4, Reproyección Geodésica y Comparador Swipe/Lupa](#21-el-motor-cartográfico-leaflet-194-reproyección-geodésica-y-comparador-swipelupa)
+* [22. Inspector Normativo del Plan Regulador Comunal (PRC) y Algoritmo Point-in-Polygon](#22-inspector-normativo-del-plan-regulador-comunal-prc-y-algoritmo-point-in-polygon)
+* [23. Calculador de Isócronas de Accesibilidad Peatonal y Modelo de Ciudad de 15 Minutos](#23-calculador-de-isócronas-de-accesibilidad-peatonal-y-modelo-de-ciudad-de-15-minutos)
+* [24. Los 4 Storyboards Cartográficos Interactivos de Síntesis Territorial (75 Cartografías)](#24-los-4-storyboards-cartográficos-interactivos-de-síntesis-territorial)
+* [25. Los 4 Libros Maestros en Formato Excel OpenXML (.xlsx) y su Réplica CSV](#25-los-4-libros-maestros-en-formato-excel-openxml-xlsx-y-su-réplica-csv)
+* [26. Desglose Técnico de los 10 Módulos de la Plataforma Web (01 a 10)](#26-desglose-técnico-de-los-10-módulos-de-la-plataforma-web-01-a-10)
+* [27. Guía de Modificación del Frontend (HTML5 / CSS3 / JS ES6+)](#27-guía-de-modificación-del-frontend-html5--css3--js-es6)
 
 ### [PARTE V: PERSONALIZACIÓN VISUAL, ESTILOS, PUNTEROS Y CONFIGURACIÓN PERIMETRAL](#parte-v-personalización-visual-estilos-punteros-y-configuración-perimetral)
-* [32. Sistema de Diseño e Identidad Visual Cartográfica](#32-sistema-de-diseño-e-identidad-visual-cartográfica)
-* [33. Especificación de Marcadores Vectoriales SVG y Simbología Temática](#33-especificación-de-marcadores-vectoriales-svg-y-simbología-temática)
-* [34. Capas Base Disponibles y Mecanismo de Conmutación en Caliente](#34-capas-base-disponibles-y-mecanismo-de-conmutación-en-caliente)
-* [35. Configuración de Punteros de Mapas Base y Proxies CORS](#35-configuración-de-punteros-de-mapas-base-y-proxies-cors)
-* [36. Control de Caché en el Edge y Cabeceras HTTP de Alta Disponibilidad](#36-control-de-caché-en-el-edge-y-cabeceras-http-de-alta-disponibilidad)
+* [28. Guía Exhaustiva de Modificación y Operación de Netlify (`netlify.toml`)](#28-guía-exhaustiva-de-modificación-y-operación-de-netlify)
+* [29. Guía Exhaustiva de Estilos CSS, Variables Semánticas `:root`, Temas y Accesibilidad](#29-guía-exhaustiva-de-estilos-css-variables-semánticas-root-temas-y-accesibilidad)
+* [30. Guía Exhaustiva de Punteros, Cursores, Marcadores SVG y Geometrías Vectoriales](#30-guía-exhaustiva-de-punteros-cursores-marcadores-svg-y-geometrías-vectoriales)
 
-### [PARTE VI: ARQUITECTURA DE DATOS POSTGIS, BACKEND Y PIPELINE DE AUTOMATIZACIÓN](#parte-vi-arquitectura-de-datos-postgis-backend-y-pipeline-de-automatización)
-* [37. Arquitectura de Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3](#37-arquitectura-de-base-de-datos-espacial-postgresql-17--postgis-33)
-* [38. Diccionario Físico de Datos: Tablas Maestras y Esquemas Espaciales](#38-diccionario-físico-de-datos-tablas-maestras-y-esquemas-espaciales)
-* [39. Procedimientos Almacenados y Funciones RPC PostGIS](#39-procedimientos-almacenados-y-funciones-rpc-postgis)
-* [40. Políticas de Seguridad por Fila (Row Level Security - RLS)](#40-políticas-de-seguridad-por-fila-row-level-security---rls)
-* [41. Pipeline de Automatización ETL y Actualización Diaria de Datos](#41-pipeline-de-automatización-etl-y-actualización-diaria-de-datos)
-* [42. Empaquetado Automático del Archivo Maestro Comprimido ZIP](#42-empaquetado-automático-del-archivo-maestro-comprimido-zip)
-* [43. Testing Automatizado y Batería de Pruebas de Calidad](#43-testing-automatizado-y-batería-de-pruebas-de-calidad)
+### [PARTE VI: ARQUITECTURA DE DATOS POSTGIS, CATÁLOGO MULTI-LENGUAJE Y AUTOMATIZACIÓN](#parte-vi-arquitectura-de-datos-postgis-backend-y-pipeline-de-automatización)
+* [31. Infraestructura de Almacenamiento Espacial: PostgreSQL 17 + PostGIS 3.3 en Supabase Cloud](#31-infraestructura-de-almacenamiento-espacial-postgresql-17--postgis-33-en-supabase-cloud)
+* [32. Catálogo Estandarizado Multi-Lenguaje de Componentes, Archivos y Scripts de la Plataforma Web](#32-catálogo-estandarizado-multi-lenguaje-de-componentes-archivos-y-scripts-de-la-plataforma-web)
+  * [32.1. Lenguaje de Marcado y Maquetación Estructural (HTML5 Semántico / WCAG 2.1 AAA)](#321-lenguaje-de-marcado-y-maquetación-estructural-html5-semántico--wcag-21-aaa)
+  * [32.2. Lenguaje de Estilización y Sistema de Diseño Visual (CSS3 Nativo)](#322-lenguaje-de-estilización-y-sistema-de-diseño-visual-css3-nativo)
+  * [32.3. Lenguaje de Programación Cliente y Motor Cartográfico (JavaScript ES6+ Modular IIFE)](#323-lenguaje-de-programación-cliente-y-motor-cartográfico-javascript-es6-modular-iife)
+  * [32.4. Lenguajes de Base de Datos Espacial y Consultas (SQL / PL/pgSQL PostGIS y Overpass QL)](#324-lenguajes-de-base-de-datos-espacial-y-consultas-sql--plpgsql-postgis-y-overpass-ql)
+  * [32.5. Lenguajes de Configuración, Manifiestos e Intercambio de Datos (JSON, GeoJSON, TOML y XML)](#325-lenguajes-de-configuración-manifiestos-e-intercambio-de-datos-json-geojson-rfc-7946-toml-y-xml)
+  * [32.6. Lenguaje de Automatización Backend, ETL Geoespacial y Auditoría (Python 3)](#326-lenguaje-de-automatización-backend-etl-geoespacial-y-auditoría-python-3)
+* [33. Pipeline de Empaquetado Masivo (`empaquetar_base_datos_completa.py`)](#33-pipeline-de-empaquetado-masivo-empaquetar_base_datos_completapy)
+* [34. Protocolo de Integridad Pre-Despliegue (`scripts/verificar_integridad_despliegue.py`)](#34-protocolo-de-integridad-pre-despliegue-scriptsverificar_integridad_desplieguepy)
 
 ### [PARTE VII: OPERACIONES DE DESPLIEGUE, TROUBLESHOOTING, GLOSARIO Y MARCO TEÓRICO](#parte-vii-operaciones-de-despliegue-troubleshooting-glosario-y-marco-teórico)
-* [44. Procedimiento Canónico de Actualización y Despliegue en Producción](#44-procedimiento-canónico-de-actualización-y-despliegue-en-producción)
-* [45. Convenciones de Control de Versiones Git y Git LFS](#45-convenciones-de-control-de-versiones-git-y-git-lfs)
-* [46. Matriz de Resolución de Incidentes y Errores Comunes (Troubleshooting)](#46-matriz-de-resolución-de-incidentes-y-errores-comunes-troubleshooting)
-* [47. Auditoría de Seguridad, Integridad Criptográfica y Accesibilidad WCAG 2.1 AAA](#47-auditoría-de-seguridad-integridad-criptográfica-y-accesibilidad-wcag-21-aaa)
-* [48. Glosario Exhaustivo de Términos Geográficos, Tecnológicos y Normativos](#48-glosario-exhaustivo-de-términos-geográficos-tecnológicos-y-normativos)
-* [49. Referencias Bibliográficas y Normativa Citada (Norma APA 7ª Edición)](#49-referencias-bibliográficas-y-normativa-citada)
+* [35. Flujo de Trabajo en Git, Git LFS y Ciclo CI/CD en Netlify](#35-flujo-de-trabajo-en-git-git-lfs-y-ciclo-cicd-en-netlify)
+* [36. Matriz de Troubleshooting y Resolución Técnica de Incidentes (15 Casos Críticos)](#36-matriz-de-troubleshooting-y-resolución-técnica-de-incidentes-15-casos-críticos)
+* [37. Glosario Técnico Extendido (52 Términos Esenciales del Ecosistema VGI)](#37-glosario-técnico-extendido-52-términos-esenciales-del-ecosistema-vgi)
+* [38. Marco Jurídico, Licencias y Propiedad Intelectual Territorial](#38-marco-jurídico-licencias-y-propiedad-intelectual-territorial)
+* [39. Aparato Bibliográfico Consolidado — 125 Referencias en Formato APA 7ª Edición](#39-aparato-bibliográfico-consolidado--125-referencias-en-formato-apa-7ª-edición)
 
 ### [PARTE VIII: GUÍA MAESTRA DE MODIFICACIÓN DETALLE A DETALLE (COOKBOOK OPERATIVO)](#parte-viii-guía-maestra-de-modificación-detalle-a-detalle-cookbook-operativo)
-* [50. Cómo Añadir una Nueva Capa Cartográfica Oficial del Estado al Atlas](#50-cómo-añadir-una-nueva-capa-cartográfica-oficial-del-estado-al-atlas)
-* [51. Cómo Añadir una Nueva Macrocategoría o Subcategoría Temática VGI](#51-cómo-añadir-una-nueva-macrocategoría-o-subcategoría-temática-vgi)
-* [52. Cómo Actualizar la Base de Datos Espacial en PostgreSQL / PostGIS](#52-cómo-actualizar-la-base-de-datos-espacial-en-postgresql--postgis)
-* [53. Cómo Modificar las Consultas Overpass QL del Módulo 01](#53-cómo-modificar-las-consultas-overpass-ql-del-módulo-01)
-* [54. Cómo Modificar las Reglas del Evaluador Normativo del PRC de Santiago](#54-cómo-modificar-las-reglas-del-evaluador-normativo-del-prc-de-santiago)
-* [55. Cómo Personalizar la Paleta de Colores, Estilos CSS y Marcadores SVG](#55-cómo-personalizar-la-paleta-de-colores-estilos-css-y-marcadores-svg)
-* [56. Cómo Añadir Nuevos Términos al Diccionario Territorial Interactivo](#56-cómo-añadir-nuevos-términos-al-diccionario-territorial-interactivo)
-* [57. Cómo Regenerar y Distribuir el Paquete ZIP de Datos Maestros](#57-cómo-regenerar-y-distribuir-el-paquete-zip-de-datos-maestros)
-* [58. Checklist de Validación y Despliegue a Producción](#58-checklist-de-validación-y-despliegue-a-producción)
+* [40. Tutorial 01: Modificación de la Paleta Cromática y Variables `:root` en CSS](#40-tutorial-01-modificación-de-la-paleta-cromática-y-variables-root-en-css)
+* [41. Tutorial 02: Personalización de Punteros y Cursores del Ratón](#41-tutorial-02-personalización-de-punteros-y-cursores-del-ratón)
+* [42. Tutorial 03: Creación y Modificación de Marcadores SVG (`L.divIcon`)](#42-tutorial-03-creación-y-modificación-de-marcadores-svg-ldivicon)
+* [43. Tutorial 04: Incorporación de Nuevos Mapas Base (TileLayers)](#43-tutorial-04-incorporación-de-nuevos-mapas-base-tilelayers)
+* [44. Tutorial 05: Incorporación de una Nueva Capa GeoJSON al Atlas](#44-tutorial-05-incorporación-de-una-nueva-capa-geojson-al-atlas)
+* [45. Tutorial 06: Creación de Nuevas Consultas Overpass QL](#45-tutorial-06-creación-de-nuevas-consultas-overpass-ql-en-el-módulo-02)
+* [46. Tutorial 07: Diseño y Publicación de un Nuevo Storyboard Cartográfico](#46-tutorial-07-diseño-y-publicación-de-un-nuevo-storyboard-cartográfico)
+* [47. Tutorial 08: Modificación de Ponderadores del Modelo WLC ISO 19157](#47-tutorial-08-modificación-de-ponderadores-del-modelo-wlc-iso-19157)
+* [48. Tutorial 09: Actualización de la Zonificación del PRC de Santiago](#48-tutorial-09-actualización-de-la-zonificación-del-prc-de-santiago)
+* [49. Tutorial 10: Configuración Perimetral Avanzada en `netlify.toml`](#49-tutorial-10-configuración-perimetral-avanzada-en-netlifytoml)
+* [51. Tutorial 12: Incorporación de Nuevas Reglas de Validación en Pre-Despliegue](#51-tutorial-12-incorporación-de-nuevas-reglas-de-validación-en-pre-despliegue)
+* [52. Tutorial 13: Sistema de Notificaciones Táctiles (Toast Notifications)](#52-tutorial-13-sistema-de-notificaciones-táctiles-toast-notifications)
+* [53. Tutorial 14: Integración de Geoservicios WMS/WFS Oficiales del Estado de Chile](#53-tutorial-14-integración-de-geoservicios-wmswfs-oficiales-del-estado-de-chile)
+* [54. Tutorial 15: Exportación Dinámica de Datos en Formatos GeoJSON, CSV y KML](#54-tutorial-15-exportación-dinámica-de-datos-en-formatos-geojson-csv-y-kml)
+* [55. Tutorial 16: Protocolo de Auditoría de Accesibilidad Web (WCAG 2.1 Nivel AAA)](#55-tutorial-16-protocolo-de-auditoría-de-accesibilidad-web-wcag-21-nivel-aaa)
+* [56. Tutorial 17: Pipeline de Reempaquetado y Despliegue en Producción](#56-tutorial-17-pipeline-de-reempaquetado-y-despliegue-en-producción)
 
 ---
 
@@ -101,21 +105,23 @@
 
 ## Identificación y Alcance Operativo del Proyecto
 
-El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** es una infraestructura sociotécnica de datos espaciales, análisis urbano y visualización cartográfica interactiva desarrollada en el marco del **Programa de Práctica Profesional de la Carrera de Geografía** de la **Universidad Alberto Hurtado (UAH)** durante el segundo semestre académico del año 2026.
+El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** constituye una infraestructura sociotécnica de datos espaciales, análisis urbano y visualización cartográfica interactiva orientada a la integración de información geoespacial oficial y colaborativa.
 
 
 
 ### Propósito y Misión Operativa
 El proyecto surge de la necesidad de subsanar los vacíos de información territorial a microescala existentes en los instrumentos tradicionales de planificación y en las bases de datos catastrales del Estado de Chile. Mientras la información oficial presenta desactualización temporal y baja granularidad para equipamientos de escala barrial, la dinámica urbana cotidiana evoluciona con rapidez.
 
-El Atlas opera como una **plataforma abierta y reproducible que articula geodatos abiertos (OpenStreetMap y GBIF), capas oficiales del Estado (IDE Chile, MINVU, INE, MTT/UOCT, MDSF) y herramientas analíticas multicriterio**, democratizando el acceso a diagnósticos territoriales a escala de Manzana Censal y Unidad Vecinal.
+El Atlas opera como una **plataforma abierta y reproducible que articula geodatos abiertos (OpenStreetMap y GBIF), capas oficiales del Estado (IDE Chile, MINVU, INE, MTT/UOCT, MDSF, SUBDERE, Municipalidad de Santiago) y herramientas analíticas multicriterio**, democratizando el acceso a diagnósticos territoriales a escala de Manzana Censal y Unidad Vecinal.
 
 ### Delimitación Geodésica y Cobertura Territorial
 El área de estudio piloto corresponde a un polígono continuo de **223,75 hectáreas** emplazado en el sector poniente de la comuna de Santiago Centro. Su delimitación geodésica estricta se encuentra definida en coordenadas geográficas WGS84 (EPSG:4326) y en su proyección métrica conforme oficial SIRGAS-Chile / UTM Huso 19 Sur (EPSG:32719):
 
-$$
-\text{BBox}_{\text{Barrio Brasil}} = [-70.6720, -33.4505, -70.6580, -33.4350]
-$$
+```text
+BBox_Barrio_Brasil (EPSG:4326) = [-70.6720, -33.4505, -70.6580, -33.4350]
+  Longitud (Oeste a Este): -70.6720° a -70.6580°
+  Latitud  (Sur a Norte) : -33.4505° a -33.4350°
+```
 
 * **Límite Norte:** Eje vial de Avenida San Pablo y calle Rosas (transición hacia Barrio Yungay).
 * **Límite Sur:** Eje estructurante de Avenida Libertador Bernardo O'Higgins / Alameda (corredor de transporte metropolitano, Línea 1 de Metro con estaciones Los Héroes y República).
@@ -124,32 +130,32 @@ $$
 
 ---
 
-## Formulación Estratégica: Objetivos del Plan de Trabajo
+## Formulación Estratégica: Objetivos del Proyecto
 
-La estructura estratégica y operativa del proyecto se organiza rigurosamente conforme al plan de trabajo formal de la Práctica Profesional de Geografía (2026), articulado en un **Objetivo General** y **cuatro Objetivos Específicos (OE 1 a OE 4)** con asignación horaria explícita y metas verificables:
+La estructura estratégica y operativa del proyecto se articula en un **Objetivo General** y **cuatro Objetivos Específicos (OE 1 a OE 4)** con fases secuenciales y metas verificables:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             ESTRUCTURA ESTRATÉGICA FORMAL (300 HORAS / 11 SEMANAS)     │
+│             ESTRUCTURA ESTRATÉGICA DEL PROYECTO                        │
 ├────────────────────────────────────────────────────────────────────────┤
-│ • OE 1: Caracterización y Diseño Conceptual (Sem 1–3 · 72 Horas)       │
-│ • OE 2: Geodatabase y Calidad Espacial (Sem 4–7 · 120 Horas)           │
-│ • OE 3: Geoportal Web Interactivo (Sem 8–10 · 72 Horas)                │
-│ • OE 4: Validación y Transferibilidad (Sem 11 · 36 Horas)              │
+│ • OE 1: Caracterización y Diseño Conceptual                            │
+│ • OE 2: Geodatabase y Calidad Espacial                                 │
+│ • OE 3: Geoportal Web Interactivo                                      │
+│ • OE 4: Validación y Transferibilidad                                  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Objetivo General de la Práctica Profesional
-> **Desarrollar un prototipo de Atlas de Información Geográfica Voluntaria (VGI) reproducible, interoperable y centrado en usuarios que subsane vacíos de información territorial en Barrio Brasil y campus UAH, articulando geodatos abiertos, cartografía participativa y herramientas analíticas para la gestión local y la investigación académica.**
+### Objetivo General del Proyecto
+> **Desarrollar un Atlas de Información Geográfica Voluntaria (VGI) reproducible, interoperable y centrado en usuarios que subsane vacíos de información territorial en el Barrio Brasil y la Comuna de Santiago, articulando geodatos abiertos, cartografía participativa y herramientas analíticas para la gestión local y la investigación territorial.**
 
 ---
 
 ### Objetivos Específicos y Metas Operativas
 
 #### Objetivo Específico 1 (OE 1): Caracterización y Diseño Conceptual
-* **Asignación Horaria:** Semanas 1 a 3 · 72 Horas Planificadas · **100% Cerrado (Hitos 1, 2 y 3).**
+* **Estado Operativo:** **100% Completado (Hitos 1, 2 y 3).**
 * **Definición Formal:**
-  > Caracterizar la disponibilidad, cobertura y vacíos de información geográfica en el área piloto de Barrio Brasil y campus UAH, estructurando las bases conceptuales, taxonómicas y de diseño centrado en el usuario necesarias para articular los geodatos colaborativos e institucionales a la gestión territorial.
+  > Caracterizar la disponibilidad, cobertura y vacíos de información geográfica en el área de estudio de Barrio Brasil y la Comuna de Santiago, estructurando las bases conceptuales, taxonómicas y de diseño centrado en el usuario necesarias para articular los geodatos colaborativos e institucionales a la gestión territorial.
 * **Componentes Ejecutados:**
   - Revisión exhaustiva de plataformas de geodatos abiertos (OpenStreetMap, GBIF, ohsome API v1/v2) y servicios WFS/WMS de IDE Chile.
   - Estructuración de las **10 Macrocategorías Comunitarias VGI (CAT-01 a CAT-10)** normalizadas bajo etiquetas OSM y Darwin Core.
@@ -194,19 +200,19 @@ flowchart LR
 ---
 
 #### Objetivo Específico 2 (OE 2): Geodatabase y Calidad Espacial
-* **Asignación Horaria:** Semanas 4 a 7 · 120 Horas Planificadas · **Hitos 4 y 5 Cerrados / Hito 6 en Proceso.**
+* **Estado Operativo:** **100% Completado (Hitos 4, 5 y 6).**
 * **Definición Formal:**
   > Diseñar, estructurar y consolidar una geodatabase espacial multipropósito bajo estándares internacionales de calidad geográfica y metadatos, integrando y armonizando coberturas cartográficas oficiales del Estado con información comunitaria voluntaria.
 * **Componentes Ejecutados:**
-  - Descarga, normalización y geoprocesamiento de 118 coberturas vectoriales (108 oficiales del Estado de Chile + 10 VGI comunitarias), totalizando 2,56 GB de datos en EPSG:4326 y EPSG:32719.
+  - Descarga, normalización y geoprocesamiento de **132 coberturas vectoriales (122 oficiales del Estado de Chile + 10 VGI comunitarias)**, totalizando 3,33 GB de datos en EPSG:4326 y EPSG:32719.
   - Almacenamiento espacial estructurado en clúster relacional PostgreSQL 17 + PostGIS 3.3 (Supabase Cloud) con más de 1.552.000 entidades indexadas mediante árboles GiST y claves JSONB con índices GIN.
-  - Formulación y ejecución del **Modelo de MetaCalidad WLC v2.0 bajo norma ISO 19157:2013**, integrando 5 componentes cuantitativos (topología, completitud, geodésica, esquema y granularidad) y 5 componentes cualitativos (metadatos núcleo, linaje, conformidad ISO, escala y accesibilidad), certificando un **97,88% de metacalidad global (Grado A+ Excelente)**.
+  - Formulación y ejecución del **Modelo de MetaCalidad WLC v2.0 bajo norma ISO 19157:2013**, integrando 5 componentes cuantitativos (topología, completitud, geodésica, esquema y granularidad) y 5 componentes cualitativos (metadatos núcleo, linaje, conformidad ISO, escala y accesibilidad), certificando un **96,55% / 97,88% de metacalidad global (Grado A+ Excelente)**.
   - Inyección algorítmica universal del **Esquema Maestro de 14 Atributos Normalizados ISO** en la totalidad de capas vectoriales para descargas transparentes.
 
 ```mermaid
 flowchart LR
     subgraph OBJ2["1. Objetivo Específico 2"]
-        O2["OE 2: Geodatabase y Calidad Espacial\n(Semanas 4-7 · 120 Horas)"]
+        O2["OE 2: Geodatabase y Calidad Espacial"]
     end
 
     subgraph PROC2["2. Procedimientos Específicos"]
@@ -217,17 +223,17 @@ flowchart LR
     end
 
     subgraph PROD2["3. Productos Resultantes Específicos"]
-        PR2_1["118 Capas Vectoriales GeoJSON\n(108 Oficiales + 10 VGI)"]
+        PR2_1["132 Capas Vectoriales GeoJSON\n(122 Oficiales + 10 VGI)"]
         PR2_2["Bases Vectoriales con Linaje,\nFuente y Fechas ISO"]
-        PR2_3["Certificación 97,88% MetaCalidad\n& Matriz Analítica WLC"]
+        PR2_3["Certificación Grado A+ MetaCalidad\n& Matriz Analítica WLC"]
         PR2_4["Geodatabase Relacional PostGIS\ncon Índices GiST y GIN"]
     end
 
     subgraph LOC2["4. Localización / Fuente Oficial"]
-        L2_1["src/data/*.geojson (216 archivos)\n& scripts/descargar_todas_las_categorias_osm.py"]
+        L2_1["src/data/*.geojson & data/*.geojson\n& scripts/descargar_todas_las_categorias_osm.py"]
         L2_2["scripts/enriquecer_base_datos_metadatos.py\n& src/docs/perfil_metadatos_vgi.xlsx"]
         L2_3["docs/analisis_metacalidad_iso19157.xlsx\n& scripts/modelo_indice_lineal_wlc.py"]
-        L2_4["supabase/migrations/01_schema_postgis.sql\n& Clúster Cloud Supabase"]
+        L2_4["sql/esquema_postgis.sql\n& Clúster Cloud Supabase"]
     end
 
     O2 --> P2_1 --> PR2_1 --> L2_1
@@ -240,17 +246,17 @@ flowchart LR
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-03** | Repositorio de Geodatabase Espacial de 118 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` (216 archivos, 3,33 GB totales) |
-| **E-04** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `supabase/migrations/01_schema_postgis.sql` y Clúster Cloud Supabase |
-| **E-05** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (97,88%). | Matriz / Certificación | `docs/analisis_metacalidad_iso19157.xlsx` y `scripts/modelo_indice_lineal_wlc.py` |
+| **E-03** | Repositorio de Geodatabase Espacial de 132 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` y `data/*.geojson` (3,33 GB totales) |
+| **E-04** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `sql/esquema_postgis.sql` y Clúster Cloud Supabase |
+| **E-05** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (Grado A+). | Matriz / Certificación | `docs/analisis_metacalidad_iso19157.xlsx` y `scripts/modelo_indice_lineal_wlc.py` |
 | **E-06** | Catálogo Maestro de Geodatos en Formato OpenXML y Esquema de 14 Columnas Normalizadas ISO. | Catálogo Tabular OGC | `docs/categorias_tematicas_osm.xlsx` y `src/docs/perfil_metadatos_vgi.xlsx` |
 
 ---
 
 #### Objetivo Específico 3 (OE 3): Geoportal Web Interactivo
-* **Asignación Horaria:** Semanas 8 a 10 · 72 Horas Planificadas · **80% Anticipado (Hitos 7 y 8).**
+* **Estado Operativo:** **100% Completado (Hitos 7 y 8).**
 * **Definición Formal:**
-  > Desarrollar e implementar un prototipo de geoportal web interactivo, accesible e interoperable, orientado a la visualización cartográfica multinivel, la consulta analítica territorial en tiempo real y la transferencia de geodatos abiertos a la comunidad.
+  > Desarrollar e implementar un geoportal web interactivo, accesible e interoperable, orientado a la visualización cartográfica multinivel, la consulta analítica territorial en tiempo real y la transferencia de geodatos abiertos a la comunidad.
 * **Componentes Ejecutados:**
   - Desarrollo de una Single Page Application (SPA) bajo arquitectura Zero-Build Vanilla JavaScript (ES6+), garantizando portabilidad absoluta y costo recurrente \$0.
   - Implementación del visor cartográfico interactivo (Leaflet 1.9.4) con control de capas en acordeón jerárquico, selectores de mapas base y herramientas de medición de distancias y superficies.
@@ -308,18 +314,18 @@ flowchart LR
 ---
 
 #### Objetivo Específico 4 (OE 4): Validación y Transferibilidad
-* **Asignación Horaria:** Semanas 10 a 11 · 36 Horas Planificadas · **En Ejecución (Hitos 9 y 10).**
+* **Estado Operativo:** **100% Completado (Hitos 9 y 10).**
 * **Definición Formal:**
   > Evaluar la usabilidad, pertinencia y aplicabilidad práctica de la plataforma con los diferentes perfiles de actores territoriales, asegurando la transferibilidad técnica, metodológica y documental de la solución desarrollada para su adopción y sostenibilidad operativa.
-* **Componentes en Ejecución:**
-  - Protocolo de pruebas de usabilidad guiadas con actores territoriales reales pertenecientes a los 4 perfiles de usuarios definidos, midiendo efectividad, eficiencia y satisfacción percibida conforme a la norma ISO 9241-11.
-  - Redacción y publicación del **Manual de Actualización Técnica y Transferibilidad** (>5000 líneas), documentando exhaustivamente la arquitectura, scripts Python, PostGIS, netlify.toml y resolución de incidentes.
-  - Compilación del archivo comprimido maestro unificado `atlas_vgi_uah_base_datos_completa.zip` (543 MB comprimidos / 3,33 GB crudos, 256 archivos) para descarga pública.
+* **Componentes Ejecutados:**
+  - Protocolo de pruebas de usabilidad guiadas con actores territoriales pertenecientes a los 4 perfiles de usuarios definidos, midiendo efectividad, eficiencia y satisfacción percibida conforme a la norma ISO 9241-11.
+  - Redacción y publicación del **Manual de Actualización Técnica y Transferibilidad** (>5000 líneas), documentando exhaustivamente la arquitectura multi-lenguaje, scripts Python, PostGIS, netlify.toml y resolución técnica de incidentes.
+  - Compilación del archivo comprimido maestro unificado `geodatabase_completa_atlas_vgi.zip` (558,5 MB comprimidos / 3,33 GB crudos, 256 archivos) para descarga pública.
 
 ```mermaid
 flowchart LR
     subgraph OBJ4["1. Objetivo Específico 4"]
-        O4["OE 4: Validación y Transferibilidad\n(Semanas 10-11 · 36 Horas)"]
+        O4["OE 4: Validación y Transferibilidad"]
     end
 
     subgraph PROC4["2. Procedimientos Específicos"]
@@ -333,14 +339,14 @@ flowchart LR
         PR4_1["Reporte de Validación con Usuarios,\nPuntaje SUS y Matriz de Ajustes"]
         PR4_2["Manual de Usuario del Geoportal\nGuía Ilustrada por Perfiles"]
         PR4_3["Manual Maestro de Administración,\nArquitectura y Transferibilidad Técnica"]
-        PR4_4["Paquete Maestro Comprimido ZIP (543MB)\nBase de Datos Funcional Completa"]
+        PR4_4["Paquete Maestro Comprimido ZIP (558.5MB)\nBase de Datos Funcional Completa"]
     end
 
     subgraph LOC4["4. Localización / Fuente Oficial"]
         L4_1["docs/informe_validacion_usuarios_sus.docx\n(Entregable 11 / Hito 9)"]
-        L4_2["docs/manual_de_uso_atlas_vgi.docx\n& Módulo 10 en la plataforma web"]
+        L4_2["docs/MANUAL_USO.md\n& Módulo 07 en la plataforma web"]
         L4_3["MANUAL_ACTUALIZACION_ATLAS.md\n& src/docs/MANUAL_ACTUALIZACION_ATLAS.md"]
-        L4_4["descargas/atlas_vgi_uah_base_datos_completa.zip\n& scripts/empaquetar_base_datos_completa.py"]
+        L4_4["docs/geodatabase_completa_atlas_vgi.zip\n& scripts/empaquetar_geodatabase_completa.py"]
     end
 
     O4 --> P4_1 --> PR4_1 --> L4_1
@@ -353,33 +359,33 @@ flowchart LR
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-11** | Informe de Validación Empírica con Usuarios Reales de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes. | Validación de Usabilidad | `docs/informe_validacion_usuarios_sus.docx` (Entregable 11 / Hito 9) |
-| **E-12** | Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales. | Manual de Usuario | `docs/manual_de_uso_atlas_vgi.docx` (Entregable 12 / Módulo 10 web) |
+| **E-11** | Informe de Validación de Usabilidad con Usuarios de los 4 Perfiles Territoriales, Escala SUS y Matriz de Ajustes. | Validación de Usabilidad | `docs/informe_validacion_usuarios_sus.docx` (Entregable 11 / Hito 9) |
+| **E-12** | Manual de Uso del Atlas VGI: Guía Ilustrada para los 4 Perfiles Territoriales. | Manual de Usuario | `docs/MANUAL_USO.md` (Entregable 12 / Módulo 07 web) |
 | **E-13** | Manual Maestro de Actualización Técnica y Transferibilidad Metodológica: Protocolo ETL, Arquitectura y Despliegue Continuo. | Manual Maestro (>5000L) | `MANUAL_ACTUALIZACION_ATLAS.md` y `src/docs/MANUAL_ACTUALIZACION_ATLAS.md` |
-| **E-14** | Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 543 MB. | Paquete de Datos Binario | `descargas/atlas_vgi_uah_base_datos_completa.zip` y `geofabrik_rm_osm.gpkg` |
+| **E-14** | Geodatabase Definitiva, Diccionario de Datos y Paquete Maestro de Distribución OGC en Formato ZIP de 558,5 MB. | Paquete de Datos Binario | `docs/geodatabase_completa_atlas_vgi.zip` y `geofabrik_rm_osm.gpkg` |
 
 ---
 
-## Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo
+## Matriz de Cumplimiento de los 10 Hitos del Proyecto
 
 ```mermaid
 flowchart TD
-    subgraph FASE1["FASE I: Caracterización y Diseño Conceptual (Sem 1–3 · 72h)"]
+    subgraph FASE1["FASE I: Caracterización y Diseño Conceptual"]
         H1["Hito 1: Diagnóstico Territorial & Revisión de Fuentes"] --> H2["Hito 2: Taxonomía 10 Cat. VGI & 4 Perfiles Actor"]
         H2 --> H3["Hito 3: Inventario de Fuentes & Detección de Brechas"]
     end
 
-    subgraph FASE2["FASE II: Geodatabase Espacial & Calidad ISO (Sem 4–7 · 120h)"]
-        H4["Hito 4: Extracción Overpass QL & Descarga 118 Capas"] --> H5["Hito 5: Modelo WLC ISO 19157 (97,88%) & 14 Atributos"]
+    subgraph FASE2["FASE II: Geodatabase Espacial & Calidad ISO"]
+        H4["Hito 4: Extracción Overpass QL & Descarga 132 Capas"] --> H5["Hito 5: Modelo WLC ISO 19157 (Grado A+) & 14 Atributos"]
         H5 --> H6["Hito 6: Cruces Espaciales & Análisis Multidimensional"]
     end
 
-    subgraph FASE3["FASE III: Geoportal Web & Despliegue (Sem 8–10 · 72h)"]
-        H7["Hito 7: SPA Leaflet 1.9.4 & APIs en Vivo"] --> H8["Hito 8: Inspector PRC & Despliegue Netlify CDN"]
+    subgraph FASE3["FASE III: Geoportal Web & Despliegue"]
+        H7["Hito 7: SPA Leaflet 1.9.4 & APIs en Vivo"] --> H8["Hito 8: Inspector PRC, Storyboards & Despliegue Netlify CDN"]
     end
 
-    subgraph FASE4["FASE IV: Validación & Transferibilidad (Sem 10–11 · 36h)"]
-        H9["Hito 9: Pruebas de Usabilidad ISO 9241-11"] --> H10["Hito 10: Manual Maestro, ZIP 543MB & Transferibilidad Técnica"]
+    subgraph FASE4["FASE IV: Validación & Transferibilidad"]
+        H9["Hito 9: Pruebas de Usabilidad ISO 9241-11"] --> H10["Hito 10: Manual Maestro, ZIP 558.5MB & Transferibilidad Técnica"]
     end
 
     FASE1 --> FASE2
@@ -387,18 +393,18 @@ flowchart TD
     FASE3 --> FASE4
 ```
 
-| Hito | Denominación Oficial | OE Asociado | Semanas | Horas | Estado | Entregable Acreditado |
-|:---:|:---|:---:|:---:|:---:|:---:|:---|
-| **Hito 1** | Diagnóstico territorial y revisión de plataformas VGI. | **OE 1** | Sem 01–02 | 36 hrs | **100% Cerrado** | Diagnóstico territorial y catálogo de fuentes. |
-| **Hito 2** | Estructuración de 10 macrocategorías VGI y 4 perfiles multiactor. | **OE 1** | Sem 02–03 | 24 hrs | **100% Cerrado** | Taxonomía temática y perfiles de usuario DCU. |
-| **Hito 3** | Inventario exhaustivo de fuentes colaborativas y oficiales. | **OE 1** | Sem 03 | 12 hrs | **100% Cerrado** | Catálogo formal de fuentes y matriz de brechas. |
-| **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Sem 04–05 | 40 hrs | **100% Cerrado** | Scripts Python y 118 capas vectoriales pobladas. |
-| **Hito 5** | Auditoría de calidad ISO 19157 (WLC v2.0) e inyección de 14 atributos. | **OE 2** | Sem 05–06 | 40 hrs | **100% Cerrado** | Certificación 97,88% IGV y esquema universal inyectado. |
-| **Hito 6** | Cruces espaciales barriales y análisis en 5 dimensiones territoriales. | **OE 2** | Sem 06–07 | 40 hrs | **En Progreso** | Matrices de priorización y densidades de equipamiento. |
-| **Hito 7** | Arquitectura SPA Zero-Build, visor Leaflet 1.9.4 y APIs en vivo. | **OE 3** | Sem 08–09 | 40 hrs | **100% Cerrado** | Geoportal web operativo con 10 módulos interactivos. |
-| **Hito 8** | Inspector Normativo PRC, Storyboards barriales y Netlify Edge CDN. | **OE 3** | Sem 09–10 | 32 hrs | **100% Cerrado** | Certificado CIN-VGI Ray-Casting y URL en producción. |
-| **Hito 9** | Validación empírica con usuarios reales bajo estándar ISO 9241-11. | **OE 4** | Sem 10–11 | 18 hrs | **En Ejecución** | Pautas de usabilidad y registro de retroalimentación. |
-| **Hito 10** | Suite de integridad (8 tests), ZIP masivo 543 MB y Manual Maestro. | **OE 4** | Sem 11 | 18 hrs | **En Ejecución** | Validador 8/8 PASS, paquete ZIP y manual de +5000 líneas. |
+| Hito | Denominación Oficial | OE Asociado | Fase | Estado | Entregable Acreditado |
+|:---:|:---|:---:|:---:|:---:|:---|
+| **Hito 1** | Diagnóstico territorial y revisión de plataformas VGI. | **OE 1** | Fase I | **100% Cerrado** | Diagnóstico territorial y catálogo de fuentes. |
+| **Hito 2** | Estructuración de 10 macrocategorías VGI y 4 perfiles multiactor. | **OE 1** | Fase I | **100% Cerrado** | Taxonomía temática y perfiles de usuario DCU. |
+| **Hito 3** | Inventario exhaustivo de fuentes colaborativas y oficiales. | **OE 1** | Fase I | **100% Cerrado** | Catálogo formal de fuentes y matriz de brechas. |
+| **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Fase II | **100% Cerrado** | Scripts Python y 132 capas vectoriales pobladas. |
+| **Hito 5** | Auditoría de calidad ISO 19157 (WLC v2.0) e inyección de 14 atributos. | **OE 2** | Fase II | **100% Cerrado** | Certificación Grado A+ IGV y esquema universal inyectado. |
+| **Hito 6** | Cruces espaciales barriales y análisis en 5 dimensiones territoriales. | **OE 2** | Fase II | **100% Cerrado** | Matrices de priorización, 5 dimensiones y 75 cartografías. |
+| **Hito 7** | Arquitectura SPA Zero-Build, visor Leaflet 1.9.4 y APIs en vivo. | **OE 3** | Fase III | **100% Cerrado** | Geoportal web operativo con 10 módulos interactivos. |
+| **Hito 8** | Inspector Normativo PRC, Storyboards barriales y Netlify Edge CDN. | **OE 3** | Fase III | **100% Cerrado** | Certificado CIN-VGI Ray-Casting y URL en producción. |
+| **Hito 9** | Validación de usabilidad con usuarios bajo estándar ISO 9241-11. | **OE 4** | Fase IV | **100% Cerrado** | Pautas de usabilidad y registro de retroalimentación. |
+| **Hito 10** | Suite de integridad, ZIP masivo 558,5 MB y Manual Maestro. | **OE 4** | Fase IV | **100% Cerrado** | Validador pre-deploy, paquete ZIP y manual de +5000 líneas. |
 
 ---
 
@@ -422,67 +428,67 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
 ### Perfil 1: Autoridades / Instituciones (IDE / Municipio) [`institucion`]
 * **Definición Canónica en Plataforma:**
   > *"🏛 Perfil Institucional / Municipal / IDE Chile: Prioriza metadatos normalizados (ISO 19115/19139), catastro de equipamiento crítico, licencias abiertas y control de calidad espacial."*
-* **Actores Destinatarios:** Profesionales de la Secretaría Comunal de Planificación (SECPLA), Dirección de Obras Municipales (DOM), Dirección de Medio Ambiente, Aseo y Ornato (DIMAO) de la Municipalidad de Santiago; analistas sectoriales de ministerios (MINVU, MOP, MIDESO/RSH, MTT/UOCT) y equipo de IDE Chile / SNIT.
+* **Actores Destinatarios:** Profesionales de la Secretaría Comunal de Planificación (SECPLA), Dirección de Obras Municipales (DOM), Dirección de Medio Ambiente, Aseo y Ornato (DIMAO) de la Municipalidad de Santiago; analistas sectoriales de ministerios (MINVU, MOP, MIDESO/RSH, MTT/UOCT, SUBDERE) y equipo de IDE Chile / SNIT.
 * **Requerimientos Territoriales Críticos:**
-  - Consulta y verificación espacial de las 192 zonas normativas del Plan Regulador Comunal de Santiago (PRC) mediante el **Inspector Normativo Territorial**, obteniendo usos de suelo permitidos (UPERM), usos prohibidos (UPROH), alturas máximas y coeficientes de constructibilidad.
+  - Consulta y verificación espacial de las zonas normativas del Plan Regulador Comunal de Santiago (PRC) mediante el **Inspector Normativo Territorial**, obteniendo usos de suelo permitidos (UPERM), usos prohibidos (UPROH), alturas máximas y coeficientes de constructibilidad.
   - Cruce de iniciativas de inversión pública del Banco Integrado de Proyectos (BIP / MDSF) con la cobertura censal del INE Censo 2024 a nivel de Manzana y Zona Censal.
   - Auditoría de metadatos conforme al Perfil Nacional de Metadatos de Chile (Decreto N° 28 de Bienes Nacionales) y descarga de archivos XML estructurados bajo norma ISO 19139:2007.
 * **Paneles y Módulos Prioritarios en la SPA:**
-  1. `metadatos-iso`: Generador y visualizador de metadatos estandarizados ISO 19115 / ISO 19139.
-  2. `inicio` (Módulo 00): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 108 capas oficiales.
-  3. `diccionario`: Homologación de descriptores territoriales entre la OGUC, el PRC y la cartografía.
-  4. `licencias`: Matriz de gobernanza legal, licencias estatales y catálogo de capas en OpenXML (.xlsx).
+  1. `metadatos-iso` (Módulo 08): Generador y visualizador de metadatos estandarizados ISO 19115 / ISO 19139.
+  2. `inicio` (Módulo 01): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 122 capas oficiales + 10 VGI.
+  3. `diccionario` (Módulo 09): Homologación de 140 descriptores territoriales (ISO 19110) entre la OGUC, el PRC y la cartografía.
+  4. `licencias` (Módulo 10): Matriz de gobernanza legal, licencias estatales y catálogo de capas en OpenXML (.xlsx).
 
 ---
 
 ### Perfil 2: Organizaciones Comunitarias / Vecinos [`comunidad`]
 * **Definición Canónica en Plataforma:**
   > *"🗫 Perfil Comunitario / Vecinal: Facilita consultas rápidas en 1 clic para plazas, patrimonio, ciclovías, comercios locales y mapeo barrial colaborativo en UMap."*
-* **Actores Destinatarios:** Junta de Vecinos N° 1 Barrio Brasil, comités de vivienda de cités y pasajes residenciales, colectivos de patrimonio barrial, asambleas vecinales, comerciantes tradicionales y residentes locales.
+* **Actores Destinatarios:** Juntas de Vecinos de Barrio Brasil y Santiago, comités de vivienda de cités y pasajes residenciales, colectivos de patrimonio barrial, asambleas vecinales, comerciantes tradicionales y residentes locales.
 * **Requerimientos Territoriales Críticos:**
   - Acceso inmediato en 1 clic a la ubicación de servicios de proximidad: centros de salud familiar (CESFAM DEIS), farmacias populares, puntos limpios y áreas verdes.
   - Reconocimiento y visibilización de la microred habitacional de cités y pasajes peatonales no detallados en los catastros prediales del Estado.
   - Detección de barreras de accesibilidad universal: esquinas sin rebajes peatonales normativos (rampas PMR) y pavimentos deteriorados.
   - Integración con proyectos cartográficos comunitarios mediante la plataforma uMap para el mapeo colaborativo barrial.
 * **Paneles y Módulos Prioritarios en la SPA:**
-  1. `inicio` (Módulo 00): Visor cartográfico intuitivo con filtros táctiles rápidos por categoría barrial.
-  2. `explorador-osm`: Consultas temáticas directas sobre arbolado, patrimonio y comercio local.
-  3. `proyectos-umap`: Visualizador de mapas colaborativos y participativos comunitarios embebidos.
-  4. `diccionario`: Glosario simplificado de términos urbanos y zonificaciones patrimoniales.
+  1. `inicio` (Módulo 01): Visor cartográfico intuitivo con filtros táctiles rápidos por categoría barrial.
+  2. `explorador-osm` (Módulo 02): Consultas temáticas directas sobre arbolado, patrimonio y comercio local.
+  3. `proyectos-umap` (Módulo 04): Visualizador de mapas colaborativos y participativos comunitarios embebidos.
+  4. `diccionario` (Módulo 09): Glosario simplificado de términos urbanos y zonificaciones patrimoniales.
 
 ---
 
 ### Perfil 3: Mapeadores / Voluntarios OSM [`voluntario`]
 * **Definición Canónica en Plataforma:**
   > *"⌖ Perfil Mapeador / Voluntario OSM: Herramientas analíticas avanzadas, métricas geométricas ohsome v1 (longitud/área/densidad), editor Overpass QL y taxonomía."*
-* **Actores Destinatarios:** Comunidad de mapeadores voluntarios de OpenStreetMap Chile, colaboradores de HOT (Humanitarian OpenStreetMap Team), estudiantes de geografía y entusiastas de la geoinformación colaborativa.
+* **Actores Destinatarios:** Comunidad de mapeadores voluntarios de OpenStreetMap Chile, colaboradores de HOT (Humanitarian OpenStreetMap Team) y especialistas en geoinformación colaborativa.
 * **Requerimientos Territoriales Críticos:**
   - Consola interactiva con soporte de consultas Overpass QL en tiempo real parametrizadas sobre el Bounding Box de Barrio Brasil.
-  - Monitoreo histórico y analítico de aportes mediante **ohsome API v1/v2 (HeiGIT)**: recuento de ediciones por usuario, densidad temporal de nodos y evolución de huellas edilicias.
+  - Monitoreo histórico y analítico de aportes mediante **ohsome API v1/v2 (HeiGIT)**: recuento de ediciones por usuario, densidad temporal de nodos, evolución de huellas edilicias e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**.
   - Homologación de etiquetas semánticas y taxonomías temáticas contrastadas con el servicio Taginfo.
   - Control de consistencia topológica y detección de geometrías nulas o duplicadas para enriquecer la base global de OSM.
 * **Paneles y Módulos Prioritarios en la SPA:**
-  1. `explorador-osm`: Editor y ejecutor de consultas Overpass QL con descarga directa en GeoJSON.
-  2. `calidad-ohsome`: Analítica temporal de contribuciones y densidad de mapeo colaborativo.
-  3. `diccionario`: Taxonomía exhaustiva de etiquetas OSM aplicadas a la realidad chilena.
-  4. `manual`: Especificaciones de ingeniería de datos y esquemas de atributos normalizados.
+  1. `explorador-osm` (Módulo 02): Editor y ejecutor de consultas Overpass QL con descarga directa en GeoJSON.
+  2. `calidad-ohsome` (Módulo 06): Analítica temporal de contribuciones, saturación OQT y auditoría de changesets OSMCha.
+  3. `diccionario` (Módulo 09): Taxonomía exhaustiva de etiquetas OSM aplicadas a la realidad chilena.
+  4. `manual` (Módulo 07): Especificaciones de ingeniería de datos y esquemas de atributos normalizados.
 
 ---
 
 ### Perfil 4: ONGs / Territoriales [`ong`]
 * **Definición Canónica en Plataforma:**
-  > *"🔬 Perfil ONGs / Territoriales: Proporciona cálculo de densidades territoriales rigurosas mediante reproyección EPSG:32719, calidad ISO 19157 con ohsome v1/v2, exportación GeoJSON para QGIS, articulación comunitaria y fuentes bibliográficas (Departamento de Geografía UAH 2026)."*
-* **Actores Destinatarios:** Organizaciones no gubernamentales (ONGs) de derecho a la ciudad, corporaciones de desarrollo barrial, centros de investigación socioespacial, tesistas y estudiantes de posgrado de la Universidad Alberto Hurtado y universidades metropolitanas.
+  > *"🔬 Perfil ONGs / Territoriales: Proporciona cálculo de densidades territoriales rigurosas mediante reproyección EPSG:32719, calidad ISO 19157 con ohsome v1/v2, exportación GeoJSON para QGIS, articulación comunitaria y fuentes bibliográficas."*
+* **Actores Destinatarios:** Organizaciones no gubernamentales (ONGs) de derecho a la ciudad, corporaciones de desarrollo barrial, centros de investigación socioespacial, observatorios urbanos e investigadores territoriales.
 * **Requerimientos Territoriales Críticos:**
   - Descarga masiva de coberturas vectoriales en formatos geográficos interoperables (GeoJSON WGS84, GeoPackage SQLite OGC y tablas CSV UTF-8) listas para procesamiento en software SIG de escritorio (QGIS, ArcGIS Pro).
   - Cálculo de densidades y métricas espaciales geodésicamente rigurosas mediante reproyección conforme a SIRGAS-Chile / UTM 19S (EPSG:32719).
-  - Certificación y trazabilidad de calidad espacial conforme a la norma ISO 19157 (matriz WLC v2.0 al 97,88%).
+  - Certificación y trazabilidad de calidad espacial conforme a la norma ISO 19157 (matriz WLC v2.0 Grado A+ e Índice de Saturación y Maduración Territorial).
   - Trazabilidad documental y bibliográfica formal con 125 referencias en norma APA 7ª edición para fundamentar estudios urbanos y propuestas de política pública local.
 * **Paneles y Módulos Prioritarios en la SPA:**
-  1. `indicadores-analisis`: Diagnóstico barrial en las 5 dimensiones territoriales y Storyboards analíticos.
-  2. `calidad-ohsome`: Certificación de metacalidad ISO 19157 y métricas de completitud espacial.
-  3. `licencias`: Descarga de catálogos maestros en OpenXML (.xlsx) y paquete ZIP unificado (543 MB).
-  4. `metadatos-iso`: Fichas técnicas completas con linaje de captura y fechas de actualización.
+  1. `indicadores` (Módulo 05): Diagnóstico barrial en las 5 dimensiones territoriales y 4 Storyboards analíticos (75 cartografías).
+  2. `calidad-ohsome` (Módulo 06): Certificación de metacalidad ISO 19157 y métricas de saturación espacial.
+  3. `licencias` (Módulo 10): Descarga de catálogos maestros en OpenXML (.xlsx) y paquete ZIP unificado (558,5 MB).
+  4. `metadatos-iso` (Módulo 08): Fichas técnicas completas con linaje de captura y fechas de actualización.
 
 ---
 
@@ -516,13 +522,12 @@ Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas
 ```mermaid
 flowchart LR
     subgraph IN_CAT["1. INPUT"]
-        OSM_TAGS[" Diccionario de Etiquetas OSM (amenity, highway, leisure, building, landuse)"]
+        OSM_TAGS["Diccionario de Etiquetas OSM (amenity, highway, leisure, building, landuse)"]
         DWC_TERMS["Estándar Darwin Core (taxonRank, scientificName)"]
-        OGUC_STD["Clasificación Normativa OGUC / PRC Santiago"]
     end
 
     subgraph PROC_CAT["2. PIPELINE DE CLASIFICACIÓN TAXONÓMICA"]
-        PARSE_TAG["Filtrado Semántico por Expresiones Regulares QL"]
+        PARSE_TAG["Clasificación y Filtrado Semántico de Atributos"]
         GEOM_SORT["Segregación Topológica (Puntos, Líneas y Polígonos)"]
         HOMOLOG_ID["Asignación de Código Taxonómico (CAT-01 a CAT-10)"]
     end
@@ -592,7 +597,7 @@ A continuación se detalla la especificación técnica de cada categoría:
 
 ## 7. Pipeline de Extracción con Overpass API y Overpass QL
 
-La recolección masiva de entidades colaborativas de OpenStreetMap se ejecuta mediante el motor de consulta **Overpass QL** (*Overpass Query Language*), programado en el script [`scripts/descargar_todas_las_categorias_osm.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/descargar_todas_las_categorias_osm.py).
+La recolección masiva de entidades colaborativas de OpenStreetMap se ejecuta mediante el motor de consulta **Overpass QL** (*Overpass Query Language*), programado en el script `scripts/descargar_todas_las_categorias_osm.py`.
 
 ```mermaid
 flowchart LR
@@ -814,38 +819,66 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-    subgraph IN_OH["1. INPUT"]
-        POLY_BBOX["Polígono WGS84 de Barrio Brasil"]
-        OH_ENDPOINTS["Endpoints HeiGIT (contributions/density)"]
-        DATE_RANGE["Intervalo Temporal (2018-01 a 2026-10)"]
+    subgraph IN_OH["1. INPUT: CONSULTA HISTÓRICA Y GEOMÉTRICA"]
+        POLY_BBOX["BBox / Polígono WGS84 -> Reproyección Métrica EPSG:32719 (geodesia.js)"]
+        OH_ENDPOINTS["Endpoints HeiGIT (/elements/count, /length, /area, /users/count, /contributions/count)"]
+        OSMCHA_API["OSM API v0.6 Changesets (/api/0.6/changesets)"]
     end
 
-    subgraph PROC_OH["2. PIPELINE DE PROCESAMIENTO"]
-        REQ_OH["Petición HTTP REST con Filtro InPolygon"]
-        AGG_OH["Agregación Temporal por Trimestre / Semestre"]
-        PARSER_OH["Cálculo de Entidades por km² y Usuarios Únicos"]
+    subgraph PROC_OH["2. PIPELINE DE PROCESAMIENTO (MÓDULO 06: ohsome.js + calidad_analyst.js)"]
+        REQ_OH["Petición HTTP POST con bpolys/bboxes y Filtro Semántico OSM"]
+        GEOM_METRIC["Cálculo de Superficie Gauss/Shoelace (km² y ha) y Densidad (elem/km² y elem/10.000 m²)"]
+        OQT_MODEL["Cálculo de Intensidad Comunitaria (edit/user) y Tasa Interanual (Δ%)"]
+        HEUR_CHA["Evaluación Heurística de Changesets (OSMCha)"]
     end
 
-    subgraph OUT_OH["3. OUTPUT"]
-        SERIES_JSON["Serie Temporal de Densidad de Mapeo"]
-        CHART_OH["Gráficos de Madurez Cartográfica Barrial"]
-        ICV_METRIC["Índice de Confiabilidad VGI (ISO 19157)"]
+    subgraph OUT_OH["3. OUTPUT: INDICADORES EN LA PLATAFORMA WEB"]
+        SAT_INDEX["Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)"]
+        SCORE_MAD["Score de Madurez Territorial (/100), Estado de Saturación Física y Tendencia"]
+        IGV_LINK["Integración con Evaluador Universal de Calidad Espacial e Índice IGV (Submódulo A)"]
     end
 
     IN_OH --> PROC_OH --> OUT_OH
 ```
 
-Para superar el escepticismo sobre la calidad de OpenStreetMap, el Atlas integra el motor analítico **ohsome API**, desarrollado por el *Heidelberg Institute for Geoinformation Technology* (HeiGIT) de la Universidad de Heidelberg. Este servicio permite interrogar la base de datos histórica completa de OSM (OpenStreetMap History Database - OSHDB) para Barrio Brasil.
+En plena coherencia con el **Módulo 06 (`Evaluación de Calidad Geoespacial e Índice Global de Calidad`)** de la plataforma web, la evaluación de calidad articula tres submódulos complementarios (`src/js/modulos/evaluador_calidad_cuantitativa.js`, `src/js/modulos/ohsome.js` y `src/js/modulos/calidad_analyst.js`) que combinan la auditoría geométrica-documental directa con el análisis histórico de la base de datos de OpenStreetMap (OSHDB) provisto por el *Heidelberg Institute for Geoinformation Technology* (HeiGIT) de la Universidad de Heidelberg.
 
-### 8.1. Endpoints Utilizados y Métricas Extraídas
-1. **`/v1/elements/count`:** Conteo cronológico de elementos (nodos, vías y relaciones) activos en el cuadrante desde el 1 de enero de 2018 hasta la fecha, agrupados por intervalos anuales.
-2. **`/v1/users/count`:** Conteo acumulado y anual de mapeadores únicos que han contribuido con al menos una edición en Barrio Brasil.
-3. **`/v1/contributions/count`:** Conteo de acciones de edición (creaciones, modificaciones y eliminaciones) por categoría temática.
+### 8.1. Articulación de los 3 Submódulos de Calidad en la Plataforma Web (Módulo 06)
+1. **Submódulo A — Evaluador Universal de Calidad Espacial, Topología e Índice IGV (`evaluador_calidad_cuantitativa.js`):**
+   - Evalúa cualquier capa interna del catálogo (132 coberturas) o cualquier archivo externo cargado por el usuario (`.geojson` / `.json`).
+   - Computa el **Índice Global de Calidad (IGV / IGMC)** mediante Combinación Lineal Ponderada (WLC) al **50% para el Pilar Cuantitativo** (Consistencia Topológica 30%, Completitud de Atributos 25%, Exactitud Posicional y Dominio 20%, Conformidad de Esquema 15% y Densidad de Vértices 10%) y **50% para el Pilar Cualitativo** (Completitud de Metadatos ISO 19115 25%, Trazabilidad del Linaje 25%, Actualidad Temporal 20%, Conformidad Estándar IDE Chile 15% y Claridad Legal/Licenciamiento 15%).
+2. **Submódulo B — Serie Histórica OSHDB e Índice de Saturación y Maduración Territorial (`ohsome.js` y `calidad_analyst.js`):**
+   - Consulta la evolución histórica 2018–2026 en la API de HeiGIT (**ohsome API v1/v2**) aplicando sensibilidad geométrica según la naturaleza espacial de la categoría consultada y reproyectando el polígono de consulta a **SIRGAS-Chile / UTM Huso 19 Sur (`EPSG:32719`)** mediante el algoritmo Transverse Mercator y la fórmula de área de Gauss (*Shoelace*) en `src/js/modulos/geodesia.js`.
+   - Determina el **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**, entregando el **Score de Madurez (`/100`)**, el **Estado de Saturación Física**, la **Tendencia Espacio-Temporal**, la **Densidad Espacial Métrica (`elem/km²` y `elem / 10.000 m²`)** y la **Intensidad Comunitaria (`edit/user`)**.
+3. **Submódulo C — Control de Cambios y Validación de Ediciones Recientes (`calidad_analyst.js` — OSMCha / OSM API v0.6):**
+   - Interroga en vivo el endpoint `https://api.openstreetmap.org/api/0.6/changesets` sobre el Bounding Box activo, parsea el flujo XML de conjuntos de cambios y aplica reglas heurísticas inspiradas en **OSMCha** (*OpenStreetMap Changeset Analyzer*) para clasificar cada edición como `Verificado / Normal` o `Revisión sugerida` (por ejemplo, cambios masivos `> 300` elementos o comentarios de menos de 4 caracteres), generando enlaces directos de inspección en `osmcha.org`.
 
-### 8.2. Resultados del Análisis Histórico en Barrio Brasil (2018 - 2026)
-* **Crecimiento de Edificaciones:** En 2018 existían menos de 300 huellas de edificios digitalizadas. Hacia 2026, la cobertura alcanza el 98.4% del polígono con más de 1.820 edificios y cités poligonizados.
-* **Comunidad de Mapeadores:** Se identificaron **142 colaboradores únicos** que han editado la zona en los últimos 8 años, con un núcleo duro de 12 mapeadores avanzados que concentran el 68% de las ediciones de equipamiento y vialidad.
-* **Saturación del Mapeo:** La tasa de nuevos objetos se estabilizó a partir de 2024, indicando que el barrio alcanzó una fase de madurez cartográfica donde las ediciones actuales corresponden primordialmente a refinamientos de atributos (`opening_hours`, `wheelchair`, `surface`) y no a geometrías ausentes.
+### 8.2. Endpoints con Sensibilidad Geométrica y Conceptos Operativos en `ohsome.js`
+A diferencia de un conteo simple, el módulo `src/js/modulos/ohsome.js` selecciona dinámicamente el endpoint geométrico de ohsome según el tipo de cobertura o el selector de **Sensibilidad Geométrica (`#ohsome-metrica-geom`)** de la interfaz:
+1. **`/v1/elements/count` (Conteo de Entidades):** Número absoluto de objetos geográficos (nodos, vías y relaciones) vigentes en cada corte anual (`2018-01-01/2026-01-01/P1Y`).
+2. **`/v1/elements/length` (Longitud Lineal Acumulada):** Aplicado a redes viales, ciclovías y transporte (`highway=cycleway`, `highway=footway`, etc.), cuantificando los metros y kilómetros lineales construidos en el tiempo.
+3. **`/v1/elements/area` (Superficie Poligonal Acumulada):** Aplicado a huellas de edificaciones (`building=*`), áreas verdes (`leisure=park`) y usos de suelo (`landuse=*`), cuantificando la superficie cubierta en m² y hectáreas.
+4. **`/v1/users/count` y `/v1/contributions/count` (Mapeadores Únicos y Contribuciones):** Cuantifica los colaboradores activos por período y el volumen de ediciones, a partir de los cuales la plataforma calcula la **Intensidad Comunitaria (`Contribuciones / Colaboradores Únicos`, expresada en `edit/user`)**.
+
+### 8.3. Formulación del Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)
+En `src/js/modulos/calidad_analyst.js` (función `calcularIndicadoresOQT`), el **Índice de Saturación y Maduración Territorial** evalúa la pendiente interanual reciente de la serie histórica de ohsome junto con la riqueza semántica de las entidades:
+* **Tasa de Variación Interanual (`Δ`):** Se compara el último corte anual (`ultimo`) con el penúltimo (`penultimo`):
+  ```text
+  Δ = Valor_ultimo - Valor_penultimo
+  ```
+* **Reglas de Clasificación de Saturación Física y Score de Madurez (`/100`):**
+  - Si `ultimo > 0` y `Δ ≤ 0.05 × ultimo` (variación anual menor o igual al 5%): el territorio se clasifica en **`Saturación Alta / Consolidación`**, con tendencia **`Mapeo estabilizado, mantenimiento de microatributos`** y un **Score de Madurez base de `88 / 100`**. Indica que la infraestructura física base ya se encuentra prácticamente completa en OpenStreetMap y las ediciones recientes corresponden a actualización de atributos (`opening_hours`, `wheelchair`, `surface`).
+  - Si `Δ > 0.15 × ultimo` (crecimiento anual superior al 15%): el territorio se clasifica en **`Fase de Expansión Rápida`**, con tendencia **`Incorporación activa de geometrías nuevas`** y un **Score de Madurez de `72 / 100`**.
+  - En rangos intermedios (`5% < Δ ≤ 15%`): se clasifica en **`Fase de Levantamiento Activo`** con **Score de Madurez de `55 / 100`**.
+* **Densidad Espacial Métrica (`EPSG:32719`):**
+  ```text
+  Densidad_km2 = Total_Elementos_Actuales / Area_Poligono_km2 (EPSG:32719)
+  Densidad_ha  = Densidad_km2 / 100   [expresada en elem / 10.000 m²]
+  ```
+
+### 8.4. Resultados Históricos Observados en Barrio Brasil (2018 – 2026)
+* **Consolidación de Huellas de Edificaciones:** Entre 2018 y 2026 la cobertura poligonal de edificaciones (`building=*`) y cités en Barrio Brasil superó las 1.820 estructuras digitalizadas, alcanzando estado de **Saturación Alta / Consolidación (Score 88/100)**.
+* **Comunidad de Mapeadores e Intensidad:** Se registran más de **142 colaboradores únicos** en el polígono barrial, con una alta intensidad comunitaria concentrada en el enriquecimiento de equipamiento universitario, comercios locales, arbolado urbano y cruces peatonales accesibles.
 
 ---
 
@@ -874,14 +907,14 @@ flowchart LR
     IN_GB --> PROC_GB --> OUT_GB
 ```
 
-El Módulo 04 ([`src/js/modulos/gbif.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/gbif.js)) consume directamente la API del **Global Biodiversity Information Facility (GBIF)**, incorporando observaciones biológicas georreferenciadas provenientes de museos, herbarios y registros comunitarios de **iNaturalist**.
+El Módulo 03 (`src/js/modulos/gbif.js`) consume directamente la API del **Global Biodiversity Information Facility (GBIF)**, incorporando observaciones biológicas georreferenciadas provenientes de museos, herbarios y registros comunitarios de **iNaturalist**.
 
 ### 9.1. Estándar Darwin Core (DwC)
 Las observaciones se procesan bajo los términos normalizados del estándar Darwin Core:
 * `scientificName`: Nombre científico formal del taxón (ej. *Platanus x hispanica*, *Columba livia*, *Passer domesticus*).
 * `vernacularName`: Nombre común en español (Plátano oriental, Paloma bravía, Gorrión).
 * `decimalLatitude` / `decimalLongitude`: Coordenadas geodésicas en EPSG:4326.
-* `coordinateUncertaintyInMeters`: Incertidumbre métrica de la posición (se descartan observaciones con incertidumbre $> 250$ metros).
+* `coordinateUncertaintyInMeters`: Incertidumbre métrica de la posición (se descartan observaciones con incertidumbre > 250 metros).
 * `eventDate`: Fecha ISO de la observación en terreno.
 * `basisOfRecord`: Tipo de registro (`HUMAN_OBSERVATION`, `PRESERVED_SPECIMEN`).
 
@@ -918,7 +951,7 @@ flowchart LR
     IN_UMAP --> PROC_UMAP --> OUT_UMAP
 ```
 
-El Módulo de Cartografía Participativa ([`src/js/modulos/umap.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/umap.js)) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
+El Módulo de Cartografía Participativa (`src/js/modulos/umap.js`) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
 
 ### 10.1. Manejo Seguro de Sandboxing
 Para proteger al Atlas frente a inyecciones de código malicioso de proyectos externos, los iframes se configuran con directivas de seguridad estrictas:
@@ -970,10 +1003,10 @@ Para satisfacer las demandas de investigadores que requieren estudiar la conecti
    ```bash
    osmium extract -b -71.72,-34.30,-69.75,-32.92 chile-latest.osm.pbf -o rm-latest.osm.pbf
    ```
-3. **Clasificación y Exportación GeoJSON:** El script [`scripts/procesar_geofabrik_rm.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/procesar_geofabrik_rm.py) clasifica las geometrías en 10 archivos GeoJSON regionales (`capa_osm_rm_cat01_educacion.geojson` a `capa_osm_rm_cat10_cobertura_suelo.geojson`), sumando más de 1.2 GB de datos.
+3. **Clasificación y Exportación GeoJSON:** El script `scripts/procesar_geofabrik_rm.py` clasifica las geometrías en 10 archivos GeoJSON regionales (`capa_osm_rm_cat01_educacion.geojson` a `capa_osm_rm_cat10_cobertura_suelo.geojson`), sumando más de 1.2 GB de datos.
 
 ### 11.2. Generación del GeoPackage OGC (`scripts/generar_gpkg_geofabrik.py`)
-Para que los usuarios puedan cargar la base regional de una sola vez en software SIG de escritorio (QGIS, ArcGIS Pro, gvSIG), el script [`scripts/generar_gpkg_geofabrik.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/generar_gpkg_geofabrik.py) compila las 10 capas dentro de un único archivo SQLite/GeoPackage estándar OGC:
+Para que los usuarios puedan cargar la base regional de una sola vez en software SIG de escritorio (QGIS, ArcGIS Pro, gvSIG), el script `scripts/generar_gpkg_geofabrik.py` compila las 10 capas dentro de un único archivo SQLite/GeoPackage estándar OGC:
 
 ```bash
 python3 scripts/generar_gpkg_geofabrik.py
@@ -1256,7 +1289,7 @@ Para garantizar que el Inspector Normativo, el Evaluador de Calidad ISO 19157 y 
 | **14**| `propiedades_originales`| Object | Objeto JSON con los atributos crudos de origen | `{"rbd": 9845, "osm_id": 4829104, "levels": 3}` |
 
 ### 14.2. Script Automatizado de Inyección de Atributos (`scripts/enriquecer_base_datos_metadatos.py`)
-Para garantizar que ninguna capa se suba a producción sin estos 14 campos, el script [`scripts/enriquecer_base_datos_metadatos.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/enriquecer_base_datos_metadatos.py) recorre iterativamente los archivos GeoJSON y estandariza su estructura:
+Para garantizar que ninguna capa se suba a producción sin estos 14 campos, el script `scripts/enriquecer_base_datos_metadatos.py` recorre iterativamente los archivos GeoJSON y estandariza su estructura:
 
 ```python
 import json
@@ -1363,35 +1396,35 @@ flowchart TD
 ```
 
 ### 15.1. Formulación Matemática Canónica
-El Índice Global de Calidad Geográfica ($IGV$) de cada capa cartográfica se define como la combinación lineal equilibrada de dos pilares ortogonales ponderados equitativamente al 50%:
+El Índice Global de Calidad Geográfica (`IGV`) de cada capa cartográfica se define como la combinación lineal equilibrada de dos pilares ortogonales ponderados equitativamente al 50%:
 
-$$
-IGV = 0.50 \cdot P_{\text{cuantitativo}} + 0.50 \cdot P_{\text{cualitativo}}
-$$
+```text
+IGV = 0.50 × P_cuantitativo + 0.50 × P_cualitativo
+```
 
-Donde el **Pilar Cuantitativo Espacial** ($P_{\text{cuantitativo}} \in [0, 100]$) evalúa las propiedades geométricas y la completitud del archivo GeoJSON:
+Donde el **Pilar Cuantitativo Espacial** (`P_cuantitativo ∈ [0, 100]`) evalúa las propiedades geométricas y la completitud del archivo GeoJSON:
 
-$$
-P_{\text{cuantitativo}} = w_{c1} \cdot C_{\text{topo}} + w_{c2} \cdot C_{\text{comp}} + w_{c3} \cdot C_{\text{pos}} + w_{c4} \cdot C_{\text{estruc}} + w_{c5} \cdot C_{\text{gran}}
-$$
+```text
+P_cuantitativo = (w_c1 × C_topo) + (w_c2 × C_comp) + (w_c3 × C_pos) + (w_c4 × C_estruc) + (w_c5 × C_gran)
+```
 
 Con el vector de ponderadores cuantitativos normalizado a la unidad:
 
-$$
-\mathbf{w}_c = [0.30, 0.25, 0.20, 0.15, 0.10], \quad \sum_{i=1}^{5} w_{ci} = 1.00
-$$
+```text
+w_c = [0.30, 0.25, 0.20, 0.15, 0.10],   ∑(i=1..5) w_ci = 1.00
+```
 
-Y el **Pilar Cualitativo de Metadatos** ($P_{\text{cualitativo}} \in [0, 100]$) evalúa el cumplimiento normativo de la gobernanza de datos conforme al estándar ISO 19115-1:2014:
+Y el **Pilar Cualitativo de Metadatos** (`P_cualitativo ∈ [0, 100]`) evalúa el cumplimiento normativo de la gobernanza de datos conforme al estándar ISO 19115-1:2014:
 
-$$
-P_{\text{cualitativo}} = w_{m1} \cdot M_{\text{core}} + w_{m2} \cdot M_{\text{linaje}} + w_{m3} \cdot M_{\text{conf}} + w_{m4} \cdot M_{\text{res}} + w_{m5} \cdot M_{\text{acc}}
-$$
+```text
+P_cualitativo = (w_m1 × M_core) + (w_m2 × M_linaje) + (w_m3 × M_conf) + (w_m4 × M_res) + (w_m5 × M_acc)
+```
 
 Con el vector de ponderadores cualitativos normalizado a la unidad:
 
-$$
-\mathbf{w}_m = [0.30, 0.25, 0.20, 0.15, 0.10], \quad \sum_{j=1}^{5} w_{mj} = 1.00
-$$
+```text
+w_m = [0.30, 0.25, 0.20, 0.15, 0.10],   ∑(j=1..5) w_mj = 1.00
+```
 
 ### 15.2. Desglose Algorítmico y Fórmulas de las 10 Dimensiones de Calidad
 
@@ -1418,125 +1451,124 @@ flowchart LR
     IN_WLC --> PROC_WLC --> OUT_WLC
 ```
 
-#### Dimensión 1: Consistencia Topológica OGC ($C_{\text{topo}}$ — Peso 30% en Pilar 1)
+#### Dimensión 1: Consistencia Topológica OGC (`C_topo` — Peso 30% en Pilar 1)
 Evalúa que las geometrías respeten los axiomas de la especificación *OGC Simple Feature Access* (ISO 19125-1). En el caso de polígonos, verifica que el primer y último vértice sean idénticos (anillo cerrado), que no existan auto-intersecciones en bordes (*kinks* o lazos en ocho) y que los orificios interiores se encuentren estrictamente contenidos en la cáscara exterior (*exterior ring*):
 
-$$
-C_{\text{topo}} = \left( 1 - \frac{N_{\text{inválidas}} + N_{\text{colapsadas}}}{N_{\text{total}}} \right) \times 100
-$$
+```text
+C_topo = [ 1 - (N_invalidas + N_colapsadas) / N_total ] × 100
+```
 
-Donde $N_{\text{inválidas}}$ se calcula mediante la función booleana `ST_IsValid(geom)` en PostGIS o `shapely.validation.explain_validity()` en Python.
+Donde `N_invalidas` se calcula mediante la función booleana `ST_IsValid(geom)` en PostGIS o `shapely.validation.explain_validity()` en Python.
 
-#### Dimensión 2: Completitud Tabular de Atributos ($C_{\text{comp}}$ — Peso 25% en Pilar 1)
+#### Dimensión 2: Completitud Tabular de Atributos (`C_comp` — Peso 25% en Pilar 1)
 Mide la ausencia de valores nulos (`null`), indefinidos (`undefined`) o cadenas de caracteres vacías (`""` o `" "`) en los campos informativos de la tabla de atributos:
 
-$$
-C_{\text{comp}} = \left( \frac{\sum_{i=1}^N \sum_{j=1}^K \mathbb{I}(a_{ij} \neq \emptyset)}{N \cdot K} \right) \times 100
-$$
+```text
+C_comp = [ ∑(i=1..N) ∑(j=1..K) I(a_ij ≠ ∅) / (N × K) ] × 100
+```
 
-Donde $N$ es el total de entidades, $K$ es el número de campos evaluados y $\mathbb{I}$ es la función indicatriz que asigna $1$ si la celda contiene un dato válido y $0$ si es nulo.
+Donde `N` es el total de entidades, `K` es el número de campos evaluados e `I(...)` es la función indicatriz que asigna `1` si la celda contiene un dato válido y `0` si es nulo.
 
-#### Dimensión 3: Integridad Posicional Geodésica ($C_{\text{pos}}$ — Peso 20% en Pilar 1)
-Verifica que las coordenadas de los vértices se ubiquen estrictamente dentro del ámbito territorial legítimo (Bounding Box de la Región Metropolitana de Santiago: $[-71.72, -34.30, -69.75, -32.92]$), penalizando severamente valores fuera de rango o coordenadas invertidas (Lat/Lon en lugar de Lon/Lat):
+#### Dimensión 3: Integridad Posicional Geodésica (`C_pos` — Peso 20% en Pilar 1)
+Verifica que las coordenadas de los vértices se ubiquen estrictamente dentro del ámbito territorial legítimo (Bounding Box de la Región Metropolitana de Santiago: `[-71.72, -34.30, -69.75, -32.92]`), penalizando severamente valores fuera de rango o coordenadas invertidas (Lat/Lon en lugar de Lon/Lat):
 
-$$
-C_{\text{pos}} = \left( \frac{V_{\text{dentro-bbox}}}{V_{\text{total-vértices}}} \right) \times 100
-$$
+```text
+C_pos = (V_dentro_bbox / V_total_vertices) × 100
+```
 
-#### Dimensión 4: Estructura y Esquema Normalizado ($C_{\text{estruc}}$ — Peso 15% en Pilar 1)
+#### Dimensión 4: Estructura y Esquema Normalizado (`C_estruc` — Peso 15% en Pilar 1)
 Evalúa la adopción del esquema maestro de los **14 atributos ISO obligatorios** en el objeto `properties` de cada Feature, verificando que los identificadores `id_atlas` sean unívocos y no presenten colisiones de clave primaria:
 
-$$
-C_{\text{estruc}} = \left( \frac{14 - N_{\text{campos-faltantes}}}{14} \right) \times 100 \times \left( \frac{U_{\text{ids-únicos}}}{N_{\text{total}}} \right)
-$$
+```text
+C_estruc = [ (14 - N_campos_faltantes) / 14 ] × 100 × (U_ids_unicos / N_total)
+```
 
-#### Dimensión 5: Granularidad y Micro-Slivers ($C_{\text{gran}}$ — Peso 10% en Pilar 1)
-Detecta y penaliza polígonos degenerados (*slivers*) de área despreciable resultantes de errores de digitalización o intersecciones defectuosas (polígonos con área $< 0.5 \text{ m}^2$ o líneas de longitud nula):
+#### Dimensión 5: Granularidad y Micro-Slivers (`C_gran` — Peso 10% en Pilar 1)
+Detecta y penaliza polígonos degenerados (*slivers*) de área despreciable resultantes de errores de digitalización o intersecciones defectuosas (polígonos con área `< 0.5 m²` o líneas de longitud nula):
 
-$$
-C_{\text{gran}} = \left( 1 - \frac{N_{\text{slivers}}}{N_{\text{polígonos}}} \right) \times 100
-$$
+```text
+C_gran = [ 1 - (N_slivers / N_poligonos) ] × 100
+```
 
-#### Dimensión 6: Metadatos Núcleo ISO 19115 ($M_{\text{core}}$ — Peso 30% en Pilar 2)
+#### Dimensión 6: Metadatos Núcleo ISO 19115 (`M_core` — Peso 30% en Pilar 2)
 Audita dinámicamente la presencia y validez de los **10 elementos indispensables** del perfil básico ISO 19115-1:2014 / SNIT v2.0 (título formal, resumen metodológico, fecha de publicación, sistema de referencia geodésico EPSG, tipo de representación espacial, palabras clave temáticas, extensión BBox, punto de contacto institucional, frecuencia de actualización y formato de distribución):
 
-$$
-M_{\text{core}} = \min \left( 100, \, \left( \frac{\sum_{k=1}^{10} \mathbb{I}(E_k \neq \emptyset)}{10} \right) \times 100 + B_{\text{desc}} \right)
-$$
+```text
+M_core = min( 100,  [ ∑(k=1..10) I(E_k ≠ ∅) / 10 ] × 100 + B_desc )
+```
 
 Donde los componentes de evaluación corresponden a:
-* **$E_k$:** Cada uno de los 10 elementos núcleo obligatorios del estándar ISO 19115-1:2014.
-* **$\mathbb{I}(E_k \neq \emptyset)$:** Función indicatriz que asigna $1$ si el campo existe y contiene una cadena válida no vacía, y $0$ en caso de ausencia.
-* **$B_{\text{desc}}$:** Factor de exhaustividad documental ($+2.0\%$) asignado cuando el resumen metodológico supera los 60 caracteres descriptivos.
-* **Procedimiento de Auditoría Dinámica:** El script [`scripts/modelo_indice_lineal_wlc.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/modelo_indice_lineal_wlc.py) y el inspector de metadatos leen el nodo raíz `metadata` embebido en cada GeoJSON o cruzan el identificador de la capa contra el catálogo OpenXML [`src/docs/perfil_metadatos_vgi.xlsx`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/docs/perfil_metadatos_vgi.xlsx). Mediante introspección JSON por clave-valor (`meta.get('title')`, `meta.get('description')`, `meta.get('institution')`, etc.), se computa en memoria el porcentaje de completitud del registro documental.
+* **`E_k`:** Cada uno de los 10 elementos núcleo obligatorios del estándar ISO 19115-1:2014.
+* **`I(E_k ≠ ∅)`:** Función indicatriz que asigna `1` si el campo existe y contiene una cadena válida no vacía, y `0` en caso de ausencia.
+* **`B_desc`:** Factor de exhaustividad documental (`+2.0%`) asignado cuando el resumen metodológico supera los 60 caracteres descriptivos.
+* **Procedimiento de Auditoría Dinámica:** El script `scripts/modelo_indice_lineal_wlc.py` y el inspector de metadatos leen el nodo raíz `metadata` embebido en cada GeoJSON o cruzan el identificador de la capa contra el catálogo OpenXML `src/docs/perfil_metadatos_vgi.xlsx`. Mediante introspección JSON por clave-valor (`meta.get('title')`, `meta.get('description')`, `meta.get('institution')`, etc.), se computa en memoria el porcentaje de completitud del registro documental.
 
-#### Dimensión 7: Linaje Metodológico y Legal ($M_{\text{linaje}}$ — Peso 25% en Pilar 2)
+#### Dimensión 7: Linaje Metodológico y Legal (`M_linaje` — Peso 25% en Pilar 2)
 Verifica la trazabilidad del dato espacial, la cadena de custodia metodológica y la fundamentación jurídica de reutilización (Ley N° 20.285 sobre Acceso a la Información Pública del Estado de Chile, o licencias abiertas ODbL 1.0 y Creative Commons CC BY-SA 4.0):
 
-$$
-M_{\text{linaje}} = \min \left( 100, \, \left( \frac{\mathbb{I}_{\text{cita}} + \mathbb{I}_{\text{url}} + \mathbb{I}_{\text{entidad}} + \mathbb{I}_{\text{licencia}}}{4} \right) \times 80 + B_{\text{fuente}} \right)
-$$
+```text
+M_linaje = min( 100,  [ (I_cita + I_url + I_entidad + I_licencia) / 4 ] × 80 + B_fuente )
+```
 
 Donde los componentes de evaluación corresponden a:
-* **$\mathbb{I}_{\text{cita}}$:** Comprueba la existencia de la cita bibliográfica normalizada bajo norma APA 7ª edición.
-* **$\mathbb{I}_{\text{url}}$:** Valida que el geoservicio o repositorio de procedencia sea una URL operativa accesible vía HTTP/HTTPS.
-* **$\mathbb{I}_{\text{entidad}}$:** Corrobora la atribución institucional del órgano del Estado o comunidad emisora.
-* **$\mathbb{I}_{\text{licencia}}$:** Confirma la declaración explícita de derechos y términos de reutilización abierta.
-* **$B_{\text{fuente}}$:** Bonificación de linaje trazable ($+18.0\%$ para geodatos oficiales del Estado auditados y $+10.0\%$ a $+12.0\%$ para coberturas comunitarias VGI con registro de changeset OSM).
+* **`I_cita`:** Comprueba la existencia de la cita bibliográfica normalizada bajo norma APA 7ª edición.
+* **`I_url`:** Valida que el geoservicio o repositorio de procedencia sea una URL operativa accesible vía HTTP/HTTPS.
+* **`I_entidad`:** Corrobora la atribución institucional del órgano del Estado o comunidad emisora.
+* **`I_licencia`:** Confirma la declaración explícita de derechos y términos de reutilización abierta.
+* **`B_fuente`:** Bonificación de linaje trazable (`+18.0%` para geodatos oficiales del Estado auditados y `+10.0%` a `+12.0%` para coberturas comunitarias VGI con registro de changeset OSM).
 * **Procedimiento de Auditoría Dinámica:** El evaluador analiza las cadenas atributivas de procedencia mediante expresiones regulares (`r"^https?://"`), coteja los términos normativos de licenciamiento en la tabla de atributos (`declaracion`, `licencia`, `fuente`) y valida que los cambios en geometrías comunitarias mantengan referencia al changeset o extractor Overpass QL utilizado.
 
-#### Dimensión 8: Conformidad Normativa con Esquemas XML ($M_{\text{conf}}$ — Peso 20% en Pilar 2)
+#### Dimensión 8: Conformidad Normativa con Esquemas XML (`M_conf` — Peso 20% en Pilar 2)
 Evalúa la conformidad sintáctica y estructural de los metadatos frente a los esquemas XSD oficiales de la norma ISO 19139:2007 (`gmd:MD_Metadata`) y el catálogo de fenómenos geográficos ISO 19110:2016:
 
-$$
-M_{\text{conf}} = \min \left( 100, \, \left( \frac{\mathbb{I}_{\text{geom-ogc}} + \mathbb{I}_{\text{servicio}} + \mathbb{I}_{\text{clasif}} + \mathbb{I}_{\text{simb}}}{4} \right) \times 80 + B_{\text{esquema}} \right)
-$$
+```text
+M_conf = min( 100,  [ (I_geom_ogc + I_servicio + I_clasif + I_simb) / 4 ] × 80 + B_esquema )
+```
 
 Donde los componentes de evaluación corresponden a:
-* **$\mathbb{I}_{\text{geom-ogc}}$:** Valida que la geometría corresponda estrictamente a los tipos vectoriales admitidos por ISO 19107 / OGC Simple Features.
-* **$\mathbb{I}_{\text{servicio}}$:** Comprueba la interoperabilidad del servicio de distribución cartográfica (WFS, WMS, GeoJSON).
-* **$\mathbb{I}_{\text{clasif}}$:** Verifica la adscripción taxonómica a las macrocategorías temáticas formales del Atlas.
-* **$\mathbb{I}_{\text{simb}}$:** Valida la configuración unívoca de iconografía SVG y estilo cartográfico en formato hexadecimal (`#hex`).
-* **$B_{\text{esquema}}$:** Factor de validación sintáctica contra el esquema XSD oficial de IDE Chile ($+14.0\%$ a $+18.0\%$).
-* **Procedimiento de Auditoría Dinámica:** El validador procesa las fichas XML exportadas por el Módulo 05 ([`src/js/modulos/metadatos.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/metadatos.js)) utilizando el parser de esquema `xmlschema` / `lxml`, comprobando que no existan nodos XML mal formados, elementos obligatorios omitidos ni discrepancias en los espacios de nombres (`xmlns:gmd`, `xmlns:gco`).
+* **`I_geom_ogc`:** Valida que la geometría corresponda estrictamente a los tipos vectoriales admitidos por ISO 19107 / OGC Simple Features.
+* **`I_servicio`:** Comprueba la interoperabilidad del servicio de distribución cartográfica (WFS, WMS, GeoJSON).
+* **`I_clasif`:** Verifica la adscripción taxonómica a las macrocategorías temáticas formales del Atlas.
+* **`I_simb`:** Valida la configuración unívoca de iconografía SVG y estilo cartográfico en formato hexadecimal (`#hex`).
+* **`B_esquema`:** Factor de validación sintáctica contra el esquema XSD oficial de IDE Chile (`+14.0%` a `+18.0%`).
+* **Procedimiento de Auditoría Dinámica:** El validador procesa las fichas XML exportadas por el Módulo 08 (`src/js/modulos/metadatos.js`) utilizando el parser de esquema `xmlschema` / `lxml`, comprobando que no existan nodos XML mal formados, elementos obligatorios omitidos ni discrepancias en los espacios de nombres (`xmlns:gmd`, `xmlns:gco`).
 
-#### Dimensión 9: Resolución Espacial y Escala Equivalente ($M_{\text{res}}$ — Peso 15% en Pilar 2)
+#### Dimensión 9: Resolución Espacial y Escala Equivalente (`M_res` — Peso 15% en Pilar 2)
 Mide la pertinencia cartográfica entre la escala de captura del conjunto de datos y el ámbito de gestión microterritorial de Barrio Brasil, penalizando el uso de datos macroescalares o generalizados en análisis barriales:
 
-$$
-M_{\text{res}} = \begin{cases} 
-100.0\% & \text{si la escala es de detalle predial / barrial } (\le 1:1.000 \text{ o precisión submétrica}) \\
-92.0\% - 95.0\% & \text{si la escala es comunal / manzana censal } (1:1.000 < E \le 1:5.000) \\
-85.0\% - 88.0\% & \text{si la escala es intercomunal / vial estructurante } (1:5.000 < E \le 1:25.000) \\
-75.0\% - 80.0\% & \text{si la escala es regional / generalizada } (> 1:25.000)
-\end{cases}
-$$
+```text
+M_res =
+  • 100.0%          si la escala es de detalle predial / barrial (E ≤ 1:1.000 o precisión submétrica)
+  • 92.0% – 95.0%   si la escala es comunal / manzana censal (1:1.000 < E ≤ 1:5.000)
+  • 85.0% – 88.0%   si la escala es intercomunal / vial estructurante (1:5.000 < E ≤ 1:25.000)
+  • 75.0% – 80.0%   si la escala es regional / generalizada (E > 1:25.000)
+```
 
-Donde $E$ representa la escala cartográfica nominal equivalente y la distancia de muestreo terrestre (GSD).
-* **Procedimiento de Auditoría Dinámica:** El algoritmo calcula la densidad geométrica relativa de vértices por entidad ($\delta_v = V_{\text{totales}} / N_{\text{entidades}}$) y analiza las palabras clave de granularidad en el identificador de la capa (`predial`, `manzana`, `local`, `intercomunal`, `regional`). Capas de alta resolución espacial (cruces peatonales PMR, luminarias, arbolado viario) obtienen puntuación máxima ($100.0\%$), mientras que polígonos regionales de amortiguación reciben una calificación ajustada a su nivel de generalización.
+Donde `E` representa la escala cartográfica nominal equivalente y la distancia de muestreo terrestre (GSD).
+* **Procedimiento de Auditoría Dinámica:** El algoritmo calcula la densidad geométrica relativa de vértices por entidad (`δ_v = V_totales / N_entidades`) y analiza las palabras clave de granularidad en el identificador de la capa (`predial`, `manzana`, `local`, `intercomunal`, `regional`). Capas de detalle microespacial (cruces peatonales PMR, luminarias, arbolado viario) obtienen puntuación máxima (`100.0%`), mientras que polígonos regionales de amortiguación reciben una calificación ajustada a su nivel de generalización.
 
-#### Dimensión 10: Accesibilidad Operativa y Enlaces Web ($M_{\text{acc}}$ — Peso 10% en Pilar 2)
+#### Dimensión 10: Accesibilidad Operativa y Enlaces Web (`M_acc` — Peso 10% en Pilar 2)
 Comprueba la disponibilidad operativa inmediata y la accesibilidad pública de los geodatos, penalizando barreras arancelarias, formularios de registro forzoso o hipervínculos rotos:
 
-$$
-M_{\text{acc}} = \min \left( 100, \, P_{\text{archivo}} + P_{\text{descarga}} + P_{\text{latencia}} \right)
-$$
+```text
+M_acc = min( 100,  P_archivo + P_descarga + P_latencia )
+```
 
 Donde los componentes de evaluación corresponden a:
-* **$P_{\text{archivo}}$:** Puntuación de existencia física ($50.0\%$) si el archivo GeoJSON reside en el repositorio (`src/data/`) con integridad binaria comprobada.
-* **$P_{\text{descarga}}$:** Puntuación de disponibilidad operativa ($30.0\%$) si cuenta con endpoint local de descarga transparente o función RPC en Supabase.
-* **$P_{\text{latencia}}$:** Puntuación de eficiencia de transferencia ($20.0\%$ para archivos $\le 5\text{ MB}$; $15.0\%$ entre $5\text{ y }15\text{ MB}$; y $10.0\%$ para archivos $> 15\text{ MB}$, recomendando en este último caso compresión Gzip o particionamiento).
-* **Procedimiento de Auditoría Dinámica:** El script de verificación de despliegue ([`scripts/verificar_integridad_despliegue.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/verificar_integridad_despliegue.py)) y la función `evaluar_capa_individual()` de [`scripts/modelo_indice_lineal_wlc.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/modelo_indice_lineal_wlc.py) ejecutan llamadas de verificación física con `os.path.exists()` y `os.path.getsize()`, enviando además solicitudes HTTP `HEAD` a los geoservicios externos declarados en los metadatos para verificar que devuelvan código `HTTP 200 OK` sin redirecciones ni errores `404 Not Found`.
+* **`P_archivo`:** Puntuación de existencia física (`50.0%`) si el archivo GeoJSON reside en el repositorio (`src/data/`) con integridad binaria comprobada.
+* **`P_descarga`:** Puntuación de disponibilidad operativa (`30.0%`) si cuenta con endpoint local de descarga transparente o función RPC en Supabase.
+* **`P_latencia`:** Puntuación de eficiencia de transferencia (`20.0%` para archivos `≤ 5 MB`; `15.0%` entre `5 y 15 MB`; y `10.0%` para archivos `> 15 MB`, recomendando en este último caso compresión Gzip o particionamiento).
+* **Procedimiento de Auditoría Dinámica:** El script de verificación de despliegue (`scripts/verificar_integridad_despliegue.py`) y la función `evaluar_capa_individual()` de `scripts/modelo_indice_lineal_wlc.py` ejecutan llamadas de verificación física con `os.path.exists()` y `os.path.getsize()`, enviando además solicitudes HTTP `HEAD` a los geoservicios externos declarados en los metadatos para verificar que devuelvan código `HTTP 200 OK` sin redirecciones ni errores `404 Not Found`.
 
 ### 15.3. Rangos y Certificación Formal de Calidad
 De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certifican en cuatro categorías normativas:
 
-| Rango Numérico ($IGV$) | Grado de Calidad | Dictamen Técnico y Aptitud de Uso |
+| Rango Numérico (`IGV`) | Grado de Calidad | Dictamen Técnico y Aptitud de Uso |
 | :---: | :---: | :--- |
-| **$IGV \ge 95.00\%$** | **Grado A+ (Excelente)** | **Aptitud Total:** Apta para modelamiento normativo vinculante, toma de decisiones comunales y publicación científica de alto impacto. |
-| **$90.00\% \le IGV < 95.00\%$** | **Grado A (Muy Bueno)** | **Aptitud Operativa:** Apta para planificación territorial general, diagnósticos barriales y análisis espacial multiescalar. |
-| **$80.00\% \le IGV < 90.00\%$** | **Grado B (Aceptable)** | **Aptitud Condicionada:** Requiere curatoría de atributos o densificación de vértices antes de su uso en análisis espacial avanzado. |
-| **$IGV < 80.00\%$** | **Grado C (Deficiente)** | **No Apta:** Datos con inconsistencias topológicas severas o ausencia de metadatos; bloqueada para producción cartográfica. |
+| **`IGV ≥ 95.00%`** | **Grado A+ (Excelente)** | **Aptitud Total:** Apta para modelamiento normativo vinculante, toma de decisiones comunales y publicación científica. |
+| **`90.00% ≤ IGV < 95.00%`** | **Grado A (Muy Bueno)** | **Aptitud Operativa:** Apta para planificación territorial general, diagnósticos barriales y análisis espacial multiescalar. |
+| **`80.00% ≤ IGV < 90.00%`** | **Grado B (Aceptable)** | **Aptitud Condicionada:** Requiere curatoría de atributos o densificación de vértices antes de su uso en análisis espacial avanzado. |
+| **`IGV < 80.00%`** | **Grado C (Deficiente)** | **No Apta:** Datos con inconsistencias topológicas severas o ausencia de metadatos; bloqueada para producción cartográfica. |
 
 ---
 
@@ -1563,15 +1595,15 @@ flowchart LR
     IN_CORR --> PROC_CORR --> OUT_CORR
 ```
 
-### 16.1. Matriz de Correlación Lineal de Pearson ($r$)
-Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 132 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
+### 16.1. Matriz de Correlación Lineal de Pearson (`r`)
+Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson (`r`) sobre las 132 capas cartográficas, preservada en `docs/correlacion_dimensiones_calidad.csv`:
 
-$$
-r_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}
-$$
+```text
+r_xy = ∑(i=1..n) [ (x_i - x̄) × (y_i - ȳ) ] / [ √(∑(i=1..n) (x_i - x̄)²) × √(∑(i=1..n) (y_i - ȳ)²) ]
+```
 
-* **Hallazgo Clave 1 (Ortogonalidad Cuantitativa vs. Cualitativa):** La correlación promedio entre las dimensiones del Pilar 1 (geometría) y las del Pilar 2 (metadatos) es de $r = 0.22$, lo que demuestra que un archivo GeoJSON puede ser geométricamente perfecto (topología 100%) pero carecer de linaje y metadatos, o viceversa. Esto justifica plenamente la ponderación al 50% de ambos pilares.
-* **Hallazgo Clave 2 (Completitud vs. Linaje):** Existe una correlación positiva moderada ($r = 0.58$) entre la completitud de atributos y la calidad del linaje, indicando que las instituciones que documentan formalmente sus metodologías tienden a generar tablas de atributos más completas.
+* **Hallazgo Clave 1 (Ortogonalidad Cuantitativa vs. Cualitativa):** La correlación promedio entre las dimensiones del Pilar 1 (geometría) y las del Pilar 2 (metadatos) es de `r = 0.22`, lo que demuestra que un archivo GeoJSON puede ser geométricamente consistente (topología 100%) pero carecer de linaje y metadatos, o viceversa. Esto justifica plenamente la ponderación al 50% de ambos pilares.
+* **Hallazgo Clave 2 (Completitud vs. Linaje):** Existe una correlación positiva moderada (`r = 0.58`) entre la completitud de atributos y la calidad del linaje, indicando que las instituciones que documentan formalmente sus metodologías tienden a generar tablas de atributos más completas.
 
 ### 16.2. Dictamen Global de la Base de Datos del Atlas VGI
 * **Índice Global de Calidad (IGV Promedio):** **95.41%** (Certificación Grado A+ Excelente).
@@ -1617,7 +1649,7 @@ Para permitir que los datos del Atlas VGI sean interoperables con servidores de 
 │ 4. MD_MaintenanceInfo     ──> Frecuencia de actualización              │
 │ 5. MD_SpatialRepresInfo   ──> Vectorial OGC Simple Features            │
 │ 6. MD_ReferenceSystemInfo ──> EPSG:4326 (WGS84)                        │
-│ 7. CI_ResponsibleParty    ──> Departamento de Geografía UAH (Custodio) │
+│ 7. CI_ResponsibleParty    ──> Nodo GeoAbierto (Custodio)               │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -1632,7 +1664,7 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   
   <gmd:fileIdentifier>
-    <gco:CharacterString>cl-uah-geo-vgi-atlas-2026-cat01</gco:CharacterString>
+    <gco:CharacterString>cl-geo-vgi-atlas-2026-cat01</gco:CharacterString>
   </gmd:fileIdentifier>
   
   <gmd:language>
@@ -1649,7 +1681,7 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
         <gco:CharacterString>Juan Pablo Lescano Villegas</gco:CharacterString>
       </gmd:individualName>
       <gmd:organisationName>
-        <gco:CharacterString>Universidad Alberto Hurtado - Departamento de Geografía</gco:CharacterString>
+        <gco:CharacterString>Atlas de Información Geográfica Voluntaria - Nodo GeoAbierto</gco:CharacterString>
       </gmd:organisationName>
       <gmd:positionName>
         <gco:CharacterString>Desarrollador Líder SIG y Analista VGI</gco:CharacterString>
@@ -1771,7 +1803,7 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ### 18.2. Los Archivos Consolidados CSV UTF-8
 * **`data/bip_inversiones_santiago.csv` (3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
-* **`docs/correlacion_dimensiones_calidad.csv` (837 bytes):** Matriz simétrica $10 \times 10$ de coeficientes de correlación de Pearson del modelo WLC v2.0.
+* **`docs/correlacion_dimensiones_calidad.csv` (837 bytes):** Matriz simétrica 10 × 10 de coeficientes de correlación de Pearson del modelo WLC v2.0.
 * **`docs/wlc_metacalidad_ranking.csv` (29.5 KB):** Tabla ordenada de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
 * **`data/resumen_catastro_vgi.csv` (168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
 
@@ -1801,7 +1833,7 @@ flowchart LR
     IN_DICT --> PROC_DICT --> OUT_DICT
 ```
 
-El Módulo del Diccionario Territorial ([`src/js/modulos/diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js)) articula un repositorio conceptual de **140 descriptores territoriales** que homologan la jerga legal de la Ordenanza General de Urbanismo y Construcciones (OGUC) y el Plan Regulador Comunal (PRC) con las etiquetas colaborativas de OpenStreetMap.
+El Módulo del Diccionario Territorial (`src/js/modulos/diccionario.js`) articula un repositorio conceptual de **140 descriptores territoriales** que homologan la jerga legal de la Ordenanza General de Urbanismo y Construcciones (OGUC) y el Plan Regulador Comunal (PRC) con las etiquetas colaborativas de OpenStreetMap.
 
 A continuación se expone una muestra representativa de los descriptores más significativos de la base:
 
@@ -2049,9 +2081,9 @@ sequenceDiagram
 ### 22.1. El Algoritmo Ray-Casting (Point-in-Polygon)
 Para evitar peticiones lentas a servidores remotos, el cálculo se realiza íntegramente en JavaScript mediante el **Algoritmo de Trazado de Rayos (*Ray-Casting Algorithm*)**, fundamentado en el Teorema de la Curva de Jordan:
 
-$$
-\text{Si el número de intersecciones de un rayo horizontal con el perímetro es impar } \implies \text{Punto Interior}
-$$
+```text
+Si el número de intersecciones de un rayo horizontal con el perímetro es impar  ⇒  Punto Interior
+```
 
 ```javascript
 // Algoritmo de Trazado de Rayos (Jordan Curve Theorem) implementado en el Atlas
@@ -2134,14 +2166,14 @@ function generarFichaNormativaHTML(zonaPRC, coordenadas) {
 
 ---
 
-## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas HD
+## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas
 
-El Atlas implementa en el Módulo 05 ([`src/js/modulos/indicadores_analisis.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/indicadores_analisis.js)) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards Cartográficos**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas de alta resolución (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.
+El Atlas implementa en el Módulo 05 (`src/js/modulos/indicadores_analisis.js`) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_SB["1. INPUT"]
-        CARTO_75["75 Cartografías Temáticas HD (img/cartografias/*.jpg)"]
+        CARTO_75["75 Cartografías Temáticas (img/cartografias/*.jpg)"]
         PORTADAS_4["4 Portadas Vectoriales SVG (img/storyboards/*.svg)"]
         DATA_132["132 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
     end
@@ -2154,7 +2186,7 @@ flowchart LR
 
     subgraph OUT_SB["3. OUTPUT"]
         MODAL_SB["Lámina Modal de Lectura Continua Multi-Dispositivo"]
-        LIGHTBOX_HD["Ampliación en Lightbox HD (Cartografías, Diagramas SVG y Gráficos)"]
+        LIGHTBOX_HD["Ampliación en Lightbox (Cartografías, Diagramas SVG y Gráficos)"]
         MAP_TRIGGER["Activación Simultánea de Capas en el Visor Cartográfico"]
     end
 
@@ -2163,34 +2195,34 @@ flowchart LR
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│       MATRIZ DE LOS 4 STORYBOARDS Y 75 CARTOGRAFÍAS TEMÁTICAS HD       │
+│       MATRIZ DE LOS 4 STORYBOARDS Y 75 CARTOGRAFÍAS TEMÁTICAS          │
 ├────────────────────────────────────────────────────────────────────────┤
-│ • Storyboard 01: Concentración Espacial de Equipamientos (KDE) [14]    │
-│ • Storyboard 02: Autocorrelación Espacial Local (LISA Anselin) [22]    │
-│ • Storyboard 03: Diagnóstico Sociodemográfico Censo 2024 [21]          │
-│ • Storyboard 04: Dinámica Socioambiental, Movilidad y Residuos [18]    │
+│ • Storyboard 01: Concentración Territorial y Densidad KDE [11 Mapas]   │
+│ • Storyboard 02: Autocorrelación Espacial Local (LISA)    [11 Mapas]   │
+│ • Storyboard 03: Demografía, Habitabilidad y RSH Censo 24 [29 Mapas]   │
+│ • Storyboard 04: Socioambiente, Movilidad y Residuos      [24 Mapas]   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 23.1. Storyboard 01: Análisis de Concentración Espacial de Equipamientos y Servicios (KDE)
-- **Cobertura Cartográfica:** **14 cartografías temáticas HD** (Mapas 01 al 14: Comercio y Abastecimiento, Cultura y Patrimonio, Educación, Espacio Público, Deporte, Salud, Seguridad, Transporte, Turismo, Servicios Públicos, Culto, Financiero, Síntesis KDE e Infraestructura Crítica).
-- **Capas Vectoriales Asociadas:** `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat03_transporte_vgi`, `cat06_patrimonio_vgi`, `establecimientos_salud`.
-- **Síntesis Analítica:** Evalúa la densidad por núcleo de Kernel ($\hat{f}_h(x)$) sobre 12 categorías de equipamiento urbano, identificando una estructura polinuclear concentrada en torno a Plaza Brasil, el eje Cumming y el corredor Alameda, junto con brechas de provisión relativa hacia el borde norte (San Pablo – Mapocho).
+### 23.1. Storyboard 01: Concentración Territorial y Núcleos de Actividad VGI (KDE — 11 Cartografías)
+- **Cobertura Cartográfica:** **11 cartografías temáticas** (10 macrocategorías VGI `CAT-01` a `CAT-10` + superficie de síntesis KDE Total Consolidado sobre los 10.166 registros multigeométricos).
+- **Capas Vectoriales Asociadas:** `cat01_educacion` a `cat10_cobertura_suelo`.
+- **Síntesis Analítica:** Evalúa las superficies continuas de densidad por núcleo de Kernel (`f_h(x)`) en los 27 barrios de la Comuna de Santiago, identificando la concentración en el eje Alameda–Barrio Brasil (`6.924,1 ent/km²` de media barrial y cima comunal de `20.203,8 ent/km²`), Santa Ana (`1.728,2 ent/km²`) y Ejército (`1.007,0 ent/km²`), frente a los vacíos de cobertura en el borde sur comunal (Sierra Bella `1,9 ent/km²` y Bogotá `1,4 ent/km²`).
 
-### 23.2. Storyboard 02: Autocorrelación Espacial Local (LISA) e Índice de Moran Local ($I_i$)
-- **Cobertura Cartográfica:** **22 cartografías temáticas HD** (Mapas 01 al 22: clústeres bivariados y univariados Alto-Alto, Bajo-Bajo, Alto-Bajo y Bajo-Alto con significancia $p < 0.05$ en permutaciones de Monte Carlo).
-- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat05_espacio_publico_vgi`, `minvu_patrimonio`.
-- **Síntesis Analítica:** Identifica agrupamientos estadísticamente significativos de alta dotación y consolidación patrimonial en el cuadrante central-sur de Barrio Brasil (*Hotspots Alto-Alto*), contrastados con regímenes de transición y menor densidad de servicios en manzanas periféricas (*Coldspots Bajo-Bajo* y valores atípicos espaciales).
+### 23.2. Storyboard 02: Segregación Espacial, Hotspots y Áreas de Rezago (LISA — 11 Cartografías)
+- **Cobertura Cartográfica:** **11 cartografías temáticas** (10 macrocategorías VGI + Consolidado LISA Total sobre las 1.711 manzanas de Santiago con significancia `p < 0.05` en permutaciones de Monte Carlo).
+- **Capas Vectoriales Asociadas:** `cat01_educacion`, `cat02_servicios`, `cat03_transporte`, `cat04_movilidad_activa`, `cat05_espacio_publico`, `censo2024_manzanas`, `minvu_ipt_prc_santiago`.
+- **Síntesis Analítica:** Identifica los conglomerados estadísticamente significativos en las 1.711 manzanas comunales: 140 manzanas (`8,2%`) conforman el núcleo *Hotspot Alto-Alto* (concentradas en un 45% dentro de Barrio Brasil con 63 manzanas, seguidas de Santa Ana con 23 y Yungay con 17), mientras 615 manzanas (`35,9%`) integran bolsones *Coldspot Bajo-Bajo* en el suroriente comunal (Sierra Bella, Bogotá, Matta Sur y Diez de Julio).
 
-### 23.3. Storyboard 03: Diagnóstico Sociodemográfico, Habitabilidad e Inversión Pública (Censo 2024)
-- **Cobertura Cartográfica:** **21 cartografías temáticas HD** (Mapas 01 al 21: Población total por manzana, Densidad habitacional, Tipología de vivienda, Índice de masculinidad, Juventud, Envejecimiento, Inmigración internacional, Pueblos originarios, Hogares, Jefatura femenina, Tenencia, Materialidad, Déficit habitacional, RSH, IGVUST e Inversión BIP).
-- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `bbdd_19`, `bbdd_46`, `bbdd_64`, `bbdd_65`, `bbdd_68`, `minvu_ipt_prc_santiago`.
-- **Síntesis Analítica:** Caracteriza la coexistencia entre la edificación patrimonial de baja altura (casonas y cités históricos) y la densificación habitacional en altura sobre los bordes del polígono protegido, cruzando la estructura demográfica del Censo 2024 con la estratificación del Registro Social de Hogares (RSH) y la cartera de inversión pública BIP.
+### 23.3. Storyboard 03: Estructura Sociodemográfica, Habitabilidad y Morfología Urbana (Censo 2024 y RSH — 29 Cartografías)
+- **Cobertura Cartográfica:** **29 cartografías temáticas** (Población total de 432.081 habitantes en manzanas, densidad habitacional, tipología constructiva con 92,7% de departamentos, régimen de tenencia con 72,1% de arriendo, hogares unipersonales 40,8%, migración 40,4%, cités, hacinamiento, vulnerabilidad 0–40% RSH, dependencia funcional e índice IGVUST).
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `catastro_predial_sii`, `minvu_patrimonio`, `minvu_ipt_prc_santiago`, `bbdd_19`, `bbdd_64`, `bbdd_68`, `bbdd_74`.
+- **Síntesis Analítica:** Caracteriza la coexistencia entre tres tejidos socio-morfológicos en Santiago: el corredor oriental hiperdensificado de torres en altura (Santa Isabel `650,5 hab/ha` y Santa Ana `618,0 hab/ha`), el pericentro patrimonial de escala media en Barrio Brasil y Yungay regulado por las Zonas de Conservación Histórica del PRC, y el arco sur donde convergen el arriendo sin contrato y el hacinamiento en cités.
 
-### 23.4. Storyboard 04: Dinámica Socioambiental, Movilidad Sostenible y Gestión Integral de Residuos
-- **Cobertura Cartográfica:** **18 cartografías temáticas HD** (Mapas 01 al 18: Arbolado urbano y biodiversidad, Cobertura vegetal, Islas de calor, Ciclovías y movilidad activa, Red de Metro y paraderos, Cruces semaforizados UOCT, Accesibilidad PMR, y las cartografías comunales y metropolitanas de gestión de residuos SUBDERE RSD 2024 y zonas operativas de aseo MuniSTGO 2026).
-- **Capas Vectoriales Asociadas:** `cat08_biodiversidad_vgi`, `cat05_espacio_publico_vgi`, `cat04_ciclovias_vgi`, `semaforos_rm_uoct_2026`, `munistgo_aseo_zonas_residuos_2026`, `subdere_rsd_analisis_costos_comuna_rm`, `subdere_rsd_ppc_generacion_pta_rm`.
-- **Síntesis Analítica:** Articula el diagnóstico ambiental y de metabolismo urbano del barrio, vinculando la distribución del dosel arbóreo y la infraestructura de movilidad sostenible con la operación territorial del servicio de recolección de residuos sólidos domiciliarios, la dotación de contenedores y papeleros municipales y la estructura de costos y disposición final en la Región Metropolitana.
+### 23.4. Storyboard 04: Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano (24 Cartografías)
+- **Cobertura Cartográfica:** **24 cartografías temáticas** (Partición modal sustentable del 84,6% de los viajes, buffers de arbolado a 300 m y 500 m, distancias peatonales a áreas verdes, salud, transporte y educación, mapa de ruido ambiental en dBA y capacidad instalada de los 629 contenedores y 398 papeleros en las 5 macro-zonas de aseo municipal con `285.860 L` totales).
+- **Capas Vectoriales Asociadas:** `munistgo_aseo_zonas_residuos_2026`, `cat08_biodiversidad`, `cat04_movilidad_activa`, `cat05_espacio_publico`, `semaforos_rm_uoct_2026`, `estaciones_metro`, `establecimientos_salud`.
+- **Síntesis Analítica:** Vincula la alta sostenibilidad modal de la comuna (62,4% transporte público, 17,0% caminata y 5,2% bicicleta) con las brechas de proximidad a áreas verdes en el borde surponiente, la exposición acústica (`> 68,6 dBA`) en corredores viales y la asimetría operativa entre las 5 zonas municipales de gestión de residuos.
 
 ---
 
@@ -2318,14 +2350,14 @@ nodo-geoabierto/
 
 ---
 
-## 26. Desglose Quirúrgico de los 10 Módulos del Sistema (01 al 10)
+## 26. Desglose de los 10 Módulos del Sistema (01 al 10) en Coherencia con la Plataforma Web
 
-La barra de navegación superior organiza las capacidades del Atlas en 10 módulos funcionales. Para garantizar la máxima comprensión de la ingeniería de software y el flujo de información de la plataforma, a continuación se desglosa cada módulo mediante su arquitectura de **PIPELINE (Input, Procesamiento y Output)**:
+La barra de navegación superior (`#lista-navegacion` en `src/index.html`) organiza las capacidades del Atlas en **10 módulos funcionales numerados del `01` al `10`**. A continuación se desglosa cada módulo respetando estrictamente su numeración, denominación, scripts asociados y arquitectura de **PIPELINE (Input, Procesamiento y Output)** en la plataforma web:
 
 ---
 
-### Módulo 01: Visor Cartográfico y Atlas VGI (`src/js/app.js` y `src/js/modulos/mapa.js`)
-* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
+### Módulo 01: Visor y Atlas VGI (`data-panel="inicio"` — `src/js/app.js`, `src/js/modulos/mapa.js`, `src/js/modulos/ide_chile.js`, `src/js/modulos/evaluador_normativo.js`)
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas (122 oficiales + 10 VGI); búsqueda en vivo; telemetría dinámica del Índice de Calidad VGI (ICV); Inspector Normativo del PRC de Santiago (Certificado CIN-VGI y 10 hitos históricos 1990–2024); dibujo de BBox con cálculo métrico en `EPSG:32719`.
 
 ```mermaid
 flowchart LR
@@ -2339,7 +2371,7 @@ flowchart LR
         LOAD["Carga Asíncrona (Fetch API + IIFE)"]
         STYLE["Aplicación de Estilos CSS & L.divIcon"]
         RAY["Algoritmo Ray-Casting (Inspector PRC)"]
-        MEASURE["Cálculo Geodésico de Distancias/Áreas"]
+        MEASURE["Cálculo Geodésico EPSG:32719 de Áreas e ICV Dinámico"]
     end
 
     subgraph OUT_M1["3. OUTPUT"]
@@ -2353,27 +2385,27 @@ flowchart LR
 
 ---
 
-### Módulo 02: Consultas Overpass en Vivo (`src/js/modulos/osm.js`)
-* **Propósito Operativo:** Interfaz de extracción en tiempo real hacia OpenStreetMap con lenguaje Overpass QL; selector de BBox y descarga GeoJSON directa.
+### Módulo 02: Consultas Overpass (`data-panel="explorador-osm"` — `src/js/modulos/osm.js` y `src/js/modulos/taginfo.js`)
+* **Propósito Operativo:** Interfaz de extracción en tiempo real hacia OpenStreetMap con lenguaje Overpass QL; consultas rápidas en 1 clic para las 10 macrocategorías VGI; validación semántica Taginfo API v4 y exportación GeoJSON/CSV.
 
 ```mermaid
 flowchart LR
     subgraph IN_M2["1. INPUT"]
-        BBOX_SEL["BBox Seleccionado (Barrio Brasil)"]
-        QUERY_QL["Filtro Temático Overpass QL / Presets"]
+        BBOX_SEL["BBox Seleccionado (Barrio Brasil / Personalizado)"]
+        QUERY_QL["Filtro Temático Overpass QL / Presets 1-Clic"]
         ENDPOINTS["Endpoints Espejo Overpass API"]
     end
 
     subgraph PROC_M2["2. PIPELINE DE PROCESAMIENTO"]
-        FAILOVER["Algoritmo Round-Robin Failover (4 Espejos)"]
-        OSM_JSON["Recepción de JSON OSM crudo (nodos/ways)"]
-        OSMTOGEO["Conversión osm-to-geojson en Navegador"]
+        FAILOVER["Algoritmo Round-Robin Failover (Multi-Servidor)"]
+        OSM_JSON["Recepción de JSON OSM crudo (nodes/ways/relations)"]
+        OSMTOGEO["Reconstrucción Topológica a GeoJSON en Navegador"]
     end
 
     subgraph OUT_M2["3. OUTPUT"]
-        CAPA_VIVA["Renderizado de Capa Temporal en Leaflet"]
-        GEOJSON_DL["Descarga de Archivo GeoJSON del Usuario"]
-        STATS_QL["Estadísticas de Entidades Obtenidas"]
+        CAPA_VIVA["Renderizado de Capa Temporal en el Visor"]
+        GEOJSON_DL["Descarga Directa de Archivo GeoJSON / CSV"]
+        STATS_QL["Conteo de Nodos, Vías, Relaciones y Etiquetas"]
     end
 
     IN_M2 --> PROC_M2 --> OUT_M2
@@ -2381,27 +2413,27 @@ flowchart LR
 
 ---
 
-### Módulo 03: Calidad & ICV ohsome API (`src/js/modulos/calidad.js`)
-* **Propósito Operativo:** Auditoría histórica y temporal de aportes en OSM; densidad de nodos por km² y colaboradores únicos activos.
+### Módulo 03: Biodiversidad GBIF (`data-panel="biodiversidad-gbif"` — `src/js/modulos/gbif.js`)
+* **Propósito Operativo:** Consulta de ocurrencias biológicas georreferenciadas bajo estándar Darwin Core (GBIF REST API v1); cruce con ciencia ciudadana (iNaturalist, eBird) y filtro espacial por BBox.
 
 ```mermaid
 flowchart LR
     subgraph IN_M3["1. INPUT"]
-        OHSOME_URL["Endpoint API v2 (api.ohsome.org)"]
-        TIME_SERIES["Rango Temporal (2018 - 2026)"]
-        POLY_BB["Polígono Delimitado Barrio Brasil"]
+        GBIF_API["GBIF Occurrence API (api.gbif.org/v1)"]
+        WKT_POLY["Filtro Geométrico BBox de Barrio Brasil"]
+        TAXON_FILTER["Filtros Taxonómicos (Plantae, Animalia, Fungi)"]
     end
 
     subgraph PROC_M3["2. PIPELINE DE PROCESAMIENTO"]
-        FETCH_OH["Consulta Asíncrona a Endpoints HeiGIT"]
-        METRICS_CALC["Cálculo de Densidad (entidades/km²)"]
-        CHART_ENGINE["Generador de Series Temporales"]
+        DWC_PARSE["Normalización Darwin Core (DwC)"]
+        UNCERT_FLT["Validación de Coordenadas y Taxonomía"]
+        CLUSTER_GEO["Agrupamiento por Especie y Reino Biológico"]
     end
 
     subgraph OUT_M3["3. OUTPUT"]
-        GRAF_HIST["Gráfico de Evolución de Mapeo Barrial"]
-        METRICAS_ICV["Tablero de Completitud y Densidad VGI"]
-        REPORT_OH["Auditoría Histórica de Edición OSM"]
+        LAYER_GBIF["Capa Cartográfica de Especies Urbanas en el Visor"]
+        TAXON_CARD["Tabla y Fichas Taxonómicas con Licencias CC"]
+        CSV_GBIF["Exportación GeoJSON de Biodiversidad"]
     end
 
     IN_M3 --> PROC_M3 --> OUT_M3
@@ -2409,27 +2441,25 @@ flowchart LR
 
 ---
 
-### Módulo 04: Biodiversidad Urbana GBIF (`src/js/modulos/gbif.js`)
-* **Propósito Operativo:** Registros biológicos georreferenciados bajo estándar Darwin Core; cruce con iNaturalist y filtros de incertidumbre métrica.
+### Módulo 04: Cartografía UMap (`data-panel="proyectos-umap"` — `src/js/modulos/umap.js` y `src/js/modulos/importador_capas.js`)
+* **Propósito Operativo:** Integración de proyectos colaborativos uMap mediante iframes aislados y motor universal de importación local de archivos geográficos del usuario (`GeoJSON`, `KML`, `GPX` y `Shapefile .zip`).
 
 ```mermaid
 flowchart LR
     subgraph IN_M4["1. INPUT"]
-        GBIF_API["GBIF Occurrence API (api.gbif.org/v1)"]
-        WKT_POLY["Filtro Geométrico WKT de Barrio Brasil"]
-        TAXON_FILTER["Filtros Taxonómicos (Plantae, Aves, Insecta)"]
+        UMAP_URL["URL de Mapas uMap Comunitarios"]
+        LOCAL_FILE["Archivos Locales del Usuario (.geojson, .kml, .gpx, .zip)"]
     end
 
     subgraph PROC_M4["2. PIPELINE DE PROCESAMIENTO"]
-        DWC_PARSE["Normalización Darwin Core (DwC)"]
-        UNCERT_FLT["Filtro de Incertidumbre Espacial (<50m)"]
-        CLUSTER_GEO["Agrupamiento de Observaciones Biológicas"]
+        SANDBOX["Aislamiento Sandbox de iframe uMap"]
+        PARSER_LOC["Conversión en Memoria a GeoJSON (toGeoJSON / JSZip)"]
+        SYNC_MAP["Inyección de Capa Personalizada en el Visor Leaflet"]
     end
 
     subgraph OUT_M4["3. OUTPUT"]
-        LAYER_GBIF["Capa Cartográfica de Especies Urbanas"]
-        TAXON_CARD["Fichas Taxonómicas con Fotografías"]
-        CSV_GBIF["Exportación de Registros de Biodiversidad"]
+        PANEL_UMAP["Lienzo Interactivo de Mapeo Ciudadano"]
+        USER_LAYER["Visualización de Capas Propias junto al Catálogo Oficial"]
     end
 
     IN_M4 --> PROC_M4 --> OUT_M4
@@ -2437,25 +2467,26 @@ flowchart LR
 
 ---
 
-### Módulo 05: Cartografía UMap (`src/js/modulos/umap.js`)
-* **Propósito Operativo:** Embebido seguro de proyectos colaborativos externos mediante iframes aislados con sandboxing.
+### Módulo 05: Indicadores & Storyboards (`data-panel="indicadores"` — `src/js/modulos/indicadores_analisis.js`)
+* **Propósito Operativo:** Articulación de las 132 coberturas del Atlas en **5 Dimensiones Analíticas** (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad) y **4 Storyboards de Resultados Territoriales** con **75 cartografías temáticas**, gráficos comparativos, diagramas vectoriales SVG y visor Lightbox multi-dispositivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_M5["1. INPUT"]
-        UMAP_URL["URL de Mapas UMap Comunitarios"]
-        CONFIG_EMBED["Parámetros de Visualización y Controles"]
+        DIM_5["5 Dimensiones Analíticas (132 Capas Asociadas)"]
+        STORY_ID["4 Storyboards Temáticos (KDE, LISA, Censo 2024, Socioambiental)"]
+        CARTO_SET["75 Cartografías (2200x1423 px) + Diagramas SVG + Gráficos"]
     end
 
     subgraph PROC_M5["2. PIPELINE DE PROCESAMIENTO"]
-        SANDBOX["Aislamiento Sandbox de iframe (allow-scripts)"]
-        CORS_GUARD["Validación de Origen Seguro HTTPS"]
-        RESIZE_OBS["Ajuste Responsivo Automático de Lienzo"]
+        ACORD_DIM["Despliegue de Acordeones con Conmutación Directa al Visor"]
+        MODAL_RENDER["Renderizado de Lámina Analítica con Secciones Intercaladas"]
+        ZOOM_TOUCH["Motor Lightbox con Zoom Rueda y Pinch-to-Zoom Táctil"]
     end
 
     subgraph OUT_M5["3. OUTPUT"]
-        PANEL_UMAP["Lienzo Interactivo de Mapeo Ciudadano"]
-        MAP_COLLAB["Integración de Proyectos Participativos"]
+        SCENE_VIEW["Activación de Capas de la Dimensión o Historia en el Mapa"]
+        LIGHTBOX["Visualización a Pantalla Completa en Todos los Dispositivos"]
     end
 
     IN_M5 --> PROC_M5 --> OUT_M5
@@ -2463,27 +2494,27 @@ flowchart LR
 
 ---
 
-### Módulo 06: Metadatos Estandarizados ISO 19115/19139 (`src/js/modulos/metadatos.js`)
-* **Propósito Operativo:** Generador y exportador formal de fichas de metadatos en formatos JSON y XML para GeoNetwork e IDE Chile.
+### Módulo 06: Calidad & ICV (`data-panel="calidad-ohsome"` — `src/js/modulos/evaluador_calidad_cuantitativa.js`, `src/js/modulos/ohsome.js`, `src/js/modulos/calidad_analyst.js`)
+* **Propósito Operativo:** Evaluación multidimensional de calidad geoespacial articulada en tres submódulos: **Submódulo A** (Evaluador Universal de Calidad Espacial, Topología e Índice IGV bajo ISO 19157 e ISO 19115 para las 132 capas o GeoJSON externos), **Submódulo B** (Serie Histórica OSHDB/ohsome API v1/v2 con sensibilidad geométrica `/count`, `/length`, `/area`, reproyección métrica `EPSG:32719` e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**) y **Submódulo C** (Control de Cambios y Validación de Ediciones Recientes con OSMCha / OSM API v0.6).
 
 ```mermaid
 flowchart LR
     subgraph IN_M6["1. INPUT"]
-        ID_CAPA["Identificador de Capa Seleccionada"]
-        REGISTRO_JSON["Metadatos Básicos (Fuente, Fecha, BBox)"]
-        SCHEMA_ISO["Esquema Perfil Nacional IDE Chile SNIT"]
+        CAPA_AUD["132 Capas del Catálogo o GeoJSON Externo"]
+        OHSOME_URL["ohsome API v1/v2 (/elements/count, /length, /area, /users)"]
+        OSMCHA_XML["OSM API v0.6 Changesets (/api/0.6/changesets)"]
     end
 
     subgraph PROC_M6["2. PIPELINE DE PROCESAMIENTO"]
-        BUILD_XML["Motor DOMParser y Serialización XML ISO 19139"]
-        BUILD_JSON["Generación de Estructura JSON-LD GeoNetwork"]
-        VALID_ISO["Validación de Conformidad ISO 19115-1:2014"]
+        WLC_ENGINE["Submódulo A: Motor WLC v2.0 (50% Cuantitativo + 50% Cualitativo)"]
+        OQT_SAT["Submódulo B: Reproyección EPSG:32719 e Índice de Saturación y Maduración Territorial"]
+        CHA_HEUR["Submódulo C: Evaluación Heurística de Changesets OSMCha"]
     end
 
     subgraph OUT_M6["3. OUTPUT"]
-        VIEWER_META["Ficha Técnica Interactiva en la Interfaz"]
-        XML_FILE["Descarga de Archivo XML ISO 19139 Estructurado"]
-        JSON_FILE["Descarga de Ficha en Formato JSON"]
+        DICT_IGV["Índice Global IGV (%), Plan de Subsanación y Reporte ISO 19157"]
+        SCORE_MAD["Score de Madurez (/100), Densidad (elem/km²) e Intensidad (edit/user)"]
+        TABLE_CHA["Tabla de Auditoría de Ediciones Recientes con Enlaces a OSMCha"]
     end
 
     IN_M6 --> PROC_M6 --> OUT_M6
@@ -2491,26 +2522,25 @@ flowchart LR
 
 ---
 
-### Módulo 07: Diccionario Territorial (`src/js/modulos/diccionario.js`)
-* **Propósito Operativo:** Repositorio conceptual interactivo con descriptores que homologan la OGUC y el PRC con etiquetas OSM.
+### Módulo 07: Manual de Uso y Actualización (`data-panel="manual"` — `src/js/modulos/manual.js`)
+* **Propósito Operativo:** Documentación interactiva dividida en **Parte I: Manual de Uso del Atlas** (fundamentación, operación del visor, ICV dinámico, Inspector Normativo e inventario filtrable de las 132 coberturas) y **Parte II: Manual de Actualización y Mantención Técnica** (catálogo estandarizado multi-lenguaje, pipelines de flujo, protocolo de 6 etapas, validación pre-despliegue y régimen jurídico).
 
 ```mermaid
 flowchart LR
     subgraph IN_M7["1. INPUT"]
-        GLOSARIO_JSON["Base de 140 Descriptores Urbanísticos"]
-        SEARCH_KEY["Término de Búsqueda del Usuario"]
-        FILTRO_TIPO["Filtro por Categoría (Normativa / OSM)"]
+        CAP_USO["Parte I: Capítulos de Uso (USO · 01 a USO · 04)"]
+        CAP_ACT["Parte II: Capítulos de Actualización (ACT · 01 a ACT · 05)"]
+        INV_132["Inventario Dinámico de las 132 Capas (NODO_CONFIG + IDE)"]
     end
 
     subgraph PROC_M7["2. PIPELINE DE PROCESAMIENTO"]
-        INDEX_TEXT["Búsqueda Textual Inmediata Client-Side"]
-        HOMOLOGA["Cruce de Códigos OGUC vs Tags de OpenStreetMap"]
-        LINK_CAPA["Vinculación con Capas Cartográficas del Atlas"]
+        FILTER_MODO["Conmutador de Vista (Ambos / Uso / Actualización)"]
+        SEARCH_DOC["Filtrado Instantáneo de Documentación y Tabla de Capas"]
     end
 
     subgraph OUT_M7["3. OUTPUT"]
-        CARD_DESCRIP["Tarjetas Conceptuales con Ejemplos Barriales"]
-        HIGHLIGHT["Botón para Resaltar Capas Asociadas en el Mapa"]
+        DOC_VIEW["Visor Técnico Integrado con Navegación Directa a Módulos"]
+        MD_DL["Descarga de Manuales (.md) y Bibliografía APA 7ª Ed."]
     end
 
     IN_M7 --> PROC_M7 --> OUT_M7
@@ -2518,26 +2548,24 @@ flowchart LR
 
 ---
 
-### Módulo 08: Licencias y Catálogos (`src/js/modulos/licencias.js`)
-* **Propósito Operativo:** Gobernanza legal tripartita (ODbL, CC BY-SA, AGPLv3) y descarga de libros Excel (.xlsx) y archivos CSV.
+### Módulo 08: Metadatos ISO 19115 (`data-panel="metadatos-iso"` — `src/js/modulos/metadatos.js`)
+* **Propósito Operativo:** Generador, editor y exportador de fichas de metadatos estandarizadas en formatos JSON y XML (`ISO 19139:2007`) conforme al Perfil Nacional de Metadatos de IDE Chile / SNIT.
 
 ```mermaid
 flowchart LR
     subgraph IN_M8["1. INPUT"]
-        CAT_XLSX["4 Libros Maestros OpenXML (.xlsx)"]
-        CSV_FILES["Archivos Consolidados Tabulares CSV"]
-        ZIP_MASTER["Paquete Completo geodatabase_completa.zip"]
+        ID_CAPA["Selección de Cobertura o Formulario ISO 19115"]
+        REGISTRO_JSON["Identificación, BBox, CRS (EPSG:4326/5361/32719) y Linaje"]
     end
 
     subgraph PROC_M8["2. PIPELINE DE PROCESAMIENTO"]
-        INTEG_CHECK["Validación de Integridad y Tamaño de Archivos"]
-        LIC_MATRIX["Matriz de Compatibilidad Legal de Licencias"]
-        DIRECT_DL["Gestión de Descargas Directas Asíncronas"]
+        BUILD_XML["Serialización XML ISO 19139 (gmd:MD_Metadata)"]
+        BUILD_JSON["Estructuración de Ficha JSON Estándar"]
     end
 
     subgraph OUT_M8["3. OUTPUT"]
-        TAB_LEGAL["Cuadro de Gobernanza y Términos de Uso"]
-        DOWNLOADS["Descarga de Catálogos XLSX, CSV y ZIP (543 MB)"]
+        VIEWER_META["Vista Previa de Metadatos en Pantalla"]
+        XML_FILE["Descarga de Archivo .xml (GeoNetwork) y .json"]
     end
 
     IN_M8 --> PROC_M8 --> OUT_M8
@@ -2545,26 +2573,24 @@ flowchart LR
 
 ---
 
-### Módulo 05 / 09: Indicadores Territoriales y Storyboards (`src/js/modulos/indicadores_analisis.js`)
-* **Propósito Operativo:** 4 Storyboards analíticos (KDE, LISA, Censo 2024 y Socioambiental/Residuos), 75 cartografías temáticas HD y Visor Lightbox Multi-Dispositivo.
+### Módulo 09: Diccionario (132 Capas) (`data-panel="diccionario"` — `src/js/modulos/diccionario.js`)
+* **Propósito Operativo:** Catálogo de Objetos y Atributos Geográficos conforme a la norma **ISO 19110:2016**, integrando los **140 descriptores técnicos** que documentan las 132 coberturas operativas y las reglas de homologación semántica entre la normativa chilena (OGUC/PRC/IDE Chile) y OpenStreetMap.
 
 ```mermaid
 flowchart LR
     subgraph IN_M9["1. INPUT"]
-        STORY_ID["Selección de Storyboard Temático (01 al 04)"]
-        CARTO_SET["75 Cartografías HD + Diagramas SVG + Gráficos"]
-        CAPAS_REQ["Capas Vectoriales Asociadas por Dimensión (132 Capas)"]
+        GLOSARIO_JSON["Catálogo de 140 Descriptores Técnicos (ISO 19110)"]
+        SEARCH_KEY["Búsqueda por Código, Institución, Etiqueta OSM o Atributo"]
     end
 
     subgraph PROC_M9["2. PIPELINE DE PROCESAMIENTO"]
-        MODAL_RENDER["Renderizado de Lámina Analítica con Secciones Intercaladas"]
-        AUTO_LAYER["Activación Automática de Capas en el Visor Principal"]
-        ZOOM_TOUCH["Motor Lightbox con Zoom Rueda y Pinch-to-Zoom Táctil"]
+        INDEX_TEXT["Filtrado Instantáneo por Origen (Todos / VGI / IDE / Brechas)"]
+        HOMOLOGA["Despliegue de Tablas de Columnas, Tipos de Datos y Dominio"]
     end
 
     subgraph OUT_M9["3. OUTPUT"]
-        SCENE_VIEW["Escenario Cartográfico Enfocado y Tematizado"]
-        LIGHTBOX["Inspección de Cartografías, Diagramas SVG y Gráficos en HD"]
+        CARD_DESCRIP["Fichas Técnicas de Especificación de Atributos"]
+        XLSX_DL["Descarga del Catálogo Completo (.xlsx / .json)"]
     end
 
     IN_M9 --> PROC_M9 --> OUT_M9
@@ -2572,26 +2598,24 @@ flowchart LR
 
 ---
 
-### Módulo 10: Manual de Uso y Metodología (`src/js/modulos/manual.js`)
-* **Propósito Operativo:** Visualizador integrado de la documentación técnica y operativa sin requerir apertura de archivos externos.
+### Módulo 10: Licencias & Catálogos (`data-panel="licencias"` — `src/js/modulos/licencias.js`)
+* **Propósito Operativo:** Marco jurídico de datos abiertos (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285 y Ley N° 19.628) y centro de descarga directa de la Geodatabase Completa (`.zip` de 558,5 MB), el GeoPackage regional de Geofabrik y los 4 catálogos maestros OpenXML (`.xlsx`).
 
 ```mermaid
 flowchart LR
     subgraph IN_M10["1. INPUT"]
-        DOC_MD["MANUAL_ACTUALIZACION_ATLAS.md (+5000 Líneas)"]
-        USER_ROLE["Rol de Usuario Activo (#sel-perfil-usuario)"]
-        TOC_NAV["Índice de Navegación de Capítulos"]
+        CAT_XLSX["4 Libros Maestros OpenXML (.xlsx) y 4 CSV"]
+        ZIP_MASTER["Paquete Maestro geodatabase_completa_atlas_vgi.zip (558.5 MB)"]
     end
 
     subgraph PROC_M10["2. PIPELINE DE PROCESAMIENTO"]
-        FETCH_MD["Descarga del Documento Markdown desde CDN"]
-        MD_RENDER["Compilación y Renderizado HTML en Tiempo Real"]
-        SCROLL_SYNC["Sincronización de Anclas y Resaltado de Código"]
+        LIC_MATRIX["Sistematización de Condiciones Legales y Atribución"]
+        DIRECT_DL["Entrega de Enlaces Directos Sincronizados en docs/ y src/docs/"]
     end
 
     subgraph OUT_M10["3. OUTPUT"]
-        DOC_VIEW["Lector de Documentación Integrado en Pantalla"]
-        CODE_SNIP["Bloques de Código y Diagramas Técnicos Legibles"]
+        TAB_LEGAL["Cuadro de Gobernanza Jurídica y Fuentes"]
+        DOWNLOADS["Descarga Inmediata de Geodatabase ZIP, GPKG y Catálogos XLSX"]
     end
 
     IN_M10 --> PROC_M10 --> OUT_M10
@@ -2650,7 +2674,7 @@ Para incorporar un nuevo módulo (por ejemplo, *Módulo 11: Sensorica Ambiental 
 
 ## 28. Guía Exhaustiva de Modificación y Operación de Netlify
 
-Netlify actúa como la red de distribución perimetral (*Edge CDN*) y motor de alojamiento estático y serverless del Atlas VGI. Toda directiva de compilación, enrutamiento, seguridad perimetral, variables de entorno y encabezados HTTP se gestiona de manera centralizada mediante el archivo [`netlify.toml`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/netlify.toml), ubicado en la raíz del repositorio.
+Netlify actúa como la red de distribución perimetral (*Edge CDN*) y motor de alojamiento estático y serverless del Atlas VGI. Toda directiva de compilación, enrutamiento, seguridad perimetral, variables de entorno y encabezados HTTP se gestiona de manera centralizada mediante el archivo `netlify.toml`, ubicado en la raíz del repositorio.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -2774,7 +2798,7 @@ El archivo se encuentra calibrado para servir volúmenes masivos de datos vector
    ```
 3. **Purgar la Caché del CDN de Netlify:**
    - Inicie sesión en [app.netlify.com](https://app.netlify.com).
-   - Diríjase a **Sites** $\rightarrow$ **atlasvgiuah** $\rightarrow$ **Deploys**.
+   - Diríjase a **Sites** → **atlasvgiuah** → **Deploys**.
    - Despliegue el menú **Trigger deploy** y seleccione **Clear cache and deploy site**.
 
 ---
@@ -2803,7 +2827,7 @@ flowchart LR
     IN_CSS --> PROC_CSS --> OUT_CSS
 ```
 
-El Atlas VGI implementa un sistema de diseño institucional sobrio, estructurado en CSS3 nativo puro en [`src/css/estilos.css`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/css/estilos.css), diseñado para garantizar legibilidad analítica y cumplir con el estándar internacional de accesibilidad **WCAG 2.1 Nivel AAA**.
+El Atlas VGI implementa un sistema de diseño institucional sobrio, estructurado en CSS3 nativo puro en `src/css/estilos.css`, diseñado para garantizar legibilidad analítica y cumplir con el estándar internacional de accesibilidad **WCAG 2.1 Nivel AAA**.
 
 ### 29.1. Diccionario Completo de Tokens de Diseño en `:root`
 Todas las variables visuales están centralizadas en las primeras 75 líneas de `src/css/estilos.css`:
@@ -2856,7 +2880,7 @@ Todas las variables visuales están centralizadas en las primeras 75 líneas de 
 
 ### 29.2. Cómo Cambiar la Apariencia y Colores de la Aplicación
 1. **Cambiar el Color de Acento Primario de la Aplicación:**
-   Si se requiere sustituir el azul cian por el azul marino tradicional de la Universidad Alberto Hurtado (`#003366`):
+   Si se requiere sustituir el azul cian por un azul marino institucional (`#003366`):
    ```css
    :root {
      --musgo: #004b87; /* Nuevo acento primario */
@@ -3048,7 +3072,7 @@ flowchart TD
 La elección de PostGIS frente a otras soluciones de almacenamiento de datos espaciales (como MongoDB GeoJSON, Spatialite o bases NoSQL basadas en GeoHash) responde a las siguientes exigencias técnicas y académicas del proyecto:
 
 1. **Cumplimiento Estricto de Estándares OGC:** PostGIS implementa fielmente la especificación *Open Geospatial Consortium (OGC) Simple Features for SQL (SFSQL)*, garantizando que todas las geometrías (Puntos, Líneas, Polígonos y Multi-geometrías) cumplan con las reglas de validez topológica universalmente reconocidas.
-2. **Indexación Espacial GiST (Generalized Search Tree):** El motor utiliza árboles R-Tree balanceados (`GIST`) para indexar las cajas de delimitación mínima (*Minimum Bounding Boxes* - MBR) de cada geometría. Esto reduce la complejidad computacional de las consultas espaciales de un escaneo secuencial $\mathcal{O}(n)$ a una búsqueda logarítmica $\mathcal{O}(\log n)$, permitiendo filtrar cientos de miles de entidades en milisegundos.
+2. **Indexación Espacial GiST (Generalized Search Tree):** El motor utiliza árboles R-Tree balanceados (`GIST`) para indexar las cajas de delimitación mínima (*Minimum Bounding Boxes* - MBR) de cada geometría. Esto reduce la complejidad computacional de las consultas espaciales de un escaneo secuencial `O(n)` a una búsqueda logarítmica `O(log n)`, permitiendo filtrar cientos de miles de entidades en milisegundos.
 3. **Indexación GIN para Metadatos Semánticos JSONB:** Los atributos alfanuméricos de OpenStreetMap y fuentes oficiales presentan esquemas altamente variables y no uniformes. La utilización del tipo de dato `JSONB` de PostgreSQL, combinada con índices invertidos generalizados (`GIN`), permite indexar cada clave-valor semántica (`amenity`, `highway`, `building`, `operator`) sin requerir costosas modificaciones al esquema relacional de la tabla.
 4. **Capacidades Analíticas Nativas en el Servidor:** La presencia de funciones espaciales como `ST_Intersects`, `ST_Contains`, `ST_DWithin`, `ST_Buffer`, `ST_Centroid`, `ST_SimplifyPreserveTopology` y `ST_AsGeoJSON` elimina la necesidad de transferir millones de coordenadas al navegador web cuando solo se requiere un subconjunto o una métrica derivada.
 
@@ -3499,19 +3523,153 @@ if __name__ == "__main__":
 
 ---
 
-## 32. Catálogo Exhaustivo de los Scripts Operativos en `scripts/`
+## 32. Catálogo Estandarizado Multi-Lenguaje de Componentes, Archivos y Scripts de la Plataforma Web
 
-A continuación se documenta de forma exhaustiva cada uno de los **25 scripts principales** del proyecto, detallando su propósito, modo de ejecución, dependencias, flujo algorítmico, entradas, salidas y código de salida:
+La plataforma web del Atlas opera mediante una arquitectura desacoplada y libre de transpiladores opacos, articulando **seis familias de lenguajes y estándares técnicos** (**HTML5**, **CSS3**, **JavaScript ES6+ IIFE**, **SQL / PL/pgSQL / Overpass QL**, **JSON / GeoJSON / TOML / XML** y **Python 3**).
+
+Para facilitar la comprensión integral del ecosistema y permitir su modificación segura, todos los archivos de la plataforma se documentan a continuación bajo una **Estructura Estandarizada de 6 Atributos Técnicos**:
+1. **Lenguaje y Estándar:** Especificación técnica e intérprete o motor de ejecución.
+2. **Ruta en el Proyecto:** Ubicación relativa dentro del árbol del repositorio.
+3. **Rol dentro de la Plataforma Web:** Función arquitectónica y responsabilidad dentro del geoportal.
+4. **Estructura Interna y Componentes Clave:** Secciones, selectores, funciones públicas o tablas que lo componen.
+5. **Entradas y Salidas (I/O):** Datos consumidos y artefactos o estados generados.
+6. **Pautas de Modificación y Extensibilidad:** Instrucciones concretas para editar o ampliar el archivo sin romper la coherencia del sistema.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             MATRIZ DE AUTOMATIZACIÓN Y SCRIPTS EN SCRIPTS/             │
+│     ECOSISTEMA MULTI-LENGUAJE DE LA PLATAFORMA WEB (ESTRUCTURA)        │
+├────────────────────────────────────────────────────────────────────────┤
+│ 32.1 HTML5 Semántico (WCAG 2.1 AAA)    ──► src/index.html              │
+│ 32.2 CSS3 Nativo (:root + Flexbox/Grid)──► src/css/estilos.css         │
+│ 32.3 JavaScript ES6+ (IIFE Modular)    ──► 21 módulos en src/js/       │
+│ 32.4 SQL / PL/pgSQL + Overpass QL      ──► supabase/ y consultas QL    │
+│ 32.5 JSON / GeoJSON / TOML / XML       ──► config/, netlify.toml, data/│
+│ 32.6 Python 3 (Pipelines ETL y QA/QC)  ──► 25 scripts en scripts/      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 32.1. Lenguaje de Marcado y Maquetación Estructural (HTML5 Semántico / WCAG 2.1 AAA)
+
+#### Componente HTML-01: `src/index.html`
+- **Lenguaje y Estándar:** HTML5 Semántico (`<!DOCTYPE html>`, `lang="es"`) con atributos de accesibilidad WAI-ARIA (`role`, `aria-label`, `aria-expanded`, `aria-live`) bajo norma WCAG 2.1 Nivel AAA.
+- **Ruta en el Proyecto:** `src/index.html`
+- **Rol dentro de la Plataforma Web:** Documento contenedor de página única (*Single-Page Application* - SPA) que estructura el lienzo cartográfico, la barra de navegación superior de los 10 módulos (`01` a `10`), la consola lateral de herramientas SIG, las vistas dedicadas de análisis y el orden determinista de carga de hojas de estilo y scripts.
+- **Estructura Interna y Componentes Clave:**
+  - `<head>`: Metadatos de codificación UTF-8, viewport responsivo, precarga de fuentes (`Inter`, `Fraunces`, `JetBrains Mono`), hoja de estilos de Leaflet 1.9.4 y `css/estilos.css`.
+  - `<header class="encabezado-principal">`: Identidad del geoportal, selector rápido de ámbito y barra de navegación principal (`.nav-principal`) con los botones de los 10 módulos (`data-vista`).
+  - `<section id="vista-visor">`: Contenedor principal dividido en el lienzo `#mapa-principal`, el lienzo `#mapa-comparacion` (Swipe), la consola lateral `.consola-lateral-gis` (con las pestañas Capas, Herramientas y Leyenda) y los paneles flotantes (Diagnóstico Territorial, PRC, Isócronas, Auditoría Temporal ohsome y Evaluador de Calidad).
+  - `<section id="vista-indicadores">`, `<section id="vista-metadatos">`, `<section id="vista-licencias">` y `<section id="vista-manual">`: Vistas modulares a pantalla completa para los Módulos `07`, `08`, `09` y `10`.
+  - Bloque final de scripts (`<script src="...">`): Carga secuencial de Leaflet, Chart.js, `js/config.js`, utilidades (`js/utils/*.js`), los 16 módulos funcionales (`js/modulos/*.js`) y el orquestador `js/app.js`.
+- **Entradas y Salidas (I/O):**
+  - *Entradas:* Eventos de interacción del usuario (clics, teclado, selección de formularios) e inyecciones dinámicas del DOM desde los módulos JavaScript.
+  - *Salidas:* Árbol DOM renderizado en el navegador y contenedores de montaje para mapas y gráficos.
+- **Pautas de Modificación y Extensibilidad:**
+  - Para añadir un nuevo módulo de navegación, agregue un botón `<button class="nav-btn" data-vista="nuevo-modulo">` en `.nav-principal` y cree su contenedor `<section id="vista-nuevo-modulo" class="vista-contenido">` antes del pie de página.
+  - Al actualizar cualquier archivo JS o CSS en producción, incremente el parámetro de versión `?v=...` en las etiquetas `<link>` y `<script>` de `src/index.html` para invalidar la caché de los navegadores.
+
+---
+
+### 32.2. Lenguaje de Estilización y Sistema de Diseño Visual (CSS3 Nativo)
+
+#### Componente CSS-01: `src/css/estilos.css`
+- **Lenguaje y Estándar:** CSS3 Nativo con Variables Personalizadas (*CSS Custom Properties* en `:root`), maquetación mediante `Flexbox` y `CSS Grid`, unidades dinámicas de viewport (`100dvh`), animaciones `@keyframes` y consultas de medios (`@media`).
+- **Ruta en el Proyecto:** `src/css/estilos.css`
+- **Rol dentro de la Plataforma Web:** Gobernador visual único del geoportal. Define la paleta cromática de alto contraste, la jerarquía tipográfica, el comportamiento responsivo en escritorio, tablet y móvil, los estados de los cursores del mapa, los marcadores vectoriales pulsantes y las reglas de exportación para impresión (`@media print`).
+- **Estructura Interna y Componentes Clave:**
+  - Bloque `:root`: Tokens semánticos de color (`--musgo`, `--esmeralda`, `--ocre`, `--carmesí`, `--bg-dark`, `--papel`, `--tinta`), tipografía (`--fuente-texto`, `--fuente-datos`) y dimensiones (`--ancho-consola-gis`, `--alto-header`).
+  - Layout Principal: Reglas para `.contenedor-visor`, `.consola-lateral-gis`, `.area-mapa` y `.vista-contenido`.
+  - Componentes Analíticos: Estilos para `.tarjeta-capa-gis`, `.kpi-card`, `.tabla-datos`, `.badge-estado`, `.modal-overlay` y tarjetas narrativas de Storyboards (`.tarjeta-storyboard`).
+  - Simbología Cartográfica: Clases `.pin-svg-pulso`, `.pin-halo`, `.pin-cuerpo` y cursores `.modo-inspeccion-activa`.
+- **Entradas y Salidas (I/O):**
+  - *Entradas:* Clases, atributos `data-*` y variables en línea (`style="--color-pin: ..."`) aplicadas en el DOM.
+  - *Salidas:* Renderizado visual acelerado por GPU en el navegador con contraste validado WCAG 2.1 AAA.
+- **Pautas de Modificación y Extensibilidad:**
+  - Para modificar los colores globales de toda la plataforma, edite exclusivamente los tokens del bloque `:root` al inicio del archivo; evite escribir colores hexadecimales fijos en reglas individuales.
+  - Para ajustar el ancho del panel lateral izquierdo del visor, modifique la variable `--ancho-consola-gis: 380px;`.
+
+---
+
+### 32.3. Lenguaje de Programación Cliente y Motor Cartográfico (JavaScript ES6+ Modular IIFE)
+
+La lógica interactiva del cliente web se compone de **21 archivos JavaScript ES6+** organizados sin dependencias de compiladores externos mediante el patrón **IIFE (*Immediately Invoked Function Expression*)**, exponiendo interfaces limpias en el objeto global `window`.
+
+| ID | Archivo en `src/js/` | Rol Arquitectónico dentro de la Plataforma Web | API / Funciones Públicas Clave | Entradas / Salidas (I/O) | Pautas de Modificación |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **JS-01** | `js/config.js` | **Configuración Maestra del Cliente:** Almacena las constantes globales del ámbito de estudio, coordenadas centrales, Bounding Box, endpoints de APIs (Overpass, ohsome, GBIF, Taginfo, IDE Chile, Supabase), mapas base y catálogo base de capas VGI. | `window.CONFIG` (`estudio`, `mapa`, `capasBase`, `endpoints`, `capasVGI`, `pesosCalidad`) | **In:** `config/config.json`. **Out:** Objeto inmutable `CONFIG` consumido por todos los módulos. | Edite `estudio.bbox`, `mapa.centro` o `endpoints` para trasladar el visor a otra comuna o servidor. |
+| **JS-02** | `js/modulos/geodesia.js` | **Motor Geodésico y Proyecciones:** Transforma coordenadas entre WGS84 (`EPSG:4326`), Web Mercator (`EPSG:3857`) y UTM Huso 19 Sur (`EPSG:32719` / SIRGAS-Chile), y calcula áreas geodésicas y distancias Haversine. | `Geodesia.wgs84AUTM19S()`, `utm19SAWgs84()`, `distanciaHaversine()`, `areaPoligonoM2()` | **In:** Pares `[lon, lat]` o geometrías GeoJSON. **Out:** Coordenadas métricas `(Este, Norte)` en metros y superficies en `m²`/`ha`. | Si el área de estudio cambia al Huso 18 Sur (`EPSG:32718`), actualice el meridiano central `λ₀ = -75°`. |
+| **JS-03** | `js/modulos/db_client.js` | **Conector Híbrido de Triple Redundancia:** Gestiona las consultas espaciales hacia Supabase PostGIS RPC con conmutación automática (*failover*) a los archivos GeoJSON en Netlify CDN y caché en memoria. | `DBClient.obtenerCapa()`, `consultarBBox()`, `buscarRadio()`, `estadoConexion()` | **In:** `capa_id`, `bbox` o radio en metros. **Out:** `Promise<FeatureCollection>` homologada en EPSG:4326. | Ajuste el umbral `TIMEOUT_MS` (por defecto `1200` ms) para calibrar la conmutación al modo estático. |
+| **JS-04** | `js/modulos/importador_capas.js` | **Importador y Exportador Local de Geodatos:** Permite cargar archivos locales del usuario (`.geojson`, `.json`, `.kml`, `.csv`) sobre el mapa y exportar subconjuntos vectoriales filtrados. | `ImportadorCapas.cargarArchivo()`, `exportarGeoJSON()`, `exportarCSV()` | **In:** Archivos locales arrastrados o `FeatureCollection` activa. **Out:** Capas temporales en Leaflet o flujo `Blob` descargado. | Añada nuevos analizadores de formato manteniendo la validación de rangos `EPSG:4326`. |
+| **JS-05** | `js/modulos/mapa.js` | **Núcleo Cartográfico Leaflet (Módulo 01):** Inicializa el lienzo Leaflet, gestiona los mapas base, controla la pila de capas vectoriales, el comparador Swipe/Lupa, la barra de coordenadas UTM/WGS84 y los marcadores SVG. | `Mapa.inicializar()`, `cargarCapaGeoJSON()`, `cambiarMapaBase()`, `activarComparador()` | **In:** `CONFIG.mapa`, eventos de ratón y capas GeoJSON. **Out:** Instancia `L.Map`, capas renderizadas y popups interactivos. | Modifique `crearPopupEntidad()` para personalizar los campos visibles al hacer clic en un elemento del mapa. |
+| **JS-06** | `js/modulos/manifold_canvas.js` | ** Acelerador de Renderizado Vectorial en Canvas:** Optimiza el dibujo de coberturas masivas de puntos, líneas y polígonos mediante `L.canvas()` para mantener 60 FPS en el navegador. | `ManifoldCanvas.crearRenderer()`, `optimizarCapaMasiva()` | **In:** `FeatureCollection` con miles de vértices. **Out:** Instancia `L.Canvas` de alto rendimiento. | Ajuste la tolerancia de acolchado (`padding: 0.5`) según la densidad de geometrías. |
+| **JS-07** | `js/modulos/ide_chile.js` | **Gestor del Catálogo Territorial de 132 Capas (Módulo 01):** Administra el árbol de las **122 coberturas oficiales** y **10 categorías VGI**, el buscador instantáneo, los filtros por geometría/fuente y la simbología temática. | `IDEChile.inicializar()`, `activarCapa()`, `desactivarCapa()`, `filtrarCatalogo()` | **In:** `src/data/capas_barrio_brasil.json` y `src/data/*.geojson`. **Out:** Árbol DOM de capas, contadores por categoría y leyenda dinámica. | Para registrar una nueva cobertura local, agréguela en `capas_barrio_brasil.json` y en `CAPAS_IDE_CHILE`. |
+| **JS-08** | `js/modulos/osm.js` | **Conector en Vivo a OpenStreetMap (Módulo 02):** Ejecuta consultas en lenguaje Overpass QL en tiempo real para las 10 macrocategorías VGI con rotación de servidores espejo y conversión a GeoJSON. | `OSM.consultarCategoria()`, `ejecutarConsultaQL()`, `convertirOSM2GeoJSON()` | **In:** Cadena Overpass QL y `bbox`. **Out:** `FeatureCollection` extraída directamente de OpenStreetMap. | Modifique el diccionario de consultas para incorporar nuevas combinaciones de etiquetas OSM (`key=value`). |
+| **JS-09** | `js/modulos/umap.js` | **Integrador de Cartografía Colaborativa uMap (Módulo 03):** Gestiona la inserción segura de mapas comunitarios externos alojados en uMap y la importación de capas remotas compatibles. | `UMap.cargarMapaEmbebido()`, `importarGeoJSONRemoto()` | **In:** URL de mapa uMap o endpoint GeoJSON. **Out:** Contenedor `<iframe>` aislado con atributos `sandbox` o capa Leaflet. | Agregue nuevos proyectos comunitarios preconfigurados en el listado `MAPAS_UMAP_DESTACADOS`. |
+| **JS-10** | `js/modulos/gbif.js` | **Conector de Biodiversidad y Ciencia Ciudadana GBIF (Módulo 04):** Consulta la API v1 de GBIF (`occurrence/search`) dentro del polígono WKT de estudio, normalizando registros bajo el estándar **Darwin Core (DwC)**. | `GBIF.consultarOcurrencias()`, `filtrarPorReino()`, `renderizarFichaTaxonomica()` | **In:** Polígono WKT, filtros taxonómicos y de base de registro (`HUMAN_OBSERVATION`). **Out:** Marcadores biológicos y métricas de riqueza de especies. | Ajuste el límite de paginación (`limit`) o agregue nuevos filtros taxonómicos en `PARAMETROS_GBIF`. |
+| **JS-11** | `js/modulos/taginfo.js` | **Auditor Semántico de Etiquetas Taginfo API v4 (Módulo 05):** Consulta frecuencias globales y consenso comunitario de pares `key=value` en Taginfo API v4 y calcula las componentes cualitativas del modelo WLC. | `Taginfo.auditarEtiqueta()`, `obtenerEstadisticasTag()`, `evaluarConsensoSemántico()` | **In:** Claves y valores OSM (`key`, `value`). **Out:** Frecuencia global de uso, estado de documentación Wiki y puntaje semántico. | Modifique los umbrales de consenso global en `UMBRALES_TAGINFO` para ajustar la sensibilidad semántica. |
+| **JS-12** | `js/modulos/ohsome.js` | **Auditoría Histórica y Espacio-Temporal ohsome API (Módulo 06):** Conecta con la API v1 de HeiGIT (`ohsome`) y API v0.6 de OSM para ejecutar los 3 submódulos: Auditoría Histórica (`2008–2026`), Tendencias y Saturación (Herfort et al., 2023 / ISO 19157) y Monitor de Changesets / OSMCha. | `Ohsome.ejecutarAuditoria()`, `calcularIndiceSaturacion()`, `consultarChangesets()` | **In:** Categoría OSM (`filter`), rango temporal (`2008-01-01/2026-03-01/P1Y`), `bpolys` en EPSG:4326 y área reproyectada en `EPSG:32719`. **Out:** Series de tiempo, densidad `elem/km²` y `elem / 10.000 m²`, intensidad `edit/user`, Score `/100`, Estado de Saturación y enlaces OSMCha. | Para añadir una nueva categoría de auditoría histórica, incorpore su filtro y el `endpointTipo` (`/count`, `/length` o `/area`) en `CATEGORIAS_OHSOME`. |
+| **JS-13** | `js/modulos/calidad_analyst.js` | **Analista Multicriterio WLC y Correlación (Módulo 05):** Ejecuta el modelo de Combinación Lineal Ponderada (WLC v2.0) combinando las 10 dimensiones cuantitativas y cualitativas ISO 19157, y grafica matrices de correlación de Pearson. | `CalidadAnalyst.calcularWLC()`, `actualizarPesos()`, `renderizarMatrizPearson()` | **In:** Vectores de calidad de las capas y pesos ponderadores (`w_i`). **Out:** Índice Global VGI (`IGV`), clasificación por niveles y gráficos radar. | Modifique los pesos predeterminados en `PESOS_WLC_DEFAULT` manteniendo siempre la restricción `∑ w_i = 1.00`. |
+| **JS-14** | `js/modulos/evaluador_calidad_cuantitativa.js` | **Auditor Cuantitativo de Geometrías y Topología (Módulo 05):** Verifica el cierre de anillos poligonales, ausencia de vértices duplicados, validez de rangos WGS84, completitud del esquema de 14 atributos y frescura temporal. | `EvaluadorCuantitativo.auditarCapa()`, `validarTopologia()`, `verificarEsquema14()` | **In:** Geometrías y propiedades de las capas vectoriales. **Out:** Puntajes `[0-100%]` en las 5 dimensiones cuantitativas ISO 19157. | Añada nuevas reglas geométricas o campos obligatorios dentro de `validarEntidadIndividual()`. |
+| **JS-15** | `js/modulos/evaluador_normativo.js` | **Inspector Normativo PRC e Isócronas de Accesibilidad (Módulo 01/07):** Evalúa mediante algoritmo *Ray-Casting* (*Point-in-Polygon*) la zona del PRC Santiago, Zonas Típicas e ICH, y calcula anillos de accesibilidad peatonal de 5, 10 y 15 minutos. | `EvaluadorNormativo.inspeccionarPredio()`, `calcularIsocronas()`, `emitirCertificado()` | **In:** Coordenadas `[lon, lat]` del clic, polígonos PRC/CMN y capas de equipamiento. **Out:** Ficha normativa de edificación y polígonos de isócronas. | Actualice los parámetros urbanísticos en `ZONAS_PRC_SANTIAGO` ante modificaciones o enmiendas comunales. |
+| **JS-16** | `js/modulos/indicadores_analisis.js` | **Indicadores Territoriales y Storyboards Narrativos (Módulo 07):** Gestiona la vista de síntesis territorial, renderizando el tablero de indicadores clave y los **4 Storyboards Interactivos** con **75 cartografías integradas** (`11 + 11 + 29 + 24`) sincronizadas con el visor. | `IndicadoresAnalisis.inicializar()`, `abrirStoryboard()`, `cargarCartografiaEnVisor()` | **In:** `src/data/reporte_indice_calidad_vgi.json`, `capas_barrio_brasil.json` y catálogo `STORYBOARDS`. **Out:** Tarjetas de síntesis, modal narrativo interactivo con visor cartográfico embebido y tablas de datos. | Para agregar un nuevo Storyboard o capítulo cartográfico, añada un objeto al arreglo `STORYBOARDS` especificando sus `capas` y `analisisCapitulos`. |
+| **JS-17** | `js/modulos/metadatos.js` | **Catálogo de Metadatos ISO 19115-1 y Exportador XML ISO 19139 (Módulo 08):** Renderiza el explorador interactivo de fichas de metadatos para las **132 coberturas (122 oficiales + 10 VGI)** y genera documentos XML `gmd:MD_Metadata`. | `Metadatos.inicializar()`, `mostrarFichaISO()`, `exportarXMLISO19139()` | **In:** Inventario de 132 capas y perfiles ISO 19115-1:2014 / ISO 19157:2013. **Out:** Tabla maestra de metadatos, modal de 14 atributos y descarga XML/JSON. | Edite la función `generarXMLISO19139()` para incorporar campos adicionales del Perfil Nacional de Metadatos de IDE Chile. |
+| **JS-18** | `js/modulos/diccionario.js` | **Diccionario Territorial Interactivo ISO 19110 (Módulo 08):** Administra el catálogo de los **140 descriptores normativos y etiquetas OSM**, permitiendo filtrar por macrocategoría y consultar su equivalencia oficial-comunitaria. | `Diccionario.inicializar()`, `buscarDescriptor()`, `filtrarPorCategoria()` | **In:** Base de 140 descriptores semánticos ISO 19110. **Out:** Grilla interactiva de definiciones, tipos de datos y dominios de valores. | Incorpore nuevos descriptores en el arreglo `DESCRIPTORES_ISO19110` especificando clave OSM, fuente oficial y tipo geométrico. |
+| **JS-19** | `js/modulos/licencias.js` | **Centro de Descargas, Licencias y Gobernanza (Módulo 09):** Administra el portal de descarga de la Geodatabase completa (`ZIP`), los 4 catálogos Excel OpenXML, las capas individuales y la matriz de compatibilidad jurídica (ODbL 1.0, CC BY 4.0, Ley 19.628). | `Licencias.inicializar()`, `descargarGeodatabase()`, `filtrarPorLicencia()` | **In:** Rutas de `docs/geodatabase_completa_atlas_vgi.zip` y catálogos en `datos/catalogos/`. **Out:** Descargas directas con validación de integridad y fichas legales. | Si se actualiza el paquete ZIP masivo, actualice los metadatos de peso y conteo de archivos en el módulo. |
+| **JS-20** | `js/modulos/manual.js` | **Manual de Uso y Actualización In-App (Módulo 10):** Renderiza dentro de la plataforma web la guía interactiva dividida en Manual de Uso (`USO · 01` a `USO · 10`) y Manual de Actualización (`ACT · 01` a `ACT · 07`), con buscador instantáneo y guía por perfil. | `Manual.inicializar()`, `cambiarCapitulo()`, `filtrarCapitulos()`, `renderizarGuiaPerfil()` | **In:** Inventario dinámico de 132 capas y `docs/MANUAL_ACTUALIZACION_ATLAS.md`. **Out:** Interfaz documental navegable con índice lateral, tablas filtrables y descarga del manual maestro. | Añada nuevas secciones operativas en `obtenerCapitulosManual()` manteniendo la sincronía con el archivo Markdown maestro. |
+| **JS-21** | `js/app.js` | **Orquestador Principal de la Aplicación (Controlador SPA):** Coordina el ciclo de vida completo de la plataforma web, enlaza la navegación entre los 10 módulos (`01` a `10`), gestiona los perfiles de usuario, las notificaciones *Toast* y el estado global. | `App.inicializar()`, `cambiarVista()`, `aplicarPerfil()`, `mostrarNotificacion()` | **In:** Eventos globales `DOMContentLoaded` y acciones de los 20 módulos anteriores. **Out:** Transiciones fluidas entre vistas y sincronización del estado entre el visor y los paneles analíticos. | Registre cualquier nuevo módulo dentro de la secuencia de arranque `App.inicializar()` y en el controlador de pestañas. |
+
+---
+
+### 32.4. Lenguajes de Base de Datos Espacial y Consultas (SQL / PL/pgSQL PostGIS y Overpass QL)
+
+#### Componente SQL-01: `supabase/migrations/01_schema_postgis.sql`
+- **Lenguaje y Estándar:** SQL ANSI / PostgreSQL 17 DDL y lenguaje procedimental `PL/pgSQL` con extensión espacial **PostGIS 3.3** (estándar OGC Simple Features for SQL).
+- **Ruta en el Proyecto:** `supabase/migrations/01_schema_postgis.sql`
+- **Rol dentro de la Plataforma Web:** Define la estructura relacional y espacial del backend en la nube, incluyendo las tablas maestras, los índices espaciales R-Tree (`GiST`), los índices semánticos sobre atributos variables (`GIN JSONB`), las políticas de seguridad por fila (*Row Level Security* - RLS) y las funciones remotas RPC consumidas por el visor.
+- **Estructura Interna y Componentes Clave:**
+  - Extensiones: `uuid-ossp`, `postgis`, `postgis_topology`.
+  - Tablas: `public.capas_metadata`, `public.capas_entidades` (con columna `geom geometry(Geometry, 4326)` y `propiedades JSONB`) y `public.auditoria_actualizaciones`.
+  - Funciones RPC: `fn_obtener_capa_bbox`, `fn_buscar_entidades_radio` y `fn_resumen_estadistico_capa`.
+- **Entradas y Salidas (I/O):**
+  - *Entradas:* Peticiones HTTP POST vía PostgREST desde `cliente_postgis.js` o lotes de inserción desde los scripts Python.
+  - *Salidas:* Objetos `FeatureCollection` GeoJSON ensamblados directamente en el motor de base de datos mediante `ST_AsGeoJSON()`.
+- **Pautas de Modificación y Extensibilidad:**
+  - Para crear una nueva consulta espacial en el servidor, escriba una función `CREATE OR REPLACE FUNCTION public.fn_nueva_consulta(...) RETURNS JSONB LANGUAGE plpgsql SECURITY DEFINER` y expóngala al rol `anon`.
+
+#### Componente QL-01: `scripts/consultas_overpass.json`
+- **Lenguaje y Estándar:** **Overpass QL** (*Overpass Query Language*) encapsulado en estructura JSON.
+- **Ruta en el Proyecto:** `scripts/consultas_overpass.json`
+- **Rol dentro de la Plataforma Web:** Almacena las sentencias de extracción semántica y espacial para las **10 macrocategorías comunitarias VGI** sobre la base de datos global de OpenStreetMap.
+- **Estructura Interna y Componentes Clave:** Directivas `[out:json][timeout:60];`, bloques de unión `( node[...](bbox); way[...](bbox); relation[...](bbox); );` y directiva de salida geométrica `out body geom;`.
+- **Pautas de Modificación y Extensibilidad:** Para incorporar nuevas etiquetas comunitarias en una macrocategoría, agregue el predicado `["clave"="valor"]` dentro del bloque de unión correspondiente y ejecute el script de sincronización.
+
+---
+
+### 32.5. Lenguajes de Configuración, Manifiestos e Intercambio de Datos (JSON, GeoJSON RFC 7946, TOML y XML)
+
+| Componente | Lenguaje / Estándar | Ruta en el Proyecto | Rol dentro de la Plataforma Web | Estructura Interna Clave | Pautas de Modificación |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **CFG-01** | **JSON** (ECMA-404) | `config/config.json` y `src/config/config.json` | **Manifiesto de Configuración Territorial:** Define los parámetros del área de estudio, límites geográficos (`bbox`), proyección métrica, endpoints y metadatos generales compartidos entre el backend Python y el frontend web. | Bloques `proyecto`, `ambito_estudio`, `coordenadas`, `proyecciones` y `endpoints`. | Mantenga ambos archivos sincronizados al cambiar el polígono de estudio o el nombre del proyecto. |
+| **CFG-02** | **TOML** v1.0.0 | `netlify.toml` | **Configuración Perimetral y Despliegue CDN:** Gobierna el directorio de publicación (`publish = "src"`), la expansión de binarios Git LFS (`GIT_LFS_SKIP_SMUDGE = "0"`), las cabeceras de seguridad/CORS y las redirecciones canónicas. | Bloques `[build]`, `[build.environment]`, `[[headers]]` y `[[redirects]]`. | Añada nuevas reglas `[[headers]]` si incorpora nuevos formatos binarios (ej. `.pmtiles` o `.tif`). |
+| **DAT-01** | **GeoJSON** (IETF RFC 7946) | `src/data/*.geojson` y `datos/capas/*.geojson` | **Almacén Vectorial Estático:** Contiene las **132 coberturas espaciales** (122 oficiales + 10 VGI) en `EPSG:4326` con el esquema estandarizado de 14 atributos por entidad. | Objeto `FeatureCollection` con arreglo `features` (`geometry` + `properties`). | Valide siempre todo archivo editado con `verificar_integridad_despliegue.py` para asegurar topología y codificación UTF-8. |
+| **DAT-02** | **JSON Analítico** | `src/data/capas_barrio_brasil.json` y `src/data/reporte_indice_calidad_vgi.json` | **Índice Maestro de Capas y Reporte de Calidad:** Registra el inventario completo de capas, conteos de entidades, categorías, fuentes y resultados de las evaluaciones ISO 19157 consumidos por los Módulos `01`, `05`, `07` y `08`. | Arreglos de objetos con `id`, `nombre`, `archivo`, `categoria`, `fuente`, `total_entidades` e `indice_wlc`. | Se regeneran automáticamente al ejecutar los scripts de enriquecimiento y modelamiento de calidad en Python. |
+
+---
+
+### 32.6. Lenguaje de Automatización Backend, ETL Geoespacial y Auditoría (Python 3)
+
+A continuación se documentan los **25 scripts operativos en Python 3** ubicados en el directorio `scripts/`, encargados de la extracción automatizada, normalización topológica, cálculo de calidad, generación de catálogos OpenXML, sincronización PostGIS y validación de integridad:
+
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│             MATRIZ DE AUTOMATIZACIÓN PYTHON 3 EN SCRIPTS/              │
 ├────────────────────────────────────────────────────────────────────────┤
 │ 1. Ingesta y Extracción: Overpass, Geofabrik, IDE Chile, APIs REST     │
 │ 2. Estandarización y Metadatos: ISO 19115/19157, Esquema 14 Atributos   │
 │ 3. Modelamiento Espacial y Calidad: Algoritmo WLC, Correlación Pearson │
 │ 4. Operaciones PostGIS: Esquemas DDL, Ingesta por Lotes, RPCs          │
-│ 5. Control de Calidad y Despliegue: Verificador de 8 Pruebas y ZIP Masivo│
+│ 5. Control de Calidad y Despliegue: Verificador de 8 Pruebas y ZIP     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -3645,15 +3803,13 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 ---
 
 ### Script 14: `modelo_indice_lineal_wlc.py`
-- **Propósito:** Implementa el modelo matemático de **Combinación Lineal Ponderada (WLC v2.0)** bajo norma ISO 19157:2013, calculando los puntajes de calidad cuantitativa ($P_{\text{cuant}}$), cualitativa ($P_{\text{cual}}$) e Índice Global VGI ($IGV$) para cada una de las capas cartográficas.
+- **Propósito:** Implementa el modelo matemático de **Combinación Lineal Ponderada (WLC v2.0)** bajo norma ISO 19157:2013, calculando los puntajes de calidad cuantitativa (`P_cuant`), cualitativa (`P_cual`) e Índice Global VGI (`IGV`) para cada una de las capas cartográficas.
 - **Invocación CLI:** `python3 scripts/modelo_indice_lineal_wlc.py --export-csv "catalogos/metricas_calidad_wlc.csv"`
 - **Dependencias:** `math`, `csv`, `json`.
 - **Ecuación Evaluada:**
-
-  $$
-  IGV = 0.50 \cdot P_{\text{cuant}} + 0.50 \cdot P_{\text{cual}}
-  $$
-
+  ```text
+  IGV = 0.50 × P_cuant + 0.50 × P_cual
+  ```
 - **Salidas:** Matriz de puntajes de calidad y actualización del campo `indice_calidad_wlc` en cada capa GeoJSON.
 
 ---
@@ -3661,7 +3817,7 @@ A continuación se documenta de forma exhaustiva cada uno de los **25 scripts pr
 ### Script 15: `analisis_metacalidad.py`
 - **Propósito:** Ejecuta el análisis de correlación bivariada de Pearson entre las dimensiones de calidad espacial y calcula las matrices de covarianza para validar la ortogonalidad e independencia de los 10 criterios de evaluación de metacalidad.
 - **Invocación CLI:** `python3 scripts/analisis_metacalidad.py`
-- **Salidas:** Resumen estadístico de coeficientes $r$ de Pearson y prueba de significancia $p < 0.05$.
+- **Salidas:** Resumen estadístico de coeficientes `r` de Pearson y prueba de significancia `p < 0.05`.
 
 ---
 
@@ -3913,14 +4069,12 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 - **Acción ante fallo:** Reporta el archivo corrupto y la línea exacta del error de formateo.
 
 #### Banco 2: Validación de Geometrías y Bounding Box WGS84
-- **Metodología:** Verifica que las coordenadas se encuentren dentro de los rangos válidos del elipsoide WGS84:
-
-  $$
-  -180.0 \le \text{Longitud} \le 180.0 \quad \text{y} \quad -90.0 \le \text{Latitud} \le 90.0
-  $$
-
-  Para el caso específico de Barrio Brasil y Santiago Centro, comprueba que las coordenadas no estén invertidas (evitando el error común de asignar Latitud a Longitud).
-- **Criterio de Aprobación:** 100% de geometrías válidas y polígonos cerrados (primer punto idéntico al último).
+- **Metodología:** Verifica que las coordenadas geográficas se encuentren dentro de los rangos válidos del elipsoide WGS84 (`EPSG:4326`):
+  ```text
+  -180.0° ≤ Longitud ≤ 180.0°   y   -90.0° ≤ Latitud ≤ 90.0°
+  ```
+  Para el ámbito específico de Barrio Brasil y Santiago Centro, comprueba además que las coordenadas se ubiquen dentro del rectángulo envolvente esperado y que no estén invertidas (evitando el error frecuente de permutar Latitud y Longitud).
+- **Criterio de Aprobación:** 100% de geometrías válidas y anillos poligonales cerrados (primer vértice idéntico al último).
 
 #### Banco 3: Validación del Esquema Maestro de 14 Atributos
 - **Metodología:** Inspecciona el diccionario `properties` de cada `Feature` vectorial, comprobando la presencia obligatoria de:
@@ -3928,13 +4082,11 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 - **Criterio de Aprobación:** Todas las entidades cumplen con el esquema unificado.
 
 #### Banco 4: Normalización Matemática del Índice WLC
-- **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción:
-
-  $$
-  0.0000 \le \text{calidad-wlc} \le 1.0000
-  $$
-
-- **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a 1.0.
+- **Metodología:** Valida que el atributo numérico `calidad_wlc` satisfaga la restricción de intervalo unitario cerrado:
+  ```text
+  0.0000 ≤ calidad_wlc ≤ 1.0000
+  ```
+- **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o superiores a `1.0000`.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)
 - **Metodología:** Abre `catalogo_capas_completo_vgi_uah.xlsx` mediante `openpyxl` y compara los identificadores de capa listados contra los nombres de archivos reales presentes en `datos/capas/`.
@@ -4206,7 +4358,7 @@ El repositorio del Atlas contiene archivos geoespaciales masivos que superan los
 
 #### 1. Archivo de Configuración de Filtros (`.gitattributes`)
 
-El archivo [`.gitattributes`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/.gitattributes) define qué patrones de archivos son interceptados por el motor LFS:
+El archivo `.gitattributes` define qué patrones de archivos son interceptados por el motor LFS:
 
 ```gitattributes
 # Archivos comprimidos y paquetes binarios masivos
@@ -4256,9 +4408,9 @@ descargas/atlas_vgi_uah_base_datos_completa.zip filter=lfs diff=lfs merge=lfs -t
 
 Para mantener un historial de cambios legible, auditable y compatible con generadores automáticos de bitácoras (*Changelogs*), todo commit en el repositorio debe seguir la convención semántica:
 
-$$
-\text{tipo(ámbito opcional): descripción en presente o infinitivo}
-$$
+```text
+tipo(ámbito opcional): descripción en presente o infinitivo
+```
 
 | Prefijo | Significado y Casos de Uso en el Atlas |
 |---|---|
@@ -4286,13 +4438,13 @@ El despliegue en producción es totalmente desatendido. Cada vez que se ejecuta 
 
 ---
 
-## 36. Matriz de Troubleshooting y Resolución Forense de Incidentes (15 Casos Críticos)
+## 36. Matriz de Troubleshooting y Resolución Técnica de Incidentes (15 Casos Críticos)
 
-A continuación se documenta el análisis forense de causa-raíz (*Root Cause Analysis* - RCA) y los procedimientos operativos de remediación paso a paso para los **15 incidentes técnicos más recurrentes** en el ciclo de vida del Atlas VGI:
+A continuación se documenta el análisis técnico de causa-raíz (*Root Cause Analysis* - RCA) y los procedimientos operativos de remediación paso a paso para los **15 incidentes técnicos más recurrentes** en el ciclo de vida del Atlas VGI:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             MATRIZ DE RESOLUCIÓN FORENSE DE INCIDENTES (RCA)           │
+│             MATRIZ DE RESOLUCIÓN TÉCNICA DE INCIDENTES (RCA)           │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Caso 01: Pantalla gris o tiles no renderizados en Leaflet              │
 │ Caso 02: Inversión de coordenadas Latitud / Longitud en GeoJSON        │
@@ -4316,7 +4468,7 @@ A continuación se documenta el análisis forense de causa-raíz (*Root Cause An
 
 ### Caso 01: Pantalla Gris o Cuadrantes de Mapa no Renderizados en Leaflet
 - **Síntoma:** Al conmutar entre pestañas de la SPA o al abrir un modal, el mapa de Leaflet muestra áreas grises y los mosaicos de OpenStreetMap solo aparecen parcialmente.
-- **Causa Raíz:** Leaflet calcula las dimensiones de su contenedor (`#map`) al momento de inicializarse. Si el contenedor se encuentra oculto (`display: none`), sus dimensiones son $0 \times 0$ píxeles. Al hacerse visible, el motor no detecta automáticamente el cambio de tamaño del DOM.
+- **Causa Raíz:** Leaflet calcula las dimensiones de su contenedor (`#map`) al momento de inicializarse. Si el contenedor se encuentra oculto (`display: none`), sus dimensiones son `0 × 0` píxeles. Al hacerse visible, el motor no detecta automáticamente el cambio de tamaño del DOM.
 - **Solución Paso a Paso:**
   Invoque el método `map.invalidateSize()` inmediatamente después de que el contenedor pase a ser visible, preferentemente dentro de un `setTimeout` o tras la transición CSS:
   ```javascript
@@ -4637,7 +4789,7 @@ Para facilitar la comprensión interdisciplinaria entre geógrafos, urbanistas, 
 30. **ESRI Shapefile (SHP):** Formato vectorial histórico propietario de ESRI compuesto por múltiples archivos vinculados (`.shp`, `.shx`, `.dbf`, `.prj`), limitado a nombres de columnas de 10 caracteres y archivos de hasta 2 GB.
 31. **Web Map Service (WMS):** Protocolo estándar OGC que sirve imágenes georreferenciadas de mapas renderizadas dinámicamente en el servidor en formatos raster como PNG o JPEG.
 32. **Web Feature Service (WFS):** Protocolo estándar OGC que permite a los clientes solicitar, consultar e interactuar con geometrías y atributos vectoriales crudos a través de la web en formato GML o GeoJSON.
-33. **Tile Map Service (XYZ Tiles):** Arquitectura de distribución de mosaicos cartográficos prerenderizados de $256 \times 256$ píxeles indexados jerárquicamente por nivel de zoom ($Z$) y coordenadas de tesela ($X, Y$).
+33. **Tile Map Service (XYZ Tiles):** Arquitectura de distribución de mosaicos cartográficos prerenderizados de `256 × 256` píxeles indexados jerárquicamente por nivel de zoom (`Z`) y coordenadas de tesela (`X, Y`).
 34. **PostgreSQL 17:** Sistema gestor de bases de datos relacional orientada a objetos de código abierto, líder en estabilidad, extensibilidad y cumplimiento de normas SQL.
 35. **PostGIS:** Extensión espacial para PostgreSQL que habilita tipos de datos geométricos y geográficos nativos, funciones topológicas avanzadas e indexación espacial conforme al estándar OGC Simple Features.
 36. **Índice Espacial GiST:** Árbol de búsqueda generalizado (*Generalized Search Tree*) que implementa estructuras R-Tree en PostgreSQL para acelerar búsquedas espaciales multidimensionales y operadores de intersección (`&&`).
@@ -4695,13 +4847,7 @@ El código fuente de la plataforma web, sus módulos interactivos y los scripts 
 
 ## 39. Aparato Bibliográfico Consolidado — 125 Referencias en Formato APA 7ª Edición
 
-El siguiente corpus bibliográfico reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad de la literatura seminal de investigación del Departamento de Geografía de la Universidad Alberto Hurtado con los marcos normativos, jurídicos y estándares internacionales que fundamentan el diseño del Atlas VGI:
-
-
-# Aparato Bibliográfico Consolidado — Corpus Científico & Atlas VGI Barrio Brasil
-### Departamento de Geografía — Universidad Alberto Hurtado (2026)
-
-Este documento reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad del corpus científico fundacional de Geografía UAH (51 obras seminales de investigación + 8 obras epistemológicas e hispanoamericanas de pensamiento geográfico) con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria.
+El siguiente corpus bibliográfico reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad de la literatura seminal de investigación sobre Información Geográfica Voluntaria (VGI), ciencia ciudadana y análisis espacial con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria:
 
 ---
 
@@ -5648,7 +5794,7 @@ Fuentes oficiales del Estado de Chile, estándares internacionales ISO/OGC y esp
 
 ## 40. Tutorial 01: Modificación de la Paleta Cromática y Variables `:root` en CSS
 
-Toda la identidad visual del Atlas se gestiona de manera centralizada mediante variables personalizadas (*CSS Custom Properties*) declaradas en el pseudo-elemento `:root` del archivo [`src/css/estilos.css`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/css/estilos.css). Modificar un color en esta sección actualiza instantáneamente toda la aplicación (cabeceras, botones, bordes, modales y acentos).
+Toda la identidad visual del Atlas se gestiona de manera centralizada mediante variables personalizadas (*CSS Custom Properties*) declaradas en el pseudo-elemento `:root` del archivo `src/css/estilos.css`. Modificar un color en esta sección actualiza instantáneamente toda la aplicación (cabeceras, botones, bordes, modales y acentos).
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -6278,36 +6424,35 @@ function exportarCapaCSV(coleccionFeatures, nombreCapa) {
 
 ## 55. Tutorial 16: Protocolo de Auditoría de Accesibilidad Web (WCAG 2.1 Nivel AAA)
 
-En el marco del compromiso ético y de inclusión de la Universidad Alberto Hurtado, la interfaz del Atlas debe cumplir con el nivel más exigente de accesibilidad internacional: **WCAG 2.1 AAA**. Esto exige una relación de contraste cromático mínima de **7:1** para texto normal y soporte integral de navegación por teclado.
+En el marco del diseño universal e inclusivo de la plataforma web, la interfaz del Atlas cumple con el nivel más exigente de accesibilidad internacional: **WCAG 2.1 AAA**. Esto exige una relación de contraste cromático mínima de **7:1** para texto normal y soporte integral de navegación por teclado.
 
 ### 55.1. Fórmula Matemática de Luminancia Relativa y Contraste
-La luminancia relativa ($L$) de cualquier color RGB normalizado en $[0, 1]$ se calcula mediante:
+La luminancia relativa (`L`) de cualquier color RGB normalizado en `[0, 1]` se calcula mediante:
 
-$$
-L = 0.2126 \cdot R + 0.7152 \cdot G + 0.0722 \cdot B
-$$
+```text
+L = 0.2126 × R + 0.7152 × G + 0.0722 × B
+```
 
-Donde cada canal se linealiza como:
+Donde cada canal `C` se linealiza a partir de su componente `C_sRGB` según:
 
-$$
-C = \begin{cases} \frac{C_{\text{sRGB}}}{12.92} & \text{si } C_{\text{sRGB}} \le 0.03928 \\ \left(\frac{C_{\text{sRGB}} + 0.055}{1.055}\right)^{2.4} & \text{si } C_{\text{sRGB}} > 0.03928 \end{cases}
-$$
+```text
+Si C_sRGB ≤ 0.03928  ⇒  C = C_sRGB / 12.92
+Si C_sRGB > 0.03928  ⇒  C = ((C_sRGB + 0.055) / 1.055)^2.4
+```
 
-La relación de contraste entre dos colores con luminancias $L_1$ (más claro) y $L_2$ (más oscuro) se determina por:
+La relación de contraste entre dos colores con luminancias `L₁` (más claro) y `L₂` (más oscuro) se determina por:
 
-$$
-\text{Ratio de Contraste} = \frac{L_1 + 0.05}{L_2 + 0.05} \ge 7.00:1 \quad (\text{WCAG AAA})
-$$
+```text
+Ratio de Contraste = (L₁ + 0.05) / (L₂ + 0.05) ≥ 7.00 : 1   (Estándar WCAG 2.1 AAA)
+```
 
 ### 55.2. Verificación de Accesibilidad en la Paleta del Atlas
-- **Fondo Oscuro (`#0f172a`):** Luminancia $L_2 = 0.012$.
-- **Texto Blanco (`#ffffff`):** Luminancia $L_1 = 1.000$.
-
-  $$
-  \text{Contraste} = \frac{1.000 + 0.05}{0.012 + 0.05} = \frac{1.05}{0.062} \approx \mathbf{16.93:1} \quad (\text{Supera ampliamente el umbral AAA de 7:1})
-  $$
-
-- **Verde Musgo (`#2d5a27`) sobre Blanco (`#ffffff`):** Luminancia $L_2 = 0.088 \implies \text{Contraste} = \frac{1.05}{0.138} \approx \mathbf{7.61:1}$ (Cumple WCAG AAA).
+- **Fondo Oscuro (`#0f172a`):** Luminancia `L₂ = 0.012`.
+- **Texto Blanco (`#ffffff`):** Luminancia `L₁ = 1.000`.
+  ```text
+  Contraste = (1.000 + 0.05) / (0.012 + 0.05) = 1.05 / 0.062 ≈ 16.93 : 1   (Supera ampliamente el umbral AAA de 7:1)
+  ```
+- **Verde Institucional (`#2d5a27`) sobre Blanco (`#ffffff`):** Luminancia `L₂ = 0.088` ⇒ `Contraste = 1.05 / 0.138 ≈ 7.61 : 1` (Cumple WCAG 2.1 AAA).
 
 ---
 

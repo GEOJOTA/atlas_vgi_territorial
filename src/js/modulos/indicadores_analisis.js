@@ -2,7 +2,7 @@
   indicadores_analisis.js
   -----------------------
   Módulo de Indicadores de Análisis Multidimensional y Storyboards Territoriales de Barrio Brasil.
-  Atlas VGI Territorial — Geografía UAH — Geografía Universidad Alberto Hurtado (2026).
+  Atlas de Información Geográfica Voluntaria para la Gestión Territorial.
 
   Estructura y Principios:
   1. Agrupación analítica de las 132 capas del Atlas (122 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
@@ -13,13 +13,13 @@
      - 5) Sociourbana o Habitabilidad (55 capas)
   2. Nombres de capas rigurosamente idénticos a los del Módulo "00. Visor y Atlas VGI".
   3. Datos espaciales derivados exclusivamente de la base de datos formal del Atlas VGI (capas oficiales y VGI).
-  4. Storyboards territoriales con rigor académico y lenguaje accesible:
+  4. Storyboards territoriales con rigor técnico y lenguaje accesible:
      - Métricas cuantitativas (KPIs), porcentajes, gráficos de barras comparativas, diagramas técnicos vectoriales SVG y tablas de datos.
      - Sección analítica estructurada según los 4 Usuarios-Tipo del proyecto:
        * Institución / Autoridad Pública (MINVU, Municipio, MTT, IDE Chile)
        * Comunidad / Vecinal (Juntas de Vecinos, asambleas barriales, vecinos)
-       * Mapeador / Voluntario OSM (comunidad OSM, estudiantes UAH)
-       * ONGs / Investigadores / Academia (Geografía UAH, Geografía UAH)
+       * Mapeador / Voluntario OSM (comunidad OSM, mapeadores colaborativos)
+       * ONGs / Investigadores / Academia (centros de estudios urbanos y territoriales)
      - Apartado Bibliográfico y Trazabilidad de Datos Formales:
        * Fuentes espaciales primarias (con código BBDD/CAT, institución custodia y sistema de referencia).
        * Referencias teórico-metodológicas de autores clave en norma APA 7ma edición.
@@ -377,11 +377,10 @@ const ModuloIndicadoresAnalisis = (() => {
       dimensionId: 'metodologica',
       dimensionNombre: 'Resultados Espaciales · Densidades de Kernel (KDE)',
       titulo: 'Concentración Territorial y Núcleos de Actividad VGI en Santiago: Lo que Revelan las Superficies de Densidad de Kernel',
-      bajada: 'Lectura empírica de las 11 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI. Polarización entre la hiperconcentración del eje Alameda-Brasil-Santa Ana y los vacíos de cobertura en la periferia sur de la comuna.',
+      bajada: 'Análisis espacial de las 11 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI. Polarización entre la hiperconcentración del eje Alameda-Brasil-Santa Ana y los vacíos de cobertura en la periferia sur de la comuna.',
       imagen: 'img/storyboards/portada_analisis_kde.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_kde.svg',
       piePortada: 'Ilustración síntesis de los núcleos de intensidad territorial VGI identificados en la Comuna de Santiago y el entorno de Barrio Brasil.',
-      tiempoLectura: '18 min de lectura',
       tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Brechas Territoriales', '11 Cartografías'],
       capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo'],
       contenido: {
@@ -581,14 +580,14 @@ const ModuloIndicadoresAnalisis = (() => {
         analisisPorActor: [
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SECPLA Santiago · DITEC · MINVU · MTT', utilidad: 'Permite focalizar inversión en espacio público, arbolado y rebajes de accesibilidad en los barrios del sur comunal (Sierra Bella, Bogotá, San Vicente) que aparecen con densidad nula.' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités Barriales', utilidad: 'Entrega evidencia cuantitativa sobre la presión comercial y de transporte que soporta el eje Brasil-Alameda frente al déficit de plazas en sectores interiores.' },
-          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad OpenStreetMap · Estudiantes UAH', utilidad: 'Identifica dónde existen sombras de información cartográfica al norte de Av. Mapocho y al sur de Av. Matta para orientar nuevas campañas de levantamiento.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Centros de Estudios Urbanos', utilidad: 'Demuestra empíricamente la sinergia entre el campus universitario UAH, la vitalidad comercial y la densidad patrimonial en el pericentro histórico.' }
+          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad OpenStreetMap · Mapeadores Colaborativos', utilidad: 'Identifica dónde existen sombras de información cartográfica al norte de Av. Mapocho y al sur de Av. Matta para orientar nuevas campañas de levantamiento.' },
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Centros de Estudios Urbanos y Territoriales', utilidad: 'Demuestra cuantitativamente la sinergia entre el equipamiento universitario, la vitalidad comercial y la densidad patrimonial en el pericentro histórico.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
             { codigo: 'cat01_cat10_vgi', nombre: '10 Macro-categorías VGI Multigeométricas (10.166 registros)', institucion: 'Comunidad OSM / GBIF', crs: 'EPSG:32719', tipo: 'Puntos, Líneas y Polígonos' },
-            { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal de 1.711 Manzanas Censales y 27 Barrios', institucion: 'Geografía UAH / INE / SECPLA', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' },
-            { codigo: 'catalogo_vgi_kde', nombre: 'Catálogo de Superficies de Densidad de Kernel (KDE)', institucion: 'Atlas VGI — Juan Pablo Lezcano (UAH)', crs: 'EPSG:32719', tipo: 'Ráster / Cartografía HD' }
+            { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal de 1.711 Manzanas Censales y 27 Barrios', institucion: 'INE / SECPLA', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' },
+            { codigo: 'catalogo_vgi_kde', nombre: 'Catálogo de Superficies de Densidad de Kernel (KDE)', institucion: 'Atlas de Información Geográfica Voluntaria', crs: 'EPSG:32719', tipo: 'Ráster / Cartografía' }
           ],
           referenciasAcademicas: [
             { cita: 'Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman & Hall / CRC Press.', concepto: 'Fundamento de las superficies continuas de densidad aplicadas a las 10 categorías territoriales.' },
@@ -611,7 +610,6 @@ const ModuloIndicadoresAnalisis = (() => {
       imagen: 'img/storyboards/portada_analisis_lisa.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_lisa.svg',
       piePortada: 'Ilustración conceptual de la polarización territorial entre conglomerados Alto-Alto (Hotspots), Bajo-Bajo (Coldspots) y anomalías espaciales en la trama de Santiago.',
-      tiempoLectura: '20 min de lectura',
       tags: ['Resultados LISA', 'Hotspots Alto-Alto', 'Coldspots Bajo-Bajo', 'Outliers Territoriales', '11 Cartografías'],
       capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'censo2024_manzanas', 'minvu_ipt_prc_santiago'],
       contenido: {
@@ -800,18 +798,18 @@ const ModuloIndicadoresAnalisis = (() => {
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SEREMI MINVU · SECPLA · INE · Subdere', utilidad: 'Permite dirigir programas de regeneración urbana hacia los 615 polígonos Bajo-Bajo (especialmente en Sierra Bella, Bogotá, Matta Sur y Diez de Julio).' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Unidades Vecinales · Agrupaciones Sociales', utilidad: 'Visibiliza la brecha interna de Barrio Brasil al norte de calle Rosas/San Pablo (cluster Bajo-Bajo) para exigir equidad en arbolado, luminarias y cruces seguros.' },
           { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Geoinformáticas', utilidad: 'Orienta la verificación en terreno sobre las manzanas Bajo-Alto (verde) y Alto-Bajo (cian) para confirmar cambios de uso de suelo o sub-registro cartográfico.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Laboratorios Urbanos', utilidad: 'Aporta evidencia empírica desagregada por manzana sobre cómo se superponen los clusters de patrimonio, educación superior y servicios en el centro histórico.' }
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Centros de Estudios Urbanos · Laboratorios Territoriales', utilidad: 'Aporta evidencia cuantitativa desagregada por manzana sobre cómo se superponen los clusters de patrimonio, educación superior y servicios en el centro histórico.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
-            { codigo: 'cluster_lisa_vgi', nombre: 'Colección de 11 Cartografías de Clusters LISA por Categoría VGI', institucion: 'Atlas VGI — Juan Pablo Lezcano (UAH)', crs: 'EPSG:32719', tipo: 'Polígonos / Cartografía HD' },
-            { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal Censal y VGI de Santiago (1.711 Manzanas)', institucion: 'Geografía UAH / INE', crs: 'EPSG:32719', tipo: 'Vectorial GeoPackage' },
+            { codigo: 'cluster_lisa_vgi', nombre: 'Colección de 11 Cartografías de Clusters LISA por Categoría VGI', institucion: 'Atlas de Información Geográfica Voluntaria', crs: 'EPSG:32719', tipo: 'Polígonos / Cartografía' },
+            { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal Censal y VGI de Santiago (1.711 Manzanas)', institucion: 'INE / SECPLA', crs: 'EPSG:32719', tipo: 'Vectorial GeoPackage' },
             { codigo: 'barrios_stgo_27', nombre: 'Delimitación Oficial de los 27 Barrios de Santiago', institucion: 'Ilustre Municipalidad de Santiago', crs: 'EPSG:32719', tipo: 'Polígonos' }
           ],
           referenciasAcademicas: [
             { cita: 'Anselin, L. (1995). Local Indicators of Spatial Association—LISA. Geographical Analysis, 27(2), 93–115.', concepto: 'Tipología de cuadrantes espaciales (Alto-Alto, Bajo-Bajo, Alto-Bajo y Bajo-Alto) aplicada a las manzanas comunales.' },
             { cita: 'Tobler, W. R. (1970). A computer movie simulating urban growth in the Detroit region. Economic Geography, 46, 234–240.', concepto: 'Primera ley de la geografía y dependencia espacial entre unidades vecinas.' },
-            { cita: 'Rey, S. J., Anselin, L., & Kang, W. (2020). Geographic Data Science with Python. Chapman and Hall/CRC.', concepto: 'Interpretación empírica de clusters espaciales y fronteras de transición urbana.' }
+            { cita: 'Rey, S. J., Anselin, L., & Kang, W. (2020). Geographic Data Science with Python. Chapman and Hall/CRC.', concepto: 'Interpretación estadística de clusters espaciales y fronteras de transición urbana.' }
           ]
         }
       }
@@ -823,17 +821,16 @@ const ModuloIndicadoresAnalisis = (() => {
     {
       id: 'storyboard-demografia-habitabilidad-sociourbana',
       dimensionId: 'sociourbana',
-      dimensionNombre: 'Resultados Empíricos · Demografía, Vivienda & RSH',
-      titulo: 'Estructura Sociodemográfica, Habitabilidad y Morfología Urbana en Santiago: Resultados Empíricos del Censo 2024 y RSH',
+      dimensionNombre: 'Resultados Territoriales · Demografía, Vivienda & RSH',
+      titulo: 'Estructura Sociodemográfica, Habitabilidad y Morfología Urbana en Santiago: Resultados del Censo 2024 y RSH',
       bajada: 'Qué revelan las 29 cartografías sociodemográficas y habitacionales de la comuna: dónde se concentran los 432.081 habitantes, la hegemonía del departamento (92,7%) y del arriendo (72,1%), la persistencia de cités y hacinamiento en el sur, y los focos de vulnerabilidad 0-40% RSH.',
       imagen: 'img/storyboards/portada_analisis_sociourbano.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_sociourbano.svg',
       piePortada: 'Ilustración de los contrastes morfológicos y demográficos de Santiago: torres hiperdensas de arriendo frente a cités, casonas patrimoniales y barrios históricos.',
-      tiempoLectura: '24 min de lectura',
       tags: ['Resultados Censo 2024', '72,1% Arriendo', '92,7% Departamentos', 'Cités y Hacinamiento', '29 Cartografías'],
       capasRelevantes: ['censo2024_manzanas', 'catastro_predial_sii', 'minvu_patrimonio', 'minvu_ipt_prc_santiago', 'bbdd_19', 'bbdd_64', 'bbdd_68', 'bbdd_74'],
       contenido: {
-        introduccion: `Los resultados empíricos consolidados de las 1.711 manzanas censales de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 29 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura (Santa Isabel con 650,5 hab/ha, Santa Ana con 618,0 hab/ha y Parque Almagro con 442,3 hab/ha) dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil y Yungay, donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente (Franklin, Matta Sur, San Vicente y Bogotá) donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
+        introduccion: `Los resultados consolidados de las 1.711 manzanas censales de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 29 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura (Santa Isabel con 650,5 hab/ha, Santa Ana con 618,0 hab/ha y Parque Almagro con 442,3 hab/ha) dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil y Yungay, donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente (Franklin, Matta Sur, San Vicente y Bogotá) donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
         datosClave: [
           { valor: '432.081', label: 'Habitantes en Manzanas', sub: '50,7% hombres (219.003) · 49,3% mujeres (213.078)' },
           { valor: '72,1%', label: 'Hogares en Arriendo', sub: '147.044 hogares (62,6% con contrato · 9,5% sin contrato)' },
@@ -847,7 +844,7 @@ const ModuloIndicadoresAnalisis = (() => {
           { label: 'Participación de Población Inmigrante Internacional Residente', valor: '40,4%', porcentaje: 40.4, contexto: '174.413 residentes internacionales, con cimas en Meiggs (61,3%), Matta Sur (58,2%) y Franklin (57,8%).' }
         ],
         graficoComparativo: {
-          titulo: 'Contrastes Empíricos entre Barrios Extremos de Santiago según Indicadores Censales',
+          titulo: 'Contrastes Territoriales entre Barrios Extremos de Santiago según Indicadores Censales',
           filas: [
             { label: 'Densidad Poblacional: Santa Isabel (650,5 hab/ha) vs. Club Hípico (28,0)', valor: '650,5 hab/ha', porcentaje: 100.0 },
             { label: 'Densidad Poblacional: Santa Ana (618,0 hab/ha) vs. Parque Almagro (442,3)', valor: '618,0 hab/ha', porcentaje: 95.0 },
@@ -1157,8 +1154,8 @@ const ModuloIndicadoresAnalisis = (() => {
         analisisPorActor: [
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'MINVU · SECPLA Santiago · Dirección de Desarrollo Comunitario (DIDECO)', utilidad: 'Permite focalizar subsidios de rehabilitación habitacional y fiscalización de subarriendo sin contrato en San Vicente (31,7%), Bogotá (23,5%) y Yungay (20,8%), además de orientar redes de cuidado en las UV con mayor número de postrados.' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités de Vivienda y Arrendatarios', utilidad: 'Aporta datos censales exactos por manzana y barrio para defender la Zona de Conservación Histórica en Barrio Brasil y exigir programas de apoyo a adultos mayores que viven solos.' },
-          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Territoriales y Estudiantes UAH', utilidad: 'Guía el catastro de cités, pasajes interiores y equipamientos de cuidado comunitario en las manzanas con mayor vulnerabilidad habitacional.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Geografía UAH · Estudios Socioterritoriales', utilidad: 'Entrega evidencia empírica actualizada sobre la relación entre zonificación PRC, verticalización inmobiliaria, inserción migrante (40,4%) y precarización del arriendo.' }
+          { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidades Territoriales y Mapeadores Colaborativos', utilidad: 'Guía el catastro de cités, pasajes interiores y equipamientos de cuidado comunitario en las manzanas con mayor vulnerabilidad habitacional.' },
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Centros de Estudios Socioterritoriales', utilidad: 'Entrega evidencia cuantitativa actualizada sobre la relación entre zonificación PRC, verticalización inmobiliaria, inserción migrante (40,4%) y precarización del arriendo.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
@@ -1181,17 +1178,16 @@ const ModuloIndicadoresAnalisis = (() => {
     {
       id: 'storyboard-socioambiental-movilidad-servicios',
       dimensionId: 'ambiental',
-      dimensionNombre: 'Resultados Empíricos · Movilidad, Proximidad & Aseo',
-      titulo: 'Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano: Resultados Empíricos en la Comuna de Santiago',
+      dimensionNombre: 'Resultados Territoriales · Movilidad, Proximidad & Aseo',
+      titulo: 'Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano: Resultados en la Comuna de Santiago',
       bajada: 'Qué revelan las 24 cartografías socioambientales y operativas: el 84,6% de viajes en modos sustentables, las brechas de distancia a áreas verdes y salud en el borde sur, la exposición a ruido (>68 dBA) en corredores viales y la asimetría de contenedores entre las 5 zonas de aseo municipal.',
       imagen: 'img/storyboards/portada_analisis_socioambiental.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_socioambiental.svg',
       piePortada: 'Ilustración de los flujos de movilidad sustentable, accesibilidad peatonal a parques, paisaje acústico y metabolismo de residuos en Santiago.',
-      tiempoLectura: '22 min de lectura',
       tags: ['84,6% Movilidad Sustentable', 'Proximidad Peatonal', 'Ruido Urbano dBA', '5 Zonas de Aseo', '24 Cartografías'],
       capasRelevantes: ['munistgo_aseo_zonas_residuos_2026', 'cat08_biodiversidad', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'semaforos_rm_uoct_2026', 'estaciones_metro', 'establecimientos_salud'],
       contenido: {
-        introduccion: `La evaluación empírica de las 24 cartografías socioambientales, de movilidad y de gestión de residuos revela cómo funciona el metabolismo cotidiano de la Comuna de Santiago. Por una parte, los datos censales de transporte confirman que el 84,6% de los 228.482 desplazamientos laborales y de estudio se realiza en modos sustentables (62,4% en transporte público, 17,0% a pie y 5,2% en bicicleta), frente a solo un 15,4% en modos motorizados privados (13,2% en automóvil y 2,2% en motocicleta). Sin embargo, esta alta caminabilidad convive con severas desigualdades ambientales: mientras barrios como Parque Almagro (1.092 árboles en un radio de 500 m) y Santa Lucía Forestal gozan de acceso inmediato a áreas verdes y salud, sectores como San Vicente (795,7 m a espacio público) y Barrio Judicial (965,8 m a salud) sufren déficits de proximidad, altos niveles de ruido vial (>68,6 dBA) y marcadas asimetrías en la dotación municipal de los 629 contenedores y 398 papeleros distribuidos en las 5 macro-zonas de aseo comunal.`,
+        introduccion: `La evaluación espacial de las 24 cartografías socioambientales, de movilidad y de gestión de residuos revela cómo funciona el metabolismo cotidiano de la Comuna de Santiago. Por una parte, los datos censales de transporte confirman que el 84,6% de los 228.482 desplazamientos laborales y de estudio se realiza en modos sustentables (62,4% en transporte público, 17,0% a pie y 5,2% en bicicleta), frente a solo un 15,4% en modos motorizados privados (13,2% en automóvil y 2,2% en motocicleta). Sin embargo, esta alta caminabilidad convive con severas desigualdades ambientales: mientras barrios como Parque Almagro (1.092 árboles en un radio de 500 m) y Santa Lucía Forestal gozan de acceso inmediato a áreas verdes y salud, sectores como San Vicente (795,7 m a espacio público) y Barrio Judicial (965,8 m a salud) sufren déficits de proximidad, altos niveles de ruido vial (>68,6 dBA) y marcadas asimetrías en la dotación municipal de los 629 contenedores y 398 papeleros distribuidos en las 5 macro-zonas de aseo comunal.`,
         datosClave: [
           { valor: '84,6%', label: 'Movilidad Sustentable', sub: '62,4% TP · 17,0% Caminata · 5,2% Bicicleta' },
           { valor: '285,0', label: 'Árboles en Buffer 500m', sub: 'Media comunal (Máx: Parque Almagro con 1.092)' },
@@ -1220,7 +1216,7 @@ const ModuloIndicadoresAnalisis = (() => {
         diagramaSVG: () => `
           <svg viewBox="0 0 680 230" width="680" height="230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
-            <text x="24" y="26" fill="#38bdf8" font-size="11.5" font-weight="bold">BALANCE EMPÍRICO DE MOVILIDAD Y METABOLISMO DE RESIDUOS EN SANTIAGO</text>
+            <text x="24" y="26" fill="#38bdf8" font-size="11.5" font-weight="bold">BALANCE TERRITORIAL DE MOVILIDAD Y METABOLISMO DE RESIDUOS EN SANTIAGO</text>
             <!-- Barra Partición Modal -->
             <rect x="24" y="42" width="632" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
             <text x="38" y="62" fill="#e2e8f0" font-size="10" font-weight="bold">Partición Modal Comunal (228.482 viajes): 84,6% Sustentable vs. 15,4% Motorizado Privado</text>
@@ -1478,13 +1474,13 @@ const ModuloIndicadoresAnalisis = (() => {
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'Dirección de Aseo y Ornato · Dirección de Tránsito · Ministerio del Medio Ambiente', utilidad: 'Entrega evidencia exacta para instalar nuevos papeleros peatonales en la Zona Centro Poniente (Barrio Brasil, que hoy tiene solo 24 unidades frente a 261 contenedores) y reforzar contenedores en la Zona Centro Oriente (Santa Isabel).' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Comités Ambientales · Juntas de Vecinos · Colectivos Ciclistas', utilidad: 'Fundamenta la exigencia de pantallas acústicas y calmado de tráfico en el eje Manuel Rodríguez (Autopista Central) y Alameda, donde el ruido supera los 68,6 dBA.' },
           { id: 'voluntario', icono: '🗺️', nombre: 'Mapeador / Voluntario OSM', subtitulo: 'Comunidad Ciclista y Ambiental', utilidad: 'Orienta el mapeo de nuevos puntos limpios, papeleros, fuentes de agua y arbolado urbano en los barrios del sur comunal con distancias a biodiversidad superiores a 350 m.' },
-          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Ecología Urbana · Geografía Ambiental UAH', utilidad: 'Permite correlacionar la hiperdensificación residencial del sector oriente con el déficit de contenedores municipales y la presión sobre el espacio público.' }
+          { id: 'ong', icono: '🔬', nombre: 'Investigadores / Academia', subtitulo: 'Ecología Urbana · Geografía Ambiental', utilidad: 'Permite correlacionar la hiperdensificación residencial del sector oriente con el déficit de contenedores municipales y la presión sobre el espacio público.' }
         ],
         apartadoBibliografico: {
           fuentesDatos: [
             { codigo: 'munistgo_aseo_2026', nombre: 'Catastro Oficial de 5 Zonas de Aseo, Contenedores y Papeleros (2026)', institucion: 'Ilustre Municipalidad de Santiago (Transparencia MU18117)', crs: 'EPSG:32719', tipo: 'Polígonos y Puntos' },
             { codigo: 'censo2024_movilidad', nombre: 'Microdatos de Modo de Transporte y Movilidad por Manzana (2024)', institucion: 'Instituto Nacional de Estadísticas (INE)', crs: 'EPSG:32719', tipo: 'Polígonos' },
-            { codigo: 'ruido_buffers_stgo', nombre: 'Matriz de Ruido Ambiental (dBA), Distancias y Buffers 300m/500m', institucion: 'MMA / MuniSTGO / Geografía UAH', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' }
+            { codigo: 'ruido_buffers_stgo', nombre: 'Matriz de Ruido Ambiental (dBA), Distancias y Buffers 300m/500m', institucion: 'MMA / MuniSTGO', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' }
           ],
           referenciasAcademicas: [
             { cita: 'Wolch, J. R., Byrne, J., & Newell, J. P. (2014). Urban green space, public health, and environmental justice. Landscape and Urban Planning, 125, 234–244.', concepto: 'Evaluación de brechas de distancia peatonal a áreas verdes y justicia ambiental urbana.' },
@@ -1641,7 +1637,7 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial y Storyboards</h2>
           <p class="bajada-modulo-indicadores">
-            Articulación de las <strong>${totalCapasAtlas} coberturas geoespaciales del Atlas VGI</strong> (122 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con láminas de síntesis empírica para la Comuna de Santiago y el Barrio Brasil.
+            Articulación de las <strong>${totalCapasAtlas} coberturas geoespaciales del Atlas VGI</strong> (122 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con storyboards temáticos para la Comuna de Santiago y el Barrio Brasil.
           </p>
         </header>
 
@@ -1696,7 +1692,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <div class="insignia-storyboards">NARRATIVAS ESPACIALES BASADAS EN DATOS</div>
             <h3 class="titulo-storyboards">Storyboards</h3>
             <p class="bajada-storyboards">
-              Síntesis de resultados empíricos donde las <strong>75 cartografías temáticas de alta resolución</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
+              Síntesis de resultados territoriales donde las <strong>75 cartografías temáticas</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
             </p>
           </header>
 
@@ -1712,9 +1708,8 @@ const ModuloIndicadoresAnalisis = (() => {
                   <div class="imagen-cuadrada-wrapper">
                     <img src="${sb.imagen}" alt="${sb.titulo}" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" class="img-storyboard-cuadro">
                     <div class="overlay-gradiente-storyboard"></div>
-                    <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Ampliar imagen / cartografía en alta resolución">🔍</button>
+                    <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Ampliar imagen / cartografía">🔍</button>
                     <span class="badge-dimension-tag">${sb.dimensionNombre.split('&')[0]}</span>
-                    <span class="badge-tiempo-lectura">⏱ ${sb.tiempoLectura}</span>
                   </div>
                   <div class="cuerpo-tarjeta-storyboard">
                     <h4 class="titulo-tarjeta-storyboard">${sb.titulo}</h4>
@@ -1995,7 +1990,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <header class="header-articulo-blog">
           <div class="meta-superior-blog">
             <span class="badge-dim-storyboard">${sb.dimensionNombre}</span>
-            <span class="tiempo-lectura-blog">⏱ Lectura estimada: ${sb.tiempoLectura} · 🗺️ ${totalCartos} Cartografías Integradas</span>
+            <span class="tiempo-lectura-blog">🗺️ ${totalCartos} Cartografías Integradas</span>
           </div>
           <h1 class="titulo-articulo-blog">${sb.titulo}</h1>
           <p class="bajada-articulo-blog">${sb.bajada}</p>
@@ -2009,11 +2004,11 @@ const ModuloIndicadoresAnalisis = (() => {
           <div class="contenedor-imagen-ampliable">
             <img src="${imgDestacadaSrc}" alt="${sb.titulo}" width="800" height="420" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" style="width:100%; height:auto; max-height:420px; min-height:220px; object-fit:contain; display:block; background:#0b1329;" class="img-destacada-blog">
             <div class="overlay-zoom-hover">
-              <span class="badge-zoom-cta">🔍 Clic para ampliar en pantalla completa (Zoom HD)</span>
+              <span class="badge-zoom-cta">🔍 Clic para ampliar en pantalla completa</span>
             </div>
           </div>
           <figcaption class="pie-figura-blog">
-            ${pieDestacadaTexto} <span class="nota-ampliable">· Clic en la imagen para ampliar en alta resolución ↗</span>
+            ${pieDestacadaTexto} <span class="nota-ampliable">· Clic en la imagen para ampliar ↗</span>
           </figcaption>
         </figure>
 
@@ -2089,7 +2084,7 @@ const ModuloIndicadoresAnalisis = (() => {
               ${typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : ''}
             </div>
             <p class="pie-diagrama-svg">
-              Esquema comparativo elaborado a partir de los resultados empíricos del análisis cartográfico comunal y barrial. <span class="nota-ampliable">· Clic para ampliar ↗</span>
+              Esquema comparativo elaborado a partir de los resultados del análisis cartográfico comunal y barrial. <span class="nota-ampliable">· Clic para ampliar ↗</span>
             </p>
           </div>
         </section>
@@ -2132,7 +2127,7 @@ const ModuloIndicadoresAnalisis = (() => {
             ${Array.isArray(sec.cartografias) && sec.cartografias.length > 0 ? `
               <div class="contenedor-cartografias-inline">
                 <div class="subcabecera-cartografias-inline">
-                  <span>🗺️ <strong>Evidencia Cartográfica del Hallazgo 0${idxSec + 1}:</strong> Selecciona cualquier cartografía para examinarla en pantalla completa con zoom de alta resolución (2200×1423 px).</span>
+                  <span>🗺️ <strong>Evidencia Cartográfica del Hallazgo 0${idxSec + 1}:</strong> Selecciona cualquier cartografía para examinarla en pantalla completa con zoom interactivo (2200×1423 px).</span>
                 </div>
                 <div class="grilla-cartografias-inline ${sec.cartografias.length === 1 ? 'grilla-carto-unica' : ''}">
                   ${sec.cartografias.map(c => `
@@ -2140,10 +2135,10 @@ const ModuloIndicadoresAnalisis = (() => {
                          role="button"
                          tabindex="0"
                          onclick="ModuloIndicadoresAnalisis.abrirLightboxImagen('${c.src}', '${c.titulo.replace(/'/g, "\\'")}', '${(c.subtitulo || '').replace(/'/g, "\\'")}')"
-                         title="Haz clic para ampliar en alta resolución: ${c.titulo}">
+                         title="Haz clic para ampliar: ${c.titulo}">
                       <div class="thumb-cartografia-wrapper">
                         <img src="${c.src}" alt="${c.titulo}" width="2200" height="1423" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" class="img-thumb-cartografia">
-                        <span class="btn-micro-zoom-carto">🔍 Ampliar Cartografía HD</span>
+                        <span class="btn-micro-zoom-carto">🔍 Ampliar Cartografía</span>
                       </div>
                       <div class="meta-thumb-cartografia">
                         <h6 class="titulo-thumb-carto">${c.titulo}</h6>
@@ -2284,7 +2279,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- Nota Metodológica de Transparencia -->
         <footer class="footer-articulo-blog">
           <small>
-            * Este storyboard presenta los resultados empíricos de las 75 cartografías elaboradas por Juan Pablo Lezcano para el Atlas de Información Geográfica Voluntaria para la Gestión Territorial — Departamento de Geografía, Universidad Alberto Hurtado (UAH). Datos integrados de fuentes oficiales (INE Censo 2024, MINVU, MDSF BiDat RSH 2026, UOCT/MTT, Municipalidad de Santiago) y comunitarias (OpenStreetMap y GBIF).
+            * Este storyboard sintetiza los resultados de las 75 cartografías temáticas del Atlas de Información Geográfica Voluntaria para la Gestión Territorial. Datos integrados de fuentes oficiales (INE Censo 2024, MINVU, MDSF BiDat RSH 2026, UOCT/MTT, Municipalidad de Santiago) y comunitarias (OpenStreetMap y GBIF).
           </small>
         </footer>
 
@@ -2342,9 +2337,9 @@ const ModuloIndicadoresAnalisis = (() => {
         <div class="lightbox-figura-contenedor" id="lightbox-figura-contenedor">
           <header class="lightbox-header">
             <div class="lightbox-info-titulo">
-              <span class="lightbox-tipo-badge" id="lightbox-tipo-badge">🗺️ CARTOGRAFÍA HD</span>
+              <span class="lightbox-tipo-badge" id="lightbox-tipo-badge">🗺️ CARTOGRAFÍA</span>
               <h3 class="lightbox-titulo" id="lightbox-titulo">Figura Ampliada</h3>
-              <span class="lightbox-subtitulo" id="lightbox-subtitulo">Visualización completa en alta resolución</span>
+              <span class="lightbox-subtitulo" id="lightbox-subtitulo">Visualización a pantalla completa</span>
             </div>
             <div class="lightbox-controles">
               <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-in" title="Acercar (+)">＋</button>
@@ -2574,7 +2569,7 @@ const ModuloIndicadoresAnalisis = (() => {
       : 'width="2200" height="1423" style="max-width:min(1400px, 92vw); max-height:78vh; width:auto; height:auto; display:block; object-fit:contain;"';
     const onErrorFallback = `onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}"`;
     const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" decoding="async" ${onErrorFallback} ${inlineDims} draggable="false">`;
-    abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN HD', titulo, subtitulo || 'Visualización completa en alta resolución', src);
+    abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN', titulo, subtitulo || 'Visualización a pantalla completa', src);
   }
 
   function abrirLightboxDiagrama(storyboardId) {

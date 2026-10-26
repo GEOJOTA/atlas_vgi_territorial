@@ -10,7 +10,7 @@ PARTE_05 = r"""# PARTE V: PERSONALIZACIÓN VISUAL, ESTILOS, PUNTEROS Y CONFIGURA
 
 ## 28. Guía Exhaustiva de Modificación y Operación de Netlify
 
-Netlify actúa como la red de distribución perimetral (*Edge CDN*) y motor de alojamiento estático y serverless del Atlas VGI. Toda directiva de compilación, enrutamiento, seguridad perimetral, variables de entorno y encabezados HTTP se gestiona de manera centralizada mediante el archivo [`netlify.toml`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/netlify.toml), ubicado en la raíz del repositorio.
+Netlify actúa como la red de distribución perimetral (*Edge CDN*) y motor de alojamiento estático y serverless del Atlas VGI. Toda directiva de compilación, enrutamiento, seguridad perimetral, variables de entorno y encabezados HTTP se gestiona de manera centralizada mediante el archivo `netlify.toml`, ubicado en la raíz del repositorio.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -134,7 +134,7 @@ El archivo se encuentra calibrado para servir volúmenes masivos de datos vector
    ```
 3. **Purgar la Caché del CDN de Netlify:**
    - Inicie sesión en [app.netlify.com](https://app.netlify.com).
-   - Diríjase a **Sites** $\rightarrow$ **atlasvgiuah** $\rightarrow$ **Deploys**.
+   - Diríjase a **Sites** → **atlasvgiuah** → **Deploys**.
    - Despliegue el menú **Trigger deploy** y seleccione **Clear cache and deploy site**.
 
 ---
@@ -163,7 +163,7 @@ flowchart LR
     IN_CSS --> PROC_CSS --> OUT_CSS
 ```
 
-El Atlas VGI implementa un sistema de diseño institucional sobrio, estructurado en CSS3 nativo puro en [`src/css/estilos.css`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/css/estilos.css), diseñado para garantizar legibilidad analítica y cumplir con el estándar internacional de accesibilidad **WCAG 2.1 Nivel AAA**.
+El Atlas VGI implementa un sistema de diseño institucional sobrio, estructurado en CSS3 nativo puro en `src/css/estilos.css`, diseñado para garantizar legibilidad analítica y cumplir con el estándar internacional de accesibilidad **WCAG 2.1 Nivel AAA**.
 
 ### 29.1. Diccionario Completo de Tokens de Diseño en `:root`
 Todas las variables visuales están centralizadas en las primeras 75 líneas de `src/css/estilos.css`:
@@ -216,7 +216,7 @@ Todas las variables visuales están centralizadas en las primeras 75 líneas de 
 
 ### 29.2. Cómo Cambiar la Apariencia y Colores de la Aplicación
 1. **Cambiar el Color de Acento Primario de la Aplicación:**
-   Si se requiere sustituir el azul cian por el azul marino tradicional de la Universidad Alberto Hurtado (`#003366`):
+   Si se requiere sustituir el azul cian por un azul marino institucional (`#003366`):
    ```css
    :root {
      --musgo: #004b87; /* Nuevo acento primario */

@@ -32,13 +32,12 @@ Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas
 ```mermaid
 flowchart LR
     subgraph IN_CAT["1. INPUT"]
-        OSM_TAGS[" Diccionario de Etiquetas OSM (amenity, highway, leisure, building, landuse)"]
+        OSM_TAGS["Diccionario de Etiquetas OSM (amenity, highway, leisure, building, landuse)"]
         DWC_TERMS["Estándar Darwin Core (taxonRank, scientificName)"]
-        OGUC_STD["Clasificación Normativa OGUC / PRC Santiago"]
     end
 
     subgraph PROC_CAT["2. PIPELINE DE CLASIFICACIÓN TAXONÓMICA"]
-        PARSE_TAG["Filtrado Semántico por Expresiones Regulares QL"]
+        PARSE_TAG["Clasificación y Filtrado Semántico de Atributos"]
         GEOM_SORT["Segregación Topológica (Puntos, Líneas y Polígonos)"]
         HOMOLOG_ID["Asignación de Código Taxonómico (CAT-01 a CAT-10)"]
     end
@@ -108,7 +107,7 @@ A continuación se detalla la especificación técnica de cada categoría:
 
 ## 7. Pipeline de Extracción con Overpass API y Overpass QL
 
-La recolección masiva de entidades colaborativas de OpenStreetMap se ejecuta mediante el motor de consulta **Overpass QL** (*Overpass Query Language*), programado en el script [`scripts/descargar_todas_las_categorias_osm.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/descargar_todas_las_categorias_osm.py).
+La recolección masiva de entidades colaborativas de OpenStreetMap se ejecuta mediante el motor de consulta **Overpass QL** (*Overpass Query Language*), programado en el script `scripts/descargar_todas_las_categorias_osm.py`.
 
 ```mermaid
 flowchart LR
@@ -330,38 +329,66 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-    subgraph IN_OH["1. INPUT"]
-        POLY_BBOX["Polígono WGS84 de Barrio Brasil"]
-        OH_ENDPOINTS["Endpoints HeiGIT (contributions/density)"]
-        DATE_RANGE["Intervalo Temporal (2018-01 a 2026-10)"]
+    subgraph IN_OH["1. INPUT: CONSULTA HISTÓRICA Y GEOMÉTRICA"]
+        POLY_BBOX["BBox / Polígono WGS84 -> Reproyección Métrica EPSG:32719 (geodesia.js)"]
+        OH_ENDPOINTS["Endpoints HeiGIT (/elements/count, /length, /area, /users/count, /contributions/count)"]
+        OSMCHA_API["OSM API v0.6 Changesets (/api/0.6/changesets)"]
     end
 
-    subgraph PROC_OH["2. PIPELINE DE PROCESAMIENTO"]
-        REQ_OH["Petición HTTP REST con Filtro InPolygon"]
-        AGG_OH["Agregación Temporal por Trimestre / Semestre"]
-        PARSER_OH["Cálculo de Entidades por km² y Usuarios Únicos"]
+    subgraph PROC_OH["2. PIPELINE DE PROCESAMIENTO (MÓDULO 06: ohsome.js + calidad_analyst.js)"]
+        REQ_OH["Petición HTTP POST con bpolys/bboxes y Filtro Semántico OSM"]
+        GEOM_METRIC["Cálculo de Superficie Gauss/Shoelace (km² y ha) y Densidad (elem/km² y elem/10.000 m²)"]
+        OQT_MODEL["Cálculo de Intensidad Comunitaria (edit/user) y Tasa Interanual (Δ%)"]
+        HEUR_CHA["Evaluación Heurística de Changesets (OSMCha)"]
     end
 
-    subgraph OUT_OH["3. OUTPUT"]
-        SERIES_JSON["Serie Temporal de Densidad de Mapeo"]
-        CHART_OH["Gráficos de Madurez Cartográfica Barrial"]
-        ICV_METRIC["Índice de Confiabilidad VGI (ISO 19157)"]
+    subgraph OUT_OH["3. OUTPUT: INDICADORES EN LA PLATAFORMA WEB"]
+        SAT_INDEX["Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)"]
+        SCORE_MAD["Score de Madurez Territorial (/100), Estado de Saturación Física y Tendencia"]
+        IGV_LINK["Integración con Evaluador Universal de Calidad Espacial e Índice IGV (Submódulo A)"]
     end
 
     IN_OH --> PROC_OH --> OUT_OH
 ```
 
-Para superar el escepticismo sobre la calidad de OpenStreetMap, el Atlas integra el motor analítico **ohsome API**, desarrollado por el *Heidelberg Institute for Geoinformation Technology* (HeiGIT) de la Universidad de Heidelberg. Este servicio permite interrogar la base de datos histórica completa de OSM (OpenStreetMap History Database - OSHDB) para Barrio Brasil.
+En plena coherencia con el **Módulo 06 (`Evaluación de Calidad Geoespacial e Índice Global de Calidad`)** de la plataforma web, la evaluación de calidad articula tres submódulos complementarios (`src/js/modulos/evaluador_calidad_cuantitativa.js`, `src/js/modulos/ohsome.js` y `src/js/modulos/calidad_analyst.js`) que combinan la auditoría geométrica-documental directa con el análisis histórico de la base de datos de OpenStreetMap (OSHDB) provisto por el *Heidelberg Institute for Geoinformation Technology* (HeiGIT) de la Universidad de Heidelberg.
 
-### 8.1. Endpoints Utilizados y Métricas Extraídas
-1. **`/v1/elements/count`:** Conteo cronológico de elementos (nodos, vías y relaciones) activos en el cuadrante desde el 1 de enero de 2018 hasta la fecha, agrupados por intervalos anuales.
-2. **`/v1/users/count`:** Conteo acumulado y anual de mapeadores únicos que han contribuido con al menos una edición en Barrio Brasil.
-3. **`/v1/contributions/count`:** Conteo de acciones de edición (creaciones, modificaciones y eliminaciones) por categoría temática.
+### 8.1. Articulación de los 3 Submódulos de Calidad en la Plataforma Web (Módulo 06)
+1. **Submódulo A — Evaluador Universal de Calidad Espacial, Topología e Índice IGV (`evaluador_calidad_cuantitativa.js`):**
+   - Evalúa cualquier capa interna del catálogo (132 coberturas) o cualquier archivo externo cargado por el usuario (`.geojson` / `.json`).
+   - Computa el **Índice Global de Calidad (IGV / IGMC)** mediante Combinación Lineal Ponderada (WLC) al **50% para el Pilar Cuantitativo** (Consistencia Topológica 30%, Completitud de Atributos 25%, Exactitud Posicional y Dominio 20%, Conformidad de Esquema 15% y Densidad de Vértices 10%) y **50% para el Pilar Cualitativo** (Completitud de Metadatos ISO 19115 25%, Trazabilidad del Linaje 25%, Actualidad Temporal 20%, Conformidad Estándar IDE Chile 15% y Claridad Legal/Licenciamiento 15%).
+2. **Submódulo B — Serie Histórica OSHDB e Índice de Saturación y Maduración Territorial (`ohsome.js` y `calidad_analyst.js`):**
+   - Consulta la evolución histórica 2018–2026 en la API de HeiGIT (**ohsome API v1/v2**) aplicando sensibilidad geométrica según la naturaleza espacial de la categoría consultada y reproyectando el polígono de consulta a **SIRGAS-Chile / UTM Huso 19 Sur (`EPSG:32719`)** mediante el algoritmo Transverse Mercator y la fórmula de área de Gauss (*Shoelace*) en `src/js/modulos/geodesia.js`.
+   - Determina el **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**, entregando el **Score de Madurez (`/100`)**, el **Estado de Saturación Física**, la **Tendencia Espacio-Temporal**, la **Densidad Espacial Métrica (`elem/km²` y `elem / 10.000 m²`)** y la **Intensidad Comunitaria (`edit/user`)**.
+3. **Submódulo C — Control de Cambios y Validación de Ediciones Recientes (`calidad_analyst.js` — OSMCha / OSM API v0.6):**
+   - Interroga en vivo el endpoint `https://api.openstreetmap.org/api/0.6/changesets` sobre el Bounding Box activo, parsea el flujo XML de conjuntos de cambios y aplica reglas heurísticas inspiradas en **OSMCha** (*OpenStreetMap Changeset Analyzer*) para clasificar cada edición como `Verificado / Normal` o `Revisión sugerida` (por ejemplo, cambios masivos `> 300` elementos o comentarios de menos de 4 caracteres), generando enlaces directos de inspección en `osmcha.org`.
 
-### 8.2. Resultados del Análisis Histórico en Barrio Brasil (2018 - 2026)
-* **Crecimiento de Edificaciones:** En 2018 existían menos de 300 huellas de edificios digitalizadas. Hacia 2026, la cobertura alcanza el 98.4% del polígono con más de 1.820 edificios y cités poligonizados.
-* **Comunidad de Mapeadores:** Se identificaron **142 colaboradores únicos** que han editado la zona en los últimos 8 años, con un núcleo duro de 12 mapeadores avanzados que concentran el 68% de las ediciones de equipamiento y vialidad.
-* **Saturación del Mapeo:** La tasa de nuevos objetos se estabilizó a partir de 2024, indicando que el barrio alcanzó una fase de madurez cartográfica donde las ediciones actuales corresponden primordialmente a refinamientos de atributos (`opening_hours`, `wheelchair`, `surface`) y no a geometrías ausentes.
+### 8.2. Endpoints con Sensibilidad Geométrica y Conceptos Operativos en `ohsome.js`
+A diferencia de un conteo simple, el módulo `src/js/modulos/ohsome.js` selecciona dinámicamente el endpoint geométrico de ohsome según el tipo de cobertura o el selector de **Sensibilidad Geométrica (`#ohsome-metrica-geom`)** de la interfaz:
+1. **`/v1/elements/count` (Conteo de Entidades):** Número absoluto de objetos geográficos (nodos, vías y relaciones) vigentes en cada corte anual (`2018-01-01/2026-01-01/P1Y`).
+2. **`/v1/elements/length` (Longitud Lineal Acumulada):** Aplicado a redes viales, ciclovías y transporte (`highway=cycleway`, `highway=footway`, etc.), cuantificando los metros y kilómetros lineales construidos en el tiempo.
+3. **`/v1/elements/area` (Superficie Poligonal Acumulada):** Aplicado a huellas de edificaciones (`building=*`), áreas verdes (`leisure=park`) y usos de suelo (`landuse=*`), cuantificando la superficie cubierta en m² y hectáreas.
+4. **`/v1/users/count` y `/v1/contributions/count` (Mapeadores Únicos y Contribuciones):** Cuantifica los colaboradores activos por período y el volumen de ediciones, a partir de los cuales la plataforma calcula la **Intensidad Comunitaria (`Contribuciones / Colaboradores Únicos`, expresada en `edit/user`)**.
+
+### 8.3. Formulación del Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)
+En `src/js/modulos/calidad_analyst.js` (función `calcularIndicadoresOQT`), el **Índice de Saturación y Maduración Territorial** evalúa la pendiente interanual reciente de la serie histórica de ohsome junto con la riqueza semántica de las entidades:
+* **Tasa de Variación Interanual (`Δ`):** Se compara el último corte anual (`ultimo`) con el penúltimo (`penultimo`):
+  ```text
+  Δ = Valor_ultimo - Valor_penultimo
+  ```
+* **Reglas de Clasificación de Saturación Física y Score de Madurez (`/100`):**
+  - Si `ultimo > 0` y `Δ ≤ 0.05 × ultimo` (variación anual menor o igual al 5%): el territorio se clasifica en **`Saturación Alta / Consolidación`**, con tendencia **`Mapeo estabilizado, mantenimiento de microatributos`** y un **Score de Madurez base de `88 / 100`**. Indica que la infraestructura física base ya se encuentra prácticamente completa en OpenStreetMap y las ediciones recientes corresponden a actualización de atributos (`opening_hours`, `wheelchair`, `surface`).
+  - Si `Δ > 0.15 × ultimo` (crecimiento anual superior al 15%): el territorio se clasifica en **`Fase de Expansión Rápida`**, con tendencia **`Incorporación activa de geometrías nuevas`** y un **Score de Madurez de `72 / 100`**.
+  - En rangos intermedios (`5% < Δ ≤ 15%`): se clasifica en **`Fase de Levantamiento Activo`** con **Score de Madurez de `55 / 100`**.
+* **Densidad Espacial Métrica (`EPSG:32719`):**
+  ```text
+  Densidad_km2 = Total_Elementos_Actuales / Area_Poligono_km2 (EPSG:32719)
+  Densidad_ha  = Densidad_km2 / 100   [expresada en elem / 10.000 m²]
+  ```
+
+### 8.4. Resultados Históricos Observados en Barrio Brasil (2018 – 2026)
+* **Consolidación de Huellas de Edificaciones:** Entre 2018 y 2026 la cobertura poligonal de edificaciones (`building=*`) y cités en Barrio Brasil superó las 1.820 estructuras digitalizadas, alcanzando estado de **Saturación Alta / Consolidación (Score 88/100)**.
+* **Comunidad de Mapeadores e Intensidad:** Se registran más de **142 colaboradores únicos** en el polígono barrial, con una alta intensidad comunitaria concentrada en el enriquecimiento de equipamiento universitario, comercios locales, arbolado urbano y cruces peatonales accesibles.
 
 ---
 
@@ -390,14 +417,14 @@ flowchart LR
     IN_GB --> PROC_GB --> OUT_GB
 ```
 
-El Módulo 04 ([`src/js/modulos/gbif.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/gbif.js)) consume directamente la API del **Global Biodiversity Information Facility (GBIF)**, incorporando observaciones biológicas georreferenciadas provenientes de museos, herbarios y registros comunitarios de **iNaturalist**.
+El Módulo 03 (`src/js/modulos/gbif.js`) consume directamente la API del **Global Biodiversity Information Facility (GBIF)**, incorporando observaciones biológicas georreferenciadas provenientes de museos, herbarios y registros comunitarios de **iNaturalist**.
 
 ### 9.1. Estándar Darwin Core (DwC)
 Las observaciones se procesan bajo los términos normalizados del estándar Darwin Core:
 * `scientificName`: Nombre científico formal del taxón (ej. *Platanus x hispanica*, *Columba livia*, *Passer domesticus*).
 * `vernacularName`: Nombre común en español (Plátano oriental, Paloma bravía, Gorrión).
 * `decimalLatitude` / `decimalLongitude`: Coordenadas geodésicas en EPSG:4326.
-* `coordinateUncertaintyInMeters`: Incertidumbre métrica de la posición (se descartan observaciones con incertidumbre $> 250$ metros).
+* `coordinateUncertaintyInMeters`: Incertidumbre métrica de la posición (se descartan observaciones con incertidumbre > 250 metros).
 * `eventDate`: Fecha ISO de la observación en terreno.
 * `basisOfRecord`: Tipo de registro (`HUMAN_OBSERVATION`, `PRESERVED_SPECIMEN`).
 
@@ -434,7 +461,7 @@ flowchart LR
     IN_UMAP --> PROC_UMAP --> OUT_UMAP
 ```
 
-El Módulo de Cartografía Participativa ([`src/js/modulos/umap.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/umap.js)) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
+El Módulo de Cartografía Participativa (`src/js/modulos/umap.js`) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
 
 ### 10.1. Manejo Seguro de Sandboxing
 Para proteger al Atlas frente a inyecciones de código malicioso de proyectos externos, los iframes se configuran con directivas de seguridad estrictas:
@@ -486,10 +513,10 @@ Para satisfacer las demandas de investigadores que requieren estudiar la conecti
    ```bash
    osmium extract -b -71.72,-34.30,-69.75,-32.92 chile-latest.osm.pbf -o rm-latest.osm.pbf
    ```
-3. **Clasificación y Exportación GeoJSON:** El script [`scripts/procesar_geofabrik_rm.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/procesar_geofabrik_rm.py) clasifica las geometrías en 10 archivos GeoJSON regionales (`capa_osm_rm_cat01_educacion.geojson` a `capa_osm_rm_cat10_cobertura_suelo.geojson`), sumando más de 1.2 GB de datos.
+3. **Clasificación y Exportación GeoJSON:** El script `scripts/procesar_geofabrik_rm.py` clasifica las geometrías en 10 archivos GeoJSON regionales (`capa_osm_rm_cat01_educacion.geojson` a `capa_osm_rm_cat10_cobertura_suelo.geojson`), sumando más de 1.2 GB de datos.
 
 ### 11.2. Generación del GeoPackage OGC (`scripts/generar_gpkg_geofabrik.py`)
-Para que los usuarios puedan cargar la base regional de una sola vez en software SIG de escritorio (QGIS, ArcGIS Pro, gvSIG), el script [`scripts/generar_gpkg_geofabrik.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/generar_gpkg_geofabrik.py) compila las 10 capas dentro de un único archivo SQLite/GeoPackage estándar OGC:
+Para que los usuarios puedan cargar la base regional de una sola vez en software SIG de escritorio (QGIS, ArcGIS Pro, gvSIG), el script `scripts/generar_gpkg_geofabrik.py` compila las 10 capas dentro de un único archivo SQLite/GeoPackage estándar OGC:
 
 ```bash
 python3 scripts/generar_gpkg_geofabrik.py
@@ -772,7 +799,7 @@ Para garantizar que el Inspector Normativo, el Evaluador de Calidad ISO 19157 y 
 | **14**| `propiedades_originales`| Object | Objeto JSON con los atributos crudos de origen | `{"rbd": 9845, "osm_id": 4829104, "levels": 3}` |
 
 ### 14.2. Script Automatizado de Inyección de Atributos (`scripts/enriquecer_base_datos_metadatos.py`)
-Para garantizar que ninguna capa se suba a producción sin estos 14 campos, el script [`scripts/enriquecer_base_datos_metadatos.py`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/scripts/enriquecer_base_datos_metadatos.py) recorre iterativamente los archivos GeoJSON y estandariza su estructura:
+Para garantizar que ninguna capa se suba a producción sin estos 14 campos, el script `scripts/enriquecer_base_datos_metadatos.py` recorre iterativamente los archivos GeoJSON y estandariza su estructura:
 
 ```python
 import json

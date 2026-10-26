@@ -120,7 +120,7 @@ const ModuloLicencias = (() => {
           <h3 style="margin:0;">📦 Base de Datos Integral y Catálogos Metodológicos</h3>
           <span class="doc-pequeno" style="font-family:'IBM Plex Mono', monospace;">Sincronizados en docs/ y src/docs/</span>
         </div>
-        <p class="descripcion">Descarga directa de la base de datos geográfica unificada y de las hojas de cálculo oficiales elaboradas para el Atlas VGI (Departamento de Geografía UAH, 2026):</p>
+        <p class="descripcion">Descarga directa de la base de datos geográfica unificada y de las hojas de cálculo oficiales elaboradas para el Atlas de Información Geográfica Voluntaria:</p>
         
         <!-- Tarjeta Maestra: Base de Datos Completa ZIP -->
         <div style="padding:16px; background:rgba(16, 185, 129, 0.08); border:1px solid rgba(16, 185, 129, 0.4); border-radius:4px; margin-bottom:14px;">

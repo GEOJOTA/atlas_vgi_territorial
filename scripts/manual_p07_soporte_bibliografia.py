@@ -61,7 +61,7 @@ El repositorio del Atlas contiene archivos geoespaciales masivos que superan los
 
 #### 1. Archivo de Configuración de Filtros (`.gitattributes`)
 
-El archivo [`.gitattributes`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/.gitattributes) define qué patrones de archivos son interceptados por el motor LFS:
+El archivo `.gitattributes` define qué patrones de archivos son interceptados por el motor LFS:
 
 ```gitattributes
 # Archivos comprimidos y paquetes binarios masivos
@@ -111,9 +111,9 @@ descargas/atlas_vgi_uah_base_datos_completa.zip filter=lfs diff=lfs merge=lfs -t
 
 Para mantener un historial de cambios legible, auditable y compatible con generadores automáticos de bitácoras (*Changelogs*), todo commit en el repositorio debe seguir la convención semántica:
 
-$$
-\text{tipo(ámbito opcional): descripción en presente o infinitivo}
-$$
+```text
+tipo(ámbito opcional): descripción en presente o infinitivo
+```
 
 | Prefijo | Significado y Casos de Uso en el Atlas |
 |---|---|
@@ -141,13 +141,13 @@ El despliegue en producción es totalmente desatendido. Cada vez que se ejecuta 
 
 ---
 
-## 36. Matriz de Troubleshooting y Resolución Forense de Incidentes (15 Casos Críticos)
+## 36. Matriz de Troubleshooting y Resolución Técnica de Incidentes (15 Casos Críticos)
 
-A continuación se documenta el análisis forense de causa-raíz (*Root Cause Analysis* - RCA) y los procedimientos operativos de remediación paso a paso para los **15 incidentes técnicos más recurrentes** en el ciclo de vida del Atlas VGI:
+A continuación se documenta el análisis técnico de causa-raíz (*Root Cause Analysis* - RCA) y los procedimientos operativos de remediación paso a paso para los **15 incidentes técnicos más recurrentes** en el ciclo de vida del Atlas VGI:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             MATRIZ DE RESOLUCIÓN FORENSE DE INCIDENTES (RCA)           │
+│             MATRIZ DE RESOLUCIÓN TÉCNICA DE INCIDENTES (RCA)           │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Caso 01: Pantalla gris o tiles no renderizados en Leaflet              │
 │ Caso 02: Inversión de coordenadas Latitud / Longitud en GeoJSON        │
@@ -171,7 +171,7 @@ A continuación se documenta el análisis forense de causa-raíz (*Root Cause An
 
 ### Caso 01: Pantalla Gris o Cuadrantes de Mapa no Renderizados en Leaflet
 - **Síntoma:** Al conmutar entre pestañas de la SPA o al abrir un modal, el mapa de Leaflet muestra áreas grises y los mosaicos de OpenStreetMap solo aparecen parcialmente.
-- **Causa Raíz:** Leaflet calcula las dimensiones de su contenedor (`#map`) al momento de inicializarse. Si el contenedor se encuentra oculto (`display: none`), sus dimensiones son $0 \times 0$ píxeles. Al hacerse visible, el motor no detecta automáticamente el cambio de tamaño del DOM.
+- **Causa Raíz:** Leaflet calcula las dimensiones de su contenedor (`#map`) al momento de inicializarse. Si el contenedor se encuentra oculto (`display: none`), sus dimensiones son `0 × 0` píxeles. Al hacerse visible, el motor no detecta automáticamente el cambio de tamaño del DOM.
 - **Solución Paso a Paso:**
   Invoque el método `map.invalidateSize()` inmediatamente después de que el contenedor pase a ser visible, preferentemente dentro de un `setTimeout` o tras la transición CSS:
   ```javascript
@@ -492,7 +492,7 @@ Para facilitar la comprensión interdisciplinaria entre geógrafos, urbanistas, 
 30. **ESRI Shapefile (SHP):** Formato vectorial histórico propietario de ESRI compuesto por múltiples archivos vinculados (`.shp`, `.shx`, `.dbf`, `.prj`), limitado a nombres de columnas de 10 caracteres y archivos de hasta 2 GB.
 31. **Web Map Service (WMS):** Protocolo estándar OGC que sirve imágenes georreferenciadas de mapas renderizadas dinámicamente en el servidor en formatos raster como PNG o JPEG.
 32. **Web Feature Service (WFS):** Protocolo estándar OGC que permite a los clientes solicitar, consultar e interactuar con geometrías y atributos vectoriales crudos a través de la web en formato GML o GeoJSON.
-33. **Tile Map Service (XYZ Tiles):** Arquitectura de distribución de mosaicos cartográficos prerenderizados de $256 \times 256$ píxeles indexados jerárquicamente por nivel de zoom ($Z$) y coordenadas de tesela ($X, Y$).
+33. **Tile Map Service (XYZ Tiles):** Arquitectura de distribución de mosaicos cartográficos prerenderizados de `256 × 256` píxeles indexados jerárquicamente por nivel de zoom (`Z`) y coordenadas de tesela (`X, Y`).
 34. **PostgreSQL 17:** Sistema gestor de bases de datos relacional orientada a objetos de código abierto, líder en estabilidad, extensibilidad y cumplimiento de normas SQL.
 35. **PostGIS:** Extensión espacial para PostgreSQL que habilita tipos de datos geométricos y geográficos nativos, funciones topológicas avanzadas e indexación espacial conforme al estándar OGC Simple Features.
 36. **Índice Espacial GiST:** Árbol de búsqueda generalizado (*Generalized Search Tree*) que implementa estructuras R-Tree en PostgreSQL para acelerar búsquedas espaciales multidimensionales y operadores de intersección (`&&`).
@@ -550,13 +550,7 @@ El código fuente de la plataforma web, sus módulos interactivos y los scripts 
 
 ## 39. Aparato Bibliográfico Consolidado — 125 Referencias en Formato APA 7ª Edición
 
-El siguiente corpus bibliográfico reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad de la literatura seminal de investigación del Departamento de Geografía de la Universidad Alberto Hurtado con los marcos normativos, jurídicos y estándares internacionales que fundamentan el diseño del Atlas VGI:
-
-
-# Aparato Bibliográfico Consolidado — Corpus Científico & Atlas VGI Barrio Brasil
-### Departamento de Geografía — Universidad Alberto Hurtado (2026)
-
-Este documento reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad del corpus científico fundacional de Geografía UAH (51 obras seminales de investigación + 8 obras epistemológicas e hispanoamericanas de pensamiento geográfico) con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria.
+El siguiente corpus bibliográfico reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad de la literatura seminal de investigación sobre Información Geográfica Voluntaria (VGI), ciencia ciudadana y análisis espacial con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria:
 
 ---
 

@@ -12,8 +12,7 @@
   Permite auditar tanto capas internas de la geodatabase como CUALQUIER conjunto
   de datos espaciales externo ingresado por el usuario (GeoJSON / JSON / archivos cargados).
 
-  Autor: Departamento de Geografía — Universidad Alberto Hurtado (UAH) / GEOJOTA
-  Proyecto: Atlas VGI — Nodo GeoAbierto (Departamento de Geografía UAH)
+  Proyecto: Atlas de Información Geográfica Voluntaria — Nodo GeoAbierto
   Fecha: Octubre 2026
 */
 
@@ -1440,7 +1439,7 @@ const EvaluadorCalidadCuantitativa = (() => {
     const dc = resultado.dimensionesCuantitativas;
 
     const texto = `# PLAN DE SUBSANACIÓN Y REPARACIÓN DE CALIDAD ESPACIAL (ISO 19157 / ISO 19115)
-Atlas VGI Territorial — Nodo GeoAbierto (Departamento de Geografía UAH)
+Atlas de Información Geográfica Voluntaria — Nodo GeoAbierto
 Fecha: ${resultado.fechaAuditoria}
 Dataset: ${resultado.nombreCapa} (${rd.totalFeatures.toLocaleString('es-CL')} entidades, ${rd.totalVertices.toLocaleString('es-CL')} vértices)
 Índice Global IGV: ${ig.igv}% [${ig.grado}]

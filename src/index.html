@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas de Información Geográfica Voluntaria — Barrio Brasil & UAH</title>
-<meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y entorno de la Universidad Alberto Hurtado.">
+<title>Atlas de Información Geográfica Voluntaria — Gestión Territorial</title>
+<meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y la Comuna de Santiago.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="css/estilos.css?v=20261025_v10">
+  <link rel="stylesheet" href="css/estilos.css?v=20261026_v11">
 </head>
 <body>
 
@@ -23,16 +23,16 @@
       <div class="cabecera-fila-marca">
         <div class="marca">
           <div class="marca-header">
-            <img src="img/UAH-Insignia.jpg" alt="Insignia Universidad Alberto Hurtado" class="marca-logo">
+            <img src="img/UAH-Insignia.jpg" alt="Insignia Institucional" class="marca-logo">
             <div class="marca-texto">
               <h1>Atlas VGI Territorial</h1>
-              <p id="nombre-organizacion">Consulta, calidad y metadatos VGI | Barrio Brasil & UAH</p>
+              <p id="nombre-organizacion">Consulta, calidad y metadatos VGI | Gestión Territorial</p>
             </div>
           </div>
         </div>
 
         <div class="marca-credito-institucional">
-          <span class="credito-departamento">Departamento de Geografía · Universidad Alberto Hurtado 2026</span>
+          <span class="credito-departamento">Plataforma de Información Geográfica Voluntaria y Gestión Territorial</span>
         </div>
       </div>
     </div>
@@ -68,11 +68,11 @@
     <section class="panel activo" id="panel-inicio">
       <header class="hero-introduccion-atlas">
         <div class="insignia-institucional">
-          ☩ DEPARTAMENTO DE GEOGRAFÍA UNIVERSIDAD ALBERTO HURTADO 2026
+          ☩ INFRAESTRUCTURA DE DATOS ESPACIALES Y GESTIÓN TERRITORIAL
         </div>
         <h1 class="titulo-hero">Atlas de Información Geográfica Voluntaria para la Gestión Territorial</h1>
         <p class="subtitulo-hero">
-          Caso Piloto: Barrio Brasil y Campus Universidad Alberto Hurtado (Santiago Centro, Chile)
+          Caso de Estudio: Barrio Brasil y Comuna de Santiago (Santiago Centro, Chile)
         </p>
         
         <div class="grilla-resumen-introduccion">
@@ -842,7 +842,7 @@
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial y Storyboards</h2>
           <p class="bajada-modulo-indicadores">
-            Articulación de las <strong>132 coberturas geoespaciales del Atlas VGI</strong> (122 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con láminas de síntesis empírica para la Comuna de Santiago y el Barrio Brasil.
+            Articulación de las <strong>132 coberturas geoespaciales del Atlas VGI</strong> (122 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con storyboards temáticos para la Comuna de Santiago y el Barrio Brasil.
           </p>
         </header>
 
@@ -988,10 +988,10 @@
         <!-- ===================================================================== -->
         <section class="seccion-storyboards-barrio-brasil" id="seccion-storyboards" aria-label="Storyboards y Análisis Territorial de Santiago">
         <header class="header-seccion-storyboards">
-          <div class="insignia-storyboards">RESULTADOS EMPÍRICOS Y NARRATIVAS TERRITORIALES</div>
+          <div class="insignia-storyboards">ANÁLISIS ESPACIAL Y NARRATIVAS TERRITORIALES</div>
           <h3 class="titulo-storyboards">Storyboards de Resultados Territoriales</h3>
           <p class="bajada-storyboards">
-            Síntesis de resultados empíricos sobre la comuna de Santiago y el Barrio Brasil a partir de las <strong>75 cartografías temáticas oficiales (3264×2112 px)</strong> integradas progresivamente en el relato junto a gráficos y diagramas: distribución y brechas territoriales de los registros VGI (KDE), clusters de autocorrelación espacial (LISA), estructura sociodemográfica y habitabilidad, y metabolismo socioambiental y proximidad urbana.
+            Síntesis de resultados territoriales sobre la comuna de Santiago y el Barrio Brasil a partir de las <strong>75 cartografías temáticas oficiales (3264×2112 px)</strong> integradas progresivamente en el relato junto a gráficos y diagramas: distribución y brechas territoriales de los registros VGI (KDE), clusters de autocorrelación espacial (LISA), estructura sociodemográfica y habitabilidad, y metabolismo socioambiental y proximidad urbana.
           </p>
         </header>
 
@@ -1007,9 +1007,8 @@
             <div class="imagen-cuadrada-wrapper">
               <img src="img/storyboards/portada_analisis_kde.svg" width="800" height="800" alt="Anatomía de la Huella Ciudadana (KDE)" loading="lazy" class="img-storyboard-cuadro">
               <div class="overlay-gradiente-storyboard"></div>
-              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-densidad-kernel-kde')" title="Ampliar portada en alta resolución">🔍</button>
+              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-densidad-kernel-kde')" title="Ampliar portada">🔍</button>
               <span class="badge-dimension-tag">Resultados KDE (11 Mapas)</span>
-              <span class="badge-tiempo-lectura">⏱ 18 min de lectura</span>
             </div>
             <div class="cuerpo-tarjeta-storyboard">
               <h4 class="titulo-tarjeta-storyboard">1. Anatomía de la Huella Ciudadana (KDE): Hiper-centralidad, Corredores y Vacíos Territoriales</h4>
@@ -1034,9 +1033,8 @@
             <div class="imagen-cuadrada-wrapper">
               <img src="img/storyboards/portada_analisis_lisa.svg" width="800" height="800" alt="Fracturas y Enclaves Significativos (LISA)" loading="lazy" class="img-storyboard-cuadro">
               <div class="overlay-gradiente-storyboard"></div>
-              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-autocorrelacion-lisa')" title="Ampliar portada en alta resolución">🔍</button>
+              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-autocorrelacion-lisa')" title="Ampliar portada">🔍</button>
               <span class="badge-dimension-tag">Resultados LISA (11 Mapas)</span>
-              <span class="badge-tiempo-lectura">⏱ 20 min de lectura</span>
             </div>
             <div class="cuerpo-tarjeta-storyboard">
               <h4 class="titulo-tarjeta-storyboard">2. Fracturas y Enclaves Significativos (LISA): Polarización Norte-Sur, Islas y Especialización Barrial</h4>
@@ -1061,9 +1059,8 @@
             <div class="imagen-cuadrada-wrapper">
               <img src="img/storyboards/portada_analisis_sociourbano.svg" width="800" height="800" alt="Estructura Sociodemográfica, Habitabilidad y Vulnerabilidad" loading="lazy" class="img-storyboard-cuadro">
               <div class="overlay-gradiente-storyboard"></div>
-              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-demografia-habitabilidad-sociourbana')" title="Ampliar portada en alta resolución">🔍</button>
+              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-demografia-habitabilidad-sociourbana')" title="Ampliar portada">🔍</button>
               <span class="badge-dimension-tag">Demografía y Vivienda (29 Mapas)</span>
-              <span class="badge-tiempo-lectura">⏱ 25 min de lectura</span>
             </div>
             <div class="cuerpo-tarjeta-storyboard">
               <h4 class="titulo-tarjeta-storyboard">3. Estructura Sociodemográfica, Habitabilidad y Vulnerabilidad en Santiago y Barrio Brasil</h4>
@@ -1088,13 +1085,12 @@
             <div class="imagen-cuadrada-wrapper">
               <img src="img/storyboards/portada_analisis_socioambiental.svg" width="800" height="800" alt="Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo" loading="lazy" class="img-storyboard-cuadro">
               <div class="overlay-gradiente-storyboard"></div>
-              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-socioambiental-movilidad-servicios')" title="Ampliar portada en alta resolución">🔍</button>
+              <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('storyboard-socioambiental-movilidad-servicios')" title="Ampliar portada">🔍</button>
               <span class="badge-dimension-tag">Socioambiente y Proximidad (24 Mapas)</span>
-              <span class="badge-tiempo-lectura">⏱ 22 min de lectura</span>
             </div>
             <div class="cuerpo-tarjeta-storyboard">
               <h4 class="titulo-tarjeta-storyboard">4. Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano en Santiago</h4>
-              <p class="bajada-tarjeta-storyboard">Resultados empíricos sobre la ciudad de 15 minutos: 80,6% de movilidad sustentable, acceso peatonal a parques (224,8 m) versus déficit en el sur, refugios acústicos (55,7 dBA en Brasil frente a 63,3 dBA comunal) y asimetrías en las 5 zonas de aseo en 24 láminas.</p>
+              <p class="bajada-tarjeta-storyboard">Diagnóstico territorial sobre la ciudad de 15 minutos: 80,6% de movilidad sustentable, acceso peatonal a parques (224,8 m) versus déficit en el sur, refugios acústicos (55,7 dBA en Brasil frente a 63,3 dBA comunal) y asimetrías en las 5 zonas de aseo en 24 láminas.</p>
               <div class="footer-tarjeta-storyboard">
                 <div class="tags-storyboard">
                   <span class="tag-chip">80,6% Movilidad Sustentable</span>
@@ -1129,9 +1125,9 @@
         <div class="lightbox-figura-contenedor" id="lightbox-figura-contenedor">
           <header class="lightbox-header">
             <div class="lightbox-info-titulo">
-              <span class="lightbox-tipo-badge" id="lightbox-tipo-badge">🗺️ CARTOGRAFÍA HD</span>
+              <span class="lightbox-tipo-badge" id="lightbox-tipo-badge">🗺️ CARTOGRAFÍA</span>
               <h3 class="lightbox-titulo" id="lightbox-titulo">Figura Ampliada</h3>
-              <span class="lightbox-subtitulo" id="lightbox-subtitulo">Visualización completa en alta resolución</span>
+              <span class="lightbox-subtitulo" id="lightbox-subtitulo">Visualización a pantalla completa</span>
             </div>
             <div class="lightbox-controles">
               <button type="button" class="btn-control-lightbox" id="btn-lightbox-zoom-in" title="Acercar (+)">＋</button>
@@ -1180,7 +1176,7 @@
           </div>
           <div>
             <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Alcance territorial:</strong>
-            Sustenta la validez empírica de la base de datos del Barrio Brasil y la Comuna de Santiago para su utilización en estudios urbanos, planificación pública y toma de decisiones comunitarias.
+            Sustenta la validez técnica y espacial de la base de datos del Barrio Brasil y la Comuna de Santiago para su utilización en estudios urbanos, planificación pública y toma de decisiones comunitarias.
           </div>
         </div>
       </div>
@@ -1542,7 +1538,7 @@
 
         <h3>Punto de Contacto Responsable</h3>
         <div class="fila-campos">
-          <div class="campo"><label for="md-contacto-org">Organización</label><input type="text" id="md-contacto-org" value="Departamento de Geografía — Universidad Alberto Hurtado 2026"></div>
+          <div class="campo"><label for="md-contacto-org">Organización</label><input type="text" id="md-contacto-org" value="Atlas de Información Geográfica Voluntaria — Nodo GeoAbierto"></div>
           <div class="campo"><label for="md-contacto-correo">Correo electrónico</label><input type="email" id="md-contacto-correo" value="juanpablolescanovillegas@gmail.com"></div>
         </div>
 
@@ -1726,7 +1722,7 @@
       </div>
 
       <div class="modal-bd-footer">
-        <span style="font-size:0.78rem; color:var(--tinta-tenue);">Departamento de Geografía · Universidad Alberto Hurtado · Licencias ODbL 1.0 / CC BY-SA 4.0</span>
+        <span style="font-size:0.78rem; color:var(--tinta-tenue);">Atlas de Información Geográfica Voluntaria · Licencias ODbL 1.0 / CC BY-SA 4.0</span>
         <button type="button" class="accion" id="btn-cerrar-modal-bd-pie" style="padding:6px 18px;">Cerrar</button>
       </div>
     </div>
@@ -1737,26 +1733,26 @@
 <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js?v=20261025_v10"></script>
-<script src="js/modulos/db_client.js?v=20261025_v10"></script>
-<script src="js/modulos/geodesia.js?v=20261025_v10"></script>
-<script src="js/modulos/mapa.js?v=20261025_v10"></script>
-<script src="js/modulos/importador_capas.js?v=20261025_v10"></script>
-<script src="js/modulos/ide_chile.js?v=20261025_v10"></script>
-<script src="js/modulos/evaluador_normativo.js?v=20261025_v10"></script>
-<script src="js/modulos/osm.js?v=20261025_v10"></script>
-<script src="js/modulos/ohsome.js?v=20261025_v10"></script>
-<script src="js/modulos/gbif.js?v=20261025_v10"></script>
-<script src="js/modulos/umap.js?v=20261025_v10"></script>
-<script src="js/modulos/metadatos.js?v=20261025_v10"></script>
-<script src="js/modulos/licencias.js?v=20261025_v10"></script>
-<script src="js/modulos/manual.js?v=20261025_v10"></script>
-<script src="js/modulos/indicadores_analisis.js?v=20261025_v10"></script>
-<script src="js/modulos/taginfo.js?v=20261025_v10"></script>
-<script src="js/modulos/evaluador_calidad_cuantitativa.js?v=20261025_v10"></script>
-<script src="js/modulos/calidad_analyst.js?v=20261025_v10"></script>
-<script src="js/modulos/diccionario.js?v=20261025_v10"></script>
-<script src="js/modulos/manifold_canvas.js?v=20261025_v10"></script>
-<script src="js/app.js?v=20261025_v10"></script>
+<script src="js/config.js?v=20261026_v11"></script>
+<script src="js/modulos/db_client.js?v=20261026_v11"></script>
+<script src="js/modulos/geodesia.js?v=20261026_v11"></script>
+<script src="js/modulos/mapa.js?v=20261026_v11"></script>
+<script src="js/modulos/importador_capas.js?v=20261026_v11"></script>
+<script src="js/modulos/ide_chile.js?v=20261026_v11"></script>
+<script src="js/modulos/evaluador_normativo.js?v=20261026_v11"></script>
+<script src="js/modulos/osm.js?v=20261026_v11"></script>
+<script src="js/modulos/ohsome.js?v=20261026_v11"></script>
+<script src="js/modulos/gbif.js?v=20261026_v11"></script>
+<script src="js/modulos/umap.js?v=20261026_v11"></script>
+<script src="js/modulos/metadatos.js?v=20261026_v11"></script>
+<script src="js/modulos/licencias.js?v=20261026_v11"></script>
+<script src="js/modulos/manual.js?v=20261026_v11"></script>
+<script src="js/modulos/indicadores_analisis.js?v=20261026_v11"></script>
+<script src="js/modulos/taginfo.js?v=20261026_v11"></script>
+<script src="js/modulos/evaluador_calidad_cuantitativa.js?v=20261026_v11"></script>
+<script src="js/modulos/calidad_analyst.js?v=20261026_v11"></script>
+<script src="js/modulos/diccionario.js?v=20261026_v11"></script>
+<script src="js/modulos/manifold_canvas.js?v=20261026_v11"></script>
+<script src="js/app.js?v=20261026_v11"></script>
 </body>
 </html>

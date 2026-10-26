@@ -1,14 +1,14 @@
 /*
   manual.js
   ---------
-  Módulo 07: Manual de Uso y Manual de Actualización Técnica del Atlas VGI (UAH).
-  Redactado en tercera persona con formato de artículo metodológico y reporte técnico-profesional.
+  Módulo 07: Manual de Uso y Manual de Actualización Técnica del Atlas VGI.
+  Redactado en tercera persona con formato de artículo metodológico y reporte técnico.
 
   Integra:
   - Parte I: Manual de Uso del Atlas (Fundamentación, arquitectura de interfaz, operación de los Módulos 01 al 10,
-    ICV Dinámico, Inspector Normativo PRC/OGUC con expediente histórico 1990-2024 y Catálogo de las 131 capas).
-  - Parte II: Manual de Actualización y Mantención Técnica (Principios de ingeniería, sincronización espejo
-    data/ y src/data/, base dual .geojson + .gpkg, protocolo de 6 etapas para integración de coberturas,
+    ICV Dinámico, Inspector Normativo PRC/OGUC con expediente histórico 1990-2024 y Catálogo de las 132 capas).
+  - Parte II: Manual de Actualización y Mantención Técnica (Principios de ingeniería, catálogo multi-lenguaje estandarizado,
+    sincronización espejo data/ y src/data/, base dual .geojson + .gpkg, protocolo de 6 etapas para integración de coberturas,
     mantención de indicadores/storyboards/normativa, validación final, despliegue y bibliografía APA 7ª ed.).
 */
 
@@ -109,7 +109,7 @@ const ModuloManual = (() => {
         subtitulo: 'Articulación de las 132 coberturas geográficas, 140 descriptores normativos (ISO 19110) y 10 módulos funcionales.',
         html: `
           <p style="font-size:0.94rem; line-height:1.7; color:var(--tinta-suave);">
-            El <strong>Atlas de Información Geográfica Voluntaria (Atlas VGI — UAH)</strong> constituye una infraestructura de datos espaciales orientada a integrar, evaluar y contrastar la cartografía oficial del Estado de Chile con la información geográfica voluntaria (<em>Volunteered Geographic Information</em>, VGI; Goodchild, 2007; Haklay, 2010) para el análisis territorial de la <strong>Comuna de Santiago</strong>, el <strong>Barrio Brasil</strong> y el entorno de la Universidad Alberto Hurtado.
+            El <strong>Atlas de Información Geográfica Voluntaria para la Gestión Territorial</strong> constituye una infraestructura de datos espaciales orientada a integrar, evaluar y contrastar la cartografía oficial del Estado de Chile con la información geográfica voluntaria (<em>Volunteered Geographic Information</em>, VGI; Goodchild, 2007; Haklay, 2010) para el análisis territorial de la <strong>Comuna de Santiago</strong> y el <strong>Barrio Brasil</strong>.
           </p>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px; margin:16px 0;">
@@ -128,7 +128,7 @@ const ModuloManual = (() => {
             <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:10px; padding:14px;">
               <div style="font-size:1.35rem; font-weight:800; color:#34d399;">5 Dimensiones y 4 Storyboards (75 Mapas)</div>
               <div style="font-size:0.85rem; color:var(--tinta-suave); margin-top:4px;">
-                Estructuración multidimensional y 4 láminas de síntesis empírica con 75 cartografías temáticas sobre densidad KDE, clusters LISA, habitabilidad censal y metabolismo urbano.
+                Estructuración multidimensional y 4 storyboards temáticos con 75 cartografías sobre densidad KDE, clusters LISA, habitabilidad censal y metabolismo urbano.
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@ const ModuloManual = (() => {
             <div style="background:rgba(15,23,42,0.55); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:15px;">
               <h4 style="margin:0 0 6px 0; color:#38bdf8;">1. Control de Coberturas, Encuadre Territorial y Exportación</h4>
               <ul style="margin:0; padding-left:20px; color:var(--tinta-suave); font-size:0.89rem; line-height:1.65;">
-                <li><strong>Delimitación del ámbito de estudio:</strong> El selector superior permite alternar entre el polígono del <em>Barrio Brasil Completo</em> ($223,75\\text{ ha}$) y la <em>Manzana UAH</em> ($136,10\\text{ ha}$), o trazar un área personalizada mediante <strong>⛶ Dibujar Bbox</strong> (con cálculo métrico en $\\text{m}^2$ y $\\text{ha}$ reproyectado a <code>EPSG:32719</code>).</li>
+                <li><strong>Delimitación del ámbito de estudio:</strong> El selector superior permite alternar entre el polígono del <em>Barrio Brasil Completo</em> (223,75 ha) y la <em>Manzana UAH</em> (136,10 ha), o trazar un área personalizada mediante <strong>⛶ Dibujar Bbox</strong> (con cálculo métrico en m² y ha reproyectado a <code>EPSG:32719</code>).</li>
                 <li><strong>Superposición multicapa:</strong> El subpanel <strong>🏛 Capas IDE</strong> y los selectores VGI habilitan la visualización simultánea de coberturas estatales y comunitarias (recomendándose activar entre 2 y 4 capas simultáneamente para preservar la legibilidad cartográfica).</li>
                 <li><strong>Inspección de atributos y descarga:</strong> La selección de cualquier geometría despliega su ficha de atributos normalizados, la institución custodia y el enlace de exportación individual en formato <code>GeoJSON</code>. El botón <strong>📦 Base de Datos (.zip)</strong> descarga el repositorio completo.</li>
               </ul>
@@ -230,7 +230,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 05</span>
                 <h4 style="margin:4px 0 6px 0;">Indicadores &amp; Storyboards</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Sistematización de las 132 coberturas en 5 Dimensiones Analíticas y 4 Storyboards empíricos con 75 cartografías temáticas.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Sistematización de las 132 coberturas en 5 Dimensiones Analíticas y 4 Storyboards territoriales con 75 cartografías temáticas.</p>
               </div>
               <button type="button" class="accion" onclick="ModuloManual.irAPanel('indicadores')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 05 ↗</button>
             </div>
@@ -339,51 +339,126 @@ const ModuloManual = (() => {
             <li><strong>Formatos Cartográficos</strong>: Formato de intercambio web <code>GeoJSON</code> (RFC 7946; Butler et al., 2016) en coordenadas <code>EPSG:4326</code>, y persistencia de bases relacionales en <code>OGC GeoPackage (.gpkg)</code> para resguardar los comentarios SQLite de columnas de SUBDERE RSD 2024.</li>
           </ul>
 
-          <h4 style="color:#fbbf24; margin:16px 0 8px 0;">2. Matriz de Componentes y Responsabilidades de Mantención</h4>
+          <h4 style="color:#fbbf24; margin:16px 0 8px 0;">2. Catálogo Estandarizado Multi-Lenguaje de Archivos de la Plataforma Web</h4>
+          <p style="font-size:0.86rem; color:var(--tinta-suave); margin-bottom:10px;">
+            Todos los archivos que componen la plataforma web (HTML5, CSS3, JavaScript ES6+ IIFE, SQL/PostGIS, Configuración TOML/JSON y Python 3) se documentan bajo una estructura estandarizada que especifica su lenguaje, ruta, rol funcional, componentes internos y protocolo de modificación:
+          </p>
           <div style="overflow-x:auto; border:1px solid var(--linea-tarjeta); border-radius:10px;">
-            <table class="tabla-metadatos" style="width:100%; font-size:0.83rem;">
+            <table class="tabla-metadatos" style="width:100%; font-size:0.8rem;">
               <thead>
                 <tr>
-                  <th>Ruta del Componente</th>
-                  <th>Responsabilidad en el Sistema</th>
-                  <th>Protocolo de Intervención</th>
+                  <th>Lenguaje</th>
+                  <th>Ruta del Archivo</th>
+                  <th>Rol Funcional en la Plataforma</th>
+                  <th>Estructura Interna / API Pública</th>
+                  <th>Protocolo de Modificación</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><strong>HTML5</strong></td>
                   <td><code>src/index.html</code></td>
-                  <td>Estructura DOM única: 10 módulos, visor, acordeones de capas, modales de Storyboards y CIN-VGI.</td>
-                  <td>Inserción de controles <code>.chip-oficial</code> para nuevas coberturas e incremento de versión <code>?v=...</code>.</td>
+                  <td>Documento DOM maestro (SPA): articula las 10 pestañas (<code>01</code> a <code>10</code>), el visor 2D, acordeones de capas, modales de Storyboards y Lightbox.</td>
+                  <td>Secciones <code>&lt;section class="panel" id="panel-..."&gt;</code>, grilla de botones <code>.chip-oficial</code> y carga secuencial de 21 scripts.</td>
+                  <td>Añadir controles <code>.chip-oficial</code> para nuevas capas y actualizar el parámetro <code>?v=...</code> al editar JS/CSS.</td>
                 </tr>
                 <tr>
+                  <td><strong>CSS3</strong></td>
+                  <td><code>src/css/estilos.css</code></td>
+                  <td>Hoja de estilos del sistema: variables nativas (<code>:root</code>), grillas responsivas, modo oscuro táctico, tarjetas de Storyboards y Lightbox multi-dispositivo.</td>
+                  <td>Tokens de diseño, reglas <code>@media</code> para móvil/tablet/escritorio, clases <code>.lamina-storyboard-modal</code> y <code>.lightbox-figura-overlay</code>.</td>
+                  <td>Editar variables CSS en <code>:root</code> para cambiar paleta cromática o tipografías en toda la plataforma.</td>
+                </tr>
+                <tr>
+                  <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/config.js</code></td>
-                  <td>Bbox territorial, coordenadas de encuadre, comunas RM y definición de las <strong>10 categorías VGI</strong>.</td>
-                  <td>Modificación de metadatos o simbología de las coberturas comunitarias OpenStreetMap y GBIF.</td>
+                  <td>Configuración global síncrona (<code>window.NODO_CONFIG</code>): BBox territorial, comunas RM, endpoints API y las 10 macrocategorías VGI (<code>CAT-01</code> a <code>CAT-10</code>).</td>
+                  <td>Objeto <code>CONFIG_PREDETERMINADA</code> y cargador asíncrono <code>cargarConfiguracion()</code> desde <code>config/config.json</code>.</td>
+                  <td>Modificar coordenadas de encuadre, colores o consultas Overpass QL de las 10 categorías VGI.</td>
                 </tr>
                 <tr>
+                  <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/app.js</code></td>
-                  <td>Controlador maestro, eventos de mapa, filtros espaciales e <strong>ICV dinámico</strong> en tiempo real.</td>
-                  <td>Ajuste de umbrales del Índice de Calidad VGI en <code>actualizarTelemetriaCapasActivas()</code>.</td>
+                  <td>Orquestador central de la aplicación: navegación entre los 10 módulos, estado global de capas activas, filtros espaciales e ICV dinámico en tiempo real.</td>
+                  <td>Funciones <code>activarPanel()</code>, <code>alternarCapaOficial()</code>, <code>actualizarTelemetriaCapasActivas()</code> y exportación GeoJSON/CSV.</td>
+                  <td>Ajustar lógica de interacción global, contadores de telemetría o perfiles de usuario-tipo.</td>
                 </tr>
                 <tr>
+                  <td><strong>JS ES6+</strong></td>
+                  <td><code>src/js/modulos/geodesia.js</code></td>
+                  <td>Motor matemático de reproyección geodésica al vuelo entre <code>EPSG:4326</code> (WGS84) y <code>EPSG:32719</code> (UTM 19S / SIRGAS-Chile).</td>
+                  <td>IIFE <code>ModuloGeodesia</code> con serie de Redfearn / Transverse Mercator, área Gauss/Shoelace (m²/ha) y distancias euclidianas/Haversine.</td>
+                  <td>Cambiar parámetros de huso UTM (ej. a Huso 18S) si el Atlas se adapta a otra región geográfica.</td>
+                </tr>
+                <tr>
+                  <td><strong>JS ES6+</strong></td>
+                  <td><code>src/js/modulos/mapa.js</code></td>
+                  <td>Gestor del lienzo cartográfico Leaflet 1.9.4: mapas base, renderizado vectorial, simbología por categoría, popups y herramienta de dibujo de BBox.</td>
+                  <td>IIFE <code>ModuloMapa</code> con <code>inicializarMapa()</code>, <code>dibujarCapaGeoJSON()</code> y <code>activarDibujoBbox()</code>.</td>
+                  <td>Agregar nuevos proveedores de teselas base (WMS/XYZ) o personalizar estilos de marcadores y polígonos.</td>
+                </tr>
+                <tr>
+                  <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/modulos/ide_chile.js</code></td>
-                  <td>Catálogo maestro de las <strong>122 capas oficiales del Estado</strong> (<code>CAPAS_OFICIALES</code>).</td>
-                  <td>Registro de coberturas estatales con ruta <code>archivoLocal</code>, color, geometría y licencia.</td>
+                  <td>Catálogo maestro de las <strong>122 coberturas oficiales del Estado</strong> (MINVU, INE, MTT/UOCT, MDSF, SUBDERE, MuniSTGO, SII, CMN, MMA).</td>
+                  <td>IIFE <code>ModuloIDEChile</code> con diccionario <code>CAPAS_OFICIALES</code>, cargador con caché en memoria y recorte por BBox.</td>
+                  <td>Registrar nuevas capas oficiales definiendo <code>id</code>, <code>nombre</code>, <code>institucion</code>, <code>archivoLocal</code> y simbología.</td>
                 </tr>
                 <tr>
+                  <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/modulos/evaluador_normativo.js</code></td>
-                  <td>Inspector Normativo PRC/OGUC, Certificado CIN-VGI y 10 hitos históricos del PRC (1990–2024).</td>
-                  <td>Actualización de normas urbanas en <code>FUENTES_ORDENANZAS_IPT</code> o adición de hitos en <code>HITOS_HISTORICOS_PRC_BRASIL</code>.</td>
+                  <td>Inspector Normativo del Plan Regulador Comunal de Santiago (PRC/PRMS/OGUC), Certificado CIN-VGI y expediente histórico (1990–2024).</td>
+                  <td>IIFE <code>ModuloEvaluadorNormativo</code> con algoritmo Ray-Casting (Point-in-Polygon), reglas Art. 2.1.24/2.1.17 OGUC y <code>HITOS_HISTORICOS_PRC_BRASIL</code>.</td>
+                  <td>Añadir nuevas zonas normativas en <code>FUENTES_ORDENANZAS_IPT</code> o nuevos hitos de enmiendas al PRC.</td>
                 </tr>
                 <tr>
+                  <td><strong>JS ES6+</strong></td>
+                  <td><code>src/js/modulos/osm.js</code> &amp; <code>taginfo.js</code></td>
+                  <td>Módulo 02: Cliente Overpass API con failover multi-servidor, constructor de consultas Overpass QL y validador semántico Taginfo API v4.</td>
+                  <td>IIFE <code>ModuloOSM</code> y <code>ModuloTaginfo</code> con reconstrucción topológica de nodos/vías y normalización de etiquetas.</td>
+                  <td>Añadir servidores espejo Overpass o incorporar nuevas plantillas de consulta rápida en 1 clic.</td>
+                </tr>
+                <tr>
+                  <td><strong>JS ES6+</strong></td>
+                  <td><code>src/js/modulos/gbif.js</code> &amp; <code>umap.js</code></td>
+                  <td>Módulos 03 y 04: Cliente REST GBIF API v1 (estándar Darwin Core) y gestor de proyectos de cartografía participativa uMap e importación local.</td>
+                  <td>IIFE <code>ModuloGBIF</code>, <code>ModuloUMap</code> e <code>ImportadorCapas</code> (soporte GeoJSON, KML, GPX y Shapefile ZIP).</td>
+                  <td>Actualizar filtros taxonómicos Darwin Core o agregar nuevos enlaces de mapas colaborativos uMap.</td>
+                </tr>
+                <tr>
+                  <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/modulos/indicadores_analisis.js</code></td>
-                  <td>Módulo 05: <strong>5 Dimensiones Analíticas</strong> (132 capas) y <strong>4 Storyboards</strong> territoriales (75 cartografías).</td>
-                  <td>Asignación de capas en <code>DIMENSIONES</code> o edición del arreglo de objetos analíticos <code>STORYBOARDS</code>.</td>
+                  <td>Módulo 05: Articulación de las 132 capas en <strong>5 Dimensiones Analíticas</strong> y motor de los <strong>4 Storyboards</strong> (75 cartografías, gráficos, SVG y Lightbox).</td>
+                  <td>IIFE <code>ModuloIndicadoresAnalisis</code> con arreglos <code>DIMENSIONES</code> y <code>STORYBOARDS</code>, modal de lectura y zoom pan/pinch.</td>
+                  <td>Vincular nuevas capas en <code>capasIds</code> o agregar láminas y cartografías en <code>STORYBOARDS</code>.</td>
                 </tr>
                 <tr>
-                  <td><code>src/js/modulos/diccionario.js</code></td>
-                  <td>Módulo 09: Diccionario de Datos de los <strong>140 descriptores técnicos</strong> (ISO 19110:2016).</td>
-                  <td>Documentación de columnas y tipos de datos de nuevas coberturas en <code>CATALOGO_DICCIONARIO</code>.</td>
+                  <td><strong>JS ES6+</strong></td>
+                  <td><code>src/js/modulos/ohsome.js</code>, <code>calidad_analyst.js</code> &amp; <code>evaluador_calidad_cuantitativa.js</code></td>
+                  <td>Módulo 06: Motor de Calidad Espacial ISO 19157/19115 (WLC v2.0), Índice de Saturación y Maduración Territorial (ohsome API v1/v2) y auditoría OSMCha.</td>
+                  <td>Submódulo A (Evaluador Universal IGV), Submódulo B (Métricas históricas ohsome <code>/count</code>, <code>/length</code>, <code>/area</code> y Score de Madurez) y Submódulo C (OSMCha).</td>
+                  <td>Ajustar pesos WLC en <code>PONDERADORES_DEFECTO</code> o umbrales heurísticos de saturación y changesets.</td>
+                </tr>
+                <tr>
+                  <td><strong>JS ES6+</strong></td>
+                  <td><code>src/js/modulos/manual.js</code>, <code>metadatos.js</code>, <code>diccionario.js</code> &amp; <code>licencias.js</code></td>
+                  <td>Módulos 07, 08, 09 y 10: Visor del Manual, generador de Metadatos ISO 19115/19139 (JSON/XML), Diccionario ISO 19110 (140 descriptores) y Licencias/Catálogos.</td>
+                  <td>IIFE <code>ModuloManual</code>, <code>ModuloMetadatos</code>, <code>ModuloDiccionario</code> y <code>ModuloLicencias</code>.</td>
+                  <td>Documentar nuevos descriptores en <code>CATALOGO_DICCIONARIO</code> o actualizar plantillas XML ISO 19139.</td>
+                </tr>
+                <tr>
+                  <td><strong>SQL / JSON / TOML</strong></td>
+                  <td><code>sql/esquema_postgis.sql</code>, <code>config/config.json</code> &amp; <code>netlify.toml</code></td>
+                  <td>Esquema relacional espacial PostGIS (tablas, vistas e índices GIST), configuración JSON del nodo y reglas de despliegue CDN/CORS en Netlify.</td>
+                  <td>DDL SQL con geometrías <code>EPSG:4326</code>/<code>EPSG:32719</code>, cabeceras HTTP de caché y redirecciones SPA.</td>
+                  <td>Ejecutar <code>esquema_postgis.sql</code> para levantar respaldo en PostgreSQL/Supabase o ajustar cabeceras en <code>netlify.toml</code>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Python 3</strong></td>
+                  <td><code>scripts/*.py</code> (35 scripts de ingeniería y auditoría)</td>
+                  <td>Pipelines de ingesta desde Overpass/GBIF/IDE, reproyección, recorte espacial, cálculo de metacalidad WLC, generación de catálogos Excel y validación pre-deploy.</td>
+                  <td>Scripts modulares (<code>verificar_conteo_capas.py</code>, <code>verificar_integridad_despliegue.py</code>, <code>analisis_metacalidad.py</code>, <code>construir_manual_actualizacion_maestro.py</code>).</td>
+                  <td>Ejecutar desde la raíz del proyecto para regenerar datos, auditar las 132 capas o reconstruir los manuales y reportes.</td>
                 </tr>
               </tbody>
             </table>
@@ -433,19 +508,19 @@ const ModuloManual = (() => {
 
             <!-- Pipeline 3: Motor Multicriterio de Calidad ISO 19157 & ISO 19115 (WLC v2.0 + ohsome) -->
             <div style="background:#090e1a; border:1px solid rgba(16,185,129,0.35); border-radius:10px; padding:14px;">
-              <div style="font-size:0.78rem; font-weight:800; color:#34d399; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline C · Evaluación de Calidad Espacial WLC v2.0 (ISO 19157 / ISO 19115 / ohsome API)</div>
+              <div style="font-size:0.78rem; font-weight:800; color:#34d399; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline C · Evaluación de Calidad Espacial WLC v2.0 e Índice de Saturación y Maduración Territorial (ISO 19157 / ohsome API)</div>
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
-                  132 Capas del Atlas o GeoJSON externo + Metadatos ISO 19115 + Series históricas OSHDB/ohsome API v1/v2 (HeiGIT).
+                  132 Capas del Atlas o GeoJSON externo + Metadatos ISO 19115 + Series históricas OSHDB/ohsome API v1/v2 (<code>/elements/count</code>, <code>/length</code>, <code>/area</code> y <code>/users/count</code>).
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (evaluador_calidad_cuantitativa.js)</strong>
-                  Reproyección geodésica a <code>EPSG:32719</code> → Auditoría de 5 dimensiones cuantitativas (50%) y 5 dimensiones cualitativas de metadatos (50%) mediante Combinación Lineal Ponderada.
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (ohsome.js / calidad_analyst.js / evaluador_calidad_cuantitativa.js)</strong>
+                  Reproyección a <code>EPSG:32719</code> → Cálculo de Densidad Espacial (<code>elem/km²</code> y <code>elem/10.000 m²</code>), Intensidad Comunitaria (<code>edit/user</code>), Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157) y Combinación Lineal Ponderada WLC (50% cuantitativo + 50% cualitativo).
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
-                  Índice Global de MetaCalidad (IGMC 96,55% Grado A+), matrices JSON/CSV/XLSX en <code>docs/</code> y panel interactivo en Módulos 06 y 08.
+                  Score de Madurez Territorial (<code>/100</code>), Estado de Saturación Física, Índice Global de MetaCalidad (IGMC 96,55% Grado A+) y auditoría de changesets OSMCha en el Módulo 06.
                 </div>
               </div>
             </div>

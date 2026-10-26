@@ -5,7 +5,7 @@ PARTE_08 = r"""# PARTE VIII: GUÍA MAESTRA DE MODIFICACIÓN DETALLE A DETALLE (C
 
 ## 40. Tutorial 01: Modificación de la Paleta Cromática y Variables `:root` en CSS
 
-Toda la identidad visual del Atlas se gestiona de manera centralizada mediante variables personalizadas (*CSS Custom Properties*) declaradas en el pseudo-elemento `:root` del archivo [`src/css/estilos.css`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/css/estilos.css). Modificar un color en esta sección actualiza instantáneamente toda la aplicación (cabeceras, botones, bordes, modales y acentos).
+Toda la identidad visual del Atlas se gestiona de manera centralizada mediante variables personalizadas (*CSS Custom Properties*) declaradas en el pseudo-elemento `:root` del archivo `src/css/estilos.css`. Modificar un color en esta sección actualiza instantáneamente toda la aplicación (cabeceras, botones, bordes, modales y acentos).
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -635,36 +635,35 @@ function exportarCapaCSV(coleccionFeatures, nombreCapa) {
 
 ## 55. Tutorial 16: Protocolo de Auditoría de Accesibilidad Web (WCAG 2.1 Nivel AAA)
 
-En el marco del compromiso ético y de inclusión de la Universidad Alberto Hurtado, la interfaz del Atlas debe cumplir con el nivel más exigente de accesibilidad internacional: **WCAG 2.1 AAA**. Esto exige una relación de contraste cromático mínima de **7:1** para texto normal y soporte integral de navegación por teclado.
+En el marco del diseño universal e inclusivo de la plataforma web, la interfaz del Atlas cumple con el nivel más exigente de accesibilidad internacional: **WCAG 2.1 AAA**. Esto exige una relación de contraste cromático mínima de **7:1** para texto normal y soporte integral de navegación por teclado.
 
 ### 55.1. Fórmula Matemática de Luminancia Relativa y Contraste
-La luminancia relativa ($L$) de cualquier color RGB normalizado en $[0, 1]$ se calcula mediante:
+La luminancia relativa (`L`) de cualquier color RGB normalizado en `[0, 1]` se calcula mediante:
 
-$$
-L = 0.2126 \cdot R + 0.7152 \cdot G + 0.0722 \cdot B
-$$
+```text
+L = 0.2126 × R + 0.7152 × G + 0.0722 × B
+```
 
-Donde cada canal se linealiza como:
+Donde cada canal `C` se linealiza a partir de su componente `C_sRGB` según:
 
-$$
-C = \begin{cases} \frac{C_{\text{sRGB}}}{12.92} & \text{si } C_{\text{sRGB}} \le 0.03928 \\ \left(\frac{C_{\text{sRGB}} + 0.055}{1.055}\right)^{2.4} & \text{si } C_{\text{sRGB}} > 0.03928 \end{cases}
-$$
+```text
+Si C_sRGB ≤ 0.03928  ⇒  C = C_sRGB / 12.92
+Si C_sRGB > 0.03928  ⇒  C = ((C_sRGB + 0.055) / 1.055)^2.4
+```
 
-La relación de contraste entre dos colores con luminancias $L_1$ (más claro) y $L_2$ (más oscuro) se determina por:
+La relación de contraste entre dos colores con luminancias `L₁` (más claro) y `L₂` (más oscuro) se determina por:
 
-$$
-\text{Ratio de Contraste} = \frac{L_1 + 0.05}{L_2 + 0.05} \ge 7.00:1 \quad (\text{WCAG AAA})
-$$
+```text
+Ratio de Contraste = (L₁ + 0.05) / (L₂ + 0.05) ≥ 7.00 : 1   (Estándar WCAG 2.1 AAA)
+```
 
 ### 55.2. Verificación de Accesibilidad en la Paleta del Atlas
-- **Fondo Oscuro (`#0f172a`):** Luminancia $L_2 = 0.012$.
-- **Texto Blanco (`#ffffff`):** Luminancia $L_1 = 1.000$.
-
-  $$
-  \text{Contraste} = \frac{1.000 + 0.05}{0.012 + 0.05} = \frac{1.05}{0.062} \approx \mathbf{16.93:1} \quad (\text{Supera ampliamente el umbral AAA de 7:1})
-  $$
-
-- **Verde Musgo (`#2d5a27`) sobre Blanco (`#ffffff`):** Luminancia $L_2 = 0.088 \implies \text{Contraste} = \frac{1.05}{0.138} \approx \mathbf{7.61:1}$ (Cumple WCAG AAA).
+- **Fondo Oscuro (`#0f172a`):** Luminancia `L₂ = 0.012`.
+- **Texto Blanco (`#ffffff`):** Luminancia `L₁ = 1.000`.
+  ```text
+  Contraste = (1.000 + 0.05) / (0.012 + 0.05) = 1.05 / 0.062 ≈ 16.93 : 1   (Supera ampliamente el umbral AAA de 7:1)
+  ```
+- **Verde Institucional (`#2d5a27`) sobre Blanco (`#ffffff`):** Luminancia `L₂ = 0.088` ⇒ `Contraste = 1.05 / 0.138 ≈ 7.61 : 1` (Cumple WCAG 2.1 AAA).
 
 ---
 

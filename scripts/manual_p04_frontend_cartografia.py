@@ -226,9 +226,9 @@ sequenceDiagram
 ### 22.1. El Algoritmo Ray-Casting (Point-in-Polygon)
 Para evitar peticiones lentas a servidores remotos, el cálculo se realiza íntegramente en JavaScript mediante el **Algoritmo de Trazado de Rayos (*Ray-Casting Algorithm*)**, fundamentado en el Teorema de la Curva de Jordan:
 
-$$
-\text{Si el número de intersecciones de un rayo horizontal con el perímetro es impar } \implies \text{Punto Interior}
-$$
+```text
+Si el número de intersecciones de un rayo horizontal con el perímetro es impar  ⇒  Punto Interior
+```
 
 ```javascript
 // Algoritmo de Trazado de Rayos (Jordan Curve Theorem) implementado en el Atlas
@@ -311,14 +311,14 @@ function generarFichaNormativaHTML(zonaPRC, coordenadas) {
 
 ---
 
-## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas HD
+## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas
 
-El Atlas implementa en el Módulo 05 ([`src/js/modulos/indicadores_analisis.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/indicadores_analisis.js)) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards Cartográficos**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas de alta resolución (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.
+El Atlas implementa en el Módulo 05 (`src/js/modulos/indicadores_analisis.js`) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_SB["1. INPUT"]
-        CARTO_75["75 Cartografías Temáticas HD (img/cartografias/*.jpg)"]
+        CARTO_75["75 Cartografías Temáticas (img/cartografias/*.jpg)"]
         PORTADAS_4["4 Portadas Vectoriales SVG (img/storyboards/*.svg)"]
         DATA_132["132 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
     end
@@ -331,7 +331,7 @@ flowchart LR
 
     subgraph OUT_SB["3. OUTPUT"]
         MODAL_SB["Lámina Modal de Lectura Continua Multi-Dispositivo"]
-        LIGHTBOX_HD["Ampliación en Lightbox HD (Cartografías, Diagramas SVG y Gráficos)"]
+        LIGHTBOX_HD["Ampliación en Lightbox (Cartografías, Diagramas SVG y Gráficos)"]
         MAP_TRIGGER["Activación Simultánea de Capas en el Visor Cartográfico"]
     end
 
@@ -340,34 +340,34 @@ flowchart LR
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│       MATRIZ DE LOS 4 STORYBOARDS Y 75 CARTOGRAFÍAS TEMÁTICAS HD       │
+│       MATRIZ DE LOS 4 STORYBOARDS Y 75 CARTOGRAFÍAS TEMÁTICAS          │
 ├────────────────────────────────────────────────────────────────────────┤
-│ • Storyboard 01: Concentración Espacial de Equipamientos (KDE) [14]    │
-│ • Storyboard 02: Autocorrelación Espacial Local (LISA Anselin) [22]    │
-│ • Storyboard 03: Diagnóstico Sociodemográfico Censo 2024 [21]          │
-│ • Storyboard 04: Dinámica Socioambiental, Movilidad y Residuos [18]    │
+│ • Storyboard 01: Concentración Territorial y Densidad KDE [11 Mapas]   │
+│ • Storyboard 02: Autocorrelación Espacial Local (LISA)    [11 Mapas]   │
+│ • Storyboard 03: Demografía, Habitabilidad y RSH Censo 24 [29 Mapas]   │
+│ • Storyboard 04: Socioambiente, Movilidad y Residuos      [24 Mapas]   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 23.1. Storyboard 01: Análisis de Concentración Espacial de Equipamientos y Servicios (KDE)
-- **Cobertura Cartográfica:** **14 cartografías temáticas HD** (Mapas 01 al 14: Comercio y Abastecimiento, Cultura y Patrimonio, Educación, Espacio Público, Deporte, Salud, Seguridad, Transporte, Turismo, Servicios Públicos, Culto, Financiero, Síntesis KDE e Infraestructura Crítica).
-- **Capas Vectoriales Asociadas:** `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat03_transporte_vgi`, `cat06_patrimonio_vgi`, `establecimientos_salud`.
-- **Síntesis Analítica:** Evalúa la densidad por núcleo de Kernel ($\hat{f}_h(x)$) sobre 12 categorías de equipamiento urbano, identificando una estructura polinuclear concentrada en torno a Plaza Brasil, el eje Cumming y el corredor Alameda, junto con brechas de provisión relativa hacia el borde norte (San Pablo – Mapocho).
+### 23.1. Storyboard 01: Concentración Territorial y Núcleos de Actividad VGI (KDE — 11 Cartografías)
+- **Cobertura Cartográfica:** **11 cartografías temáticas** (10 macrocategorías VGI `CAT-01` a `CAT-10` + superficie de síntesis KDE Total Consolidado sobre los 10.166 registros multigeométricos).
+- **Capas Vectoriales Asociadas:** `cat01_educacion` a `cat10_cobertura_suelo`.
+- **Síntesis Analítica:** Evalúa las superficies continuas de densidad por núcleo de Kernel (`f_h(x)`) en los 27 barrios de la Comuna de Santiago, identificando la concentración en el eje Alameda–Barrio Brasil (`6.924,1 ent/km²` de media barrial y cima comunal de `20.203,8 ent/km²`), Santa Ana (`1.728,2 ent/km²`) y Ejército (`1.007,0 ent/km²`), frente a los vacíos de cobertura en el borde sur comunal (Sierra Bella `1,9 ent/km²` y Bogotá `1,4 ent/km²`).
 
-### 23.2. Storyboard 02: Autocorrelación Espacial Local (LISA) e Índice de Moran Local ($I_i$)
-- **Cobertura Cartográfica:** **22 cartografías temáticas HD** (Mapas 01 al 22: clústeres bivariados y univariados Alto-Alto, Bajo-Bajo, Alto-Bajo y Bajo-Alto con significancia $p < 0.05$ en permutaciones de Monte Carlo).
-- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat05_espacio_publico_vgi`, `minvu_patrimonio`.
-- **Síntesis Analítica:** Identifica agrupamientos estadísticamente significativos de alta dotación y consolidación patrimonial en el cuadrante central-sur de Barrio Brasil (*Hotspots Alto-Alto*), contrastados con regímenes de transición y menor densidad de servicios en manzanas periféricas (*Coldspots Bajo-Bajo* y valores atípicos espaciales).
+### 23.2. Storyboard 02: Segregación Espacial, Hotspots y Áreas de Rezago (LISA — 11 Cartografías)
+- **Cobertura Cartográfica:** **11 cartografías temáticas** (10 macrocategorías VGI + Consolidado LISA Total sobre las 1.711 manzanas de Santiago con significancia `p < 0.05` en permutaciones de Monte Carlo).
+- **Capas Vectoriales Asociadas:** `cat01_educacion`, `cat02_servicios`, `cat03_transporte`, `cat04_movilidad_activa`, `cat05_espacio_publico`, `censo2024_manzanas`, `minvu_ipt_prc_santiago`.
+- **Síntesis Analítica:** Identifica los conglomerados estadísticamente significativos en las 1.711 manzanas comunales: 140 manzanas (`8,2%`) conforman el núcleo *Hotspot Alto-Alto* (concentradas en un 45% dentro de Barrio Brasil con 63 manzanas, seguidas de Santa Ana con 23 y Yungay con 17), mientras 615 manzanas (`35,9%`) integran bolsones *Coldspot Bajo-Bajo* en el suroriente comunal (Sierra Bella, Bogotá, Matta Sur y Diez de Julio).
 
-### 23.3. Storyboard 03: Diagnóstico Sociodemográfico, Habitabilidad e Inversión Pública (Censo 2024)
-- **Cobertura Cartográfica:** **21 cartografías temáticas HD** (Mapas 01 al 21: Población total por manzana, Densidad habitacional, Tipología de vivienda, Índice de masculinidad, Juventud, Envejecimiento, Inmigración internacional, Pueblos originarios, Hogares, Jefatura femenina, Tenencia, Materialidad, Déficit habitacional, RSH, IGVUST e Inversión BIP).
-- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `bbdd_19`, `bbdd_46`, `bbdd_64`, `bbdd_65`, `bbdd_68`, `minvu_ipt_prc_santiago`.
-- **Síntesis Analítica:** Caracteriza la coexistencia entre la edificación patrimonial de baja altura (casonas y cités históricos) y la densificación habitacional en altura sobre los bordes del polígono protegido, cruzando la estructura demográfica del Censo 2024 con la estratificación del Registro Social de Hogares (RSH) y la cartera de inversión pública BIP.
+### 23.3. Storyboard 03: Estructura Sociodemográfica, Habitabilidad y Morfología Urbana (Censo 2024 y RSH — 29 Cartografías)
+- **Cobertura Cartográfica:** **29 cartografías temáticas** (Población total de 432.081 habitantes en manzanas, densidad habitacional, tipología constructiva con 92,7% de departamentos, régimen de tenencia con 72,1% de arriendo, hogares unipersonales 40,8%, migración 40,4%, cités, hacinamiento, vulnerabilidad 0–40% RSH, dependencia funcional e índice IGVUST).
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `catastro_predial_sii`, `minvu_patrimonio`, `minvu_ipt_prc_santiago`, `bbdd_19`, `bbdd_64`, `bbdd_68`, `bbdd_74`.
+- **Síntesis Analítica:** Caracteriza la coexistencia entre tres tejidos socio-morfológicos en Santiago: el corredor oriental hiperdensificado de torres en altura (Santa Isabel `650,5 hab/ha` y Santa Ana `618,0 hab/ha`), el pericentro patrimonial de escala media en Barrio Brasil y Yungay regulado por las Zonas de Conservación Histórica del PRC, y el arco sur donde convergen el arriendo sin contrato y el hacinamiento en cités.
 
-### 23.4. Storyboard 04: Dinámica Socioambiental, Movilidad Sostenible y Gestión Integral de Residuos
-- **Cobertura Cartográfica:** **18 cartografías temáticas HD** (Mapas 01 al 18: Arbolado urbano y biodiversidad, Cobertura vegetal, Islas de calor, Ciclovías y movilidad activa, Red de Metro y paraderos, Cruces semaforizados UOCT, Accesibilidad PMR, y las cartografías comunales y metropolitanas de gestión de residuos SUBDERE RSD 2024 y zonas operativas de aseo MuniSTGO 2026).
-- **Capas Vectoriales Asociadas:** `cat08_biodiversidad_vgi`, `cat05_espacio_publico_vgi`, `cat04_ciclovias_vgi`, `semaforos_rm_uoct_2026`, `munistgo_aseo_zonas_residuos_2026`, `subdere_rsd_analisis_costos_comuna_rm`, `subdere_rsd_ppc_generacion_pta_rm`.
-- **Síntesis Analítica:** Articula el diagnóstico ambiental y de metabolismo urbano del barrio, vinculando la distribución del dosel arbóreo y la infraestructura de movilidad sostenible con la operación territorial del servicio de recolección de residuos sólidos domiciliarios, la dotación de contenedores y papeleros municipales y la estructura de costos y disposición final en la Región Metropolitana.
+### 23.4. Storyboard 04: Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano (24 Cartografías)
+- **Cobertura Cartográfica:** **24 cartografías temáticas** (Partición modal sustentable del 84,6% de los viajes, buffers de arbolado a 300 m y 500 m, distancias peatonales a áreas verdes, salud, transporte y educación, mapa de ruido ambiental en dBA y capacidad instalada de los 629 contenedores y 398 papeleros en las 5 macro-zonas de aseo municipal con `285.860 L` totales).
+- **Capas Vectoriales Asociadas:** `munistgo_aseo_zonas_residuos_2026`, `cat08_biodiversidad`, `cat04_movilidad_activa`, `cat05_espacio_publico`, `semaforos_rm_uoct_2026`, `estaciones_metro`, `establecimientos_salud`.
+- **Síntesis Analítica:** Vincula la alta sostenibilidad modal de la comuna (62,4% transporte público, 17,0% caminata y 5,2% bicicleta) con las brechas de proximidad a áreas verdes en el borde surponiente, la exposición acústica (`> 68,6 dBA`) en corredores viales y la asimetría operativa entre las 5 zonas municipales de gestión de residuos.
 
 ---
 
@@ -495,14 +495,14 @@ nodo-geoabierto/
 
 ---
 
-## 26. Desglose Quirúrgico de los 10 Módulos del Sistema (01 al 10)
+## 26. Desglose de los 10 Módulos del Sistema (01 al 10) en Coherencia con la Plataforma Web
 
-La barra de navegación superior organiza las capacidades del Atlas en 10 módulos funcionales. Para garantizar la máxima comprensión de la ingeniería de software y el flujo de información de la plataforma, a continuación se desglosa cada módulo mediante su arquitectura de **PIPELINE (Input, Procesamiento y Output)**:
+La barra de navegación superior (`#lista-navegacion` en `src/index.html`) organiza las capacidades del Atlas en **10 módulos funcionales numerados del `01` al `10`**. A continuación se desglosa cada módulo respetando estrictamente su numeración, denominación, scripts asociados y arquitectura de **PIPELINE (Input, Procesamiento y Output)** en la plataforma web:
 
 ---
 
-### Módulo 01: Visor Cartográfico y Atlas VGI (`src/js/app.js` y `src/js/modulos/mapa.js`)
-* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
+### Módulo 01: Visor y Atlas VGI (`data-panel="inicio"` — `src/js/app.js`, `src/js/modulos/mapa.js`, `src/js/modulos/ide_chile.js`, `src/js/modulos/evaluador_normativo.js`)
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas (122 oficiales + 10 VGI); búsqueda en vivo; telemetría dinámica del Índice de Calidad VGI (ICV); Inspector Normativo del PRC de Santiago (Certificado CIN-VGI y 10 hitos históricos 1990–2024); dibujo de BBox con cálculo métrico en `EPSG:32719`.
 
 ```mermaid
 flowchart LR
@@ -516,7 +516,7 @@ flowchart LR
         LOAD["Carga Asíncrona (Fetch API + IIFE)"]
         STYLE["Aplicación de Estilos CSS & L.divIcon"]
         RAY["Algoritmo Ray-Casting (Inspector PRC)"]
-        MEASURE["Cálculo Geodésico de Distancias/Áreas"]
+        MEASURE["Cálculo Geodésico EPSG:32719 de Áreas e ICV Dinámico"]
     end
 
     subgraph OUT_M1["3. OUTPUT"]
@@ -530,27 +530,27 @@ flowchart LR
 
 ---
 
-### Módulo 02: Consultas Overpass en Vivo (`src/js/modulos/osm.js`)
-* **Propósito Operativo:** Interfaz de extracción en tiempo real hacia OpenStreetMap con lenguaje Overpass QL; selector de BBox y descarga GeoJSON directa.
+### Módulo 02: Consultas Overpass (`data-panel="explorador-osm"` — `src/js/modulos/osm.js` y `src/js/modulos/taginfo.js`)
+* **Propósito Operativo:** Interfaz de extracción en tiempo real hacia OpenStreetMap con lenguaje Overpass QL; consultas rápidas en 1 clic para las 10 macrocategorías VGI; validación semántica Taginfo API v4 y exportación GeoJSON/CSV.
 
 ```mermaid
 flowchart LR
     subgraph IN_M2["1. INPUT"]
-        BBOX_SEL["BBox Seleccionado (Barrio Brasil)"]
-        QUERY_QL["Filtro Temático Overpass QL / Presets"]
+        BBOX_SEL["BBox Seleccionado (Barrio Brasil / Personalizado)"]
+        QUERY_QL["Filtro Temático Overpass QL / Presets 1-Clic"]
         ENDPOINTS["Endpoints Espejo Overpass API"]
     end
 
     subgraph PROC_M2["2. PIPELINE DE PROCESAMIENTO"]
-        FAILOVER["Algoritmo Round-Robin Failover (4 Espejos)"]
-        OSM_JSON["Recepción de JSON OSM crudo (nodos/ways)"]
-        OSMTOGEO["Conversión osm-to-geojson en Navegador"]
+        FAILOVER["Algoritmo Round-Robin Failover (Multi-Servidor)"]
+        OSM_JSON["Recepción de JSON OSM crudo (nodes/ways/relations)"]
+        OSMTOGEO["Reconstrucción Topológica a GeoJSON en Navegador"]
     end
 
     subgraph OUT_M2["3. OUTPUT"]
-        CAPA_VIVA["Renderizado de Capa Temporal en Leaflet"]
-        GEOJSON_DL["Descarga de Archivo GeoJSON del Usuario"]
-        STATS_QL["Estadísticas de Entidades Obtenidas"]
+        CAPA_VIVA["Renderizado de Capa Temporal en el Visor"]
+        GEOJSON_DL["Descarga Directa de Archivo GeoJSON / CSV"]
+        STATS_QL["Conteo de Nodos, Vías, Relaciones y Etiquetas"]
     end
 
     IN_M2 --> PROC_M2 --> OUT_M2
@@ -558,27 +558,27 @@ flowchart LR
 
 ---
 
-### Módulo 03: Calidad & ICV ohsome API (`src/js/modulos/calidad.js`)
-* **Propósito Operativo:** Auditoría histórica y temporal de aportes en OSM; densidad de nodos por km² y colaboradores únicos activos.
+### Módulo 03: Biodiversidad GBIF (`data-panel="biodiversidad-gbif"` — `src/js/modulos/gbif.js`)
+* **Propósito Operativo:** Consulta de ocurrencias biológicas georreferenciadas bajo estándar Darwin Core (GBIF REST API v1); cruce con ciencia ciudadana (iNaturalist, eBird) y filtro espacial por BBox.
 
 ```mermaid
 flowchart LR
     subgraph IN_M3["1. INPUT"]
-        OHSOME_URL["Endpoint API v2 (api.ohsome.org)"]
-        TIME_SERIES["Rango Temporal (2018 - 2026)"]
-        POLY_BB["Polígono Delimitado Barrio Brasil"]
+        GBIF_API["GBIF Occurrence API (api.gbif.org/v1)"]
+        WKT_POLY["Filtro Geométrico BBox de Barrio Brasil"]
+        TAXON_FILTER["Filtros Taxonómicos (Plantae, Animalia, Fungi)"]
     end
 
     subgraph PROC_M3["2. PIPELINE DE PROCESAMIENTO"]
-        FETCH_OH["Consulta Asíncrona a Endpoints HeiGIT"]
-        METRICS_CALC["Cálculo de Densidad (entidades/km²)"]
-        CHART_ENGINE["Generador de Series Temporales"]
+        DWC_PARSE["Normalización Darwin Core (DwC)"]
+        UNCERT_FLT["Validación de Coordenadas y Taxonomía"]
+        CLUSTER_GEO["Agrupamiento por Especie y Reino Biológico"]
     end
 
     subgraph OUT_M3["3. OUTPUT"]
-        GRAF_HIST["Gráfico de Evolución de Mapeo Barrial"]
-        METRICAS_ICV["Tablero de Completitud y Densidad VGI"]
-        REPORT_OH["Auditoría Histórica de Edición OSM"]
+        LAYER_GBIF["Capa Cartográfica de Especies Urbanas en el Visor"]
+        TAXON_CARD["Tabla y Fichas Taxonómicas con Licencias CC"]
+        CSV_GBIF["Exportación GeoJSON de Biodiversidad"]
     end
 
     IN_M3 --> PROC_M3 --> OUT_M3
@@ -586,27 +586,25 @@ flowchart LR
 
 ---
 
-### Módulo 04: Biodiversidad Urbana GBIF (`src/js/modulos/gbif.js`)
-* **Propósito Operativo:** Registros biológicos georreferenciados bajo estándar Darwin Core; cruce con iNaturalist y filtros de incertidumbre métrica.
+### Módulo 04: Cartografía UMap (`data-panel="proyectos-umap"` — `src/js/modulos/umap.js` y `src/js/modulos/importador_capas.js`)
+* **Propósito Operativo:** Integración de proyectos colaborativos uMap mediante iframes aislados y motor universal de importación local de archivos geográficos del usuario (`GeoJSON`, `KML`, `GPX` y `Shapefile .zip`).
 
 ```mermaid
 flowchart LR
     subgraph IN_M4["1. INPUT"]
-        GBIF_API["GBIF Occurrence API (api.gbif.org/v1)"]
-        WKT_POLY["Filtro Geométrico WKT de Barrio Brasil"]
-        TAXON_FILTER["Filtros Taxonómicos (Plantae, Aves, Insecta)"]
+        UMAP_URL["URL de Mapas uMap Comunitarios"]
+        LOCAL_FILE["Archivos Locales del Usuario (.geojson, .kml, .gpx, .zip)"]
     end
 
     subgraph PROC_M4["2. PIPELINE DE PROCESAMIENTO"]
-        DWC_PARSE["Normalización Darwin Core (DwC)"]
-        UNCERT_FLT["Filtro de Incertidumbre Espacial (<50m)"]
-        CLUSTER_GEO["Agrupamiento de Observaciones Biológicas"]
+        SANDBOX["Aislamiento Sandbox de iframe uMap"]
+        PARSER_LOC["Conversión en Memoria a GeoJSON (toGeoJSON / JSZip)"]
+        SYNC_MAP["Inyección de Capa Personalizada en el Visor Leaflet"]
     end
 
     subgraph OUT_M4["3. OUTPUT"]
-        LAYER_GBIF["Capa Cartográfica de Especies Urbanas"]
-        TAXON_CARD["Fichas Taxonómicas con Fotografías"]
-        CSV_GBIF["Exportación de Registros de Biodiversidad"]
+        PANEL_UMAP["Lienzo Interactivo de Mapeo Ciudadano"]
+        USER_LAYER["Visualización de Capas Propias junto al Catálogo Oficial"]
     end
 
     IN_M4 --> PROC_M4 --> OUT_M4
@@ -614,25 +612,26 @@ flowchart LR
 
 ---
 
-### Módulo 05: Cartografía UMap (`src/js/modulos/umap.js`)
-* **Propósito Operativo:** Embebido seguro de proyectos colaborativos externos mediante iframes aislados con sandboxing.
+### Módulo 05: Indicadores & Storyboards (`data-panel="indicadores"` — `src/js/modulos/indicadores_analisis.js`)
+* **Propósito Operativo:** Articulación de las 132 coberturas del Atlas en **5 Dimensiones Analíticas** (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad) y **4 Storyboards de Resultados Territoriales** con **75 cartografías temáticas**, gráficos comparativos, diagramas vectoriales SVG y visor Lightbox multi-dispositivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_M5["1. INPUT"]
-        UMAP_URL["URL de Mapas UMap Comunitarios"]
-        CONFIG_EMBED["Parámetros de Visualización y Controles"]
+        DIM_5["5 Dimensiones Analíticas (132 Capas Asociadas)"]
+        STORY_ID["4 Storyboards Temáticos (KDE, LISA, Censo 2024, Socioambiental)"]
+        CARTO_SET["75 Cartografías (2200x1423 px) + Diagramas SVG + Gráficos"]
     end
 
     subgraph PROC_M5["2. PIPELINE DE PROCESAMIENTO"]
-        SANDBOX["Aislamiento Sandbox de iframe (allow-scripts)"]
-        CORS_GUARD["Validación de Origen Seguro HTTPS"]
-        RESIZE_OBS["Ajuste Responsivo Automático de Lienzo"]
+        ACORD_DIM["Despliegue de Acordeones con Conmutación Directa al Visor"]
+        MODAL_RENDER["Renderizado de Lámina Analítica con Secciones Intercaladas"]
+        ZOOM_TOUCH["Motor Lightbox con Zoom Rueda y Pinch-to-Zoom Táctil"]
     end
 
     subgraph OUT_M5["3. OUTPUT"]
-        PANEL_UMAP["Lienzo Interactivo de Mapeo Ciudadano"]
-        MAP_COLLAB["Integración de Proyectos Participativos"]
+        SCENE_VIEW["Activación de Capas de la Dimensión o Historia en el Mapa"]
+        LIGHTBOX["Visualización a Pantalla Completa en Todos los Dispositivos"]
     end
 
     IN_M5 --> PROC_M5 --> OUT_M5
@@ -640,27 +639,27 @@ flowchart LR
 
 ---
 
-### Módulo 06: Metadatos Estandarizados ISO 19115/19139 (`src/js/modulos/metadatos.js`)
-* **Propósito Operativo:** Generador y exportador formal de fichas de metadatos en formatos JSON y XML para GeoNetwork e IDE Chile.
+### Módulo 06: Calidad & ICV (`data-panel="calidad-ohsome"` — `src/js/modulos/evaluador_calidad_cuantitativa.js`, `src/js/modulos/ohsome.js`, `src/js/modulos/calidad_analyst.js`)
+* **Propósito Operativo:** Evaluación multidimensional de calidad geoespacial articulada en tres submódulos: **Submódulo A** (Evaluador Universal de Calidad Espacial, Topología e Índice IGV bajo ISO 19157 e ISO 19115 para las 132 capas o GeoJSON externos), **Submódulo B** (Serie Histórica OSHDB/ohsome API v1/v2 con sensibilidad geométrica `/count`, `/length`, `/area`, reproyección métrica `EPSG:32719` e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**) y **Submódulo C** (Control de Cambios y Validación de Ediciones Recientes con OSMCha / OSM API v0.6).
 
 ```mermaid
 flowchart LR
     subgraph IN_M6["1. INPUT"]
-        ID_CAPA["Identificador de Capa Seleccionada"]
-        REGISTRO_JSON["Metadatos Básicos (Fuente, Fecha, BBox)"]
-        SCHEMA_ISO["Esquema Perfil Nacional IDE Chile SNIT"]
+        CAPA_AUD["132 Capas del Catálogo o GeoJSON Externo"]
+        OHSOME_URL["ohsome API v1/v2 (/elements/count, /length, /area, /users)"]
+        OSMCHA_XML["OSM API v0.6 Changesets (/api/0.6/changesets)"]
     end
 
     subgraph PROC_M6["2. PIPELINE DE PROCESAMIENTO"]
-        BUILD_XML["Motor DOMParser y Serialización XML ISO 19139"]
-        BUILD_JSON["Generación de Estructura JSON-LD GeoNetwork"]
-        VALID_ISO["Validación de Conformidad ISO 19115-1:2014"]
+        WLC_ENGINE["Submódulo A: Motor WLC v2.0 (50% Cuantitativo + 50% Cualitativo)"]
+        OQT_SAT["Submódulo B: Reproyección EPSG:32719 e Índice de Saturación y Maduración Territorial"]
+        CHA_HEUR["Submódulo C: Evaluación Heurística de Changesets OSMCha"]
     end
 
     subgraph OUT_M6["3. OUTPUT"]
-        VIEWER_META["Ficha Técnica Interactiva en la Interfaz"]
-        XML_FILE["Descarga de Archivo XML ISO 19139 Estructurado"]
-        JSON_FILE["Descarga de Ficha en Formato JSON"]
+        DICT_IGV["Índice Global IGV (%), Plan de Subsanación y Reporte ISO 19157"]
+        SCORE_MAD["Score de Madurez (/100), Densidad (elem/km²) e Intensidad (edit/user)"]
+        TABLE_CHA["Tabla de Auditoría de Ediciones Recientes con Enlaces a OSMCha"]
     end
 
     IN_M6 --> PROC_M6 --> OUT_M6
@@ -668,26 +667,25 @@ flowchart LR
 
 ---
 
-### Módulo 07: Diccionario Territorial (`src/js/modulos/diccionario.js`)
-* **Propósito Operativo:** Repositorio conceptual interactivo con descriptores que homologan la OGUC y el PRC con etiquetas OSM.
+### Módulo 07: Manual de Uso y Actualización (`data-panel="manual"` — `src/js/modulos/manual.js`)
+* **Propósito Operativo:** Documentación interactiva dividida en **Parte I: Manual de Uso del Atlas** (fundamentación, operación del visor, ICV dinámico, Inspector Normativo e inventario filtrable de las 132 coberturas) y **Parte II: Manual de Actualización y Mantención Técnica** (catálogo estandarizado multi-lenguaje, pipelines de flujo, protocolo de 6 etapas, validación pre-despliegue y régimen jurídico).
 
 ```mermaid
 flowchart LR
     subgraph IN_M7["1. INPUT"]
-        GLOSARIO_JSON["Base de 140 Descriptores Urbanísticos"]
-        SEARCH_KEY["Término de Búsqueda del Usuario"]
-        FILTRO_TIPO["Filtro por Categoría (Normativa / OSM)"]
+        CAP_USO["Parte I: Capítulos de Uso (USO · 01 a USO · 04)"]
+        CAP_ACT["Parte II: Capítulos de Actualización (ACT · 01 a ACT · 05)"]
+        INV_132["Inventario Dinámico de las 132 Capas (NODO_CONFIG + IDE)"]
     end
 
     subgraph PROC_M7["2. PIPELINE DE PROCESAMIENTO"]
-        INDEX_TEXT["Búsqueda Textual Inmediata Client-Side"]
-        HOMOLOGA["Cruce de Códigos OGUC vs Tags de OpenStreetMap"]
-        LINK_CAPA["Vinculación con Capas Cartográficas del Atlas"]
+        FILTER_MODO["Conmutador de Vista (Ambos / Uso / Actualización)"]
+        SEARCH_DOC["Filtrado Instantáneo de Documentación y Tabla de Capas"]
     end
 
     subgraph OUT_M7["3. OUTPUT"]
-        CARD_DESCRIP["Tarjetas Conceptuales con Ejemplos Barriales"]
-        HIGHLIGHT["Botón para Resaltar Capas Asociadas en el Mapa"]
+        DOC_VIEW["Visor Técnico Integrado con Navegación Directa a Módulos"]
+        MD_DL["Descarga de Manuales (.md) y Bibliografía APA 7ª Ed."]
     end
 
     IN_M7 --> PROC_M7 --> OUT_M7
@@ -695,26 +693,24 @@ flowchart LR
 
 ---
 
-### Módulo 08: Licencias y Catálogos (`src/js/modulos/licencias.js`)
-* **Propósito Operativo:** Gobernanza legal tripartita (ODbL, CC BY-SA, AGPLv3) y descarga de libros Excel (.xlsx) y archivos CSV.
+### Módulo 08: Metadatos ISO 19115 (`data-panel="metadatos-iso"` — `src/js/modulos/metadatos.js`)
+* **Propósito Operativo:** Generador, editor y exportador de fichas de metadatos estandarizadas en formatos JSON y XML (`ISO 19139:2007`) conforme al Perfil Nacional de Metadatos de IDE Chile / SNIT.
 
 ```mermaid
 flowchart LR
     subgraph IN_M8["1. INPUT"]
-        CAT_XLSX["4 Libros Maestros OpenXML (.xlsx)"]
-        CSV_FILES["Archivos Consolidados Tabulares CSV"]
-        ZIP_MASTER["Paquete Completo geodatabase_completa.zip"]
+        ID_CAPA["Selección de Cobertura o Formulario ISO 19115"]
+        REGISTRO_JSON["Identificación, BBox, CRS (EPSG:4326/5361/32719) y Linaje"]
     end
 
     subgraph PROC_M8["2. PIPELINE DE PROCESAMIENTO"]
-        INTEG_CHECK["Validación de Integridad y Tamaño de Archivos"]
-        LIC_MATRIX["Matriz de Compatibilidad Legal de Licencias"]
-        DIRECT_DL["Gestión de Descargas Directas Asíncronas"]
+        BUILD_XML["Serialización XML ISO 19139 (gmd:MD_Metadata)"]
+        BUILD_JSON["Estructuración de Ficha JSON Estándar"]
     end
 
     subgraph OUT_M8["3. OUTPUT"]
-        TAB_LEGAL["Cuadro de Gobernanza y Términos de Uso"]
-        DOWNLOADS["Descarga de Catálogos XLSX, CSV y ZIP (543 MB)"]
+        VIEWER_META["Vista Previa de Metadatos en Pantalla"]
+        XML_FILE["Descarga de Archivo .xml (GeoNetwork) y .json"]
     end
 
     IN_M8 --> PROC_M8 --> OUT_M8
@@ -722,26 +718,24 @@ flowchart LR
 
 ---
 
-### Módulo 05 / 09: Indicadores Territoriales y Storyboards (`src/js/modulos/indicadores_analisis.js`)
-* **Propósito Operativo:** 4 Storyboards analíticos (KDE, LISA, Censo 2024 y Socioambiental/Residuos), 75 cartografías temáticas HD y Visor Lightbox Multi-Dispositivo.
+### Módulo 09: Diccionario (132 Capas) (`data-panel="diccionario"` — `src/js/modulos/diccionario.js`)
+* **Propósito Operativo:** Catálogo de Objetos y Atributos Geográficos conforme a la norma **ISO 19110:2016**, integrando los **140 descriptores técnicos** que documentan las 132 coberturas operativas y las reglas de homologación semántica entre la normativa chilena (OGUC/PRC/IDE Chile) y OpenStreetMap.
 
 ```mermaid
 flowchart LR
     subgraph IN_M9["1. INPUT"]
-        STORY_ID["Selección de Storyboard Temático (01 al 04)"]
-        CARTO_SET["75 Cartografías HD + Diagramas SVG + Gráficos"]
-        CAPAS_REQ["Capas Vectoriales Asociadas por Dimensión (132 Capas)"]
+        GLOSARIO_JSON["Catálogo de 140 Descriptores Técnicos (ISO 19110)"]
+        SEARCH_KEY["Búsqueda por Código, Institución, Etiqueta OSM o Atributo"]
     end
 
     subgraph PROC_M9["2. PIPELINE DE PROCESAMIENTO"]
-        MODAL_RENDER["Renderizado de Lámina Analítica con Secciones Intercaladas"]
-        AUTO_LAYER["Activación Automática de Capas en el Visor Principal"]
-        ZOOM_TOUCH["Motor Lightbox con Zoom Rueda y Pinch-to-Zoom Táctil"]
+        INDEX_TEXT["Filtrado Instantáneo por Origen (Todos / VGI / IDE / Brechas)"]
+        HOMOLOGA["Despliegue de Tablas de Columnas, Tipos de Datos y Dominio"]
     end
 
     subgraph OUT_M9["3. OUTPUT"]
-        SCENE_VIEW["Escenario Cartográfico Enfocado y Tematizado"]
-        LIGHTBOX["Inspección de Cartografías, Diagramas SVG y Gráficos en HD"]
+        CARD_DESCRIP["Fichas Técnicas de Especificación de Atributos"]
+        XLSX_DL["Descarga del Catálogo Completo (.xlsx / .json)"]
     end
 
     IN_M9 --> PROC_M9 --> OUT_M9
@@ -749,26 +743,24 @@ flowchart LR
 
 ---
 
-### Módulo 10: Manual de Uso y Metodología (`src/js/modulos/manual.js`)
-* **Propósito Operativo:** Visualizador integrado de la documentación técnica y operativa sin requerir apertura de archivos externos.
+### Módulo 10: Licencias & Catálogos (`data-panel="licencias"` — `src/js/modulos/licencias.js`)
+* **Propósito Operativo:** Marco jurídico de datos abiertos (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285 y Ley N° 19.628) y centro de descarga directa de la Geodatabase Completa (`.zip` de 558,5 MB), el GeoPackage regional de Geofabrik y los 4 catálogos maestros OpenXML (`.xlsx`).
 
 ```mermaid
 flowchart LR
     subgraph IN_M10["1. INPUT"]
-        DOC_MD["MANUAL_ACTUALIZACION_ATLAS.md (+5000 Líneas)"]
-        USER_ROLE["Rol de Usuario Activo (#sel-perfil-usuario)"]
-        TOC_NAV["Índice de Navegación de Capítulos"]
+        CAT_XLSX["4 Libros Maestros OpenXML (.xlsx) y 4 CSV"]
+        ZIP_MASTER["Paquete Maestro geodatabase_completa_atlas_vgi.zip (558.5 MB)"]
     end
 
     subgraph PROC_M10["2. PIPELINE DE PROCESAMIENTO"]
-        FETCH_MD["Descarga del Documento Markdown desde CDN"]
-        MD_RENDER["Compilación y Renderizado HTML en Tiempo Real"]
-        SCROLL_SYNC["Sincronización de Anclas y Resaltado de Código"]
+        LIC_MATRIX["Sistematización de Condiciones Legales y Atribución"]
+        DIRECT_DL["Entrega de Enlaces Directos Sincronizados en docs/ y src/docs/"]
     end
 
     subgraph OUT_M10["3. OUTPUT"]
-        DOC_VIEW["Lector de Documentación Integrado en Pantalla"]
-        CODE_SNIP["Bloques de Código y Diagramas Técnicos Legibles"]
+        TAB_LEGAL["Cuadro de Gobernanza Jurídica y Fuentes"]
+        DOWNLOADS["Descarga Inmediata de Geodatabase ZIP, GPKG y Catálogos XLSX"]
     end
 
     IN_M10 --> PROC_M10 --> OUT_M10

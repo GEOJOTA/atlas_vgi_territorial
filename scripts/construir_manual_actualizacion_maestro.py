@@ -4,7 +4,7 @@
 scripts/construir_manual_actualizacion_maestro.py
 ------------------------------------------------
 Genera y sincroniza el MANUAL_ACTUALIZACION_ATLAS.md monumental (>= 5000 líneas)
-para el Atlas de Información Geográfica Voluntaria (VGI) — Departamento de Geografía UAH.
+para el Atlas de Información Geográfica Voluntaria (VGI) para la Gestión Territorial.
 """
 
 import os
@@ -55,18 +55,19 @@ INDICE_GENERAL = r"""# ATLAS DE INFORMACIÓN GEOGRÁFICA VOLUNTARIA (VGI) PARA L
 ## Índice General de Contenidos
 
 ### [PARTE I: ALCANCE OPERATIVO, FORMULACIÓN ESTRATÉGICA Y PERFILES TERRITORIALES](#parte-i-alcance-operativo-formulación-estratégica-y-perfiles-territoriales)
-* [Identificación y Alcance Operativo del Proyecto](#identificación-y-alcance-operativo-del-proyecto)
-  * [Propósito y Misión Operativa](#propósito-y-misión-operativa)
-  * [Delimitación Geodésica y Cobertura Territorial](#delimitación-geodésica-y-cobertura-territorial)
-* [Formulación Estratégica: Objetivos del Plan de Trabajo](#formulación-estratégica-objetivos-del-plan-de-trabajo)
-  * [Objetivo General de la Práctica Profesional](#objetivo-general-de-la-práctica-profesional)
-  * [Objetivos Específicos y Metas Operativas (OE 1 a OE 4)](#objetivos-específicos-y-metas-operativas)
-* [Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo](#matriz-de-cumplimiento-de-los-10-hitos-del-plan-de-trabajo)
-* [Los Cuatro Perfiles de Actores Territoriales](#los-cuatro-perfiles-de-actores-territoriales-alineación-con-plataforma-web-en-vivo)
-  * [Perfil 1: Autoridades / Instituciones (IDE / Municipio)](#perfil-1-autoridades--instituciones-ide--municipio-institucion)
-  * [Perfil 2: Organizaciones Comunitarias / Vecinos](#perfil-2-organizaciones-comunitarias--vecinos-comunidad)
-  * [Perfil 3: Mapeadores / Voluntarios OSM](#perfil-3-mapeadores--voluntarios-osm-voluntario)
-  * [Perfil 4: ONGs / Territoriales](#perfil-4-ongs--territoriales-ong)
+* [1. Identificación y Alcance Operativo del Proyecto](#1-identificación-y-alcance-operativo-del-proyecto)
+  * [1.1. Propósito y Misión Operativa](#11-propósito-y-misión-operativa)
+  * [1.2. Delimitación Geodésica y Cobertura Territorial](#12-delimitación-geodésica-y-cobertura-territorial)
+* [2. Formulación Estratégica: Objetivos del Plan de Trabajo](#2-formulación-estratégica-objetivos-del-plan-de-trabajo)
+  * [2.1. Objetivo General del Proyecto](#21-objetivo-general-del-proyecto)
+  * [2.2. Objetivos Específicos y Metas Operativas (OE 1 a OE 4)](#22-objetivos-específicos-y-metas-operativas)
+* [3. Matriz de Cumplimiento de los 10 Hitos del Plan de Trabajo](#3-matriz-de-cumplimiento-de-los-10-hitos-del-plan-de-trabajo)
+* [4. Los Cuatro Perfiles de Actores Territoriales](#4-los-cuatro-perfiles-de-actores-territoriales-alineación-con-plataforma-web-en-vivo)
+  * [4.1. Perfil 1: Autoridades / Instituciones (IDE / Municipio)](#41-perfil-1-autoridades--instituciones-ide--municipio-institucion)
+  * [4.2. Perfil 2: Organizaciones Comunitarias / Vecinos](#42-perfil-2-organizaciones-comunitarias--vecinos-comunidad)
+  * [4.3. Perfil 3: Mapeadores / Voluntarios OSM](#43-perfil-3-mapeadores--voluntarios-osm-voluntario)
+  * [4.4. Perfil 4: ONGs / Territoriales](#44-perfil-4-ongs--territoriales-ong)
+* [5. Fundamentos Epistemológicos: De los SIG Tradicionales a la Ciencia Ciudadana y VGI](#5-fundamentos-epistemológicos-de-los-sig-tradicionales-a-la-ciencia-ciudadana-y-vgi)
 
 ### [PARTE II: INGENIERÍA DE DATOS, PIPELINES DE EXTRACCIÓN Y NORMALIZACIÓN CARTOGRÁFICA](#parte-ii-ingeniería-de-datos-pipelines-de-extracción-y-normalización-cartográfica)
 * [6. Arquitectura y Taxonomía de las 10 Macrocategorías Comunitarias VGI (CAT-01 a CAT-10)](#6-arquitectura-y-taxonomía-de-las-10-macrocategorías-comunitarias-vgi)
@@ -93,63 +94,77 @@ INDICE_GENERAL = r"""# ATLAS DE INFORMACIÓN GEOGRÁFICA VOLUNTARIA (VGI) PARA L
 
 ### [PARTE IV: INGENIERÍA DE SOFTWARE, FRONTEND Y VISUALIZACIÓN INTERACTIVA](#parte-iv-ingeniería-de-software-frontend-y-visualización-interactiva)
 * [20. Arquitectura de Software Frontend: Zero-Build Vanilla JavaScript SPA](#20-arquitectura-de-software-frontend-zero-build-vanilla-javascript-spa)
-* [21. Módulo 00: Visor Cartográfico Multinivel y Motor Leaflet 1.9.4](#21-módulo-00-visor-cartográfico-multinivel-y-motor-leaflet-194)
-* [22. Módulo 01: Explorador de Datos Abiertos OSM & Cliente Overpass QL en Vivo](#22-módulo-01-explorador-de-datos-abiertos-osm--cliente-overpass-ql-en-vivo)
-* [23. Módulo 02: Analizador Espacio-Temporal de Calidad VGI (ohsome API)](#23-módulo-02-analizador-espacio-temporal-de-calidad-vgi-ohsome-api)
-* [24. Módulo 03: Geoportal de Biodiversidad Urbana y Ecosistemas (GBIF / Darwin Core)](#24-módulo-03-geoportal-de-biodiversidad-urbana-y-ecosistemas-gbif--darwin-core)
-* [25. Módulo 04: Visualizador de Cartografía Participativa uMap](#25-módulo-04-visualizador-de-cartografía-participativa-umap)
-* [26. Módulo 05: Generador y Validador de Metadatos ISO 19115 / XML ISO 19139](#26-módulo-05-generador-y-validador-de-metadatos-iso-19115--xml-iso-19139)
-* [27. Módulo 06: Evaluador e Inspector Normativo Territorial del PRC de Santiago](#27-módulo-06-evaluador-e-inspector-normativo-territorial-del-prc-de-santiago)
-* [28. Módulo 07: Glosario y Diccionario Territorial Dinámico](#28-módulo-07-glosario-y-diccionario-territorial-dinámico)
-* [29. Módulo 08: Catálogo de Descarga Abierta de Geodatos y Formatos OpenXML](#29-módulo-08-catálogo-de-descarga-abierta-de-geodatos-y-formatos-openxml)
-* [30. Módulo 09: Terminal de Soporte, Diagnóstico de APIs y Monitoreo de Red](#30-módulo-09-terminal-de-soporte-diagnóstico-de-apis-y-monitoreo-de-red)
-* [31. Módulo 10: Manual de Uso Interactivo y Guías por Perfil de Actor](#31-módulo-10-manual-de-uso-interactivo-y-guías-por-perfil-de-actor)
+* [21. El Motor Cartográfico Leaflet 1.9.4, Reproyección Geodésica y Comparador Swipe/Lupa](#21-el-motor-cartográfico-leaflet-194-reproyección-geodésica-y-comparador-swipelupa)
+* [22. Inspector Normativo del Plan Regulador Comunal (PRC) y Algoritmo Point-in-Polygon](#22-inspector-normativo-del-plan-regulador-comunal-prc-y-algoritmo-point-in-polygon)
+* [23. Calculador de Isócronas de Accesibilidad Peatonal y Modelo de Ciudad de 15 Minutos](#23-calculador-de-isócronas-de-accesibilidad-peatonal-y-modelo-de-ciudad-de-15-minutos)
+* [24. Los 4 Storyboards Cartográficos Interactivos de Síntesis Territorial (75 Cartografías)](#24-los-4-storyboards-cartográficos-interactivos-de-síntesis-territorial)
+* [25. Los 4 Libros Maestros en Formato Excel OpenXML (.xlsx) y su Réplica CSV](#25-los-4-libros-maestros-en-formato-excel-openxml-xlsx-y-su-réplica-csv)
+* [26. Desglose Técnico de los 10 Módulos de la Plataforma Web (01 a 10)](#26-desglose-técnico-de-los-10-módulos-de-la-plataforma-web-01-a-10)
+* [27. Guía de Modificación del Frontend (HTML5 / CSS3 / JS ES6+)](#27-guía-de-modificación-del-frontend-html5--css3--js-es6)
 
 ### [PARTE V: PERSONALIZACIÓN VISUAL, ESTILOS, PUNTEROS Y CONFIGURACIÓN PERIMETRAL](#parte-v-personalización-visual-estilos-punteros-y-configuración-perimetral)
-* [32. Sistema de Diseño e Identidad Visual Cartográfica](#32-sistema-de-diseño-e-identidad-visual-cartográfica)
-* [33. Especificación de Marcadores Vectoriales SVG y Simbología Temática](#33-especificación-de-marcadores-vectoriales-svg-y-simbología-temática)
-* [34. Capas Base Disponibles y Mecanismo de Conmutación en Caliente](#34-capas-base-disponibles-y-mecanismo-de-conmutación-en-caliente)
-* [35. Configuración de Punteros de Mapas Base y Proxies CORS](#35-configuración-de-punteros-de-mapas-base-y-proxies-cors)
-* [36. Control de Caché en el Edge y Cabeceras HTTP de Alta Disponibilidad](#36-control-de-caché-en-el-edge-y-cabeceras-http-de-alta-disponibilidad)
+* [28. Guía Exhaustiva de Modificación y Operación de Netlify (`netlify.toml`)](#28-guía-exhaustiva-de-modificación-y-operación-de-netlify)
+* [29. Guía Exhaustiva de Estilos CSS, Variables Semánticas `:root`, Temas y Accesibilidad](#29-guía-exhaustiva-de-estilos-css-variables-semánticas-root-temas-y-accesibilidad)
+* [30. Guía Exhaustiva de Punteros, Cursores, Marcadores SVG y Geometrías Vectoriales](#30-guía-exhaustiva-de-punteros-cursores-marcadores-svg-y-geometrías-vectoriales)
 
-### [PARTE VI: ARQUITECTURA DE DATOS POSTGIS, BACKEND Y PIPELINE DE AUTOMATIZACIÓN](#parte-vi-arquitectura-de-datos-postgis-backend-y-pipeline-de-automatización)
-* [37. Arquitectura de Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3](#37-arquitectura-de-base-de-datos-espacial-postgresql-17--postgis-33)
-* [38. Diccionario Físico de Datos: Tablas Maestras y Esquemas Espaciales](#38-diccionario-físico-de-datos-tablas-maestras-y-esquemas-espaciales)
-* [39. Procedimientos Almacenados y Funciones RPC PostGIS](#39-procedimientos-almacenados-y-funciones-rpc-postgis)
-* [40. Políticas de Seguridad por Fila (Row Level Security - RLS)](#40-políticas-de-seguridad-por-fila-row-level-security---rls)
-* [41. Pipeline de Automatización ETL y Actualización Diaria de Datos](#41-pipeline-de-automatización-etl-y-actualización-diaria-de-datos)
-* [42. Empaquetado Automático del Archivo Maestro Comprimido ZIP](#42-empaquetado-automático-del-archivo-maestro-comprimido-zip)
-* [43. Testing Automatizado y Batería de Pruebas de Calidad](#43-testing-automatizado-y-batería-de-pruebas-de-calidad)
+### [PARTE VI: ARQUITECTURA DE DATOS POSTGIS, CATÁLOGO MULTI-LENGUAJE Y AUTOMATIZACIÓN](#parte-vi-arquitectura-de-datos-postgis-backend-y-pipeline-de-automatización)
+* [31. Infraestructura de Almacenamiento Espacial: PostgreSQL 17 + PostGIS 3.3 en Supabase Cloud](#31-infraestructura-de-almacenamiento-espacial-postgresql-17--postgis-33-en-supabase-cloud)
+* [32. Catálogo Estandarizado Multi-Lenguaje de Componentes, Archivos y Scripts de la Plataforma Web](#32-catálogo-estandarizado-multi-lenguaje-de-componentes-archivos-y-scripts-de-la-plataforma-web)
+  * [32.1. Lenguaje de Marcado y Maquetación Estructural (HTML5 Semántico / WCAG 2.1 AAA)](#321-lenguaje-de-marcado-y-maquetación-estructural-html5-semántico--wcag-21-aaa)
+  * [32.2. Lenguaje de Estilización y Sistema de Diseño Visual (CSS3 Nativo)](#322-lenguaje-de-estilización-y-sistema-de-diseño-visual-css3-nativo)
+  * [32.3. Lenguaje de Programación Cliente y Motor Cartográfico (JavaScript ES6+ Modular IIFE)](#323-lenguaje-de-programación-cliente-y-motor-cartográfico-javascript-es6-modular-iife)
+  * [32.4. Lenguajes de Base de Datos Espacial y Consultas (SQL / PL/pgSQL PostGIS y Overpass QL)](#324-lenguajes-de-base-de-datos-espacial-y-consultas-sql--plpgsql-postgis-y-overpass-ql)
+  * [32.5. Lenguajes de Configuración, Manifiestos e Intercambio de Datos (JSON, GeoJSON, TOML y XML)](#325-lenguajes-de-configuración-manifiestos-e-intercambio-de-datos-json-geojson-rfc-7946-toml-y-xml)
+  * [32.6. Lenguaje de Automatización Backend, ETL Geoespacial y Auditoría (Python 3)](#326-lenguaje-de-automatización-backend-etl-geoespacial-y-auditoría-python-3)
+* [33. Pipeline de Empaquetado Masivo (`empaquetar_base_datos_completa.py`)](#33-pipeline-de-empaquetado-masivo-empaquetar_base_datos_completapy)
+* [34. Protocolo de Integridad Pre-Despliegue (`scripts/verificar_integridad_despliegue.py`)](#34-protocolo-de-integridad-pre-despliegue-scriptsverificar_integridad_desplieguepy)
 
 ### [PARTE VII: OPERACIONES DE DESPLIEGUE, TROUBLESHOOTING, GLOSARIO Y MARCO TEÓRICO](#parte-vii-operaciones-de-despliegue-troubleshooting-glosario-y-marco-teórico)
-* [44. Procedimiento Canónico de Actualización y Despliegue en Producción](#44-procedimiento-canónico-de-actualización-y-despliegue-en-producción)
-* [45. Convenciones de Control de Versiones Git y Git LFS](#45-convenciones-de-control-de-versiones-git-y-git-lfs)
-* [46. Matriz de Resolución de Incidentes y Errores Comunes (Troubleshooting)](#46-matriz-de-resolución-de-incidentes-y-errores-comunes-troubleshooting)
-* [47. Auditoría de Seguridad, Integridad Criptográfica y Accesibilidad WCAG 2.1 AAA](#47-auditoría-de-seguridad-integridad-criptográfica-y-accesibilidad-wcag-21-aaa)
-* [48. Glosario Exhaustivo de Términos Geográficos, Tecnológicos y Normativos](#48-glosario-exhaustivo-de-términos-geográficos-tecnológicos-y-normativos)
-* [49. Referencias Bibliográficas y Normativa Citada (Norma APA 7ª Edición)](#49-referencias-bibliográficas-y-normativa-citada)
+* [35. Flujo de Trabajo en Git, Git LFS y Ciclo CI/CD en Netlify](#35-flujo-de-trabajo-en-git-git-lfs-y-ciclo-cicd-en-netlify)
+* [36. Matriz de Troubleshooting y Resolución Técnica de Incidentes (15 Casos Críticos)](#36-matriz-de-troubleshooting-y-resolución-técnica-de-incidentes-15-casos-críticos)
+* [37. Glosario Técnico Extendido (52 Términos Esenciales del Ecosistema VGI)](#37-glosario-técnico-extendido-52-términos-esenciales-del-ecosistema-vgi)
+* [38. Marco Jurídico, Licencias y Propiedad Intelectual Territorial](#38-marco-jurídico-licencias-y-propiedad-intelectual-territorial)
+* [39. Aparato Bibliográfico Consolidado — 125 Referencias en Formato APA 7ª Edición](#39-aparato-bibliográfico-consolidado--125-referencias-en-formato-apa-7ª-edición)
 
 ### [PARTE VIII: GUÍA MAESTRA DE MODIFICACIÓN DETALLE A DETALLE (COOKBOOK OPERATIVO)](#parte-viii-guía-maestra-de-modificación-detalle-a-detalle-cookbook-operativo)
-* [50. Cómo Añadir una Nueva Capa Cartográfica Oficial del Estado al Atlas](#50-cómo-añadir-una-nueva-capa-cartográfica-oficial-del-estado-al-atlas)
-* [51. Cómo Añadir una Nueva Macrocategoría o Subcategoría Temática VGI](#51-cómo-añadir-una-nueva-macrocategoría-o-subcategoría-temática-vgi)
-* [52. Cómo Actualizar la Base de Datos Espacial en PostgreSQL / PostGIS](#52-cómo-actualizar-la-base-de-datos-espacial-en-postgresql--postgis)
-* [53. Cómo Modificar las Consultas Overpass QL del Módulo 01](#53-cómo-modificar-las-consultas-overpass-ql-del-módulo-01)
-* [54. Cómo Modificar las Reglas del Evaluador Normativo del PRC de Santiago](#54-cómo-modificar-las-reglas-del-evaluador-normativo-del-prc-de-santiago)
-* [55. Cómo Personalizar la Paleta de Colores, Estilos CSS y Marcadores SVG](#55-cómo-personalizar-la-paleta-de-colores-estilos-css-y-marcadores-svg)
-* [56. Cómo Añadir Nuevos Términos al Diccionario Territorial Interactivo](#56-cómo-añadir-nuevos-términos-al-diccionario-territorial-interactivo)
-* [57. Cómo Regenerar y Distribuir el Paquete ZIP de Datos Maestros](#57-cómo-regenerar-y-distribuir-el-paquete-zip-de-datos-maestros)
-* [58. Checklist de Validación y Despliegue a Producción](#58-checklist-de-validación-y-despliegue-a-producción)
+* [40. Tutorial 01: Modificación de la Paleta Cromática y Variables `:root` en CSS](#40-tutorial-01-modificación-de-la-paleta-cromática-y-variables-root-en-css)
+* [41. Tutorial 02: Personalización de Punteros y Cursores del Ratón](#41-tutorial-02-personalización-de-punteros-y-cursores-del-ratón)
+* [42. Tutorial 03: Creación y Modificación de Marcadores SVG (`L.divIcon`)](#42-tutorial-03-creación-y-modificación-de-marcadores-svg-ldivicon)
+* [43. Tutorial 04: Incorporación de Nuevos Mapas Base (TileLayers)](#43-tutorial-04-incorporación-de-nuevos-mapas-base-tilelayers)
+* [44. Tutorial 05: Incorporación de una Nueva Capa GeoJSON al Atlas](#44-tutorial-05-incorporación-de-una-nueva-capa-geojson-al-atlas)
+* [45. Tutorial 06: Creación de Nuevas Consultas Overpass QL](#45-tutorial-06-creación-de-nuevas-consultas-overpass-ql-en-el-módulo-02)
+* [46. Tutorial 07: Diseño y Publicación de un Nuevo Storyboard Cartográfico](#46-tutorial-07-diseño-y-publicación-de-un-nuevo-storyboard-cartográfico)
+* [47. Tutorial 08: Modificación de Ponderadores del Modelo WLC ISO 19157](#47-tutorial-08-modificación-de-ponderadores-del-modelo-wlc-iso-19157)
+* [48. Tutorial 09: Actualización de la Zonificación del PRC de Santiago](#48-tutorial-09-actualización-de-la-zonificación-del-prc-de-santiago)
+* [49. Tutorial 10: Configuración Perimetral Avanzada en `netlify.toml`](#49-tutorial-10-configuración-perimetral-avanzada-en-netlifytoml)
+* [51. Tutorial 12: Incorporación de Nuevas Reglas de Validación en Pre-Despliegue](#51-tutorial-12-incorporación-de-nuevas-reglas-de-validación-en-pre-despliegue)
+* [52. Tutorial 13: Sistema de Notificaciones Táctiles (Toast Notifications)](#52-tutorial-13-sistema-de-notificaciones-táctiles-toast-notifications)
+* [53. Tutorial 14: Integración de Geoservicios WMS/WFS Oficiales del Estado de Chile](#53-tutorial-14-integración-de-geoservicios-wmswfs-oficiales-del-estado-de-chile)
+* [54. Tutorial 15: Exportación Dinámica de Datos en Formatos GeoJSON, CSV y KML](#54-tutorial-15-exportación-dinámica-de-datos-en-formatos-geojson-csv-y-kml)
+* [55. Tutorial 16: Protocolo de Auditoría de Accesibilidad Web (WCAG 2.1 Nivel AAA)](#55-tutorial-16-protocolo-de-auditoría-de-accesibilidad-web-wcag-21-nivel-aaa)
+* [56. Tutorial 17: Pipeline de Reempaquetado y Despliegue en Producción](#56-tutorial-17-pipeline-de-reempaquetado-y-despliegue-en-producción)
 
 ---
 """
 
 contenido_final = INDICE_GENERAL.strip() + "\n\n---\n\n" + "\n\n---\n\n".join(partes) + "\n"
 
-# 3. Auditoría estricta de palabras prohibidas (Zero-Leak)
+# 3. Auditoría estricta de palabras prohibidas (Zero-Leak y coherencia conceptual)
 forbidden_matches = 0
 for lnum, line in enumerate(contenido_final.splitlines(), start=1):
     low = line.lower()
-    terminos_prohibidos = ["fon" + "decyt", "f126" + "1256", "f-126" + "1256"]
+    terminos_prohibidos = [
+        "fon" + "decyt",
+        "f126" + "1256",
+        "f-126" + "1256",
+        "empíric",
+        "empiric",
+        "forense",
+        "práctica profesional",
+        "practica profesional",
+        "práctica%20profesional",
+        "departamento de geografía",
+    ]
     if any(t in low for t in terminos_prohibidos):
         print(f"[-] ERROR: Mención no autorizada detectada en línea {lnum}: {line.strip()}")
         forbidden_matches += 1
