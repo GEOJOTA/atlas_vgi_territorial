@@ -377,37 +377,37 @@ const ModuloIndicadoresAnalisis = (() => {
       dimensionId: 'metodologica',
       dimensionNombre: 'Resultados Espaciales · Densidades de Kernel (KDE)',
       titulo: 'Concentración Territorial y Núcleos de Actividad VGI en Santiago: Lo que Revelan las Superficies de Densidad de Kernel',
-      bajada: 'Análisis espacial de las 12 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI y la red de semáforos UOCT. Polarización entre la hiperconcentración del eje Alameda-Brasil-Santa Ana y los vacíos de cobertura en la periferia sur de la comuna.',
+      bajada: 'Análisis espacial de las 12 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI y la red de semáforos UOCT. Polarización entre la hiperconcentración del eje Alameda, Barrio Brasil (UT 5), Santa Ana (UT 3) y Ejército (UT 13) frente a los vacíos de cobertura en la periferia sur de la comuna (Sierra Bella [UT 20] y Bogotá [UT 22]).',
       imagen: 'img/storyboards/portada_analisis_kde.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_kde.svg',
-      piePortada: 'Ilustración síntesis de los núcleos de intensidad territorial VGI identificados en la Comuna de Santiago y el entorno de Barrio Brasil.',
-      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Semaforización UOCT', '12 Cartografías'],
+      piePortada: 'Ilustración síntesis de los núcleos de intensidad territorial VGI identificados en la Comuna de Santiago y el entorno de Barrio Brasil (UT 5).',
+      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil (UT 5)', 'Semaforización UOCT', '12 Cartografías'],
       capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo', 'semaforos_rm_uoct_2026'],
       contenido: {
-        introduccion: `El análisis de los 10.166 registros multigeométricos levantados en el Atlas VGI (3.186 puntos, 3.929 vértices de redes lineales y 3.051 polígonos) demuestra que la provisión de infraestructura, servicios y atributos ambientales en la Comuna de Santiago no se distribuye de forma homogénea ni concéntrica. Los resultados de las superficies de densidad revelan una marcada estructura axial y policéntrica: mientras el corredor Alameda, Barrio Brasil (media de 6.924,1 ent/km²), Santa Ana (1.728,2 ent/km²) y Ejército (1.007,0 ent/km²) concentran los máximos absolutos de intensidad territorial, barrios del borde sur como Sierra Bella (1,9 ent/km²), Bogotá (1,4 ent/km²) y San Vicente exhiben severos vacíos de equipamiento y cobertura colaborativa.`,
+        introduccion: `El análisis de los 10.166 registros multigeométricos levantados en el Atlas VGI (3.186 puntos, 3.929 vértices de redes lineales y 3.051 polígonos) demuestra que la provisión de infraestructura, servicios y atributos ambientales en las 27 unidades territoriales (UT 0 a UT 26) de la Comuna de Santiago no se distribuye de forma homogénea ni concéntrica. Los resultados de las superficies de densidad revelan una marcada estructura axial y policéntrica: mientras el corredor Alameda, Barrio Brasil (UT 5, media de 6.924,1 ent/km²), Santa Ana (UT 3, 1.728,2 ent/km²), Ejército (UT 13, 1.007,0 ent/km²), Parque Almagro (UT 11, 790,6 ent/km²) y Barrio Universitario (UT 14, 703,3 ent/km²) concentran los máximos absolutos de intensidad territorial, barrios del borde sur (agrupación AV10) como Sierra Bella (UT 20, 1,9 ent/km²), Bogotá (UT 22, 1,4 ent/km²), Matta Sur (UT 21, 2,1 ent/km²), Franklin (UT 23, 3,1 ent/km²) y San Vicente (UT 18, 15,3 ent/km²) exhiben severos vacíos de equipamiento y cobertura colaborativa.`,
         datosClave: [
-          { valor: '20.203,8', label: 'Cima KDE Total VGI', sub: 'Máximo comunal (ent/km²) en eje Brasil-Alameda' },
-          { valor: '6.924,1', label: 'Media Barrio Brasil', sub: '14,1 veces el promedio comunal (489,1 ent/km²)' },
+          { valor: '20.203,8', label: 'Cima KDE Total VGI', sub: 'Máximo comunal (ent/km²) en eje Brasil (UT 5)-Alameda' },
+          { valor: '6.924,1', label: 'Media Barrio Brasil (UT 5)', sub: '14,1 veces el promedio comunal (489,1 ent/km²)' },
           { valor: '10.166', label: 'Entidades Evaluadas', sub: '3.186 pts · 3.929 lín · 3.051 pol' },
           { valor: '12', label: 'Cartografías KDE', sub: '10 macro-categorías VGI + UOCT + Síntesis Total' }
         ],
         porcentajesClave: [
           { label: 'Peso de Edificaciones y Transporte en la Intensidad Total VGI', valor: '62,2%', porcentaje: 62.2, contexto: 'Edificaciones (3.305 registros) y Transporte (3.016 registros) dominan la estructura física mapeada.' },
-          { label: 'Superioridad de Densidad Media en Barrio Brasil vs. Media Comunal', valor: '93,4%', porcentaje: 93.4, contexto: 'Barrio Brasil lidera las 10 categorías por confluencia del campus UAH, Plaza Brasil y ejes viales.' },
-          { label: 'Concentración de Biodiversidad Arbórea en 3 Barrios Pericentrales', valor: '78,5%', porcentaje: 78.5, contexto: 'Brasil (843,8), Parque Almagro (221,4) y Ejército (190,0) concentran el grueso del dosel registrado.' },
-          { label: 'Barrios del Sur con Densidad VGI Consolidada Crítica (< 15 ent/km²)', valor: '25,9%', porcentaje: 25.9, contexto: '7 de los 27 barrios comunales presentan desiertos de cobertura en múltiples dimensiones urbanas.' }
+          { label: 'Superioridad de Densidad Media en Barrio Brasil (UT 5) vs. Media Comunal', valor: '93,4%', porcentaje: 93.4, contexto: 'Barrio Brasil (UT 5) lidera las 10 categorías por confluencia del campus UAH, Plaza Brasil y ejes viales.' },
+          { label: 'Concentración de Biodiversidad Arbórea en 3 Barrios Pericentrales', valor: '78,5%', porcentaje: 78.5, contexto: 'Brasil (UT 5: 843,8), Parque Almagro (UT 11: 221,4) y Ejército (UT 13: 190,0) concentran el grueso del dosel.' },
+          { label: 'Barrios con Densidad VGI Consolidada Crítica (< 15 ent/km²)', valor: '25,9%', porcentaje: 25.9, contexto: '7 de los 27 barrios comunales (Bogotá [UT 22], Sierra Bella [UT 20], Matta Sur [UT 21], Diez de Julio [UT 10], Santa Isabel [UT 9], Franklin [UT 23] y Santa Elena [UT 19]) presentan vacíos de cobertura.' }
         ],
         graficoComparativo: {
           titulo: 'Densidad Media Comunal y Máximo en Barrio Líder por Categoría VGI (ent/km²)',
           filas: [
-            { label: 'KDE Total Consolidado (Líder: Brasil 6.924,1 | Media: 489,1)', valor: '20.203,8 máx', porcentaje: 100.0 },
-            { label: 'Edificaciones y Morfología (Líder: Brasil 2.651,8 | Media: 163,7)', valor: '7.155,8 máx', porcentaje: 78.0 },
-            { label: 'Biodiversidad y Arbolado (Líder: Brasil 843,8 | Media: 52,1)', valor: '7.364,5 máx', porcentaje: 74.0 },
-            { label: 'Transporte Público y Red (Líder: Brasil 1.729,7 | Media: 150,8)', valor: '3.213,7 máx', porcentaje: 58.0 },
-            { label: 'Movilidad Activa y Ciclovías (Líder: Brasil 819,2 | Media: 36,9)', valor: '3.616,9 máx', porcentaje: 52.0 },
-            { label: 'Espacio Público y Plazas (Líder: Brasil 345,3 | Media: 18,8)', valor: '5.074,4 máx', porcentaje: 46.0 },
-            { label: 'Servicios y Comercio Local (Líder: Brasil 420,1 | Media: 30,5)', valor: '1.356,7 máx', porcentaje: 36.0 },
-            { label: 'Educación y Universidades (Líder: Brasil 155,9 | Media: 14,2)', valor: '1.225,1 máx', porcentaje: 31.0 }
+            { label: 'KDE Total Consolidado (Líder: Brasil [UT 5] 6.924,1 | Media: 489,1)', valor: '20.203,8 máx', porcentaje: 100.0 },
+            { label: 'Edificaciones y Morfología (Líder: Brasil [UT 5] 2.651,8 | Media: 163,7)', valor: '7.155,8 máx', porcentaje: 78.0 },
+            { label: 'Biodiversidad y Arbolado (Líder: Brasil [UT 5] 843,8 | Media: 52,1)', valor: '7.364,5 máx', porcentaje: 74.0 },
+            { label: 'Transporte Público y Red (Líder: Brasil [UT 5] 1.729,7 | Media: 150,8)', valor: '3.213,7 máx', porcentaje: 58.0 },
+            { label: 'Movilidad Activa y Ciclovías (Líder: Brasil [UT 5] 819,2 | Media: 36,9)', valor: '3.616,9 máx', porcentaje: 52.0 },
+            { label: 'Espacio Público y Plazas (Líder: Brasil [UT 5] 345,3 | Media: 18,8)', valor: '5.074,4 máx', porcentaje: 46.0 },
+            { label: 'Servicios y Comercio Local (Líder: Brasil [UT 5] 420,1 | Media: 30,5)', valor: '1.356,7 máx', porcentaje: 36.0 },
+            { label: 'Educación y Universidades (Líder: Brasil [UT 5] 155,9 | Media: 14,2)', valor: '1.225,1 máx', porcentaje: 31.0 }
           ]
         },
         diagramaSVG: () => `
@@ -423,36 +423,36 @@ const ModuloIndicadoresAnalisis = (() => {
             <polygon points="50,190 50,165 110,145 165,45 215,55 270,80 330,95 390,110 470,155 540,178 630,185 630,190" fill="#f59e0b" opacity="0.18"/>
             <!-- Hitos territoriales -->
             <circle cx="165" cy="45" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
-            <text x="165" y="38" fill="#fca5a5" font-size="9.5" font-weight="bold" text-anchor="middle">Barrio Brasil (6.924 ent/km²)</text>
+            <text x="165" y="38" fill="#fca5a5" font-size="9.5" font-weight="bold" text-anchor="middle">Brasil UT 5 (6.924 ent/km²)</text>
             <circle cx="270" cy="80" r="5" fill="#38bdf8"/>
-            <text x="270" y="70" fill="#7dd3fc" font-size="9" font-weight="bold" text-anchor="middle">Santa Ana (1.728)</text>
+            <text x="270" y="70" fill="#7dd3fc" font-size="9" font-weight="bold" text-anchor="middle">Santa Ana UT 3 (1.728)</text>
             <circle cx="385" cy="108" r="5" fill="#10b981"/>
-            <text x="385" y="98" fill="#6ee7b7" font-size="9" font-weight="bold" text-anchor="middle">Ejército / Almagro (1.007)</text>
+            <text x="385" y="98" fill="#6ee7b7" font-size="9" font-weight="bold" text-anchor="middle">Ejército UT 13 / Almagro UT 11</text>
             <circle cx="565" cy="180" r="5" fill="#64748b"/>
-            <text x="565" y="168" fill="#94a3b8" font-size="9" font-weight="bold" text-anchor="middle">Sierra Bella / Bogotá (&lt;2 ent/km²)</text>
+            <text x="565" y="168" fill="#94a3b8" font-size="9" font-weight="bold" text-anchor="middle">Sierra Bella UT 20 / Bogotá UT 22 (&lt;2)</text>
             <!-- Etiquetas eje X -->
-            <text x="70" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Yungay Poniente</text>
-            <text x="165" y="210" fill="#fef08a" font-size="9" font-weight="bold" text-anchor="middle">Eje Brasil - UAH</text>
-            <text x="275" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Centro / Santa Ana</text>
-            <text x="395" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Universitario / Almagro</text>
-            <text x="565" y="210" fill="#94a3b8" font-size="8.5" text-anchor="middle">Periferia Sur (Franklin / Bogotá)</text>
+            <text x="70" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Yungay (UT 7)</text>
+            <text x="165" y="210" fill="#fef08a" font-size="9" font-weight="bold" text-anchor="middle">Brasil (UT 5) - UAH</text>
+            <text x="275" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Centro (UT 2) / Sta. Ana (UT 3)</text>
+            <text x="395" y="210" fill="#cbd5e1" font-size="8.5" text-anchor="middle">Universitario (UT 14) / Almagro (UT 11)</text>
+            <text x="565" y="210" fill="#94a3b8" font-size="8.5" text-anchor="middle">Periferia Sur (Franklin UT 23 / Bogotá UT 22)</text>
           </svg>
         `,
         seccionesAnaliticas: [
           {
             titulo: '1. La estructura axial y policéntrica del territorio: lo que revela el KDE Total VGI',
             parrafos: [
-              'La cartografía consolidada del total de aportes VGI (KDE_Total_VGI) muestra con nitidez que la intensidad de equipamiento y registros territoriales en la Comuna de Santiago alcanza un máximo de 20.203,8 entidades/km², estructurándose sobre dos grandes corredores: el eje longitudinal de la Alameda Libertador Bernardo O’Higgins y el eje norte-sur que articula Barrio Brasil, Santa Ana y el Barrio Universitario.',
-              'En el zoom sobre el entorno de Barrio Brasil se observa cómo los vectores de gradiente convergen hacia dos focos amarillos de máxima intensidad: el cuadrante suroriente del barrio (entorno del Campus Universidad Alberto Hurtado en Cienfuegos, Almirante Barroso y Alameda) y el núcleo central de Plaza Brasil junto al corredor de Av. Brasil y Compañía de Jesús. En contraste, los barrios del extremo suroriente y surponiente comunal —como Sierra Bella (1,9 ent/km²), Bogotá (1,4 ent/km²), San Vicente y Franklin— aparecen en tonos azul profundo, evidenciando una pronunciada brecha norte-sur en la densidad de atributos urbanos registrados.'
+              'La cartografía consolidada del total de aportes VGI (KDE_Total_VGI) muestra con nitidez que la intensidad de equipamiento y registros territoriales en la Comuna de Santiago alcanza un máximo de 20.203,8 entidades/km², estructurándose sobre dos grandes corredores: el eje longitudinal de la Alameda Libertador Bernardo O’Higgins y el eje norte-sur que articula Barrio Brasil (UT 5), Santa Ana (UT 3), Ejército (UT 13) y Barrio Universitario (UT 14).',
+              'En el zoom sobre el entorno de Barrio Brasil (UT 5) se observa cómo los vectores de gradiente convergen hacia dos focos amarillos de máxima intensidad: el cuadrante suroriente del barrio (entorno del Campus Universidad Alberto Hurtado en Cienfuegos, Almirante Barroso y Alameda) y el núcleo central de Plaza Brasil junto al corredor de Av. Brasil y Compañía de Jesús. En contraste, los barrios del extremo suroriente y surponiente comunal —como Sierra Bella (UT 20, con 1,9 ent/km²), Bogotá (UT 22, con 1,4 ent/km²), Matta Sur (UT 21, con 2,1 ent/km²), Franklin (UT 23, con 3,1 ent/km²) y San Vicente (UT 18, con 15,3 ent/km²)— aparecen en tonos azul profundo, evidenciando una pronunciada brecha norte-sur en la densidad de atributos urbanos registrados.'
             ],
             graficoInline: {
               titulo: 'Contraste de Densidad KDE Consolidada por Barrios Representativos (media ent/km²)',
               filas: [
-                { label: 'Barrio Brasil (Núcleo UAH - Plaza Brasil)', valor: '6.924,1 ent/km²', porcentaje: 100 },
-                { label: 'Barrio Santa Ana (Eje Catedral - San Martín)', valor: '1.728,2 ent/km²', porcentaje: 55 },
-                { label: 'Barrio Ejército (Polo Institucional)', valor: '1.007,0 ent/km²', porcentaje: 40 },
-                { label: 'Promedio Comunal Santiago (1.711 manzanas)', valor: '489,1 ent/km²', porcentaje: 22 },
-                { label: 'Sierra Bella / Bogotá (Borde Sur)', valor: '1,6 ent/km²', porcentaje: 4 }
+                { label: 'Barrio Brasil [UT 5] (Núcleo UAH - Plaza Brasil)', valor: '6.924,1 ent/km²', porcentaje: 100 },
+                { label: 'Barrio Santa Ana [UT 3] (Eje Catedral - San Martín)', valor: '1.728,2 ent/km²', porcentaje: 55 },
+                { label: 'Barrio Ejército [UT 13] (Polo Institucional)', valor: '1.007,0 ent/km²', porcentaje: 40 },
+                { label: 'Promedio Comunal Santiago (1.711 manzanas · 27 Barrios)', valor: '489,1 ent/km²', porcentaje: 22 },
+                { label: 'Sierra Bella [UT 20] / Bogotá [UT 22] (Borde Sur)', valor: '1,6 ent/km²', porcentaje: 4 }
               ]
             },
             cartografias: [
@@ -460,15 +460,15 @@ const ModuloIndicadoresAnalisis = (() => {
                 src: 'img/cartografias/KDE_Total_VGI.jpg',
                 titulo: 'KDE Total VGI Consolidado (Comuna de Santiago y Barrio Brasil)',
                 subtitulo: 'Rango: 0 a 20.203,8 ent/km² · 9.048 entidades únicas deduplicadas',
-                lectura: 'Revela una columna vertebral de altísima densidad sobre el eje Alameda y el centro-poniente (Brasil, Santa Ana y Barrio Universitario), con vectores que apuntan hacia el campus UAH y Plaza Brasil, frente a vacíos profundos en el tercio sur comunal.'
+                lectura: 'Revela una columna vertebral de altísima densidad sobre el eje Alameda y el centro-poniente (Brasil [UT 5], Santa Ana [UT 3], Ejército [UT 13] y Barrio Universitario [UT 14]), con vectores que apuntan hacia el campus UAH y Plaza Brasil, frente a vacíos profundos en el tercio sur comunal.'
               }
             ]
           },
           {
             titulo: '2. Compacidad edificada, polaridad comercial y el clúster universitario',
             parrafos: [
-              'Al desagregar los resultados en morfología construida, servicios comerciales y educación, las cartografías demuestran cómo distintas funciones urbanas modelan el pericentro. La superficie de Edificaciones (KDE_Edificaciones, con cima de 5.839,5 ent/km²) exhibe una mancha continua de alta compacidad que cubre casi la totalidad de Barrio Brasil (media de 2.651,8 ent/km²), Santa Ana (539,2 ent/km²) y Barrio Universitario (319,8 ent/km²), reflejando la subdivisión predial histórica de cités, casonas continuas y pabellones institucionales.',
-              'En cambio, la densidad de Servicios y Comercio (KDE_Servicios, máximo de 1.376,3 ent/km²) abandona la distribución homogénea para concentrarse selectivamente en subcentros gastronómicos y comerciales: el entorno de Plaza Brasil (calles Huérfanos, Compañía y Av. Brasil con media barrial de 420,1 ent/km²), Santa Ana (147,1 ent/km²) y el eje Alameda. Por su parte, la cartografía de Educación (KDE_Educacion, máximo de 1.249,2 ent/km²) dibuja islas muy definidas de equipamiento superior y escolar lideradas por Barrio Brasil (155,9 ent/km², impulsado por los 34 predios del campus UAH y colegios históricos), Barrio Ejército (66,5 ent/km²) y Barrio Universitario (47,8 ent/km²), mientras el pericentro sur carece de núcleos equivalentes.'
+              'Al desagregar los resultados en morfología construida, servicios comerciales y educación, las cartografías demuestran cómo distintas funciones urbanas modelan el pericentro. La superficie de Edificaciones (KDE_Edificaciones, con cima de 5.839,5 ent/km²) exhibe una mancha continua de alta compacidad que cubre casi la totalidad de Barrio Brasil (UT 5, media de 2.651,8 ent/km²), Santa Ana (UT 3, 539,2 ent/km²), Barrio Universitario (UT 14, 319,8 ent/km²), Ejército (UT 13, 233,8 ent/km²) y Yungay (UT 7, 154,0 ent/km²), reflejando la subdivisión predial histórica de cités, casonas continuas y pabellones institucionales.',
+              'En cambio, la densidad de Servicios y Comercio (KDE_Servicios, máximo de 1.376,3 ent/km²) abandona la distribución homogénea para concentrarse selectivamente en subcentros gastronómicos y comerciales: el entorno de Plaza Brasil (calles Huérfanos, Compañía y Av. Brasil con media barrial de 420,1 ent/km² en Brasil [UT 5]), Santa Ana (UT 3, 147,1 ent/km²), Ejército (UT 13, 96,0 ent/km²) y el eje Alameda. Por su parte, la cartografía de Educación (KDE_Educacion, máximo de 1.249,2 ent/km²) dibuja islas muy definidas de equipamiento superior y escolar lideradas por Barrio Brasil (UT 5, 155,9 ent/km², impulsado por los 34 predios del campus UAH y colegios históricos), Barrio Ejército (UT 13, 66,5 ent/km²), Barrio Universitario (UT 14, 47,8 ent/km²) y Parque Almagro (UT 11, 31,0 ent/km²), mientras el pericentro sur carece de núcleos equivalentes.'
             ],
             graficoInline: {
               titulo: 'Intensidad Máxima de Edificaciones, Servicios y Educación en las Cartografías KDE',
@@ -502,9 +502,9 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '3. Corredores de transporte público, regulación semafórica UOCT, redes de ciclovías y micro-infraestructura de accesibilidad',
             parrafos: [
-              'Las cartografías de movilidad revelan una clara diferenciación entre la macro-conectividad metropolitana y la micro-caminabilidad barrial. En Transporte Público (KDE_Transporte, cima de 3.213,7 ent/km²), el patrón espacial es marcadamente lineal, siguiendo la superposición de líneas de Metro (L1, L2 y L5) y troncos de buses Red sobre la Alameda, San Pablo, Santo Domingo y Av. Brasil (media de 1.729,7 ent/km² en Brasil y 704,7 ent/km² en Santa Ana).',
-              'A esta configuración de transporte se suma la cartografía de Semáforos Conectados al Sistema de Control de la UOCT (KDE_Semaforos_UOCT, evaluando 3.483 cruces semaforizados en la RM). La superficie de densidad de semáforos expone cómo la semaforización y la regulación de tránsito se concentran intensamente a lo largo de la Alameda y en las vías estructurantes de Barrio Brasil (Av. Brasil, Cumming, Compañía y Huérfanos), coordinando los flujos vehiculares de transporte colectivo con cruces peatonales controlados hacia las zonas residenciales y campus universitarios.',
-              'Al observar Movilidad Activa (KDE_Movilidad_activa, máximo de 3.255,4 ent/km²), la densidad reproduce una retícula ortogonal en el centro-poniente que refleja las ciclovías de Rosas, Compañía de Jesús, Av. Brasil y Alameda (819,2 ent/km² en Brasil y 72,0 ent/km² en Santa Ana), pero que se interrumpe abruptamente al cruzar hacia el sector sur de la comuna. Complementariamente, la cartografía de Accesibilidad Universal (KDE_Accesibilidad, máximo de 652,1 ent/km²) muestra que los rebajes de vereda, cruces peatonales adaptados y dispositivos podotáctiles se concentran en torno al eje Alameda, Santa Ana (158,6 ent/km²) y el centro de Barrio Brasil (248,4 ent/km²), dejando extensas manzanas residenciales interiores con baja cobertura de cruces adaptados.'
+              'Las cartografías de movilidad revelan una clara diferenciación entre la macro-conectividad metropolitana y la micro-caminabilidad barrial. En Transporte Público (KDE_Transporte, cima de 3.213,7 ent/km²), el patrón espacial es marcadamente lineal, siguiendo la superposición de líneas de Metro (L1, L2 y L5) y troncos de buses Red sobre la Alameda, San Pablo, Santo Domingo y Av. Brasil (media de 1.729,7 ent/km² en Brasil [UT 5], 704,7 ent/km² en Santa Ana [UT 3], 277,6 ent/km² en Ejército [UT 13] y 181,4 ent/km² en Barrio Universitario [UT 14]).',
+              'A esta configuración de transporte se suma la cartografía de Semáforos Conectados al Sistema de Control de la UOCT (KDE_Semaforos_UOCT, evaluando 3.483 cruces semaforizados en la RM). La superficie de densidad de semáforos expone cómo la semaforización y la regulación de tránsito se concentran intensamente a lo largo de la Alameda, el Centro Histórico (UT 2), Santa Lucía Forestal (UT 1) y las vías estructurantes de Barrio Brasil (UT 5: Av. Brasil, Cumming, Compañía y Huérfanos), coordinando los flujos vehiculares de transporte colectivo con cruces peatonales controlados hacia las zonas residenciales y campus universitarios.',
+              'Al observar Movilidad Activa (KDE_Movilidad_activa, máximo de 3.255,4 ent/km²), la densidad reproduce una retícula ortogonal en el centro-poniente que refleja las ciclovías de Rosas, Compañía de Jesús, Av. Brasil y Alameda (819,2 ent/km² en Brasil [UT 5], 72,0 ent/km² en Santa Ana [UT 3], 22,1 ent/km² en Yungay [UT 7] y 18,4 ent/km² en Ejército [UT 13]), pero que se interrumpe abruptamente al cruzar hacia el sector sur de la comuna. Complementariamente, la cartografía de Accesibilidad Universal (KDE_Accesibilidad, máximo de 652,1 ent/km²) muestra que los rebajes de vereda, cruces peatonales adaptados y dispositivos podotáctiles se concentran en torno al eje Alameda, el centro de Barrio Brasil (UT 5, 248,4 ent/km²), Santa Ana (UT 3, 158,6 ent/km²) y Ejército (UT 13, 73,5 ent/km²), dejando extensas manzanas residenciales interiores con baja cobertura de cruces adaptados.'
             ],
             cartografias: [
               {
@@ -537,16 +537,16 @@ const ModuloIndicadoresAnalisis = (() => {
             titulo: '4. Parches ecológicos, espacio público recreativo y resguardo del patrimonio histórico',
             parrafos: [
               'El bloque socioambiental y patrimonial expone los contrastes más agudos de estructura morfológica. Tanto Biodiversidad Urbana (KDE_Biodiversidad, cima de 5.394,8 ent/km²) como Espacio Público (KDE_Espacio_Publico, cima de 3.310,6 ent/km²) y Coberturas de Suelo (KDE_Coberturas_de_Suelo, cima de 839,2 ent/km²) abandonan el patrón de corredor continuo para manifestarse como "archipiélagos verdes" altamente focalizados.',
-              'Los datos confirman que la máxima intensidad de arbolado y áreas verdes se concentra en Plaza Brasil y los bandejones de Av. Brasil (media de 843,8 ent/km² en biodiversidad y 345,3 ent/km² en espacio público), seguidos por Parque Almagro (221,4 ent/km² en biodiversidad y 153,4 ent/km² en coberturas de suelo) y Barrio Ejército (190,0 ent/km²). Finalmente, la cartografía de Patrimonio (KDE_Patrimonio, cima de 288,9 ent/km²) demuestra cómo los inmuebles protegidos, iglesias y monumentos conforman un corredor cultural entre Plaza Brasil, la Basílica del Salvador (Huérfanos/Almirante Barroso), Santa Ana (19,2 ent/km²) y Ejército (13,8 ent/km²), consolidando al poniente histórico como el reservorio identitario de la capital.'
+              'Los datos confirman que la máxima intensidad de arbolado y áreas verdes se concentra en Plaza Brasil y los bandejones de Av. Brasil dentro de Barrio Brasil (UT 5, con media de 843,8 ent/km² en biodiversidad y 345,3 ent/km² en espacio público), seguidos por Parque Almagro (UT 11, con 221,4 ent/km² en biodiversidad y 153,4 ent/km² en coberturas de suelo) y Barrio Ejército (UT 13, con 190,0 ent/km²). Finalmente, la cartografía de Patrimonio (KDE_Patrimonio, cima de 288,9 ent/km²) demuestra cómo los inmuebles protegidos, iglesias y monumentos conforman un corredor cultural entre Plaza Brasil y la Basílica del Salvador en Barrio Brasil (UT 5, 59,6 ent/km²), articulado con Santa Ana (UT 3, 19,2 ent/km²), Ejército (UT 13, 13,8 ent/km²), Parque Almagro (UT 11, 11,2 ent/km²) y Barrio Universitario (UT 14, 7,9 ent/km²), consolidando al poniente histórico como el reservorio identitario de la capital.'
             ],
             graficoInline: {
               titulo: 'Barrios con Mayor Densidad Media de Biodiversidad y Patrimonio en el Atlas VGI',
               filas: [
-                { label: 'Biodiversidad: Barrio Brasil (843,8 ent/km²)', valor: '843,8 ent/km²', porcentaje: 100 },
-                { label: 'Biodiversidad: Parque Almagro (221,4 ent/km²)', valor: '221,4 ent/km²', porcentaje: 42 },
-                { label: 'Biodiversidad: Barrio Ejército (190,0 ent/km²)', valor: '190,0 ent/km²', porcentaje: 36 },
-                { label: 'Patrimonio: Barrio Brasil (59,6 ent/km²)', valor: '59,6 ent/km²', porcentaje: 24 },
-                { label: 'Patrimonio: Barrio Santa Ana (19,2 ent/km²)', valor: '19,2 ent/km²', porcentaje: 14 }
+                { label: 'Biodiversidad: Barrio Brasil [UT 5] (843,8 ent/km²)', valor: '843,8 ent/km²', porcentaje: 100 },
+                { label: 'Biodiversidad: Parque Almagro [UT 11] (221,4 ent/km²)', valor: '221,4 ent/km²', porcentaje: 42 },
+                { label: 'Biodiversidad: Barrio Ejército [UT 13] (190,0 ent/km²)', valor: '190,0 ent/km²', porcentaje: 36 },
+                { label: 'Patrimonio: Barrio Brasil [UT 5] (59,6 ent/km²)', valor: '59,6 ent/km²', porcentaje: 24 },
+                { label: 'Patrimonio: Barrio Santa Ana [UT 3] (19,2 ent/km²)', valor: '19,2 ent/km²', porcentaje: 14 }
               ]
             },
             cartografias: [
@@ -579,11 +579,11 @@ const ModuloIndicadoresAnalisis = (() => {
         ],
         tablaIndicadores: [
           { variable: 'Densidad KDE Consolidada Comunal', valor: '489,1 ent/km² (media)', referencial: 'Máximo: 20.203,8 ent/km²', fuente: 'Síntesis VGI 1.711 Manzanas' },
-          { variable: 'Barrio de Mayor Concentración VGI', valor: 'Barrio Brasil (6.924,1 ent/km²)', referencial: 'Seguido por Santa Ana (1.728,2)', fuente: 'Catálogo KDE Multigeométrico' },
+          { variable: 'Barrio de Mayor Concentración VGI', valor: 'Barrio Brasil [UT 5] (6.924,1 ent/km²)', referencial: 'Seguido por Santa Ana [UT 3] (1.728,2)', fuente: 'Catálogo KDE Multigeométrico' },
           { variable: 'Categoría de Mayor Volumen Espacial', valor: 'Edificaciones (3.305 registros)', referencial: 'Seguida por Transporte (3.016)', fuente: 'OpenStreetMap / Geofabrik' },
-          { variable: 'Barrios con Mayor Vacío VGI', valor: 'Bogotá (1,4) y Sierra Bella (1,9)', referencial: 'Sector Sur Comunal', fuente: 'Matriz Zonal Santiago' }
+          { variable: 'Barrios con Mayor Vacío VGI', valor: 'Bogotá [UT 22] (1,4) y Sierra Bella [UT 20] (1,9)', referencial: 'Agrupación Sur AV10', fuente: 'Matriz Zonal 27 Barrios' }
         ],
-        conclusion: 'Los resultados de densidad de kernel demuestran que Santiago opera bajo una marcada asimetría territorial: un núcleo histórico-universitario (Brasil, Santa Ana, Ejército y Parque Almagro) dotado de altísima diversidad de servicios, movilidad y arbolado, contrapuesto a barrios residenciales del sur comunal que requieren inversión prioritaria en infraestructura pública y campañas focalizadas de mapeo comunitario.',
+        conclusion: 'Los resultados de densidad de kernel demuestran que Santiago opera bajo una marcada asimetría territorial entre sus 27 unidades barriales: un núcleo histórico-universitario (Barrio Brasil [UT 5], Santa Ana [UT 3], Ejército [UT 13], Barrio Universitario [UT 14] y Parque Almagro [UT 11]) dotado de altísima diversidad de servicios, movilidad y arbolado, contrapuesto a barrios residenciales del sur comunal (Bogotá [UT 22], Sierra Bella [UT 20], Matta Sur [UT 21], Franklin [UT 23] y San Vicente [UT 18]) que requieren inversión prioritaria en infraestructura pública y campañas focalizadas de mapeo comunitario.',
         analisisPorActor: [
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SECPLA Santiago · DITEC · MINVU · MTT', utilidad: 'Permite focalizar inversión en espacio público, arbolado y rebajes de accesibilidad en los barrios del sur comunal (Sierra Bella, Bogotá, San Vicente) que aparecen con densidad nula.' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités Barriales', utilidad: 'Entrega evidencia cuantitativa sobre la presión comercial y de transporte que soporta el eje Brasil-Alameda frente al déficit de plazas en sectores interiores.' },
@@ -622,7 +622,7 @@ const ModuloIndicadoresAnalisis = (() => {
       tags: ['Resultados LISA', 'Hotspots Alto-Alto', 'Coldspots Bajo-Bajo', 'Outliers Territoriales', '11 Cartografías'],
       capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'censo2024_manzanas', 'minvu_ipt_prc_santiago'],
       contenido: {
-        introduccion: `El análisis de los Indicadores Locales de Asociación Espacial (LISA) sobre las 1.711 manzanas de la Comuna de Santiago demuestra que los atributos urbanos y colaborativos presentan una fuerte segregación territorial estadísticamente significativa. En el consolidado comunal, el 44,1% de las manzanas pertenece a conglomerados extremos: 140 manzanas (8,2%) conforman un núcleo compacto de alta concentración (Hotspot Alto-Alto) anclado en Barrio Brasil (63 manzanas), Santa Ana (23), Yungay (17) y Parque Almagro (13), mientras 615 manzanas (35,9%) integran extensos bolsones de rezago (Coldspot Bajo-Bajo) en el sur y oriente comunal, encabezados por Sierra Bella (90 manzanas), Bogotá (87), Matta Sur (58) y Diez de Julio (52).`,
+        introduccion: `El análisis de los Indicadores Locales de Asociación Espacial (LISA) sobre las 1.711 manzanas y las 27 unidades territoriales (UT 0 a UT 26) de la Comuna de Santiago demuestra que los atributos urbanos y colaborativos presentan una fuerte segregación territorial estadísticamente significativa. En el consolidado comunal, el 44,1% de las manzanas pertenece a conglomerados extremos: 140 manzanas (8,2%) conforman un núcleo compacto de alta concentración (Hotspot Alto-Alto) anclado en Barrio Brasil (UT 5, 63 manzanas), Santa Ana (UT 3, 23 manzanas), Yungay (UT 7, 17 manzanas), Parque Almagro (UT 11, 13 manzanas), Ejército (UT 13, 12 manzanas) y Barrio Universitario (UT 14, 9 manzanas), mientras 615 manzanas (35,9%) integran extensos bolsones de rezago (Coldspot Bajo-Bajo) en el sur, oriente y norponiente comunal, encabezados por Sierra Bella (UT 20, 90 manzanas), Bogotá (UT 22, 87 manzanas), Matta Sur (UT 21, 58 manzanas), Diez de Julio (UT 10, 52 manzanas), Matta Norte (UT 12, 50 manzanas), Santa Isabel (UT 9, 46 manzanas), San Eugenio (UT 16, 44 manzanas), Viel (UT 24, 39 manzanas) y Balmaceda (UT 6, 37 manzanas).`,
         datosClave: [
           { valor: '140', label: 'Manzanas Hotspot (HH)', sub: '8,2% comunal · 45% de ellas en Barrio Brasil' },
           { valor: '615', label: 'Manzanas Coldspot (LL)', sub: '35,9% comunal · Concentradas en el sector sur' },
@@ -638,14 +638,14 @@ const ModuloIndicadoresAnalisis = (() => {
         graficoComparativo: {
           titulo: 'Distribución de Manzanas Significativas por Barrio en el Cluster LISA Total VGI',
           filas: [
-            { label: 'Hotspot Alto-Alto: Barrio Brasil (63 manzanas · 45,0% del total HH)', valor: '63 mz HH', porcentaje: 100.0 },
-            { label: 'Hotspot Alto-Alto: Barrio Santa Ana (23 manzanas · 16,4% del total HH)', valor: '23 mz HH', porcentaje: 36.5 },
-            { label: 'Hotspot Alto-Alto: Barrio Yungay (17 manzanas · 12,1% del total HH)', valor: '17 mz HH', porcentaje: 27.0 },
-            { label: 'Hotspot Alto-Alto: Parque Almagro (13 manzanas · 9,3% del total HH)', valor: '13 mz HH', porcentaje: 20.6 },
-            { label: 'Coldspot Bajo-Bajo: Sierra Bella (90 manzanas en rezago espacial)', valor: '90 mz LL', porcentaje: 95.0 },
-            { label: 'Coldspot Bajo-Bajo: Barrio Bogotá (87 manzanas en rezago espacial)', valor: '87 mz LL', porcentaje: 91.5 },
-            { label: 'Coldspot Bajo-Bajo: Matta Sur (58 manzanas en rezago espacial)', valor: '58 mz LL', porcentaje: 61.0 },
-            { label: 'Coldspot Bajo-Bajo: Diez de Julio (52 manzanas en rezago espacial)', valor: '52 mz LL', porcentaje: 55.0 }
+            { label: 'Hotspot Alto-Alto: Barrio Brasil [UT 5] (63 manzanas · 45,0% del total HH)', valor: '63 mz HH', porcentaje: 100.0 },
+            { label: 'Hotspot Alto-Alto: Barrio Santa Ana [UT 3] (23 manzanas · 16,4% del total HH)', valor: '23 mz HH', porcentaje: 36.5 },
+            { label: 'Hotspot Alto-Alto: Barrio Yungay [UT 7] (17 manzanas · 12,1% del total HH)', valor: '17 mz HH', porcentaje: 27.0 },
+            { label: 'Hotspot Alto-Alto: Parque Almagro [UT 11] (13 manzanas · 9,3% del total HH)', valor: '13 mz HH', porcentaje: 20.6 },
+            { label: 'Coldspot Bajo-Bajo: Sierra Bella [UT 20] (90 manzanas en rezago espacial)', valor: '90 mz LL', porcentaje: 95.0 },
+            { label: 'Coldspot Bajo-Bajo: Barrio Bogotá [UT 22] (87 manzanas en rezago espacial)', valor: '87 mz LL', porcentaje: 91.5 },
+            { label: 'Coldspot Bajo-Bajo: Matta Sur [UT 21] (58 manzanas en rezago espacial)', valor: '58 mz LL', porcentaje: 61.0 },
+            { label: 'Coldspot Bajo-Bajo: Diez de Julio [UT 10] (52 manzanas en rezago espacial)', valor: '52 mz LL', porcentaje: 55.0 }
           ]
         },
         diagramaSVG: () => `
@@ -656,10 +656,10 @@ const ModuloIndicadoresAnalisis = (() => {
             <rect x="25" y="45" width="200" height="160" rx="8" fill="#eab308" fill-opacity="0.14" stroke="#eab308" stroke-width="1.8"/>
             <text x="40" y="70" fill="#fde047" font-size="12" font-weight="bold">ALTO-ALTO (Hotspot)</text>
             <text x="40" y="90" fill="#ffffff" font-size="18" font-weight="900">140 manzanas (8,2%)</text>
-            <text x="40" y="112" fill="#cbd5e1" font-size="9.5">· Barrio Brasil: 63 manzanas</text>
-            <text x="40" y="128" fill="#cbd5e1" font-size="9.5">· Santa Ana: 23 manzanas</text>
-            <text x="40" y="144" fill="#cbd5e1" font-size="9.5">· Yungay: 17 manzanas</text>
-            <text x="40" y="160" fill="#cbd5e1" font-size="9.5">· Parque Almagro: 13 manzanas</text>
+            <text x="40" y="112" fill="#cbd5e1" font-size="9.5">· Brasil (UT 5): 63 manzanas</text>
+            <text x="40" y="128" fill="#cbd5e1" font-size="9.5">· Santa Ana (UT 3): 23 manzanas</text>
+            <text x="40" y="144" fill="#cbd5e1" font-size="9.5">· Yungay (UT 7): 17 manzanas</text>
+            <text x="40" y="160" fill="#cbd5e1" font-size="9.5">· P. Almagro (UT 11): 13 manzanas</text>
             <text x="40" y="185" fill="#fde047" font-size="8.5" font-weight="bold">Núcleo Alameda - Plaza Brasil - UAH</text>
             <!-- Bloque 2: Transición Atípicos HL / LH -->
             <rect x="240" y="45" width="200" height="160" rx="8" fill="#10b981" fill-opacity="0.12" stroke="#34d399" stroke-width="1.5"/>
@@ -675,10 +675,10 @@ const ModuloIndicadoresAnalisis = (() => {
             <rect x="455" y="45" width="200" height="160" rx="8" fill="#3b82f6" fill-opacity="0.15" stroke="#60a5fa" stroke-width="1.8"/>
             <text x="470" y="70" fill="#93c5fd" font-size="12" font-weight="bold">BAJO-BAJO (Coldspot)</text>
             <text x="470" y="90" fill="#ffffff" font-size="18" font-weight="900">615 manzanas (35,9%)</text>
-            <text x="470" y="112" fill="#cbd5e1" font-size="9.5">· Sierra Bella: 90 manzanas</text>
-            <text x="470" y="128" fill="#cbd5e1" font-size="9.5">· Bogotá: 87 manzanas</text>
-            <text x="470" y="144" fill="#cbd5e1" font-size="9.5">· Matta Sur: 58 manzanas</text>
-            <text x="470" y="160" fill="#cbd5e1" font-size="9.5">· Diez de Julio: 52 manzanas</text>
+            <text x="470" y="112" fill="#cbd5e1" font-size="9.5">· Sierra Bella (UT 20): 90 manzanas</text>
+            <text x="470" y="128" fill="#cbd5e1" font-size="9.5">· Bogotá (UT 22): 87 manzanas</text>
+            <text x="470" y="144" fill="#cbd5e1" font-size="9.5">· Matta Sur (UT 21): 58 manzanas</text>
+            <text x="470" y="160" fill="#cbd5e1" font-size="9.5">· Diez de Julio (UT 10): 52 manzanas</text>
             <text x="470" y="185" fill="#93c5fd" font-size="8.5" font-weight="bold">Anillo Periférico Sur y Norponiente</text>
           </svg>
         `,
@@ -686,7 +686,7 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '1. La fractura centro-periferia en el Cluster LISA Total VGI y la transición interna de Barrio Brasil',
             parrafos: [
-              'La cartografía síntesis de autocorrelación local (cluster_lisa_vgi_kde_total) revela una geografía dual dentro de la comuna y dentro del propio Barrio Brasil. A escala comunal, las manzanas Alto-Alto (amarillo) configuran un macizo compacto en el centro-norte y pericentro poniente, mientras que los clusters Bajo-Bajo (azul) rodean la comuna por sus bordes norponiente (Balmaceda y norte de Yungay), oriente (Santa Isabel y San Borja) y todo el tercio sur (San Eugenio, Club Hípico, Franklin, Bogotá y Sierra Bella).',
+              'La cartografía síntesis de autocorrelación local (cluster_lisa_vgi_kde_total) revela una geografía dual dentro de la comuna y dentro del propio Barrio Brasil (UT 5). A escala comunal, las manzanas Alto-Alto (amarillo) configuran un macizo compacto en el centro-norte y pericentro poniente (Brasil [UT 5], Santa Ana [UT 3], Yungay [UT 7], Parque Almagro [UT 11], Ejército [UT 13], Barrio Universitario [UT 14] y Panamá [UT 4]), mientras que los clusters Bajo-Bajo (azul) rodean la comuna por sus bordes norponiente (Balmaceda [UT 6] y norte de Yungay [UT 7]), oriente (Santa Isabel [UT 9], Diez de Julio [UT 10] y San Borja [UT 8]) y todo el tercio sur (San Eugenio [UT 16], San Vicente [UT 18], Franklin [UT 23], Bogotá [UT 22], Sierra Bella [UT 20], Matta Sur [UT 21], Matta Norte [UT 12] y Viel [UT 24]).',
               'Al observar el panel derecho (Entorno Barrio Brasil), el mapa expone una reveladora diferenciación interna: la mitad sur y suroriente del barrio —entre Compañía, Av. Brasil, Cienfuegos, Almirante Barroso y la Alameda— forma un bloque continuo Alto-Alto acompañado de manzanas Bajo-Alto (verde) en el borde inmediato del eje Alameda, mientras que el sector norponiente (hacia Av. Mapocho y San Pablo) cae abruptamente en un cluster Bajo-Bajo, separado por una franja de manzanas Alto-Bajo (cian) que actúan como bisagra territorial.'
             ],
             cartografias: [
@@ -797,12 +797,12 @@ const ModuloIndicadoresAnalisis = (() => {
           }
         ],
         tablaIndicadores: [
-          { variable: 'Manzanas en Cluster Alto-Alto (Hotspot)', valor: '140 manzanas (8,2%)', referencial: 'Barrio Brasil concentra 63 mz (45%)', fuente: 'LISA Total VGI (1.711 mz)' },
-          { variable: 'Manzanas en Cluster Bajo-Bajo (Coldspot)', valor: '615 manzanas (35,9%)', referencial: 'Sierra Bella (90) y Bogotá (87)', fuente: 'LISA Total VGI (1.711 mz)' },
+          { variable: 'Manzanas en Cluster Alto-Alto (Hotspot)', valor: '140 manzanas (8,2%)', referencial: 'Barrio Brasil [UT 5] concentra 63 mz (45%)', fuente: 'LISA Total VGI (1.711 mz)' },
+          { variable: 'Manzanas en Cluster Bajo-Bajo (Coldspot)', valor: '615 manzanas (35,9%)', referencial: 'Sierra Bella [UT 20] (90) y Bogotá [UT 22] (87)', fuente: 'LISA Total VGI (1.711 mz)' },
           { variable: 'Manzanas No Significativas (p > 0,05)', valor: '956 manzanas (55,9%)', referencial: 'Tejido intermedio comunal', fuente: 'LISA Total VGI (1.711 mz)' },
           { variable: 'Principales Focos de Outliers (HL / LH)', valor: 'Bordes Alameda y San Pablo', referencial: 'Fronteras de transición espacial', fuente: 'Cartografías LISA por Categoría' }
         ],
-        conclusion: 'La estadística local LISA comprueba que las brechas urbanas en Santiago no son aleatorias: existe una frontera espacial nítida que separa al pericentro histórico-universitario (cluster Alto-Alto en Brasil, Santa Ana y Parque Almagro) de un extenso arco periférico Bajo-Bajo en el sur y norponiente de la comuna, mientras que al interior del propio Barrio Brasil se evidencia una marcada asimetría entre su mitad sur consolidada y su borde norte hacia Mapocho.',
+        conclusion: 'La estadística local LISA comprueba que las brechas urbanas en Santiago no son aleatorias: existe una frontera espacial nítida que separa al pericentro histórico-universitario (cluster Alto-Alto en Brasil [UT 5], Santa Ana [UT 3], Yungay [UT 7], Parque Almagro [UT 11], Ejército [UT 13] y Barrio Universitario [UT 14]) de un extenso arco periférico Bajo-Bajo en el sur, oriente y norponiente de la comuna (Sierra Bella [UT 20], Bogotá [UT 22], Matta Sur [UT 21], Diez de Julio [UT 10], Matta Norte [UT 12] y Balmaceda [UT 6]), mientras que al interior del propio Barrio Brasil (UT 5) se evidencia una marcada transición hacia su borde norte.',
         analisisPorActor: [
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'SEREMI MINVU · SECPLA · INE · Subdere', utilidad: 'Permite dirigir programas de regeneración urbana hacia los 615 polígonos Bajo-Bajo (especialmente en Sierra Bella, Bogotá, Matta Sur y Diez de Julio).' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Unidades Vecinales · Agrupaciones Sociales', utilidad: 'Visibiliza la brecha interna de Barrio Brasil al norte de calle Rosas/San Pablo (cluster Bajo-Bajo) para exigir equidad en arbolado, luminarias y cruces seguros.' },
@@ -839,7 +839,7 @@ const ModuloIndicadoresAnalisis = (() => {
       tags: ['Resultados Censo 2024', '72,1% Arriendo', '92,7% Departamentos', 'Cités y Hacinamiento', '29 Cartografías'],
       capasRelevantes: ['censo2024_manzanas', 'catastro_predial_sii', 'minvu_patrimonio', 'minvu_ipt_prc_santiago', 'bbdd_19', 'bbdd_64', 'bbdd_68', 'bbdd_74'],
       contenido: {
-        introduccion: `Los resultados consolidados de las 1.711 manzanas censales de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 29 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura (Santa Isabel con 650,5 hab/ha, Santa Ana con 618,0 hab/ha y Parque Almagro con 442,3 hab/ha) dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil y Yungay, donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente (Franklin, Matta Sur, San Vicente y Bogotá) donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
+        introduccion: `Los resultados consolidados de las 1.711 manzanas censales y las 27 unidades territoriales (UT 0 a UT 26) de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 29 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura —encabezado por Santa Isabel (UT 9, con 52.658 hab. y 650,5 hab/ha), Santa Ana (UT 3, con 26.343 hab. y 618,0 hab/ha) y Parque Almagro (UT 11, con 46.948 hab. y 442,3 hab/ha)— dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil (UT 5), Yungay (UT 7), Ejército (UT 13) y Barrio Universitario (UT 14), donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente —como Franklin (UT 23), Matta Sur (UT 21), San Vicente (UT 18), Bogotá (UT 22) y Sierra Bella (UT 20)— donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
         datosClave: [
           { valor: '432.081', label: 'Habitantes en Manzanas', sub: '50,7% hombres (219.003) · 49,3% mujeres (213.078)' },
           { valor: '72,1%', label: 'Hogares en Arriendo', sub: '147.044 hogares (62,6% con contrato · 9,5% sin contrato)' },
@@ -847,22 +847,22 @@ const ModuloIndicadoresAnalisis = (() => {
           { valor: '40,8%', label: 'Hogares Unipersonales', sub: '83.149 hogares de 1 persona · 40,4% pob. migrante' }
         ],
         porcentajesClave: [
-          { label: 'Predominio del Departamento en Edificio sobre el Parque Ocupado', valor: '92,7%', porcentaje: 92.7, contexto: '196.060 departamentos frente a 27.385 casas (concentradas en San Eugenio 75,3% y San Vicente 74,5%).' },
-          { label: 'Hegemonía del Régimen de Tenencia en Arriendo (Formal + Informal)', valor: '72,1%', porcentaje: 72.1, contexto: 'Lideran Santa Elena (82,5%), Matta Sur (80,7%) y Franklin (80,7%), frente a solo 23,0% de vivienda propia.' },
-          { label: 'Proporción de Hogares Unipersonales (1 Integrante) en la Comuna', valor: '40,8%', porcentaje: 40.8, contexto: 'Alcanza máximos en Parque O’Higgins (69,2%), Santa Lucía Forestal (58,4%) y San Borja (49,1%).' },
-          { label: 'Participación de Población Inmigrante Internacional Residente', valor: '40,4%', porcentaje: 40.4, contexto: '174.413 residentes internacionales, con cimas en Meiggs (61,3%), Matta Sur (58,2%) y Franklin (57,8%).' }
+          { label: 'Predominio del Departamento en Edificio sobre el Parque Ocupado', valor: '92,7%', porcentaje: 92.7, contexto: '196.060 departamentos frente a 27.385 casas (concentradas en San Eugenio [UT 16: 75,3%] y San Vicente [UT 18: 74,5%]).' },
+          { label: 'Hegemonía del Régimen de Tenencia en Arriendo (Formal + Informal)', valor: '72,1%', porcentaje: 72.1, contexto: 'Lideran Santa Elena (UT 19: 82,5%), Matta Sur (UT 21: 80,7%) y Franklin (UT 23: 80,7%), frente a 23,0% de vivienda propia.' },
+          { label: 'Proporción de Hogares Unipersonales (1 Integrante) en la Comuna', valor: '40,8%', porcentaje: 40.8, contexto: 'Alcanza máximos en Parque O’Higgins (UT 0: 69,2%), Santa Lucía Forestal (UT 1: 58,4%) y San Borja (UT 8: 49,1%).' },
+          { label: 'Participación de Población Inmigrante Internacional Residente', valor: '40,4%', porcentaje: 40.4, contexto: '174.413 residentes internacionales, con cimas en Meiggs (UT 17: 61,3%), Matta Sur (UT 21: 58,2%) y Franklin (UT 23: 57,8%).' }
         ],
         graficoComparativo: {
           titulo: 'Contrastes Territoriales entre Barrios Extremos de Santiago según Indicadores Censales',
           filas: [
-            { label: 'Densidad Poblacional: Santa Isabel (650,5 hab/ha) vs. Club Hípico (28,0)', valor: '650,5 hab/ha', porcentaje: 100.0 },
-            { label: 'Densidad Poblacional: Santa Ana (618,0 hab/ha) vs. Parque Almagro (442,3)', valor: '618,0 hab/ha', porcentaje: 95.0 },
-            { label: 'Tenencia en Arriendo Total: Santa Elena (82,5%) y Franklin (80,7%)', valor: '82,5% máx', porcentaje: 82.5 },
-            { label: 'Viviendas Tipo Casa Tradicional: San Eugenio (75,3%) y San Vicente (74,5%)', valor: '75,3% máx', porcentaje: 75.3 },
-            { label: 'Hogares Unipersonales: Santa Lucía Forestal (58,4%) y San Borja (49,1%)', valor: '58,4% máx', porcentaje: 58.4 },
-            { label: 'Población Migrante: Meiggs (61,3%), Matta Sur (58,2%) y Franklin (57,8%)', valor: '61,3% máx', porcentaje: 61.3 },
-            { label: 'Arriendo sin Contrato: San Vicente (31,7%), Bogotá (23,5%) y Yungay (20,8%)', valor: '31,7% máx', porcentaje: 42.0 },
-            { label: 'Viviendas en Pieza / Cité: San Vicente (25,6%), Yungay (22,0%) y Bogotá (21,7%)', valor: '25,6% máx', porcentaje: 35.0 }
+            { label: 'Densidad Poblacional: Santa Isabel [UT 9] (650,5 hab/ha) vs. Club Hípico [UT 15] (28,0)', valor: '650,5 hab/ha', porcentaje: 100.0 },
+            { label: 'Densidad Poblacional: Santa Ana [UT 3] (618,0 hab/ha) vs. P. Almagro [UT 11] (442,3)', valor: '618,0 hab/ha', porcentaje: 95.0 },
+            { label: 'Tenencia en Arriendo Total: Santa Elena [UT 19] (82,5%) y Franklin [UT 23] (80,7%)', valor: '82,5% máx', porcentaje: 82.5 },
+            { label: 'Viviendas Tipo Casa Tradicional: San Eugenio [UT 16] (75,3%) y San Vicente [UT 18] (74,5%)', valor: '75,3% máx', porcentaje: 75.3 },
+            { label: 'Hogares Unipersonales: Santa Lucía Forestal [UT 1] (58,4%) y San Borja [UT 8] (49,1%)', valor: '58,4% máx', porcentaje: 58.4 },
+            { label: 'Población Migrante: Meiggs [UT 17] (61,3%), Matta Sur [UT 21] (58,2%) y Franklin [UT 23] (57,8%)', valor: '61,3% máx', porcentaje: 61.3 },
+            { label: 'Arriendo sin Contrato: San Vicente [UT 18] (31,7%), Bogotá [UT 22] (23,5%) y Yungay [UT 7] (20,8%)', valor: '31,7% máx', porcentaje: 42.0 },
+            { label: 'Viviendas en Pieza / Cité: San Vicente [UT 18] (25,6%), Yungay [UT 7] (22,0%) y Bogotá [UT 22] (21,7%)', valor: '25,6% máx', porcentaje: 35.0 }
           ]
         },
         diagramaSVG: () => `
@@ -872,7 +872,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <!-- Régimen 1 -->
             <rect x="20" y="42" width="205" height="170" rx="8" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.6"/>
             <text x="32" y="64" fill="#a5b4fc" font-size="11" font-weight="bold">1. EJE HIPERDENSO VERTICAL</text>
-            <text x="32" y="80" fill="#94a3b8" font-size="8.5">Sta. Isabel · Sta. Ana · P. Almagro</text>
+            <text x="32" y="80" fill="#94a3b8" font-size="8.5">Sta. Isabel (UT 9) · Sta. Ana (UT 3) · Almagro (UT 11)</text>
             <text x="32" y="102" fill="#ffffff" font-size="15" font-weight="900">442 – 650 hab/ha</text>
             <text x="32" y="122" fill="#cbd5e1" font-size="9">· &gt;95% departamentos en torre</text>
             <text x="32" y="138" fill="#cbd5e1" font-size="9">· 75%–82% tenencia en arriendo</text>
@@ -882,7 +882,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <!-- Régimen 2 -->
             <rect x="237" y="42" width="205" height="170" rx="8" fill="#064e3b" fill-opacity="0.45" stroke="#10b981" stroke-width="1.6"/>
             <text x="249" y="64" fill="#6ee7b7" font-size="11" font-weight="bold">2. BARRIOS PATRIMONIALES</text>
-            <text x="249" y="80" fill="#94a3b8" font-size="8.5">Barrio Brasil · Yungay · República</text>
+            <text x="249" y="80" fill="#94a3b8" font-size="8.5">Brasil (UT 5) · Yungay (UT 7) · Ejército (UT 13)</text>
             <text x="249" y="102" fill="#ffffff" font-size="15" font-weight="900">180 – 290 hab/ha</text>
             <text x="249" y="122" fill="#cbd5e1" font-size="9">· Mixtura de casonas, cités y deptos</text>
             <text x="249" y="138" fill="#cbd5e1" font-size="9">· 22,0% vivienda tipo pieza/cité (Yungay)</text>
@@ -892,7 +892,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <!-- Régimen 3 -->
             <rect x="454" y="42" width="206" height="170" rx="8" fill="#7c2d12" fill-opacity="0.45" stroke="#f97316" stroke-width="1.6"/>
             <text x="466" y="64" fill="#fdba74" font-size="11" font-weight="bold">3. PERICENTRO SUR Y PONIENTE</text>
-            <text x="466" y="80" fill="#94a3b8" font-size="8.5">Franklin · San Vicente · Bogotá · Matta</text>
+            <text x="466" y="80" fill="#94a3b8" font-size="8.5">Franklin (UT 23) · San Vicente (UT 18) · Bogotá (UT 22)</text>
             <text x="466" y="102" fill="#ffffff" font-size="15" font-weight="900">17,0% – 17,5% Hacinam.</text>
             <text x="466" y="122" fill="#cbd5e1" font-size="9">· 20,8%–31,7% arriendo sin contrato</text>
             <text x="466" y="138" fill="#cbd5e1" font-size="9">· 20,0%–24,3% déficit cuantitativo</text>
@@ -905,17 +905,17 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '1. Hiperdensificación vertical y distribución por sexo: el corredor oriente-central frente a la escala humana de Barrio Brasil',
             parrafos: [
-              'Las cartografías de densidad poblacional del Censo 2024 revelan una concentración demográfica extraordinariamente asimétrica dentro de la comuna. De los 432.081 habitantes registrados en las manzanas comunales, solo tres barrios —Santa Isabel (52.658 hab.), Parque Almagro (46.948 hab.) y Yungay (34.220 hab.)— concentran el 31,0% de toda la población de Santiago. En términos de densidad neta, Santa Isabel alcanza 650,5 hab/ha y Santa Ana 618,0 hab/ha, formando una muralla azul oscura de manzanas en el cuartil superior (31,31% a 84,48% del máximo comunal) a lo largo de los ejes Santa Isabel, Lira, Carmen, San Martín y San Pablo oriente.',
-              'En marcado contraste, el recuadro de Barrio Brasil en las láminas de densidad total, densidad de hombres (media comunal 50,7%, máximo de 5.211,7 hab/ha) y densidad de mujeres (media comunal 49,3%, máximo de 5.008,2 hab/ha) muestra un predominio de tonos amarillos y verdes (cuartiles bajos y medios), con densidades concentradas únicamente en las manzanas de borde sobre Av. San Pablo, Rosas y Alameda. Asimismo, el Índice de Masculinidad (media comunal de 102,8 hombres por cada 100 mujeres) exhibe una mayor presencia relativa masculina en enclaves comerciales e industriales del poniente y sur (Meiggs, San Vicente y Franklin), mientras que los barrios residenciales consolidados del oriente y las manzanas interiores de Barrio Brasil mantienen una proporción equilibrada o mayoritariamente femenina.'
+              'Las cartografías de densidad poblacional del Censo 2024 revelan una concentración demográfica extraordinariamente asimétrica entre las 27 unidades territoriales de la comuna. De los 432.081 habitantes registrados en las manzanas comunales, solo tres barrios —Santa Isabel (UT 9, con 52.658 hab.), Parque Almagro (UT 11, con 46.948 hab.) y Yungay (UT 7, con 34.220 hab.)— concentran el 31,0% de toda la población de Santiago, seguidos por Matta Norte (UT 12, con 27.904 hab.), Santa Ana (UT 3, con 26.343 hab.) y Centro Histórico (UT 2, con 22.711 hab.). En términos de densidad neta, Santa Isabel (UT 9) alcanza 650,5 hab/ha y Santa Ana (UT 3) 618,0 hab/ha, formando una muralla azul oscura de manzanas en el cuartil superior (31,31% a 84,48% del máximo comunal) a lo largo de los ejes Santa Isabel, Lira, Carmen, San Martín y San Pablo oriente.',
+              'En marcado contraste, el recuadro de Barrio Brasil (UT 5, con 13.783 hab. en 63 manzanas) en las láminas de densidad total, densidad de hombres (media comunal 50,7%, máximo de 5.211,7 hab/ha) y densidad de mujeres (media comunal 49,3%, máximo de 5.008,2 hab/ha) muestra un predominio de tonos amarillos y verdes (cuartiles bajos y medios), con densidades concentradas únicamente en las manzanas de borde sobre Av. San Pablo, Rosas y Alameda. Asimismo, el Índice de Masculinidad (media comunal de 102,8 hombres por cada 100 mujeres) exhibe una mayor presencia relativa masculina en enclaves comerciales e industriales del poniente y sur (Meiggs [UT 17], San Vicente [UT 18], Barrio Judicial [UT 26] y Franklin [UT 23]), mientras que los barrios residenciales consolidados del oriente y las manzanas interiores de Barrio Brasil (UT 5) mantienen una proporción equilibrada o mayoritariamente femenina.'
             ],
             graficoInline: {
               titulo: 'Barrios con Mayor Población Total y Densidad Neta en la Comuna de Santiago (Censo 2024)',
               filas: [
-                { label: 'Barrio Santa Isabel (52.658 hab · 650,5 hab/ha)', valor: '650,5 hab/ha', porcentaje: 100 },
-                { label: 'Barrio Santa Ana (32.495 hab · 618,0 hab/ha)', valor: '618,0 hab/ha', porcentaje: 95 },
-                { label: 'Barrio Parque Almagro (46.948 hab · 442,3 hab/ha)', valor: '442,3 hab/ha', porcentaje: 68 },
-                { label: 'Barrio Yungay (34.220 hab · 241,2 hab/ha)', valor: '241,2 hab/ha', porcentaje: 37 },
-                { label: 'Barrio Club Hípico / San Eugenio (Baja densidad sur)', valor: '28,0 hab/ha', porcentaje: 6 }
+                { label: 'Barrio Santa Isabel [UT 9] (52.658 hab · 650,5 hab/ha)', valor: '650,5 hab/ha', porcentaje: 100 },
+                { label: 'Barrio Santa Ana [UT 3] (26.343 hab · 618,0 hab/ha)', valor: '618,0 hab/ha', porcentaje: 95 },
+                { label: 'Barrio Parque Almagro [UT 11] (46.948 hab · 442,3 hab/ha)', valor: '442,3 hab/ha', porcentaje: 68 },
+                { label: 'Barrio Yungay [UT 7] (34.220 hab · 241,2 hab/ha)', valor: '241,2 hab/ha', porcentaje: 37 },
+                { label: 'Barrio Club Hípico [UT 15] / San Eugenio [UT 16] (Baja densidad sur)', valor: '28,0 hab/ha', porcentaje: 6 }
               ]
             },
             cartografias: [
@@ -948,8 +948,8 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '2. Transición demográfica: envejecimiento en barrios históricos, hogares unipersonales e inserción migrante',
             parrafos: [
-              'El segundo grupo de cartografías desvela cómo coexisten dos transiciones demográficas opuestas en el mismo territorio. Por un lado, los adultos mayores de 60 años y más suman 51.663 personas (12,0% comunal, prácticamente igualando a los 51.336 niños de 0 a 13 años, lo que arroja un Índice de Envejecimiento comunal de 100,6) y están presentes en el 10,0% de los hogares (20.415 hogares). Sin embargo, las cartografías de Porcentaje de Adultos Mayores, Hogares con Mayores de 60 Años e Índice de Envejecimiento muestran que la población mayor ha quedado desplazada de las torres hiperdensas del centro, concentrándose en los barrios tradicionales de baja altura del surponiente —San Eugenio (24,6%), San Vicente (20,3%) y Club Hípico— así como en las manzanas interiores de casonas de Barrio Brasil, República y Huemul.',
-              'En sentido inverso, la cartografía de Población Migrante (174.413 personas, equivalentes al 40,4% de la población comunal) muestra una intensa concentración en el pericentro comercial y pericentro sur: Meiggs alcanza un 61,3% de residentes migrantes, seguido por Matta Sur (58,2%), Franklin (57,8%), Santa Elena y el eje norte de Yungay-Brasil (sobre San Pablo y Mapocho), reduciendo en esas mismas manzanas el Índice de Dependencia Demográfica por la llegada de población en edad laboral activa (20 a 44 años). Paralelamente, los Hogares Unipersonales representan ya el 40,8% de todos los hogares de Santiago (83.149 hogares), alcanzando entre 51,9% y 100% en las manzanas del Centro Histórico, Santa Lucía Forestal (58,4%), San Borja (49,1%) y el borde sur de Barrio Brasil en torno al campus universitario.'
+              'El segundo grupo de cartografías desvela cómo coexisten dos transiciones demográficas opuestas en el mismo territorio. Por un lado, los adultos mayores de 60 años y más suman 51.663 personas (12,0% comunal, prácticamente igualando a los 51.336 niños de 0 a 13 años, lo que arroja un Índice de Envejecimiento comunal de 100,6) y están presentes en el 10,0% de los hogares (20.415 hogares). Sin embargo, las cartografías de Porcentaje de Adultos Mayores, Hogares con Mayores de 60 Años e Índice de Envejecimiento muestran que la población mayor ha quedado desplazada de las torres hiperdensas del centro, concentrándose en los barrios tradicionales de baja altura del surponiente y sur —San Eugenio (UT 16, 24,6%), San Vicente (UT 18, 20,3%), Bogotá (UT 22, 18,8%), Club Hípico (UT 15, 18,6%), Sierra Bella (UT 20, 16,8%) y Huemul (UT 25, 16,7%)— así como en las manzanas interiores de casonas de Barrio Brasil (UT 5, 16,8%), Panamá (UT 4, 16,7%), Ejército (UT 13, 13,2%) y Barrio Universitario (UT 14, 13,0%).',
+              'En sentido inverso, la cartografía de Población Migrante (174.413 personas, equivalentes al 40,4% de la población comunal) muestra una intensa concentración en el pericentro comercial y pericentro sur: Meiggs (UT 17) alcanza un 61,3% de residentes migrantes, seguido por Matta Sur (UT 21, 58,2%), Franklin (UT 23, 57,8%), Santa Elena (UT 19, 57,4%), Matta Norte (UT 12, 52,4%), Diez de Julio (UT 10, 47,7%), Centro Histórico (UT 2, 47,7%) y Santa Ana (UT 3, 46,4%), además del eje norte de Yungay (UT 7, 40,0%) y Barrio Brasil (UT 5, 27,4% promedio barrial, concentrado sobre San Pablo y Mapocho), reduciendo en esas mismas manzanas el Índice de Dependencia Demográfica por la llegada de población en edad laboral activa (20 a 44 años). Paralelamente, los Hogares Unipersonales representan ya el 40,8% de todos los hogares de Santiago (83.149 hogares), alcanzando sus máximos en Parque O’Higgins (UT 0, 69,2%), Santa Lucía Forestal (UT 1, 58,4%), San Borja (UT 8, 49,1%), Ejército (UT 13, 46,4%), Santa Isabel (UT 9, 46,2%), Barrio Brasil (UT 5, 45,2%) y Centro Histórico (UT 2, 44,3%).'
             ],
             graficoInline: {
               titulo: 'Indicadores de Estructura Etaria, Migración y Hogares Unipersonales en Barrios Clave',
@@ -978,7 +978,7 @@ const ModuloIndicadoresAnalisis = (() => {
                 src: 'img/cartografias/indice_de_envejecimiento_log.jpg',
                 titulo: 'Índice de Envejecimiento Logarítmico (Censo 2024)',
                 subtitulo: 'Relación Adultos Mayores (60+) sobre Población Infantil · Media: 100,6',
-                lectura: 'Revela un envejecimiento agudo en el Centro Histórico, Barrio República y manzanas patrimoniales de Brasil, frente a un rejuvenecimiento relativo en el eje norte y suroriente.'
+                lectura: 'Revela un envejecimiento agudo en el Centro Histórico (UT 2), Barrio Universitario (UT 14), Ejército (UT 13) y manzanas patrimoniales de Barrio Brasil (UT 5), frente a un rejuvenecimiento relativo en el eje norte y suroriente.'
               },
               {
                 src: 'img/cartografias/indice_dependencia_demografica.jpg',
@@ -1003,8 +1003,8 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '3. Ordenamiento normativo (PRC) y tipologías residenciales: del edificio en altura a la resistencia de la casa y el cité',
             parrafos: [
-              'La serie de cartografías normativas y morfológicas explica el origen físico de los patrones demográficos anteriores. El mapa del Plan Regulador Comunal (PRC_stgo_nombre_zonas) y las divisiones de los 27 barrios y 7 agrupaciones territoriales (AV1 a AV10) muestran cómo la Zona B de Conservación Histórica Patrimonial protege el grueso de Barrio Brasil, Yungay, Concha y Toro y sectores de Matta Sur, mientras que la Zona A (Residencial Mixto y Ejes Estructurantes) y la Zona D/E habilitaron los corredores de densificación intensiva.',
-              'El resultado directo en el parque habitacional es contundente: el 92,7% de las viviendas ocupadas de Santiago corresponde a Departamentos en Edificio (196.060 unidades), alcanzando prácticamente el 100% en las manzanas de Centro Histórico, Santa Lucía Forestal, Santa Isabel y Parque Almagro. En cambio, la Vivienda Tipo Casa (27.385 unidades, 13,0% comunal) sobrevive en los barrios del surponiente —San Eugenio (75,3%), San Vicente (74,5%) y Huemul— y en el corazón patrimonial de Barrio Brasil (donde numerosas manzanas mantienen entre 36,9% y 100% de casas y casonas). De igual modo, la cartografía de Viviendas en Cité o Pieza (12.499 unidades, 5,9% comunal) revela que esta tipología histórica e inquilinato interior se concentra en San Vicente (25,6%), Yungay (22,0%), Bogotá (21,7%), Franklin y en manzanas específicas del centro-norte de Barrio Brasil.'
+              'La serie de cartografías normativas y morfológicas explica el origen físico de los patrones demográficos anteriores. El mapa del Plan Regulador Comunal (PRC_stgo_nombre_zonas), junto a las cartografías de las 7 Macro-Agrupaciones Barriales (AV1 a AV10) y de las 27 Unidades Territoriales Oficiales (codificadas de UT 0 a UT 26 según MuniSTGO 2026), muestran cómo la Zona B de Conservación Histórica Patrimonial protege el grueso de Barrio Brasil (UT 5), Yungay (UT 7), Panamá (UT 4), Ejército (UT 13), Barrio Universitario (UT 14) y Matta Sur (UT 21), mientras que la Zona A (Residencial Mixto y Ejes Estructurantes) y las Zonas D y E habilitaron los corredores de densificación intensiva en Santa Ana (UT 3), Santa Isabel (UT 9), Parque Almagro (UT 11) y Matta Norte (UT 12). En el mapa de agrupaciones y unidades territoriales se distingue con exactitud la organización oficial de la comuna: AV1 (Santa Lucía Forestal [UT 1] y Centro Histórico [UT 2]), AV2 (Santa Ana [UT 3], Panamá [UT 4] y Brasil [UT 5]), AV3 (Balmaceda [UT 6] y Yungay [UT 7]), AV7 (San Borja [UT 8], Santa Isabel [UT 9] y Diez de Julio [UT 10]), AV8 (Parque Almagro [UT 11], Matta Norte [UT 12] y Ejército [UT 13]), AV9 (Barrio Universitario [UT 14], Club Hípico [UT 15], San Eugenio [UT 16], Meiggs [UT 17] y San Vicente [UT 18]) y AV10 en el arco sur (Parque O’Higgins [UT 0], Santa Elena [UT 19], Sierra Bella [UT 20], Matta Sur [UT 21], Bogotá [UT 22], Franklin [UT 23], Viel [UT 24], Huemul [UT 25] y Barrio Judicial [UT 26]).',
+              'El resultado directo en el parque habitacional es contundente: el 92,7% de las viviendas ocupadas de Santiago corresponde a Departamentos en Edificio (196.060 unidades), alcanzando prácticamente el 100% en las manzanas de Centro Histórico (UT 2), Santa Lucía Forestal (UT 1), Santa Isabel (UT 9), San Borja (UT 8) y Parque Almagro (UT 11). En cambio, la Vivienda Tipo Casa (27.385 unidades, 13,0% comunal) sobrevive en los barrios del surponiente y sur —San Eugenio (UT 16, 75,3%), San Vicente (UT 18, 74,5%), Bogotá (UT 22, 51,9%), Sierra Bella (UT 20, 46,2%) y Huemul (UT 25, 40,3%)— y en el corazón patrimonial de Barrio Brasil (UT 5), Panamá (UT 4), Yungay (UT 7) y Barrio Universitario (UT 14), donde numerosas manzanas mantienen entre 36,9% y 100% de casas y casonas. De igual modo, la cartografía de Viviendas en Cité o Pieza (12.499 unidades, 5,9% comunal) revela que esta tipología histórica e inquilinato interior se concentra en San Vicente (UT 18, 25,6%), Yungay (UT 7, 22,0%), Bogotá (UT 22, 21,7%), Matta Sur (UT 21, 15,9%), Sierra Bella (UT 20, 15,5%), Barrio Brasil (UT 5, 14,7%, con 1.049 unidades) y Panamá (UT 4, 12,5%).'
             ],
             cartografias: [
               {
@@ -1016,14 +1016,14 @@ const ModuloIndicadoresAnalisis = (() => {
               {
                 src: 'img/cartografias/barrio_stgo_agrupacion.jpg',
                 titulo: 'Macro-Agrupaciones Territoriales de Barrios (AV1 a AV10)',
-                subtitulo: '7 macro-sectores de planificación comunal de Santiago',
-                lectura: 'Permite leer la articulación del sector norponiente (AV1: Brasil, Yungay, Balmaceda, Panamá) frente al centro histórico y los sectores pericentrales del sur.'
+                subtitulo: '7 agrupaciones barriales oficiales: AV1, AV2, AV3, AV7, AV8, AV9 y AV10',
+                lectura: 'Estructura la comuna en 7 macro-agrupaciones: AV1 (Centro Histórico [UT 2] y Santa Lucía Forestal [UT 1]), AV2 (Santa Ana [UT 3], Panamá [UT 4] y Brasil [UT 5]), AV3 (Balmaceda [UT 6] y Yungay [UT 7]), AV7 (San Borja [UT 8], Santa Isabel [UT 9] y Diez de Julio [UT 10]), AV8 (Parque Almagro [UT 11], Matta Norte [UT 12] y Ejército [UT 13]), AV9 (Barrio Universitario [UT 14], Club Hípico [UT 15], San Eugenio [UT 16], Meiggs [UT 17] y San Vicente [UT 18]) y AV10 en el sur comunal (Parque O’Higgins [UT 0], Santa Elena [UT 19], Sierra Bella [UT 20], Matta Sur [UT 21], Bogotá [UT 22], Franklin [UT 23], Viel [UT 24], Huemul [UT 25] y Barrio Judicial [UT 26]).'
               },
               {
                 src: 'img/cartografias/barrio_stgo_unidad_territorial.jpg',
-                titulo: 'Unidades Territoriales y Límites de los 27 Barrios de Santiago',
-                subtitulo: 'Mosaico barrial oficial de la Comuna de Santiago',
-                lectura: 'Delimita las 27 unidades barriales sobre las que se evalúan las brechas entre el pericentro histórico (Brasil, Yungay, Santa Ana) y el borde sur (Franklin, Bogotá, Sierra Bella).'
+                titulo: 'Unidades Territoriales y Límites de los 27 Barrios de Santiago (UT 0 a UT 26)',
+                subtitulo: 'Catastro oficial MuniSTGO 2026: 27 Barrios Municipales codificados de 0 a 26',
+                lectura: 'Identifica las 27 Unidades Territoriales (UT): 0 Parque O’Higgins, 1 Santa Lucía Forestal, 2 Centro Histórico, 3 Santa Ana, 4 Panamá, 5 Brasil, 6 Balmaceda, 7 Yungay, 8 San Borja, 9 Santa Isabel, 10 Diez de Julio, 11 Parque Almagro, 12 Matta Norte, 13 Ejército, 14 Barrio Universitario, 15 Club Hípico, 16 San Eugenio, 17 Meiggs, 18 San Vicente, 19 Santa Elena, 20 Sierra Bella, 21 Matta Sur, 22 Bogotá, 23 Franklin, 24 Viel, 25 Huemul y 26 Barrio Judicial.'
               },
               {
                 src: 'img/cartografias/pct_viviendas_tipo_depto.jpg',
@@ -1035,7 +1035,7 @@ const ModuloIndicadoresAnalisis = (() => {
                 src: 'img/cartografias/pct_viviendas_tipo_casa.jpg',
                 titulo: 'Viviendas Tipo Casa Unifamiliar / Casona (%)',
                 subtitulo: 'Total comunal: 27.385 casas · Máximos en San Eugenio (75,3%) y San Vicente (74,5%)',
-                lectura: 'Resalta el corazón de Barrio Brasil, Yungay, República, Huemul y San Eugenio como los últimos reductos de vivienda horizontal y casonas de fachada continua.'
+                lectura: 'Resalta el corazón de Barrio Brasil (UT 5), Yungay (UT 7), Panamá (UT 4), Barrio Universitario (UT 14), Huemul (UT 25), Bogotá (UT 22), Sierra Bella (UT 20), San Vicente (UT 18) y San Eugenio (UT 16) como los últimos reductos de vivienda horizontal y casonas de fachada continua.'
               },
               {
                 src: 'img/cartografias/pct_vivienda_tipo_cite.jpg',
@@ -1110,7 +1110,7 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '5. Estratificación socioeconómica (RSH 0–40%), empleo cotizante y demanda de cuidados por Unidad Vecinal',
             parrafos: [
-              'El quinto bloque de este storyboard incorpora las 6 cartografías elaboradas a partir del Registro Social de Hogares (RSH - BIDAT 2026) sobre las 53 Unidades Vecinales (UV) de la comuna, donde se registran 325.449 personas inscritas en RSH. El Índice Global de Vulnerabilidad Socioterritorial (igvst_poblacion, con rangos de 388 a 22.879 puntos ponderados) y el mapa de Personas en el Tramo 0–40% de Menores Ingresos (n_personas_tramo_0_40_total, con rangos de 131 a 7.592 personas por UV) revelan que el mayor volumen de población vulnerable se concentra en la franja central-sur y suroriente (Unidades Vecinales de Parque Almagro, Santa Isabel, Diez de Julio, Matta Norte y Franklin, en azul oscuro con 4.344 a 7.592 personas por UV), mientras que Barrio Brasil se divide entre su UV norte (tramo medio-alto de 2.707 a 4.343 personas) y su UV sur (tramo medio-bajo de 1.391 a 2.706 personas).',
+              'El quinto bloque de este storyboard incorpora las 6 cartografías elaboradas a partir del Registro Social de Hogares (RSH - BIDAT 2026) sobre las 53 Unidades Vecinales (UV) de la comuna, donde se registran 325.449 personas inscritas en RSH. El Índice Global de Vulnerabilidad Socioterritorial (igvst_poblacion, con rangos de 388 a 22.879 puntos ponderados) y el mapa de Personas en el Tramo 0–40% de Menores Ingresos (n_personas_tramo_0_40_total, con rangos de 131 a 7.592 personas por UV) revelan que el mayor volumen de población vulnerable se concentra en la franja central-sur y suroriente (Unidades Vecinales correspondientes a Parque Almagro [UT 11], Santa Isabel [UT 9], Diez de Julio [UT 10], Matta Norte [UT 12], Matta Sur [UT 21] y Franklin [UT 23], en azul oscuro con 4.344 a 7.592 personas por UV), mientras que Barrio Brasil (UT 5) se divide entre su sector norte hacia San Pablo y Mapocho (tramo medio-alto de 2.707 a 4.343 personas) y su sector sur hacia la Alameda (tramo medio-bajo de 1.391 a 2.706 personas).',
               'Al examinar la inserción laboral y previsional, el mapa de Total de Ocupados Cotizantes (hasta 6.663 trabajadores por UV) y el Porcentaje de Ocupados Cotizantes en el Tramo 0–40% RSH (entre 25% y 38% en las UV más vulnerables) muestran que en los barrios del poniente y sur una alta proporción de trabajadores formales percibe ingresos bajos que los mantienen dentro del 40% más vulnerable. Finalmente, las cartografías de Niños y Adultos Mayores Adscritos a FONASA en Tramo 0–40% (de 40 a 2.094 personas por UV) y de Personas con Dependencia Funcional o Postradas en Tramo 0–40% (de 4 a 158 personas severamente dependientes por UV) localizan la mayor carga de cuidados médicos y dependencia domiciliaria en el eje central-sur y norponiente (Yungay norte, Balmaceda y Matta Sur).'
             ],
             cartografias: [
@@ -1159,7 +1159,7 @@ const ModuloIndicadoresAnalisis = (() => {
           { variable: 'Tipología Constructiva Predominante', valor: '92,7% Departamentos', referencial: '13,0% Casas · 5,9% Piezas/Cités', fuente: 'Censo 2024 / Catastro SII' },
           { variable: 'Hacinamiento y Déficit Cuantitativo', valor: '9,2% Hacinam. · 12,5% Déficit', referencial: 'Máximos en Franklin y San Vicente', fuente: 'Censo 2024 / RSH BIDAT 2026' }
         ],
-        conclusion: 'Los datos sociodemográficos y habitacionales demuestran que Santiago alberga tres ciudades superpuestas: un corredor oriental hiperdenso de pequeños departamentos en arriendo formal habitados por jóvenes y hogares unipersonales; un pericentro histórico en Barrio Brasil y Yungay donde la zonificación patrimonial ha permitido conservar la escala barrial pero enfrenta presiones de subarriendo en su borde norte; y un arco sur (Franklin, San Vicente, Bogotá y Matta Sur) donde convergen la informalidad contractual, el hacinamiento en cités y la mayor demanda de protección social y cuidados.',
+        conclusion: 'Los datos sociodemográficos y habitacionales demuestran que las 27 unidades territoriales de Santiago albergan tres ciudades superpuestas: un corredor central-oriental hiperdenso (Santa Isabel [UT 9], Santa Ana [UT 3], Parque Almagro [UT 11] y San Borja [UT 8]) de pequeños departamentos en arriendo formal habitados por jóvenes y hogares unipersonales; un pericentro histórico en Barrio Brasil (UT 5), Yungay (UT 7), Panamá (UT 4), Ejército (UT 13) y Barrio Universitario (UT 14) donde la zonificación patrimonial ha permitido conservar la escala barrial pero enfrenta presiones de subarriendo en su borde norte; y un arco sur y poniente (Franklin [UT 23], San Vicente [UT 18], Bogotá [UT 22], Matta Sur [UT 21] y Sierra Bella [UT 20]) donde convergen la informalidad contractual, el hacinamiento en cités y la mayor demanda de protección social y cuidados.',
         analisisPorActor: [
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'MINVU · SECPLA Santiago · Dirección de Desarrollo Comunitario (DIDECO)', utilidad: 'Permite focalizar subsidios de rehabilitación habitacional y fiscalización de subarriendo sin contrato en San Vicente (31,7%), Bogotá (23,5%) y Yungay (20,8%), además de orientar redes de cuidado en las UV con mayor número de postrados.' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Juntas de Vecinos · Comités de Vivienda y Arrendatarios', utilidad: 'Aporta datos censales exactos por manzana y barrio para defender la Zona de Conservación Histórica en Barrio Brasil y exigir programas de apoyo a adultos mayores que viven solos.' },
@@ -1196,7 +1196,7 @@ const ModuloIndicadoresAnalisis = (() => {
       tags: ['84,6% Movilidad Sustentable', 'Proximidad Peatonal', 'Ruido Urbano dBA', '5 Zonas de Aseo', '24 Cartografías'],
       capasRelevantes: ['munistgo_aseo_zonas_residuos_2026', 'cat08_biodiversidad', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'semaforos_rm_uoct_2026', 'estaciones_metro', 'establecimientos_salud'],
       contenido: {
-        introduccion: `La evaluación espacial de las 24 cartografías socioambientales, de movilidad y de gestión de residuos revela cómo funciona el metabolismo cotidiano de la Comuna de Santiago. Por una parte, los datos censales de transporte confirman que el 84,6% de los 228.482 desplazamientos laborales y de estudio se realiza en modos sustentables (62,4% en transporte público, 17,0% a pie y 5,2% en bicicleta), frente a solo un 15,4% en modos motorizados privados (13,2% en automóvil y 2,2% en motocicleta). Sin embargo, esta alta caminabilidad convive con severas desigualdades ambientales: mientras barrios como Parque Almagro (1.092 árboles en un radio de 500 m) y Santa Lucía Forestal gozan de acceso inmediato a áreas verdes y salud, sectores como San Vicente (795,7 m a espacio público) y Barrio Judicial (965,8 m a salud) sufren déficits de proximidad, altos niveles de ruido vial (>68,6 dBA) y marcadas asimetrías en la dotación municipal de los 629 contenedores y 398 papeleros distribuidos en las 5 macro-zonas de aseo comunal.`,
+        introduccion: `La evaluación espacial de las 24 cartografías socioambientales, de movilidad y de gestión de residuos revela cómo funciona el metabolismo cotidiano en las 27 unidades territoriales (UT 0 a UT 26) de la Comuna de Santiago. Por una parte, los datos censales de transporte confirman que el 84,6% de los 228.482 desplazamientos laborales y de estudio se realiza en modos sustentables (62,4% en transporte público, 17,0% a pie y 5,2% en bicicleta), frente a solo un 15,4% en modos motorizados privados (13,2% en automóvil y 2,2% en motocicleta). Sin embargo, esta alta caminabilidad convive con severas desigualdades ambientales: mientras barrios como Parque Almagro (UT 11, con 1.092 árboles en un radio de 500 m), Ejército (UT 13), Barrio Brasil (UT 5) y Santa Lucía Forestal (UT 1) gozan de acceso inmediato a áreas verdes y salud, sectores del surponiente y sur como San Vicente (UT 18, 795,7 m a espacio público), Sierra Bella (UT 20, 837,0 m a salud) y Barrio Judicial (UT 26, 965,8 m a salud) sufren déficits de proximidad, altos niveles de ruido vial (>68,6 dBA) y marcadas asimetrías en la dotación municipal de los 629 contenedores y 398 papeleros distribuidos en las 5 macro-zonas de aseo comunal.`,
         datosClave: [
           { valor: '84,6%', label: 'Movilidad Sustentable', sub: '62,4% TP · 17,0% Caminata · 5,2% Bicicleta' },
           { valor: '285,0', label: 'Árboles en Buffer 500m', sub: 'Media comunal (Máx: Parque Almagro con 1.092)' },
@@ -1325,11 +1325,11 @@ const ModuloIndicadoresAnalisis = (() => {
             graficoInline: {
               titulo: 'Distancias Medias Peatonales en Barrios Extremos de Santiago (metros)',
               filas: [
-                { label: 'Distancia a Salud: Barrio Judicial (965,8 m) vs. San Borja (70,1 m)', valor: '965,8 m máx', porcentaje: 100 },
-                { label: 'Distancia aSalud: Barrio Sierra Bella (837,0 m) vs. Media (395,8 m)', valor: '837,0 m', porcentaje: 87 },
-                { label: 'Distancia a Espacio Público: San Vicente (795,7 m) vs. P. Almagro (45,1 m)', valor: '795,7 m máx', porcentaje: 82 },
-                { label: 'Distancia a Biodiversidad: San Vicente (466,3 m) vs. Media (114,7 m)', valor: '466,3 m máx', porcentaje: 48 },
-                { label: 'Distancia a Servicios y Comercio: Franklin (47,9 m) vs. Media (19,4 m)', valor: '47,9 m máx', porcentaje: 12 }
+                { label: 'Distancia a Salud: Barrio Judicial [UT 26] (965,8 m) vs. San Borja [UT 8] (70,1 m)', valor: '965,8 m máx', porcentaje: 100 },
+                { label: 'Distancia a Salud: Sierra Bella [UT 20] (837,0 m) vs. Media (395,8 m)', valor: '837,0 m', porcentaje: 87 },
+                { label: 'Distancia a Espacio Público: San Vicente [UT 18] (795,7 m) vs. Almagro [UT 11] (45,1 m)', valor: '795,7 m máx', porcentaje: 82 },
+                { label: 'Distancia a Biodiversidad: San Vicente [UT 18] (466,3 m) vs. Media (114,7 m)', valor: '466,3 m máx', porcentaje: 48 },
+                { label: 'Distancia a Servicios y Comercio: Franklin [UT 23] (47,9 m) vs. Media (19,4 m)', valor: '47,9 m máx', porcentaje: 12 }
               ]
             },
             cartografias: [
@@ -1425,8 +1425,8 @@ const ModuloIndicadoresAnalisis = (() => {
           {
             titulo: '4. Metabolismo urbano de residuos: la asimetría operativa entre las 5 macro-zonas de aseo municipal',
             parrafos: [
-              'El cierre del análisis aborda las cinco cartografías del sistema comunal de recolección de residuos elaborado a partir del catastro oficial de la Municipalidad de Santiago (MuniSTGO 2026), el cual divide la comuna en 5 grandes macro-zonas operativas: Centro Plaza (Zona 4), Centro Poniente (Zona 3, que integra a Barrio Brasil junto a Yungay, Santa Ana, Panamá y Balmaceda), Centro Oriente (Zona 2), Poniente (Zona 5) y Oriente (Zona 1). En conjunto, la red municipal contabiliza 629 contenedores de alta capacidad y 398 papeleros peatonales, sumando una capacidad volumétrica instalada de 285.860 litros.',
-              'Los resultados cartográficos revelan un desequilibrio profundo en el equipamiento entre zonas y en la relación contenedor/papelero: 1) La Zona Poniente (Barrio Universitario, Ejército, Meiggs, Parque O’Higgins, Club Hípico, San Eugenio y San Vicente) concentra la mayor capacidad total con 121.480 litros (216 contenedores y 209 papeleros, logrando un ratio equilibrado de 1,03); 2) La Zona Centro Poniente —donde se ubica Barrio Brasil— posee el mayor número absoluto de contenedores domiciliarios de toda la comuna con 261 unidades (109.660 litros), pero cuenta con apenas 24 papeleros peatonales en vía pública, disparando el ratio a 10,88 contenedores por cada papelero; 3) La Zona Oriente (Franklin, Parque Almagro, Matta Sur, Bogotá y Sierra Bella) dispone de 114 contenedores y 66 papeleros (41.040 litros, ratio 1,73); 4) La Zona Centro Oriente (Santa Isabel, San Borja, Diez de Julio y Santa Lucía) apenas registra 38 contenedores y 68 papeleros (13.680 litros, ratio 0,56) pese a albergar la mayor densidad habitacional en torres; y 5) La Zona Centro Plaza (Centro Histórico) opera con 0 contenedores en calzada y 31 papeleros peatonales.'
+              'El cierre del análisis aborda las cinco cartografías del sistema comunal de recolección de residuos elaborado a partir del catastro oficial de la Municipalidad de Santiago (MuniSTGO 2026), el cual organiza los 27 barrios oficiales (UT 0 a UT 26) en 5 grandes macro-zonas operativas: Centro Plaza (Zona 4), Centro Poniente (Zona 3), Centro Oriente (Zona 2), Poniente (Zona 5) y Oriente (Zona 1). En conjunto, la red municipal contabiliza 629 contenedores de alta capacidad y 398 papeleros peatonales, sumando una capacidad volumétrica instalada de 285.860 litros.',
+              'Los resultados cartográficos revelan un desequilibrio profundo en el equipamiento entre zonas y en la relación contenedor/papelero a través de los 27 barrios comunales: 1) La Zona Poniente (Zona 5, integrada por los 8 barrios de Ejército [UT 13], Barrio Universitario [UT 14], Club Hípico [UT 15], San Eugenio [UT 16], Meiggs [UT 17], San Vicente [UT 18], Parque O’Higgins [UT 0] y Barrio Judicial [UT 26]) concentra la mayor capacidad total con 121.480 litros (216 contenedores y 209 papeleros, logrando un ratio equilibrado de 1,03); 2) La Zona Centro Poniente (Zona 3, conformada por los 5 barrios del sector norponiente: Barrio Brasil [UT 5], Yungay [UT 7], Santa Ana [UT 3], Panamá [UT 4] y Balmaceda [UT 6]) posee el mayor número absoluto de contenedores domiciliarios de toda la comuna con 261 unidades (109.660 litros), pero cuenta con apenas 24 papeleros peatonales en vía pública, disparando el ratio a 10,88 contenedores por cada papelero; 3) La Zona Oriente (Zona 1, que agrupa 9 barrios: Parque Almagro [UT 11], Matta Norte [UT 12], Santa Elena [UT 19], Sierra Bella [UT 20], Matta Sur [UT 21], Bogotá [UT 22], Franklin [UT 23], Viel [UT 24] y Huemul [UT 25]) dispone de 114 contenedores y 66 papeleros (41.040 litros, ratio 1,73); 4) La Zona Centro Oriente (Zona 2, compuesta por 4 barrios: Santa Lucía Forestal [UT 1], San Borja [UT 8], Santa Isabel [UT 9] y Diez de Julio [UT 10]) apenas registra 38 contenedores y 68 papeleros (13.680 litros, ratio 0,56) pese a albergar la mayor densidad habitacional en torres; y 5) La Zona Centro Plaza (Zona 4, correspondiente exclusivamente a Centro Histórico [UT 2]) opera con 0 contenedores en calzada y 31 papeleros peatonales.'
             ],
             graficoInline: {
               titulo: 'Distribución Real de Contenedores, Papeleros y Capacidad (Litros) en las 5 Zonas de Aseo',
@@ -1478,7 +1478,7 @@ const ModuloIndicadoresAnalisis = (() => {
           { variable: 'Ruido Ambiental Ponderado Comunal', valor: '62,7 dBA (media comunal)', referencial: 'Rango: 44,5 a 77,5 dBA', fuente: 'Mapa Acústico MuniSTGO' },
           { variable: 'Infraestructura Municipal de Aseo', valor: '629 Contenedores · 398 Papeleros', referencial: '285.860 Litros en 5 Macro-Zonas', fuente: 'Catastro Aseo MuniSTGO 2026' }
         ],
-        conclusion: 'El cruce de los resultados socioambientales demuestra que la altísima sostenibilidad modal de Santiago (84,6% de viajes sin automóvil) requiere ser respaldada por una redistribución urgente de su infraestructura ambiental y operativa: resulta prioritario incrementar la dotación de arbolado y plazas en el borde surponiente (San Vicente, Meiggs y Franklin), mitigar la exposición acústica (>68,6 dBA) en los bordes de la Autopista Central y Alameda, y corregir el déficit de papeleros peatonales en Barrio Brasil (Zona Centro Poniente) junto con la baja capacidad de contenedores en el corredor hiperdenso de Santa Isabel (Zona Centro Oriente).',
+        conclusion: 'El cruce de los resultados socioambientales en las 27 unidades territoriales demuestra que la altísima sostenibilidad modal de Santiago (84,6% de viajes sin automóvil) requiere ser respaldada por una redistribución urgente de su infraestructura ambiental y operativa: resulta prioritario incrementar la dotación de arbolado y plazas en el borde surponiente y sur (San Vicente [UT 18], Meiggs [UT 17], Franklin [UT 23] y Sierra Bella [UT 20]), mitigar la exposición acústica (>68,6 dBA) en los bordes de la Autopista Central (Parque O’Higgins [UT 0] y Barrio Judicial [UT 26]) y Alameda, y corregir el déficit de papeleros peatonales en Barrio Brasil (UT 5) y la Zona Centro Poniente junto con la baja capacidad de contenedores en el corredor hiperdenso de Santa Isabel (UT 9) y la Zona Centro Oriente.',
         analisisPorActor: [
           { id: 'institucion', icono: '🏛️', nombre: 'Institución / Autoridad Pública', subtitulo: 'Dirección de Aseo y Ornato · Dirección de Tránsito · Ministerio del Medio Ambiente', utilidad: 'Entrega evidencia exacta para instalar nuevos papeleros peatonales en la Zona Centro Poniente (Barrio Brasil, que hoy tiene solo 24 unidades frente a 261 contenedores) y reforzar contenedores en la Zona Centro Oriente (Santa Isabel).' },
           { id: 'comunidad', icono: '🏘️', nombre: 'Comunidad / Vecinal', subtitulo: 'Comités Ambientales · Juntas de Vecinos · Colectivos Ciclistas', utilidad: 'Fundamenta la exigencia de pantallas acústicas y calmado de tráfico en el eje Manuel Rodríguez (Autopista Central) y Alameda, donde el ruido supera los 68,6 dBA.' },
@@ -1701,7 +1701,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <div class="insignia-storyboards">NARRATIVAS ESPACIALES BASADAS EN DATOS</div>
             <h3 class="titulo-storyboards">Storyboards</h3>
             <p class="bajada-storyboards">
-              Síntesis de resultados territoriales donde las <strong>75 cartografías temáticas</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
+              Síntesis de resultados territoriales donde las <strong>76 cartografías temáticas</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
             </p>
           </header>
 
