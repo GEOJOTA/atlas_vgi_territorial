@@ -77,7 +77,7 @@ Por defecto, Leaflet aplica el cursor `grab` (mano abierta) sobre el contenedor 
    ```
 
 ### 41.2. Cursor de Precisión para el Inspector Normativo PRC (Crosshair)
-Cuando el usuario activa el modo de inspección urbanística en `src/js/modulos/modulo_evaluador_normativo.js`, se inyecta una clase especial al contenedor para indicar que cualquier clic emitirá un certificado:
+Cuando el usuario activa el modo de inspección urbanística en `src/js/modulos/evaluador_normativo.js`, se inyecta una clase especial al contenedor para indicar que cualquier clic emitirá un certificado:
 
 ```javascript
 // Activar modo inspección
@@ -249,11 +249,11 @@ flowchart LR
     IN_NEW --> PROC_NEW --> OUT_NEW
 ```
 
-Para incorporar una cobertura vectorial completamente nueva (por ejemplo, `cat11_huertos_comunitarios.geojson`):
+Para incorporar una cobertura vectorial completamente nueva (por ejemplo, `capa_huertos_comunitarios.geojson`):
 
 ### Paso 1: Almacenar el Archivo Vectorial
 Guarde el archivo GeoJSON proyectado en **WGS84 (EPSG:4326)** en la ruta:
-`datos/capas/cat11_huertos_comunitarios.geojson` y en `src/data/cat11_huertos_comunitarios.geojson`.
+`data/capa_huertos_comunitarios.geojson` y en `src/data/capa_huertos_comunitarios.geojson`.
 
 ### Paso 2: Inyectar el Esquema Maestro de 14 Atributos
 Ejecute el script de enriquecimiento para estandarizar las claves:
@@ -261,15 +261,15 @@ Ejecute el script de enriquecimiento para estandarizar las claves:
 python3 scripts/enriquecer_base_datos_metadatos.py
 ```
 
-### Paso 3: Registrar la Capa en `catalogo_capas_completo_vgi_uah.xlsx`
-Abra el libro de cálculo o ejecute `python3 scripts/generar_catalogos_excel.py` para asegurar que figure en las 132 capas catalogadas con su respectiva licencia y linaje.
+### Paso 3: Registrar la Capa en `docs/catalogo_fuentes_vgi.xlsx`
+Abra el libro de cálculo o ejecute `python3 scripts/generar_entregables_excel.py` para asegurar que figure en las capas catalogadas con su respectiva licencia y linaje en `docs/catalogo_fuentes_vgi.xlsx` y `src/docs/catalogo_fuentes_vgi.xlsx`.
 
-### Paso 4: Añadir la Casilla Checkbox en `src/index.html`
+### Paso 4: Añadir la Casilla Checkbox en `src/index.html` o en `src/js/modulos/ide_chile.js`
 Dentro del acordeón temático correspondiente:
 ```html
 <div class="item-capa-control">
   <label class="switch-capa">
-    <input type="checkbox" id="chk-huertos-comunitarios" onchange="alternarCapaVectorial('cat11_huertos_comunitarios', this.checked)">
+    <input type="checkbox" id="chk-huertos-comunitarios" onchange="alternarCapaVectorial('huertos_comunitarios', this.checked)">
     <span class="deslizador"></span>
   </label>
   <span class="etiqueta-capa">🌱 Huertos Comunitarios</span>
@@ -279,8 +279,8 @@ Dentro del acordeón temático correspondiente:
 
 ### Paso 5: Definir la Simbología y Carga en `src/js/modulos/mapa.js`
 ```javascript
-capasConfiguradas["cat11_huertos_comunitarios"] = {
-  url: "data/cat11_huertos_comunitarios.geojson",
+capasConfiguradas["huertos_comunitarios"] = {
+  url: "data/capa_huertos_comunitarios.geojson",
   estilo: {
     color: "#16a34a",
     fillColor: "#4ade80",
@@ -306,7 +306,7 @@ capasConfiguradas["cat11_huertos_comunitarios"] = {
 
 El Módulo 02 permite a los investigadores ejecutar consultas personalizadas contra OpenStreetMap. Para incorporar una nueva plantilla predefinida:
 
-1. Abra `src/js/modulos/modulo_osm.js`.
+1. Abra `src/js/modulos/osm.js`.
 2. Localice el diccionario `PLANTILLAS_OVERPASS`.
 3. Añada la nueva consulta formateada en Overpass QL:
    ```javascript
@@ -332,27 +332,28 @@ El Módulo 02 permite a los investigadores ejecutar consultas personalizadas con
 
 ## 46. Tutorial 07: Diseño y Publicación de un Nuevo Storyboard Cartográfico
 
-Para crear el **Storyboard 08: Rutas del Pan y Panaderías Tradicionales de Barrio Brasil**:
+Para crear un nuevo Storyboard temático (por ejemplo, **Rutas del Pan y Panaderías Tradicionales de Barrio Brasil**):
 
-### Paso 1: Configurar el Objeto en `src/js/modulos/modulo_indicadores.js`
+### Paso 1: Configurar el Objeto en `src/js/modulos/indicadores_analisis.js`
 ```javascript
-storyboardsDefinidos[8] = {
-  id: 8,
+STORYBOARDS.push({
+  id: "storyboard-panaderias",
   titulo: "Rutas del Pan y Panaderías Centenarias",
   narrativa: "Recorrido por las panaderías tradicionales con hornos de leña y amasanderías de barrio que han resistido por más de 80 años en Barrio Brasil.",
   centro: [-33.4415, -70.6650],
   zoom: 17,
-  capasRequeridas: ["cat06_comercio_local", "cat07_movilidad_ciclovias"],
+  capas: ["servicios", "movilidad_activa"],
+  archivosGeoJSON: ["data/capa_servicios.geojson", "data/capa_movilidad_activa.geojson"],
   filtroAtributos: (props) => props.subcategoria === "bakery" || props.shop === "bakery"
-};
+});
 ```
 
 ### Paso 2: Crear la Tarjeta en `src/index.html`
 ```html
-<article class="tarjeta-storyboard" onclick="ejecutarStoryboard(8)">
-  <div class="storyboard-miniatura" style="background-image: url('img/storyboard_pan.jpg');"></div>
+<article class="tarjeta-storyboard" onclick="abrirStoryboard('storyboard-panaderias')">
+  <div class="storyboard-miniatura" style="background-image: url('img/storyboards/portada_kde.svg');"></div>
   <div class="storyboard-info">
-    <h4>08. Rutas del Pan Tradicional</h4>
+    <h4>05. Rutas del Pan Tradicional</h4>
     <p>Amasanderías centenarias y resistencia comercial de barrio.</p>
   </div>
 </article>
@@ -374,10 +375,10 @@ def calcular_indice_global_vgi(p_cuant, p_cual):
     # Calcula el IGV normalizado en [0.0, 1.0]
     return round((PESO_CUANTITATIVO * p_cuant) + (PESO_CUALITATIVO * p_cual), 4)
 ```
-Tras modificar los coeficientes, regenere los catálogos ejecutando:
+Tras modificar los coeficientes, regenere los reportes y catálogos ejecutando:
 ```bash
 python3 scripts/modelo_indice_lineal_wlc.py
-python3 scripts/generar_catalogos_excel.py
+python3 scripts/generar_entregables_excel.py
 ```
 
 ---
@@ -386,8 +387,8 @@ python3 scripts/generar_catalogos_excel.py
 
 Si la Municipalidad de Santiago publica una enmienda o actualización a la Ordenanza del Plan Regulador Comunal:
 
-1. Actualice el archivo GeoJSON vectorial en `datos/oficiales_ide/prc_zonificacion_santiago.geojson`.
-2. Abra `src/js/modulos/modulo_evaluador_normativo.js`.
+1. Actualice el archivo GeoJSON vectorial en `data/ide_minvu_ipt_prc_santiago.geojson` y su réplica en `src/data/ide_minvu_ipt_prc_santiago.geojson`.
+2. Abra `src/js/modulos/evaluador_normativo.js`.
 3. Actualice la tabla de correspondencia normativa `DICCIONARIO_ZONAS_PRC`:
    ```javascript
    const DICCIONARIO_ZONAS_PRC = {
@@ -429,9 +430,9 @@ Para garantizar que futuras adiciones al Atlas cumplan con los estándares de ca
 ```python
 # Adición de prueba en scripts/verificar_integridad_despliegue.py
 def prueba_09_verificar_peso_maximo_capas():
-    # Valida que ninguna capa GeoJSON exceda los 15 MB para evitar bloqueos en navegadores moviles
-    print("[*] TEST 9: Verificando que ninguna capa GeoJSON exceda los 15 MB...")
-    ruta_capas = os.path.join(BASE_DIR, "datos", "capas")
+    # Valida que ninguna capa GeoJSON barrial exceda los 15 MB para evitar bloqueos en navegadores moviles
+    print("[*] TEST 9: Verificando que ninguna capa GeoJSON barrial exceda los 15 MB...")
+    ruta_capas = os.path.join(BASE_DIR, "data")
     limite_bytes = 15 * 1024 * 1024  # 15 Megabytes
     
     for archivo in os.listdir(ruta_capas):
@@ -583,7 +584,7 @@ const capaIdeChileWMS = cargarCapaOficialWMS(
 Para empoderar a los investigadores locales, el visor permite exportar el subconjunto de datos filtrados en pantalla a diferentes formatos geográficos universales mediante generación dinámica de objetos binarios en el cliente (*Blobs*):
 
 ```javascript
-// src/js/modulos/exportador_datos.js
+// src/js/modulos/importador_capas.js
 function descargarDatosEnCliente(contenidoTexto, nombreArchivo, tipoMime) {
   const blob = new Blob([contenidoTexto], { type: tipoMime });
   const urlTemporal = URL.createObjectURL(blob);
@@ -672,13 +673,13 @@ Ratio de Contraste = (L₁ + 0.05) / (L₂ + 0.05) ≥ 7.00 : 1   (Estándar WCA
 Cada vez que se añadan, editen o depuren capas vectoriales, es imperativo regenerar el archivo comprimido masivo y auditar la integridad total del sistema antes de enviar a producción:
 
 ```bash
-# 1. Regenerar el paquete masivo unificado (543 MB / 256 archivos)
+# 1. Regenerar el paquete masivo unificado en docs/ y src/docs/ (542,35 MB / 257 archivos)
 python3 scripts/empaquetar_base_datos_completa.py
 
 # 2. Ejecutar la suite automatizada de 8 pruebas de integridad pre-despliegue
 python3 scripts/verificar_integridad_despliegue.py
 
-# 3. Confirmar que Git LFS rastree adecuadamente los binarios
+# 3. Confirmar que Git LFS rastree adecuadamente los binarios (docs/geodatabase_completa_atlas_vgi.zip)
 git lfs status
 
 # 4. Commit semántico y publicación a producción

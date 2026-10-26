@@ -448,24 +448,24 @@ const ModuloManual = (() => {
                 </tr>
                 <tr>
                   <td><strong>SQL / JSON / TOML</strong></td>
-                  <td><code>sql/esquema_postgis.sql</code>, <code>config/config.json</code> &amp; <code>netlify.toml</code></td>
-                  <td>Esquema relacional espacial PostGIS (tablas, vistas e índices GIST), configuración JSON del nodo y reglas de despliegue CDN/CORS en Netlify.</td>
-                  <td>DDL SQL con geometrías <code>EPSG:4326</code>/<code>EPSG:32719</code>, cabeceras HTTP de caché y redirecciones SPA.</td>
-                  <td>Ejecutar <code>esquema_postgis.sql</code> para levantar respaldo en PostgreSQL/Supabase o ajustar cabeceras en <code>netlify.toml</code>.</td>
+                  <td><code>scripts/db/01_schema_postgis.sql</code>, <code>scripts/db/02_seed_metadata.sql</code>, <code>config/config.json</code> &amp; <code>netlify.toml</code></td>
+                  <td>Esquema relacional espacial PostGIS (tablas, funciones RPC e índices GiST/GIN), semilla de metadatos, configuración JSON del nodo y reglas de despliegue CDN/CORS en Netlify.</td>
+                  <td>DDL SQL con geometrías <code>EPSG:4326</code>/<code>EPSG:32719</code>, cabeceras HTTP de caché y redirecciones SPA (<code>/geodatabase</code> → <code>/docs/geodatabase_completa_atlas_vgi.zip</code>).</td>
+                  <td>Ejecutar <code>scripts/db/01_schema_postgis.sql</code> y <code>02_seed_metadata.sql</code> en PostgreSQL/Supabase o ajustar cabeceras en <code>netlify.toml</code>.</td>
                 </tr>
                 <tr>
                   <td><strong>Python 3</strong></td>
-                  <td><code>scripts/*.py</code> (35 scripts de ingeniería y auditoría)</td>
+                  <td><code>scripts/*.py</code> (Scripts de ingeniería ETL, calidad y auditoría)</td>
                   <td>Pipelines de ingesta desde Overpass/GBIF/IDE, reproyección, recorte espacial, cálculo de metacalidad WLC, generación de catálogos Excel y validación pre-deploy.</td>
-                  <td>Scripts modulares (<code>verificar_conteo_capas.py</code>, <code>verificar_integridad_despliegue.py</code>, <code>analisis_metacalidad.py</code>, <code>construir_manual_actualizacion_maestro.py</code>).</td>
-                  <td>Ejecutar desde la raíz del proyecto para regenerar datos, auditar las 132 capas o reconstruir los manuales y reportes.</td>
+                  <td>Scripts modulares (<code>verificar_conteo_capas.py</code>, <code>verificar_integridad_despliegue.py</code>, <code>analisis_metacalidad.py</code>, <code>modelo_indice_lineal_wlc.py</code>, <code>generar_catalogos_excel.py</code>, <code>empaquetar_base_datos_completa.py</code>, <code>construir_manual_actualizacion_maestro.py</code>).</td>
+                  <td>Ejecutar desde la raíz del proyecto para regenerar datos en <code>data/</code> y <code>src/data/</code>, catálogos en <code>docs/</code> y <code>src/docs/</code> o reconstruir los manuales.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <h4 style="color:#f59e0b; margin:18px 0 10px 0;">3. Diagramas de Flujo Operativos (Pipelines INPUT → PROCESAMIENTO → OUTPUT)</h4>
           <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6; margin-bottom:12px;">
-            A continuación se esquematizan los principales pipelines de datos del Atlas VGI bajo el modelo de tres etapas (<strong>1. Input / Entrada</strong> → <strong>2. Pipeline de Procesamiento / Módulo</strong> → <strong>3. Output / Producto y Localización</strong>):
+            A continuación se esquematizan los principales pipelines de datos del Atlas VGI bajo el modelo de tres etapas (<strong>1. Input / Entrada</strong> → <strong>2. Pipeline de Procesamiento / Módulo</strong> → <strong>3. Output / Entregables Verificables en Git y Plataforma Web</strong>):
           </p>
           <div style="display:flex; flex-direction:column; gap:14px;">
             <!-- Pipeline 1: Extracción Overpass QL y Normalización VGI -->
@@ -474,15 +474,15 @@ const ModuloManual = (() => {
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
-                  BBox Territorial (Barrio Brasil / RM) + Diccionario de Etiquetas OSM (<code>amenity</code>, <code>highway</code>, <code>historic</code>, <code>building</code>, <code>landuse</code>) en <code>config.js</code>.
+                  BBox Territorial (Barrio Brasil / RM) + Diccionario de Etiquetas OSM en <code>src/js/config.js</code> y <code>config/config.json</code>.
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (osm.js / Python)</strong>
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (src/js/modulos/osm.js &amp; scripts/descargar_todas_las_categorias_osm.py)</strong>
                   Petición HTTP POST <code>[out:json][timeout:45]</code> con failover multi-servidor → Reconstrucción topológica de nodos y vías → Normalización al esquema maestro de 14 atributos.
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
-                  10 Capas VGI en <code>data/capa_cat01...cat10.geojson</code> y <code>src/data/</code> + Renderizado interactivo en Módulo 01 y Módulo 02.
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / RUTAS EN GIT Y WEB</strong>
+                  10 Capas VGI barriales (<code>data/capa_educacion.geojson</code> a <code>data/capa_cobertura_suelo.geojson</code>), 10 regionales RM (<code>data/capa_osm_rm_cat01_educacion.geojson</code> a <code>cat10_cobertura_suelo.geojson</code>), consolidado <code>data/atlas_vgi_barrio_brasil_uah_completo.geojson</code> (sincronizados en <code>src/data/</code>) y libro <code>docs/categorias_tematicas_osm.xlsx</code> (<code>src/docs/</code>).
                 </div>
               </div>
             </div>
@@ -493,15 +493,15 @@ const ModuloManual = (() => {
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
-                  Clic en coordenada <code>(lat, lng)</code> en el visor + Capas vectoriales PRC Santiago, PRMS, Zonas de Conservación Histórica (ZCH/ICH) y Áreas de Riesgo.
+                  Clic en coordenada <code>(lat, lng)</code> en el visor + Capas en <code>src/data/</code> y <code>data/</code>: <code>ide_minvu_ipt_prc_santiago.geojson</code>, <code>capa_ipt_prc_comunal.geojson</code>, <code>ZCH_ICH_RM_Patrimonio_IPT.geojson</code>, <code>ide_minvu_patrimonio.geojson</code> e <code>ide_minvu_ipt_areas_riesgo.geojson</code>.
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (evaluador_normativo.js)</strong>
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (src/js/modulos/evaluador_normativo.js)</strong>
                   Algoritmo Point-in-Polygon (Ray-Casting) + Cruce con Art. 2.1.24 y 2.1.17 OGUC + Consulta a los 10 Hitos Históricos del PRC en Barrio Brasil (1990–2024).
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
-                  Certificado de Informaciones Normativas VGI (CIN-VGI) en pantalla e imprimible/descargable en el Módulo 01.
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / RUTAS EN GIT Y WEB</strong>
+                  Certificado de Informaciones Normativas VGI (CIN-VGI) interactivo e imprimible en el Módulo 01 y catálogo de fuentes en <code>docs/catalogo_fuentes_vgi.xlsx</code> (<code>src/docs/</code>).
                 </div>
               </div>
             </div>
@@ -512,34 +512,34 @@ const ModuloManual = (() => {
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
-                  132 Capas del Atlas o GeoJSON externo + Metadatos ISO 19115 + Series históricas OSHDB/ohsome API v1/v2 (<code>/elements/count</code>, <code>/length</code>, <code>/area</code> y <code>/users/count</code>).
+                  132 Capas en <code>src/data/*.geojson</code> y <code>data/*.geojson</code> + Series históricas OSHDB/ohsome API v1/v2 (<code>/elements/count</code>, <code>/length</code>, <code>/area</code> y <code>/users/count</code>).
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (ohsome.js / calidad_analyst.js / evaluador_calidad_cuantitativa.js)</strong>
-                  Reproyección a <code>EPSG:32719</code> → Cálculo de Densidad Espacial (<code>elem/km²</code> y <code>elem/10.000 m²</code>), Intensidad Comunitaria (<code>edit/user</code>), Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157) y Combinación Lineal Ponderada WLC (50% cuantitativo + 50% cualitativo).
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (src/js/modulos/ohsome.js, calidad_analyst.js, scripts/analisis_metacalidad.py &amp; modelo_indice_lineal_wlc.py)</strong>
+                  Reproyección a <code>EPSG:32719</code> → Cálculo de Densidad Espacial (<code>elem/km²</code> y <code>elem/10.000 m²</code>), Intensidad Comunitaria (<code>edit/user</code>), Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157) y Combinación Lineal Ponderada WLC.
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
-                  Score de Madurez Territorial (<code>/100</code>), Estado de Saturación Física, Índice Global de MetaCalidad (IGMC 96,55% Grado A+) y auditoría de changesets OSMCha en el Módulo 06.
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / RUTAS EN GIT Y WEB</strong>
+                  <code>docs/ANALISIS_METACALIDAD.md</code>, <code>docs/matriz_metacalidad.json</code>, <code>docs/wlc_metacalidad_resultado.json</code>, <code>docs/wlc_metacalidad_ranking.csv</code>, <code>docs/correlacion_dimensiones_calidad.csv</code>, <code>docs/correlacion_dimensiones_calidad.png</code> y <code>docs/perfil_metadatos_vgi.xlsx</code> (sincronizados en <code>src/docs/</code>) + Módulo 06.
                 </div>
               </div>
             </div>
 
             <!-- Pipeline 4: Síntesis Espacial, Indicadores KDE/LISA y Storyboards (Módulo 05) -->
             <div style="background:#090e1a; border:1px solid rgba(168,85,247,0.35); border-radius:10px; padding:14px;">
-              <div style="font-size:0.78rem; font-weight:800; color:#c084fc; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline D · Modelamiento Espacial (KDE / LISA / Censo 2024) y Motor de Storyboards Multi-Dispositivo</div>
+              <div style="font-size:0.78rem; font-weight:800; color:#c084fc; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline D · Modelamiento Espacial (KDE / LISA / Censo 2024) y Empaquetado de Geodatabase Completa</div>
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
-                  10.166 entidades VGI + 1.711 manzanas censales INE 2024 + Registro Social de Hogares (BiDat) + 75 cartografías temáticas (<code>2200×1423 px</code>).
+                  <code>data/ide_censo2024_manzanas.geojson</code> + <code>data/RSH_*_UV_2026_*.geojson</code> + <code>data/BIP_Iniciativas_Inversion_RM_Comunas.geojson</code> + <code>data/bip_inversiones_santiago.csv</code> + <code>data/resumen_catastro_vgi.csv</code>.
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (indicadores_analisis.js)</strong>
-                  Clasificación en 5 Dimensiones Analíticas + Articulación de secciones narrativas intercaladas con gráficos comparativos, diagramas vectoriales SVG y Lightbox táctil HD.
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (src/js/modulos/indicadores_analisis.js &amp; scripts/empaquetar_base_datos_completa.py)</strong>
+                  Clasificación en 5 Dimensiones Analíticas + Articulación de los 4 Storyboards (75 cartografías) + Empaquetado e indexación SHA-256 de la Geodatabase completa.
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
-                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
-                  4 Storyboards de resultados territoriales y 5 acordeones de coberturas en el Módulo 05 con activación directa en el visor cartográfico.
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / RUTAS EN GIT Y WEB</strong>
+                  <code>data/matriz_sintesis_barrio_brasil_manzanas.geojson</code> (<code>src/data/</code>), paquete maestro <code>docs/geodatabase_completa_atlas_vgi.zip</code> (<code>src/docs/geodatabase_completa_atlas_vgi.zip</code>) y 4 Storyboards interactivos en el Módulo 05.
                 </div>
               </div>
             </div>

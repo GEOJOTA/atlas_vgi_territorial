@@ -77,12 +77,13 @@ El archivo `.gitattributes` define qué patrones de archivos son interceptados p
 *.pbf filter=lfs diff=lfs merge=lfs -text
 *.osm.pbf filter=lfs diff=lfs merge=lfs -text
 
-# Coberturas vectoriales masivas regionales
-datos/geofabrik_rm/*.geojson filter=lfs diff=lfs merge=lfs -text
-datos/censo2024_raw/*.geojson filter=lfs diff=lfs merge=lfs -text
+# Coberturas vectoriales masivas regionales y censales
+data/capa_osm_rm_*.geojson filter=lfs diff=lfs merge=lfs -text
+data/censo2024_*.geojson filter=lfs diff=lfs merge=lfs -text
 
-# Paquete masivo unificado institucional
-descargas/atlas_vgi_uah_base_datos_completa.zip filter=lfs diff=lfs merge=lfs -text
+# Paquete masivo unificado institucional (sincronizado en docs/ y src/docs/)
+docs/geodatabase_completa_atlas_vgi.zip filter=lfs diff=lfs merge=lfs -text
+src/docs/geodatabase_completa_atlas_vgi.zip filter=lfs diff=lfs merge=lfs -text
 ```
 
 #### 2. Comandos Esenciales de Gestión Git LFS
@@ -134,8 +135,8 @@ tipo(ámbito opcional): descripción en presente o infinitivo
 El despliegue en producción es totalmente desatendido. Cada vez que se ejecuta un `git push origin main`, GitHub notifica a Netlify a través de un webhook seguro:
 
 1. **Entorno de Compilación (*Build Container*):** Netlify inicializa una máquina virtual basada en Ubuntu 22.04 LTS (Jammy Jellyfish).
-2. **Descarga de Objetos Git LFS:** Mediante la directiva `GIT_LFS_ENABLED = "true"` en las variables de entorno de Netlify, el clon incluye los binarios de `descargas/` y `datos/`.
-3. **Parseo de `netlify.toml`:** Se aplican las directivas de publicación (`publish = "."`), las reglas de reescritura de cabeceras HTTP de seguridad y las políticas de caché perimetral.
+2. **Descarga de Objetos Git LFS:** Mediante la directiva `GIT_LFS_SKIP_SMUDGE = "0"` en `netlify.toml`, el clon incluye los binarios de `docs/`, `src/docs/`, `data/` y `src/data/`.
+3. **Parseo de `netlify.toml`:** Se aplican las directivas de publicación (`publish = "src"`), las reglas de reescritura de cabeceras HTTP de seguridad y las políticas de caché perimetral.
 4. **Despliegue Atómico (*Atomic Deploy*):** Los nuevos activos se distribuyen en milisegundos a todos los nodos perimetrales globales de Netlify.
 5. **Invalidación de Caché Perimetral:** Se purga de inmediato la caché previa, garantizando que los usuarios reciban la última versión sin demoras.
 
@@ -217,22 +218,22 @@ A continuación se documenta el análisis técnico de causa-raíz (*Root Cause A
 ---
 
 ### Caso 03: Puntero Git LFS Descargado como Texto Plano de 130 Bytes
-- **Síntoma:** El usuario hace clic en el botón de descarga masiva del archivo `atlas_vgi_uah_base_datos_completa.zip` y descarga un archivo corrupto de ~130 bytes cuyo contenido legible es:
+- **Síntoma:** El usuario hace clic en el botón de descarga masiva del archivo `docs/geodatabase_completa_atlas_vgi.zip` y descarga un archivo corrupto de ~130 bytes cuyo contenido legible es:
   ```text
   version https://git-lfs.github.com/spec/v1
   oid sha256:4a8b7e...
-  size 569832140
+  size 568698613
   ```
 - **Causa Raíz:** El clon del repositorio en el entorno de despliegue de Netlify no ejecutó el comando `git lfs pull`, desplegando únicamente el archivo puntero (*LFS pointer file*) en lugar del binario real.
 - **Solución Paso a Paso:**
-  1. Acceda al panel de control de Netlify en `Site configuration` > `Environment variables`.
-  2. Incorpore la variable de entorno:
-     ```text
-     GIT_LFS_ENABLED = "true"
-     GIT_LFS_FETCH_INCLUDE = "descargas/*"
+  1. Verifique en `netlify.toml` que la directiva `[build.environment]` incluya:
+     ```toml
+     [build.environment]
+       GIT_LFS_SKIP_SMUDGE = "0"
+       GIT_LFS_FETCH_INCLUDE = "src/docs/geodatabase_completa_atlas_vgi.zip,docs/geodatabase_completa_atlas_vgi.zip"
      ```
-  3. Ejecute un nuevo despliegue manual con opción `Clear cache and deploy site`.
-  4. Alternativamente, ejecute la verificación con `python3 scripts/verificar_integridad_despliegue.py`, el cual audita que el archivo ZIP supere obligatoriamente los 100 MB antes de permitir el commit.
+  2. Ejecute un nuevo despliegue manual con opción `Clear cache and deploy site`.
+  3. Alternativamente, ejecute la verificación con `python3 scripts/verificar_integridad_despliegue.py`, el cual audita que `docs/geodatabase_completa_atlas_vgi.zip` y `src/docs/geodatabase_completa_atlas_vgi.zip` superen obligatoriamente los 100 MB antes de permitir el commit.
 
 ---
 
@@ -338,7 +339,7 @@ A continuación se documenta el análisis técnico de causa-raíz (*Root Cause A
 ---
 
 ### Caso 09: Bloqueo de Archivos Excel por Apertura Concurrente (`PermissionError`)
-- **Síntoma:** `PermissionError: [Errno 13] Permission denied: 'catalogos/catalogo_capas_completo_vgi_uah.xlsx'`.
+- **Síntoma:** `PermissionError: [Errno 13] Permission denied: 'docs/catalogo_fuentes_vgi.xlsx'`.
 - **Causa Raíz:** El archivo `.xlsx` se encuentra abierto en Microsoft Excel, LibreOffice o Numbers en la computadora local. Estos programas bloquean el descriptor de archivo a nivel de sistema operativo para prevenir escrituras concurrentes.
 - **Solución Paso a Paso:**
   1. Cierre la aplicación ofimática que mantiene abierto el archivo.
@@ -434,10 +435,10 @@ A continuación se documenta el análisis técnico de causa-raíz (*Root Cause A
 ---
 
 ### Caso 14: Discrepancia en el Conteo de Capas de la Interfaz Web
-- **Síntoma:** La barra de estado indica "118 capas cargadas", pero en el directorio `datos/capas/` existen 125 archivos `.geojson`.
-- **Causa Raíz:** El directorio local contiene archivos temporales, capas de respaldo (`copia_*.geojson`) o extractos auxiliares que no están registrados en el índice maestro `catalogo_capas_completo_vgi_uah.xlsx` ni en el arreglo de capas activas de `app.js`.
+- **Síntoma:** La barra de estado indica "132 capas cargadas", pero en el directorio `data/` o `src/data/` existen archivos `.geojson` adicionales no listados en el visor.
+- **Causa Raíz:** El directorio local contiene archivos temporales, capas de respaldo (`copia_*.geojson`) o extractos auxiliares que no están registrados en el índice maestro `docs/catalogo_fuentes_vgi.xlsx` ni en los arreglos `CAPAS_OFICIALES` (`src/js/modulos/ide_chile.js`) y `categoriasVGI` (`src/js/config.js`).
 - **Solución Paso a Paso:**
-  Ejecute el script de auditoría `scripts/verificar_conteo_capas.py` para listar los archivos huérfanos y elimínelos o muévalos a una carpeta externa fuera del árbol público de despliegue.
+  Ejecute el script de auditoría `python3 scripts/verificar_conteo_capas.py` para verificar las 132 capas operativas del visor y su paridad exacta entre `data/` y `src/data/`.
 
 ---
 

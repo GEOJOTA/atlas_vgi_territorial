@@ -126,12 +126,12 @@ flowchart LR
         WLC["modelo_indice_lineal_wlc.py (ISO 19157)"]
     end
 
-    subgraph DESTINOS["3. Salidas y Almacenamiento"]
-        GEOJSON["132 Capas GeoJSON (122 Oficiales + 10 VGI)"]
-        GPKG["geofabrik_rm_osm.gpkg (OGC SQLite)"]
-        XLSX["4 Libros Excel OpenXML (catalogos/)"]
-        POSTGIS["PostgreSQL 17 / PostGIS 3.3 (Supabase)"]
-        ZIP["atlas_vgi_uah_base_datos_completa.zip (543 MB)"]
+    subgraph DESTINOS["3. Salidas y Almacenamiento en Git y Web"]
+        GEOJSON["132 Capas GeoJSON en src/data/ y data/ (122 Oficiales + 10 VGI)"]
+        GPKG["data/geodatabase_osm_rm_geofabrik.gpkg (OGC SQLite)"]
+        XLSX["3 Libros Excel OpenXML en docs/ y src/docs/"]
+        POSTGIS["PostgreSQL 17 / PostGIS 3.3 (scripts/db/01_schema_postgis.sql)"]
+        ZIP["docs/geodatabase_completa_atlas_vgi.zip (542,35 MB)"]
     end
 
     OSM --> EXT --> ENR
@@ -497,9 +497,9 @@ flowchart LR
         ATTR_STD["Inyección de 14 Columnas Estandarizadas ISO"]
     end
 
-    subgraph OUT_GEO["3. OUTPUT"]
-        GPKG_OGC["geofabrik_rm_osm.gpkg (OGC SQLite)"]
-        GEOJSON_SPLIT["Extractos Vectoriales GeoJSON Homologados"]
+    subgraph OUT_GEO["3. OUTPUT EN GIT Y WEB"]
+        GPKG_OGC["data/geodatabase_osm_rm_geofabrik.gpkg (OGC SQLite)"]
+        GEOJSON_SPLIT["data/capa_osm_rm_cat01_educacion.geojson a cat10_cobertura_suelo.geojson"]
     end
 
     IN_GEO --> PROC_GEO --> OUT_GEO
@@ -513,7 +513,7 @@ Para satisfacer las demandas de investigadores que requieren estudiar la conecti
    ```bash
    osmium extract -b -71.72,-34.30,-69.75,-32.92 chile-latest.osm.pbf -o rm-latest.osm.pbf
    ```
-3. **Clasificación y Exportación GeoJSON:** El script `scripts/procesar_geofabrik_rm.py` clasifica las geometrías en 10 archivos GeoJSON regionales (`capa_osm_rm_cat01_educacion.geojson` a `capa_osm_rm_cat10_cobertura_suelo.geojson`), sumando más de 1.2 GB de datos.
+3. **Clasificación y Exportación GeoJSON:** El script `scripts/procesar_geofabrik_rm.py` clasifica las geometrías en 10 archivos GeoJSON regionales (`data/capa_osm_rm_cat01_educacion.geojson` a `data/capa_osm_rm_cat10_cobertura_suelo.geojson` y su espejo en `src/data/`), además del consolidado `data/capa_osm_rm_completo_vgi.geojson`, sumando más de 1.2 GB de datos.
 
 ### 11.2. Generación del GeoPackage OGC (`scripts/generar_gpkg_geofabrik.py`)
 Para que los usuarios puedan cargar la base regional de una sola vez en software SIG de escritorio (QGIS, ArcGIS Pro, gvSIG), el script `scripts/generar_gpkg_geofabrik.py` compila las 10 capas dentro de un único archivo SQLite/GeoPackage estándar OGC:
@@ -522,7 +522,7 @@ Para que los usuarios puedan cargar la base regional de una sola vez en software
 python3 scripts/generar_gpkg_geofabrik.py
 ```
 
-El archivo resultante (`docs/geofabrik_chile_rm_completo.gpkg`) cuenta con índices espaciales R-Tree en cada tabla, permitiendo operaciones analíticas complejas en milisegundos.
+El archivo resultante (`data/geodatabase_osm_rm_geofabrik.gpkg`) cuenta con índices espaciales R-Tree en cada tabla, permitiendo operaciones analíticas complejas en milisegundos.
 
 ---
 
@@ -588,19 +588,19 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 
 A continuación se expone la tabla maestra con el inventario universal de las 132 capas que operan en la plataforma web y en la geodatabase unificada:
 
-### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil)
-| N° | ID de Capa | Denominación Oficial | Dimensión Territorial | Geometría OGC | Fuente Primaria | Ruta Local |
-| :---: | :--- | :--- | :--- | :--- | :--- | :--- |
-| 01 | `cat01_educacion_vgi` | CAT-01: Educación y Universidad VGI | Equipamiento Comunitario | Puntos / Polígonos | OpenStreetMap | `data/cat01_educacion_vgi.geojson` |
-| 02 | `cat02_salud_vgi` | CAT-02: Servicios y Comercio Barrial VGI | Equipamiento Comunitario | Puntos / Polígonos | OpenStreetMap | `data/cat02_salud_vgi.geojson` |
-| 03 | `cat03_transporte_vgi` | CAT-03: Movilidad y Transporte VGI | Movilidad Urbana | Puntos / Líneas | OpenStreetMap | `data/cat03_transporte_vgi.geojson` |
-| 04 | `cat04_ciclovias_vgi` | CAT-04: Movilidad Activa y Ciclovías VGI | Movilidad Urbana | Líneas / Puntos | OpenStreetMap | `data/cat04_ciclovias_vgi.geojson` |
-| 05 | `cat05_espacio_publico_vgi` | CAT-05: Áreas Verdes y Espacio Público VGI | Espacio Público | Polígonos | OpenStreetMap | `data/cat05_espacio_publico_vgi.geojson` |
-| 06 | `cat06_patrimonio_vgi` | CAT-06: Patrimonio y Cultura VGI | Patrimonio Barrial | Puntos / Polígonos | OpenStreetMap | `data/cat06_patrimonio_vgi.geojson` |
-| 07 | `cat07_accesibilidad_vgi` | CAT-07: Accesibilidad Universal VGI | Inclusión Urbana | Puntos | OpenStreetMap | `data/cat07_accesibilidad_vgi.geojson` |
-| 08 | `cat08_biodiversidad_vgi` | CAT-08: Biodiversidad Urbana VGI | Medio Ambiente | Puntos / Polígonos | OpenStreetMap / GBIF | `data/cat08_biodiversidad_vgi.geojson` |
-| 09 | `cat09_edificaciones_vgi` | CAT-09: Edificaciones y Huella Urbana VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat09_edificaciones_vgi.geojson` |
-| 10 | `cat10_cobertura_suelo_vgi` | CAT-10: Coberturas y Usos de Suelo VGI | Morfología Urbana | Polígonos | OpenStreetMap | `data/cat10_cobertura_suelo_vgi.geojson` |
+### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil y Región Metropolitana)
+| N° | ID en Plataforma (`config.js`) | Código | Denominación Oficial | Dimensión Territorial | Geometría OGC | Ruta Barrial (`data/` y `src/data/`) | Ruta Regional RM (`data/` y `src/data/`) |
+| :---: | :--- | :---: | :--- | :--- | :--- | :--- | :--- |
+| 01 | `educacion` | `CAT-01` | Educación, Universidades e Investigación | Equipamiento Comunitario | Puntos / Polígonos | `data/capa_educacion.geojson` | `data/capa_osm_rm_cat01_educacion.geojson` |
+| 02 | `servicios` | `CAT-02` | Servicios Públicos, Salud y Comercio Barrial | Equipamiento Comunitario | Puntos / Polígonos | `data/capa_servicios.geojson` | `data/capa_osm_rm_cat02_servicios.geojson` |
+| 03 | `transporte` | `CAT-03` | Transporte Público e Infraestructura Vial | Movilidad Urbana | Puntos / Líneas | `data/capa_transporte.geojson` | `data/capa_osm_rm_cat03_transporte.geojson` |
+| 04 | `movilidad_activa` | `CAT-04` | Movilidad Activa, Ciclovías y Red Peatonal | Movilidad Urbana | Líneas / Puntos | `data/capa_movilidad_activa.geojson` | `data/capa_osm_rm_cat04_movilidad_activa.geojson` |
+| 05 | `espacio_publico` | `CAT-05` | Áreas Verdes, Parques y Espacio Público | Espacio Público | Polígonos / Puntos | `data/capa_espacio_publico.geojson` | `data/capa_osm_rm_cat05_espacio_publico.geojson` |
+| 06 | `patrimonio` | `CAT-06` | Patrimonio Urbano, Cultura y Memoria | Patrimonio Barrial | Puntos / Polígonos | `data/capa_patrimonio.geojson` | `data/capa_osm_rm_cat06_patrimonio.geojson` |
+| 07 | `accesibilidad` | `CAT-07` | Accesibilidad Universal e Inclusión (PMR) | Inclusión Urbana | Puntos | `data/capa_accesibilidad.geojson` | `data/capa_osm_rm_cat07_accesibilidad.geojson` |
+| 08 | `biodiversidad` | `CAT-08` | Biodiversidad Urbana y Arbolado (OSM / GBIF) | Medio Ambiente | Puntos / Polígonos | `data/capa_biodiversidad.geojson` | `data/capa_osm_rm_cat08_biodiversidad.geojson` |
+| 09 | `edificaciones` | `CAT-09` | Edificaciones, Cités y Morfología Urbana | Morfología Urbana | Polígonos | `data/capa_edificaciones.geojson` | `data/capa_osm_rm_cat09_edificaciones.geojson` |
+| 10 | `cobertura_suelo` | `CAT-10` | Cobertura y Uso de Suelo Urbano | Morfología Urbana | Polígonos | `data/capa_cobertura_suelo.geojson` | `data/capa_osm_rm_cat10_cobertura_suelo.geojson` |
 
 
 ### 13.2. Las 122 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)

@@ -103,8 +103,8 @@ w_m = [0.30, 0.25, 0.20, 0.15, 0.10],   ∑(j=1..5) w_mj = 1.00
 ```mermaid
 flowchart LR
     subgraph IN_WLC["1. INPUT"]
-        GEO_132["132 Archivos GeoJSON (src/data/)"]
-        META_XLSX["perfil_metadatos_vgi.xlsx & catalogo_fuentes_vgi.xlsx"]
+        GEO_132["132 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
+        META_XLSX["docs/perfil_metadatos_vgi.xlsx & docs/catalogo_fuentes_vgi.xlsx"]
         BBOX_RM["Envolvente Geodésica Oficial RM / Barrio Brasil"]
     end
 
@@ -115,9 +115,9 @@ flowchart LR
     end
 
     subgraph OUT_WLC["3. OUTPUT"]
-        RANK_CSV["Ranking wlc_metacalidad_ranking.csv (132 Capas)"]
-        CERT_GRADE["Certificación Normativa (Grado A+ >= 95%, Grado A >= 90%)"]
-        DOC_REP["Informe Técnico ANALISIS_METACALIDAD.md"]
+        RANK_CSV["docs/wlc_metacalidad_ranking.csv & docs/wlc_metacalidad_resultado.json"]
+        CERT_GRADE["docs/matriz_metacalidad.json (Grado A+ >= 95%, Grado A >= 90%)"]
+        DOC_REP["docs/ANALISIS_METACALIDAD.md (sincronizados en src/docs/)"]
     end
 
     IN_WLC --> PROC_WLC --> OUT_WLC
@@ -249,7 +249,7 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 ```mermaid
 flowchart LR
     subgraph IN_CORR["1. INPUT"]
-        MAT_132["Matriz 132 Capas x 10 Dimensiones WLC v2.0"]
+        MAT_132["docs/matriz_metacalidad.json (132 Capas x 10 Dimensiones WLC v2.0)"]
         WEIGHTS["Vectores de Ponderación (w_c y w_m)"]
     end
 
@@ -260,8 +260,8 @@ flowchart LR
     end
 
     subgraph OUT_CORR["3. OUTPUT"]
-        CSV_CORR["correlacion_dimensiones_calidad.csv (Matriz 10x10)"]
-        DICT_IGV["Dictamen Global IGV Promedio: 95.41% (Grado A+)"]
+        CSV_CORR["docs/correlacion_dimensiones_calidad.csv & docs/correlacion_dimensiones_calidad.png"]
+        DICT_IGV["docs/wlc_metacalidad_resultado.json (IGV Promedio: 95.41% Grado A+)"]
     end
 
     IN_CORR --> PROC_CORR --> OUT_CORR
@@ -445,21 +445,21 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
 ```mermaid
 flowchart LR
     subgraph IN_CATS["1. INPUT"]
-        CAPAS_132["132 Capas Vectoriales Auditadas"]
-        WLC_RES["Resultados del Modelo WLC v2.0"]
-        GLOS_140["140 Descriptores del Diccionario Territorial"]
+        CAPAS_132["132 Capas Vectoriales Auditadas (data/*.geojson)"]
+        WLC_RES["Resultados del Modelo WLC v2.0 (docs/wlc_metacalidad_resultado.json)"]
+        GLOS_140["140 Descriptores del Diccionario Territorial (src/js/modulos/diccionario.js)"]
     end
 
     subgraph PROC_CATS["2. PIPELINE DE COMPILACIÓN OPENXML Y CSV"]
-        SCRIPT_XLS["scripts/generar_catalogos_excel.py (openpyxl)"]
+        SCRIPT_XLS["scripts/generar_entregables_excel.py (openpyxl)"]
         STYLE_XLS["Formateo Institucional de Hojas, Cabeceras y Fórmulas"]
         EXPORT_CSV["Serialización Tabular UTF-8 con BOM para Excel/R/Python"]
     end
 
     subgraph OUT_CATS["3. OUTPUT"]
-        FOUR_XLSX["4 Libros Maestros .xlsx (Fuentes, Categorías, Metadatos, Diccionario)"]
-        FOUR_CSV["4 Consolidados .csv (Ranking WLC, Correlación, Resumen VGI, BIP)"]
-        SYNC_DOCS["Sincronización Espejo en docs/ y src/docs/"]
+        THREE_XLSX["3 Libros Maestros .xlsx (docs/categorias_tematicas_osm.xlsx, docs/catalogo_fuentes_vgi.xlsx, docs/perfil_metadatos_vgi.xlsx)"]
+        FOUR_CSV["4 Consolidados .csv (docs/wlc_metacalidad_ranking.csv, docs/correlacion_dimensiones_calidad.csv, data/resumen_catastro_vgi.csv, data/bip_inversiones_santiago.csv)"]
+        SYNC_DOCS["Sincronización Espejo en docs/, src/docs/, data/ y src/data/"]
     end
 
     IN_CATS --> PROC_CATS --> OUT_CATS
@@ -467,17 +467,16 @@ flowchart LR
 
 El Atlas desacopla de forma absoluta las bases de datos espaciales de los catálogos de metadatos tabulares, permitiendo a investigadores de cualquier disciplina inspeccionar el sistema en software ofimático estándar:
 
-### 18.1. Los 4 Libros Maestros OpenXML (`.xlsx`)
-1. **`docs/categorias_tematicas_osm.xlsx` (52.5 KB):** Contiene 11 hojas estructuradas (Resumen General + Hojas CAT-01 a CAT-10). Define códigos unívocos, nombres en español, etiquetas primarias y secundarias de OSM, pesos de habitabilidad y criterios de verificación comunitaria.
-2. **`docs/catalogo_fuentes_vgi.xlsx` (37.4 KB):** Ficha exhaustiva de las **132 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
-3. **`docs/perfil_metadatos_vgi.xlsx` (30.6 KB):** Matriz de parametrización de los 7 paquetes normativos de la norma ISO 19115-1:2014 con definición de obligatoriedad, cardinalidad OGC y mapeo XSD ISO 19139.
-4. **`docs/catalogo_diccionario_territorial_140.xlsx`:** Catálogo estructurado de los 140 descriptores conceptuales y normativos del Atlas.
+### 18.1. Los 3 Libros Maestros OpenXML (`.xlsx`) en `docs/` y `src/docs/`
+1. **`docs/categorias_tematicas_osm.xlsx` (`src/docs/categorias_tematicas_osm.xlsx`, 52.5 KB):** Contiene 11 hojas estructuradas (Resumen General + Hojas CAT-01 a CAT-10). Define códigos unívocos, nombres en español, etiquetas primarias y secundarias de OSM, pesos de habitabilidad y criterios de verificación comunitaria.
+2. **`docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx`, 37.4 KB):** Ficha exhaustiva de las **132 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
+3. **`docs/perfil_metadatos_vgi.xlsx` (`src/docs/perfil_metadatos_vgi.xlsx`, 30.6 KB):** Matriz de parametrización de los 7 paquetes normativos de la norma ISO 19115-1:2014 con definición de obligatoriedad, cardinalidad OGC y mapeo XSD ISO 19139.
 
-### 18.2. Los Archivos Consolidados CSV UTF-8
-* **`data/bip_inversiones_santiago.csv` (3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
-* **`docs/correlacion_dimensiones_calidad.csv` (837 bytes):** Matriz simétrica 10 × 10 de coeficientes de correlación de Pearson del modelo WLC v2.0.
-* **`docs/wlc_metacalidad_ranking.csv` (29.5 KB):** Tabla ordenada de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
-* **`data/resumen_catastro_vgi.csv` (168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
+### 18.2. Los Archivos Consolidados CSV y JSON de Calidad (`data/`, `src/data/`, `docs/` y `src/docs/`)
+* **`data/bip_inversiones_santiago.csv` (`src/data/bip_inversiones_santiago.csv`, 3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
+* **`docs/correlacion_dimensiones_calidad.csv` (`src/docs/correlacion_dimensiones_calidad.csv`, 837 bytes) y `docs/correlacion_dimensiones_calidad.png`:** Matriz simétrica 10 × 10 de coeficientes de correlación de Pearson del modelo WLC v2.0 y su representación gráfica.
+* **`docs/wlc_metacalidad_ranking.csv` (`src/docs/wlc_metacalidad_ranking.csv`, 29.5 KB), `docs/wlc_metacalidad_resultado.json` y `docs/matriz_metacalidad.json`:** Tabla ordenada y matrices JSON de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
+* **`data/resumen_catastro_vgi.csv` (`src/data/resumen_catastro_vgi.csv`, 168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
 
 ---
 
@@ -499,7 +498,7 @@ flowchart LR
 
     subgraph OUT_DICT["3. OUTPUT"]
         MOD_DICT["Buscador Instantáneo del Diccionario Territorial (src/js/modulos/diccionario.js)"]
-        XLSX_DICT["Catálogo Descargable catalogo_diccionario_territorial_140.xlsx"]
+        XLSX_DICT["Exportación Dinámica JSON/CSV y Respaldo en docs/catalogo_fuentes_vgi.xlsx"]
     end
 
     IN_DICT --> PROC_DICT --> OUT_DICT
@@ -509,18 +508,18 @@ El Módulo del Diccionario Territorial (`src/js/modulos/diccionario.js`) articul
 
 A continuación se expone una muestra representativa de los descriptores más significativos de la base:
 
-| N° | Término Estandarizado | Categoría Temática | Definición Conceptual y Operativa | Marco Normativo | Etiqueta OSM Equivalente | Capa Atlas Relacionada |
+| N° | Término Estandarizado | Categoría Temática | Definición Conceptual y Operativa | Marco Normativo | Etiqueta OSM Equivalente | Capa Atlas Relacionada (ID y Ruta en Git) |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
-| **001** | **Cité Residencial** | Morfología Urbana | Conjunto de viviendas continuas de baja altura emplazadas a lo largo de un pasaje interior común con acceso único a la vía pública. | Ley 21.442 / OGUC | `building=cité` / `building:cité=yes` | `cat09_edificaciones_vgi` |
-| **002** | **Zona Típica (ZT)** | Patrimonio Barrial | Agrupación de bienes inmuebles urbanos que constituyen una unidad de interés histórico, estético o cultural protegida por ley. | Ley 17.288 (Art. 29) | `heritage=2` / `heritage:operator=CMN` | `minvu_patrimonio` |
-| **003** | **Inmueble de Conservación Histórica** | Patrimonio Barrial | Edificación destacada por su valor patrimonial individual, declarada en el Plan Regulador Comunal. | LGUC Art. 60 / PRC Santiago | `historic=building` / `heritage=yes` | `prc_zonificacion_santiago` |
-| **004** | **Rampa Peatonal PMR** | Inclusión Urbana | Rebaje de solera en cruces peatonales para permitir el desplazamiento autónomo de personas en sillas de ruedas. | OGUC Art. 2.2.8 | `highway=crossing` + `kerb=lowered` | `cat07_accesibilidad_vgi` |
-| **005** | **Pavimento Podotáctil** | Inclusión Urbana | Superficie con relieve texturizado (guía o botones) que orienta a personas con discapacidad visual en aceras. | OGUC Art. 2.2.8 | `tactile_paving=yes` | `cat07_accesibilidad_vgi` |
-| **006** | **Semáforo Acústico** | Movilidad Urbana | Controlador de cruce semaforizado equipado con pulsador sonoro para no videntes. | Manual de Señalización MTT | `traffic_signals:sound=yes` | `red_semaforos_uoct_rm` |
-| **007** | **Punto Limpio Comunitario** | Medio Ambiente | Instalación destinada a la recepción selectiva y acopio transitorio de residuos reciclables (plásticos, vidrios, papeles). | Ley 20.920 (REP) | `amenity=recycling` | `subdere_rsd_sitios_disposicion`|
-| **008** | **Arbolado Viario Significativo** | Medio Ambiente | Árbol emplazado en bien nacional de uso público con copa superior a 5 metros que provee sombra y microclima. | Ordenanza Municipal de Aseo | `natural=tree` + `denotation=urban` | `cat08_biodiversidad_vgi` |
-| **009** | **Ciclovía Segregada** | Movilidad Activa | Vía ciclista delimitada físicamente mediante segregadores respecto al tránsito vehicular motorizado. | Ley 21.088 (Ley de Convivencia) | `highway=cycleway` + `segregated=yes`| `cat04_ciclovias_vgi` |
-| **010** | **Manzana Censal Urbana** | Demografía Social | Unidad mínima de recolección estadística censal delimitada por calles o accidentes geográficos continuos. | INE Censo 2024 | `boundary=census` / `place=block` | `ide_censo2024_manzanas` |
+| **001** | **Cité Residencial** | Morfología Urbana | Conjunto de viviendas continuas de baja altura emplazadas a lo largo de un pasaje interior común con acceso único a la vía pública. | Ley 21.442 / OGUC | `building=cité` / `building:cité=yes` | `edificaciones` (`data/capa_edificaciones.geojson`) |
+| **002** | **Zona Típica (ZT)** | Patrimonio Barrial | Agrupación de bienes inmuebles urbanos que constituyen una unidad de interés histórico, estético o cultural protegida por ley. | Ley 17.288 (Art. 29) | `heritage=2` / `heritage:operator=CMN` | `minvu_patrimonio` (`data/ide_minvu_patrimonio_urbano.geojson`) |
+| **003** | **Inmueble de Conservación Histórica** | Patrimonio Barrial | Edificación destacada por su valor patrimonial individual, declarada en el Plan Regulador Comunal. | LGUC Art. 60 / PRC Santiago | `historic=building` / `heritage=yes` | `minvu_ipt_prc_santiago` (`data/ide_minvu_ipt_prc_santiago.geojson`) |
+| **004** | **Rampa Peatonal PMR** | Inclusión Urbana | Rebaje de solera en cruces peatonales para permitir el desplazamiento autónomo de personas en sillas de ruedas. | OGUC Art. 2.2.8 | `highway=crossing` + `kerb=lowered` | `accesibilidad` (`data/capa_accesibilidad.geojson`) |
+| **005** | **Pavimento Podotáctil** | Inclusión Urbana | Superficie con relieve texturizado (guía o botones) que orienta a personas con discapacidad visual en aceras. | OGUC Art. 2.2.8 | `tactile_paving=yes` | `accesibilidad` (`data/capa_accesibilidad.geojson`) |
+| **006** | **Semáforo Acústico** | Movilidad Urbana | Controlador de cruce semaforizado equipado con pulsador sonoro para no videntes. | Manual de Señalización MTT | `traffic_signals:sound=yes` | `semaforos_rm_uoct_2026` (`data/semaforos_rm_uoct_2026.geojson`) |
+| **007** | **Punto Limpio Comunitario** | Medio Ambiente | Instalación destinada a la recepción selectiva y acopio transitorio de residuos reciclables (plásticos, vidrios, papeles). | Ley 20.920 (REP) | `amenity=recycling` | `munistgo_aseo_zonas_residuos_2026` (`data/zonas_aseo_contenedores_papeleros_santiago.geojson`) |
+| **008** | **Arbolado Viario Significativo** | Medio Ambiente | Árbol emplazado en bien nacional de uso público con copa superior a 5 metros que provee sombra y microclima. | Ordenanza Municipal de Aseo | `natural=tree` + `denotation=urban` | `biodiversidad` (`data/capa_biodiversidad.geojson`) |
+| **009** | **Ciclovía Segregada** | Movilidad Activa | Vía ciclista delimitada físicamente mediante segregadores respecto al tránsito vehicular motorizado. | Ley 21.088 (Ley de Convivencia) | `highway=cycleway` + `segregated=yes`| `movilidad_activa` (`data/capa_movilidad_activa.geojson`) |
+| **010** | **Manzana Censal Urbana** | Demografía Social | Unidad mínima de recolección estadística censal delimitada por calles o accidentes geográficos continuos. | INE Censo 2024 | `boundary=census` / `place=block` | `censo2024_manzanas` (`data/ide_censo2024_manzanas.geojson`) |
 
 ---
 """

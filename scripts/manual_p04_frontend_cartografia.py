@@ -351,22 +351,22 @@ flowchart LR
 
 ### 23.1. Storyboard 01: Concentración Territorial y Núcleos de Actividad VGI (KDE — 11 Cartografías)
 - **Cobertura Cartográfica:** **11 cartografías temáticas** (10 macrocategorías VGI `CAT-01` a `CAT-10` + superficie de síntesis KDE Total Consolidado sobre los 10.166 registros multigeométricos).
-- **Capas Vectoriales Asociadas:** `cat01_educacion` a `cat10_cobertura_suelo`.
+- **Capas Vectoriales Asociadas:** `educacion` a `cobertura_suelo` (`data/capa_educacion.geojson` a `data/capa_cobertura_suelo.geojson` y consolidado `data/atlas_vgi_barrio_brasil_uah_completo.geojson`).
 - **Síntesis Analítica:** Evalúa las superficies continuas de densidad por núcleo de Kernel (`f_h(x)`) en los 27 barrios de la Comuna de Santiago, identificando la concentración en el eje Alameda–Barrio Brasil (`6.924,1 ent/km²` de media barrial y cima comunal de `20.203,8 ent/km²`), Santa Ana (`1.728,2 ent/km²`) y Ejército (`1.007,0 ent/km²`), frente a los vacíos de cobertura en el borde sur comunal (Sierra Bella `1,9 ent/km²` y Bogotá `1,4 ent/km²`).
 
 ### 23.2. Storyboard 02: Segregación Espacial, Hotspots y Áreas de Rezago (LISA — 11 Cartografías)
 - **Cobertura Cartográfica:** **11 cartografías temáticas** (10 macrocategorías VGI + Consolidado LISA Total sobre las 1.711 manzanas de Santiago con significancia `p < 0.05` en permutaciones de Monte Carlo).
-- **Capas Vectoriales Asociadas:** `cat01_educacion`, `cat02_servicios`, `cat03_transporte`, `cat04_movilidad_activa`, `cat05_espacio_publico`, `censo2024_manzanas`, `minvu_ipt_prc_santiago`.
+- **Capas Vectoriales Asociadas:** `educacion` (`data/capa_educacion.geojson`), `servicios` (`data/capa_servicios.geojson`), `transporte` (`data/capa_transporte.geojson`), `movilidad_activa` (`data/capa_movilidad_activa.geojson`), `espacio_publico` (`data/capa_espacio_publico.geojson`), `censo2024_manzanas` (`data/ide_censo2024_manzanas.geojson`), `minvu_ipt_prc_santiago` (`data/ide_minvu_ipt_prc_santiago.geojson`).
 - **Síntesis Analítica:** Identifica los conglomerados estadísticamente significativos en las 1.711 manzanas comunales: 140 manzanas (`8,2%`) conforman el núcleo *Hotspot Alto-Alto* (concentradas en un 45% dentro de Barrio Brasil con 63 manzanas, seguidas de Santa Ana con 23 y Yungay con 17), mientras 615 manzanas (`35,9%`) integran bolsones *Coldspot Bajo-Bajo* en el suroriente comunal (Sierra Bella, Bogotá, Matta Sur y Diez de Julio).
 
 ### 23.3. Storyboard 03: Estructura Sociodemográfica, Habitabilidad y Morfología Urbana (Censo 2024 y RSH — 29 Cartografías)
 - **Cobertura Cartográfica:** **29 cartografías temáticas** (Población total de 432.081 habitantes en manzanas, densidad habitacional, tipología constructiva con 92,7% de departamentos, régimen de tenencia con 72,1% de arriendo, hogares unipersonales 40,8%, migración 40,4%, cités, hacinamiento, vulnerabilidad 0–40% RSH, dependencia funcional e índice IGVUST).
-- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `catastro_predial_sii`, `minvu_patrimonio`, `minvu_ipt_prc_santiago`, `bbdd_19`, `bbdd_64`, `bbdd_68`, `bbdd_74`.
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas` (`data/ide_censo2024_manzanas.geojson`), `catastro_predial_sii` (`data/ide_sii_catastro_predial.geojson`), `minvu_patrimonio` (`data/ide_minvu_patrimonio_urbano.geojson`), `minvu_ipt_prc_santiago` (`data/ide_minvu_ipt_prc_santiago.geojson`), `bbdd_19` (`data/bbdd_19_santiago.geojson`), `bbdd_64` (`data/bbdd_64_santiago.geojson`), `bbdd_68` (`data/bbdd_68_santiago.geojson`), `bbdd_74` (`data/bbdd_74_santiago.geojson`).
 - **Síntesis Analítica:** Caracteriza la coexistencia entre tres tejidos socio-morfológicos en Santiago: el corredor oriental hiperdensificado de torres en altura (Santa Isabel `650,5 hab/ha` y Santa Ana `618,0 hab/ha`), el pericentro patrimonial de escala media en Barrio Brasil y Yungay regulado por las Zonas de Conservación Histórica del PRC, y el arco sur donde convergen el arriendo sin contrato y el hacinamiento en cités.
 
 ### 23.4. Storyboard 04: Socioambiente, Proximidad Peatonal, Movilidad y Metabolismo Urbano (24 Cartografías)
 - **Cobertura Cartográfica:** **24 cartografías temáticas** (Partición modal sustentable del 84,6% de los viajes, buffers de arbolado a 300 m y 500 m, distancias peatonales a áreas verdes, salud, transporte y educación, mapa de ruido ambiental en dBA y capacidad instalada de los 629 contenedores y 398 papeleros en las 5 macro-zonas de aseo municipal con `285.860 L` totales).
-- **Capas Vectoriales Asociadas:** `munistgo_aseo_zonas_residuos_2026`, `cat08_biodiversidad`, `cat04_movilidad_activa`, `cat05_espacio_publico`, `semaforos_rm_uoct_2026`, `estaciones_metro`, `establecimientos_salud`.
+- **Capas Vectoriales Asociadas:** `munistgo_aseo_zonas_residuos_2026` (`data/zonas_aseo_contenedores_papeleros_santiago.geojson`), `biodiversidad` (`data/capa_biodiversidad.geojson`), `movilidad_activa` (`data/capa_movilidad_activa.geojson`), `espacio_publico` (`data/capa_espacio_publico.geojson`), `semaforos_rm_uoct_2026` (`data/semaforos_rm_uoct_2026.geojson`), `estaciones_metro` (`data/ide_estaciones_metro.geojson`), `establecimientos_salud` (`data/ide_establecimientos_salud.geojson`).
 - **Síntesis Analítica:** Vincula la alta sostenibilidad modal de la comuna (62,4% transporte público, 17,0% caminata y 5,2% bicicleta) con las brechas de proximidad a áreas verdes en el borde surponiente, la exposición acústica (`> 68,6 dBA`) en corredores viales y la asimetría operativa entre las 5 zonas municipales de gestión de residuos.
 
 ---
@@ -402,7 +402,7 @@ sequenceDiagram
 Para inspeccionar las 75 láminas cartográficas de alta definición (`2200 × 1423 px`), los diagramas vectoriales SVG y los gráficos estadísticos sin pérdida de nitidez en cualquier pantalla (ordenadores de escritorio, tablets y teléfonos móviles), el sistema incorpora un motor modal interactivo con soporte dual de ratón y eventos táctiles (`touchstart`, `touchmove`, `touchend`):
 
 ```javascript
-// Implementación del Visor Lightbox HD en src/js/modulos/lightbox_hd.js
+// Implementación del Visor Lightbox HD en src/js/modulos/indicadores_analisis.js
 const VisorLightboxHD = (() => {
   let factorZoom = 1.0;
   let desplazamientoX = 0, desplazamientoY = 0;
@@ -450,47 +450,58 @@ nodo-geoabierto/
 ├── .github/                                # Workflows de GitHub Actions (keep-alive, testing)
 ├── .gitignore                              # Exclusiones de artefactos locales (.DS_Store, *.pyc)
 ├── CONTRIBUTING.md                         # Guía de contribución para desarrolladores
-├── INFORME_PROYECTO_ATLAS_VGI.md           # Memoria descriptiva y estado de avance curricular
+├── INFORME_PROYECTO_ATLAS_VGI.md           # Memoria descriptiva del proyecto
 ├── LICENSE                                 # Licencia tripartita (ODbL 1.0, CC BY-SA 4.0, AGPLv3)
 ├── MANUAL_ACTUALIZACION_ATLAS.md           # Este manual maestro (>5000 líneas) en la raíz
 ├── MANUAL_USO.md                           # Manual de usuario final para la interfaz web
 ├── PROTOCOL_INTEGRIDAD_Y_DESPLIEGUE.md     # Protocolo de auditoría de pre-despliegue
 ├── README.md                               # Presentación del repositorio en GitHub
-├── backend/                                # Definiciones de backend y esquemas SQL
-│   ├── db/
-│   │   ├── 01_schema_postgis.sql           # DDL PostgreSQL 17 + PostGIS 3.3
-│   │   └── 02_seed_metadata.sql            # Siembra de metadatos de las capas oficiales
-│   └── servidor_vgi.py                     # Servidor local de desarrollo en Python
 ├── config/                                 # Configuraciones globales desacopladas
 │   └── config.json                         # Configuración JSON (BBox, endpoints, metadatos)
-├── data/                                   # Almacén local de datos espaciales y extractos
-│   ├── subdere_rsd_2024_rm/                # 14 capas del Catastro RSD SUBDERE 2024
-│   ├── cache_consultas/                    # Respuestas cacheadas de Overpass y ohsome
-│   └── *.geojson                           # Más de 200 archivos vectoriales GeoJSON
-├── descargas/                              # Paquetes binarios para descarga pública
-│   └── atlas_vgi_uah_base_datos_completa.zip # Paquete unificado de 543 MB (256 archivos)
-├── docs/                                   # Documentación formal y entregables (espejo)
+├── data/                                   # Almacén raíz de datos espaciales (sincronizado con src/data/)
+│   ├── capa_educacion.geojson .. capa_cobertura_suelo.geojson        # 10 macrocategorías VGI barriales
+│   ├── atlas_vgi_barrio_brasil_uah_completo.geojson                  # Consolidado VGI Barrio Brasil
+│   ├── capa_osm_rm_cat01_educacion.geojson .. cat10_*.geojson        # 10 capas regionales RM (Geofabrik)
+│   ├── capa_osm_rm_completo_vgi.geojson                              # Consolidado regional RM
+│   ├── ide_*.geojson, bbdd_*_santiago.geojson, subdere_rsd_*.geojson # 122 capas oficiales del Estado
+│   ├── resumen_catastro_vgi.csv                                      # Resumen cuantitativo VGI
+│   └── bip_inversiones_santiago.csv                                  # Inversión pública MIDESO BIP
+├── docs/                                   # Documentación formal y entregables (sincronizado con src/docs/)
+│   ├── geodatabase_completa_atlas_vgi.zip  # Paquete maestro ZIP (542,35 MB; 132 capas del visor y 257 archivos)
 │   ├── ANALISIS_METACALIDAD.md             # Informe técnico de calidad ISO 19157 (95.41% IGV)
 │   ├── ARQUITECTURA.md                     # Memoria de diseño de software
 │   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md   # Catálogo de 125 fuentes bibliográficas APA 7ª ed.
 │   ├── GUIA_BASE_DATOS_SUPABASE.md         # Manual de administración de PostGIS
 │   ├── MANUAL_ACTUALIZACION_ATLAS.md       # Copia espejo del manual técnico maestro
-│   ├── catalogo_fuentes_vgi.xlsx           # Matriz Excel de 131 fuentes
-│   ├── categorias_tematicas_osm.xlsx       # Libro Excel de las 10 macrocategorías
-│   └── geofabrik_rm_osm.gpkg              # GeoPackage SQLite multicapa OGC
-├── netlify.toml                            # Configuración de compilación, headers y caché
-├── scripts/                                # 62 scripts de automatización en Python
+│   ├── MANUAL_USO.md                       # Copia espejo del manual de usuario
+│   ├── categorias_tematicas_osm.xlsx       # Libro Excel de las 10 macrocategorías OSM
+│   ├── catalogo_fuentes_vgi.xlsx           # Matriz Excel de las 132 fuentes y capas
+│   ├── perfil_metadatos_vgi.xlsx           # Matriz Excel de los 7 paquetes ISO 19115-1:2014
+│   ├── wlc_metacalidad_ranking.csv         # Ranking WLC v2.0 de las 132 capas
+│   ├── wlc_metacalidad_resultado.json      # Resultados detallados WLC v2.0 en JSON
+│   ├── matriz_metacalidad.json             # Matriz multicriterio de las 10 dimensiones
+│   └── correlacion_dimensiones_calidad.csv # Matriz de correlación de Pearson 10x10 (+ .png)
+├── netlify.toml                            # Configuración de publicación (publish = "src"), headers y redirects
+├── scripts/                                # Scripts de automatización en Python y SQL
+│   ├── db/
+│   │   ├── 01_schema_postgis.sql           # DDL PostgreSQL 17 + PostGIS 3.3 y vistas materializadas
+│   │   └── 02_seed_metadata.sql            # Semilla inicial de metadatos y catálogo en Supabase
 │   ├── descargar_todas_las_categorias_osm.py
+│   ├── generar_gpkg_geofabrik.py
 │   ├── empaquetar_base_datos_completa.py
 │   ├── modelo_indice_lineal_wlc.py
+│   ├── construir_manual_actualizacion_maestro.py
 │   └── verificar_integridad_despliegue.py
-└── src/                                    # Directorio raíz publicado en producción
-    ├── index.html                          # Markup semántico de la SPA
-    ├── css/estilos.css                     # Sistema de estilos y tokens :root
+└── src/                                    # Directorio raíz publicado en producción (Netlify CDN)
+    ├── index.html                          # Markup semántico de la SPA (10 paneles)
+    ├── css/estilos.css                     # Sistema de diseño y tokens :root
+    ├── js/config.js                        # Configuración de entorno, BBox y categorías VGI
     ├── js/app.js                           # Orquestador central de la aplicación
-    ├── js/modulos/                         # Módulos JS IIFE (mapa, osm, ohsome, etc.)
-    ├── data/                               # Copia espejo de capas GeoJSON para Netlify
-    └── docs/                               # Copia espejo de documentación y paquete ZIP
+    ├── js/modulos/                         # 19 módulos JS IIFE (mapa, ide_chile, osm, ohsome, etc.)
+    ├── img/cartografias/                   # 75 cartografías temáticas JPG (2200x1423 px)
+    ├── img/storyboards/                    # 4 portadas vectoriales SVG de los Storyboards
+    ├── data/                               # Espejo exacto de data/ servido en producción
+    └── docs/                               # Espejo exacto de docs/ servido en producción
 ```
 
 ---
@@ -744,13 +755,13 @@ flowchart LR
 ---
 
 ### Módulo 10: Licencias & Catálogos (`data-panel="licencias"` — `src/js/modulos/licencias.js`)
-* **Propósito Operativo:** Marco jurídico de datos abiertos (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285 y Ley N° 19.628) y centro de descarga directa de la Geodatabase Completa (`.zip` de 558,5 MB), el GeoPackage regional de Geofabrik y los 4 catálogos maestros OpenXML (`.xlsx`).
+* **Propósito Operativo:** Marco jurídico de datos abiertos (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285 y Ley N° 19.628) y centro de descarga directa de la Geodatabase Completa (`docs/geodatabase_completa_atlas_vgi.zip` y `src/docs/geodatabase_completa_atlas_vgi.zip`, 542,35 MB), las capas regionales de Geofabrik (`data/capa_osm_rm_completo_vgi.geojson` y `data/geodatabase_osm_rm_geofabrik.gpkg`) y los 3 catálogos maestros OpenXML (`docs/categorias_tematicas_osm.xlsx`, `docs/catalogo_fuentes_vgi.xlsx` y `docs/perfil_metadatos_vgi.xlsx`).
 
 ```mermaid
 flowchart LR
     subgraph IN_M10["1. INPUT"]
-        CAT_XLSX["4 Libros Maestros OpenXML (.xlsx) y 4 CSV"]
-        ZIP_MASTER["Paquete Maestro geodatabase_completa_atlas_vgi.zip (558.5 MB)"]
+        CAT_XLSX["3 Libros Maestros OpenXML (.xlsx) en docs/ y 4 Consolidados CSV"]
+        ZIP_MASTER["Paquete Maestro docs/geodatabase_completa_atlas_vgi.zip (542,35 MB)"]
     end
 
     subgraph PROC_M10["2. PIPELINE DE PROCESAMIENTO"]
@@ -760,7 +771,7 @@ flowchart LR
 
     subgraph OUT_M10["3. OUTPUT"]
         TAB_LEGAL["Cuadro de Gobernanza Jurídica y Fuentes"]
-        DOWNLOADS["Descarga Inmediata de Geodatabase ZIP, GPKG y Catálogos XLSX"]
+        DOWNLOADS["Descarga Inmediata de Geodatabase ZIP, Extractos RM y Catálogos XLSX"]
     end
 
     IN_M10 --> PROC_M10 --> OUT_M10
