@@ -4,8 +4,8 @@
 analisis_metacalidad.py
 =======================
 Auditoría programática universal de MetaCalidad (calidad de metadatos espaciales)
-sobre la totalidad de la base de datos cartográfica del Atlas VGI (118 componentes:
-108 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI).
+sobre la totalidad de la base de datos cartográfica del Atlas VGI (132 componentes:
+122 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI).
 
 Estándares y Marcos Normativos Internacionales y Nacionales:
 - ISO 19115-1:2014 / Amd 1:2018 / Amd 2:2020: Geographic information — Metadata — Part 1: Fundamentals.
@@ -17,8 +17,7 @@ Estándares y Marcos Normativos Internacionales y Nacionales:
 - Open Data Commons Open Database License (ODbL 1.0) para OpenStreetMap.
 - Creative Commons Atribución (CC-BY 4.0 / CC0 1.0) para GBIF / Darwin Core.
 
-Autor: Departamento de Geografía — Universidad Alberto Hurtado (UAH) / GEOJOTA
-Proyecto: Atlas VGI — Nodo GeoAbierto (Departamento de Geografía UAH)
+Proyecto: Atlas VGI — Nodo GeoAbierto
 Fecha: Octubre 2026
 """
 
@@ -1301,59 +1300,75 @@ def generar_informe_markdown(datos, ruta_salida):
         "Malczewski, 1999; Voogd, 1983; Eastman, 1999; Malczewski & Rinner, 2015), cada variable de evaluación "
         "se clasifica explícitamente como **Criterio de Beneficio** (donde mayor valor implica mayor calidad o idoneidad) "
         "o **Criterio de Costo** (donde menor valor implica mayor calidad, penalizando defectos como kinks, slivers o nulos):\n\n"
-        "1. **Normalización Min-Max para Criterios de Beneficio ($\\uparrow$):**\n"
-        "$$x_{\\text{norm}, i} = \\frac{x_i - x_{\\min}}{x_{\\max} - x_{\\min}}$$\n\n"
-        "2. **Normalización Min-Max para Criterios de Costo ($\\downarrow$):**\n"
-        "$$x_{\\text{norm}, i} = \\frac{x_{\\max} - x_i}{x_{\\max} - x_{\\min}}$$\n\n"
-        "3. **Puntaje Global Compuesto ($S_j$) y Desglose por Criterio:**\n"
-        "$$S_j = \\sum_{i=1}^{n} w_i \\cdot x_{\\text{norm}, ij} \\quad \\text{con} \\quad \\sum_{i=1}^{n} w_i = 1.00$$\n"
-        "$$\\text{contrib}_{ij} = w_i \\cdot x_{\\text{norm}, ij}$$\n\n"
-        "4. **Ranking Ordinal de Calidad ($R_j$):**\n"
-        "$$R_j = \\text{rank}(S_j, \\text{descendente})$$\n\n"
-        "En el contexto de la auditoría integral, el **Índice Global de Calidad Geográfica ($IGV_j$)** "
+        "```text\n"
+        "1. Normalización Min-Max para Criterios de Beneficio (+):\n"
+        "   x_norm(i) = (x_i - x_min) / (x_max - x_min)\n\n"
+        "2. Normalización Min-Max para Criterios de Costo (-):\n"
+        "   x_norm(i) = (x_max - x_i) / (x_max - x_min)\n\n"
+        "3. Puntaje Global Compuesto (S_j) y Desglose por Criterio:\n"
+        "   S_j = SUMA_{i=1..n} [ w_i * x_norm(i,j) ],   con SUMA(w_i) = 1.00\n"
+        "   contrib(i,j) = w_i * x_norm(i,j)\n\n"
+        "4. Ranking Ordinal de Calidad (R_j):\n"
+        "   R_j = rank(S_j, orden = descendente)\n"
+        "```\n\n"
+        "En el contexto de la auditoría integral, el **Índice Global de Calidad Geográfica (`IGV_j`)** "
         "se formaliza como la agregación ponderada de dos pilares ortogonales balanceados (50% cada uno):\n"
     )
-    md.append("$$\\mathbf{IGV}_j = 0.50 \\cdot S_{\\text{cuant}, j} + 0.50 \\cdot S_{\\text{cual}, j}$$\n")
     md.append(
-        "Donde el **Pilar Cuantitativo Espacial ($S_{\\text{cuant}, i}$)** evalúa la consistencia física y geométrica de las entidades vectoriales:\n"
-    )
-    md.append(
-        "$$S_{\\text{cuant}, i} = 0.30 \\cdot S_{\\text{topo}, i} + 0.25 \\cdot S_{\\text{comp}, i} + 0.20 \\cdot S_{\\text{pos}, i} + 0.15 \\cdot S_{\\text{estruc}, i} + 0.10 \\cdot S_{\\text{gran}, i}$$\n"
-    )
-    md.append(
-        "Y el **Pilar Cualitativo de Metadatos ($S_{\\text{cual}, i}$)** evalúa la conformidad documental y el marco legal e institucional:\n"
-    )
-    md.append(
-        "$$S_{\\text{cual}, i} = 0.30 \\cdot \\text{MC}_i + 0.20 \\cdot \\text{CC}_i + 0.25 \\cdot \\text{LL}_i + 0.15 \\cdot \\text{RG}_i + 0.10 \\cdot \\text{AI}_i$$\n"
-    )
-    md.append(
+        "```text\n"
+        "IGV_j = 0.50 * S_cuant(j) + 0.50 * S_cual(j)\n\n"
+        "Donde el Pilar Cuantitativo Espacial S_cuant(i) evalúa la consistencia física y geométrica:\n"
+        "S_cuant(i) = 0.30 * S_topo(i) + 0.25 * S_comp(i) + 0.20 * S_pos(i) + 0.15 * S_estruc(i) + 0.10 * S_gran(i)\n\n"
+        "Y el Pilar Cualitativo de Metadatos S_cual(i) evalúa la conformidad documental y jurídica:\n"
+        "S_cual(i) = 0.30 * MC(i) + 0.20 * CC(i) + 0.25 * LL(i) + 0.15 * RG(i) + 0.10 * AI(i)\n\n"
         "Sujeto a las restricciones canónicas de convexidad y normalización:\n"
-        "$$\\sum_{k} w_k = 1.00 \\quad \\land \\quad w_k > 0$$\n"
+        "SUMA_k(w_k) = 1.00   y   w_k > 0\n"
+        "```\n"
     )
     md.append(
         "> **Transparencia Axiomática y Calibración:** Conforme a las recomendaciones de ISO 19157-1:2023, "
-        "este modelo ponderado lineal posee total trazabilidad e interpretabilidad para evaluadores de la ANID, municipalidades e IDE Chile. "
-        "Durante el Objetivo Específico 4, los ponderadores podrán re-calibrarse en talleres participativos mediante Proceso Analítico Jerárquico (AHP; Saaty, 1980).\n"
+        "este modelo ponderado lineal posee total trazabilidad e interpretabilidad para instituciones públicas, municipalidades e IDE Chile. "
+        "Los ponderadores pueden recalibrarse mediante el Proceso Analítico Jerárquico (AHP; Saaty, 1980) tanto en los scripts de auditoría como de forma interactiva en el Módulo 06.\n"
     )
 
     md.append("### 2.2 Justificación de las Variables Cuantitativas y Cualitativas\n")
     md.append(
         "#### Variables Cuantitativas Espaciales (ISO 19157-1:2023 & OGC SFA):\n"
-        "1. **Consistencia Topológica ($S_{\\text{topo}}$ - 30%):** Verifica la validez OGC Simple Feature Access: ausencia de auto-intersecciones (kinks/bowties), cierre de anillos poligonales ($p_0 = p_n$), ausencia de polígonos colapsados (< 4 vértices o área 0) y líneas degeneradas (< 2 vértices).\n"
-        "2. **Completitud Tabular ($S_{\\text{comp}}$ - 25%):** Evalúa la tasa de celdas atributivas con información válida vs. valores vacíos, nulos (`null`) o marcadores de no-dato (`NA`), penalizando esquemas incompletos.\n"
-        "3. **Integridad Posicional ($S_{\\text{pos}}$ - 20%):** Verifica que las coordenadas se sitúen estrictamente dentro del dominio geográfico válido (WGS84 $[-180, 180] \\times [-90, 90]$ o UTM 19S), sin valores `NaN` ni concentraciones anómalas en $(0,0)$ (Null Island).\n"
-        "4. **Estructura y Esquema ($S_{\\text{estruc}}$ - 15%):** Comprueba la homogeneidad tipológica por columna (evitando mezclas de cadenas y enteros) y la existencia de una clave primaria unívoca (sin duplicaciones).\n"
-        "5. **Granularidad Geométrica ($S_{\\text{gran}}$ - 10%):** Mide la densidad métrica y penaliza micro-slivers (polígonos parásitos resultantes de digitalizaciones deficientes).\n\n"
+        "1. **Consistencia Topológica (`S_topo` - 30%):** Verifica la validez OGC Simple Feature Access: ausencia de auto-intersecciones (kinks/bowties), cierre de anillos poligonales (`p_0 = p_n`), ausencia de polígonos colapsados (`< 4` vértices o área `0`) y líneas degeneradas (`< 2` vértices).\n"
+        "2. **Completitud Tabular (`S_comp` - 25%):** Evalúa la tasa de celdas atributivas con información válida frente a valores vacíos, nulos (`null`) o marcadores de no-dato (`NA`), penalizando esquemas incompletos.\n"
+        "3. **Integridad Posicional (`S_pos` - 20%):** Verifica que las coordenadas se sitúen estrictamente dentro del dominio geográfico válido (WGS84 `[-180, 180] x [-90, 90]` o UTM 19S `EPSG:32719`), sin valores `NaN` ni concentraciones anómalas en `(0, 0)` (Null Island).\n"
+        "4. **Estructura y Esquema (`S_estruc` - 15%):** Comprueba la homogeneidad tipológica por columna (evitando mezclas de cadenas y enteros) y la existencia de una clave primaria unívoca (sin duplicaciones).\n"
+        "5. **Granularidad Geométrica (`S_gran` - 10%):** Mide la densidad métrica y penaliza micro-slivers (polígonos parásitos resultantes de digitalizaciones deficientes).\n\n"
         "#### Variables Cualitativas de Metadatos (ISO 19115-1:2014 & IDE Chile):\n"
-        "1. **Completitud Núcleo ($MC$ - 30%):** 10 campos obligatorios del Perfil Nacional de Metadatos (ID, título, resumen, custodio, temporalidad, categoría temática, extensión, CRS, licencia y linaje).\n"
-        "2. **Conformidad Normativa ($CC$ - 20%):** Consistencia con esquemas ISO 19139 / ISO 19110 y catalogación de entidades según el Diccionario Territorial.\n"
-        "3. **Linaje y Derechos Jurídicos ($LL$ - 25%):** Delimitación de licenciamiento (Ley N° 20.285 de Transparencia para datos estatales; ODbL 1.0 para OSM; CC-BY 4.0 para GBIF) y cita académica formal APA 7ª edición.\n"
-        "4. **Resolución Geodésica ($RG$ - 15%):** Declaración formal de CRS dual: WGS84 para visualización web y UTM 19S (EPSG:32719 en geodesia.js) para análisis métrico.\n"
-        "5. **Accesibilidad e Integridad ($AI$ - 10%):** Disponibilidad física local y CDN sin enlaces caídos a costo cero ($0 USD).\n"
+        "1. **Completitud Núcleo (`MC` - 30%):** 10 campos obligatorios del Perfil Nacional de Metadatos (ID, título, resumen, custodio, temporalidad, categoría temática, extensión, CRS, licencia y linaje).\n"
+        "2. **Conformidad Normativa (`CC` - 20%):** Consistencia con esquemas ISO 19139 / ISO 19110 y catalogación de entidades según el Diccionario Territorial (140 descriptores).\n"
+        "3. **Linaje y Derechos Jurídicos (`LL` - 25%):** Delimitación de licenciamiento (Ley N° 20.285 de Transparencia para datos estatales; ODbL 1.0 para OSM; CC-BY 4.0 para GBIF) y cita formal APA 7ª edición.\n"
+        "4. **Resolución Geodésica (`RG` - 15%):** Declaración formal de CRS dual: WGS84 (`EPSG:4326`) para visualización web y UTM 19S (`EPSG:32719` en `src/js/modulos/geodesia.js`) para análisis métrico.\n"
+        "5. **Accesibilidad e Integridad (`AI` - 10%):** Disponibilidad física local en `data/` y `src/data/` y en CDN sin enlaces caídos.\n"
     )
 
     # DIAGRAMAS MERMAID
-    md.append("### 2.3 Diagramas de Arquitectura Metodológica\n")
+    md.append("### 2.3 Diagramas de Flujo y Arquitectura Metodológica (Pipelines)\n")
+    md.append("#### Diagrama 0: Pipeline de Ejecución, Cálculo WLC v2.0 y Entregables Verificables en Git y Web\n")
+    md.append("```mermaid")
+    md.append("flowchart LR")
+    md.append("    subgraph IN[\"1. INPUT / ENTRADA (Catálogo y Capas GeoJSON)\"]")
+    md.append(f"        I1[\"132 Capas Operativas en data/*.geojson y src/data/*.geojson<br/>({m['capas_oficiales']} Oficiales en ide_chile.js + {m['capas_vgi']} VGI en config.js)\"]")
+    md.append("    end")
+    md.append("    subgraph PROC[\"2. PIPELINE DE PROCESAMIENTO (Scripts Python y Módulo 06 JS)\"]")
+    md.append("        P1[\"scripts/analisis_metacalidad.py &<br/>scripts/modelo_indice_lineal_wlc.py\"]")
+    md.append("        P2[\"src/js/modulos/evaluador_calidad_cuantitativa.js,<br/>ohsome.js & calidad_analyst.js\"]")
+    md.append("    end")
+    md.append("    subgraph OUT[\"3. OUTPUT / ENTREGABLES VERIFICABLES EN GIT Y PLATAFORMA WEB\"]")
+    md.append("        O1[\"docs/ANALISIS_METACALIDAD.md (src/docs/)<br/>docs/matriz_metacalidad.json (src/docs/)\"]")
+    md.append("        O2[\"docs/wlc_metacalidad_ranking.csv & wlc_metacalidad_resultado.json<br/>docs/correlacion_dimensiones_calidad.csv & .png\"]")
+    md.append("        O3[\"docs/perfil_metadatos_vgi.xlsx (src/docs/)<br/>+ Visualización Interactiva en Módulo 06\"]")
+    md.append("    end")
+    md.append("    I1 --> P1 & P2")
+    md.append("    P1 --> O1 & O2 & O3")
+    md.append("    P2 --> O3")
+    md.append("```\n")
+
     md.append("#### Diagrama 1: Árbol de Decisión y Formulación del Índice IGV (Modelo Dual)\n")
     md.append("```mermaid")
     md.append("flowchart TD")
@@ -1368,50 +1383,50 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append("    CUAL --> C1[\"Metadatos Núcleo (30%)<br/>ISO 19115 Core\"]")
     md.append("    CUAL --> C2[\"Conformidad Normativa (20%)<br/>ISO 19139 / 19110\"]")
     md.append("    CUAL --> C3[\"Linaje y Derechos (25%)<br/>Ley 20.285 / ODbL / APA 7ma\"]")
-    md.append("    CUAL --> C4[\"Resolución Geodésica (15%)<br/>Snyder / EPSG:32719\"]")
+    md.append("    CUAL --> C4[\"Resolución Geodésica (15%)<br/>Redfearn / EPSG:32719\"]")
     md.append("    CUAL --> C5[\"Accesibilidad (10%)<br/>CDN Edge / Descarga Física\"]")
     md.append("    Q1 & Q2 & Q3 & Q4 & Q5 --> SC[\"Score Cuantitativo S_cuant\"]")
     md.append("    C1 & C2 & C3 & C4 & C5 --> SL[\"Score Cualitativo S_cual\"]")
     md.append("    SC & SL --> IGV[\"Índice Global de Calidad (IGV):<br/>IGV = 0.50·S_cuant + 0.50·S_cual\"]")
     md.append("    IGV --> G{\"Clasificación ISO 19157\"}")
-    md.append("    G -->|IGV >= 95%| H1[\"Grado A+ (Excelente)\"]")
-    md.append("    G -->|85% <= IGV < 95%| H2[\"Grado A (Muy Bueno)\"]")
-    md.append("    G -->|70% <= IGV < 85%| H3[\"Grado B (Aceptable)\"]")
-    md.append("    G -->|IGV < 70%| H4[\"Grado C (Deficiente)\"]")
+    md.append("    G -->|\"IGV >= 95%\"| H1[\"Grado A+ (Excelente)\"]")
+    md.append("    G -->|\"85% <= IGV < 95%\"| H2[\"Grado A (Muy Bueno)\"]")
+    md.append("    G -->|\"70% <= IGV < 85%\"| H3[\"Grado B (Aceptable)\"]")
+    md.append("    G -->|\"IGV < 70%\"| H4[\"Grado C (Deficiente)\"]")
     md.append("```\n")
 
-    md.append("#### Diagrama 2: Módulo 06 en Producción — Evaluador Universal de Datos Externos\n")
+    md.append("#### Diagrama 2: Módulo 06 en Producción — Evaluador Universal, Series ohsome e Inspección OSMCha\n")
     md.append("```mermaid")
-    md.append("graph LR")
-    md.append("    EXT[\"Usuario arrastra .geojson externo<br/>o pega texto plano\"] --> MOD02[\"Módulo 02: Evaluador Universal\"]")
-    md.append("    INT[\"O selecciona una de las 118 capas<br/>de la Geodatabase\"] --> MOD02")
-    md.append("    MOD02 --> ALG[\"Motor Algorítmico Vanilla JS<br/>(evaluador_calidad_cuantitativa.js)\"]")
-    md.append("    ALG --> RES1[\"Cálculo de IGV, S_cuant y S_cual\"]")
-    md.append("    ALG --> RES2[\"Semáforo Cartográfico Leaflet<br/>(Verde: OK / Amarillo: Advertencia / Rojo: Error)\"]")
-    md.append("    ALG --> RES3[\"Exportación de Certificado Oficial<br/>en JSON ISO 19157:2023\"]")
+    md.append("flowchart LR")
+    md.append("    EXT[\"Usuario arrastra .geojson externo<br/>o pega texto plano\"] --> MOD06[\"Módulo 06: Calidad & ICV<br/>(Submódulos A, B y C)\"]")
+    md.append(f"    INT[\"O selecciona una de las {m['total_capas']} capas<br/>de la Geodatabase\"] --> MOD06")
+    md.append("    MOD06 --> ALG[\"Submódulo A: Evaluador Universal WLC v2.0<br/>(src/js/modulos/evaluador_calidad_cuantitativa.js)\"]")
+    md.append("    MOD06 --> OHS[\"Submódulo B: Series ohsome API v1/v2<br/>Índice de Saturación y Maduración Territorial<br/>(Herfort et al., 2023 / ISO 19157)\"]")
+    md.append("    MOD06 --> CHA[\"Submódulo C: Auditoría de Changesets<br/>en OSMCha\"]")
+    md.append("    ALG & OHS & CHA --> RES[\"Reporte JSON/CSV ISO 19157:2023<br/>+ Gráficos Evolutivos y Semáforo Cartográfico\"]")
     md.append("```\n")
 
     md.append("#### Diagrama 3: Matriz de Integración Híbrida y Gobernanza de Datos (Estado vs. VGI)\n")
     md.append("```mermaid")
     md.append("flowchart TB")
-    md.append("    subgraph FuentesOficiales [Datos Oficiales del Estado de Chile - 108 Capas]")
+    md.append(f"    subgraph FuentesOficiales [\"Datos Oficiales del Estado de Chile - {m['capas_oficiales']} Capas\"]")
     md.append("        O1[\"Ministerios: MINVU, MTT, MMA, MINSAL, MDSF\"]")
     md.append("        O2[\"Servicios: INE Censo 2024, UOCT, DGA, CMN, SUBDERE\"]")
     md.append("        O3[\"Marco Legal: Ley N° 20.285 de Transparencia Activa\"]")
     md.append("    end")
-    md.append("    subgraph FuentesComunitarias [Información Geográfica Voluntaria VGI - 10 Macro-categorías]")
+    md.append(f"    subgraph FuentesComunitarias [\"Información Geográfica Voluntaria VGI - {m['capas_vgi']} Macro-categorías\"]")
     md.append("        V1[\"OpenStreetMap (OSM) · Nodos, Vías, Relaciones\"]")
     md.append("        V2[\"GBIF · Darwin Core / Ocurrencias Biológicas\"]")
     md.append("        V3[\"Marco Legal: ODbL 1.0 (OSM) y CC-BY 4.0 (GBIF)\"]")
     md.append("    end")
-    md.append("    subgraph MotorNormalizacion [Motor de Normalización y MetaCalidad]")
-    md.append("        N1[\"Normalización de Atributos: 13 Campos Estándar ISO 19110\"]")
+    md.append("    subgraph MotorNormalizacion [\"Motor de Normalización y MetaCalidad\"]")
+    md.append("        N1[\"Normalización de Atributos: 140 Descriptores ISO 19110\"]")
     md.append("        N2[\"Doble Geodesia: WGS84 EPSG:4326 + UTM 19S EPSG:32719 (geodesia.js)\"]")
     md.append("        N3[\"Auditoría de MetaCalidad Programática ISO 19157\"]")
     md.append("    end")
     md.append("    FuentesOficiales --> MotorNormalizacion")
     md.append("    FuentesComunitarias --> MotorNormalizacion")
-    md.append("    MotorNormalizacion --> P[\"Atlas VGI en Producción: Visor Leaflet · 9 Módulos Funcionales · XML ISO 19139\"]")
+    md.append("    MotorNormalizacion --> P[\"Atlas VGI en Producción: Visor Leaflet · 10 Módulos Funcionales · 4 Storyboards (75 Mapas) · XML ISO 19139\"]")
     md.append("```\n")
 
     md.append("\n---\n")
@@ -1546,25 +1561,24 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append("## 6. Hallazgos Clave y Plan de Calibración Futura\n")
     md.append(
         "1. **Disponibilidad Binaria Ininterrumpida (100% de Integridad):** "
-        "Las 118 capas auditadas cuentan con archivos GeoJSON físicamente presentes en el repositorio y en la red CDN Netlify Edge, "
+        f"Las {m['total_capas']} capas auditadas cuentan con archivos GeoJSON físicamente presentes en `data/` y `src/data/` y en la red CDN Netlify Edge, "
         "sin registrarse punteros rotos ni enlaces huérfanos. Esto asegura que el Atlas sea completamente operativo sin costos recurrentes de servidor.\n"
     )
     md.append(
         "2. **Trazabilidad Jurídica Inequívoca:** "
-        "Se subsanó cualquier ambigüedad de licenciamiento: los datos comunitarios VGI de OpenStreetMap (CAT-01 a CAT-10) están rigurosamente declarados "
-        "bajo la licencia copyleft ODbL 1.0; los registros de biodiversidad ciudadana se amparan en CC-BY 4.0 / CC0 (GBIF); y las 108 capas estatales se distribuyen "
+        f"Los datos comunitarios VGI de OpenStreetMap (`CAT-01` a `CAT-10`) están declarados "
+        f"bajo la licencia copyleft ODbL 1.0; los registros de biodiversidad ciudadana se amparan en CC-BY 4.0 / CC0 (GBIF); y las {m['capas_oficiales']} capas estatales se distribuyen "
         "bajo la Ley N° 20.285 de Transparencia del Estado de Chile.\n"
     )
     md.append(
         "3. **Doble Modelación Geodésica Documentada:** "
-        "Cada conjunto de datos declara formalmente su proyección elipsoidal WGS84 (EPSG:4326) para renderizado web y su proyección métrica proyectada UTM Huso 19 Sur "
-        "(EPSG:32719 / SIRGAS-Chile) para cálculo conforme de distancias y polígonos mediante el algoritmo de Snyder (1987) y la fórmula de Gauss.\n"
+        "Cada conjunto de datos declara formalmente su proyección elipsoidal WGS84 (`EPSG:4326`) para renderizado web y su proyección métrica proyectada UTM Huso 19 Sur "
+        "(`EPSG:32719` / SIRGAS-Chile) para cálculo conforme de distancias y polígonos mediante las ecuaciones de Redfearn / Snyder (1987) y la fórmula de Gauss en `src/js/modulos/geodesia.js`.\n"
     )
     md.append(
-        "4. **Hoja de Ruta para Calibración AHP en OE4:** "
-        "Siendo este modelo lineal una formulación tentativa de alta transparencia, se contempla someter los ponderadores ($w_k$) "
-        "a un proceso de reponderación mediante el Proceso Analítico Jerárquico (Saaty, 1980) durante los talleres de validación comunitaria e institucional del Objetivo Específico 4, "
-        "contrastando las preferencias relativas de planificadores urbanos, investigadores de Geografía UAH y líderes vecinales de Barrio Brasil.\n"
+        "4. **Calibración Multicriterio Interactiva y AHP:** "
+        "Los ponderadores (`w_k`) del modelo lineal pueden recalibrarse mediante el Proceso Analítico Jerárquico (Saaty, 1980) y ajustarse dinámicamente en el Módulo 06, "
+        "contrastando las prioridades de planificadores urbanos, equipos de investigación y organizaciones comunitarias.\n"
     )
 
     md.append("\n---\n")
@@ -1606,10 +1620,11 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
 
     wb = openpyxl.load_workbook(ruta_excel)
 
-    # 1. Hoja de Auditoría de 118 Capas
-    sheet_audit = 'Auditoría MetaCalidad 118 Capas'
-    if sheet_audit in wb.sheetnames:
-        del wb[sheet_audit]
+    # 1. Hoja de Auditoría de 132 Capas
+    for old_sheet in ['Auditoría MetaCalidad 118 Capas', 'Auditoría MetaCalidad 132 Capas']:
+        if old_sheet in wb.sheetnames:
+            del wb[old_sheet]
+    sheet_audit = 'Auditoría MetaCalidad 132 Capas'
     ws1 = wb.create_sheet(title=sheet_audit)
 
     # Estilos
@@ -1628,7 +1643,7 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
     ws1["A1"].font = title_font
 
     ws1.merge_cells("A2:Q2")
-    ws1["A2"] = f"Auditoría Universal de 118 Capas conforme a ISO 19157 (Cuantitativo) e ISO 19115 (Metadatos) · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
+    ws1["A2"] = f"Auditoría Universal de 132 Capas conforme a ISO 19157 (Cuantitativo) e ISO 19115 (Metadatos) · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
     ws1["A2"].font = subtitle_font
 
     m = datos['metricas_globales']
@@ -1787,7 +1802,7 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
     ws3["A1"].font = title_font
 
     ws3.merge_cells("A2:L2")
-    ws3["A2"] = f"Distribución de 118 Capas, Participación de Volumen (MB) y Métricas Normalizadas ISO 19157 · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
+    ws3["A2"] = f"Distribución de 132 Capas, Participación de Volumen (MB) y Métricas Normalizadas ISO 19157 · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
     ws3["A2"].font = subtitle_font
 
     headers3 = [

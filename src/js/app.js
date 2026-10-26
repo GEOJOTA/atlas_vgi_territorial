@@ -3297,8 +3297,8 @@ async function descargarColeccionOficialCompleta() {
   if (estadoTexto) {
     estadoTexto.innerHTML = `
       <span style="color:var(--esmeralda,#10b981); font-weight:700;">📦 [INICIANDO DESCARGA]:</span> 
-      Descargando la base de datos completa del Atlas VGI en archivo comprimido (.zip, 532.6 MB). 
-      Incluye el 100% de la cartografía (214 capas GeoJSON, 3.33 GB), extractos completos de Geofabrik RM, 4 catálogos Excel, 4 datasets CSV y metadatos ISO (241 archivos totales).
+      Descargando la base de datos completa del Atlas VGI en archivo comprimido (<code>docs/geodatabase_completa_atlas_vgi.zip</code>, 542,35 MB). 
+      Incluye las 132 capas del visor (10 macrocategorías VGI + 122 capas oficiales), extractos regionales de Geofabrik RM, los 3 libros maestros Excel (.xlsx), 4 datasets CSV, esquemas SQL PostGIS y metadatos ISO (257 archivos totales en 7 subcarpetas, ~3,33 GB descomprimido).
     `;
   }
 
@@ -3319,14 +3319,14 @@ async function descargarColeccionOficialCompleta() {
     if (estadoTexto) {
       estadoTexto.innerHTML = `
         <span style="color:var(--esmeralda,#10b981); font-weight:700;">✅ [DESCARGA INICIADA]:</span> 
-        Archivo <code>geodatabase_completa_atlas_vgi.zip</code> (558.5 MB en red / 3.33 GB descomprimido) descargándose en tu equipo. 
-        Contiene 7 carpetas estructuradas: <strong>01_vgi_comunitario_osm</strong>, <strong>02_geofabrik_chile_rm</strong>, <strong>03_capas_oficiales_estado</strong> (108 capas oficiales), <strong>04_repositorio_cartografico_completo</strong> (84 capas complementarias masivas), <strong>05_catalogos_matrices_excel</strong>, <strong>06_datos_consolidados_csv</strong> y <strong>07_metadatos_y_gobernanza</strong>.
+        Archivo <code>docs/geodatabase_completa_atlas_vgi.zip</code> (542,35 MB en red / ~3,33 GB descomprimido) descargándose en el equipo. 
+        Contiene 7 subcarpetas estructuradas (257 archivos totales): <strong>01_vgi_comunitario_osm/</strong>, <strong>02_ide_chile_ministerios/</strong>, <strong>03_censo_2024_ine/</strong>, <strong>04_observatorio_urbano_stgo/</strong>, <strong>05_medioambiente_residuos_subdere/</strong>, <strong>06_transporte_y_telecomunicaciones/</strong> y <strong>07_metadatos_y_gobernanza/</strong>.
       `;
     }
   } catch (err) {
     console.error('[-] Error al iniciar descarga de base de datos:', err);
     if (estadoTexto) {
-      estadoTexto.innerHTML = `<span style="color:#ef4444; font-weight:700;">❌ [ERROR]:</span> No se pudo iniciar la descarga automática. <a href="docs/geodatabase_completa_atlas_vgi.zip?v=20261014_full3gb" download="geodatabase_completa_atlas_vgi.zip" style="color:var(--musgo); text-decoration:underline;">Haz clic aquí para descarga manual</a>.`;
+      estadoTexto.innerHTML = `<span style="color:#ef4444; font-weight:700;">❌ [ERROR]:</span> No se pudo iniciar la descarga automática. <a href="docs/geodatabase_completa_atlas_vgi.zip?v=20261026_v13" download="geodatabase_completa_atlas_vgi.zip" style="color:var(--musgo); text-decoration:underline;">Haz clic aquí para descarga manual</a>.`;
     }
   } finally {
     setTimeout(() => {

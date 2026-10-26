@@ -1,311 +1,233 @@
-# Trazabilidad Académica y Memoria Metodológica
-### Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto) — Departamento de Geografía, Universidad Alberto Hurtado (2026)
+# Trazabilidad Metodológica y Marco Conceptual del Sistema
+### Atlas de Información Geográfica Voluntaria para la Gestión Territorial — Nodo GeoAbierto
 
-**Autor:** Juan Pablo Lescano Villegas (`GEOJOTA` <juanpablolescanovillegas@gmail.com>)  
-**Área:** Geografía, Sistemas de Información Geográfica y Gestión Territorial  
-**Caso Piloto:** Barrio Brasil — Universidad Alberto Hurtado (Santiago Centro, Chile)  
-**Institución de Referencia:** Universidad Alberto Hurtado (UAH)  
+* **Plataforma Web en Producción (CDN Primario):** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
+* **Repositorio Espejo (GitHub Pages):** [https://geojplescano.github.io/atlas-vgi-barrio-brasil/](https://geojplescano.github.io/atlas-vgi-barrio-brasil/)
+* **Cobertura del Sistema:** **132 Capas Operativas** (`122` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** (`54` Oficiales + `86` Brechas VGI) · **5 Dimensiones Analíticas** · **4 Storyboards (75 Cartografías)** · **10 Módulos (`01` al `10`)**.
 
 ---
 
 ## 🧭 Índice de Contenidos
 
-1. [Fundamentación Epistemológica: La VGI en la Geografía Contemporánea](#1-fundamentación-epistemológica-la-vgi-en-la-geografía-contemporánea)
+1. [Fundamentación Conceptual: La Información Geográfica Voluntaria en la Gestión Territorial](#1-fundamentación-conceptual-la-información-geográfica-voluntaria-en-la-gestión-territorial)
 2. [Marco Normativo, Estándares ISO y Política Geoespacial Chilena y Global](#2-marco-normativo-estándares-iso-y-política-geoespacial-chilena-y-global)
-3. [Evaluación de Calidad de Datos Espaciales (ISO 19157 y Soporte Dual ohsome API v1 y v2)](#3-evaluación-de-calidad-de-datos-espaciales-iso-19157-y-soporte-dual-ohsome-api-v1-y-v2)
-4. [Decisiones de Arquitectura y Defensa Técnica](#4-decisiones-de-arquitectura-y-defensa-técnica)
-5. [Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)](#5-auditoría-universal-de-metacalidad-de-la-base-de-datos-iso-19115--iso-19157--ide-chile)
-6. [Validación Empírica en el Caso Piloto: Barrio Brasil y Campus UAH](#6-validación-empírica-en-el-caso-piloto-barrio-brasil-y-campus-uah)
-7. [Respuestas a Preguntas Críticas del Comité Académico](#7-respuestas-a-preguntas-críticas-del-comité-académico)
+3. [Evaluación de Calidad de Datos Espaciales (ISO 19157, Modelo WLC v2.0 y ohsome API v1/v2)](#3-evaluación-de-calidad-de-datos-espaciales-iso-19157-modelo-wlc-v20-y-ohsome-api-v1v2)
+4. [Decisiones de Arquitectura de Software y Diseño Multi-Lenguaje](#4-decisiones-de-arquitectura-de-software-y-diseño-multi-lenguaje)
+5. [Auditoría Universal de MetaCalidad de la Base de Datos (`132 Capas`)](#5-auditoría-universal-de-metacalidad-de-la-base-de-datos-132-capas)
+6. [Aplicación Territorial en el Caso de Estudio: Barrio Brasil, Campus UAH y Santiago](#6-aplicación-territorial-en-el-caso-de-estudio-barrio-brasil-campus-uah-y-santiago)
+7. [Preguntas Frecuentes sobre Interoperabilidad, Reproducibilidad y Calidad](#7-preguntas-frecuentes-sobre-interoperabilidad-reproducibilidad-y-calidad)
 8. [Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)](#8-referencias-bibliográficas-y-fuentes-oficiales-norma-apa-7ª-edición)
 
 ---
 
-## 1. Fundamentación Epistemológica: La VGI en la Geografía Contemporánea
+## 1. Fundamentación Conceptual: La Información Geográfica Voluntaria en la Gestión Territorial
 
-Tradicionalmente, la producción de datos geográficos ha sido monopolio de agencias estatales centralizadas (institutos geográficos militares, ministerios de bienes nacionales, catastros municipales). Aunque rigurosos, estos catastros sufren de tres limitaciones estructurales:
-1. **Altos costos presupuestarios y ciclos de actualización prolongados** (a menudo superiores a 5 o 10 años).
-2. **Escala macro u homogénea**, incapaz de captar la microdinámica urbana (arbolado barrial, rebajes peatonales en cruces de calles, comercio vecinal).
-3. **Brecha de acceso comunitario**: los datos quedan encapsulados en formatos propietarios y visores burocráticos.
+Tradicionalmente, la producción de datos geográficos ha estado concentrada en agencias estatales centralizadas (institutos geográficos militares, ministerios sectoriales, institutos nacionales de estadísticas y direcciones de obras municipales). Aunque indispensables para el ordenamiento jurídico del territorio, los catastros estatales enfrentan tres limitaciones operativas:
+1. **Ciclos de actualización multianuales**, que dificultan registrar transformaciones rápidas del entorno barrial.
+2. **Escala macro o agregada**, que suele omitir elementos de microgeografía cotidiana (accesibilidad universal en esquinas, pavimento podotáctil, estacionamientos de bicicletas, mobiliario peatonal o arbolado de alineación).
+3. **Barreras de interoperabilidad**, cuando los datos se distribuyen sin diccionarios de atributos estandarizados.
 
-Desde la formulación conceptual de Michael Goodchild (2007) sobre la *Información Geográfica Voluntaria* (VGI) y los trabajos de Muki Haklay (2010) sobre la calidad de OpenStreetMap, la geografía reconoce a la ciudadanía y a las comunidades universitarias como **sensores espaciales activos**.
-
-El **Atlas VGI (Nodo GeoAbierto)** operacionaliza esta corriente epistemológica: transforma el dato colaborativo no estructurado en **información geográfica estandarizada, auditable y directamente aplicable a la toma de decisiones territoriales**.
+Desde la formulación de Michael Goodchild (2007) sobre la *Información Geográfica Voluntaria* (*Volunteered Geographic Information*, VGI) y las investigaciones de Muki Haklay (2010), Senaratne et al. (2017) y Herfort et al. (2023), la ciencia de la información geográfica reconoce a las comunidades locales como productores activos de datos espaciales. El **Atlas VGI (Nodo GeoAbierto)** operacionaliza este marco integrando **122 coberturas oficiales del Estado de Chile** con **10 macrocategorías colaborativas VGI (`CAT-01` a `CAT-10`)** bajo normas abiertas de calidad, catalogación y licenciamiento.
 
 ---
 
 ## 2. Marco Normativo, Estándares ISO y Política Geoespacial Chilena y Global
 
-Para que este proyecto posea validez epistemológica, sea defendible ante un comité académico riguroso y resulte directamente integrable en los sistemas de gestión territorial de municipios, ministerios y organizaciones comunitarias, su arquitectura se fundamenta explícitamente en la normativa técnica internacional y la política geoespacial chilena:
+### 2.1. Pipeline de Implementación de Normas ISO/OGC y Política Nacional SNIT
 
-### 2.1 Especificación de Formatos y Estándares ISO (Proveniencia y Enlaces Oficiales)
+```mermaid
+flowchart LR
+    subgraph IN["1. INPUT / MARCOS NORMATIVOS Y ESTÁNDARES"]
+        N1["Familia ISO/TC 211 & OGC<br/>ISO 19110:2016 | ISO 19115-1:2014<br/>ISO 19139:2007 | ISO 19157:2013 | ISO 19111:2019"]
+        N2["Política Geoespacial de Chile y Leyes<br/>PNIG IDE Chile / D.S. N° 28/2006 SNIT<br/>Ley N° 20.285 | Ley N° 19.628 | OGUC"]
+        N3["Marcos Globales y Ciencia Ciudadana<br/>UN-GGIM (IGIF) | Darwin Core (TDWG)<br/>ODbL 1.0 | CC BY-SA 4.0 | AGPLv3"]
+    end
 
-Los datos geográficos y metadatos implementados en el Atlas se rigen por la familia de normas del Comité Técnico **ISO/TC 211 (Geographic information/Geomatics)** ([https://committee.iso.org/home/tc211](https://committee.iso.org/home/tc211)) y el **Open Geospatial Consortium (OGC)** ([https://www.ogc.org/](https://www.ogc.org/)):
+    subgraph PROC["2. PROCESAMIENTO EN MÓDULOS DEL ATLAS (src/js/modulos/)"]
+        M1["Módulo 08 · Generador de Metadatos<br/>src/js/modulos/metadatos.js<br/>(Perfil Nacional IDE Chile v2.0)"]
+        M2["Módulo 09 · Catálogo de Objetos ISO 19110<br/>src/js/modulos/diccionario.js<br/>(140 Descriptores: 54 Oficiales + 86 Brechas VGI)"]
+        M3["Módulo 06 · Motor de Calidad ISO 19157<br/>src/js/modulos/evaluador_calidad_cuantitativa.js<br/>& ohsome.js + geodesia.js (EPSG:32719)"]
+    end
+
+    subgraph OUT["3. OUTPUT / ENTREGABLES VERIFICABLES EN GIT Y WEB"]
+        O1["Exportación JSON (ISO 19115) y XML (ISO 19139)<br/>docs/perfil_metadatos_vgi.xlsx (src/docs/)"]
+        O2["docs/categorias_tematicas_osm.xlsx &<br/>docs/catalogo_fuentes_vgi.xlsx (src/docs/)"]
+        O3["docs/ANALISIS_METACALIDAD.md &<br/>docs/wlc_metacalidad_ranking.csv / .json"]
+    end
+
+    N1 & N2 --> M1 & M2 & M3
+    N3 --> M2 & M3
+    M1 --> O1
+    M2 --> O2
+    M3 --> O3
+```
+
+### 2.2. Especificación de Estándares Implementados
 
 1. **ISO 19115-1:2014 — Geographic information — Metadata — Part 1: Fundamentals:**
-   - *Enlace oficial:* [https://www.iso.org/standard/53798.html](https://www.iso.org/standard/53798.html)
-   - *Rol en el Atlas:* Define el esquema conceptual y los elementos núcleo obligatorios y condicionales para documentar la información espacial: identificación del recurso (`MD_DataIdentification`), categorías temáticas (`MD_TopicCategoryCode`), extensión geográfica delimitadora (`EX_GeographicBoundingBox`), linaje y proceso metodológico (`LI_Lineage`), sistema de referencia espacial (`MD_ReferenceSystem`) y puntos de contacto institucional con responsabilidades tipificadas (`CI_RoleCode`).
-   - *Implementación:* El módulo [`metadatos.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/metadatos.js) genera la ficha estructurada en formato JSON estándar conforme a estos elementos núcleo.
-
-2. **ISO 19139:2007 — Geographic information — Metadata — XML schema implementation:**
-   - *Enlace oficial:* [https://www.iso.org/standard/32574.html](https://www.iso.org/standard/32574.html)
-   - *Rol en el Atlas:* Proporciona la regla de codificación formal en XML (Extensible Markup Language) que viabiliza la interoperabilidad máquina-a-máquina y la cosecha automatizada (harvesting) de catálogos mediante protocolos CSW (Catalog Service for the Web).
-   - *Implementación:* El Atlas genera y permite descargar con 1 clic el documento XML con el namespace `<gmd:MD_Metadata>` y esquemas validados (`http://www.isotc211.org/2005/gmd`), directamente compatible con los catálogos nacionales e internacionales (GeoNetwork, GeoNode, CKAN).
-
+   * *Enlace oficial:* [https://www.iso.org/standard/53798.html](https://www.iso.org/standard/53798.html)
+   * *Implementación:* El **Módulo 08** ([`src/js/modulos/metadatos.js`](src/js/modulos/metadatos.js)) estructura los elementos núcleo obligatorios (`MD_DataIdentification`, `MD_TopicCategoryCode`, `EX_GeographicBoundingBox`, `LI_Lineage`, `MD_ReferenceSystem`, `CI_RoleCode`) para las **132 capas del Atlas**.
+2. **ISO/TS 19139:2007 — Geographic information — Metadata — XML schema implementation:**
+   * *Enlace oficial:* [https://www.iso.org/standard/32574.html](https://www.iso.org/standard/32574.html)
+   * *Implementación:* Exportación directa en XML con esquema `<gmd:MD_Metadata>` (`http://www.isotc211.org/2005/gmd`), compatible con catálogos CSW como GeoNetwork y GeoNode.
 3. **ISO 19157:2013 / ISO 19157-1:2023 — Geographic information — Data quality:**
-   - *Enlace oficial:* [https://www.iso.org/standard/32575.html](https://www.iso.org/standard/32575.html)
-   - *Rol en el Atlas:* Establece los principios para describir la calidad de los datos geográficos a través de componentes cuantitativos: completitud (omisión/comisión), consistencia lógica (adherencia topológica), exactitud temporal (validez cronológica del dato) y linaje (historial de modificaciones y contribuciones).
-   - *Implementación:* Operacionalizado a través de la API v1 de ohsome (HeiGIT), evaluando la masa crítica comunitaria, el ratio de edición por colaborador, la densidad espacial por km² y la evolución quinquenal sobre la base OSHDB.
-
+   * *Enlace oficial:* [https://www.iso.org/standard/32575.html](https://www.iso.org/standard/32575.html)
+   * *Implementación:* Operacionalizado en el **Módulo 06** mediante el Evaluador Universal WLC v2.0 (`src/js/modulos/evaluador_calidad_cuantitativa.js`), el cliente histórico `src/js/modulos/ohsome.js` y el script `scripts/analisis_metacalidad.py`.
 4. **ISO 19110:2016 — Geographic information — Methodology for feature cataloguing:**
-   - *Enlace oficial:* [https://www.iso.org/standard/57303.html](https://www.iso.org/standard/57303.html)
-   - *Rol en el Atlas:* Define el método para estructurar catálogos de objetos y diccionarios de conceptos geográficos.
-   - *Implementación:* El módulo [`diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js) y el panel `06 / Diccionario Territorial` formalizan el esquema de 10 atributos VGI normalizados y 28 etiquetas OSM clasificadas por dominios, garantizando que cada registro cuente con definición inequívoca, tipo de dato y correlación con los estándares IDE.
+   * *Enlace oficial:* [https://www.iso.org/standard/57303.html](https://www.iso.org/standard/57303.html)
+   * *Implementación:* El **Módulo 09** ([`src/js/modulos/diccionario.js`](src/js/modulos/diccionario.js)) cataloga las **132 coberturas** y **140 descriptores normativos** (incluyendo el esquema normalizado de atributos VGI y las correspondencias con IDE Chile).
+5. **Darwin Core Standard (TDWG / GBIF):**
+   * *Enlace oficial:* [https://dwc.tdwg.org/](https://dwc.tdwg.org/)
+   * *Implementación:* El **Módulo 03** ([`src/js/modulos/gbif.js`](src/js/modulos/gbif.js)) consulta ocurrencias biológicas georreferenciadas validando `scientificName`, `eventDate`, `basisOfRecord` e indicadores de calidad posicional.
 
-5. **Darwin Core Standard (Biodiversity Information Standards - TDWG):**
-   - *Enlace oficial:* [https://dwc.tdwg.org/](https://dwc.tdwg.org/)
-   - *Rol en el Atlas:* Estándar global de metadatos biológicos adoptado por GBIF (*Global Biodiversity Information Facility* - [https://www.gbif.org/](https://www.gbif.org/)). Permite que las observaciones de ciencia ciudadana (iNaturalist, eBird) se mapeen con taxones validados, fechas de registro y bases de registro tipificadas (`HUMAN_OBSERVATION`, `PRESERVED_SPECIMEN`).
+### 2.3. Articulación con la Política Nacional de Información Geoespacial (PNIG) e IDE Chile
+* **Política Nacional de Información Geoespacial (PNIG) y D.S. N° 28/2006 (Ministerio de Bienes Nacionales):** Promueve la estandarización y difusión de datos espaciales a través del Sistema Nacional de Información Territorial (SNIT / IDE Chile).
+* **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile):** Adoptado en el Módulo 08 y en el libro [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
+* **Ley N° 20.285 sobre Acceso a la Información Pública y Ley N° 19.628 sobre Protección de la Vida Privada:** Respaldan la reutilización abierta de las **122 coberturas estatales** y la agregación estadística de los microdatos censales y socioeconómicos a escala de manzana y unidad vecinal.
 
-### 2.2 Relación con la Política Nacional de Información Geoespacial (PNIG) de Chile e IDE Chile
+### 2.4. Régimen Tripartito de Licencias Abiertas (`Módulo 10`)
+1. **Cartografía Derivada, Documentación y Manuales:** **Creative Commons Atribución-CompartirIgual 4.0 Internacional (`CC BY-SA 4.0`)**.
+2. **Bases de Datos Vectoriales Colaborativas:** **Open Database License (`ODbL 1.0`)** para datos provenientes de OpenStreetMap y **Creative Commons (`CC BY 4.0` / `CC0`)** para registros de biodiversidad de GBIF.
+3. **Código Fuente del Sistema:** **GNU Affero General Public License v3.0 (`GNU AGPLv3`)**, garantizando que cualquier adaptación del visor en red mantenga su código abierto.
 
-El Atlas VGI se articula directamente con la política pública del Estado chileno:
+### 2.5. Taxonomía de las 10 Macrocategorías VGI Adaptada a Chile (`CAT-01` a `CAT-10`)
 
-- **Política Nacional de Información Geoespacial (PNIG):** ([https://www.ide.cl/index.php/informacion-institucional/politica-nacional](https://www.ide.cl/index.php/informacion-institucional/politica-nacional))  
-  Promovida por el Ministerio de Bienes Nacionales a través de la Secretaría Ejecutiva del SNIT / IDE Chile, la PNIG mandata la coordinación, estandarización y difusión de la información territorial para optimizar el diseño de políticas públicas, la gestión de emergencias y el ordenamiento territorial descentralizado.
-- **Decreto Supremo N° 28/2006 (Ministerio de Bienes Nacionales):**  
-  Crea y regula la Comisión Asesora de Coordinación Nacional del Sistema Nacional de Información Territorial (SNIT), instituyendo las mesas de trabajo sectoriales (Metadatos, Estándares, Marco Legal y Tecnologías).
-- **Perfil Nacional de Metadatos de Chile (IDE Chile / SNIT):**  
-  Documento técnico oficial que adopta el subconjunto de elementos de ISO 19115 e ISO 19139 de uso mandatorio para todos los órganos de la Administración del Estado. El Atlas adopta este perfil estricto, incorporando categorías temáticas (`topicCategory`), sistemas de referencia geodésicos nacionales (SIRGAS-Chile 2016 / EPSG:5361 y WGS84 / EPSG:4326), linaje de procesamiento y responsabilidades institucionales.
-- **Ley N° 20.285 sobre Acceso a la Información Pública y Transparencia:** ([https://www.leychile.cl/Navegar?idNorma=278858](https://www.leychile.cl/Navegar?idNorma=278858))  
-  Consagra el derecho ciudadano a acceder a la información en poder del Estado y mandata la publicación proactiva de datos en formatos abiertos, reutilizables y sin barreras propietarias. El Atlas materializa este principio al basarse 100% en software abierto, formatos interoperables (GeoJSON, CSV, XML) y licenciamiento transparente.
+```mermaid
+flowchart TD
+    subgraph IN["1. INPUT / ESQUEMA DE ETIQUETAS OSM Y DARWIN CORE"]
+        T1["Etiquetas OpenStreetMap (key=value)<br/>validadas en Taginfo API v4 y WikiProject Chile"]
+        T2["Ocurrencias Biológicas GBIF API v1<br/>bajo Estándar Darwin Core"]
+    end
 
-### 2.3 Alineación con Marcos Globales: UN-GGIM e IGIF
+    subgraph PROC["2. PROCESAMIENTO Y HOMOLOGACIÓN (config.js, diccionario.js, generar_catalogos_excel.py)"]
+        H1["Clasificación en 10 Macrocategorías VGI<br/>(CAT-01 Educación a CAT-10 Cobertura de Suelo)"]
+        H2["Normalización al Esquema Maestro de Atributos<br/>+ Cálculo de Superficie en EPSG:32719 (m² y ha)"]
+        H3["Contraste Semántico contra Catálogo IDE Chile<br/>140 Descriptores: 54 Oficiales vs. 86 Brechas VGI"]
+    end
 
-A nivel global, la iniciativa se alinea con el **Comité de Expertos de las Naciones Unidas sobre la Gestión Global de la Información Geoespacial (UN-GGIM)** ([https://ggim.un.org/](https://ggim.un.org/)) y su **Marco Integrado de Información Geoespacial (IGIF - *Integrated Geospatial Information Framework*)**:
-- **Vía Estratégica 4 (Datos):** Fomenta la integración de fuentes no tradicionales y datos generados por la comunidad (VGI y ciencia ciudadana) para complementar los censos y registros administrativos.
-- **Vía Estratégica 6 (Estándares):** Promueve la aplicación de normas abiertas de ISO y OGC para evitar silos de información.
-- **Vía Estratégica 7 (Innovación):** Promueve herramientas livianas, de código abierto y computación en el borde accesibles para gobiernos locales.
+    subgraph OUT["3. OUTPUT / ARCHIVOS EN GIT Y PLATAFORMA WEB"]
+        S1["10 Capas Barriales (data/capa_*.geojson)<br/>+ 10 Capas Regionales RM (data/capa_osm_rm_cat*.geojson)<br/>+ Consolidado data/atlas_vgi_barrio_brasil_uah_completo.geojson"]
+        S2["Libro Maestro docs/categorias_tematicas_osm.xlsx (4 Hojas)<br/>+ Módulo 09 (Diccionario ISO 19110)"]
+    end
 
-### 2.4 Régimen de Licencias y Propiedad Intelectual: Superación de la Licencia MIT y Adopción de un Marco de Reciprocidad Comunitaria (Copyleft)
+    T1 & T2 --> H1 --> H2 --> H3 --> S1 & S2
+```
 
-Uno de los hitos metodológicos y jurídicos centrales del proyecto es la **sustitución de la licencia permisiva MIT** por un marco tripartito adaptado a la legislación chilena y la naturaleza de los bienes comunes digitales (*digital commons*). 
-
-Si bien la licencia MIT es habitual en proyectos de software general, en el ámbito de la Información Geográfica Voluntaria presenta una limitación ética y política crítica: permite que cualquier actor comercial o consultora privada tome los datos elaborados por la comunidad vecinal y el código del visor universitario, los empaquete en soluciones privativas de pago y restrinja el acceso a la ciudadanía sin transferir ninguna mejora a la comunidad (*enclosure* de datos abiertos).
-
-Para garantizar la reciprocidad obligatoria (*copyleft*) y la protección permanente de los datos del territorio, el Atlas adopta un marco tripartito sustentado en la **Ley N° 17.336 de Propiedad Intelectual**, la **Ley N° 20.285 sobre Acceso a la Información Pública** y la **Política Nacional de Información Geoespacial de IDE Chile**:
-
-1. **Contenidos, Cartografía, Metadatos y Manual de Uso:** Licenciados bajo **Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)** ([https://creativecommons.org/licenses/by-sa/4.0/deed.es](https://creativecommons.org/licenses/by-sa/4.0/deed.es)). Cualquier obra derivada debe otorgar crédito a la Universidad Alberto Hurtado / Nodo GeoAbierto y obligatoriamente distribuirse bajo los mismos términos de acceso abierto.
-2. **Bases de Datos Geoespaciales y Capas Vectoriales VGI:** Se rigen por la **Open Database License (ODbL 1.0)** ([https://opendatacommons.org/licenses/odbl/](https://opendatacommons.org/licenses/odbl/)) de la OpenStreetMap Foundation, manteniendo la atribución comunitaria (*"© Colaboradores de OpenStreetMap"*) y la cláusula *Share-Alike* para cualquier base espacial derivada. Las observaciones de biodiversidad conservan las licencias declaradas en GBIF (CC0, CC-BY 4.0) bajo el estándar Darwin Core (TDWG).
-3. **Código Fuente de la Plataforma Web y Backend:** Licenciado bajo **GNU Affero General Public License v3.0 (GNU AGPLv3)** ([https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html)). Diseñada expresamente para visores web y servicios en red, la AGPLv3 obliga legalmente a cualquier persona o municipio que aloje una versión modificada del Atlas a poner el código fuente completo a disposición de la comunidad, garantizando que sea una herramienta 100% transferible y de bien público.
-4. **Gobernanza Git y Contribuciones por Permiso:** El desarrollo colaborativo en el repositorio oficial ([https://github.com/GEOJOTA/atlas_vgi_uah](https://github.com/GEOJOTA/atlas_vgi_uah)) opera bajo el modelo de *Fork & Pull Request*, donde toda incorporación de nuevas capas o descriptores comunales es auditada y aprobada por el mantenedor institucional para asegurar la interoperabilidad con los estándares ISO 19110 e ISO 19157.
-
-### 2.5 Arquitectura Dual: Inclusión Coexistente de Usuarios Técnicos y No Técnicos
-
-Un requerimiento metodológico esencial del proyecto es **garantizar la usabilidad simultánea para actores técnicos y no técnicos sin degradar las capacidades de ninguno de los dos**:
-
-1. **Para Personas No Técnicas (Vecinos, Dirigentes Sociales, Estudiantes, Autoridades):**
-   - **Listas desplegables y opciones seleccionables:** Desplegables temáticos en todos los módulos (claves frecuentes OSM, valores frecuentes clasificados por función barrial, presets de especies urbanas en GBIF, mapas colaborativos precargados en UMap, códigos SRS y licencias en metadatos).
-   - **Tarjetas de 1 Clic:** 10 consultas ciudadanas inmediatas en el panel de inicio (farmacias, panaderías, sedes UAH, paraderos Red, ciclovías, plazas, patrimonio, cruces accesibles, bomberos, cafés).
-   - **Diccionario Territorial Interactivo (Panel 06):** Traducción directa de la jerga informática de etiquetas a lenguaje natural, con ejemplos concretos en Barrio Brasil y equivalencias IDE Chile.
-   - **Cajas Guía de Referencia y Ayuda Contextual:** Explicaciones sencillas sobre qué es un Bbox, cómo se compone una clave/valor y cómo interpretar las métricas de calidad sin fórmulas matemáticas complejas.
-
-2. **Para Usuarios Técnicos y Analistas (Geógrafos, Analistas SIG, Mapeadores OSM, ONGs / Territoriales e Investigadores):**
-   - **No se eliminaron ni limitaron las consultas complejas:** El sistema mantiene intacto el **Modo Overpass QL interactivo**, permitiendo escribir consultas libres con sintaxis de expresiones regulares, filtros anidados y selector de geometrías (`node`, `way`, `relation`, `nwr`).
-   - **Control de Parámetros Avanzados:** Filtros de calidad condicional (`[name]`, `[wheelchair=yes]`, `[addr:street]`, `[operator]`), selección de operadores (`=`, `~`, `!=`, `*`), e intervalo temporal en ohsome (`P1Y`, `P6M`, `P1M`).
-   - **Exportación Multi-Formato Estándar:** Descarga de capas en GeoJSON y CSV estructurado, exportación de metadatos en JSON (ISO 19115) y XML (ISO 19139 para IDE Chile / GeoNetwork).
-   - **Pipeline CLI para Geógrafos:** Script independiente en Python 3 puro (`scripts/extractor_vgi.py`) para extracciones masivas y servidor backend local con caché (`backend/servidor_vgi.py`).
-
-### 2.6 Taxonomía de Categorías OSM Adaptada a Chile y Trazabilidad Bibliográfica APA
-
-Uno de los principales desafíos epistemológicos y técnicos al aplicar la VGI en la planificación territorial chilena radica en la **traducción y adecuación ontológica** del esquema de etiquetas de OpenStreetMap (concebido originalmente bajo convenciones anglosajonas y europeas) a la realidad institucional, urbana y normativa de Chile. 
-
-Para resolver esta brecha sin distorsionar el estándar internacional de OSM ni la taxonomía oficial del Estado, el proyecto diseñó una matriz temática estructurada en **10 macro-categorías territoriales (CAT-01 a CAT-10)** y **63 etiquetas clave de alta frecuencia**, validada empíricamente contra la base de datos de [Taginfo Chile](https://taginfo.geofabrik.de/south-america:chile), las directrices comunitarias de [WikiProject Chile](https://wiki.openstreetmap.org/wiki/WikiProject_Chile) y los catálogos oficiales de la Infraestructura de Datos Espaciales de Chile ([IDE Chile](https://www.ide.cl/)):
-
-| Código | Categoría Temática Maestra | Contraparte Institucional Estatal | Estándar / Norma Técnica Vinculada | Enfoque Territorial en Barrio Brasil / UAH |
-|---|---|---|---|---|
-| **CAT-01** | Educación, Universidades e Investigación | Ministerio de Educación (MINEDUC) / Subsecretaría de Educación Superior / JUNJI / Fundación Integra | Directorio Oficial de Establecimientos (MINEDUC, 2023); Estándares de Infraestructura Parvularia (JUNJI, 2022); Ley N° 21.091 sobre Educación Superior | Campus patrimonial Universidad Alberto Hurtado (calles Barroso, Cienfuegos, Erasmo Escala), Liceo de Aplicación, colegios y salas cuna. |
-| **CAT-02** | Servicios Urbanos, Salud y Comercio Barrial | Ministerio de Salud (MINSAL) / SEREMI de Salud RM / SERCOTEC / Municipalidad de Santiago | Modelo de Atención Integral de Salud Familiar y Comunitaria (MINSAL); Ley de Rentas Municipales (D.L. 3.063); D.S. N° 469/1993 | Comercio barrial, almacenes, panaderías, farmacias de turno, CESFAM Ignacio Domeyko, red gastronómica en Av. Brasil y Huérfanos, 3ª Comisaría. |
-| **CAT-03** | Movilidad, Transporte Público y Paraderos | Ministerio de Transportes y Telecomunicaciones (MTT) / DTPM / Metro de Santiago S.A. | Manual de Normas Técnicas para Paraderos Red Movilidad (DTPM, 2023); Manual de Vialidad Urbana (REDEVU / MINVU) | Estaciones intermodales Metro Los Héroes (L1/L2), Santa Ana (L2/L5), Cumming (L5), paraderos troncales Red en Alameda, Av. Brasil y San Pablo. |
-| **CAT-04** | Movilidad Activa, Ciclovías y Peatonalidad | MTT / SECTRA / SERVIU Metropolitano / Municipalidad de Santiago | Manual de Vialidad del Ciclo (MINVU / MTT, 2015); Ley de Convivencia Vial (Ley N° 21.088); D.S. N° 102/2019 MTT | Eje ciclovía Rosas y Compañía de Jesús, ciclobanda Brasil, estacionamientos de bicicletas públicos y campus UAH, estaciones Bike Santiago. |
-| **CAT-05** | Áreas Verdes, Espacio Público y Recreación | Ministerio de Vivienda y Urbanismo (MINVU) / Parque Metropolitano (PARQUEMET) / IND / Municipalidad de Santiago | Política Nacional de Parques Urbanos (MINVU, 2021); Estándares Urbanos Indicativos de Áreas Verdes (CNDU, 2018); OGUC Art. 2.2.4 | Plaza Brasil (15.200 m² con juegos de Federica Matta), Plaza Manuel Rodríguez, multicanchas barriales de Maturana, plazoletas vecinales y bandejones arbolados de la Alameda. |
-| **CAT-06** | Patrimonio Histórico, Memoria y Cultura | Servicio Nacional del Patrimonio Cultural (SERPAT) / CMN / Ministerio de las Culturas, las Artes y el Patrimonio | Ley N° 17.288 de Monumentos Nacionales; D.E. N° 126/2000 Mineduc (Declaratoria Zona Típica Barrio Brasil); Convenio UNESCO 1972 | Cités patrimoniales de calles Huérfanos, Compañía y Cienfuegos, Basílica del Salvador, Palacio Rivas, Inmuebles de Conservación Histórica (ICH) y casonas UAH. |
-| **CAT-07** | Accesibilidad Universal y Discapacidad | Servicio Nacional de la Discapacidad (SENADIS) / MINVU / DOM Municipalidad de Santiago | D.S. N° 50 OGUC Accesibilidad Universal (MINVU, 2016); Ley N° 20.422 sobre Igualdad de Oportunidades; ISO 21542:2021 | Rebajes de cordón y vados peatonales normados (`kerb`), cruces accesibles semaforizados en Alameda y Brasil, baldosas táctiles y veredas adaptadas del campus UAH. |
-| **CAT-08** | Biodiversidad Urbana y Arbolado (OSM / GBIF) | Corporación Nacional Forestal (CONAF) / Ministerio del Medio Ambiente (MMA) / Dirección de Medio Ambiente Municipalidad de Santiago / GBIF Chile | Ley Marco de Cambio Climático (Ley N° 21.455); Guía de Arbolado Urbano (CONAF, 2019); Estándar Darwin Core (GBIF) | Arbolado urbano viario de alineación en Av. Brasil, árboles en Barroso y Huérfanos, patios arbolados UAH y observaciones de avifauna y flora de ciencia ciudadana. |
-| **CAT-09** | Edificaciones y Huella Urbana (Polígonos) | Servicio de Impuestos Internos (SII - Catastro de Bienes Raíces) / DOM Municipalidad de Santiago / MINVU | Ley General de Urbanismo y Construcciones (LGUC); OGUC Art. 2.1.24; ISO 19157 (Data Quality) | Catastro poligonal cerrado de huellas de manzana, casonas residenciales, pabellones universitarios UAH y cálculo métrico euclidiano de superficies en m² y ha (EPSG:32719). |
-| **CAT-10** | Coberturas y Usos de Suelo (Polígonos y Líneas) | MINVU (División de Desarrollo Urbano) / Dirección de Obras Municipales (DOM) / Dirección de Vialidad MOP | Plan Regulador Comunal de Santiago (PRC); Ley N° 21.074 de Fortalecimiento de la Regionalización; OGC Land and Infrastructure Standards | Zonificación funcional del suelo urbano (residencial, comercial, dotacional/educativo, recreativo) y materialidad de rodado vial (asfalto, adoquines patrimoniales). |
-
-#### Catálogo Excel Automatizado de 4 Hojas (`categorias_tematicas_osm.xlsx`)
-Toda la taxonomía, junto con su correlación de atributos, linaje de procesamiento y fuentes documentales, se encuentra consolidada en el archivo oficial [`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx) (sincronizado automáticamente en `src/docs/` para su descarga desde la interfaz web):
-1. **Hoja 1: `Categorías Maestras (Chile)`**: Define las 10 macro-categorías (CAT-01 a CAT-10), sus contrapartes públicas, código de capa, consulta base Overpass QL y frecuencia observada en Taginfo Chile.
-2. **Hoja 2: `Catálogo de Etiquetas Chile`**: Tabula los 134 descriptores territoriales depurados (48 oficiales IDE Chile vs 86 brechas VGI comunitarias) con clave OSM, valor, denominación chilena en lenguaje natural, tipo geométrico admitido, capa estatal homóloga, organismo rector y ejemplo empírico en Barrio Brasil / UAH.
-3. **Hoja 3: `Diccionario Atributos VGI`**: Detalla los 13 atributos normalizados de las entidades geoespaciales (incluyendo `superficie_m2`, `superficie_ha` y `srs_superficie` bajo proyección EPSG:32719 UTM 19S), indicando tipo de dato, cardinalidad, regla de cálculo y correspondencia con el Perfil Nacional de Metadatos (ISO 19110 / ISO 19115).
-4. **Hoja 4: `Bibliografía y Fuentes APA`**: Proporciona el registro completo de 125 fuentes institucionales, legales, técnicas y académicas bajo norma APA 7ª edición (integrando 51 referencias de investigación seminal, 8 obras epistemológicas e hispanoamericanas y 66 normas y marcos técnicos del Estado de Chile y globales), con hipervínculos oficiales activos y trazabilidad verificable.
-
-### 2.7 Mecanismos de Contribución Comunitaria Simple y Trazabilidad Ciudadana
-
-Para asegurar que el Atlas funcione como una herramienta viva de co-producción socioespacial y no como un repositorio estático o de acceso restringido a especialistas, se formalizó un **protocolo de contribución ciudadana accesible y trazable** que permite a cualquier usuario promedio (vecinos, dirigentas/es de juntas vecinales, colectivos barriales, estudiantes o integrantes de ONGs) aportar y validar datos territoriales:
-
-1. **Mapeo Directo en OpenStreetMap con Trazabilidad Temática:**  
-   A través del editor visual web [iD en openstreetmap.org](https://www.openstreetmap.org/), los ciudadanos pueden incorporar o corregir comercios, árboles de alineación, veredas accesibles o equipamiento barrial en el polígono de estudio. Al guardar con la etiqueta `#AtlasVGI_UAH`, el changeset queda registrado en el historial de OSM, permitiendo que el motor del Atlas (vía Overpass y OSMCha) audite la contribución e identifique al autor, timestamp y linaje de la modificación.
-2. **Carga y Contraste de Archivos Locales en el Visor:**  
-   Cualquier colectivo barrial que levante cartografía propia puede arrastrar sus archivos `.GeoJSON`, `.KML`, `.KMZ`, `.GPX` o `.CSV` al Visor interactivo (Panel 00), contrastándolos de inmediato con las 121 capas oficiales y 10 VGI de forma 100% privada en su navegador.
-3. **Reportes Guiados vía GitHub Issues:**  
-   Se diseñó una plantilla estandarizada en el repositorio oficial de GitHub para que cualquier usuario reporte capas desactualizadas o sugiera nuevas fuentes comunitarias indicando: tipo de aporte, nombre de la capa, categoría VGI o institucional, ubicación y organización responsable.
-4. **Gobierno y Linaje de Datos:**  
-   Cada aporte debe consignar sus metadatos mínimos (autoría, fecha de captura, sistema de referencia EPSG:4326/32719 y licenciamiento abierto compatible ODbL/CC BY-SA), conforme a las directrices detalladas en el documento oficial [`CONTRIBUTING.md`](../CONTRIBUTING.md).
+| Código | Categoría Temática Maestra | Contraparte Institucional Estatal | Norma / Estándar Técnico Vinculado | Cobertura en Barrio Brasil / UAH |
+| :---: | :--- | :--- | :--- | :--- |
+| **`CAT-01`** | Educación, Universidades e Investigación | MINEDUC / Subsecretaría de Educación Superior / JUNJI | Directorio Oficial de Establecimientos MINEDUC; Ley N° 21.091 | Campus Universidad Alberto Hurtado, Liceo de Aplicación, colegios, jardines infantiles y bibliotecas (`247` entidades). |
+| **`CAT-02`** | Servicios Urbanos, Salud y Comercio Barrial | MINSAL / SEREMI de Salud RM / SERCOTEC / MuniSTGO | Modelo de Salud Familiar MINSAL; Ley de Rentas Municipales D.L. 3.063 | Comercio minorista, almacenes, panaderías, farmacias, CESFAM Ignacio Domeyko y gastronomía (`365` entidades). |
+| **`CAT-03`** | Movilidad, Transporte Público y Paraderos | MTT / DTPM / Metro de Santiago S.A. | Manual de Paraderos Red Movilidad (DTPM); Manual REDEVU (MINVU) | Estaciones Metro Los Héroes (L1/L2), Santa Ana (L2/L5), Cumming (L5), República (L1) y paradas Red (`191` entidades). |
+| **`CAT-04`** | Movilidad Activa, Ciclovías y Peatonalidad | MTT / SECTRA / SERVIU RM / MuniSTGO | Manual de Vialidad Cicloinclusiva (MINVU); Ley de Convivencia Vial N° 21.088 | Ciclovías segregadas en ejes Rosas y Compañía, ciclobanda Av. Brasil y biciestacionamientos (`11` trazados). |
+| **`CAT-05`** | Áreas Verdes, Espacio Público y Recreación | MINVU / PARQUEMET / IND / MuniSTGO | Política Nacional de Parques Urbanos (MINVU); Estándares CNDU; Art. 2.2.4 OGUC | Plaza Brasil (`15.200 m²`), Plaza Manuel Rodríguez, bandejones arbolados, multicanchas y mobiliario (`144` entidades). |
+| **`CAT-06`** | Patrimonio Histórico, Memoria y Cultura | SERPAT / CMN / Ministerio de las Culturas | Ley N° 17.288 de Monumentos Nacionales; D.E. N° 126/2000 Zona Típica Barrio Brasil | Cités patrimoniales, Basílica del Salvador, Inmuebles de Conservación Histórica y centros culturales (`71` entidades). |
+| **`CAT-07`** | Accesibilidad Universal y Discapacidad | SENADIS / MINVU / DOM Municipalidad de Santiago | D.S. N° 50 OGUC Accesibilidad Universal; Ley N° 20.422; ISO 21542:2021 | Rebajes de cordón (`kerb=*`), cruces peatonales semaforizados, pavimento podotáctil y rampas (`185` entidades). |
+| **`CAT-08`** | Biodiversidad Urbana y Arbolado (OSM / GBIF) | CONAF / MMA / Dirección de Medio Ambiente MuniSTGO / GBIF | Ley Marco de Cambio Climático N° 21.455; Guía de Arbolado Urbano CONAF; Darwin Core | Arbolado viario en Av. Brasil, ejemplares arbóreos de Plaza Brasil y ocurrencias de flora y avifauna en GBIF (`390` registros). |
+| **`CAT-09`** | Edificaciones y Huella Urbana (Polígonos) | SII (Catastro de Bienes Raíces) / DOM MuniSTGO / MINVU | LGUC; Art. 2.1.24 OGUC; ISO 19157 (Completitud de Área) | Polígonos cerrados de huella edificada con superficie calculada en `EPSG:32719` (`1.673` polígonos). |
+| **`CAT-10`** | Coberturas y Usos de Suelo | MINVU (DDU) / DOM MuniSTGO / Dirección de Vialidad MOP | Plan Regulador Comunal de Santiago (PRC); OGC LandInfra Standard | Polígonos de uso residencial, comercial, educativo, recreativo y materialidad de calzadas (`400` polígonos). |
 
 ---
 
-## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157 y Soporte Dual ohsome API v1 y v2)
+## 3. Evaluación de Calidad de Datos Espaciales (ISO 19157, Modelo WLC v2.0 y ohsome API v1/v2)
 
-Una de las críticas históricas a la VGI por parte de comités académicos tradicionales es la *incertidumbre sobre la calidad del dato*. El proyecto refuta esta crítica implementando una auditoría cuantitativa en vivo en base al estándar **ISO 19157:2013 (Data Quality)** y la tecnología de análisis de historia espacial del HeiGIT (Heidelberg University):
+### 3.1. Pipeline de Evaluación Histórica ohsome API v1/v2 e Índice de Saturación y Maduración Territorial
 
-### 3.1 Transición Tecnológica: ohsome API v1 (OSHDB) vs ohsome API v2 (ohsomeDB)
+```mermaid
+flowchart LR
+    subgraph IN["1. INPUT / CONSULTA HISTÓRICA (Módulo 06 Submódulo B)"]
+        O1["BBox Territorial (reproyectado a EPSG:32719 en km² y ha)<br/>+ Filtro de Etiquetas OSM + Serie 2008-2026 (P1Y / P6M / P1M)"]
+    end
 
-El Atlas incorpora soporte dual para las dos generaciones del motor de análisis histórico de OpenStreetMap:
+    subgraph PROC["2. PROCESAMIENTO (src/js/modulos/ohsome.js & calidad_analyst.js)"]
+        O2["Conmutación Resiliente ohsome API v1 (OSHDB)<br/>↔ ohsome API v2 (ohsomeDB / Citus)<br/>Endpoints: /elements/count, /length, /area y /users/count"]
+        O3["Cálculo del Índice de Saturación y Maduración Territorial<br/>(Herfort et al., 2023 / ISO 19157)<br/>Asíntota de Completitud Geométrica (60%) +<br/>Diversidad de Contribuyentes Activos (40%)"]
+    end
 
-| Dimensión Técnica | ohsome API v1 (Línea Base Abierta) | ohsome API v2-rc (Nueva Generación) |
-|---|---|---|
-| **Base de Datos / Motor** | **OSHDB** (OpenStreetMap History Database) sobre Java, H2 e Ignite. | **ohsomeDB** (PostgreSQL / PostGIS / Citus), reescrito completamente en Python. |
-| **Autenticación** | Acceso 100% público y abierto **sin requerir API Key**. | **API Key obligatoria** gestionada por Tyk API Gateway (`Authorization: Bearer <token>`). |
-| **Rendimiento** | Consultas agregadas con tiempos estándar (15 a 60 segundos). | Procesamiento distribuido en Citus de alto rendimiento (respuestas en 1 a 5 segundos). |
-| **Nuevas Funcionalidades** | Métricas de elementos, longitud, área y usuarios. | Filtrado por hashtags de mapeo (HOT, MapRoulette), metadatos de changesets y extracción en Apache Parquet. |
-| **Endpoints Principales** | `/elements/count`, `/elements/length`, `/elements/area`, `/users/count`. | `/stats/features/{measure}`, `/stats/contributors/count`, `/extraction/features.parquet`. |
-| **Horizonte Temporal** | Soporte oficial garantizado por HeiGIT hasta el **30 de noviembre de 2026**. | Versión candidata (v2-rc) destinada a sustituir definitivamente a v1 a partir de fines de 2026. |
+    subgraph OUT["3. OUTPUT / DIAGNÓSTICO EN PANTALLA Y EXPORTACIÓN"]
+        O4["Densidad Espacial (elem/km² y elem/10.000 m²)<br/>Intensidad de Edición Comunitaria (edit/user)<br/>Clasificación de Fase de Madurez VGI + Curvas Evolutivas"]
+    end
 
-### 3.2 Arquitectura Resiliente con Conmutación Transparente (Fallback)
+    O1 --> O2 --> O3 --> O4
+```
 
-Para evitar que una persona no técnica o un estudiante se enfrente a errores HTTP 401 (Unauthorized) por no poseer una clave de HeiGIT:
-1. **Modo Predeterminado Abierto (v1):** Por defecto, la plataforma consulta `api.ohsome.org/v1`, permitiendo que cualquier persona use el Atlas de inmediato sin registros previos.
-2. **Modo Avanzado (v2):** Si el usuario selecciona ohsome API v2 e ingresa su API Key (almacenable de forma segura en `localStorage`), el Atlas consulta los endpoints de alto rendimiento en `api.heigit.org/ohsome-api/v2-rc`.
-3. **Mecanismo de Conmutación Automática:** Si la petición a v2 se realiza sin token o la API rechaza la solicitud, el módulo intercepta el fallo y conmuta de manera inmediata y transparente a la API v1, desplegando un aviso informativo para que el análisis territorial nunca se interrumpa.
+### 3.2. Soporte Dual para ohsome API v1 (OSHDB) y ohsome API v2 (ohsomeDB)
+El módulo [`src/js/modulos/ohsome.js`](src/js/modulos/ohsome.js) soporta tanto la línea base pública **ohsome API v1 (`api.ohsome.org/v1`)** como la generación distribuida **ohsome API v2 (`api.heigit.org/ohsome-api/v2-rc`)**, aplicando conmutación automática hacia `v1` si el usuario no ingresa un token `Bearer`, evitando interrupciones por errores `HTTP 401`.
 
-### 3.3 Dimensiones de Calidad Auditadas (ISO 19157)
-
-1. **Sensibilidad al Tipo de Geometría:**
-   - **Entidades Lineales (Vialidad y Movilidad Activa):** Consulta de longitud computando la longitud real de red en kilómetros y metros lineales (red vial de Barrio Brasil y ciclovías). Permite evaluar continuidad de red y conectividad territorial.
-   - **Entidades Poligonales (Edificaciones y Espacio Público):** Consulta de superficie computando el área en metros cuadrados y hectáreas de la huella construida (`building=*`) y áreas verdes (`leisure=park`), clave para calcular índices de espacio público por habitante.
-   - **Entidades Puntuales (Equipamiento y Accesibilidad):** Consulta de conteo cuantificando nodos discretos (paraderos, farmacias, rebajes de cordón).
-2. **Completitud y Densidad Espacial Coherente:** El panel `02 / Calidad de Datos (ohsome)` calcula la densidad real de entidades por kilómetro cuadrado y por hectárea mediante una reproyección rigurosa a **EPSG:32719 (UTM Huso 19 Sur)**, eliminando las distorsiones de superficie que se originan al computar áreas en coordenadas angulares o sobre esferas simplificadas.
-3. **Consistencia Temporal y Dinámica Histórica:** Mediante series anualizadas a 5 años (o pasos semestrales/mensuales), el sistema monitorea el crecimiento acumulado del catastro y detecta posibles estancamientos o fases de aceleración comunitaria.
-4. **Linaje, Masa Crítica y Ratio de Intensidad:** Mediante el cruce de colaboradores y contribuciones, el sistema calcula el **Ratio de Ediciones por Colaborador**, permitiendo diferenciar empíricamente entre un territorio mapeado por un único voluntario aislado versus uno respaldado por una comunidad plural y sostenida en el tiempo.
-5. **Aparato Crítico y Referencias Científicas:**
-   - **Raifer, M., Troilo, R., Kowatsch, F., Marx, S., & Zipf, A. (2019):** *OSHDB: a framework for spatio-temporal analysis of OpenStreetMap history data.* EPJ Data Science, 8(1), 1-18. doi:10.1186/s40965-019-0061-3.
-   - **HeiGIT (2025/2026):** *ohsome API v2 Documentation: High-performance OSM History Analysis with ohsomeDB and Citus.* Heidelberg Institute for Geoinformation Technology. https://api.heigit.org/ohsome-api/v2-rc/docs
-   - **Neis, P. & Zipf, A. (2012):** *Analyzing the Contributor Activity of OpenStreetMap and Its Development for the Community.* ISPRS International Journal of Geo-Information, 1(2), 146-177. doi:10.3390/ijgi1020146.
-   - **Haklay, M. (2010):** *How good is volunteered geographical information? A case study of OpenStreetMap in the UK.* Environment and Planning B: Planning and Design, 37(4), 682-703. doi:10.1068/b35097.
-
-### 3.4 Fundamentación Geodésica, Almacenamiento y Reproyección Cartográfica Oficial (ISO 19111 / EPSG:32719 / IGM Chile / IDE Chile)
-
-El cálculo métrico de áreas, perímetros y densidades espaciales en el Atlas VGI cumple estrictamente con el estándar **ISO 19111:2019 (Referencing by coordinates)** y las especificaciones cartográficas oficiales de la República de Chile:
-
-1. **Almacenamiento Espacial Estandarizado en WGS84 (`EPSG:4326`):**
-   - Todas las capas vectoriales del sistema (tanto oficiales como VGI) se almacenan en formato GeoJSON (RFC 7946) en coordenadas geográficas elipsoidales sobre el datum WGS84 (`EPSG:4326`) dentro del directorio `src/data/*.geojson` (y su réplica simétrica en `data/*.geojson`).
-   - Esto asegura máxima interoperabilidad y compatibilidad nativa con visores web, bibliotecas SIG y estándares abiertos de intercambio.
-
-2. **Necesidad Metodológica de Reproyección Métrica Conforme:**
-   - A la latitud de Santiago Centro y Barrio Brasil ($\phi \approx -33.44^\circ$), calcular superficies multiplicando directamente incrementos angulares o proyectar en Web Mercator (`EPSG:3857`) induce deformaciones inaceptables en el cálculo de huellas construidas y densidades habitacionales.
-   - Para resolver esto, el Atlas adopta oficialmente el sistema proyectado conforme **WGS 84 / UTM Huso 19 Sur (`EPSG:32719`)**, marco oficial adoptado por el Instituto Geográfico Militar (IGM) y la Infraestructura de Datos Espaciales de Chile (IDE Chile / SNIT), plenamente compatible con **SIRGAS-Chile 2016** (`EPSG:5361`).
-
-3. **Encapsulación Lógica en `src/js/modulos/geodesia.js`:**
-   - La transformación de coordenadas geográficas a métricas planas y la cuantificación de distancias y superficies en metros cuadrados ($m^2$), hectáreas ($ha$) y kilómetros cuadrados ($km^2$) se encuentra estrictamente centralizada y encapsulada en el módulo [`src/js/modulos/geodesia.js`](file:///d:/17082025/2026/Practica%20profesional/atlas_vgi_uah/src/js/modulos/geodesia.js).
-   - De esta forma, el resto de la aplicación interactúa con funciones de alto nivel (`ModuloGeodesia.calcularAreaPoligono`, `ModuloGeodesia.calcularDistanciaMetros`) sin acoplar detalles de implementación matemática.
-
-4. **Protocolo de Modificación y Parametrización Territorial:**
-   - Para ajustar o modificar el Sistema de Referencia de Coordenadas (por ejemplo, si el Atlas se transfiere a otra zona UTM o región geográfica), el procedimiento detallado se encuentra establecido en el **Procedimiento 6** del *Manual de Actualización Técnica* ([`MANUAL_ACTUALIZACION_ATLAS.md`](MANUAL_ACTUALIZACION_ATLAS.md)).
-
-5. **Transparencia y Expresión Sistemática en la Interfaz de Usuario:**
-   - La reproyección y las métricas en $m^2$ se explicitan en toda la experiencia de usuario:
-     - **Popups de Leaflet:** Cada entidad poligonal muestra su superficie destacada en $m^2$ y $ha$ con la etiqueta visible `[EPSG:32719]`.
-     - **Tooltip Interactivo de Bbox:** Al encuadrar un área en el mapa, el rótulo dinámico indica el área calculada: `Área Bbox: X m² (Y ha / Z km²) [EPSG:32719]`.
-     - **Panel ohsome (Indicadores de Calidad):** La tarjeta de densidad reporta la superficie en $m^2$, $ha$ y $km^2$, con el rótulo destacado: *Reproyectado a EPSG:32719 (UTM 19S)*.
-     - **Ficha Territorial de Estudio:** Reporta superficies en metros cuadrados para Barrio Brasil y Campus UAH.
-     - **Exportación CSV y GeoJSON:** Atributos normalizados `superficie_m2`, `superficie_ha`, `superficie_km2` y `srs_superficie: "EPSG:32719 (WGS 84 / UTM Huso 19 Sur)"`.
+### 3.3. Fundamentación Geodésica y Reproyección a `EPSG:32719` (`src/js/modulos/geodesia.js`)
+Para cumplir con la norma **ISO 19111:2019** y los estándares del **Instituto Geográfico Militar (IGM)** e **IDE Chile**:
+* Todas las capas `.geojson` se almacenan en coordenadas geográficas **`EPSG:4326` (WGS84)** en `data/` y `src/data/`.
+* Dado que a la latitud de Santiago (`latitud ≈ -33,44°`) un grado de longitud equivale a `~92,9 km` mientras que un grado de latitud equivale a `~110,9 km`, todas las mediciones de superficie (`m²`, `ha`, `km²`) y los denominadores de densidad espacial se calculan previa reproyección a **WGS 84 / UTM Huso 19 Sur (`EPSG:32719`)** en [`src/js/modulos/geodesia.js`](src/js/modulos/geodesia.js).
 
 ---
 
-## 4. Decisiones de Arquitectura y Defensa Técnica
+## 4. Decisiones de Arquitectura de Software y Diseño Multi-Lenguaje
 
-Ante la evaluación técnica y metodológica, cada componente técnico responde a una justificación deliberada:
-
-| Decisión Técnica | Alternativa Descartada | Justificación y Defensa Metodológica |
-|---|---|---|
-| **Arquitectura de Costo Cero (Static + Serverless + Local Python)** | Backend tradicional con servidor dedicado (Django/Express en VPS de pago) | Un servidor dedicado cuesta entre $5 y $20 USD mensuales y requiere mantenimiento de parches de seguridad. Al optar por Netlify Serverless, GitHub Pages y un servidor local en Python estándar, el costo es estrictamente cero y cualquier estudiante o municipio rural puede levantarlo sin presupuesto informático. |
-| **JavaScript Nativo (Vanilla JS) sin frameworks pesados** | React, Angular, Vue | Reduce la barrera de entrada para geógrafos no programadores. Cualquier usuario puede inspeccionar y modificar `mapa.js` o `osm.js` con un simple editor de texto sin instalar Node.js, Webpack ni dependencias NPM efímeras. |
-| **Leaflet 1.9.4 con teselas abiertas** | Mapbox GL, Google Maps JavaScript API | No requiere tarjetas de crédito ni tokens que expiren. Utiliza Carto Positron, OSM Estándar y OpenTopoMap libres. |
-| **Diferenciación por Perfiles de Actor Territorial** | Interfaz única monolítica genérica | Modula la experiencia para cuatro actores clave (autoridades/instituciones, organizaciones comunitarias/vecinos, voluntarios/mapeadores y ONGs/territoriales), reduciendo la brecha digital y destacando herramientas según necesidades de gestión. |
-| **Diccionario Territorial y Metadatos Normalizados** | Consulta a bases de datos sin glosario explicativo | Desmitifica la jerga informática de etiquetas de OpenStreetMap traduciéndola a 13 atributos estándar normalizados compatibles con IDE Chile (SNIT) e ISO 19115. |
-| **Constructor de Consultas Espaciales Dual + Sugerencias 1 Clic** | Búsqueda solo tabular predefinida o solo Overpass QL | Democratiza la consulta territorial permitiendo que vecinos ejecuten consultas en un solo clic, mientras que investigadores avanzados pueden construir expresiones complejas y descargar GeoJSON/CSV. |
-| **Delimitación Territorial Operativa (Barrio Brasil Completo y Manzana UAH)** | Catálogo metropolitano disperso (Providencia, Lo Barnechea, Casco Cívico) | Focaliza los recursos computacionales y de consulta en el área de estudio directa del proyecto territorial de Geografía, garantizando consistencia empírica en las 10 macro-categorías (CAT-01 a CAT-10) y evitando consultas descontextualizadas o sobrecarga innecesaria de APIs en Bboxes metropolitanos ajenos al caso piloto. |
-| **Taxonomía Multi-Entidad y Geometrías Mixtas (Puntos, Líneas y Polígonos)** | Modelo simplificado mono-entidad puntual (`out center`) | Supera la limitación reduccionista de representar fenómenos urbanos complejos como meros puntos. Permite capturar la verdadera morfología espacial (huellas poligonales de campus universitarios y plazas, redes lineales de ciclovías y vías de transporte, y equipamientos puntuales de servicios), cumpliendo con el principio de fidelidad topológica de ISO 19157. |
-| **Reproyección Geodésica a EPSG:32719 para Cálculo de Superficies y Densidad** | Cálculos euclidianos en grados o esferas simplificadas | Los grados decimales ($\Delta \lambda \times \Delta \phi$) no constituyen unidades métricas y distorsionan las áreas a la latitud de Santiago (-33.44°). La reproyección conforme a EPSG:32719 (WGS 84 / UTM Huso 19 Sur) encapsulada en `src/js/modulos/geodesia.js` garantiza exactitud métrica euclidiana en $m^2$, $ha$ y $km^2$ bajo las normas del IGM e IDE Chile (para parametrizar o modificar, consulte el Procedimiento 6 de `MANUAL_ACTUALIZACION_ATLAS.md`). |
-| **Respaldo Local Automático (Fallback)** | Bloqueo o error 429 cuando Overpass satura | Si la red pública de Overpass sufre congestión durante una defensa académica, el sistema conmuta automáticamente a los 3.677 registros locales pre-extraídos de Barrio Brasil y UAH. |
+| Decisión de Ingeniería | Alternativa Descartada | Justificación Técnica y Operativa |
+| :--- | :--- | :--- |
+| **Arquitectura Web Estática + PostGIS Híbrido** | Servidor monolítico de pago exclusivo | Permite alojar el sistema en CDN (Netlify y GitHub Pages) con disponibilidad permanente y conmutación automática entre PostGIS RPC (`Nivel 1`), archivos GeoJSON locales (`Nivel 2`) y caché RAM (`Nivel 3`). |
+| **JavaScript ES6+ Modular (21 Scripts IIFE)** | Frameworks con transpilación compleja | Elimina dependencias vulnerables de `node_modules` y permite inspeccionar o adaptar cualquiera de los 21 módulos en `src/js/` directamente. |
+| **Sincronización Simétrica `data/` ↔ `src/data/` y `docs/` ↔ `src/docs/`** | Rutas divergentes entre desarrollo y producción | Asegura que las llamadas `fetch('data/...')` y `fetch('docs/...')` resuelvan exactamente los mismos archivos tanto en local como en producción (`publish = "src"`). |
+| **Doble Formato Cartográfico (`.geojson` + `.gpkg`)** | Uso exclusivo de Shapefiles truncados a 10 caracteres | El formato `GeoJSON` (`RFC 7946`) alimenta directamente el visor web, mientras que los archivos `OGC GeoPackage (.gpkg)` en la geodatabase preservan tablas relacionales y comentarios de columnas (`gpkg_data_columns`). |
 
 ---
 
-## 5. Auditoría Universal de MetaCalidad de la Base de Datos (ISO 19115 / ISO 19157 / IDE Chile)
+## 5. Auditoría Universal de MetaCalidad de la Base de Datos (`132 Capas`)
 
-Para garantizar la interoperabilidad y el rigor epistemológico del Atlas, se desarrolló e implementó un protocolo programático de evaluación de **MetaCalidad** (calidad integral de metadatos geoespaciales) ejecutado mediante `scripts/analisis_metacalidad.py`. Este análisis auditó el **100% de la base de datos cartográfica** (**131 capas**: 121 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI de OpenStreetMap y GBIF), abarcando **1.332,66 MB** de datos vectoriales.
+Mediante el script [`scripts/analisis_metacalidad.py`](scripts/analisis_metacalidad.py) y el modelo [`scripts/modelo_indice_lineal_wlc.py`](scripts/modelo_indice_lineal_wlc.py), se evalúa la totalidad de las **132 coberturas operativas** (`122` capas oficiales del Estado + `10` macrocategorías VGI):
 
-### 5.1 Modelo Matemático y Justificación Teórica del Índice Global de MetaCalidad (IGMC)
-Conforme a las directrices de las normas **ISO 19115-1:2014**, **ISO 19157:2013 / 2023**, **ISO 19139:2007**, **ISO 19110:2016** y el **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile - SNIT)**, se implementó un modelo lineal aditivo ponderado (**Simple Additive Weighting - SAW / Multi-Attribute Utility Theory - MAUT**; Fishburn, 1967; Keeney & Raiffa, 1976; Malczewski, 1999) fundado en literatura canónica de VGI y calidad espacial (Goodchild, 2007; Haklay, 2010; Ballatore & Zipf, 2015; Senaratne et al., 2017; Herfort et al., 2023):
+```text
+IGV_i = 0.50 * S_cuantitativo(i) + 0.50 * S_cualitativo(i)
 
-$$\text{IGMC}_i = 0.30 \cdot \text{MC}_i + 0.20 \cdot \text{CC}_i + 0.25 \cdot \text{LL}_i + 0.15 \cdot \text{RG}_i + 0.10 \cdot \text{AI}_i$$
+Donde:
+  S_cuantitativo(i) = 0.30 * S_topo(i) + 0.25 * S_comp(i) + 0.20 * S_pos(i) + 0.15 * S_estruc(i) + 0.10 * S_gran(i)
+  S_cualitativo(i)  = 0.30 * MC(i)     + 0.20 * CC(i)     + 0.25 * LL(i)    + 0.15 * RG(i)       + 0.10 * AI(i)
+```
 
-1. **Completitud de Metadatos Núcleo (MC - 30%):** Presencia de los 10 elementos obligatorios del Perfil Nacional (Identificador, Título, Resumen, Custodio, Temporalidad, Tópico ISO, Extensión Bbox, CRS, Licencia y Linaje/Cita APA). Promedio obtenido: **89.92%**.
-2. **Conformidad Normativa y Semántica (CC - 20%):** Validación de esquema GeoJSON/XML, tipología geométrica explícita y coherencia de grupo temático. Promedio obtenido: **97.88%**.
-3. **Linaje, Trazabilidad y Derechos Jurídicos (LL - 25%):** Atribución estricta según marco legal: Ley N° 20.285 de Transparencia para capas del Estado, ODbL 1.0 para OpenStreetMap y CC-BY 4.0 para GBIF, con cita bibliográfica en formato APA 7ª edición. Promedio obtenido: **100.00%**.
-4. **Resolución Espacial y Granularidad Territorial (RG - 15%):** Escala de agregación formalmente documentada (Regional, Comunal, Zonal, Manzana, Predio o Puntual) y doble sistema de referencia geodésico (WGS 84 / EPSG:4326 y SIRGAS-Chile / EPSG:32719 para cálculo métrico conforme de Snyder). Promedio obtenido: **100.00%**.
-5. **Accesibilidad e Integridad Operativa (AI - 10%):** Verificación de integridad física binaria en `src/data/` (cero punteros LFS rotos) y disponibilidad de descarga inmediata. Promedio obtenido: **100.00%**.
-
-> **Carácter Tentativo del Índice:** El modelo lineal constituye una línea base operativa y transparente, sujeta a re-calibración empírica mediante Proceso Analítico Jerárquico (**AHP**; Saaty, 1980) y paneles Delphi en la fase de validación con actores territoriales e institucionales (OE4).
-
-### 5.2 Dictamen Global y Certificación de Calidad
-- **Índice Global de MetaCalidad (IGMC):** **96.55% (Grado A+ Excelente)**.
-- **Distribución de Calidad:** 98 capas en **Grado A+ (Excelente)** (83.1%) y 20 capas en **Grado A (Muy Bueno)** (16.9%), con **0 capas deficientes (0.0%)**.
-- **Artefactos Técnicos Generados:**
-  - [`docs/ANALISIS_METACALIDAD.md`](ANALISIS_METACALIDAD.md): Informe pormenorizado, diagramas Mermaid, especificidad técnica de las 10 macro-categorías VGI y matriz de las 131 capas.
-  - [`docs/matriz_metacalidad.json`](matriz_metacalidad.json): Dataset estructurado JSON para consumo programático.
-  - [`docs/perfil_metadatos_vgi.xlsx`](perfil_metadatos_vgi.xlsx): Libro Excel multi-hoja con *Perfil Metadatos ISO 19115*, *Auditoría MetaCalidad 131 Capas* y *10 Macrocategorías VGI (Tags)*.
-
----
-
-## 6. Validación Empírica en el Caso Piloto: Barrio Brasil y Campus UAH
-
-Para el polígono de estudio delimitado por las coordenadas WGS84 `[-70.6675, -33.4505, -70.6565, -33.4385]`, se extrajo y validó un universo real de **3.677 entidades geográficas**, categorizadas bajo las **10 macro-categorías territoriales (CAT-01 a CAT-10)** del Atlas:
-
-- **CAT-01 Educación y Universidad (247 entidades):** Casas centrales y facultades de la Universidad Alberto Hurtado (calles Almirante Barroso, Cienfuegos, Erasmo Escala), sedes UDP, UTEM, colegios, liceos y bibliotecas.
-- **CAT-02 Servicios y Comercio Barrial (365 entidades):** Comercio de barrio, almacenes, panaderías, farmacias de turno, CESFAM Ignacio Domeyko y cafés en Av. Brasil y Huérfanos.
-- **CAT-03 Movilidad y Transporte (191 entidades):** Estaciones intermodales Metro Los Héroes (L1/L2), Santa Ana (L2/L5), Cumming (L5) y paraderos del sistema Red Movilidad.
-- **CAT-04 Movilidad Activa y Ciclovías (11 entidades):** Eje ciclovía Rosas, ciclobanda Brasil y estaciones de arriendo / biciestacionamientos UAH.
-- **CAT-05 Áreas Verdes y Espacio Público (144 entidades):** Plaza Brasil (15.200 m²), Plaza Manuel Rodríguez, multicanchas barriales y bandejones arbolados de la Alameda.
-- **CAT-06 Patrimonio y Cultura (71 entidades):** Inmuebles de Conservación Histórica, casonas Zona Típica Barrio Brasil, Basílica del Salvador y centros culturales.
-- **CAT-07 Accesibilidad Universal (185 entidades):** Catastro de rebajes de cordón (`kerb`), cruces peatonales accesibles semaforizados y condiciones de vereda.
-- **CAT-08 Biodiversidad Urbana y Arbolado (390 entidades):** Catastro del arbolado urbano OSM cruzado con registros de avifauna y flora de GBIF / iNaturalist.
-- **CAT-09 Edificaciones y Huella Urbana (1.673 entidades):** Catastro poligonal cerrado de huellas de manzana y edificios con cálculo de área métrica proyectada en EPSG:32719 UTM 19S.
-- **CAT-10 Coberturas y Usos de Suelo (400 entidades):** Polígonos de zonificación funcional, recintos dotacionales y ejes de calzada.
+### Resultados Consolidados de la Auditoría (`docs/ANALISIS_METACALIDAD.md`):
+* **Total de coberturas evaluadas:** **`132` capas** (`122` Oficiales + `10` VGI).
+* **Índice Global de Calidad Geográfica (`IGV`):** **`95,38%` (`Grado A+ Excelente`)**.
+  * **Pilar Cuantitativo Espacial (`50%`):** **`96,67%`** (`Topología OGC = 99,89%`, `Completitud Tabular = 97,02%`, `Integridad Posicional = 99,79%`).
+  * **Pilar Cualitativo de Metadatos (`50%`):** **`94,10%`** (`Metadatos Núcleo MC = 96,33%`, `Conformidad CC = 93,96%`, `Linaje Legal LL = 98,16%`, `Accesibilidad AI = 97,31%`).
+* **Distribución por Grado ISO 19157:** **`91` capas en Grado A+ (`68,9%`)** y **`41` capas en Grado A (`31,1%`)**, con **`0` capas en Grado B o C (`0,0%`)**.
+* **Entregables verificables generados en `docs/` y `src/docs/`:**
+  * [`docs/ANALISIS_METACALIDAD.md`](docs/ANALISIS_METACALIDAD.md)
+  * [`docs/matriz_metacalidad.json`](docs/matriz_metacalidad.json)
+  * [`docs/wlc_metacalidad_ranking.csv`](docs/wlc_metacalidad_ranking.csv) y [`docs/wlc_metacalidad_resultado.json`](docs/wlc_metacalidad_resultado.json)
+  * [`docs/correlacion_dimensiones_calidad.csv`](docs/correlacion_dimensiones_calidad.csv) y [`docs/correlacion_dimensiones_calidad.png`](docs/correlacion_dimensiones_calidad.png)
+  * [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx)
 
 ---
 
-## 7. Respuestas a Preguntas Críticas del Comité Académico
+## 6. Aplicación Territorial en el Caso de Estudio: Barrio Brasil, Campus UAH y Santiago
 
-### P1: *"¿Por qué confiar en datos de voluntarios si el Estado tiene datos oficiales?"*
-> **Respuesta:** No se trata de reemplazar la cartografía oficial, sino de complementarla en escalas y temáticas donde el Estado no llega a tiempo. El catálogo de IDE Chile no cuenta con un catastro actualizado a nivel de calle de la accesibilidad universal para personas en silla de ruedas o de la ubicación exacta de biciestacionamientos en la manzana universitaria. La VGI llena ese vacío y, gracias a nuestras herramientas de calidad y metadatos ISO 19139, se puede evaluar objetivamente el nivel de confianza de cada capa antes de usarla en un informe.
+En el área de estudio del Barrio Brasil y el entorno del Campus Universidad Alberto Hurtado (`data/atlas_vgi_barrio_brasil_uah_completo.geojson` y `data/resumen_catastro_vgi.csv`), las **10 macrocategorías VGI** consolidan **3.677 entidades locales** (y **1.552.144 entidades** en los extractos metropolitanos `data/capa_osm_rm_cat01_educacion.geojson` a `cat10_cobertura_suelo.geojson`), las cuales se articulan con las **122 capas oficiales** en los **4 Storyboards Territoriales (`75` cartografías temáticas)** del **Módulo 05**:
 
-### P2: *"¿Cómo se garantiza la reproducibilidad de la plataforma en otros territorios?"*
-> **Respuesta:** Toda la configuración territorial está desacoplada en `config/config.json`. Si otra universidad o municipalidad (por ejemplo, en Valparaíso o Concepción) desea implementar su propio Atlas VGI, únicamente debe cambiar cuatro números de Bbox en el JSON, sin tocar una sola línea de código JavaScript o Python.
+1. **Storyboard 01 (`11` mapas):** Densidad de Kernel (`KDE`) de equipamientos educativos, salud, comercio, patrimonio y accesibilidad peatonal.
+2. **Storyboard 02 (`11` mapas):** Autocorrelación espacial local (`LISA` / `I de Moran`) entre densidad VGI y coberturas oficiales a escala de manzana (`data/matriz_sintesis_barrio_brasil_manzanas.geojson`).
+3. **Storyboard 03 (`29` mapas):** Demografía y habitabilidad del Censo 2024 (`data/ide_censo2024_manzanas.geojson`), vulnerabilidad del Registro Social de Hogares (`data/RSH_*_UV_2026_*.geojson`) e inversión pública BIP (`data/bip_inversiones_santiago.csv`).
+4. **Storyboard 04 (`24` mapas):** Metabolismo urbano, Catastro SUBDERE RSD 2024 (`data/subdere_rsd_*.geojson`), aseo municipal, ruido ambiental MMA (`data/mma_ruido_ambiental_santiago.geojson`) y red de semáforos UOCT (`data/semaforos_rm_uoct_2026.geojson`).
 
-### P3: *"¿Qué ocurre si la plataforma se queda sin conexión a internet en terreno o en una exposición?"*
-> **Respuesta:** La plataforma cuenta con una triple capa de resiliencia: (1) servidor backend local en Python (`backend/servidor_vgi.py`) que funciona sin conexión con caché en disco, (2) catálogo local pre-extraído en `data/` para Barrio Brasil / UAH con 3.677 entidades vectoriales VGI en las 10 macro-categorías, y (3) exportación a GeoJSON y CSV directamente utilizables de forma offline en QGIS.
+---
 
-### P4: *"¿Cómo se calculan las superficies de las entidades territoriales y las densidades espaciales para que sean métricamente coherentes?"*
-> **Respuesta:** Ninguna superficie se calcula multiplicando grados decimales ni asumiendo la Tierra como una esfera perfecta simplificada. Las capas se almacenan de manera estandarizada en coordenadas geográficas WGS84 (`EPSG:4326`) en formato GeoJSON, y el sistema ejecuta las transformaciones métricas hacia **EPSG:32719 (WGS 84 / UTM Huso 19 Sur)** de forma encapsulada y centralizada en `src/js/modulos/geodesia.js`, conforme a las especificaciones cartográficas oficiales del Instituto Geográfico Militar (IGM) y la IDE Chile (ISO 19111). Esto garantiza exactitud métrica en $m^2$, hectáreas y $km^2$ en el visor, en el Inspector Normativo y en los indicadores de calidad. Para detalles operativos sobre cómo parametrizar o adaptar este cálculo a otras regiones geográficas, consulte el Procedimiento 6 del *Manual de Actualización Técnica* ([`MANUAL_ACTUALIZACION_ATLAS.md`](MANUAL_ACTUALIZACION_ATLAS.md)).
+## 7. Preguntas Frecuentes sobre Interoperabilidad, Reproducibilidad y Calidad
+
+### P1: *¿Cómo se articula la Información Geográfica Voluntaria con los datos oficiales del Estado?*
+> **Respuesta:** La VGI complementa la cartografía pública en escalas y atributos donde no existen catastros estatales continuos (como las **86 brechas temáticas VGI** documentadas en el **Módulo 09**, incluyendo rebajes de solera, pavimento podotáctil o estacionamientos de bicicletas). Al mismo tiempo, las **132 capas** son evaluadas con las mismas métricas cuantitativas y documentales (**ISO 19157 / ISO 19115**) en el **Módulo 06**, permitiendo conocer el nivel de completitud y consistencia de cada cobertura antes de utilizarla.
+
+### P2: *¿Cómo se adapta la plataforma a otra comuna, ciudad o región?*
+> **Respuesta:** Los parámetros de encuadre territorial (`bbox`), centroide, comunas e identificadores de capas se encuentran desacoplados en [`config/config.json`](config/config.json) y [`src/js/config.js`](src/js/config.js). El procedimiento completo paso a paso para cambiar el polígono de estudio, el huso UTM en `src/js/modulos/geodesia.js` y las coberturas locales se detalla en el **Capítulo 8** de [`MANUAL_ACTUALIZACION_ATLAS.md`](MANUAL_ACTUALIZACION_ATLAS.md).
+
+### P3: *¿Qué ocurre si una API externa presenta latencia o falta de conectividad?*
+> **Respuesta:** La arquitectura de triple contingencia conmuta automáticamente hacia las **132 coberturas preprocesadas** en `src/data/*.geojson` (`data/*.geojson`) y permite descargar en cualquier momento el paquete autónomo `docs/geodatabase_completa_atlas_vgi.zip` (`542,35 MB`).
+
+### P4: *¿Cómo se garantiza la exactitud en el cálculo de áreas y densidades?*
+> **Respuesta:** Ninguna superficie se calcula sobre coordenadas angulares ni sobre proyecciones Web Mercator (`EPSG:3857`). Todas las geometrías se reproyectan a **`EPSG:32719` (WGS 84 / UTM Huso 19 Sur / SIRGAS-Chile)** mediante las ecuaciones de Redfearn en [`src/js/modulos/geodesia.js`](src/js/modulos/geodesia.js), calculando áreas exactas en `m²`, `ha` y `km²` conforme al estándar **ISO 19111:2019**.
 
 ---
 
 ## 8. Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)
 
-Todas las fuentes citadas a lo largo de este documento, en la interfaz web del Atlas y en el catálogo Excel consolidado ([`docs/categorias_tematicas_osm.xlsx`](file:///Users/geojplescano/Programas/Pr%C3%A1ctica%20profesional%202026%20S2/nodo-geoabierto/docs/categorias_tematicas_osm.xlsx)) se encuentran estandarizadas bajo la norma **APA 7ª edición** (125 referencias formales) organizadas por tipología documental:
+Todas las fuentes citadas a lo largo de este documento, en la interfaz web del Atlas y en el catálogo Excel consolidado ([`docs/categorias_tematicas_osm.xlsx`](docs/categorias_tematicas_osm.xlsx)) se encuentran estandarizadas bajo la norma **APA 7ª edición** (125 referencias formales) organizadas por tipología documental:
 
 ### 7.1 Normas Técnicas Internacionales ISO y Estándares OGC
 - Biodiversity Information Standards [TDWG]. (2023). *Darwin Core standard: Quick reference guide*. Biodiversity Information Standards. https://dwc.tdwg.org/terms/

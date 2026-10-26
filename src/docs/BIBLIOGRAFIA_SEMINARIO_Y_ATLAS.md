@@ -1,28 +1,81 @@
 # Aparato Bibliográfico Consolidado — Corpus Científico & Atlas VGI Barrio Brasil
-### Departamento de Geografía — Universidad Alberto Hurtado (2026)
+### Compendio de Referencias Científicas, Institucionales y Normativas (APA 7ª Edición)
 
-Este documento reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad del corpus científico fundacional de Geografía UAH (51 obras seminales de investigación + 8 obras epistemológicas e hispanoamericanas de pensamiento geográfico) con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el Atlas de Información Geográfica Voluntaria.
+Este documento reúne las **125 referencias formales estandarizadas en norma APA 7ª edición**, integrando la totalidad del corpus científico fundacional (51 obras seminales de investigación + 8 obras epistemológicas e hispanoamericanas de pensamiento geográfico) con las normas técnicas internacionales, fuentes institucionales y marcos jurídicos del Estado de Chile aplicados en el **Atlas de Información Geográfica Voluntaria (VGI)**.
 
 ---
 
 ## 🧭 Índice de Contenidos
 
-1. [Métricas de Cobertura Documental](#1-métricas-de-cobertura-documental)
+1. [Métricas de Cobertura Documental y Pipeline de Trazabilidad](#1-métricas-de-cobertura-documental-y-pipeline-de-trazabilidad)
 2. [Corpus Científico de Literatura Seminal (51 Obras Fundacionales)](#2-corpus-científico-de-literatura-seminal-51-obras-fundacionales)
 3. [Fuentes Hispanoamericanas y de Pensamiento Geográfico](#3-fuentes-hispanoamericanas-y-de-pensamiento-geográfico)
 4. [Marco Normativo, Institucional y Estándares Técnicos del Atlas Territorial](#4-marco-normativo-institucional-y-estándares-técnicos-del-atlas-territorial)
 
 ---
 
-## 1. Métricas de Cobertura Documental
+## 1. Métricas de Cobertura Documental y Pipeline de Trazabilidad
 
-| Dimensión | Cantidad | Descripción |
+| Dimensión | Cantidad | Descripción y Rutas Vinculadas |
 |---|---|---|
 | **Total Obras Registradas** | **125 referencias** | 100% depuradas en norma APA 7ª ed. con enlaces activos y DOIs verificados |
 | **Corpus Científico de Literatura Seminal** | **51 referencias** | Obras seminales de VGI, ciencia ciudadana, calidad espacial, GBIF, Cell2Fire y modelos territoriales |
 | **Fuentes Hispanoamericanas y Pensamiento Geográfico** | **8 referencias** | Aportes clave de Buzai, Mateos, Orellana & Ballari, Fuenzalida, López-Aliste (Ecology/GBIF), Castells, Pickles y Anselin |
 | **Marco Normativo y Estándares Atlas Territorial** | **66 referencias** | Leyes de Chile, decretos, normas ISO/TC 211, estándares OGC, guías IDE Chile y especificaciones web |
-| **Autocitaciones** | **0** | Rigor metodológico estricto: cero distorsión por autocitación del autor |
+| **Autocitaciones** | **0** | Rigor metodológico estricto: cero distorsión por autocitación |
+
+### Pipeline de Articulación Bibliográfica en los Módulos y Entregables del Atlas
+
+```mermaid
+flowchart LR
+    subgraph IN["1. INPUT / CORPUS DOCUMENTAL (125 Referencias APA 7ª Ed.)"]
+        B1["51 Obras Seminales VGI / GIScience<br/>Goodchild (2007), Haklay (2010),<br/>Senaratne et al. (2017), Herfort et al. (2023)"]
+        B2["8 Obras Hispanoamericanas y Espaciales<br/>Anselin (1995), Buzai (2014),<br/>Fuenzalida (2025), Orellana & Ballari"]
+        B3["66 Normas ISO/OGC y Leyes de Chile<br/>ISO 19110/19115/19139/19157, RFC 7946,<br/>Ley 20.285, Ley 19.628, OGUC, IDE Chile"]
+    end
+
+    subgraph PROC["2. PROCESAMIENTO Y VINCULACIÓN EN CÓDIGO (JS ES6+ y Python 3)"]
+        M1["Módulos Web (src/js/modulos/)<br/>ide_chile.js (citaAPA en 122 capas)<br/>indicadores_analisis.js (4 Storyboards)<br/>ohsome.js, diccionario.js, metadatos.js"]
+        M2["Generadores Tabulares y de Calidad (scripts/)<br/>generar_catalogos_excel.py<br/>analisis_metacalidad.py<br/>construir_manual_actualizacion_maestro.py"]
+    end
+
+    subgraph OUT["3. OUTPUT / ENTREGABLES VERIFICABLES EN GIT Y PLATAFORMA WEB"]
+        E1["docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md (src/docs/)<br/>docs/TRAZABILIDAD_ACADEMICA.md (src/docs/)<br/>MANUAL_ACTUALIZACION_ATLAS.md"]
+        E2["docs/categorias_tematicas_osm.xlsx (Hoja 4)<br/>docs/catalogo_fuentes_vgi.xlsx<br/>docs/perfil_metadatos_vgi.xlsx"]
+        E3["Fichas XML ISO 19139 / JSON ISO 19115 (Módulo 08)<br/>y Apartados Bibliográficos en Storyboards (Módulo 05)"]
+    end
+
+    B1 & B2 & B3 --> M1 & M2
+    M1 & M2 --> E1 & E2 & E3
+```
+
+### Pipeline de Vinculación por Dimensión Analítica y Norma Técnica (`D1`–`D5`)
+
+```mermaid
+flowchart TD
+    subgraph DIM["1. DIMENSIONES ANALÍTICAS DEL CORPUS (125 Obras)"]
+        D1["D1 · Teoría VGI y Ciencia Ciudadana<br/>Goodchild (2007), Haklay (2013), See et al. (2016)"]
+        D2["D2 · Calidad Espacial y Saturación VGI<br/>ISO 19157, Senaratne et al. (2017), Herfort et al. (2023)"]
+        D3["D3 · Econometría Espacial y Territorio<br/>Anselin (1995), Silverman (1986), Buzai (2014)"]
+        D4["D4 · Estándares OGC/ISO e IDE Chile<br/>ISO 19110/19115/19139, RFC 7946, SNIT"]
+        D5["D5 · Marco Legal y Regulatorio Chileno<br/>Ley 20.285, Ley 19.628, LGUC/OGUC, Ley REP 20.920"]
+    end
+
+    subgraph MOD["2. IMPLEMENTACIÓN EN MÓDULOS OPERATIVOS (01–10)"]
+        M_A["Módulos 01, 02 y 09<br/>Catálogo 132 Capas, Inspector PRC/OGUC,<br/>Overpass QL y 140 Descriptores ISO 19110"]
+        M_B["Módulos 05 y 06<br/>4 Storyboards (75 Mapas: KDE, LISA, Censo, RSD)<br/>y Auditoría WLC v2.0 + ohsome + OSMCha"]
+        M_C["Módulos 07, 08 y 10<br/>Gobernanza ODbL/CC-BY, XML ISO 19139<br/>y Manual Interactivo + Geodatabase ZIP"]
+    end
+
+    subgraph ENT["3. RUTAS VERIFICABLES EN GIT Y PLATAFORMA WEB"]
+        R1["src/js/modulos/ide_chile.js (citaAPA por capa)<br/>src/js/modulos/indicadores_analisis.js"]
+        R2["docs/categorias_tematicas_osm.xlsx (src/docs/)<br/>docs/TRAZABILIDAD_ACADEMICA.md (src/docs/)"]
+    end
+
+    D1 & D4 --> M_A --> R1 & R2
+    D2 & D3 --> M_B --> R1 & R2
+    D5 --> M_C --> R2
+```
 
 ---
 

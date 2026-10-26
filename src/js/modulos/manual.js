@@ -41,7 +41,7 @@ const ModuloManual = (() => {
       });
     });
 
-    // 2. 121 Capas Oficiales desde ModuloIDEChile
+    // 2. 122 Capas Oficiales desde ModuloIDEChile
     let mapaOficiales = {};
     if (typeof window !== 'undefined' && window.ModuloIDEChile) {
       if (typeof window.ModuloIDEChile.obtenerCatalogoCapas === 'function') {
@@ -239,7 +239,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 06</span>
                 <h4 style="margin:4px 0 6px 0;">Calidad &amp; ICV (ISO 19157 / ohsome / OSMCha)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Evaluación multicriterio de calidad espacial bajo norma ISO 19157, series históricas ohsome y validación de ediciones colaborativas.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Evaluación multicriterio WLC v2.0 (Submódulo A), series históricas ohsome API v1/v2 con Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157; Submódulo B) y auditoría OSMCha (Submódulo C).</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('calidad-ohsome')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 06 ↗</button>
             </div>
@@ -746,8 +746,13 @@ git push origin main</code></pre>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
             <a href="docs/MANUAL_USO.md" download="MANUAL_USO_ATLAS_VGI.md" class="accion" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📥 Descargar Manual de Uso (.md)</a>
             <a href="docs/MANUAL_ACTUALIZACION_ATLAS.md" download="MANUAL_ACTUALIZACION_ATLAS_VGI.md" class="accion" style="text-decoration:none; font-size:0.82rem; padding:8px 14px; background:linear-gradient(135deg, #f59e0b, #d97706); color:#0f172a; font-weight:800;">🛠️ Descargar Manual de Actualización Técnica (.md)</a>
+            <a href="docs/ARQUITECTURA.md" download="ARQUITECTURA_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🏗️ Arquitectura del Sistema (.md)</a>
+            <a href="docs/ANALISIS_METACALIDAD.md" download="ANALISIS_METACALIDAD_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📊 Análisis de MetaCalidad WLC (.md)</a>
+            <a href="docs/GUIA_BASE_DATOS_SUPABASE.md" download="GUIA_BASE_DATOS_SUPABASE_POSTGIS.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🗄️ Guía PostGIS / Supabase (.md)</a>
+            <a href="docs/DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md" download="DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">♻️ Diccionario SUBDERE RSD (.md)</a>
+            <a href="docs/INFORME_PROYECTO_ATLAS_VGI.md" download="INFORME_PROYECTO_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📄 Informe del Proyecto (.md)</a>
             <a href="docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md" download="BIBLIOGRAFIA_SEMINARIO_Y_ATLAS_APA7.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📚 Bibliografía APA 7ª Ed. (125 refs .md)</a>
-            <a href="docs/TRAZABILIDAD_ACADEMICA.md" download="TRAZABILIDAD_ACADEMICA_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🏛️ Memoria y Trazabilidad Académica (.md)</a>
+            <a href="docs/TRAZABILIDAD_ACADEMICA.md" download="TRAZABILIDAD_ACADEMICA_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🏛️ Memoria y Trazabilidad (.md)</a>
           </div>
         `
       }
@@ -916,7 +921,7 @@ git push origin main</code></pre>
   }
 
   /**
-   * Filtra las filas de la tabla de las 131 capas dentro del capítulo USO · 04
+   * Filtra las filas de la tabla de las 132 capas dentro del capítulo USO · 04
    */
   function filtrarTablaCatalogo(termino) {
     const q = String(termino || '').trim().toLowerCase();
