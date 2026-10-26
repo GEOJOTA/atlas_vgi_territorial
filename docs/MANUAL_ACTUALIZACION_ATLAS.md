@@ -182,7 +182,7 @@ flowchart LR
     subgraph LOC1["4. Localización / Fuente Oficial"]
         L1_1["docs/catalogo_fuentes_vgi.xlsx\n& src/docs/catalogo_fuentes_vgi.xlsx"]
         L1_2["docs/categorias_tematicas_osm.xlsx\n(11 Hojas Técnicas)"]
-        L1_3["docs/arquitectura_conceptual_vgi.md\n& src/js/app.js (#sel-perfil-usuario)"]
+        L1_3["docs/arquitectura.md\n& src/js/app.js (#sel-perfil-usuario)"]
     end
 
     O1 --> P1_1 --> PR1_1 --> L1_1
