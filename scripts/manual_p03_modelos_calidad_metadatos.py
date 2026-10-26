@@ -100,6 +100,29 @@ $$
 
 ### 15.2. Desglose Algorítmico y Fórmulas de las 10 Dimensiones de Calidad
 
+```mermaid
+flowchart LR
+    subgraph IN_WLC["1. INPUT"]
+        GEO_132["132 Archivos GeoJSON (src/data/)"]
+        META_XLSX["perfil_metadatos_vgi.xlsx & catalogo_fuentes_vgi.xlsx"]
+        BBOX_RM["Envolvente Geodésica Oficial RM / Barrio Brasil"]
+    end
+
+    subgraph PROC_WLC["2. PIPELINE DE AUDITORÍA DINÁMICA WLC v2.0"]
+        PILAR_1["Evaluador Cuantitativo (50%): ST_IsValid, Completitud, BBox, 14 Campos, Slivers"]
+        PILAR_2["Evaluador Cualitativo (50%): 10 Elementos ISO 19115, Linaje APA, XSD, Escala, HTTP 200"]
+        COMB_LIN["Combinación Lineal Ponderada (IGV = 0.50*P1 + 0.50*P2)"]
+    end
+
+    subgraph OUT_WLC["3. OUTPUT"]
+        RANK_CSV["Ranking wlc_metacalidad_ranking.csv (132 Capas)"]
+        CERT_GRADE["Certificación Normativa (Grado A+ >= 95%, Grado A >= 90%)"]
+        DOC_REP["Informe Técnico ANALISIS_METACALIDAD.md"]
+    end
+
+    IN_WLC --> PROC_WLC --> OUT_WLC
+```
+
 #### Dimensión 1: Consistencia Topológica OGC ($C_{\text{topo}}$ — Peso 30% en Pilar 1)
 Evalúa que las geometrías respeten los axiomas de la especificación *OGC Simple Feature Access* (ISO 19125-1). En el caso de polígonos, verifica que el primer y último vértice sean idénticos (anillo cerrado), que no existan auto-intersecciones en bordes (*kinks* o lazos en ocho) y que los orificios interiores se encuentren estrictamente contenidos en la cáscara exterior (*exterior ring*):
 
@@ -224,6 +247,27 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 
 ## 16. Correlaciones Estadísticas, Sensibilidad y Ranking de Metacalidad
 
+```mermaid
+flowchart LR
+    subgraph IN_CORR["1. INPUT"]
+        MAT_132["Matriz 132 Capas x 10 Dimensiones WLC v2.0"]
+        WEIGHTS["Vectores de Ponderación (w_c y w_m)"]
+    end
+
+    subgraph PROC_CORR["2. PIPELINE ESTADÍSTICO"]
+        PEARSON["Cálculo de Matriz de Correlación de Pearson (r_xy)"]
+        ORTHO_TEST["Prueba de Ortogonalidad Pilar 1 vs. Pilar 2 (r = 0.22)"]
+        SENS_SIM["Análisis de Sensibilidad y Ordenamiento de Ranking"]
+    end
+
+    subgraph OUT_CORR["3. OUTPUT"]
+        CSV_CORR["correlacion_dimensiones_calidad.csv (Matriz 10x10)"]
+        DICT_IGV["Dictamen Global IGV Promedio: 95.41% (Grado A+)"]
+    end
+
+    IN_CORR --> PROC_CORR --> OUT_CORR
+```
+
 ### 16.1. Matriz de Correlación Lineal de Pearson ($r$)
 Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 132 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
 
@@ -239,13 +283,32 @@ $$
 * **Puntaje Promedio Pilar Cuantitativo Espacial:** **96.72%**.
 * **Puntaje Promedio Pilar Cualitativo de Metadatos:** **94.10%**.
 * **Distribución de Grados:**
-  - Grado A+ (Excelente): **118 capas (90.1%)**.
-  - Grado A (Muy Bueno): **13 capas (9.9%)**.
+  - Grado A+ (Excelente): **119 capas (90.2%)**.
+  - Grado A (Muy Bueno): **13 capas (9.8%)**.
   - Grados B o C: **0 capas (0.0%)**.
 
 ---
 
 ## 17. Perfil de Metadatos Espaciales ISO 19115-1:2014 e Implementación XML ISO 19139:2007
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Investigador as Usuario / Gestor IDE
+    participant Mod06 as Módulo 06 (metadatos.js)
+    participant Cat as Registro de 132 Capas (app.js)
+    participant Builder as Motor Serializador ISO 19139
+    participant Descarga as Descarga Cliente (Blob XML/JSON)
+
+    Investigador->>Mod06: Selecciona capa de las 132 disponibles
+    Mod06->>Cat: Consulta metadatos, linaje, EPSG:4326 y BBox
+    Cat-->>Mod06: Objeto de metadatos normalizado
+    Mod06->>Builder: Ensambla 7 paquetes normativos ISO 19115-1:2014
+    Builder-->>Mod06: Vista previa estructurada en interfaz
+    Investigador->>Mod06: Solicita exportación oficial (XML ISO 19139 / JSON)
+    Mod06->>Builder: Serializa árbol gmd:MD_Metadata con namespaces OGC
+    Builder->>Descarga: Genera archivo validable para GeoNetwork / IDE Chile
+```
 
 Para permitir que los datos del Atlas VGI sean interoperables con servidores de catálogo GeoNetwork institucionales y con la Infraestructura de Datos Geoespaciales de Chile (SNIT / IDE Chile), se definió un perfil estricto de metadatos organizado en **7 paquetes normativos**:
 
@@ -380,6 +443,29 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
 
 ## 18. Catálogos Maestros OpenXML (.xlsx) y Archivos Consolidados CSV
 
+```mermaid
+flowchart LR
+    subgraph IN_CATS["1. INPUT"]
+        CAPAS_132["132 Capas Vectoriales Auditadas"]
+        WLC_RES["Resultados del Modelo WLC v2.0"]
+        GLOS_140["140 Descriptores del Diccionario Territorial"]
+    end
+
+    subgraph PROC_CATS["2. PIPELINE DE COMPILACIÓN OPENXML Y CSV"]
+        SCRIPT_XLS["scripts/generar_catalogos_excel.py (openpyxl)"]
+        STYLE_XLS["Formateo Institucional de Hojas, Cabeceras y Fórmulas"]
+        EXPORT_CSV["Serialización Tabular UTF-8 con BOM para Excel/R/Python"]
+    end
+
+    subgraph OUT_CATS["3. OUTPUT"]
+        FOUR_XLSX["4 Libros Maestros .xlsx (Fuentes, Categorías, Metadatos, Diccionario)"]
+        FOUR_CSV["4 Consolidados .csv (Ranking WLC, Correlación, Resumen VGI, BIP)"]
+        SYNC_DOCS["Sincronización Espejo en docs/ y src/docs/"]
+    end
+
+    IN_CATS --> PROC_CATS --> OUT_CATS
+```
+
 El Atlas desacopla de forma absoluta las bases de datos espaciales de los catálogos de metadatos tabulares, permitiendo a investigadores de cualquier disciplina inspeccionar el sistema en software ofimático estándar:
 
 ### 18.1. Los 4 Libros Maestros OpenXML (`.xlsx`)
@@ -398,7 +484,29 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ## 19. Diccionario Territorial Interactivo: Los 140 Descriptores Normativos y Etiquetas OSM
 
-El Módulo 07 ([`src/js/modulos/diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js)) articula un repositorio conceptual de **140 descriptores territoriales** que homologan la jerga legal de la Ordenanza General de Urbanismo y Construcciones (OGUC) y el Plan Regulador Comunal (PRC) con las etiquetas colaborativas de OpenStreetMap.
+```mermaid
+flowchart LR
+    subgraph IN_DICT["1. INPUT"]
+        NORMA_CL["Cuerpos Legales (LGUC, OGUC, PRC Santiago, Ley 17.288, Ley 20.920)"]
+        OSM_WIKI["Especificación Global Map Features (OpenStreetMap Wiki)"]
+        ISO_19110["Estándar Internacional de Catalogación de Fenómenos ISO 19110"]
+    end
+
+    subgraph PROC_DICT["2. PIPELINE DE HOMOLOGACIÓN SEMÁNTICA"]
+        CROSS_REF["Correspondencia Biunívoca Concepto Urbano <-> Etiqueta key=value"]
+        DEF_TECH["Redacción de Definición Operativa y Marco Regulatorio"]
+        LAYER_MAP["Enlace con Identificadores de las 132 Capas del Atlas"]
+    end
+
+    subgraph OUT_DICT["3. OUTPUT"]
+        MOD_DICT["Buscador Instantáneo del Diccionario Territorial (src/js/modulos/diccionario.js)"]
+        XLSX_DICT["Catálogo Descargable catalogo_diccionario_territorial_140.xlsx"]
+    end
+
+    IN_DICT --> PROC_DICT --> OUT_DICT
+```
+
+El Módulo del Diccionario Territorial ([`src/js/modulos/diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js)) articula un repositorio conceptual de **140 descriptores territoriales** que homologan la jerga legal de la Ordenanza General de Urbanismo y Construcciones (OGUC) y el Plan Regulador Comunal (PRC) con las etiquetas colaborativas de OpenStreetMap.
 
 A continuación se expone una muestra representativa de los descriptores más significativos de la base:
 

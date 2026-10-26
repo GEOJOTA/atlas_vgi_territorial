@@ -227,6 +227,28 @@ En la sección de selección de mapa base en la barra lateral:
 
 ## 44. Tutorial 05: Incorporación de una Nueva Capa GeoJSON al Atlas
 
+```mermaid
+flowchart LR
+    subgraph IN_NEW["1. INPUT"]
+        RAW_SHP["Capa Nueva (Shapefile / GeoPackage / GeoJSON)"]
+        META_DOC["Ficha de Procedencia, Licencia y Cita APA 7ª Ed."]
+    end
+
+    subgraph PROC_NEW["2. PIPELINE DE INTEGRACIÓN EN 6 ETAPAS"]
+        STEP_1["1. Reproyección a WGS84 (EPSG:4326) y Guardado en data/ y src/data/"]
+        STEP_2["2. Inyección de 14 Atributos ISO (enriquecer_base_datos_metadatos.py)"]
+        STEP_3["3. Evaluación de Calidad WLC v2.0 y Registro en Catálogos .xlsx/.csv"]
+        STEP_4["4. Registro en CAPAS_IDE_CHILE / CONFIG_CAPAS y Dimensiones"]
+    end
+
+    subgraph OUT_NEW["3. OUTPUT"]
+        VALID_QA["5. Verificación 8/8 Tests (verificar_integridad_despliegue.py)"]
+        DEPLOY_LIVE["6. Sincronización en Visor Web, Descargas y Producción Netlify"]
+    end
+
+    IN_NEW --> PROC_NEW --> OUT_NEW
+```
+
 Para incorporar una cobertura vectorial completamente nueva (por ejemplo, `cat11_huertos_comunitarios.geojson`):
 
 ### Paso 1: Almacenar el Archivo Vectorial

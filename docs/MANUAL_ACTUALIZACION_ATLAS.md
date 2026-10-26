@@ -513,6 +513,29 @@ Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
+```mermaid
+flowchart LR
+    subgraph IN_CAT["1. INPUT"]
+        OSM_TAGS[" Diccionario de Etiquetas OSM (amenity, highway, leisure, building, landuse)"]
+        DWC_TERMS["Estándar Darwin Core (taxonRank, scientificName)"]
+        OGUC_STD["Clasificación Normativa OGUC / PRC Santiago"]
+    end
+
+    subgraph PROC_CAT["2. PIPELINE DE CLASIFICACIÓN TAXONÓMICA"]
+        PARSE_TAG["Filtrado Semántico por Expresiones Regulares QL"]
+        GEOM_SORT["Segregación Topológica (Puntos, Líneas y Polígonos)"]
+        HOMOLOG_ID["Asignación de Código Taxonómico (CAT-01 a CAT-10)"]
+    end
+
+    subgraph OUT_CAT["3. OUTPUT"]
+        TEN_LAYERS["10 Capas Vectoriales VGI Barriales (src/data/cat01..cat10)"]
+        EXCEL_CAT["Libro Maestro categorias_tematicas_osm.xlsx (11 Hojas)"]
+        LEGEND_SVG["Simbología Vectorial SVG Diferenciada en el Visor"]
+    end
+
+    IN_CAT --> PROC_CAT --> OUT_CAT
+```
+
 A continuación se detalla la especificación técnica de cada categoría:
 
 ### 6.1. CAT-01: Educación y Universidad
@@ -589,7 +612,7 @@ flowchart LR
     end
 
     subgraph DESTINOS["3. Salidas y Almacenamiento"]
-        GEOJSON["118 Capas GeoJSON (datos/capas/)"]
+        GEOJSON["132 Capas GeoJSON (122 Oficiales + 10 VGI)"]
         GPKG["geofabrik_rm_osm.gpkg (OGC SQLite)"]
         XLSX["4 Libros Excel OpenXML (catalogos/)"]
         POSTGIS["PostgreSQL 17 / PostGIS 3.3 (Supabase)"]
@@ -754,6 +777,37 @@ SERVIDORES_OVERPASS_ESPEJO = [
 
 Si un servidor rechaza la petición, el script espera 2 segundos, conmuta automáticamente al siguiente y, en caso de fallo generalizado, recurre a la copia estática cacheada en `data/cache_consultas/`.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Extractor as Script Python / Módulo 02 Web
+    participant S1 as Nodo 1: overpass-api.de
+    participant S2 as Nodo 2: lz4.overpass-api.de
+    participant S3 as Nodo 3: overpass.kumi.systems
+    participant Cache as Respaldo Local (src/data/*.geojson)
+
+    Extractor->>S1: POST Consulta Overpass QL (timeout: 35s)
+    alt Respuesta HTTP 200 OK
+        S1-->>Extractor: Payload JSON OSM (nodes, ways, relations)
+    else Error HTTP 429 / 504 Timeout
+        S1--xExtractor: Rechazo por cuota de concurrencia
+        Note over Extractor,S2: Conmutación Round-Robin (Espera 2s)
+        Extractor->>S2: POST Consulta Overpass QL
+        alt Respuesta HTTP 200 OK
+            S2-->>Extractor: Payload JSON OSM
+        else Fallo en Nodo 2
+            S2--xExtractor: Timeout
+            Extractor->>S3: POST Consulta Overpass QL
+            alt Respuesta HTTP 200 OK
+                S3-->>Extractor: Payload JSON OSM
+            else Contingencia Total de Red Externa
+                Extractor->>Cache: Lectura de GeoJSON Homologado Local
+                Cache-->>Extractor: Entrega inmediata con 0% pérdida de servicio
+            end
+        end
+    end
+```
+
 ---
 
 ## 8. Auditoría Histórica y Análisis Espacio-Temporal con ohsome API v1/v2 (HeiGIT)
@@ -842,7 +896,29 @@ https://api.gbif.org/v1/occurrence/search?geometry=POLYGON((-70.6720 -33.4505,-7
 
 ## 10. Integración de Cartografía Externa con uMap e iframes Aislados
 
-El Módulo 05 ([`src/js/modulos/umap.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/umap.js)) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
+```mermaid
+flowchart LR
+    subgraph IN_UMAP["1. INPUT"]
+        UMAP_PROJ["URLs de Proyectos Colaborativos uMap (OSM Francia)"]
+        LOCAL_BKP["Copias Vectoriales de Respaldo (data/umap/*.geojson)"]
+        CSP_RULES["Directivas de Seguridad Content-Security-Policy"]
+    end
+
+    subgraph PROC_UMAP["2. PIPELINE DE PROCESAMIENTO"]
+        SANDBOX_IFR["Encapsulamiento en iframe (sandbox='allow-scripts allow-same-origin')"]
+        CORS_CHECK["Detección de Disponibilidad y Cabeceras CORS"]
+        FALLBACK_SW["Conmutación Automática a GeoJSON Local en Caso de Caída"]
+    end
+
+    subgraph OUT_UMAP["3. OUTPUT"]
+        VIEW_UMAP["Visor Participativo Embebido en la Plataforma"]
+        SAFE_DOM["Aislamiento Estricto del DOM Principal"]
+    end
+
+    IN_UMAP --> PROC_UMAP --> OUT_UMAP
+```
+
+El Módulo de Cartografía Participativa ([`src/js/modulos/umap.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/umap.js)) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
 
 ### 10.1. Manejo Seguro de Sandboxing
 Para proteger al Atlas frente a inyecciones de código malicioso de proyectos externos, los iframes se configuran con directivas de seguridad estrictas:
@@ -908,6 +984,32 @@ El archivo resultante (`docs/geofabrik_chile_rm_completo.gpkg`) cuenta con índi
 ---
 
 ## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
+
+```mermaid
+flowchart LR
+    subgraph IN_IDE["1. INPUT: FUENTES ESTATALES"]
+        INE_SRC["INE Censo 2024 (Manzanas, Zonas, Límites)"]
+        MINVU_SRC["MINVU GeoIDE (PRC, PRMS, ZCH, CCU 1993-2024)"]
+        SUB_SRC["SUBDERE RSD 2024 (14 Capas Residuos RM)"]
+        MUNI_SRC["MuniSTGO Aseo 2026 / UOCT Semáforos / SII Predial"]
+        MDSF_SRC["MDSF / BIDAT (RSH, IGVUST, Inversiones BIP)"]
+    end
+
+    subgraph PROC_IDE["2. PIPELINE DE PROCESAMIENTO GEODÉSICO Y TABULAR"]
+        CRS_TRANS["Homologación Geodésica a WGS84 (EPSG:4326)"]
+        CLIP_BBOX["Recorte Espacial y Depuración Topológica OGC"]
+        SCHEMA_14["Inyección del Esquema Maestro de 14 Atributos ISO"]
+        APA_CITE["Asignación de Cita APA 7ª Ed. y Puntaje WLC v2.0"]
+    end
+
+    subgraph OUT_IDE["3. OUTPUT: CATÁLOGO OFICIAL"]
+        IDE_122["122 Capas Oficiales Homologadas (src/data/*.geojson)"]
+        XLSX_132["Catálogo Maestro catalogo_fuentes_vgi.xlsx (132 Filas)"]
+        WEB_MOD01["Sincronización en Visor Web (Módulo 01) y Storyboards (Módulo 05)"]
+    end
+
+    IN_IDE --> PROC_IDE --> OUT_IDE
+```
 
 El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
@@ -1103,7 +1205,7 @@ flowchart LR
     end
 
     subgraph OUT_ISO["3. OUTPUT"]
-        STD_GEOJSON["118 Capas GeoJSON 100% Homogéneas"]
+        STD_GEOJSON["132 Capas GeoJSON 100% Homogéneas"]
         ISO_CONFORM["Conformidad Total con Perfil IDE Chile / SNIT"]
         EXPORT_READY["Exportabilidad Directa hacia QGIS y ArcGIS"]
     end
@@ -1293,6 +1395,29 @@ $$
 
 ### 15.2. Desglose Algorítmico y Fórmulas de las 10 Dimensiones de Calidad
 
+```mermaid
+flowchart LR
+    subgraph IN_WLC["1. INPUT"]
+        GEO_132["132 Archivos GeoJSON (src/data/)"]
+        META_XLSX["perfil_metadatos_vgi.xlsx & catalogo_fuentes_vgi.xlsx"]
+        BBOX_RM["Envolvente Geodésica Oficial RM / Barrio Brasil"]
+    end
+
+    subgraph PROC_WLC["2. PIPELINE DE AUDITORÍA DINÁMICA WLC v2.0"]
+        PILAR_1["Evaluador Cuantitativo (50%): ST_IsValid, Completitud, BBox, 14 Campos, Slivers"]
+        PILAR_2["Evaluador Cualitativo (50%): 10 Elementos ISO 19115, Linaje APA, XSD, Escala, HTTP 200"]
+        COMB_LIN["Combinación Lineal Ponderada (IGV = 0.50*P1 + 0.50*P2)"]
+    end
+
+    subgraph OUT_WLC["3. OUTPUT"]
+        RANK_CSV["Ranking wlc_metacalidad_ranking.csv (132 Capas)"]
+        CERT_GRADE["Certificación Normativa (Grado A+ >= 95%, Grado A >= 90%)"]
+        DOC_REP["Informe Técnico ANALISIS_METACALIDAD.md"]
+    end
+
+    IN_WLC --> PROC_WLC --> OUT_WLC
+```
+
 #### Dimensión 1: Consistencia Topológica OGC ($C_{\text{topo}}$ — Peso 30% en Pilar 1)
 Evalúa que las geometrías respeten los axiomas de la especificación *OGC Simple Feature Access* (ISO 19125-1). En el caso de polígonos, verifica que el primer y último vértice sean idénticos (anillo cerrado), que no existan auto-intersecciones en bordes (*kinks* o lazos en ocho) y que los orificios interiores se encuentren estrictamente contenidos en la cáscara exterior (*exterior ring*):
 
@@ -1417,6 +1542,27 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 
 ## 16. Correlaciones Estadísticas, Sensibilidad y Ranking de Metacalidad
 
+```mermaid
+flowchart LR
+    subgraph IN_CORR["1. INPUT"]
+        MAT_132["Matriz 132 Capas x 10 Dimensiones WLC v2.0"]
+        WEIGHTS["Vectores de Ponderación (w_c y w_m)"]
+    end
+
+    subgraph PROC_CORR["2. PIPELINE ESTADÍSTICO"]
+        PEARSON["Cálculo de Matriz de Correlación de Pearson (r_xy)"]
+        ORTHO_TEST["Prueba de Ortogonalidad Pilar 1 vs. Pilar 2 (r = 0.22)"]
+        SENS_SIM["Análisis de Sensibilidad y Ordenamiento de Ranking"]
+    end
+
+    subgraph OUT_CORR["3. OUTPUT"]
+        CSV_CORR["correlacion_dimensiones_calidad.csv (Matriz 10x10)"]
+        DICT_IGV["Dictamen Global IGV Promedio: 95.41% (Grado A+)"]
+    end
+
+    IN_CORR --> PROC_CORR --> OUT_CORR
+```
+
 ### 16.1. Matriz de Correlación Lineal de Pearson ($r$)
 Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson ($r$) sobre las 132 capas cartográficas, preservada en [`docs/correlacion_dimensiones_calidad.csv`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/docs/correlacion_dimensiones_calidad.csv):
 
@@ -1432,13 +1578,32 @@ $$
 * **Puntaje Promedio Pilar Cuantitativo Espacial:** **96.72%**.
 * **Puntaje Promedio Pilar Cualitativo de Metadatos:** **94.10%**.
 * **Distribución de Grados:**
-  - Grado A+ (Excelente): **118 capas (90.1%)**.
-  - Grado A (Muy Bueno): **13 capas (9.9%)**.
+  - Grado A+ (Excelente): **119 capas (90.2%)**.
+  - Grado A (Muy Bueno): **13 capas (9.8%)**.
   - Grados B o C: **0 capas (0.0%)**.
 
 ---
 
 ## 17. Perfil de Metadatos Espaciales ISO 19115-1:2014 e Implementación XML ISO 19139:2007
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Investigador as Usuario / Gestor IDE
+    participant Mod06 as Módulo 06 (metadatos.js)
+    participant Cat as Registro de 132 Capas (app.js)
+    participant Builder as Motor Serializador ISO 19139
+    participant Descarga as Descarga Cliente (Blob XML/JSON)
+
+    Investigador->>Mod06: Selecciona capa de las 132 disponibles
+    Mod06->>Cat: Consulta metadatos, linaje, EPSG:4326 y BBox
+    Cat-->>Mod06: Objeto de metadatos normalizado
+    Mod06->>Builder: Ensambla 7 paquetes normativos ISO 19115-1:2014
+    Builder-->>Mod06: Vista previa estructurada en interfaz
+    Investigador->>Mod06: Solicita exportación oficial (XML ISO 19139 / JSON)
+    Mod06->>Builder: Serializa árbol gmd:MD_Metadata con namespaces OGC
+    Builder->>Descarga: Genera archivo validable para GeoNetwork / IDE Chile
+```
 
 Para permitir que los datos del Atlas VGI sean interoperables con servidores de catálogo GeoNetwork institucionales y con la Infraestructura de Datos Geoespaciales de Chile (SNIT / IDE Chile), se definió un perfil estricto de metadatos organizado en **7 paquetes normativos**:
 
@@ -1573,6 +1738,29 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
 
 ## 18. Catálogos Maestros OpenXML (.xlsx) y Archivos Consolidados CSV
 
+```mermaid
+flowchart LR
+    subgraph IN_CATS["1. INPUT"]
+        CAPAS_132["132 Capas Vectoriales Auditadas"]
+        WLC_RES["Resultados del Modelo WLC v2.0"]
+        GLOS_140["140 Descriptores del Diccionario Territorial"]
+    end
+
+    subgraph PROC_CATS["2. PIPELINE DE COMPILACIÓN OPENXML Y CSV"]
+        SCRIPT_XLS["scripts/generar_catalogos_excel.py (openpyxl)"]
+        STYLE_XLS["Formateo Institucional de Hojas, Cabeceras y Fórmulas"]
+        EXPORT_CSV["Serialización Tabular UTF-8 con BOM para Excel/R/Python"]
+    end
+
+    subgraph OUT_CATS["3. OUTPUT"]
+        FOUR_XLSX["4 Libros Maestros .xlsx (Fuentes, Categorías, Metadatos, Diccionario)"]
+        FOUR_CSV["4 Consolidados .csv (Ranking WLC, Correlación, Resumen VGI, BIP)"]
+        SYNC_DOCS["Sincronización Espejo en docs/ y src/docs/"]
+    end
+
+    IN_CATS --> PROC_CATS --> OUT_CATS
+```
+
 El Atlas desacopla de forma absoluta las bases de datos espaciales de los catálogos de metadatos tabulares, permitiendo a investigadores de cualquier disciplina inspeccionar el sistema en software ofimático estándar:
 
 ### 18.1. Los 4 Libros Maestros OpenXML (`.xlsx`)
@@ -1591,7 +1779,29 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ## 19. Diccionario Territorial Interactivo: Los 140 Descriptores Normativos y Etiquetas OSM
 
-El Módulo 07 ([`src/js/modulos/diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js)) articula un repositorio conceptual de **140 descriptores territoriales** que homologan la jerga legal de la Ordenanza General de Urbanismo y Construcciones (OGUC) y el Plan Regulador Comunal (PRC) con las etiquetas colaborativas de OpenStreetMap.
+```mermaid
+flowchart LR
+    subgraph IN_DICT["1. INPUT"]
+        NORMA_CL["Cuerpos Legales (LGUC, OGUC, PRC Santiago, Ley 17.288, Ley 20.920)"]
+        OSM_WIKI["Especificación Global Map Features (OpenStreetMap Wiki)"]
+        ISO_19110["Estándar Internacional de Catalogación de Fenómenos ISO 19110"]
+    end
+
+    subgraph PROC_DICT["2. PIPELINE DE HOMOLOGACIÓN SEMÁNTICA"]
+        CROSS_REF["Correspondencia Biunívoca Concepto Urbano <-> Etiqueta key=value"]
+        DEF_TECH["Redacción de Definición Operativa y Marco Regulatorio"]
+        LAYER_MAP["Enlace con Identificadores de las 132 Capas del Atlas"]
+    end
+
+    subgraph OUT_DICT["3. OUTPUT"]
+        MOD_DICT["Buscador Instantáneo del Diccionario Territorial (src/js/modulos/diccionario.js)"]
+        XLSX_DICT["Catálogo Descargable catalogo_diccionario_territorial_140.xlsx"]
+    end
+
+    IN_DICT --> PROC_DICT --> OUT_DICT
+```
+
+El Módulo del Diccionario Territorial ([`src/js/modulos/diccionario.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/diccionario.js)) articula un repositorio conceptual de **140 descriptores territoriales** que homologan la jerga legal de la Ordenanza General de Urbanismo y Construcciones (OGUC) y el Plan Regulador Comunal (PRC) con las etiquetas colaborativas de OpenStreetMap.
 
 A continuación se expone una muestra representativa de los descriptores más significativos de la base:
 
@@ -1645,6 +1855,29 @@ El Atlas de Información Geográfica Voluntaria adopta una filosofía de ingenie
 ```
 
 ### 20.1. El Patrón Revealing Module Pattern (IIFE)
+
+```mermaid
+flowchart LR
+    subgraph IN_SPA["1. INPUT"]
+        HTML_DOM["src/index.html (DOM Semántico + 10 Secciones)"]
+        CONFIG_JSON["config/config.json (BBox, Endpoints, Metadatos)"]
+        ROLE_SEL["Selector de Perfil Territorial (#sel-perfil-usuario)"]
+    end
+
+    subgraph PROC_SPA["2. PIPELINE DE ORQUESTACIÓN CLIENT-SIDE"]
+        BUS_APP["Orquestador Central (src/js/app.js)"]
+        IIFE_ENCAP["Encapsulamiento Modular IIFE (Sin Contaminación Global)"]
+        HASH_ROUT["Enrutador Reactivo de Pestañas y Estado por Rol"]
+    end
+
+    subgraph OUT_SPA["3. OUTPUT"]
+        SPA_READY["Aplicación Web Zero-Build de Carga Instantánea"]
+        MEM_ISOL["Aislamiento de Estado entre los 10 Módulos"]
+    end
+
+    IN_SPA --> PROC_SPA --> OUT_SPA
+```
+
 Para evitar la contaminación del objeto global (`window`) y garantizar el encapsulamiento estricto de variables de estado privadas, cada módulo funcional se construye mediante una expresión de función inmediatamente invocada (*Immediately Invoked Function Expression* - IIFE):
 
 ```javascript
@@ -1695,6 +1928,28 @@ window.ModuloEjemploVGI = ModuloEjemploVGI;
 ---
 
 ## 21. Motor Cartográfico: Leaflet 1.9.4, Renderizado y Simbología Dinámica
+
+```mermaid
+flowchart LR
+    subgraph IN_LEAF["1. INPUT"]
+        CAPAS_132["132 Capas GeoJSON Homologadas (EPSG:4326)"]
+        TILES_XYZ["Mosaicos Base XYZ (OSM, Carto Positron/Dark, Esri)"]
+        STYLE_DEF["Diccionario de Estilos y Paletas Temáticas"]
+    end
+
+    subgraph PROC_LEAF["2. PIPELINE DE RENDERIZADO CARTOGRÁFICO"]
+        PROJ_3857["Proyección en Lienzo Web Mercator (EPSG:3857) y Cálculos UTM 19S"]
+        SVG_ICON["Generación Dinámica de Marcadores Vectoriales L.divIcon"]
+        BIND_POP["Vinculación de Popups Interactivos con los 14 Atributos ISO"]
+    end
+
+    subgraph OUT_LEAF["3. OUTPUT"]
+        MAP_CANVAS["Visor Multinivel Fluido en Escritorio, Tablet y Móvil"]
+        HUD_CTRL["Controles Flotantes de Capas, Escala y Coordenadas"]
+    end
+
+    IN_LEAF --> PROC_LEAF --> OUT_LEAF
+```
 
 El núcleo de visualización espacial se basa en **Leaflet versión 1.9.4**, una biblioteca ultraligera (~42 KB comprimida) que ofrece la mejor relación entre velocidad de renderizado, compatibilidad móvil y soporte de estándares web.
 
@@ -1879,64 +2134,95 @@ function generarFichaNormativaHTML(zonaPRC, coordenadas) {
 
 ---
 
-## 23. Los Siete Storyboards Cartográficos Barriales
+## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas HD
 
-El Atlas implementa una modalidad de divulgación territorial guiada denominada **Storyboards Cartográficos**. Cada storyboard es una secuencia analítica preconfigurada que sitúa al observador en un cuadrante específico, activa automáticamente las capas temáticas pertinentes, aplica filtros cromáticos y despliega una narrativa socio-espacial explicativa.
+El Atlas implementa en el Módulo 05 ([`src/js/modulos/indicadores_analisis.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/indicadores_analisis.js)) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards Cartográficos**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas de alta resolución (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.
+
+```mermaid
+flowchart LR
+    subgraph IN_SB["1. INPUT"]
+        CARTO_75["75 Cartografías Temáticas HD (img/cartografias/*.jpg)"]
+        PORTADAS_4["4 Portadas Vectoriales SVG (img/storyboards/*.svg)"]
+        DATA_132["132 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
+    end
+
+    subgraph PROC_SB["2. PIPELINE DE SÍNTESIS Y NARRATIVA ESPACIAL"]
+        INTER_SEC["Ensamblaje de Secciones Analíticas Intercaladas"]
+        SVG_DIAG["Renderizado de Diagramas de Flujo SVG Dimensionados (680x230)"]
+        INLINE_CH["Generación de Gráficos Estadísticos Comparativos Inline"]
+    end
+
+    subgraph OUT_SB["3. OUTPUT"]
+        MODAL_SB["Lámina Modal de Lectura Continua Multi-Dispositivo"]
+        LIGHTBOX_HD["Ampliación en Lightbox HD (Cartografías, Diagramas SVG y Gráficos)"]
+        MAP_TRIGGER["Activación Simultánea de Capas en el Visor Cartográfico"]
+    end
+
+    IN_SB --> PROC_SB --> OUT_SB
+```
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             MATRIZ DE LOS 7 STORYBOARDS CARTOGRÁFICOS BARRIALES        │
+│       MATRIZ DE LOS 4 STORYBOARDS Y 75 CARTOGRAFÍAS TEMÁTICAS HD       │
 ├────────────────────────────────────────────────────────────────────────┤
-│ • Storyboard 01: El Eje Fundacional y Plaza Brasil (Patrimonio y Ocio) │
-│ • Storyboard 02: La Red Invisible de Cités y Pasajes (Densidad Oculta) │
-│ • Storyboard 03: El Campus Central UAH y el Barrio Universitario      │
-│ • Storyboard 04: Ciclovías, Conectividad y Barreras PMR                │
-│ • Storyboard 05: Islas de Calor, Arbolado Urbano y Clima Local        │
-│ • Storyboard 06: Comercio de Barrio, Ferias Libres y Economía Local    │
-│ • Storyboard 07: Conflicto Normativo (PRC Santiago vs Zona Típica)     │
+│ • Storyboard 01: Concentración Espacial de Equipamientos (KDE) [14]    │
+│ • Storyboard 02: Autocorrelación Espacial Local (LISA Anselin) [22]    │
+│ • Storyboard 03: Diagnóstico Sociodemográfico Censo 2024 [21]          │
+│ • Storyboard 04: Dinámica Socioambiental, Movilidad y Residuos [18]    │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 23.1. Storyboard 01: El Eje Fundacional y Plaza Brasil
-- **Enfoque Espacial:** Plaza Brasil y entorno patrimonial inmediato (`[-33.4398, -70.6652]`, Zoom 17).
-- **Capas Activadas:** `cat03_patrimonio_material`, `cat04_espacios_publicos`, `cat06_comercio_local`.
-- **Narrativa Territorial:** Analiza la Plaza Brasil (inaugurada en 1900) como corazón verde y social del barrio, contrastando la arquitectura monumental de la Iglesia del Corazón de María con la vibrante oferta gastronómica y de ocio que floreció tras la declaratoria de Zona Típica en 1993.
+### 23.1. Storyboard 01: Análisis de Concentración Espacial de Equipamientos y Servicios (KDE)
+- **Cobertura Cartográfica:** **14 cartografías temáticas HD** (Mapas 01 al 14: Comercio y Abastecimiento, Cultura y Patrimonio, Educación, Espacio Público, Deporte, Salud, Seguridad, Transporte, Turismo, Servicios Públicos, Culto, Financiero, Síntesis KDE e Infraestructura Crítica).
+- **Capas Vectoriales Asociadas:** `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat03_transporte_vgi`, `cat06_patrimonio_vgi`, `establecimientos_salud`.
+- **Síntesis Analítica:** Evalúa la densidad por núcleo de Kernel ($\hat{f}_h(x)$) sobre 12 categorías de equipamiento urbano, identificando una estructura polinuclear concentrada en torno a Plaza Brasil, el eje Cumming y el corredor Alameda, junto con brechas de provisión relativa hacia el borde norte (San Pablo – Mapocho).
 
-### 23.2. Storyboard 02: La Red Invisible de Cités y Pasajes
-- **Enfoque Espacial:** Eje calle Maturana y Pasaje Lucrecia Valdés (`[-33.4412, -70.6675]`, Zoom 18).
-- **Capas Activadas:** `cat02_cites_vivienda`, `oficial_catastro_minvu_roles`, `cat10_seguridad_luminarias`.
-- **Narrativa Territorial:** Revela la estructura habitacional microscópica de los más de 80 cités de Barrio Brasil. Muestra cómo tras una fachada continua de un solo rol predial fiscal, coexisten decenas de viviendas en pasajes peatonales comunitarios, visibilizando la precariedad de redes eléctricas y vías de evacuación.
+### 23.2. Storyboard 02: Autocorrelación Espacial Local (LISA) e Índice de Moran Local ($I_i$)
+- **Cobertura Cartográfica:** **22 cartografías temáticas HD** (Mapas 01 al 22: clústeres bivariados y univariados Alto-Alto, Bajo-Bajo, Alto-Bajo y Bajo-Alto con significancia $p < 0.05$ en permutaciones de Monte Carlo).
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat05_espacio_publico_vgi`, `minvu_patrimonio`.
+- **Síntesis Analítica:** Identifica agrupamientos estadísticamente significativos de alta dotación y consolidación patrimonial en el cuadrante central-sur de Barrio Brasil (*Hotspots Alto-Alto*), contrastados con regímenes de transición y menor densidad de servicios en manzanas periféricas (*Coldspots Bajo-Bajo* y valores atípicos espaciales).
 
-### 23.3. Storyboard 03: El Campus Central UAH y el Barrio Universitario
-- **Enfoque Espacial:** Manzana Cienfuegos, Erasmo Escala y Almirante Barroso (`[-33.4475, -70.6610]`, Zoom 17).
-- **Capas Activadas:** `cat09_educacion_uah`, `cat07_movilidad_ciclovias`, `cat06_comercio_local`.
-- **Narrativa Territorial:** Documenta el fenómeno de *estudiantización* impulsado por la Universidad Alberto Hurtado mediante el rescate y puesta en valor de más de 30 casonas patrimoniales. Analiza la demanda masiva de servicios estudiantiles, fotocopiadoras, librerías y alimentación económica.
+### 23.3. Storyboard 03: Diagnóstico Sociodemográfico, Habitabilidad e Inversión Pública (Censo 2024)
+- **Cobertura Cartográfica:** **21 cartografías temáticas HD** (Mapas 01 al 21: Población total por manzana, Densidad habitacional, Tipología de vivienda, Índice de masculinidad, Juventud, Envejecimiento, Inmigración internacional, Pueblos originarios, Hogares, Jefatura femenina, Tenencia, Materialidad, Déficit habitacional, RSH, IGVUST e Inversión BIP).
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `bbdd_19`, `bbdd_46`, `bbdd_64`, `bbdd_65`, `bbdd_68`, `minvu_ipt_prc_santiago`.
+- **Síntesis Analítica:** Caracteriza la coexistencia entre la edificación patrimonial de baja altura (casonas y cités históricos) y la densificación habitacional en altura sobre los bordes del polígono protegido, cruzando la estructura demográfica del Censo 2024 con la estratificación del Registro Social de Hogares (RSH) y la cartera de inversión pública BIP.
 
-### 23.4. Storyboard 04: Ciclovías, Conectividad y Barreras PMR
-- **Enfoque Espacial:** Intersección Av. Brasil con Alameda y Línea 1 de Metro (`[-33.4490, -70.6640]`, Zoom 16).
-- **Capas Activadas:** `cat07_movilidad_ciclovias`, `uoct_semaforos_santiago`, `barreras_pmr_veredas`.
-- **Narrativa Territorial:** Diagnóstico de la movilidad activa y peatonal. Expone las discontinuidades de la ciclovía de Av. Brasil al llegar a la Alameda y mapea el 42% de esquinas que carecen de rampas rebajadas para sillas de ruedas conforme a la OGUC.
-
-### 23.5. Storyboard 05: Islas de Calor, Arbolado Urbano y Clima Local
-- **Enfoque Espacial:** Comparativa cuadrante Rosas/San Pablo vs Plaza Brasil (`[-33.4365, -70.6660]`, Zoom 16).
-- **Capas Activadas:** `cat01_arbolado_urbano`, `temperatura_superficial_landsat`, `cat04_espacios_publicos`.
-- **Narrativa Territorial:** Mapeo de la copa arbórea urbana e islas de calor. Demuestra que en las calles secundarias sin arbolado la temperatura superficial supera en hasta +5.8 °C el microclima generado por los plátanos orientales y jacarandás de Plaza Brasil.
-
-### 23.6. Storyboard 06: Comercio de Barrio, Ferias Libres y Economía Local
-- **Enfoque Espacial:** Eje calle Huérfanos y ferias barriales (`[-33.4410, -70.6630]`, Zoom 17).
-- **Capas Activadas:** `cat06_comercio_local`, `ferias_libres_municipales`, `cat05_equipamiento_social`.
-- **Narrativa Territorial:** Cartografía de la economía barrial de subsistencia y servicios tradicionales. Visibiliza talleres mecánicos, panaderías centenarias, almacenes de abarrotes y ferias libres que resisten a la homogeneización del retail corporativo.
-
-### 23.7. Storyboard 07: Conflicto Normativo (PRC Santiago vs Zona Típica)
-- **Enfoque Espacial:** Límite poniente de Ricardo Cumming y San Pablo (`[-33.4355, -70.6705]`, Zoom 16).
-- **Capas Activadas:** `prc_zonificacion_santiago`, `cmn_zona_tipica_brasil`, `minvu_permisos_edificacion`.
-- **Narrativa Territorial:** Contraste espacial entre el área protegida por el Decreto N° 432 del Consejo de Monumentos Nacionales (altura fija y conservación) y el borde libre del Plan Regulador Comunal de Santiago, donde proliferan torres habitacionales de hasta 22 pisos.
+### 23.4. Storyboard 04: Dinámica Socioambiental, Movilidad Sostenible y Gestión Integral de Residuos
+- **Cobertura Cartográfica:** **18 cartografías temáticas HD** (Mapas 01 al 18: Arbolado urbano y biodiversidad, Cobertura vegetal, Islas de calor, Ciclovías y movilidad activa, Red de Metro y paraderos, Cruces semaforizados UOCT, Accesibilidad PMR, y las cartografías comunales y metropolitanas de gestión de residuos SUBDERE RSD 2024 y zonas operativas de aseo MuniSTGO 2026).
+- **Capas Vectoriales Asociadas:** `cat08_biodiversidad_vgi`, `cat05_espacio_publico_vgi`, `cat04_ciclovias_vgi`, `semaforos_rm_uoct_2026`, `munistgo_aseo_zonas_residuos_2026`, `subdere_rsd_analisis_costos_comuna_rm`, `subdere_rsd_ppc_generacion_pta_rm`.
+- **Síntesis Analítica:** Articula el diagnóstico ambiental y de metabolismo urbano del barrio, vinculando la distribución del dosel arbóreo y la infraestructura de movilidad sostenible con la operación territorial del servicio de recolección de residuos sólidos domiciliarios, la dotación de contenedores y papeleros municipales y la estructura de costos y disposición final en la Región Metropolitana.
 
 ---
 
-## 24. Visor Lightbox Pop-Up HD y Galería Multimedia
+## 24. Visor Lightbox Pop-Up HD Multi-Dispositivo y Galería Multimedia
 
-Para inspeccionar láminas cartográficas de ultra alta definición (4K a 300 DPI) y registros fotográficos patrimoniales sin pixelación, el sistema incorpora un visor modal interactivo con zoom suave por rueda de ratón y paneo bidireccional por arrastre (*drag*):
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Usuario as Usuario (Escritorio / Móvil / Tablet)
+    participant Lamina as Lámina Modal Storyboard
+    participant Lightbox as Motor Lightbox HD (indicadores_analisis.js)
+    participant Canvas as Contenedor #lightbox-canvas
+
+    alt Clic en Cartografía Temática JPG (2200x1423)
+        Usuario->>Lamina: Clic en tarjeta o miniatura cartográfica
+        Lamina->>Lightbox: abrirLightboxCartografia(src, titulo, subtitulo, rutaAlternativa)
+        Lightbox->>Canvas: Inyecta <img> con fallback automático (img/ <-> src/img/)
+    else Clic en Diagrama de Flujo SVG
+        Usuario->>Lamina: Clic en contenedor .storyboard-diagrama-box
+        Lamina->>Lightbox: abrirLightboxDiagrama(idStoryboard, idxSeccion)
+        Lightbox->>Canvas: Inyecta <svg viewBox="0 0 680 230"> con dimensiones explícitas (min 680px / 88vw)
+    else Clic en Gráfico Estadístico Inline
+        Usuario->>Lamina: Clic en bloque .storyboard-inline-chart
+        Lamina->>Lightbox: abrirLightboxGraficoInline(idStoryboard, idxSeccion)
+        Lightbox->>Canvas: Renderiza barras comparativas ampliadas de alto contraste
+    end
+    Canvas-->>Usuario: Visualización en pantalla completa (100dvh)
+    Usuario->>Canvas: Rueda de ratón / Pinch-to-Zoom (2 dedos) / Paneo táctil (1 dedo)
+    Canvas->>Lightbox: Actualiza matriz CSS translate3d(x, y, 0) scale(z) en tiempo real (0.5x a 5.0x)
+```
+
+Para inspeccionar las 75 láminas cartográficas de alta definición (`2200 × 1423 px`), los diagramas vectoriales SVG y los gráficos estadísticos sin pérdida de nitidez en cualquier pantalla (ordenadores de escritorio, tablets y teléfonos móviles), el sistema incorpora un motor modal interactivo con soporte dual de ratón y eventos táctiles (`touchstart`, `touchmove`, `touchend`):
 
 ```javascript
 // Implementación del Visor Lightbox HD en src/js/modulos/lightbox_hd.js
@@ -2039,12 +2325,12 @@ La barra de navegación superior organiza las capacidades del Atlas en 10 módul
 ---
 
 ### Módulo 01: Visor Cartográfico y Atlas VGI (`src/js/app.js` y `src/js/modulos/mapa.js`)
-* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 118 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
 
 ```mermaid
 flowchart LR
     subgraph IN_M1["1. INPUT"]
-        GEOJSON["118 Capas GeoJSON (data/*.geojson)"]
+        GEOJSON["132 Capas GeoJSON (data/*.geojson)"]
         TILES["Mosaicos Base (OSM, Carto, Esri)"]
         CLIC["Clic del Usuario en el Mapa"]
     end
@@ -2259,26 +2545,26 @@ flowchart LR
 
 ---
 
-### Módulo 09: Indicadores de Análisis y Storyboards (`src/js/modulos/storyboards.js`)
-* **Propósito Operativo:** 7 narrativas espaciales situadas y acceso al Visor Lightbox Pop-Up HD.
+### Módulo 05 / 09: Indicadores Territoriales y Storyboards (`src/js/modulos/indicadores_analisis.js`)
+* **Propósito Operativo:** 4 Storyboards analíticos (KDE, LISA, Censo 2024 y Socioambiental/Residuos), 75 cartografías temáticas HD y Visor Lightbox Multi-Dispositivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_M9["1. INPUT"]
-        STORY_ID["Selección de Storyboard Temático (01 al 07)"]
-        COORD_VIEW["Coordenadas de Enfoque y Zoom Predefinidos"]
-        CAPAS_REQ["Listado de Capas Requeridas por la Narrativa"]
+        STORY_ID["Selección de Storyboard Temático (01 al 04)"]
+        CARTO_SET["75 Cartografías HD + Diagramas SVG + Gráficos"]
+        CAPAS_REQ["Capas Vectoriales Asociadas por Dimensión (132 Capas)"]
     end
 
     subgraph PROC_M9["2. PIPELINE DE PROCESAMIENTO"]
-        FLY_TO["Transición Suave de Cámara (map.flyTo)"]
-        AUTO_LAYER["Activación/Desactivación Automática de Capas"]
-        PANEL_TEXT["Carga de Narrativa Socio-Espacial y Fotografía"]
+        MODAL_RENDER["Renderizado de Lámina Analítica con Secciones Intercaladas"]
+        AUTO_LAYER["Activación Automática de Capas en el Visor Principal"]
+        ZOOM_TOUCH["Motor Lightbox con Zoom Rueda y Pinch-to-Zoom Táctil"]
     end
 
     subgraph OUT_M9["3. OUTPUT"]
         SCENE_VIEW["Escenario Cartográfico Enfocado y Tematizado"]
-        LIGHTBOX["Visor Multimedia Pop-Up HD para Fotografías"]
+        LIGHTBOX["Inspección de Cartografías, Diagramas SVG y Gráficos en HD"]
     end
 
     IN_M9 --> PROC_M9 --> OUT_M9
@@ -2388,6 +2674,29 @@ Netlify actúa como la red de distribución perimetral (*Edge CDN*) y motor de a
 ```
 
 ### 28.1. Anatomía Línea por Línea de `netlify.toml`
+
+```mermaid
+flowchart LR
+    subgraph IN_NET["1. INPUT"]
+        GIT_PUSH["Push a Rama Principal (origin/main)"]
+        LFS_OBJS["Objetos Binarios Git LFS (*.zip, *.xlsx, *.gpkg)"]
+        TOML_CFG["Directivas Perimetrales (netlify.toml)"]
+    end
+
+    subgraph PROC_NET["2. PIPELINE DE DESPLIEGUE Y EDGE CDN"]
+        SMUDGE_0["Expansión Binaria Git LFS (GIT_LFS_SKIP_SMUDGE=0)"]
+        PUB_SRC["Publicación de Directorio Raíz (publish = 'src')"]
+        HDR_INJ["Inyección de Cabeceras CORS (*), MIME geo+json y SWR Cache"]
+    end
+
+    subgraph OUT_NET["3. OUTPUT"]
+        PROD_URL["Geoportal en Producción (atlasvgiuah.netlify.app)"]
+        RESUME_DL["Descargas Reanudables (Accept-Ranges: bytes)"]
+    end
+
+    IN_NET --> PROC_NET --> OUT_NET
+```
+
 El archivo se encuentra calibrado para servir volúmenes masivos de datos vectoriales y garantizar que los archivos de Git LFS se expandan como binarios reales:
 
 ```toml
@@ -2471,6 +2780,28 @@ El archivo se encuentra calibrado para servir volúmenes masivos de datos vector
 ---
 
 ## 29. Guía Exhaustiva de Estilos CSS, Variables Semánticas `:root`, Temas y Accesibilidad
+
+```mermaid
+flowchart LR
+    subgraph IN_CSS["1. INPUT"]
+        ROOT_VARS["Tokens de Diseño en :root (Colores, Tipografía, Radios)"]
+        MEDIA_Q["Breakpoints Responsivos (@media max-width: 768px)"]
+        SVG_PINS["Marcadores Vectoriales Dinámicos L.divIcon"]
+    end
+
+    subgraph PROC_CSS["2. PIPELINE DE ESTILIZACIÓN Y LAYOUT"]
+        CASCADE["Herencia Semántica en Paneles, Tarjetas y Modales"]
+        FLEX_GRID["Maquetación Fluida CSS Grid / Flexbox + 100dvh"]
+        ANIM_KEY["Animaciones @keyframes (Pulso de Radar y Transiciones)"]
+    end
+
+    subgraph OUT_CSS["3. OUTPUT"]
+        WCAG_UI["Interfaz con Contraste WCAG 2.1 Nivel AAA"]
+        MULTI_DEV["Visualización Adaptativa en Escritorio, Tablet y Móvil"]
+    end
+
+    IN_CSS --> PROC_CSS --> OUT_CSS
+```
 
 El Atlas VGI implementa un sistema de diseño institucional sobrio, estructurado en CSS3 nativo puro en [`src/css/estilos.css`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/css/estilos.css), diseñado para garantizar legibilidad analítica y cumplir con el estándar internacional de accesibilidad **WCAG 2.1 Nivel AAA**.
 
@@ -2862,6 +3193,30 @@ CREATE TABLE IF NOT EXISTS public.auditoria_actualizaciones (
 ---
 
 ### 31.3 Funciones Remotas PL/pgSQL (Remote Procedure Calls - RPC)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Cliente as Visor Web / Script Analítico
+    participant API as PostgREST API (Supabase)
+    participant RPC as Función PL/pgSQL (fn_obtener_capa_bbox)
+    participant GiST as Índice Espacial R-Tree (GiST)
+    participant CDN as Fallback: Netlify Edge CDN (src/data/)
+
+    Cliente->>API: POST /rest/v1/rpc/fn_obtener_capa_bbox (capa_id, BBox)
+    alt Clúster PostGIS Activo (Latencia < 1200ms)
+        API->>RPC: Invoca función con parámetros geodésicos
+        RPC->>GiST: Filtro indexado geom && ST_MakeEnvelope(...)
+        GiST-->>RPC: Subconjunto de registros espaciales
+        RPC->>RPC: Ensambla FeatureCollection con ST_AsGeoJSON(geom)
+        RPC-->>API: Objeto JSONB homologado
+        API-->>Cliente: HTTP 200 OK (GeoJSON en Streaming)
+    else Latencia > 1200ms o Modo Estático
+        API--xCliente: Timeout / Conmutación automática
+        Cliente->>CDN: GET /data/{archivo}.geojson
+        CDN-->>Cliente: HTTP 200 OK (GeoJSON Estático WGS84)
+    end
+```
 
 Para permitir que el cliente web (Leaflet) o los scripts Python interactúen con la base de datos de manera atómica y segura mediante la API REST de Supabase (*PostgREST*), se diseñaron e implementaron tres funciones almacenadas en lenguaje `PL/pgSQL`.
 
@@ -5514,6 +5869,28 @@ En la sección de selección de mapa base en la barra lateral:
 ---
 
 ## 44. Tutorial 05: Incorporación de una Nueva Capa GeoJSON al Atlas
+
+```mermaid
+flowchart LR
+    subgraph IN_NEW["1. INPUT"]
+        RAW_SHP["Capa Nueva (Shapefile / GeoPackage / GeoJSON)"]
+        META_DOC["Ficha de Procedencia, Licencia y Cita APA 7ª Ed."]
+    end
+
+    subgraph PROC_NEW["2. PIPELINE DE INTEGRACIÓN EN 6 ETAPAS"]
+        STEP_1["1. Reproyección a WGS84 (EPSG:4326) y Guardado en data/ y src/data/"]
+        STEP_2["2. Inyección de 14 Atributos ISO (enriquecer_base_datos_metadatos.py)"]
+        STEP_3["3. Evaluación de Calidad WLC v2.0 y Registro en Catálogos .xlsx/.csv"]
+        STEP_4["4. Registro en CAPAS_IDE_CHILE / CONFIG_CAPAS y Dimensiones"]
+    end
+
+    subgraph OUT_NEW["3. OUTPUT"]
+        VALID_QA["5. Verificación 8/8 Tests (verificar_integridad_despliegue.py)"]
+        DEPLOY_LIVE["6. Sincronización en Visor Web, Descargas y Producción Netlify"]
+    end
+
+    IN_NEW --> PROC_NEW --> OUT_NEW
+```
 
 Para incorporar una cobertura vectorial completamente nueva (por ejemplo, `cat11_huertos_comunitarios.geojson`):
 

@@ -34,6 +34,29 @@ Netlify actúa como la red de distribución perimetral (*Edge CDN*) y motor de a
 ```
 
 ### 28.1. Anatomía Línea por Línea de `netlify.toml`
+
+```mermaid
+flowchart LR
+    subgraph IN_NET["1. INPUT"]
+        GIT_PUSH["Push a Rama Principal (origin/main)"]
+        LFS_OBJS["Objetos Binarios Git LFS (*.zip, *.xlsx, *.gpkg)"]
+        TOML_CFG["Directivas Perimetrales (netlify.toml)"]
+    end
+
+    subgraph PROC_NET["2. PIPELINE DE DESPLIEGUE Y EDGE CDN"]
+        SMUDGE_0["Expansión Binaria Git LFS (GIT_LFS_SKIP_SMUDGE=0)"]
+        PUB_SRC["Publicación de Directorio Raíz (publish = 'src')"]
+        HDR_INJ["Inyección de Cabeceras CORS (*), MIME geo+json y SWR Cache"]
+    end
+
+    subgraph OUT_NET["3. OUTPUT"]
+        PROD_URL["Geoportal en Producción (atlasvgiuah.netlify.app)"]
+        RESUME_DL["Descargas Reanudables (Accept-Ranges: bytes)"]
+    end
+
+    IN_NET --> PROC_NET --> OUT_NET
+```
+
 El archivo se encuentra calibrado para servir volúmenes masivos de datos vectoriales y garantizar que los archivos de Git LFS se expandan como binarios reales:
 
 ```toml
@@ -117,6 +140,28 @@ El archivo se encuentra calibrado para servir volúmenes masivos de datos vector
 ---
 
 ## 29. Guía Exhaustiva de Estilos CSS, Variables Semánticas `:root`, Temas y Accesibilidad
+
+```mermaid
+flowchart LR
+    subgraph IN_CSS["1. INPUT"]
+        ROOT_VARS["Tokens de Diseño en :root (Colores, Tipografía, Radios)"]
+        MEDIA_Q["Breakpoints Responsivos (@media max-width: 768px)"]
+        SVG_PINS["Marcadores Vectoriales Dinámicos L.divIcon"]
+    end
+
+    subgraph PROC_CSS["2. PIPELINE DE ESTILIZACIÓN Y LAYOUT"]
+        CASCADE["Herencia Semántica en Paneles, Tarjetas y Modales"]
+        FLEX_GRID["Maquetación Fluida CSS Grid / Flexbox + 100dvh"]
+        ANIM_KEY["Animaciones @keyframes (Pulso de Radar y Transiciones)"]
+    end
+
+    subgraph OUT_CSS["3. OUTPUT"]
+        WCAG_UI["Interfaz con Contraste WCAG 2.1 Nivel AAA"]
+        MULTI_DEV["Visualización Adaptativa en Escritorio, Tablet y Móvil"]
+    end
+
+    IN_CSS --> PROC_CSS --> OUT_CSS
+```
 
 El Atlas VGI implementa un sistema de diseño institucional sobrio, estructurado en CSS3 nativo puro en [`src/css/estilos.css`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/css/estilos.css), diseñado para garantizar legibilidad analítica y cumplir con el estándar internacional de accesibilidad **WCAG 2.1 Nivel AAA**.
 

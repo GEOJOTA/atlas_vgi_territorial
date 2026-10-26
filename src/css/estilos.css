@@ -5656,15 +5656,25 @@ table.tabla-datos tr:hover td {
 }
 
 .lightbox-canvas svg {
-  max-width: 90vw;
+  width: min(1100px, 88vw);
+  min-width: min(680px, 84vw);
+  max-width: 92vw;
   max-height: 76vh;
-  width: auto;
   height: auto;
-  background: rgba(15, 23, 42, 0.95);
+  display: block;
+  background: rgba(15, 23, 42, 0.98);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85);
+}
+
+.lightbox-svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(1120px, 90vw);
+  max-width: 92vw;
 }
 
 .lightbox-canvas .lightbox-chart-content {
@@ -5672,8 +5682,39 @@ table.tabla-datos tr:hover td {
   border: 1px solid rgba(56, 189, 248, 0.35);
   border-radius: 14px;
   padding: 28px 36px;
-  min-width: min(850px, 90vw);
+  width: min(880px, 90vw);
+  max-width: 92vw;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.85);
+}
+
+.lightbox-chart-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr minmax(85px, 115px);
+  align-items: center;
+  gap: 14px;
+}
+
+.lightbox-chart-label {
+  color: #f1f5f9;
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.lightbox-chart-track {
+  height: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lightbox-chart-value {
+  color: #38bdf8;
+  font-weight: 800;
+  font-family: var(--fuente-datos, monospace);
+  font-size: 0.98rem;
+  text-align: right;
 }
 
 .lightbox-footer {
@@ -5857,15 +5898,20 @@ table.tabla-datos tr:hover td {
 .thumb-cartografia-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2200 / 1423;
+  min-height: 180px;
   background: #0b1329;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .img-thumb-cartografia {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  display: block;
   transition: transform 0.35s ease;
 }
 
@@ -5982,8 +6028,13 @@ table.tabla-datos tr:hover td {
 
 .grilla-cartografias-inline {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 18px;
+}
+
+.grilla-cartografias-inline.grilla-carto-unica {
+  grid-template-columns: minmax(min(100%, 300px), 680px);
+  justify-content: center;
 }
 
 .lectura-territorial-carto {
@@ -5993,4 +6044,103 @@ table.tabla-datos tr:hover td {
   margin: 6px 0 0 0;
   padding-top: 6px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ========================================================================== */
+/* COMPATIBILIDAD MULTI-DISPOSITIVO (TABLETS, MÓVILES iOS/ANDROID, LAPTOPS)    */
+/* ========================================================================== */
+@media (max-width: 768px) {
+  .lightbox-figura-overlay {
+    padding: 0;
+  }
+
+  .lightbox-figura-contenedor {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .lightbox-header {
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lightbox-titulo {
+    font-size: 0.92rem;
+    white-space: normal;
+  }
+
+  .lightbox-subtitulo {
+    display: none;
+  }
+
+  .lightbox-controles {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .btn-control-lightbox {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  .lightbox-viewport {
+    padding: 10px;
+    touch-action: none;
+  }
+
+  .lightbox-canvas img {
+    max-width: 96vw;
+    max-height: 74dvh;
+  }
+
+  .lightbox-canvas svg {
+    width: 94vw !important;
+    min-width: 92vw !important;
+    max-width: 96vw !important;
+    padding: 10px;
+  }
+
+  .lightbox-canvas .lightbox-chart-content {
+    padding: 16px 14px;
+    width: 94vw;
+  }
+
+  .lightbox-chart-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .lightbox-chart-value {
+    text-align: left;
+  }
+
+  .lightbox-footer {
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .bloque-narrativo-intercalado {
+    padding: 16px 14px;
+  }
+
+  .grilla-cartografias-inline,
+  .grilla-cartografias-storyboard {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .thumb-cartografia-wrapper {
+    min-height: 200px;
+  }
 }

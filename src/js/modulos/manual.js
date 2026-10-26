@@ -17,7 +17,7 @@ const ModuloManual = (() => {
   let modoManualActivo = 'todos'; // 'todos' | 'uso' | 'actualizacion'
 
   /**
-   * Construye dinámicamente el inventario de las 131 capas (121 Oficiales + 10 VGI)
+   * Construye dinámicamente el inventario de las 132 capas (122 Oficiales + 10 VGI)
    * directamente desde las configuraciones activas del sistema.
    */
   function construirInventarioDinamicoCapas() {
@@ -79,7 +79,7 @@ const ModuloManual = (() => {
    */
   function obtenerCapitulosManual() {
     const inventarioCapas = construirInventarioDinamicoCapas();
-    const totalCapas = inventarioCapas.length || 131;
+    const totalCapas = inventarioCapas.length || 132;
 
     const filasTablaCapas = inventarioCapas.map(c => {
       const colorBadge = c.tipo === 'Colaborativa VGI'
@@ -105,30 +105,30 @@ const ModuloManual = (() => {
         parte: 'uso',
         numero: 'USO · 01',
         icono: '🧭',
-        titulo: 'Fundamentación y Alcance General del Sistema',
-        subtitulo: 'Articulación de las 131 coberturas geográficas, 140 descriptores técnicos (ISO 19110) y 10 módulos funcionales.',
+        titulo: 'Fundamentación y Propósito General del Sistema',
+        subtitulo: 'Articulación de las 132 coberturas geográficas, 140 descriptores normativos (ISO 19110) y 10 módulos funcionales.',
         html: `
           <p style="font-size:0.94rem; line-height:1.7; color:var(--tinta-suave);">
-            El <strong>Atlas de Información Geográfica Voluntaria (Atlas VGI — UAH)</strong> constituye una plataforma web abierta que integra la cartografía oficial del Estado de Chile con información geográfica voluntaria (<em>Volunteered Geographic Information</em>, VGI; Goodchild, 2007; Haklay, 2010) para el diagnóstico multiescalar, la evaluación normativa y la gestión territorial del <strong>Barrio Brasil</strong>, el entorno del Campus Universidad Alberto Hurtado y la Región Metropolitana.
+            El <strong>Atlas de Información Geográfica Voluntaria (Atlas VGI — UAH)</strong> constituye una infraestructura de datos espaciales orientada a integrar, evaluar y contrastar la cartografía oficial del Estado de Chile con la información geográfica voluntaria (<em>Volunteered Geographic Information</em>, VGI; Goodchild, 2007; Haklay, 2010) para el análisis territorial de la <strong>Comuna de Santiago</strong>, el <strong>Barrio Brasil</strong> y el entorno de la Universidad Alberto Hurtado.
           </p>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px; margin:16px 0;">
             <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.3); border-radius:10px; padding:14px;">
-              <div style="font-size:1.35rem; font-weight:800; color:#38bdf8;">131 Capas Operativas</div>
+              <div style="font-size:1.35rem; font-weight:800; color:#38bdf8;">132 Capas Operativas</div>
               <div style="font-size:0.85rem; color:var(--tinta-suave); margin-top:4px;">
-                <strong>121 coberturas oficiales</strong> (MINVU, INE Censo 2024, MTT/UOCT, MDSF RSH, SUBDERE Residuos 2024, CMN, MMA, SII) y <strong>10 categorías VGI</strong> (OpenStreetMap y GBIF) en <code>EPSG:4326</code>.
+                <strong>122 coberturas oficiales</strong> (MINVU, INE Censo 2024, MTT/UOCT, MDSF RSH, SUBDERE Residuos 2024, Municipalidad de Santiago, CMN, MMA, SII) y <strong>10 categorías VGI</strong> (OpenStreetMap y GBIF).
               </div>
             </div>
             <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:14px;">
-              <div style="font-size:1.35rem; font-weight:800; color:#fbbf24;">140 Descriptores Técnicos</div>
+              <div style="font-size:1.35rem; font-weight:800; color:#fbbf24;">140 Descriptores Normativos</div>
               <div style="font-size:0.85rem; color:var(--tinta-suave); margin-top:4px;">
-                Especificación de atributos por cobertura y tablas de referencia en el <strong>Módulo 09</strong> (ISO 19110:2016), incluyendo los diccionarios nativos de las geodatabases <code>.gpkg</code> de SUBDERE.
+                Homologación conceptual y semántica de atributos en el <strong>Módulo 09</strong> conforme a la norma ISO 19110:2016 y los catálogos de la Infraestructura de Datos Geoespaciales de Chile.
               </div>
             </div>
             <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:10px; padding:14px;">
-              <div style="font-size:1.35rem; font-weight:800; color:#34d399;">5 Dimensiones y 7 Storyboards</div>
+              <div style="font-size:1.35rem; font-weight:800; color:#34d399;">5 Dimensiones y 4 Storyboards (75 Mapas)</div>
               <div style="font-size:0.85rem; color:var(--tinta-suave); margin-top:4px;">
-                Clasificación analítica multidimensional y 7 estudios empíricos sobre patrimonio, movilidad, biodiversidad, educación, cuidados, residuos sólidos y evolución normativa PRC.
+                Estructuración multidimensional y 4 láminas de síntesis empírica con 75 cartografías temáticas sobre densidad KDE, clusters LISA, habitabilidad censal y metabolismo urbano.
               </div>
             </div>
           </div>
@@ -194,7 +194,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 01</span>
                 <h4 style="margin:4px 0 6px 0;">Visor para la gestión territorial</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Visualización integrada de las 131 coberturas, métricas dinámicas ICV, Inspector Normativo PRC/OGUC e ingesta de archivos locales.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Representación espacial integrada de las 132 coberturas, indicadores dinámicos de calidad y evaluación normativa del Plan Regulador Comunal.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('inicio')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 01 ↗</button>
             </div>
@@ -203,7 +203,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 02</span>
                 <h4 style="margin:4px 0 6px 0;">Consultas Overpass (OSM)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Extracción en tiempo real desde OpenStreetMap mediante plantillas temáticas y constructor de consultas Overpass QL.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Identificación y consulta selectiva de equipamientos, redes y servicios barriales registrados colaborativamente en OpenStreetMap.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('explorador-osm')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 02 ↗</button>
             </div>
@@ -212,7 +212,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#34d399;">MÓDULO 03</span>
                 <h4 style="margin:4px 0 6px 0;">Biodiversidad GBIF</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Consulta de ocurrencias biológicas georreferenciadas de flora, fauna y funga urbana bajo estándar Darwin Core (GBIF / iNaturalist).</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Caracterización de ocurrencias biológicas georreferenciadas de flora, arbolado y avifauna urbana bajo estándar Darwin Core.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('biodiversidad-gbif')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 03 ↗</button>
             </div>
@@ -221,7 +221,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#34d399;">MÓDULO 04</span>
                 <h4 style="margin:4px 0 6px 0;">Cartografía uMap</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Integración de mapas colaborativos uMap orientados a talleres de cartografía participativa y validación comunitaria.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Articulación de proyectos de cartografía participativa y diagnósticos comunitarios elaborados por colectivos locales.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('proyectos-umap')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 04 ↗</button>
             </div>
@@ -230,7 +230,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 05</span>
                 <h4 style="margin:4px 0 6px 0;">Indicadores &amp; Storyboards</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Las 131 coberturas agrupadas en 5 Dimensiones Analíticas y 9 Storyboards territoriales del Barrio Brasil con Lightbox HD.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Sistematización de las 132 coberturas en 5 Dimensiones Analíticas y 4 Storyboards empíricos con 75 cartografías temáticas.</p>
               </div>
               <button type="button" class="accion" onclick="ModuloManual.irAPanel('indicadores')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 05 ↗</button>
             </div>
@@ -239,7 +239,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 06</span>
                 <h4 style="margin:4px 0 6px 0;">Calidad &amp; ICV (ISO 19157 / ohsome / OSMCha)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Evaluación multicriterio WLC bajo norma ISO 19157, series históricas ohsome API (HeiGIT) y auditoría de ediciones OSMCha.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Evaluación multicriterio de calidad espacial bajo norma ISO 19157, series históricas ohsome y validación de ediciones colaborativas.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('calidad-ohsome')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 06 ↗</button>
             </div>
@@ -247,8 +247,8 @@ const ModuloManual = (() => {
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#34d399;">MÓDULO 07</span>
-                <h4 style="margin:4px 0 6px 0;">Manual de Uso y Actualización Técnica</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Documentación operativa, protocolos de actualización en 6 etapas, inventario de capas y trazabilidad académica APA 7ª ed.</p>
+                <h4 style="margin:4px 0 6px 0;">Manual de Uso y Actualización</h4>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Documentación metodológica, diagramas de flujo (pipelines), inventario de coberturas y lineamientos de continuidad del Atlas.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('manual')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 07 ↗</button>
             </div>
@@ -257,7 +257,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 08</span>
                 <h4 style="margin:4px 0 6px 0;">Metadatos ISO 19115</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Generación y exportación de fichas de metadatos en JSON y XML (ISO 19139) compatibles con el Perfil Nacional IDE Chile.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Estructuración y exportación de fichas de metadatos en JSON y XML (ISO 19139) conforme al Perfil Nacional de IDE Chile.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('metadatos-iso')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 08 ↗</button>
             </div>
@@ -265,8 +265,8 @@ const ModuloManual = (() => {
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 09</span>
-                <h4 style="margin:4px 0 6px 0;">Diccionario (131 Capas / 140 Descriptores)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Catálogo de objetos y atributos (ISO 19110), homologación SNIT/IDE Chile y diccionario de columnas SUBDERE RSD 2024.</p>
+                <h4 style="margin:4px 0 6px 0;">Diccionario (132 Capas / 140 Descriptores)</h4>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Catálogo de objetos y atributos (ISO 19110), homologación semántica con IDE Chile e identificación de brechas de información VGI.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('diccionario')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 09 ↗</button>
             </div>
@@ -275,9 +275,9 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 10</span>
                 <h4 style="margin:4px 0 6px 0;">Licencias &amp; Catálogos (.xlsx)</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Régimen jurídico (ODbL 1.0, CC BY-SA 4.0, AGPLv3, Ley N° 20.285, Ley N° 19.628) y descarga directa de matrices Excel.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Marco jurídico de datos abiertos (ODbL 1.0, CC BY-SA 4.0, Ley N° 20.285, Ley N° 19.628) y catálogos tabulares consolidados.</p>
               </div>
-              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('licencias')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 10 ↗</button>
+              <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('licencias')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 09/10 ↗</button>
             </div>
           </div>
         `
@@ -287,7 +287,7 @@ const ModuloManual = (() => {
         parte: 'uso',
         numero: 'USO · 04',
         icono: '🗂️',
-        titulo: `Inventario General de las ${totalCapas} Coberturas Integradas (121 Oficiales + 10 VGI)`,
+        titulo: `Inventario General de las ${totalCapas} Coberturas Integradas (122 Oficiales + 10 VGI)`,
         subtitulo: 'Registro completo de capas operativas con filtrado dinámico por código, institución custodia o temática.',
         html: `
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
@@ -367,7 +367,7 @@ const ModuloManual = (() => {
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/ide_chile.js</code></td>
-                  <td>Catálogo maestro de las <strong>121 capas oficiales del Estado</strong> (<code>CAPAS_OFICIALES</code>).</td>
+                  <td>Catálogo maestro de las <strong>122 capas oficiales del Estado</strong> (<code>CAPAS_OFICIALES</code>).</td>
                   <td>Registro de coberturas estatales con ruta <code>archivoLocal</code>, color, geometría y licencia.</td>
                 </tr>
                 <tr>
@@ -377,7 +377,7 @@ const ModuloManual = (() => {
                 </tr>
                 <tr>
                   <td><code>src/js/modulos/indicadores_analisis.js</code></td>
-                  <td>Módulo 05: <strong>5 Dimensiones Analíticas</strong> (131 capas) y <strong>7 Storyboards</strong> territoriales.</td>
+                  <td>Módulo 05: <strong>5 Dimensiones Analíticas</strong> (132 capas) y <strong>4 Storyboards</strong> territoriales (75 cartografías).</td>
                   <td>Asignación de capas en <code>DIMENSIONES</code> o edición del arreglo de objetos analíticos <code>STORYBOARDS</code>.</td>
                 </tr>
                 <tr>
@@ -387,6 +387,87 @@ const ModuloManual = (() => {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <h4 style="color:#f59e0b; margin:18px 0 10px 0;">3. Diagramas de Flujo Operativos (Pipelines INPUT → PROCESAMIENTO → OUTPUT)</h4>
+          <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6; margin-bottom:12px;">
+            A continuación se esquematizan los principales pipelines de datos del Atlas VGI bajo el modelo de tres etapas (<strong>1. Input / Entrada</strong> → <strong>2. Pipeline de Procesamiento / Módulo</strong> → <strong>3. Output / Producto y Localización</strong>):
+          </p>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <!-- Pipeline 1: Extracción Overpass QL y Normalización VGI -->
+            <div style="background:#090e1a; border:1px solid rgba(56,189,248,0.35); border-radius:10px; padding:14px;">
+              <div style="font-size:0.78rem; font-weight:800; color:#38bdf8; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline A · Extracción con Overpass API, Overpass QL y Taxonomía VGI (CAT-01 a CAT-10)</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
+                  BBox Territorial (Barrio Brasil / RM) + Diccionario de Etiquetas OSM (<code>amenity</code>, <code>highway</code>, <code>historic</code>, <code>building</code>, <code>landuse</code>) en <code>config.js</code>.
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (osm.js / Python)</strong>
+                  Petición HTTP POST <code>[out:json][timeout:45]</code> con failover multi-servidor → Reconstrucción topológica de nodos y vías → Normalización al esquema maestro de 14 atributos.
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
+                  10 Capas VGI en <code>data/capa_cat01...cat10.geojson</code> y <code>src/data/</code> + Renderizado interactivo en Módulo 01 y Módulo 02.
+                </div>
+              </div>
+            </div>
+
+            <!-- Pipeline 2: Inspector Normativo PRC Santiago (CIN-VGI) -->
+            <div style="background:#090e1a; border:1px solid rgba(245,158,11,0.35); border-radius:10px; padding:14px;">
+              <div style="font-size:0.78rem; font-weight:800; color:#fbbf24; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline B · Inspector Normativo del Plan Regulador Comunal de Santiago (CIN-VGI)</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
+                  Clic en coordenada <code>(lat, lng)</code> en el visor + Capas vectoriales PRC Santiago, PRMS, Zonas de Conservación Histórica (ZCH/ICH) y Áreas de Riesgo.
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (evaluador_normativo.js)</strong>
+                  Algoritmo Point-in-Polygon (Ray-Casting) + Cruce con Art. 2.1.24 y 2.1.17 OGUC + Consulta a los 10 Hitos Históricos del PRC en Barrio Brasil (1990–2024).
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
+                  Certificado de Informaciones Normativas VGI (CIN-VGI) en pantalla e imprimible/descargable en el Módulo 01.
+                </div>
+              </div>
+            </div>
+
+            <!-- Pipeline 3: Motor Multicriterio de Calidad ISO 19157 & ISO 19115 (WLC v2.0 + ohsome) -->
+            <div style="background:#090e1a; border:1px solid rgba(16,185,129,0.35); border-radius:10px; padding:14px;">
+              <div style="font-size:0.78rem; font-weight:800; color:#34d399; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline C · Evaluación de Calidad Espacial WLC v2.0 (ISO 19157 / ISO 19115 / ohsome API)</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
+                  132 Capas del Atlas o GeoJSON externo + Metadatos ISO 19115 + Series históricas OSHDB/ohsome API v1/v2 (HeiGIT).
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (evaluador_calidad_cuantitativa.js)</strong>
+                  Reproyección geodésica a <code>EPSG:32719</code> → Auditoría de 5 dimensiones cuantitativas (50%) y 5 dimensiones cualitativas de metadatos (50%) mediante Combinación Lineal Ponderada.
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
+                  Índice Global de MetaCalidad (IGMC 96,55% Grado A+), matrices JSON/CSV/XLSX en <code>docs/</code> y panel interactivo en Módulos 06 y 08.
+                </div>
+              </div>
+            </div>
+
+            <!-- Pipeline 4: Síntesis Espacial, Indicadores KDE/LISA y Storyboards (Módulo 05) -->
+            <div style="background:#090e1a; border:1px solid rgba(168,85,247,0.35); border-radius:10px; padding:14px;">
+              <div style="font-size:0.78rem; font-weight:800; color:#c084fc; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pipeline D · Modelamiento Espacial (KDE / LISA / Censo 2024) y Motor de Storyboards Multi-Dispositivo</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
+                  10.166 entidades VGI + 1.711 manzanas censales INE 2024 + Registro Social de Hogares (BiDat) + 75 cartografías temáticas (<code>2200×1423 px</code>).
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (indicadores_analisis.js)</strong>
+                  Clasificación en 5 Dimensiones Analíticas + Articulación de secciones narrativas intercaladas con gráficos comparativos, diagramas vectoriales SVG y Lightbox táctil HD.
+                </div>
+                <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
+                  <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / LOCALIZACIÓN</strong>
+                  4 Storyboards de resultados territoriales y 5 acordeones de coberturas en el Módulo 05 con activación directa en el visor cartográfico.
+                </div>
+              </div>
+            </div>
           </div>
         `
       },
@@ -504,7 +585,7 @@ const ModuloManual = (() => {
           <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
             Previo a cualquier commit en producción, deben ejecutarse desde la raíz del repositorio los tres scripts de auditoría en Python:
           </p>
-          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#34d399; overflow-x:auto;"><code># 1. Audita la paridad de 131 capas (121 oficiales + 10 VGI) y 140 descriptores:
+          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#34d399; overflow-x:auto;"><code># 1. Audita la paridad de 132 capas (122 oficiales + 10 VGI) y 140 descriptores:
 python scripts/verificar_conteo_capas.py
 
 # 2. Audita integridad de archivos GeoJSON, ausencia de punteros LFS y paridad data/ <-> src/data/:

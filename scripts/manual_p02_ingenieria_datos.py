@@ -29,6 +29,29 @@ Para clasificar de forma inequívoca el tejido urbano de Barrio Brasil, el Atlas
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
+```mermaid
+flowchart LR
+    subgraph IN_CAT["1. INPUT"]
+        OSM_TAGS[" Diccionario de Etiquetas OSM (amenity, highway, leisure, building, landuse)"]
+        DWC_TERMS["Estándar Darwin Core (taxonRank, scientificName)"]
+        OGUC_STD["Clasificación Normativa OGUC / PRC Santiago"]
+    end
+
+    subgraph PROC_CAT["2. PIPELINE DE CLASIFICACIÓN TAXONÓMICA"]
+        PARSE_TAG["Filtrado Semántico por Expresiones Regulares QL"]
+        GEOM_SORT["Segregación Topológica (Puntos, Líneas y Polígonos)"]
+        HOMOLOG_ID["Asignación de Código Taxonómico (CAT-01 a CAT-10)"]
+    end
+
+    subgraph OUT_CAT["3. OUTPUT"]
+        TEN_LAYERS["10 Capas Vectoriales VGI Barriales (src/data/cat01..cat10)"]
+        EXCEL_CAT["Libro Maestro categorias_tematicas_osm.xlsx (11 Hojas)"]
+        LEGEND_SVG["Simbología Vectorial SVG Diferenciada en el Visor"]
+    end
+
+    IN_CAT --> PROC_CAT --> OUT_CAT
+```
+
 A continuación se detalla la especificación técnica de cada categoría:
 
 ### 6.1. CAT-01: Educación y Universidad
@@ -105,7 +128,7 @@ flowchart LR
     end
 
     subgraph DESTINOS["3. Salidas y Almacenamiento"]
-        GEOJSON["118 Capas GeoJSON (datos/capas/)"]
+        GEOJSON["132 Capas GeoJSON (122 Oficiales + 10 VGI)"]
         GPKG["geofabrik_rm_osm.gpkg (OGC SQLite)"]
         XLSX["4 Libros Excel OpenXML (catalogos/)"]
         POSTGIS["PostgreSQL 17 / PostGIS 3.3 (Supabase)"]
@@ -270,6 +293,37 @@ SERVIDORES_OVERPASS_ESPEJO = [
 
 Si un servidor rechaza la petición, el script espera 2 segundos, conmuta automáticamente al siguiente y, en caso de fallo generalizado, recurre a la copia estática cacheada en `data/cache_consultas/`.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Extractor as Script Python / Módulo 02 Web
+    participant S1 as Nodo 1: overpass-api.de
+    participant S2 as Nodo 2: lz4.overpass-api.de
+    participant S3 as Nodo 3: overpass.kumi.systems
+    participant Cache as Respaldo Local (src/data/*.geojson)
+
+    Extractor->>S1: POST Consulta Overpass QL (timeout: 35s)
+    alt Respuesta HTTP 200 OK
+        S1-->>Extractor: Payload JSON OSM (nodes, ways, relations)
+    else Error HTTP 429 / 504 Timeout
+        S1--xExtractor: Rechazo por cuota de concurrencia
+        Note over Extractor,S2: Conmutación Round-Robin (Espera 2s)
+        Extractor->>S2: POST Consulta Overpass QL
+        alt Respuesta HTTP 200 OK
+            S2-->>Extractor: Payload JSON OSM
+        else Fallo en Nodo 2
+            S2--xExtractor: Timeout
+            Extractor->>S3: POST Consulta Overpass QL
+            alt Respuesta HTTP 200 OK
+                S3-->>Extractor: Payload JSON OSM
+            else Contingencia Total de Red Externa
+                Extractor->>Cache: Lectura de GeoJSON Homologado Local
+                Cache-->>Extractor: Entrega inmediata con 0% pérdida de servicio
+            end
+        end
+    end
+```
+
 ---
 
 ## 8. Auditoría Histórica y Análisis Espacio-Temporal con ohsome API v1/v2 (HeiGIT)
@@ -358,7 +412,29 @@ https://api.gbif.org/v1/occurrence/search?geometry=POLYGON((-70.6720 -33.4505,-7
 
 ## 10. Integración de Cartografía Externa con uMap e iframes Aislados
 
-El Módulo 05 ([`src/js/modulos/umap.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/umap.js)) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
+```mermaid
+flowchart LR
+    subgraph IN_UMAP["1. INPUT"]
+        UMAP_PROJ["URLs de Proyectos Colaborativos uMap (OSM Francia)"]
+        LOCAL_BKP["Copias Vectoriales de Respaldo (data/umap/*.geojson)"]
+        CSP_RULES["Directivas de Seguridad Content-Security-Policy"]
+    end
+
+    subgraph PROC_UMAP["2. PIPELINE DE PROCESAMIENTO"]
+        SANDBOX_IFR["Encapsulamiento en iframe (sandbox='allow-scripts allow-same-origin')"]
+        CORS_CHECK["Detección de Disponibilidad y Cabeceras CORS"]
+        FALLBACK_SW["Conmutación Automática a GeoJSON Local en Caso de Caída"]
+    end
+
+    subgraph OUT_UMAP["3. OUTPUT"]
+        VIEW_UMAP["Visor Participativo Embebido en la Plataforma"]
+        SAFE_DOM["Aislamiento Estricto del DOM Principal"]
+    end
+
+    IN_UMAP --> PROC_UMAP --> OUT_UMAP
+```
+
+El Módulo de Cartografía Participativa ([`src/js/modulos/umap.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/umap.js)) permite embeber mapas colaborativos construidos por colectivos vecinales en la plataforma abierta **uMap** (OpenStreetMap Francia).
 
 ### 10.1. Manejo Seguro de Sandboxing
 Para proteger al Atlas frente a inyecciones de código malicioso de proyectos externos, los iframes se configuran con directivas de seguridad estrictas:
@@ -424,6 +500,32 @@ El archivo resultante (`docs/geofabrik_chile_rm_completo.gpkg`) cuenta con índi
 ---
 
 ## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
+
+```mermaid
+flowchart LR
+    subgraph IN_IDE["1. INPUT: FUENTES ESTATALES"]
+        INE_SRC["INE Censo 2024 (Manzanas, Zonas, Límites)"]
+        MINVU_SRC["MINVU GeoIDE (PRC, PRMS, ZCH, CCU 1993-2024)"]
+        SUB_SRC["SUBDERE RSD 2024 (14 Capas Residuos RM)"]
+        MUNI_SRC["MuniSTGO Aseo 2026 / UOCT Semáforos / SII Predial"]
+        MDSF_SRC["MDSF / BIDAT (RSH, IGVUST, Inversiones BIP)"]
+    end
+
+    subgraph PROC_IDE["2. PIPELINE DE PROCESAMIENTO GEODÉSICO Y TABULAR"]
+        CRS_TRANS["Homologación Geodésica a WGS84 (EPSG:4326)"]
+        CLIP_BBOX["Recorte Espacial y Depuración Topológica OGC"]
+        SCHEMA_14["Inyección del Esquema Maestro de 14 Atributos ISO"]
+        APA_CITE["Asignación de Cita APA 7ª Ed. y Puntaje WLC v2.0"]
+    end
+
+    subgraph OUT_IDE["3. OUTPUT: CATÁLOGO OFICIAL"]
+        IDE_122["122 Capas Oficiales Homologadas (src/data/*.geojson)"]
+        XLSX_132["Catálogo Maestro catalogo_fuentes_vgi.xlsx (132 Filas)"]
+        WEB_MOD01["Sincronización en Visor Web (Módulo 01) y Storyboards (Módulo 05)"]
+    end
+
+    IN_IDE --> PROC_IDE --> OUT_IDE
+```
 
 El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
@@ -619,7 +721,7 @@ flowchart LR
     end
 
     subgraph OUT_ISO["3. OUTPUT"]
-        STD_GEOJSON["118 Capas GeoJSON 100% Homogéneas"]
+        STD_GEOJSON["132 Capas GeoJSON 100% Homogéneas"]
         ISO_CONFORM["Conformidad Total con Perfil IDE Chile / SNIT"]
         EXPORT_READY["Exportabilidad Directa hacia QGIS y ArcGIS"]
     end

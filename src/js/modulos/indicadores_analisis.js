@@ -181,8 +181,8 @@ const ModuloIndicadoresAnalisis = (() => {
       color: '#06B6D4', // Cian
       colorFondo: 'rgba(6, 182, 212, 0.12)',
       colorBorde: 'rgba(6, 182, 212, 0.45)',
-      descripcion: 'Dinámica poblacional, estructura etaria y de género, hogares, migración y estratificación socioterritorial.',
-      enfoque: 'Microdatos Censo 2024 (5 niveles INE), Registro Social de Hogares (MDSF), Campamentos MINVU y Unidades Vecinales Ley 19.418.',
+      descripcion: 'Caracterización de la estructura poblacional, composición demográfica, distribución de hogares y estratificación socioeconómica en la Comuna de Santiago y el Barrio Brasil.',
+      enfoque: 'Coberturas demográficas multiescalares del Censo 2024, vulnerabilidad socioterritorial del Registro Social de Hogares y delimitación de unidades vecinales.',
       capasIds: [
         'censo2024_regional',
         'censo2024_limite_urbano',
@@ -213,8 +213,8 @@ const ModuloIndicadoresAnalisis = (() => {
       color: '#F59E0B', // Ámbar / Dorado
       colorFondo: 'rgba(245, 158, 11, 0.12)',
       colorBorde: 'rgba(245, 158, 11, 0.45)',
-      descripcion: 'Inversión pública del Estado, empleo, comercio formal y barrial, telecomunicaciones y matriz energética regional.',
-      enfoque: 'Iniciativas del Banco Integrado de Proyectos (BIP), Contratos MOP, Ocupación RSH, Comercio Barrial OSM, Antenas e Infraestructura Energética CNE.',
+      descripcion: 'Evaluación de la inversión pública, dinámica laboral, localización comercial barrial e infraestructura de telecomunicaciones y energía a escala metropolitana y local.',
+      enfoque: 'Iniciativas de inversión pública, contratos de infraestructura estatal, comercio barrial colaborativo y redes energéticas y de conectividad.',
       capasIds: [
         'bbdd_65', // Iniciativas de inversión BIP MDSF
         'bbdd_01', // Proyectos Mandatados - GEOMOP
@@ -244,8 +244,8 @@ const ModuloIndicadoresAnalisis = (() => {
       color: '#10B981', // Esmeralda
       colorFondo: 'rgba(16, 185, 129, 0.12)',
       colorBorde: 'rgba(16, 185, 129, 0.45)',
-      descripcion: 'Espacio público verde, resiliencia climática, cobertura arbórea, islas de calor, biodiversidad urbana y recursos hídricos.',
-      enfoque: 'Áreas Verdes Normativas MINVU, Plazas y Biodiversidad Urbana VGI/GBIF, Red Hidrométrica DGA, Estaciones de Calidad del Aire y Recursos Vegetacionales.',
+      descripcion: 'Análisis de la infraestructura verde urbana, biodiversidad, condiciones ambientales, recursos hídricos y sistemas de gestión de residuos domiciliarios.',
+      enfoque: 'Áreas verdes públicas, arbolado y biodiversidad colaborativa, monitoreo hidrometeorológico y metabolismo de residuos sólidos municipales.',
       capasIds: [
         'minvu_ipt_areas_verdes',
         'cat05_espacio_publico', // VGI Áreas Verdes y Espacio Público
@@ -294,8 +294,8 @@ const ModuloIndicadoresAnalisis = (() => {
       color: '#EC4899', // Rosa
       colorFondo: 'rgba(236, 72, 153, 0.12)',
       colorBorde: 'rgba(236, 72, 153, 0.45)',
-      descripcion: 'Red asistencial de salud pública, servicios de urgencia, personas con dependencia funcional y territorios asistenciales.',
-      enfoque: 'Establecimientos de Salud DEIS/MINSAL (CESFAM y Hospitales), personas en situación de dependencia funcional en RSH y Servicios de Salud.',
+      descripcion: 'Cobertura territorial de la red asistencial de salud pública, distribución de población con dependencia funcional y jurisdicciones sanitarias.',
+      enfoque: 'Establecimientos de atención primaria y hospitalaria, requerimientos de cuidado sociosanitario y territorios de servicios de salud.',
       capasIds: [
         'establecimientos_salud',
         'bbdd_67', // Personas en RSH en situación de dependencia funcional
@@ -310,8 +310,8 @@ const ModuloIndicadoresAnalisis = (() => {
       color: '#8B5CF6', // Violeta
       colorFondo: 'rgba(139, 92, 246, 0.12)',
       colorBorde: 'rgba(139, 92, 246, 0.45)',
-      descripcion: 'Morfología urbana, catastro predial SII, planificación urbana (PRC Santiago / PRMS), cruces semaforizados UOCT, movilidad activa y patrimonio.',
-      enfoque: 'PRC Santiago, Catastro Predial SII, Semáforos UOCT, Metro, Red Ferroviaria, Ciclovías MTT, Edificaciones OSM, Zonas de Conservación Histórica y Equipamiento.',
+      descripcion: 'Configuración morfológica, regulación urbana, equipamiento comunitario, redes de movilidad multimodal, accesibilidad universal y patrimonio construido.',
+      enfoque: 'Instrumentos de planificación territorial, catastro predial, sistemas de transporte público y activo, zonas de conservación histórica y servicios urbanos.',
       capasIds: [
         'minvu_ipt_prc_santiago',
         'minvu_ipt_prms_usosuelo',
@@ -412,7 +412,7 @@ const ModuloIndicadoresAnalisis = (() => {
           ]
         },
         diagramaSVG: () => `
-          <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 680 230" width="680" height="230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
             <text x="24" y="28" fill="#38bdf8" font-size="11.5" font-weight="bold">PERFIL TRANSVERSAL DE DENSIDAD VGI (NORPONIENTE → CENTRO → SUR DE SANTIAGO)</text>
             <line x1="40" y1="190" x2="640" y2="190" stroke="#475569" stroke-width="1.5"/>
@@ -642,7 +642,7 @@ const ModuloIndicadoresAnalisis = (() => {
           ]
         },
         diagramaSVG: () => `
-          <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 680 230" width="680" height="230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
             <text x="24" y="28" fill="#38bdf8" font-size="11.5" font-weight="bold">ESTRUCTURA TERRITORIAL DE LOS CUADRANTES LISA EN LA COMUNA DE SANTIAGO (1.711 MANZANAS)</text>
             <!-- Bloque 1: Hotspot HH -->
@@ -860,7 +860,7 @@ const ModuloIndicadoresAnalisis = (() => {
           ]
         },
         diagramaSVG: () => `
-          <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 680 230" width="680" height="230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
             <text x="24" y="26" fill="#38bdf8" font-size="11.5" font-weight="bold">SÍNTESIS DE RESULTADOS: TRES REGÍMENES SOCIO-HABITACIONALES EN SANTIAGO (CENSO 2024)</text>
             <!-- Régimen 1 -->
@@ -1218,7 +1218,7 @@ const ModuloIndicadoresAnalisis = (() => {
           ]
         },
         diagramaSVG: () => `
-          <svg viewBox="0 0 680 230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 680 230" width="680" height="230" class="svg-diagrama-canvas" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
             <rect width="680" height="230" fill="#0b1329" rx="8"/>
             <text x="24" y="26" fill="#38bdf8" font-size="11.5" font-weight="bold">BALANCE EMPÍRICO DE MOVILIDAD Y METABOLISMO DE RESIDUOS EN SANTIAGO</text>
             <!-- Barra Partición Modal -->
@@ -1637,18 +1637,12 @@ const ModuloIndicadoresAnalisis = (() => {
         <header class="header-modulo-indicadores">
           <div class="insignia-indicadores">
             <span class="punto-pulso"></span>
-            MÓDULO 05 · ANÁLISIS MULTIDIMENSIONAL &amp; DATA STORYTELLING
+            MÓDULO 05 · ANÁLISIS MULTIDIMENSIONAL Y NARRATIVAS TERRITORIALES
           </div>
-          <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial</h2>
+          <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial y Storyboards</h2>
           <p class="bajada-modulo-indicadores">
-            Estructura analítica integrada para la gestión territorial y comunitaria. Las <strong>${totalCapasAtlas} capas del Atlas VGI</strong> (122 oficiales del Estado de Chile y 10 colaborativas OSM/GBIF) organizadas en <strong>5 dimensiones estratégicas</strong> con acceso directo al mapa interactivo y descarga de datos abiertos.
+            Articulación de las <strong>${totalCapasAtlas} coberturas geoespaciales del Atlas VGI</strong> (122 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con láminas de síntesis empírica para la Comuna de Santiago y el Barrio Brasil.
           </p>
-          <div class="aviso-tentativo-banner">
-            <span class="icono-aviso">ℹ️</span>
-            <div class="texto-aviso">
-              <strong>Módulo Analítico y Catálogo Tentativo en Desarrollo:</strong> Esta estructuración multidimensional y los storyboards barriales constituyen propuestas exploratorias en desarrollo colaborativo para el Departamento de Geografía UAH (Geografía UAH), orientadas a contrastar narrativas territoriales con la base de datos abierta formal.
-            </div>
-          </div>
         </header>
 
         <!-- ===================================================================== -->
@@ -1716,7 +1710,7 @@ const ModuloIndicadoresAnalisis = (() => {
                          aria-label="Abrir historia: ${sb.titulo}"
                          onclick="ModuloIndicadoresAnalisis.abrirLaminaStoryboard('${sb.id}')">
                   <div class="imagen-cuadrada-wrapper">
-                    <img src="${sb.imagen}" alt="${sb.titulo}" loading="lazy" class="img-storyboard-cuadro">
+                    <img src="${sb.imagen}" alt="${sb.titulo}" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" class="img-storyboard-cuadro">
                     <div class="overlay-gradiente-storyboard"></div>
                     <button type="button" class="btn-zoom-miniatura" onclick="event.stopPropagation(); ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Ampliar imagen / cartografía en alta resolución">🔍</button>
                     <span class="badge-dimension-tag">${sb.dimensionNombre.split('&')[0]}</span>
@@ -2013,7 +2007,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- Imagen Destacada del Storyboard (Con dimensiones explícitas garantizadas y Clic para Ampliar) -->
         <figure class="figura-destacada-blog figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxImagenDeStoryboard('${sb.id}')" title="Haz clic para ampliar la ilustración en pantalla completa">
           <div class="contenedor-imagen-ampliable">
-            <img src="${imgDestacadaSrc}" alt="${sb.titulo}" width="800" height="360" style="width:100%; height:350px; min-height:280px; object-fit:cover; display:block; background:#0b1329;" class="img-destacada-blog">
+            <img src="${imgDestacadaSrc}" alt="${sb.titulo}" width="800" height="420" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" style="width:100%; height:auto; max-height:420px; min-height:220px; object-fit:contain; display:block; background:#0b1329;" class="img-destacada-blog">
             <div class="overlay-zoom-hover">
               <span class="badge-zoom-cta">🔍 Clic para ampliar en pantalla completa (Zoom HD)</span>
             </div>
@@ -2115,10 +2109,13 @@ const ModuloIndicadoresAnalisis = (() => {
             </div>
 
             ${sec.graficoInline ? `
-              <div class="contenedor-grafico-comparativo contenedor-grafico-inline">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="contenedor-grafico-comparativo contenedor-grafico-inline contenedor-figura-ampliable" onclick="ModuloIndicadoresAnalisis.abrirLightboxGraficoInline('${sb.id}', ${idxSec})" title="Haz clic para ampliar este gráfico en pantalla completa">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                   <h5 class="titulo-grafico-comparativo" style="margin:0;">📊 ${sec.graficoInline.titulo}</h5>
-                  <span class="badge-fuente-datos">EVIDENCIA CUANTITATIVA</span>
+                  <div style="display:flex; gap:8px; align-items:center;">
+                    <span class="badge-fuente-datos">EVIDENCIA CUANTITATIVA</span>
+                    <span class="btn-micro-zoom" title="Ampliar gráfico">🔍 Ampliar Gráfico</span>
+                  </div>
                 </div>
                 ${sec.graficoInline.filas.map(f => `
                   <div class="fila-grafico-barra">
@@ -2135,7 +2132,7 @@ const ModuloIndicadoresAnalisis = (() => {
             ${Array.isArray(sec.cartografias) && sec.cartografias.length > 0 ? `
               <div class="contenedor-cartografias-inline">
                 <div class="subcabecera-cartografias-inline">
-                  <span>🗺️ <strong>Evidencia Cartográfica del Hallazgo 0${idxSec + 1}:</strong> Haz clic sobre cualquier cartografía para inspeccionarla en pantalla completa con zoom HD (3264×2112 px).</span>
+                  <span>🗺️ <strong>Evidencia Cartográfica del Hallazgo 0${idxSec + 1}:</strong> Selecciona cualquier cartografía para examinarla en pantalla completa con zoom de alta resolución (2200×1423 px).</span>
                 </div>
                 <div class="grilla-cartografias-inline ${sec.cartografias.length === 1 ? 'grilla-carto-unica' : ''}">
                   ${sec.cartografias.map(c => `
@@ -2145,7 +2142,7 @@ const ModuloIndicadoresAnalisis = (() => {
                          onclick="ModuloIndicadoresAnalisis.abrirLightboxImagen('${c.src}', '${c.titulo.replace(/'/g, "\\'")}', '${(c.subtitulo || '').replace(/'/g, "\\'")}')"
                          title="Haz clic para ampliar en alta resolución: ${c.titulo}">
                       <div class="thumb-cartografia-wrapper">
-                        <img src="${c.src}" alt="${c.titulo}" loading="lazy" class="img-thumb-cartografia">
+                        <img src="${c.src}" alt="${c.titulo}" width="2200" height="1423" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" class="img-thumb-cartografia">
                         <span class="btn-micro-zoom-carto">🔍 Ampliar Cartografía HD</span>
                       </div>
                       <div class="meta-thumb-cartografia">
@@ -2363,7 +2360,7 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
 
           <footer class="lightbox-footer">
-            <span class="lightbox-ayuda-teclado">💡 <strong>[ESC]</strong> Cerrar · <strong>[Rueda Ratón]</strong> Zoom · <strong>[Arrastrar]</strong> Desplazar</span>
+            <span class="lightbox-ayuda-teclado">💡 <strong>[ESC]</strong> Cerrar · <strong>[Rueda / Pellizco]</strong> Zoom · <strong>[Arrastrar / Táctil]</strong> Desplazar</span>
             <span class="lightbox-escala-indicador" id="lightbox-escala-indicador">Escala: 100%</span>
           </footer>
         </div>
@@ -2394,9 +2391,12 @@ const ModuloIndicadoresAnalisis = (() => {
         }
       });
 
-      // Viewport Pan y Zoom
+      // Viewport Pan y Zoom (Ratón y Pantallas Táctiles Multi-Dispositivo)
       const viewport = overlay.querySelector('#lightbox-viewport');
       if (viewport) {
+        let initialPinchDist = null;
+        let initialPinchZoom = 1.0;
+
         viewport.addEventListener('mousedown', (e) => {
           if (e.target.closest && (e.target.closest('.lightbox-header') || e.target.closest('.lightbox-footer') || e.target.closest('button') || e.target.closest('a'))) return;
           lightboxState.isDragging = true;
@@ -2404,6 +2404,45 @@ const ModuloIndicadoresAnalisis = (() => {
           lightboxState.startY = e.clientY - lightboxState.panY;
           viewport.classList.add('is-dragging');
         });
+
+        viewport.addEventListener('touchstart', (e) => {
+          if (e.target.closest && (e.target.closest('.lightbox-header') || e.target.closest('.lightbox-footer') || e.target.closest('button') || e.target.closest('a'))) return;
+          if (e.touches.length === 1) {
+            lightboxState.isDragging = true;
+            lightboxState.startX = e.touches[0].clientX - lightboxState.panX;
+            lightboxState.startY = e.touches[0].clientY - lightboxState.panY;
+            initialPinchDist = null;
+          } else if (e.touches.length === 2) {
+            lightboxState.isDragging = false;
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            initialPinchDist = Math.hypot(dx, dy);
+            initialPinchZoom = lightboxState.zoom;
+          }
+        }, { passive: true });
+
+        viewport.addEventListener('touchmove', (e) => {
+          if (e.touches.length === 1 && lightboxState.isDragging) {
+            if (e.cancelable) e.preventDefault();
+            lightboxState.panX = e.touches[0].clientX - lightboxState.startX;
+            lightboxState.panY = e.touches[0].clientY - lightboxState.startY;
+            actualizarTransformCanvas();
+          } else if (e.touches.length === 2 && initialPinchDist) {
+            if (e.cancelable) e.preventDefault();
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const dist = Math.hypot(dx, dy);
+            const factor = dist / initialPinchDist;
+            const nuevoZoom = Math.max(lightboxState.minZoom, Math.min(lightboxState.maxZoom, initialPinchZoom * factor));
+            lightboxState.zoom = parseFloat(nuevoZoom.toFixed(2));
+            actualizarTransformCanvas();
+          }
+        }, { passive: false });
+
+        viewport.addEventListener('touchend', () => {
+          lightboxState.isDragging = false;
+          initialPinchDist = null;
+        }, { passive: true });
 
         if (typeof window !== 'undefined') {
           window.addEventListener('mousemove', (e) => {
@@ -2531,41 +2570,62 @@ const ModuloIndicadoresAnalisis = (() => {
   function abrirLightboxImagen(src, titulo, subtitulo) {
     const esSvg = typeof src === 'string' && src.toLowerCase().endsWith('.svg');
     const inlineDims = esSvg
-      ? 'width="800" height="800" style="width:min(760px, 86vw); height:min(760px, 76vh); object-fit:contain; display:block;"'
-      : 'style="max-width:90vw; max-height:76vh; width:auto; height:auto; display:block; object-fit:contain;"';
-    const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" ${inlineDims} draggable="false">`;
+      ? 'width="800" height="800" style="width:min(760px, 88vw); height:min(760px, 76vh); object-fit:contain; display:block;"'
+      : 'width="2200" height="1423" style="max-width:min(1400px, 92vw); max-height:78vh; width:auto; height:auto; display:block; object-fit:contain;"';
+    const onErrorFallback = `onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}"`;
+    const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" decoding="async" ${onErrorFallback} ${inlineDims} draggable="false">`;
     abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN HD', titulo, subtitulo || 'Visualización completa en alta resolución', src);
   }
 
   function abrirLightboxDiagrama(storyboardId) {
     const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
     if (!sb) return;
-    const svgContent = typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : '<p>Diagrama no disponible</p>';
-    abrirLightboxGenerico(svgContent, '📐 DIAGRAMA TÉCNICO VECTORIAL', `Diagrama: ${sb.titulo}`, 'Modelación conceptual vectorial en escala ampliada', null);
+    let svgContent = typeof sb.contenido.diagramaSVG === 'function' ? sb.contenido.diagramaSVG() : '<p>Diagrama no disponible</p>';
+    // Garantizar dimensiones explícitas y escalado vectorial responsivo en cualquier navegador y pantalla
+    svgContent = svgContent.replace(
+      /<svg\b([^>]*)>/i,
+      '<svg$1 style="width:min(1100px, 88vw); min-width:min(680px, 84vw); height:auto; max-height:74vh; display:block;">'
+    );
+    const html = `<div class="lightbox-svg-wrapper" style="width:min(1120px, 90vw); display:flex; align-items:center; justify-content:center;">${svgContent}</div>`;
+    abrirLightboxGenerico(html, '📐 DIAGRAMA TÉCNICO VECTORIAL', `Diagrama: ${sb.titulo}`, 'Síntesis esquemática vectorial en escala ampliada', null);
+  }
+
+  function renderizarGraficoParaLightbox(g) {
+    return `
+      <div class="lightbox-chart-content">
+        <h3 style="color:#ffffff; margin:0 0 14px 0; font-size:1.25rem; line-height:1.35;">📊 ${g.titulo}</h3>
+        <p style="color:#94a3b8; font-size:0.88rem; margin-bottom:22px;">Distribución cuantitativa y comparativa territorial para la Comuna de Santiago y el Barrio Brasil.</p>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          ${g.filas.map(f => `
+            <div class="lightbox-chart-row">
+              <span class="lightbox-chart-label">${f.label}</span>
+              <div class="lightbox-chart-track">
+                <div style="height:100%; width:${f.porcentaje}%; background:linear-gradient(90deg, #0284c7 0%, #38bdf8 100%); border-radius:6px;"></div>
+              </div>
+              <span class="lightbox-chart-value">${f.valor}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
   }
 
   function abrirLightboxGrafico(storyboardId) {
     const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
     if (!sb || !sb.contenido.graficoComparativo) return;
     const g = sb.contenido.graficoComparativo;
-    const html = `
-      <div class="lightbox-chart-content">
-        <h3 style="color:#ffffff; margin:0 0 16px 0; font-size:1.3rem;">📊 ${g.titulo}</h3>
-        <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:24px;">Análisis estadístico y distribución porcentual parametrizada para Barrio Brasil y la Comuna de Santiago.</p>
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          ${g.filas.map(f => `
-            <div style="display:grid; grid-template-columns: 260px 1fr 100px; align-items:center; gap:16px;">
-              <span style="color:#f1f5f9; font-weight:700; font-size:0.95rem;">${f.label}</span>
-              <div style="height:20px; background:rgba(0,0,0,0.5); border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
-                <div style="height:100%; width:${f.porcentaje}%; background:linear-gradient(90deg, #0284c7 0%, #38bdf8 100%); border-radius:6px;"></div>
-              </div>
-              <span style="color:#38bdf8; font-weight:800; font-family:var(--fuente-datos, monospace); font-size:1.05rem; text-align:right;">${f.valor}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    `;
-    abrirLightboxGenerico(html, '📈 GRÁFICO COMPARATIVO & BENCHMARK', `Benchmark: ${g.titulo}`, 'Distribución métrica y comparativa ampliada', null);
+    const html = renderizarGraficoParaLightbox(g);
+    abrirLightboxGenerico(html, '📈 GRÁFICO COMPARATIVO', `Comparativa: ${g.titulo}`, 'Distribución métrica y comparativa ampliada', null);
+  }
+
+  function abrirLightboxGraficoInline(storyboardId, secIdx) {
+    const sb = STORYBOARDS.find(s => s && s.id === storyboardId);
+    if (!sb || !Array.isArray(sb.contenido.seccionesAnaliticas)) return;
+    const sec = sb.contenido.seccionesAnaliticas[secIdx];
+    if (!sec || !sec.graficoInline) return;
+    const g = sec.graficoInline;
+    const html = renderizarGraficoParaLightbox(g);
+    abrirLightboxGenerico(html, '📊 EVIDENCIA CUANTITATIVA', g.titulo, sec.titulo || 'Distribución cuantitativa del hallazgo territorial', null);
   }
 
   function cerrarLightboxFigura() {
@@ -2674,6 +2734,7 @@ const ModuloIndicadoresAnalisis = (() => {
     abrirLightboxImagen,
     abrirLightboxDiagrama,
     abrirLightboxGrafico,
+    abrirLightboxGraficoInline,
     abrirLightboxGenerico,
     cerrarLightboxFigura,
     aplicarZoom,

@@ -194,6 +194,30 @@ CREATE TABLE IF NOT EXISTS public.auditoria_actualizaciones (
 
 ### 31.3 Funciones Remotas PL/pgSQL (Remote Procedure Calls - RPC)
 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Cliente as Visor Web / Script Analítico
+    participant API as PostgREST API (Supabase)
+    participant RPC as Función PL/pgSQL (fn_obtener_capa_bbox)
+    participant GiST as Índice Espacial R-Tree (GiST)
+    participant CDN as Fallback: Netlify Edge CDN (src/data/)
+
+    Cliente->>API: POST /rest/v1/rpc/fn_obtener_capa_bbox (capa_id, BBox)
+    alt Clúster PostGIS Activo (Latencia < 1200ms)
+        API->>RPC: Invoca función con parámetros geodésicos
+        RPC->>GiST: Filtro indexado geom && ST_MakeEnvelope(...)
+        GiST-->>RPC: Subconjunto de registros espaciales
+        RPC->>RPC: Ensambla FeatureCollection con ST_AsGeoJSON(geom)
+        RPC-->>API: Objeto JSONB homologado
+        API-->>Cliente: HTTP 200 OK (GeoJSON en Streaming)
+    else Latencia > 1200ms o Modo Estático
+        API--xCliente: Timeout / Conmutación automática
+        Cliente->>CDN: GET /data/{archivo}.geojson
+        CDN-->>Cliente: HTTP 200 OK (GeoJSON Estático WGS84)
+    end
+```
+
 Para permitir que el cliente web (Leaflet) o los scripts Python interactúen con la base de datos de manera atómica y segura mediante la API REST de Supabase (*PostgREST*), se diseñaron e implementaron tres funciones almacenadas en lenguaje `PL/pgSQL`.
 
 #### 1. Función `fn_obtener_capa_bbox`: Extracción Geoespacial por Bounding Box

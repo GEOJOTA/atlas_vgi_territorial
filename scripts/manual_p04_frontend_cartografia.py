@@ -32,6 +32,29 @@ El Atlas de Información Geográfica Voluntaria adopta una filosofía de ingenie
 ```
 
 ### 20.1. El Patrón Revealing Module Pattern (IIFE)
+
+```mermaid
+flowchart LR
+    subgraph IN_SPA["1. INPUT"]
+        HTML_DOM["src/index.html (DOM Semántico + 10 Secciones)"]
+        CONFIG_JSON["config/config.json (BBox, Endpoints, Metadatos)"]
+        ROLE_SEL["Selector de Perfil Territorial (#sel-perfil-usuario)"]
+    end
+
+    subgraph PROC_SPA["2. PIPELINE DE ORQUESTACIÓN CLIENT-SIDE"]
+        BUS_APP["Orquestador Central (src/js/app.js)"]
+        IIFE_ENCAP["Encapsulamiento Modular IIFE (Sin Contaminación Global)"]
+        HASH_ROUT["Enrutador Reactivo de Pestañas y Estado por Rol"]
+    end
+
+    subgraph OUT_SPA["3. OUTPUT"]
+        SPA_READY["Aplicación Web Zero-Build de Carga Instantánea"]
+        MEM_ISOL["Aislamiento de Estado entre los 10 Módulos"]
+    end
+
+    IN_SPA --> PROC_SPA --> OUT_SPA
+```
+
 Para evitar la contaminación del objeto global (`window`) y garantizar el encapsulamiento estricto de variables de estado privadas, cada módulo funcional se construye mediante una expresión de función inmediatamente invocada (*Immediately Invoked Function Expression* - IIFE):
 
 ```javascript
@@ -82,6 +105,28 @@ window.ModuloEjemploVGI = ModuloEjemploVGI;
 ---
 
 ## 21. Motor Cartográfico: Leaflet 1.9.4, Renderizado y Simbología Dinámica
+
+```mermaid
+flowchart LR
+    subgraph IN_LEAF["1. INPUT"]
+        CAPAS_132["132 Capas GeoJSON Homologadas (EPSG:4326)"]
+        TILES_XYZ["Mosaicos Base XYZ (OSM, Carto Positron/Dark, Esri)"]
+        STYLE_DEF["Diccionario de Estilos y Paletas Temáticas"]
+    end
+
+    subgraph PROC_LEAF["2. PIPELINE DE RENDERIZADO CARTOGRÁFICO"]
+        PROJ_3857["Proyección en Lienzo Web Mercator (EPSG:3857) y Cálculos UTM 19S"]
+        SVG_ICON["Generación Dinámica de Marcadores Vectoriales L.divIcon"]
+        BIND_POP["Vinculación de Popups Interactivos con los 14 Atributos ISO"]
+    end
+
+    subgraph OUT_LEAF["3. OUTPUT"]
+        MAP_CANVAS["Visor Multinivel Fluido en Escritorio, Tablet y Móvil"]
+        HUD_CTRL["Controles Flotantes de Capas, Escala y Coordenadas"]
+    end
+
+    IN_LEAF --> PROC_LEAF --> OUT_LEAF
+```
 
 El núcleo de visualización espacial se basa en **Leaflet versión 1.9.4**, una biblioteca ultraligera (~42 KB comprimida) que ofrece la mejor relación entre velocidad de renderizado, compatibilidad móvil y soporte de estándares web.
 
@@ -266,64 +311,95 @@ function generarFichaNormativaHTML(zonaPRC, coordenadas) {
 
 ---
 
-## 23. Los Siete Storyboards Cartográficos Barriales
+## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas HD
 
-El Atlas implementa una modalidad de divulgación territorial guiada denominada **Storyboards Cartográficos**. Cada storyboard es una secuencia analítica preconfigurada que sitúa al observador en un cuadrante específico, activa automáticamente las capas temáticas pertinentes, aplica filtros cromáticos y despliega una narrativa socio-espacial explicativa.
+El Atlas implementa en el Módulo 05 ([`src/js/modulos/indicadores_analisis.js`](file:///Users/geojplescano/Programas/Práctica%20profesional%202026%20S2/nodo-geoabierto/src/js/modulos/indicadores_analisis.js)) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards Cartográficos**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas de alta resolución (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.
+
+```mermaid
+flowchart LR
+    subgraph IN_SB["1. INPUT"]
+        CARTO_75["75 Cartografías Temáticas HD (img/cartografias/*.jpg)"]
+        PORTADAS_4["4 Portadas Vectoriales SVG (img/storyboards/*.svg)"]
+        DATA_132["132 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
+    end
+
+    subgraph PROC_SB["2. PIPELINE DE SÍNTESIS Y NARRATIVA ESPACIAL"]
+        INTER_SEC["Ensamblaje de Secciones Analíticas Intercaladas"]
+        SVG_DIAG["Renderizado de Diagramas de Flujo SVG Dimensionados (680x230)"]
+        INLINE_CH["Generación de Gráficos Estadísticos Comparativos Inline"]
+    end
+
+    subgraph OUT_SB["3. OUTPUT"]
+        MODAL_SB["Lámina Modal de Lectura Continua Multi-Dispositivo"]
+        LIGHTBOX_HD["Ampliación en Lightbox HD (Cartografías, Diagramas SVG y Gráficos)"]
+        MAP_TRIGGER["Activación Simultánea de Capas en el Visor Cartográfico"]
+    end
+
+    IN_SB --> PROC_SB --> OUT_SB
+```
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             MATRIZ DE LOS 7 STORYBOARDS CARTOGRÁFICOS BARRIALES        │
+│       MATRIZ DE LOS 4 STORYBOARDS Y 75 CARTOGRAFÍAS TEMÁTICAS HD       │
 ├────────────────────────────────────────────────────────────────────────┤
-│ • Storyboard 01: El Eje Fundacional y Plaza Brasil (Patrimonio y Ocio) │
-│ • Storyboard 02: La Red Invisible de Cités y Pasajes (Densidad Oculta) │
-│ • Storyboard 03: El Campus Central UAH y el Barrio Universitario      │
-│ • Storyboard 04: Ciclovías, Conectividad y Barreras PMR                │
-│ • Storyboard 05: Islas de Calor, Arbolado Urbano y Clima Local        │
-│ • Storyboard 06: Comercio de Barrio, Ferias Libres y Economía Local    │
-│ • Storyboard 07: Conflicto Normativo (PRC Santiago vs Zona Típica)     │
+│ • Storyboard 01: Concentración Espacial de Equipamientos (KDE) [14]    │
+│ • Storyboard 02: Autocorrelación Espacial Local (LISA Anselin) [22]    │
+│ • Storyboard 03: Diagnóstico Sociodemográfico Censo 2024 [21]          │
+│ • Storyboard 04: Dinámica Socioambiental, Movilidad y Residuos [18]    │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 23.1. Storyboard 01: El Eje Fundacional y Plaza Brasil
-- **Enfoque Espacial:** Plaza Brasil y entorno patrimonial inmediato (`[-33.4398, -70.6652]`, Zoom 17).
-- **Capas Activadas:** `cat03_patrimonio_material`, `cat04_espacios_publicos`, `cat06_comercio_local`.
-- **Narrativa Territorial:** Analiza la Plaza Brasil (inaugurada en 1900) como corazón verde y social del barrio, contrastando la arquitectura monumental de la Iglesia del Corazón de María con la vibrante oferta gastronómica y de ocio que floreció tras la declaratoria de Zona Típica en 1993.
+### 23.1. Storyboard 01: Análisis de Concentración Espacial de Equipamientos y Servicios (KDE)
+- **Cobertura Cartográfica:** **14 cartografías temáticas HD** (Mapas 01 al 14: Comercio y Abastecimiento, Cultura y Patrimonio, Educación, Espacio Público, Deporte, Salud, Seguridad, Transporte, Turismo, Servicios Públicos, Culto, Financiero, Síntesis KDE e Infraestructura Crítica).
+- **Capas Vectoriales Asociadas:** `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat03_transporte_vgi`, `cat06_patrimonio_vgi`, `establecimientos_salud`.
+- **Síntesis Analítica:** Evalúa la densidad por núcleo de Kernel ($\hat{f}_h(x)$) sobre 12 categorías de equipamiento urbano, identificando una estructura polinuclear concentrada en torno a Plaza Brasil, el eje Cumming y el corredor Alameda, junto con brechas de provisión relativa hacia el borde norte (San Pablo – Mapocho).
 
-### 23.2. Storyboard 02: La Red Invisible de Cités y Pasajes
-- **Enfoque Espacial:** Eje calle Maturana y Pasaje Lucrecia Valdés (`[-33.4412, -70.6675]`, Zoom 18).
-- **Capas Activadas:** `cat02_cites_vivienda`, `oficial_catastro_minvu_roles`, `cat10_seguridad_luminarias`.
-- **Narrativa Territorial:** Revela la estructura habitacional microscópica de los más de 80 cités de Barrio Brasil. Muestra cómo tras una fachada continua de un solo rol predial fiscal, coexisten decenas de viviendas en pasajes peatonales comunitarios, visibilizando la precariedad de redes eléctricas y vías de evacuación.
+### 23.2. Storyboard 02: Autocorrelación Espacial Local (LISA) e Índice de Moran Local ($I_i$)
+- **Cobertura Cartográfica:** **22 cartografías temáticas HD** (Mapas 01 al 22: clústeres bivariados y univariados Alto-Alto, Bajo-Bajo, Alto-Bajo y Bajo-Alto con significancia $p < 0.05$ en permutaciones de Monte Carlo).
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `cat01_educacion_vgi`, `cat02_salud_vgi`, `cat05_espacio_publico_vgi`, `minvu_patrimonio`.
+- **Síntesis Analítica:** Identifica agrupamientos estadísticamente significativos de alta dotación y consolidación patrimonial en el cuadrante central-sur de Barrio Brasil (*Hotspots Alto-Alto*), contrastados con regímenes de transición y menor densidad de servicios en manzanas periféricas (*Coldspots Bajo-Bajo* y valores atípicos espaciales).
 
-### 23.3. Storyboard 03: El Campus Central UAH y el Barrio Universitario
-- **Enfoque Espacial:** Manzana Cienfuegos, Erasmo Escala y Almirante Barroso (`[-33.4475, -70.6610]`, Zoom 17).
-- **Capas Activadas:** `cat09_educacion_uah`, `cat07_movilidad_ciclovias`, `cat06_comercio_local`.
-- **Narrativa Territorial:** Documenta el fenómeno de *estudiantización* impulsado por la Universidad Alberto Hurtado mediante el rescate y puesta en valor de más de 30 casonas patrimoniales. Analiza la demanda masiva de servicios estudiantiles, fotocopiadoras, librerías y alimentación económica.
+### 23.3. Storyboard 03: Diagnóstico Sociodemográfico, Habitabilidad e Inversión Pública (Censo 2024)
+- **Cobertura Cartográfica:** **21 cartografías temáticas HD** (Mapas 01 al 21: Población total por manzana, Densidad habitacional, Tipología de vivienda, Índice de masculinidad, Juventud, Envejecimiento, Inmigración internacional, Pueblos originarios, Hogares, Jefatura femenina, Tenencia, Materialidad, Déficit habitacional, RSH, IGVUST e Inversión BIP).
+- **Capas Vectoriales Asociadas:** `censo2024_manzanas`, `bbdd_19`, `bbdd_46`, `bbdd_64`, `bbdd_65`, `bbdd_68`, `minvu_ipt_prc_santiago`.
+- **Síntesis Analítica:** Caracteriza la coexistencia entre la edificación patrimonial de baja altura (casonas y cités históricos) y la densificación habitacional en altura sobre los bordes del polígono protegido, cruzando la estructura demográfica del Censo 2024 con la estratificación del Registro Social de Hogares (RSH) y la cartera de inversión pública BIP.
 
-### 23.4. Storyboard 04: Ciclovías, Conectividad y Barreras PMR
-- **Enfoque Espacial:** Intersección Av. Brasil con Alameda y Línea 1 de Metro (`[-33.4490, -70.6640]`, Zoom 16).
-- **Capas Activadas:** `cat07_movilidad_ciclovias`, `uoct_semaforos_santiago`, `barreras_pmr_veredas`.
-- **Narrativa Territorial:** Diagnóstico de la movilidad activa y peatonal. Expone las discontinuidades de la ciclovía de Av. Brasil al llegar a la Alameda y mapea el 42% de esquinas que carecen de rampas rebajadas para sillas de ruedas conforme a la OGUC.
-
-### 23.5. Storyboard 05: Islas de Calor, Arbolado Urbano y Clima Local
-- **Enfoque Espacial:** Comparativa cuadrante Rosas/San Pablo vs Plaza Brasil (`[-33.4365, -70.6660]`, Zoom 16).
-- **Capas Activadas:** `cat01_arbolado_urbano`, `temperatura_superficial_landsat`, `cat04_espacios_publicos`.
-- **Narrativa Territorial:** Mapeo de la copa arbórea urbana e islas de calor. Demuestra que en las calles secundarias sin arbolado la temperatura superficial supera en hasta +5.8 °C el microclima generado por los plátanos orientales y jacarandás de Plaza Brasil.
-
-### 23.6. Storyboard 06: Comercio de Barrio, Ferias Libres y Economía Local
-- **Enfoque Espacial:** Eje calle Huérfanos y ferias barriales (`[-33.4410, -70.6630]`, Zoom 17).
-- **Capas Activadas:** `cat06_comercio_local`, `ferias_libres_municipales`, `cat05_equipamiento_social`.
-- **Narrativa Territorial:** Cartografía de la economía barrial de subsistencia y servicios tradicionales. Visibiliza talleres mecánicos, panaderías centenarias, almacenes de abarrotes y ferias libres que resisten a la homogeneización del retail corporativo.
-
-### 23.7. Storyboard 07: Conflicto Normativo (PRC Santiago vs Zona Típica)
-- **Enfoque Espacial:** Límite poniente de Ricardo Cumming y San Pablo (`[-33.4355, -70.6705]`, Zoom 16).
-- **Capas Activadas:** `prc_zonificacion_santiago`, `cmn_zona_tipica_brasil`, `minvu_permisos_edificacion`.
-- **Narrativa Territorial:** Contraste espacial entre el área protegida por el Decreto N° 432 del Consejo de Monumentos Nacionales (altura fija y conservación) y el borde libre del Plan Regulador Comunal de Santiago, donde proliferan torres habitacionales de hasta 22 pisos.
+### 23.4. Storyboard 04: Dinámica Socioambiental, Movilidad Sostenible y Gestión Integral de Residuos
+- **Cobertura Cartográfica:** **18 cartografías temáticas HD** (Mapas 01 al 18: Arbolado urbano y biodiversidad, Cobertura vegetal, Islas de calor, Ciclovías y movilidad activa, Red de Metro y paraderos, Cruces semaforizados UOCT, Accesibilidad PMR, y las cartografías comunales y metropolitanas de gestión de residuos SUBDERE RSD 2024 y zonas operativas de aseo MuniSTGO 2026).
+- **Capas Vectoriales Asociadas:** `cat08_biodiversidad_vgi`, `cat05_espacio_publico_vgi`, `cat04_ciclovias_vgi`, `semaforos_rm_uoct_2026`, `munistgo_aseo_zonas_residuos_2026`, `subdere_rsd_analisis_costos_comuna_rm`, `subdere_rsd_ppc_generacion_pta_rm`.
+- **Síntesis Analítica:** Articula el diagnóstico ambiental y de metabolismo urbano del barrio, vinculando la distribución del dosel arbóreo y la infraestructura de movilidad sostenible con la operación territorial del servicio de recolección de residuos sólidos domiciliarios, la dotación de contenedores y papeleros municipales y la estructura de costos y disposición final en la Región Metropolitana.
 
 ---
 
-## 24. Visor Lightbox Pop-Up HD y Galería Multimedia
+## 24. Visor Lightbox Pop-Up HD Multi-Dispositivo y Galería Multimedia
 
-Para inspeccionar láminas cartográficas de ultra alta definición (4K a 300 DPI) y registros fotográficos patrimoniales sin pixelación, el sistema incorpora un visor modal interactivo con zoom suave por rueda de ratón y paneo bidireccional por arrastre (*drag*):
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Usuario as Usuario (Escritorio / Móvil / Tablet)
+    participant Lamina as Lámina Modal Storyboard
+    participant Lightbox as Motor Lightbox HD (indicadores_analisis.js)
+    participant Canvas as Contenedor #lightbox-canvas
+
+    alt Clic en Cartografía Temática JPG (2200x1423)
+        Usuario->>Lamina: Clic en tarjeta o miniatura cartográfica
+        Lamina->>Lightbox: abrirLightboxCartografia(src, titulo, subtitulo, rutaAlternativa)
+        Lightbox->>Canvas: Inyecta <img> con fallback automático (img/ <-> src/img/)
+    else Clic en Diagrama de Flujo SVG
+        Usuario->>Lamina: Clic en contenedor .storyboard-diagrama-box
+        Lamina->>Lightbox: abrirLightboxDiagrama(idStoryboard, idxSeccion)
+        Lightbox->>Canvas: Inyecta <svg viewBox="0 0 680 230"> con dimensiones explícitas (min 680px / 88vw)
+    else Clic en Gráfico Estadístico Inline
+        Usuario->>Lamina: Clic en bloque .storyboard-inline-chart
+        Lamina->>Lightbox: abrirLightboxGraficoInline(idStoryboard, idxSeccion)
+        Lightbox->>Canvas: Renderiza barras comparativas ampliadas de alto contraste
+    end
+    Canvas-->>Usuario: Visualización en pantalla completa (100dvh)
+    Usuario->>Canvas: Rueda de ratón / Pinch-to-Zoom (2 dedos) / Paneo táctil (1 dedo)
+    Canvas->>Lightbox: Actualiza matriz CSS translate3d(x, y, 0) scale(z) en tiempo real (0.5x a 5.0x)
+```
+
+Para inspeccionar las 75 láminas cartográficas de alta definición (`2200 × 1423 px`), los diagramas vectoriales SVG y los gráficos estadísticos sin pérdida de nitidez en cualquier pantalla (ordenadores de escritorio, tablets y teléfonos móviles), el sistema incorpora un motor modal interactivo con soporte dual de ratón y eventos táctiles (`touchstart`, `touchmove`, `touchend`):
 
 ```javascript
 // Implementación del Visor Lightbox HD en src/js/modulos/lightbox_hd.js
@@ -426,12 +502,12 @@ La barra de navegación superior organiza las capacidades del Atlas en 10 módul
 ---
 
 ### Módulo 01: Visor Cartográfico y Atlas VGI (`src/js/app.js` y `src/js/modulos/mapa.js`)
-* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 118 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas; búsqueda en vivo; inspector normativo del PRC; medición métrica de distancias y polígonos.
 
 ```mermaid
 flowchart LR
     subgraph IN_M1["1. INPUT"]
-        GEOJSON["118 Capas GeoJSON (data/*.geojson)"]
+        GEOJSON["132 Capas GeoJSON (data/*.geojson)"]
         TILES["Mosaicos Base (OSM, Carto, Esri)"]
         CLIC["Clic del Usuario en el Mapa"]
     end
@@ -646,26 +722,26 @@ flowchart LR
 
 ---
 
-### Módulo 09: Indicadores de Análisis y Storyboards (`src/js/modulos/storyboards.js`)
-* **Propósito Operativo:** 7 narrativas espaciales situadas y acceso al Visor Lightbox Pop-Up HD.
+### Módulo 05 / 09: Indicadores Territoriales y Storyboards (`src/js/modulos/indicadores_analisis.js`)
+* **Propósito Operativo:** 4 Storyboards analíticos (KDE, LISA, Censo 2024 y Socioambiental/Residuos), 75 cartografías temáticas HD y Visor Lightbox Multi-Dispositivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_M9["1. INPUT"]
-        STORY_ID["Selección de Storyboard Temático (01 al 07)"]
-        COORD_VIEW["Coordenadas de Enfoque y Zoom Predefinidos"]
-        CAPAS_REQ["Listado de Capas Requeridas por la Narrativa"]
+        STORY_ID["Selección de Storyboard Temático (01 al 04)"]
+        CARTO_SET["75 Cartografías HD + Diagramas SVG + Gráficos"]
+        CAPAS_REQ["Capas Vectoriales Asociadas por Dimensión (132 Capas)"]
     end
 
     subgraph PROC_M9["2. PIPELINE DE PROCESAMIENTO"]
-        FLY_TO["Transición Suave de Cámara (map.flyTo)"]
-        AUTO_LAYER["Activación/Desactivación Automática de Capas"]
-        PANEL_TEXT["Carga de Narrativa Socio-Espacial y Fotografía"]
+        MODAL_RENDER["Renderizado de Lámina Analítica con Secciones Intercaladas"]
+        AUTO_LAYER["Activación Automática de Capas en el Visor Principal"]
+        ZOOM_TOUCH["Motor Lightbox con Zoom Rueda y Pinch-to-Zoom Táctil"]
     end
 
     subgraph OUT_M9["3. OUTPUT"]
         SCENE_VIEW["Escenario Cartográfico Enfocado y Tematizado"]
-        LIGHTBOX["Visor Multimedia Pop-Up HD para Fotografías"]
+        LIGHTBOX["Inspección de Cartografías, Diagramas SVG y Gráficos en HD"]
     end
 
     IN_M9 --> PROC_M9 --> OUT_M9
