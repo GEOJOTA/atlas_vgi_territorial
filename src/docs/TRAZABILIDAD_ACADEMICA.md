@@ -2,7 +2,7 @@
 ### Atlas de Información Geográfica Voluntaria para la Gestión Territorial — Nodo GeoAbierto
 
 * **Plataforma Web en Producción (CDN Primario):** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
-* **Repositorio Espejo (GitHub Pages):** [https://geojplescano.github.io/atlas-vgi-barrio-brasil/](https://geojplescano.github.io/atlas-vgi-barrio-brasil/)
+* **Repositorio Espejo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
 * **Cobertura del Sistema:** **132 Capas Operativas** (`122` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** (`54` Oficiales + `86` Brechas VGI) · **5 Dimensiones Analíticas** · **4 Storyboards (75 Cartografías)** · **10 Módulos (`01` al `10`)**.
 
 ---

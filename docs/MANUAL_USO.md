@@ -1,7 +1,7 @@
 # Manual de Uso de la Plataforma Web — Atlas de Información Geográfica Voluntaria para la Gestión Territorial
 
 * **Plataforma Web Interactiva:** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
-* **Repositorio Espejo (GitHub Pages):** [https://geojplescano.github.io/atlas-vgi-barrio-brasil/](https://geojplescano.github.io/atlas-vgi-barrio-brasil/)
+* **Repositorio Espejo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
 * **Cobertura Espacial y Normativa:** **132 Capas Operativas** (`122` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** · **5 Dimensiones Analíticas** · **4 Storyboards Territoriales (75 Cartografías Temáticas)** · **10 Módulos Funcionales (`01` al `10`)**.
 
 ---

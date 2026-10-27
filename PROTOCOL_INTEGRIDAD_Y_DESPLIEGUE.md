@@ -1,7 +1,7 @@
 # Protocolo de Integridad de Datos, Verificación Automatizada y Despliegue a Producción — Atlas VGI
 
 * **Entorno de Producción Primaria (Netlify CDN):** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
-* **Entorno de Respaldo (GitHub Pages):** [https://geojplescano.github.io/atlas-vgi-barrio-brasil/](https://geojplescano.github.io/atlas-vgi-barrio-brasil/)
+* **Entorno de Respaldo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
 * **Parámetros Auditados:** **132 Capas Operativas** (`122` Oficiales + `10` VGI) · **140 Descriptores ISO 19110:2016** · **4 Storyboards (75 Cartografías)** · **21 Módulos JS ES6+** · **Paridad Simétrica `data/` ↔ `src/data/` y `docs/` ↔ `src/docs/`**.
 
 ---

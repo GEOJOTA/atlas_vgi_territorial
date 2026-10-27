@@ -9,7 +9,7 @@
 Infraestructura de datos espaciales web estática y autónoma orientada a integrar, evaluar y contrastar la cartografía oficial del Estado de Chile con la Información Geográfica Voluntaria (*Volunteered Geographic Information*, VGI; Goodchild, 2007; Haklay, 2010), aplicada al análisis multiescalar del **Barrio Brasil**, el entorno del **Campus Universidad Alberto Hurtado**, la **Comuna de Santiago** y la **Región Metropolitana de Santiago**.
 
 * **Plataforma Web en Producción (CDN Primario):** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
-* **Repositorio Espejo (GitHub Pages):** [https://geojplescano.github.io/atlas-vgi-barrio-brasil/](https://geojplescano.github.io/atlas-vgi-barrio-brasil/)
+* **Repositorio Espejo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
 * **Geodatabase Consolidada Descargable (`.zip`):** `docs/geodatabase_completa_atlas_vgi.zip` (`542,35 MB` comprimidos / `~3,33 GB` descomprimidos; `257` archivos distribuidos en `7` subcarpetas temáticas).
 
 ---

@@ -1,7 +1,7 @@
 # Arquitectura de Software, Pipelines de Datos y Catálogo Multi-Lenguaje — Atlas VGI
 
 * **Plataforma Web en Producción (CDN Primario):** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
-* **Repositorio Espejo (GitHub Pages):** [https://geojplescano.github.io/atlas-vgi-barrio-brasil/](https://geojplescano.github.io/atlas-vgi-barrio-brasil/)
+* **Repositorio Espejo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
 * **Alcance Arquitectónico:** **132 Capas Operativas** (`122` Oficiales + `10` VGI) · **140 Descriptores ISO 19110:2016** · **5 Dimensiones Analíticas** · **4 Storyboards (75 Cartografías)** · **10 Módulos (`01` al `10`)** · **21 Módulos JS ES6+ (IIFE)** · **25 Scripts Python 3** · **Esquema Relacional PostGIS**.
 
 ---
