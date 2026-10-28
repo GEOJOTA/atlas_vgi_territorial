@@ -139,7 +139,7 @@ const ModuloIndicadoresAnalisis = (() => {
   "bbdd_73": "Personas mayores en RSH adscritos a Fonasa o Isapre según CSE y tipo de institución - 2026 Junio",
   "bbdd_74": "Personas en RSH ocupadas y cotizando, por modalidad contractual según tramo CSE - 2026 Junio",
   "semaforos_rm_uoct_2026": "Cruces Semaforizados Conectados SC-RM (UOCT / MTT)",
-  "catastro_predial_sii": "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)",
+  "catastro_predial_sii": "Catastro Predial del Servicio de Impuestos Internos (Segundo Semestre 2025)",
 "subdere_rsd_analisis_costos_comuna_rm": "SUBDERE RSD 2024 - Costos Comunales de Aseo (RM)",
   "subdere_rsd_poblacion_atendida_pta_puntos_rm": "SUBDERE RSD 2024 - Población Total Atendida PTA (Centroides RM)",
   "subdere_rsd_poblacion_comunal_pta_poligonos_rm": "SUBDERE RSD 2024 - Población Total Atendida PTA (Polígonos RM)",

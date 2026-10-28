@@ -2659,7 +2659,7 @@
     },
     {
       "id": "catastro_predial_sii",
-      "nombre": "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)",
+      "nombre": "Catastro Predial del Servicio de Impuestos Internos (Segundo Semestre 2025)",
       "tipo_fuente": "Oficial (Estado de Chile)",
       "grupo": "normativa_ipt",
       "institucion": "Servicio de Impuestos Internos (SII)",
@@ -2670,8 +2670,8 @@
       "tamano_mb_local": 75.704,
       "tamano_mb_rm": 0.0,
       "url_servicio": "https://www.sii.cl",
-      "licencia": "Información pública del Catastro de Bienes Raíces del Servicio de Impuestos Inte...",
-      "cita_apa": "Servicio de Impuestos Internos [SII]. (2026). Catastro Predial de Bienes Raíces. Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl",
+      "licencia": "Información pública oficial del Catastro de Bienes Raíces del Servicio de Impuestos Internos (SII) amparada por la Ley N° 20.285 de Transparencia de la Función Pública.",
+      "cita_apa": "Servicio de Impuestos Internos [SII]. (2025). Catastro de Bienes Raíces (Segundo Semestre 2025). Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl",
       "score_cuant": 95.5,
       "score_cual": 97.3,
       "score_topo": 95.0,
@@ -2724,7 +2724,10 @@
         "contrib_ai": 4.5
       },
       "calidad_rank": 30,
-      "prioridad_rank": 30
+      "prioridad_rank": 30,
+      "temporalidad": "Segundo Semestre 2025",
+      "declaracion": "Catastro Oficial de Bienes Raíces del Servicio de Impuestos Internos (SII) correspondiente al Segundo Semestre de 2025.",
+      "descripcion": "Catastro Oficial de Bienes Raíces del Servicio de Impuestos Internos (SII), correspondiente al Segundo Semestre de 2025. Cobertura de predios urbanos geocodificados con ROL (Comuna-Manzana-Predio), dirección predial, avalúo fiscal y superficies de terreno y construidas."
     },
     {
       "id": "munistgo_aseo_zonas_residuos_2026",

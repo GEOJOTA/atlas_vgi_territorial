@@ -1884,7 +1884,7 @@ const ModuloIDEChile = (() => {
     'catastro_predial_sii': {
       id: 'catastro_predial_sii',
       num_bbdd: 'SII-01',
-      nombre: "Catastro Predial del Servicio de Impuestos Internos (SII Geocodificado v4 2026)",
+      nombre: "Catastro Predial del Servicio de Impuestos Internos (Segundo Semestre 2025)",
       institucion: "Servicio de Impuestos Internos (SII)",
       ministerio: 'Ministerio de Hacienda',
       tipoServicio: 'Vectorial GeoPackage / GeoJSON WGS84 / Cobertura Región Metropolitana & Nacional',
@@ -1893,12 +1893,13 @@ const ModuloIDEChile = (() => {
       archivoNacional: 'data/Catastro_SII_Geocodificado_v4_Pais.gpkg',
       color: '#D97706',
       icono: '🏛️',
-      geometria: 'Puntos (Predios Geocodificados v4)',
+      geometria: 'Puntos (Predios Geocodificados)',
       grupo: 'normativa_ipt',
       joinInfo: "ROL SII (Comuna - Manzana - Predio)",
-      descripcion: "Catastro de bienes raíces del Servicio de Impuestos Internos (SII) 2025. ℹ️ ALERTA DE COBERTURA: La base de datos íntegra contiene la totalidad de los predios geocodificados para todo Chile (1.380.649 propiedades en GeoPackage nacional), pero por motivos de rendimiento y peso del archivo en la interfaz web, en el visor interactivo del Atlas solo se despliegan los predios correspondientes a la Región Metropolitana (264.195 predios). ⚠️ Nota Metodológica: El resultado proviene de un procedimiento automatizado de geocodificación y está sujeto a margen de error (según el nivel de precisión: ROL MATCH, EXACT, FUZZY 85%, MANZANA/ENTIDAD) y/o posibles omisiones o vacíos en el catastro de origen.",
-      declaracion: 'Información pública del Catastro de Bienes Raíces del Servicio de Impuestos Internos (SII) amparada por la Ley N° 20.285 de Transparencia de la Función Pública. Los datos de visualización web corresponden a la Región Metropolitana por peso de archivo, encontrándose disponible el catálogo íntegro para todo Chile en el repositorio. Los datos provienen de un proceso automatizado de geocodificación y pueden presentar inconsistencias o vacíos.',
-      citaAPA: "Servicio de Impuestos Internos [SII]. (2026). Catastro Predial de Bienes Raíces. Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl"
+      temporalidad: "Segundo Semestre 2025",
+      descripcion: "Catastro Oficial de Bienes Raíces del Servicio de Impuestos Internos (SII), correspondiente al Segundo Semestre de 2025. Cobertura de predios urbanos geocodificados con ROL (Comuna-Manzana-Predio), dirección predial, avalúo fiscal y superficies de terreno y construidas. ℹ️ ALERTA DE COBERTURA: La base de datos íntegra contiene la totalidad de los predios geocodificados para todo Chile (1.380.649 propiedades en GeoPackage nacional), pero por motivos de rendimiento y peso del archivo en la interfaz web, en el visor interactivo del Atlas solo se despliegan los predios correspondientes a la Región Metropolitana (264.195 predios).",
+      declaracion: 'Información pública oficial del Catastro de Bienes Raíces del Servicio de Impuestos Internos (SII) correspondiente al Segundo Semestre de 2025, amparada por la Ley N° 20.285 de Transparencia de la Función Pública.',
+      citaAPA: "Servicio de Impuestos Internos [SII]. (2025). Catastro de Bienes Raíces (Segundo Semestre 2025). Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl"
     }
   ,
 // =========================================================================
@@ -2495,7 +2496,8 @@ const ModuloIDEChile = (() => {
           'Superficie Terreno (m²)': props.sup_terreno_m2 ? `${Number(props.sup_terreno_m2).toLocaleString('es-CL')} m²` : '-',
           'Superficie Construida (m²)': props.sup_construida_m2 ? `${Number(props.sup_construida_m2).toLocaleString('es-CL')} m²` : '-',
           'Nivel Geocodificación': nivelGeo,
-          'Fuente de Origen': 'Servicio de Impuestos Internos (SII)',
+          'Temporalidad': 'Segundo Semestre 2025',
+          'Fuente de Origen': 'Servicio de Impuestos Internos (SII) — Catastro Oficial (Segundo Semestre 2025)',
           'Alerta Cobertura Web': 'Visualización activa para Región Metropolitana por peso de archivo. Datos nacionales completos (1.380.649 predios todo Chile) disponibles en el repositorio.',
           'Nota / Calidad': 'Geocodificación automatizada sujeta a margen de error (según nivel) y/o vacíos de origen.'
         };

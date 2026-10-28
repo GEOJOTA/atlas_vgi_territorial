@@ -280,14 +280,31 @@ const ModuloMetadatos = (() => {
     }
 
     const id = idCapa || fallbackInfo.id || 'vgi_territorial';
-    const titulo = cat.nombre || (defOficial ? defOficial.nombre : null) || fallbackInfo.nombre || fallbackInfo.titulo || 'Capa Territorial Atlas VGI';
-    const institucion = cat.institucion || (defOficial ? defOficial.institucion : null) || fallbackInfo.institucion || 'Comunidad OpenStreetMap / IDE Chile';
-    const ministerio = cat.ministerio || (defOficial ? defOficial.ministerio : null) || fallbackInfo.ministerio || 'Sector Público / Sociedad Civil';
-    const grupo = cat.grupo || (defOficial ? defOficial.grupo : null) || fallbackInfo.grupo || 'general';
-    const tipoFuente = cat.tipo_fuente || fallbackInfo.tipo_fuente || (id.startsWith('bbdd_') || id.startsWith('ide_') ? 'Oficial (Estado de Chile)' : 'VGI (Comunitaria / Abierta)');
-    const temporalidad = cat.temporalidad || fallbackInfo.temporalidad || '2026';
-    const licencia = cat.licencia || (defOficial ? defOficial.declaracion : null) || fallbackInfo.licencia || 'Open Database License (ODbL) 1.0 / Ley N° 20.285';
-    const citaApa = cat.cita_apa || (defOficial ? defOficial.citaAPA : null) || fallbackInfo.cita_apa || fallbackInfo.citaAPA || `Atlas VGI UAH. (2026). ${titulo}. Universidad Alberto Hurtado.`;
+    const idLower = id.toLowerCase();
+    const esSII = idLower.includes('sii') || idLower.includes('predial');
+    const esOficial = Boolean(
+      esSII ||
+      defOficial !== null ||
+      idLower.startsWith('bbdd_') ||
+      idLower.startsWith('ide_') ||
+      idLower.startsWith('oficial_') ||
+      idLower.includes('censo') ||
+      idLower.includes('rsh') ||
+      idLower.includes('bip') ||
+      idLower.includes('igvust') ||
+      idLower.includes('semaforos') ||
+      idLower.includes('subdere') ||
+      idLower.includes('munistgo')
+    );
+
+    const titulo = cat.nombre || (defOficial ? defOficial.nombre : null) || (esSII ? 'Catastro Predial del Servicio de Impuestos Internos (Segundo Semestre 2025)' : null) || fallbackInfo.nombre || fallbackInfo.titulo || 'Capa Territorial Atlas VGI';
+    const institucion = cat.institucion || (defOficial ? defOficial.institucion : null) || (esSII ? 'Servicio de Impuestos Internos (SII)' : null) || fallbackInfo.institucion || 'Comunidad OpenStreetMap / IDE Chile';
+    const ministerio = cat.ministerio || (defOficial ? defOficial.ministerio : null) || (esSII ? 'Ministerio de Hacienda' : null) || fallbackInfo.ministerio || 'Sector Público / Sociedad Civil';
+    const grupo = cat.grupo || (defOficial ? defOficial.grupo : null) || (esSII ? 'normativa_ipt' : null) || fallbackInfo.grupo || 'general';
+    const tipoFuente = cat.tipo_fuente || fallbackInfo.tipo_fuente || (esOficial ? 'Oficial (Estado de Chile)' : 'VGI (Comunitaria / Abierta)');
+    const temporalidad = cat.temporalidad || (defOficial ? defOficial.temporalidad : null) || (esSII ? 'Segundo Semestre 2025' : null) || fallbackInfo.temporalidad || '2026';
+    const licencia = cat.licencia || (defOficial ? defOficial.declaracion : null) || (esSII ? 'Información pública oficial — Ley N° 20.285 de Transparencia (Servicio de Impuestos Internos)' : null) || fallbackInfo.licencia || 'Open Database License (ODbL) 1.0 / Ley N° 20.285';
+    const citaApa = cat.cita_apa || (defOficial ? defOficial.citaAPA : null) || (esSII ? 'Servicio de Impuestos Internos [SII]. (2025). Catastro de Bienes Raíces (Segundo Semestre 2025). Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl' : null) || fallbackInfo.cita_apa || fallbackInfo.citaAPA || `Atlas VGI UAH. (2026). ${titulo}. Universidad Alberto Hurtado.`;
     const crs = 'EPSG:4326 (WGS 84)';
     const igv = typeof cat.igv === 'number' ? cat.igv : (fallbackInfo.igv ? Number(fallbackInfo.igv) : 98.5);
     const grado = cat.grado || fallbackInfo.grado || (igv >= 95.0 ? 'A+ (Excelente)' : 'A (Muy Bueno)');

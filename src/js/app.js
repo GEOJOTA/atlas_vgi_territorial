@@ -2562,6 +2562,7 @@ function obtenerSiglaInstitucion(inst) {
   if (u.includes('METRO')) return 'METRO';
   if (u.includes('DIFROL')) return 'DIFROL';
   if (u.includes('SUBDERE')) return 'SUBDERE';
+  if (u.includes('SII')) return 'SII';
   return inst.split('/')[0].split('(')[0].trim().slice(0, 10);
 }
 

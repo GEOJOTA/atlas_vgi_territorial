@@ -280,35 +280,45 @@ const ModuloMapa = (() => {
       },
       onEachFeature: (feature, layer) => {
         const props = feature.properties || {};
+        const idCapaStrItem = (idCapa || '').toString().toLowerCase();
         const esGbifItem = Boolean(
-          (idCapa && idCapa.toString().toLowerCase().includes('gbif')) ||
+          idCapaStrItem.includes('gbif') ||
           (props.fuente && props.fuente.toString().toLowerCase().includes('gbif')) ||
           (props._fuente && props._fuente.toString().toLowerCase().includes('gbif')) ||
           props.datasetKey || props.taxonKey || props.scientificName || props.gbifID
         );
+        const esOficial = !esGbifItem && !!(
+          props._idOficial ||
+          (window.ModuloIDEChile?.obtenerDefinicion && Boolean(window.ModuloIDEChile.obtenerDefinicion(idCapa))) ||
+          (idCapa && (
+            idCapaStrItem.startsWith('bbdd_') ||
+            idCapaStrItem.startsWith('ide_') ||
+            idCapaStrItem.startsWith('oficial_') ||
+            idCapaStrItem.includes('sii') ||
+            idCapaStrItem.includes('predial') ||
+            idCapaStrItem.includes('censo') ||
+            idCapaStrItem.includes('rsh') ||
+            idCapaStrItem.includes('bip') ||
+            idCapaStrItem.includes('igvust') ||
+            idCapaStrItem.includes('semaforos') ||
+            idCapaStrItem.includes('subdere') ||
+            idCapaStrItem.includes('munistgo') ||
+            idCapaStrItem.includes('mop')
+          ))
+        );
         const esOsmItem = Boolean(
-          !esGbifItem && (
-            (idCapa && (idCapa.toString().toLowerCase().includes('osm') || idCapa.toString().startsWith('cat-') || idCapa.toString().startsWith('capa_osm'))) ||
+          !esGbifItem && !esOficial && (
+            idCapaStrItem.includes('osm') || idCapaStrItem.startsWith('cat-') || idCapaStrItem.startsWith('capa_osm') ||
             (props.fuente && props.fuente.toString().toLowerCase().includes('osm')) ||
             (props._fuente && props._fuente.toString().toLowerCase().includes('osm')) ||
-            props.osm_id || props.osm_type || props.id_vgi
+            props.osm_id || props.osm_type
           )
         );
-        const esOficial = !esGbifItem && !esOsmItem && !!(props._idOficial || (idCapa && (
-          idCapa.toString().startsWith('bbdd_') ||
-          idCapa.toString().startsWith('ide_') ||
-          idCapa.toString().startsWith('oficial_') ||
-          idCapa.toString().toLowerCase().includes('censo') ||
-          idCapa.toString().toLowerCase().includes('rsh') ||
-          idCapa.toString().toLowerCase().includes('bip') ||
-          idCapa.toString().toLowerCase().includes('igvust') ||
-          idCapa.toString().toLowerCase().includes('semaforos') ||
-          idCapa.toString().toLowerCase().includes('mop')
-        )));
         const nombre = props._nombre || props.nombre || props.name || props.especie || 'Sin denominación';
         let fuente = props._fuente || props.fuente || opciones.fuente;
         if (!fuente) {
-          if (esOficial) fuente = 'Estado de Chile / IDE Chile';
+          if (idCapaStrItem.includes('sii') || idCapaStrItem.includes('predial')) fuente = 'Servicio de Impuestos Internos (SII)';
+          else if (esOficial) fuente = 'Estado de Chile / IDE Chile';
           else if (esGbifItem) fuente = 'GBIF / Ciencia Ciudadana';
           else fuente = 'OpenStreetMap (API Overpass)';
         }
@@ -319,7 +329,7 @@ const ModuloMapa = (() => {
           else if (fuente && fuente.includes('Geofabrik')) licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap / Geofabrik GmbH)';
           else licencia = 'ODbL 1.0 (© colaboradores de OpenStreetMap)';
         }
-        const fecha = props.fecha || props.fecha_registro || (esOficial ? 'Oficial 2024' : 'No indicada');
+        const fecha = props.fecha || props.fecha_registro || (idCapaStrItem.includes('sii') ? 'Segundo Semestre 2025' : (esOficial ? 'Oficial 2024' : 'No indicada'));
         const subtipo = props._subtipo || props.subtipo || props.fclass || props.amenity || props.shop || props.highway || props.building || props.leisure || props.historic || props.natural || props.landuse || props.railway || props.rubro || (props._idOficial ? 'Oficial' : (esGbifItem ? 'Observación de Biodiversidad' : 'Entidad Cartográfica'));
 
         let filasExtraInfo = '';
@@ -800,6 +810,19 @@ const ModuloMapa = (() => {
     tamano_mb: 1.51,
     licencia: 'Información Pública Oficial — Ley N° 20.285 de Transparencia (Solicitud AN001T0026930)'
   };
+  META_CAPAS_BIDAT['catastro_predial_sii'] = {
+    fuente: 'Servicio de Impuestos Internos (SII) — Catastro Predial Oficial',
+    ministerio: 'Ministerio de Hacienda',
+    tipo_fuente: 'Oficial (Estado de Chile)',
+    descripcion: 'Catastro Oficial de Bienes Raíces del Servicio de Impuestos Internos (SII), correspondiente al Segundo Semestre de 2025. Cobertura de predios urbanos geocodificados con ROL (Comuna-Manzana-Predio), dirección predial, avalúo fiscal y superficies.',
+    archivo_geojson: 'capa_catastro_predial_sii.geojson',
+    columnas_totales: 8,
+    tamano_mb: 75.7,
+    temporalidad: 'Segundo Semestre 2025',
+    licencia: 'Información Pública Oficial — Ley N° 20.285 de Transparencia (Servicio de Impuestos Internos)',
+    citaAPA: 'Servicio de Impuestos Internos [SII]. (2025). Catastro de Bienes Raíces (Segundo Semestre 2025). Ministerio de Hacienda, Gobierno de Chile. https://www.sii.cl'
+  };
+  META_CAPAS_BIDAT['capa_catastro_predial_sii'] = META_CAPAS_BIDAT['catastro_predial_sii'];
   META_CAPAS_BIDAT['bbdd_46'] = {
     fuente: 'SII / IDE Chile — Catastro Predial Oficial',
     descripcion: 'Catastro Oficial de Predios de la Comuna de Santiago (35.036 roles prediales). Cobertura comunal completa sin recortes ni simplificaciones.',
@@ -881,34 +904,36 @@ const ModuloMapa = (() => {
       props.datasetKey || props.taxonKey || props.scientificName || props.gbifID
     );
 
+    const idOficial = props._idOficial || opciones?.id || idCapa;
+    const defOficial = window.ModuloIDEChile?.obtenerDefinicion ? window.ModuloIDEChile.obtenerDefinicion(idOficial) : (window.ModuloIDEChile?.CAPAS_OFICIALES?.[idOficial] || null);
+
+    const esCapaOficial = Boolean(
+      defOficial !== null ||
+      props._idOficial ||
+      idCapaStr.startsWith('bbdd_') ||
+      idCapaStr.startsWith('ide_') ||
+      idCapaStr.startsWith('oficial_') ||
+      idCapaStr.includes('sii') ||
+      idCapaStr.includes('predial') ||
+      idCapaStr.includes('censo') ||
+      idCapaStr.includes('rsh') ||
+      idCapaStr.includes('bip') ||
+      idCapaStr.includes('igvust') ||
+      idCapaStr.includes('semaforos') ||
+      idCapaStr.includes('subdere') ||
+      idCapaStr.includes('munistgo') ||
+      idCapaStr.includes('mop')
+    );
+
     const esOSM = Boolean(
-      !esGBIF && (
+      !esGBIF && !esCapaOficial && (
         fuenteProps.includes('openstreetmap') ||
         fuenteProps.includes('osm') ||
         licProps.includes('odbl') ||
         idCapaStr.includes('osm') ||
         idCapaStr.startsWith('cat-') ||
         idCapaStr.startsWith('capa_osm') ||
-        Boolean(props.osm_id || props.osm_type || props.id_vgi)
-      )
-    );
-
-    const idOficial = props._idOficial || opciones?.id || idCapa;
-    const defOficial = window.ModuloIDEChile?.obtenerDefinicion ? window.ModuloIDEChile.obtenerDefinicion(idOficial) : (window.ModuloIDEChile?.CAPAS_OFICIALES?.[idOficial] || null);
-
-    const esCapaOficial = Boolean(
-      !esGBIF && !esOSM && (
-        defOficial !== null ||
-        props._idOficial ||
-        idCapaStr.startsWith('bbdd_') ||
-        idCapaStr.startsWith('ide_') ||
-        idCapaStr.startsWith('oficial_') ||
-        idCapaStr.includes('censo') ||
-        idCapaStr.includes('rsh') ||
-        idCapaStr.includes('bip') ||
-        idCapaStr.includes('igvust') ||
-        idCapaStr.includes('semaforos') ||
-        idCapaStr.includes('mop')
+        Boolean(props.osm_id || props.osm_type)
       )
     );
 
