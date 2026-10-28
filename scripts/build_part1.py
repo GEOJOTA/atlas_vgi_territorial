@@ -80,13 +80,13 @@ flowchart LR
     subgraph PROC1["2. Procedimientos Específicos"]
         P1_1["1. Auditoría de Plataformas VGI\n(OSM, GBIF, IDE Chile)"]
         P1_2["2. Estructuración Taxonómica\n10 Macrocategorías VGI"]
-        P1_3["3. Modelamiento DCU (ISO 9241-210)\nde 4 Perfiles de Actores"]
+        P1_3["3. Diseño Centrado en el Usuario\nde 4 Perfiles de Actores"]
     end
 
     subgraph PROD1["3. Productos Resultantes Específicos"]
         PR1_1["Catálogo de Fuentes VGI\n& Matriz de Brechas"]
         PR1_2["Taxonomía de 10 Macrocategorías\n(CAT-01 a CAT-10)"]
-        PR1_3["Matriz Conceptual de 4 Perfiles\nTerritoriales para la SPA"]
+        PR1_3["Matriz Conceptual de 4 Perfiles\npara la Plataforma Web"]
     end
 
     subgraph LOC1["4. Localización / Fuente Oficial"]
@@ -182,15 +182,15 @@ flowchart LR
     end
 
     subgraph PROC3["2. Procedimientos Específicos"]
-        P3_1["1. Programación Frontend SPA IIFE\n(HTML5, CSS3 AAA, Vanilla JS)"]
+        P3_1["1. Desarrollo de Interfaz Web\nModular y Accesible"]
         P3_2["2. Integración Motor Cartográfico\nLeaflet 1.9.4 & Marcadores SVG"]
-        P3_3["3. Algoritmo Ray-Casting\nInspector Normativo PRC Santiago"]
+        P3_3["3. Algoritmos de Intersección Espacial\ny Evaluación Normativa Comunal"]
         P3_4["4. Conexión Clientes API en Vivo\n(Overpass QL, ohsome v2, GBIF)"]
-        P3_5["5. Automatización CI/CD Git\n& Despliegue Netlify Edge CDN"]
+        P3_5["5. Automatización de Despliegue\ny Publicación Continua en la Nube"]
     end
 
     subgraph PROD3["3. Productos Resultantes Específicos"]
-        PR3_1["Plataforma Web Zero-Build\n10 Módulos Operativos"]
+        PR3_1["Plataforma Web Interactiva\n10 Módulos Operativos"]
         PR3_2["Visor Cartográfico Multinivel con\nSelector de Mapas Base y Filtros"]
         PR3_3["Certificado de Informaciones\nNormativas Digital (CIN-VGI)"]
         PR3_4["Módulos Dinámicos de Consulta,\nCalidad Temporal y Biodiversidad"]
@@ -239,7 +239,7 @@ flowchart LR
     end
 
     subgraph PROC4["2. Procedimientos Específicos"]
-        P4_1["1. Pruebas Guiadas de Usabilidad\n(Estándar ISO 9241-11 & Escala SUS)"]
+        P4_1["1. Proceso de Validación con Usuarios\ny Actores Territoriales"]
         P4_2["2. Redacción Manual de Uso Web\npara los 4 Perfiles de Actores"]
         P4_3["3. Elaboración Manual Técnico de\nActualización Reproducible (>5000L)"]
         P4_4["4. Empaquetado & Compresión BBDD\n(GeoJSON, GPKG, XLSX en ZIP)"]
@@ -295,7 +295,7 @@ flowchart TD
     end
 
     subgraph FASE4["FASE IV: Validación & Transferibilidad (Sem 10–11 · 36h)"]
-        H9["Hito 9: Pruebas de Usabilidad ISO 9241-11"] --> H10["Hito 10: Manual Maestro, ZIP 543MB & Transferibilidad Técnica"]
+        H9["Hito 9: Validación con Usuarios Territoriales"] --> H10["Hito 10: Manual Maestro, ZIP 543MB & Transferibilidad Técnica"]
     end
 
     FASE1 --> FASE2
@@ -320,7 +320,7 @@ flowchart TD
 
 ## Los Cuatro Perfiles de Actores Territoriales (Alineación con Plataforma Web en Vivo)
 
-En estricta coherencia con la interfaz web desplegada en producción (`https://atlasvgiuah.netlify.app/`) y el selector dinámico `#sel-perfil-usuario` configurado en `src/index.html` y `src/js/app.js`, el Atlas estructura sus herramientas y accesos en torno a **cuatro perfiles de actores territoriales** formulados bajo el enfoque de Diseño Centrado en el Usuario (*User-Centered Design*, ISO 9241-210):
+En estricta coherencia con la interfaz web desplegada en producción (`https://atlasvgiuah.netlify.app/`) y el selector dinámico `#sel-perfil-usuario` configurado en `src/index.html` y `src/js/app.js`, el Atlas estructura sus herramientas y accesos en torno a **cuatro perfiles de actores territoriales** formulados bajo el enfoque de diseño centrado en el usuario:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -343,7 +343,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
   - Consulta y verificación espacial de las 192 zonas normativas del Plan Regulador Comunal de Santiago (PRC) mediante el **Inspector Normativo Territorial**, obteniendo usos de suelo permitidos (UPERM), usos prohibidos (UPROH), alturas máximas y coeficientes de constructibilidad.
   - Cruce de iniciativas de inversión pública del Banco Integrado de Proyectos (BIP / MDSF) con la cobertura censal del INE Censo 2024 a nivel de Manzana y Zona Censal.
   - Auditoría de metadatos conforme al Perfil Nacional de Metadatos de Chile (Decreto N° 28 de Bienes Nacionales) y descarga de archivos XML estructurados bajo norma ISO 19139:2007.
-* **Paneles y Módulos Prioritarios en la SPA:**
+* **Paneles y Módulos Prioritarios en la Plataforma Web:**
   1. `metadatos-iso`: Generador y visualizador de metadatos estandarizados ISO 19115 / ISO 19139.
   2. `inicio` (Módulo 00): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 108 capas oficiales.
   3. `diccionario`: Homologación de descriptores territoriales entre la OGUC, el PRC y la cartografía.
@@ -360,7 +360,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
   - Reconocimiento y visibilización de la microred habitacional de cités y pasajes peatonales no detallados en los catastros prediales del Estado.
   - Detección de barreras de accesibilidad universal: esquinas sin rebajes peatonales normativos (rampas PMR) y pavimentos deteriorados.
   - Integración con proyectos cartográficos comunitarios mediante la plataforma uMap para el mapeo colaborativo barrial.
-* **Paneles y Módulos Prioritarios en la SPA:**
+* **Paneles y Módulos Prioritarios en la Plataforma Web:**
   1. `inicio` (Módulo 00): Visor cartográfico intuitivo con filtros táctiles rápidos por categoría barrial.
   2. `explorador-osm`: Consultas temáticas directas sobre arbolado, patrimonio y comercio local.
   3. `proyectos-umap`: Visualizador de mapas colaborativos y participativos comunitarios embebidos.
@@ -377,7 +377,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
   - Monitoreo histórico y analítico de aportes mediante **ohsome API v1/v2 (HeiGIT)**: recuento de ediciones por usuario, densidad temporal de nodos y evolución de huellas edilicias.
   - Homologación de etiquetas semánticas y taxonomías temáticas contrastadas con el servicio Taginfo.
   - Control de consistencia topológica y detección de geometrías nulas o duplicadas para enriquecer la base global de OSM.
-* **Paneles y Módulos Prioritarios en la SPA:**
+* **Paneles y Módulos Prioritarios en la Plataforma Web:**
   1. `explorador-osm`: Editor y ejecutor de consultas Overpass QL con descarga directa en GeoJSON.
   2. `calidad-ohsome`: Analítica temporal de contribuciones y densidad de mapeo colaborativo.
   3. `diccionario`: Taxonomía exhaustiva de etiquetas OSM aplicadas a la realidad chilena.
@@ -394,7 +394,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
   - Cálculo de densidades y métricas espaciales geodésicamente rigurosas mediante reproyección conforme a SIRGAS-Chile / UTM 19S (EPSG:32719).
   - Certificación y trazabilidad de calidad espacial conforme a la norma ISO 19157 (matriz WLC v2.0 al 97,88%).
   - Trazabilidad documental y bibliográfica formal con 125 referencias en norma APA 7ª edición para fundamentar estudios urbanos y propuestas de política pública local.
-* **Paneles y Módulos Prioritarios en la SPA:**
+* **Paneles y Módulos Prioritarios en la Plataforma Web:**
   1. `indicadores-analisis`: Diagnóstico barrial en las 5 dimensiones territoriales y Storyboards analíticos.
   2. `calidad-ohsome`: Certificación de metacalidad ISO 19157 y métricas de completitud espacial.
   3. `licencias`: Descarga de catálogos maestros en OpenXML (.xlsx) y paquete ZIP unificado (543 MB).
