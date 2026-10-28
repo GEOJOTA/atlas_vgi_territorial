@@ -171,7 +171,7 @@ const ModuloManual = (() => {
               </p>
               <ul style="margin:0 0 12px 0; padding-left:20px; color:var(--tinta-suave); font-size:0.87rem; line-height:1.6;">
                 <li>Evalúa la zonificación comunal (<code>PRC</code>) e intercomunal (<code>PRMS</code>), los usos permitidos (<code>UPERM</code>) y prohibidos (<code>UPROH</code>) conforme al principio de exclusión negativa del <strong>Art. 2.1.24 de la OGUC</strong>, además de las restricciones por riesgo (Art. 2.1.17 OGUC) y protección patrimonial (ZCH, ICH, Monumentos Nacionales).</li>
-                <li>Integra la síntesis de las <strong>10 modificaciones históricas al PRC de Santiago que inciden en el Barrio Brasil (1990–2024)</strong> (Res. N° 26/1990, Seccional Brasil, Modificaciones N° 16, 21, 26 y 31, Enmienda N° 2 de Cités, Enmiendas de Altura N° 1, 3 y 6 y postergaciones Art. 117 LGUC), vinculando directamente al repositorio documental oficial de Asesoría Urbana de la Municipalidad de Santiago.</li>
+                <li>Integra la evaluación de <strong>Dinámica Edificatoria (Permisos DOM 2010–2025 y Recepciones Finales CRF 2011–2025 del INE)</strong> con métricas morfológicas de Densidad Neta Real (viv/ha, OGUC Art. 1.1.2), Coeficiente de Ocupación de Suelo (COS), Porcentaje de Suelo Libre/Patio y Frente/Fondo predial (a escala manzana y zonificación buffer 500 m), vinculando directamente al repositorio documental oficial de expedientes de Asesoría Urbana de la Municipalidad de Santiago.</li>
               </ul>
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
                 <button type="button" class="accion" onclick="ModuloManual.irAPanel('inicio')" style="font-size:0.83rem; padding:7px 14px;">🗺️ Abrir Módulo 01 (Visor)</button>

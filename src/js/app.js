@@ -3231,6 +3231,9 @@ async function ejecutarConsultaInspector(lat, lng) {
     'minvu_ipt_areas_verdes',
     'minvu_patrimonio',
     'bbdd_66',
+    'censo2024_manzanas',
+    'ine_permisos_edificacion_santiago',
+    'ine_crf_conjuntos_santiago',
     'ide_minvu_campamentos',
     'ide_minvu_inventario_humedales'
   ];
@@ -3299,7 +3302,7 @@ async function descargarColeccionOficialCompleta() {
     estadoTexto.innerHTML = `
       <span style="color:var(--esmeralda,#10b981); font-weight:700;">📦 [INICIANDO DESCARGA]:</span> 
       Descargando la base de datos completa del Atlas VGI en archivo comprimido (<code>docs/geodatabase_completa_atlas_vgi.zip</code>, 542,35 MB). 
-      Incluye las 132 capas del visor (10 macrocategorías VGI + 122 capas oficiales), extractos regionales de Geofabrik RM, los 3 libros maestros Excel (.xlsx), 4 datasets CSV, esquemas SQL PostGIS y metadatos ISO (257 archivos totales en 7 subcarpetas, ~3,33 GB descomprimido).
+      Incluye las 134 capas del visor (10 macrocategorías VGI + 124 capas oficiales), extractos regionales de Geofabrik RM, los 3 libros maestros Excel (.xlsx), 4 datasets CSV, esquemas SQL PostGIS y metadatos ISO (257 archivos totales en 7 subcarpetas, ~3,33 GB descomprimido).
     `;
   }
 
