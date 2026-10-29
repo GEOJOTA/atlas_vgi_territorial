@@ -252,7 +252,7 @@ python3 scripts/enriquecer_base_datos_metadatos.py
 ```
 
 ### Paso 3: Registrar la Capa en `catalogo_capas_completo_vgi_uah.xlsx`
-Abra el libro de cálculo o ejecute `python3 scripts/generar_catalogos_excel.py` para asegurar que figure en las 132 capas catalogadas con su respectiva licencia y linaje.
+Abra el libro de cálculo o ejecute `python3 scripts/generar_catalogos_excel.py` para asegurar que figure en las 134 capas catalogadas con su respectiva licencia y linaje.
 
 ### Paso 4: Añadir la Casilla Checkbox en `src/index.html`
 Dentro del acordeón temático correspondiente:

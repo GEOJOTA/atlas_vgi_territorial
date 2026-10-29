@@ -3,7 +3,7 @@
 
 * **Plataforma Web en Producción (CDN Primario):** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
 * **Repositorio Espejo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
-* **Cobertura del Sistema:** **132 Capas Operativas** (`122` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** (`54` Oficiales + `86` Brechas VGI) · **5 Dimensiones Analíticas** · **4 Storyboards (75 Cartografías)** · **10 Módulos (`01` al `10`)**.
+* **Cobertura del Sistema:** **134 Capas Operativas** (`124` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** (`54` Oficiales + `86` Brechas VGI) · **5 Dimensiones Analíticas** · **4 Storyboards (75 Cartografías)** · **10 Módulos (`01` al `10`)**.
 
 ---
 
@@ -13,7 +13,7 @@
 2. [Marco Normativo, Estándares ISO y Política Geoespacial Chilena y Global](#2-marco-normativo-estándares-iso-y-política-geoespacial-chilena-y-global)
 3. [Evaluación de Calidad de Datos Espaciales (ISO 19157, Modelo WLC v2.0 y ohsome API v1/v2)](#3-evaluación-de-calidad-de-datos-espaciales-iso-19157-modelo-wlc-v20-y-ohsome-api-v1v2)
 4. [Decisiones de Arquitectura de Software y Diseño Multi-Lenguaje](#4-decisiones-de-arquitectura-de-software-y-diseño-multi-lenguaje)
-5. [Auditoría Universal de MetaCalidad de la Base de Datos (`132 Capas`)](#5-auditoría-universal-de-metacalidad-de-la-base-de-datos-132-capas)
+5. [Auditoría Universal de MetaCalidad de la Base de Datos (`134 Capas`)](#5-auditoría-universal-de-metacalidad-de-la-base-de-datos-134-capas)
 6. [Aplicación Territorial en el Caso de Estudio: Barrio Brasil, Campus UAH y Santiago](#6-aplicación-territorial-en-el-caso-de-estudio-barrio-brasil-campus-uah-y-santiago)
 7. [Preguntas Frecuentes sobre Interoperabilidad, Reproducibilidad y Calidad](#7-preguntas-frecuentes-sobre-interoperabilidad-reproducibilidad-y-calidad)
 8. [Referencias Bibliográficas y Fuentes Oficiales (Norma APA 7ª Edición)](#8-referencias-bibliográficas-y-fuentes-oficiales-norma-apa-7ª-edición)
@@ -27,7 +27,7 @@ Tradicionalmente, la producción de datos geográficos ha estado concentrada en 
 2. **Escala macro o agregada**, que suele omitir elementos de microgeografía cotidiana (accesibilidad universal en esquinas, pavimento podotáctil, estacionamientos de bicicletas, mobiliario peatonal o arbolado de alineación).
 3. **Barreras de interoperabilidad**, cuando los datos se distribuyen sin diccionarios de atributos estandarizados.
 
-Desde la formulación de Michael Goodchild (2007) sobre la *Información Geográfica Voluntaria* (*Volunteered Geographic Information*, VGI) y las investigaciones de Muki Haklay (2010), Senaratne et al. (2017) y Herfort et al. (2023), la ciencia de la información geográfica reconoce a las comunidades locales como productores activos de datos espaciales. El **Atlas VGI (Nodo GeoAbierto)** operacionaliza este marco integrando **122 coberturas oficiales del Estado de Chile** con **10 macrocategorías colaborativas VGI (`CAT-01` a `CAT-10`)** bajo normas abiertas de calidad, catalogación y licenciamiento.
+Desde la formulación de Michael Goodchild (2007) sobre la *Información Geográfica Voluntaria* (*Volunteered Geographic Information*, VGI) y las investigaciones de Muki Haklay (2010), Senaratne et al. (2017) y Herfort et al. (2023), la ciencia de la información geográfica reconoce a las comunidades locales como productores activos de datos espaciales. El **Atlas VGI (Nodo GeoAbierto)** operacionaliza este marco integrando **124 coberturas oficiales del Estado de Chile** con **10 macrocategorías colaborativas VGI (`CAT-01` a `CAT-10`)** bajo normas abiertas de calidad, catalogación y licenciamiento.
 
 ---
 
@@ -66,7 +66,7 @@ flowchart LR
 
 1. **ISO 19115-1:2014 — Geographic information — Metadata — Part 1: Fundamentals:**
    * *Enlace oficial:* [https://www.iso.org/standard/53798.html](https://www.iso.org/standard/53798.html)
-   * *Implementación:* El **Módulo 08** ([`src/js/modulos/metadatos.js`](src/js/modulos/metadatos.js)) estructura los elementos núcleo obligatorios (`MD_DataIdentification`, `MD_TopicCategoryCode`, `EX_GeographicBoundingBox`, `LI_Lineage`, `MD_ReferenceSystem`, `CI_RoleCode`) para las **132 capas del Atlas**.
+   * *Implementación:* El **Módulo 08** ([`src/js/modulos/metadatos.js`](src/js/modulos/metadatos.js)) estructura los elementos núcleo obligatorios (`MD_DataIdentification`, `MD_TopicCategoryCode`, `EX_GeographicBoundingBox`, `LI_Lineage`, `MD_ReferenceSystem`, `CI_RoleCode`) para las **134 capas del Atlas**.
 2. **ISO/TS 19139:2007 — Geographic information — Metadata — XML schema implementation:**
    * *Enlace oficial:* [https://www.iso.org/standard/32574.html](https://www.iso.org/standard/32574.html)
    * *Implementación:* Exportación directa en XML con esquema `<gmd:MD_Metadata>` (`http://www.isotc211.org/2005/gmd`), compatible con catálogos CSW como GeoNetwork y GeoNode.
@@ -75,7 +75,7 @@ flowchart LR
    * *Implementación:* Operacionalizado en el **Módulo 06** mediante el Evaluador Universal WLC v2.0 (`src/js/modulos/evaluador_calidad_cuantitativa.js`), el cliente histórico `src/js/modulos/ohsome.js` y el script `scripts/analisis_metacalidad.py`.
 4. **ISO 19110:2016 — Geographic information — Methodology for feature cataloguing:**
    * *Enlace oficial:* [https://www.iso.org/standard/57303.html](https://www.iso.org/standard/57303.html)
-   * *Implementación:* El **Módulo 09** ([`src/js/modulos/diccionario.js`](src/js/modulos/diccionario.js)) cataloga las **132 coberturas** y **140 descriptores normativos** (incluyendo el esquema normalizado de atributos VGI y las correspondencias con IDE Chile).
+   * *Implementación:* El **Módulo 09** ([`src/js/modulos/diccionario.js`](src/js/modulos/diccionario.js)) cataloga las **134 coberturas** y **140 descriptores normativos** (incluyendo el esquema normalizado de atributos VGI y las correspondencias con IDE Chile).
 5. **Darwin Core Standard (TDWG / GBIF):**
    * *Enlace oficial:* [https://dwc.tdwg.org/](https://dwc.tdwg.org/)
    * *Implementación:* El **Módulo 03** ([`src/js/modulos/gbif.js`](src/js/modulos/gbif.js)) consulta ocurrencias biológicas georreferenciadas validando `scientificName`, `eventDate`, `basisOfRecord` e indicadores de calidad posicional.
@@ -83,7 +83,7 @@ flowchart LR
 ### 2.3. Articulación con la Política Nacional de Información Geoespacial (PNIG) e IDE Chile
 * **Política Nacional de Información Geoespacial (PNIG) y D.S. N° 28/2006 (Ministerio de Bienes Nacionales):** Promueve la estandarización y difusión de datos espaciales a través del Sistema Nacional de Información Territorial (SNIT / IDE Chile).
 * **Perfil Nacional de Metadatos de Chile v2.0 (IDE Chile):** Adoptado en el Módulo 08 y en el libro [`docs/perfil_metadatos_vgi.xlsx`](docs/perfil_metadatos_vgi.xlsx).
-* **Ley N° 20.285 sobre Acceso a la Información Pública y Ley N° 19.628 sobre Protección de la Vida Privada:** Respaldan la reutilización abierta de las **122 coberturas estatales** y la agregación estadística de los microdatos censales y socioeconómicos a escala de manzana y unidad vecinal.
+* **Ley N° 20.285 sobre Acceso a la Información Pública y Ley N° 19.628 sobre Protección de la Vida Privada:** Respaldan la reutilización abierta de las **124 coberturas estatales** y la agregación estadística de los microdatos censales y socioeconómicos a escala de manzana y unidad vecinal.
 
 ### 2.4. Régimen Tripartito de Licencias Abiertas (`Módulo 10`)
 1. **Cartografía Derivada, Documentación y Manuales:** **Creative Commons Atribución-CompartirIgual 4.0 Internacional (`CC BY-SA 4.0`)**.
@@ -171,9 +171,9 @@ Para cumplir con la norma **ISO 19111:2019** y los estándares del **Instituto G
 
 ---
 
-## 5. Auditoría Universal de MetaCalidad de la Base de Datos (`132 Capas`)
+## 5. Auditoría Universal de MetaCalidad de la Base de Datos (`134 Capas`)
 
-Mediante el script [`scripts/analisis_metacalidad.py`](scripts/analisis_metacalidad.py) y el modelo [`scripts/modelo_indice_lineal_wlc.py`](scripts/modelo_indice_lineal_wlc.py), se evalúa la totalidad de las **132 coberturas operativas** (`122` capas oficiales del Estado + `10` macrocategorías VGI):
+Mediante el script [`scripts/analisis_metacalidad.py`](scripts/analisis_metacalidad.py) y el modelo [`scripts/modelo_indice_lineal_wlc.py`](scripts/modelo_indice_lineal_wlc.py), se evalúa la totalidad de las **134 coberturas operativas** (`124` capas oficiales del Estado + `10` macrocategorías VGI):
 
 ```text
 IGV_i = 0.50 * S_cuantitativo(i) + 0.50 * S_cualitativo(i)
@@ -184,7 +184,7 @@ Donde:
 ```
 
 ### Resultados Consolidados de la Auditoría (`docs/ANALISIS_METACALIDAD.md`):
-* **Total de coberturas evaluadas:** **`132` capas** (`122` Oficiales + `10` VGI).
+* **Total de coberturas evaluadas:** **`134` capas** (`124` Oficiales + `10` VGI).
 * **Índice Global de Calidad Geográfica (`IGV`):** **`95,38%` (`Grado A+ Excelente`)**.
   * **Pilar Cuantitativo Espacial (`50%`):** **`96,67%`** (`Topología OGC = 99,89%`, `Completitud Tabular = 97,02%`, `Integridad Posicional = 99,79%`).
   * **Pilar Cualitativo de Metadatos (`50%`):** **`94,10%`** (`Metadatos Núcleo MC = 96,33%`, `Conformidad CC = 93,96%`, `Linaje Legal LL = 98,16%`, `Accesibilidad AI = 97,31%`).
@@ -200,7 +200,7 @@ Donde:
 
 ## 6. Aplicación Territorial en el Caso de Estudio: Barrio Brasil, Campus UAH y Santiago
 
-En el área de estudio del Barrio Brasil y el entorno del Campus Universidad Alberto Hurtado (`data/atlas_vgi_barrio_brasil_uah_completo.geojson` y `data/resumen_catastro_vgi.csv`), las **10 macrocategorías VGI** consolidan **3.677 entidades locales** (y **1.552.144 entidades** en los extractos metropolitanos `data/capa_osm_rm_cat01_educacion.geojson` a `cat10_cobertura_suelo.geojson`), las cuales se articulan con las **122 capas oficiales** en los **4 Storyboards Territoriales (`75` cartografías temáticas)** del **Módulo 05**:
+En el área de estudio del Barrio Brasil y el entorno del Campus Universidad Alberto Hurtado (`data/atlas_vgi_barrio_brasil_uah_completo.geojson` y `data/resumen_catastro_vgi.csv`), las **10 macrocategorías VGI** consolidan **3.677 entidades locales** (y **1.552.144 entidades** en los extractos metropolitanos `data/capa_osm_rm_cat01_educacion.geojson` a `cat10_cobertura_suelo.geojson`), las cuales se articulan con las **124 capas oficiales** en los **4 Storyboards Territoriales (`75` cartografías temáticas)** del **Módulo 05**:
 
 1. **Storyboard 01 (`11` mapas):** Densidad de Kernel (`KDE`) de equipamientos educativos, salud, comercio, patrimonio y accesibilidad peatonal.
 2. **Storyboard 02 (`11` mapas):** Autocorrelación espacial local (`LISA` / `I de Moran`) entre densidad VGI y coberturas oficiales a escala de manzana (`data/matriz_sintesis_barrio_brasil_manzanas.geojson`).
@@ -212,13 +212,13 @@ En el área de estudio del Barrio Brasil y el entorno del Campus Universidad Alb
 ## 7. Preguntas Frecuentes sobre Interoperabilidad, Reproducibilidad y Calidad
 
 ### P1: *¿Cómo se articula la Información Geográfica Voluntaria con los datos oficiales del Estado?*
-> **Respuesta:** La VGI complementa la cartografía pública en escalas y atributos donde no existen catastros estatales continuos (como las **86 brechas temáticas VGI** documentadas en el **Módulo 09**, incluyendo rebajes de solera, pavimento podotáctil o estacionamientos de bicicletas). Al mismo tiempo, las **132 capas** son evaluadas con las mismas métricas cuantitativas y documentales (**ISO 19157 / ISO 19115**) en el **Módulo 06**, permitiendo conocer el nivel de completitud y consistencia de cada cobertura antes de utilizarla.
+> **Respuesta:** La VGI complementa la cartografía pública en escalas y atributos donde no existen catastros estatales continuos (como las **86 brechas temáticas VGI** documentadas en el **Módulo 09**, incluyendo rebajes de solera, pavimento podotáctil o estacionamientos de bicicletas). Al mismo tiempo, las **134 capas** son evaluadas con las mismas métricas cuantitativas y documentales (**ISO 19157 / ISO 19115**) en el **Módulo 06**, permitiendo conocer el nivel de completitud y consistencia de cada cobertura antes de utilizarla.
 
 ### P2: *¿Cómo se adapta la plataforma a otra comuna, ciudad o región?*
 > **Respuesta:** Los parámetros de encuadre territorial (`bbox`), centroide, comunas e identificadores de capas se encuentran desacoplados en [`config/config.json`](config/config.json) y [`src/js/config.js`](src/js/config.js). El procedimiento completo paso a paso para cambiar el polígono de estudio, el huso UTM en `src/js/modulos/geodesia.js` y las coberturas locales se detalla en el **Capítulo 8** de [`MANUAL_ACTUALIZACION_ATLAS.md`](MANUAL_ACTUALIZACION_ATLAS.md).
 
 ### P3: *¿Qué ocurre si una API externa presenta latencia o falta de conectividad?*
-> **Respuesta:** La arquitectura de triple contingencia conmuta automáticamente hacia las **132 coberturas preprocesadas** en `src/data/*.geojson` (`data/*.geojson`) y permite descargar en cualquier momento el paquete autónomo `docs/geodatabase_completa_atlas_vgi.zip` (`542,35 MB`).
+> **Respuesta:** La arquitectura de triple contingencia conmuta automáticamente hacia las **134 coberturas preprocesadas** en `src/data/*.geojson` (`data/*.geojson`) y permite descargar en cualquier momento el paquete autónomo `docs/geodatabase_completa_atlas_vgi.zip` (`542,35 MB`).
 
 ### P4: *¿Cómo se garantiza la exactitud en el cálculo de áreas y densidades?*
 > **Respuesta:** Ninguna superficie se calcula sobre coordenadas angulares ni sobre proyecciones Web Mercator (`EPSG:3857`). Todas las geometrías se reproyectan a **`EPSG:32719` (WGS 84 / UTM Huso 19 Sur / SIRGAS-Chile)** mediante las ecuaciones de Redfearn en [`src/js/modulos/geodesia.js`](src/js/modulos/geodesia.js), calculando áreas exactas en `m²`, `ha` y `km²` conforme al estándar **ISO 19111:2019**.

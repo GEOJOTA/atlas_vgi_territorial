@@ -104,7 +104,7 @@ flowchart LR
 * **Definición Formal:**
   > Diseñar, estructurar y consolidar una geodatabase espacial multipropósito bajo estándares internacionales de calidad geográfica y metadatos, integrando y armonizando coberturas cartográficas oficiales del Estado con información comunitaria voluntaria.
 * **Componentes Ejecutados:**
-  - Descarga, normalización y geoprocesamiento de **132 coberturas vectoriales (122 oficiales del Estado de Chile + 10 VGI comunitarias)**, totalizando 3,33 GB de datos en EPSG:4326 y EPSG:32719.
+  - Descarga, normalización y geoprocesamiento de **134 coberturas vectoriales (124 oficiales del Estado de Chile + 10 VGI comunitarias)**, totalizando 3,33 GB de datos en EPSG:4326 y EPSG:32719.
   - Almacenamiento espacial estructurado en clúster relacional PostgreSQL 17 + PostGIS 3.3 (Supabase Cloud) con más de 1.552.000 entidades indexadas mediante árboles GiST y claves JSONB con índices GIN.
   - Formulación y ejecución del **Modelo de MetaCalidad WLC v2.0 bajo norma ISO 19157:2013**, integrando 5 componentes cuantitativos (topología, completitud, geodésica, esquema y granularidad) y 5 componentes cualitativos (metadatos núcleo, linaje, conformidad ISO, escala y accesibilidad), certificando un **96,55% / 97,88% de metacalidad global (Grado A+ Excelente)**.
   - Inyección algorítmica universal del **Esquema Maestro de 14 Atributos Normalizados ISO** en la totalidad de capas vectoriales para descargas transparentes.
@@ -123,7 +123,7 @@ flowchart LR
     end
 
     subgraph PROD2["3. Productos Resultantes Específicos"]
-        PR2_1["132 Capas Vectoriales GeoJSON\n(122 Oficiales + 10 VGI)"]
+        PR2_1["134 Capas Vectoriales GeoJSON\n(124 Oficiales + 10 VGI)"]
         PR2_2["Bases Vectoriales con Linaje,\nFuente y Fechas ISO"]
         PR2_3["Certificación Grado A+ MetaCalidad\n& Matriz Analítica WLC"]
         PR2_4["Geodatabase Relacional PostGIS\ncon Índices GiST y GIN"]
@@ -146,7 +146,7 @@ flowchart LR
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-03** | Repositorio de Geodatabase Espacial de 132 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` y `data/*.geojson` (3,33 GB totales) |
+| **E-03** | Repositorio de Geodatabase Espacial de 134 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` y `data/*.geojson` (3,33 GB totales) |
 | **E-04** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `scripts/db/01_schema_postgis.sql`, `scripts/db/02_seed_metadata.sql` y `docs/GUIA_BASE_DATOS_SUPABASE.md` (`src/docs/`) |
 | **E-05** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (Grado A+). | Matriz / Certificación | `docs/ANALISIS_METACALIDAD.md`, `docs/matriz_metacalidad.json`, `docs/wlc_metacalidad_resultado.json`, `docs/wlc_metacalidad_ranking.csv` y `docs/correlacion_dimensiones_calidad.csv` (`src/docs/`) |
 | **E-06** | Catálogo Maestro de Geodatos en Formato OpenXML y Esquema de 14 Columnas Normalizadas ISO. | Catálogo Tabular OGC | `docs/categorias_tematicas_osm.xlsx` y `docs/perfil_metadatos_vgi.xlsx` (`src/docs/`) |
@@ -276,7 +276,7 @@ flowchart TD
     end
 
     subgraph FASE2["FASE II: Geodatabase Espacial & Calidad ISO"]
-        H4["Hito 4: Extracción Overpass QL & Descarga 132 Capas"] --> H5["Hito 5: Modelo WLC ISO 19157 (Grado A+) & 14 Atributos"]
+        H4["Hito 4: Extracción Overpass QL & Descarga 134 Capas"] --> H5["Hito 5: Modelo WLC ISO 19157 (Grado A+) & 14 Atributos"]
         H5 --> H6["Hito 6: Cruces Espaciales & Análisis Multidimensional"]
     end
 
@@ -298,7 +298,7 @@ flowchart TD
 | **Hito 1** | Diagnóstico territorial y revisión de plataformas VGI. | **OE 1** | Fase I | **100% Cerrado** | `docs/ARQUITECTURA.md` y `docs/catalogo_fuentes_vgi.xlsx` (`src/docs/`) |
 | **Hito 2** | Estructuración de 10 macrocategorías VGI y 4 perfiles multiactor. | **OE 1** | Fase I | **100% Cerrado** | `docs/categorias_tematicas_osm.xlsx` (`src/docs/`) y `src/js/config.js` |
 | **Hito 3** | Inventario exhaustivo de fuentes colaborativas y oficiales. | **OE 1** | Fase I | **100% Cerrado** | `docs/catalogo_fuentes_vgi.xlsx` y `docs/TRAZABILIDAD_ACADEMICA.md` (`src/docs/`) |
-| **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Fase II | **100% Cerrado** | `scripts/descargar_todas_las_categorias_osm.py`, `data/*.geojson` y `src/data/*.geojson` (132 capas) |
+| **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Fase II | **100% Cerrado** | `scripts/descargar_todas_las_categorias_osm.py`, `data/*.geojson` y `src/data/*.geojson` (134 capas) |
 | **Hito 5** | Auditoría de calidad ISO 19157 (WLC v2.0) e inyección de 14 atributos. | **OE 2** | Fase II | **100% Cerrado** | `docs/ANALISIS_METACALIDAD.md`, `docs/matriz_metacalidad.json`, `docs/wlc_metacalidad_resultado.json` y `docs/perfil_metadatos_vgi.xlsx` |
 | **Hito 6** | Cruces espaciales barriales y análisis en 5 dimensiones territoriales. | **OE 2** | Fase II | **100% Cerrado** | `data/matriz_sintesis_barrio_brasil_manzanas.geojson`, `data/resumen_catastro_vgi.csv` y `data/bip_inversiones_santiago.csv` |
 | **Hito 7** | Arquitectura web interactiva modular, visor cartográfico y APIs en vivo. | **OE 3** | Fase III | **100% Cerrado** | `src/index.html`, `src/css/estilos.css`, `src/js/app.js` y `src/js/modulos/*.js` |
@@ -335,7 +335,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
   - Auditoría de metadatos conforme al Perfil Nacional de Metadatos de Chile (Decreto N° 28 de Bienes Nacionales) y descarga de archivos XML estructurados bajo norma ISO 19139:2007.
 * **Paneles y Módulos Prioritarios en la Plataforma Web:**
   1. `metadatos-iso` (Módulo 08): Generador y visualizador de metadatos estandarizados ISO 19115 / ISO 19139.
-  2. `inicio` (Módulo 01): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 122 capas oficiales + 10 VGI.
+  2. `inicio` (Módulo 01): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 124 capas oficiales + 10 VGI.
   3. `diccionario` (Módulo 09): Homologación de 140 descriptores territoriales (ISO 19110) entre la OGUC, el PRC y la cartografía.
   4. `licencias` (Módulo 10): Matriz de gobernanza legal, licencias estatales y catálogo de capas en OpenXML (.xlsx).
 

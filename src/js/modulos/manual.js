@@ -6,7 +6,7 @@
 
   Integra:
   - Parte I: Manual de Uso del Atlas (Fundamentación, arquitectura de interfaz, operación de los Módulos 01 al 10,
-    ICV Dinámico, Inspector Normativo PRC/OGUC con expediente histórico 1990-2024 y Catálogo de las 132 capas).
+    ICV Dinámico, Inspector Normativo PRC/OGUC con expediente histórico 1990-2024 y Catálogo de las 134 capas).
   - Parte II: Manual de Actualización y Mantención Técnica (Principios de ingeniería, catálogo multi-lenguaje estandarizado,
     sincronización espejo data/ y src/data/, base dual .geojson + .gpkg, protocolo de 6 etapas para integración de coberturas,
     mantención de indicadores/storyboards/normativa, validación final, despliegue y bibliografía APA 7ª ed.).
@@ -17,7 +17,7 @@ const ModuloManual = (() => {
   let modoManualActivo = 'todos'; // 'todos' | 'uso' | 'actualizacion'
 
   /**
-   * Construye dinámicamente el inventario de las 132 capas (122 Oficiales + 10 VGI)
+   * Construye dinámicamente el inventario de las 134 capas (124 Oficiales + 10 VGI)
    * directamente desde las configuraciones activas del sistema.
    */
   function construirInventarioDinamicoCapas() {
@@ -41,7 +41,7 @@ const ModuloManual = (() => {
       });
     });
 
-    // 2. 122 Capas Oficiales desde ModuloIDEChile
+    // 2. 124 Capas Oficiales desde ModuloIDEChile
     let mapaOficiales = {};
     if (typeof window !== 'undefined' && window.ModuloIDEChile) {
       if (typeof window.ModuloIDEChile.obtenerCatalogoCapas === 'function') {
@@ -79,7 +79,7 @@ const ModuloManual = (() => {
    */
   function obtenerCapitulosManual() {
     const inventarioCapas = construirInventarioDinamicoCapas();
-    const totalCapas = inventarioCapas.length || 132;
+    const totalCapas = inventarioCapas.length || 134;
 
     const filasTablaCapas = inventarioCapas.map(c => {
       const colorBadge = c.tipo === 'Colaborativa VGI'
@@ -106,7 +106,7 @@ const ModuloManual = (() => {
         numero: 'USO · 01',
         icono: '🧭',
         titulo: 'Fundamentación y Propósito General del Sistema',
-        subtitulo: 'Articulación de las 132 coberturas geográficas, 140 descriptores normativos (ISO 19110) y 10 módulos funcionales.',
+        subtitulo: 'Articulación de las 134 coberturas geográficas, 140 descriptores normativos (ISO 19110) y 10 módulos funcionales.',
         html: `
           <p style="font-size:0.94rem; line-height:1.7; color:var(--tinta-suave);">
             El <strong>Atlas de Información Geográfica Voluntaria para la Gestión Territorial</strong> constituye una infraestructura de datos espaciales orientada a integrar, evaluar y contrastar la cartografía oficial del Estado de Chile con la información geográfica voluntaria (<em>Volunteered Geographic Information</em>, VGI; Goodchild, 2007; Haklay, 2010) para el análisis territorial de la <strong>Comuna de Santiago</strong> y el <strong>Barrio Brasil</strong>.
@@ -114,9 +114,9 @@ const ModuloManual = (() => {
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px; margin:16px 0;">
             <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.3); border-radius:10px; padding:14px;">
-              <div style="font-size:1.35rem; font-weight:800; color:#38bdf8;">132 Capas Operativas</div>
+              <div style="font-size:1.35rem; font-weight:800; color:#38bdf8;">134 Capas Operativas</div>
               <div style="font-size:0.85rem; color:var(--tinta-suave); margin-top:4px;">
-                <strong>122 coberturas oficiales</strong> (MINVU, INE Censo 2024, MTT/UOCT, MDSF RSH, SUBDERE Residuos 2024, Municipalidad de Santiago, CMN, MMA, SII) y <strong>10 categorías VGI</strong> (OpenStreetMap y GBIF).
+                <strong>124 coberturas oficiales</strong> (MINVU, INE Censo 2024, MTT/UOCT, MDSF RSH, SUBDERE Residuos 2024, Municipalidad de Santiago, CMN, MMA, SII) y <strong>10 categorías VGI</strong> (OpenStreetMap y GBIF).
               </div>
             </div>
             <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:14px;">
@@ -195,7 +195,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#38bdf8;">MÓDULO 01</span>
                 <h4 style="margin:4px 0 6px 0;">Visor para la gestión territorial</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Representación espacial integrada de las 132 coberturas, indicadores dinámicos de calidad y evaluación normativa del Plan Regulador Comunal.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Representación espacial integrada de las 134 coberturas, indicadores dinámicos de calidad y evaluación normativa del Plan Regulador Comunal.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('inicio')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 01 ↗</button>
             </div>
@@ -231,7 +231,7 @@ const ModuloManual = (() => {
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#c084fc;">MÓDULO 05</span>
                 <h4 style="margin:4px 0 6px 0;">Indicadores &amp; Storyboards</h4>
-                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Sistematización de las 132 coberturas en 5 Dimensiones Analíticas y 4 Storyboards territoriales con 75 cartografías temáticas.</p>
+                <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Sistematización de las 134 coberturas en 5 Dimensiones Analíticas y 4 Storyboards territoriales con 75 cartografías temáticas.</p>
               </div>
               <button type="button" class="accion" onclick="ModuloManual.irAPanel('indicadores')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 05 ↗</button>
             </div>
@@ -266,7 +266,7 @@ const ModuloManual = (() => {
             <div style="background:rgba(15,23,42,0.6); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
                 <span style="font-size:0.74rem; font-weight:800; color:#fbbf24;">MÓDULO 09</span>
-                <h4 style="margin:4px 0 6px 0;">Diccionario (132 Capas / 140 Descriptores)</h4>
+                <h4 style="margin:4px 0 6px 0;">Diccionario (134 Capas / 140 Descriptores)</h4>
                 <p style="font-size:0.84rem; color:var(--tinta-suave); line-height:1.55;">Catálogo de objetos y atributos (ISO 19110), homologación semántica con IDE Chile e identificación de brechas de información VGI.</p>
               </div>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irAPanel('diccionario')" style="margin-top:10px; font-size:0.8rem;">Abrir Módulo 09 ↗</button>
@@ -288,7 +288,7 @@ const ModuloManual = (() => {
         parte: 'uso',
         numero: 'USO · 04',
         icono: '🗂️',
-        titulo: `Inventario General de las ${totalCapas} Coberturas Integradas (122 Oficiales + 10 VGI)`,
+        titulo: `Inventario General de las ${totalCapas} Coberturas Integradas (124 Oficiales + 10 VGI)`,
         subtitulo: 'Registro completo de capas operativas con filtrado dinámico por código, institución custodia o temática.',
         html: `
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
@@ -401,7 +401,7 @@ const ModuloManual = (() => {
                 <tr>
                   <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/modulos/ide_chile.js</code></td>
-                  <td>Catálogo maestro de las <strong>122 coberturas oficiales del Estado</strong> (MINVU, INE, MTT/UOCT, MDSF, SUBDERE, MuniSTGO, SII, CMN, MMA).</td>
+                  <td>Catálogo maestro de las <strong>124 coberturas oficiales del Estado</strong> (MINVU, INE, MTT/UOCT, MDSF, SUBDERE, MuniSTGO, SII, CMN, MMA).</td>
                   <td>IIFE <code>ModuloIDEChile</code> con diccionario <code>CAPAS_OFICIALES</code>, cargador con caché en memoria y recorte por BBox.</td>
                   <td>Registrar nuevas capas oficiales definiendo <code>id</code>, <code>nombre</code>, <code>institucion</code>, <code>archivoLocal</code> y simbología.</td>
                 </tr>
@@ -429,7 +429,7 @@ const ModuloManual = (() => {
                 <tr>
                   <td><strong>JS ES6+</strong></td>
                   <td><code>src/js/modulos/indicadores_analisis.js</code></td>
-                  <td>Módulo 05: Articulación de las 132 capas en <strong>5 Dimensiones Analíticas</strong> y motor de los <strong>4 Storyboards</strong> (75 cartografías, gráficos, SVG y Lightbox).</td>
+                  <td>Módulo 05: Articulación de las 134 capas en <strong>5 Dimensiones Analíticas</strong> y motor de los <strong>4 Storyboards</strong> (75 cartografías, gráficos, SVG y Lightbox).</td>
                   <td>IIFE <code>ModuloIndicadoresAnalisis</code> con arreglos <code>DIMENSIONES</code> y <code>STORYBOARDS</code>, modal de lectura y zoom pan/pinch.</td>
                   <td>Vincular nuevas capas en <code>capasIds</code> o agregar láminas y cartografías en <code>STORYBOARDS</code>.</td>
                 </tr>
@@ -513,7 +513,7 @@ const ModuloManual = (() => {
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; align-items:stretch;">
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #38bdf8; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#7dd3fc; display:block; margin-bottom:4px;">1. INPUT / ENTRADA</strong>
-                  132 Capas en <code>src/data/*.geojson</code> y <code>data/*.geojson</code> + Series históricas OSHDB/ohsome API v1/v2 (<code>/elements/count</code>, <code>/length</code>, <code>/area</code> y <code>/users/count</code>).
+                  134 Capas en <code>src/data/*.geojson</code> y <code>data/*.geojson</code> + Series históricas OSHDB/ohsome API v1/v2 (<code>/elements/count</code>, <code>/length</code>, <code>/area</code> y <code>/users/count</code>).
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #f59e0b; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#fcd34d; display:block; margin-bottom:4px;">2. PROCESAMIENTO (src/js/modulos/ohsome.js, calidad_analyst.js, scripts/analisis_metacalidad.py &amp; modelo_indice_lineal_wlc.py)</strong>
@@ -661,7 +661,7 @@ const ModuloManual = (() => {
           <p style="font-size:0.88rem; color:var(--tinta-suave); line-height:1.6;">
             Previo a cualquier commit en producción, deben ejecutarse desde la raíz del repositorio los tres scripts de auditoría en Python:
           </p>
-          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#34d399; overflow-x:auto;"><code># 1. Audita la paridad de 132 capas (122 oficiales + 10 VGI) y 140 descriptores:
+          <pre style="background:#090d16; padding:11px; border-radius:8px; font-size:0.79rem; color:#34d399; overflow-x:auto;"><code># 1. Audita la paridad de 134 capas (124 oficiales + 10 VGI) y 140 descriptores:
 python scripts/verificar_conteo_capas.py
 
 # 2. Audita integridad de archivos GeoJSON, ausencia de punteros LFS y paridad data/ <-> src/data/:
@@ -922,7 +922,7 @@ git push origin main</code></pre>
   }
 
   /**
-   * Filtra las filas de la tabla de las 132 capas dentro del capítulo USO · 04
+   * Filtra las filas de la tabla de las 134 capas dentro del capítulo USO · 04
    */
   function filtrarTablaCatalogo(termino) {
     const q = String(termino || '').trim().toLowerCase();

@@ -435,10 +435,10 @@ A continuación se documenta el análisis técnico de causa-raíz (*Root Cause A
 ---
 
 ### Caso 14: Discrepancia en el Conteo de Capas de la Interfaz Web
-- **Síntoma:** La barra de estado indica "132 capas cargadas", pero en el directorio `data/` o `src/data/` existen archivos `.geojson` adicionales no listados en el visor.
+- **Síntoma:** La barra de estado indica "134 capas cargadas", pero en el directorio `data/` o `src/data/` existen archivos `.geojson` adicionales no listados en el visor.
 - **Causa Raíz:** El directorio local contiene archivos temporales, capas de respaldo (`copia_*.geojson`) o extractos auxiliares que no están registrados en el índice maestro `docs/catalogo_fuentes_vgi.xlsx` ni en los arreglos `CAPAS_OFICIALES` (`src/js/modulos/ide_chile.js`) y `categoriasVGI` (`src/js/config.js`).
 - **Solución Paso a Paso:**
-  Ejecute el script de auditoría `python3 scripts/verificar_conteo_capas.py` para verificar las 132 capas operativas del visor y su paridad exacta entre `data/` y `src/data/`.
+  Ejecute el script de auditoría `python3 scripts/verificar_conteo_capas.py` para verificar las 134 capas operativas del visor y su paridad exacta entre `data/` y `src/data/`.
 
 ---
 

@@ -35,7 +35,7 @@ El Atlas de Información Geográfica Voluntaria adopta una filosofía de ingenie
 │         ┌───────────────────────────────────────────────────┤          │
 │         ▼                                                   ▼          │
 │  MÓDULOS ESPECIALIZADOS IIFE                  MOTOR CARTOGRÁFICO       │
-│  • ModuloIDEChile (122 capas)                 • Leaflet 1.9.4          │
+│  • ModuloIDEChile (124 capas)                 • Leaflet 1.9.4          │
 │  • ModuloOSM (Overpass QL)                    • L.tileLayer / WMS      │
 │  • ModuloOhsome (HeiGIT API)                  • L.geoJSON / L.divIcon  │
 │  • ModuloEvaluadorNormativo (PRC)             • Popups Dinámicos       │

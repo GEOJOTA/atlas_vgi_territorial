@@ -78,8 +78,8 @@ INDICE_GENERAL = r"""# ATLAS DE INFORMACIÓN GEOGRÁFICA VOLUNTARIA (VGI) PARA L
 * [9. Integración de Biodiversidad y Ciencia Ciudadana con GBIF y Darwin Core](#9-integración-de-biodiversidad-y-ciencia-ciudadana-con-gbif-y-darwin-core)
 * [10. Integración de Cartografía Externa con uMap e iframes Aislados](#10-integración-de-cartografía-externa-con-umap-e-iframes-aislados)
 * [11. Extractos Masivos Regionales de Geofabrik RM y Generación de GeoPackage OGC](#11-extractos-masivos-regionales-de-geofabrik-rm-y-generación-de-geopackage-ogc)
-* [12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-122-capas-oficiales-del-estado-de-chile)
-* [13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas](#13-catálogo-exhaustivo-detallado-de-las-132-capas-cartográficas)
+* [12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-122-capas-oficiales-del-estado-de-chile)
+* [13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas](#13-catálogo-exhaustivo-detallado-de-las-134-capas-cartográficas)
 * [14. El Esquema Maestro Obligatorio de 14 Atributos ISO por Entidad Geográfica](#14-el-esquema-maestro-obligatorio-de-14-atributos-iso-por-entidad-geográfica)
 
 ### [PARTE III: MODELAMIENTO MATEMÁTICO DE CALIDAD, METADATOS Y ESTÁNDARES INTERNACIONALES](#parte-iii-modelamiento-matemático-de-calidad-metadatos-y-estándares-internacionales)

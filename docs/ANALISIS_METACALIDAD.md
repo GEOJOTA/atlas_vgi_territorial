@@ -110,7 +110,7 @@ SUMA_k(w_k) = 1.00   y   w_k > 0
 ```mermaid
 flowchart LR
     subgraph IN["1. INPUT / ENTRADA (Catálogo y Capas GeoJSON)"]
-        I1["132 Capas Operativas en data/*.geojson y src/data/*.geojson<br/>(124 Oficiales en ide_chile.js + 10 VGI en config.js)"]
+        I1["134 Capas Operativas en data/*.geojson y src/data/*.geojson<br/>(124 Oficiales en ide_chile.js + 10 VGI en config.js)"]
     end
     subgraph PROC["2. PIPELINE DE PROCESAMIENTO (Scripts Python y Módulo 06 JS)"]
         P1["scripts/analisis_metacalidad.py &<br/>scripts/modelo_indice_lineal_wlc.py"]

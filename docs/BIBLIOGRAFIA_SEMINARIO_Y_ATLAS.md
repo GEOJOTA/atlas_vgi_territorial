@@ -35,7 +35,7 @@ flowchart LR
     end
 
     subgraph PROC["2. PROCESAMIENTO Y VINCULACIÓN EN CÓDIGO (JS ES6+ y Python 3)"]
-        M1["Módulos Web (src/js/modulos/)<br/>ide_chile.js (citaAPA en 122 capas)<br/>indicadores_analisis.js (4 Storyboards)<br/>ohsome.js, diccionario.js, metadatos.js"]
+        M1["Módulos Web (src/js/modulos/)<br/>ide_chile.js (citaAPA en 124 capas)<br/>indicadores_analisis.js (4 Storyboards)<br/>ohsome.js, diccionario.js, metadatos.js"]
         M2["Generadores Tabulares y de Calidad (scripts/)<br/>generar_catalogos_excel.py<br/>analisis_metacalidad.py<br/>construir_manual_actualizacion_maestro.py"]
     end
 
@@ -62,7 +62,7 @@ flowchart TD
     end
 
     subgraph MOD["2. IMPLEMENTACIÓN EN MÓDULOS OPERATIVOS (01–10)"]
-        M_A["Módulos 01, 02 y 09<br/>Catálogo 132 Capas, Inspector PRC/OGUC,<br/>Overpass QL y 140 Descriptores ISO 19110"]
+        M_A["Módulos 01, 02 y 09<br/>Catálogo 134 Capas, Inspector PRC/OGUC,<br/>Overpass QL y 140 Descriptores ISO 19110"]
         M_B["Módulos 05 y 06<br/>4 Storyboards (75 Mapas: KDE, LISA, Censo, RSD)<br/>y Auditoría WLC v2.0 + ohsome + OSMCha"]
         M_C["Módulos 07, 08 y 10<br/>Gobernanza ODbL/CC-BY, XML ISO 19139<br/>y Manual Interactivo + Geodatabase ZIP"]
     end

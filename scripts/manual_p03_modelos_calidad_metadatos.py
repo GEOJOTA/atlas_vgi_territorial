@@ -103,7 +103,7 @@ w_m = [0.30, 0.25, 0.20, 0.15, 0.10],   ∑(j=1..5) w_mj = 1.00
 ```mermaid
 flowchart LR
     subgraph IN_WLC["1. INPUT"]
-        GEO_132["132 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
+        GEO_132["134 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
         META_XLSX["docs/perfil_metadatos_vgi.xlsx & docs/catalogo_fuentes_vgi.xlsx"]
         BBOX_RM["Envolvente Geodésica Oficial RM / Barrio Brasil"]
     end
@@ -249,7 +249,7 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 ```mermaid
 flowchart LR
     subgraph IN_CORR["1. INPUT"]
-        MAT_132["docs/matriz_metacalidad.json (132 Capas x 10 Dimensiones WLC v2.0)"]
+        MAT_132["docs/matriz_metacalidad.json (134 Capas x 10 Dimensiones WLC v2.0)"]
         WEIGHTS["Vectores de Ponderación (w_c y w_m)"]
     end
 
@@ -268,7 +268,7 @@ flowchart LR
 ```
 
 ### 16.1. Matriz de Correlación Lineal de Pearson (`r`)
-Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson (`r`) sobre las 132 capas cartográficas, preservada en `docs/correlacion_dimensiones_calidad.csv`:
+Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson (`r`) sobre las 134 capas cartográficas, preservada en `docs/correlacion_dimensiones_calidad.csv`:
 
 ```text
 r_xy = ∑(i=1..n) [ (x_i - x̄) × (y_i - ȳ) ] / [ √(∑(i=1..n) (x_i - x̄)²) × √(∑(i=1..n) (y_i - ȳ)²) ]
@@ -295,11 +295,11 @@ sequenceDiagram
     autonumber
     actor Investigador as Usuario / Gestor IDE
     participant Mod06 as Módulo 06 (metadatos.js)
-    participant Cat as Registro de 132 Capas (app.js)
+    participant Cat as Registro de 134 Capas (app.js)
     participant Builder as Motor Serializador ISO 19139
     participant Descarga as Descarga Cliente (Blob XML/JSON)
 
-    Investigador->>Mod06: Selecciona capa de las 132 disponibles
+    Investigador->>Mod06: Selecciona capa de las 134 disponibles
     Mod06->>Cat: Consulta metadatos, linaje, EPSG:4326 y BBox
     Cat-->>Mod06: Objeto de metadatos normalizado
     Mod06->>Builder: Ensambla 7 paquetes normativos ISO 19115-1:2014
@@ -445,7 +445,7 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
 ```mermaid
 flowchart LR
     subgraph IN_CATS["1. INPUT"]
-        CAPAS_132["132 Capas Vectoriales Auditadas (data/*.geojson)"]
+        CAPAS_132["134 Capas Vectoriales Auditadas (data/*.geojson)"]
         WLC_RES["Resultados del Modelo WLC v2.0 (docs/wlc_metacalidad_resultado.json)"]
         GLOS_140["140 Descriptores del Diccionario Territorial (src/js/modulos/diccionario.js)"]
     end
@@ -469,13 +469,13 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ### 18.1. Los 3 Libros Maestros OpenXML (`.xlsx`) en `docs/` y `src/docs/`
 1. **`docs/categorias_tematicas_osm.xlsx` (`src/docs/categorias_tematicas_osm.xlsx`, 52.5 KB):** Contiene 11 hojas estructuradas (Resumen General + Hojas CAT-01 a CAT-10). Define códigos unívocos, nombres en español, etiquetas primarias y secundarias de OSM, pesos de habitabilidad y criterios de verificación comunitaria.
-2. **`docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx`, 37.4 KB):** Ficha exhaustiva de las **132 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
+2. **`docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx`, 37.4 KB):** Ficha exhaustiva de las **134 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
 3. **`docs/perfil_metadatos_vgi.xlsx` (`src/docs/perfil_metadatos_vgi.xlsx`, 30.6 KB):** Matriz de parametrización de los 7 paquetes normativos de la norma ISO 19115-1:2014 con definición de obligatoriedad, cardinalidad OGC y mapeo XSD ISO 19139.
 
 ### 18.2. Los Archivos Consolidados CSV y JSON de Calidad (`data/`, `src/data/`, `docs/` y `src/docs/`)
 * **`data/bip_inversiones_santiago.csv` (`src/data/bip_inversiones_santiago.csv`, 3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
 * **`docs/correlacion_dimensiones_calidad.csv` (`src/docs/correlacion_dimensiones_calidad.csv`, 837 bytes) y `docs/correlacion_dimensiones_calidad.png`:** Matriz simétrica 10 × 10 de coeficientes de correlación de Pearson del modelo WLC v2.0 y su representación gráfica.
-* **`docs/wlc_metacalidad_ranking.csv` (`src/docs/wlc_metacalidad_ranking.csv`, 29.5 KB), `docs/wlc_metacalidad_resultado.json` y `docs/matriz_metacalidad.json`:** Tabla ordenada y matrices JSON de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
+* **`docs/wlc_metacalidad_ranking.csv` (`src/docs/wlc_metacalidad_ranking.csv`, 29.5 KB), `docs/wlc_metacalidad_resultado.json` y `docs/matriz_metacalidad.json`:** Tabla ordenada y matrices JSON de las 134 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
 * **`data/resumen_catastro_vgi.csv` (`src/data/resumen_catastro_vgi.csv`, 168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
 
 ---
@@ -493,7 +493,7 @@ flowchart LR
     subgraph PROC_DICT["2. PIPELINE DE HOMOLOGACIÓN SEMÁNTICA"]
         CROSS_REF["Correspondencia Biunívoca Concepto Urbano <-> Etiqueta key=value"]
         DEF_TECH["Redacción de Definición Operativa y Marco Regulatorio"]
-        LAYER_MAP["Enlace con Identificadores de las 132 Capas del Atlas"]
+        LAYER_MAP["Enlace con Identificadores de las 134 Capas del Atlas"]
     end
 
     subgraph OUT_DICT["3. OUTPUT"]

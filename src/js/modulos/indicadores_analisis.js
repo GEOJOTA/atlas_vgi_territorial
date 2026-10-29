@@ -5,7 +5,7 @@
   Atlas de Información Geográfica Voluntaria para la Gestión Territorial.
 
   Estructura y Principios:
-  1. Agrupación analítica de las 132 capas del Atlas (122 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
+  1. Agrupación analítica de las 134 capas del Atlas (124 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
      - 1) Sociodemográfica (19 capas)
      - 2) Socioeconómica (18 capas)
      - 3) Socioambiental (37 capas)
@@ -170,7 +170,7 @@ const ModuloIndicadoresAnalisis = (() => {
   };
 
   // =========================================================================
-  // 2. DEFINICIÓN DE LAS 5 DIMENSIONES ESTRATÉGICAS (132 CAPAS TOTALES)
+  // 2. DEFINICIÓN DE LAS 5 DIMENSIONES ESTRATÉGICAS (134 CAPAS TOTALES)
   // =========================================================================
   const DIMENSIONES = [
     {
@@ -1696,7 +1696,7 @@ const ModuloIndicadoresAnalisis = (() => {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
-    const totalCapasAtlas = 132; // 122 oficiales + 10 VGI
+    const totalCapasAtlas = 134; // 124 oficiales + 10 VGI
     
     contenedor.innerHTML = `
       <div class="modulo-indicadores-analisis-wrapper">
@@ -1709,7 +1709,7 @@ const ModuloIndicadoresAnalisis = (() => {
           </div>
           <h2 class="titulo-modulo-indicadores">Indicadores de Análisis Territorial y Storyboards</h2>
           <p class="bajada-modulo-indicadores">
-            Articulación de las <strong>${totalCapasAtlas} coberturas geoespaciales del Atlas VGI</strong> (122 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con storyboards temáticos para la Comuna de Santiago y el Barrio Brasil.
+            Articulación de las <strong>${totalCapasAtlas} coberturas geoespaciales del Atlas VGI</strong> (124 fuentes oficiales del Estado y 10 categorías colaborativas) en <strong>5 dimensiones de análisis territorial</strong>, complementadas con storyboards temáticos para la Comuna de Santiago y el Barrio Brasil.
           </p>
         </header>
 

@@ -4,8 +4,8 @@
 analisis_metacalidad.py
 =======================
 Auditoría programática universal de MetaCalidad (calidad de metadatos espaciales)
-sobre la totalidad de la base de datos cartográfica del Atlas VGI (132 componentes:
-122 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI).
+sobre la totalidad de la base de datos cartográfica del Atlas VGI (134 componentes:
+124 capas oficiales del Estado de Chile + 10 macro-categorías comunitarias VGI).
 
 Estándares y Marcos Normativos Internacionales y Nacionales:
 - ISO 19115-1:2014 / Amd 1:2018 / Amd 2:2020: Geographic information — Metadata — Part 1: Fundamentals.
@@ -1353,7 +1353,7 @@ def generar_informe_markdown(datos, ruta_salida):
     md.append("```mermaid")
     md.append("flowchart LR")
     md.append("    subgraph IN[\"1. INPUT / ENTRADA (Catálogo y Capas GeoJSON)\"]")
-    md.append(f"        I1[\"132 Capas Operativas en data/*.geojson y src/data/*.geojson<br/>({m['capas_oficiales']} Oficiales en ide_chile.js + {m['capas_vgi']} VGI en config.js)\"]")
+    md.append(f"        I1[\"134 Capas Operativas en data/*.geojson y src/data/*.geojson<br/>({m['capas_oficiales']} Oficiales en ide_chile.js + {m['capas_vgi']} VGI en config.js)\"]")
     md.append("    end")
     md.append("    subgraph PROC[\"2. PIPELINE DE PROCESAMIENTO (Scripts Python y Módulo 06 JS)\"]")
     md.append("        P1[\"scripts/analisis_metacalidad.py &<br/>scripts/modelo_indice_lineal_wlc.py\"]")
@@ -1620,11 +1620,11 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
 
     wb = openpyxl.load_workbook(ruta_excel)
 
-    # 1. Hoja de Auditoría de 132 Capas
-    for old_sheet in ['Auditoría MetaCalidad 118 Capas', 'Auditoría MetaCalidad 132 Capas']:
+    # 1. Hoja de Auditoría de 134 Capas
+    for old_sheet in ['Auditoría MetaCalidad 118 Capas', 'Auditoría MetaCalidad 134 Capas']:
         if old_sheet in wb.sheetnames:
             del wb[old_sheet]
-    sheet_audit = 'Auditoría MetaCalidad 132 Capas'
+    sheet_audit = 'Auditoría MetaCalidad 134 Capas'
     ws1 = wb.create_sheet(title=sheet_audit)
 
     # Estilos
@@ -1643,7 +1643,7 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
     ws1["A1"].font = title_font
 
     ws1.merge_cells("A2:Q2")
-    ws1["A2"] = f"Auditoría Universal de 132 Capas conforme a ISO 19157 (Cuantitativo) e ISO 19115 (Metadatos) · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
+    ws1["A2"] = f"Auditoría Universal de 134 Capas conforme a ISO 19157 (Cuantitativo) e ISO 19115 (Metadatos) · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
     ws1["A2"].font = subtitle_font
 
     m = datos['metricas_globales']
@@ -1802,7 +1802,7 @@ def actualizar_excel_metacalidad(datos, ruta_excel):
     ws3["A1"].font = title_font
 
     ws3.merge_cells("A2:L2")
-    ws3["A2"] = f"Distribución de 132 Capas, Participación de Volumen (MB) y Métricas Normalizadas ISO 19157 · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
+    ws3["A2"] = f"Distribución de 134 Capas, Participación de Volumen (MB) y Métricas Normalizadas ISO 19157 · Fecha: {datetime.now().strftime('%d/%m/%Y')}"
     ws3["A2"].font = subtitle_font
 
     headers3 = [

@@ -2,7 +2,7 @@
 
 * **Plataforma Web Interactiva:** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
 * **Repositorio Espejo (GitHub Pages):** [https://geojota.github.io/atlas-vgi-barrio-brasil/](https://geojota.github.io/atlas-vgi-barrio-brasil/)
-* **Cobertura Espacial y Normativa:** **132 Capas Operativas** (`122` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** · **5 Dimensiones Analíticas** · **4 Storyboards Territoriales (75 Cartografías Temáticas)** · **10 Módulos Funcionales (`01` al `10`)**.
+* **Cobertura Espacial y Normativa:** **134 Capas Operativas** (`124` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** · **5 Dimensiones Analíticas** · **4 Storyboards Territoriales (75 Cartografías Temáticas)** · **10 Módulos Funcionales (`01` al `10`)**.
 
 ---
 
@@ -10,7 +10,7 @@
 
 El **Atlas de Información Geográfica Voluntaria (VGI)** constituye una plataforma web de información territorial diseñada para integrar, visualizar, auditar y descargar coberturas geográficas provenientes de dos regímenes de producción complementarios:
 
-1. **Cartografía Oficial del Estado de Chile (`122 capas`):** Coberturas normativas, censales, socioeconómicas y sectoriales emitidas por IDE Chile / SNIT, MINVU (Instrumentos de Planificación Territorial PRC/PRMS y Patrimonio), INE (Censo de Población y Vivienda 2024), MDSF (Registro Social de Hogares 2026 y Banco Integrado de Proyectos BIP), SUBDERE (Catastro Nacional de Residuos Sólidos Domiciliarios 2024), MTT / UOCT / DTPM (Red de Semáforos, Metro y Transporte Público), Ilustre Municipalidad de Santiago (Series comunales `BBDD-01` a `BBDD-91`), CMN, MMA y SII.
+1. **Cartografía Oficial del Estado de Chile (`124 capas`):** Coberturas normativas, censales, socioeconómicas y sectoriales emitidas por IDE Chile / SNIT, MINVU (Instrumentos de Planificación Territorial PRC/PRMS y Patrimonio), INE (Censo de Población y Vivienda 2024), MDSF (Registro Social de Hogares 2026 y Banco Integrado de Proyectos BIP), SUBDERE (Catastro Nacional de Residuos Sólidos Domiciliarios 2024), MTT / UOCT / DTPM (Red de Semáforos, Metro y Transporte Público), Ilustre Municipalidad de Santiago (Series comunales `BBDD-01` a `BBDD-91`), CMN, MMA y SII.
 2. **Información Geográfica Voluntaria y Ciencia Ciudadana (`10 macrocategorías VGI`, `CAT-01` a `CAT-10`):** Coberturas colaborativas extraídas de **OpenStreetMap (OSM)** mediante consultas **Overpass QL** y registros biológicos georreferenciados de **GBIF** bajo el estándar **Darwin Core (DwC)**.
 
 ### 1.1. Pipeline General de Navegación y Operación del Usuario
@@ -19,7 +19,7 @@ El **Atlas de Información Geográfica Voluntaria (VGI)** constituye una platafo
 flowchart LR
     subgraph IN["1. INPUT / ENTRADA (Selección del Usuario en Interfaz)"]
         U1["Selección de Encuadre Territorial<br/>Barrio Brasil (223,75 ha) | Manzana UAH (136,10 ha)<br/>o Dibujo Libre de BBox (EPSG:32719)"]
-        U2["Activación de Capas en el Visor<br/>10 Categorías VGI + 122 Capas Oficiales<br/>o Importación Local (.geojson/.kml/.kmz/.gpx/.csv)"]
+        U2["Activación de Capas en el Visor<br/>10 Categorías VGI + 124 Capas Oficiales<br/>o Importación Local (.geojson/.kml/.kmz/.gpx/.csv)"]
         U3["Consultas Especializadas por Módulo<br/>Overpass QL (02) | GBIF (03) | Storyboards (05)<br/>Calidad WLC/ohsome (06) | Metadatos/Diccionario (08-09)"]
     end
 
@@ -59,12 +59,12 @@ La interfaz se organiza en tres áreas funcionales permanentes:
 
 ### MÓDULO 01 · Visor para la Gestión Territorial (`#panel-inicio`)
 
-El **Módulo 01** es el núcleo cartográfico de la plataforma. Integra el lienzo interactivo Leaflet (`src/js/modulos/mapa.js`), el catálogo de las **122 capas oficiales** (`src/js/modulos/ide_chile.js`), los selectores de las **10 macrocategorías VGI** (`src/js/config.js`), el calculador en tiempo real del **Índice de Calidad VGI (ICV)** (`src/js/app.js`) y el **Inspector Normativo PRC/OGUC** (`src/js/modulos/evaluador_normativo.js`).
+El **Módulo 01** es el núcleo cartográfico de la plataforma. Integra el lienzo interactivo Leaflet (`src/js/modulos/mapa.js`), el catálogo de las **124 capas oficiales** (`src/js/modulos/ide_chile.js`), los selectores de las **10 macrocategorías VGI** (`src/js/config.js`), el calculador en tiempo real del **Índice de Calidad VGI (ICV)** (`src/js/app.js`) y el **Inspector Normativo PRC/OGUC** (`src/js/modulos/evaluador_normativo.js`).
 
 ```mermaid
 flowchart LR
     subgraph IN["1. INPUT / ENTRADA (Controles del Módulo 01)"]
-        A1["Selector de Categorías VGI (CAT-01 a CAT-10)<br/>y Subpanel 🏛 Capas IDE (122 Capas Oficiales)"]
+        A1["Selector de Categorías VGI (CAT-01 a CAT-10)<br/>y Subpanel 🏛 Capas IDE (124 Capas Oficiales)"]
         A2["Herramienta ⛶ Dibujar Bbox<br/>o Selector de Polígono Barrial"]
         A3["Modo ⚖ Inspector Normativo<br/>Clic sobre coordenada (lat, lng) en el mapa"]
     end
@@ -88,7 +88,7 @@ flowchart LR
 
 #### Funciones Clave del Módulo 01:
 * **Encuadre Territorial y Medición Geodésica (`EPSG:32719`):** Los botones superiores permiten centrar la vista en el **Barrio Brasil Completo (`223,75 ha`)**, el cuadrante **Manzana UAH (`136,10 ha`)** o trazar un rectángulo personalizado mediante **⛶ Dibujar Bbox**. El módulo `src/js/modulos/geodesia.js` transforma los vértices de `EPSG:4326` a `EPSG:32719` (UTM Huso 19 Sur) aplicando las ecuaciones de Redfearn y calcula la superficie exacta en metros cuadrados (`m²`) y hectáreas (`ha`).
-* **Subpanel `🏛 Capas IDE` (`122 Coberturas Oficiales`):** Organiza las 122 coberturas estatales en acordeones temáticos con buscador en tiempo real. Para mantener una adecuada legibilidad visual, se recomienda superponer simultáneamente entre **2 y 4 coberturas** (por ejemplo, una capa de zonificación poligonal, una red lineal de movilidad y una capa puntual de equipamientos).
+* **Subpanel `🏛 Capas IDE` (`124 Coberturas Oficiales`):** Organiza las 124 coberturas estatales en acordeones temáticos con buscador en tiempo real. Para mantener una adecuada legibilidad visual, se recomienda superponer simultáneamente entre **2 y 4 coberturas** (por ejemplo, una capa de zonificación poligonal, una red lineal de movilidad y una capa puntual de equipamientos).
 * **Subpanel `📊 Métricas` (ICV Dinámico en Tiempo Real):** Cada vez que se activa o desactiva una cobertura, la función `actualizarTelemetriaCapasActivas()` recalcula tres indicadores sobre el conjunto de entidades visibles:
   1. **Completitud Espacial (`%`):** Proporción de entidades con geometría válida y atributos principales poblados (`nombre`, `tipo`, `categoria`).
   2. **Actualidad Reciente:** Año o período más reciente registrado en los metadatos o marcas temporales de las coberturas activas.
@@ -141,19 +141,19 @@ Conecta con la API REST v1 de la **Global Biodiversity Information Facility (`ap
 
 Articula catastros ciudadanos elaborados sobre **uMap** (`src/js/modulos/umap.js`) y provee un motor de importación vectorial local en el navegador (`src/js/modulos/importador_capas.js`).
 
-* **Proyectos uMap Integrados:** Permite embeber proyectos cartográficos comunitarios o inyectar sus capas GeoJSON directamente sobre el visor principal para cruzarlos con las 122 capas oficiales.
+* **Proyectos uMap Integrados:** Permite embeber proyectos cartográficos comunitarios o inyectar sus capas GeoJSON directamente sobre el visor principal para cruzarlos con las 124 capas oficiales.
 * **Importador Multiformato Client-Side:** Mediante arrastrar y soltar (*Drag & Drop*), el usuario puede cargar archivos locales en formato `.geojson`, `.json`, `.kml`, `.kmz`, `.gpx` o `.csv` (con columnas `lat`/`lon`). Los datos se procesan íntegramente en la memoria del navegador sin transmitirse a servidores externos.
 
 ---
 
 ### MÓDULO 05 · Indicadores & Storyboards Territoriales (`#panel-indicadores`)
 
-El **Módulo 05** (`src/js/modulos/indicadores_analisis.js`) organiza las **132 coberturas operativas** en **5 Dimensiones Analíticas** y presenta **4 Storyboards Territoriales** que integran **75 cartografías temáticas** (`src/assets/mapas_storyboards/`), tarjetas de indicadores clave (KPI), gráficos comparativos, diagramas vectoriales SVG, análisis diferenciados para 4 perfiles de actores (`Institución Pública`, `Comunidad Vecinal`, `Voluntariado VGI`, `ONG / Academia`) y visor **Lightbox de alta magnificación** (`zoom` hasta `4x` y desplazamiento táctil).
+El **Módulo 05** (`src/js/modulos/indicadores_analisis.js`) organiza las **134 coberturas operativas** en **5 Dimensiones Analíticas** y presenta **4 Storyboards Territoriales** que integran **75 cartografías temáticas** (`src/assets/mapas_storyboards/`), tarjetas de indicadores clave (KPI), gráficos comparativos, diagramas vectoriales SVG, análisis diferenciados para 4 perfiles de actores (`Institución Pública`, `Comunidad Vecinal`, `Voluntariado VGI`, `ONG / Academia`) y visor **Lightbox de alta magnificación** (`zoom` hasta `4x` y desplazamiento táctil).
 
 ```mermaid
 flowchart TD
-    subgraph IN["1. INPUT / ENTRADA (132 Capas y Matrices Consolidadas)"]
-        D1["5 Dimensiones Analíticas (132 Capas)<br/>DIM-01 Planificación | DIM-02 Demografía/RSH<br/>DIM-03 Movilidad | DIM-04 Ambiente/RSD | DIM-05 VGI"]
+    subgraph IN["1. INPUT / ENTRADA (134 Capas y Matrices Consolidadas)"]
+        D1["5 Dimensiones Analíticas (134 Capas)<br/>DIM-01 Planificación | DIM-02 Demografía/RSH<br/>DIM-03 Movilidad | DIM-04 Ambiente/RSD | DIM-05 VGI"]
         D2["Coberturas de Síntesis y Catastros<br/>data/matriz_sintesis_barrio_brasil_manzanas.geojson<br/>data/ide_censo2024_manzanas.geojson & RSH 2026"]
     end
 
@@ -189,7 +189,7 @@ El **Módulo 06** evalúa cuantitativamente la calidad de los datos geográficos
 ```mermaid
 flowchart LR
     subgraph IN["1. INPUT / ENTRADA"]
-        Q1["Submódulo A: Selección de Capa del Catálogo (132)<br/>o Carga de Archivo GeoJSON Externo"]
+        Q1["Submódulo A: Selección de Capa del Catálogo (134)<br/>o Carga de Archivo GeoJSON Externo"]
         Q2["Submódulo B: Filtro OSM + BBox + Rango 2008-2026<br/>Consultas a api.ohsome.org/v1 (OSHDB)"]
         Q3["Submódulo C: Polígono Territorial y Fechas<br/>Auditoría de Conjuntos de Cambios (Changesets)"]
     end
@@ -213,7 +213,7 @@ flowchart LR
 
 #### Especificación de los Tres Submódulos del Módulo 06:
 1. **Submódulo A — Evaluador Universal de Calidad Cuantitativa (Modelo WLC v2.0 bajo ISO 19157:2013 e ISO 19115:2014):**
-   * Permite seleccionar cualquiera de las **132 capas del Atlas** (`10` VGI o `122` oficiales) o arrastrar un archivo `.geojson` externo para auditarlo en tiempo real.
+   * Permite seleccionar cualquiera de las **134 capas del Atlas** (`10` VGI o `124` oficiales) o arrastrar un archivo `.geojson` externo para auditarlo en tiempo real.
    * Calcula el **Índice de Calidad Combinado (`ICV_WLC`)** en escala de `0` a `100` ponderando cinco dimensiones: **Linaje y Metadatos (`C1 = 0,25`)**, **Completitud Atributiva (`C2 = 0,25`)**, **Consistencia Lógica y Topológica (`C3 = 0,20`)**, **Exactitud Posicional y Geodésica (`C4 = 0,15`)** y **Actualidad Temporal (`C5 = 0,15`)**. Los pesos pueden ajustarse interactivamente en pantalla.
 2. **Submódulo B — Series Históricas OSHDB / ohsome API v1/v2 e Índice de Saturación y Maduración Territorial:**
    * Interroga los endpoints `/elements/count`, `/elements/length`, `/elements/area` y `/users/count` de **HeiGIT ohsome API** (`2008–2026`) sobre el BBox seleccionado (reproyectado a `EPSG:32719` para obtener la superficie exacta en `km²` y en hectáreas `10.000 m²`).
@@ -226,7 +226,7 @@ flowchart LR
 ### MÓDULO 07 · Manual de Uso y Actualización Técnica (`#panel-manual`)
 
 Integra dentro de la propia plataforma web (`src/js/modulos/manual.js`) la documentación completa del sistema dividida en dos partes con buscador dinámico en tiempo real:
-* **Parte I (`USO · 01` a `USO · 04`):** Fundamentación del sistema, guía del Módulo 01 (Visor, ICV Dinámico e Inspector Normativo PRC), catálogo de acceso directo a los 10 módulos e **Inventario General Filtrable de las 132 Coberturas Operativas**.
+* **Parte I (`USO · 01` a `USO · 04`):** Fundamentación del sistema, guía del Módulo 01 (Visor, ICV Dinámico e Inspector Normativo PRC), catálogo de acceso directo a los 10 módulos e **Inventario General Filtrable de las 134 Coberturas Operativas**.
 * **Parte II (`ACT · 01` a `ACT · 05`):** Arquitectura tecnológica, **Catálogo Estandarizado Multi-Lenguaje** (`HTML5`, `CSS3`, `JS ES6+`, `SQL`, `JSON/TOML`, `Python 3`), diagramas de los **4 Pipelines Operativos (`A`, `B`, `C` y `D`)**, protocolo de 6 etapas para agregar nuevas capas, suite de verificación en Python y botones de descarga directa de todos los documentos `.md` en `docs/`.
 
 ---
@@ -235,16 +235,16 @@ Integra dentro de la propia plataforma web (`src/js/modulos/manual.js`) la docum
 
 Permite estructurar, previsualizar y exportar fichas de metadatos geoespaciales (`src/js/modulos/metadatos.js`) cumpliendo con la norma **ISO 19115:2003 / ISO 19115-1:2014**, la codificación XML **ISO/TS 19139:2007** y el **Perfil Nacional de Metadatos de IDE Chile (SNIT)**.
 
-* **Autocompletado Inteligente:** Al elegir cualquiera de las 132 capas en el selector superior, el formulario rellena automáticamente el título, resumen, categoría temática ISO (`MD_TopicCategoryCode`), sistema de referencia (`EPSG:4326` / `EPSG:32719`), extensión espacial (`EX_GeographicBoundingBox`), linaje (`LI_Lineage`), institución responsable y licencia.
+* **Autocompletado Inteligente:** Al elegir cualquiera de las 134 capas en el selector superior, el formulario rellena automáticamente el título, resumen, categoría temática ISO (`MD_TopicCategoryCode`), sistema de referencia (`EPSG:4326` / `EPSG:32719`), extensión espacial (`EX_GeographicBoundingBox`), linaje (`LI_Lineage`), institución responsable y licencia.
 * **Exportación Dual:** Genera con un clic el archivo **JSON (ISO 19115)** o el documento **XML (ISO 19139)** listo para su ingesta en catálogos **GeoNetwork** o **GeoNode**.
 
 ---
 
 ### MÓDULO 09 · Diccionario de Atributos y Homologación Semántica ISO 19110 (`#panel-diccionario`)
 
-Documenta el **Catálogo de Objetos Geográficos** conforme a la norma **ISO 19110:2016** (`src/js/modulos/diccionario.js`), abarcando las **132 capas del Atlas** y **140 descriptores normativos**:
+Documenta el **Catálogo de Objetos Geográficos** conforme a la norma **ISO 19110:2016** (`src/js/modulos/diccionario.js`), abarcando las **134 capas del Atlas** y **140 descriptores normativos**:
 
-* Permite filtrar por grupo temático, por las **122 Capas Oficiales del Estado**, por el **Esquema Normalizado de 23 Atributos** o aislar exclusivamente las **86 Brechas Temáticas VGI** (atributos micro-urbanos de accesibilidad universal, mobiliario peatonal, ciclovías y biodiversidad barrial que no poseen homólogo en los catastros ministeriales y son suplidos por el mapeo ciudadano).
+* Permite filtrar por grupo temático, por las **124 Capas Oficiales del Estado**, por el **Esquema Normalizado de 23 Atributos** o aislar exclusivamente las **86 Brechas Temáticas VGI** (atributos micro-urbanos de accesibilidad universal, mobiliario peatonal, ciclovías y biodiversidad barrial que no poseen homólogo en los catastros ministeriales y son suplidos por el mapeo ciudadano).
 
 ---
 
@@ -255,7 +255,7 @@ Sistematiza el régimen jurídico de propiedad intelectual y acceso público (`s
 * **Marco Normativo:** Explica las condiciones de uso y atribución de **ODbL 1.0** (OpenStreetMap), **CC BY 4.0 / CC BY-SA 4.0** (GBIF y cartografía derivada), **Ley N° 20.285** (Transparencia y Datos Abiertos del Estado de Chile) y **Ley N° 19.628** (Protección de Datos Personales mediante agregación censal a nivel de manzana y unidad vecinal).
 * **Descargas Directas Sincronizadas en `docs/` y `src/docs/`:**
   1. **Paquete Consolidado (`docs/geodatabase_completa_atlas_vgi.zip`):** `542,35 MB` comprimidos (`~3,33 GB` descomprimidos, `257` archivos en `7` subcarpetas).
-  2. **Libro 1 (`docs/catalogo_fuentes_vgi.xlsx`):** Catálogo sistemático de las 132 fuentes VGI y oficiales.
+  2. **Libro 1 (`docs/catalogo_fuentes_vgi.xlsx`):** Catálogo sistemático de las 134 fuentes VGI y oficiales.
   3. **Libro 2 (`docs/perfil_metadatos_vgi.xlsx`):** Perfil de metadatos ISO 19115 / IDE Chile y evaluación WLC ISO 19157.
   4. **Libro 3 (`docs/categorias_tematicas_osm.xlsx`):** Taxonomía de las 10 macrocategorías VGI (`CAT-01` a `CAT-10`) y equivalencias ISO 19110.
 

@@ -29,8 +29,8 @@
 * [9. Integración de Biodiversidad y Ciencia Ciudadana con GBIF y Darwin Core](#9-integración-de-biodiversidad-y-ciencia-ciudadana-con-gbif-y-darwin-core)
 * [10. Integración de Cartografía Externa con uMap e iframes Aislados](#10-integración-de-cartografía-externa-con-umap-e-iframes-aislados)
 * [11. Extractos Masivos Regionales de Geofabrik RM y Generación de GeoPackage OGC](#11-extractos-masivos-regionales-de-geofabrik-rm-y-generación-de-geopackage-ogc)
-* [12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-122-capas-oficiales-del-estado-de-chile)
-* [13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas](#13-catálogo-exhaustivo-detallado-de-las-132-capas-cartográficas)
+* [12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-124-capas-oficiales-del-estado-de-chile)
+* [13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas](#13-catálogo-exhaustivo-detallado-de-las-134-capas-cartográficas)
 * [14. El Esquema Maestro Obligatorio de 14 Atributos ISO por Entidad Geográfica](#14-el-esquema-maestro-obligatorio-de-14-atributos-iso-por-entidad-geográfica)
 
 ### [PARTE III: MODELAMIENTO MATEMÁTICO DE CALIDAD, METADATOS Y ESTÁNDARES INTERNACIONALES](#parte-iii-modelamiento-matemático-de-calidad-metadatos-y-estándares-internacionales)
@@ -204,7 +204,7 @@ flowchart LR
 * **Definición Formal:**
   > Diseñar, estructurar y consolidar una geodatabase espacial multipropósito bajo estándares internacionales de calidad geográfica y metadatos, integrando y armonizando coberturas cartográficas oficiales del Estado con información comunitaria voluntaria.
 * **Componentes Ejecutados:**
-  - Descarga, normalización y geoprocesamiento de **132 coberturas vectoriales (122 oficiales del Estado de Chile + 10 VGI comunitarias)**, totalizando 3,33 GB de datos en EPSG:4326 y EPSG:32719.
+  - Descarga, normalización y geoprocesamiento de **134 coberturas vectoriales (124 oficiales del Estado de Chile + 10 VGI comunitarias)**, totalizando 3,33 GB de datos en EPSG:4326 y EPSG:32719.
   - Almacenamiento espacial estructurado en clúster relacional PostgreSQL 17 + PostGIS 3.3 (Supabase Cloud) con más de 1.552.000 entidades indexadas mediante árboles GiST y claves JSONB con índices GIN.
   - Formulación y ejecución del **Modelo de MetaCalidad WLC v2.0 bajo norma ISO 19157:2013**, integrando 5 componentes cuantitativos (topología, completitud, geodésica, esquema y granularidad) y 5 componentes cualitativos (metadatos núcleo, linaje, conformidad ISO, escala y accesibilidad), certificando un **96,55% / 97,88% de metacalidad global (Grado A+ Excelente)**.
   - Inyección algorítmica universal del **Esquema Maestro de 14 Atributos Normalizados ISO** en la totalidad de capas vectoriales para descargas transparentes.
@@ -223,7 +223,7 @@ flowchart LR
     end
 
     subgraph PROD2["3. Productos Resultantes Específicos"]
-        PR2_1["132 Capas Vectoriales GeoJSON\n(122 Oficiales + 10 VGI)"]
+        PR2_1["134 Capas Vectoriales GeoJSON\n(124 Oficiales + 10 VGI)"]
         PR2_2["Bases Vectoriales con Linaje,\nFuente y Fechas ISO"]
         PR2_3["Certificación Grado A+ MetaCalidad\n& Matriz Analítica WLC"]
         PR2_4["Geodatabase Relacional PostGIS\ncon Índices GiST y GIN"]
@@ -246,7 +246,7 @@ flowchart LR
 
 | N° | Entregable Acreditado | Tipo de Producto | Fuente / Localización Oficial en el Proyecto |
 |:---:|:---|:---:|:---|
-| **E-03** | Repositorio de Geodatabase Espacial de 132 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` y `data/*.geojson` (3,33 GB totales) |
+| **E-03** | Repositorio de Geodatabase Espacial de 134 Coberturas Vectoriales GeoJSON (EPSG:4326). | Geodatabase Vectorial | `src/data/*.geojson` y `data/*.geojson` (3,33 GB totales) |
 | **E-04** | Base de Datos Espacial PostgreSQL 17 + PostGIS 3.3 desplegada en Cloud con Funciones RPC. | Base Relacional Espacial | `scripts/db/01_schema_postgis.sql`, `scripts/db/02_seed_metadata.sql` y `docs/GUIA_BASE_DATOS_SUPABASE.md` (`src/docs/`) |
 | **E-05** | Matriz Analítica y Reporte de Certificación de MetaCalidad Espacial ISO 19157:2013 (Grado A+). | Matriz / Certificación | `docs/ANALISIS_METACALIDAD.md`, `docs/matriz_metacalidad.json`, `docs/wlc_metacalidad_resultado.json`, `docs/wlc_metacalidad_ranking.csv` y `docs/correlacion_dimensiones_calidad.csv` (`src/docs/`) |
 | **E-06** | Catálogo Maestro de Geodatos en Formato OpenXML y Esquema de 14 Columnas Normalizadas ISO. | Catálogo Tabular OGC | `docs/categorias_tematicas_osm.xlsx` y `docs/perfil_metadatos_vgi.xlsx` (`src/docs/`) |
@@ -376,7 +376,7 @@ flowchart TD
     end
 
     subgraph FASE2["FASE II: Geodatabase Espacial & Calidad ISO"]
-        H4["Hito 4: Extracción Overpass QL & Descarga 132 Capas"] --> H5["Hito 5: Modelo WLC ISO 19157 (Grado A+) & 14 Atributos"]
+        H4["Hito 4: Extracción Overpass QL & Descarga 134 Capas"] --> H5["Hito 5: Modelo WLC ISO 19157 (Grado A+) & 14 Atributos"]
         H5 --> H6["Hito 6: Cruces Espaciales & Análisis Multidimensional"]
     end
 
@@ -398,7 +398,7 @@ flowchart TD
 | **Hito 1** | Diagnóstico territorial y revisión de plataformas VGI. | **OE 1** | Fase I | **100% Cerrado** | `docs/ARQUITECTURA.md` y `docs/catalogo_fuentes_vgi.xlsx` (`src/docs/`) |
 | **Hito 2** | Estructuración de 10 macrocategorías VGI y 4 perfiles multiactor. | **OE 1** | Fase I | **100% Cerrado** | `docs/categorias_tematicas_osm.xlsx` (`src/docs/`) y `src/js/config.js` |
 | **Hito 3** | Inventario exhaustivo de fuentes colaborativas y oficiales. | **OE 1** | Fase I | **100% Cerrado** | `docs/catalogo_fuentes_vgi.xlsx` y `docs/TRAZABILIDAD_ACADEMICA.md` (`src/docs/`) |
-| **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Fase II | **100% Cerrado** | `scripts/descargar_todas_las_categorias_osm.py`, `data/*.geojson` y `src/data/*.geojson` (132 capas) |
+| **Hito 4** | Pipeline de descarga y extracción automatizada de geodatos. | **OE 2** | Fase II | **100% Cerrado** | `scripts/descargar_todas_las_categorias_osm.py`, `data/*.geojson` y `src/data/*.geojson` (134 capas) |
 | **Hito 5** | Auditoría de calidad ISO 19157 (WLC v2.0) e inyección de 14 atributos. | **OE 2** | Fase II | **100% Cerrado** | `docs/ANALISIS_METACALIDAD.md`, `docs/matriz_metacalidad.json`, `docs/wlc_metacalidad_resultado.json` y `docs/perfil_metadatos_vgi.xlsx` |
 | **Hito 6** | Cruces espaciales barriales y análisis en 5 dimensiones territoriales. | **OE 2** | Fase II | **100% Cerrado** | `data/matriz_sintesis_barrio_brasil_manzanas.geojson`, `data/resumen_catastro_vgi.csv` y `data/bip_inversiones_santiago.csv` |
 | **Hito 7** | Arquitectura web interactiva modular, visor cartográfico y APIs en vivo. | **OE 3** | Fase III | **100% Cerrado** | `src/index.html`, `src/css/estilos.css`, `src/js/app.js` y `src/js/modulos/*.js` |
@@ -435,7 +435,7 @@ En estricta coherencia con la interfaz web desplegada en producción (`https://a
   - Auditoría de metadatos conforme al Perfil Nacional de Metadatos de Chile (Decreto N° 28 de Bienes Nacionales) y descarga de archivos XML estructurados bajo norma ISO 19139:2007.
 * **Paneles y Módulos Prioritarios en la Plataforma Web:**
   1. `metadatos-iso` (Módulo 08): Generador y visualizador de metadatos estandarizados ISO 19115 / ISO 19139.
-  2. `inicio` (Módulo 01): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 122 capas oficiales + 10 VGI.
+  2. `inicio` (Módulo 01): Inspector Normativo PRC (Certificado CIN-VGI) y árbol de 124 capas oficiales + 10 VGI.
   3. `diccionario` (Módulo 09): Homologación de 140 descriptores territoriales (ISO 19110) entre la OGUC, el PRC y la cartografía.
   4. `licencias` (Módulo 10): Matriz de gobernanza legal, licencias estatales y catálogo de capas en OpenXML (.xlsx).
 
@@ -617,7 +617,7 @@ flowchart LR
     end
 
     subgraph DESTINOS["3. Salidas y Almacenamiento en Git y Web"]
-        GEOJSON["132 Capas GeoJSON en src/data/ y data/ (122 Oficiales + 10 VGI)"]
+        GEOJSON["134 Capas GeoJSON en src/data/ y data/ (124 Oficiales + 10 VGI)"]
         GPKG["data/geodatabase_osm_rm_geofabrik.gpkg (OGC SQLite)"]
         XLSX["3 Libros Excel OpenXML en docs/ y src/docs/"]
         POSTGIS["PostgreSQL 17 / PostGIS 3.3 (scripts/db/01_schema_postgis.sql)"]
@@ -845,7 +845,7 @@ En plena coherencia con el **Módulo 06 (`Evaluación de Calidad Geoespacial e �
 
 ### 8.1. Articulación de los 3 Submódulos de Calidad en la Plataforma Web (Módulo 06)
 1. **Submódulo A — Evaluador Universal de Calidad Espacial, Topología e Índice IGV (`evaluador_calidad_cuantitativa.js`):**
-   - Evalúa cualquier capa interna del catálogo (132 coberturas) o cualquier archivo externo cargado por el usuario (`.geojson` / `.json`).
+   - Evalúa cualquier capa interna del catálogo (134 coberturas) o cualquier archivo externo cargado por el usuario (`.geojson` / `.json`).
    - Computa el **Índice Global de Calidad (IGV / IGMC)** mediante Combinación Lineal Ponderada (WLC) al **50% para el Pilar Cuantitativo** (Consistencia Topológica 30%, Completitud de Atributos 25%, Exactitud Posicional y Dominio 20%, Conformidad de Esquema 15% y Densidad de Vértices 10%) y **50% para el Pilar Cualitativo** (Completitud de Metadatos ISO 19115 25%, Trazabilidad del Linaje 25%, Actualidad Temporal 20%, Conformidad Estándar IDE Chile 15% y Claridad Legal/Licenciamiento 15%).
 2. **Submódulo B — Serie Histórica OSHDB e Índice de Saturación y Maduración Territorial (`ohsome.js` y `calidad_analyst.js`):**
    - Consulta la evolución histórica 2018–2026 en la API de HeiGIT (**ohsome API v1/v2**) aplicando sensibilidad geométrica según la naturaleza espacial de la categoría consultada y reproyectando el polígono de consulta a **SIRGAS-Chile / UTM Huso 19 Sur (`EPSG:32719`)** mediante el algoritmo Transverse Mercator y la fórmula de área de Gauss (*Shoelace*) en `src/js/modulos/geodesia.js`.
@@ -1016,7 +1016,7 @@ El archivo resultante (`data/geodatabase_osm_rm_geofabrik.gpkg`) cuenta con índ
 
 ---
 
-## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
+## 12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile
 
 ```mermaid
 flowchart LR
@@ -1036,15 +1036,15 @@ flowchart LR
     end
 
     subgraph OUT_IDE["3. OUTPUT: CATÁLOGO OFICIAL"]
-        IDE_122["122 Capas Oficiales Homologadas (src/data/*.geojson)"]
-        XLSX_132["Catálogo Maestro catalogo_fuentes_vgi.xlsx (132 Filas)"]
+        IDE_122["124 Capas Oficiales Homologadas (src/data/*.geojson)"]
+        XLSX_134["Catálogo Maestro catalogo_fuentes_vgi.xlsx (134 Filas)"]
         WEB_MOD01["Sincronización en Visor Web (Módulo 01) y Storyboards (Módulo 05)"]
     end
 
     IN_IDE --> PROC_IDE --> OUT_IDE
 ```
 
-El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
+El Atlas VGI integra exactamente **124 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
 A continuación se detalla la proveniencia institucional y aporte temático de las principales entidades públicas integradas:
 
@@ -1074,9 +1074,9 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 
 ---
 
-## 13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas
+## 13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas
 
-A continuación se expone la tabla maestra con el inventario universal de las 132 capas que operan en la plataforma web y en la geodatabase unificada:
+A continuación se expone la tabla maestra con el inventario universal de las 134 capas que operan en la plataforma web y en la geodatabase unificada:
 
 ### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil y Región Metropolitana)
 | N° | ID en Plataforma (`config.js`) | Código | Denominación Oficial | Dimensión Territorial | Geometría OGC | Ruta Barrial (`data/` y `src/data/`) | Ruta Regional RM (`data/` y `src/data/`) |
@@ -1093,7 +1093,7 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 | 10 | `cobertura_suelo` | `CAT-10` | Cobertura y Uso de Suelo Urbano | Morfología Urbana | Polígonos | `data/capa_cobertura_suelo.geojson` | `data/capa_osm_rm_cat10_cobertura_suelo.geojson` |
 
 
-### 13.2. Las 122 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
+### 13.2. Las 124 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
 | N° | ID de Capa | Nombre Oficial | Institución Responsable | Ministerio / Sector | Geometría | Archivo Local |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
 | 011 | `censo2024_regional` | Censo 2024 (Marco Regional RM) | Instituto Nacional de Estadísticas (INE) / IDE Chile | Ministerio de Economía, Fomento y Turismo | Polígono (Región Metropolitana) | `data/ide_censo2024_regional.geojson` |
@@ -1238,7 +1238,7 @@ flowchart LR
     end
 
     subgraph OUT_ISO["3. OUTPUT"]
-        STD_GEOJSON["132 Capas GeoJSON 100% Homogéneas"]
+        STD_GEOJSON["134 Capas GeoJSON 100% Homogéneas"]
         ISO_CONFORM["Conformidad Total con Perfil IDE Chile / SNIT"]
         EXPORT_READY["Exportabilidad Directa hacia QGIS y ArcGIS"]
     end
@@ -1431,7 +1431,7 @@ w_m = [0.30, 0.25, 0.20, 0.15, 0.10],   ∑(j=1..5) w_mj = 1.00
 ```mermaid
 flowchart LR
     subgraph IN_WLC["1. INPUT"]
-        GEO_132["132 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
+        GEO_134["134 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
         META_XLSX["docs/perfil_metadatos_vgi.xlsx & docs/catalogo_fuentes_vgi.xlsx"]
         BBOX_RM["Envolvente Geodésica Oficial RM / Barrio Brasil"]
     end
@@ -1577,7 +1577,7 @@ De acuerdo al puntaje global obtenido en el modelo WLC v2.0, las capas se certif
 ```mermaid
 flowchart LR
     subgraph IN_CORR["1. INPUT"]
-        MAT_132["docs/matriz_metacalidad.json (132 Capas x 10 Dimensiones WLC v2.0)"]
+        MAT_132["docs/matriz_metacalidad.json (134 Capas x 10 Dimensiones WLC v2.0)"]
         WEIGHTS["Vectores de Ponderación (w_c y w_m)"]
     end
 
@@ -1596,7 +1596,7 @@ flowchart LR
 ```
 
 ### 16.1. Matriz de Correlación Lineal de Pearson (`r`)
-Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson (`r`) sobre las 132 capas cartográficas, preservada en `docs/correlacion_dimensiones_calidad.csv`:
+Para verificar la independencia ortogonal entre las 5 dimensiones cuantitativas y las 5 dimensiones cualitativas del modelo WLC v2.0, se calculó la matriz de coeficientes de correlación de Pearson (`r`) sobre las 134 capas cartográficas, preservada en `docs/correlacion_dimensiones_calidad.csv`:
 
 ```text
 r_xy = ∑(i=1..n) [ (x_i - x̄) × (y_i - ȳ) ] / [ √(∑(i=1..n) (x_i - x̄)²) × √(∑(i=1..n) (y_i - ȳ)²) ]
@@ -1623,11 +1623,11 @@ sequenceDiagram
     autonumber
     actor Investigador as Usuario / Gestor IDE
     participant Mod06 as Módulo 06 (metadatos.js)
-    participant Cat as Registro de 132 Capas (app.js)
+    participant Cat as Registro de 134 Capas (app.js)
     participant Builder as Motor Serializador ISO 19139
     participant Descarga as Descarga Cliente (Blob XML/JSON)
 
-    Investigador->>Mod06: Selecciona capa de las 132 disponibles
+    Investigador->>Mod06: Selecciona capa de las 134 disponibles
     Mod06->>Cat: Consulta metadatos, linaje, EPSG:4326 y BBox
     Cat-->>Mod06: Objeto de metadatos normalizado
     Mod06->>Builder: Ensambla 7 paquetes normativos ISO 19115-1:2014
@@ -1773,7 +1773,7 @@ A continuación se reproduce el fragmento XML validable que genera el Módulo 08
 ```mermaid
 flowchart LR
     subgraph IN_CATS["1. INPUT"]
-        CAPAS_132["132 Capas Vectoriales Auditadas (data/*.geojson)"]
+        CAPAS_132["134 Capas Vectoriales Auditadas (data/*.geojson)"]
         WLC_RES["Resultados del Modelo WLC v2.0 (docs/wlc_metacalidad_resultado.json)"]
         GLOS_140["140 Descriptores del Diccionario Territorial (src/js/modulos/diccionario.js)"]
     end
@@ -1797,13 +1797,13 @@ El Atlas desacopla de forma absoluta las bases de datos espaciales de los catál
 
 ### 18.1. Los 3 Libros Maestros OpenXML (`.xlsx`) en `docs/` y `src/docs/`
 1. **`docs/categorias_tematicas_osm.xlsx` (`src/docs/categorias_tematicas_osm.xlsx`, 52.5 KB):** Contiene 11 hojas estructuradas (Resumen General + Hojas CAT-01 a CAT-10). Define códigos unívocos, nombres en español, etiquetas primarias y secundarias de OSM, pesos de habitabilidad y criterios de verificación comunitaria.
-2. **`docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx`, 37.4 KB):** Ficha exhaustiva de las **132 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
+2. **`docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx`, 37.4 KB):** Ficha exhaustiva de las **134 capas** del Atlas a lo largo de 24 columnas normalizadas: ID de capa, institución, ministerio, endpoint WFS/REST, total de entidades, sistema geodésico, fecha de captura, cita APA 7ª ed. y puntaje de calidad IGV.
 3. **`docs/perfil_metadatos_vgi.xlsx` (`src/docs/perfil_metadatos_vgi.xlsx`, 30.6 KB):** Matriz de parametrización de los 7 paquetes normativos de la norma ISO 19115-1:2014 con definición de obligatoriedad, cardinalidad OGC y mapeo XSD ISO 19139.
 
 ### 18.2. Los Archivos Consolidados CSV y JSON de Calidad (`data/`, `src/data/`, `docs/` y `src/docs/`)
 * **`data/bip_inversiones_santiago.csv` (`src/data/bip_inversiones_santiago.csv`, 3.73 MB):** Catálogo masivo de iniciativas del Banco Integrado de Proyectos (BIP) del MIDESO para Santiago Centro, con montos de inversión, etapas (Diseño, Ejecución, Operación) y georreferenciación.
 * **`docs/correlacion_dimensiones_calidad.csv` (`src/docs/correlacion_dimensiones_calidad.csv`, 837 bytes) y `docs/correlacion_dimensiones_calidad.png`:** Matriz simétrica 10 × 10 de coeficientes de correlación de Pearson del modelo WLC v2.0 y su representación gráfica.
-* **`docs/wlc_metacalidad_ranking.csv` (`src/docs/wlc_metacalidad_ranking.csv`, 29.5 KB), `docs/wlc_metacalidad_resultado.json` y `docs/matriz_metacalidad.json`:** Tabla ordenada y matrices JSON de las 132 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
+* **`docs/wlc_metacalidad_ranking.csv` (`src/docs/wlc_metacalidad_ranking.csv`, 29.5 KB), `docs/wlc_metacalidad_resultado.json` y `docs/matriz_metacalidad.json`:** Tabla ordenada y matrices JSON de las 134 capas con puntajes cuantitativos, cualitativos y grado asignado (A+, A, B o C).
 * **`data/resumen_catastro_vgi.csv` (`src/data/resumen_catastro_vgi.csv`, 168 KB):** Conteo agregado de nodos, vías y relaciones activas por categoría en Barrio Brasil.
 
 ---
@@ -1821,7 +1821,7 @@ flowchart LR
     subgraph PROC_DICT["2. PIPELINE DE HOMOLOGACIÓN SEMÁNTICA"]
         CROSS_REF["Correspondencia Biunívoca Concepto Urbano <-> Etiqueta key=value"]
         DEF_TECH["Redacción de Definición Operativa y Marco Regulatorio"]
-        LAYER_MAP["Enlace con Identificadores de las 132 Capas del Atlas"]
+        LAYER_MAP["Enlace con Identificadores de las 134 Capas del Atlas"]
     end
 
     subgraph OUT_DICT["3. OUTPUT"]
@@ -1877,7 +1877,7 @@ El Atlas de Información Geográfica Voluntaria adopta una filosofía de ingenie
 │         ┌───────────────────────────────────────────────────┤          │
 │         ▼                                                   ▼          │
 │  MÓDULOS ESPECIALIZADOS IIFE                  MOTOR CARTOGRÁFICO       │
-│  • ModuloIDEChile (122 capas)                 • Leaflet 1.9.4          │
+│  • ModuloIDEChile (124 capas)                 • Leaflet 1.9.4          │
 │  • ModuloOSM (Overpass QL)                    • L.tileLayer / WMS      │
 │  • ModuloOhsome (HeiGIT API)                  • L.geoJSON / L.divIcon  │
 │  • ModuloEvaluadorNormativo (PRC)             • Popups Dinámicos       │
@@ -1963,7 +1963,7 @@ window.ModuloEjemploVGI = ModuloEjemploVGI;
 ```mermaid
 flowchart LR
     subgraph IN_LEAF["1. INPUT"]
-        CAPAS_132["132 Capas GeoJSON Homologadas (EPSG:4326)"]
+        CAPAS_132["134 Capas GeoJSON Homologadas (EPSG:4326)"]
         TILES_XYZ["Mosaicos Base XYZ (OSM, Carto Positron/Dark, Esri)"]
         STYLE_DEF["Diccionario de Estilos y Paletas Temáticas"]
     end
@@ -2246,7 +2246,7 @@ flowchart LR
     subgraph IN_SB["1. INPUT"]
         CARTO_75["75 Cartografías Temáticas (img/cartografias/*.jpg)"]
         PORTADAS_4["4 Portadas Vectoriales SVG (img/storyboards/*.svg)"]
-        DATA_132["132 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
+        DATA_132["134 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
     end
 
     subgraph PROC_SB["2. PIPELINE DE SÍNTESIS Y NARRATIVA ESPACIAL"]
@@ -2389,11 +2389,11 @@ nodo-geoabierto/
 │   ├── atlas_vgi_barrio_brasil_uah_completo.geojson                  # Consolidado VGI Barrio Brasil
 │   ├── capa_osm_rm_cat01_educacion.geojson .. cat10_*.geojson        # 10 capas regionales RM (Geofabrik)
 │   ├── capa_osm_rm_completo_vgi.geojson                              # Consolidado regional RM
-│   ├── ide_*.geojson, bbdd_*_santiago.geojson, subdere_rsd_*.geojson # 122 capas oficiales del Estado
+│   ├── ide_*.geojson, bbdd_*_santiago.geojson, subdere_rsd_*.geojson # 124 capas oficiales del Estado
 │   ├── resumen_catastro_vgi.csv                                      # Resumen cuantitativo VGI
 │   └── bip_inversiones_santiago.csv                                  # Inversión pública MIDESO BIP
 ├── docs/                                   # Documentación formal y entregables (sincronizado con src/docs/)
-│   ├── geodatabase_completa_atlas_vgi.zip  # Paquete maestro ZIP (542,35 MB; 132 capas del visor y 257 archivos)
+│   ├── geodatabase_completa_atlas_vgi.zip  # Paquete maestro ZIP (542,35 MB; 134 capas del visor y 257 archivos)
 │   ├── ANALISIS_METACALIDAD.md             # Informe técnico de calidad ISO 19157 (95.41% IGV)
 │   ├── ARQUITECTURA.md                     # Memoria de diseño de software
 │   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md   # Catálogo de 125 fuentes bibliográficas APA 7ª ed.
@@ -2401,9 +2401,9 @@ nodo-geoabierto/
 │   ├── MANUAL_ACTUALIZACION_ATLAS.md       # Copia espejo del manual técnico maestro
 │   ├── MANUAL_USO.md                       # Copia espejo del manual de usuario
 │   ├── categorias_tematicas_osm.xlsx       # Libro Excel de las 10 macrocategorías OSM
-│   ├── catalogo_fuentes_vgi.xlsx           # Matriz Excel de las 132 fuentes y capas
+│   ├── catalogo_fuentes_vgi.xlsx           # Matriz Excel de las 134 fuentes y capas
 │   ├── perfil_metadatos_vgi.xlsx           # Matriz Excel de los 7 paquetes ISO 19115-1:2014
-│   ├── wlc_metacalidad_ranking.csv         # Ranking WLC v2.0 de las 132 capas
+│   ├── wlc_metacalidad_ranking.csv         # Ranking WLC v2.0 de las 134 capas
 │   ├── wlc_metacalidad_resultado.json      # Resultados detallados WLC v2.0 en JSON
 │   ├── matriz_metacalidad.json             # Matriz multicriterio de las 10 dimensiones
 │   └── correlacion_dimensiones_calidad.csv # Matriz de correlación de Pearson 10x10 (+ .png)
@@ -2439,12 +2439,12 @@ La barra de navegación superior (`#lista-navegacion` en `src/index.html`) organ
 ---
 
 ### Módulo 01: Visor y Atlas VGI (`data-panel="inicio"` — `src/js/app.js`, `src/js/modulos/mapa.js`, `src/js/modulos/ide_chile.js`, `src/js/modulos/evaluador_normativo.js`)
-* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas (122 oficiales + 10 VGI); búsqueda en vivo; telemetría dinámica del Índice de Calidad VGI (ICV); Inspector Normativo del PRC de Santiago (Certificado CIN-VGI y 10 hitos históricos 1990–2024); dibujo de BBox con cálculo métrico en `EPSG:32719`.
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 134 capas cartográficas (124 oficiales + 10 VGI); búsqueda en vivo; telemetría dinámica del Índice de Calidad VGI (ICV); Inspector Normativo del PRC de Santiago (Certificado CIN-VGI y 10 hitos históricos 1990–2024); dibujo de BBox con cálculo métrico en `EPSG:32719`.
 
 ```mermaid
 flowchart LR
     subgraph IN_M1["1. INPUT"]
-        GEOJSON["132 Capas GeoJSON (data/*.geojson)"]
+        GEOJSON["134 Capas GeoJSON (data/*.geojson)"]
         TILES["Mosaicos Base (OSM, Carto, Esri)"]
         CLIC["Clic del Usuario en el Mapa"]
     end
@@ -2550,12 +2550,12 @@ flowchart LR
 ---
 
 ### Módulo 05: Indicadores & Storyboards (`data-panel="indicadores"` — `src/js/modulos/indicadores_analisis.js`)
-* **Propósito Operativo:** Articulación de las 132 coberturas del Atlas en **5 Dimensiones Analíticas** (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad) y **4 Storyboards de Resultados Territoriales** con **75 cartografías temáticas**, gráficos comparativos, diagramas vectoriales SVG y visor Lightbox multi-dispositivo.
+* **Propósito Operativo:** Articulación de las 134 coberturas del Atlas en **5 Dimensiones Analíticas** (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad) y **4 Storyboards de Resultados Territoriales** con **75 cartografías temáticas**, gráficos comparativos, diagramas vectoriales SVG y visor Lightbox multi-dispositivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_M5["1. INPUT"]
-        DIM_5["5 Dimensiones Analíticas (132 Capas Asociadas)"]
+        DIM_5["5 Dimensiones Analíticas (134 Capas Asociadas)"]
         STORY_ID["4 Storyboards Temáticos (KDE, LISA, Censo 2024, Socioambiental)"]
         CARTO_SET["75 Cartografías (2200x1423 px) + Diagramas SVG + Gráficos"]
     end
@@ -2577,12 +2577,12 @@ flowchart LR
 ---
 
 ### Módulo 06: Calidad & ICV (`data-panel="calidad-ohsome"` — `src/js/modulos/evaluador_calidad_cuantitativa.js`, `src/js/modulos/ohsome.js`, `src/js/modulos/calidad_analyst.js`)
-* **Propósito Operativo:** Evaluación multidimensional de calidad geoespacial articulada en tres submódulos: **Submódulo A** (Evaluador Universal de Calidad Espacial, Topología e Índice IGV bajo ISO 19157 e ISO 19115 para las 132 capas o GeoJSON externos), **Submódulo B** (Serie Histórica OSHDB/ohsome API v1/v2 con sensibilidad geométrica `/count`, `/length`, `/area`, reproyección métrica `EPSG:32719` e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**) y **Submódulo C** (Control de Cambios y Validación de Ediciones Recientes con OSMCha / OSM API v0.6).
+* **Propósito Operativo:** Evaluación multidimensional de calidad geoespacial articulada en tres submódulos: **Submódulo A** (Evaluador Universal de Calidad Espacial, Topología e Índice IGV bajo ISO 19157 e ISO 19115 para las 134 capas o GeoJSON externos), **Submódulo B** (Serie Histórica OSHDB/ohsome API v1/v2 con sensibilidad geométrica `/count`, `/length`, `/area`, reproyección métrica `EPSG:32719` e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**) y **Submódulo C** (Control de Cambios y Validación de Ediciones Recientes con OSMCha / OSM API v0.6).
 
 ```mermaid
 flowchart LR
     subgraph IN_M6["1. INPUT"]
-        CAPA_AUD["132 Capas del Catálogo o GeoJSON Externo"]
+        CAPA_AUD["134 Capas del Catálogo o GeoJSON Externo"]
         OHSOME_URL["ohsome API v1/v2 (/elements/count, /length, /area, /users)"]
         OSMCHA_XML["OSM API v0.6 Changesets (/api/0.6/changesets)"]
     end
@@ -2605,14 +2605,14 @@ flowchart LR
 ---
 
 ### Módulo 07: Manual de Uso y Actualización (`data-panel="manual"` — `src/js/modulos/manual.js`)
-* **Propósito Operativo:** Documentación interactiva dividida en **Parte I: Manual de Uso del Atlas** (fundamentación, operación del visor, ICV dinámico, Inspector Normativo e inventario filtrable de las 132 coberturas) y **Parte II: Manual de Actualización y Mantención Técnica** (catálogo estandarizado multi-lenguaje, pipelines de flujo, protocolo de 6 etapas, validación pre-despliegue y régimen jurídico).
+* **Propósito Operativo:** Documentación interactiva dividida en **Parte I: Manual de Uso del Atlas** (fundamentación, operación del visor, ICV dinámico, Inspector Normativo e inventario filtrable de las 134 coberturas) y **Parte II: Manual de Actualización y Mantención Técnica** (catálogo estandarizado multi-lenguaje, pipelines de flujo, protocolo de 6 etapas, validación pre-despliegue y régimen jurídico).
 
 ```mermaid
 flowchart LR
     subgraph IN_M7["1. INPUT"]
         CAP_USO["Parte I: Capítulos de Uso (USO · 01 a USO · 04)"]
         CAP_ACT["Parte II: Capítulos de Actualización (ACT · 01 a ACT · 05)"]
-        INV_132["Inventario Dinámico de las 132 Capas (NODO_CONFIG + IDE)"]
+        INV_132["Inventario Dinámico de las 134 Capas (NODO_CONFIG + IDE)"]
     end
 
     subgraph PROC_M7["2. PIPELINE DE PROCESAMIENTO"]
@@ -2655,8 +2655,8 @@ flowchart LR
 
 ---
 
-### Módulo 09: Diccionario (132 Capas) (`data-panel="diccionario"` — `src/js/modulos/diccionario.js`)
-* **Propósito Operativo:** Catálogo de Objetos y Atributos Geográficos conforme a la norma **ISO 19110:2016**, integrando los **140 descriptores técnicos** que documentan las 132 coberturas operativas y las reglas de homologación semántica entre la normativa chilena (OGUC/PRC/IDE Chile) y OpenStreetMap.
+### Módulo 09: Diccionario (134 Capas) (`data-panel="diccionario"` — `src/js/modulos/diccionario.js`)
+* **Propósito Operativo:** Catálogo de Objetos y Atributos Geográficos conforme a la norma **ISO 19110:2016**, integrando los **140 descriptores técnicos** que documentan las 134 coberturas operativas y las reglas de homologación semántica entre la normativa chilena (OGUC/PRC/IDE Chile) y OpenStreetMap.
 
 ```mermaid
 flowchart LR
@@ -3685,20 +3685,20 @@ La lógica interactiva del cliente web se compone de **21 archivos JavaScript ES
 | **JS-04** | `js/modulos/importador_capas.js` | **Importador y Exportador Local de Geodatos:** Permite cargar archivos locales del usuario (`.geojson`, `.json`, `.kml`, `.csv`) sobre el mapa y exportar subconjuntos vectoriales filtrados. | `ImportadorCapas.cargarArchivo()`, `exportarGeoJSON()`, `exportarCSV()` | **In:** Archivos locales arrastrados o `FeatureCollection` activa. **Out:** Capas temporales en Leaflet o flujo `Blob` descargado. | Añada nuevos analizadores de formato manteniendo la validación de rangos `EPSG:4326`. |
 | **JS-05** | `js/modulos/mapa.js` | **Núcleo Cartográfico Leaflet (Módulo 01):** Inicializa el lienzo Leaflet, gestiona los mapas base, controla la pila de capas vectoriales, el comparador Swipe/Lupa, la barra de coordenadas UTM/WGS84 y los marcadores SVG. | `Mapa.inicializar()`, `cargarCapaGeoJSON()`, `cambiarMapaBase()`, `activarComparador()` | **In:** `CONFIG.mapa`, eventos de ratón y capas GeoJSON. **Out:** Instancia `L.Map`, capas renderizadas y popups interactivos. | Modifique `crearPopupEntidad()` para personalizar los campos visibles al hacer clic en un elemento del mapa. |
 | **JS-06** | `js/modulos/manifold_canvas.js` | ** Acelerador de Renderizado Vectorial en Canvas:** Optimiza el dibujo de coberturas masivas de puntos, líneas y polígonos mediante `L.canvas()` para mantener 60 FPS en el navegador. | `ManifoldCanvas.crearRenderer()`, `optimizarCapaMasiva()` | **In:** `FeatureCollection` con miles de vértices. **Out:** Instancia `L.Canvas` de alto rendimiento. | Ajuste la tolerancia de acolchado (`padding: 0.5`) según la densidad de geometrías. |
-| **JS-07** | `js/modulos/ide_chile.js` | **Gestor del Catálogo Territorial de 132 Capas (Módulo 01):** Administra el árbol de las **122 coberturas oficiales** (`CAPAS_OFICIALES`) y **10 categorías VGI** (`NODO_CONFIG.categoriasVGI`), el buscador instantáneo, los filtros por geometría/fuente y la simbología temática. | `IDEChile.inicializar()`, `activarCapa()`, `desactivarCapa()`, `filtrarCatalogo()` | **In:** `src/js/config.js`, `CAPAS_OFICIALES` y `src/data/*.geojson` (`data/*.geojson`). **Out:** Árbol DOM de capas, contadores por categoría y leyenda dinámica. | Para registrar una nueva cobertura local, agréguela en `CAPAS_OFICIALES` dentro de `src/js/modulos/ide_chile.js` y copie el `.geojson` en `data/` y `src/data/`. |
+| **JS-07** | `js/modulos/ide_chile.js` | **Gestor del Catálogo Territorial de 134 Capas (Módulo 01):** Administra el árbol de las **124 coberturas oficiales** (`CAPAS_OFICIALES`) y **10 categorías VGI** (`NODO_CONFIG.categoriasVGI`), el buscador instantáneo, los filtros por geometría/fuente y la simbología temática. | `IDEChile.inicializar()`, `activarCapa()`, `desactivarCapa()`, `filtrarCatalogo()` | **In:** `src/js/config.js`, `CAPAS_OFICIALES` y `src/data/*.geojson` (`data/*.geojson`). **Out:** Árbol DOM de capas, contadores por categoría y leyenda dinámica. | Para registrar una nueva cobertura local, agréguela en `CAPAS_OFICIALES` dentro de `src/js/modulos/ide_chile.js` y copie el `.geojson` en `data/` y `src/data/`. |
 | **JS-08** | `js/modulos/osm.js` | **Conector en Vivo a OpenStreetMap (Módulo 02):** Ejecuta consultas en lenguaje Overpass QL en tiempo real para las 10 macrocategorías VGI con rotación de servidores espejo y conversión a GeoJSON. | `OSM.consultarCategoria()`, `ejecutarConsultaQL()`, `convertirOSM2GeoJSON()` | **In:** Cadena Overpass QL y `bbox`. **Out:** `FeatureCollection` extraída directamente de OpenStreetMap. | Modifique el diccionario de consultas para incorporar nuevas combinaciones de etiquetas OSM (`key=value`). |
 | **JS-09** | `js/modulos/umap.js` | **Integrador de Cartografía Colaborativa uMap (Módulo 04):** Gestiona la inserción segura de mapas comunitarios externos alojados en uMap y la importación de capas remotas compatibles. | `UMap.cargarMapaEmbebido()`, `importarGeoJSONRemoto()` | **In:** URL de mapa uMap o endpoint GeoJSON. **Out:** Contenedor `<iframe>` aislado con atributos `sandbox` o capa Leaflet. | Agregue nuevos proyectos comunitarios preconfigurados en el listado `MAPAS_UMAP_DESTACADOS`. |
 | **JS-10** | `js/modulos/gbif.js` | **Conector de Biodiversidad y Ciencia Ciudadana GBIF (Módulo 03):** Consulta la API v1 de GBIF (`occurrence/search`) dentro del polígono WKT de estudio, normalizando registros bajo el estándar **Darwin Core (DwC)**. | `GBIF.consultarOcurrencias()`, `filtrarPorReino()`, `renderizarFichaTaxonomica()` | **In:** Polígono WKT, filtros taxonómicos y de base de registro (`HUMAN_OBSERVATION`). **Out:** Marcadores biológicos y métricas de riqueza de especies. | Ajuste el límite de paginación (`limit`) o agregue nuevos filtros taxonómicos en `PARAMETROS_GBIF`. |
 | **JS-11** | `js/modulos/taginfo.js` | **Auditor Semántico de Etiquetas Taginfo API v4 (Módulo 02/06):** Consulta frecuencias globales y consenso comunitario de pares `key=value` en Taginfo API v4 y calcula las componentes cualitativas del modelo WLC. | `Taginfo.auditarEtiqueta()`, `obtenerEstadisticasTag()`, `evaluarConsensoSemántico()` | **In:** Claves y valores OSM (`key`, `value`). **Out:** Frecuencia global de uso, estado de documentación Wiki y puntaje semántico. | Modifique los umbrales de consenso global en `UMBRALES_TAGINFO` para ajustar la sensibilidad semántica. |
 | **JS-12** | `js/modulos/ohsome.js` | **Auditoría Histórica y Espacio-Temporal ohsome API (Módulo 06):** Conecta con la API v1 de HeiGIT (`ohsome`) y API v0.6 de OSM para ejecutar la serie histórica (`2008–2026`), el **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)** y el monitor de Changesets / OSMCha. | `Ohsome.ejecutarAuditoria()`, `calcularIndiceSaturacion()`, `consultarChangesets()` | **In:** Categoría OSM (`filter`), rango temporal (`2008-01-01/2026-03-01/P1Y`), `bpolys` en EPSG:4326 y área reproyectada en `EPSG:32719`. **Out:** Series de tiempo, densidad `elem/km²` y `elem / 10.000 m²`, intensidad `edit/user`, Score `/100`, Estado de Saturación y enlaces OSMCha. | Para añadir una nueva categoría de auditoría histórica, incorpore su filtro y el `endpointTipo` (`/count`, `/length` o `/area`) en `CATEGORIAS_OHSOME`. |
 | **JS-13** | `js/modulos/calidad_analyst.js` | **Analista Multicriterio WLC y Correlación (Módulo 06):** Ejecuta el modelo de Combinación Lineal Ponderada (WLC v2.0) combinando las 10 dimensiones cuantitativas y cualitativas ISO 19157, y grafica matrices de correlación de Pearson. | `CalidadAnalyst.calcularWLC()`, `actualizarPesos()`, `renderizarMatrizPearson()` | **In:** `docs/wlc_metacalidad_resultado.json`, `docs/matriz_metacalidad.json` y `docs/correlacion_dimensiones_calidad.csv`. **Out:** Índice Global VGI (`IGV`), clasificación por niveles y gráficos radar. | Modifique los pesos predeterminados en `PESOS_WLC_DEFAULT` manteniendo siempre la restricción `∑ w_i = 1.00`. |
-| **JS-14** | `js/modulos/evaluador_calidad_cuantitativa.js` | **Auditor Cuantitativo de Geometrías y Topología (Módulo 06):** Verifica el cierre de anillos poligonales, ausencia de vértices duplicados, validez de rangos WGS84, completitud del esquema de 14 atributos y frescura temporal. | `EvaluadorCuantitativo.auditarCapa()`, `validarTopologia()`, `verificarEsquema14()` | **In:** Geometrías y propiedades de las 132 capas vectoriales (`data/*.geojson`) o archivo externo. **Out:** Puntajes `[0-100%]` en las 5 dimensiones cuantitativas ISO 19157 y plan de subsanación. | Añada nuevas reglas geométricas o campos obligatorios dentro de `validarEntidadIndividual()`. |
+| **JS-14** | `js/modulos/evaluador_calidad_cuantitativa.js` | **Auditor Cuantitativo de Geometrías y Topología (Módulo 06):** Verifica el cierre de anillos poligonales, ausencia de vértices duplicados, validez de rangos WGS84, completitud del esquema de 14 atributos y frescura temporal. | `EvaluadorCuantitativo.auditarCapa()`, `validarTopologia()`, `verificarEsquema14()` | **In:** Geometrías y propiedades de las 134 capas vectoriales (`data/*.geojson`) o archivo externo. **Out:** Puntajes `[0-100%]` en las 5 dimensiones cuantitativas ISO 19157 y plan de subsanación. | Añada nuevas reglas geométricas o campos obligatorios dentro de `validarEntidadIndividual()`. |
 | **JS-15** | `js/modulos/evaluador_normativo.js` | **Inspector Normativo PRC e Isócronas de Accesibilidad (Módulo 01):** Evalúa mediante algoritmo *Ray-Casting* (*Point-in-Polygon*) la zona del PRC Santiago (`data/ide_minvu_ipt_prc_santiago.geojson`), Zonas Típicas e ICH (`data/ide_minvu_patrimonio_urbano.geojson`), y emite el Certificado CIN-VGI. | `EvaluadorNormativo.inspeccionarPredio()`, `calcularIsocronas()`, `emitirCertificado()` | **In:** Coordenadas `[lon, lat]` del clic, polígonos PRC/CMN y capas de equipamiento. **Out:** Ficha normativa de edificación CIN-VGI y polígonos de isócronas. | Actualice los parámetros urbanísticos en `ZONAS_PRC_SANTIAGO` ante modificaciones o enmiendas comunales. |
 | **JS-16** | `js/modulos/indicadores_analisis.js` | **Indicadores Territoriales y Storyboards Narrativos (Módulo 05):** Gestiona las 5 Dimensiones Analíticas y los **4 Storyboards Interactivos** con **75 cartografías integradas** (`img/cartografias/*.jpg`), portadas SVG (`img/storyboards/*.svg`) y Lightbox HD. | `IndicadoresAnalisis.inicializar()`, `abrirStoryboard()`, `cargarCartografiaEnVisor()` | **In:** `data/resumen_catastro_vgi.csv`, `docs/wlc_metacalidad_resultado.json`, `img/cartografias/*.jpg` y catálogo `STORYBOARDS`. **Out:** Acordeones de dimensiones, modal narrativo interactivo con Lightbox HD y activación de capas en el visor. | Para agregar un nuevo Storyboard o capítulo cartográfico, añada un objeto al arreglo `STORYBOARDS` especificando sus `capas` y `secciones`. |
-| **JS-17** | `js/modulos/metadatos.js` | **Catálogo de Metadatos ISO 19115-1 y Exportador XML ISO 19139 (Módulo 08):** Renderiza el explorador interactivo de fichas de metadatos para las **132 coberturas (122 oficiales + 10 VGI)** y genera documentos XML `gmd:MD_Metadata`. | `Metadatos.inicializar()`, `mostrarFichaISO()`, `exportarXMLISO19139()` | **In:** Inventario de 132 capas y `docs/perfil_metadatos_vgi.xlsx` (`src/docs/perfil_metadatos_vgi.xlsx`). **Out:** Tabla maestra de metadatos, vista previa ISO 19115 y descarga XML/JSON. | Edite la función `generarXMLISO19139()` para incorporar campos adicionales del Perfil Nacional de Metadatos de IDE Chile. |
+| **JS-17** | `js/modulos/metadatos.js` | **Catálogo de Metadatos ISO 19115-1 y Exportador XML ISO 19139 (Módulo 08):** Renderiza el explorador interactivo de fichas de metadatos para las **134 coberturas (124 oficiales + 10 VGI)** y genera documentos XML `gmd:MD_Metadata`. | `Metadatos.inicializar()`, `mostrarFichaISO()`, `exportarXMLISO19139()` | **In:** Inventario de 134 capas y `docs/perfil_metadatos_vgi.xlsx` (`src/docs/perfil_metadatos_vgi.xlsx`). **Out:** Tabla maestra de metadatos, vista previa ISO 19115 y descarga XML/JSON. | Edite la función `generarXMLISO19139()` para incorporar campos adicionales del Perfil Nacional de Metadatos de IDE Chile. |
 | **JS-18** | `js/modulos/diccionario.js` | **Diccionario Territorial Interactivo ISO 19110 (Módulo 09):** Administra el catálogo de los **140 descriptores normativos y etiquetas OSM** (`CATALOGO_ATRIBUTOS`), permitiendo filtrar por origen y consultar su equivalencia oficial-comunitaria. | `Diccionario.inicializar()`, `buscarDescriptor()`, `filtrarPorCategoria()` | **In:** Base de 140 descriptores semánticos ISO 19110 en `CATALOGO_ATRIBUTOS`. **Out:** Grilla interactiva de definiciones, tipos de datos y exportación JSON/CSV. | Incorpore nuevos descriptores en el arreglo `CATALOGO_ATRIBUTOS` especificando clave OSM, fuente oficial y capa relacionada. |
-| **JS-19** | `js/modulos/licencias.js` | **Centro de Descargas, Licencias y Gobernanza (Módulo 10):** Administra el portal de descarga de la Geodatabase completa (`docs/geodatabase_completa_atlas_vgi.zip`), los 3 catálogos Excel OpenXML (`docs/categorias_tematicas_osm.xlsx`, `docs/catalogo_fuentes_vgi.xlsx`, `docs/perfil_metadatos_vgi.xlsx`), los 4 CSVs y la matriz jurídica. | `Licencias.inicializar()`, `descargarGeodatabase()`, `filtrarPorLicencia()` | **In:** Archivos en `docs/`, `src/docs/`, `data/` y `src/data/`. **Out:** Descargas directas con validación de integridad y fichas legales. | Si se actualiza el paquete ZIP masivo, actualice los metadatos de peso (542,35 MB) y conteo de archivos (132 capas del visor y 257 archivos) en el módulo. |
-| **JS-20** | `js/modulos/manual.js` | **Manual de Uso y Actualización In-App (Módulo 07):** Renderiza dentro de la plataforma web la guía interactiva dividida en Manual de Uso (`USO · 01` a `USO · 04`) y Manual de Actualización (`ACT · 01` a `ACT · 05`), con buscador instantáneo e inventario filtrable de las 132 capas. | `Manual.inicializar()`, `cambiarCapitulo()`, `filtrarCapitulos()` | **In:** Inventario dinámico de 132 capas y `docs/MANUAL_ACTUALIZACION_ATLAS.md` (`src/docs/`). **Out:** Interfaz documental navegable con índice lateral, tablas filtrables y descarga del manual maestro. | Añada nuevas secciones operativas en `src/js/modulos/manual.js` manteniendo la sincronía con `MANUAL_ACTUALIZACION_ATLAS.md`. |
+| **JS-19** | `js/modulos/licencias.js` | **Centro de Descargas, Licencias y Gobernanza (Módulo 10):** Administra el portal de descarga de la Geodatabase completa (`docs/geodatabase_completa_atlas_vgi.zip`), los 3 catálogos Excel OpenXML (`docs/categorias_tematicas_osm.xlsx`, `docs/catalogo_fuentes_vgi.xlsx`, `docs/perfil_metadatos_vgi.xlsx`), los 4 CSVs y la matriz jurídica. | `Licencias.inicializar()`, `descargarGeodatabase()`, `filtrarPorLicencia()` | **In:** Archivos en `docs/`, `src/docs/`, `data/` y `src/data/`. **Out:** Descargas directas con validación de integridad y fichas legales. | Si se actualiza el paquete ZIP masivo, actualice los metadatos de peso (542,35 MB) y conteo de archivos (134 capas del visor y 257 archivos) en el módulo. |
+| **JS-20** | `js/modulos/manual.js` | **Manual de Uso y Actualización In-App (Módulo 07):** Renderiza dentro de la plataforma web la guía interactiva dividida en Manual de Uso (`USO · 01` a `USO · 04`) y Manual de Actualización (`ACT · 01` a `ACT · 05`), con buscador instantáneo e inventario filtrable de las 134 capas. | `Manual.inicializar()`, `cambiarCapitulo()`, `filtrarCapitulos()` | **In:** Inventario dinámico de 134 capas y `docs/MANUAL_ACTUALIZACION_ATLAS.md` (`src/docs/`). **Out:** Interfaz documental navegable con índice lateral, tablas filtrables y descarga del manual maestro. | Añada nuevas secciones operativas en `src/js/modulos/manual.js` manteniendo la sincronía con `MANUAL_ACTUALIZACION_ATLAS.md`. |
 | **JS-21** | `js/app.js` | **Orquestador Principal de la Aplicación (Controlador SPA):** Coordina el ciclo de vida completo de la plataforma web, enlaza la navegación entre los 10 módulos (`01` a `10`), gestiona los perfiles de usuario, las notificaciones *Toast* y el estado global. | `App.inicializar()`, `cambiarVista()`, `aplicarPerfil()`, `mostrarNotificacion()` | **In:** Eventos globales `DOMContentLoaded` y acciones de los 20 módulos anteriores. **Out:** Transiciones fluidas entre vistas y sincronización del estado entre el visor y los paneles analíticos. | Registre cualquier nuevo módulo dentro de la secuencia de arranque `App.inicializar()` y en el controlador de pestañas. |
 
 ---
@@ -3734,8 +3734,8 @@ La lógica interactiva del cliente web se compone de **21 archivos JavaScript ES
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **CFG-01** | **JSON** (ECMA-404) | `config/config.json` y `src/js/config.js` | **Manifiesto de Configuración Territorial:** Define los parámetros del área de estudio, límites geográficos (`bbox`), proyección métrica, endpoints y las 10 macrocategorías VGI (`categoriasVGI`) compartidas entre el backend Python y el frontend web. | Bloques `proyecto`, `bbox`, `centroMapa`, `apis` y `categoriasVGI`. | Mantenga ambos archivos sincronizados al cambiar el polígono de estudio o las rutas de las capas VGI. |
 | **CFG-02** | **TOML** v1.0.0 | `netlify.toml` | **Configuración Perimetral y Despliegue CDN:** Gobierna el directorio de publicación (`publish = "src"`), la expansión de binarios Git LFS (`GIT_LFS_SKIP_SMUDGE = "0"`), las cabeceras de seguridad/CORS y las redirecciones canónicas (`/geodatabase` → `/docs/geodatabase_completa_atlas_vgi.zip`). | Bloques `[build]`, `[build.environment]`, `[[headers]]` y `[[redirects]]`. | Añada nuevas reglas `[[headers]]` si incorpora nuevos formatos binarios (ej. `.pmtiles` o `.tif`). |
-| **DAT-01** | **GeoJSON** (IETF RFC 7946) | `data/*.geojson` y `src/data/*.geojson` | **Almacén Vectorial Estático:** Contiene las **132 coberturas espaciales del visor** (10 macrocategorías VGI `capa_educacion.geojson` .. `capa_cobertura_suelo.geojson` + 122 capas oficiales `ide_*.geojson`, `bbdd_*_santiago.geojson`, `subdere_rsd_*.geojson`) y las 10 capas regionales RM (`capa_osm_rm_cat01_*.geojson` .. `cat10_*.geojson`) en `EPSG:4326`. | Objeto `FeatureCollection` con arreglo `features` (`geometry` + `properties`). | Valide siempre todo archivo editado con `scripts/verificar_integridad_despliegue.py` y mantenga espejo exacto entre `data/` y `src/data/`. |
-| **DAT-02** | **JSON / CSV / XLSX Analítico** | `docs/wlc_metacalidad_resultado.json`, `docs/matriz_metacalidad.json`, `docs/wlc_metacalidad_ranking.csv`, `docs/correlacion_dimensiones_calidad.csv`, `data/resumen_catastro_vgi.csv`, `docs/*.xlsx` (y réplicas en `src/docs/` y `src/data/`) | **Reportes de Metacalidad y Catálogos Tabulares:** Almacenan los resultados de las evaluaciones ISO 19157 (WLC v2.0), correlaciones de Pearson y los 3 libros maestros OpenXML (`categorias_tematicas_osm.xlsx`, `catalogo_fuentes_vgi.xlsx`, `perfil_metadatos_vgi.xlsx`). | Matrices de 132 capas × 10 dimensiones de calidad y hojas estructuradas OpenXML. | Se regeneran automáticamente al ejecutar `scripts/modelo_indice_lineal_wlc.py`, `scripts/analisis_metacalidad.py` y `scripts/generar_entregables_excel.py`. |
+| **DAT-01** | **GeoJSON** (IETF RFC 7946) | `data/*.geojson` y `src/data/*.geojson` | **Almacén Vectorial Estático:** Contiene las **134 coberturas espaciales del visor** (10 macrocategorías VGI `capa_educacion.geojson` .. `capa_cobertura_suelo.geojson` + 124 capas oficiales `ide_*.geojson`, `bbdd_*_santiago.geojson`, `subdere_rsd_*.geojson`) y las 10 capas regionales RM (`capa_osm_rm_cat01_*.geojson` .. `cat10_*.geojson`) en `EPSG:4326`. | Objeto `FeatureCollection` con arreglo `features` (`geometry` + `properties`). | Valide siempre todo archivo editado con `scripts/verificar_integridad_despliegue.py` y mantenga espejo exacto entre `data/` y `src/data/`. |
+| **DAT-02** | **JSON / CSV / XLSX Analítico** | `docs/wlc_metacalidad_resultado.json`, `docs/matriz_metacalidad.json`, `docs/wlc_metacalidad_ranking.csv`, `docs/correlacion_dimensiones_calidad.csv`, `data/resumen_catastro_vgi.csv`, `docs/*.xlsx` (y réplicas en `src/docs/` y `src/data/`) | **Reportes de Metacalidad y Catálogos Tabulares:** Almacenan los resultados de las evaluaciones ISO 19157 (WLC v2.0), correlaciones de Pearson y los 3 libros maestros OpenXML (`categorias_tematicas_osm.xlsx`, `catalogo_fuentes_vgi.xlsx`, `perfil_metadatos_vgi.xlsx`). | Matrices de 134 capas × 10 dimensiones de calidad y hojas estructuradas OpenXML. | Se regeneran automáticamente al ejecutar `scripts/modelo_indice_lineal_wlc.py`, `scripts/analisis_metacalidad.py` y `scripts/generar_entregables_excel.py`. |
 
 ---
 
@@ -3823,7 +3823,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 06: `sincronizar_capas_osm_locales.py`
-- **Propósito:** Sincroniza y verifica la paridad binaria (SHA256) entre los directorios `data/` y `src/data/`, asegurando que las 132 capas del visor estén idénticamente disponibles tanto en el almacén raíz como en el directorio publicado en producción (`src/`).
+- **Propósito:** Sincroniza y verifica la paridad binaria (SHA256) entre los directorios `data/` y `src/data/`, asegurando que las 134 capas del visor estén idénticamente disponibles tanto en el almacén raíz como en el directorio publicado en producción (`src/`).
 - **Invocación CLI:** `python3 scripts/sincronizar_capas_osm_locales.py`
 - **Dependencias:** `hashlib`, `shutil`, `json`.
 - **Salidas:** Sincronización espejo entre `data/*.geojson` y `src/data/*.geojson`.
@@ -3867,7 +3867,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 12: `enriquecer_base_datos_metadatos.py`
-- **Propósito:** Procesa las **132 capas GeoJSON del visor** e inyecta de forma masiva y recursiva el **esquema unificado de 14 atributos maestros** (ID, nombre, categoría, fecha, fuente, licencia, etc.), garantizando que ninguna entidad carezca de los campos requeridos por el estándar del Atlas.
+- **Propósito:** Procesa las **134 capas GeoJSON del visor** e inyecta de forma masiva y recursiva el **esquema unificado de 14 atributos maestros** (ID, nombre, categoría, fecha, fuente, licencia, etc.), garantizando que ninguna entidad carezca de los campos requeridos por el estándar del Atlas.
 - **Invocación CLI:** `python3 scripts/enriquecer_base_datos_metadatos.py`
 - **Dependencias:** `json`, `os`, `sys`, `glob`.
 - **Algoritmo:**
@@ -3886,7 +3886,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 14: `modelo_indice_lineal_wlc.py`
-- **Propósito:** Implementa el modelo matemático de **Combinación Lineal Ponderada (WLC v2.0)** bajo norma ISO 19157:2013, calculando los puntajes de calidad cuantitativa (`P_cuant`), cualitativa (`P_cual`) e Índice Global VGI (`IGV`) para cada una de las 132 capas cartográficas.
+- **Propósito:** Implementa el modelo matemático de **Combinación Lineal Ponderada (WLC v2.0)** bajo norma ISO 19157:2013, calculando los puntajes de calidad cuantitativa (`P_cuant`), cualitativa (`P_cual`) e Índice Global VGI (`IGV`) para cada una de las 134 capas cartográficas.
 - **Invocación CLI:** `python3 scripts/modelo_indice_lineal_wlc.py`
 - **Dependencias:** `math`, `csv`, `json`.
 - **Ecuación Evaluada:**
@@ -3898,7 +3898,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 15: `analisis_metacalidad.py`
-- **Propósito:** Ejecuta el análisis de correlación bivariada de Pearson entre las 10 dimensiones de calidad espacial y genera el informe técnico y gráfico de metacalidad sobre las 132 capas.
+- **Propósito:** Ejecuta el análisis de correlación bivariada de Pearson entre las 10 dimensiones de calidad espacial y genera el informe técnico y gráfico de metacalidad sobre las 134 capas.
 - **Invocación CLI:** `python3 scripts/analisis_metacalidad.py`
 - **Salidas:** `docs/correlacion_dimensiones_calidad.csv`, `docs/correlacion_dimensiones_calidad.png` y `docs/ANALISIS_METACALIDAD.md` (sincronizados en `src/docs/`).
 
@@ -3907,7 +3907,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ### Script 16: `generar_entregables_excel.py`
 - **Propósito:** Construye de forma automatizada los **tres libros de cálculo maestros en formato OpenXML (.xlsx)** con estilos visuales profesionales, cabeceras institucionales en verde musgo (`#2d5a27`), fórmulas de conteo y validación de datos:
   1. `docs/categorias_tematicas_osm.xlsx` (`src/docs/categorias_tematicas_osm.xlsx` — 10 macrocategorías comunitarias VGI).
-  2. `docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx` — 132 capas catalogadas con sus fuentes, endpoints y licencias).
+  2. `docs/catalogo_fuentes_vgi.xlsx` (`src/docs/catalogo_fuentes_vgi.xlsx` — 134 capas catalogadas con sus fuentes, endpoints y licencias).
   3. `docs/perfil_metadatos_vgi.xlsx` (`src/docs/perfil_metadatos_vgi.xlsx` — 7 paquetes normativos del perfil ISO 19115-1:2014 / ISO 19139).
 - **Invocación CLI:** `python3 scripts/generar_entregables_excel.py`
 - **Dependencias:** `openpyxl`, `datetime`.
@@ -3916,7 +3916,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 17: `generar_seed_sql.py`
-- **Propósito:** Lee el inventario de las 132 capas y genera las sentencias SQL de inicialización y siembra de metadatos (`scripts/db/01_schema_postgis.sql` y `scripts/db/02_seed_metadata.sql`) para poblar la base de datos PostgreSQL 17 + PostGIS 3.3 en Supabase.
+- **Propósito:** Lee el inventario de las 134 capas y genera las sentencias SQL de inicialización y siembra de metadatos (`scripts/db/01_schema_postgis.sql` y `scripts/db/02_seed_metadata.sql`) para poblar la base de datos PostgreSQL 17 + PostGIS 3.3 en Supabase.
 - **Invocación CLI:** `python3 scripts/generar_seed_sql.py`
 - **Salidas:** `scripts/db/01_schema_postgis.sql` y `scripts/db/02_seed_metadata.sql`.
 
@@ -3955,14 +3955,14 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 23: `verificar_conteo_capas.py`
-- **Propósito:** Realiza una auditoría física en el sistema de archivos del proyecto, contrastando las **132 capas declaradas en el visor** (`10 VGI` en `src/js/config.js` + `122 oficiales` en `src/js/modulos/ide_chile.js`) contra los archivos `.geojson` en `data/` y `src/data/` y el catálogo `docs/catalogo_fuentes_vgi.xlsx`.
+- **Propósito:** Realiza una auditoría física en el sistema de archivos del proyecto, contrastando las **134 capas declaradas en el visor** (`10 VGI` en `src/js/config.js` + `124 oficiales` en `src/js/modulos/ide_chile.js`) contra los archivos `.geojson` en `data/` y `src/data/` y el catálogo `docs/catalogo_fuentes_vgi.xlsx`.
 - **Invocación CLI:** `python3 scripts/verificar_conteo_capas.py`
 - **Salida de Terminal:**
   ```text
   [+] Conteo de Capas del Atlas VGI:
       - Macrocategorías VGI en src/js/config.js: 10 capas
-      - Capas Oficiales en src/js/modulos/ide_chile.js: 122 capas
-      - Total Capas Operativas en Visor Web: 132 capas
+      - Capas Oficiales en src/js/modulos/ide_chile.js: 124 capas
+      - Total Capas Operativas en Visor Web: 134 capas
       - Archivos verificados en data/ y src/data/: 100% OK
   ```
 
@@ -3976,7 +3976,7 @@ A continuación se documentan los **25 scripts operativos en Python 3** ubicados
 ---
 
 ### Script 25: `empaquetar_base_datos_completa.py`
-- **Propósito:** Pipeline de empaquetado masivo y compresión ZIP que consolida la base de datos completa del Atlas (**132 capas operativas del visor**, extractos regionales de Geofabrik RM, catálogos Excel OpenXML, CSVs, esquemas SQL PostGIS y documentación técnica) en `docs/geodatabase_completa_atlas_vgi.zip` y `src/docs/geodatabase_completa_atlas_vgi.zip` (542,35 MB y 257 archivos, analizado en el Capítulo 33).
+- **Propósito:** Pipeline de empaquetado masivo y compresión ZIP que consolida la base de datos completa del Atlas (**134 capas operativas del visor**, extractos regionales de Geofabrik RM, catálogos Excel OpenXML, CSVs, esquemas SQL PostGIS y documentación técnica) en `docs/geodatabase_completa_atlas_vgi.zip` y `src/docs/geodatabase_completa_atlas_vgi.zip` (542,35 MB y 257 archivos, analizado en el Capítulo 33).
 - **Invocación CLI:** `python3 scripts/empaquetar_base_datos_completa.py`
 
 ---
@@ -3991,7 +3991,7 @@ Uno de los requerimientos fundamentales del Atlas de Información Geográfica Vo
 ├────────────────────────────────────────────────────────────────────────┤
 │                                                                        │
 │  [10 Capas VGI Barriales + 10 RM]  ──┐                                 │
-│  [122 Capas Oficiales del Estado]  ──┼──► [empaquetar_base_datos_      │
+│  [124 Capas Oficiales del Estado]  ──┼──► [empaquetar_base_datos_      │
 │  [3 Libros Excel OpenXML (.xlsx)]  ──┤     completa.py]                │
 │  [4 Archivos CSV + JSONs WLC]      ──┤            │                    │
 │  [Esquemas SQL PostGIS + Docs .md] ──┘            ▼                    │
@@ -4014,7 +4014,7 @@ Uno de los requerimientos fundamentales del Atlas de Información Geográfica Vo
 - **Ruta de Despliegue en Producción:** `https://atlasvgiuah.netlify.app/docs/geodatabase_completa_atlas_vgi.zip` (y redirección corta `https://atlasvgiuah.netlify.app/geodatabase`)
 - **Peso Comprimido (ZIP):** 542,35 MB (568.698.613 bytes)
 - **Peso Descomprimido (Base de Datos Operativa):** ~3,33 GB
-- **Total de Archivos Empaquetados:** **257 archivos** (incluyendo las **132 capas del visor**: 10 macrocategorías VGI + 122 capas oficiales del Estado)
+- **Total de Archivos Empaquetados:** **257 archivos** (incluyendo las **134 capas del visor**: 10 macrocategorías VGI + 124 capas oficiales del Estado)
 - **Método de Compresión:** `ZIP_DEFLATED` (estándar zlib/RFC 1951 con soporte ZIP64 `allowZip64=True`)
 
 ---
@@ -4133,7 +4133,7 @@ Este script evalúa **8 bancos de pruebas de integridad exhaustivas** de manera 
 - **Criterio de Aprobación:** Cero valores negativos, nulos (`NaN`) o fuera de rango.
 
 #### Banco 5: Coherencia Referencial Cruzada (Excel vs GeoJSON)
-- **Metodología:** Abre `docs/catalogo_fuentes_vgi.xlsx`, `docs/categorias_tematicas_osm.xlsx` y `docs/perfil_metadatos_vgi.xlsx` mediante `openpyxl` y compara los identificadores de las 132 capas contra los archivos reales presentes en `data/` y `src/data/`.
+- **Metodología:** Abre `docs/catalogo_fuentes_vgi.xlsx`, `docs/categorias_tematicas_osm.xlsx` y `docs/perfil_metadatos_vgi.xlsx` mediante `openpyxl` y compara los identificadores de las 134 capas contra los archivos reales presentes en `data/` y `src/data/`.
 - **Criterio de Aprobación:** 100% de coincidencia entre los catálogos documentales y los archivos físicos en disco.
 
 #### Banco 6: Integridad de Scripts Python y Módulos JavaScript
@@ -4642,10 +4642,10 @@ A continuación se documenta el análisis técnico de causa-raíz (*Root Cause A
 ---
 
 ### Caso 14: Discrepancia en el Conteo de Capas de la Interfaz Web
-- **Síntoma:** La barra de estado indica "132 capas cargadas", pero en el directorio `data/` o `src/data/` existen archivos `.geojson` adicionales no listados en el visor.
+- **Síntoma:** La barra de estado indica "134 capas cargadas", pero en el directorio `data/` o `src/data/` existen archivos `.geojson` adicionales no listados en el visor.
 - **Causa Raíz:** El directorio local contiene archivos temporales, capas de respaldo (`copia_*.geojson`) o extractos auxiliares que no están registrados en el índice maestro `docs/catalogo_fuentes_vgi.xlsx` ni en los arreglos `CAPAS_OFICIALES` (`src/js/modulos/ide_chile.js`) y `categoriasVGI` (`src/js/config.js`).
 - **Solución Paso a Paso:**
-  Ejecute el script de auditoría `python3 scripts/verificar_conteo_capas.py` para verificar las 132 capas operativas del visor y su paridad exacta entre `data/` y `src/data/`.
+  Ejecute el script de auditoría `python3 scripts/verificar_conteo_capas.py` para verificar las 134 capas operativas del visor y su paridad exacta entre `data/` y `src/data/`.
 
 ---
 

@@ -23,7 +23,7 @@ El Atlas de Información Geográfica Voluntaria adopta una filosofía de ingenie
 │         ┌───────────────────────────────────────────────────┤          │
 │         ▼                                                   ▼          │
 │  MÓDULOS ESPECIALIZADOS IIFE                  MOTOR CARTOGRÁFICO       │
-│  • ModuloIDEChile (122 capas)                 • Leaflet 1.9.4          │
+│  • ModuloIDEChile (124 capas)                 • Leaflet 1.9.4          │
 │  • ModuloOSM (Overpass QL)                    • L.tileLayer / WMS      │
 │  • ModuloOhsome (HeiGIT API)                  • L.geoJSON / L.divIcon  │
 │  • ModuloEvaluadorNormativo (PRC)             • Popups Dinámicos       │
@@ -109,7 +109,7 @@ window.ModuloEjemploVGI = ModuloEjemploVGI;
 ```mermaid
 flowchart LR
     subgraph IN_LEAF["1. INPUT"]
-        CAPAS_132["132 Capas GeoJSON Homologadas (EPSG:4326)"]
+        CAPAS_132["134 Capas GeoJSON Homologadas (EPSG:4326)"]
         TILES_XYZ["Mosaicos Base XYZ (OSM, Carto Positron/Dark, Esri)"]
         STYLE_DEF["Diccionario de Estilos y Paletas Temáticas"]
     end
@@ -392,7 +392,7 @@ flowchart LR
     subgraph IN_SB["1. INPUT"]
         CARTO_75["75 Cartografías Temáticas (img/cartografias/*.jpg)"]
         PORTADAS_4["4 Portadas Vectoriales SVG (img/storyboards/*.svg)"]
-        DATA_132["132 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
+        DATA_132["134 Capas GeoJSON + Estadísticas Censo 2024 / SUBDERE / MuniSTGO"]
     end
 
     subgraph PROC_SB["2. PIPELINE DE SÍNTESIS Y NARRATIVA ESPACIAL"]
@@ -535,11 +535,11 @@ nodo-geoabierto/
 │   ├── atlas_vgi_barrio_brasil_uah_completo.geojson                  # Consolidado VGI Barrio Brasil
 │   ├── capa_osm_rm_cat01_educacion.geojson .. cat10_*.geojson        # 10 capas regionales RM (Geofabrik)
 │   ├── capa_osm_rm_completo_vgi.geojson                              # Consolidado regional RM
-│   ├── ide_*.geojson, bbdd_*_santiago.geojson, subdere_rsd_*.geojson # 122 capas oficiales del Estado
+│   ├── ide_*.geojson, bbdd_*_santiago.geojson, subdere_rsd_*.geojson # 124 capas oficiales del Estado
 │   ├── resumen_catastro_vgi.csv                                      # Resumen cuantitativo VGI
 │   └── bip_inversiones_santiago.csv                                  # Inversión pública MIDESO BIP
 ├── docs/                                   # Documentación formal y entregables (sincronizado con src/docs/)
-│   ├── geodatabase_completa_atlas_vgi.zip  # Paquete maestro ZIP (542,35 MB; 132 capas del visor y 257 archivos)
+│   ├── geodatabase_completa_atlas_vgi.zip  # Paquete maestro ZIP (542,35 MB; 134 capas del visor y 257 archivos)
 │   ├── ANALISIS_METACALIDAD.md             # Informe técnico de calidad ISO 19157 (95.41% IGV)
 │   ├── ARQUITECTURA.md                     # Memoria de diseño de software
 │   ├── BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md   # Catálogo de 125 fuentes bibliográficas APA 7ª ed.
@@ -547,9 +547,9 @@ nodo-geoabierto/
 │   ├── MANUAL_ACTUALIZACION_ATLAS.md       # Copia espejo del manual técnico maestro
 │   ├── MANUAL_USO.md                       # Copia espejo del manual de usuario
 │   ├── categorias_tematicas_osm.xlsx       # Libro Excel de las 10 macrocategorías OSM
-│   ├── catalogo_fuentes_vgi.xlsx           # Matriz Excel de las 132 fuentes y capas
+│   ├── catalogo_fuentes_vgi.xlsx           # Matriz Excel de las 134 fuentes y capas
 │   ├── perfil_metadatos_vgi.xlsx           # Matriz Excel de los 7 paquetes ISO 19115-1:2014
-│   ├── wlc_metacalidad_ranking.csv         # Ranking WLC v2.0 de las 132 capas
+│   ├── wlc_metacalidad_ranking.csv         # Ranking WLC v2.0 de las 134 capas
 │   ├── wlc_metacalidad_resultado.json      # Resultados detallados WLC v2.0 en JSON
 │   ├── matriz_metacalidad.json             # Matriz multicriterio de las 10 dimensiones
 │   └── correlacion_dimensiones_calidad.csv # Matriz de correlación de Pearson 10x10 (+ .png)
@@ -585,12 +585,12 @@ La barra de navegación superior (`#lista-navegacion` en `src/index.html`) organ
 ---
 
 ### Módulo 01: Visor y Atlas VGI (`data-panel="inicio"` — `src/js/app.js`, `src/js/modulos/mapa.js`, `src/js/modulos/ide_chile.js`, `src/js/modulos/evaluador_normativo.js`)
-* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 132 capas cartográficas (122 oficiales + 10 VGI); búsqueda en vivo; telemetría dinámica del Índice de Calidad VGI (ICV); Inspector Normativo del PRC de Santiago (Certificado CIN-VGI y 10 hitos históricos 1990–2024); dibujo de BBox con cálculo métrico en `EPSG:32719`.
+* **Propósito Operativo:** Núcleo espacial interactivo; renderiza las 134 capas cartográficas (124 oficiales + 10 VGI); búsqueda en vivo; telemetría dinámica del Índice de Calidad VGI (ICV); Inspector Normativo del PRC de Santiago (Certificado CIN-VGI y 10 hitos históricos 1990–2024); dibujo de BBox con cálculo métrico en `EPSG:32719`.
 
 ```mermaid
 flowchart LR
     subgraph IN_M1["1. INPUT"]
-        GEOJSON["132 Capas GeoJSON (data/*.geojson)"]
+        GEOJSON["134 Capas GeoJSON (data/*.geojson)"]
         TILES["Mosaicos Base (OSM, Carto, Esri)"]
         CLIC["Clic del Usuario en el Mapa"]
     end
@@ -696,12 +696,12 @@ flowchart LR
 ---
 
 ### Módulo 05: Indicadores & Storyboards (`data-panel="indicadores"` — `src/js/modulos/indicadores_analisis.js`)
-* **Propósito Operativo:** Articulación de las 132 coberturas del Atlas en **5 Dimensiones Analíticas** (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad) y **4 Storyboards de Resultados Territoriales** con **75 cartografías temáticas**, gráficos comparativos, diagramas vectoriales SVG y visor Lightbox multi-dispositivo.
+* **Propósito Operativo:** Articulación de las 134 coberturas del Atlas en **5 Dimensiones Analíticas** (Sociodemográfica, Socioeconómica, Socioambiental, Sociosanitaria y Sociourbana/Habitabilidad) y **4 Storyboards de Resultados Territoriales** con **75 cartografías temáticas**, gráficos comparativos, diagramas vectoriales SVG y visor Lightbox multi-dispositivo.
 
 ```mermaid
 flowchart LR
     subgraph IN_M5["1. INPUT"]
-        DIM_5["5 Dimensiones Analíticas (132 Capas Asociadas)"]
+        DIM_5["5 Dimensiones Analíticas (134 Capas Asociadas)"]
         STORY_ID["4 Storyboards Temáticos (KDE, LISA, Censo 2024, Socioambiental)"]
         CARTO_SET["75 Cartografías (2200x1423 px) + Diagramas SVG + Gráficos"]
     end
@@ -723,12 +723,12 @@ flowchart LR
 ---
 
 ### Módulo 06: Calidad & ICV (`data-panel="calidad-ohsome"` — `src/js/modulos/evaluador_calidad_cuantitativa.js`, `src/js/modulos/ohsome.js`, `src/js/modulos/calidad_analyst.js`)
-* **Propósito Operativo:** Evaluación multidimensional de calidad geoespacial articulada en tres submódulos: **Submódulo A** (Evaluador Universal de Calidad Espacial, Topología e Índice IGV bajo ISO 19157 e ISO 19115 para las 132 capas o GeoJSON externos), **Submódulo B** (Serie Histórica OSHDB/ohsome API v1/v2 con sensibilidad geométrica `/count`, `/length`, `/area`, reproyección métrica `EPSG:32719` e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**) y **Submódulo C** (Control de Cambios y Validación de Ediciones Recientes con OSMCha / OSM API v0.6).
+* **Propósito Operativo:** Evaluación multidimensional de calidad geoespacial articulada en tres submódulos: **Submódulo A** (Evaluador Universal de Calidad Espacial, Topología e Índice IGV bajo ISO 19157 e ISO 19115 para las 134 capas o GeoJSON externos), **Submódulo B** (Serie Histórica OSHDB/ohsome API v1/v2 con sensibilidad geométrica `/count`, `/length`, `/area`, reproyección métrica `EPSG:32719` e **Índice de Saturación y Maduración Territorial (Herfort et al., 2023 / ISO 19157)**) y **Submódulo C** (Control de Cambios y Validación de Ediciones Recientes con OSMCha / OSM API v0.6).
 
 ```mermaid
 flowchart LR
     subgraph IN_M6["1. INPUT"]
-        CAPA_AUD["132 Capas del Catálogo o GeoJSON Externo"]
+        CAPA_AUD["134 Capas del Catálogo o GeoJSON Externo"]
         OHSOME_URL["ohsome API v1/v2 (/elements/count, /length, /area, /users)"]
         OSMCHA_XML["OSM API v0.6 Changesets (/api/0.6/changesets)"]
     end
@@ -751,14 +751,14 @@ flowchart LR
 ---
 
 ### Módulo 07: Manual de Uso y Actualización (`data-panel="manual"` — `src/js/modulos/manual.js`)
-* **Propósito Operativo:** Documentación interactiva dividida en **Parte I: Manual de Uso del Atlas** (fundamentación, operación del visor, ICV dinámico, Inspector Normativo e inventario filtrable de las 132 coberturas) y **Parte II: Manual de Actualización y Mantención Técnica** (catálogo estandarizado multi-lenguaje, pipelines de flujo, protocolo de 6 etapas, validación pre-despliegue y régimen jurídico).
+* **Propósito Operativo:** Documentación interactiva dividida en **Parte I: Manual de Uso del Atlas** (fundamentación, operación del visor, ICV dinámico, Inspector Normativo e inventario filtrable de las 134 coberturas) y **Parte II: Manual de Actualización y Mantención Técnica** (catálogo estandarizado multi-lenguaje, pipelines de flujo, protocolo de 6 etapas, validación pre-despliegue y régimen jurídico).
 
 ```mermaid
 flowchart LR
     subgraph IN_M7["1. INPUT"]
         CAP_USO["Parte I: Capítulos de Uso (USO · 01 a USO · 04)"]
         CAP_ACT["Parte II: Capítulos de Actualización (ACT · 01 a ACT · 05)"]
-        INV_132["Inventario Dinámico de las 132 Capas (NODO_CONFIG + IDE)"]
+        INV_132["Inventario Dinámico de las 134 Capas (NODO_CONFIG + IDE)"]
     end
 
     subgraph PROC_M7["2. PIPELINE DE PROCESAMIENTO"]
@@ -801,8 +801,8 @@ flowchart LR
 
 ---
 
-### Módulo 09: Diccionario (132 Capas) (`data-panel="diccionario"` — `src/js/modulos/diccionario.js`)
-* **Propósito Operativo:** Catálogo de Objetos y Atributos Geográficos conforme a la norma **ISO 19110:2016**, integrando los **140 descriptores técnicos** que documentan las 132 coberturas operativas y las reglas de homologación semántica entre la normativa chilena (OGUC/PRC/IDE Chile) y OpenStreetMap.
+### Módulo 09: Diccionario (134 Capas) (`data-panel="diccionario"` — `src/js/modulos/diccionario.js`)
+* **Propósito Operativo:** Catálogo de Objetos y Atributos Geográficos conforme a la norma **ISO 19110:2016**, integrando los **140 descriptores técnicos** que documentan las 134 coberturas operativas y las reglas de homologación semántica entre la normativa chilena (OGUC/PRC/IDE Chile) y OpenStreetMap.
 
 ```mermaid
 flowchart LR

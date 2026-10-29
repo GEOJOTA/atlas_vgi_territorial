@@ -2,7 +2,7 @@
 ## Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE)
 ### Especificación Técnica, Pipeline de Datos y Diccionario de Atributos en el Atlas VGI
 
-Este documento presenta la catalogación técnica, los pipelines de procesamiento e interoperabilidad, las formulaciones metodológicas y el diccionario de los **126 descriptores de columnas** correspondientes a las **13 capas espaciales oficiales** del Catastro Nacional de Residuos Sólidos Domiciliarios (RSD 2024), publicado por la Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) e integrado en las **132 coberturas operativas** del **Atlas de Información Geográfica Voluntaria (VGI)**.
+Este documento presenta la catalogación técnica, los pipelines de procesamiento e interoperabilidad, las formulaciones metodológicas y el diccionario de los **126 descriptores de columnas** correspondientes a las **13 capas espaciales oficiales** del Catastro Nacional de Residuos Sólidos Domiciliarios (RSD 2024), publicado por la Subsecretaría de Desarrollo Regional y Administrativo (SUBDERE) e integrado en las **134 coberturas operativas** del **Atlas de Información Geográfica Voluntaria (VGI)**.
 
 ---
 

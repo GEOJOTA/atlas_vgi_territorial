@@ -11,7 +11,7 @@
 ```mermaid
 flowchart LR
     subgraph FASE1["1. INPUT: Consolidación de Datos y Catálogos (Completado)"]
-        A1["132 Capas Operativas en data/ y src/data/<br/>(122 Oficiales del Estado + 10 VGI CAT-01 a CAT-10)"]
+        A1["134 Capas Operativas en data/ y src/data/<br/>(124 Oficiales del Estado + 10 VGI CAT-01 a CAT-10)"]
         A2["140 Descriptores Normativos ISO 19110<br/>(54 con Homólogo Estatal + 86 Brechas VGI)"]
         A3["125 Referencias Bibliográficas APA 7ª Ed.<br/>docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md"]
     end
@@ -49,8 +49,8 @@ flowchart LR
 
 ---
 
-### 2.2. Consolidación de las 132 Capas Operativas, 4 Storyboards (75 Mapas) e Inspector PRC
-1. **Inventario de 132 Coberturas Geográficas (`122` Oficiales + `10` VGI):**
+### 2.2. Consolidación de las 134 Capas Operativas, 4 Storyboards (75 Mapas) e Inspector PRC
+1. **Inventario de 134 Coberturas Geográficas (`124` Oficiales + `10` VGI):**
    * Integración del **Censo de Población y Vivienda 2024 (INE)** en 5 escalas territoriales (incluyendo `data/ide_censo2024_manzanas.geojson` con `1.711` manzanas y `216` variables para la Comuna de Santiago).
    * Integración de las **13 capas del Catastro Nacional de Residuos Sólidos Domiciliarios (SUBDERE RSD 2024)** en `data/subdere_rsd_*.geojson` con diccionarios de columnas embebidos (`126` descriptores).
    * Integración de las series comunales de Santiago (`bbdd_01_santiago.geojson` a `bbdd_91_santiago.geojson`), Registro Social de Hogares 2026 (`data/RSH_*_UV_2026_*.geojson`), Banco Integrado de Proyectos (`data/bip_inversiones_santiago.csv`), semáforos UOCT 2026 (`data/semaforos_rm_uoct_2026.geojson`), antenas SUBTEL (`data/subtel_antenas_rm_2026.geojson`) y ruido ambiental MMA (`data/mma_ruido_ambiental_santiago.geojson`).
@@ -89,7 +89,7 @@ flowchart TD
 ```
 
 ### Lista de Verificación Permanente para Mantenedores:
-* [x] **Paridad de Capas (`132`):** `122` capas oficiales en `src/js/modulos/ide_chile.js` + `10` macrocategorías VGI en `src/js/config.js`.
+* [x] **Paridad de Capas (`134`):** `124` capas oficiales en `src/js/modulos/ide_chile.js` + `10` macrocategorías VGI en `src/js/config.js`.
 * [x] **Paridad de Descriptores (`140`):** `54` con homólogo oficial en IDE Chile + `86` brechas VGI en `src/js/modulos/diccionario.js`.
 * [x] **Paridad de Storyboards (`4` ejes / `75` mapas):** Cartografías PNG verificadas en `src/assets/mapas_storyboards/`.
 * [x] **Paridad Simétrica de Directorios:** `data/` ↔ `src/data/` y `docs/` ↔ `src/docs/` sin punteros Git LFS.

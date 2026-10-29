@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 scripts/manual_p02_ingenieria_datos.py
-Capítulos 06 al 14: Ingeniería de Datos, Extracción, Normalización y Catálogo de 132 Capas.
+Capítulos 06 al 14: Ingeniería de Datos, Extracción, Normalización y Catálogo de 134 Capas.
 """
 
 PARTE_02 = r"""# PARTE II: INGENIERÍA DE DATOS, PIPELINES DE EXTRACCIÓN Y NORMALIZACIÓN CARTOGRÁFICA
@@ -127,7 +127,7 @@ flowchart LR
     end
 
     subgraph DESTINOS["3. Salidas y Almacenamiento en Git y Web"]
-        GEOJSON["132 Capas GeoJSON en src/data/ y data/ (122 Oficiales + 10 VGI)"]
+        GEOJSON["134 Capas GeoJSON en src/data/ y data/ (124 Oficiales + 10 VGI)"]
         GPKG["data/geodatabase_osm_rm_geofabrik.gpkg (OGC SQLite)"]
         XLSX["3 Libros Excel OpenXML en docs/ y src/docs/"]
         POSTGIS["PostgreSQL 17 / PostGIS 3.3 (scripts/db/01_schema_postgis.sql)"]
@@ -355,7 +355,7 @@ En plena coherencia con el **Módulo 06 (`Evaluación de Calidad Geoespacial e �
 
 ### 8.1. Articulación de los 3 Submódulos de Calidad en la Plataforma Web (Módulo 06)
 1. **Submódulo A — Evaluador Universal de Calidad Espacial, Topología e Índice IGV (`evaluador_calidad_cuantitativa.js`):**
-   - Evalúa cualquier capa interna del catálogo (132 coberturas) o cualquier archivo externo cargado por el usuario (`.geojson` / `.json`).
+   - Evalúa cualquier capa interna del catálogo (134 coberturas) o cualquier archivo externo cargado por el usuario (`.geojson` / `.json`).
    - Computa el **Índice Global de Calidad (IGV / IGMC)** mediante Combinación Lineal Ponderada (WLC) al **50% para el Pilar Cuantitativo** (Consistencia Topológica 30%, Completitud de Atributos 25%, Exactitud Posicional y Dominio 20%, Conformidad de Esquema 15% y Densidad de Vértices 10%) y **50% para el Pilar Cualitativo** (Completitud de Metadatos ISO 19115 25%, Trazabilidad del Linaje 25%, Actualidad Temporal 20%, Conformidad Estándar IDE Chile 15% y Claridad Legal/Licenciamiento 15%).
 2. **Submódulo B — Serie Histórica OSHDB e Índice de Saturación y Maduración Territorial (`ohsome.js` y `calidad_analyst.js`):**
    - Consulta la evolución histórica 2018–2026 en la API de HeiGIT (**ohsome API v1/v2**) aplicando sensibilidad geométrica según la naturaleza espacial de la categoría consultada y reproyectando el polígono de consulta a **SIRGAS-Chile / UTM Huso 19 Sur (`EPSG:32719`)** mediante el algoritmo Transverse Mercator y la fórmula de área de Gauss (*Shoelace*) en `src/js/modulos/geodesia.js`.
@@ -526,7 +526,7 @@ El archivo resultante (`data/geodatabase_osm_rm_geofabrik.gpkg`) cuenta con índ
 
 ---
 
-## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
+## 12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile
 
 ```mermaid
 flowchart LR
@@ -546,15 +546,15 @@ flowchart LR
     end
 
     subgraph OUT_IDE["3. OUTPUT: CATÁLOGO OFICIAL"]
-        IDE_122["122 Capas Oficiales Homologadas (src/data/*.geojson)"]
-        XLSX_132["Catálogo Maestro catalogo_fuentes_vgi.xlsx (132 Filas)"]
+        IDE_122["124 Capas Oficiales Homologadas (src/data/*.geojson)"]
+        XLSX_132["Catálogo Maestro catalogo_fuentes_vgi.xlsx (134 Filas)"]
         WEB_MOD01["Sincronización en Visor Web (Módulo 01) y Storyboards (Módulo 05)"]
     end
 
     IN_IDE --> PROC_IDE --> OUT_IDE
 ```
 
-El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
+El Atlas VGI integra exactamente **124 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
 A continuación se detalla la proveniencia institucional y aporte temático de las principales entidades públicas integradas:
 
@@ -584,9 +584,9 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 
 ---
 
-## 13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas
+## 13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas
 
-A continuación se expone la tabla maestra con el inventario universal de las 132 capas que operan en la plataforma web y en la geodatabase unificada:
+A continuación se expone la tabla maestra con el inventario universal de las 134 capas que operan en la plataforma web y en la geodatabase unificada:
 
 ### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil y Región Metropolitana)
 | N° | ID en Plataforma (`config.js`) | Código | Denominación Oficial | Dimensión Territorial | Geometría OGC | Ruta Barrial (`data/` y `src/data/`) | Ruta Regional RM (`data/` y `src/data/`) |
@@ -603,7 +603,7 @@ A continuación se expone la tabla maestra con el inventario universal de las 13
 | 10 | `cobertura_suelo` | `CAT-10` | Cobertura y Uso de Suelo Urbano | Morfología Urbana | Polígonos | `data/capa_cobertura_suelo.geojson` | `data/capa_osm_rm_cat10_cobertura_suelo.geojson` |
 
 
-### 13.2. Las 122 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
+### 13.2. Las 124 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
 | N° | ID de Capa | Nombre Oficial | Institución Responsable | Ministerio / Sector | Geometría | Archivo Local |
 | :---: | :--- | :--- | :--- | :--- | :--- | :--- |
 | 011 | `censo2024_regional` | Censo 2024 (Marco Regional RM) | Instituto Nacional de Estadísticas (INE) / IDE Chile | Ministerio de Economía, Fomento y Turismo | Polígono (Región Metropolitana) | `data/ide_censo2024_regional.geojson` |
@@ -748,7 +748,7 @@ flowchart LR
     end
 
     subgraph OUT_ISO["3. OUTPUT"]
-        STD_GEOJSON["132 Capas GeoJSON 100% Homogéneas"]
+        STD_GEOJSON["134 Capas GeoJSON 100% Homogéneas"]
         ISO_CONFORM["Conformidad Total con Perfil IDE Chile / SNIT"]
         EXPORT_READY["Exportabilidad Directa hacia QGIS y ArcGIS"]
     end

@@ -4,7 +4,7 @@ import re
 
 BASE_DIR = "/Users/geojplescano/Programas/Práctica profesional 2026 S2/nodo-geoabierto"
 
-# Parse ide_chile.js to extract all 122 official layers dynamically
+# Parse ide_chile.js to extract all 124 official layers dynamically
 ide_path = os.path.join(BASE_DIR, "src", "js", "modulos", "ide_chile.js")
 capas_oficiales = []
 if os.path.exists(ide_path):
@@ -39,7 +39,7 @@ if os.path.exists(ide_path):
     if current.get("id"):
         capas_oficiales.append(current)
 
-# Build the 132 layers table markdown
+# Build the 134 layers table markdown
 capas_vgi = [
     {"num": 1, "id": "cat01_educacion_vgi", "nombre": "CAT-01: Educación y Universidad VGI", "categoria": "Equipamiento Comunitario", "tipo": "Puntos / Polígonos", "fuente": "OpenStreetMap", "archivo": "data/cat01_educacion_vgi.geojson"},
     {"num": 2, "id": "cat02_salud_vgi", "nombre": "CAT-02: Servicios y Comercio Barrial VGI", "categoria": "Equipamiento Comunitario", "tipo": "Puntos / Polígonos", "fuente": "OpenStreetMap", "archivo": "data/cat02_salud_vgi.geojson"},
@@ -65,14 +65,14 @@ for idx, c in enumerate(capas_oficiales, start=11):
     arch = c.get('archivoLocal', 'data/' + c['id'] + '.geojson')
     tabla_oficial_md += f"| {idx:03d} | `{c['id']}` | {c['nombre']} | {inst} | {mini} | {geom} | `{arch}` |\n"
 
-print(f"[+] 122 capas oficiales cargadas. Total filas tabla oficial: {len(capas_oficiales)}")
+print(f"[+] 124 capas oficiales cargadas. Total filas tabla oficial: {len(capas_oficiales)}")
 
 # Now generate scripts/manual_p02_ingenieria_datos.py
 with open(os.path.join(BASE_DIR, "scripts", "manual_p02_ingenieria_datos.py"), "w", encoding="utf-8") as f:
     template = '''# -*- coding: utf-8 -*-
 """
 scripts/manual_p02_ingenieria_datos.py
-Capítulos 06 al 14: Ingeniería de Datos, Extracción, Normalización y Catálogo de 132 Capas.
+Capítulos 06 al 14: Ingeniería de Datos, Extracción, Normalización y Catálogo de 134 Capas.
 """
 
 PARTE_02 = r"""# PARTE II: INGENIERÍA DE DATOS, PIPELINES DE EXTRACCIÓN Y NORMALIZACIÓN CARTOGRÁFICA
@@ -494,9 +494,9 @@ El archivo resultante (`docs/geofabrik_chile_rm_completo.gpkg`) cuenta con índi
 
 ---
 
-## 12. Ingesta, Normalización y Homologación de las 122 Capas Oficiales del Estado de Chile
+## 12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile
 
-El Atlas VGI integra exactamente **122 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
+El Atlas VGI integra exactamente **124 capas cartográficas oficiales del Estado de Chile**, auditadas, homologadas a WGS84 (EPSG:4326) e inyectadas con metadatos completos y citas bibliográficas bajo norma APA 7ª edición.
 
 A continuación se detalla la proveniencia institucional y aporte temático de las principales entidades públicas integradas:
 
@@ -526,14 +526,14 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 
 ---
 
-## 13. Catálogo Exhaustivo Detallado de las 132 Capas Cartográficas
+## 13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas
 
-A continuación se expone la tabla maestra con el inventario universal de las 132 capas que operan en la plataforma web y en la geodatabase unificada:
+A continuación se expone la tabla maestra con el inventario universal de las 134 capas que operan en la plataforma web y en la geodatabase unificada:
 
 ### 13.1. Las 10 Macrocategorías Comunitarias VGI (Barrio Brasil)
 {tabla_vgi_md}
 
-### 13.2. Las 122 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
+### 13.2. Las 124 Capas Oficiales del Estado de Chile (IDE Chile / SNIT)
 {tabla_oficial_md}
 
 ---

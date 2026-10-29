@@ -2,7 +2,7 @@
 
 * **Plataforma Web en Producción:** [https://atlasvgiuah.netlify.app](https://atlasvgiuah.netlify.app)
 * **Archivos de Esquema y Cliente:** [`scripts/db/01_schema_postgis.sql`](scripts/db/01_schema_postgis.sql) · [`scripts/db/02_seed_metadata.sql`](scripts/db/02_seed_metadata.sql) · [`src/js/modulos/db_client.js`](src/js/modulos/db_client.js) · [`.github/workflows/supabase_keepalive.yml`](.github/workflows/supabase_keepalive.yml).
-* **Cobertura Gestionada:** **132 Capas Operativas** (`122` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** · **Metadatos ISO 19115 / ISO 19157**.
+* **Cobertura Gestionada:** **134 Capas Operativas** (`124` Oficiales del Estado + `10` Macrocategorías VGI `CAT-01` a `CAT-10`) · **140 Descriptores ISO 19110:2016** · **Metadatos ISO 19115 / ISO 19157**.
 
 ---
 
@@ -10,7 +10,7 @@
 
 El **Atlas de Información Geográfica Voluntaria (VGI)** implementa un modelo de persistencia espacial híbrida que combina la capacidad analítica de **PostgreSQL 15+ con la extensión espacial PostGIS 3.4+ (alojada en Supabase)** con la velocidad y disponibilidad perpetua de un **repositorio estático de archivos GeoJSON en CDN (`src/data/*.geojson` ↔ `data/*.geojson`)**.
 
-Esta arquitectura asegura que la plataforma opere con **cero tiempo de inactividad**: si el cliente dispone de conexión al motor PostGIS, puede ejecutar recortes por *Bounding Box* e intersecciones espaciales mediante funciones **RPC (Remote Procedure Calls)**; si la instancia remota no se encuentra configurada o experimenta latencia, el módulo [`src/js/modulos/db_client.js`](src/js/modulos/db_client.js) conmuta de manera transparente hacia las **132 capas locales** y la caché en memoria RAM.
+Esta arquitectura asegura que la plataforma opere con **cero tiempo de inactividad**: si el cliente dispone de conexión al motor PostGIS, puede ejecutar recortes por *Bounding Box* e intersecciones espaciales mediante funciones **RPC (Remote Procedure Calls)**; si la instancia remota no se encuentra configurada o experimenta latencia, el módulo [`src/js/modulos/db_client.js`](src/js/modulos/db_client.js) conmuta de manera transparente hacia las **134 capas locales** y la caché en memoria RAM.
 
 ---
 

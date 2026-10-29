@@ -1904,7 +1904,7 @@ print("Dataset subsanado y listo para producción!")
               Matriz de Correlación de Pearson entre las 10 Dimensiones de Calidad (WLC v2.0)
             </h5>
             <p style="margin-bottom:10px;">
-              Calculada sobre la totalidad de la base de datos cartográfica del Atlas (132 componentes). Justifica la independencia y complementariedad dimensional del modelo multicriterio:
+              Calculada sobre la totalidad de la base de datos cartográfica del Atlas (134 componentes). Justifica la independencia y complementariedad dimensional del modelo multicriterio:
             </p>
             <div style="text-align:center; margin:14px 0;">
               <img src="docs/correlacion_dimensiones_calidad.png" alt="Matriz de Correlación de Dimensiones de Calidad" style="max-width:100%; height:auto; border-radius:8px; border:1px solid var(--linea); box-shadow:0 4px 12px rgba(0,0,0,0.3);" onerror="this.src='src/docs/correlacion_dimensiones_calidad.png'">
@@ -2671,7 +2671,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
     // Poblar selector de capas del Atlas si está disponible
     if (selectCapa && window.ModuloIDEChile) {
       const capasOficiales = window.ModuloIDEChile.obtenerCapasDisponibles ? window.ModuloIDEChile.obtenerCapasDisponibles() : [];
-      let htmlOpts = `<option value="">-- Selecciona una capa de la base de datos (132 componentes) --</option>`;
+      let htmlOpts = `<option value="">-- Selecciona una capa de la base de datos (134 componentes) --</option>`;
 
       htmlOpts += `<optgroup label="Macro-categorías VGI Comunitarias (10 Capas Barrio Brasil)">`;
       const catsVGI = [
@@ -2691,7 +2691,7 @@ print(f"✓ Procesadas {len(gdf)} entidades saneadas exitosamente.")</pre>
       });
       htmlOpts += `</optgroup>`;
 
-      htmlOpts += `<optgroup label="Capas Oficiales del Estado (122 Capas IDE Chile / BBDD)">`;
+      htmlOpts += `<optgroup label="Capas Oficiales del Estado (124 Capas IDE Chile / BBDD)">`;
       capasOficiales.forEach(co => {
         if (co.archivoLocal) {
           htmlOpts += `<option value="${co.archivoLocal}" data-id="${co.id}">${co.nombre} (${co.institucion})</option>`;
