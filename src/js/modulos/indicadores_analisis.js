@@ -377,19 +377,19 @@ const ModuloIndicadoresAnalisis = (() => {
       dimensionId: 'metodologica',
       dimensionNombre: 'Resultados Espaciales · Densidades de Kernel (KDE)',
       titulo: 'Concentración Territorial y Núcleos de Actividad VGI en Santiago: Lo que Revelan las Superficies de Densidad de Kernel',
-      bajada: 'Análisis espacial de las 12 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI y la red de semáforos UOCT. Polarización entre la hiperconcentración del eje Alameda, Barrio Brasil, Santa Ana y Ejército frente a los vacíos de cobertura en la periferia sur de la comuna (Sierra Bella y Bogotá).',
+      bajada: 'Análisis espacial de las 14 cartografías de densidad continua (KDE) sobre las 10 macro-categorías colaborativas del Atlas VGI, la red de semáforos UOCT y las dinámicas oficiales de Permisos de Edificación y Certificados de Recepción Final (CRF). Polarización entre la hiperconcentración del eje Alameda, Barrio Brasil, Santa Ana y Ejército frente a los vacíos de cobertura en la periferia sur de la comuna (Sierra Bella y Bogotá).',
       imagen: 'img/storyboards/portada_analisis_kde.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_kde.svg',
       piePortada: 'Ilustración síntesis de los núcleos de intensidad territorial VGI identificados en la Comuna de Santiago y el entorno de Barrio Brasil.',
-      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Semaforización UOCT', '12 Cartografías'],
-      capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo', 'semaforos_rm_uoct_2026'],
+      tags: ['Resultados KDE', 'Concentración VGI', 'Barrio Brasil', 'Semaforización UOCT', 'Permisos y CRF', '14 Cartografías'],
+      capasRelevantes: ['cat01_educacion', 'cat02_servicios', 'cat03_transporte', 'cat04_movilidad_activa', 'cat05_espacio_publico', 'cat06_patrimonio', 'cat07_accesibilidad', 'cat08_biodiversidad', 'cat09_edificaciones', 'cat10_cobertura_suelo', 'semaforos_rm_uoct_2026', 'ine_permisos_edificacion_santiago', 'ine_crf_conjuntos_santiago'],
       contenido: {
         introduccion: `El análisis de los 10.166 registros multigeométricos levantados en el Atlas VGI (3.186 puntos, 3.929 vértices de redes lineales y 3.051 polígonos) demuestra que la provisión de infraestructura, servicios y atributos ambientales en los 27 barrios oficiales de la Comuna de Santiago no se distribuye de forma homogénea ni concéntrica. Los resultados de las superficies de densidad revelan una marcada estructura axial y policéntrica: mientras el corredor Alameda, Barrio Brasil (media de 6.924,1 ent/km²), Santa Ana (1.728,2 ent/km²), Ejército (1.007,0 ent/km²), Parque Almagro (790,6 ent/km²) y Barrio Universitario (703,3 ent/km²) concentran los máximos absolutos de intensidad territorial, barrios del borde sur (agrupación AV10) como Sierra Bella (1,9 ent/km²), Bogotá (1,4 ent/km²), Matta Sur (2,1 ent/km²), Franklin (3,1 ent/km²) y San Vicente (15,3 ent/km²) exhiben severos vacíos de equipamiento y cobertura colaborativa.`,
         datosClave: [
           { valor: '20.203,8', label: 'Cima KDE Total VGI', sub: 'Máximo comunal (ent/km²) en eje Brasil-Alameda' },
           { valor: '6.924,1', label: 'Media Barrio Brasil', sub: '14,1 veces el promedio comunal (489,1 ent/km²)' },
           { valor: '10.166', label: 'Entidades Evaluadas', sub: '3.186 pts · 3.929 lín · 3.051 pol' },
-          { valor: '12', label: 'Cartografías KDE', sub: '10 macro-categorías VGI + UOCT + Síntesis Total' }
+          { valor: '14', label: 'Cartografías KDE', sub: '10 macro-categorías VGI + UOCT + Permisos INE + CRF + Síntesis Total' }
         ],
         porcentajesClave: [
           { label: 'Peso de Edificaciones y Transporte en la Intensidad Total VGI', valor: '62,2%', porcentaje: 62.2, contexto: 'Edificaciones (3.305 registros) y Transporte (3.016 registros) dominan la estructura física mapeada.' },
@@ -465,17 +465,20 @@ const ModuloIndicadoresAnalisis = (() => {
             ]
           },
           {
-            titulo: '2. Compacidad edificada, polaridad comercial y el clúster universitario',
+            titulo: '2. Compacidad edificada, dinámicas de edificación (Permisos y CRF), polaridad comercial y el clúster universitario',
             parrafos: [
               'Al desagregar los resultados en morfología construida, servicios comerciales y educación, las cartografías demuestran cómo distintas funciones urbanas modelan el pericentro. La superficie de Edificaciones (KDE_Edificaciones, con cima de 5.839,5 ent/km²) exhibe una mancha continua de alta compacidad que cubre casi la totalidad de Barrio Brasil (media de 2.651,8 ent/km²), Santa Ana (539,2 ent/km²), Barrio Universitario (319,8 ent/km²), Ejército (233,8 ent/km²) y Yungay (154,0 ent/km²), reflejando la subdivisión predial histórica de cités, casonas continuas y pabellones institucionales.',
-              'En cambio, la densidad de Servicios y Comercio (KDE_Servicios, máximo de 1.376,3 ent/km²) abandona la distribución homogénea para concentrarse selectivamente en subcentros gastronómicos y comerciales: el entorno de Plaza Brasil (calles Huérfanos, Compañía y Av. Brasil con media barrial de 420,1 ent/km² en Brasil), Santa Ana (147,1 ent/km²), Ejército (96,0 ent/km²) y el eje Alameda. Por su parte, la cartografía de Educación (KDE_Educacion, máximo de 1.249,2 ent/km²) dibuja islas muy definidas de equipamiento superior y escolar lideradas por Barrio Brasil (155,9 ent/km², impulsado por los 34 predios del campus UAH y colegios históricos), Barrio Ejército (66,5 ent/km²), Barrio Universitario (47,8 ent/km²) y Parque Almagro (31,0 ent/km²), mientras el pericentro sur carece de núcleos equivalentes.'
+              'En cambio, la densidad de Servicios y Comercio (KDE_Servicios, máximo de 1.376,3 ent/km²) abandona la distribución homogénea para concentrarse selectivamente en subcentros gastronómicos y comerciales: el entorno de Plaza Brasil (calles Huérfanos, Compañía y Av. Brasil con media barrial de 420,1 ent/km² en Brasil), Santa Ana (147,1 ent/km²), Ejército (96,0 ent/km²) y el eje Alameda. Por su parte, la cartografía de Educación (KDE_Educacion, máximo de 1.249,2 ent/km²) dibuja islas muy definidas de equipamiento superior y escolar lideradas por Barrio Brasil (155,9 ent/km², impulsado por los 34 predios del campus UAH y colegios históricos), Barrio Ejército (66,5 ent/km²), Barrio Universitario (47,8 ent/km²) y Parque Almagro (31,0 ent/km²), mientras el pericentro sur carece de núcleos equivalentes.',
+              'La incorporación de las cartografías de dinámicas de edificación oficial del INE —Permisos de Edificación (KDE_Permisos_Edificacion, cima de 639,6 permisos/km²) y Certificados de Recepción Final (KDE_Certificados_Recepcion_Final, cima de 99,6 conjuntos/km²)— complementa el diagnóstico morfológico de la comuna. Mientras las autorizaciones de edificación trazan una marcada presión constructiva sobre los corredores estructurantes de Santa Ana, Santa Isabel, San Borja y Parque Almagro, la recepción efectiva de conjuntos habitacionales concluidos constata la materialización física de obras en altura en el sector centro-oriente y suroriente comunal. Este patrón contrasta nítidamente con las áreas patrimoniales de Barrio Brasil y Yungay, donde las bajas densidades de nuevos permisos reflejan la contención normativa y la prevalencia de la conservación sobre la demolición.'
             ],
             graficoInline: {
-              titulo: 'Intensidad Máxima de Edificaciones, Servicios y Educación en las Cartografías KDE',
+              titulo: 'Intensidad Máxima de Edificaciones, Servicios, Permisos y Educación en las Cartografías KDE',
               filas: [
                 { label: 'KDE Edificaciones (Morfología predial y huella construida)', valor: '5.839,5 máx', porcentaje: 100 },
                 { label: 'KDE Servicios y Comercio (Gastronomía y abastecimiento)', valor: '1.376,3 máx', porcentaje: 38 },
-                { label: 'KDE Educación (Campus UAH, liceos y jardines)', valor: '1.249,2 máx', porcentaje: 34 }
+                { label: 'KDE Educación (Campus UAH, liceos y jardines)', valor: '1.249,2 máx', porcentaje: 34 },
+                { label: 'KDE Permisos de Edificación (2010–2025 DOM/INE)', valor: '639,6 máx', porcentaje: 26 },
+                { label: 'KDE Recepción Final CRF (Conjuntos concluidos)', valor: '99,6 máx', porcentaje: 12 }
               ]
             },
             cartografias: [
@@ -484,6 +487,18 @@ const ModuloIndicadoresAnalisis = (() => {
                 titulo: 'KDE Edificaciones y Huella Construida',
                 subtitulo: 'Rango: 0 a 5.839,5 ent/km² · 3.305 entidades evaluadas',
                 lectura: 'Muestra la compacidad extrema del tejido pericentral en Barrio Brasil (2.651,8 ent/km²) y Santa Ana, donde el grano predial fino de casonas y cités genera una superficie continua de alta densidad.'
+              },
+              {
+                src: 'img/cartografias/KDE_Permisos_Edificacion.jpg',
+                titulo: 'KDE Permisos de Edificación Consolidados (2010–2025)',
+                subtitulo: 'Comuna de Santiago · 1.882 permisos autorizados (DOM / INE) · Cima: 639,6 permisos/km²',
+                lectura: 'Expone la intensa concentración espacial de permisos autorizados a lo largo de los ejes de renovación urbana en Santa Ana, Santa Isabel, San Borja y Parque Almagro, en marcado contraste con la baja intensidad en las áreas de conservación histórica de Barrio Brasil y Yungay.'
+              },
+              {
+                src: 'img/cartografias/KDE_Certificados_Recepcion_Final.jpg',
+                titulo: 'KDE Certificados de Recepción Final - CRF (2011–2025)',
+                subtitulo: 'Comuna de Santiago · 403 conjuntos habitacionales concluidos (DOM / INE) · Cima: 99,6 conjuntos/km²',
+                lectura: 'Visualiza la culminación y entrega efectiva de conjuntos habitacionales en altura, focalizada marcadamente en los corredores oriente y suroriente comunal, verificando la concreción física del ciclo inmobiliario frente a los sectores consolidados de baja renovación.'
               },
               {
                 src: 'img/cartografias/KDE_Servicios.jpg',
@@ -830,21 +845,21 @@ const ModuloIndicadoresAnalisis = (() => {
     {
       id: 'storyboard-demografia-habitabilidad-sociourbana',
       dimensionId: 'sociourbana',
-      dimensionNombre: 'Resultados Territoriales · Demografía, Vivienda & RSH',
-      titulo: 'Estructura Sociodemográfica, Habitabilidad y Morfología Urbana en Santiago: Resultados del Censo 2024 y RSH',
-      bajada: 'Qué revelan las 29 cartografías sociodemográficas y habitacionales de la comuna: dónde se concentran los 432.081 habitantes, la hegemonía del departamento (92,7%) y del arriendo (72,1%), la persistencia de cités y hacinamiento en el sur, y los focos de vulnerabilidad 0-40% RSH.',
+      dimensionNombre: 'Resultados Territoriales · Demografía, Vivienda, PRC & Morfología Predial',
+      titulo: 'Estructura Sociodemográfica, Habitabilidad y Morfología Urbana en Santiago: Resultados del Censo 2024, RSH y Dinámica Edificatoria',
+      bajada: 'Qué revelan las 34 cartografías sociodemográficas, habitacionales y de morfología predial de la comuna: dónde se concentran los 432.081 habitantes, la hegemonía del departamento (92,7%) y del arriendo (72,1%), las alturas autorizadas de edificación, el COS medio (0,47) en conjuntos recepcionados (CRF), la persistencia de cités en el sur y la conservación en Barrio Brasil y Yungay.',
       imagen: 'img/storyboards/portada_analisis_sociourbano.svg',
       imagenDestacada: 'img/storyboards/portada_analisis_sociourbano.svg',
       piePortada: 'Ilustración de los contrastes morfológicos y demográficos de Santiago: torres hiperdensas de arriendo frente a cités, casonas patrimoniales y barrios históricos.',
-      tags: ['Resultados Censo 2024', '72,1% Arriendo', '92,7% Departamentos', 'Cités y Hacinamiento', '29 Cartografías'],
-      capasRelevantes: ['censo2024_manzanas', 'catastro_predial_sii', 'minvu_patrimonio', 'minvu_ipt_prc_santiago', 'bbdd_19', 'bbdd_64', 'bbdd_68', 'bbdd_74'],
+      tags: ['Resultados Censo 2024', '72,1% Arriendo', '92,7% Departamentos', 'Morfología Predial OGUC', 'Permisos y CRF', '34 Cartografías'],
+      capasRelevantes: ['censo2024_manzanas', 'catastro_predial_sii', 'minvu_patrimonio', 'minvu_ipt_prc_santiago', 'ine_permisos_edificacion_santiago', 'ine_crf_conjuntos_santiago', 'censo_manzanas_metricas_edificacion', 'bbdd_19', 'bbdd_64', 'bbdd_68', 'bbdd_74'],
       contenido: {
-        introduccion: `Los resultados consolidados de las 1.711 manzanas censales y los 27 barrios oficiales de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 29 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura —encabezado por Santa Isabel (con 52.658 hab. y 650,5 hab/ha), Santa Ana (con 26.343 hab. y 618,0 hab/ha) y Parque Almagro (con 46.948 hab. y 442,3 hab/ha)— dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil, Yungay, Ejército y Barrio Universitario, donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente —como Franklin, Matta Sur, San Vicente, Bogotá y Sierra Bella— donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
+        introduccion: `Los resultados consolidados de las 1.711 manzanas censales y los 27 barrios oficiales de la Comuna de Santiago registran una población de 432.081 habitantes (219.003 hombres y 213.078 mujeres) distribuidos en 203.830 hogares y 211.435 viviendas particulares ocupadas. El cruce de las 34 cartografías demuestra una profunda fractura socio-morfológica entre tres realidades territoriales: 1) un corredor hiperdensificado de torres en altura —encabezado por Santa Isabel (con 52.658 hab. y 650,5 hab/ha), Santa Ana (con 26.343 hab. y 618,0 hab/ha) y Parque Almagro (con 46.948 hab. y 442,3 hab/ha)— dominado por departamentos (92,7% comunal) y hogares unipersonales (40,8%); 2) barrios patrimoniales de escala media como Barrio Brasil, Yungay, Ejército y Barrio Universitario, donde el Plan Regulador Comunal (Zona B de Conservación Histórica) ha preservado la morfología de casonas y cités; y 3) sectores pericentrales del sur y poniente —como Franklin, Matta Sur, San Vicente, Bogotá y Sierra Bella— donde se concentran el arriendo informal sin contrato, el hacinamiento habitacional (hasta 17,5%) y la población en el tramo de mayor vulnerabilidad socioeconómica (0-40% RSH).`,
         datosClave: [
           { valor: '432.081', label: 'Habitantes en Manzanas', sub: '50,7% hombres (219.003) · 49,3% mujeres (213.078)' },
           { valor: '72,1%', label: 'Hogares en Arriendo', sub: '147.044 hogares (62,6% con contrato · 9,5% sin contrato)' },
           { valor: '92,7%', label: 'Viviendas Departamento', sub: '196.060 deptos vs. 13,0% casas y 5,9% piezas/cités' },
-          { valor: '40,8%', label: 'Hogares Unipersonales', sub: '83.149 hogares de 1 persona · 40,4% pob. migrante' }
+          { valor: '34', label: 'Cartografías Oficiales', sub: 'Censo 2024 · RSH · PRC · Permisos DOM · CRF' }
         ],
         porcentajesClave: [
           { label: 'Predominio del Departamento en Edificio sobre el Parque Ocupado', valor: '92,7%', porcentaje: 92.7, contexto: '196.060 departamentos frente a 27.385 casas (concentradas en San Eugenio (75,3%) y San Vicente (74,5%)).' },
@@ -1046,7 +1061,55 @@ const ModuloIndicadoresAnalisis = (() => {
             ]
           },
           {
-            titulo: '4. Hegemonía del arriendo, subarriendo sin contrato, hacinamiento y brecha digital',
+            titulo: '4. Dinámica de edificación, alturas autorizadas y morfología predial: métricas OGUC de ocupación de suelo y conjuntos habitacionales',
+            parrafos: [
+              'El análisis espacial de las alturas máximas autorizadas en los permisos de edificación (Altura_Pisos_Permisos) evidencia cómo la verticalización contemporánea de Santiago se ha canalizado de forma diferenciada según las zonas normativas del Plan Regulador Comunal. Los proyectos de gran escala y mayor altura en pisos (edificios entre 15 y más de 30 pisos) se focalizan marcadamente en las zonas de renovación de Santa Isabel, Santa Ana, San Borja y los bordes estructurantes de Parque Almagro y Matta Norte. Por el contrario, los barrios históricos protegidos, en particular Barrio Brasil, Yungay y Barrio Universitario, presentan alturas autorizadas predominantemente bajas o acotadas a la escala de fachada continua barrial (1 a 4 pisos), reflejando las restricciones de conservación patrimonial.',
+              'A nivel predial, las cartografías de los conjuntos habitacionales concluidos con Certificado de Recepción Final (CRF) entre 2011 y 2025 revelan patrones morfológicos consistentes con la normativa urbana (OGUC Art. 1.1.2). El Coeficiente de Ocupación de Suelo (CRF_COS_Ratio, con una media de 0,47) y el Porcentaje de Suelo Libre (CRF_Suelo_Libre_Pct, con un promedio de 53,5%) demuestran que las obras en altura concluidas en la comuna ocupan en promedio menos de la mitad del terreno en su primer piso, reservando entre un 40% y 60% de suelo libre para antejardines, distanciamientos a medianeros y patios comunes. Complementariamente, la superficie edificada basal (CRF_Huella_Edificada_m2, media de 740,2 m²) y la relación fondo/frente (CRF_Ratio_Fondo_Frente, media de 1,86) evidencian la coexistencia entre macro-lotes regulares producto de fusiones prediales para edificación en altura y lotes alargados característicos de la subdivisión histórica tradicional.'
+            ],
+            graficoInline: {
+              titulo: 'Métricas Morfológicas Promedio en Proyectos con Recepción Final (CRF 2011–2025)',
+              filas: [
+                { label: 'Suelo Libre Promedio en Predio (%SL)', valor: '53,5%', porcentaje: 53.5 },
+                { label: 'Coeficiente de Ocupación de Suelo (COS)', valor: '0,47', porcentaje: 47.0 },
+                { label: 'Relación Fondo / Frente (Elongación)', valor: '1,86', porcentaje: 37.0 },
+                { label: 'Densidad Neta Real Promedio (viv/ha)', valor: '1.659,4 viv/ha', porcentaje: 85.0 }
+              ]
+            },
+            cartografias: [
+              {
+                src: 'img/cartografias/Altura_Pisos_Permisos.jpg',
+                titulo: 'Alturas Máximas en Pisos en Permisos de Edificación (2010–2025)',
+                subtitulo: 'Permisos autorizados por la Dirección de Obras Municipales (DOM / INE) · Rangos de 1 a 32 pisos',
+                lectura: 'Evidencia la concentración de torres en altura (15 a más de 30 pisos) en Santa Isabel, Santa Ana y San Borja, en contraste con las bajas alturas y contención patrimonial en Barrio Brasil y Yungay.'
+              },
+              {
+                src: 'img/cartografias/CRF_COS_Ratio.jpg',
+                titulo: 'Coeficiente de Ocupación de Suelo (COS) en Conjuntos con Recepción Final',
+                subtitulo: 'Art. 1.1.2 OGUC · Proporción de suelo cubierta en primer piso (Media: 0,47)',
+                lectura: 'Muestra que los conjuntos habitacionales recepcionados ocupan típicamente entre 40% y 60% del lote en primer piso, respetando las exigencias de distanciamientos y antejardines.'
+              },
+              {
+                src: 'img/cartografias/CRF_Huella_Edificada_m2.jpg',
+                titulo: 'Superficie Edificada en Planta Baja (m²) de Proyectos Recepcionados',
+                subtitulo: 'Huella construida basal a nivel de terreno · Media comunal: 740,2 m²',
+                lectura: 'Identifica la magnitud de la huella en planta de los proyectos habitacionales concluidos, concentrando las mayores áreas basales en grandes conjuntos residenciales de los sectores centro y suroriente.'
+              },
+              {
+                src: 'img/cartografias/CRF_Suelo_Libre_Pct.jpg',
+                titulo: 'Porcentaje de Patio y Suelo Libre (%) en Proyectos con Recepción Final',
+                subtitulo: 'Art. 2.6.1 a 2.6.3 OGUC · Proporción no edificada del lote (Media: 53,5%)',
+                lectura: 'Constata que los proyectos concluidos preservan en promedio más de la mitad del predio libre de edificación para iluminación natural, ventilación, circulaciones y patios comunes.'
+              },
+              {
+                src: 'img/cartografias/CRF_Ratio_Fondo_Frente.jpg',
+                titulo: 'Relación Fondo / Frente e Índice de Elongación Predial',
+                subtitulo: 'Cociente entre profundidad y ancho del lote · Media: 1,86 (Rango: 1,01 a 6,92)',
+                lectura: 'Distingue entre lotes cuadrangulares producto de fusiones para torres residenciales (ratios 1,0 a 1,8) y predios alargados propios de la parcelación histórica del pericentro.'
+              }
+            ]
+          },
+          {
+            titulo: '5. Hegemonía del arriendo, subarriendo sin contrato, hacinamiento y brecha digital',
             parrafos: [
               'El régimen de tenencia de la vivienda constituye uno de los hallazgos más reveladores del diagnóstico: el 72,1% de los hogares de Santiago es arrendatario (147.044 hogares), frente a apenas un 23,0% de tenencia propia (11,3% pagada y 11,8% pagándose). Sin embargo, las cartografías permiten separar dos mercados de arriendo radicalmente distintos: el Arriendo con Contrato Formal (62,6% comunal) domina en las torres de renovación inmobiliaria de Santa Elena (82,5%), Parque Almagro y Santa Isabel, mientras que el Arriendo sin Contrato Escrito (9,5% comunal, 19.342 hogares) se dispara en los barrios de casonas subdivididas y cités como San Vicente (31,7%), Bogotá (23,5%), Yungay (20,8%), Franklin y el sector norte de Barrio Brasil.',
               'Esta precariedad contractual se superpone espacialmente con las cartografías de Hacinamiento (19.388 viviendas, 9,2% comunal) y Déficit Cuantitativo y de Materialidad (25.576 hogares, 12,5% comunal). Los niveles más críticos de hacinamiento se registran en Franklin (17,5%), San Vicente (17,2%) y Matta Sur (17,0%), así como en manzanas puntuales de inquilinato en Yungay y el borde norte de Barrio Brasil (donde el déficit cuantitativo alcanza el tramo de 31,5% a 100%). A su vez, aunque el Acceso a Internet promedia un 97,6% comunal (198.898 hogares), la cartografía detecta manzanas con rezago de conectividad (<60%) en enclaves de adultos mayores y cités precarizados.'
@@ -1108,7 +1171,7 @@ const ModuloIndicadoresAnalisis = (() => {
             ]
           },
           {
-            titulo: '5. Estratificación socioeconómica (RSH 0–40%), empleo cotizante y demanda de cuidados por Unidad Vecinal',
+            titulo: '6. Estratificación socioeconómica (RSH 0–40%), empleo cotizante y demanda de cuidados por Unidad Vecinal',
             parrafos: [
               'El quinto bloque de este storyboard incorpora las 6 cartografías elaboradas a partir del Registro Social de Hogares (RSH - BIDAT 2026) sobre las 53 Unidades Vecinales (UV) de la comuna, donde se registran 325.449 personas inscritas en RSH. El Índice Global de Vulnerabilidad Socioterritorial (igvst_poblacion, con rangos de 388 a 22.879 puntos ponderados) y el mapa de Personas en el Tramo 0–40% de Menores Ingresos (n_personas_tramo_0_40_total, con rangos de 131 a 7.592 personas por UV) revelan que el mayor volumen de población vulnerable se concentra en la franja central-sur y suroriente (Unidades Vecinales correspondientes a Parque Almagro, Santa Isabel, Diez de Julio, Matta Norte, Matta Sur y Franklin, en azul oscuro con 4.344 a 7.592 personas por UV), mientras que Barrio Brasil se divide entre su sector norte hacia San Pablo y Mapocho (tramo medio-alto de 2.707 a 4.343 personas) y su sector sur hacia la Alameda (tramo medio-bajo de 1.391 a 2.706 personas).',
               'Al examinar la inserción laboral y previsional, el mapa de Total de Ocupados Cotizantes (hasta 6.663 trabajadores por UV) y el Porcentaje de Ocupados Cotizantes en el Tramo 0–40% RSH (entre 25% y 38% en las UV más vulnerables) muestran que en los barrios del poniente y sur una alta proporción de trabajadores formales percibe ingresos bajos que los mantienen dentro del 40% más vulnerable. Finalmente, las cartografías de Niños y Adultos Mayores Adscritos a FONASA en Tramo 0–40% (de 40 a 2.094 personas por UV) y de Personas con Dependencia Funcional o Postradas en Tramo 0–40% (de 4 a 158 personas severamente dependientes por UV) localizan la mayor carga de cuidados médicos y dependencia domiciliaria en el eje central-sur y norponiente (Yungay norte, Balmaceda y Matta Sur).'
@@ -1701,7 +1764,7 @@ const ModuloIndicadoresAnalisis = (() => {
             <div class="insignia-storyboards">NARRATIVAS ESPACIALES BASADAS EN DATOS</div>
             <h3 class="titulo-storyboards">Storyboards</h3>
             <p class="bajada-storyboards">
-              Síntesis de resultados territoriales donde las <strong>76 cartografías temáticas</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
+              Síntesis de resultados territoriales donde las <strong>83 cartografías temáticas</strong> revelan los patrones de concentración, segregación espacial, estructura demográfica, habitabilidad, movilidad y metabolismo urbano en la <strong>Comuna de Santiago y el Barrio Brasil</strong>.
             </p>
           </header>
 
