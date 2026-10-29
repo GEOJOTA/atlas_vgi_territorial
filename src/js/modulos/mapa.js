@@ -857,6 +857,36 @@ const ModuloMapa = (() => {
   META_CAPAS_BIDAT['censo2024_manzanas'] = META_CAPAS_BIDAT['ide_censo2024_manzanas'];
   META_CAPAS_BIDAT['ide_semaforos_rm_uoct_2026'] = META_CAPAS_BIDAT['semaforos_rm_uoct_2026'];
 
+  META_CAPAS_BIDAT['ine_permisos_edificacion_santiago'] = {
+    fuente: 'Instituto Nacional de Estadísticas (INE) / DOM Santiago',
+    ministerio: 'Ministerio de Economía, Fomento y Turismo',
+    archivo_origen: 'Permisos_Edificacion_Santiago_Consolidado_32719.gpkg',
+    archivo_geojson: 'ine_permisos_edificacion_santiago.geojson',
+    crs_entrada: 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)',
+    crs_salida: 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)',
+    cobertura: 'Comuna de Santiago (1.882 Permisos DOM 2010–2025)',
+    features_salida: 1882,
+    tamano_mb: 2.13,
+    licencia: 'Ley N° 17.374 y Ley N° 20.285 de Transparencia Activa (Datos Abiertos)',
+    citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2025). Permisos de Edificación Georreferenciados de la Comuna de Santiago (2010–2025). Santiago, Chile. https://www.ine.gob.cl',
+    descripcion: 'Puntos georreferenciados de permisos de edificación autorizados por la DOM de Santiago (2010–2025) con estadísticas de unidades aprobadas, pisos y cruce con zonificación PRC y manzanas censales.'
+  };
+
+  META_CAPAS_BIDAT['ine_crf_conjuntos_santiago'] = {
+    fuente: 'Instituto Nacional de Estadísticas (INE) / DOM Santiago',
+    ministerio: 'Ministerio de Economía, Fomento y Turismo',
+    archivo_origen: 'CRF_Santiago_Con_Metricas_32719.gpkg',
+    archivo_geojson: 'ine_crf_conjuntos_santiago.geojson',
+    crs_entrada: 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)',
+    crs_salida: 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)',
+    cobertura: 'Comuna de Santiago (403 Conjuntos Habitacionales 2011–2025)',
+    features_salida: 403,
+    tamano_mb: 0.68,
+    licencia: 'Ley N° 20.285 sobre Acceso a la Información Pública (Datos Abiertos)',
+    citaAPA: 'Instituto Nacional de Estadísticas [INE]. (2025). Certificados de Recepción Final (CRF) de Conjuntos Habitacionales (2011–2025). Subdepartamento de Geografía. Santiago, Chile. https://www.ine.gob.cl',
+    descripcion: 'Polígonos prediales de conjuntos habitacionales con recepción definitiva otorgada por la DOM de Santiago (2011–2025) con métricas morfológicas de Densidad Neta Real (viv/ha), COS, Porcentaje de Suelo Libre, Frente y Fondo Predial.'
+  };
+
   function fila(etiqueta, valor) {
     const esNum = typeof valor === 'number';
     const esBool = typeof valor === 'boolean';
@@ -1185,7 +1215,7 @@ const ModuloMapa = (() => {
       if (meta.features_excluidas !== undefined && meta.features_excluidas !== '—') s4 += fila('Entidades Excluidas', meta.features_excluidas);
       if (meta.razon_exclusion) s4 += fila('Causa de Exclusión', meta.razon_exclusion);
       if (meta.crs_entrada) s4 += fila('CRS de Entrada', meta.crs_entrada);
-      s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+      s4 += fila('CRS de Salida', props.meta_crs || meta.crs_salida || defOficial?.crs_salida || defOficial?.crs || 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)');
       if (meta.fecha_proceso) s4 += fila('Fecha de Procesamiento', meta.fecha_proceso);
       if (meta.tamano_mb) s4 += fila('Tamaño del Dataset', `${meta.tamano_mb} MB`);
       s4 += fila('Marco Legal / Licencia', meta.licencia || props._licencia || 'Ley N° 20.285 de Transparencia de la Función Pública');
@@ -1201,7 +1231,7 @@ const ModuloMapa = (() => {
         s4 += fila('Ficha en GBIF.org', `<a href="https://www.gbif.org/occurrence/${props.gbifID}" target="_blank" rel="noopener" style="color:var(--musgo,#06b6d4); text-decoration:underline;">Ver registro en gbif.org ↗</a>`);
       }
       s4 += fila('Archivo de Origen', meta.archivo_origen || 'capa_biodiversidad.geojson');
-      s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+      s4 += fila('CRS de Salida', props.meta_crs || meta.crs_salida || defOficial?.crs_salida || defOficial?.crs || 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)');
       s4 += fila('Marco Legal / Licencia', meta.licencia || 'Creative Commons CC-BY 4.0 / CC0 1.0 Universal');
       s4 += fila('Declaración de Derechos', meta.declaracion || 'Datos abiertos de biodiversidad provistos por GBIF.org');
       s4 += fila('Cita Bibliográfica APA', meta.citaAPA);
@@ -1223,7 +1253,7 @@ const ModuloMapa = (() => {
       if (props.solapamiento_semantico && Array.isArray(props.solapamiento_semantico)) {
         s4 += fila('Solapamiento Semántico', props.solapamiento_semantico.join(' ↔ '));
       }
-      s4 += fila('CRS de Salida', meta.crs_salida || 'EPSG:4326 (WGS 84)');
+      s4 += fila('CRS de Salida', props.meta_crs || meta.crs_salida || defOficial?.crs_salida || defOficial?.crs || 'EPSG:32719 (SIRGAS-Chile / UTM Huso 19 Sur)');
       s4 += fila('Marco Legal / Licencia', meta.licencia || 'Open Database License (ODbL) 1.0 (ODC-ODbL)');
       s4 += fila('Declaración de Derechos', meta.declaracion || '© Colaboradores de OpenStreetMap (ODbL 1.0)');
       s4 += fila('Cita Bibliográfica APA', meta.citaAPA || 'OpenStreetMap contributors. (2026). OpenStreetMap data [Barrio Brasil & RM, Chile]. Open Database License (ODbL). https://www.openstreetmap.org/copyright');
