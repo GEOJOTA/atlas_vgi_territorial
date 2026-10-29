@@ -195,6 +195,7 @@ El **Módulo 01** incorpora el **Inspector Normativo Territorial** (`src/js/modu
 2. **Áreas de Riesgo (`Art. 2.1.17 OGUC`) y Protección Patrimonial (`Art. 60 LGUC` y `Ley N° 17.288`):** Verifica la superposición con Zonas de Conservación Histórica (`ZCH`), Inmuebles de Conservación Histórica (`ICH`) y Zonas Típicas.
 3. **Expediente Histórico de 10 Modificaciones al PRC en Barrio Brasil (`1990–2024`):** Documenta la trayectoria normativa desde la Resolución N° 26/1990 y el Seccional Brasil hasta las enmiendas de altura y protección de cités, enlazando directamente a los expedientes oficiales de Asesoría Urbana de la Municipalidad de Santiago.
 4. **Alcance Referencial (`Art. 116 LGUC`):** El **Certificado de Informaciones Normativas VGI (`CIN-VGI`)** incluye la declaración expresa de que constituye un reporte técnico referencial y no sustituye al Certificado de Informaciones Previas (`CIP`) emitido por la Dirección de Obras Municipales (`DOM`).
+5. **Dinámica Edificatoria, Permisos DOM y Recepciones Finales (CRF) INE:** Incorpora la tarjeta y apartado **🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:** con la advertencia metodológica expresa: *Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final [2011–2025] y permisos de edificación [2010–2025]) disponibles públicamente*.
 
 ---
 

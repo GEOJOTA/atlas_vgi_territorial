@@ -97,6 +97,7 @@ flowchart LR
   * Zonificación del Plan Regulador Comunal (`ZONA`), usos permitidos (`UPERM`) y usos prohibidos (`UPROH`) conforme al principio de exclusión negativa del **Art. 2.1.24 de la OGUC**.
   * Restricciones por áreas de riesgo (**Art. 2.1.17 OGUC**) y protección patrimonial (Zonas Típicas, Zonas de Conservación Histórica `ZCH`, Inmuebles de Conservación Histórica `ICH` y Monumentos Nacionales).
   * Línea de tiempo con las **10 modificaciones históricas al PRC de Santiago que inciden en el Barrio Brasil (1990–2024)** y enlace directo al repositorio de expedientes oficiales de Asesoría Urbana de la Ilustre Municipalidad de Santiago.
+  * Sección **🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:** con alerta metodológica de cobertura: *Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final [2011–2025] y permisos de edificación [2010–2025]) disponibles públicamente*.
 
 ---
 

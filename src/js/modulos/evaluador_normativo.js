@@ -586,7 +586,8 @@ ${txtCapas}
    - Decreto / Aprobación D.O.: ${prc ? prc.decreto : 'No indicado'}
    - Macro-Zonificación Metropolitano (PRMS): ${prms ? `${prms.macroZona} (${prms.usoPreferente})` : 'Área Urbana Metropolitano'}
 
-4. DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF INE):
+4. 🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:
+   - [ALERTA METODOLÓGICA DE COBERTURA]: Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final (2011-2025) y permisos de edificación (2010-2025)) disponibles públicamente.
    [A] Escala Manzana Censal Inmediata (${ed.manzana.manzent || 'S/N'}):
        * Permisos de Edificación DOM: ${ed.manzana.permisosCount} permisos | ${ed.manzana.permisosUnidades} unidades autorizadas | ${ed.manzana.permisosSuperficieM2.toLocaleString()} m² construidos | Pisos máx: ${ed.manzana.permisosPisosMax}
        * Recepciones Finales (CRF): ${ed.manzana.crfCount} conjuntos recepcionados | ${ed.manzana.crfViviendas} viviendas habitables
@@ -704,9 +705,13 @@ Generado dinámicamente por: Atlas VGI UAH — Sistema Abierto de Información T
 
           <!-- Tarjeta 3: DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE -->
           <div class="caja-tarjeta-normativa" style="border-left:4px solid #10b981; background:rgba(16, 185, 129, 0.04);">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-              <span class="etiqueta-normativa-card" style="color:#10b981;">🏗️ Dinámica Edificatoria, Permisos DOM y Recepciones Finales (CRF) INE:</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:gap; gap:8px;">
+              <span class="etiqueta-normativa-card" style="color:#10b981;">🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:</span>
               <span style="font-size:0.78rem; background:rgba(16, 185, 129, 0.2); color:#10b981; padding:3px 8px; border-radius:4px; font-weight:700;">Métricas LGUC / OGUC</span>
+            </div>
+
+            <div class="alerta-cobertura-edificatoria" style="background:rgba(234, 179, 8, 0.12); border:1px solid #EAB308; border-left:4px solid #CA8A04; border-radius:6px; padding:10px 14px; margin:10px 0 12px 0; font-size:0.83rem; color:var(--tinta-suave, #e2e8f0); line-height:1.5;">
+              ⚠️ <strong>Alerta Metodológica de Cobertura:</strong> Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final (2011-2025) y permisos de edificación (2010-2025)) disponibles públicamente.
             </div>
 
             ${ed.crfPredioExacto ? `

@@ -172,6 +172,7 @@ const ModuloManual = (() => {
               <ul style="margin:0 0 12px 0; padding-left:20px; color:var(--tinta-suave); font-size:0.87rem; line-height:1.6;">
                 <li>Evalúa la zonificación comunal (<code>PRC</code>) e intercomunal (<code>PRMS</code>), los usos permitidos (<code>UPERM</code>) y prohibidos (<code>UPROH</code>) conforme al principio de exclusión negativa del <strong>Art. 2.1.24 de la OGUC</strong>, además de las restricciones por riesgo (Art. 2.1.17 OGUC) y protección patrimonial (ZCH, ICH, Monumentos Nacionales).</li>
                 <li>Integra la evaluación de <strong>Dinámica Edificatoria (Permisos DOM 2010–2025 y Recepciones Finales CRF 2011–2025 del INE)</strong> con métricas morfológicas de Densidad Neta Real (viv/ha, OGUC Art. 1.1.2), Coeficiente de Ocupación de Suelo (COS), Porcentaje de Suelo Libre/Patio y Frente/Fondo predial (a escala manzana y zonificación buffer 500 m), vinculando directamente al repositorio documental oficial de expedientes de Asesoría Urbana de la Municipalidad de Santiago.</li>
+                <li>Incorpora la tarjeta de auditoría <strong>🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:</strong> con advertencia metodológica expresa: <em>Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final [2011–2025] y permisos de edificación [2010–2025]) disponibles públicamente</em>.</li>
               </ul>
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
                 <button type="button" class="accion" onclick="ModuloManual.irAPanel('inicio')" style="font-size:0.83rem; padding:7px 14px;">🗺️ Abrir Módulo 01 (Visor)</button>
@@ -501,7 +502,7 @@ const ModuloManual = (() => {
                 </div>
                 <div style="background:rgba(30,41,59,0.7); border-left:3px solid #10b981; padding:10px; border-radius:6px; font-size:0.8rem;">
                   <strong style="color:#6ee7b7; display:block; margin-bottom:4px;">3. OUTPUT / RUTAS EN GIT Y WEB</strong>
-                  Certificado de Informaciones Normativas VGI (CIN-VGI) interactivo e imprimible en el Módulo 01 y catálogo de fuentes en <code>docs/catalogo_fuentes_vgi.xlsx</code> (<code>src/docs/</code>).
+                  Certificado de Informaciones Normativas VGI (CIN-VGI) interactivo e imprimible en el Módulo 01 (con alerta metodológica de cobertura de recepciones finales [2011–2025] y permisos DOM INE [2010–2025]) y catálogo de fuentes en <code>docs/catalogo_fuentes_vgi.xlsx</code> (<code>src/docs/</code>).
                 </div>
               </div>
             </div>

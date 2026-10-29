@@ -311,6 +311,78 @@ function generarFichaNormativaHTML(zonaPRC, coordenadas) {
 
 ---
 
+## 22.3. Métodos de Cálculo Empleados para las Métricas Morfológicas y Dinámica Edificatoria (LGUC / OGUC)
+
+A fin de brindar una evaluación rigurosa y cuantitativa del tejido urbano en la Comuna de Santiago, el Inspector Normativo y la base de datos espacial del Atlas VGI incorporan cuatro métricas morfológicas clave calculadas a partir de fuentes oficiales del **Instituto Nacional de Estadísticas (INE)** —Permisos de Edificación (2010–2025) y Certificados de Recepción Final (CRF 2011–2025)—, articuladas en tres escalas operativas: **huella de edificación** (OSM / catastro vectorial), **predio / conjunto habitacional** (polígonos CRF) y **manzana censal** (Censo 2024 / síntesis comunal).
+
+> [!IMPORTANT]
+> **Alerta Metodológica de Cobertura en "🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:":**
+> Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final [2011–2025] y permisos de edificación [2010–2025]) disponibles públicamente.
+
+### 1. Densidad Neta Real ($D_{\text{neta}}$, viv/ha — Art. 1.1.2 OGUC)
+* **Definición Normativa:** Según el Artículo 1.1.2 de la Ordenanza General de Urbanismo y Construcciones (OGUC), la densidad neta corresponde a la *"relación entre el número de habitantes, o de unidades habitacionales, y la superficie del terreno que ocupan, deduciendo las áreas de uso público"*. A diferencia de la densidad bruta (que incluye calles, pasajes y equipamientos comunales), la densidad neta evalúa exclusivamente la concentración vertical y horizontal dentro de los límites del lote predial.
+* **Formulación Matemática:**
+  $$D_{\text{neta}} = \frac{N_{\text{viviendas}}}{\text{Superficie Predial (m}^2) / 10.000} = \frac{N_{\text{viviendas}}}{\text{Superficie Predial (ha)}}$$
+* **Implementación Algorítmica:**
+  Para cada polígono predial de conjunto habitacional registrado en el catastro de Recepción Final (`CRF_Santiago_Total.gpkg`), se toma el campo `N_VIVIENDA` y se divide por su superficie geodésica proyectada en UTM Huso 19S (`EPSG:32719`):
+  ```python
+  area_ha = poly.area / 10000.0
+  densidad_neta = (n_vivienda / area_ha) if area_ha > 0 else 0.0
+  ```
+  En la Comuna de Santiago, los conjuntos habitacionales analizados registran una media de **1.659,4 viv/ha**, con cúspides de densificación intensiva superiores a **9.500 viv/ha** en tipologías de edificación aislada en altura.
+
+### 2. Coeficiente de Ocupación de Suelo ($COS$ — Art. 1.1.2 OGUC)
+* **Definición Normativa:** Conforme al Artículo 1.1.2 de la OGUC, el Coeficiente de Ocupación de Suelo es el *"número que multiplicado por la superficie total del predio, descontadas de esta última las áreas declaradas de utilidad pública, fija el máximo de metros cuadrados que pueden edificarse en el primer piso"*.
+* **Formulación Matemática:**
+  $$COS = \frac{\text{Superficie Edificada en Planta (m}^2)}{\text{Superficie Total del Lote (m}^2)}$$
+  Donde $0.0 \le COS \le 1.0$.
+* **Implementación Algorítmica (Intersección Predio-Huella OSM):**
+  Dado que los registros tabulares del INE no contienen el desglose poligonal de la planta baja, el Atlas cruza espacialmente cada predio con la capa de **Huellas de Edificación (OSM)** (`edificaciones_poligonos.gpkg`, 20.260 huellas en Santiago) mediante indexación espacial jerárquica R-Tree:
+  ```python
+  possible_matches = gdf_edif.iloc[list(sindex_edif.intersection(poly.bounds))]
+  exact_matches = possible_matches[possible_matches.intersects(poly)]
+  intersections = exact_matches.intersection(poly)
+  sup_edificada_planta = intersections.area.sum()
+  cos = min(1.0, max(0.0, sup_edificada_planta / poly.area))
+  ```
+  La media observada en los conjuntos habitacionales recepcionados de Santiago es de **0,47** (ocupación promedio del 47% del lote en planta baja).
+
+### 3. Porcentaje de Patio y Suelo Libre ($\% SL$)
+* **Definición Técnica:** Representa la porción superficial del predio que permanece libre de edificaciones permanentes a nivel de terreno natural, destinada reglamentariamente a patios interiores, distanciamientos, áreas verdes privadas, permeabilidad de infiltración pluvial y circulaciones descubiertas.
+* **Formulación Matemática:**
+  $$\% SL = (1.0 - COS) \times 100\%$$
+* **Significancia Territorial:** En el marco de la mitigación de islas de calor urbanas y conservación ambiental, este indicador permite diagnosticar el grado de sellamiento del suelo predial. En los conjuntos recepcionados de Santiago, el suelo libre promedio alcanza el **53,5%**, variando ampliamente entre cités históricos de baja altura y torres con placa comercial.
+
+### 4. Cálculo de Frente y Fondo Predial (LGUC / OGUC vía OBB)
+* **Definición Normativa:**
+  - **Frente Predial (Art. 1.1.2 OGUC):** Línea de deslinde que separa el predio del bien nacional de uso público que le otorga acceso oficial (calle, avenida, pasaje).
+  - **Fondo Predial:** Profundidad media del predio medida perpendicularmente desde la línea oficial de frente hacia el contrafrente o deslinde posterior.
+* **Método de Rectángulo Mínimo Envolvente Orientado (Minimum Oriented Bounding Box - OBB):**
+  En predios urbanos con geometrías irregulares, ángulos no ortogonales o trapezoidales, el uso de cajas de límites axis-aligned (AABB) introduce errores severos dependientes de la orientación de la calle. Por tanto, se computa el **Rectángulo Mínimo Rotado Envolvente** (`minimum_rotated_rectangle` en Shapely / GEOS):
+  ```python
+  mrr = poly.minimum_rotated_rectangle
+  coords = list(mrr.exterior.coords)[:-1]
+  side1 = Point(coords[0]).distance(Point(coords[1]))
+  side2 = Point(coords[1]).distance(Point(coords[2]))
+
+  frente_oguc = min(side1, side2)
+  fondo_oguc = max(side1, side2)
+  relacion_fondo_frente = fondo_oguc / frente_oguc if frente_oguc > 0 else 1.0
+  ```
+* **Morfología Diagnóstica:**
+  - En los conjuntos habitacionales recepcionados de Santiago, el frente predial medio es de **32,3 metros** y el fondo medio de **54,5 metros**, con una relación media de **1,85**.
+  - Ratios elevados ($\ge 2.5$) caracterizan los lotes históricos alargados del pericentro poniente (Cités y casonas coloniales de Barrio Brasil y Yungay).
+  - Ratios balanceados ($\approx 1.0 - 1.5$) reflejan procesos de consolidación predial o fusiones inmobiliarias para torres residenciales en altura.
+
+### 5. Articulación de Escalas Territoriales en el Inspector Normativo
+El Inspector Normativo implementa la consulta espacial articulando simultáneamente dos filtros complementarios:
+1. **Filtro de Manzana Inmediata:** Cruza el punto clicado con el código unificado de manzana censal (`MANZENT`), agregando los permisos de edificación autorizados (unidades, m², pisos máximos, destinos) y las recepciones finales efectivas (viviendas, COS medio, densidad media).
+2. **Filtro de Zonificación PRC en Buffer de 500 metros:** A fin de prevenir el sesgo de sobredimensionamiento (tanto falsos positivos como falsos negativos) propio de macro-zonas muy extensas (por ejemplo la Zona B del PRC de Santiago que cubre gran parte de la comuna), se acota la búsqueda a los predios de la **misma zonificación** situados en un radio caminable de **500 metros**, entregando una caracterización precisa del comportamiento morfológico del entorno inmediato.
+
+---
+
+---
+
 ## 23. Los Cuatro Storyboards Territoriales y las 75 Cartografías Temáticas
 
 El Atlas implementa en el Módulo 05 (`src/js/modulos/indicadores_analisis.js`) un sistema de divulgación y síntesis territorial guiada denominado **Storyboards**. Cada storyboard constituye un documento analítico interactivo que articula secciones metodológicas intercaladas con gráficos estadísticos dinámicos, diagramas vectoriales de arquitectura SVG y el catálogo completo de **75 cartografías temáticas (`2200 × 1423 px`)**, además de permitir la activación directa de sus capas vectoriales asociadas en el visor interactivo.

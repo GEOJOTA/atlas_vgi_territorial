@@ -47,7 +47,6 @@
 * [20. Arquitectura de Software Frontend: Zero-Build Vanilla JavaScript SPA](#20-arquitectura-de-software-frontend-zero-build-vanilla-javascript-spa)
 * [21. El Motor Cartográfico Leaflet 1.9.4, Reproyección Geodésica y Comparador Swipe/Lupa](#21-el-motor-cartográfico-leaflet-194-reproyección-geodésica-y-comparador-swipelupa)
 * [22. Inspector Normativo del Plan Regulador Comunal (PRC) y Algoritmo Point-in-Polygon](#22-inspector-normativo-del-plan-regulador-comunal-prc-y-algoritmo-point-in-polygon)
-  * [22.3. Métodos de Cálculo Empleados para las Métricas Morfológicas (LGUC / OGUC)](#223-m%C3%A9todos-de-c%C3%A1lculo-empleados-para-las-m%C3%A9tricas-morfol%C3%B3gicas-y-din%C3%A1mica-edificatoria-lguc--oguc)
 * [23. Calculador de Isócronas de Accesibilidad Peatonal y Modelo de Ciudad de 15 Minutos](#23-calculador-de-isócronas-de-accesibilidad-peatonal-y-modelo-de-ciudad-de-15-minutos)
 * [24. Los 4 Storyboards Cartográficos Interactivos de Síntesis Territorial (75 Cartografías)](#24-los-4-storyboards-cartográficos-interactivos-de-síntesis-territorial)
 * [25. Los 4 Libros Maestros en Formato Excel OpenXML (.xlsx) y su Réplica CSV](#25-los-4-libros-maestros-en-formato-excel-openxml-xlsx-y-su-réplica-csv)
@@ -2168,7 +2167,11 @@ function generarFichaNormativaHTML(zonaPRC, coordenadas) {
 
 ## 22.3. Métodos de Cálculo Empleados para las Métricas Morfológicas y Dinámica Edificatoria (LGUC / OGUC)
 
-A fin de brindar una evaluación rigurosa y empírica del tejido urbano en la Comuna de Santiago, el Inspector Normativo y la base de datos espacial del Atlas VGI incorporan cuatro métricas morfológicas clave calculadas a partir de fuentes oficiales del **Instituto Nacional de Estadísticas (INE)** —Permisos de Edificación (2010–2025) y Certificados de Recepción Final (CRF 2011–2025)—, articuladas en tres escalas operativas: **huella de edificación** (OSM / catastro vectorial), **predio / conjunto habitacional** (polígonos CRF) y **manzana censal** (Censo 2024 / síntesis comunal).
+A fin de brindar una evaluación rigurosa y cuantitativa del tejido urbano en la Comuna de Santiago, el Inspector Normativo y la base de datos espacial del Atlas VGI incorporan cuatro métricas morfológicas clave calculadas a partir de fuentes oficiales del **Instituto Nacional de Estadísticas (INE)** —Permisos de Edificación (2010–2025) y Certificados de Recepción Final (CRF 2011–2025)—, articuladas en tres escalas operativas: **huella de edificación** (OSM / catastro vectorial), **predio / conjunto habitacional** (polígonos CRF) y **manzana censal** (Censo 2024 / síntesis comunal).
+
+> [!IMPORTANT]
+> **Alerta Metodológica de Cobertura en "🏗️ DINÁMICA EDIFICATORIA, PERMISOS DOM Y RECEPCIONES FINALES (CRF) INE:":**
+> Los resultados arrojados no representan el universo total del punto muestreado sino que están basados en los datos (recepción final [2011–2025] y permisos de edificación [2010–2025]) disponibles públicamente.
 
 ### 1. Densidad Neta Real ($D_{\text{neta}}$, viv/ha — Art. 1.1.2 OGUC)
 * **Definición Normativa:** Según el Artículo 1.1.2 de la Ordenanza General de Urbanismo y Construcciones (OGUC), la densidad neta corresponde a la *"relación entre el número de habitantes, o de unidades habitacionales, y la superficie del terreno que ocupan, deduciendo las áreas de uso público"*. A diferencia de la densidad bruta (que incluye calles, pasajes y equipamientos comunales), la densidad neta evalúa exclusivamente la concentración vertical y horizontal dentro de los límites del lote predial.
@@ -2229,6 +2232,8 @@ A fin de brindar una evaluación rigurosa y empírica del tejido urbano en la Co
 El Inspector Normativo implementa la consulta espacial articulando simultáneamente dos filtros complementarios:
 1. **Filtro de Manzana Inmediata:** Cruza el punto clicado con el código unificado de manzana censal (`MANZENT`), agregando los permisos de edificación autorizados (unidades, m², pisos máximos, destinos) y las recepciones finales efectivas (viviendas, COS medio, densidad media).
 2. **Filtro de Zonificación PRC en Buffer de 500 metros:** A fin de prevenir el sesgo de sobredimensionamiento (tanto falsos positivos como falsos negativos) propio de macro-zonas muy extensas (por ejemplo la Zona B del PRC de Santiago que cubre gran parte de la comuna), se acota la búsqueda a los predios de la **misma zonificación** situados en un radio caminable de **500 metros**, entregando una caracterización precisa del comportamiento morfológico del entorno inmediato.
+
+---
 
 ---
 
