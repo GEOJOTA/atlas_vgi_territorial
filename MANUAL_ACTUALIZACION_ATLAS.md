@@ -29,7 +29,7 @@
 * [9. Integración de Biodiversidad y Ciencia Ciudadana con GBIF y Darwin Core](#9-integración-de-biodiversidad-y-ciencia-ciudadana-con-gbif-y-darwin-core)
 * [10. Integración de Cartografía Externa con uMap e iframes Aislados](#10-integración-de-cartografía-externa-con-umap-e-iframes-aislados)
 * [11. Extractos Masivos Regionales de Geofabrik RM y Generación de GeoPackage OGC](#11-extractos-masivos-regionales-de-geofabrik-rm-y-generación-de-geopackage-ogc)
-* [12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-124-capas-oficiales-del-estado-de-chile)
+* [12. Ingesta, Normalización y Homologación de las 124 Capas Oficiales del Estado de Chile](#12-ingesta-normalización-y-homologación-de-las-122-capas-oficiales-del-estado-de-chile)
 * [13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas](#13-catálogo-exhaustivo-detallado-de-las-134-capas-cartográficas)
 * [14. El Esquema Maestro Obligatorio de 14 Atributos ISO por Entidad Geográfica](#14-el-esquema-maestro-obligatorio-de-14-atributos-iso-por-entidad-geográfica)
 
@@ -105,14 +105,14 @@
 
 ## Identificación y Alcance Operativo del Proyecto
 
-El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** constituye una infraestructura sociotécnica de datos espaciales, análisis urbano y visualización cartográfica interactiva orientada a la integración de información geoespacial oficial y colaborativa.
+El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** constituye una infraestructura sociotécnica avanzada de datos espaciales, análisis urbano multinivel y visualización cartográfica interactiva. Su arquitectura metodológica e instrumental articula la rigurosidad analítica de los Sistemas de Información Geográfica (SIG) contemporáneos con los principios de reproducibilidad científica, ciencia comunitaria abierta e interoperabilidad espacial bajo estándares internacionales (OGC, ISO 19115, ISO 19157 e ISO 19110).
 
-
+El proyecto materializa una solución integral para el diagnóstico socioespacial, la evaluación normativa comunal y la democratización del acceso a la geoinformación en el sector poniente de la Comuna de Santiago, con foco piloto de demostración en el emblemático **Barrio Brasil** y su entorno universitario patrimonial.
 
 ### Propósito y Misión Operativa
-El proyecto surge de la necesidad de subsanar los vacíos de información territorial a microescala existentes en los instrumentos tradicionales de planificación y en las bases de datos catastrales del Estado de Chile. Mientras la información oficial presenta desactualización temporal y baja granularidad para equipamientos de escala barrial, la dinámica urbana cotidiana evoluciona con rapidez.
+El proyecto surge de la necesidad de subsanar los vacíos y asimetrías de información territorial a microescala existentes en los instrumentos tradicionales de planificación y en los catastros oficiales del Estado de Chile. Mientras las bases de datos institucionales suelen presentar desactualización temporal, agregación espacial restrictiva y baja granularidad para equipamientos de proximidad y espacio público barrial, la dinámica urbana cotidiana y las transformaciones morfológicas evolucionan de forma acelerada.
 
-El Atlas opera como una **plataforma abierta y reproducible que articula geodatos abiertos (OpenStreetMap y GBIF), capas oficiales del Estado (IDE Chile, MINVU, INE, MTT/UOCT, MDSF, SUBDERE, Municipalidad de Santiago) y herramientas analíticas multicriterio**, democratizando el acceso a diagnósticos territoriales a escala de Manzana Censal y Unidad Vecinal.
+Frente a este desafío, el Atlas opera como una **plataforma abierta, soberana y reproducible que integra y armoniza sistemáticamente geodatos colaborativos (OpenStreetMap y GBIF), coberturas institucionales oficiales (IDE Chile, MINVU, INE, MTT/UOCT, MDSF, SUBDERE, Municipalidad de Santiago y SII) y modelos analíticos multicriterio**, facilitando diagnósticos territoriales de alta precisión a escala de Manzana Censal y Unidad Vecinal.
 
 ### Delimitación Geodésica y Cobertura Territorial
 El área de estudio piloto corresponde a un polígono continuo de **223,75 hectáreas** emplazado en el sector poniente de la comuna de Santiago Centro. Su delimitación geodésica estricta se encuentra definida en coordenadas geográficas WGS84 (EPSG:4326) y en su proyección métrica conforme oficial SIRGAS-Chile / UTM Huso 19 Sur (EPSG:32719):
@@ -309,7 +309,7 @@ flowchart LR
 | **E-07** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web Interactivo | `src/index.html`, `src/js/app.js` y URL: https://atlasvgiuah.netlify.app/ |
 | **E-08** | Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (Evaluación Espacial CIN-VGI). | Motor de Análisis Espacial en Navegador | `src/js/modulos/evaluador_normativo.js`, `src/data/ide_minvu_ipt_prc_santiago.geojson` y `src/data/capa_ipt_prc_comunal.geojson` |
 | **E-09** | Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile. | Motor de Metadatos XML | `src/js/modulos/metadatos.js` y `docs/perfil_metadatos_vgi.xlsx` (`src/docs/`) |
-| **E-10** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `docs/DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md` (`src/docs/`) |
+| **E-10** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `docs/DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md` |
 
 ---
 
@@ -1037,7 +1037,7 @@ flowchart LR
 
     subgraph OUT_IDE["3. OUTPUT: CATÁLOGO OFICIAL"]
         IDE_122["124 Capas Oficiales Homologadas (src/data/*.geojson)"]
-        XLSX_134["Catálogo Maestro catalogo_fuentes_vgi.xlsx (134 Filas)"]
+        XLSX_132["Catálogo Maestro catalogo_fuentes_vgi.xlsx (134 Filas)"]
         WEB_MOD01["Sincronización en Visor Web (Módulo 01) y Storyboards (Módulo 05)"]
     end
 
@@ -1071,6 +1071,10 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 ### 12.6. Consejo de Monumentos Nacionales (CMN) y Ministerio de las Culturas
 * **Aporte:** Polígonos oficiales de Zonas Típicas, Monumentos Históricos y Sitios Arqueológicos.
 * **Tratamiento:** Intersección con el parcelario urbano para alimentar el Inspector Normativo.
+
+### 12.7. Servicio de Impuestos Internos (SII) — Catastro Predial Oficial (Segundo Semestre 2025)
+* **Aporte:** Catastro predial georreferenciado oficial correspondiente al Segundo Semestre de 2025, integrando roles de avalúo fiscal, destinos de uso del suelo (habitacional, comercial, bodegaje, equipamiento), series de avalúo exento y afecto, y superficies de terreno.
+* **Tratamiento:** Geocodificación espacial verificada, depuración de registros sin coordenadas válidas, homologación geodésica a EPSG:4326 e inyección del esquema maestro de 14 atributos normalizados ISO en `data/capa_catastro_predial_sii.geojson`.
 
 ---
 
@@ -1431,7 +1435,7 @@ w_m = [0.30, 0.25, 0.20, 0.15, 0.10],   ∑(j=1..5) w_mj = 1.00
 ```mermaid
 flowchart LR
     subgraph IN_WLC["1. INPUT"]
-        GEO_134["134 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
+        GEO_132["134 Archivos GeoJSON (data/*.geojson y src/data/*.geojson)"]
         META_XLSX["docs/perfil_metadatos_vgi.xlsx & docs/catalogo_fuentes_vgi.xlsx"]
         BBOX_RM["Envolvente Geodésica Oficial RM / Barrio Brasil"]
     end
@@ -3685,7 +3689,7 @@ La lógica interactiva del cliente web se compone de **21 archivos JavaScript ES
 | **JS-04** | `js/modulos/importador_capas.js` | **Importador y Exportador Local de Geodatos:** Permite cargar archivos locales del usuario (`.geojson`, `.json`, `.kml`, `.csv`) sobre el mapa y exportar subconjuntos vectoriales filtrados. | `ImportadorCapas.cargarArchivo()`, `exportarGeoJSON()`, `exportarCSV()` | **In:** Archivos locales arrastrados o `FeatureCollection` activa. **Out:** Capas temporales en Leaflet o flujo `Blob` descargado. | Añada nuevos analizadores de formato manteniendo la validación de rangos `EPSG:4326`. |
 | **JS-05** | `js/modulos/mapa.js` | **Núcleo Cartográfico Leaflet (Módulo 01):** Inicializa el lienzo Leaflet, gestiona los mapas base, controla la pila de capas vectoriales, el comparador Swipe/Lupa, la barra de coordenadas UTM/WGS84 y los marcadores SVG. | `Mapa.inicializar()`, `cargarCapaGeoJSON()`, `cambiarMapaBase()`, `activarComparador()` | **In:** `CONFIG.mapa`, eventos de ratón y capas GeoJSON. **Out:** Instancia `L.Map`, capas renderizadas y popups interactivos. | Modifique `crearPopupEntidad()` para personalizar los campos visibles al hacer clic en un elemento del mapa. |
 | **JS-06** | `js/modulos/manifold_canvas.js` | ** Acelerador de Renderizado Vectorial en Canvas:** Optimiza el dibujo de coberturas masivas de puntos, líneas y polígonos mediante `L.canvas()` para mantener 60 FPS en el navegador. | `ManifoldCanvas.crearRenderer()`, `optimizarCapaMasiva()` | **In:** `FeatureCollection` con miles de vértices. **Out:** Instancia `L.Canvas` de alto rendimiento. | Ajuste la tolerancia de acolchado (`padding: 0.5`) según la densidad de geometrías. |
-| **JS-07** | `js/modulos/ide_chile.js` | **Gestor del Catálogo Territorial de 134 Capas (Módulo 01):** Administra el árbol de las **124 coberturas oficiales** (`CAPAS_OFICIALES`) y **10 categorías VGI** (`NODO_CONFIG.categoriasVGI`), el buscador instantáneo, los filtros por geometría/fuente y la simbología temática. | `IDEChile.inicializar()`, `activarCapa()`, `desactivarCapa()`, `filtrarCatalogo()` | **In:** `src/js/config.js`, `CAPAS_OFICIALES` y `src/data/*.geojson` (`data/*.geojson`). **Out:** Árbol DOM de capas, contadores por categoría y leyenda dinámica. | Para registrar una nueva cobertura local, agréguela en `CAPAS_OFICIALES` dentro de `src/js/modulos/ide_chile.js` y copie el `.geojson` en `data/` y `src/data/`. |
+| **JS-07** | `js/modulos/ide_chile.js` | **Gestor del Catálogo Territorial de 134 Capas (Módulo 01):** Administra el árbol de las **122 coberturas oficiales** (`CAPAS_OFICIALES`) y **10 categorías VGI** (`NODO_CONFIG.categoriasVGI`), el buscador instantáneo, los filtros por geometría/fuente y la simbología temática. | `IDEChile.inicializar()`, `activarCapa()`, `desactivarCapa()`, `filtrarCatalogo()` | **In:** `src/js/config.js`, `CAPAS_OFICIALES` y `src/data/*.geojson` (`data/*.geojson`). **Out:** Árbol DOM de capas, contadores por categoría y leyenda dinámica. | Para registrar una nueva cobertura local, agréguela en `CAPAS_OFICIALES` dentro de `src/js/modulos/ide_chile.js` y copie el `.geojson` en `data/` y `src/data/`. |
 | **JS-08** | `js/modulos/osm.js` | **Conector en Vivo a OpenStreetMap (Módulo 02):** Ejecuta consultas en lenguaje Overpass QL en tiempo real para las 10 macrocategorías VGI con rotación de servidores espejo y conversión a GeoJSON. | `OSM.consultarCategoria()`, `ejecutarConsultaQL()`, `convertirOSM2GeoJSON()` | **In:** Cadena Overpass QL y `bbox`. **Out:** `FeatureCollection` extraída directamente de OpenStreetMap. | Modifique el diccionario de consultas para incorporar nuevas combinaciones de etiquetas OSM (`key=value`). |
 | **JS-09** | `js/modulos/umap.js` | **Integrador de Cartografía Colaborativa uMap (Módulo 04):** Gestiona la inserción segura de mapas comunitarios externos alojados en uMap y la importación de capas remotas compatibles. | `UMap.cargarMapaEmbebido()`, `importarGeoJSONRemoto()` | **In:** URL de mapa uMap o endpoint GeoJSON. **Out:** Contenedor `<iframe>` aislado con atributos `sandbox` o capa Leaflet. | Agregue nuevos proyectos comunitarios preconfigurados en el listado `MAPAS_UMAP_DESTACADOS`. |
 | **JS-10** | `js/modulos/gbif.js` | **Conector de Biodiversidad y Ciencia Ciudadana GBIF (Módulo 03):** Consulta la API v1 de GBIF (`occurrence/search`) dentro del polígono WKT de estudio, normalizando registros bajo el estándar **Darwin Core (DwC)**. | `GBIF.consultarOcurrencias()`, `filtrarPorReino()`, `renderizarFichaTaxonomica()` | **In:** Polígono WKT, filtros taxonómicos y de base de registro (`HUMAN_OBSERVATION`). **Out:** Marcadores biológicos y métricas de riqueza de especies. | Ajuste el límite de paginación (`limit`) o agregue nuevos filtros taxonómicos en `PARAMETROS_GBIF`. |

@@ -5,14 +5,14 @@ PARTE_01 = r"""# PARTE I: ALCANCE OPERATIVO, FORMULACIÓN ESTRATÉGICA Y PERFILE
 
 ## Identificación y Alcance Operativo del Proyecto
 
-El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** constituye una infraestructura sociotécnica de datos espaciales, análisis urbano y visualización cartográfica interactiva orientada a la integración de información geoespacial oficial y colaborativa.
+El **Atlas de Información Geográfica Voluntaria para la Gestión Territorial (Nodo GeoAbierto)** constituye una infraestructura sociotécnica avanzada de datos espaciales, análisis urbano multinivel y visualización cartográfica interactiva. Su arquitectura metodológica e instrumental articula la rigurosidad analítica de los Sistemas de Información Geográfica (SIG) contemporáneos con los principios de reproducibilidad científica, ciencia comunitaria abierta e interoperabilidad espacial bajo estándares internacionales (OGC, ISO 19115, ISO 19157 e ISO 19110).
 
-
+El proyecto materializa una solución integral para el diagnóstico socioespacial, la evaluación normativa comunal y la democratización del acceso a la geoinformación en el sector poniente de la Comuna de Santiago, con foco piloto de demostración en el emblemático **Barrio Brasil** y su entorno universitario patrimonial.
 
 ### Propósito y Misión Operativa
-El proyecto surge de la necesidad de subsanar los vacíos de información territorial a microescala existentes en los instrumentos tradicionales de planificación y en las bases de datos catastrales del Estado de Chile. Mientras la información oficial presenta desactualización temporal y baja granularidad para equipamientos de escala barrial, la dinámica urbana cotidiana evoluciona con rapidez.
+El proyecto surge de la necesidad de subsanar los vacíos y asimetrías de información territorial a microescala existentes en los instrumentos tradicionales de planificación y en los catastros oficiales del Estado de Chile. Mientras las bases de datos institucionales suelen presentar desactualización temporal, agregación espacial restrictiva y baja granularidad para equipamientos de proximidad y espacio público barrial, la dinámica urbana cotidiana y las transformaciones morfológicas evolucionan de forma acelerada.
 
-El Atlas opera como una **plataforma abierta y reproducible que articula geodatos abiertos (OpenStreetMap y GBIF), capas oficiales del Estado (IDE Chile, MINVU, INE, MTT/UOCT, MDSF, SUBDERE, Municipalidad de Santiago) y herramientas analíticas multicriterio**, democratizando el acceso a diagnósticos territoriales a escala de Manzana Censal y Unidad Vecinal.
+Frente a este desafío, el Atlas opera como una **plataforma abierta, soberana y reproducible que integra y armoniza sistemáticamente geodatos colaborativos (OpenStreetMap y GBIF), coberturas institucionales oficiales (IDE Chile, MINVU, INE, MTT/UOCT, MDSF, SUBDERE, Municipalidad de Santiago y SII) y modelos analíticos multicriterio**, facilitando diagnósticos territoriales de alta precisión a escala de Manzana Censal y Unidad Vecinal.
 
 ### Delimitación Geodésica y Cobertura Territorial
 El área de estudio piloto corresponde a un polígono continuo de **223,75 hectáreas** emplazado en el sector poniente de la comuna de Santiago Centro. Su delimitación geodésica estricta se encuentra definida en coordenadas geográficas WGS84 (EPSG:4326) y en su proyección métrica conforme oficial SIRGAS-Chile / UTM Huso 19 Sur (EPSG:32719):
@@ -209,7 +209,7 @@ flowchart LR
 | **E-07** | Plataforma Web en Producción Operativa con 10 Módulos Funcionales (Leaflet 1.9.4). | Geoportal Web Interactivo | `src/index.html`, `src/js/app.js` y URL: https://atlasvgiuah.netlify.app/ |
 | **E-08** | Módulo Evaluador e Inspector Normativo Territorial del PRC de Santiago (Evaluación Espacial CIN-VGI). | Motor de Análisis Espacial en Navegador | `src/js/modulos/evaluador_normativo.js`, `src/data/ide_minvu_ipt_prc_santiago.geojson` y `src/data/capa_ipt_prc_comunal.geojson` |
 | **E-09** | Generador Interactivo de Metadatos Espaciales ISO 19115 / XML ISO 19139 para IDE Chile. | Motor de Metadatos XML | `src/js/modulos/metadatos.js` y `docs/perfil_metadatos_vgi.xlsx` (`src/docs/`) |
-| **E-10** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `docs/DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md` (`src/docs/`) |
+| **E-10** | Diccionario Territorial Interactivo con 140 Descriptores Normativos y Etiquetas OSM. | Glosario Interactivo | `src/js/modulos/diccionario.js` y `docs/DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md` |
 
 ---
 

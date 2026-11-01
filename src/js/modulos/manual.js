@@ -750,8 +750,6 @@ git push origin main</code></pre>
             <a href="docs/ARQUITECTURA.md" download="ARQUITECTURA_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🏗️ Arquitectura del Sistema (.md)</a>
             <a href="docs/ANALISIS_METACALIDAD.md" download="ANALISIS_METACALIDAD_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📊 Análisis de MetaCalidad WLC (.md)</a>
             <a href="docs/GUIA_BASE_DATOS_SUPABASE.md" download="GUIA_BASE_DATOS_SUPABASE_POSTGIS.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🗄️ Guía PostGIS / Supabase (.md)</a>
-            <a href="docs/DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md" download="DICCIONARIO_CATASTRO_RSD_SUBDERE_2024.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">♻️ Diccionario SUBDERE RSD (.md)</a>
-            <a href="docs/INFORME_PROYECTO_ATLAS_VGI.md" download="INFORME_PROYECTO_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📄 Informe del Proyecto (.md)</a>
             <a href="docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md" download="BIBLIOGRAFIA_SEMINARIO_Y_ATLAS_APA7.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">📚 Bibliografía APA 7ª Ed. (125 refs .md)</a>
             <a href="docs/TRAZABILIDAD_ACADEMICA.md" download="TRAZABILIDAD_ACADEMICA_ATLAS_VGI.md" class="accion secundaria" style="text-decoration:none; font-size:0.82rem; padding:8px 14px;">🏛️ Memoria y Trazabilidad (.md)</a>
           </div>

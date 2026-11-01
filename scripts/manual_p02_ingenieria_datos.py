@@ -582,6 +582,10 @@ A continuación se detalla la proveniencia institucional y aporte temático de l
 * **Aporte:** Polígonos oficiales de Zonas Típicas, Monumentos Históricos y Sitios Arqueológicos.
 * **Tratamiento:** Intersección con el parcelario urbano para alimentar el Inspector Normativo.
 
+### 12.7. Servicio de Impuestos Internos (SII) — Catastro Predial Oficial (Segundo Semestre 2025)
+* **Aporte:** Catastro predial georreferenciado oficial correspondiente al Segundo Semestre de 2025, integrando roles de avalúo fiscal, destinos de uso del suelo (habitacional, comercial, bodegaje, equipamiento), series de avalúo exento y afecto, y superficies de terreno.
+* **Tratamiento:** Geocodificación espacial verificada, depuración de registros sin coordenadas válidas, homologación geodésica a EPSG:4326 e inyección del esquema maestro de 14 atributos normalizados ISO en `data/capa_catastro_predial_sii.geojson`.
+
 ---
 
 ## 13. Catálogo Exhaustivo Detallado de las 134 Capas Cartográficas
