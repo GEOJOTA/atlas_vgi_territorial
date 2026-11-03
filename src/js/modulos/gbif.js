@@ -14,6 +14,33 @@ const ModuloGBIF = (() => {
   const cacheTaxon = new Map();
   const cacheOcurrencias = new Map();
 
+  // Diccionario de nombres comunes de Chile para visualización enriquecida en tablas y mapa
+  const NOMBRES_COMUNES_CHILE = {
+    'jubaea chilensis': 'Palma chilena',
+    'zonotrichia capensis': 'Chincol / Gorrión americano',
+    'turdus falcklandii': 'Zorzal patagónico',
+    'columbina picui': 'Tortolita cuyana',
+    'vanellus chilensis': 'Queltehue / Treile',
+    'schinus molle': 'Pimiento boliviano / Molle',
+    'cryptocarya alba': 'Peumo',
+    'quillaja saponaria': 'Quillay',
+    'jacaranda mimosifolia': 'Jacarandá',
+    'bombus dahlbomii': 'Moscardón del bosque (Abejorro nativo)',
+    'bombus terrestris': 'Abejorro común europeo',
+    'bombus ruderatus': 'Abejorro gigante',
+    'mimus thenca': 'Tenca',
+    'zenaida auriculata': 'Tórtola torcaza',
+    'cathartes aura': 'Jote de cabeza colorada',
+    'phytotoma rara': 'Rara',
+    'muscisaxicola maclovianus': 'Dormilona tontita',
+    'lepidoptera': 'Mariposa',
+    'bombus': 'Abejorros y polinizadores (Bombus)',
+    'insecta': 'Insectos urbanos',
+    'aves': 'Aves urbanas',
+    'plantae': 'Flora y reino vegetal'
+  };
+
+
   /**
    * Resuelve un texto (nombre científico, grupo biológico o nombre común en español)
    * al taxón oficial en el Backbone de GBIF para obtener su taxonKey aceptado.
@@ -57,7 +84,7 @@ const ModuloGBIF = (() => {
         clearTimeout(tId);
         if (res.ok) {
           const data = await res.json();
-          if ((data.matchType === 'EXACT' || data.matchType === 'FUZZY') && (data.acceptedUsageKey || data.speciesKey || data.usageKey || data.key)) {
+          if ((data.matchType === 'EXACT' || data.matchType === 'FUZZY' || data.matchType === 'HIGHERRANK') && (data.acceptedUsageKey || data.speciesKey || data.usageKey || data.key)) {
             const taxKey = data.acceptedUsageKey || data.speciesKey || data.usageKey || data.key;
             const canon = (data.status === 'SYNONYM' && data.species) ? data.species : (data.canonicalName || data.species || data.scientificName);
             const taxRes = {
@@ -222,8 +249,8 @@ const ModuloGBIF = (() => {
   /**
    * Consulta registros biológicos en GBIF utilizando taxonKey estricto para evitar mezclar especies.
    */
-  async function buscarOcurrencias({ nombre, taxonKey, bbox, limite = 300, basisOfRecord = 'ALL' }) {
-    const claveCache = `${nombre || ''}_${taxonKey || ''}_${JSON.stringify(bbox)}_${limite}_${basisOfRecord}`;
+  async function buscarOcurrencias({ nombre, taxonKey, rank, canonicalName, bbox, limite = 300, basisOfRecord = 'ALL' }) {
+    const claveCache = `${nombre || ''}_${taxonKey || ''}_${rank || ''}_${canonicalName || ''}_${JSON.stringify(bbox)}_${limite}_${basisOfRecord}`;
     if (cacheOcurrencias.has(claveCache)) {
       console.log('[GBIF] Retornando ocurrencias desde caché en memoria');
       return cacheOcurrencias.get(claveCache);
@@ -236,15 +263,25 @@ const ModuloGBIF = (() => {
     });
 
     let taxonResuelto = null;
-    let keyTaxonFinal = taxonKey;
+    let keyTaxonFinal = taxonKey ? Number(taxonKey) : null;
+    let rankFinal = rank || null;
+    let canonFinal = canonicalName || (nombre ? nombre.trim() : null);
 
-    if (!keyTaxonFinal && nombre && nombre.trim()) {
+    if (keyTaxonFinal && canonFinal) {
+      taxonResuelto = {
+        taxonKey: keyTaxonFinal,
+        canonicalName: canonFinal,
+        scientificName: canonFinal,
+        rank: rankFinal || 'TAXON',
+        kingdom: ''
+      };
+    } else if (!keyTaxonFinal && nombre && nombre.trim()) {
       taxonResuelto = await resolverTaxon(nombre.trim());
       if (taxonResuelto && taxonResuelto.taxonKey) {
         keyTaxonFinal = taxonResuelto.taxonKey;
+        rankFinal = taxonResuelto.rank;
+        canonFinal = taxonResuelto.canonicalName;
       }
-    } else if (keyTaxonFinal && nombre && nombre.trim()) {
-      taxonResuelto = { taxonKey: keyTaxonFinal, canonicalName: nombre.trim() };
     }
 
     if (keyTaxonFinal) {
@@ -285,38 +322,101 @@ const ModuloGBIF = (() => {
     }
 
     const datos = await respuesta.json();
-    const resultados = datos.results || [];
+    let resultados = datos.results || [];
+    let esFallbackMetropolitano = false;
 
-    let registros = resultados.map(r => ({
-      id: r.key || r.gbifID,
-      especie: r.species || r.canonicalName || (r.scientificName ? r.scientificName.split('(')[0].trim() : 'Especie no determinada'),
-      scientificName: r.scientificName || r.species || 'Especie no determinada',
-      nombreComun: r.vernacularName || null,
-      reino: r.kingdom || 'Indeterminado',
-      familia: r.family || null,
-      fecha: r.eventDate ? r.eventDate.slice(0, 10) : 'Sin fecha registrada',
-      publicador: r.institutionCode || r.publishingOrgKey || 'Ciencia Ciudadana / GBIF',
-      licencia: r.license || 'CC-BY 4.0',
-      lat: r.decimalLatitude,
-      lon: r.decimalLongitude,
-      issues: r.issues || [] // Banderas de calidad Darwin Core
-    }));
+    // Si la búsqueda acotada al cuadrante local da 0 resultados para un taxón específico
+    // (común en especies singulares como Jubaea chilensis o Jacaranda mimosifolia en el cuadrante de 1 km²),
+    // consultar automáticamente el área metropolitana de Santiago para entregar datos verificados inmediatos
+    if (resultados.length === 0 && keyTaxonFinal && bbox && bbox.length === 4) {
+      const bboxRM = [-70.85, -33.65, -70.45, -33.30];
+      const paramsRM = new URLSearchParams(parametros);
+      paramsRM.set('decimalLatitude', `${bboxRM[1]},${bboxRM[3]}`);
+      paramsRM.set('decimalLongitude', `${bboxRM[0]},${bboxRM[2]}`);
+      try {
+        const ctlRM = new AbortController();
+        const tIdRM = setTimeout(() => ctlRM.abort(), 10000);
+        const resRM = await fetch(`${base}/occurrence/search?${paramsRM.toString()}`, { signal: ctlRM.signal });
+        clearTimeout(tIdRM);
+        if (resRM.ok) {
+          const datosRM = await resRM.json();
+          if (datosRM.results && datosRM.results.length > 0) {
+            resultados = datosRM.results;
+            esFallbackMetropolitano = true;
+            console.log(`[GBIF] Auto-fallback metropolitano exitoso: ${resultados.length} registros para ${canonFinal}`);
+          }
+        }
+      } catch (e) {
+        console.warn('[GBIF] Error en auto-fallback metropolitano:', e);
+      }
+    }
 
-    // Filtro de verificación estricto: Si se buscó una especie específica (ej: Jubaea chilensis),
-    // asegurar que 100% de los registros devueltos correspondan a dicha especie
-    if (taxonResuelto && taxonResuelto.canonicalName && (taxonResuelto.rank === 'SPECIES' || taxonResuelto.rank === 'SUBSPECIES' || taxonResuelto.rank === 'VARIETY')) {
-      const canonObjetivo = taxonResuelto.canonicalName.toLowerCase();
-      registros = registros.filter(r => {
-        const esp = (r.especie || '').toLowerCase();
-        const sci = (r.scientificName || '').toLowerCase();
-        return esp.includes(canonObjetivo) || sci.includes(canonObjetivo);
-      });
+    let registros = resultados.map(r => {
+      const sp = r.species || r.canonicalName || (r.scientificName ? r.scientificName.split('(')[0].trim() : 'Especie no determinada');
+      const spLower = sp.toLowerCase();
+      const nomComun = r.vernacularName || NOMBRES_COMUNES_CHILE[spLower] || (canonFinal && NOMBRES_COMUNES_CHILE[canonFinal.toLowerCase()]) || null;
+
+      return {
+        id: r.key || r.gbifID,
+        especie: sp,
+        scientificName: r.scientificName || r.species || 'Especie no determinada',
+        nombreComun: nomComun,
+        reino: r.kingdom || 'Indeterminado',
+        clase: r.class || null,
+        orden: r.order || null,
+        familia: r.family || null,
+        genero: r.genus || null,
+        fecha: r.eventDate ? r.eventDate.slice(0, 10) : 'Sin fecha registrada',
+        publicador: r.institutionCode || r.publishingOrgKey || 'Ciencia Ciudadana / GBIF',
+        licencia: r.license || 'CC-BY 4.0',
+        lat: r.decimalLatitude,
+        lon: r.decimalLongitude,
+        issues: r.issues || [] // Banderas de calidad Darwin Core
+      };
+    });
+
+    // Filtro de verificación taxonómica estricto por rango biológico:
+    // Garantiza pureza absoluta (0% mezcla con otras especies)
+    const targetRank = (rankFinal || taxonResuelto?.rank || '').toUpperCase();
+    const canonObjetivo = (canonFinal || taxonResuelto?.canonicalName || nombre || '').toLowerCase().trim();
+
+    if (canonObjetivo && targetRank) {
+      if (['SPECIES', 'SUBSPECIES', 'VARIETY'].includes(targetRank)) {
+        registros = registros.filter(r => {
+          const esp = (r.especie || '').toLowerCase();
+          const sci = (r.scientificName || '').toLowerCase();
+          return esp.includes(canonObjetivo) || sci.includes(canonObjetivo);
+        });
+      } else if (targetRank === 'GENUS') {
+        registros = registros.filter(r => {
+          const gen = (r.genero || '').toLowerCase();
+          const esp = (r.especie || '').toLowerCase();
+          const sci = (r.scientificName || '').toLowerCase();
+          return gen === canonObjetivo || esp.startsWith(canonObjetivo) || sci.startsWith(canonObjetivo);
+        });
+      } else if (targetRank === 'CLASS') {
+        registros = registros.filter(r => {
+          const cla = (r.clase || '').toLowerCase();
+          return !cla || cla === canonObjetivo;
+        });
+      } else if (targetRank === 'ORDER') {
+        registros = registros.filter(r => {
+          const ord = (r.orden || '').toLowerCase();
+          return !ord || ord === canonObjetivo;
+        });
+      } else if (targetRank === 'KINGDOM') {
+        registros = registros.filter(r => {
+          const rei = (r.reino || '').toLowerCase();
+          return !rei || rei === canonObjetivo;
+        });
+      }
     }
 
     const respuestaFinal = {
       total: registros.length,
       totalGbif: datos.count || 0,
       taxonResuelto: taxonResuelto,
+      esFallbackMetropolitano: esFallbackMetropolitano,
       registros: registros,
       geojson: ocurrenciasAGeoJSON(registros)
     };

@@ -755,15 +755,29 @@ function inicializarAplicacion() {
 
   if (selTaxaGBIF && inpNombreGBIF) {
     selTaxaGBIF.addEventListener('change', (e) => {
+      const opt = selTaxaGBIF.options[selTaxaGBIF.selectedIndex];
       if (e.target.value !== 'custom') {
         inpNombreGBIF.value = e.target.value;
-        delete inpNombreGBIF.dataset.taxonKey;
+        if (opt && opt.dataset.taxonKey) {
+          inpNombreGBIF.dataset.taxonKey = opt.dataset.taxonKey;
+          inpNombreGBIF.dataset.taxonRank = opt.dataset.rank || '';
+          inpNombreGBIF.dataset.commonName = opt.dataset.common || '';
+        } else {
+          delete inpNombreGBIF.dataset.taxonKey;
+          delete inpNombreGBIF.dataset.taxonRank;
+          delete inpNombreGBIF.dataset.commonName;
+        }
+        if (divSugerenciasGBIF) divSugerenciasGBIF.style.display = 'none';
+        // Auto-consulta inmediata: al elegir una especie recomendada, ejecuta la búsqueda sin requerir clic manual
+        manejarConsultaGBIF(false);
       } else {
         inpNombreGBIF.value = '';
         delete inpNombreGBIF.dataset.taxonKey;
+        delete inpNombreGBIF.dataset.taxonRank;
+        delete inpNombreGBIF.dataset.commonName;
+        if (divSugerenciasGBIF) divSugerenciasGBIF.style.display = 'none';
         inpNombreGBIF.focus();
       }
-      if (divSugerenciasGBIF) divSugerenciasGBIF.style.display = 'none';
     });
   }
 
@@ -2495,6 +2509,7 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
   const inpNombre = document.getElementById('gbif-nombre');
   const nombre = inpNombre ? inpNombre.value.trim() : '';
   const taxonKey = inpNombre ? inpNombre.dataset.taxonKey : undefined;
+  const rank = inpNombre ? inpNombre.dataset.taxonRank : undefined;
   const basisOfRecord = document.getElementById('gbif-basis-selector')?.value || 'ALL';
 
   contenedor.innerHTML = '<p class="descripcion">Consultando registros biológicos en GBIF con resolución taxonómica estricta…</p>';
@@ -2503,6 +2518,8 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
     const resultado = await ModuloGBIF.buscarOcurrencias({
       nombre,
       taxonKey: taxonKey || undefined,
+      rank: rank || undefined,
+      canonicalName: nombre || undefined,
       bbox: bbox || undefined,
       basisOfRecord: basisOfRecord,
       limite: 300
@@ -2584,10 +2601,14 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
         ? r.issues.map(iss => `<span style="display:inline-block; font-family:var(--fuente-datos); font-size:0.68rem; background:var(--papel); border:1px solid var(--linea); padding:1px 4px; margin:1px;">${iss}</span>`).join(' ')
         : `<span style="color:var(--musgo); font-family:var(--fuente-datos); font-size:0.75rem;">✓ Sin incidencias</span>`;
 
+      const nomComunBadge = r.nombreComun
+        ? `<strong style="color:var(--musgo);">${r.nombreComun}</strong>`
+        : `<span style="color:var(--tinta-suave);">—</span>`;
+
       return `
         <tr>
           <td><strong>${r.especie}</strong> <small style="display:block; color:var(--tinta-suave); font-style:italic;">${r.scientificName}</small></td>
-          <td>${r.nombreComun || '—'}</td>
+          <td>${nomComunBadge}</td>
           <td>${r.fecha}</td>
           <td>${r.publicador}</td>
           <td>${flagsIssues}</td>
@@ -2600,7 +2621,14 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       ? ` · <span style="color:var(--musgo); font-weight:700;">Taxón Verificado:</span> <strong>${resultado.taxonResuelto.canonicalName}</strong> (${resultado.taxonResuelto.rank || 'Taxón'}${resultado.taxonResuelto.kingdom ? ' · ' + resultado.taxonResuelto.kingdom : ''})`
       : '';
 
+    const avisoFallback = resultado.esFallbackMetropolitano
+      ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(30, 58, 95, 0.25); border:1px solid rgba(59, 130, 246, 0.4); border-radius:6px; font-size:0.82rem; color:var(--azul-profundo); line-height:1.45;">
+           📍 <strong>Ámbito ampliado a Gran Santiago:</strong> En el cuadrante local acotado (1 km² Barrio Brasil) no se registran aún observaciones directas de esta especie protegida/singular, por lo que se muestran los registros verificados más cercanos en la Región Metropolitana.
+         </div>`
+      : '';
+
     contenedor.innerHTML = `
+      ${avisoFallback}
       <div class="indicador">
         <span class="valor">${resultado.total}</span>
         <span class="etiqueta">registros biológicos verificados en GBIF${taxBadge}</span>
