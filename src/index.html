@@ -2,11 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Atlas de Información Geográfica Voluntaria — Gestión Territorial</title>
 <meta name="description" content="Atlas y plataforma de Información Geográfica Voluntaria (VGI) para la gestión territorial en Barrio Brasil y la Comuna de Santiago.">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="css/estilos.css?v=20261102_v16">
+  <!-- Preconexión y carga de fuentes web para paridad métrica cross-platform exacta (Windows, macOS, iOS, Android) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="css/estilos.css?v=20261103_v17">
 </head>
 <body>
 
@@ -14,6 +18,10 @@
 
   <!-- ============ CABECERA PRINCIPAL TÁCTICA Y NAVEGACIÓN AGRUPADA EN 5 SECCIONES ============ -->
   <header class="cabecera-principal-atlas" id="cabecera-atlas">
+    <!-- Paneles de Acento Blancos Dinámicos en Flancos Superiores (Adaptables por Resolución) -->
+    <div class="panel-acento-dinamico panel-acento-izq" aria-hidden="true"></div>
+    <div class="panel-acento-dinamico panel-acento-der" aria-hidden="true"></div>
+
     <div class="cabecera-interior">
       <!-- Fila 1: Identidad Institucional, Selector de Perfil y Glosario -->
       <div class="cabecera-fila-marca">
