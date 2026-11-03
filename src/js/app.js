@@ -871,8 +871,8 @@ function inicializarAplicacion() {
       const urlArchivo = btn.getAttribute('href');
       const nombreDescarga = btn.getAttribute('download') || `capa_${idCapa || 'datos'}.geojson`;
 
-      const textoOrig = btn.textContent;
-      btn.textContent = '⏳ ...';
+      const htmlOrig = btn.innerHTML;
+      btn.innerHTML = '<span class="icono-dl-gis">⏳</span><span>...</span>';
       btn.style.pointerEvents = 'none';
 
       try {
@@ -895,7 +895,7 @@ function inicializarAplicacion() {
         a.click();
         document.body.removeChild(a);
       } finally {
-        btn.textContent = textoOrig;
+        btn.innerHTML = htmlOrig;
         btn.style.pointerEvents = '';
       }
     });
@@ -1527,7 +1527,8 @@ function crearBotonesCategorias() {
         <div class="tarjeta-capa-acciones">
           <span class="conteo-entidades-gis" id="conteo-cat-${cat.id}">—</span>
           <a href="data/capa_${cat.id}.geojson" download="capa_${cat.id}_con_metadatos.geojson" data-id-capa="${cat.id}" class="btn-accion-descarga-gis" title="Descargar archivo GeoJSON con perfil de metadatos" onclick="event.stopPropagation();">
-            GeoJSON
+            <svg class="icono-dl-gis" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>GeoJSON</span>
           </a>
         </div>
       </div>
@@ -3258,7 +3259,8 @@ function configurarCapasOficialesIDE() {
           <div class="tarjeta-capa-acciones">
             <span class="conteo-entidades-gis badge-conteo-oficial" id="conteo-oficial-${def.id}">—</span>
             <a href="${archDescarga}" download="${nombreArchDescarga}" data-id-capa="${def.id}" class="btn-accion-descarga-gis" title="Descargar archivo GeoJSON oficial con perfil de metadatos (${nombreArchDescarga})" onclick="event.stopPropagation();">
-              GeoJSON
+              <svg class="icono-dl-gis" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>GeoJSON</span>
             </a>
           </div>
         </div>
