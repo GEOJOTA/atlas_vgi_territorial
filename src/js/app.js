@@ -757,8 +757,10 @@ function inicializarAplicacion() {
     selTaxaGBIF.addEventListener('change', (e) => {
       if (e.target.value !== 'custom') {
         inpNombreGBIF.value = e.target.value;
+        delete inpNombreGBIF.dataset.taxonKey;
       } else {
         inpNombreGBIF.value = '';
+        delete inpNombreGBIF.dataset.taxonKey;
         inpNombreGBIF.focus();
       }
       if (divSugerenciasGBIF) divSugerenciasGBIF.style.display = 'none';
@@ -769,6 +771,7 @@ function inicializarAplicacion() {
     let timerTaxa = null;
     inpNombreGBIF.addEventListener('input', () => {
       clearTimeout(timerTaxa);
+      delete inpNombreGBIF.dataset.taxonKey;
       const texto = inpNombreGBIF.value.trim();
       if (texto.length < 2) {
         divSugerenciasGBIF.style.display = 'none';
@@ -781,11 +784,11 @@ function inicializarAplicacion() {
           const sugerencias = await window.ModuloGBIF.sugerirTaxon(texto);
           if (sugerencias.length > 0) {
             divSugerenciasGBIF.innerHTML = `
-              <div style="padding:6px; font-family:var(--fuente-datos); font-size:0.75rem; background:var(--papel-alto); border:1px solid var(--musgo);">
-                <div style="font-size:0.68rem; color:var(--musgo); text-transform:uppercase; margin-bottom:4px; font-weight:600;">[GBIF SPECIES API // COINCIDENCIAS]:</div>
+              <div style="padding:6px; font-family:var(--fuente-datos); font-size:0.75rem; background:var(--papel-alto); border:1px solid var(--musgo); box-shadow:0 4px 12px rgba(0,0,0,0.35);">
+                <div style="font-size:0.68rem; color:var(--musgo); text-transform:uppercase; margin-bottom:4px; font-weight:700;">[GBIF SPECIES BACKBONE // COINCIDENCIAS]:</div>
                 ${sugerencias.map(s => `
-                  <div class="sugerencia-taxa-item" style="padding:4px 6px; cursor:pointer; border-bottom:1px dashed var(--linea);" data-nombre="${s.canonicalName}">
-                    <strong>${s.canonicalName}</strong> <span style="color:var(--tinta-suave); font-size:0.7rem;">(${s.rank || 'Taxón'} · ${s.kingdom || ''})</span>
+                  <div class="sugerencia-taxa-item" style="padding:5px 8px; cursor:pointer; border-bottom:1px dashed var(--linea); transition:background 0.15s ease;" data-nombre="${s.canonicalName}" data-key="${s.key || ''}">
+                    <strong>${s.canonicalName}</strong> <span style="color:var(--tinta-suave); font-size:0.7rem;">(${s.rank || 'Taxón'}${s.kingdom ? ' · ' + s.kingdom : ''})</span>
                   </div>
                 `).join('')}
               </div>
@@ -795,6 +798,7 @@ function inicializarAplicacion() {
             divSugerenciasGBIF.querySelectorAll('.sugerencia-taxa-item').forEach(item => {
               item.addEventListener('click', () => {
                 inpNombreGBIF.value = item.dataset.nombre;
+                if (item.dataset.key) inpNombreGBIF.dataset.taxonKey = item.dataset.key;
                 divSugerenciasGBIF.style.display = 'none';
               });
             });
@@ -2488,27 +2492,60 @@ async function manejarConsultaOhsome() {
 async function manejarConsultaGBIF(cargarAlMapa = false) {
   const contenedor = document.getElementById('resultado-gbif');
   const bbox = leerBbox('gbif');
-  const nombre = document.getElementById('gbif-nombre').value.trim();
+  const inpNombre = document.getElementById('gbif-nombre');
+  const nombre = inpNombre ? inpNombre.value.trim() : '';
+  const taxonKey = inpNombre ? inpNombre.dataset.taxonKey : undefined;
   const basisOfRecord = document.getElementById('gbif-basis-selector')?.value || 'ALL';
 
-  contenedor.innerHTML = '<p class="descripcion">Consultando registros de biodiversidad en GBIF…</p>';
+  contenedor.innerHTML = '<p class="descripcion">Consultando registros biológicos en GBIF con resolución taxonómica estricta…</p>';
 
   try {
     const resultado = await ModuloGBIF.buscarOcurrencias({
       nombre,
+      taxonKey: taxonKey || undefined,
       bbox: bbox || undefined,
       basisOfRecord: basisOfRecord,
       limite: 300
     });
 
     if (resultado.registros.length === 0) {
-      contenedor.innerHTML = avisoInfo('No se encontraron registros biológicos con esos criterios en el área.');
+      const taxNombre = resultado.taxonResuelto?.canonicalName || nombre || 'la especie solicitada';
+      contenedor.innerHTML = `
+        <div class="caja-aviso-info" style="padding:16px; background:rgba(30,41,59,0.85); border:1px solid rgba(255,255,255,0.18); border-radius:8px; line-height:1.5;">
+          <p style="margin:0 0 8px 0; color:#f8fafc; font-weight:700;">
+            🔍 No se encontraron observaciones georreferenciadas de <em>${taxNombre}</em> dentro del cuadrante actual.
+          </p>
+          <p style="margin:0 0 12px 0; font-size:0.82rem; color:#94a3b8;">
+            El cuadrante espacial activo está acotado al Barrio Brasil o zona específica. Al tratarse de un filtro taxonómico estricto (evitando mezclar especies), puedes expandir la búsqueda a toda la <strong>Región Metropolitana</strong> o consultar en todo Chile.
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button type="button" class="accion secundaria" id="btn-gbif-expandir-rm" style="font-size:0.78rem; padding:6px 12px; cursor:pointer;">
+              🌐 Expandir a Región Metropolitana
+            </button>
+            <button type="button" class="accion secundaria" id="btn-gbif-limpiar-bbox" style="font-size:0.78rem; padding:6px 12px; cursor:pointer;">
+              🌎 Buscar en todo Chile (Sin Bbox)
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('btn-gbif-expandir-rm')?.addEventListener('click', () => {
+        escribirBbox('gbif', [-70.85, -33.65, -70.45, -33.30]);
+        manejarConsultaGBIF(cargarAlMapa);
+      });
+      document.getElementById('btn-gbif-limpiar-bbox')?.addEventListener('click', () => {
+        ['oeste', 'sur', 'este', 'norte'].forEach(k => {
+          const el = document.getElementById(`gbif-${k}`);
+          if (el) el.value = '';
+        });
+        manejarConsultaGBIF(cargarAlMapa);
+      });
       return;
     }
 
     ultimaConsultaRealizada = {
       bbox,
-      filtro: nombre || 'Biodiversidad Urbana',
+      filtro: resultado.taxonResuelto?.canonicalName || nombre || 'Biodiversidad Urbana',
       cantidad: resultado.total,
       fuente: 'GBIF'
     };
@@ -2516,16 +2553,19 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       categoriaId: 'biodiversidad',
       cantidad: resultado.total,
       fuente: 'Global Biodiversity Information Facility (GBIF)',
-      filtro: nombre || 'Biodiversidad Urbana',
+      filtro: resultado.taxonResuelto?.canonicalName || nombre || 'Biodiversidad Urbana',
       bbox
     });
 
     if (cargarAlMapa) {
+      const nombreCapa = resultado.taxonResuelto?.canonicalName
+        ? `GBIF: ${resultado.taxonResuelto.canonicalName}`
+        : (nombre ? `GBIF: ${nombre}` : 'Biodiversidad (GBIF)');
       const capa = ModuloMapa.cargarCapaGeoJSON('gbif_biodiversidad', resultado.geojson, {
-        nombre: 'Biodiversidad (GBIF)',
-        color: '#1C523A',
+        nombre: nombreCapa,
+        color: '#10b981',
         icono: '🌿',
-        fuente: 'GBIF / Ciencia Ciudadana',
+        fuente: 'GBIF / iNaturalist (Ciencia Ciudadana)',
         licencia: 'CC-BY 4.0'
       });
       if (typeof window.activarPanel === 'function') {
@@ -2539,14 +2579,14 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       return;
     }
 
-    const filas = resultado.registros.slice(0, 30).map(r => {
+    const filas = resultado.registros.slice(0, 50).map(r => {
       const flagsIssues = (r.issues && r.issues.length > 0)
         ? r.issues.map(iss => `<span style="display:inline-block; font-family:var(--fuente-datos); font-size:0.68rem; background:var(--papel); border:1px solid var(--linea); padding:1px 4px; margin:1px;">${iss}</span>`).join(' ')
         : `<span style="color:var(--musgo); font-family:var(--fuente-datos); font-size:0.75rem;">✓ Sin incidencias</span>`;
 
       return `
         <tr>
-          <td><strong>${r.especie}</strong></td>
+          <td><strong>${r.especie}</strong> <small style="display:block; color:var(--tinta-suave); font-style:italic;">${r.scientificName}</small></td>
           <td>${r.nombreComun || '—'}</td>
           <td>${r.fecha}</td>
           <td>${r.publicador}</td>
@@ -2556,12 +2596,19 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       `;
     }).join('');
 
+    const taxBadge = resultado.taxonResuelto
+      ? ` · <span style="color:var(--musgo); font-weight:700;">Taxón Verificado:</span> <strong>${resultado.taxonResuelto.canonicalName}</strong> (${resultado.taxonResuelto.rank || 'Taxón'}${resultado.taxonResuelto.kingdom ? ' · ' + resultado.taxonResuelto.kingdom : ''})`
+      : '';
+
     contenedor.innerHTML = `
-      <div class="indicador"><span class="valor">${resultado.total}</span><span class="etiqueta">registros totales en GBIF</span></div>
+      <div class="indicador">
+        <span class="valor">${resultado.total}</span>
+        <span class="etiqueta">registros biológicos verificados en GBIF${taxBadge}</span>
+      </div>
       <table class="tabla-datos">
         <thead>
           <tr>
-            <th>Especie Científica</th>
+            <th>Especie / Taxón Científico</th>
             <th>Nombre Común</th>
             <th>Fecha</th>
             <th>Publicador</th>
