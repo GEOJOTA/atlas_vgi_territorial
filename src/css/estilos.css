@@ -286,95 +286,37 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
 }
 
 /* ==========================================================================
-   RECTÁNGULOS BLANCOS DINÁMICOS EN FLANCOS SUPERIORES (ADAPTABLES UNIVERSALMENTE)
+   RECTÁNGULOS BLANCOS DINÁMICOS QUE CUBREN EL 100% DE LOS ESPACIOS VACÍOS LATERALES
    ========================================================================== */
 
 .panel-acento-dinamico {
   position: absolute;
-  top: 18px;
-  width: 52px;
-  height: 52px;
+  top: 0;
+  bottom: 0;
+  width: calc((100% - 1560px) / 2);
   background: #ffffff;
   border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 12px rgba(255, 255, 255, 0.65);
+  border-radius: 0;
+  box-shadow: none;
   pointer-events: none;
-  z-index: 10;
-  display: block !important;
-  opacity: 1;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  transition: opacity 0.2s ease;
 }
 
 .panel-acento-izq {
-  left: clamp(16px, 2.5vw, 48px);
+  left: 0;
 }
 
 .panel-acento-der {
-  right: clamp(16px, 2.5vw, 48px);
+  right: 0;
 }
 
+/* Ocultar automáticamente si la pantalla es menor o igual al ancho del contenido (1560px) */
 @media (max-width: 1560px) {
   .panel-acento-dinamico {
-    top: 16px;
-    width: clamp(34px, 3.2vw, 46px);
-    height: clamp(34px, 3.2vw, 46px);
-    border-radius: 7px;
-  }
-  .panel-acento-izq {
-    left: clamp(12px, 1.8vw, 24px);
-  }
-  .panel-acento-der {
-    right: clamp(12px, 1.8vw, 24px);
+    display: none !important;
   }
 }
-
-@media (max-width: 992px) {
-  .panel-acento-dinamico {
-    top: 14px;
-    width: clamp(26px, 3.4vw, 32px);
-    height: clamp(26px, 3.4vw, 32px);
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  }
-  .panel-acento-izq {
-    left: 10px;
-  }
-  .panel-acento-der {
-    right: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .panel-acento-dinamico {
-    top: 11px;
-    width: clamp(20px, 4.5vw, 26px);
-    height: clamp(20px, 4.5vw, 26px);
-    border-radius: 5px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-  }
-  .panel-acento-izq {
-    left: 8px;
-  }
-  .panel-acento-der {
-    right: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .panel-acento-dinamico {
-    top: 9px;
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-  }
-  .panel-acento-izq {
-    left: 6px;
-  }
-  .panel-acento-der {
-    right: 6px;
-  }
-}
-
 
 .barra-pestanas-profundidad {
   display: flex;
@@ -499,7 +441,9 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
   max-width: 1560px;
   width: 100%;
   margin: 0 auto;
-  padding: 18px clamp(68px, 5.5vw, 92px) 14px clamp(68px, 5.5vw, 92px);
+  padding: 18px 32px 14px 32px;
+  position: relative;
+  z-index: 5;
   transition: padding 0.2s ease;
 }
 
