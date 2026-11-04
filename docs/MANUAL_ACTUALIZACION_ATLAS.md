@@ -2064,26 +2064,57 @@ L.control.scale({ imperial: false, metric: true, position: "bottomleft" }).addTo
 ```
 
 ### 21.2. Mosaicos base (base maps) y conmutación dinámica
-El Atlas ofrece tres capas base de referencia cartográfica:
+El Atlas ofrece cuatro capas base de referencia cartográfica gratuitas y sin requerimiento de clave API:
 
 ```javascript
+// 1. OpenStreetMap Estándar
+const osmEstandar = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> colaboradores'
+});
+
+// 2. Relieve Topográfico OpenTopoMap
+const openTopo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+  maxZoom: 17,
+  attribution: 'Map data: &copy; OSM contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)'
+});
+
+// 3. Imagen Satelital Esri World Imagery (abierta, alta resolución global sin clave API)
+const satelitalEsri = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom: 19,
+  attribution: 'Tiles &copy; Esri &mdash; DigitalGlobe, GeoEye, Earthstar, CNES/Airbus, USDA, USGS, AeroGRID, IGN y Comunidad SIG'
+});
+
+// 4. Imagen Satelital Bing Aerial (gratuita por Quadkey dinámico sin clave API)
+const BingLayer = L.TileLayer.extend({
+  getTileUrl: function (coords) {
+    let quadkey = '';
+    for (let i = coords.z; i > 0; i--) {
+      let digit = 0;
+      const mask = 1 << (i - 1);
+      if ((coords.x & mask) !== 0) digit += 1;
+      if ((coords.y & mask) !== 0) digit += 2;
+      quadkey += digit;
+    }
+    const sub = (coords.x + coords.y) % 4;
+    return `https://ecn.t${sub}.tiles.virtualearth.net/tiles/a${quadkey}.jpeg?g=1`;
+  }
+});
+
+const satelitalBing = new BingLayer('', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.bing.com/maps" target="_blank" rel="noopener">Microsoft Bing</a> Earthstar Geographics'
+});
+
 const mapasBase = {
-  osm_estandar: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> colaboradores'
-  }),
-  carto_positron: L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-    maxZoom: 19,
-    attribution: '&copy; CartoDB &copy; OpenStreetMap'
-  }),
-  carto_dark: L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    maxZoom: 19,
-    attribution: '&copy; CartoDB &copy; OpenStreetMap'
-  })
+  'OpenStreetMap Estándar': osmEstandar,
+  'Relieve Topográfico (OpenTopo)': openTopo,
+  'Imagen Satelital (Esri)': satelitalEsri,
+  'Imagen Satelital (Bing)': satelitalBing
 };
 
 // Carga por defecto: OpenStreetMap Estándar
-mapasBase.osm_estandar.addTo(mapa);
+osmEstandar.addTo(mapa);
 ```
 
 ### 21.3. Generador de marcadores vectoriales SVG con efecto pulso

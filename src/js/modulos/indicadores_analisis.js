@@ -5,12 +5,12 @@
   Atlas de Información Geográfica Voluntaria para la Gestión Territorial.
 
   Estructura y Principios:
-  1. Agrupación analítica de las 134 capas del Atlas (124 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
+  1. Agrupación analítica de las 133 capas del Atlas (123 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
      - 1) Sociodemográfica (19 capas)
      - 2) Socioeconómica (18 capas)
      - 3) Socioambiental (37 capas)
      - 4) Sociosanitaria (3 capas)
-     - 5) Sociourbana o Habitabilidad (55 capas)
+     - 5) Sociourbana o Habitabilidad (54 capas)
   2. Nombres de capas rigurosamente idénticos a los del Módulo "00. Visor y Atlas VGI".
   3. Datos espaciales derivados exclusivamente de la base de datos formal del Atlas VGI (capas oficiales y VGI).
   4. Storyboards territoriales con rigor técnico y lenguaje accesible:

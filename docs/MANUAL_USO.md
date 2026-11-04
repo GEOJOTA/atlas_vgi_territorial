@@ -59,12 +59,12 @@ La interfaz se organiza en tres áreas funcionales permanentes:
 
 ### Módulo 01 · visor para la gestión territorial (`#panel-inicio`)
 
-El Módulo 01 es el núcleo cartográfico de la plataforma. Integra el lienzo interactivo Leaflet (`src/js/modulos/mapa.js`), el catálogo de las 124 capas oficiales (`src/js/modulos/ide_chile.js`), los selectores de las 10 macrocategorías VGI (`src/js/config.js`), el calculador en tiempo real del Índice de Calidad VGI (ICV) (`src/js/app.js`) y el Inspector Normativo PRC/Ordenanza General de Urbanismo y Construcciones (OGUC, véase el glosario) (`src/js/modulos/evaluador_normativo.js`).
+El Módulo 01 es el núcleo cartográfico de la plataforma. Integra el lienzo interactivo Leaflet (`src/js/modulos/mapa.js`), el catálogo de las 123 capas oficiales (`src/js/modulos/ide_chile.js`), los selectores de las 10 macrocategorías VGI (`src/js/config.js`), el calculador en tiempo real del Índice de Calidad VGI (ICV) (`src/js/app.js`) y el Inspector Normativo PRC/Ordenanza General de Urbanismo y Construcciones (OGUC, véase el glosario) (`src/js/modulos/evaluador_normativo.js`).
 
 ```mermaid
 flowchart LR
     subgraph IN["1. INPUT / ENTRADA (Controles del Módulo 01)"]
-        A1["Selector de Categorías VGI (CAT-01 a CAT-10)<br/>y Subpanel  Capas IDE (124 Capas Oficiales)"]
+        A1["Selector de Categorías VGI (CAT-01 a CAT-10)<br/>y Subpanel  Capas IDE (123 Capas Oficiales)"]
         A2["Herramienta  Dibujar Bbox<br/>o Selector de Polígono Barrial"]
         A3["Modo  Inspector Normativo<br/>Clic sobre coordenada (lat, lng) en el mapa"]
     end
@@ -141,7 +141,7 @@ Conecta con la API REST v1 de la Global Biodiversity Information Facility (`api.
 
 Articula catastros ciudadanos elaborados sobre uMap (`src/js/modulos/umap.js`) y provee un motor de importación vectorial local en el navegador (`src/js/modulos/importador_capas.js`).
 
-* Proyectos uMap Integrados: Permite embeber proyectos cartográficos comunitarios o inyectar sus capas GeoJSON directamente sobre el visor principal para cruzarlos con las 124 capas oficiales.
+* Proyectos uMap Integrados: Permite embeber proyectos cartográficos comunitarios o inyectar sus capas GeoJSON directamente sobre el visor principal para cruzarlos con las 123 capas oficiales.
 * Importador Multiformato Client-Side: Mediante arrastrar y soltar (*Drag & Drop*), el usuario puede cargar archivos locales en formato `.geojson`, `.json`, `.kml`, `.kmz`, `.gpx` o `.csv` (con columnas `lat`/`lon`). Los datos se procesan íntegramente en la memoria del navegador sin transmitirse a servidores externos.
 
 ---

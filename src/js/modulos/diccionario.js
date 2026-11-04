@@ -1785,11 +1785,11 @@ const ModuloDiccionario = (() => {
     // 2. Tabla de Atributos Normalizados
     const htmlAtributos = atributosFiltrados.map(a => `
       <tr style="border-bottom:1px solid var(--linea);">
-        <td><strong style="color:var(--musgo); font-family:var(--fuente-datos);">${a.campo}</strong></td>
-        <td><strong>${a.nombre}</strong><br><small style="color:var(--tinta-suave); font-family:var(--fuente-datos);">${a.tipo}</small></td>
-        <td style="font-size:0.86rem;">${a.definicion}<br><span class="descripcion" style="font-style:italic;">Ejemplo: ${a.ejemplo}</span></td>
-        <td style="font-size:0.82rem; font-family:var(--fuente-datos);"><code>${a.equivalenciaIDE}</code></td>
-        <td style="font-size:0.84rem;">${a.importancia}</td>
+        <td><strong style="color:var(--musgo); font-family:var(--fuente-datos); word-break:break-word;">${a.campo}</strong></td>
+        <td><strong style="color:#ffffff;">${a.nombre}</strong><br><small style="color:var(--tinta-suave); font-family:var(--fuente-datos); display:inline-block; margin-top:2px;">${a.tipo}</small></td>
+        <td style="font-size:0.86rem; line-height:1.5;">${a.definicion}<br><span class="descripcion" style="font-style:italic; display:inline-block; margin-top:4px; word-break:break-word;">Ejemplo: ${a.ejemplo}</span></td>
+        <td style="font-size:0.82rem; font-family:var(--fuente-datos);"><code class="codigo-licencia">${a.equivalenciaIDE}</code></td>
+        <td style="font-size:0.84rem; line-height:1.5;">${a.importancia}</td>
       </tr>
     `).join('');
 
@@ -1799,15 +1799,15 @@ const ModuloDiccionario = (() => {
           <h3 style="margin:0;">Esquema normalizado de atributos (17 campos · ISO 19110 / IDE Chile)</h3>
         </div>
         <p class="descripcion">Cada capa descargada o consultada en el Atlas incluye esta estructura estandarizada de atributos compatible con IDE Chile y software SIG (QGIS / PostGIS):</p>
-        <div style="overflow-x:auto;">
-          <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem;">
+        <div class="contenedor-tabla-responsiva">
+          <table class="tabla-datos" style="margin-top:10px; font-size:0.88rem; width:100%;">
             <thead>
               <tr>
-                <th>Código de campo</th>
-                <th>Nombre del atributo</th>
-                <th>Definición y ejemplo</th>
-                <th>Equivalencia IDE Chile / ISO 19115</th>
-                <th>Utilidad práctica</th>
+                <th style="min-width:150px;">Código de campo</th>
+                <th style="min-width:180px;">Nombre del atributo</th>
+                <th style="min-width:260px;">Definición y ejemplo</th>
+                <th style="min-width:220px;">Equivalencia IDE Chile / ISO 19115</th>
+                <th style="min-width:240px;">Utilidad práctica</th>
               </tr>
             </thead>
             <tbody>
@@ -1827,31 +1827,31 @@ const ModuloDiccionario = (() => {
     const htmlEtiquetas = etiquetasPagina.map(e => {
       const esBrecha = e.ideChile.startsWith('Sin capa homóloga');
       const badgeHomologia = esBrecha
-        ? `<span style="display:inline-block; margin-top:3px; background:var(--ocre-claro); color:var(--ocre); font-size:0.74rem; font-weight:600; padding:2px 8px; border-radius:4px; border:1px solid var(--ocre);">Aporte ciudadano (VGI): ${e.ideChile}</span>`
-        : `<span style="display:inline-block; margin-top:3px; background:var(--esmeralda-claro); color:var(--esmeralda); font-size:0.74rem; font-weight:600; padding:2px 8px; border-radius:4px; border:1px solid var(--esmeralda);">Cobertura oficial: ${e.ideChile}</span>`;
+        ? `<span class="badge-vgi-homologia badge-vgi-brecha">Aporte ciudadano (VGI): ${e.ideChile}</span>`
+        : `<span class="badge-vgi-homologia badge-vgi-oficial">Cobertura oficial: ${e.ideChile}</span>`;
 
       return `
         <tr style="border-bottom:1px solid var(--linea);">
           <td>
-            <code style="font-weight:600; color:var(--musgo); font-size:0.86rem;">${e.tag}</code>
-            <div style="margin-top:4px;">
+            <code class="codigo-licencia" style="font-weight:700; color:var(--musgo); font-size:0.86rem; word-break:break-all;">${e.tag}</code>
+            <div style="margin-top:6px;">
               ${e.tag.startsWith('dwc:')
-                ? `<a href="https://dwc.tdwg.org/terms/#${e.tag.replace('dwc:', '')}" target="_blank" rel="noopener" style="font-size:0.74rem;">Estándar Darwin Core ↗</a>`
-                : `<button type="button" class="btn-taginfo-inspector" onclick="ModuloDiccionario.inspeccionarTaginfo('${e.tag}')" style="font-size:0.72rem; padding:2px 7px; background:var(--papel-alto); border:1px solid var(--linea-fuerte); border-radius:4px; color:var(--musgo); cursor:pointer;">Ver uso en Taginfo</button>`
+                ? `<a href="https://dwc.tdwg.org/terms/#${e.tag.replace('dwc:', '')}" target="_blank" rel="noopener" style="font-size:0.74rem; display:inline-block;">Estándar Darwin Core ↗</a>`
+                : `<button type="button" class="btn-taginfo-inspector" onclick="ModuloDiccionario.inspeccionarTaginfo('${e.tag}')" style="font-size:0.72rem; padding:3px 8px; background:var(--papel-alto); border:1px solid var(--linea-fuerte); border-radius:4px; color:var(--musgo); cursor:pointer; display:inline-block;">Ver uso en Taginfo</button>`
               }
             </div>
           </td>
           <td>
-            <strong>${e.significado}</strong>
-            ${e.aplicacionUAH ? `<div style="font-size:0.8rem; color:var(--tinta-suave); margin-top:2px;">Ejemplo local: ${e.aplicacionUAH}</div>` : ''}
+            <strong style="color:#ffffff;">${e.significado}</strong>
+            ${e.aplicacionUAH ? `<div style="font-size:0.8rem; color:var(--tinta-suave); margin-top:3px; line-height:1.45;">Ejemplo local: ${e.aplicacionUAH}</div>` : ''}
           </td>
           <td>
             <button type="button" class="dicc-tag-cat-link" onclick="ModuloDiccionario.irACategoriaManual('${e.categoria}')" title="Ver ficha en el Manual de uso">
               ${e.categoria} ↗
             </button>
           </td>
-          <td style="font-size:0.84rem;">
-            <strong>${e.institucion || 'Comunidad OpenStreetMap'}</strong><br>
+          <td style="font-size:0.84rem; line-height:1.45;">
+            <strong style="color:var(--tinta);">${e.institucion || 'Comunidad OpenStreetMap'}</strong><br>
             ${badgeHomologia}
           </td>
         </tr>
@@ -1902,14 +1902,14 @@ const ModuloDiccionario = (() => {
 
         ${controlesPaginacionHTML}
 
-        <div style="overflow-x:auto;">
-          <table class="tabla-datos" style="margin-top:6px; font-size:0.88rem;">
+        <div class="contenedor-tabla-responsiva">
+          <table class="tabla-datos" style="margin-top:6px; font-size:0.88rem; width:100%;">
             <thead>
               <tr>
-                <th style="cursor:pointer;" onclick="ModuloDiccionario.ordenarPor('tag')">Código / Etiqueta ${iconoOrden('tag')}</th>
-                <th style="cursor:pointer;" onclick="ModuloDiccionario.ordenarPor('significado')">Nombre y aplicación local ${iconoOrden('significado')}</th>
-                <th style="cursor:pointer;" onclick="ModuloDiccionario.ordenarPor('categoria')">Categoría ${iconoOrden('categoria')}</th>
-                <th style="cursor:pointer;" onclick="ModuloDiccionario.ordenarPor('institucion')">Institución y homología en IDE Chile ${iconoOrden('institucion')}</th>
+                <th style="cursor:pointer; min-width:170px;" onclick="ModuloDiccionario.ordenarPor('tag')">Código / Etiqueta ${iconoOrden('tag')}</th>
+                <th style="cursor:pointer; min-width:260px;" onclick="ModuloDiccionario.ordenarPor('significado')">Nombre y aplicación local ${iconoOrden('significado')}</th>
+                <th style="cursor:pointer; min-width:120px;" onclick="ModuloDiccionario.ordenarPor('categoria')">Categoría ${iconoOrden('categoria')}</th>
+                <th style="cursor:pointer; min-width:260px;" onclick="ModuloDiccionario.ordenarPor('institucion')">Institución y homología en IDE Chile ${iconoOrden('institucion')}</th>
               </tr>
             </thead>
             <tbody>

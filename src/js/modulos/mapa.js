@@ -63,13 +63,40 @@ const ModuloMapa = (() => {
 
     // Capas base de libre acceso sin llave API
     const osmEstandar = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> colaboradores',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> colaboradores',
       maxZoom: 19
     });
 
     const openTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data: &copy; OSM contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)',
       maxZoom: 17
+    });
+
+    // Capa Satelital Esri World Imagery (abierta, de alta resolución global y sin requerir clave API)
+    const satelitalEsri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a> &mdash; DigitalGlobe, GeoEye, Earthstar, CNES/Airbus, USDA, USGS, AeroGRID, IGN y Comunidad SIG',
+      maxZoom: 19
+    });
+
+    // Capa Satelital Bing Aerial (gratuita, directa por Quadkey sin requerir clave API)
+    const BingLayer = L.TileLayer.extend({
+      getTileUrl: function (coords) {
+        let quadkey = '';
+        for (let i = coords.z; i > 0; i--) {
+          let digit = 0;
+          const mask = 1 << (i - 1);
+          if ((coords.x & mask) !== 0) digit += 1;
+          if ((coords.y & mask) !== 0) digit += 2;
+          quadkey += digit;
+        }
+        const sub = (coords.x + coords.y) % 4;
+        return `https://ecn.t${sub}.tiles.virtualearth.net/tiles/a${quadkey}.jpeg?g=1`;
+      }
+    });
+
+    const satelitalBing = new BingLayer('', {
+      attribution: '&copy; <a href="https://www.bing.com/maps" target="_blank" rel="noopener">Microsoft Bing</a> Earthstar Geographics',
+      maxZoom: 19
     });
 
     mapa = L.map(idContenedor, {
@@ -82,7 +109,9 @@ const ModuloMapa = (() => {
 
     const mapasBase = {
       'OpenStreetMap Estándar': osmEstandar,
-      'Relieve Topográfico (OpenTopo)': openTopo
+      'Relieve Topográfico (OpenTopo)': openTopo,
+      'Imagen Satelital (Esri)': satelitalEsri,
+      'Imagen Satelital (Bing)': satelitalBing
     };
 
     L.control.layers(mapasBase, null, { position: 'topright' }).addTo(mapa);

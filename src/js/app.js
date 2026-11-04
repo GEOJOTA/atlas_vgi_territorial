@@ -1058,7 +1058,7 @@ const METADATOS_PANELES_NAVEGACION = {
   'indicadores':        { grupo: 'analisis',      grupoNombre: 'Análisis y relatos',         vistaNombre: 'Indicadores y relatos (83 mapas)' },
   'calidad-ohsome':     { grupo: 'calidad',       grupoNombre: 'Evaluar calidad',            vistaNombre: 'Calidad espacial (ISO 19157)' },
   'metadatos-iso':      { grupo: 'calidad',       grupoNombre: 'Evaluar calidad',            vistaNombre: 'Metadatos (ISO 19115)' },
-  'diccionario':        { grupo: 'documentacion', grupoNombre: 'Documentación y descargas',  vistaNombre: 'Diccionario de datos (134 capas)' },
+  'diccionario':        { grupo: 'documentacion', grupoNombre: 'Documentación y descargas',  vistaNombre: 'Diccionario de datos (133 capas)' },
   'manual':             { grupo: 'documentacion', grupoNombre: 'Documentación y descargas',  vistaNombre: 'Manual de uso' },
   'licencias':          { grupo: 'documentacion', grupoNombre: 'Documentación y descargas',  vistaNombre: 'Licencias y descargas' }
 };
@@ -3594,7 +3594,7 @@ async function descargarColeccionOficialCompleta() {
     estadoTexto.innerHTML = `
       <span style="color:var(--esmeralda,#10b981); font-weight:700;">📦 [INICIANDO DESCARGA]:</span> 
       Descargando la base de datos completa del Atlas VGI en archivo comprimido (<code>docs/geodatabase_completa_atlas_vgi.zip</code>, 542,35 MB). 
-      Incluye las 134 capas del visor (10 macrocategorías VGI + 124 capas oficiales), extractos regionales de Geofabrik RM, los 3 libros maestros Excel (.xlsx), 4 datasets CSV, esquemas SQL PostGIS y metadatos ISO (257 archivos totales en 7 subcarpetas, ~3,33 GB descomprimido).
+      Incluye las 133 capas del visor (10 macrocategorías VGI + 123 capas oficiales), extractos regionales de Geofabrik RM, los 3 libros maestros Excel (.xlsx), 4 datasets CSV, esquemas SQL PostGIS y metadatos ISO (257 archivos totales en 7 subcarpetas, ~3,33 GB descomprimido).
     `;
   }
 
