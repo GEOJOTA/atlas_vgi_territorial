@@ -69,7 +69,6 @@ const ModuloIndicadoresAnalisis = (() => {
   "bbdd_14": "Establecimientos de Educación Superior",
   "bbdd_15": "Centros de SERNAM",
   "bbdd_17": "Áreas Funcionales de las ciudades (2026)",
-  "bbdd_18": "Zonificación Termica",
   "bbdd_19": "Cité",
   "bbdd_20": "SEREMI MINVU Región Metropolitana",
   "bbdd_21": "Oficinas Serviu",
@@ -321,7 +320,6 @@ const ModuloIndicadoresAnalisis = (() => {
         'ide_minvu_ipt_prms_riesgo',
         'catastro_predial_sii',
         'bbdd_17', // Áreas Funcionales de las ciudades (2026)
-        'bbdd_18', // Zonificación Termica
         'bbdd_19', // Cité
         'bbdd_20', // SEREMI MINVU Región Metropolitana
         'bbdd_21', // Oficinas Serviu

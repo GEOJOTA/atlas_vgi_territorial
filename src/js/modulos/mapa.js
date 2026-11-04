@@ -4,7 +4,7 @@
   Módulo de visualización cartográfica con Leaflet para el Atlas VGI.
   Maneja:
   - Inicialización del visor cartográfico en el territorio predeterminado (Barrio Brasil / UAH).
-  - Selección de capas base (Carto Positron, OSM Estándar, Topográfico).
+  - Selección de capas base (OpenStreetMap Estándar, Relieve Topográfico).
   - Herramienta de visualización y dibujo interactivo del Bounding Box (sincronizada con inputs).
   - Selector de territorios predefinidos (Barrio Brasil UAH, Santiago Centro, etc.).
   - Representación de capas temáticas GeoJSON con simbología de carta topográfica y popups informativos.
@@ -62,12 +62,6 @@ const ModuloMapa = (() => {
     const zoom = cfg.area_por_defecto?.zoom || 16;
 
     // Capas base de libre acceso sin llave API
-    const cartoPositron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 20
-    });
-
     const osmEstandar = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> colaboradores',
       maxZoom: 19
@@ -81,13 +75,12 @@ const ModuloMapa = (() => {
     mapa = L.map(idContenedor, {
       center: centro,
       zoom: zoom,
-      layers: [cartoPositron],
+      layers: [osmEstandar],
       zoomControl: true,
       preferCanvas: true
     });
 
     const mapasBase = {
-      'Carto Positron (Limpio)': cartoPositron,
       'OpenStreetMap Estándar': osmEstandar,
       'Relieve Topográfico (OpenTopo)': openTopo
     };
