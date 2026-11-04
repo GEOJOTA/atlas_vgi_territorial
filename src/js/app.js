@@ -2625,11 +2625,11 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
 
     const avisoFallback = resultado.esFallback
       ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); border-radius:6px; font-size:0.82rem; color:var(--musgo, #10b981); line-height:1.45;">
-           🌿 <strong>Modo de respaldo activo:</strong> Se cargaron <strong>${resultado.registros.length}</strong> observaciones biológicas verificadas desde el catálogo local (GBIF / iNaturalist) debido a una demora temporal de conexión con el servidor central de GBIF (<em>${resultado.motivoFallback || 'latencia de red'}</em>). Todos los registros corresponden a taxones reales del área de estudio.
+           🌿 <strong>Modo de respaldo metropolitano activo:</strong> Se cargaron <strong>${resultado.registros.length}</strong> observaciones biológicas verificadas desde el catálogo local de la Región Metropolitana (GBIF / iNaturalist) debido a una demora temporal de conexión con el servidor central de GBIF (<em>${resultado.motivoFallback || 'latencia de red'}</em>). Todos los registros corresponden a observaciones reales georreferenciadas en la Región Metropolitana de Santiago.
          </div>`
       : (resultado.esFallbackMetropolitano
           ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(30, 58, 95, 0.25); border:1px solid rgba(59, 130, 246, 0.4); border-radius:6px; font-size:0.82rem; color:var(--azul-profundo); line-height:1.45;">
-               📍 <strong>Ámbito ampliado a Gran Santiago:</strong> En el cuadrante local acotado (1 km² Barrio Brasil) no se registran aún observaciones directas de esta especie protegida/singular, por lo que se muestran los registros verificados más cercanos en la Región Metropolitana.
+               📍 <strong>Ámbito ampliado a Gran Santiago / RM:</strong> En el cuadrante local acotado (1 km² Barrio Brasil) no se registran aún observaciones directas de esta especie protegida/singular, por lo que se muestran los registros verificados más cercanos en la Región Metropolitana.
              </div>`
           : '');
 
@@ -2637,7 +2637,7 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       ${avisoFallback}
       <div class="indicador">
         <span class="valor">${resultado.total}</span>
-        <span class="etiqueta">registros biológicos ${resultado.esFallback ? '(catálogo local verificado)' : 'verificados en GBIF'}${taxBadge}</span>
+        <span class="etiqueta">registros biológicos ${resultado.esFallback ? '(catálogo verificado Región Metropolitana)' : 'verificados en GBIF'}${taxBadge}</span>
       </div>
       <table class="tabla-datos">
         <thead>

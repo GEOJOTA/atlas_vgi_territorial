@@ -70,6 +70,10 @@ const ModuloGBIF = (() => {
     if (cacheDatasetFallback) return cacheDatasetFallback;
 
     const rutasTentativas = [
+      'data/gbif_rm_fallback.geojson',
+      'src/data/gbif_rm_fallback.geojson',
+      './data/gbif_rm_fallback.geojson',
+      './src/data/gbif_rm_fallback.geojson',
       'data/gbif_barrio_brasil_fallback.geojson',
       'src/data/gbif_barrio_brasil_fallback.geojson',
       './data/gbif_barrio_brasil_fallback.geojson',
@@ -84,7 +88,7 @@ const ModuloGBIF = (() => {
         if (res.ok) {
           const geojson = await res.json();
           if (geojson && Array.isArray(geojson.features) && geojson.features.length > 0) {
-            console.log(`[GBIF] Catálogo local verificado cargado desde ${ruta} (${geojson.features.length} entidades)`);
+            console.log(`[GBIF] Catálogo local metropolitano verificado cargado desde ${ruta} (${geojson.features.length} entidades)`);
             cacheDatasetFallback = geojson;
             return geojson;
           }
@@ -94,7 +98,7 @@ const ModuloGBIF = (() => {
       }
     }
 
-    console.warn('[GBIF] No se pudo cargar el archivo GeoJSON de respaldo desde las rutas relativas habituales.');
+    console.warn('[GBIF] No se pudo cargar el archivo GeoJSON de respaldo metropolitano desde las rutas relativas habituales.');
     return null;
   }
 
@@ -185,7 +189,7 @@ const ModuloGBIF = (() => {
       totalGbif: registros.length,
       taxonResuelto: null,
       esFallback: true,
-      esFallbackMetropolitano: false,
+      esFallbackMetropolitano: true,
       motivoFallback: motivo,
       registros: registros,
       geojson: ocurrenciasAGeoJSON(registros)
