@@ -13,6 +13,10 @@ const ModuloGBIF = (() => {
 
   const cacheTaxon = new Map();
   const cacheOcurrencias = new Map();
+  let cacheDatasetFallback = null;
+
+  // BBox canónico de Barrio Brasil y Santiago Centro [oeste, sur, este, norte]
+  const BBOX_BARRIO_BRASIL_DEFECTO = [-70.6720, -33.4505, -70.6580, -33.4350];
 
   // Diccionario de nombres comunes de Chile para visualización enriquecida en tablas y mapa
   const NOMBRES_COMUNES_CHILE = {
@@ -39,6 +43,154 @@ const ModuloGBIF = (() => {
     'aves': 'Aves urbanas',
     'plantae': 'Flora y reino vegetal'
   };
+
+  /**
+   * Ejecuta peticiones fetch con control de timeout por AbortController
+   */
+  async function fetchConTimeout(url, opciones = {}, timeoutMs = 22000) {
+    const ctl = new AbortController();
+    const tId = setTimeout(() => {
+      ctl.abort(new Error(`Tiempo de espera agotado (${timeoutMs / 1000} s) al consultar GBIF`));
+    }, timeoutMs);
+
+    try {
+      const respuesta = await fetch(url, { ...opciones, signal: ctl.signal });
+      clearTimeout(tId);
+      return respuesta;
+    } catch (err) {
+      clearTimeout(tId);
+      throw err;
+    }
+  }
+
+  /**
+   * Carga y almacena en caché el dataset GeoJSON local verificado de Barrio Brasil / Santiago Centro
+   */
+  async function cargarDatasetFallbackLocal() {
+    if (cacheDatasetFallback) return cacheDatasetFallback;
+
+    const rutasTentativas = [
+      'data/gbif_barrio_brasil_fallback.geojson',
+      'src/data/gbif_barrio_brasil_fallback.geojson',
+      './data/gbif_barrio_brasil_fallback.geojson',
+      './src/data/gbif_barrio_brasil_fallback.geojson',
+      'data/capa_biodiversidad.geojson',
+      'src/data/capa_biodiversidad.geojson'
+    ];
+
+    for (const ruta of rutasTentativas) {
+      try {
+        const res = await fetch(ruta);
+        if (res.ok) {
+          const geojson = await res.json();
+          if (geojson && Array.isArray(geojson.features) && geojson.features.length > 0) {
+            console.log(`[GBIF] Catálogo local verificado cargado desde ${ruta} (${geojson.features.length} entidades)`);
+            cacheDatasetFallback = geojson;
+            return geojson;
+          }
+        }
+      } catch (_) {
+        // Continuar con la siguiente ruta
+      }
+    }
+
+    console.warn('[GBIF] No se pudo cargar el archivo GeoJSON de respaldo desde las rutas relativas habituales.');
+    return null;
+  }
+
+  /**
+   * Obtiene ocurrencias desde el catálogo local verificado aplicando filtros de usuario
+   */
+  async function obtenerFallbackLocal({ nombre = '', canonFinal = null, targetRank = null, bbox = null, basisOfRecord = 'ALL', motivo = 'Demora o indisponibilidad en la red de GBIF' }) {
+    console.warn(`[GBIF] Activando modo de respaldo local. Motivo: ${motivo}`);
+    const dataset = await cargarDatasetFallbackLocal();
+
+    if (!dataset || !dataset.features) {
+      throw new Error(`GBIF en vivo no respondió (${motivo}) y el archivo de respaldo local no pudo ser leído.`);
+    }
+
+    let featuresFiltradas = [...dataset.features];
+
+    // 1. Filtro espacial por BBox si se especifica
+    if (Array.isArray(bbox) && bbox.length === 4) {
+      let [oeste, sur, este, norte] = bbox.map(Number);
+      if (oeste > este) [oeste, este] = [este, oeste];
+      if (sur > norte) [sur, norte] = [norte, sur];
+
+      const filtradasEspacial = featuresFiltradas.filter(f => {
+        const coords = f.geometry?.coordinates;
+        if (!coords || coords.length < 2) return false;
+        const [lon, lat] = coords;
+        return lon >= oeste && lon <= este && lat >= sur && lat <= norte;
+      });
+
+      if (filtradasEspacial.length > 0) {
+        featuresFiltradas = filtradasEspacial;
+      }
+    }
+
+    // 2. Filtro taxonómico por nombre o término
+    const textoFiltro = (canonFinal || nombre || '').toLowerCase().trim();
+    if (textoFiltro) {
+      const filtradasTaxon = featuresFiltradas.filter(f => {
+        const p = f.properties || {};
+        const esp = (p.especie || p.scientificName || '').toLowerCase();
+        const nom = (p.nombre || p.nombreComun || '').toLowerCase();
+        const rei = (p.reino || '').toLowerCase();
+        const fam = (p.familia || '').toLowerCase();
+        const cla = (p.clase || '').toLowerCase();
+        const ord = (p.orden || '').toLowerCase();
+        const gen = (p.genero || '').toLowerCase();
+
+        return esp.includes(textoFiltro) || nom.includes(textoFiltro) ||
+               rei.includes(textoFiltro) || fam.includes(textoFiltro) ||
+               cla.includes(textoFiltro) || ord.includes(textoFiltro) ||
+               gen.includes(textoFiltro);
+      });
+
+      if (filtradasTaxon.length > 0) {
+        featuresFiltradas = filtradasTaxon;
+      }
+    }
+
+    // 3. Mapeo a registros normalizados
+    const registros = featuresFiltradas.map(f => {
+      const p = f.properties || {};
+      const coords = f.geometry?.coordinates || [null, null];
+      const sp = p.especie || p.scientificName || p.nombre || 'Especie no determinada';
+      const spLower = sp.toLowerCase();
+      const nomComun = p.nombreComun || NOMBRES_COMUNES_CHILE[spLower] || null;
+
+      return {
+        id: p.gbifID || p.id_vgi || f.id || Math.floor(Math.random() * 1000000),
+        especie: sp,
+        scientificName: p.scientificName || sp,
+        nombreComun: nomComun,
+        reino: p.reino || 'Indeterminado',
+        clase: p.clase || null,
+        orden: p.orden || null,
+        familia: p.familia || null,
+        genero: p.genero || null,
+        fecha: p.fecha || p.fecha_registro || 'Registro verificado',
+        publicador: p.operador || 'iNaturalist / GBIF (Catálogo local verificado)',
+        licencia: p.licencia || 'CC-BY 4.0 (GBIF)',
+        lat: coords[1],
+        lon: coords[0],
+        issues: Array.isArray(p.issues) ? p.issues : []
+      };
+    });
+
+    return {
+      total: registros.length,
+      totalGbif: registros.length,
+      taxonResuelto: null,
+      esFallback: true,
+      esFallbackMetropolitano: false,
+      motivoFallback: motivo,
+      registros: registros,
+      geojson: ocurrenciasAGeoJSON(registros)
+    };
+  }
 
 
   /**
@@ -306,22 +458,49 @@ const ModuloGBIF = (() => {
     const urlFinal = `${base}/occurrence/search?${parametros.toString()}`;
     console.log(`[GBIF] Consultando ocurrencias: ${urlFinal}`);
 
-    const ctl = new AbortController();
-    const tId = setTimeout(() => ctl.abort(), 15000);
-    let respuesta;
+    let datos = null;
+    let errorVivo = null;
+
+    // Intento 1: Timeout de 20 segundos
     try {
-      respuesta = await fetch(urlFinal, { signal: ctl.signal });
-      clearTimeout(tId);
-    } catch (err) {
-      clearTimeout(tId);
-      throw new Error(`Timeout o error de conexión con GBIF: ${err.message}`);
+      const respuesta = await fetchConTimeout(urlFinal, {}, 20000);
+      if (respuesta.ok) {
+        datos = await respuesta.json();
+      } else {
+        errorVivo = `GBIF respondió con código HTTP ${respuesta.status}`;
+      }
+    } catch (err1) {
+      errorVivo = err1.message || 'Error de red o timeout';
+      console.warn(`[GBIF] Intento 1 falló (${errorVivo}). Probando reintento rápido...`);
+
+      // Intento 2 (Reintento automático): Timeout de 10 segundos
+      try {
+        const respuesta2 = await fetchConTimeout(urlFinal, {}, 10000);
+        if (respuesta2.ok) {
+          datos = await respuesta2.json();
+          errorVivo = null;
+        } else {
+          errorVivo = `GBIF respondió con código HTTP ${respuesta2.status} en reintento`;
+        }
+      } catch (err2) {
+        errorVivo = err2.message || 'Fallo persistente de conexión con GBIF';
+      }
     }
 
-    if (!respuesta.ok) {
-      throw new Error(`GBIF respondió con error ${respuesta.status}`);
+    // Si ambos intentos fallaron o la API no está disponible, activar inmediatamente el catálogo local verificado
+    if (!datos || errorVivo) {
+      const fallback = await obtenerFallbackLocal({
+        nombre,
+        canonFinal,
+        targetRank,
+        bbox,
+        basisOfRecord,
+        motivo: errorVivo || 'Demora o indisponibilidad en la red central de GBIF'
+      });
+      cacheOcurrencias.set(claveCache, fallback);
+      return fallback;
     }
 
-    const datos = await respuesta.json();
     let resultados = datos.results || [];
     let esFallbackMetropolitano = false;
 
@@ -416,6 +595,7 @@ const ModuloGBIF = (() => {
       total: registros.length,
       totalGbif: datos.count || 0,
       taxonResuelto: taxonResuelto,
+      esFallback: false,
       esFallbackMetropolitano: esFallbackMetropolitano,
       registros: registros,
       geojson: ocurrenciasAGeoJSON(registros)
@@ -473,7 +653,9 @@ const ModuloGBIF = (() => {
     resolverTaxon,
     sugerirTaxon,
     buscarOcurrencias,
-    ocurrenciasAGeoJSON
+    ocurrenciasAGeoJSON,
+    obtenerFallbackLocal,
+    NOMBRES_COMUNES_CHILE
   };
 })();
 

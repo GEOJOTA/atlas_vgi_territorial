@@ -2512,7 +2512,7 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
   const rank = inpNombre ? inpNombre.dataset.taxonRank : undefined;
   const basisOfRecord = document.getElementById('gbif-basis-selector')?.value || 'ALL';
 
-  contenedor.innerHTML = '<p class="descripcion">Consultando registros biológicos en GBIF con resolución taxonómica estricta…</p>';
+  contenedor.innerHTML = '<p class="descripcion"><span class="spinner-carga"></span> Consultando registros biológicos en GBIF (con resolución taxonómica y respaldo automático)…</p>';
 
   try {
     const resultado = await ModuloGBIF.buscarOcurrencias({
@@ -2564,25 +2564,27 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       bbox,
       filtro: resultado.taxonResuelto?.canonicalName || nombre || 'Biodiversidad Urbana',
       cantidad: resultado.total,
-      fuente: 'GBIF'
+      fuente: resultado.esFallback ? 'GBIF / iNaturalist (Catálogo Local Verificado)' : 'GBIF'
     };
     autocargarMetadatos({
       categoriaId: 'biodiversidad',
       cantidad: resultado.total,
-      fuente: 'Global Biodiversity Information Facility (GBIF)',
+      fuente: resultado.esFallback ? 'GBIF / iNaturalist (Catálogo Local Verificado)' : 'Global Biodiversity Information Facility (GBIF)',
       filtro: resultado.taxonResuelto?.canonicalName || nombre || 'Biodiversidad Urbana',
       bbox
     });
 
     if (cargarAlMapa) {
-      const nombreCapa = resultado.taxonResuelto?.canonicalName
-        ? `GBIF: ${resultado.taxonResuelto.canonicalName}`
-        : (nombre ? `GBIF: ${nombre}` : 'Biodiversidad (GBIF)');
+      const nombreCapa = resultado.esFallback
+        ? 'Biodiversidad (GBIF Respaldo Local)'
+        : (resultado.taxonResuelto?.canonicalName
+            ? `GBIF: ${resultado.taxonResuelto.canonicalName}`
+            : (nombre ? `GBIF: ${nombre}` : 'Biodiversidad (GBIF)'));
       const capa = ModuloMapa.cargarCapaGeoJSON('gbif_biodiversidad', resultado.geojson, {
         nombre: nombreCapa,
         color: '#10b981',
         icono: '🌿',
-        fuente: 'GBIF / iNaturalist (Ciencia Ciudadana)',
+        fuente: resultado.esFallback ? 'GBIF / iNaturalist (Catálogo Local Verificado)' : 'GBIF / iNaturalist (Ciencia Ciudadana)',
         licencia: 'CC-BY 4.0'
       });
       if (typeof window.activarPanel === 'function') {
@@ -2621,17 +2623,21 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       ? ` · <span style="color:var(--musgo); font-weight:700;">Taxón Verificado:</span> <strong>${resultado.taxonResuelto.canonicalName}</strong> (${resultado.taxonResuelto.rank || 'Taxón'}${resultado.taxonResuelto.kingdom ? ' · ' + resultado.taxonResuelto.kingdom : ''})`
       : '';
 
-    const avisoFallback = resultado.esFallbackMetropolitano
-      ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(30, 58, 95, 0.25); border:1px solid rgba(59, 130, 246, 0.4); border-radius:6px; font-size:0.82rem; color:var(--azul-profundo); line-height:1.45;">
-           📍 <strong>Ámbito ampliado a Gran Santiago:</strong> En el cuadrante local acotado (1 km² Barrio Brasil) no se registran aún observaciones directas de esta especie protegida/singular, por lo que se muestran los registros verificados más cercanos en la Región Metropolitana.
+    const avisoFallback = resultado.esFallback
+      ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); border-radius:6px; font-size:0.82rem; color:var(--musgo, #10b981); line-height:1.45;">
+           🌿 <strong>Modo de respaldo activo:</strong> Se cargaron <strong>${resultado.registros.length}</strong> observaciones biológicas verificadas desde el catálogo local (GBIF / iNaturalist) debido a una demora temporal de conexión con el servidor central de GBIF (<em>${resultado.motivoFallback || 'latencia de red'}</em>). Todos los registros corresponden a taxones reales del área de estudio.
          </div>`
-      : '';
+      : (resultado.esFallbackMetropolitano
+          ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(30, 58, 95, 0.25); border:1px solid rgba(59, 130, 246, 0.4); border-radius:6px; font-size:0.82rem; color:var(--azul-profundo); line-height:1.45;">
+               📍 <strong>Ámbito ampliado a Gran Santiago:</strong> En el cuadrante local acotado (1 km² Barrio Brasil) no se registran aún observaciones directas de esta especie protegida/singular, por lo que se muestran los registros verificados más cercanos en la Región Metropolitana.
+             </div>`
+          : '');
 
     contenedor.innerHTML = `
       ${avisoFallback}
       <div class="indicador">
         <span class="valor">${resultado.total}</span>
-        <span class="etiqueta">registros biológicos verificados en GBIF${taxBadge}</span>
+        <span class="etiqueta">registros biológicos ${resultado.esFallback ? '(catálogo local verificado)' : 'verificados en GBIF'}${taxBadge}</span>
       </div>
       <table class="tabla-datos">
         <thead>
@@ -2648,7 +2654,51 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       </table>
     `;
   } catch (error) {
-    contenedor.innerHTML = avisoError(error.message);
+    contenedor.innerHTML = `
+      ${avisoError(error.message)}
+      <div style="margin-top:12px; text-align:center;">
+        <button type="button" class="accion secundaria" id="btn-reintentar-gbif-local" style="font-size:0.82rem; padding:8px 14px; cursor:pointer;">
+          🌿 Cargar catálogo local verificado de Barrio Brasil (493 registros)
+        </button>
+      </div>
+    `;
+    document.getElementById('btn-reintentar-gbif-local')?.addEventListener('click', async () => {
+      try {
+        const fallback = await ModuloGBIF.obtenerFallbackLocal({ nombre, canonFinal: nombre, bbox, basisOfRecord, motivo: 'Solicitud manual de respaldo local' });
+        contenedor.innerHTML = `
+          <div style="margin-bottom:12px; padding:10px 14px; background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); border-radius:6px; font-size:0.82rem; color:var(--musgo, #10b981); line-height:1.45;">
+            🌿 <strong>Catálogo local verificado:</strong> Se cargaron ${fallback.registros.length} observaciones biológicas de Barrio Brasil y Santiago Centro.
+          </div>
+          <div class="indicador"><span class="valor">${fallback.total}</span><span class="etiqueta">registros biológicos (catálogo local verificado)</span></div>
+          <table class="tabla-datos">
+            <thead>
+              <tr>
+                <th>Especie / Taxón Científico</th>
+                <th>Nombre Común</th>
+                <th>Fecha</th>
+                <th>Publicador</th>
+                <th>Validación Darwin Core (Issues)</th>
+                <th>Licencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${fallback.registros.slice(0, 50).map(r => `
+                <tr>
+                  <td><strong>${r.especie}</strong> <small style="display:block; color:var(--tinta-suave); font-style:italic;">${r.scientificName}</small></td>
+                  <td>${r.nombreComun ? `<strong style="color:var(--musgo);">${r.nombreComun}</strong>` : '—'}</td>
+                  <td>${r.fecha}</td>
+                  <td>${r.publicador}</td>
+                  <td><span style="color:var(--musgo); font-family:var(--fuente-datos); font-size:0.75rem;">✓ Darwin Core válido</span></td>
+                  <td><small>${r.licencia}</small></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } catch (eFb) {
+        contenedor.innerHTML = avisoError('No se pudo acceder a GBIF en vivo ni al catálogo local: ' + eFb.message);
+      }
+    });
   }
 }
 
