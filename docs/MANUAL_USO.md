@@ -244,7 +244,7 @@ Permite estructurar, previsualizar y exportar fichas de metadatos geoespaciales 
 
 Documenta el Catálogo de Objetos Geográficos conforme a la norma ISO 19110:2016 (`src/js/modulos/diccionario.js`), abarcando las 134 capas del Atlas y 140 descriptores normativos:
 
-* Permite filtrar por grupo temático, por las 124 Capas Oficiales del Estado, por el Esquema Normalizado de 23 Atributos o aislar exclusivamente las 86 Brechas Temáticas VGI (atributos micro-urbanos de accesibilidad universal, mobiliario peatonal, ciclovías y biodiversidad barrial que no poseen homólogo en los catastros ministeriales y son suplidos por el mapeo ciudadano).
+* Permite filtrar por grupo temático, por las 124 Capas Oficiales del Estado, por el Esquema Normalizado de 17 Atributos o aislar exclusivamente las 86 Brechas Temáticas VGI (atributos micro-urbanos de accesibilidad universal, mobiliario peatonal, ciclovías y biodiversidad barrial que no poseen homólogo en los catastros ministeriales y son suplidos por el mapeo ciudadano).
 
 ---
 

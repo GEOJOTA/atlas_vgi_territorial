@@ -162,115 +162,6 @@ const ModuloDiccionario = (() => {
       ejemplo: 'EPSG:32719 (WGS 84 / UTM Huso 19 Sur)',
       equivalenciaIDE: 'Sistema de Coordenadas de Referencia (gmd:MD_ReferenceSystem / EPSG:5361)',
       importancia: 'Garantiza la trazabilidad geodésica requerida por los estándares del SNIT e IDE Chile.'
-    },
-// --- Variables de Residuos Sólidos Domiciliarios (SUBDERE RSD 2024) ---
-    {
-      campo: 'rsdya_ton',
-      nombre: 'Generación Anual de Residuos Sólidos Domiciliarios y Asimilables (Ton/año)',
-      tipo: 'Numérico (Toneladas métricas anuales)',
-      definicion: 'Masa anual de residuos sólidos domiciliarios y asimilables recolectada y transportada para su disposición final autorizada.',
-      ejemplo: '45,210.5 Ton/año',
-      equivalenciaIDE: 'Generación Comunal de Residuos (SUBDERE RSD / SINIM)',
-      importancia: 'Permite dimensionar la huella metabólica de residuos del territorio barrial y comunal.'
-    },
-    {
-      campo: 'ppc_kg_hab_dia',
-      nombre: 'Producción Per Cápita de Residuos (kg/hab·día)',
-      tipo: 'Numérico (Decimal en kilogramos)',
-      definicion: 'Tasa promedio de generación diaria de residuos por habitante, calculada tanto sobre población residente (PCA) como corregida por población flotante (PTA).',
-      ejemplo: '1.14 kg/hab·día',
-      equivalenciaIDE: 'Índice de Generación Per Cápita (SUBDERE)',
-      importancia: 'Indicador fundamental para evaluar la sustentabilidad del consumo y eficiencia del reciclaje barrial.'
-    },
-    {
-      campo: 'pta_poblacion_atendida',
-      nombre: 'Población Total Atendida (PTA = PCA + PFP)',
-      tipo: 'Numérico (Personas)',
-      definicion: 'Población total cubierta por el servicio de aseo, sumando la población residente censalmente atendida (PCA) y la población flotante turística (PFP).',
-      ejemplo: '532,400 hab.',
-      equivalenciaIDE: 'Cobertura Demográfica del Servicio Sanitario (SUBDERE)',
-      importancia: 'Esencial en Santiago Centro y Barrio Brasil debido al alto volumen de estudiantes y trabajadores flotantes.'
-    },
-    {
-      campo: 'costo_aseo_anual',
-      nombre: 'Costo Total Anual del Servicio de Aseo Municipal ($/año)',
-      tipo: 'Moneda ($ CLP devengado)',
-      definicion: 'Presupuesto total devengado anualmente por el municipio para los contratos de recolección, transporte y disposición final en rellenos sanitarios.',
-      ejemplo: '$14,250,800,000',
-      equivalenciaIDE: 'Presupuesto de Aseo y Ornato (SINIM / SUBDERE)',
-      importancia: 'Permite comparar el costo fiscal de la gestión de residuos y la recaudación por derechos de aseo.'
-    },
-    {
-      campo: 'criticidad_sdf',
-      nombre: 'Índice de Criticidad del Sitio de Disposición Final (Relleno Sanitario)',
-      tipo: 'Texto (Nivel de Criticidad)',
-      definicion: 'Evaluación técnica de riesgo sanitario y capacidad operativa considerando los años de vida útil remanente y la presión poblacional atendida.',
-      ejemplo: 'Media / Alta',
-      equivalenciaIDE: 'Estado Sanitario y Vulnerabilidad de Infraestructura (SUBDERE)',
-      importancia: 'Alerta sobre la inminente saturación de rellenos metropolitanos (Santa Marta, Loma Los Colorados, Santiago Poniente).'
-    },
-    {
-      campo: 'distancia_transporte_sdf',
-      nombre: 'Distancia de Transporte a Relleno Sanitario (km)',
-      tipo: 'Numérico (Kilómetros de ruta)',
-      definicion: 'Distancia kilométrica efectiva de viaje desde el centro comunal hasta el sitio de disposición final autorizado.',
-      ejemplo: '64.8 km',
-      equivalenciaIDE: 'Logística de Residuos Urbanos (SUBDERE)',
-      importancia: 'Determina las emisiones de gases de efecto invernadero y el gasto en combustible de la flota de camiones recolectores.'
-    },
-    {
-      campo: 'zona_aseo',
-      nombre: 'Macro-Zona Operativa de Aseo y Residuos',
-      tipo: 'Texto (Categoría Territorial)',
-      definicion: 'Zonificación operativa municipal de aseo (Oriente, Centro Oriente, Centro Poniente, Centro Plaza, Poniente) adaptada para la gestión, fiscalización y mantenimiento de contenedores y papeleros.',
-      ejemplo: 'Centro Poniente',
-      equivalenciaIDE: 'Zona Operacional de Aseo / Sectorización Municipal',
-      importancia: 'Permite desagregar las políticas de acopio y recolección de residuos en unidades territoriales homogéneas.'
-    },
-    {
-      campo: 'contenedores_tot',
-      nombre: 'Total de Contenedores de Acopio Volumétrico',
-      tipo: 'Numérico Entero (Unidades)',
-      definicion: 'Número total de contenedores de carga domiciliaria y comercial instalados en la calzada o acera dentro de la macro-zona.',
-      ejemplo: '261 unidades',
-      equivalenciaIDE: 'Infraestructura de Acopio de Residuos Sólidos (MuniSTGO)',
-      importancia: 'Cuantifica el volumen de equipamiento primario disponible para la disposición de residuos de vecinos y locatarios.'
-    },
-    {
-      campo: 'papeleros_tot',
-      nombre: 'Total de Papeleros Peatonales',
-      tipo: 'Numérico Entero (Unidades)',
-      definicion: 'Número de papeleros o basureros peatonales destinados al descarte rápido de residuos menores por transeúntes.',
-      ejemplo: '24 unidades',
-      equivalenciaIDE: 'Mobiliario Urbano de Paseo y Vía Pública',
-      importancia: 'Esencial para evaluar la limpieza de paseos peatonales, paraderos y áreas de alta circulación.'
-    },
-    {
-      campo: 'capacidad_total_litros',
-      nombre: 'Capacidad Total de Acopio Simultáneo (Litros)',
-      tipo: 'Numérico Entero (Litros)',
-      definicion: 'Volumen total de almacenamiento simultáneo en litros resultante de la ponderación por tipología de contenedor (240L, 360L y 770L).',
-      ejemplo: '109,660 L',
-      equivalenciaIDE: 'Capacidad de Acopio Comunal de Residuos',
-      importancia: 'Permite estimar la suficiencia volumétrica frente a la generación diaria de residuos de la población atendida.'
-    },
-    {
-      campo: 'ratio_contenedores_papeleros',
-      nombre: 'Ratio Contenedores / Papeleros',
-      tipo: 'Numérico Flotante (Razón C/P)',
-      definicion: 'Relación cuantitativa entre contenedores de acopio volumétrico y papeleros peatonales instalados.',
-      ejemplo: '10.88',
-      equivalenciaIDE: 'Índice de Balance de Equipamiento de Aseo',
-      importancia: 'Identifica desequilibrios espaciales entre acopio domiciliario/comercial y mobiliario para peatones en el espacio público.'
-    },
-    {
-      campo: 'tasa_deterioro_pct',
-      nombre: 'Tasa de Deterioro Físico de Contenedores (%)',
-      tipo: 'Porcentaje (%)',
-      definicion: 'Porcentaje de contenedores catastrados en terreno cuyo estado de conservación fue clasificado como Regular o Malo.',
-      ejemplo: '91.19%',
-      equivalenciaIDE: 'Estado de Conservación de Mobiliario Urbano',
-      importancia: 'Prioriza zonas de intervención urgente para el recambio o reparación de infraestructura deteriorada.'
     }
   ];
 
@@ -1905,7 +1796,7 @@ const ModuloDiccionario = (() => {
     const bloqueAtributosHTML = `
       <div class="bloque" id="dicc-sec-esquema">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
-          <h3 style="margin:0;">Esquema normalizado de atributos (23 campos · ISO 19110 / IDE Chile)</h3>
+          <h3 style="margin:0;">Esquema normalizado de atributos (17 campos · ISO 19110 / IDE Chile)</h3>
         </div>
         <p class="descripcion">Cada capa descargada o consultada en el Atlas incluye esta estructura estandarizada de atributos compatible con IDE Chile y software SIG (QGIS / PostGIS):</p>
         <div style="overflow-x:auto;">

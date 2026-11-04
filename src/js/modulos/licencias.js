@@ -97,7 +97,7 @@ const ModuloLicencias = (() => {
             <tbody>
               <tr>
                 <td><strong>Taxonomía y diccionario OSM Chile</strong><br><code>docs/categorias_tematicas_osm.xlsx</code></td>
-                <td>4 hojas: 10 categorías maestras (CAT-01 a CAT-10), 140 descriptores, esquema de 23 atributos y 125 referencias APA 7ª ed.</td>
+                <td>4 hojas: 10 categorías maestras (CAT-01 a CAT-10), 140 descriptores, esquema de 17 atributos y 125 referencias APA 7ª ed.</td>
                 <td>Excel (<code>.xlsx</code>) · ~85 KB</td>
                 <td><a href="docs/categorias_tematicas_osm.xlsx" download="categorias_tematicas_osm.xlsx" class="accion secundaria" style="font-size:0.8rem; padding:5px 10px;">Descargar Excel</a></td>
               </tr>
