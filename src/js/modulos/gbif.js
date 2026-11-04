@@ -440,6 +440,10 @@ const ModuloGBIF = (() => {
       }
     }
 
+    // Declarar targetRank y canonObjetivo previo a llamadas de red y fallbacks
+    const targetRank = (rankFinal || taxonResuelto?.rank || '').toUpperCase();
+    const canonObjetivo = (canonFinal || taxonResuelto?.canonicalName || nombre || '').toLowerCase().trim();
+
     if (keyTaxonFinal) {
       // Búsqueda taxonómica precisa: el taxonKey filtra el árbol taxonómico completo sin mezclar especies homónimas
       parametros.set('taxonKey', String(keyTaxonFinal));
@@ -560,9 +564,6 @@ const ModuloGBIF = (() => {
 
     // Filtro de verificación taxonómica estricto por rango biológico:
     // Garantiza pureza absoluta (0% mezcla con otras especies)
-    const targetRank = (rankFinal || taxonResuelto?.rank || '').toUpperCase();
-    const canonObjetivo = (canonFinal || taxonResuelto?.canonicalName || nombre || '').toLowerCase().trim();
-
     if (canonObjetivo && targetRank) {
       if (['SPECIES', 'SUBSPECIES', 'VARIETY'].includes(targetRank)) {
         registros = registros.filter(r => {
