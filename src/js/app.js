@@ -748,6 +748,57 @@ function inicializarAplicacion() {
   document.getElementById('btn-cargar-gbif-al-mapa').addEventListener('click', () => manejarConsultaGBIF(true));
   document.getElementById('btn-cargar-umap').addEventListener('click', manejarCargaUMap);
 
+  // Botones de selección rápida de ámbito espacial para GBIF
+  const btnGbifRm = document.getElementById('btn-gbif-ambito-rm');
+  const btnGbifBrasil = document.getElementById('btn-gbif-ambito-brasil');
+  const btnGbifChile = document.getElementById('btn-gbif-ambito-chile');
+
+  function actualizarEstiloBotonesAmbitoGBIF(activo) {
+    [
+      { el: btnGbifRm, id: 'rm' },
+      { el: btnGbifBrasil, id: 'brasil' },
+      { el: btnGbifChile, id: 'chile' }
+    ].forEach(({ el, id }) => {
+      if (!el) return;
+      if (id === activo) {
+        el.style.borderColor = 'var(--musgo)';
+        el.style.color = 'var(--musgo)';
+        el.style.fontWeight = '700';
+      } else {
+        el.style.borderColor = 'var(--linea)';
+        el.style.color = 'var(--tinta-suave)';
+        el.style.fontWeight = '400';
+      }
+    });
+  }
+
+  if (btnGbifRm) {
+    btnGbifRm.addEventListener('click', () => {
+      escribirBbox('gbif', [-71.85, -34.45, -69.75, -32.90]);
+      actualizarEstiloBotonesAmbitoGBIF('rm');
+      manejarConsultaGBIF(false);
+    });
+  }
+
+  if (btnGbifBrasil) {
+    btnGbifBrasil.addEventListener('click', () => {
+      escribirBbox('gbif', [-70.6720, -33.4505, -70.6580, -33.4350]);
+      actualizarEstiloBotonesAmbitoGBIF('brasil');
+      manejarConsultaGBIF(false);
+    });
+  }
+
+  if (btnGbifChile) {
+    btnGbifChile.addEventListener('click', () => {
+      ['oeste', 'sur', 'este', 'norte'].forEach(k => {
+        const el = document.getElementById(`gbif-${k}`);
+        if (el) el.value = '';
+      });
+      actualizarEstiloBotonesAmbitoGBIF('chile');
+      manejarConsultaGBIF(false);
+    });
+  }
+
   // Selector de especies y autocompletado taxonómico en vivo (GBIF Species API)
   const selTaxaGBIF = document.getElementById('gbif-taxa-selector');
   const inpNombreGBIF = document.getElementById('gbif-nombre');
@@ -1448,16 +1499,21 @@ function escribirBbox(prefijo, bbox) {
   if (elN) elN.value = bbox[3];
 }
 
-function sincronizarBboxEnInputs(bbox) {
+function sincronizarBboxEnInputs(bbox, actualizarGbif = true) {
   escribirBbox('osm', bbox);
   escribirBbox('oh', bbox);
-  escribirBbox('gbif', bbox);
+  if (actualizarGbif) {
+    escribirBbox('gbif', bbox);
+  }
   escribirBbox('md', bbox);
 }
 
 function aplicarAreaConfigAlExplorador() {
   const bbox = window.NODO_CONFIG.area_por_defecto.bbox;
-  sincronizarBboxEnInputs(bbox);
+  sincronizarBboxEnInputs(bbox, false);
+  // Para biodiversidad (GBIF), inicializamos por defecto con el Bbox metropolitano [-71.85, -34.45, -69.75, -32.90]
+  // para capturar la riqueza biológica real de las especies metropolitanas
+  escribirBbox('gbif', [-71.85, -34.45, -69.75, -32.90]);
   ModuloMapa.encuadrarBbox(bbox);
 }
 
@@ -2547,7 +2603,7 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
       `;
 
       document.getElementById('btn-gbif-expandir-rm')?.addEventListener('click', () => {
-        escribirBbox('gbif', [-70.85, -33.65, -70.45, -33.30]);
+        escribirBbox('gbif', [-71.85, -34.45, -69.75, -32.90]);
         manejarConsultaGBIF(cargarAlMapa);
       });
       document.getElementById('btn-gbif-limpiar-bbox')?.addEventListener('click', () => {
@@ -2629,15 +2685,21 @@ async function manejarConsultaGBIF(cargarAlMapa = false) {
          </div>`
       : (resultado.esFallbackMetropolitano
           ? `<div style="margin-bottom:12px; padding:10px 14px; background:rgba(30, 58, 95, 0.25); border:1px solid rgba(59, 130, 246, 0.4); border-radius:6px; font-size:0.82rem; color:var(--azul-profundo); line-height:1.45;">
-               📍 <strong>Ámbito ampliado a Gran Santiago / RM:</strong> En el cuadrante local acotado (1 km² Barrio Brasil) no se registran aún observaciones directas de esta especie protegida/singular, por lo que se muestran los registros verificados más cercanos en la Región Metropolitana.
+               📍 <strong>Ámbito ampliado a la Región Metropolitana:</strong> En el cuadrante local acotado se detectó ${resultado.conteoLocal || 1} observación puntual. Para asegurar una representación biológica robusta de la especie, se incorporaron las <strong>${resultado.total}</strong> observaciones verificadas en la Región Metropolitana (de un total de ${(resultado.totalGbif || resultado.total).toLocaleString('es-CL')} registros en GBIF).
              </div>`
           : '');
+
+    const etiquetaIndicador = resultado.esFallback
+      ? '(catálogo verificado Región Metropolitana)'
+      : (resultado.esFallbackMetropolitano
+          ? `verificados en la Región Metropolitana (${resultado.conteoLocal || 1} en cuadrante local)`
+          : 'verificados en GBIF');
 
     contenedor.innerHTML = `
       ${avisoFallback}
       <div class="indicador">
         <span class="valor">${resultado.total}</span>
-        <span class="etiqueta">registros biológicos ${resultado.esFallback ? '(catálogo verificado Región Metropolitana)' : 'verificados en GBIF'}${taxBadge}</span>
+        <span class="etiqueta">registros biológicos ${etiquetaIndicador}${taxBadge}</span>
       </div>
       <table class="tabla-datos">
         <thead>

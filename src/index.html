@@ -764,24 +764,33 @@
             <label for="gbif-taxa-selector">Especie o Grupo Biológico Urbano (Seleccionable)</label>
             <select id="gbif-taxa-selector">
               <option value="" data-rank="ALL" selected>🌿 Cualquier especie (Todas las observaciones en el área)</option>
-              <optgroup label="🕊️ Aves Urbanas de Santiago Centro y Barrio Brasil">
+              <optgroup label="🕊️ Aves Urbanas de Santiago y Valle Central">
                 <option value="Aves" data-taxon-key="212" data-rank="CLASS" data-common="Aves">Todas las Aves Urbanas (Clase Aves)</option>
                 <option value="Zonotrichia capensis" data-taxon-key="5231103" data-rank="SPECIES" data-common="Chincol / Gorrión americano">Chincol / Gorrión americano (Zonotrichia capensis) — Ave nativa</option>
                 <option value="Turdus falcklandii" data-taxon-key="2490775" data-rank="SPECIES" data-common="Zorzal patagónico">Zorzal patagónico (Turdus falcklandii) — Ave común en plazas</option>
                 <option value="Columbina picui" data-taxon-key="2495865" data-rank="SPECIES" data-common="Tortolita cuyana">Tortolita cuyana (Columbina picui) — Paloma nativa pequeña</option>
                 <option value="Vanellus chilensis" data-taxon-key="5229146" data-rank="SPECIES" data-common="Queltehue / Treile">Queltehue / Treile (Vanellus chilensis) — Espacios abiertos y campus</option>
+                <option value="Mimus thenca" data-taxon-key="5231685" data-rank="SPECIES" data-common="Tenca">Tenca (Mimus thenca) — Ave endémica de Chile central</option>
+                <option value="Zenaida auriculata" data-taxon-key="2495358" data-rank="SPECIES" data-common="Tórtola torcaza">Tórtola torcaza (Zenaida auriculata) — Muy frecuente</option>
+                <option value="Sephanoides sephaniodes" data-taxon-key="2476817" data-rank="SPECIES" data-common="Picaflor chico / Colibrí">Picaflor chico / Colibrí (Sephanoides sephaniodes)</option>
               </optgroup>
               <optgroup label="🌳 Flora, Arbolado Patrimonial y Especies Nativas">
                 <option value="Plantae" data-taxon-key="6" data-rank="KINGDOM" data-common="Plantas">Todo el Reino Vegetal (Plantae)</option>
+                <option value="Quillaja saponaria" data-taxon-key="3029379" data-rank="SPECIES" data-common="Quillay">Quillay (Quillaja saponaria) — Árbol esclerófilo nativo</option>
+                <option value="Cryptocarya alba" data-taxon-key="4178741" data-rank="SPECIES" data-common="Peumo">Peumo (Cryptocarya alba) — Especie esclerófila perennifolia</option>
+                <option value="Peumus boldus" data-taxon-key="3034108" data-rank="SPECIES" data-common="Boldo">Boldo (Peumus boldus) — Especie endémica aromática</option>
+                <option value="Lithraea caustica" data-taxon-key="3660323" data-rank="SPECIES" data-common="Litre">Litre (Lithraea caustica) — Árbol nativo del matorral</option>
                 <option value="Schinus molle" data-taxon-key="3190642" data-rank="SPECIES" data-common="Pimiento boliviano / Molle">Pimiento boliviano / Molle (Schinus molle) — Árbol patrimonial</option>
-                <option value="Cryptocarya alba" data-taxon-key="4178741" data-rank="SPECIES" data-common="Peumo">Peumo (Cryptocarya alba) — Especie esclerófila nativa</option>
-                <option value="Quillaja saponaria" data-taxon-key="3029379" data-rank="SPECIES" data-common="Quillay">Quillay (Quillaja saponaria) — Árbol nativo resistente</option>
+                <option value="Vachellia caven" data-taxon-key="3795588" data-rank="SPECIES" data-common="Espino">Espino (Vachellia caven) — Árbol espinoso dominante en la cuenca</option>
+                <option value="Maytenus boaria" data-taxon-key="3790726" data-rank="SPECIES" data-common="Maitén">Maitén (Maytenus boaria) — Árbol siempreverde nativo</option>
+                <option value="Prosopis chilensis" data-taxon-key="5358466" data-rank="SPECIES" data-common="Algarrobo chileno">Algarrobo chileno (Prosopis chilensis) — Leguminosa nativa</option>
                 <option value="Jubaea chilensis" data-taxon-key="2735138" data-rank="SPECIES" data-common="Palma chilena">Palma chilena (Jubaea chilensis) — Especie protegida vulnerable</option>
                 <option value="Jacaranda mimosifolia" data-taxon-key="3172499" data-rank="SPECIES" data-common="Jacarandá">Jacarandá (Jacaranda mimosifolia) — Árbol ornamental en plazas</option>
               </optgroup>
               <optgroup label="🐝 Insectos y Polinizadores">
                 <option value="Insecta" data-taxon-key="216" data-rank="CLASS" data-common="Insectos">Todos los insectos urbanos (Insecta)</option>
                 <option value="Bombus" data-taxon-key="1340278" data-rank="GENUS" data-common="Abejorros y polinizadores">Abejorros y polinizadores (Bombus spp.)</option>
+                <option value="Bombus dahlbomii" data-taxon-key="1340388" data-rank="SPECIES" data-common="Moscardón del bosque (Abejorro nativo)">Moscardón del bosque (Bombus dahlbomii) — Abejorro nativo chileno</option>
                 <option value="Lepidoptera" data-taxon-key="797" data-rank="ORDER" data-common="Mariposas">Mariposas urbanas (Lepidoptera)</option>
               </optgroup>
               <option value="custom">✍️ — Escribir taxón o nombre científico manual —</option>
@@ -801,6 +810,14 @@
             </select>
           </div>
         </div>
+
+        <div style="display:flex; gap:8px; margin:14px 0 6px 0; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:0.75rem; font-weight:700; color:var(--musgo); text-transform:uppercase; letter-spacing:0.04em;">Ámbito Espacial de Consulta:</span>
+          <button type="button" class="btn-micro" id="btn-gbif-ambito-rm" title="Consultar en toda la Región Metropolitana" style="background:var(--papel-alto); border:1px solid var(--musgo); color:var(--musgo); font-weight:700; padding:4px 9px; border-radius:4px; font-size:0.75rem; cursor:pointer;">🌐 Región Metropolitana (Recomendado)</button>
+          <button type="button" class="btn-micro" id="btn-gbif-ambito-brasil" title="Acotar a Barrio Brasil y Santiago Centro (1 km²)" style="background:var(--papel-alto); border:1px solid var(--linea); color:var(--tinta-suave); padding:4px 9px; border-radius:4px; font-size:0.75rem; cursor:pointer;">📍 Barrio Brasil (1 km²)</button>
+          <button type="button" class="btn-micro" id="btn-gbif-ambito-chile" title="Sin filtro espacial (Consultar en todo Chile)" style="background:var(--papel-alto); border:1px solid var(--linea); color:var(--tinta-suave); padding:4px 9px; border-radius:4px; font-size:0.75rem; cursor:pointer;">🇨🇱 Todo Chile (Sin Bbox)</button>
+        </div>
+
         <div class="fila-campos">
           <div class="campo"><label for="gbif-oeste">Oeste</label><input type="number" step="any" id="gbif-oeste"></div>
           <div class="campo"><label for="gbif-sur">Sur</label><input type="number" step="any" id="gbif-sur"></div>
@@ -1729,7 +1746,7 @@
 <script src="js/modulos/evaluador_normativo.js?v=20261102_v16"></script>
 <script src="js/modulos/osm.js?v=20261103_v24"></script>
 <script src="js/modulos/ohsome.js?v=20261102_v16"></script>
-<script src="js/modulos/gbif.js?v=20261104_v31"></script>
+<script src="js/modulos/gbif.js?v=20261104_v33"></script>
 <script src="js/modulos/umap.js?v=20261102_v16"></script>
 <script src="js/modulos/metadatos.js?v=20261102_v16"></script>
 <script src="js/modulos/licencias.js?v=20261104_v28"></script>
@@ -1740,6 +1757,6 @@
 <script src="js/modulos/calidad_analyst.js?v=20261102_v16"></script>
 <script src="js/modulos/diccionario.js?v=20261104_v28"></script>
 <script src="js/modulos/manifold_canvas.js?v=20261102_v16"></script>
-<script src="js/app.js?v=20261104_v32"></script>
+<script src="js/app.js?v=20261104_v33"></script>
 </body>
 </html>
