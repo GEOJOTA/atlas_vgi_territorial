@@ -192,14 +192,14 @@
     },
     {
       id: 'paso-16-buscador-manuales',
-      selector: '#buscador-general-manual',
+      selector: '#contenedor-buscador-manual',
       modulo: 'manual',
       grupoNav: 'mod03',
       esPresentacionModulo: false,
       accionPrevia: 'irCapitulo01',
       insignia: 'Módulo 03 · Componente 1',
-      titulo: 'Buscador Documental en Tiempo Real y Manuales Descargables',
-      texto: 'Este buscador filtra instantáneamente todos los capítulos técnicos para resolver dudas operativas puntuales. En la franja superior contigua se encuentran además los enlaces para descargar el Manual de Uso, el Manual de Actualización Técnica y la Bibliografía APA 7ª edición.'
+      titulo: 'Buscador Documental Jerárquico (Lupa) y Manuales Descargables',
+      texto: 'Haz clic en el botón de lupa para desplegar el buscador y localizar secciones de la documentación: los resultados priorizan primero los títulos y subtítulos de cada capítulo y muestran después las menciones en el desarrollo. Debajo tienes acceso directo para descargar el Manual de Uso, el Manual de Actualización Técnica y la Bibliografía APA 7ª edición.'
     },
     {
       id: 'paso-17-indice-licencias-inventario',

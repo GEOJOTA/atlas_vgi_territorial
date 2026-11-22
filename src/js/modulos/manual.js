@@ -15,6 +15,7 @@ const ModuloManual = (() => {
   let capituloActivoId = 'cap-uso-01';
   let verTodosCapitulos = false;
   let textoBusquedaManual = '';
+  let buscadorManualAbierto = false;
 
   /**
    * Construye dinámicamente el inventario de las 294 capas
@@ -232,7 +233,7 @@ const ModuloManual = (() => {
             </div>
           </div>
 
-          <div style="background:rgba(15,23,42,0.4); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; margin-top:16px;">
+          <section data-no-indexar-busqueda="true" style="background:rgba(15,23,42,0.4); border:1px solid var(--linea-tarjeta); border-radius:10px; padding:14px; margin-top:16px;">
             <h4 style="margin:0 0 10px 0; color:#ffffff; font-size:0.95rem;">🧭 Accesos Rápidos a los Módulos y Capítulos de la Documentación</h4>
             <div style="display:flex; flex-wrap:wrap; gap:8px;">
               <button type="button" class="accion" onclick="if(window.iniciarTutorialInteractivo) window.iniciarTutorialInteractivo();" style="font-size:0.82rem; padding:7px 12px; background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff;">🎓 Iniciar Tutorial Interactivo (18 pasos)</button>
@@ -244,7 +245,7 @@ const ModuloManual = (() => {
               <button type="button" class="accion secundaria" onclick="ModuloManual.irACapitulo('cap-uso-05')" style="font-size:0.82rem; padding:7px 12px;">🗂️ DOC · 05 Inventario de 294 Capas</button>
               <button type="button" class="accion secundaria" onclick="ModuloManual.irACapitulo('cap-uso-06')" style="font-size:0.82rem; padding:7px 12px;">⚙️ DOC · 06 Arquitectura y Actualización</button>
             </div>
-          </div>
+          </section>
         `
       },
       {
@@ -663,7 +664,13 @@ const ModuloManual = (() => {
             </p>
           </div>
           <div style="margin-bottom:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            <input type="text" id="filtro-catalogo-manual-input" placeholder="🔍 Filtrar las 294 capas por código (IGV-001, BBDD-01), nombre, id_ig, id_igv, institución o tema..." oninput="ModuloManual.filtrarTablaCatalogo(this.value)" style="flex:1; min-width:260px; padding:8px 12px; border-radius:6px; border:1px solid var(--linea); background:var(--fondo-tarjeta); color:var(--tinta); font-size:0.88rem;">
+            <div class="filtro-catalogo-manual-wrap">
+              <svg class="icono-lupa-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="filtro-catalogo-manual-input" placeholder="Filtrar las 294 capas por código (IGV-001, BBDD-01), nombre, id_ig, id_igv, institución o tema..." oninput="ModuloManual.filtrarTablaCatalogo(this.value)" style="width:100%; padding:8px 12px 8px 36px; border-radius:6px; border:1px solid var(--linea); background:var(--fondo-tarjeta); color:var(--tinta); font-size:0.88rem;">
+            </div>
             <span style="font-size:0.85rem; color:var(--tinta-suave);">Total registradas: <strong>${totalCapas}</strong> (123 Oficiales <code>id_ig</code> + 171 IGV <code>id_igv</code>)</span>
           </div>
           <div style="overflow-x:auto; max-height:540px; border:1px solid var(--linea-tarjeta); border-radius:8px;">
@@ -894,107 +901,664 @@ const ModuloManual = (() => {
     ];
   }
 
-  /**
-   * Construye el HTML completo de la vista del Manual
-   */
-  function construirHTMLManual() {
-    const capitulos = obtenerCapitulosManual();
-    const q = textoBusquedaManual.trim().toLowerCase();
+  function escaparHTML(txt) {
+    return String(txt || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
-    const capsFiltrados = capitulos.filter(c => {
-      if (!q) return true;
-      const texto = (c.titulo + ' ' + c.subtitulo + ' ' + c.html).toLowerCase();
-      return texto.includes(q);
+  function escaparRegex(txt) {
+    return String(txt || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function decodificarEntidadesBasicas(txt) {
+    return String(txt || '')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;|&#x27;/gi, "'")
+      .replace(/&deg;/gi, '°')
+      .replace(/&ordm;/gi, 'º');
+  }
+
+  /**
+   * Normaliza texto a minúsculas sin tildes ni espacios redundantes
+   */
+  function normalizarTexto(txt) {
+    return String(txt || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /**
+   * Genera una cadena normalizada paralela junto al mapa de índices en el texto original
+   */
+  function construirIndiceNormalizado(str) {
+    let normStr = '';
+    const mapaOriginal = [];
+    let prevEspacio = false;
+
+    for (let i = 0; i < str.length; ) {
+      const cp = str.codePointAt(i);
+      const step = cp > 0xffff ? 2 : 1;
+      const ch = str.slice(i, i + step);
+
+      if (/^\s$/.test(ch)) {
+        if (!prevEspacio && normStr.length > 0) {
+          normStr += ' ';
+          mapaOriginal.push([i, i + step]);
+          prevEspacio = true;
+        }
+      } else {
+        const chLimpio = ch.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        if (chLimpio.length > 0) {
+          prevEspacio = false;
+          for (let k = 0; k < chLimpio.length; k++) {
+            normStr += chLimpio[k];
+            mapaOriginal.push([i, i + step]);
+          }
+        }
+      }
+      i += step;
+    }
+
+    return { normStr: normStr.trimEnd(), mapaOriginal };
+  }
+
+  /**
+   * Evalúa si un texto coincide con la consulta normalizada (frase o conjunto de tokens)
+   */
+  function evaluarCoincidenciaTexto(textoOriginal, qNorm, tokens) {
+    const txtNorm = normalizarTexto(textoOriginal);
+    if (!qNorm || !txtNorm) {
+      return { coincide: false, exactaFrase: false, empiezaCon: false, palabraCompleta: false, ocurrencias: 0 };
+    }
+
+    const exactaFrase = txtNorm.includes(qNorm);
+    const todosTokens = tokens.length > 1 && tokens.every(tk => txtNorm.includes(tk));
+    const coincide = exactaFrase || todosTokens;
+
+    if (!coincide) {
+      return { coincide: false, exactaFrase: false, empiezaCon: false, palabraCompleta: false, ocurrencias: 0 };
+    }
+
+    const empiezaCon = txtNorm.startsWith(qNorm);
+    const patronPalabra = new RegExp('(?:^|[^a-z0-9])' + escaparRegex(qNorm) + '(?:$|[^a-z0-9])');
+    const palabraCompleta = patronPalabra.test(txtNorm);
+
+    const aguja = exactaFrase ? qNorm : (tokens[0] || qNorm);
+    let ocurrencias = 0;
+    if (aguja.length > 0) {
+      let pos = 0;
+      while ((pos = txtNorm.indexOf(aguja, pos)) !== -1 && ocurrencias < 50) {
+        ocurrencias++;
+        pos += aguja.length;
+      }
+    }
+
+    return { coincide, exactaFrase, empiezaCon, palabraCompleta, ocurrencias };
+  }
+
+  /**
+   * Extrae los encabezados internos (h3, h4, h5) y el texto limpio del desarrollo,
+   * excluyendo bloques auxiliares marcados con data-no-indexar-busqueda="true".
+   */
+  function extraerEstructuraCapitulo(cap) {
+    const htmlCrudo = (cap && cap.html) ? String(cap.html) : '';
+
+    if (typeof document !== 'undefined' && typeof document.createElement === 'function') {
+      const contenedor = document.createElement('div');
+      contenedor.innerHTML = htmlCrudo;
+
+      const subsecciones = [];
+      const headings = Array.from(contenedor.querySelectorAll('h3, h4, h5'));
+      headings.forEach((el, domIdx) => {
+        if (el.closest('[data-no-indexar-busqueda="true"]')) return;
+        const texto = (el.textContent || '').replace(/\s+/g, ' ').trim();
+        if (texto) {
+          subsecciones.push({
+            domIdx,
+            tag: el.tagName.toLowerCase(),
+            texto
+          });
+        }
+      });
+
+      contenedor
+        .querySelectorAll('[data-no-indexar-busqueda="true"], script, style, h3, h4, h5')
+        .forEach(el => el.remove());
+
+      const textoDesarrollo = (contenedor.textContent || '').replace(/\s+/g, ' ').trim();
+      return { subsecciones, textoDesarrollo };
+    }
+
+    // Respaldo determinista para entornos sin DOM (ej. pruebas unitarias en Node.js)
+    const rangosExcluidos = [];
+    const regexExcluidos = /<section\b[^>]*data-no-indexar-busqueda="true"[^>]*>[\s\S]*?<\/section>/gi;
+    let mExcl;
+    while ((mExcl = regexExcluidos.exec(htmlCrudo)) !== null) {
+      rangosExcluidos.push([mExcl.index, mExcl.index + mExcl[0].length]);
+    }
+
+    const estaExcluido = pos => rangosExcluidos.some(([ini, fin]) => pos >= ini && pos < fin);
+    const subsecciones = [];
+    const regexHeading = /<h([345])\b[^>]*>([\s\S]*?)<\/h\1>/gi;
+    let domIdx = 0;
+    let mHead;
+    while ((mHead = regexHeading.exec(htmlCrudo)) !== null) {
+      if (!estaExcluido(mHead.index)) {
+        const texto = decodificarEntidadesBasicas(mHead[2].replace(/<[^>]+>/g, ' '))
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (texto) {
+          subsecciones.push({
+            domIdx,
+            tag: `h${mHead[1]}`,
+            texto
+          });
+        }
+      }
+      domIdx++;
+    }
+
+    const htmlSoloDesarrollo = htmlCrudo
+      .replace(/<section\b[^>]*data-no-indexar-busqueda="true"[^>]*>[\s\S]*?<\/section>/gi, ' ')
+      .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+      .replace(/<h([345])\b[^>]*>[\s\S]*?<\/h\1>/gi, ' ');
+
+    const textoDesarrollo = decodificarEntidadesBasicas(htmlSoloDesarrollo.replace(/<[^>]+>/g, ' '))
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    return { subsecciones, textoDesarrollo };
+  }
+
+  /**
+   * Resalta coincidencias normalizadas (sin depender de tildes o mayúsculas) con <mark>
+   */
+  function resaltarCoincidenciasHTML(textoPlano, termino) {
+    const str = String(textoPlano || '');
+    const qNorm = normalizarTexto(termino);
+    if (!qNorm || !str) return escaparHTML(str);
+
+    const { normStr, mapaOriginal } = construirIndiceNormalizado(str);
+    if (!normStr) return escaparHTML(str);
+
+    const recolectarIntervalos = aguja => {
+      const lista = [];
+      if (!aguja) return lista;
+      let pos = 0;
+      while ((pos = normStr.indexOf(aguja, pos)) !== -1) {
+        const fin = pos + aguja.length - 1;
+        if (mapaOriginal[pos] && mapaOriginal[fin]) {
+          lista.push([mapaOriginal[pos][0], mapaOriginal[fin][1]]);
+        }
+        pos += aguja.length;
+      }
+      return lista;
+    };
+
+    let intervalos = recolectarIntervalos(qNorm);
+    if (intervalos.length === 0) {
+      const tokens = qNorm.split(' ').filter(Boolean);
+      const tokensDestacables = tokens.some(t => t.length >= 2) ? tokens.filter(t => t.length >= 2) : tokens;
+      tokensDestacables.forEach(tk => {
+        intervalos = intervalos.concat(recolectarIntervalos(tk));
+      });
+    }
+
+    if (intervalos.length === 0) return escaparHTML(str);
+
+    intervalos.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+    const fusionados = [];
+    intervalos.forEach(iv => {
+      if (fusionados.length === 0 || iv[0] > fusionados[fusionados.length - 1][1]) {
+        fusionados.push([iv[0], iv[1]]);
+      } else {
+        fusionados[fusionados.length - 1][1] = Math.max(fusionados[fusionados.length - 1][1], iv[1]);
+      }
     });
 
-    const capActual = capitulos.find(c => c.id === capituloActivoId) || capitulos[0];
-    const idxActual = capitulos.findIndex(c => c.id === (capActual ? capActual.id : ''));
-    const capAnterior = idxActual > 0 ? capitulos[idxActual - 1] : null;
-    const capSiguiente = idxActual < capitulos.length - 1 ? capitulos[idxActual + 1] : null;
+    let salida = '';
+    let cursor = 0;
+    fusionados.forEach(([ini, fin]) => {
+      if (ini > cursor) salida += escaparHTML(str.slice(cursor, ini));
+      salida += `<mark class="resaltado-busqueda-manual">${escaparHTML(str.slice(ini, fin))}</mark>`;
+      cursor = fin;
+    });
+    if (cursor < str.length) salida += escaparHTML(str.slice(cursor));
+    return salida;
+  }
 
-    const capsAMostrar = (verTodosCapitulos || q)
-      ? capsFiltrados
-      : (capActual ? [capActual] : []);
+  /**
+   * Extrae un extracto legible alrededor de la primera coincidencia en el desarrollo
+   */
+  function extraerExtractoDesarrollo(textoDesarrollo, termino, radio = 75) {
+    const str = String(textoDesarrollo || '');
+    const qNorm = normalizarTexto(termino);
+    if (!str || !qNorm) return '';
+
+    const { normStr, mapaOriginal } = construirIndiceNormalizado(str);
+    const tokens = qNorm.split(' ').filter(Boolean);
+    let posNorm = normStr.indexOf(qNorm);
+    let largoAguja = qNorm.length;
+
+    if (posNorm === -1 && tokens.length > 0) {
+      for (let i = 0; i < tokens.length; i++) {
+        const idx = normStr.indexOf(tokens[i]);
+        if (idx !== -1) {
+          posNorm = idx;
+          largoAguja = tokens[i].length;
+          break;
+        }
+      }
+    }
+
+    if (posNorm === -1 || !mapaOriginal[posNorm]) {
+      const recorteSimple = str.slice(0, radio * 2);
+      return escaparHTML(recorteSimple) + (str.length > radio * 2 ? '…' : '');
+    }
+
+    const finNorm = Math.min(posNorm + largoAguja - 1, mapaOriginal.length - 1);
+    const origIni = mapaOriginal[posNorm][0];
+    const origFin = mapaOriginal[finNorm][1];
+
+    let inicio = Math.max(0, origIni - radio);
+    let fin = Math.min(str.length, origFin + radio);
+
+    if (inicio > 0) {
+      const espacioPrev = str.indexOf(' ', inicio);
+      if (espacioPrev !== -1 && espacioPrev < origIni) inicio = espacioPrev + 1;
+    }
+    if (fin < str.length) {
+      const espacioSig = str.lastIndexOf(' ', fin);
+      if (espacioSig !== -1 && espacioSig > origFin) fin = espacioSig;
+    }
+
+    const fragmento = str.slice(inicio, fin).trim();
+    const prefijo = inicio > 0 ? '…' : '';
+    const sufijo = fin < str.length ? '…' : '';
+    return `${prefijo}${resaltarCoincidenciasHTML(fragmento, termino)}${sufijo}`;
+  }
+
+  /**
+   * Motor de búsqueda jerárquica en 3 niveles estrictos:
+   *   Nivel 1: Títulos principales de capítulo (DOC · XX y título)
+   *   Nivel 2: Subtítulos de capítulo y apartados internos (h3, h4, h5)
+   *   Nivel 3: Menciones en el desarrollo (cuerpo, tablas y listas)
+   */
+  function buscarEnDocumentacion(capitulos, termino) {
+    const qNorm = normalizarTexto(termino);
+    if (!qNorm) {
+      return {
+        consulta: '',
+        resultados: [],
+        resultadosTitulos: [],
+        resultadosDesarrollo: []
+      };
+    }
+
+    const tokens = qNorm.split(' ').filter(Boolean);
+    const resultados = [];
+
+    (capitulos || []).forEach((c, idxOriginal) => {
+      const { subsecciones, textoDesarrollo } = extraerEstructuraCapitulo(c);
+
+      const matchTitulo = evaluarCoincidenciaTexto(c.titulo, qNorm, tokens);
+      const matchNumero = evaluarCoincidenciaTexto(String(c.numero || '').replace(/·/g, ' '), qNorm, tokens);
+      const matchSubtitulo = evaluarCoincidenciaTexto(c.subtitulo, qNorm, tokens);
+
+      const subseccionesCoincidentes = [];
+      subsecciones.forEach(sub => {
+        const evalSub = evaluarCoincidenciaTexto(sub.texto, qNorm, tokens);
+        if (evalSub.coincide) {
+          subseccionesCoincidentes.push({
+            domIdx: sub.domIdx,
+            tag: sub.tag,
+            texto: sub.texto,
+            exactaFrase: evalSub.exactaFrase,
+            palabraCompleta: evalSub.palabraCompleta
+          });
+        }
+      });
+
+      const matchDesarrollo = evaluarCoincidenciaTexto(textoDesarrollo, qNorm, tokens);
+
+      let nivel = 0;
+      let puntaje = 0;
+      let etiquetaNivel = '';
+
+      if (matchTitulo.coincide || matchNumero.coincide) {
+        nivel = 1;
+        etiquetaNivel = 'Título de sección';
+        puntaje =
+          10000 +
+          (matchTitulo.coincide ? 1000 : 0) +
+          (matchTitulo.exactaFrase ? 800 : 0) +
+          (matchTitulo.empiezaCon ? 600 : 0) +
+          (matchTitulo.palabraCompleta ? 400 : 0) +
+          (matchSubtitulo.coincide ? 250 : 0) +
+          Math.min(subseccionesCoincidentes.length, 5) * 120 +
+          (matchDesarrollo.coincide ? Math.min(matchDesarrollo.ocurrencias, 10) * 10 : 0);
+      } else if (matchSubtitulo.coincide || subseccionesCoincidentes.length > 0) {
+        nivel = 2;
+        etiquetaNivel = 'Subtítulo / Apartado';
+        puntaje =
+          5000 +
+          (matchSubtitulo.coincide
+            ? (matchSubtitulo.exactaFrase ? 600 : 350) + (matchSubtitulo.palabraCompleta ? 200 : 0)
+            : 0) +
+          (subseccionesCoincidentes.length > 0
+            ? 500 + Math.min(subseccionesCoincidentes.length, 5) * 150
+            : 0) +
+          (subseccionesCoincidentes.some(s => s.exactaFrase) ? 300 : 0) +
+          (subseccionesCoincidentes.some(s => s.palabraCompleta) ? 200 : 0) +
+          (matchDesarrollo.coincide ? Math.min(matchDesarrollo.ocurrencias, 10) * 10 : 0);
+      } else if (matchDesarrollo.coincide) {
+        nivel = 3;
+        etiquetaNivel = 'Desarrollo';
+        puntaje =
+          1000 +
+          (matchDesarrollo.exactaFrase ? 300 : 0) +
+          (matchDesarrollo.palabraCompleta ? 200 : 0) +
+          Math.min(matchDesarrollo.ocurrencias, 20) * 20;
+      }
+
+      if (nivel > 0) {
+        resultados.push({
+          capitulo: c,
+          idxOriginal,
+          nivel,
+          etiquetaNivel,
+          puntaje,
+          matchTitulo,
+          matchSubtitulo,
+          subseccionesCoincidentes,
+          matchDesarrollo,
+          extractoHTML: matchDesarrollo.coincide
+            ? extraerExtractoDesarrollo(textoDesarrollo, termino)
+            : ''
+        });
+      }
+    });
+
+    resultados.sort((a, b) => a.nivel - b.nivel || b.puntaje - a.puntaje || a.idxOriginal - b.idxOriginal);
+
+    return {
+      consulta: termino,
+      resultados,
+      resultadosTitulos: resultados.filter(r => r.nivel <= 2),
+      resultadosDesarrollo: resultados.filter(r => r.nivel === 3)
+    };
+  }
+
+  function renderizarTarjetaCapitulo(c, badgeCoincidencia = '') {
+    return `
+      <article class="tarjeta-manual-capitulo bloque" id="${c.id}" style="border-top:3px solid var(--musgo); padding:22px; margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+          <span style="font-size:0.78rem; font-weight:700; color:var(--musgo);">Documentación del Atlas · ${c.numero}</span>
+          ${badgeCoincidencia}
+        </div>
+        <h3 style="margin:0 0 6px 0; font-size:1.25rem; color:var(--tinta);">${c.titulo}</h3>
+        <p style="margin:0 0 14px 0; font-size:0.9rem; color:var(--tinta-suave); border-bottom:1px solid var(--linea); padding-bottom:10px;">${c.subtitulo}</p>
+        <div class="cuerpo-capitulo-manual">
+          ${c.html}
+        </div>
+      </article>
+    `;
+  }
+
+  function construirResumenResultadosHTML(busqueda) {
+    const { resultados, resultadosTitulos, resultadosDesarrollo, consulta } = busqueda;
+    if (resultados.length === 0) return '';
+
+    const renderItemTitulo = r => {
+      const c = r.capitulo;
+      const claseNivel = r.nivel === 1 ? 'nivel-titulo' : 'nivel-subtitulo';
+      const claseBadge = r.nivel === 1 ? 'nivel-1' : 'nivel-2';
+      const pills = r.subseccionesCoincidentes.slice(0, 6).map(sub => `
+        <button type="button" class="pill-subseccion-manual" onclick="ModuloManual.irASeccionManual('${c.id}', ${sub.domIdx})">
+          ↳ ${resaltarCoincidenciasHTML(sub.texto, consulta)}
+        </button>
+      `).join('');
+
+      return `
+        <li class="item-resultado-manual ${claseNivel}">
+          <div class="fila-superior-resultado">
+            <span class="badge-doc-resultado">${c.numero}</span>
+            <span class="badge-nivel-busqueda ${claseBadge}">${r.etiquetaNivel}</span>
+          </div>
+          <button type="button" class="btn-titulo-resultado-manual" onclick="ModuloManual.irASeccionManual('${c.id}', null)">
+            ${resaltarCoincidenciasHTML(c.titulo, consulta)}
+          </button>
+          ${r.matchSubtitulo.coincide
+            ? `<p class="subtitulo-resultado-manual">${resaltarCoincidenciasHTML(c.subtitulo, consulta)}</p>`
+            : ''
+          }
+          ${pills
+            ? `<div class="pills-secciones-manual">${pills}</div>`
+            : ''
+          }
+        </li>
+      `;
+    };
+
+    const renderItemDesarrollo = r => {
+      const c = r.capitulo;
+      return `
+        <li class="item-resultado-manual nivel-desarrollo">
+          <div class="fila-superior-resultado">
+            <span class="badge-doc-resultado">${c.numero}</span>
+            <span class="badge-nivel-busqueda nivel-3">${r.etiquetaNivel}</span>
+          </div>
+          <button type="button" class="btn-titulo-resultado-manual" onclick="ModuloManual.irASeccionManual('${c.id}', null)">
+            ${escaparHTML(c.titulo)}
+          </button>
+          ${r.extractoHTML
+            ? `<p class="extracto-desarrollo-manual">${r.extractoHTML}</p>`
+            : ''
+          }
+        </li>
+      `;
+    };
+
+    return `
+      <div id="resumen-resultados-manual" class="resumen-resultados-manual" aria-live="polite">
+        ${resultadosTitulos.length > 0 ? `
+          <div class="grupo-resultados-manual">
+            <div class="cabecera-grupo-resultados">
+              <span>Títulos y subtítulos de secciones (${resultadosTitulos.length})</span>
+            </div>
+            <ul class="lista-items-resultados-manual">
+              ${resultadosTitulos.map(renderItemTitulo).join('')}
+            </ul>
+          </div>
+        ` : ''}
+        ${resultadosDesarrollo.length > 0 ? `
+          <div class="grupo-resultados-manual">
+            <div class="cabecera-grupo-resultados secundario">
+              <span>Menciones en el desarrollo (${resultadosDesarrollo.length})</span>
+            </div>
+            <ul class="lista-items-resultados-manual">
+              ${resultadosDesarrollo.map(renderItemDesarrollo).join('')}
+            </ul>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  /**
+   * Construye el contenido dinámico inferior (índice + resultados/capítulos)
+   */
+  function construirZonaContenidoManual(capitulos) {
+    const q = normalizarTexto(textoBusquedaManual);
+
+    if (!q) {
+      const capActual = capitulos.find(c => c.id === capituloActivoId) || capitulos[0];
+      const idxActual = capitulos.findIndex(c => c.id === (capActual ? capActual.id : ''));
+      const capAnterior = idxActual > 0 ? capitulos[idxActual - 1] : null;
+      const capSiguiente = idxActual < capitulos.length - 1 ? capitulos[idxActual + 1] : null;
+      const capsAMostrar = verTodosCapitulos ? capitulos : (capActual ? [capActual] : []);
+
+      const htmlIndiceLateral = capitulos.map((c, idx) => {
+        const activo = (!verTodosCapitulos && c.id === capituloActivoId);
+        return `
+          <li>
+            <button type="button" class="btn-ancla-indice ${activo ? 'activo' : ''}" onclick="ModuloManual.irACapitulo('${c.id}')">
+              <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${idx + 1}. ${c.titulo}</span>
+              <span style="font-size:0.72rem; opacity:0.75; white-space:nowrap;">${c.numero.replace(' · ', '-')}</span>
+            </button>
+          </li>
+        `;
+      }).join('');
+
+      const controlesPaginacionCap = `
+        <div class="barra-paginacion-institucional">
+          <div style="font-size:0.86rem; color:var(--tinta-suave);">
+            Capítulo <strong>${capitulos.length ? idxActual + 1 : 0}</strong> de <strong>${capitulos.length}</strong>
+          </div>
+          <div class="controles-pagina-botones">
+            <button type="button" class="btn-pagina-nav" onclick="ModuloManual.irACapitulo('${capAnterior ? capAnterior.id : ''}')" ${!capAnterior || verTodosCapitulos ? 'disabled' : ''}>
+              ← Capítulo anterior
+            </button>
+            <button type="button" class="btn-pagina-nav" onclick="ModuloManual.irACapitulo('${capSiguiente ? capSiguiente.id : ''}')" ${!capSiguiente || verTodosCapitulos ? 'disabled' : ''}>
+              Capítulo siguiente →
+            </button>
+            <button type="button" class="btn-pagina-nav ${verTodosCapitulos ? 'activa' : ''}" onclick="ModuloManual.alternarVerTodosCapitulos()">
+              ${verTodosCapitulos ? 'Ver por capítulo' : 'Ver todos los capítulos'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      const htmlCapitulos = capsAMostrar.map(c => renderizarTarjetaCapitulo(c)).join('');
+
+      return `
+        <div class="layout-modulo-dividido">
+          <aside class="indice-lateral-modulo" aria-label="Índice de capítulos de documentación">
+            <h4>Índice de capítulos</h4>
+            <ul class="lista-anclas-indice">
+              ${htmlIndiceLateral}
+            </ul>
+          </aside>
+
+          <div class="contenido-paginado-modulo">
+            ${controlesPaginacionCap}
+            <div id="lista-capitulos-manual">
+              ${htmlCapitulos}
+            </div>
+            ${controlesPaginacionCap}
+          </div>
+        </div>
+      `;
+    }
+
+    // Vista jerarquizada de resultados de búsqueda
+    const busqueda = buscarEnDocumentacion(capitulos, textoBusquedaManual);
+    const { resultados, resultadosTitulos, resultadosDesarrollo } = busqueda;
+    const mapaResultados = new Map(resultados.map(r => [r.capitulo.id, r]));
 
     const htmlIndiceLateral = capitulos.map((c, idx) => {
-      const activo = (!verTodosCapitulos && !q && c.id === capituloActivoId);
+      const res = mapaResultados.get(c.id);
+      let claseExtra = 'sin-coincidencia';
+      let etiqueta = c.numero.replace(' · ', '-');
+      if (res) {
+        if (res.nivel === 1) {
+          claseExtra = 'coincide-titulo';
+          etiqueta = 'Título';
+        } else if (res.nivel === 2) {
+          claseExtra = 'coincide-titulo';
+          etiqueta = 'Subtítulo';
+        } else {
+          claseExtra = 'coincide-desarrollo';
+          etiqueta = 'Desarrollo';
+        }
+      }
       return `
         <li>
-          <button type="button" class="btn-ancla-indice ${activo ? 'activo' : ''}" onclick="ModuloManual.irACapitulo('${c.id}')">
+          <button type="button" class="btn-ancla-indice ${claseExtra}" onclick="${res ? `ModuloManual.irASeccionManual('${c.id}', null)` : `ModuloManual.irACapitulo('${c.id}')`}">
             <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${idx + 1}. ${c.titulo}</span>
-            <span style="font-size:0.72rem; opacity:0.75; white-space:nowrap;">${c.numero.replace(' · ', '-')}</span>
+            <span class="badge-indice-busqueda">${etiqueta}</span>
           </button>
         </li>
       `;
     }).join('');
 
-    const controlesPaginacionCap = `
+    const barraResumen = `
       <div class="barra-paginacion-institucional">
         <div style="font-size:0.86rem; color:var(--tinta-suave);">
-          ${q
-            ? `Resultados de búsqueda para "<strong>${textoBusquedaManual}</strong>": <strong>${capsFiltrados.length}</strong> capítulo(s)`
-            : `Capítulo <strong>${capsFiltrados.length ? idxActual + 1 : 0}</strong> de <strong>${capsFiltrados.length}</strong>`
-          }
+          Resultados para "<strong>${escaparHTML(textoBusquedaManual.trim())}</strong>":
+          <strong>${resultadosTitulos.length}</strong> en títulos y subtítulos ·
+          <strong>${resultadosDesarrollo.length}</strong> en el desarrollo
         </div>
         <div class="controles-pagina-botones">
-          <button type="button" class="btn-pagina-nav" onclick="ModuloManual.irACapitulo('${capAnterior ? capAnterior.id : ''}')" ${!capAnterior || verTodosCapitulos || q ? 'disabled' : ''}>
-            ← Capítulo anterior
-          </button>
-          <button type="button" class="btn-pagina-nav" onclick="ModuloManual.irACapitulo('${capSiguiente ? capSiguiente.id : ''}')" ${!capSiguiente || verTodosCapitulos || q ? 'disabled' : ''}>
-            Capítulo siguiente →
-          </button>
-          <button type="button" class="btn-pagina-nav ${verTodosCapitulos ? 'activa' : ''}" onclick="ModuloManual.alternarVerTodosCapitulos()">
-            ${verTodosCapitulos ? 'Ver por capítulo' : 'Ver todos los capítulos'}
+          <button type="button" class="btn-pagina-nav" onclick="ModuloManual.cerrarBuscador()">
+            Limpiar búsqueda
           </button>
         </div>
       </div>
     `;
 
-    const htmlCapitulos = capsAMostrar.map(c => {
-      return `
-        <article class="tarjeta-manual-capitulo bloque" id="${c.id}" style="border-top:3px solid var(--musgo); padding:22px; margin-bottom:18px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
-            <span style="font-size:0.78rem; font-weight:700; color:var(--musgo);">Documentación del Atlas · ${c.numero}</span>
-          </div>
-          <h3 style="margin:0 0 6px 0; font-size:1.25rem; color:var(--tinta);">${c.titulo}</h3>
-          <p style="margin:0 0 14px 0; font-size:0.9rem; color:var(--tinta-suave); border-bottom:1px solid var(--linea); padding-bottom:10px;">${c.subtitulo}</p>
-          <div class="cuerpo-capitulo-manual">
-            ${c.html}
-          </div>
-        </article>
-      `;
+    const htmlBloqueTitulos = resultadosTitulos.map(r => {
+      const claseBadge = r.nivel === 1 ? 'nivel-1' : 'nivel-2';
+      const textoBadge = r.nivel === 1 ? 'Coincidencia en título de sección' : 'Coincidencia en subtítulo o apartado';
+      const badge = `<span class="badge-nivel-busqueda ${claseBadge}">${textoBadge}</span>`;
+      return renderizarTarjetaCapitulo(r.capitulo, badge);
     }).join('');
 
-    return `
-      <div class="bloque" style="padding:16px; margin-bottom:18px; display:flex; flex-direction:column; gap:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-          <div>
-            <h3 style="margin:0 0 4px 0; color:#ffffff; font-size:1.15rem;">Documentación del Sistema (Manual de Uso, Arquitectura y Actualización)</h3>
-            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Recorra los 6 capítulos interactivos redactados en lenguaje claro o descargue los manuales y catálogos maestros del Atlas para la Gestión Territorial.</p>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-            <a href="docs/MANUAL_USO.md" download="MANUAL_USO_ATLAS.md" class="accion" style="font-size:0.82rem; padding:7px 14px;">
-              Descargar Manual de Uso (.md)
-            </a>
-            <a href="docs/MANUAL_ACTUALIZACION_ATLAS.md" download="MANUAL_ACTUALIZACION_ATLAS.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;" title="Manual de actualización técnica disponible en el repositorio">
-              Manual de Actualización (.md)
-            </a>
-            <a href="docs/ARQUITECTURA.md" download="ARQUITECTURA_ATLAS.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;">
-              Arquitectura y Flujos (.md)
-            </a>
-            <a href="docs/TRAZABILIDAD.md" download="TRAZABILIDAD_ATLAS.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;">
-              Trazabilidad (.md)
-            </a>
-            <a href="docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md" download="BIBLIOGRAFIA_SEMINARIO_Y_ATLAS_APA7.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;">
-              Bibliografía APA (.md)
-            </a>
-          </div>
+    let htmlBloqueDesarrollo = '';
+    if (resultadosDesarrollo.length > 0) {
+      const separador = `
+        <div class="separador-resultados-desarrollo">
+          <span>Menciones en el desarrollo (${resultadosDesarrollo.length})</span>
         </div>
-        <div>
-          <input type="search" id="buscador-general-manual" value="${textoBusquedaManual.replace(/"/g, '&quot;')}" placeholder="Buscar en los 6 capítulos de documentación (ej: entregables, dimensiones, KDE, LISA, id_igv, inspector normativo, simbología, arquitectura)..." oninput="ModuloManual.filtrarManual(this.value)" style="width:100%; padding:10px 14px; border-radius:6px; border:1px solid var(--linea-fuerte); background:var(--papel); color:var(--tinta); font-size:0.92rem;">
-        </div>
-      </div>
+      `;
+      if (resultadosTitulos.length > 0) {
+        htmlBloqueDesarrollo = separador + resultadosDesarrollo.map(r => {
+          const c = r.capitulo;
+          return `
+            <details class="tarjeta-manual-desarrollo-colapsable" id="det-${c.id}">
+              <summary class="resumen-desarrollo-colapsable">
+                <div class="resumen-desarrollo-meta">
+                  <div class="fila-superior-resultado">
+                    <span class="badge-doc-resultado">${c.numero}</span>
+                    <span class="badge-nivel-busqueda nivel-3">Desarrollo</span>
+                  </div>
+                  <strong class="resumen-desarrollo-titulo">${escaparHTML(c.titulo)}</strong>
+                  ${r.extractoHTML ? `<span class="resumen-desarrollo-extracto">${r.extractoHTML}</span>` : ''}
+                </div>
+                <span class="resumen-desarrollo-accion">Ver capítulo ▾</span>
+              </summary>
+              <div class="cuerpo-desarrollo-colapsable">
+                ${renderizarTarjetaCapitulo(c, '<span class="badge-nivel-busqueda nivel-3">Coincidencia en el desarrollo</span>')}
+              </div>
+            </details>
+          `;
+        }).join('');
+      } else {
+        htmlBloqueDesarrollo = separador + resultadosDesarrollo.map(r =>
+          renderizarTarjetaCapitulo(r.capitulo, '<span class="badge-nivel-busqueda nivel-3">Coincidencia en el desarrollo</span>')
+        ).join('');
+      }
+    }
 
+    const htmlCapitulos = (htmlBloqueTitulos + htmlBloqueDesarrollo) || `
+      <div class="bloque" style="padding:20px; text-align:center;">
+        <p class="descripcion" style="margin:0 0 12px 0;">No se encontraron secciones ni menciones que coincidan con "<strong>${escaparHTML(textoBusquedaManual.trim())}</strong>".</p>
+        <button type="button" class="btn-pagina-nav" onclick="ModuloManual.cerrarBuscador()">Restablecer vista de capítulos</button>
+      </div>
+    `;
+
+    return `
       <div class="layout-modulo-dividido">
         <aside class="indice-lateral-modulo" aria-label="Índice de capítulos de documentación">
           <h4>Índice de capítulos</h4>
@@ -1004,21 +1568,109 @@ const ModuloManual = (() => {
         </aside>
 
         <div class="contenido-paginado-modulo">
-          ${controlesPaginacionCap}
+          ${barraResumen}
+          ${construirResumenResultadosHTML(busqueda)}
           <div id="lista-capitulos-manual">
-            ${htmlCapitulos || '<div class="bloque"><p class="descripcion">No se encontraron capítulos que coincidan con la búsqueda.</p></div>'}
+            ${htmlCapitulos}
           </div>
-          ${controlesPaginacionCap}
+          ${barraResumen}
         </div>
       </div>
     `;
   }
 
+  /**
+   * Construye el HTML completo de la vista del Manual
+   */
+  function construirHTMLManual() {
+    const capitulos = obtenerCapitulosManual();
+    const estaAbierto = Boolean(buscadorManualAbierto || textoBusquedaManual.trim());
+
+    return `
+      <div class="bloque cabecera-manual-principal">
+        <div class="cabecera-manual-fila-superior">
+          <div class="cabecera-manual-titulos">
+            <h3 style="margin:0 0 4px 0; color:#ffffff; font-size:1.15rem;">Documentación del Sistema (Manual de Uso, Arquitectura y Actualización)</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--tinta-suave);">Recorra los 6 capítulos interactivos redactados en lenguaje claro o descargue los manuales y catálogos maestros del Atlas para la Gestión Territorial.</p>
+          </div>
+          <div id="contenedor-buscador-manual" class="buscador-manual-control${estaAbierto ? ' abierto' : ''}">
+            <button type="button"
+                    id="btn-lupa-buscador-manual"
+                    class="btn-lupa-manual"
+                    onclick="ModuloManual.abrirBuscador()"
+                    aria-label="Buscar en la documentación"
+                    aria-expanded="${estaAbierto ? 'true' : 'false'}"
+                    aria-controls="buscador-general-manual"
+                    title="Buscar en la documentación">
+              <svg class="icono-lupa-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+            <div class="buscador-manual-campo" role="search">
+              <svg class="icono-lupa-campo" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="search"
+                     id="buscador-general-manual"
+                     class="input-buscador-manual"
+                     value="${escaparHTML(textoBusquedaManual)}"
+                     aria-label="Buscar en los capítulos de documentación"
+                     autocomplete="off"
+                     spellcheck="false"
+                     oninput="ModuloManual.filtrarManual(this.value)"
+                     onkeydown="ModuloManual.manejarTeclaBuscador(event)">
+              <button type="button"
+                      id="btn-cerrar-buscador-manual"
+                      class="btn-cerrar-buscador-manual"
+                      onclick="ModuloManual.cerrarBuscador()"
+                      aria-label="Limpiar y cerrar búsqueda"
+                      title="Cerrar búsqueda (Esc)">✕</button>
+            </div>
+          </div>
+        </div>
+        <div class="acciones-descarga-manual">
+          <a href="docs/MANUAL_USO.md" download="MANUAL_USO_ATLAS.md" class="accion" style="font-size:0.82rem; padding:7px 14px;">
+            Descargar Manual de Uso (.md)
+          </a>
+          <a href="docs/MANUAL_ACTUALIZACION_ATLAS.md" download="MANUAL_ACTUALIZACION_ATLAS.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;" title="Manual de actualización técnica disponible en el repositorio">
+            Manual de Actualización (.md)
+          </a>
+          <a href="docs/ARQUITECTURA.md" download="ARQUITECTURA_ATLAS.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;">
+            Arquitectura y Flujos (.md)
+          </a>
+          <a href="docs/TRAZABILIDAD.md" download="TRAZABILIDAD_ATLAS.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;">
+            Trazabilidad (.md)
+          </a>
+          <a href="docs/BIBLIOGRAFIA_SEMINARIO_Y_ATLAS.md" download="BIBLIOGRAFIA_SEMINARIO_Y_ATLAS_APA7.md" class="accion secundaria" style="font-size:0.82rem; padding:7px 12px;">
+            Bibliografía APA (.md)
+          </a>
+        </div>
+      </div>
+
+      <div id="zona-contenido-manual">
+        ${construirZonaContenidoManual(capitulos)}
+      </div>
+    `;
+  }
+
+  function actualizarZonaContenidoManual() {
+    const zona = (typeof document !== 'undefined') ? document.getElementById('zona-contenido-manual') : null;
+    if (zona) {
+      zona.innerHTML = construirZonaContenidoManual(obtenerCapitulosManual());
+      return;
+    }
+    renderizarManual();
+  }
+
   function renderizarManual() {
     const html = construirHTMLManual();
-    const contenedor = document.getElementById('contenido-manual') || document.getElementById('contenedor-manual-uso');
-    if (contenedor) {
-      contenedor.innerHTML = html;
+    if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
+      const contenedor = document.getElementById('contenido-manual') || document.getElementById('contenedor-manual-uso');
+      if (contenedor) {
+        contenedor.innerHTML = html;
+      }
     }
     return html;
   }
@@ -1027,23 +1679,99 @@ const ModuloManual = (() => {
     return construirHTMLManual();
   }
 
+  function abrirBuscador() {
+    buscadorManualAbierto = true;
+    const ctrl = document.getElementById('contenedor-buscador-manual');
+    const btnLupa = document.getElementById('btn-lupa-buscador-manual');
+    const input = document.getElementById('buscador-general-manual');
+    if (ctrl) ctrl.classList.add('abierto');
+    if (btnLupa) btnLupa.setAttribute('aria-expanded', 'true');
+    if (input) {
+      input.focus();
+      const len = input.value.length;
+      if (typeof input.setSelectionRange === 'function') {
+        input.setSelectionRange(len, len);
+      }
+    }
+  }
+
+  function cerrarBuscador() {
+    buscadorManualAbierto = false;
+    textoBusquedaManual = '';
+    const ctrl = document.getElementById('contenedor-buscador-manual');
+    const btnLupa = document.getElementById('btn-lupa-buscador-manual');
+    const input = document.getElementById('buscador-general-manual');
+    if (input) input.value = '';
+    if (ctrl) ctrl.classList.remove('abierto');
+    if (btnLupa) btnLupa.setAttribute('aria-expanded', 'false');
+    actualizarZonaContenidoManual();
+  }
+
+  function alternarBuscador() {
+    if (buscadorManualAbierto) {
+      cerrarBuscador();
+    } else {
+      abrirBuscador();
+    }
+  }
+
+  function limpiarBusquedaManual() {
+    cerrarBuscador();
+  }
+
   function alternarVerTodosCapitulos() {
     verTodosCapitulos = !verTodosCapitulos;
-    renderizarManual();
+    actualizarZonaContenidoManual();
   }
 
   function irACapitulo(idCapitulo) {
     if (!idCapitulo) return;
+    const habiaBusqueda = Boolean(textoBusquedaManual.trim() || buscadorManualAbierto);
     capituloActivoId = idCapitulo;
     textoBusquedaManual = '';
-    if (!verTodosCapitulos) {
+    buscadorManualAbierto = false;
+    if (!verTodosCapitulos || habiaBusqueda) {
       renderizarManual();
-      const panel = document.getElementById('panel-manual');
-      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const el = document.getElementById(idCapitulo) || document.getElementById('panel-manual');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       const el = document.getElementById(idCapitulo);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  function irASeccionManual(capId, domIdx) {
+    if (!capId) return;
+    let articulo = document.getElementById(capId);
+    if (!articulo) {
+      capituloActivoId = capId;
+      textoBusquedaManual = '';
+      buscadorManualAbierto = false;
+      renderizarManual();
+      articulo = document.getElementById(capId);
+    }
+    if (!articulo) return;
+
+    const detalleContenedor = articulo.closest('details');
+    if (detalleContenedor) {
+      detalleContenedor.open = true;
+    }
+
+    let destino = articulo;
+    if (domIdx !== null && domIdx !== undefined) {
+      const headings = articulo.querySelectorAll('.cuerpo-capitulo-manual h3, .cuerpo-capitulo-manual h4, .cuerpo-capitulo-manual h5');
+      if (headings[domIdx]) destino = headings[domIdx];
+    }
+
+    document.querySelectorAll('.seccion-manual-destacada').forEach(el => {
+      el.classList.remove('seccion-manual-destacada');
+    });
+    destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    void destino.offsetWidth;
+    destino.classList.add('seccion-manual-destacada');
+    setTimeout(() => {
+      destino.classList.remove('seccion-manual-destacada');
+    }, 2400);
   }
 
   function irAPanel(panelId) {
@@ -1070,21 +1798,29 @@ const ModuloManual = (() => {
 
   function filtrarManual(termino) {
     textoBusquedaManual = String(termino || '');
-    renderizarManual();
-    const input = document.getElementById('buscador-general-manual');
-    if (input) {
-      input.focus();
-      const len = input.value.length;
-      input.setSelectionRange(len, len);
-    }
+    buscadorManualAbierto = true;
+    const ctrl = document.getElementById('contenedor-buscador-manual');
+    const btnLupa = document.getElementById('btn-lupa-buscador-manual');
+    if (ctrl) ctrl.classList.add('abierto');
+    if (btnLupa) btnLupa.setAttribute('aria-expanded', 'true');
+    actualizarZonaContenidoManual();
   }
 
-  function normalizarTexto(txt) {
-    return String(txt || '')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .trim();
+  function manejarTeclaBuscador(event) {
+    if (!event) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      cerrarBuscador();
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      const busqueda = buscarEnDocumentacion(obtenerCapitulosManual(), textoBusquedaManual);
+      if (busqueda.resultados.length > 0) {
+        const primero = busqueda.resultados[0];
+        const primerSub = primero.subseccionesCoincidentes[0];
+        irASeccionManual(primero.capitulo.id, primerSub ? primerSub.domIdx : null);
+      }
+    }
   }
 
   function filtrarTablaCatalogo(termino) {
@@ -1105,9 +1841,16 @@ const ModuloManual = (() => {
     renderizarManual,
     alternarVerTodosCapitulos,
     irACapitulo,
+    irASeccionManual,
     irAPanel,
+    abrirBuscador,
+    cerrarBuscador,
+    alternarBuscador,
+    limpiarBusquedaManual,
+    manejarTeclaBuscador,
     filtrarManual,
-    filtrarTablaCatalogo
+    filtrarTablaCatalogo,
+    buscarEnDocumentacion
   };
 })();
 
