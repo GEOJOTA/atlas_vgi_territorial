@@ -2,7 +2,7 @@
   indicadores_analisis.js
   -----------------------
   Módulo de Indicadores de Análisis Multidimensional y Storyboards Territoriales de Barrio Brasil.
-  Atlas de Información Geográfica Voluntaria para la Gestión Territorial.
+  Atlas para la Gestión Territorial.
 
   Estructura y Principios:
   1. Agrupación analítica de las 133 capas del Atlas (123 Oficiales + 10 VGI) en 5 Dimensiones Estratégicas:
@@ -611,7 +611,7 @@ const ModuloIndicadoresAnalisis = (() => {
             { codigo: 'cat01_cat10_vgi', nombre: '10 Macro-categorías VGI Multigeométricas (79.841 entidades consolidadas)', institucion: 'Comunidad OSM / GBIF', crs: 'EPSG:32719', tipo: 'Puntos, Líneas y Polígonos' },
             { codigo: 'semaforos_rm_uoct_2026', nombre: 'Red de Cruces Semaforizados RM (3.483 entidades)', institucion: 'Unidad Operativa de Control de Tránsito (UOCT) / MTT', crs: 'EPSG:32719', tipo: 'Puntos Georreferenciados' },
             { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal de 1.711 Manzanas Censales y 27 Barrios', institucion: 'INE / SECPLA', crs: 'EPSG:32719', tipo: 'Polígonos GeoPackage' },
-            { codigo: 'catalogo_vgi_kde', nombre: 'Catálogo de Superficies de Densidad de Kernel (KDE)', institucion: 'Atlas de Información Geográfica Voluntaria', crs: 'EPSG:32719', tipo: 'Ráster / Cartografía' }
+            { codigo: 'catalogo_vgi_kde', nombre: 'Catálogo de Superficies de Densidad de Kernel (KDE)', institucion: 'Atlas para la Gestión Territorial', crs: 'EPSG:32719', tipo: 'Ráster / Cartografía' }
           ],
           referenciasAcademicas: [
             { cita: 'Silverman, B. W. (1986). Density Estimation for Statistics and Data Analysis. Chapman & Hall / CRC Press.', concepto: 'Fundamento de las superficies continuas de densidad aplicadas a las 10 categorías territoriales y red semafórica.' },
@@ -833,7 +833,7 @@ const ModuloIndicadoresAnalisis = (() => {
         ],
         apartadoBibliografico: {
           fuentesDatos: [
-            { codigo: 'cluster_lisa_vgi', nombre: 'Colección de 11 Cartografías de Clusters LISA por Categoría VGI', institucion: 'Atlas de Información Geográfica Voluntaria', crs: 'EPSG:32719', tipo: 'Polígonos / Cartografía' },
+            { codigo: 'cluster_lisa_vgi', nombre: 'Colección de 11 Cartografías de Clusters LISA por Categoría VGI', institucion: 'Atlas para la Gestión Territorial', crs: 'EPSG:32719', tipo: 'Polígonos / Cartografía' },
             { codigo: 'sintesis_manzanas_stgo', nombre: 'Matriz Zonal Censal y VGI de Santiago (1.711 Manzanas)', institucion: 'INE / SECPLA', crs: 'EPSG:32719', tipo: 'Vectorial GeoPackage' },
             { codigo: 'barrios_stgo_27', nombre: 'Delimitación Oficial de los 27 Barrios de Santiago', institucion: 'Ilustre Municipalidad de Santiago', crs: 'EPSG:32719', tipo: 'Polígonos' }
           ],
@@ -2258,7 +2258,7 @@ const ModuloIndicadoresAnalisis = (() => {
                          onclick="ModuloIndicadoresAnalisis.abrirLightboxImagen('${c.src}', '${c.titulo.replace(/'/g, "\\'")}', '${(c.subtitulo || '').replace(/'/g, "\\'")}')"
                          title="Haz clic para ampliar: ${c.titulo}">
                       <div class="thumb-cartografia-wrapper">
-                        <img src="${c.src}" alt="${c.titulo}" width="2200" height="1423" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" class="img-thumb-cartografia">
+                        <img src="${c.src.includes('?v=') ? c.src : `${c.src}?v=20261122_v79`}" alt="${c.titulo}" width="2200" height="1423" decoding="async" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}" class="img-thumb-cartografia">
                         <span class="btn-micro-zoom-carto">🔍 Ampliar Cartografía</span>
                       </div>
                       <div class="meta-thumb-cartografia">
@@ -2411,7 +2411,7 @@ const ModuloIndicadoresAnalisis = (() => {
         <!-- Nota Metodológica de Transparencia -->
         <footer class="footer-articulo-blog">
           <small>
-            * Este storyboard sintetiza los resultados de las 83 cartografías temáticas del Atlas de Información Geográfica Voluntaria para la Gestión Territorial. Datos integrados de fuentes oficiales (INE Censo 2024, MINVU, MDSF BiDat RSH 2026, UOCT/MTT, Municipalidad de Santiago) y comunitarias (OpenStreetMap y GBIF).
+            * Este storyboard sintetiza los resultados de las 83 cartografías temáticas del Atlas para la Gestión Territorial. Datos integrados de fuentes oficiales (INE Censo 2024, MINVU, MDSF BiDat RSH 2026, UOCT/MTT, Municipalidad de Santiago) y comunitarias (OpenStreetMap y GBIF).
           </small>
         </footer>
 
@@ -2695,13 +2695,14 @@ const ModuloIndicadoresAnalisis = (() => {
   }
 
   function abrirLightboxImagen(src, titulo, subtitulo) {
-    const esSvg = typeof src === 'string' && src.toLowerCase().endsWith('.svg');
+    const srcFinal = (typeof src === 'string' && !src.includes('?v=')) ? `${src}?v=20261122_v79` : src;
+    const esSvg = typeof srcFinal === 'string' && srcFinal.toLowerCase().split('?')[0].endsWith('.svg');
     const inlineDims = esSvg
       ? 'width="800" height="800" style="width:min(760px, 88vw); height:min(760px, 76vh); object-fit:contain; display:block;"'
       : 'width="2200" height="1423" style="max-width:min(1400px, 92vw); max-height:78vh; width:auto; height:auto; display:block; object-fit:contain;"';
     const onErrorFallback = `onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src=this.src.startsWith('src/')?this.src.slice(4):'src/'+this.src;}"`;
-    const html = `<img src="${src}" alt="${titulo}" id="img-lightbox-activa" decoding="async" ${onErrorFallback} ${inlineDims} draggable="false">`;
-    abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN', titulo, subtitulo || 'Visualización a pantalla completa', src);
+    const html = `<img src="${srcFinal}" alt="${titulo}" id="img-lightbox-activa" decoding="async" ${onErrorFallback} ${inlineDims} draggable="false">`;
+    abrirLightboxGenerico(html, '🗺️ CARTOGRAFÍA / IMAGEN', titulo, subtitulo || 'Visualización a pantalla completa', srcFinal);
   }
 
   function abrirLightboxDiagrama(storyboardId) {
